@@ -141,13 +141,27 @@ function makelink( $url='' , $full=false )
 	}
 
 	// Add the anchor param if it isn't in yet
-	if( empty($url) )
+	switch($roster->atype)
 	{
-		$url = 'a=' . $roster->atype[0] . ':' . $roster->anchor;
+	case 'char':
+		$anchor = 'a=c:' . isset($roster->data['member_id'])?$roster->data['member_id']:$roster->anchor;
+		break;
+	case 'guild': case 'default':
+		$anchor = 'a=g:' . isset($roster->data['guild_id'])?$roster->data['guild_id']:$roster->anchor;
+		break;
+	case 'realm':
+		$anchor = 'a=r:' . $roster->anchor;
+	default:
+		$anchor = '';
+	}
+
+	if( empty($url) || empty($anchor) )
+	{
+		$url = $anchor . $url;
 	}
 	elseif( substr($url,0,2) != 'a=' && FALSE == strpos( $url, '&amp;a=' ) )
 	{
-		$url = 'a=' . $roster->anchor . '&amp;' . $url;
+		$url = $anchor . '&amp;' . $url;
 	}
 
 	// SEO magic
