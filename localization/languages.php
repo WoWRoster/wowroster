@@ -39,7 +39,7 @@ Thanks to all the coders who have contributed code, bug fixes, time, and testing
 <br /><br />';
 
 // This is an array of the Dev team
-$creditspage['Devs'] = array(
+$creditspage['devs'] = array(
 		'active'=>array(
 			array(	"name"=>	"Zanix",
 					"info"=>	"Coordinator, Site Admin<br />Author of SigGen, UniAdmin"),
