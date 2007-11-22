@@ -116,7 +116,7 @@ function makelink( $url='' , $full=false )
 	// Filter out html anchor
 	if( ($pos = strpos($url,'#')) !== false )
 	{
-		$anchor = substr($url,$pos);
+		$html_anchor = substr($url,$pos);
 		$url = substr($url,0,$pos);
 	}
 	else
@@ -144,10 +144,10 @@ function makelink( $url='' , $full=false )
 	switch($roster->atype)
 	{
 	case 'char':
-		$anchor = 'a=c:' . isset($roster->data['member_id'])?$roster->data['member_id']:$roster->anchor;
+		$anchor = 'a=c:' . ( isset($roster->data['member_id'])?$roster->data['member_id']:$roster->anchor );
 		break;
 	case 'guild': case 'default':
-		$anchor = 'a=g:' . isset($roster->data['guild_id'])?$roster->data['guild_id']:$roster->anchor;
+		$anchor = 'a=g:' . ( isset($roster->data['guild_id'])?$roster->data['guild_id']:$roster->anchor );
 		break;
 	case 'realm':
 		$anchor = 'a=r:' . $roster->anchor;
@@ -197,7 +197,7 @@ function makelink( $url='' , $full=false )
 		$url = ROSTER_URL . "$url";
 	}
 
-	return $url . $anchor;
+	return $url . $html_anchor;
 }
 
 /**
