@@ -252,7 +252,7 @@ class roster
 			break;
 		default:
 			// Util doesn't load any data.
-			$query = 'SELECT 1';
+			$query = 'SELECT 1 ';
 			break;
 		}
 
