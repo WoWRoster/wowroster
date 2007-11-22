@@ -58,7 +58,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = 'CREATE TEMPORARY TABLE `backup_' . $table . '` LIKE `' . $table . '`';
+		$this->sql[] = 'CREATE' . ( $roster->config['use_temp_tables'] ? ' TEMPORARY ' : ' ' ). 'TABLE `backup_' . $table . '` LIKE `' . $table . '`';
 		$this->sql[] = 'INSERT INTO `backup_' . $table . '` SELECT * FROM `' . $table . '`';
 		$this->tables[$table] = true; // Restore backup on rollback
 	}
@@ -311,6 +311,20 @@ class Install
 					{
 						$this->seterrors('Rollback error while reinserting data in '.$table.'. MySQL said: '.$roster->db->error());
 						$retval = 2;
+					}
+				}
+			}
+		}
+		if( !$roster->config['use_temp_tables'] )
+		{
+			foreach( $this->tables as $table => $backup )
+			{
+				if( $backup )
+				{
+					$query = 'DROP TABLE `backup_' . $table . '`;';
+					if( !$roster->db->query($query) )
+					{
+						$this->seterrors( 'Cleanup error while dropping temporary table backup_' . $table . '. MySQL said: ' . $roster->db->error());
 					}
 				}
 			}

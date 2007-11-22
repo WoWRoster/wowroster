@@ -816,6 +816,7 @@ $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Trig
 $lang['admin']['check_updates'] = "Überprüfe auf Updates|Dies erlaubt deiner Rosterkopie (und Addons, die dieses Feature benutzen) zu überprüfen, ob du die neueste Version der Software hast";
 $lang['admin']['seo_url'] = "Alternative urls|Benutze /some/page/here.html?param=value anstelle von /?p=some-page-here&param=value";
 $lang['admin']['local_cache']= "Dateisystem Cache|Benutze lokales Server Dateisystem um einige Dateien zu cachen und damit die Leistung zu erhöhen.";
+$lang['admin']['use_temp_tables'] = "Use temporary tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
