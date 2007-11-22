@@ -730,7 +730,7 @@ $lang['auth_req'] = 'Authorization Required';
 
 // Upload Rules
 $lang['upload_rules_error'] = 'You cannot leave one of the fields empty when adding a rule';
-$lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked.<br />If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked.<br />If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.';
+$lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked. If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked. If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.<br /><br />Remember to set a default guild here as well.';
 
 // Data Manager
 $lang['clean'] = 'Clean up entries based on rules';

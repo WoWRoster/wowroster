@@ -370,7 +370,7 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result)) )
 				{
-					roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
+					roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
 				}
 
 				$this->db->free_result($result);
@@ -406,7 +406,7 @@ class roster
 
 				if(!( $this->data = $this->db->fetch($result,SQL_ASSOC)) )
 				{
-					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp') ), $this->locale->act['nodata_title'] );
+					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
 				}
 
 				break;
