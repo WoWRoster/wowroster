@@ -120,6 +120,11 @@ class Upgrade
 				. " ADD `melee_expertise_d` int(11) NOT NULL default '0' AFTER `melee_expertise_b`;");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1458','<') )
+		{
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1180, 'use_temp_tables', '1', 'radio{on^1|off^0', 'main_conf');");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

@@ -121,7 +121,7 @@ function makelink( $url='' , $full=false )
 	}
 	else
 	{
-		$anchor = '';
+		$html_anchor = '';
 	}
 
 	// Split the page from the rest

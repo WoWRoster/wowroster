@@ -45,7 +45,7 @@ INSERT INTO `renprefix_config` VALUES (1140, 'use_update_triggers', '1', 'radio{
 INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '168', 'select{Do Not check^0|Once a Day^24|Once a Week^168|Once a Month^720', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '0', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1170, 'local_cache', '1', 'radio{on^1|off^0', 'main_conf');
-
+INSERT INTO `renprefix_config` VALUES (1180, 'use_temp_tables', '1', 'radio{on^1|off^0', 'main_conf');
 
 # --------------------------------------------------------
 ### Guild Settings

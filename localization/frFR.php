@@ -816,6 +816,7 @@ $lang['admin']['use_update_triggers'] = "Permettre le déclenchement de mise à 
 $lang['admin']['check_updates'] = "Vérification des mises à jour|Ceci permet au site de vérifier si une nouvelle version du roster (ou des greffons possèdant cette fonctionalité) est disponible et si vous avez la dernière version d\'installée";
 $lang['admin']['seo_url'] = "Adressage alternatif|Utilise la forme /autre/page/ici.html?param=valeur en lieu et place de /?p=autre-page-ici&param=valeur";
 $lang['admin']['local_cache']= "Cache des fichiers du système|Utilise le système de fichier local comme cache pour permettre un accroissement de performance.";
+$lang['admin']['use_temp_tables'] = "Use temporary tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "Nom du roster|Saisissez un nom qui sera affiché quand vous ne serez pas sur une page de guilde ou de personnage";
