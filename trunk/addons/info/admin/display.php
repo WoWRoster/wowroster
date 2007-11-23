@@ -108,7 +108,7 @@ if( $num_members > 0 )
 	while( $data = $roster->db->fetch($result) )
 	{
 		$formbody .= '	<tr>
-		<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('char-info&amp;member=' . $data['member_id']) . '" target="_blank">' . $data['name'] . '</a><br />
+		<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('char-info&amp;a=c:' . $data['member_id']) . '" target="_blank">' . $data['name'] . '</a><br />
 			' . $data['level'] . ':' . $data['class'] . "</td>\n";
 
 		$k=0;
