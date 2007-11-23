@@ -595,15 +595,7 @@ class RosterMenu
 			}
 		}
 
-		if (is_array($sections))
-		{
-			$section = "'" . implode("','",$sections) . "'";
-		}
-		else
-		{
-			$sections = explode(',',$sections);
-			$section = "'" . implode("','",$sections) . "'";
-		}
+		$section = "'" . implode("','",array_keys($sections)) . "'";
 
 		// --[ Fetch button list from DB ]--
 		$query = "SELECT `mb`.*, `a`.`basename` "
@@ -648,30 +640,30 @@ class RosterMenu
 		$scopes = array();
 		$arrayButtons = array();
 
-		foreach( $sections as $id=>$value )
+		foreach( $sections as $name => $visible )
 		{
-			if( isset($data[$value]) )
+			if( isset($data[$name]) )
 			{
-				$page[$id] = $data[$value];
+				$page[$name] = $data[$name];
 			}
 		}
 
 		// --[ Parse DB data ]--
-		foreach( $page as $id => $value )
+		foreach( $page as $name => $value )
 		{
-			$config[$id] = explode(':',$value['config']);
-			foreach( $config[$id] as $pos=>$button )
+			$config[$name] = explode(':',$value['config']);
+			foreach( $config[$name] as $pos=>$button )
 			{
 				if( isset($palet[$button]) )
 				{
-					$arrayButtons[$id][$pos] = $palet[$button];
-					$scopes[$sections[$id]] = true;
+					$arrayButtons[$name][$pos] = $palet[$button];
+					$scopes[$name] = true;
 				}
 			}
 
-			if( $sections[$id] == 'util')
+			if( $sections[$name] == 'util')
 			{
-				$arrayButtons[$id] = array_reverse($arrayButtons[$id]);
+				$arrayButtons[$name] = array_reverse($arrayButtons[$name]);
 			}
 		}
 
@@ -692,11 +684,11 @@ class RosterMenu
 		foreach( $arrayButtons as $id => $page )
 		{
 			$roster->tpl->assign_block_vars('menu_button_section', array(
-				'CLASS' => ( $sections[$id] == 'util' ? 'utility' : 'scope' ),
-				'ID' => $sections[$id],
-				'OPEN' => ( ($sections[$id] == $roster->scope) || ( $id == count($sections) - 1 ) || ($roster->scope == 'page' && $sections[$id] == 'util') ) ? false : true,
-				'ALIGN' => ( $sections[$id] == 'util' ? 'right' : 'left' ),
-				'LABEL' => ( isset($roster->locale->act['menupanel_' . $sections[$id]]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $sections[$id]]) : '' )
+				'CLASS' => ( $id == 'util' ? 'utility' : 'scope' ),
+				'ID' => $id,
+				'OPEN' => !$sections[$id],
+				'ALIGN' => ( $id == 'util' ? 'right' : 'left' ),
+				'LABEL' => ( isset($roster->locale->act['menupanel_' . $id]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $id]) : '' )
 				)
 			);
 
