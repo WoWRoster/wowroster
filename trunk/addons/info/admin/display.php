@@ -24,6 +24,10 @@ if( isset($_POST['process']) && $_POST['process'] != '' )
 	$roster_config_message = processData();
 }
 
+$sel_guild = ( $roster->atype == 'guild' ? $roster->anchor : false);
+
+$start = (isset($_GET['start']) ? $_GET['start'] : 0);
+
 $menu_select = array();
 
 // Get the scope select data
@@ -51,7 +55,7 @@ if( $roster->db->num_rows($result) > 0 )
 		$options .= '		<optgroup label="' . $realm . '">'. "\n";
 		foreach( $guild as $id => $name )
 		{
-			$options .= '			<option value="' . makelink("&amp;guild=$id",true) . '"' . ( ( isset($_GET['guild']) && $id == $_GET['guild']) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
+			$options .= '			<option value="' . makelink("&amp;a=g:$id",true) . '"' . ( ( isset($sel_guild) && $id == $sel_guild) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
 		}
 		$options .= '		</optgroup>';
 	}
@@ -59,15 +63,14 @@ if( $roster->db->num_rows($result) > 0 )
 
 $roster->db->free_result($result);
 
-$body = 'Select A Guild
-<form action="' . makelink() . '" name="realm_select" method="post">
+$body = '<form action="' . makelink() . '" name="realm_select" method="post">
 	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
 		<option value="' . makelink() . '">----------</option>
 ' . $options . '
 	</select>
 </form>';
 
-$body = messagebox($body,'','sgreen');
+$body = messagebox($body,$roster->locale->act['select_guild'],'sgreen');
 
 $listing = $next = $prev = '';
 
@@ -155,18 +158,16 @@ $menu = messagebox('
  */
 function getCharData()
 {
-	global $roster, $listing, $next, $prev;
+	global $roster, $sel_guild, $start, $listing, $next, $prev;
 
-	$start = (isset($_GET['start']) ? $_GET['start'] : 0);
-
-	if( !isset($_GET['guild']) )
+	if( !$sel_guild )
 	{
 		return;
 	}
 	$sql = "SELECT "
 		 . " `member_id`"
 		 . " FROM `" . $roster->db->table('players') . "`"
-		 . " WHERE `guild_id` = " . $_GET['guild'] . ";";
+		 . " WHERE `guild_id` = " . $sel_guild . ";";
 
 	// Get the number of rows
 	$results = $roster->db->query($sql);
@@ -175,7 +176,7 @@ function getCharData()
 
 	if ($start > 0)
 	{
-		$prev = '<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($start-15)) . '">&lt;</a> ';
+		$prev = '<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($start-15)) . '">&lt;</a> ';
 	}
 	else
 	{
@@ -185,7 +186,7 @@ function getCharData()
 	if (($start+15) < $max)
 	{
 		$listing = ' <small>[' . $start . ' - ' . ($start+15) . '] of ' . $max . '</small>';
-		$next = ' <a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($start+15)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($max-15)) . '">&gt;&gt;|</a>';
+		$next = ' <a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($start+15)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($max-15)) . '">&gt;&gt;|</a>';
 	}
 	else
 	{
@@ -204,7 +205,7 @@ function getCharData()
 		 . " `show_bank`, `show_quests`,"
 		 . " `show_recipes`, `show_item_bonuses`"
 		 . " FROM `" . $roster->db->table('players') . "`"
-		 . " WHERE `guild_id` = " . $_GET['guild']
+		 . " WHERE `guild_id` = " . $sel_guild
 		 . " ORDER BY `name` ASC";
 
 

@@ -231,34 +231,34 @@ class roster
 		// --[ Build the select part of the query, and validate the anchor is accurate enough ]--
 		switch( $this->scope )
 		{
-		case 'char':
-			if( !in_array( $this->atype, array('char') ) )
-			{
-				roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
-			}
-			$query = 'SELECT guild.*, members.*, players.*, '
-				. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
-				. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" ';
-			break;
-		case 'guild':
-			if( !in_array( $this->atype, array('char','guild','none') ) )
-			{
-				roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
-			}
-			$query = 'SELECT guild.* ';
-			break;
-		case 'realm':
-			$query = 'SELECT `region`,`server` ';
-			break;
-		default:
-			// Util doesn't load any data.
-			$query = 'SELECT 1 ';
-			break;
+			case 'char':
+				if( !in_array( $this->atype, array('char') ) )
+				{
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+				}
+				$query = 'SELECT guild.*, members.*, players.*, '
+					. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
+					. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" ';
+				break;
+			case 'guild':
+				if( !in_array( $this->atype, array('char','guild','none') ) )
+				{
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+				}
+				$query = 'SELECT guild.* ';
+				break;
+			case 'realm':
+				$query = 'SELECT `region`,`server` ';
+				break;
+			default:
+				// Util doesn't load any data.
+				$query = 'SELECT 1 ';
+				break;
 		}
 
 		if( $this->atype == 'none' && in_array($this->scope, array('guild','realm')) )
 		{
-			// No anchor at all. 
+			// No anchor at all.
 			$defquery =  "SELECT `name`, `server`, `region`"
 				. " FROM `" . $this->db->table('upload') . "`"
 				. " WHERE `default` = '1' LIMIT 1;";

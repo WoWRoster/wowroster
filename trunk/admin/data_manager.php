@@ -24,6 +24,10 @@ if( !defined('IN_ROSTER') )
 include( ROSTER_LIB . 'update.lib.php' );
 $update = new update;
 
+$sel_guild = ( $roster->atype == 'guild' ? $roster->anchor : false);
+
+$start = (isset($_GET['start']) ? $_GET['start'] : 0);
+
 $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
 
 $mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild';
@@ -31,10 +35,27 @@ $mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild'
 // Process a new line
 if( isset($_POST['process']) && $_POST['process'] == 'process')
 {
-	if( substr($_POST['action'],0,4) == 'del_' )
+	if( substr($_POST['action'],0,9) == 'delguild_' )
+	{
+		$update->deleteGuild( $sel_guild, time(), true );
+	}
+	elseif( isset($_POST['massdel']) )
+	{
+		$member_ids = array();
+		foreach( $_POST['massdel'] as $member_id => $checked )
+		{
+			$member_ids[] = $member_id;
+		}
+		$member_ids = implode(',', $member_ids);
+
+		$update->setMessage('<li>Deleting members "' . $member_ids . '".</li>');
+		$update->deleteMembers( $member_ids );
+	}
+	elseif( substr($_POST['action'],0,4) == 'del_' )
 	{
 		$member_id = substr($_POST['action'],4);
 
+		$update->setMessage('<li>Deleting member "' . $member_id . '".</li>');
 		$update->deleteMembers( $member_id );
 	}
 	elseif( $_POST['action'] == 'clean' )
@@ -101,7 +122,7 @@ if( $roster->db->num_rows($result) > 0 )
 		$options .= '		<optgroup label="' . $realm . '">'. "\n";
 		foreach( $guild as $id => $name )
 		{
-			$options .= '			<option value="' . makelink("&amp;guild=$id") . '"' . ( ( isset($_GET['guild']) && $id == $_GET['guild']) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
+			$options .= '			<option value="' . makelink("&amp;a=g:$id") . '"' . ( ( isset($sel_guild) && $id == $sel_guild) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
 		}
 		$options .= '		</optgroup>';
 	}
@@ -109,15 +130,14 @@ if( $roster->db->num_rows($result) > 0 )
 
 $roster->db->free_result($result);
 
-$body = 'Select A Guild
-<form action="' . makelink() . '" name="realm_select" method="post">
+$select_guild = '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . $start) . '" name="realm_select" method="post">
 	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
 		<option value="' . makelink() . '">----------</option>
 ' . $options . '
 	</select>
 </form>';
 
-$body = messagebox($body,'','sgreen');
+$body .= messagebox($select_guild,$roster->locale->act['select_guild'],'sgreen') . "<br />\n";
 
 $listing = $next = $prev = '';
 
@@ -127,19 +147,19 @@ $data = getCharData();
 
 
 // OUTPUT
-$roster->output['body_onload'] .= 'initARC(\'allow\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+$roster->output['body_onload'] .= 'initARC(\'delete\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-$body .= $roster_login->getMessage() . '<br />
-<form action="' . makelink() . '" method="post" id="clean">
-<input type="hidden" name="action" value="clean" />
-<input type="hidden" name="process" value="process" />
-<button type="submit" class="input">' . $roster->locale->act['clean'] . '</button></form>'."\n";
+$body .= '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . $start) . '" method="post" id="clean">
+	<input type="hidden" name="action" value="clean" />
+	<input type="hidden" name="process" value="process" />
+	<button type="submit" class="input">' . $roster->locale->act['clean'] . '</button>
+</form>'."\n";
 
 $body .= "<br />\n";
 
 if( is_array($data) && count($data) > 0 )
 {
-	$body .= '<form action="' . makelink() . '" method="post" id="delete">
+	$body .= '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . $start) . '" method="post" id="delete">
 <input type="hidden" id="deletehide" name="action" value="" />
 <input type="hidden" name="process" value="process" />'."\n";
 
@@ -169,12 +189,20 @@ if( is_array($data) && count($data) > 0 )
 			<td class="membersRow' . (($i%2)+1) . '">' . $row['region'] . '</td>
 			<td class="membersRow' . (($i%2)+1) . '">' . $row['class'] . '</td>
 			<td class="membersRow' . (($i%2)+1) . '">' . $row['level'] . '</td>
-			<td class="membersRowRight' . (($i%2)+1) . '"><button type="submit" class="input" onclick="setvalue(\'deletehide\',\'del_' . $row['member_id'] . '\');">' . $roster->locale->act['delete'] . '</button></td>
-			</tr>' . "\n";
+			<td class="membersRowRight' . (($i%2)+1) . '"><button type="submit" class="input" onclick="setvalue(\'deletehide\',\'del_' . $row['member_id'] . '\');">' . $roster->locale->act['delete'] . '</button>
+				<label for="massdel[' . $row['member_id'] . ']">&nbsp;</label><input type="checkbox" name="massdel[' . $row['member_id'] . ']" id="massdel[' . $row['member_id'] . ']" value="1" /></td>
+		</tr>' . "\n";
 		$i++;
 	}
 	$body .= '
 	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="6" class="membersRowRight' . (($i%2)+1) . '">
+				<button type="submit" class="input" style="float: right;">' . $roster->locale->act['delete_checked'] . '</button>
+				<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $sel_guild . '\');">' . $roster->locale->act['delete_guild'] . '</button></td>
+		</tr>
+	</tfoot>
 </table>
 ' . border('sgreen','end');
 
@@ -194,18 +222,16 @@ else
  */
 function getCharData()
 {
-	global $roster, $listing, $next, $prev;
+	global $roster, $start, $listing, $next, $prev, $sel_guild;
 
-	$start = (isset($_GET['start']) ? $_GET['start'] : 0);
-
-	if( !isset($_GET['guild']) )
+	if( !$sel_guild )
 	{
 		return;
 	}
 	$sql = "SELECT "
 		 . " `member_id`"
 		 . " FROM `" . $roster->db->table('members') . "`"
-		 . " WHERE `guild_id` = " . $_GET['guild'] . ";";
+		 . " WHERE `guild_id` = " . $sel_guild . ";";
 
 	// Get the number of rows
 	$results = $roster->db->query($sql);
@@ -214,7 +240,7 @@ function getCharData()
 
 	if ($start > 0)
 	{
-		$prev = '<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($start-30)) . '">&lt;</a> ';
+		$prev = '<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($start-30)) . '">&lt;</a> ';
 	}
 	else
 	{
@@ -224,7 +250,7 @@ function getCharData()
 	if (($start+30) < $max)
 	{
 		$listing = ' <small>[' . $start . ' - ' . ($start+30) . '] of ' . $max . '</small>';
-		$next = ' <a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($start+30)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;guild=' . $_GET['guild'] . '&amp;start=' . ($max-30)) . '">&gt;&gt;|</a>';
+		$next = ' <a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($start+30)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($max-30)) . '">&gt;&gt;|</a>';
 	}
 	else
 	{
@@ -234,7 +260,7 @@ function getCharData()
 
 	$sql = "SELECT `member_id`, `name`, `server`, `region`, `class`, `level`"
 		 . " FROM `" . $roster->db->table('members') . "`"
-		 . " WHERE `guild_id` = " . $_GET['guild']
+		 . " WHERE `guild_id` = " . $sel_guild
 		 . " ORDER BY `name` ASC";
 
 
