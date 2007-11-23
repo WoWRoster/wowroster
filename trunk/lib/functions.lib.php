@@ -1332,11 +1332,22 @@ function _aprint( $arr , $tab=1 )
 
 		if( is_object($val) )
 		{
-			$val = "<span style=\"color:#3366FF\">object</span>";
+			$val = "<span style=\"color:#3366FF\">Object</span>";
 		}
 		elseif( is_array($val) )
 		{
 			$val = _aprint($val, ($tab+1));
+		}
+		elseif( is_bool($val) )
+		{
+			if( $val )
+			{
+				$val = "<span style=\"color:#3366FF\">True</span>";
+			}
+			else
+			{
+				$val = "<span style=\"color:#FF6633\">False</span>";
+			}
 		}
 		else
 		{
