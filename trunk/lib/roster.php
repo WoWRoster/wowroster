@@ -228,37 +228,9 @@ class roster
 			$this->atype = $this->scope;
 		}
 
-		// --[ Build the select part of the query, and validate the anchor is accurate enough ]--
-		switch( $this->scope )
-		{
-			case 'char':
-				if( !in_array( $this->atype, array('char') ) )
-				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
-				}
-				$query = 'SELECT guild.*, members.*, players.*, '
-					. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
-					. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" ';
-				break;
-			case 'guild':
-				if( !in_array( $this->atype, array('char','guild','none') ) )
-				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
-				}
-				$query = 'SELECT guild.* ';
-				break;
-			case 'realm':
-				$query = 'SELECT `region`,`server` ';
-				break;
-			default:
-				// Util doesn't load any data.
-				$query = 'SELECT 1 ';
-				break;
-		}
-
 		if( $this->atype == 'none' && in_array($this->scope, array('guild','realm')) )
 		{
-			// No anchor at all.
+			// No anchor at all, but for realm/guild we have a default
 			$defquery =  "SELECT `name`, `server`, `region`"
 				. " FROM `" . $this->db->table('upload') . "`"
 				. " WHERE `default` = '1' LIMIT 1;";
@@ -275,7 +247,7 @@ class roster
 			$this->anchor = $name . '@' . $region . '-' . $realm;
 		}
 
-		// --[ Build the from and where parts of the query ]--
+		// --[ Build the query ]--
 		switch( $this->atype )
 		{
 			case 'char':
@@ -307,7 +279,10 @@ class roster
 				}
 
 				// Get the data
-				$query .= 'FROM `' . $this->db->table('players') . '` players '
+				$query = 'SELECT guild.*, members.*, players.*, '
+					. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
+					. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
+					. 'FROM `' . $this->db->table('players') . '` players '
 					. 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
 					. 'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '
 					. 'WHERE ' . $where . ";";
@@ -330,6 +305,10 @@ class roster
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
 			case 'guild': case 'default':
+				if( in_array( $this->scope, array( 'char' ) ) )
+				{
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+				}
 				// Parse the attribute
 				if( is_numeric($this->anchor) )
 				{
@@ -358,7 +337,8 @@ class roster
 				}
 
 				// Get the data
-				$query .= "FROM `" . $this->db->table('guild') . "` guild "
+				$query = 'SELECT guild.* '
+					. "FROM `" . $this->db->table('guild') . "` guild "
 					. "WHERE " . $where . ";";
 
 				$result = $this->db->query($query);
@@ -378,6 +358,10 @@ class roster
 				break;
 
 			case 'realm':
+				if( in_array( $this->scope, array( 'char', 'guild' ) ) )
+				{
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+				}
 				if( strpos($this->anchor,'-') !== false )
 				{
 					list($region, $realm) = explode('-',$_GET['realm'],2);
@@ -392,10 +376,12 @@ class roster
 
 				// Check if there's data for this realm
 				$query = "SELECT DISTINCT `server`, `region`"
-					   . " FROM `" . $this->db->table('guild') . "`"
-					   . " UNION SELECT DISTINCT `server`, `region` FROM `" . $this->db->table('players') . "`"
-					   . " WHERE $where"
-					   . " LIMIT 1;";
+					. " FROM `" . $this->db->table('guild') . "`"
+					. " WHERE $where"
+					. " UNION SELECT DISTINCT `server`, `region`"
+					. " FROM `" . $this->db->table('players') . "`"
+					. " WHERE $where"
+					. " LIMIT 1;";
 
 				$result = $this->db->query($query);
 
@@ -411,6 +397,10 @@ class roster
 
 				break;
 			default:
+				if( in_array( $this->scope, array( 'char', 'guild', 'realm' ) ) )
+				{
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+				}
 				// no anchor passed, and we didn't load defaults so we're in util or page scope. No data needed.
 				$this->data = array();
 		}
