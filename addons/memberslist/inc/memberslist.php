@@ -699,7 +699,7 @@ class memberslist
 
 				if( active_addon('info') )
 				{
-					$icon_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';
+					$icon_value .= '<a href="' . makelink('char-info-talents&amp;a=c:' . $row['member_id']) . '">' . $specicon . '</a>';
 				}
 				else
 				{
@@ -908,7 +908,7 @@ class memberslist
 
 		if( active_addon('info') )
 		{
-			$cell_value .= '<a href="' . makelink('char-info-talents&amp;member=' . $row['member_id']) . '">' . $specicon . '</a>';
+			$cell_value .= '<a href="' . makelink('char-info-talents&amp;a=c:' . $row['member_id']) . '">' . $specicon . '</a>';
 		}
 		else
 		{
