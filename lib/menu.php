@@ -587,11 +587,11 @@ class RosterMenu
 		$localetemp = $roster->locale->wordings;
 
 		// Add all addon locale files
-		foreach( $roster->addon_data as $data )
+		foreach( $roster->addon_data as $addondata )
 		{
 			foreach( $roster->multilanguages as $lang )
 			{
-				$roster->locale->add_locale_file(ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $addondata['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 			}
 		}
 
@@ -661,7 +661,7 @@ class RosterMenu
 				}
 			}
 
-			if( $sections[$name] != 'util')
+			if( $name == 'util')
 			{
 				$arrayButtons[$name] = array_reverse($arrayButtons[$name]);
 			}
