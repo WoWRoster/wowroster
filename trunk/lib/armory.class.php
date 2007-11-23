@@ -862,7 +862,7 @@ class RosterArmory
 				break;
 			case 3:
 			case 'guild-info':
-				$mode = 'guild-info.xml?r=' . urlencode($realm) . '&n=' . urlencode($guild);
+				$mode = 'guild-info.xml?r=' . urlencode($realm) . '&n=' . urlencode($guild). '&p=1';
 				break;
 			case 4:
 			case 'character-talents':
