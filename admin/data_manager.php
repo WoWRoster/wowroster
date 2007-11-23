@@ -162,6 +162,13 @@ if( $num_members > 0 )
 			<th class="membersHeaderRight">&nbsp;</th>
 		</tr>
 	</thead>
+	<tfoot>
+		<tr>
+			<td colspan="6" class="membersRowRight1">
+				<button type="submit" class="input" style="float: right;">' . $roster->locale->act['delete_checked'] . '</button>
+				<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $roster->data['guild_id'] . '\');">' . $roster->locale->act['delete_guild'] . '</button></td>
+		</tr>
+	</tfoot>
 	<tbody>' . "\n";
 
 	$i=0;
@@ -183,7 +190,7 @@ if( $num_members > 0 )
 			<td class="membersRow' . (($i%2)+1) . '">' . $row['class'] . '</td>
 			<td class="membersRow' . (($i%2)+1) . '">' . $row['level'] . '</td>
 			<td class="membersRowRight' . (($i%2)+1) . '"><button type="submit" class="input" onclick="setvalue(\'deletehide\',\'del_' . $row['member_id'] . '\');">' . $roster->locale->act['delete'] . '</button>
-				<label for="massdel[' . $row['member_id'] . ']">&nbsp;</label><input type="checkbox" name="massdel[' . $row['member_id'] . ']" id="massdel[' . $row['member_id'] . ']" value="1" /></td>
+				<label for="massdel_' . $row['member_id'] . '">&nbsp;</label><input type="checkbox" name="massdel[' . $row['member_id'] . ']" id="massdel_' . $row['member_id'] . '" value="1" /></td>
 		</tr>' . "\n";
 		$i++;
 	}
@@ -192,13 +199,6 @@ if( $num_members > 0 )
 
 	$body .= '
 	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="6" class="membersRowRight' . (($i%2)+1) . '">
-				<button type="submit" class="input" style="float: right;">' . $roster->locale->act['delete_checked'] . '</button>
-				<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $roster->data['guild_id'] . '\');">' . $roster->locale->act['delete_guild'] . '</button></td>
-		</tr>
-	</tfoot>
 </table>
 ' . border('sgreen','end');
 
