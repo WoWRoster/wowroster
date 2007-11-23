@@ -24,16 +24,14 @@ if( !defined('IN_ROSTER') )
 include( ROSTER_LIB . 'update.lib.php' );
 $update = new update;
 
-$sel_guild = ( $roster->atype == 'guild' ? $roster->anchor : false);
-
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
 
-$mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild';
-
-// Process a new line
-if( isset($_POST['process']) && $_POST['process'] == 'process')
+/**
+ * Process a new line
+ */
+if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	if( substr($_POST['action'],0,9) == 'delguild_' )
 	{
@@ -94,19 +92,15 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 	$body .= "<br />\n";
 }
 
-// Fetch data
+/**
+ * Generate guild select dropdown
+ */
 $menu_select = array();
 
-// Get the scope select data
 $query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
 	   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
 
 $result = $roster->db->query($query);
-
-if( !$result )
-{
-    die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$query);
-}
 
 while( $data = $roster->db->fetch($result,SQL_NUM) )
 {
@@ -122,7 +116,7 @@ if( $roster->db->num_rows($result) > 0 )
 		$options .= '		<optgroup label="' . $realm . '">'. "\n";
 		foreach( $guild as $id => $name )
 		{
-			$options .= '			<option value="' . makelink("&amp;a=g:$id") . '"' . ( ( isset($sel_guild) && $id == $sel_guild) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
+			$options .= '			<option value="' . makelink("&amp;a=g:$id") . '"' . ( ( isset($roster->data['guild_id']) && $id == $roster->data['guild_id']) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
 		}
 		$options .= '		</optgroup>';
 	}
@@ -130,7 +124,7 @@ if( $roster->db->num_rows($result) > 0 )
 
 $roster->db->free_result($result);
 
-$select_guild = '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . $start) . '" name="realm_select" method="post">
+$select_guild = '<form action="' . makelink('&amp;start=' . $start) . '" name="realm_select" method="post">
 	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
 		<option value="' . makelink() . '">----------</option>
 ' . $options . '
@@ -139,17 +133,12 @@ $select_guild = '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;sta
 
 $body .= messagebox($select_guild,$roster->locale->act['select_guild'],'sgreen') . "<br />\n";
 
-$listing = $next = $prev = '';
-
-
-
-$data = getCharData();
-
-
-// OUTPUT
+/**
+ * Cleanup button
+ */
 $roster->output['body_onload'] .= 'initARC(\'delete\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-$body .= '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . $start) . '" method="post" id="clean">
+$body .= '<form action="' . makelink('&amp;start=' . $start) . '" method="post" id="clean">
 	<input type="hidden" name="action" value="clean" />
 	<input type="hidden" name="process" value="process" />
 	<button type="submit" class="input">' . $roster->locale->act['clean'] . '</button>
@@ -157,11 +146,43 @@ $body .= '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . 
 
 $body .= "<br />\n";
 
-if( is_array($data) && count($data) > 0 )
+/**
+ * Actual list
+ */
+$query = "SELECT "
+	. " COUNT( `member_id` )"
+	. " FROM `" . $roster->db->table('members') . "`"
+	. " WHERE `guild_id` = " . ( isset($roster->data['guild_id']) ? $roster->data['guild_id'] : 0 ) . ";";
+
+$num_members = $roster->db->query_first($query);
+
+
+if( $num_members > 0 )
 {
-	$body .= '<form action="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . $start) . '" method="post" id="delete">
+	$body .= '<form action="' . makelink('&amp;start=' . $start) . '" method="post" id="delete">
 <input type="hidden" id="deletehide" name="action" value="" />
-<input type="hidden" name="process" value="process" />'."\n";
+<input type="hidden" name="process" value="process" />' . "\n";
+
+	// Draw the header line
+	if ($start > 0)
+	{
+		$prev = '<a href="' . makelink('&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ($start - 30)) . '">&lt;</a> ';
+	}
+	else
+	{
+		$prev = '';
+	}
+
+	if (($start+30) < $num_members)
+	{
+		$listing = ' <small>[' . $start . ' - ' . ($start+30) . '] of ' . $num_members . '</small>';
+		$next = ' <a href="' . makelink('&amp;start=' . ($start+30)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ( floor( $num_members / 30) * 30 )) . '">&gt;&gt;|</a>';
+	}
+	else
+	{
+		$listing = ' <small>[' . $start . ' - ' . ($num_members) . '] of ' . $num_members . '</small>';
+		$next = '';
+	}
 
 	$body .= border('sgreen','start',$prev . $roster->locale->act['delete'] . $listing . $next) . '
 <table class="bodyline" cellspacing="0">
@@ -181,7 +202,16 @@ if( is_array($data) && count($data) > 0 )
 	<tbody>' . "\n";
 
 	$i=0;
-	foreach( $data as $row )
+
+	$query = "SELECT `member_id`, `name`, `server`, `region`, `class`, `level`"
+		. " FROM `" . $roster->db->table('members') . "`"
+		. " WHERE `guild_id` = " . $roster->data['guild_id']
+		. " ORDER BY `name` ASC"
+		. " LIMIT " . ($start > 0 ? $start : 0) . ", 30;";
+
+	$result = $roster->db->query($query);
+
+	while( $row = $roster->db->fetch($result) )
 	{
 		$body .= "\n\t\t<tr>\n" . '
 			<td class="membersRow' . (($i%2)+1) . '">' . $row['name'] . '</td>
@@ -194,13 +224,16 @@ if( is_array($data) && count($data) > 0 )
 		</tr>' . "\n";
 		$i++;
 	}
+
+	$roster->db->free_result($result);
+
 	$body .= '
 	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="6" class="membersRowRight' . (($i%2)+1) . '">
 				<button type="submit" class="input" style="float: right;">' . $roster->locale->act['delete_checked'] . '</button>
-				<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $sel_guild . '\');">' . $roster->locale->act['delete_guild'] . '</button></td>
+				<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $roster->data['guild_id'] . '\');">' . $roster->locale->act['delete_guild'] . '</button></td>
 		</tr>
 	</tfoot>
 </table>
@@ -211,86 +244,4 @@ if( is_array($data) && count($data) > 0 )
 else
 {
 	$body .= '<span class="title_text">No Data</span>';
-}
-
-
-
-/**
- * Get character config data
- *
- * @return array on success, error string on failure
- */
-function getCharData()
-{
-	global $roster, $start, $listing, $next, $prev, $sel_guild;
-
-	if( !$sel_guild )
-	{
-		return;
-	}
-	$sql = "SELECT "
-		 . " `member_id`"
-		 . " FROM `" . $roster->db->table('members') . "`"
-		 . " WHERE `guild_id` = " . $sel_guild . ";";
-
-	// Get the number of rows
-	$results = $roster->db->query($sql);
-
-	$max = $roster->db->num_rows();
-
-	if ($start > 0)
-	{
-		$prev = '<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($start-30)) . '">&lt;</a> ';
-	}
-	else
-	{
-		$prev = '';
-	}
-
-	if (($start+30) < $max)
-	{
-		$listing = ' <small>[' . $start . ' - ' . ($start+30) . '] of ' . $max . '</small>';
-		$next = ' <a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($start+30)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;a=g:' . $sel_guild . '&amp;start=' . ($max-30)) . '">&gt;&gt;|</a>';
-	}
-	else
-	{
-		$listing = ' <small>[' . $start . ' - ' . ($max) . '] of ' . $max . '</small>';
-		$next = '';
-	}
-
-	$sql = "SELECT `member_id`, `name`, `server`, `region`, `class`, `level`"
-		 . " FROM `" . $roster->db->table('members') . "`"
-		 . " WHERE `guild_id` = " . $sel_guild
-		 . " ORDER BY `name` ASC";
-
-
-	if( $start != -1 )
-	{
-		$sql .= ' LIMIT ' . $start . ', 30;';
-	}
-	else
-	{
-		$sql .= ' LIMIT 0, 30;';
-	}
-
-	// Get the current config values
-	$results = $roster->db->query($sql);
-	if( !$results )
-	{
-		die_quietly( $roster->db->error(), 'Database Error',__FILE__,__LINE__,$sql);
-	}
-
-	$db_values = false;
-
-	while( $row = $roster->db->fetch($results,SQL_ASSOC) )
-	{
-		foreach( $row as $field => $value )
-		{
-			$db_values[$row['name']][$field] = $value;
-		}
-	}
-
-	$roster->db->free_result($results);
-
-	return $db_values;
 }
