@@ -28,6 +28,10 @@ $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
 
+// Change scope to guild, and rerun detection to load default
+$roster->scope = 'guild';
+$roster->get_scope_data();
+
 /**
  * Process a new line
  */
@@ -91,47 +95,6 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	$body .= '</form>';
 	$body .= "<br />\n";
 }
-
-/**
- * Generate guild select dropdown
- */
-$menu_select = array();
-
-$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id` FROM `" . $roster->db->table('guild') . "`"
-	   . " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
-
-$result = $roster->db->query($query);
-
-while( $data = $roster->db->fetch($result,SQL_NUM) )
-{
-	$menu_select[$data[1]][$data[2]] = $data[0];
-}
-
-$options='';
-
-if( $roster->db->num_rows($result) > 0 )
-{
-	foreach( $menu_select as $realm => $guild )
-	{
-		$options .= '		<optgroup label="' . $realm . '">'. "\n";
-		foreach( $guild as $id => $name )
-		{
-			$options .= '			<option value="' . makelink("&amp;a=g:$id") . '"' . ( ( isset($roster->data['guild_id']) && $id == $roster->data['guild_id']) ? ' selected="selected"' : '' ) . '>' . $name . '</option>' . "\n";
-		}
-		$options .= '		</optgroup>';
-	}
-}
-
-$roster->db->free_result($result);
-
-$select_guild = '<form action="' . makelink('&amp;start=' . $start) . '" name="realm_select" method="post">
-	<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
-		<option value="' . makelink() . '">----------</option>
-' . $options . '
-	</select>
-</form>';
-
-$body .= messagebox($select_guild,$roster->locale->act['select_guild'],'sgreen') . "<br />\n";
 
 /**
  * Cleanup button

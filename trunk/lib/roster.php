@@ -175,13 +175,7 @@ class roster
 		{
 			roster_die($this->locale->act['invalid_char_module'],$this->locale->act['roster_error']);
 		}
-	}
 
-	/**
-	 * Get the data for the current scope and assign it to $this->data
-	 */
-	function get_scope_data()
-	{
 		if( in_array( $this->pages[0], array('util','realm','guild','char') ) )
 		{
 			$this->scope = $this->pages[0];
@@ -190,7 +184,13 @@ class roster
 		{
 			$this->scope = 'page';
 		}
+	}
 
+	/**
+	 * Get the data for the current scope and assign it to $this->data
+	 */
+	function get_scope_data()
+	{
 		// --[ Resolve the anchor ]--
 		$this->anchor = isset($_GET['a'])?$_GET['a']:'';
 
