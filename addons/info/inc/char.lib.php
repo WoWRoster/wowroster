@@ -1984,27 +1984,18 @@ $returnstring .= '  <tr>
 		$output = '';
 		foreach( $repData as $findex => $faction )
 		{
-			if( $faction['name'] == $roster->locale->act['inactive'] )
-			{
-				$output .= '
-		<div class="header" onclick="showHide(\'rep' . $findex . '\',\'rep' . $findex . '_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');"><img src="' . $roster->config['img_url'] . 'plus.gif" id="rep' . $findex . '_img" class="minus_plus" alt="" />' . $faction['name'] . '</div>
-		<div id="rep' . $findex . '" style="display:none;">' . "\n";
-			}
-			else
-			{
-				$output .= '
-		<div class="header" onclick="showHide(\'rep' . $findex . '\',\'rep' . $findex . '_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');"><img src="' . $roster->config['img_url'] . 'minus.gif" id="rep' . $findex . '_img" class="minus_plus" alt="" />' . $faction['name'] . '</div>
-		<div id="rep' . $findex . '">' . "\n";
-			}
+			$output .= '
+		<div class="header" onclick="showHide(\'rep' . $findex . '\',\'rep' . $findex . '_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');"><img src="' . $roster->config['img_url'] . '' . ( $faction['name'] == $roster->locale->act['inactive'] ? 'plus' : 'minus' ) . '.gif" id="rep' . $findex . '_img" class="minus_plus" alt="" />' . $faction['name'] . '</div>
+		<div id="rep' . $findex . '"' . ( $faction['name'] == $roster->locale->act['inactive'] ? ' style="display:none;"' : '' ) . ">\n";
+
 			foreach( $faction['bars'] as $repbar )
 			{
 				$output .= '
 			<div class="rep_bar">
 				<div class="rep_title">' . $repbar['name'] . '</div>
 				<div class="rep_bar_field" style="clip:rect(0px ' . $repbar['barwidth'] . 'px 13px 0px);"><img class="rep_bar_image" src="' . $repbar['image'] . '" alt="" /></div>
-				<div id="rb_' . $repbar['barid'] . '" class="rep_bar_text">' . $repbar['standing'] . '</div>
-				<div id="rbn_' . $repbar['barid'] . '" class="rep_bar_text" style="display:none">' . $repbar['value'] . ' / ' . $repbar['maxvalue'] . '</div>
-				<div class="rep_bar_field"><img class="rep_bar_image" src="' . $roster->config['img_url'] . 'pixel.gif" onmouseout="swapShow(\'rb_' . $repbar['barid'] . '\',\'rbn_' . $repbar['barid'] . '\');" onmouseover="swapShow(\'rb_' . $repbar['barid'] . '\',\'rbn_' . $repbar['barid'] . '\');" alt="" /></div>' . "\n";
+				<div class="rep_bar_field"><img class="rep_bar_image" src="' . $roster->config['img_url'] . 'pixel.gif" alt="" /></div>
+				<div class="rep_bar_text">' . $repbar['standing'] . ' - ' . $repbar['value'] . ' / ' . $repbar['maxvalue'] . '</div>' . "\n";
 				if( $repbar['atwar'] == 1 )
 				{
 					$output .= '				<img src="' . $addon['image_path'] . '/rep/atwar.gif" style="float:right;" alt="" />' . "\n";
