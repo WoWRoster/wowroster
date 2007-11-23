@@ -301,6 +301,8 @@ class roster
 
 				$this->db->free_result($result);
 
+				$this->anchor = $this->data['member_id'];
+
 				break;
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
@@ -355,6 +357,7 @@ class roster
 
 				$this->db->free_result($result);
 
+				$this->anchor = $this->data['guild_id'];
 				break;
 
 			case 'realm':
@@ -394,6 +397,8 @@ class roster
 				{
 					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
 				}
+
+				$this->anchor = $this->data['region'] . '-' . $this->data['server'];
 
 				break;
 			default:
