@@ -151,9 +151,6 @@ if( $num_members > 0 )
 <table class="bodyline" cellspacing="0">
 	<thead>
 		<tr>
-';
-
-	$body .= '
 			<th class="membersHeader"> ' . $roster->locale->act['name'] . '</th>
 			<th class="membersHeader"> ' . $roster->locale->act['server'] . '</th>
 			<th class="membersHeader"> ' . $roster->locale->act['region'] . '</th>
