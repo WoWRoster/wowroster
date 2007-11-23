@@ -1178,6 +1178,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 			fwrite($file, $header);
 			stream_set_timeout($file, $timeout);
 			$inHeader = true;
+			$redirect = false;
 			while( !feof($file) )
 			{
 				$chunk = fgets($file, 256);
@@ -1189,12 +1190,23 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 						$contents .= substr( $chunk, $pos, strlen($chunk) );
 						$inHeader = false;
 					}
+					if( preg_match ( '/^(?:Location:\s)(.+)/', $chunk, $redirect ) )
+					{
+						break;
+					}
 					continue;
 				}
 				$contents .= $chunk;
 			}
 			fclose($file);
-			return $contents;
+			if ( isset($redirect[1]) )
+			{
+				return urlgrabber( $redirect[1], $timeout, $user_agent );
+			}
+			else
+			{
+				return $contents;
+			}
 		}
 	}
 	elseif( $contents = file_get_contents($url) )
