@@ -734,6 +734,10 @@ $lang['upload_rules_help'] = 'En este apartado puedes configurar las hermandades
 
 // Data Manager
 $lang['clean'] = 'Clean up entries based on rules';
+$lang['select_guild'] = 'Select Guild';
+$lang['delete_checked'] = 'Delete Checked';
+$lang['delete_guild'] = 'Delete Guild';
+$lang['delete_guild_confirm'] = 'This will remove this entire guild and all its members.\\n Are you sure you want to do this?\\n\\nNOTE: This cannot be un-done!';
 
 // Config Reset
 $lang['config_is_reset'] = 'La configuración ha sido restaurada. Por favor, recuerda re-configurar TODAS tus opciones antes de pasar a subir datos';

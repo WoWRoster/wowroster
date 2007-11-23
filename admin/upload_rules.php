@@ -109,6 +109,8 @@ if( !$result )
 	die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 }
 
+$existing_data = ($roster->db->num_rows($result) > 0 ? true : false);
+
 $data = array('allow'=>array(),'deny'=>array());
 
 while( $row = $roster->db->fetch($result) )
@@ -235,13 +237,13 @@ function ruletable_line( $row , $type , $mode )
 
 function ruletable_foot( $style , $type , $mode )
 {
-	global $roster;
+	global $roster, $existing_data;
 
 	$output = "\n\t\t<tr>\n";
 
 	if( $mode == 'guild' && $type != 'deny' )
 	{
-		$output .= '			<td class="membersRow2" style="text-align:center;"><label for="defaultchk">&nbsp;</label><input type="checkbox" name="defaultchk" id="defaultchk" value="1" /></td>';
+		$output .= '			<td class="membersRow2" style="text-align:center;"><label for="defaultchk">&nbsp;</label><input type="checkbox" name="defaultchk" id="defaultchk" value="1" ' . ($existing_data ?  '' : ' checked="checked"') . '/></td>';
 	}
 	$output .= '
 			<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>

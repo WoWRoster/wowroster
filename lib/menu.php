@@ -694,7 +694,7 @@ class RosterMenu
 			$roster->tpl->assign_block_vars('menu_button_section', array(
 				'CLASS' => ( $sections[$id] == 'util' ? 'utility' : 'scope' ),
 				'ID' => $sections[$id],
-				'OPEN' => ( ($sections[$id] == $roster->scope) || ( $id == count($sections) - 1 ) ) ? false : true,
+				'OPEN' => ( ($sections[$id] == $roster->scope) || ( $id == count($sections) - 1 ) || ($roster->scope == 'page' && $sections[$id] == 'util') ) ? false : true,
 				'ALIGN' => ( $sections[$id] == 'util' ? 'right' : 'left' ),
 				'LABEL' => ( isset($roster->locale->act['menupanel_' . $sections[$id]]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $sections[$id]]) : '' )
 				)

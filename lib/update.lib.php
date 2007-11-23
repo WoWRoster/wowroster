@@ -2255,7 +2255,7 @@ class update
 
 		// Select and delete all non-matching guildless members
 		$this->setMessage('<ul>');
-		$inClause='';
+		$inClause=array();
 
 		$query = "SELECT *"
 			. " FROM `" . $roster->db->table('members') . "` members"
@@ -2277,17 +2277,17 @@ class update
 			{
 				$this->setMessage('<li>Deleting member "' . $row['name'] . '".</li>');
 				// Does not match rules
-				$inClause .= ',' . $row['member_id'];
+				$inClause[] = $row['member_id'];
 			}
 		}
 
-		if( empty($inClause) )
+		if( count($inClause) == 0 )
 		{
 			$this->setMessage('<li>No members deleted.</li>');
 		}
 		else
 		{
-			$this->deleteMembers( '0'.$inClause );
+			$this->deleteMembers( implode(',', $inClause) );
 		}
 		$this->setMessage('</ul>');
 	}
@@ -2297,8 +2297,9 @@ class update
 	 *
 	 * @param int $guild_id
 	 * @param string $timestamp
+	 * @param bool $del_members Permently delete members instead of setting them guildless
 	 */
-	function deleteGuild( $guild_id, $timestamp )
+	function deleteGuild( $guild_id, $timestamp, $del_members=false )
 	{
 		global $roster;
 
@@ -2306,12 +2307,31 @@ class update
 		$query = "UPDATE `" . $roster->db->table('members') . "` SET `active` = 0 WHERE `guild_id` = '" . $guild_id . "';";
 		$roster->db->query($query);
 
-		// Process that
-		$this->remove_guild_members( $guild_id, $timestamp );
-
 		// Remove the guild
 		$query = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '" . $guild_id . "';";
 		$roster->db->query($query);
+
+		// Process members
+		if( $del_members )
+		{
+			$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id';";
+
+			$result = $roster->db->query($querystr);
+
+			$inClause = array();
+			while( $row = $roster->db->fetch($result) )
+			{
+				$inClause[] = $row['member_id'];
+			}
+			$inClause = implode(',', $inClause);
+
+			$this->deleteMembers($inClause);
+		}
+		else
+		{
+			$this->remove_guild_members( $guild_id, $timestamp );
+		}
+
 	}
 
 	/**
@@ -2407,7 +2427,7 @@ class update
 			$this->setError('Pet Data could not be deleted',$roster->db->error());
 		}
 
-		$messages .= 'Pets Spellbooks..';
+		$messages .= 'Pet Spellbooks..';
 		$querystr = "DELETE FROM `" . $roster->db->table('spellbook_pet') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
@@ -2474,15 +2494,15 @@ class update
 
 		if( $num > 0 )
 		{
-			$inClause = '';
+			$inClause = array();
 			while( $row = $roster->db->fetch($result) )
 			{
 				$this->setMessage('<li><span class="red">[</span> ' . $row[1] . ' <span class="red">] - Removed</span></li>');
 				$this->setMemberLog($row,0,$timestamp);
 
-				$inClause .= ',' . $row[0];
+				$inClause[] = $row[0];
 			}
-			$inClause = substr($inClause,1);
+			$inClause = implode(',',$inClause);
 
 			// now that we have our inclause, set them guildless
 			$this->setMessage('<li><span class="red">Setting ' . $num . ' member' . ($num > 1 ? 's' : '') . ' to guildless</span></li>');
