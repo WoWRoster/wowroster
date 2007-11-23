@@ -661,7 +661,7 @@ class RosterMenu
 				}
 			}
 
-			if( $sections[$name] == 'util')
+			if( $sections[$name] != 'util')
 			{
 				$arrayButtons[$name] = array_reverse($arrayButtons[$name]);
 			}
