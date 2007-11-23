@@ -39,7 +39,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	if( substr($_POST['action'],0,9) == 'delguild_' )
 	{
-		$update->deleteGuild( $sel_guild, time(), true );
+		$update->deleteGuild( $sel_guild, time() );
 	}
 	elseif( isset($_POST['massdel']) )
 	{
