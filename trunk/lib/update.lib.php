@@ -2293,13 +2293,12 @@ class update
 	}
 
 	/**
-	 * Delete Guild from database
+	 * Delete Guild from database. Doesn't directly delete members, because some of them may have individual upload permission (char based)
 	 *
 	 * @param int $guild_id
 	 * @param string $timestamp
-	 * @param bool $del_members Permently delete members instead of setting them guildless
 	 */
-	function deleteGuild( $guild_id, $timestamp, $del_members=false )
+	function deleteGuild( $guild_id, $timestamp )
 	{
 		global $roster;
 
@@ -2307,30 +2306,13 @@ class update
 		$query = "UPDATE `" . $roster->db->table('members') . "` SET `active` = 0 WHERE `guild_id` = '" . $guild_id . "';";
 		$roster->db->query($query);
 
+		// Process that. Keep this above the 'remove guild' line, because remove_guild_members() needs the guild entry to exist
+		$this->remove_guild_members( $guild_id, $timestamp );
+
 		// Remove the guild
 		$query = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '" . $guild_id . "';";
 		$roster->db->query($query);
 
-		// Process members
-		if( $del_members )
-		{
-			$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guild_id';";
-
-			$result = $roster->db->query($querystr);
-
-			$inClause = array();
-			while( $row = $roster->db->fetch($result) )
-			{
-				$inClause[] = $row['member_id'];
-			}
-			$inClause = implode(',', $inClause);
-
-			$this->deleteMembers($inClause);
-		}
-		else
-		{
-			$this->remove_guild_members( $guild_id, $timestamp );
-		}
 
 	}
 
