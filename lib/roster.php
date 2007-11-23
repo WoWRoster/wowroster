@@ -63,7 +63,7 @@ class roster
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,
-		'show_menu'   => array('util','realm','guild'),
+		'show_menu'   => array('util'=>0,'realm'=>0,'guild'=>0),
 		'show_footer' => true,
 
 		// used on rostercp pages
@@ -413,8 +413,10 @@ class roster
 		// Set menu array
 		if( isset($this->data['member_id']) )
 		{
-			$this->output['show_menu'][] = 'char';
+			$this->output['show_menu']['char'] = 1;
 		}
+
+		$this->output['show_menu'][$this->scope == 'page' ? 'util' : $this->scope] = 1;
 	}
 
 	/**
