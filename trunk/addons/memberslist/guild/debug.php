@@ -91,5 +91,5 @@ echo "<br />\n".border('syellow','start')."\n";
 echo $memberlist->makeMembersList();
 echo border('syellow','end');
 
-echo "<br />\n".scrollbox('<pre>'.print_r($addon,true).'</pre>','','sgray');
+echo "<br />\n".scrollbox(aprint($addon,'$addon',true),'Config data','sgray');
 
