@@ -28,7 +28,7 @@ class info
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '1.9.9.1431';
+	var $version = '1.9.9.1477';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -54,6 +54,7 @@ class info
 		$installer->add_config("'120','char_pref','rostercp-addon-info-display','makelink','menu'");
 
 		$installer->add_config("'1000', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
+		$installer->add_config("'1005', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
 		$installer->add_config("'1010', 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 		$installer->add_config("'1020', 'show_played', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
 		$installer->add_config("'1030', 'show_tab2', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
@@ -105,7 +106,12 @@ class info
 	 */
 	function upgrade($oldversion)
 	{
-		// Nothing to upgrade from yet
+		global $installer;
+
+		if( version_compare('1.9.9.1477', $oldversion,'>') == true )
+		{
+			$installer->add_config("'1005', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
+		}
 		return true;
 	}
 

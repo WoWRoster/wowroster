@@ -252,6 +252,7 @@ $lang['inactive'] = 'Inaktiv';
 $lang['admin']['char_conf'] = 'Charakterseite|Einstellen was auf den Charakterseite angezeigt werden soll';
 $lang['admin']['char_links'] = "Charakter Seitenlinks|Zeige Charakterseiten Quicklinks auf jeder Charakterseite";
 $lang['admin']['recipe_disp'] = "Rezeptanzeige|Kontrolliere wie die Rezepteliste angezeigt werden soll<br />Die Liste kann per Klick auf die Kopfzeile geöffnet und geschlossen werden<br /><br />&quot;show&quot; wird die komplette Liste beim Seitenaufbau anzeigen <br />&quot;hide&quot; wird die geschlossene Liste zeigen";
+$lang['admin']['mail_disp'] = "Mail Display|Controls how the mail is displayed<br /><br />&quot;Table&quot; Shows the mail in a table view<br />&quot;Bag&quot; Shows each mail as a bag of items<br />&quot;Both&quot; Shows both";
 $lang['admin']['show_money'] = "Gold|Anzeige des Goldes im Rucksack<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_played'] = "Time Played|Controls the display of Time Played and Time Level Played<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_tab2'] = "Begleiter|Kontrolliere die Begleiteranzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
