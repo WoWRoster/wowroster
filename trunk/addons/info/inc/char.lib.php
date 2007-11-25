@@ -380,17 +380,18 @@ $returnstring .= '  <tr>
 				// first line is sender
 				$tooltip = $roster->locale->wordings[$this->data['clientLocale']]['mail_sender'] . ': ' . $row['mailbox_sender'] . '<br />';
 
-				$expires_line = date($roster->locale->wordings[$this->data['clientLocale']]['phptimeformat'],((($row['mailbox_days']*24 + $roster->config['localtimeoffset'])*3600)+$maildateutc)) . ' ' . $roster->config['timezone'];
+				$expires_line = date($roster->locale->wordings[$this->data['clientLocale']]['phptimeformat'],($row['mailbox_days']*24*3600)+$maildateutc) . ' ' . $roster->config['timezone'];
+
 				if( (($row['mailbox_days']*24*3600)+$maildateutc) - time() < (3*24*3600) )
 				{
-					$color = 'ff0000;';
+					$color = 'ff0000';
 				}
 				else
 				{
-					$color = 'ffffff;';
+					$color = 'ffffff';
 				}
 
-				$tooltip .= $roster->locale->wordings[$this->data['clientLocale']]['mail_expires'] . ": <span style=\"color:#$color\">$expires_line</span><br />";
+				$tooltip .= $roster->locale->wordings[$this->data['clientLocale']]['mail_expires'] . ": <span style=\"color:#$color;\">$expires_line</span><br />";
 
 				// Join money with main tooltip
 				if( !empty($money_included) )
@@ -415,25 +416,28 @@ $returnstring .= '  <tr>
 
 				$cur_row = (($cur_row%2)+1);
 
-				// Set up box display
-				$row['item_slot'] = 'Mail ' . $row['mailbox_slot'];
-				$row['item_id'] = '0:0:0:0:0';
-				$row['item_name'] = $row['mailbox_subject'];
-				$row['item_level'] = 0;
-				$row['item_texture'] = $row['mailbox_icon'];
-				$row['item_parent'] = 'Mail';
-				$row['item_tooltip'] = $tooltip;
-				$row['item_color'] = '';
-				$row['item_quantity'] = 0;
-				$row['locale'] = $this->data['clientLocale'];
+				if( $addon['config']['mail_disp'] > 0 )
+				{
+					// Set up box display
+					$row['item_slot'] = 'Mail ' . $row['mailbox_slot'];
+					$row['item_id'] = '0:0:0:0:0';
+					$row['item_name'] = $row['mailbox_subject'];
+					$row['item_level'] = 0;
+					$row['item_texture'] = $row['mailbox_icon'];
+					$row['item_parent'] = 'Mail';
+					$row['item_tooltip'] = $tooltip;
+					$row['item_color'] = '';
+					$row['item_quantity'] = 0;
+					$row['locale'] = $this->data['clientLocale'];
 
-				$attach = new bag( $row );
-				$boxes .= $attach->out();
+					$attach = new bag($row);
+					$boxes .= $attach->out();
+				}
 			}
 
 			$content .= "</table>\n" . border('sgray','end');
 
-			return $content.$boxes;
+			return $boxes . ( $addon['config']['mail_disp'] == '0' || $addon['config']['mail_disp'] == '2' ? '<div style="clear: left;">' . $content . '</div>' : '' );
 		}
 		else
 		{

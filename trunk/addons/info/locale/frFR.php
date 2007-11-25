@@ -253,6 +253,7 @@ $lang['inactive'] = 'Inactive';
 $lang['admin']['char_conf'] = 'Page de Personnage|Définir ce qui est affiché sur la page de personnage';
 $lang['admin']['char_links'] = "Liens de la page de personnage|Afficher le lien rapide vers la page de personnage sur chaque page de personnage";
 $lang['admin']['recipe_disp'] = "Affichage des recettes|Contrôle la façon dont la page des recettes est affichée à son chargement<br />Les listes peuvent être repliées ou ouvertes en cliquant sur l'en-tête du tableau<br /><br />&quot;show&quot; laissera apparaître les listes au chargement<br />&quot;collapse&quot; laissera les listes repliées";
+$lang['admin']['mail_disp'] = "Mail Display|Controls how the mail is displayed<br /><br />&quot;Table&quot; Shows the mail in a table view<br />&quot;Bag&quot; Shows each mail as a bag of items<br />&quot;Both&quot; Shows both";
 $lang['admin']['show_money'] = "Argent|Affichage de l'argent<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_played'] = "Time Played|Controls the display of Time Played and Time Level Played<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_tab2'] = "Familiers|Affichage des familiers<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
