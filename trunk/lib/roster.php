@@ -239,12 +239,22 @@ class roster
 
 			$data = $this->db->fetch();
 
-			$name = $this->db->escape( $data['name'] );
-			$realm = $this->db->escape( $data['server'] );
-			$region = $this->db->escape( $data['region'] );
+			if( $data )
+			{
+				$name = $this->db->escape( $data['name'] );
+				$realm = $this->db->escape( $data['server'] );
+				$region = $this->db->escape( $data['region'] );
 
-			$this->atype = 'default';
-			$this->anchor = $name . '@' . $region . '-' . $realm;
+				$this->atype = 'default';
+				$this->anchor = $name . '@' . $region . '-' . $realm;
+			}
+			else
+			{
+				$this->atype = 'none';
+				$this->anchor = '';
+
+				roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
+			}
 		}
 
 		// --[ Build the query ]--
