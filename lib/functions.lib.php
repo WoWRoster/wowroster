@@ -1138,6 +1138,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 		if( $user_agent )
 		{
 			curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
