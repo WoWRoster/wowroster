@@ -19,7 +19,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_LIB . 'item.php');
+require_once ($addon['inc_dir'] . 'vault.lib.php');
 
 $roster->output['title'] = $roster->locale->act['vault'];
 
@@ -32,6 +32,15 @@ $roster->tpl->assign_vars(array(
 );
 
 
+$sqlquery = "SELECT * FROM `" . $roster->db->table('items',$addon['basename']) . "` WHERE " . $roster->anchor . " = `guild_id`;";
+
+$result = $roster->db->query($sqlquery);
+
+while( $itemRow = $roster->db->fetch($result) )
+{
+	$item = new VaultItem($itemRow,'simple');
+	print $item->out();
+}
 
 
 
