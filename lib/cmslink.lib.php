@@ -144,10 +144,10 @@ function makelink( $url='' , $full=false )
 	switch($roster->atype)
 	{
 	case 'char':
-		$anchor = 'a=c:' . ( isset($roster->data['member_id'])?$roster->data['member_id']:$roster->anchor );
+		$anchor = ( isset($roster->data['member_id'])?'a=c:' . $roster->data['member_id']:'' );
 		break;
 	case 'guild': case 'default':
-		$anchor = 'a=g:' . ( isset($roster->data['guild_id'])?$roster->data['guild_id']:$roster->anchor );
+		$anchor = ( isset($roster->data['guild_id'])?'a=g:' . $roster->data['guild_id']:'' );
 		break;
 	case 'realm':
 		$anchor = 'a=r:' . $roster->anchor;

@@ -523,6 +523,8 @@ class update
 
 								// Update the guild
 								$guildId = $this->update_guild($realm_name, $guild_name, $currentTimestamp, $guild, $region);
+								$guild['guild_id'] = $guildId;
+
 								$guildMembers = $guild['Members'];
 
 								$guild_output = '';

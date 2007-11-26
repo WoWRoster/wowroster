@@ -90,7 +90,8 @@ class memberslistUpdate
 
 		$query = "SELECT `config_name`, `config_value` "
 			. "FROM `" . $roster->db->table('config_guild',$this->data['basename']) . "` "
-			. "WHERE `guild_id` = " . $roster->data['guild_id'] . ";";
+			. "WHERE `guild_id` = " . $guild['guild_id'] . ";";
+
 		$result = $roster->db->query($query);
 
 		while( $row = $roster->db->fetch($result) )
