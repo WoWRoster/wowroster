@@ -91,5 +91,15 @@ echo "<br />\n".border('syellow','start')."\n";
 echo $memberlist->makeMembersList();
 echo border('syellow','end');
 
+$query = "SELECT `config_name`, `config_value` "
+	. "FROM `" . $roster->db->table('config_guild',$addon['basename']) . "` "
+	. "WHERE `guild_id` = " . $roster->data['guild_id'] . ";";
+$result = $roster->db->query($query);
+
+while( $row = $roster->db->fetch($result) )
+{
+	$addon['rules'][$row['config_name']] = $row['config_value'];
+}
+
 echo "<br />\n".scrollbox(aprint($addon,'$addon',true),'Config data','sgray');
 

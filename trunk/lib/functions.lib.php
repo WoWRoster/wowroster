@@ -1350,6 +1350,10 @@ function _aprint( $arr , $tab=1 )
 				$val = "<span style=\"color:#FF6633\">False</span>";
 			}
 		}
+		elseif( is_null($val) )
+		{
+			$val = "<span style=\"color:#3366FF\">Null</span>";
+		}
 		else
 		{
 			if( !is_numeric($val) )
