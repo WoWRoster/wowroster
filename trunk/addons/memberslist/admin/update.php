@@ -19,6 +19,7 @@ if ( !defined('IN_ROSTER') )
 
 // Recreate the CP.lua guild subtree. Or at least the relevant parts.
 $guild = $roster->data;
+$guild['ScanInfo']['HasOfficerNote'] = '1'; 
 
 $query = "SELECT `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".$roster->db->table('members')."` as members";
 $result = $roster->db->query( $query ) or die_quietly( $roster->db->error() );
@@ -38,7 +39,8 @@ $update = new update;
 
 $memberslist = new memberslistUpdate($addon);
 
-// We skip the guild_pre. This way the hasONotes check stays on the default value (true).
+// We need to do the guild_pre to load the guild-specific rules
+$memberslist->guild_pre($guild);
 
 // Loop over all members
 foreach($guild['Members'] as $member_name => $char)

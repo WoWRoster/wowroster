@@ -83,12 +83,14 @@ $lang['documentation']			= 'Documentation';
 $lang['uninstall']				= 'Uninstall';
 
 // Page names
+$lang['admin']['main']		= 'Main|Back to the global part of the configuration.';
 $lang['admin']['display']       = 'Display|Configure display options specific to memberslist.';
 $lang['admin']['members']       = 'Members List|Configure visibility of members list columns.';
 $lang['admin']['stats']         = 'Stats List|Configure visibility of stats list columns.';
 $lang['admin']['honor']         = 'Honor List|Configure visibility of honor list columns.';
 $lang['admin']['log']           = 'Member Log|Configure visibility of member log columns.';
 $lang['admin']['build']         = 'Main/Alt Relations|Configure how the Main/Alt relations are detected.';
+$lang['admin']['gbuild']        = 'Main/Alt per guild|Configure guild-specific Main/Alt detection rules.';
 $lang['admin']['ml_wiki']       = 'Documentation|Members List documentation on the WoWRoster wiki.';
 $lang['admin']['updMainAlt']    = 'Update Relations|Update the Main/Alt relations using the data already in the DB.';
 $lang['admin']['page_size']		= 'Page size|Configure the number of items per page, or 0 for no pagination';
