@@ -75,9 +75,37 @@ class memberslistUpdate
 	 */
 	function guild_pre($guild)
 	{
+		global $roster;
+
+		// --[ Check if this update type is enabled ]--
+		if( !( $this->data['config']['update_type'] & 1 ) )
+		{
+			// prevent the addon name from being displayed
+			$this->messages = '';
+			return true;
+		}
+
+		// Fetch guild-specific rules
+		$this->data['rules'] = array();
+
+		$query = "SELECT `config_name`, `config_value` "
+			. "FROM `" . $roster->db->table('config_guild',$this->data['basename']) . "` "
+			. "WHERE `guild_id` = " . $roster->data['guild_id'] . ";";
+		$result = $roster->db->query($query);
+
+		while( $row = $roster->db->fetch($result) )
+		{
+			$this->data['rules'][$row['config_name']] = $row['config_value'];
+		}
+
+		if( empty( $this->data['rules'] ) )
+		{
+			$this->data['rules'] = $this->data['config'];
+		}
+
 		if( isset($guild['ScanInfo']) && is_array($guild['ScanInfo'])
 			&& isset($guild['ScanInfo']['HasOfficerNote']) 
-			|| $this->data['config']['getmain_field'] != 'OfficerNote' )
+			|| $this->data['rules']['getmain_field'] != 'OfficerNote' )
 		{
 			$this->passedCheck = true;
 			$this->messages = '';
@@ -89,7 +117,6 @@ class memberslistUpdate
 			$this->messages = '- <span style="color:red;">Not updating alt data: Officer notes needed but not available in update</span>';
 			return false;
 		}
-		return true;
 	}
 	/**
 	 * Guild trigger, the regex-based alt detection
@@ -155,13 +182,13 @@ class memberslistUpdate
 		}
 
 		// --[ Use regex to parse the main name ]--
-		$matchfield = isset($char[$this->data['config']['getmain_field']])?$char[$this->data['config']['getmain_field']]:'';
-		if(preg_match($this->data['config']['getmain_regex'], $matchfield, $regs))
+		$matchfield = isset($char[$this->data['rules']['getmain_field']])?$char[$this->data['rules']['getmain_field']]:'';
+		if(preg_match($this->data['rules']['getmain_regex'], $matchfield, $regs))
 		{
-			$main_name = $regs[$this->data['config']['getmain_match']]; // We have a regex result.
+			$main_name = $regs[$this->data['rules']['getmain_match']]; // We have a regex result.
 			$this->messages .= " - <span style='color:green;'>Main: $main_name</span>\n";
 		}
-		else if($this->data['config']['defmain'])
+		else if($this->data['rules']['defmain'])
 		{
 			$main_name = $member_name;			// No regex result; assume the character is a main
 			$this->messages .= " - <span style='color:yellow;'>No main match</span>\n";
@@ -172,8 +199,8 @@ class memberslistUpdate
 			$this->messages .= " - <span style='color:yellow;'>No main match</span>\n";
 		}
 
-		// If the main name is equal to this config field then this char is a main, and we should set the $main_name accordingly
-		if($main_name == $this->data['config']['getmain_main'])
+		// If the main name is equal to this rules field then this char is a main, and we should set the $main_name accordingly
+		if($main_name == $this->data['rules']['getmain_main'])
 		{
 			$main_name = $member_name;
 		}
@@ -235,7 +262,7 @@ class memberslistUpdate
 				$roster->db->free_result( $result );
 
 				// --[ Alt of alt check ]--
-				if ( $this->data['config']['altofalt'] == 'leave' ) {
+				if ( $this->data['rules']['altofalt'] == 'leave' ) {
 					$alt_type = ALTMONITOR_ALT_WITH_MAIN;	// Don't check if we're allowing alt of alt in the database
 				}
 				else {
@@ -257,7 +284,7 @@ class memberslistUpdate
 							$alt_type = ALTMONITOR_ALT_WITH_MAIN;
 							$this->messages .= " - <span style='color:green;'>Alt of Main</span>\n";
 						}
-						elseif ( $this->data['config']['altofalt'] == 'main' ) {
+						elseif ( $this->data['rules']['altofalt'] == 'main' ) {
 							// The main is an alt so the member is being made a main
 							$this->messages .= " - <span style='color:red;'>Alt of Alt</span>\n";
 
@@ -288,7 +315,7 @@ class memberslistUpdate
 								$this->messages .= " - <span style='color:red;'>Main with alts </span>\n";
 							}
 						}
-						elseif ( $this->data['config']['altofalt'] == 'alt' ) {
+						elseif ( $this->data['rules']['altofalt'] == 'alt' ) {
 							$main_id = 0;
 							$alt_type = ALTMONITOR_ALT_NO_MAIN;
 							$this->messages .= " - <span style='color:red;'>Alt of Alt</span>\n";
@@ -308,7 +335,7 @@ class memberslistUpdate
 			else
 			{
 				$this->messages .= " - <span style='color:red;'>Invalid main</span>\n";
-				if($this->data['config']['invmain'])
+				if($this->data['rules']['invmain'])
 				{
 					$this->messages .= " - <span style='color:green;'>Main</span>\n";
 

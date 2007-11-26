@@ -28,7 +28,7 @@ class memberslist
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '1.9.9.1431';
+	var $version = '1.9.9.1479';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
@@ -60,6 +60,7 @@ class memberslist
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
 		$installer->add_config("150,'log',NULL,'blockframe','menu'");
 		$installer->add_config("160,'build',NULL,'blockframe','menu'");
+		$installer->add_config("165,'gbuild','rostercp-addon-memberslist-guild','makelink','menu'");
 		$installer->add_config("170,'ml_wiki','http://www.wowroster.net/MediaWiki/MembersList','newlink','menu'");
 		$installer->add_config("180,'updMainAlt','rostercp-addon-memberslist-update','makenewlink','menu'");
 
@@ -161,6 +162,21 @@ class memberslist
 			`alt_type`  tinyint(3) unsigned NOT NULL default '0',
 			PRIMARY KEY (`member_id`)");
 
+		// Filled from the normal config table by admin/guild.php
+		$installer->create_table($installer->table('config_guild'),"
+			`guild_id` int(11) NOT NULL default '0',
+			`id` int(11) unsigned NOT NULL,
+			`config_name` varchar(255) default NULL,
+			`config_value` tinytext,
+			`form_type` mediumtext,
+			`config_type` varchar(255) default NULL,
+			PRIMARY KEY  (`guild_id`,`id`)");
+
+		$installer->add_query("INSERT INTO `" . $installer->table('config_guild') . "` VALUES
+			(0, 100, 'main',       'rostercp-addon-memberslist',                    'makelink',    'menu'),
+			(0, 170, 'ml_wiki',    'http://www.wowroster.net/MediaWiki/MembersList','newlink',     'menu'),
+			(0, 180, 'updMainAlt', 'rostercp-addon-memberslist-update',             'makenewlink', 'menu');");
+
 		# Roster menu entry
 		$installer->add_menu_button('memberslist_Members','guild','','spell_holy_prayerofspirit');
 		$installer->add_menu_button('memberslist_Stats','guild','statslist','inv_misc_book_09');
@@ -179,7 +195,31 @@ class memberslist
 	 */
 	function upgrade($oldversion)
 	{
-		// Nothing to upgrade from yet
+		global $installer;
+
+		/**
+		 * In this update: Per-guild main/alt rule configuration
+		 */
+		if( version_compare('1.9.9.1479', $oldversion,'>') == true )
+		{
+			$installer->add_config("165,'gbuild','rostercp-addon-memberslist-guild','makelink','menu'");
+
+			// Filled from the normal config table and ID=0 by admin/guild.php
+			// Note: When updating config entries from the 'build' category, apply them both on the main config table and on this one.
+			$installer->create_table($installer->table('config_guild'),"
+				`guild_id` int(11) NOT NULL default '0',
+				`id` int(11) unsigned NOT NULL,
+				`config_name` varchar(255) default NULL,
+				`config_value` tinytext,
+				`form_type` mediumtext,
+				`config_type` varchar(255) default NULL,
+				PRIMARY KEY  (`guild_id`,`id`)");
+
+			$installer->add_query("INSERT INTO `" . $installer->table('config_guild') . "` VALUES
+				(0, 100, 'main',       'rostercp-addon-memberslist',                    'makelink',    'menu'),
+				(0, 170, 'ml_wiki',    'http://www.wowroster.net/MediaWiki/MembersList','newlink',     'menu'),
+				(0, 180, 'updMainAlt', 'rostercp-addon-memberslist-update',             'makenewlink', 'menu');");
+		}
 		return true;
 	}
 
