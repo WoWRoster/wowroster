@@ -53,6 +53,7 @@ $lang['addon_error'] = 'Erreur lié au greffon';
 $lang['specify_addon'] = 'Vous devez spécifier le nom du greffon !';
 $lang['addon_not_exist'] = '<b>Le greffon [%1$s] n\existe pas !</b>';
 $lang['addon_disabled'] = '<b>Le greffon [%1$s] a été désactivé</b>';
+$lang['addon_upgrade_notice'] = '<b>The addon [%1$s] has been disabled because it needs to be upgraded';
 $lang['addon_not_installed'] = '<b>Le greffon [%1$s] n\'est pas encore installé</b>';
 $lang['addon_no_config'] = '<b>Le greffon [%1$s] n\'est pas configuré</b>';
 
