@@ -244,18 +244,19 @@ function getAddonList()
 		foreach( $addons as $addon )
 		{
 			$installfile = ROSTER_ADDONS . $addon . DIR_SEP . 'inc' . DIR_SEP . 'install.def.php';
+			$install_class = $addon . 'Install';
 
 			if( file_exists($installfile) )
 			{
 				include_once($installfile);
 
-				if( !class_exists($addon) )
+				if( !class_exists($install_class) )
 				{
 					$installer->seterrors(sprintf($roster->locale->act['installer_no_class'],$addon));
 					continue;
 				}
 
-				$addonstuff = new $addon;
+				$addonstuff = new $install_class;
 
 				$query = "SELECT * FROM `" . $roster->db->table('addon') . "` WHERE `basename` = '$addon';";
 				$result = $roster->db->query($query);
@@ -356,6 +357,7 @@ function processAddon()
 	// Include addon install definitions
 	$addonDir = ROSTER_ADDONS . $addon_name . DIR_SEP;
 	$addon_install_file = $addonDir . 'inc' . DIR_SEP . 'install.def.php';
+	$install_class = $addon_name . 'Install';
 
 	if( !file_exists($addon_install_file) )
 	{
@@ -365,7 +367,7 @@ function processAddon()
 
 	require($addon_install_file);
 
-	$addon = new $addon_name();
+	$addon = new $install_class();
 	$addata = escape_array((array)$addon);
 	$addata['basename'] = $addon_name;
 

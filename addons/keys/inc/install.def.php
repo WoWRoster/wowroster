@@ -24,7 +24,7 @@ if ( !defined('IN_ROSTER') )
  * @package    InstanceKeys
  * @subpackage Installer
  */
-class keys
+class keysInstall
 {
 	var $active = true;
 	var $icon = 'inv_misc_key_06';

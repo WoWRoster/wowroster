@@ -23,7 +23,7 @@ if ( !defined('IN_ROSTER') )
  * @package News
  * @subpackage Installer
  */
-class news
+class newsInstall
 {
 	var $active = true;
 	var $icon = 'ability_warrior_rallyingcry';

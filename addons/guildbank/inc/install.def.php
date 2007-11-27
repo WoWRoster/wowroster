@@ -23,7 +23,7 @@ if ( !defined('IN_ROSTER') )
  * @package GuildBank
  * @subpackage Installer
  */
-class guildbank
+class guildbankInstall
 {
 	var $active = true;
 	var $icon = 'inv_misc_bag_15';

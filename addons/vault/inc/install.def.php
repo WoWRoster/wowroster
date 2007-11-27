@@ -23,7 +23,7 @@ if ( !defined('IN_ROSTER') )
  * @package Vault
  * @subpackage Installer
  */
-class vault
+class vaultInstall
 {
 	var $active = true;
 	var $icon = 'inv_misc_ornatebox';
