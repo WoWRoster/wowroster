@@ -125,7 +125,7 @@ class VaultItem extends item
 		$data = $roster->db->fetch( $result );
 		if( $data )
 		{
-			return new item( $data, $parse_mode );
+			return new VaultItem( $data, $parse_mode );
 		}
 		else
 		{
@@ -135,7 +135,7 @@ class VaultItem extends item
 
 	function fetchOneItem( $guild_id, $slot, $parse_mode=false )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$slot = $roster->db->escape( $slot );
 		$query 	= " SELECT *"
@@ -147,7 +147,7 @@ class VaultItem extends item
 		$data = $roster->db->fetch( $result );
 		if( $data )
 		{
-			return new item( $data, $parse_mode );
+			return new VaultItem( $data, $parse_mode );
 		}
 		else
 		{
@@ -166,7 +166,7 @@ class VaultItem extends item
 	 */
 	function fetchManyItems( $guild_id, $parent, $parse_mode=false )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$parent = $roster->db->escape( $parent );
 		$items = array();
@@ -180,7 +180,7 @@ class VaultItem extends item
 
 		while( $data = $roster->db->fetch( $result ) )
 		{
-			$item = new item( $data, $parse_mode );
+			$item = new VaultItem( $data, $parse_mode );
 			$items[$data['item_slot']] = $item;
 		}
 		return $items;
