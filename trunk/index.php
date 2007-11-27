@@ -110,6 +110,29 @@ if( !file_exists($path) )
 
 if( $addon['active'] == '1' )
 {
+	// Check if this addon is in the process of an upgrade and deny access if it hasn't yet been upgraded
+	$installfile = $addon['inc_dir'] . 'install.def.php';
+
+	if( file_exists($installfile) )
+	{
+		include_once($installfile);
+
+		if( class_exists($addon['basename']) )
+		{
+			$addonstuff = new $addon['basename'];
+
+			// -1 = overwrote newer version
+			//  0 = same version
+			//  1 = upgrade available
+
+			if( version_compare($addonstuff->version,$addon['version']) )
+			{
+				roster_die(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
+					. sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error']);
+			}
+		}
+	}
+
 	// Include addon's locale files if they exist
 	foreach( $roster->multilanguages as $lang )
 	{

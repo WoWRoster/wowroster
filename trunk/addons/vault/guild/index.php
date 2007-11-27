@@ -157,10 +157,12 @@ function vault_log( $parent )
 		elseif( $row['item_id'] != '' )
 		{
 			$money_item = $row['item_id'];
+			aprint($armory->fetchItemInfo($row['item_id'],$roster->config['locale']));
 		}
 
 		$return .= '<tr><td>' . sprintf($roster->locale->act['vault_log_' . $row['type']],$row['member'],$money_item) . ' <span class="blueB">(' . readbleDate($row['time']) . ')</span></td></tr>';
 	}
+	//aprint($armory->fetchItemInfo($row['item_id'],$roster->config['locale']));
 
 	if( $return != '' )
 	{
