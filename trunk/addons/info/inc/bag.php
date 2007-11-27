@@ -106,17 +106,19 @@ class bag extends item
 		{
 			if( $slot < 0 )
 			{
-				$returnstring .=  '			<div class="bagitem"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
+				$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
 			}
 			else
 			{
-				$returnstring .=  '			<div class="bagitem">' . "\n";
 				if( isset($this->contents[$slot+1]) )
 				{
 					$item = $this->contents[$slot+1];
 					$returnstring .= $item->out();
 				}
-				$returnstring .=  "</div>\n";
+				else
+				{
+					$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
+				}
 			}
 		}
 
