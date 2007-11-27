@@ -24,7 +24,7 @@ if ( !defined('IN_ROSTER') )
  * @package    PvPLog
  * @subpackage Installer
  */
-class pvplog
+class pvplogInstall
 {
 	var $active = true;
 	var $icon = 'inv_banner_03';

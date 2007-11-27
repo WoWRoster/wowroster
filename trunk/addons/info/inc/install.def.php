@@ -23,7 +23,7 @@ if ( !defined('IN_ROSTER') )
  * @package    CharacterInfo
  * @subpackage Installer
  */
-class info
+class infoInstall
 {
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';

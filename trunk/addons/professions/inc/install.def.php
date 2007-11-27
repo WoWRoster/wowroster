@@ -24,7 +24,7 @@ if ( !defined('IN_ROSTER') )
  * @package    Professions
  * @subpackage Locale
  */
-class professions
+class professionsInstall
 {
 	var $active = true;
 	var $icon = 'trade_blacksmithing';

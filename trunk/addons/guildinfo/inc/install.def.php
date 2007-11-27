@@ -23,7 +23,7 @@ if ( !defined('IN_ROSTER') )
  * @package    GuildInfo
  * @subpackage Installer
  */
-class guildinfo
+class guildinfoInstall
 {
 	var $active = true;
 	var $icon = 'inv_misc_note_06';

@@ -24,7 +24,7 @@ if ( !defined('IN_ROSTER') )
  * @package    QuestList
  * @subpackage Installer
  */
-class questlist
+class questlistInstall
 {
 	var $active = true;
 	var $icon = 'spell_holy_surgeoflight';

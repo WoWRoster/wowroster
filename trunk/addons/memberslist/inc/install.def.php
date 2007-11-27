@@ -23,7 +23,7 @@ if ( !defined('IN_ROSTER') )
  * @package    MembersList
  * @subpackage Installer
  */
-class memberslist
+class memberslistInstall
 {
 	var $active = true;
 	var $icon = 'inv_letter_06';

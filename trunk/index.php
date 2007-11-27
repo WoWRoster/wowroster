@@ -112,14 +112,15 @@ if( $addon['active'] == '1' )
 {
 	// Check if this addon is in the process of an upgrade and deny access if it hasn't yet been upgraded
 	$installfile = $addon['inc_dir'] . 'install.def.php';
+	$install_class = $addon['basename'] . 'Install';
 
 	if( file_exists($installfile) )
 	{
 		include_once($installfile);
 
-		if( class_exists($addon['basename']) )
+		if( class_exists($install_class) )
 		{
-			$addonstuff = new $addon['basename'];
+			$addonstuff = new $install_class;
 
 			// -1 = overwrote newer version
 			//  0 = same version
