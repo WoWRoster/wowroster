@@ -28,7 +28,7 @@ class vaultInstall
 	var $active = true;
 	var $icon = 'inv_misc_ornatebox';
 
-	var $version = '1.9.9.1481';
+	var $version = '1.9.9.1487';
 	var $wrnet_id = '0';
 
 	var $fullname = 'vault';
@@ -47,15 +47,17 @@ class vaultInstall
 	function install()
 	{
 		global $installer;
-/*
+
 		// Master and menu entries
-		$installer->add_config("'1','startpage','guildbank_conf','display','master'");
-		$installer->add_config("'110','guildbank_conf',NULL,'blockframe','menu'");
-		$installer->add_config("'1000', 'guildbank_ver', '1', 'select{Table^1|Inventory^2', 'guildbank_conf'");
-		$installer->add_config("'1100', 'bank_money', '1', 'radio{yes^1|no^0', 'guildbank_conf'");
-		$installer->add_config("'1200', 'banker_rankname', 'BankMule', 'text{50|30', 'guildbank_conf'");
-		$installer->add_config("'1300', 'banker_fieldname', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title|Player Name^name', 'guildbank_conf'");
-*/
+		$installer->add_config("'1','startpage','vault_conf','display','master'");
+		$installer->add_config("'100','vault_conf',NULL,'blockframe','menu'");
+		$installer->add_config("'1000', 'tab1', '1', 'access', 'vault_conf'");
+		$installer->add_config("'1010', 'tab2', '1', 'access', 'vault_conf'");
+		$installer->add_config("'1020', 'tab3', '1', 'access', 'vault_conf'");
+		$installer->add_config("'1030', 'tab4', '1', 'access', 'vault_conf'");
+		$installer->add_config("'1040', 'tab5', '1', 'access', 'vault_conf'");
+		$installer->add_config("'1050', 'money', '1', 'access', 'vault_conf'");
+
 		$installer->create_table($installer->table('log'),"
 			`log_id` int(11) unsigned NOT NULL default '0',
 			`guild_id` int(11) unsigned NOT NULL default '0',
@@ -107,7 +109,20 @@ class vaultInstall
 	 */
 	function upgrade($oldversion)
 	{
-		// Nothing to upgrade from yet
+		global $installer;
+
+
+		if( version_compare('1.9.9.1487', $oldversion,'>') == true )
+		{
+			$installer->add_config("'1','startpage','vault_conf','display','master'");
+			$installer->add_config("'100','vault_conf',NULL,'blockframe','menu'");
+			$installer->add_config("'1000', 'tab1', '1', 'access', 'vault_conf'");
+			$installer->add_config("'1010', 'tab2', '1', 'access', 'vault_conf'");
+			$installer->add_config("'1020', 'tab3', '1', 'access', 'vault_conf'");
+			$installer->add_config("'1030', 'tab4', '1', 'access', 'vault_conf'");
+			$installer->add_config("'1040', 'tab5', '1', 'access', 'vault_conf'");
+			$installer->add_config("'1050', 'money', '1', 'access', 'vault_conf'");
+		}
 		return true;
 	}
 

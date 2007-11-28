@@ -72,6 +72,30 @@ class update
 
 				if( file_exists($hookfile) )
 				{
+					// Check if this addon is in the process of an upgrade and deny access if it hasn't yet been upgraded
+					$installfile = ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'install.def.php';
+					$install_class = $row['basename'] . 'Install';
+
+					if( file_exists($installfile) )
+					{
+						include_once($installfile);
+
+						if( class_exists($install_class) )
+						{
+							$addonstuff = new $install_class;
+
+							// -1 = overwrote newer version
+							//  0 = same version
+							//  1 = upgrade available
+
+							if( version_compare($addonstuff->version,$row['version']) )
+							{
+								$this->setError(sprintf($roster->locale->act['addon_upgrade_notice'],$row['basename']),$roster->locale->act['addon_error']);
+							}
+							unset($addonstuff);
+						}
+					}
+
 					$addon = getaddon($row['basename']);
 
 					include_once($hookfile);
@@ -97,7 +121,7 @@ class update
 					}
 					else
 					{
-						$this->setError('Failed to load update trigger for ' . $row['basename'] . ': Update class did not exist','');
+						$this->setError('Failed to load update trigger for ' . $row['basename'] . ': Update class did not exist',$roster->locale->act['addon_error']);
 					}
 					// Restore our locale array
 					$roster->locale->wordings = $localetemp;

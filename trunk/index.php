@@ -131,6 +131,7 @@ if( $addon['active'] == '1' )
 				roster_die(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
 					. sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error']);
 			}
+			unset($addonstuff);
 		}
 	}
 
