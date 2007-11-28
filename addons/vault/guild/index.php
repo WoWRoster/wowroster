@@ -27,77 +27,116 @@ $armory = new RosterArmory($roster->data['region']);
 
 $roster->output['title'] = $roster->locale->act['vault'];
 
-$tabs = '';
 
-print '<div class="vault" style="background-image:url(' . $addon['image_path'] . 'vaultframe_' . strtolower(substr($roster->data['factionEn'],0,1)) . '.png);">';
+// ----[ Check log-in ]-------------------------------------
+$roster_login = new RosterLogin();
 
-$tab1 = vault_tab_get( $roster->data['guild_id'], 'Tab1' );
-if( !is_null( $tab1 ) )
+// Diplay Password Box
+if ( $roster_login->getAuthorized() < 1 )
 {
-	print $tab1->out();
-	$tabs .= '			<li class="selected"><a rel="Tab1" class="text">' . $tab1->data['item_name'] . "</a></li>\n";
-	$tabs .= '			<li class="selected"><a rel="Tab1Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
-	print '<div id="Tab1Log" class="log" style="display:none;">' . vault_log('Tab1') . '</div>';
+	print($roster_login->getMessage() . $roster_login->getLoginForm(1));
 }
-
-$tab2 = vault_tab_get( $roster->data['guild_id'], 'Tab2' );
-if( !is_null( $tab2 ) )
+else
 {
-	print $tab2->out();
-	$tabs .= '			<li><a rel="Tab2" class="text">' . $tab2->data['item_name'] . "</a></li>\n";
-	$tabs .= '			<li class="selected"><a rel="Tab2Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
-	print '<div id="Tab2Log" class="log" style="display:none;">' . vault_log('Tab2') . '</div>';
-}
-
-$tab3 = vault_tab_get( $roster->data['guild_id'], 'Tab3' );
-if( !is_null( $tab3 ) )
-{
-	print $tab3->out();
-	$tabs .= '			<li><a rel="Tab3" class="text">' . $tab3->data['item_name'] . "</a></li>\n";
-	$tabs .= '			<li class="selected"><a rel="Tab3Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
-	print '<div id="Tab3Log" class="log" style="display:none;">' . vault_log('Tab3') . '</div>';
-}
-
-$tab4 = vault_tab_get( $roster->data['guild_id'], 'Tab4' );
-if( !is_null( $tab4 ) )
-{
-	print $tab4->out();
-	$tabs .= '			<li><a rel="Tab4" class="text">' . $tab4->data['item_name'] . "</a></li>\n";
-	$tabs .= '			<li class="selected"><a rel="Tab4Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
-	print '<div id="Tab4Log" class="log" style="display:none;">' . vault_log('Tab4') . '</div>';
-}
-
-$tab5 = vault_tab_get( $roster->data['guild_id'], 'Tab5' );
-if( !is_null( $tab5 ) )
-{
-	print $tab5->out();
-	$tabs .= '			<li><a rel="Tab5" class="text">' . $tab5->data['item_name'] . "</a></li>\n";
-	$tabs .= '			<li class="selected"><a rel="Tab5Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
-	print '<div id="Tab5Log" class="log" style="display:none;">' . vault_log('Tab5') . '</div>';
+	print($roster_login->getMessage());
 }
 
 
-print '<div id="MoneyLog" class="log" style="display:none;">' . vault_log('Money') . '</div>';
+$tabs = $data = '';
 
-
-print vault_money();
-
-if( $tabs != '' )
+if( $roster_login->getAuthorized() >= $addon['config']['tab1'] )
 {
-	print '
-<!-- Begin Navagation Tabs -->
-<div class="tab_navagation" style="margin:476px 0 0 17px;">
-	<ul id="vault_navagation">
-' . $tabs . '
-		<li><a rel="MoneyLog" class="text">' . $roster->locale->act['vault_money_log'] . '</a></li>
-	</ul>
-</div>
-<script type="text/javascript">
-	initializetabcontent(\'vault_navagation\');
-</script>';
+	$tab1 = vault_tab_get( $roster->data['guild_id'], 'Tab1' );
+	if( !is_null( $tab1 ) )
+	{
+		$data .= $tab1->out();
+		$tabs .= '			<li class="selected"><a rel="Tab1" class="text">' . $tab1->data['item_name'] . "</a></li>\n";
+		$tabs .= '			<li><a rel="Tab1Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
+		$data .= vault_log('Tab1');
+	}
 }
 
-print '</div>';
+if( $roster_login->getAuthorized() >= $addon['config']['tab2'] )
+{
+	$tab2 = vault_tab_get( $roster->data['guild_id'], 'Tab2' );
+	if( !is_null( $tab2 ) )
+	{
+		$data .= $tab2->out();
+		$tabs .= '			<li><a rel="Tab2" class="text">' . $tab2->data['item_name'] . "</a></li>\n";
+		$tabs .= '			<li><a rel="Tab2Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
+		$data .= vault_log('Tab2');
+	}
+}
+
+if( $roster_login->getAuthorized() >= $addon['config']['tab3'] )
+{
+	$tab3 = vault_tab_get( $roster->data['guild_id'], 'Tab3' );
+	if( !is_null( $tab3 ) )
+	{
+		$data .= $tab3->out();
+		$tabs .= '			<li><a rel="Tab3" class="text">' . $tab3->data['item_name'] . "</a></li>\n";
+		$tabs .= '			<li><a rel="Tab3Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
+		$data .= vault_log('Tab3');
+	}
+}
+
+if( $roster_login->getAuthorized() >= $addon['config']['tab4'] )
+{
+	$tab4 = vault_tab_get( $roster->data['guild_id'], 'Tab4' );
+	if( !is_null( $tab4 ) )
+	{
+		$data .= $tab4->out();
+		$tabs .= '			<li><a rel="Tab4" class="text">' . $tab4->data['item_name'] . "</a></li>\n";
+		$tabs .= '			<li><a rel="Tab4Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
+		$data .= vault_log('Tab4');
+	}
+}
+
+if( $roster_login->getAuthorized() >= $addon['config']['tab5'] )
+{
+	$tab5 = vault_tab_get( $roster->data['guild_id'], 'Tab5' );
+	if( !is_null( $tab5 ) )
+	{
+		$data .= $tab5->out();
+		$tabs .= '			<li><a rel="Tab5" class="text">' . $tab5->data['item_name'] . "</a></li>\n";
+		$tabs .= '			<li><a rel="Tab5Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
+		$data .= vault_log('Tab5');
+	}
+}
+
+if( $roster_login->getAuthorized() >= $addon['config']['money'] )
+{
+	$data .= vault_money();
+
+	$money = vault_log('Money');
+	if( $money != '' )
+	{
+		$data .= $money;
+		$tabs .= '			<li><a rel="MoneyLog" class="text">' . $roster->locale->act['vault_money_log'] . "</a></li>\n";
+	}
+}
+
+
+if( $data != '' )
+{
+	print '<div class="vault" style="background-image:url(' . $addon['image_path'] . 'vaultframe_' . strtolower(substr($roster->data['factionEn'],0,1)) . '.png);">'
+		. $data;
+
+	if( $tabs != '' )
+	{
+		print '
+	<!-- Begin Navagation Tabs -->
+	<div class="tab_navagation" style="margin:476px 0 0 17px;">
+		<ul id="vault_navagation">
+	' . $tabs . '
+		</ul>
+	</div>
+	<script type="text/javascript">
+		initializetabcontent(\'vault_navagation\');
+	</script>';
+	}
+	print '</div>';
+}
 
 
 function vault_money()
@@ -120,6 +159,10 @@ function vault_money()
 			. ( $g != 0 ? $g . ' <img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> ' : '' )
 			. ( $s != 0 ? $s . ' <img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> ' : '' )
 			. $c . ' <img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" /></span></div>';
+	}
+	else
+	{
+		return '';
 	}
 }
 
@@ -157,15 +200,17 @@ function vault_log( $parent )
 		elseif( $row['item_id'] != '' )
 		{
 			$money_item = $row['item_id'];
+			//aprint($armory->fetchItemInfo($row['item_id'],$roster->config['locale']));
 		}
 
 		$return .= '<tr><td>' . sprintf($roster->locale->act['vault_log_' . $row['type']],$row['member'],$money_item) . ' <span class="blueB">(' . readbleDate($row['time']) . ')</span></td></tr>';
 	}
-	//aprint($armory->fetchItemInfo($row['item_id'],$roster->config['locale']));
 
 	if( $return != '' )
 	{
-		$return = '<table style="width:100%">' . $return . '</table>';
+		$return = '<div id="' . $parent . 'Log" class="log" style="display:none;">
+	<table style="width:100%">' . $return . '</table>
+</div>';
 	}
 
 	return $return;

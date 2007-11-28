@@ -25,3 +25,11 @@ $lang['vault_money_log']='Money Log';
 $lang['vault_log_deposit'] = '%1$s <span class="greenB">deposited</span> %2$s';
 $lang['vault_log_withdraw'] = '%1$s <span class="redB">withdrew</span> %2$s';
 $lang['vault_log_move'] = '%1$s <span class="purpleB">moved</span> %2$s';
+
+$lang['admin']['vault_conf'] = 'Guild Vault|Set up vault display and settings';
+$lang['admin']['tab1'] = 'Tab 1 Access|Control who can view the items in Tab 1';
+$lang['admin']['tab2'] = 'Tab 2 Access|Control who can view the items in Tab 2';
+$lang['admin']['tab3'] = 'Tab 3 Access|Control who can view the items in Tab 3';
+$lang['admin']['tab4'] = 'Tab 4 Access|Control who can view the items in Tab 4';
+$lang['admin']['tab5'] = 'Tab 5 Access|Control who can view the items in Tab 5';
+$lang['admin']['money'] = 'Money Access|Control who can view the available money';
