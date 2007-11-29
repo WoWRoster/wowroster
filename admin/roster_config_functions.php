@@ -212,3 +212,53 @@ function templateList( $values )
 
 	return $input_field;
 }
+
+/**
+ * Get a list of addon based auth files
+ *
+ * @return array | $file => $name
+ */
+function externalAuth( $values )
+{
+	global $roster;
+
+	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
+
+	if( 'roster' == $roster->config['external_auth'] )
+	{
+		$input_field .= '  <option value="roster" selected="selected">-[ Roster ]-</option>' . "\n";
+		$select_one = 0;
+	}
+	else
+	{
+		$input_field .= '  <option value="roster">Roster</option>' . "\n";
+	}
+
+	$select_one = 1;
+	foreach( $roster->addon_data as $addon_data )
+	{
+		if( file_exists(ROSTER_ADDONS . $addon_data['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
+		{
+			// Include addon's locale files if they exist
+			foreach( $roster->multilanguages as $lang )
+			{
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $addon_data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+			}
+
+			list($title) = explode('|',isset($roster->locale->act[$addon_data['fullname']]) ? $roster->locale->act[$addon_data['fullname']] : $addon_data['fullname']);
+
+			if( $addon_data['basename'] == $roster->config['external_auth'] && $select_one )
+			{
+				$input_field .= '  <option value="' . $addon_data['basename'] . '" selected="selected">-[ ' . $title . ' ]-</option>' . "\n";
+				$select_one = 0;
+			}
+			else
+			{
+				$input_field .= '  <option value="' . $addon_data['basename'] . '">' . $title . '</option>' ."\n";
+			}
+		}
+	}
+	$input_field .= '</select>';
+
+	return $input_field;
+}

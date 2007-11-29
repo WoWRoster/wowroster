@@ -125,6 +125,11 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1180, 'use_temp_tables', '1', 'radio{on^1|off^0', 'main_conf');");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1488','<') )
+		{
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1055, 'external_auth', 'roster', 'function{externalAuth', 'main_conf');");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

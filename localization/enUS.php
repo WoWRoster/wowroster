@@ -810,6 +810,7 @@ $lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler version a
 $lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
 $lang['admin']['locale'] = "Roster Main Language|The main language roster will be displayed in";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
+$lang['admin']['external_auth'] = "Roster Auth|Here you can choose the auth file Roster will use<br />&quot;Roster&quot; is the default, built-in auth system";
 $lang['admin']['website_address'] = "Website Address|Used for url link for logo, and guildname link in the main menu<br />Some roster addons may also use this";
 $lang['admin']['interface_url'] = "Interface Directory URL|Directory that the Interface images are located<br />Default is &quot;img/&quot;<br /><br />You can use a relative path or a full URL";
 $lang['admin']['img_suffix'] = "Interface Image Extension|The image type of the Interface images";

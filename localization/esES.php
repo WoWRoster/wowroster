@@ -810,6 +810,7 @@ $lang['admin']['minCPver'] = "Versión min de CP|Mínima versión permitida del 
 $lang['admin']['minGPver'] = "Versión min de GP|Mínima versión permitida del GuildProfiler";
 $lang['admin']['locale'] = "Lenguaje principal del Roster|Elige el lenguaje del interfaz";
 $lang['admin']['default_page'] = "Página default|Elige la página a mostrar si el URL introducido no existe";
+$lang['admin']['external_auth'] = "Roster Auth|Here you can choose the auth file Roster will use<br />&quot;Roster&quot; is the default, built-in auth system";
 $lang['admin']['website_address'] = "Dirección del sitio|Se utiliza para localizar el URL del logo, y para el enlace del nombre de la hermandad que aparece en el menú principal.<br />Algunos addons del roster requieren de ella.";
 $lang['admin']['interface_url'] = "Directorio del interfaz|Directorio donde se encuentran las imágenes del interfaz.<br />El predeterminado es &quot;img/&quot;<br /><br />Puedes usar una ruta relativa o la completa";
 $lang['admin']['img_suffix'] = "Extensión de las imágenes del interfaz|El tipo de imágenes que usa tu interfaz";

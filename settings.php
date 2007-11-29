@@ -307,6 +307,13 @@ if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgra
 
 
 /**
- * Include roster Login class
+ * Include Login class, external or Roster's
  */
-require_once(ROSTER_LIB . 'login.php');
+if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
+{
+	require_once(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php');
+}
+else
+{
+	require_once(ROSTER_LIB . 'login.php');
+}
