@@ -138,6 +138,16 @@ if( $data != '' )
 	print '</div>';
 }
 
+function itemidname( $item_id )
+	{
+		global $roster, $addon;
+		
+		$sql = "SELECT * FROM `" . $roster->db->table('items',$addon['basename']) . "`"	. " WHERE `item_id` = '$item_id'"	. " LIMIT 1";
+		$result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$query);
+		$row = $roster->db->fetch($result);
+		return $row['item_name'];
+	}
+
 
 function vault_money()
 {
@@ -199,7 +209,7 @@ function vault_log( $parent )
 		}
 		elseif( $row['item_id'] != '' )
 		{
-			$money_item = $row['item_id'];
+			$money_item = itemidname($row['item_id']);
 			//aprint($armory->fetchItemInfo($row['item_id'],$roster->config['locale']));
 		}
 
