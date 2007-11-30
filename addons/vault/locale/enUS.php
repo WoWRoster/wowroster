@@ -32,4 +32,5 @@ $lang['admin']['tab2'] = 'Tab 2 Access|Control who can view the items in Tab 2';
 $lang['admin']['tab3'] = 'Tab 3 Access|Control who can view the items in Tab 3';
 $lang['admin']['tab4'] = 'Tab 4 Access|Control who can view the items in Tab 4';
 $lang['admin']['tab5'] = 'Tab 5 Access|Control who can view the items in Tab 5';
+$lang['admin']['tab6'] = 'Tab 6 Access|Control who can view the items in Tab 6';
 $lang['admin']['money'] = 'Money Access|Control who can view the available money';

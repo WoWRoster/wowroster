@@ -28,7 +28,7 @@ class vaultInstall
 	var $active = true;
 	var $icon = 'inv_misc_ornatebox';
 
-	var $version = '1.9.9.1487';
+	var $version = '1.9.9.1492';
 	var $wrnet_id = '0';
 
 	var $fullname = 'vault';
@@ -56,6 +56,7 @@ class vaultInstall
 		$installer->add_config("'1020', 'tab3', '1', 'access', 'vault_conf'");
 		$installer->add_config("'1030', 'tab4', '1', 'access', 'vault_conf'");
 		$installer->add_config("'1040', 'tab5', '1', 'access', 'vault_conf'");
+		$installer->add_config("'1045', 'tab6', '1', 'access', 'vault_conf'");
 		$installer->add_config("'1050', 'money', '1', 'access', 'vault_conf'");
 
 		$installer->create_table($installer->table('log'),"
@@ -111,7 +112,6 @@ class vaultInstall
 	{
 		global $installer;
 
-
 		if( version_compare('1.9.9.1487', $oldversion,'>') == true )
 		{
 			$installer->add_config("'1','startpage','vault_conf','display','master'");
@@ -122,6 +122,11 @@ class vaultInstall
 			$installer->add_config("'1030', 'tab4', '1', 'access', 'vault_conf'");
 			$installer->add_config("'1040', 'tab5', '1', 'access', 'vault_conf'");
 			$installer->add_config("'1050', 'money', '1', 'access', 'vault_conf'");
+		}
+
+		if( version_compare('1.9.9.1492', $oldversion,'>') == true )
+		{
+			$installer->add_config("'1045', 'tab6', '1', 'access', 'vault_conf'");
 		}
 		return true;
 	}
