@@ -17,20 +17,30 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-// Recreate the CP.lua guild subtree. Or at least the relevant parts.
-$guild = $roster->data;
-$guild['ScanInfo']['HasOfficerNote'] = '1'; 
-
-$query = "SELECT `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".$roster->db->table('members')."` as members";
-$result = $roster->db->query( $query ) or die_quietly( $roster->db->error() );
+// Recreate a data structure containing what out hooks need to update relations. This is a partial structure, and will need changed for use by any other addon.
+// Fetch guilds
+$query = "SELECT `guild_id`, `guild_name` AS `Name` FROM `" . $roster->db->table('guild') . "` as guild";
+$result = $roster->db->query( $query );
 
 while( $row = $roster->db->fetch($result))
 {
-	$guild['Members'][$row['Name']] = $row;
+	$data[$row['guild_id']] = $row;
+	$data[$row['guild_id']]['ScanInfo']['HasOfficerNote'] = '1';
+	$data[$row['guild_id']]['Members'] = array();
 }
 
 $roster->db->free_result($result);
 
+// Fetch characters
+$query = "SELECT `guild_id`, `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".$roster->db->table('members')."` as members";
+$result = $roster->db->query( $query ) or die_quietly( $roster->db->error() );
+
+while( $row = $roster->db->fetch($result))
+{
+	$data[$row['guild_id']]['Members'][$row['Name']] = $row;
+}
+
+$roster->db->free_result($result);
 
 // Start the actual update process
 include_once($addon['trigger_file']);
@@ -38,20 +48,31 @@ include_once(ROSTER_LIB . 'update.lib.php');
 $update = new update;
 
 $memberslist = new memberslistUpdate($addon);
+$memberslist->data['config']['update_type'] = 3;
 
-// We need to do the guild_pre to load the guild-specific rules
-$memberslist->guild_pre($guild);
-
-// Loop over all members
-foreach($guild['Members'] as $member_name => $char)
+$memberslist->messages = "<ul>\n";
+// Loop over guilds
+foreach( $data as $guild )
 {
-	$member_id = $char['member_id'];
-	$memberslist->messages .= $member_name;
-	$memberslist->guild($char, $member_id);
+	$memberslist->messages .= '<li>Updating relations for characters in "' . $guild['Name'] . '"' . "\n<ul>\n";
+	// We need to do the guild_pre to load the guild-specific rules
+	$memberslist->guild_pre($guild);
+
+	// Loop over all members
+	foreach($guild['Members'] as $member_name => $char)
+	{
+		$member_id = $char['member_id'];
+		$memberslist->messages .= '<li>' . $member_name;
+		$memberslist->guild($char, $member_id);
+		$memberslist->messages .= '</li>' . "\n";
+	}
+
+	// Guild post hook. Deletes old entries.
+	$memberslist->guild_post($guild);
+	$memberslist->messages .= "</ul></li>";
 }
 
-// Guild post hook. Deletes old entries.
-$memberslist->guild_post($guild);
+$memberslist->messages .= '</ul>' . "\n";
 
 $messages = $memberslist->messages;
 $errorstringout = $update->getErrors();
