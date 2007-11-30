@@ -104,6 +104,18 @@ if( $roster_login->getAuthorized() >= $addon['config']['tab5'] )
 	}
 }
 
+if( $roster_login->getAuthorized() >= $addon['config']['tab6'] )
+{
+	$tab5 = vault_tab_get( $roster->data['guild_id'], 'Tab6' );
+	if( !is_null( $tab5 ) )
+	{
+		$data .= $tab5->out();
+		$tabs .= '			<li><a rel="Tab6" class="text">' . $tab6->data['item_name'] . "</a></li>\n";
+		$tabs .= '			<li><a rel="Tab6Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
+		$data .= vault_log('Tab6');
+	}
+}
+
 if( $roster_login->getAuthorized() >= $addon['config']['money'] )
 {
 	$data .= vault_money();
