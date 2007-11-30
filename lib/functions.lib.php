@@ -1301,6 +1301,10 @@ function php_as_nobody( $file )
  */
 function _aprint( $arr , $tab=1 )
 {
+	if( is_object($arr) )
+	{
+		return " <span style=\"color:#FFFFFF\">" . print_r($arr,true) . "</span> ";
+	}
 	if( !is_array($arr) )
 	{
 		return " <span style=\"color:#3366FF\">" . ucfirst(gettype($arr)) . "</span> " . $arr;
@@ -1333,7 +1337,7 @@ function _aprint( $arr , $tab=1 )
 
 		if( is_object($val) )
 		{
-			$val = "<span style=\"color:#3366FF\">Object</span>";
+			$val = "<span style=\"color:#3366FF\">" . print_r($val,true) . "</span>";
 		}
 		elseif( is_array($val) )
 		{
