@@ -1301,9 +1301,11 @@ function php_as_nobody( $file )
  */
 function _aprint( $arr , $tab=1 )
 {
+	$obj = false;
 	if( is_object($arr) )
 	{
-		return " <span style=\"color:#FFFFFF\">" . print_r($arr,true) . "</span> ";
+		$obj = get_class($arr);
+		$arr = get_object_vars($arr);
 	}
 	if( !is_array($arr) )
 	{
@@ -1311,12 +1313,12 @@ function _aprint( $arr , $tab=1 )
 	}
 
 	$space = str_repeat("\t", $tab);
-	$out = " <span style=\"color:#3366FF\">array(</span>\n";
+	$out = " <span style=\"color:#3366FF\">" . ($obj ? $obj . ' Object' : 'Array') . "(</span>\n";
 	end($arr); $end = key($arr);
 
 	if( count($arr) == 0 )
 	{
-		return "<span style=\"color:#3366FF\">array()</span>";
+		return "<span style=\"color:#3366FF\">" . ($obj ? $obj . ' Object' : 'Array') . "</span>";
 	}
 
 	foreach( $arr as $key=>$val )
@@ -1335,11 +1337,7 @@ function _aprint( $arr , $tab=1 )
 			$key = "<span style=\"color:#FFFFFF\">'" . htmlspecialchars($key) . "'</span>";
 		}
 
-		if( is_object($val) )
-		{
-			$val = "<span style=\"color:#3366FF\">" . print_r($val,true) . "</span>";
-		}
-		elseif( is_array($val) )
+		if( is_object($val) || is_array($val) )
 		{
 			$val = _aprint($val, ($tab+1));
 		}
