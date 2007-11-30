@@ -1313,12 +1313,12 @@ function _aprint( $arr , $tab=1 )
 	}
 
 	$space = str_repeat("\t", $tab);
-	$out = " <span style=\"color:#3366FF\">" . ($obj ? $obj . ' Object' : 'Array') . "(</span>\n";
+	$out = " <span style=\"color:#3366FF\">" . ($obj ? $obj . ' object' : 'Array') . "(</span>\n";
 	end($arr); $end = key($arr);
 
 	if( count($arr) == 0 )
 	{
-		return "<span style=\"color:#3366FF\">" . ($obj ? $obj . ' Object' : 'Array') . "</span>";
+		return "<span style=\"color:#3366FF\">" . ($obj ? $obj . ' object' : 'Array') . "()</span>";
 	}
 
 	foreach( $arr as $key=>$val )
@@ -1355,6 +1355,10 @@ function _aprint( $arr , $tab=1 )
 		elseif( is_null($val) )
 		{
 			$val = "<span style=\"color:#3366FF\">Null</span>";
+		}
+		elseif( is_resource($val) )
+		{
+			$val = "<span style=\"color:#3366FF\">" . get_resource_type($val) . " resource</span>";
 		}
 		else
 		{
