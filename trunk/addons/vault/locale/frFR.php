@@ -15,16 +15,16 @@
  * @subpackage Locale
 */
 
-$lang['vault']='Guild Vault';
-$lang['vault_desc']='Montre la continue du Vault de la Guilde';
-$lang['vault_menu']='Guild Vault|Montre la continue du Vault de la Guilde';
+$lang['vault']='Coffre de guilde';
+$lang['vault_desc']='Affiche le contenu du coffre de guilde';
+$lang['vault_menu']='Coffre de guilde|Affiche le contenu du coffre de guilde';
 $lang['available_amount']='Montant disponible';
-$lang['vault_log']='Trace';
-$lang['vault_money_log']="Trace de l’argent";
+$lang['vault_log']='Traceur';
+$lang['vault_money_log']="Traceur monétaire";
 
 $lang['vault_log_deposit'] = '%1$s <span class="greenB">a déposé</span> %2$s';
-$lang['vault_log_withdraw'] = '%1$s <span class="redB">a rétiré</span> %2$s';
-$lang['vault_log_move'] = '%1$s <span class="purpleB">a dépacé</span> %2$s';
+$lang['vault_log_withdraw'] = '%1$s <span class="redB">a retiré</span> %2$s';
+$lang['vault_log_move'] = '%1$s <span class="purpleB">a déplacé</span> %2$s';
 
 $lang['admin']['vault_conf'] = 'Guild Vault|Set up vault display and settings';
 $lang['admin']['tab1'] = 'Tab 1 Access|Control who can view the items in Tab 1';
