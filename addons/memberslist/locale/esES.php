@@ -83,12 +83,14 @@ $lang['documentation']			= 'Documentación';
 $lang['uninstall']				= 'Desinstalar';
 
 // Page names
+$lang['admin']['main']			= 'Principal|Vuelve a la parte de configuración global.';
 $lang['admin']['display']       = 'Mostrar|Configura opciones específicas de como mostrar el listado de miembros.';
 $lang['admin']['members']       = 'Listado de miembros|Configura el modo de mostrar las columnas del listado de miembros.';
 $lang['admin']['stats']         = 'Lista de estadísticas|Configura el modo de mostrar las columnas del listado de estadísticas.';
 $lang['admin']['honor']         = 'Lista de honor|Configura el modo de mostrar las columnas del listado de honor.';
 $lang['admin']['log']           = 'Registro de miembros|Configura el modo de mostrar las columnas del registro de miembros.';
 $lang['admin']['build']         = 'Relaciones principal/alt|Configura como detectar las relaciones entre personajes principales y alts.';
+$lang['admin']['gbuild']        = 'Principal/Alt por hermandad|Configura la detección de los personajes alternativos por hermandad.';
 $lang['admin']['ml_wiki']       = 'Documentación|Documentación sobre el listado de miembros en WoWRoster wiki.';
 $lang['admin']['updMainAlt']    = 'Actualizar relaciones|Actualiza relaciones entre personajes principales y alts usando los datos de la BD.';
 $lang['admin']['page_size']		= 'Tamaño de página|Configura el número de objetos por página o elige 0 par ano mostrar paginación';
