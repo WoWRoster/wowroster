@@ -50,11 +50,11 @@ $update = new update;
 $memberslist = new memberslistUpdate($addon);
 $memberslist->data['config']['update_type'] = 3;
 
-$memberslist->messages = "<ul>\n";
+$messages = "<ul>\n";
 // Loop over guilds
 foreach( $data as $guild )
 {
-	$memberslist->messages .= '<li>Updating relations for characters in "' . $guild['Name'] . '"' . "\n<ul>\n";
+	$messages .= '<li>Updating relations for characters in "' . $guild['Name'] . '"' . "\n<ul>\n";
 	// We need to do the guild_pre to load the guild-specific rules
 	$memberslist->guild_pre($guild);
 
@@ -69,12 +69,12 @@ foreach( $data as $guild )
 
 	// Guild post hook. Deletes old entries.
 	$memberslist->guild_post($guild);
-	$memberslist->messages .= "</ul></li>";
+	$messages .= $memberslist->messages . "</ul></li>";
+	$memberslist->messages = '';
 }
 
-$memberslist->messages .= '</ul>' . "\n";
+$messages .= '</ul>' . "\n";
 
-$messages = $memberslist->messages;
 $errorstringout = $update->getErrors();
 
 // print the error messages
