@@ -377,13 +377,13 @@ class roster
 				}
 				if( strpos($this->anchor,'-') !== false )
 				{
-					list($region, $realm) = explode('-',$_GET['realm'],2);
+					list($region, $realm) = explode('-',$this->anchor,2);
 					$where = ' `server` = "' . $realm . '" '
 						. 'AND `region` = "' . strtoupper($region) . '"';
 				}
 				else
 				{
-					$realm = $_GET['realm'];
+					$realm = $this->anchor;
 					$where = ' `server` = "' . $realm . '" ';
 				}
 
