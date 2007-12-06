@@ -98,6 +98,7 @@ class config
 					case 'pagehide':
 					case 'blockframe':
 					case 'blockhide':
+					case 'function':
 						$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '').'><a href="#" rel="'.$values['name'].'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
