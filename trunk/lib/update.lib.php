@@ -91,6 +91,7 @@ class update
 							if( version_compare($addonstuff->version,$row['version']) )
 							{
 								$this->setError(sprintf($roster->locale->act['addon_upgrade_notice'],$row['basename']),$roster->locale->act['addon_error']);
+								continue;
 							}
 							unset($addonstuff);
 						}
