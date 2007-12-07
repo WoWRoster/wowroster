@@ -19,6 +19,54 @@ then
 	exit 1
 fi
 
+# Test for index.php as a sign we're in an existing roster install.
+if [ ! -f index.php ]
+then
+	if [ `ls` != 'install.sh' ]
+	then
+		echo 'Please put this script in an otherwise empty directory in which to install roster'
+		exit 1
+	fi
+
+	wget=
+	svn=
+	if [ -n "`which wget`" -a -n "`which tar`" ]
+	then
+		wget=yes
+		echo 'Installation using wget is possible'
+	else
+		echo 'Installation using wget is not possible'
+	fi
+
+	if [ -n "`which svn`" ]
+	then
+		svn=yes
+	        echo 'Installation from SVN is possible'
+	else
+		echo 'Installation from SVN is not possible'
+	fi
+
+	while :
+	do
+		read -p "Enter 'svn' to get latest SVN. Enter 'wget' to get last release: " mode
+		if [ "$mode" == 'svn' -a -n "$svn" -o "$mode" == 'wget' -a -n "$wget" ]
+		then
+			break;
+		fi
+		echo 'Invalid input'
+	done
+
+	if [ $mode == 'svn' ]
+	then
+		svn checkout 'http://www.wowroster.net/svn/roster1/trunk' .
+	elif [ $mode == 'wget' ]
+	then
+		wget -O - 'http://www.wowroster.net/Downloads/get=3/mirror=390.html' | tar -xz
+	fi
+fi
+
+
+# Test for existing conf.php
 if [ -f conf.php -a ! -w conf.php ]
 then
 	echo 'conf.php exists and is not writable. This suggests there is an existing'
@@ -53,28 +101,28 @@ do
 	echo '--------------------'
 
 	echo 'Only mysql databases are supported at this time.'
-	read -p "Database host [${db_host}] ?" answer
+	read -p "Database host [${db_host}]? " answer
 	if [ $answer ]
 	then
 		db_host=$answer
 	fi
-	read -p "Database user [${db_user}] ?" answer
+	read -p "Database user [${db_user}]? " answer
 	if [ $answer ]
 	then
 		db_user=$answer
 	fi
-	read -s -p "Database password ?" answer
+	read -s -p "Database password? " answer
 	echo ''
 	if [ $answer ]
 	then
 		db_pass=$answer
 	fi
-	read -p "Database name [${db_name}] ?" answer
+	read -p "Database name [${db_name}]? " answer
 	if [ $answer ]
 	then
 		db_name=$answer
 	fi
-	read -p "Table prefix [${db_prefix}] ?" answer
+	read -p "Table prefix [${db_prefix}]? " answer
 	if [ $answer ]
 	then
 		db_prefix=$answer
