@@ -107,10 +107,18 @@ do
 	# Try to connect. Insert an empty query to avoid interactive mode
 	if echo '' | $MYSQL
 	then
-		# Create the database if needed, and break the while loop
-		echo "CREATE DATABASE IF NOT EXISTS \`${db_name}\`" | $MYSQL
-		MYSQL="${MYSQL} -D${db_name}"
-		break
+		if [ `echo 'select substring_index(version(),".",2) > 4.1;' | $MYSQL --skip-column-names` -eq 1 ]
+		then
+			# Create the database if needed, and break the while loop
+			echo "CREATE DATABASE IF NOT EXISTS \`${db_name}\`" | $MYSQL
+			MYSQL="${MYSQL} -D${db_name}"
+			break
+		else
+			mysql_version=`echo 'select version();' | $MYSQL --skip-column-names`
+			echo "Your mysql version too low. Your mysql version is ${mysql_version}. Mysql 4.1.0"
+			echo "or higher is required."
+			exit 1
+		fi
 	fi
 
 	echo '--------------------'
