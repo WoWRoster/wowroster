@@ -1,6 +1,8 @@
 #! /bin/bash
 # Roster install shellscript. Tested on linux, probably works on mac OSX. Won't work on windows.
 
+echo 'At any point in the script, press Control-C to abort'
+
 # Test for required tools
 for tool in mysql
 do
@@ -22,7 +24,7 @@ fi
 # Test for index.php as a sign we're in an existing roster install.
 if [ ! -f index.php ]
 then
-	if [ `ls` != 'install.sh' ]
+	if [ "`ls`" != 'install.sh' ]
 	then
 		echo 'Please put this script in an otherwise empty directory in which to install roster'
 		exit 1
@@ -80,6 +82,12 @@ then
 	fi
 fi
 
+# Test for index.php again, to see if download failed
+if [ ! -f index.php ]
+then
+	echo "Download failed: index.php still doesn't exist"
+	exit 1
+fi
 
 # Test for existing conf.php
 if [ -f conf.php -a ! -w conf.php ]
@@ -88,8 +96,6 @@ then
 	echo 'installation here. Delete the file (rm conf.php) and rerun the script'
 	exit 1
 fi
-
-echo 'At any point in the script, press Control-C to abort'
 
 # Get the mysql connect data
 echo 'Attemptying to connect to the database with default data.'
