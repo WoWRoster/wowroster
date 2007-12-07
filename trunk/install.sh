@@ -97,6 +97,15 @@ then
 	exit 1
 fi
 
+# Test for php version, but only if a php binary is available.
+if [ -z "`which php`" ]
+then
+	echo "PHP version could not be checked: Command line php not available"
+elif php -r 'exit((int)!version_compare(phpversion(),"4.3.0","<"));'
+then
+	echo "php version too low: `php -r 'echo phpversion()'` where 4.3.0 or higher is required."
+fi
+
 # Get the mysql connect data
 echo 'Attemptying to connect to the database with default data.'
 db_host=localhost
