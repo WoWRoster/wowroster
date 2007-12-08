@@ -1130,7 +1130,26 @@ function active_addon( $name )
  */
 function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 {
+	global $roster;
+
+	$cache_tag = 'JSESSIONID';
+
+	$jSessionId = '';
+	if( $roster->cache->check($cache_tag) && ! preg_match('/jsessionid/', $url) )
+	{
+		$jSessionId = $roster->cache->get($cache_tag);
+		list ($mainUrl, $getVars) = split ("\?", $url);
+		$url = $mainUrl. ';jsessionid=' . $jSessionId . '?' . $getVars;
+	}
+
+	$loopcount++;
 	$contents = '';
+
+	if( $loopcount > 2 )
+	{
+		trigger_error("UrlGrabber Error: No many loops. Unable to grab URL ($url)", E_USER_WARNING);
+		return $contents;
+	}
 
 	if( function_exists('curl_init') )
 	{
@@ -1151,6 +1170,13 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 			trigger_error('UrlGrabber Error [CURL]: ' . curl_error($ch), E_USER_WARNING);
 			return false;
 		}
+		$lastUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+		$tmp;
+		if( preg_match('/(?:jsessionid=)(.+)?\?/', $lastUrl, $tmp) )
+		{
+			$roster->cache->put($tmp[1], $cache_tag);
+		}
+
 
 		curl_close($ch);
 
@@ -1180,9 +1206,11 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 			stream_set_timeout($file, $timeout);
 			$inHeader = true;
 			$redirect = false;
+			$tmp = '';
 			while( !feof($file) )
 			{
 				$chunk = fgets($file, 256);
+				//print htmlspecialchars($chunk). "<br />";
 				if( $inHeader )
 				{
 					$pos = strpos($chunk, '<');
@@ -1191,18 +1219,23 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 						$contents .= substr( $chunk, $pos, strlen($chunk) );
 						$inHeader = false;
 					}
-					if( preg_match ( '/^(?:Location:\s)(.+)/', $chunk, $redirect ) )
+					if( preg_match('/^(?:Set-Cookie: JSESSIONID=)(.+)?\;/', $chunk, $tmp) )
+					{
+						$roster->cache->put($tmp[1], $cache_tag);
+					}
+					if( preg_match('/^(?:Location:\s)(.+)/', $chunk, $tmp) )
 					{
 						break;
+						$redirect = $tmp[1];
 					}
 					continue;
 				}
 				$contents .= $chunk;
 			}
 			fclose($file);
-			if ( isset($redirect[1]) )
+			if( $redirect != false )
 			{
-				return urlgrabber( $redirect[1], $timeout, $user_agent );
+				return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
 			}
 			else
 			{
