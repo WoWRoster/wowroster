@@ -28,6 +28,7 @@ $roster->output['body_onload'] .= 'initARC(\'search\',\'radioOn\',\'radioOff\',\
 
 include_once(ROSTER_BASE . 'header.php');
 
+
 $roster_menu = new RosterMenu;
 $roster_menu->makeMenu($roster->output['show_menu']);
 
@@ -115,10 +116,10 @@ if( !isset($_POST['search']) && !isset($_GET['search']) )
 			$search = new $s_addon['search_class'];
 			if( $search->options )
 			{
-				echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['basename'] . '\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="data_search_img" />' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['fullname'] . ':
+				echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['basename'] . '_options\',\'data_search_img_options\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="data_search_img_options" />' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['fullname'] . ':
 			</div>';
-				echo '<div id="' . $s_addon['basename'] . '" style="display:none;">';
+				echo '<div id="' . $s_addon['basename'] . '_options" style="display:none;">';
 				echo  '<table width="100%"><tr><td><br />' . $search->options . '<br /></td></tr></table>';
 				echo '</div>';
 			}
@@ -173,6 +174,14 @@ else
 		//this is the main border for the search results which also displays the search key words
 		print border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif' . '" alt="" style="float:right;" />&nbsp;' . $roster->locale->act['search_results'] . ': ' . $the_query . '&nbsp;');
 
+			 function getmicrotime()
+                                                {
+                                                        list($usec, $sec) = explode(" ", microtime());
+                                                        ((float)$usec + (float)$sec);
+                                                }
+
+
+
 		foreach ($addons as $addon)
 		{
 			if( isset($addon['search_class']) )
@@ -199,22 +208,33 @@ else
 					{
 						$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 					}
-
+				 $search_count =  new $addon['search_class'];
+				 $search_count->data = $addon;
+				 $search_count->search($sql_query, $url_query, 64, 0);
+                                 if( $search_count->result_count > 0 )
+                                 {
+					$total_search_results_count =  $search_count->result_count;	
+				 }
+				
 					//I added this to save space on the page but when closed the size of the results table gets very small
 					echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\''  . $addon['basename'] . '\',\''  . $addon['basename'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $addon['icon'] . '" style="float:left;" alt="" id="'  . $addon['basename'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['basename'] . '_search_img"/>' . $addon['fullname'] . ' (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')
-			</div>';
+			<img src="' . $addon['icon'] . '" style="float:left;" alt="" id="'  . $addon['basename'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['basename'] . '_search_img"/>' . $addon['fullname'] . ' (' . $search->result_count . ' of ' .$total_search_results_count . $roster->locale->act['search_results_count'] . ' ' . sprintf("%01.2f", $search->time_search) .
+			')</div>';
 					echo '<div id="'  . $addon['basename'] . '" >';
 					echo '<table width="100%" cellspacing="0" cellpadding="0">';
-
+					if( isset($search->open_table))
+					{
+						echo $search->open_table;
+					}
 					$alt_counter = 0;
 					foreach( $search->result as $result )
 					{
+
 						//my attempt to add style
 						$alt_counter = ($alt_counter % 2) + 1;
 						$stripe_class = ' class="SearchRowAltColor' . $alt_counter . '"';
 
-						echo '<tbody><tr' . $stripe_class . '><td class="SearchRowCell" width="100%">';
+						echo '<tbody><tr' . $stripe_class . '><td class="SearchRowCell" >';
 						if( isset($result['results_header']) )
 						{
 							echo $result['results_header'];
@@ -286,6 +306,10 @@ else
 
 		}
 		$addon = '';
+		if( isset($search->close_table))
+		{
+			echo $search->close_table;
+		}
 		//a loop to add all the non included addons into the did not find box which also has a counter to show the count  of results
 		if (!$total_search_results)
 		{
