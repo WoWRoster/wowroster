@@ -122,7 +122,7 @@ do
 	# Try to connect. Insert an empty query to avoid interactive mode
 	if echo '' | $MYSQL
 	then
-		if [ `echo 'select substring_index(version(),".",2) > 4.1;' | $MYSQL --skip-column-names` -eq 1 ]
+		if [ `echo 'select substring_index(version(),".",2) >= 4.1;' | $MYSQL --skip-column-names` -eq 1 ]
 		then
 			# Create the database if needed, and break the while loop
 			echo "CREATE DATABASE IF NOT EXISTS \`${db_name}\`" | $MYSQL
