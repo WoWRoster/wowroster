@@ -1225,7 +1225,6 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false )
 					}
 					if( preg_match('/^(?:Location:\s)(.+)/', $chunk, $tmp) )
 					{
-						break;
 						$redirect = $tmp[1];
 					}
 					continue;
