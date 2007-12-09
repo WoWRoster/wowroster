@@ -66,16 +66,16 @@ class vaultUpdate
 		{
 			$this->messages .= '<li>Items';
 
-			// Clearing out old items
-			$querystr = "DELETE FROM `" . $roster->db->table('items',$this->data['basename']) . "` WHERE `guild_id` = '$guildid';";
-			if( !$roster->db->query($querystr) )
+			foreach( array_keys($vault) as $tab_name )
 			{
-				$update->setError('Vault could not be cleared',$roster->db->error());
-				return false;
-			}
+				// Clearing out old items
+				$querystr = "DELETE FROM `" . $roster->db->table('items',$this->data['basename']) . "` WHERE `guild_id` = '$guildid' AND (`item_parent` = '$tab_name' OR `item_slot` = '$tab_name');";
+				if( !$roster->db->query($querystr) )
+				{
+					$update->setError('Vault tab ' . $tab_name . ' could not be cleared',$roster->db->error());
+					return false;
+				}
 
-			foreach( array_keys( $vault ) as $tab_name )
-			{
 				$this->messages .= " : $tab_name";
 
 				$tab = $vault[$tab_name];
@@ -122,16 +122,16 @@ class vaultUpdate
 		{
 			$this->messages .= '<li>Log';
 
-			// Clearing out old log
-			$querystr = "DELETE FROM `" . $roster->db->table('log',$this->data['basename']) . "` WHERE `guild_id` = '$guildid';";
-			if( !$roster->db->query($querystr) )
+			foreach( array_keys($log) as $tab_name )
 			{
-				$update->setError('Vault Log could not be cleared',$roster->db->error());
-				return false;
-			}
+				// Clearing out old log
+				$querystr = "DELETE FROM `" . $roster->db->table('log',$this->data['basename']) . "` WHERE `guild_id` = '$guildid' AND `parent` = '$tab_name';";
+				if( !$roster->db->query($querystr) )
+				{
+					$update->setError('Vault Log tab ' . $tab_name . ' could not be cleared',$roster->db->error());
+					return false;
+				}
 
-			foreach( array_keys( $log ) as $tab_name )
-			{
 				$this->messages .= " : $tab_name";
 
 				$tab = $log[$tab_name];
