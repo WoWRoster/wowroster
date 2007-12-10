@@ -1128,7 +1128,7 @@ function active_addon( $name )
  * @param  string $user_agent	| Useragent to use for connection
  * @return mixed		| False on error, contents on success
  */
-function urlgrabber( $url , $timeout = 5 , $user_agent=false )
+function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 {
 	global $roster;
 
