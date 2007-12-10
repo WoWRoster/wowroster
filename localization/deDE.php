@@ -726,7 +726,7 @@ $lang['pass_submit_error'] = 'Übertragungsfehler. Das alte, das neue und das be
 $lang['pass_mismatch'] = 'Passwörter stimmen nicht überein. Bitte gib das gleiche Passwort in beiden Passwortfeldern ein';
 $lang['pass_blank'] = 'Leere Passwortfelder sind nicht erlaubt. Bitte gib in beiden Feldern ein Passwort ein';
 $lang['pass_isold'] = 'Passwort nicht geändert. Das Neue ist das gleiche Passwort wie das Alte';
-$lang['pass_changed'] = 'Passwort geändert. Dein neues Passwort ist [ %1$s ].<br /> Vergiß das Passwort nicht, da es verschlüsselt gespeichert ist';
+$lang['pass_changed'] = '&quot;%1$s&quot; passwort geändert. Dein neues Passwort ist [ %2$s ].<br /> Vergiß das Passwort nicht, da es verschlüsselt gespeichert ist';
 $lang['auth_req'] = 'Anmeldung erforderlich';
 
 // Upload Rules

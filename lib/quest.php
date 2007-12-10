@@ -35,13 +35,12 @@ class quest
 
 	function outHeader()
 	{
-		echo '<div class="questtype">'.$this->data['quest_zone'].' </div>';
+		echo '<div class="questtype">' . $this->data['quest_zone'] . ' </div>';
 	}
 
 	function out2()
 	{
-		echo '<b><font face="Georgia" size="+1" color="#0000FF"></font></b>';
-		echo '['.$this->data['quest_level'].'] '.$this->data['quest_name'];
+		echo '[' . $this->data['quest_level'] . '] ' . $this->data['quest_name'];
 	}
 
 	function out()
@@ -52,29 +51,29 @@ class quest
 		$level = $this->data['quest_level'];
 		if( $max == 1 )
 		{
-			$bgImage = $roster->config['img_url'].'bargrey.gif';
+			$bgImage = $roster->config['img_url'] . 'bargrey.gif';
 		}
 		else
 		{
-			$bgImage = $roster->config['img_url'].'barempty.gif';
+			$bgImage = $roster->config['img_url'] . 'barempty.gif';
 		}
 
 		echo '
 	<div class="quest">
 		<div class="questbox">
-			<img class="bg" alt="" src="'.$bgImage.'" />';
+			<img class="bg" alt="" src="' . $bgImage . '" />';
 		if( $max > 1 )
 		{
 			$width = intval(($level/$max) * 354);
-			echo '<img src="'.$roster->config['img_url'].'barbit.gif" alt="" class="bit" width="'.$width.'" />';
+			echo '<img src="' . $roster->config['img_url'] . 'barbit.gif" alt="" class="bit" width="' . $width . '" />';
 		}
 		echo '
-		<span class="name">'.$this->data['quest_name'].'</span>';
+		<span class="name">' . $this->data['quest_name'] . '</span>';
 		if( $max > 1 )
 		{
-			echo '<span class="level"> ['.$level.']</span>';
+			echo '<span class="level"> [' . $level . ']</span>';
 		}
-			echo '</div></div>';
+		echo '</div></div>';
 	}
 }
 
@@ -82,14 +81,14 @@ function quest_get_many( $member_id, $search )
 {
 	global $roster;
 
-	$query= "SELECT * FROM `".$roster->db->table('quests')."` WHERE `member_id` = '$member_id' ORDER BY `zone` ASC, `quest_level` ASC";
+	$query= "SELECT * FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '$member_id' ORDER BY `zone` ASC, `quest_level` ASC;";
 
-	$result = $roster->db->query( $query );
+	$result = $roster->db->query($query);
 
 	$quests = array();
-	while( $data = $roster->db->fetch( $result ) )
+	while( $data = $roster->db->fetch($result) )
 	{
-		$quest = new quest( $data );
+		$quest = new quest($data);
 		$quests[] = $quest;
 	}
 	return $quests;

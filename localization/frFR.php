@@ -726,7 +726,7 @@ $lang['pass_submit_error'] = 'Erreur d\'envoi. L\'ancien, le nouveau et la confi
 $lang['pass_mismatch'] = 'Erreur de mot de passe de confirmation. Merci de saisir le même mot de passe dans les champs nouveau mot de passe et confirmation du nouveau mot de passe';
 $lang['pass_blank'] = 'Pas de mot de passe vide. Merci de saisir un mot de passe dans les deux champs. Les mots de passe vides ne sont pas autorisés';
 $lang['pass_isold'] = 'Le mot de passe n\'a pas été modifié. Le nouveau mot de passe et l\'ancien sont exactement les mêmes.';
-$lang['pass_changed'] = 'Le mot de passe a été modifié. Votre nouveau mot de passe est [ %1$s ].<br /> Ne l\'oubliez pas, il n\'est pas stocké de façon lisible.';
+$lang['pass_changed'] = '&quot;%1$s&quot; le mot de passe a été modifié. Votre nouveau mot de passe est [ %2$s ].<br /> Ne l\'oubliez pas, il n\'est pas stocké de façon lisible.';
 $lang['auth_req'] = 'Autorisation requise';
 
 // Upload Rules

@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','1.9.9.1518');
+define('ROSTER_VERSION','1.9.9.1519');
 
 /**
  * Roster Conf File
@@ -77,3 +77,4 @@ define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/rss/downloads.php?id=%
  */
 define('ROSTER_MAXCHARLEVEL','70');
 define('ROSTER_MAXSKILLLEVEL','375');
+define('ROSTER_MAXQUESTS','25');
