@@ -92,16 +92,14 @@
 					<!-- END menu_only_search -->
 
 					<!-- BEGIN menu_addon_search -->
-					<!-- IF menu_addon_search.S_SEARCH_OPTIONS -->
-					<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('menu_adv_{menu_addon_search.BASENAME}','{menu_addon_search.BASENAME}_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
-						<img src="{IMG_URL}plus.gif" style="float:right;" alt="" id="{menu_addon_search.BASENAME}_search_img" />
-						{L_SEARCH_ADVANCED} {menu_addon_search.FULLNAME}:
+					<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('menu_adv_{menu_addon_search.BASENAME}','{menu_addon_search.BASENAME}_menu_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
+						<img src="{IMG_URL}plus.gif" style="float:right;" alt="" id="{menu_addon_search.BASENAME}_menu_search_img" />
+						{L_SEARCH_ADVANCED} {menu_addon_search.FULLNAME}
 					</div>
 					<div id="menu_adv_{menu_addon_search.BASENAME}" style="display:none;">
 						{menu_addon_search.SEARCH_OPTIONS}
 					</div>
-					<!-- IF menu_only_search.S_DIVIDE --><br /><!-- ENDIF -->
-					<!-- ENDIF -->
+					<!-- IF menu_addon_search.S_DIVIDE --><br /><!-- ENDIF -->
 					<!-- END menu_addon_search -->
 				</div>
 			</form>

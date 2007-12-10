@@ -15,92 +15,91 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 class memberslist_search
 {
-        var $options;
-        var $result = array();
-        var $result_count = 0;
-        var $start_search;
-        var $stop_search;
-        var $time_search;
-        var $link_next;
-        var $link_prev;
-		var $open_table = '<table><th class="membersHeader ts_string">Lv</th><th class="membersHeader ts_string">Class</th><th class="membersHeader ts_string">Name</th><th class="membersHeader ts_string">Guild Rank</th>';
-		var $close_table = '<table>';
-        var $data = array();    // Addon data
+	var $options;
+	var $result = array();
+	var $result_count = 0;
+	var $start_search;
+	var $stop_search;
+	var $time_search;
+	var $link_next;
+	var $link_prev;
+	var $open_table;
+	var $close_table;
+	var $data = array();    // Addon data
 
-        // class constructor
-        function memberslist_search()
-        {
-                global $roster;
+	// class constructor
+	function memberslist_search()
+	{
+		global $roster;
 
-                $members[0] = 'All Members';
-                $memberslist = $roster->db->query("SELECT `member_id`, `name` FROM `" . $roster->db->table('members') . "` ORDER BY `name`;");
-                while (list($member_id, $name) = $roster->db->fetch($memberslist))
-                {
-                        $members[$name] = $name;
-                }
-                $roster->db->free_result($memberslist);
-        }
+		$this->open_table = '<tr><th class="membersHeader ts_string">Lv</th><th class="membersHeader ts_string">' . $roster->locale->act['class'] . '</th><th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th><th class="membersHeaderRight ts_string">' . $roster->locale->act['title'] . '</th></tr>';
 
-        function search( $search , $url_search , $limit=10 , $page=0 )
-        {
-                global $roster;
+		$members[0] = 'All Members';
+		$memberslist = $roster->db->query("SELECT `member_id`, `name` FROM `" . $roster->db->table('members') . "` ORDER BY `name`;");
+		while( list($member_id, $name) = $roster->db->fetch($memberslist) )
+		{
+			$members[$name] = $name;
+		}
+		$roster->db->free_result($memberslist);
+	}
 
-                $first = $page*$limit;
-                $q = "SELECT `member_id`, `name`, `server`, `region`, `guild_id`, `class`, `level`, `note`, `guild_rank`
-                , `guild_title`, `zone`, `last_online`
-                 FROM `" . $roster->db->table('members') . "`
-                 WHERE (`member_id` LIKE '%$search%' or `name` LIKE '%$search%' or `server` LIKE '%$search%' or `region` LIKE '%$search%' or
-                `guild_id` LIKE '%$search%' or  `class` LIKE '%$search%' or `level` LIKE '%$search%' or `note` LIKE '%$search%' or
-                `guild_rank` LIKE '%$search%' or `guild_title` LIKE '%$search%' or `zone` LIKE '%$search%') GROUP BY member_id LIMIT $first,".($limit+1);
+	function search( $search , $url_search , $limit=10 , $page=0 )
+	{
+		global $roster;
 
-                $result = $roster->db->query($q);
-                $nrows  = $roster->db->num_rows($result);
-                $crows  = 0;
+		$first = $page * $limit;
+		$q = "SELECT `member_id`, `name`, `server`, `region`, `guild_id`, `class`, `level`, `note`, `guild_rank`,`guild_title`, `zone`, `last_online`"
+		   . " FROM `" . $roster->db->table('members') . "`"
+		   . " WHERE (`member_id` LIKE '%$search%' OR `name` LIKE '%$search%' OR `server` LIKE '%$search%' OR `region` LIKE '%$search%' OR `guild_id` LIKE '%$search%' OR `class` LIKE '%$search%' OR `level` LIKE '%$search%' OR `note` LIKE '%$search%' OR `guild_rank` LIKE '%$search%' OR `guild_title` LIKE '%$search%' OR `zone` LIKE '%$search%')"
+		   . " GROUP BY `member_id`"
+		   . ( $limit > 0 ? " LIMIT $first," . ($limit+1) : '' ) . ';';
 
-                $x = ($limit > $nrows) ? $nrows : $limit;
-                if ($nrows > 0)
-                {
-                        while($x > 0)
-                        {
-                                list($member_id, $name, $server, $region, $guild_id, $class, $level, $note, $guild_rank, $guild_title, $zone, $last_online) = $roster->db->fetch($result);
+		// calculating the search time
+		$this->start_search = format_microtime();
 
-                                $item['title'] = $name;
-                                $item['date'] = $last_online;
-                                //$item['url'] =   makelink("char-info&amp;a=c:$member_id");
-				$item['html'] = $level.'</td><td>'.$class.'</td><td width="100%"><a href="' . makelink("char-info&amp;a=c:$member_id") . '"><strong>' . $name . '</strong></a></td><td>'.$guild_title;
-                                $this->add_result($item);
-                                unset($item);
+		$result = $roster->db->query($q);
 
-                                $x--;
-                        }
-                }
-                $this->start_search  = getmicrotime();
-                $roster->db->fetch($result);
-                $this->stop_search  = getmicrotime();
-                //calculating the search time
-                $this->time_search = ($this->stop_search - $this->start_search);
-                // this would be much nicer if we'd join the comments with the articles and include
-                // the comments results as a subset of the article results. Consider fetching comments
-                // inside the above loop.
+		$this->stop_search = format_microtime();
+		$this->time_search = round($this->stop_search - $this->start_search,3);
 
+		$nrows = $roster->db->num_rows($result);
+		$crows = 0;
 
-                if ($page>0)
-                {
-                        $this->link_prev = '<a href="'.makelink('search&amp;page='.($page-1).'&amp;search='. $url_search .'&amp;s_addon='. $this->data['basename']).'"><strong>'. $roster->locale->act['search_previous_matches'] . $this->data['fullname'] .'</strong></a>';
-                }
-                if (($nrows > $limit) || ($crows > $limit))
-                {
-                        $this->link_next = '<a href="'.makelink('search&amp;page='.($page+1).'&amp;search='. $url_search .'&amp;s_addon='. $this->data['basename']).'"><strong>' . $roster->locale->act['search_next_matches'] . $this->data['fullname'] .'</strong></a>';
-                }
-        }
+		$x = ($limit > $nrows) ? $nrows : ($limit > 0 ? $limit : $nrows);
+		if( $nrows > 0 )
+		{
+			while( $x > 0 )
+			{
+				list($member_id, $name, $server, $region, $guild_id, $class, $level, $note, $guild_rank, $guild_title, $zone, $last_online) = $roster->db->fetch($result);
 
-        function add_result($resultarray)
-        {
-                $this->result[$this->result_count++] = $resultarray;
-        }
+				$item['title'] = $name;
+				$item['date'] = $last_online;
+				$item['html'] = '<td class="SearchRowCell">' . $level . '</td><td class="SearchRowCell">' . $class . '</td><td class="SearchRowCell"><a href="' . makelink("char-info&amp;a=c:$member_id") . '"><strong>' . $name . '</strong></a></td><td class="SearchRowCellRight">' . $guild_title . '</td>';
+				$this->add_result($item);
+				unset($item);
+
+				$x--;
+			}
+		}
+		$roster->db->fetch($result);
+
+		if( $page > 0 )
+		{
+			$this->link_prev = '<a href="' . makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong>' . $roster->locale->act['search_previous_matches'] . $this->data['fullname'] . '</strong></a>';
+		}
+		if( ($nrows > $limit) || ($crows > $limit) )
+		{
+			$this->link_next = '<a href="' . makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong>' . $roster->locale->act['search_next_matches'] . $this->data['fullname'] . '</strong></a>';
+		}
+	}
+
+	function add_result( $resultarray )
+	{
+		$this->result[$this->result_count++] = $resultarray;
+	}
 }
