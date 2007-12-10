@@ -51,7 +51,21 @@ select {
 	font-weight:bold;
 	white-space:nowrap;
 	border-style:solid;
-	border-width:1px 1px 0px 1px;
+	border-width:1px 0 0 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 6px 3px 6px;
+}
+
+.SearchRowCellRight {
+	position:relative;
+	text-align:left;
+	color:#ffffff;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0 1px;
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }

@@ -23,10 +23,14 @@ class news_search
 	var $options;
 	var $result = array();
 	var $result_count = 0;
+	var $start_search;
+	var $stop_search;
+	var $time_search;
 	var $link_next;
 	var $link_prev;
-	var $data = array();	// Addon data
-
+	var $open_table;
+	var $close_table;
+	var $data = array();    // Addon data
 
 	function search( $search , $url_search , $limit=10 , $page=0 )
 	{
@@ -35,23 +39,29 @@ class news_search
 		$first = $page*$limit;
 
 		$q = "SELECT `news`.`news_id`, `news`.`author`, `news`.`title`, `news`.`content`, `news`.`html`, "
-			. "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', "
-			. "COUNT(`comments`.`comment_id`) comm_count "
-			. "FROM `" . $roster->db->table('news','news') . "` news "
-			. "LEFT JOIN `" . $roster->db->table('comments','news') . "` comments USING (`news_id`) "
-			. "WHERE `news`.`news_id` LIKE '%$search%' "
-			. "OR `news`.`author` LIKE '%$search%' "
-			. "OR `news`.`date` LIKE '%$search%' "
-			. "OR `news`.`title` LIKE '%$search%' "
-			. "OR `news`.`content` LIKE '%$search%' "
-			. "GROUP BY `news`.`news_id` "
-			. "LIMIT $first," . ($limit+1) .";";
+		   . "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', "
+		   . "COUNT(`comments`.`comment_id`) comm_count "
+		   . "FROM `" . $roster->db->table('news','news') . "` news "
+		   . "LEFT JOIN `" . $roster->db->table('comments','news') . "` comments USING (`news_id`) "
+		   . "WHERE `news`.`news_id` LIKE '%$search%' "
+		   . "OR `news`.`author` LIKE '%$search%' "
+		   . "OR `news`.`date` LIKE '%$search%' "
+		   . "OR `news`.`title` LIKE '%$search%' "
+		   . "OR `news`.`content` LIKE '%$search%' "
+		   . "GROUP BY `news`.`news_id` "
+		   . ( $limit > 0 ? " LIMIT $first," . ($limit+1) : '' ) . ';';
+
+		//calculating the search time
+		$this->start_search = format_microtime();
 
 		$result = $roster->db->query($q);
-		$nrows = $roster->db->num_rows($result);
-		//$result = $roster->db->query($query);
 
-		$x = ($limit > $nrows) ? $nrows : $limit;
+		$this->stop_search = format_microtime();
+		$this->time_search = round($this->stop_search - $this->start_search,3);
+
+		$nrows = $roster->db->num_rows($result);
+
+		$x = ($limit > $nrows) ? $nrows : ($limit > 0 ? $limit : $nrows);
 		if( $nrows > 0 )
 		{
 			while( $x > 0 )
@@ -85,7 +95,7 @@ class news_search
 				}
 				$item['short_text'] = implode(' ',$array);
 
-				$item['footer'] = ($comments == 0?'No':$comments) . ' comment' . ($comments == 1?'':'s');
+				$item['footer'] = ($comments == 0 ? 'No' : $comments) . ' comment' . ($comments == 1 ? '' : 's');
 
 				$this->add_result($item);
 				unset($item);

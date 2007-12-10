@@ -71,73 +71,66 @@ if( !isset($_POST['search']) && !isset($_GET['search']) )
 {
 	$addon_icon = $roster->config['img_url'] . 'blue-question-mark.gif';
 
-	print   border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />' . $roster->locale->act['search_for']);
+	print border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />' . $roster->locale->act['search_for']);
 	echo  '<br /><form id="search" name="search" action="' . makelink() . '" method="post" enctype="multipart/form-data" >'
 		. '<input size="25" type="text" name="search" value="" class="wowinput192" />'
 		. '<input type="submit" value="' . $roster->locale->act['search'] . '" /><br />'
 		. '<br />';
 
 
-	echo  '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'sonly\',\'data_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="sonly_img"/>' . $roster->locale->act['search_onlyin'] . '
-			</div>';
-	echo '<div id="sonly" >';
-	echo  '<table border="0" ><tr>';
-
+	echo '<div class="header_text sgoldborder">';
+	echo $roster->locale->act['search_onlyin'];
+	echo '</div>';
 
 	$i = 0;
-	//this is set to show a checkbox for all installed and active addons with search.inc.php files
-	//it is set to only show 4 addon check boxes per row and allows for the search only in feature
+	$s_only = $s_adv = '';
 	foreach( $roster->addon_data as $s_addon )
 	{
+		// this is set to show a checkbox for all installed and active addons with search.inc.php files
+		// it is set to only show 4 addon check boxes per row and allows for the search only in feature
 		if( isset($s_addon['search_class']) )
 		{
+			$search = new $s_addon['search_class'];
+
 			if( $i && ($i % 4 == 0) )
 			{
-				echo '</tr><tr>';
-				echo "\n";
+				$s_only .= "<br />\n";
 			}
 
-			echo  '<td><input type="checkbox"  id="' . $s_addon['basename'] . '" name="s_addon[]" value="' . $s_addon['basename'] . '" /></td>'
-				. '<td><label for="' . $s_addon['basename'] . '">' . $s_addon['fullname'] . '</label></td>';
+			$s_only .= '<input type="checkbox" id="' . $s_addon['basename'] . '" name="s_addon[]" value="' . $s_addon['basename'] . '" />'
+					 . '<label for="' . $s_addon['basename'] . '">' . $s_addon['fullname'] . '</label>';
 
+			// include advanced search options
+			// the advanced options are defined in the addon search class using $search->options = then build your forms
+			if( $search->options )
+			{
+				$s_adv .= '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['basename'] . '_options\',\'' . $s_addon['basename'] . '_img_options\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="' . $s_addon['basename'] . '_img_options" />' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['fullname'] . '
+			</div>';
+				$s_adv .= '<div id="' . $s_addon['basename'] . '_options" style="display:none;">';
+				$s_adv .= $search->options;
+				$s_adv .= '</div>';
+			}
 			$i++;
 		}
 	}
 
-	echo  '</tr></table>';
-	echo  '</div>';
-	//include advanced search options
-	//the advanced options are defined in the addon search class using $search->options = then build your form/s
-	foreach( $roster->addon_data as $s_addon )
-	{
-		if( isset($s_addon['search_class']) )
-		{
-			$search = new $s_addon['search_class'];
-			if( $search->options )
-			{
-				echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'' . $s_addon['basename'] . '_options\',\'data_search_img_options\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="data_search_img_options" />' . $roster->locale->act['search_advancedoptionsfor'] . ' ' . $s_addon['fullname'] . ':
-			</div>';
-				echo '<div id="' . $s_addon['basename'] . '_options" style="display:none;">';
-				echo  '<table width="100%"><tr><td><br />' . $search->options . '<br /></td></tr></table>';
-				echo '</div>';
-			}
-		}
-	}
-	echo '</form>';
+	echo $s_only . $s_adv . '</form>';
 
-	print   border('sblue','end');
+	print border('sgreen','end');
 
 }
 else
 {
 	// if page is set in the addon search class this will tell the results what page we are looking at
 	$page  = isset($_GET['page']) ? intval($_GET['page']) : 0;
+
 	// limit is used to set how many results are able to show with in the addon before showing previous/next pagenation
 	$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
+
 	// search is what we are searching for
 	$query = isset($_POST['search']) ? $_POST['search'] : $_GET['search'];
+
 	// variables that can be used in the addon search class which are being defined here
 	$sql_query = $query;
 	$the_query = $query;
@@ -167,28 +160,22 @@ else
 	}
 
 	echo '<br />';
+
 	// process all searches
 	$total_search_results = 0;
-	if( $addons )
+	if( count($addons) > 0 )
 	{
 		//this is the main border for the search results which also displays the search key words
-		print border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif' . '" alt="" style="float:right;" />&nbsp;' . $roster->locale->act['search_results'] . ': ' . $the_query . '&nbsp;');
+		print border('sgreen','start', '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif' . '" alt="" style="float:right;" />&nbsp;' . $roster->locale->act['search_results'] . ': ' . $the_query);
 
-			 function getmicrotime()
-                                                {
-                                                        list($usec, $sec) = explode(" ", microtime());
-                                                        ((float)$usec + (float)$sec);
-                                                }
-
-
-
-		foreach ($addons as $addon)
+		foreach( $addons as $addon )
 		{
 			if( isset($addon['search_class']) )
 			{
 				$search = new $addon['search_class'];
 				$search->data = $addon;
 				$search->search($sql_query, $url_query, $limit, $page);
+
 				if( $search->result_count > 0 )
 				{
 					$total_search_results += $search->result_count;
@@ -201,98 +188,113 @@ else
 						}
 						else
 						{
-							$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
+							$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
 						}
 					}
 					else
 					{
-						$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+						$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 					}
-				 $search_count =  new $addon['search_class'];
-				 $search_count->data = $addon;
-				 $search_count->search($sql_query, $url_query, 64, 0);
-                                 if( $search_count->result_count > 0 )
-                                 {
-					$total_search_results_count =  $search_count->result_count;	
-				 }
-				
-					//I added this to save space on the page but when closed the size of the results table gets very small
+
+					$search_count = new $addon['search_class'];
+					$search_count->data = $addon;
+					$search_count->search($sql_query, $url_query, 0, 0);
+
+					// I added this to save space on the page but when closed the size of the results table gets very small
 					echo '<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\''  . $addon['basename'] . '\',\''  . $addon['basename'] . '_search_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-			<img src="' . $addon['icon'] . '" style="float:left;" alt="" id="'  . $addon['basename'] . '_item_img" width="16px" height="16px"/><img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['basename'] . '_search_img"/>' . $addon['fullname'] . ' (' . $search->result_count . ' of ' .$total_search_results_count . $roster->locale->act['search_results_count'] . ' ' . sprintf("%01.2f", $search->time_search) .
-			')</div>';
-					echo '<div id="'  . $addon['basename'] . '" >';
+					<img src="' . $addon['icon'] . '" style="float:left;" alt="" id="'  . $addon['basename'] . '_item_img" width="16" height="16" />
+					<img src="' . $roster->config['img_url'] . 'minus.gif" style="float:right;" alt="" id="'  . $addon['basename'] . '_search_img"/>' . $addon['fullname'] . ' <small>(' . $search->result_count . ' of ' . $search_count->result_count . ' ' . $roster->locale->act['search_results_count'] . ' ' . $search->time_search . ')</small></div>';
+
+					echo '<div id="' . $addon['basename'] . '">';
 					echo '<table width="100%" cellspacing="0" cellpadding="0">';
-					if( isset($search->open_table))
+					if( isset($search->open_table) )
 					{
 						echo $search->open_table;
 					}
+
 					$alt_counter = 0;
 					foreach( $search->result as $result )
 					{
-
 						//my attempt to add style
 						$alt_counter = ($alt_counter % 2) + 1;
 						$stripe_class = ' class="SearchRowAltColor' . $alt_counter . '"';
 
-						echo '<tbody><tr' . $stripe_class . '><td class="SearchRowCell" >';
+
 						if( isset($result['results_header']) )
 						{
 							echo $result['results_header'];
 						}
-						//if html is set with in the addon search class it will display
-						//html is good for creating search results with multi opetions in the display
-						//for instance creating a table that displays char names, professions, guild, server all in the same search result
+
+						echo '<tr' . $stripe_class . '>';
+						// if html is set with in the addon search class it will display
+						// html is good for creating search results with multi opetions in the display
+						// for instance creating a table that displays char names, professions, guild, server all in the same search result
 						if( isset($result['html']) && $result['html'] != '' )
 						{
 							echo $result['html'];
 						}
 						else
 						{
+							echo '<td class="SearchRowCellRight">';
+
 							// layout the search results based on data we are given...
-							//header per addon good for setting the main display
+							// header per addon good for setting the main display
 							if( isset($result['header']) )
 							{
 								echo $result['header'] . '<br />';
 							}
 
-							//we will display the author name and date submited if it is set in the addon search class
-							if (isset($result['author'])) echo $roster->locale->act['submited_author'] .' '. $result['author'];
-							if (isset($result['date'])) echo  ' '. $roster->locale->act['submited_date']. ' '.readbleDate( $result['date']);
-							if (isset($result['author']) || isset($result['date'])) echo '<br />';
-
-							//this is the url link for each result should link to an addon installed and actiaved with in roster
-							echo '<a href="' . $result['url'] . '"><strong>' . $result['title'] . '</strong></a><br />';
-
-							//we will display a short desc. if it is set in the addon search class
-							if (isset($result['short_text'])) echo '<span style="white-space:normal">' . $result['short_text']
-								. ((isset($result['more_text']) && $result['more_text'])?' <a href="' . $result['url'] . '"><strong>(more)</strong></a>':'')
-								. '</span><br />';
-
-
-							//if isset stuff that can be added as addons get more advanced
-							//this is set to allow a footer for each result in the addon query
-							//could be good for external links or footer display code
-							//if (isset($result['date'])) echo  $result['date'];
-							if( isset($result['footer']) )
+							// we will display the author name and date submited if it is set in the addon search class
+							if( isset($result['author']) )
 							{
-								echo '<div style="padding-left: 8px;">' . $result['footer'] . '</div><br />';
+								echo $roster->locale->act['submited_author'] . ' ' . $result['author'];
+							}
+							if( isset($result['date']) )
+							{
+								echo  ' ' . $roster->locale->act['submited_date'] . ' ' . readbleDate($result['date']);
+							}
+							if( isset($result['author']) || isset($result['date']) )
+							{
+								echo '<br />';
 							}
 
+							// this is the url link for each result should link to an addon installed and actiaved with in roster
+							echo '<a href="' . $result['url'] . '"><strong>' . $result['title'] . '</strong></a><br />';
+
+							// we will display a short desc. if it is set in the addon search class
+							if( isset($result['short_text']) )
+							{
+								echo '<span style="white-space:normal">' . $result['short_text']
+									. ((isset($result['more_text']) && $result['more_text']) ? ' <a href="' . $result['url'] . '"><strong>(more)</strong></a>' : '')
+									. '</span><br />';
+							}
+
+
+							// if isset stuff that can be added as addons get more advanced
+							// this is set to allow a footer for each result in the addon query
+							// could be good for external links or footer display code
+							// if (isset($result['date'])) echo  $result['date'];
+							if( isset($result['footer']) )
+							{
+								echo '<div style="padding-left:8px;">' . $result['footer'] . '</div><br />';
+							}
 
 							//if this is set this will display a footer only for the addon its self great for credits
 							if( isset($result['results_footer']) )
 							{
 								echo $result['results_footer'];
 							}
+
+							echo '</td>';
 						}
-						echo '</td></tr></tbody>';
+						echo '</tr>';
 					}
 					echo '</table>';
 
-					//if there are previous/next links set in the addon search class the pagnation will be displayed
-					if ($search->link_prev || $search->link_next)
+					// if there are previous/next links set in the addon search class the pagnation will be displayed
+					if( $search->link_prev || $search->link_next )
 					{
-						echo '<div class="SearchNextPrev" align="center" >'
+						echo '<div class="SearchNextPrev" align="center">'
 							. ($search->link_prev ? ' [ ' . $search->link_prev . ' ] ' : '')
 							. ($search->link_next ? ' [ ' . $search->link_next . ' ] ' : '')
 							. '</div>';
@@ -302,87 +304,83 @@ else
 				}
 				unset($search);
 			}
-			unset($roster->addon_data[$addon['basename']]);
-
 		}
+
 		$addon = '';
 		if( isset($search->close_table))
 		{
 			echo $search->close_table;
 		}
-		//a loop to add all the non included addons into the did not find box which also has a counter to show the count  of results
-		if (!$total_search_results)
-		{
-			$message = $roster->locale->act['search_momatches'];
 
+		// a loop to add all the non included addons into the did not find box which also has a counter to show the count of results
+		if( !$total_search_results )
+		{
+			$message = $roster->locale->act['search_nomatches'];
 			echo '<div class="header_text sredborder">' . $message . '</div>';
 		}
 
-		echo '<div class="header_text sgoldborder">' . $roster->locale->act['search_didnotfind'] . '</div><table cellspacing="0" cellpadding="0" width="100%">';
+		print border('sgreen','end');
+
+
+
+		// Didn't find what you were looking for section
+		echo '<br />' . border('sblue','start',$roster->locale->act['search_didnotfind']);
+
+		$more = '';
 		foreach( $roster->addon_data as $leftover )
 		{
 			if( isset($leftover['search_class']) )
 			{
 				$search = new $leftover['search_class'];
-				$search->search($sql_query, $url_query, 64, 0);
+				$search->data = $leftover;
+				$search->search($sql_query, $url_query, 0, 0);
 				if( $search->result_count > 0 )
 				{
-					echo '<li><a href="' . makelink("search&amp;search=$url_query&amp;s_addon=" . $leftover['basename']) . '">' . $leftover['fullname'] . '</a> (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')</li>';
+					$more .= '<li><a href="' . makelink("search&amp;search=$url_query&amp;s_addon=" . $leftover['basename']) . '">' . $leftover['fullname'] . '</a> (' . $search->result_count . ' ' . $roster->locale->act['search_results_count'] . ')</li>';
 				}
 				unset($search);
 			}
 		}
-		//section for predefined if addon
 
+		echo ( !empty($more) ? "<div class=\"SearchRowCellRight\"><ul style=\"text-align:left;\">$more</ul></div>" : '' );
+
+		// section for predefined if addon
 
 		$url_query = urlencode($query);
 
-		//this section we can have links like armory, ala, wowhead, thottbot etc...
+		// this section we can have links like armory, ala, wowhead, thottbot etc...
 
-		//wow data sites
-		echo '<tr class="search-other"><td valign="top" width="33%">';
-		echo '
-		<strong>' . $roster->locale->act['data_search'] . '</strong>
+		// wow data sites
+		echo '<table cellspacing="0" cellpadding="0" width="100%"><tr class="search-other"><td valign="top" width="50%" class="SearchRowCell">';
+		echo '<strong>' . $roster->locale->act['data_search'] . '</strong>
 		<div align="left">';
 		echo '<ul>';
+
 		$data_link = '';
 		foreach( $roster->locale->act['data_links'] as $name => $dlink )
 		{
-
 			$data_link .= '<li><a href="' . $dlink . $url_query . '" target="_blank">' . $name . '</a></li>';
 		}
 		echo $data_link;
 		echo '</ul></div></td>';
 
-		//wow data sites
-		echo '<td valign="top" width="34%"><strong>' . $roster->locale->act['itemlink'] . '</strong><div align="left">';
-		echo '<ul>';
-		$item_link = '';
-		foreach( $roster->locale->act['itemlinks'] as $name => $ilink )
-		{
-
-			$item_link .= '<li><a href="' . $ilink . $url_query . '" target="_blank">' . $name . '</a></li>';
-		}
-		echo $item_link;
-		echo '</ul></div></td>';
-
-		//google links
-		echo '<td valign="top" width="33%"><strong>'. $roster->locale->act['google_search'] .'</strong><div align="left">';
+		// google links
+		echo '<td valign="top" width="50%" class="SearchRowCellRight"><strong>'. $roster->locale->act['google_search'] .'</strong><div align="left">';
 		echo '<ul>';
 		$google_link = '';
 		foreach( $roster->locale->act['google_links'] as $name => $glink )
 		{
-
 			$google_link .= '<li><a href="' . $glink . $url_query . '" target="_blank">' . $name . '</a></li>';
 		}
 		echo $google_link;
 		echo '</ul></div></td>';
 		echo '</tr></table>';
-		//close the main search results table
+		// close the main search results table
 
-		print border('sblue','end');
+		print border('sgreen','end');
 	}
 	echo '<br />';
-	//if there are no results let them know
+	// if there are no results let them know
 }
+
 include_once(ROSTER_BASE . 'footer.php');

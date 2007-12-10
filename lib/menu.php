@@ -754,14 +754,14 @@ class RosterMenu
 		global $roster;
 
 		$addonlist = array();
-		foreach( $roster->addon_data as $name => $data )
+		$s = $o = 0;
+		foreach( $roster->addon_data as $data )
 		{
 			$addon_search_file = ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'search.inc.php';
 			if( file_exists($addon_search_file) )
 			{
 				include_once($addon_search_file);
 				$sclass = $data['basename'] . '_search';
-				$basename = $data['basename'];
 				if( class_exists($sclass) )
 				{
 					// Save current locale array
@@ -771,20 +771,43 @@ class RosterMenu
 
 					foreach( $roster->multilanguages as $lang )
 					{
-						$roster->locale->add_locale_file(ROSTER_ADDONS . $basename . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+						$roster->locale->add_locale_file(ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 					}
 
-					$addonlist[$basename]['search_class'] = $sclass;
-					$addonlist[$basename]['basename'] = $data['basename'];
-					$addonlist[$basename]['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
+					$data['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
 
 					// Restore our locale array
 					$roster->locale->wordings = $localetemp;
 					unset($localetemp);
+
+
+					// this is set to show a checkbox for all installed and active addons with search.inc.php files
+					// it is set to only show 4 addon check boxes per row and allows for the search only in feature
+					$roster->tpl->assign_block_vars('menu_only_search', array(
+						'BASENAME' => $data['basename'],
+						'FULLNAME' => $data['fullname'],
+						'S_DIVIDE' => ( $s && ($s % 4 == 0) ? true : false )
+						)
+					);
+					$s++;
+
+					//include advanced search options
+					//the advanced options are defined in the addon search class using $search->options = then build your forms
+					$search = new $sclass;
+					if( !empty($search->options) )
+					{
+						$roster->tpl->assign_block_vars('menu_addon_search', array(
+							'BASENAME' => $data['basename'],
+							'FULLNAME' => $data['fullname'],
+							'S_DIVIDE' => ( $o && ($o % 4 == 0) ? true : false ),
+							'SEARCH_OPTIONS' => ( $search->options ? $search->options : '' )
+							)
+						);
+						$o++;
+					}
 				}
 			}
 		}
-		asort($addonlist);
 
 		$roster->tpl->assign_vars(array(
 			'L_SEARCH'        => $roster->locale->act['search'],
@@ -795,37 +818,5 @@ class RosterMenu
 			'U_SEARCH_FORM_ACTION' => makelink('search')
 			)
 		);
-
-		$i = 0;
-		//this is set to show a checkbox for all installed and active addons with search.inc.php files
-		//it is set to only show 4 addon check boxes per row and allows for the search only in feature
-		foreach( $addonlist as $s_addon )
-		{
-			$roster->tpl->assign_block_vars('menu_only_search', array(
-				'BASENAME' => $s_addon['basename'],
-				'FULLNAME' => $s_addon['fullname'],
-				'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false )
-				)
-			);
-			$i++;
-		}
-
-		//include advanced search options
-		//the advanced options are defined in the addon search class using $search->options = then build your form/s
-		foreach( $addonlist as $s_addon )
-		{
-			if( class_exists($s_addon['search_class']) )
-			{
-				$search = new $s_addon['search_class'];
-				$roster->tpl->assign_block_vars('menu_addon_search', array(
-					'BASENAME' => $s_addon['basename'],
-					'FULLNAME' => $s_addon['fullname'],
-					'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false ),
-					'S_SEARCH_OPTIONS' => (bool)$search->options,
-					'SEARCH_OPTIONS' => ( $search->options ? $search->options : $search->options )
-					)
-				);
-			}
-		}
 	}
 }
