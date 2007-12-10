@@ -27,7 +27,7 @@ if( array_key_exists('mode',$_POST) )
 {
 	$mode = $_POST['mode'];
 
-	$query = "SELECT * FROM `".$roster->db->table('account')."` WHERE `name` = '".$mode."';";
+	$query = "SELECT * FROM `".$roster->db->table('account')."` WHERE `name` = '" . $mode . "';";
 	$result = $roster->db->query($query);
 
 	if( !$result )
@@ -48,7 +48,7 @@ if( array_key_exists('mode',$_POST) )
 		$confirmpass = ( isset($_POST['confirmpass']) ? $_POST['confirmpass'] : '' );
 
 		$success = 0;
-		if( md5($oldpass) != $realhash )
+		if( $mode == 'Admin' && md5($oldpass) != $realhash )
 		{
 			$body = messagebox($roster->locale->act['pass_old_error'],$roster->locale->act['roster_cp'],'sred');
 		}
@@ -70,102 +70,89 @@ if( array_key_exists('mode',$_POST) )
 		}
 		else // valid password
 		{
-			$query = 'UPDATE `'.$roster->db->table('account').'` SET `hash` = "'.md5($newpass).'"  WHERE `name` = "'.$mode.'";';
+			$query = 'UPDATE `' . $roster->db->table('account') . '` SET `hash` = "' . md5($newpass) . '"  WHERE `name` = "' . $mode . '";';
 
 			$result = $roster->db->query($query);
 
 			if (!$result)
 			{
-				die_quietly('There was a database error while trying to change the password. MySQL said: <br />'.$roster->db->error(),$roster->locale->act['roster_cp'],__FILE__,__LINE__,$query);
+				die_quietly('There was a database error while trying to change the password. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['roster_cp'],__FILE__,__LINE__,$query);
 			}
 
 			$success = 1;
 
-			$body = messagebox(sprintf($roster->locale->act['pass_changed'],'<span style="font-size:11px;color:red;">'.$newpass.'</span>'),$roster->locale->act['roster_cp'],'sgreen');
+			$body = messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
 		}
-	}
-
-	if ($success)
-	{
-		return;
 	}
 
 	$body .= '<br />';
 }
 
-$body .= '<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
+$body .= '<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Admin" />
-	'.border('sred','start',$roster->locale->act['changeadminpass']).'
+	' . border('sred','start',$roster->locale->act['changeadminpass']) . '
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
-	      <td class="membersRow1">'.$roster->locale->act['old_pass'].':</td>
+	      <td class="membersRow1">' . $roster->locale->act['old_pass'] . ':</td>
 	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="oldpass" value="" /></td>
 	    </tr>
 	    <tr>
-	      <td class="membersRow2">'.$roster->locale->act['new_pass'].':</td>
+	      <td class="membersRow2">' . $roster->locale->act['new_pass'] . ':</td>
 	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
 	    </tr>
 	    <tr>
-	      <td class="membersRow1">'.$roster->locale->act['new_pass_confirm'].':</td>
+	      <td class="membersRow1">' . $roster->locale->act['new_pass_confirm'] . ':</td>
 	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
 	    </tr>
 	    <tr>
 	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
-		    <input type="submit" value="'.$roster->locale->act['pagebar_changepass'].'" /></div></td>
+		    <input type="submit" value="' . $roster->locale->act['pagebar_changepass'] . '" /></div></td>
 	    </tr>
 	  </table>
-	'.border('sred','end').'
+	' . border('sred','end') . '
 	</form>
 <br />';
 
 
 $body .= '<br />
-<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_officer_pass" onsubmit="submitonce(this)">
+<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_officer_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Officer" />
-	'.border('syellow','start',$roster->locale->act['changeofficerpass']).'
+	' . border('syellow','start',$roster->locale->act['changeofficerpass']) . '
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
-	      <td class="membersRow1">'.$roster->locale->act['old_pass'].':</td>
-	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="oldpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td class="membersRow2">'.$roster->locale->act['new_pass'].':</td>
+	      <td class="membersRow2">' . $roster->locale->act['new_pass'] . ':</td>
 	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
 	    </tr>
 	    <tr>
-	      <td class="membersRow1">'.$roster->locale->act['new_pass_confirm'].':</td>
+	      <td class="membersRow1">' . $roster->locale->act['new_pass_confirm'] . ':</td>
 	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
 	    </tr>
 	    <tr>
 	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
-		    <input type="submit" value="'.$roster->locale->act['pagebar_changepass'].'" /></div></td>
+		    <input type="submit" value="' . $roster->locale->act['pagebar_changepass'] . '" /></div></td>
 	    </tr>
 	  </table>
-	'.border('syellow','end').'
+	' . border('syellow','end') . '
 	</form>';
 
 
 $body .= '<br />
-<form action="'.makelink().'" method="post" enctype="multipart/form-data" id="conf_guild_pass" onsubmit="submitonce(this)">
+<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_guild_pass" onsubmit="submitonce(this)">
 <input type="hidden" name="mode" value="Guild" />
-	'.border('sgreen','start',$roster->locale->act['changeguildpass']).'
+	' . border('sgreen','start',$roster->locale->act['changeguildpass']) . '
 	  <table class="bodyline" cellspacing="0" cellpadding="0">
 	    <tr>
-	      <td class="membersRow1">'.$roster->locale->act['old_pass'].':</td>
-	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="oldpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td class="membersRow2">'.$roster->locale->act['new_pass'].':</td>
+	      <td class="membersRow2">' . $roster->locale->act['new_pass'] . ':</td>
 	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
 	    </tr>
 	    <tr>
-	      <td class="membersRow1">'.$roster->locale->act['new_pass_confirm'].':</td>
+	      <td class="membersRow1">' . $roster->locale->act['new_pass_confirm'] . ':</td>
 	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
 	    </tr>
 	    <tr>
 	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
-		    <input type="submit" value="'.$roster->locale->act['pagebar_changepass'].'" /></div></td>
+		    <input type="submit" value="' . $roster->locale->act['pagebar_changepass'] . '" /></div></td>
 	    </tr>
 	  </table>
-	'.border('sgreen','end').'
+	' . border('sgreen','end') . '
 	</form>';

@@ -466,7 +466,7 @@ class RosterMenu
 			$i = 0;
 			foreach( $dat as $bar )
 			{
-				$req .= 'barnames[' . $i . ']=' . $bar['name'] . '&amp;';
+				$req .= 'barnames[' . $i . ']=' . urlencode($bar['name']) . '&amp;';
 				$req .= 'barsizes[' . $i . ']=' . ($bar['alt']+$bar['nonalt']) . '&amp;';
 				$req .= 'bar2sizes[' . $i . ']=' . $bar['alt'] . '&amp;';
 				$i++;
@@ -482,7 +482,7 @@ class RosterMenu
 			$i = 0;
 			foreach( $dat as $bar )
 			{
-				$req .= 'barnames[' . $i . ']=' . $bar['name'] . '&amp;';
+				$req .= 'barnames[' . $i . ']=' . urlencode($bar['name']) . '&amp;';
 				$req .= 'barsizes[' . $i . ']=' . (($bar['alt']+$bar['nonalt']==0) ? -1 : log($bar['alt']+$bar['nonalt'])) . '&amp;';
 				$req .= 'bar2sizes[' . $i . ']=' . (($bar['alt']==0) ? -1 : log($bar['alt'])) . '&amp;';
 				$i++;

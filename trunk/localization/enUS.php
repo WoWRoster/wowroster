@@ -726,7 +726,7 @@ $lang['pass_submit_error'] = 'Submit error. The old password, the new password, 
 $lang['pass_mismatch'] = 'Passwords do not match. Please type the exact same password in both new password fields';
 $lang['pass_blank'] = 'No blank passwords. Please enter a password in both fields. Blank passwords are not allowed';
 $lang['pass_isold'] = 'Password not changed. The new password was the same as the old one';
-$lang['pass_changed'] = 'Password changed. Your new password is [ %1$s ].<br /> Do not forget this password, it is stored encrypted only';
+$lang['pass_changed'] = '&quot;%1$s&quot; password changed. Your new password is [ %2$s ].<br /> Do not forget this password, it is stored encrypted only';
 $lang['auth_req'] = 'Authorization Required';
 
 // Upload Rules

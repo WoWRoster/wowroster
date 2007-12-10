@@ -726,7 +726,7 @@ $lang['pass_submit_error'] = 'Error de publicación. La contraseña vieja, la nu
 $lang['pass_mismatch'] = 'Las contraseñas no coinciden. Por favor, escribe exactamente la misma contraseña en ambas casillas';
 $lang['pass_blank'] = 'No se permite contraseñas en blanco. Por favor, escribe una contraseña en ambas casillas.';
 $lang['pass_isold'] = 'No se ha cambiado la contraseña. La nueva contraseña es la misma que la anterior';
-$lang['pass_changed'] = 'Contraseña cambiada. Tu nueva contraseña es [ %1$s ].<br /> No olvides la contraseña, se guarda encriptada únicamente';
+$lang['pass_changed'] = '&quot;%1$s&quot; contraseña cambiada. Tu nueva contraseña es [ %2$s ].<br /> No olvides la contraseña, se guarda encriptada únicamente';
 $lang['auth_req'] = 'introduce contraseña';
 
 // Upload Rules

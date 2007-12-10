@@ -119,18 +119,18 @@ class char
 	{
 		global $roster;
 
-		$quests = quest_get_many( $this->data['member_id'],'');
+		$quests = quest_get_many($this->data['member_id'],'');
 
 		$returnstring = '';
-		if( isset( $quests[0] ) )
+		if( isset($quests[0]) )
 		{
 			$zone = '';
-			$returnstring = border('sgray','start',$this->locale['questlog'] . ' (' . count($quests) . '/25)').
+			$returnstring = border('sgray','start',$this->locale['questlog'] . ' (' . count($quests) . '/' . ROSTER_MAXQUESTS . ')').
 				'<table class="bodyline" cellspacing="0" cellpadding="0">';
 
-			foreach ($quests as $quest)
+			foreach( $quests as $quest )
 			{
-				if ($zone != $quest->data['zone'])
+				if( $zone != $quest->data['zone'] )
 				{
 					$zone = $quest->data['zone'];
 					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight">' . $zone . '</th></tr>';
@@ -161,8 +161,7 @@ class char
 					$name = trim(strstr($name, ' '));
 				}
 
-				$returnstring .= '        <tr>
-          <td class="membersRow1">';
+				$returnstring .= '<tr><td class="membersRow1">';
 
 				$returnstring .= '<span class="' . $font . '">[' . $quest_level . '] ' . $name . '</span>';
 
@@ -198,7 +197,7 @@ class char
 
 				$returnstring .= '</td></tr>';
 			}
-			$returnstring .= '      </table>' . border('sgray','end');
+			$returnstring .= '</table>' . border('sgray','end');
 		}
 		return $returnstring;
 	}
@@ -1609,7 +1608,7 @@ $returnstring .= '  <tr>
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
 
-		return $this->printStatLine($name, '<strong class="white">'.$value.'%</strong>', $line);
+		return $this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
 	}
 
 
@@ -1759,7 +1758,7 @@ $returnstring .= '  <tr>
 			{
 				$treeshow = ( $tree['points'] > $treeshowp ? $tree['points'] : $treeshowp);
 
-				$returndata .= '	<div id="treetab'.$treeindex.'" class="char_tab" style="display:none;" >
+				$returndata .= '	<div id="treetab'.$treeindex.'" style="display:none;" >
 
 		<div class="points"><span style="color:#ffdd00">'.sprintf($roster->locale->wordings[$this->data['clientLocale']]['pointsspent'],$tree['name']).':</span> '.$tree['points'].'</div>
 		<img class="background" src="'.$roster->config['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
