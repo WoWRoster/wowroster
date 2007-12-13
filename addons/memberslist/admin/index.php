@@ -17,9 +17,17 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+// ----[ Delete per-guild config for guilds that aren't in the DB anymore ]--
+$query = "DELETE `".$roster->db->table('config_guild',$addon['basename'])."` ".
+	"FROM `".$roster->db->table('config_guild',$addon['basename'])."` ".
+	"LEFT JOIN `".$roster->db->table('guild')."` USING (`guild_id`) ".
+	"WHERE `".$roster->db->table('guild')."`.`guild_id` IS NULL ";
+
+$roster->db->query($query);
+
 // ----[ Add per-guild config where it doesn't exist yet ]--
 $guilds = array();
-$query = "SELECT `guild`.`guild_id`, `guild_name`, IF( `config_guild`.`guild_id` IS NULL, 1, 0 ) fetch_config "
+$query = "SELECT `guild`.`guild_id`, `guild_name`, `region`, `server`, IF( `config_guild`.`guild_id` IS NULL, 1, 0 ) fetch_config "
 	. "FROM `" . $roster->db->table('guild') . "` guild "
 	. "LEFT JOIN `" . $roster->db->table('config_guild',$addon['basename']) . "` config_guild USING (`guild_id`);";
 
@@ -27,7 +35,7 @@ $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch( $result ) )
 {
-	$guilds[$row['guild_id']] = $row['guild_name'];
+	$guilds[$row['guild_id']] = $row['guild_name'] . ' @ ' . $row['region'] . '-' . $row['server'];
 
 	if( $row['fetch_config'] )
 	{
@@ -63,6 +71,7 @@ while( $row = $roster->db->fetch( $result ) )
 		$roster->db->query($query);
 	}
 }
+
 asort($guilds);
 
 // ----[ Fetch all of the ordinary config for the guilds ]--
