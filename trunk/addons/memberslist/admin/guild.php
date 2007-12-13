@@ -51,14 +51,14 @@ if( $roster->db->query_first($query) == 0 )
 }
 
 // ----[ Set the tablename and create the config class ]----
-$tablename = $roster->db->table('config_guild',$addon['basename']);
 include(ROSTER_LIB.'config.lib.php');
+$config = new roster_config( $roster->db->table('config_guild',$addon['basename']), '`guild_id` = "' . $roster->data['guild_id'] . '"');
 
 // ----[ Get configuration data ]---------------------------
-$config->getConfigData('`guild_id` = "' . $roster->data['guild_id'] . '"');
+$config->getConfigData();
 
 // ----[ Process data if available ]------------------------
-$save_message = $config->processData($addon['config'], '`guild_id` = "' . $roster->data['guild_id'] . '"');
+$save_message = $config->processData($addon['config']);
 
 // ----[ Build the page items using lib functions ]---------
 $menu = $config->buildConfigMenu();

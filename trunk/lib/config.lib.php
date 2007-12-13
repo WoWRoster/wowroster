@@ -21,10 +21,12 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-class config
+class roster_config
 {
 	var $db_values;
 	var $tablename;
+	var $where;
+	var $prefix;
 
 	var $form_start;
 	var $submit_button;
@@ -40,17 +42,19 @@ class config
 	/**
 	 * Constructor. We define the config table to work with here.
 	 */
-	function config( $tablename )
+	function roster_config( $tablename, $where='1', $prefix='config_' )
 	{
 		global $roster_login, $roster;
 
 		$roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
 		$this->tablename = $tablename;
+		$this->where = $where;
+		$this->prefix = $prefix;
 		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."') &amp;&amp; submitonce(this);\">\n";
 		$this->submit_button = "<br /><br />\n<input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n";
 		$this->form_end = "</form>\n";
-		$this->jscript  = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"config_tabs\")\n</script>\n";
+		$this->jscript  = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"".$this->prefix."tabs\")\n</script>\n";
 		$this->jscript .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."js/color_functions.js\"></script>\n";
 	}
 
@@ -66,7 +70,7 @@ class config
 		$menu = '<!-- Begin Config Menu -->'."\n".
 			border('sgray','start',$roster->locale->act['roster_config_menu'])."\n".
 			'<div style="width:145px;">'."\n".
-			'  <ul id="config_tabs" class="tab_menu">'."\n";
+			'  <ul id="'.$this->prefix.'tabs" class="tab_menu">'."\n";
 
 		if (is_array($this->db_values['menu']))
 		{
@@ -346,7 +350,7 @@ class config
 						$text_class = '';
 					}
 
-					$input_field = '<input class="wowinput'.$text_class.'" name="config_'.$values['name'].'" type="text" value="'.htmlentities($values['value']).'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+					$input_field = '<input class="wowinput'.$text_class.'" name="'.$this->prefix.$values['name'].'" type="text" value="'.htmlentities($values['value']).'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
 					break;
 
 				case 'radio':
@@ -354,14 +358,14 @@ class config
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
-						$input_field .= '<input type="radio" id="rad_'.$this->radio_num.'" name="config_'.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' /><label for="rad_'.$this->radio_num.'" class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'">'.$vals[0]."</label>\n";
+						$input_field .= '<input type="radio" id="rad_'.$this->radio_num.'" name="'.$this->prefix.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' /><label for="rad_'.$this->radio_num.'" class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'">'.$vals[0]."</label>\n";
 						$this->radio_num++;
 					}
 					break;
 
 				case 'select':
 					$options = explode('|',$input_type[1]);
-					$input_field .= '<select name="config_'.$values['name'].'">'."\n";
+					$input_field .= '<select name="'.$this->prefix.$values['name'].'">'."\n";
 					$select_one = 1;
 					foreach( $options as $value )
 					{
@@ -380,7 +384,7 @@ class config
 					break;
 
 				case 'color':
-					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:'.$values['value'].';" value="'.$values['value'].'" name="config_color_'.$values['name'].'" id="config_color_'.$values['name'].'" /><img src="'.$roster->config['img_url'].'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'config_color_'.$values['name'].'\'))" alt="" />'."\n";
+					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:'.$values['value'].';" value="'.$values['value'].'" name="'.$this->prefix.'color_'.$values['name'].'" id="'.$this->prefix.'color_'.$values['name'].'" /><img src="'.$roster->config['img_url'].'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\''.$this->prefix.'color_'.$values['name'].'\'))" alt="" />'."\n";
 					break;
 
 				case 'access':
@@ -413,11 +417,8 @@ class config
 
 	/**
 	 * Process Data for entry to the database
-	 *
-	 * @param string $where
-	 * 	Additional WHERE clause to use on the update
 	 */
-	function processData( &$config, $where='1')
+	function processData( &$config )
 	{
 		global $queries, $roster, $addon;
 
@@ -432,10 +433,10 @@ class config
 			// Remove the extra slashes added by settings.php
 			$settingValue = stripslashes($settingValue);
 
-			if( substr($settingName,0,7) == 'config_' )
+			if( substr($settingName,0,strlen($this->prefix)) == $this->prefix )
 			{
 				// Get rid of the prefix
-				$settingName = substr($settingName,7);
+				$settingName = substr($settingName,strlen($this->prefix));
 
 				// Fix directories
 				if( $settingName == 'img_url' || $settingName == 'interface_url' )
@@ -478,7 +479,7 @@ class config
 				{
 					if( $this->db_values['all'][$settingName]['value'] != $settingValue )
 					{
-						$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE ($where) AND `config_name` = '".$roster->db->escape($settingName)."';";
+						$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE (".$this->where.") AND `config_name` = '".$roster->db->escape($settingName)."';";
 					}
 					if( $this->db_values['all'][$settingName]['value'] == $config[$settingName] )
 					{
@@ -513,14 +514,13 @@ class config
 	/**
 	 * Get config data
 	 *
-	 * @param string WHERE clause for SQL
 	 * @return error string on failure
 	 */
-	function getConfigData ( $where='1' )
+	function getConfigData()
 	{
 		global $roster;
 
-		$sql = "SELECT * FROM `".$this->tablename."` WHERE $where ORDER BY `id` ASC;";
+		$sql = "SELECT * FROM `".$this->tablename."` WHERE (".$this->where.") ORDER BY `id` ASC;";
 
 		// Get the current config values
 		$results = $roster->db->query($sql);
@@ -583,5 +583,3 @@ class config
 	}
 
 }
-
-$config = new config($tablename);
