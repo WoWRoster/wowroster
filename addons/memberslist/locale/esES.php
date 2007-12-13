@@ -178,6 +178,7 @@ $lang['admin']['log_note']		= 'Nota|Elige si mostrar la columna con la nota en l
 $lang['admin']['log_onote']		= 'Nota de oficial|Elige si mostrar la nota de oficial en la página de registro de miembros';
 
 // Settings names on build page
+$lang['admin']['use_global']    = 'Use global settings|Use global settings rather than these local ones for this guild.';
 $lang['admin']['getmain_regex'] = 'Expresiones|Este campo especifica las expresiones a usar. <br />Mira en el enlace de wiki para mas detalles.';
 $lang['admin']['getmain_field'] = 'Aplicar en un campo|Este campo especifica sobre que campo de miembro se aplica la expresión. <br />Mira en el enlace de wiki para mas detalles.';
 $lang['admin']['getmain_match'] = 'Coincidencias|Este campo especifica que valor devolver con la expresión. <br />Mira en el enlace de wiki para mas detalles.';

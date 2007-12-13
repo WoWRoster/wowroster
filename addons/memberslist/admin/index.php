@@ -47,6 +47,20 @@ while( $row = $roster->db->fetch( $result ) )
 			. "AND (`id` < 100 OR `config_name` = 'build' OR `config_type` = 'build');";
 
 		$roster->db->query($query);
+
+		// And from ID 0
+		$query = "INSERT INTO `" . $roster->db->table('config_guild',$addon['basename']) . "` "
+			. "(`guild_id`,`id`,`config_name`,`config_value`,`form_type`,`config_type`) "
+			. "SELECT '" . $row['guild_id'] . "', "
+			. "`id`, "
+			. "IF(`config_name`='build','guild_" . $row['guild_id'] . "',`config_name`) AS config_name, "
+			. "`config_value`, "
+			. "`form_type`, "
+			. "IF(`config_type`='build','guild_" . $row['guild_id'] . "',`config_type`) AS config_type "
+			. "FROM `" . $roster->db->table('config_guild',$addon['basename']) . "` "
+			. "WHERE `guild_id` = '0';";
+
+		$roster->db->query($query);
 	}
 }
 asort($guilds);
@@ -86,6 +100,7 @@ foreach( $guilds as $guild_id => $guild_name )
 	$config[$guild_id]->getConfigData();
 	$config[$guild_id]->processData($addon['rules'][$guild_id]);
 
+	$config[$guild_id]->db_values['menu']['guild_' . $guild_id]['description'] = $guild_name;
 	$config['master']->db_values['menu']['guild_' . $guild_id] = array(
 		'name' => 'guild_' . $guild_id,
 		'config_type' => 'menu',

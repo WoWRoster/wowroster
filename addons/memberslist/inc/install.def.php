@@ -28,7 +28,7 @@ class memberslistInstall
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '1.9.9.1521';
+	var $version = '1.9.9.1523';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
@@ -172,9 +172,7 @@ class memberslistInstall
 			PRIMARY KEY  (`guild_id`,`id`)");
 
 		$installer->add_query("INSERT INTO `" . $installer->table('config_guild') . "` VALUES
-			(0, 100, 'main',       'rostercp-addon-memberslist',                    'makelink',    'menu'),
-			(0, 170, 'ml_wiki',    'http://www.wowroster.net/MediaWiki/MembersList','newlink',     'menu'),
-			(0, 180, 'updMainAlt', 'rostercp-addon-memberslist-update',             'makenewlink', 'menu');");
+			(0, 5590, 'use_global', '1', 'radio{on^1|off^0', 'build');");
 
 		# Roster menu entry
 		$installer->add_menu_button('memberslist_Members','guild','','spell_holy_prayerofspirit');
@@ -199,10 +197,8 @@ class memberslistInstall
 		/**
 		 * In this update: Per-guild main/alt rule configuration
 		 */
-		if( version_compare('1.9.9.1479', $oldversion,'>') == true )
+		if( version_compare('1.9.9.1479', $oldversion, '>') == true )
 		{
-			$installer->add_config("165,'gbuild','rostercp-addon-memberslist-guild','makelink','menu'");
-
 			// Filled from the normal config table and ID=0 by admin/guild.php
 			// Note: When updating config entries from the 'build' category, apply them both on the main config table and on this one.
 			$installer->create_table($installer->table('config_guild'),"
@@ -213,20 +209,26 @@ class memberslistInstall
 				`form_type` mediumtext,
 				`config_type` varchar(255) default NULL,
 				PRIMARY KEY  (`guild_id`,`id`)");
-
-			$installer->add_query("INSERT INTO `" . $installer->table('config_guild') . "` VALUES
-				(0, 100, 'main',       'rostercp-addon-memberslist',                    'makelink',    'menu'),
-				(0, 170, 'ml_wiki',    'http://www.wowroster.net/MediaWiki/MembersList','newlink',     'menu'),
-				(0, 180, 'updMainAlt', 'rostercp-addon-memberslist-update',             'makenewlink', 'menu');");
 		}
 
-		if( version_compare('1.9.9.1522', $oldversion,'>') == true )
+		if( version_compare('1.9.9.1522', $oldversion, '>') == true )
 		{
 			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_name` = CONCAT('guild_', `guild_id`) WHERE `config_name` = 'build';");
 			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_type` = CONCAT('guild_', `guild_id`) WHERE `config_type` = 'build';");
 			$installer->remove_config(165);
 		}
 
+		if( version_compare('1.9.9.1523', $oldversion, '>') == true )
+		{
+			$installer->add_query("DELETE FROM `" . $installer->table('config_guild') . "` WHERE `id` in (100,170,180);");
+			$installer->add_query("INSERT INTO `" . $installer->table('config_guild') . "` VALUES
+				(0, 5590, 'use_global', '1', 'radio{on^1|off^0', 'build');");
+
+			$installer->add_query("INSERT INTO `" . $installer->table('config_guild') . "`
+				SELECT DISTINCT `guild_id`, 5590, 'use_global', '0', 'radio{on^1|off^0', 'build'
+				FROM `" . $installer->table('config_guild') . "`
+				WHERE `guild_id` > 0;");
+		}
 		return true;
 	}
 

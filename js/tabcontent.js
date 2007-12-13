@@ -50,9 +50,14 @@ function getullistlinkbyId(ulid, tabcontentid)
 	var ullist=document.getElementById(ulid).getElementsByTagName("li")
 	for (var i=0; i<ullist.length; i++)
 	{
-		if (ullist[i].getElementsByTagName("a")[0].getAttribute("rel")==tabcontentid)
+		var ullistelem=ullist[i].getElementsByTagName("a");
+		if (ullistelem.length == 0)
 		{
-			return ullist[i].getElementsByTagName("a")[0]
+			continue;
+		}
+		if (ullistelem[0].getAttribute("rel")==tabcontentid)
+		{
+			return ullistelem[0]
 			break
 		}
 	}

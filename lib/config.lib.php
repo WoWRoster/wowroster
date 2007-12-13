@@ -128,86 +128,83 @@ class roster_config
 	{
 		global $roster;
 
-		if (is_array($this->db_values['menu']))
+		foreach($this->db_values['menu'] as $values)
 		{
-			foreach($this->db_values['menu'] as $values)
+			$type = explode('{',$values['form_type']);
+			$page = '<div id="'.$values['name'].'" style="display:none;">'."\n";
+
+			$type[1] = ( isset($type[1]) ? $type[1] : '');
+
+			$header_text = $values['description'];
+
+			switch ($type[0])
 			{
-				$type = explode('{',$values['form_type']);
-				$page = '<div id="'.$values['name'].'" style="display:none;">'."\n";
+				case 'page':
+					$page .= $this->buildPage($values['name'],$type[1]);
+					$addpage = true;
+					break;
 
-				$type[1] = ( isset($type[1]) ? $type[1] : '');
+				case 'pageframe':
+					$page .= border('sblue','start',$header_text)."\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= $this->buildPage($values['name'],$type[1]);
+					$page .= "</table>\n";
+					$page .= border('sblue','end')."\n";
+					$addpage = true;
+					break;
 
-				$header_text = $values['description'];
+				case 'pagehide':
+					$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$page .= border('sblue','end');
+					$page .= '</div>'."\n";
+					$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= $this->buildPage($values['name'],$type[1]);
+					$page .= "</table>\n";
+					$page .= border('sblue','end');
+					$page .= '</div>'."\n";
+					$addpage = true;
+					break;
 
-				switch ($type[0])
-				{
-					case 'page':
-						$page .= $this->buildPage($values['name'],$type[1]);
-						$addpage = true;
-						break;
+				case 'blockframe':
+					$page .= border('sblue','start',$header_text)."\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= $this->buildBlock($values['name']);
+					$page .= "</table>\n";
+					$page .= border('sblue','end')."\n";
+					$addpage = true;
+					break;
 
-					case 'pageframe':
-						$page .= border('sblue','start',$header_text)."\n";
-						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-						$page .= $this->buildPage($values['name'],$type[1]);
-						$page .= "</table>\n";
-						$page .= border('sblue','end')."\n";
-						$addpage = true;
-						break;
+				case 'blockhide':
+					$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$page .= border('sblue','end');
+					$page .= '</div>'."\n";
+					$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= $this->buildBlock($values['name']);
+					$page .= "</table>\n";
+					$page .= border('sblue','end');
+					$page .= '</div>'."\n";
+					$addpage = true;
+					break;
 
-					case 'pagehide':
-						$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
-						$page .= border('sblue','end');
-						$page .= '</div>'."\n";
-						$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
-						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-						$page .= $this->buildPage($values['name'],$type[1]);
-						$page .= "</table>\n";
-						$page .= border('sblue','end');
-						$page .= '</div>'."\n";
-						$addpage = true;
-						break;
+				case 'function':
+					$this->nonformpages .= $type[1]();
+					$addpage = false;
+					break;
 
-					case 'blockframe':
-						$page .= border('sblue','start',$header_text)."\n";
-						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-						$page .= $this->buildBlock($values['name']);
-						$page .= "</table>\n";
-						$page .= border('sblue','end')."\n";
-						$addpage = true;
-						break;
-
-					case 'blockhide':
-						$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
-						$page .= border('sblue','end');
-						$page .= '</div>'."\n";
-						$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-						$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
-						$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-						$page .= $this->buildBlock($values['name']);
-						$page .= "</table>\n";
-						$page .= border('sblue','end');
-						$page .= '</div>'."\n";
-						$addpage = true;
-						break;
-
-					case 'function':
-						$this->nonformpages .= $type[1]();
-						$addpage = false;
-						break;
-
-					default:
-						$addpage = false;
-						break;
-				}
-				$page .= "</div>\n";
-				if ($addpage)
-				{
-					$this->formpages .= $page;
-				}
+				default:
+					$addpage = false;
+					break;
+			}
+			$page .= "</div>\n";
+			if ($addpage)
+			{
+				$this->formpages .= $page;
 			}
 		}
 	}
