@@ -39,6 +39,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	if( substr($_POST['action'],0,9) == 'delguild_' )
 	{
+		$sel_guild = substr($_POST['action'],9);
 		$update->deleteGuild( $sel_guild, time() );
 	}
 	elseif( isset($_POST['massdel']) )
@@ -120,12 +121,12 @@ $query = "SELECT "
 $num_members = $roster->db->query_first($query);
 
 
-if( $num_members > 0 )
-{
-	$body .= '<form action="' . makelink('&amp;start=' . $start) . '" method="post" id="delete">
+$body .= '<form action="' . makelink('&amp;start=' . $start) . '" method="post" id="delete">
 <input type="hidden" id="deletehide" name="action" value="" />
 <input type="hidden" name="process" value="process" />' . "\n";
 
+if( $num_members > 0 )
+{
 	// Draw the header line
 	if ($start > 0)
 	{
@@ -203,5 +204,7 @@ if( $num_members > 0 )
 }
 else
 {
-	$body .= '<span class="title_text">No Data</span>';
+	$body .= '<span class="title_text">No Data</span><br />
+	<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $roster->data['guild_id'] . '\');">' . $roster->locale->act['delete_guild'] . '</button>
+	</form>';
 }

@@ -28,7 +28,22 @@ $mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild'
 // Process a new line
 if( isset($_POST['process']) && $_POST['process'] == 'process')
 {
-	if( $_POST['action'] == 'add' )
+	if( $_POST['action'] == 'enforce' )
+	{
+		$enforce = ( $_POST['enforce'] == '1' ? 1 : 0 );
+		$query = "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '$enforce' WHERE `id` = '1190';";
+
+		if( !$roster->db->query($query) )
+		{
+			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+		}
+		else
+		{
+			// Set this enforce_rules value to the right one since roster_config isn't refreshed here
+			$roster->config['enforce_rules'] = $enforce;
+		}
+	}
+	elseif( $_POST['action'] == 'add' )
 	{
 		$type = ($mode == 'guild'?0:2) + ($_POST['block'] == 'allow'?0:1);
 
@@ -136,6 +151,15 @@ $menu .= border('syellow','start','Menu') . "\n"
 		. border('syellow','end');
 
 $roster->output['body_onload'] .= 'initARC(\'allow\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+
+
+$body .= '<form action="' . makelink() . '" method="post" id="enforce">
+<input type="hidden" name="action" value="enforce" />
+<input type="hidden" id="rule" name="enforce" value="" />
+<input type="hidden" name="process" value="process" />
+<button class="button_hide" onclick="setvalue(\'rule\',\'' . ( $roster->config['enforce_rules'] ? '0' : '1' ) . '\');"><img src="' . $roster->config['img_url'] . 'check_' . ( $roster->config['enforce_rules'] ? 'on' : 'off' ) . '.png" alt="" /></button>
+' . substr($roster->locale->act['admin']['enforce_rules'],0,strpos($roster->locale->act['admin']['enforce_rules'],'|')) . '
+</form><br />';
 
 $body .= '<form action="' . makelink() . '" method="post" id="deny">
 <input type="hidden" id="denyhide" name="action" value="" />

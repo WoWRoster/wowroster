@@ -130,6 +130,11 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1055, 'external_auth', 'roster', 'function{externalAuth', 'main_conf');");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1524','<') )
+		{
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1190, 'enforce_rules', '1', 'radio{on^1|off^0', 'main_conf');");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

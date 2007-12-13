@@ -823,6 +823,7 @@ $lang['admin']['check_updates'] = "Vérification des mises à jour|Ceci permet a
 $lang['admin']['seo_url'] = "Adressage alternatif|Utilise la forme /autre/page/ici.html?param=valeur en lieu et place de /?p=autre-page-ici&param=valeur";
 $lang['admin']['local_cache']= "Cache des fichiers du système|Utilise le système de fichier local comme cache pour permettre un accroissement de performance.";
 $lang['admin']['use_temp_tables'] = "Use temporary tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";
+$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "Nom du roster|Saisissez un nom qui sera affiché quand vous ne serez pas sur une page de guilde ou de personnage";
