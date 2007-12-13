@@ -22,7 +22,7 @@ if ( !defined('IN_ROSTER') )
 $query = "SELECT `guild_id`, `guild_name` AS `Name` FROM `" . $roster->db->table('guild') . "` as guild";
 $result = $roster->db->query( $query );
 
-while( $row = $roster->db->fetch($result))
+while( $row = $roster->db->fetch($result, SQL_ASSOC))
 {
 	$data[$row['guild_id']] = $row;
 	$data[$row['guild_id']]['ScanInfo']['HasOfficerNote'] = '1';
@@ -33,9 +33,9 @@ $roster->db->free_result($result);
 
 // Fetch characters
 $query = "SELECT `guild_id`, `member_id`, `name` AS `Name`, `note` AS `Note`, `officer_note` AS `OfficerNote` FROM `".$roster->db->table('members')."` as members";
-$result = $roster->db->query( $query ) or die_quietly( $roster->db->error() );
+$result = $roster->db->query( $query );
 
-while( $row = $roster->db->fetch($result))
+while( $row = $roster->db->fetch($result, SQL_ASSOC))
 {
 	$data[$row['guild_id']]['Members'][$row['Name']] = $row;
 }
