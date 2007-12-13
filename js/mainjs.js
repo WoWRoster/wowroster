@@ -408,15 +408,22 @@ function showSpell(num)
  * cont:	The javascript function to call once the reply is in.
  * addon:	Addon name the function belongs to, if not a roster function
  */
-var req;
-
-function loadXMLDoc(url,post)
+function loadXMLDoc(url,post,callback)
 {
+	if( arguments.length < 2 )
+	{
+		return false;
+	}
+	else if( arguments.length == 2 )
+	{
+		callback=loadAjaxResult;
+	}
+
 	// branch for native XMLHttpRequest object
 	if (window.XMLHttpRequest)
 	{
 		req = new XMLHttpRequest();
-		req.onreadystatechange = processReqChange;
+		req.onreadystatechange = function(){ callback(req ); };
 		req.open("POST", url, true);
 		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		req.send(post);
@@ -427,7 +434,7 @@ function loadXMLDoc(url,post)
 		req = new ActiveXObject("Microsoft.XMLHTTP");
 		if (req)
 		{
-			req.onreadystatechange = processReqChange;
+			req.onreadystatechange = function(){ callback(req ); };
 			req.open("POST", url, true);
 			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			req.send(post);
@@ -435,7 +442,7 @@ function loadXMLDoc(url,post)
 	}
 }
 
-function processReqChange()
+function loadAjaxResult( req )
 {
 	// only if req shows "complete"
 	if (req.readyState == 4)
@@ -443,7 +450,7 @@ function processReqChange()
 		// only if "OK"
 		if (req.status == 200)
 		{
-//			Unescape this to show the result XLM in a pupup for debugging.
+//			Unescape this to show the result XML in a popup for debugging.
 //			alert(req.responseText);
 			response = req.responseXML.documentElement;
 			cont = response.getElementsByTagName('cont')[0].firstChild.data;
@@ -462,6 +469,35 @@ function processReqChange()
 		else
 		{
 			alert("There was a problem retrieving the XML data:\n" + req.statusText);
-        }
-    }
+		}
+	}
+}
+
+/**
+ * Use an ajax call to fetch HTML to put in a tag (probably a <div> or <span>) somewhere in your document.
+ * Usage: loadXMLDoc( "url", "post", function( req ){ loadAjaxInDiv( req, "id" ); } )
+ *
+ * url = url to request
+ * post = post string
+ * id = element ID to insert into
+ */
+function loadAjaxInDiv( req, id )
+{
+	if(!document.getElementById) return;
+
+	// only if req shows "complete"
+	if (req.readyState == 4)
+	{
+		// only if "OK"
+		if (req.status == 200)
+		{
+//			Unescape this to show the result XML in a popup for debugging.
+//			alert(req.responseText);
+			document.getElementById( id ).innerHTML = req.responseText;
+		}
+		else
+		{
+			alert("There was a problem retrieving the page data:\n" + req.statusText);
+		}
+	}
 }
