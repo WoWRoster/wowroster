@@ -20,11 +20,10 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','1.9.9.1524');
+define('ROSTER_VERSION','1.9.9.1525');
 
 /**
  * Roster Conf File
- *
  */
 define('ROSTER_CONF_FILE',ROSTER_BASE . 'conf.php');
 

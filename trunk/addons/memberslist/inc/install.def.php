@@ -28,7 +28,7 @@ class memberslistInstall
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '1.9.9.1523';
+	var $version = '1.9.9.1525';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
@@ -213,8 +213,8 @@ class memberslistInstall
 
 		if( version_compare('1.9.9.1522', $oldversion, '>') == true )
 		{
-			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_name` = CONCAT('guild_', `guild_id`) WHERE `config_name` = 'build';");
-			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_type` = CONCAT('guild_', `guild_id`) WHERE `config_type` = 'build';");
+			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_name` = CONCAT('guild_', `guild_id`) WHERE `config_name` = 'build' AND `guild_id` > 0;");
+			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_type` = CONCAT('guild_', `guild_id`) WHERE `config_type` = 'build' AND `guild_id` > 0;");
 			$installer->remove_config(165);
 		}
 
@@ -225,10 +225,16 @@ class memberslistInstall
 				(0, 5590, 'use_global', '1', 'radio{on^1|off^0', 'build');");
 
 			$installer->add_query("INSERT INTO `" . $installer->table('config_guild') . "`
-				SELECT DISTINCT `guild_id`, 5590, 'use_global', '0', 'radio{on^1|off^0', 'build'
+				SELECT DISTINCT `guild_id`, 5590, 'use_global', '0', 'radio{on^1|off^0', CONCAT('guild_', `guild_id`)
 				FROM `" . $installer->table('config_guild') . "`
 				WHERE `guild_id` > 0;");
 		}
+
+		if( version_compare('1.9.9.1525', $oldversion, '>') == true )
+		{
+			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_type` = CONCAT('guild_', `guild_id`) WHERE `config_type` = 'build' AND `guild_id` > 0;");
+		}
+
 		return true;
 	}
 
