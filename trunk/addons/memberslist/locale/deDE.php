@@ -176,6 +176,7 @@ $lang['admin']['log_note']		= 'Notiz|Setze die Sichtbarkeit der Notizspalte auf 
 $lang['admin']['log_onote']		= 'Offizernotiz|Setze die Sichtbarkeit der Offiziernotizspalte auf der Mitglieder Log Seite';
 
 // Settings names on build page
+$lang['admin']['use_global']    = 'Use global settings|Use global settings rather than these local ones for this guild.';
 $lang['admin']['getmain_regex'] = 'Regex|Dieses Feld spezifiziert die Benutzung des Regex. <br /> Folge dem wiki-Link für Details.';
 $lang['admin']['getmain_field'] = 'Anwenden auf Feld|Dieses Feld spezifiziert auf welches Mitgliederfeld Regex angewendet werden soll. <br />Folge dem wiki-Link für Details.';
 $lang['admin']['getmain_match'] = 'Benutze Treffernr.|Dieses Feld spezifiziert welcher Rückgabewert von Regex verwendet wird. <br /> Folge dem wiki-Link für Details.';

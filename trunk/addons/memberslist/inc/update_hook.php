@@ -99,7 +99,7 @@ class memberslistUpdate
 			$this->data['rules'][$row['config_name']] = $row['config_value'];
 		}
 
-		if( empty( $this->data['rules'] ) )
+		if( empty( $this->data['rules'] ) || $this->data['rules']['use_global'] )
 		{
 			$this->data['rules'] = $this->data['config'];
 		}

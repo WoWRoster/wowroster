@@ -178,6 +178,7 @@ $lang['admin']['log_note']		= 'Note|Set visibility of the note column on the mem
 $lang['admin']['log_onote']		= 'Officer Note|Set visibility of the officer note column on the member log page';
 
 // Settings names on build page
+$lang['admin']['use_global']    = 'Use global settings|Use global settings rather than these local ones for this guild.';
 $lang['admin']['getmain_regex'] = 'Regex|This field specifies the regex to use. <br /> See the wiki link for details.';
 $lang['admin']['getmain_field'] = 'Apply on field|This field specifies which member field the regex is applied on. <br /> See the wiki link for details.';
 $lang['admin']['getmain_match'] = 'Use match no|This field specifies which return value of the regex is used. <br /> See the wiki link for details.';
