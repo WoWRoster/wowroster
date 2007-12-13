@@ -1576,3 +1576,8 @@ function updateCheck( $addon )
 	}
 	return $return;
 }
+
+/**
+ * Dummy function. For when you need a callback that doesn't do anything.
+ */
+function dummy(){}

@@ -67,7 +67,12 @@ function initializetabcontent()
 		var ulist=ulobj.getElementsByTagName("li") //array containing the LI elements within UL
 		for (var x=0; x<ulist.length; x++)
 		{ //loop through each LI element
-			var ulistlink=ulist[x].getElementsByTagName("a")[0]
+			var ulistelem=ulist[x].getElementsByTagName("a");
+			if (ulistelem.length == 0)
+			{
+				continue;
+			}
+			var ulistlink = ulistelem[0];
 			if (ulistlink.getAttribute("rel"))
 			{
 				savetabcontentids(arguments[i], ulistlink.getAttribute("rel")) //save id of each tab content as loop runs
