@@ -28,7 +28,7 @@ class memberslistInstall
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '1.9.9.1479';
+	var $version = '1.9.9.1521';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
@@ -60,7 +60,6 @@ class memberslistInstall
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
 		$installer->add_config("150,'log',NULL,'blockframe','menu'");
 		$installer->add_config("160,'build',NULL,'blockframe','menu'");
-		$installer->add_config("165,'gbuild','rostercp-addon-memberslist-guild','makelink','menu'");
 		$installer->add_config("170,'ml_wiki','http://www.wowroster.net/MediaWiki/MembersList','newlink','menu'");
 		$installer->add_config("180,'updMainAlt','rostercp-addon-memberslist-update','makenewlink','menu'");
 
@@ -220,6 +219,14 @@ class memberslistInstall
 				(0, 170, 'ml_wiki',    'http://www.wowroster.net/MediaWiki/MembersList','newlink',     'menu'),
 				(0, 180, 'updMainAlt', 'rostercp-addon-memberslist-update',             'makenewlink', 'menu');");
 		}
+
+		if( version_compare('1.9.9.1522', $oldversion,'>') == true )
+		{
+			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_name` = CONCAT('guild_', `guild_id`) WHERE `config_name` = 'build';");
+			$installer->add_query("UPDATE `" . $installer->table('config_guild') . "` SET `config_type` = CONCAT('guild_', `guild_id`) WHERE `config_type` = 'build';");
+			$installer->remove_config(165);
+		}
+
 		return true;
 	}
 

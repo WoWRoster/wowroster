@@ -106,6 +106,9 @@ class roster_config
 						$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '').'><a href="#" rel="'.$values['name'].'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
 						break;
 
+					case 'hr':
+						$menu .= '    <li><hr/></li>'."\n";
+
 					default:
 						break;
 				}
@@ -134,8 +137,7 @@ class roster_config
 
 				$type[1] = ( isset($type[1]) ? $type[1] : '');
 
-				$header_text = explode('|',$roster->locale->act['admin'][$values['name']],2);
-				$header_text = $header_text[0];
+				$header_text = $values['description'];
 
 				switch ($type[0])
 				{
@@ -358,7 +360,7 @@ class roster_config
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
-						$input_field .= '<input type="radio" id="rad_'.$this->radio_num.'" name="'.$this->prefix.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' /><label for="rad_'.$this->radio_num.'" class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'">'.$vals[0]."</label>\n";
+						$input_field .= '<input type="radio" id="rad_'.$this->prefix.$this->radio_num.'" name="'.$this->prefix.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' /><label for="rad_'.$this->prefix.$this->radio_num.'" class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'">'.$vals[0]."</label>\n";
 						$this->radio_num++;
 					}
 					break;
