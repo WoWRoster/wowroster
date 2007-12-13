@@ -1132,22 +1132,15 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 {
 	global $roster;
 
-	$cache_tag = 'JSESSIONID';
-
-	$jSessionId = '';
-	if( $roster->cache->check($cache_tag) && ! preg_match('/jsessionid/', $url) )
-	{
-		$jSessionId = $roster->cache->get($cache_tag);
-		list ($mainUrl, $getVars) = split ("\?", $url);
-		$url = $mainUrl. ';jsessionid=' . $jSessionId . '?' . $getVars;
-	}
+	$pUrl = parse_url($url);
+	$cache_tag = $pUrl['host'].'_cookie';
 
 	$loopcount++;
 	$contents = '';
 
 	if( $loopcount > 2 )
 	{
-		trigger_error("UrlGrabber Error: No many loops. Unable to grab URL ($url)", E_USER_WARNING);
+		trigger_error("UrlGrabber Error: To many loops. Unable to grab URL ($url)", E_USER_WARNING);
 		return $contents;
 	}
 
@@ -1155,9 +1148,15 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 	{
 		$ch = curl_init($url);
 
+		$httpHeader = array( 'Accept-Language: '. substr($roster->config['locale'], 0, 2) );
+		if( $roster->cache->check($cache_tag) )
+		{
+			$httpHeader[] = 'Cookie: '. $roster->cache->get($cache_tag);
+		}
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeader);
 		if( $user_agent )
 		{
 			curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
@@ -1170,17 +1169,36 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 			trigger_error('UrlGrabber Error [CURL]: ' . curl_error($ch), E_USER_WARNING);
 			return false;
 		}
-		$lastUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+
+		if ( preg_match ('/\r/', $contents, $tmp ) ) {
+			list($resHeader, $data) = explode("\r\n\r\n", $contents, 2);
+		} else {
+			list($resHeader, $data) = explode("\n\n", $contents, 2);
+		}
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		curl_close($ch);
+
 		$tmp;
-		if( preg_match('/(?:jsessionid=)(.+)?\?/', $lastUrl, $tmp) )
+		if( preg_match('/(?:Set-Cookie: (.+)/', $resHeader, $tmp) )
 		{
 			$roster->cache->put($tmp[1], $cache_tag);
 		}
 
+        if ($http_code == 301 || $http_code == 302)
+        {
+            $matches = array();
+            preg_match('/Location:(.*?)\n/', $resHeader, $matches);
+            $redirect = trim(array_pop($matches));
+            if (!$redirect)
+            {
+                //couldn't process the url to redirect to
+                return $data;
+            }
 
-		curl_close($ch);
-
-		return $contents;
+            return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
+        } else {
+            return $data;
+        }
 	}
 	elseif( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
 	{
@@ -1201,16 +1219,22 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 			$header = "GET $page$page_params HTTP/1.0\r\n"
 					. "Host: $host\r\n"
 					. "User-Agent: $user_agent\r\n"
-					. "Connection: Close\r\n\r\n";
+					. "Accept-Language: ". substr($roster->config['locale'], 0, 2). "\r\n"
+					. "Connection: Close\r\n";
+			if( $roster->cache->check($cache_tag) ) {
+				$header .= "Cookie: ". $roster->cache->get($cache_tag). "\r\n";
+			}
+			$header .= "\r\n";
 			fwrite($file, $header);
 			stream_set_timeout($file, $timeout);
 			$inHeader = true;
 			$redirect = false;
+			$resHeader = '';
 			$tmp = '';
 			while( !feof($file) )
 			{
 				$chunk = fgets($file, 256);
-				//print htmlspecialchars($chunk). "<br />";
+				1;
 				if( $inHeader )
 				{
 					$pos = strpos($chunk, '<');
@@ -1218,10 +1242,8 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 					{
 						$contents .= substr( $chunk, $pos, strlen($chunk) );
 						$inHeader = false;
-					}
-					if( preg_match('/^(?:Set-Cookie: JSESSIONID=)(.+)?\;/', $chunk, $tmp) )
-					{
-						$roster->cache->put($tmp[1], $cache_tag);
+					} else {
+						$resHeader .= $chunk;
 					}
 					if( preg_match('/^(?:Location:\s)(.+)/', $chunk, $tmp) )
 					{
@@ -1232,6 +1254,10 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 				$contents .= $chunk;
 			}
 			fclose($file);
+			if( preg_match('/(?:Set-Cookie: )(.+)/', $resHeader, $tmp) )
+			{
+				$roster->cache->put($tmp[1], $cache_tag);
+			}
 			if( $redirect != false )
 			{
 				return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
