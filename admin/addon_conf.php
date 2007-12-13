@@ -78,14 +78,14 @@ if( $addon['active'] = '1' )
 		}
 
 		// ----[ Set the tablename and create the config class ]----
-		$tablename = $roster->db->table('addon_config');
 		include(ROSTER_LIB.'config.lib.php');
+		$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
 
 		// ----[ Get configuration data ]---------------------------
-		$config->getConfigData('`addon_id` = "' . $addon['addon_id'] . '"');
+		$config->getConfigData();
 
 		// ----[ Process data if available ]------------------------
-		$save_message = $config->processData($addon['config'], '`addon_id` = "' . $addon['addon_id'] . '"');
+		$save_message = $config->processData($addon['config']);
 
 		// ----[ Build the page items using lib functions ]---------
 		$menu = $config->buildConfigMenu();

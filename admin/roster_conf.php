@@ -24,8 +24,8 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] .= $roster->locale->act['pagebar_rosterconf'];
 
 // ----[ Set the tablename and create the config class ]----
-$tablename = $roster->db->table('config');
 include(ROSTER_LIB.'config.lib.php');
+$config = new roster_config( $roster->db->table('config') );
 
 // ----[ Include special functions file ]-------------------
 include(ROSTER_ADMIN.'roster_config_functions.php');
