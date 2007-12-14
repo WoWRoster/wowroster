@@ -149,14 +149,12 @@ function showHide(ElementID,ImgID,ImgShow,ImgHide)
 		if(document.getElementById(ElementID).style.display == 'none')
 		{
 			show(ElementID);
-			if(ImgShow)
-				document.getElementById(ImgID).src = ImgShow;
+			if(ImgShow) document.getElementById(ImgID).src = ImgShow;
 		}
 		else
 		{
 			hide(ElementID);
-			if(ImgHide)
-				document.getElementById(ImgID).src = ImgHide;
+			if(ImgHide) document.getElementById(ImgID).src = ImgHide;
 		}
 	}
 }
@@ -379,25 +377,6 @@ function customiseInputs(formId, onClassRadio, offClassRadio, onClassCheckbox, o
 			}
 		}
 	}
-}
-
-
-function showPet(num)
-{
-	for (i = 0; i <= 5; i++)
-	{
-		hide('pet_' + i);
-	}
-	show('pet_' + num);
-}
-
-function showSpell(num)
-{
-	for (i = 0; i <= 3; i++)
-	{
-		hide('spelltree_' + i);
-	}
-	show('spelltree_' + num);
 }
 
 /**

@@ -67,7 +67,8 @@ class CharBonus
 		//build header of bonus box
 		$out = '<div class="char_panel" style="margin-left:20px;">
 	<img src="' . $addon['image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
-	<div class="panel_title">' . $roster->locale->act['item_bonuses_full'] . '</div>';
+	<div class="panel_title">' . $roster->locale->act['item_bonuses_full'] . '</div>
+	<div class="container">';
 
 		/* @var $item item */
 		foreach( $this->equip as $item )
@@ -91,7 +92,7 @@ class CharBonus
 		global $roster, $tooltips;
 
 		$row = 0;
-		$out = '<div id="overDiv2" style="position:absolute;visibility:hidden;z-index:1000;"></div>';
+		$out = '';
 		$tabs = array();
 
 		foreach( $roster->locale->act['item_bonuses_tabs'] as $catkey => $catval )
@@ -100,7 +101,7 @@ class CharBonus
 			if( isset($this->bonus[$catkey]) )
 			{
 				$cat = $this->bonus[$catkey];
-				$out .= '<div class="tab3" id="' . $catkey . '"><div class="container">';
+				$out .= '<div id="' . $catkey . '" style="display:none;">';
 				$tabs += array($catkey => $catval);
 
 				foreach( $cat as $key => $value )
@@ -110,17 +111,17 @@ class CharBonus
 					setTooltip( $idx, $this->bonus_tooltip[$catkey][$key]['html'] );
 					setTooltip( 'cap_' . $idx, str_replace(array( 'XX', 'YY' ), $value, $key) );
 
-					$out .= '<div class="membersRowRight' . (($row%2)+1) . '" style="white-space:normal;cursor:pointer;"'
+					$out .= '<div class="membersRow' . (($row%2)+1) . '" style="white-space:normal;cursor:pointer;"'
 						  . ' onmouseover="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,HAUTO);" onmouseout="return nd();"'
 						  . ' onclick="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,STICKY,OFFSETX,-5,OFFSETY,-5,HAUTO);">'
 						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
 					$row++;
 				}
-			$out .= '</div> </div>';
+			$out .= '</div>';
 			}
 		}
 		// build tabs
-		$out .= '		<!-- </div>	</div> -->
+		$out .= '</div>
 	<div class="tab_navagation" style="margin:428px 0 0 17px;">
 		<ul id="bonus_navagation">';
 		$first_tab = true;
@@ -139,9 +140,11 @@ class CharBonus
 		}
 
 		$out .= '		</ul>
-	</div></div>
+	</div>
+</div>
 <script type="text/javascript">
-	initializetabcontent(\'bonus_navagation\')
+	var bonus_navagation=new tabcontent(\'bonus_navagation\');
+	bonus_navagation.init();
 </script>';
 
 //		echo "bonus";
@@ -491,7 +494,7 @@ class CharBonus
 	 * @param string $bonus
 	 * @param int $modifier
 	 * @param string $catagory
-	 * @return string 
+	 * @return string
 	 */
 	function standardizeBonus( $bonus, $modifier, $catagory )
 	{

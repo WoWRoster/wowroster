@@ -98,7 +98,8 @@ if( $data != '' )
 		</ul>
 	</div>
 	<script type="text/javascript">
-		initializetabcontent(\'vault_navagation\');
+		var vault_navagation=new tabcontent(\'vault_navagation\');
+		vault_navagation.init();
 	</script>';
 	}
 	print '</div>';

@@ -822,7 +822,7 @@ $lang['admin']['use_update_triggers'] = "Actualizar addon triggers|Esto se utili
 $lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y a los addons que usan esta opción) comprobar si existe alguna versión nueva del software";
 $lang['admin']['seo_url'] = "URLs alternativos|Utiliza /alguna/pagina/aqui.html?param=value en lugar de /?p=alguna-pagina-aqui&param=value";
 $lang['admin']['local_cache']= "Sistema de archivos en caché|Permite al servidor local guardar algunos archivos para mejorar el rendimiento.";
-$lang['admin']['use_temp_tables'] = "Use temporary tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";
+$lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";
 $lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf

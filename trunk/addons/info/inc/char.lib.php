@@ -557,16 +557,15 @@ $returnstring .= '  <tr>
 	<div class="background">&nbsp;</div>
 
 	<div id="main_spells">
-		<div class="skill_types">
-			<ul>
+		<ul class="skill_types" id="spell_tree">
 ';
 
 		foreach( $spelltree as $tree )
 		{
 			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '				<li onclick="return showSpell(\'' . $tree['id'] . '\');"><img class="icon" src="' . $roster->config['interface_url'] . $tree['icon'] . '.' . $roster->config['img_suffix'] . '" ' . $treetip . ' alt="" /></li>' . "\n";
+			$return_string .= '			<li><div style="background:url(' . $roster->config['interface_url'] . $tree['icon'] . '.' . $roster->config['img_suffix'] . ');"><a href="#" rel="spelltree_' . $tree['id'] . '"></a></div></li>' . "\n";
 		}
-		$return_string .= "			</ul>\n		</div>\n";
+		$return_string .= "		</ul>\n";
 
 
 		foreach( $spelltree as $tree )
@@ -695,7 +694,10 @@ $returnstring .= '  <tr>
 </div>
 
 <script type="text/javascript">
-	initializetabcontent(\'spell_set\');
+	var spell_set=new tabcontent(\'spell_set\');
+	spell_set.init();
+	var spell_tree=new tabcontent(\'spell_tree\');
+	spell_tree.init();
 </script>' . "\n";
 
 		return $return_string;
@@ -730,14 +732,14 @@ $returnstring .= '  <tr>
 				}
 				else
 				{
-					list($xp, $xplevel) = explode(':',$row['xp']);
-					if ($xplevel != '0' && $xplevel != '')
+					$xp = explode(':',$row['xp']);
+					if( isset($xp[1]) && $xp[1] != '0' && $xp[1] != '' )
 					{
-						$expbar_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
+						$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 216) : 0);
 
-						$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
+						$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
-						$expbar_text = $xp . '/' . $xplevel . ' (' . $exp_percent . '%)';
+						$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
 					}
 					else
 					{
@@ -779,7 +781,7 @@ $returnstring .= '  <tr>
 					$row['icon'] = 'inv_misc_questionmark';
 				}
 
-				$icons .= '			<li ' . makeOverlib($row['name'],$row['type'],'',2,'',',WRAP') . ' style="background-image:url(\'' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '\');">
+				$icons .= '		<li ' . makeOverlib($row['name'],$row['type'],'',2,'',',WRAP') . ' style="background-image:url(\'' . $roster->config['interface_url'] . 'Interface/Icons/' . $row['icon'] . '.' . $roster->config['img_suffix'] . '\');">
 				<a rel="pet_' . $petNum . '" class="text"></a></li>
 ';
 
@@ -844,13 +846,12 @@ $returnstring .= '  <tr>
 			}
 			$output .= '
 <!-- Begin Navagation Tabs -->
-	<div class="pet_tabs">
-		<ul id="pet_tabs">
+	<ul class="pet_tabs" id="pet_tabs">
 ' . $icons . '
-		</ul>
-	</div>
+	</ul>
 <script type="text/javascript">
-	initializetabcontent(\'pet_tabs\');
+	var pet_tabs=new tabcontent(\'pet_tabs\');
+	pet_tabs.init();
 </script>
 ';
 		}
@@ -1040,7 +1041,7 @@ $returnstring .= '  <tr>
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />';
 		$line .= '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		return $this->printStatLine($name, '<strong class="white">' . $value . '%</strong>', $line);
+		return $this->printStatLine($name, '<strong class="white">' . $value . '</strong>', $line);
 	}
 
 
@@ -1807,7 +1808,8 @@ $returnstring .= '  <tr>
 </div>
 
 <script type="text/javascript">
-	initializetabcontent(\'talent_navagation\')
+	var talent_navagation=new tabcontent(\'talent_navagation\');
+	talent_navagation.init();
 </script>';
 			return $returndata;
 		}
@@ -2329,21 +2331,21 @@ $returnstring .= '  <tr>
 			}
 			else
 			{
-				list($xp, $xplevel, $xprest) = explode(':',$this->data['exp']);
-				if ($xplevel != '0' && $xplevel != '')
+				$xp = explode(':',$this->data['exp']);
+				if( isset($xp) && $xp[1] != '0' && $xp[1] != '' )
 				{
-					$expbar_width = ( $xplevel > 0 ? floor($xp / $xplevel * 216) : 0);
+					$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 216) : 0);
 
-					$exp_percent = ( $xplevel > 0 ? floor($xp / $xplevel * 100) : 0);
+					$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
-					if( $xprest > 0 )
+					if( $xp[2] > 0 )
 					{
-						$expbar_text = $xp.'/'.$xplevel.' : '.$xprest.' ('.$exp_percent.'%)';
+						$expbar_text = $xp[0].'/'.$xp[1].' : '.$xp[2].' ('.$exp_percent.'%)';
 						$expbar_type = 'expbar_full_rested';
 					}
 					else
 					{
-						$expbar_text = $xp.'/'.$xplevel.' ('.$exp_percent.'%)';
+						$expbar_text = $xp[0].'/'.$xp[1].' ('.$exp_percent.'%)';
 						$expbar_type = 'expbar_full';
 					}
 				}
@@ -2496,7 +2498,8 @@ $returnstring .= '  <tr>
 </div>
 
 <script type="text/javascript">
-	initializetabcontent(\'char_navagation\');
+	var char_navagation=new tabcontent(\'char_navagation\');
+	char_navagation.init();
 </script>
 ';
 			return $output;
