@@ -32,6 +32,17 @@
 	margin-top:15px;
 	margin-bottom:40px;
 }
+
+.char_panel .container {
+	/* Container for reputation tab contents */
+	position:absolute;
+	width:320px;
+	height:355px;
+	overflow:auto;
+	margin-left:14px;
+	margin-top:73px;
+}
+
 /* Panel Icon */
 .char_panel .panel_icon { position:absolute;width:56px;height:56px;margin:5px; }
 
@@ -462,8 +473,7 @@
 	margin-top:411px;
 	margin-left:120px;
 }
-.pet_tabs { position:absolute;font:11px arial,helvetica,sans-serif;margin:360px 0 0 17px;line-height:normal; }
-.pet_tabs ul { margin:0;padding:0;list-style:none; }
+.pet_tabs { position:absolute;font:11px arial,helvetica,sans-serif;margin-top:355px;line-height:normal;list-style:none; }
 .pet_tabs li { float:left;margin:3px;cursor:pointer;background-position:center;background-repeat:no-repeat; }
 .pet_tabs li a { border:2px solid #4E4D4C;display:block;height:30px;width:30px;padding:2px; }
 .pet_tabs li a:hover, .pet_tabs li.selected a:hover { border:2px solid #0066FF; }
@@ -771,8 +781,6 @@
 }
 
 
-
-
 /**
  * Buff Icons
  */
@@ -886,10 +894,12 @@
 }
 
 /* Spellbook Navagation tabs */
-.skill_types { position:absolute;font:11px arial,helvetica,sans-serif;margin:58px 0 0 344px;line-height:normal; }
-.skill_types ul { margin:0;padding:0;list-style:none; }
-.skill_types li { background:url(images/spellbook/skilltab.gif) no-repeat left top;margin:0;padding:1px 0 0 1px;cursor:pointer;height:49px;width:38px; }
-.skill_types .icon { display:block;width:34px;height:34px;margin:8px 0 0 1px; }
+.skill_types { position:absolute;font:11px arial,helvetica,sans-serif;margin:58px 0 0 304px;line-height:normal;list-style:none; }
+.skill_types li { background:url(images/spellbook/skilltab.gif) no-repeat left top;margin:0;padding:1px 0 0 1px;height:56px;width:44px; }
+.skill_types li div { margin:8px 0px 0px 1px;cursor:pointer;background-position:center;background-repeat:no-repeat;width:36px;height:36px; }
+.skill_types li a { border:2px solid #4E4D4C;display:block;height:30px;width:30px;padding:2px;cursor:pointer; }
+.skill_types li a:hover, .skill_types div.selected a:hover { border:2px solid #0066FF; }
+.skill_types div.selected a { border:2px solid #FFFF00; }
 
 /* Position of the spells on the left side */
 .spell_panel .container_1 { position:absolute;margin-top:80px;margin-left:20px; }

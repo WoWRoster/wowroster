@@ -46,16 +46,20 @@ class roster_config
 	{
 		global $roster_login, $roster;
 
-		$roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+		// Color Picker JS
+		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."js/color_functions.js\"></script>\n";
+
+		// ARC Radio/Checkboxes
+		$roster->output['body_onload'] .= 'initARC(\''.$prefix.'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
 		$this->tablename = $tablename;
 		$this->where = $where;
 		$this->prefix = $prefix;
-		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."') &amp;&amp; submitonce(this);\">\n";
+		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"".$this->prefix."config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."') &amp;&amp; submitonce(this);\">\n";
 		$this->submit_button = "<br /><br />\n<input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n";
 		$this->form_end = "</form>\n";
-		$this->jscript  = "\n<script type=\"text/javascript\">\ninitializetabcontent(\"".$this->prefix."tabs\")\n</script>\n";
-		$this->jscript .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."js/color_functions.js\"></script>\n";
+
+		$this->jscript  = "\n<script type=\"text/javascript\">\nvar ".$this->prefix."tabs=new tabcontent('".$this->prefix."tabs');\n".$this->prefix."tabs.init();\n</script>\n";
 	}
 
 	/**
