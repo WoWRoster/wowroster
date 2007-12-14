@@ -1,6 +1,5 @@
 #! /bin/bash
 # Roster install shellscript. Tested on linux, probably works on mac OSX. Won't work on windows.
-# $Id$
 
 echo 'At any point in the script, press Control-C to abort'
 
