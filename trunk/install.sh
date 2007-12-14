@@ -203,6 +203,13 @@ echo '--------------------'
 # Pipe the SQL script into the mysql command line tool, skipping comments and replacing the prefix where needed.
 sed "s/renprefix_/${db_prefix}/;/^#/d;/^\$/d" lib/dbal/structure/mysql_structure.sql lib/dbal/structure/mysql_data.sql | $MYSQL
 
+# Update the version number
+version=`cat version.txt | cut -f2 -d\> | cut -f1 -d\<`
+
+$MYSQL << !
+UPDATE \`${db_prefix}config\` SET \`config_value\` = '${version}' WHERE \`config_name\` = 'version';
+!
+
 echo '--------------------'
 echo 'The database has been imported.'
 
@@ -226,33 +233,24 @@ UPDATE \`${db_prefix}config\` SET \`config_value\` = '${lang}' WHERE \`config_na
 !
 
 # Password setting
-if [ ! `which md5sum` ]
-then
-	echo "The md5sum program is not available. Your password has been set to 'admin'. Please change this via the web interface as soon as possible."
-	# md5 hash for 'admin'
-	pass='456b7016a916a4b178dd72b947c152b7'
-else
-	while :
-	do
-		read -s -p "Please enter your desired password: " pass1
-		echo
-		read -s -p "Please confirm your password: " pass2
-		echo
-		if [ ${pass1} == ${pass2} ]
-		then
-			pass=`echo $pass1 | md5sum`
-			pass=${pass:0:32}
-			break
-		fi
-		echo 'Your passwords did not match. Please retry'
-	done
-fi
+while :
+do
+	read -s -p "Please enter your desired password: " pass1
+	echo
+	read -s -p "Please confirm your password: " pass2
+	echo
+	if [ ${pass1} == ${pass2} ]
+	then
+		break
+	fi
+	echo 'Your passwords did not match. Please retry'
+done
 
 $MYSQL << !
 INSERT INTO \`${db_prefix}account\` (\`account_id\`,\`name\`,\`hash\`) VALUES
-(1,'Guild','${pass}'),
-(2,'Officer','${pass}'),
-(3,'Admin','${pass}');
+(1,'Guild',md5('${pass1}')),
+(2,'Officer',md5('${pass1}')),
+(3,'Admin',md5('${pass1}'));
 !
 
 # Delete web install files, otherwise roster will complain
