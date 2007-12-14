@@ -29,7 +29,8 @@ $roster->db->query($query);
 $guilds = array();
 $query = "SELECT `guild`.`guild_id`, `guild_name`, `region`, `server`, IF( `config_guild`.`guild_id` IS NULL, 1, 0 ) fetch_config "
 	. "FROM `" . $roster->db->table('guild') . "` guild "
-	. "LEFT JOIN `" . $roster->db->table('config_guild',$addon['basename']) . "` config_guild USING (`guild_id`);";
+	. "LEFT JOIN `" . $roster->db->table('config_guild',$addon['basename']) . "` config_guild USING (`guild_id`) "
+	. "ORDER BY `region`, `server`, `guild_name`;";
 
 $result = $roster->db->query($query);
 
@@ -71,8 +72,6 @@ while( $row = $roster->db->fetch( $result ) )
 		$roster->db->query($query);
 	}
 }
-
-asort($guilds);
 
 // ----[ Fetch all of the ordinary config for the guilds ]--
 $query = "SELECT `guild_id`, `config_name`, `config_value` "
