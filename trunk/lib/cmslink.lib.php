@@ -44,7 +44,7 @@ else
  * You can modify the defines 'ROSTER_URL' and 'ROSTER_PATH' to suit your needs
  * and bypass the url checks if needed
  */
-$url = explode('/','http://'.$_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']);
+$url = explode('/','http://' . $_SERVER['SERVER_NAME']  . (( $_SERVER['SERVER_PORT'] != 80 ) ? ':' . $_SERVER['SERVER_PORT'] : '' ) . $_SERVER['PHP_SELF']);
 array_pop($url);
 $url = implode('/',$url) . '/';
 
