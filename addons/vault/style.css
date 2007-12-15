@@ -23,13 +23,21 @@
 .vaulttab .item .noicon { margin:0;width:40px;height:40px;border-width:0;}
 
 /** Tab Navigation Overide **/
-.tab_navagation { position:absolute;font:11px arial,helvetica,sans-serif;line-height:normal;width:700px; }
+.tab_navagation { position:absolute;font:11px arial,helvetica,sans-serif;line-height:normal;width:700px;margin:476px 0 0 17px; }
 .tab_navagation ul { margin:0;padding:0;list-style:none; }
 .tab_navagation li { float:left;background:url(../../img/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer;margin-bottom:-7px; }
 .tab_navagation .text { display:block;background:url(../../img/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
 .tab_navagation .text:hover { color:#ffffff;font-weight:normal; }
 .tab_navagation .selected { background-image:url(../../img/tabs/active_left.gif);cursor:default; }
 .tab_navagation .selected .text { background-image:url(../../img/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
+
+
+.tab_nav { position:absolute;font:11px arial,helvetica,sans-serif;margin:78px 0 0 715px;line-height:normal;list-style:none; }
+.tab_nav li { background:url(images/vaultframe_tab.png) no-repeat left top;margin:0;padding:1px 0 0 1px;height:56px;width:44px; }
+.tab_nav li div { margin:8px 0px 0px 1px;cursor:pointer;background-position:center;background-repeat:no-repeat;width:36px;height:36px; }
+.tab_nav li a { border:2px solid #401c18;display:block;height:30px;width:30px;padding:2px;cursor:pointer; }
+.tab_nav li a:hover, .tab_nav div.selected a:hover { border:2px solid #0066FF; }
+.tab_nav div.selected a { border:2px solid #FFFF00; }
 
 .vault_name_back {
 	position:absolute;

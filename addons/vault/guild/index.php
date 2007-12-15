@@ -53,20 +53,24 @@ for( $t=1;$t<=$tab_count;$t++ )
 		$tab_data['tab' . $t] = vault_tab_get( $roster->data['guild_id'], 'Tab' . $t );
 		if( !is_null( $tab_data['tab' . $t] ) )
 		{
-			$data .= $tab_data['tab' . $t]->out();
-			$tabs .= '			<li class="selected"><a rel="Tab' . $t . '" class="text">' . $tab_data['tab' . $t]->data['item_name'] . "</a></li>\n";
-			$tabs .= '			<li><a rel="Tab' . $t . 'Log" class="text">' . $roster->locale->act['vault_log'] . "</a></li>\n";
-		}
-	}
-}
-
-for( $t=1;$t<=$tab_count;$t++ )
-{
-	if( $roster_login->getAuthorized() >= $addon['config']['tab' . $t] )
-	{
-		if( !is_null( $tab_data['tab' . $t] ) )
-		{
-			$data .= vault_log('Tab' . $t);
+			$data .= '<div id="Tab' . $t . '" style="display:none;">
+	<div class="vault_name_back">
+		<div class="vault_name">' . $tab_data['tab' . $t]->data['item_name'] . '</div>
+	</div>
+	' . $tab_data['tab' . $t]->out() . '
+	' . vault_log('Tab' . $t) . '
+	<div class="tab_navagation">
+		<ul id="vault_tab' . $t . '_navagation">
+			<li class="selected"><a href="#" rel="Tab' . $t . 'Items" class="text">' . $tab_data['tab' . $t]->data['item_name'] . '</a></li>
+			<li><a href="#" rel="Tab' . $t . 'Log" class="text">' . $roster->locale->act['vault_log'] . '</a></li>
+		</ul>
+		<script type="text/javascript">
+			var vault_tab' . $t . '_navagation=new tabcontent(\'vault_tab' . $t . '_navagation\');
+			vault_tab' . $t . '_navagation.init();
+		</script>
+	</div>
+</div>';
+			$tabs .= '			<li class="selected"><div style="background:url(' . $roster->config['interface_url'] . 'Interface/Icons/' . $tab_data['tab' . $t]->data['item_texture'] . '.' . $roster->config['img_suffix'] . ');"'. makeOverlib($tab_data['tab' . $t]->data['item_name'],'','',0,'',',RIGHT') .'><a rel="Tab' . $t . '" class="text"></a></div></li>' . "\n";
 		}
 	}
 }
@@ -79,7 +83,7 @@ if( $roster_login->getAuthorized() >= $addon['config']['money'] )
 	if( $money != '' )
 	{
 		$data .= $money;
-		$tabs .= '			<li><a rel="MoneyLog" class="text">' . $roster->locale->act['vault_money_log'] . "</a></li>\n";
+		$tabs .= '			<li><div style="background:url(' . $roster->config['interface_url'] . 'Interface/Icons/inv_misc_coin_01.' . $roster->config['img_suffix'] . ');"'. makeOverlib($roster->locale->act['vault_money_log'],'','',0,'',',RIGHT') .'><a rel="MoneyLog" class="text"></a></div></li>' . "\n";
 	}
 }
 
@@ -92,11 +96,9 @@ if( $data != '' )
 	{
 		print '
 	<!-- Begin Navagation Tabs -->
-	<div class="tab_navagation" style="margin:476px 0 0 17px;">
-		<ul id="vault_navagation">
+	<ul class="tab_nav" id="vault_navagation">
 	' . $tabs . '
-		</ul>
-	</div>
+	</ul>
 	<script type="text/javascript">
 		var vault_navagation=new tabcontent(\'vault_navagation\');
 		vault_navagation.init();
