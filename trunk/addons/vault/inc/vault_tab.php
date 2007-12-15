@@ -37,13 +37,7 @@ class VaultTab extends VaultItem
 
 		$lang = $this->data['locale'];
 
-		$id = str_replace(' ','',$this->data['item_slot']);
-
-		$returnstring = '
-<div id="' . $id . '" style="display:none;">
-	<div class="vault_name_back">
-	<div class="vault_name">' . $this->data['item_name'] . '</div></div>
-	<div class="vaulttab">';
+		$returnstring = '<div id="' . $this->data['item_slot'] . 'Items" class="vaulttab" style="display:none;">';
 
 		// Select all item for this bag
 
@@ -76,12 +70,7 @@ class VaultTab extends VaultItem
 			$icon_num++;
 		}
 
-		$returnstring .= "</div>\n";
-
-		$returnstring .= '
-	</div>
-</div>
-';
+		$returnstring .= "</div>\n</div>\n";
 
 		return $returnstring;
 	}
