@@ -152,13 +152,18 @@ $menu .= border('syellow','start','Menu') . "\n"
 
 $roster->output['body_onload'] .= 'initARC(\'allow\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-
+// Enforce Upload Rules
 $body .= '<form action="' . makelink() . '" method="post" id="enforce">
 <input type="hidden" name="action" value="enforce" />
-<input type="hidden" id="rule" name="enforce" value="" />
 <input type="hidden" name="process" value="process" />
-<button class="button_hide" onclick="setvalue(\'rule\',\'' . ( $roster->config['enforce_rules'] ? '0' : '1' ) . '\');"><img src="' . $roster->config['img_url'] . 'check_' . ( $roster->config['enforce_rules'] ? 'on' : 'off' ) . '.png" alt="" /></button>
 ' . substr($roster->locale->act['admin']['enforce_rules'],0,strpos($roster->locale->act['admin']['enforce_rules'],'|')) . '
+<select name="enforce">
+	<option value="0"' . ( $roster->config['enforce_rules'] == '0' ? ' selected="selected"' : '' ) . '>Never</option>
+	<option value="1"' . ( $roster->config['enforce_rules'] == '1' ? ' selected="selected"' : '' ) . '>All LUA Updates</option>
+	<option value="2"' . ( $roster->config['enforce_rules'] == '2' ? ' selected="selected"' : '' ) . '>CP Updates</option>
+	<option value="3"' . ( $roster->config['enforce_rules'] == '3' ? ' selected="selected"' : '' ) . '>Guild Updates</option>
+</select>
+<input type="submit" value="Go" />
 </form><br />';
 
 $body .= '<form action="' . makelink() . '" method="post" id="deny">

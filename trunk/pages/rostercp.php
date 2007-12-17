@@ -67,42 +67,44 @@ $header = $menu = $pagebar = $footer = '';
 
 if( isset($roster->config['versioncache']) )
 {
-	$roster_ver_latest = $roster_ver_info = $roster_ver_date = '';
-
 	$cache = unserialize($roster->config['versioncache']);
 
-	if( !isset($cache['WoWRoster']) )
+	if( $roster->config['versioncache'] == '' )
 	{
-		$cache['WoWRoster'] = time();
-		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+		$cache['timestamp'] = 0;
+			$cache['ver_latest'] = '';
+			$cache['ver_info'] = '';
+			$cache['ver_date'] = '';
 	}
 
-	if( ($cache['WoWRoster'] + (60 * 60 * $roster->config['check_updates'])) <= time() )
+	if( ($cache['timestamp'] + (60 * 60 * $roster->config['check_updates'])) <= time() )
 	{
-		$cache['WoWRoster'] = time();
-		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+		$cache['timestamp'] = time();
 
 		$content = urlgrabber(ROSTER_UPDATECHECK);
 
 		if( preg_match('#<version>(.+)</version>#i',$content,$version) )
 		{
-			$roster_ver_latest = $version[1];
+			$cache['ver_latest'] = $version[1];
 		}
 
 		if( preg_match('#<info>(.+)</info>#i',$content,$info) )
 		{
-			$roster_ver_info = '<br />' . $info[1];
+			$cache['ver_info'] = $info[1];
 		}
 
 		if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
 		{
-			$roster_ver_date = date($roster->locale->act['phptimeformat'], strtotime($info[1]));
+			$cache['ver_date'] = date($roster->locale->act['phptimeformat'], strtotime($info[1]));
 		}
 
-		if( version_compare($roster_ver_latest,ROSTER_VERSION,'>') )
-		{
-			$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$roster_ver_latest,$roster_ver_date,'http://www.wowroster.net') . $roster_ver_info,$roster->locale->act['update']);
-		}
+		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+
+	}
+
+	if( version_compare($cache['ver_latest'],ROSTER_VERSION,'>') )
+	{
+		$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
 	}
 }
 

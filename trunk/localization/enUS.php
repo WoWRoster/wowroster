@@ -823,7 +823,7 @@ $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of Wo
 $lang['admin']['seo_url'] = "Alternative urls|Use /some/page/here.html?param=value instead of /?p=some-page-here&param=value";
 $lang['admin']['local_cache']= "File System Cache|Use server local file system to cache some files to increase performance.";
 $lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br />Leaving this on is recommended for performance.";
-$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
+$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />- Never: Never enforce rules<br />- All LUA Updates: Enforce rules on all lua updates<br />- CP Updates: Enforce rules on any CP.lua update<br />- Guild Updates: Enforce rules only on guild updates<br /><br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";

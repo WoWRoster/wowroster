@@ -217,13 +217,24 @@ class update
 			{
 				$output .= $this->processGuildRoster();
 				$output .= "<br />\n";
+
+				if( $roster->config['enforce_rules'] == '3' )
+				{
+					$this->enforceRules( time() );
+				}
 			}
 
 			if( $roster_login->getAuthorized() >= $roster->config['cp_user_level'] )
 			{
 				$output .= $this->processMyProfile();
 				$output .= "<br />\n";
+
+				if( $roster->config['enforce_rules'] == '2' )
+				{
+					$this->enforceRules( time() );
+				}
 			}
+
 		}
 
 		if( $roster_login->getAuthorized() >= $roster->config['lua_user_level'] )
@@ -255,7 +266,13 @@ class update
 					}
 				}
 			}
+
+			if( $roster->config['enforce_rules'] == '1' )
+			{
+				$this->enforceRules( time() );
+			}
 		}
+
 		return $output;
 	}
 
@@ -2256,6 +2273,7 @@ class update
 	{
 		global $roster;
 
+		$messages = '';
 		// Select and delete all non-matching guilds
 		$query = "SELECT *"
 			. " FROM `" . $roster->db->table('guild') . "` guild"
@@ -2273,15 +2291,15 @@ class update
 				   . " ORDER BY `type` DESC;";
 			if( $roster->db->query_first($query) !== '0' )
 			{
-				$this->setMessage('<ul><li>Deleting guild "' . $row['guild_name'] . '" and setting its members guildless.</li>');
+				$messages .= '<ul><li>Deleting guild "' . $row['guild_name'] . '" and setting its members guildless.</li>';
 				// Does not match rules
 				$this->deleteGuild( $row['guild_id'], $timestamp );
-				$this->setMessage('</ul>');
+				$messages .= '</ul>';
 			}
 		}
 
 		// Select and delete all non-matching guildless members
-		$this->setMessage('<ul>');
+		$messages .= '<ul>';
 		$inClause=array();
 
 		$query = "SELECT *"
@@ -2302,7 +2320,7 @@ class update
 				   . " ORDER BY `type` DESC;";
 			if( $roster->db->query_first($query) !== '2' )
 			{
-				$this->setMessage('<li>Deleting member "' . $row['name'] . '".</li>');
+				$messages .= '<li>Deleting member "' . $row['name'] . '".</li>';
 				// Does not match rules
 				$inClause[] = $row['member_id'];
 			}
@@ -2310,13 +2328,13 @@ class update
 
 		if( count($inClause) == 0 )
 		{
-			$this->setMessage('<li>No members deleted.</li>');
+			$messages .= '<li>No members deleted.</li>';
 		}
 		else
 		{
 			$this->deleteMembers( implode(',', $inClause) );
 		}
-		$this->setMessage('</ul>');
+		$this->setMessage($messages . '</ul>');
 	}
 
 	/**

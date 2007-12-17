@@ -135,6 +135,12 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1190, 'enforce_rules', '1', 'radio{on^1|off^0', 'main_conf');");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1541','<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'select{Never^0|All LUA Updates^1|CP Updates^2|Guild Updates^3' WHERE `id` = 1190 LIMIT 1;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `versioncache` tinytext;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();
