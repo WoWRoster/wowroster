@@ -122,16 +122,16 @@ foreach( $guilds as $guild_id => $guild_name )
 // ----[ Build the page items using lib functions ]---------
 $menu = $config['master']->buildConfigMenu();
 
-foreach( $config as $conf_obj )
+foreach( $config as $id => $conf_obj )
 {
-	$conf_obj->buildConfigPage();
+	$config[$id]->buildConfigPage();
 }
 
 $body .= $config['master']->form_start
 	. $save_message;
-foreach( $config as $conf_obj )
+foreach( $config as $id => $conf_obj )
 {
-	$body .= $conf_obj->formpages;
+	$body .= $config[$id]->formpages;
 }
 $body .= $config['master']->submit_button
 	. $config['master']->form_end
