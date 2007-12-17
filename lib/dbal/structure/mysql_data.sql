@@ -47,7 +47,7 @@ INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '168', 'select{Do 
 INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '0', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1170, 'local_cache', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1180, 'use_temp_tables', '1', 'radio{on^1|off^0', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1190, 'enforce_rules', '1', 'radio{on^1|off^0', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1190, 'enforce_rules', '1', 'select{Never^0|All LUA Updates^1|CP Updates^2|Guild Updates^3', 'main_conf');
 
 # --------------------------------------------------------
 ### Guild Settings

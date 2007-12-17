@@ -823,7 +823,7 @@ $lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y
 $lang['admin']['seo_url'] = "URLs alternativos|Utiliza /alguna/pagina/aqui.html?param=value en lugar de /?p=alguna-pagina-aqui&param=value";
 $lang['admin']['local_cache']= "Sistema de archivos en caché|Permite al servidor local guardar algunos archivos para mejorar el rendimiento.";
 $lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";
-$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
+$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />- Never: Never enforce rules<br />- All LUA Updates: Enforce rules on all lua updates<br />- CP Updates: Enforce rules on any CP.lua update<br />- Guild Updates: Enforce rules only on guild updates<br /><br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "Nombre de WoWRoster|Título que aparece en la parte superior del menú principal";

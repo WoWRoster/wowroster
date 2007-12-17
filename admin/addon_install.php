@@ -413,7 +413,7 @@ function processAddon()
 				$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$query = 'INSERT INTO `' . $roster->db->table('addon') . '` VALUES (NULL,"' . $installer->addata['basename'] . '","' . $installer->addata['version'] . '",0,"' . $installer->addata['fullname'] . '","' . $installer->addata['description'] . '","' . $roster->db->escape(serialize($installer->addata['credits'])) . '","' . $installer->addata['icon'] . '","' . $installer->addata['wrnet_id'] . '");';
+			$query = 'INSERT INTO `' . $roster->db->table('addon') . '` VALUES (NULL,"' . $installer->addata['basename'] . '","' . $installer->addata['version'] . '",0,"' . $installer->addata['fullname'] . '","' . $installer->addata['description'] . '","' . $roster->db->escape(serialize($installer->addata['credits'])) . '","' . $installer->addata['icon'] . '","' . $installer->addata['wrnet_id'] . '",NULL);';
 			$result = $roster->db->query($query);
 			if( !$result )
 			{

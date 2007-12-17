@@ -1540,64 +1540,69 @@ function updateCheck( $addon )
 {
 	global $roster;
 
-	$ver_latest = $ver_info = $ver_link = $ver_date = $return = '';
+	$return = '';
 
-	if( isset($addon['wrnet_id']) && !empty($addon['wrnet_id']) && isset($roster->config['versioncache']) )
+	if( isset($addon['wrnet_id']) && !empty($addon['wrnet_id']) )
 	{
-		$cache = unserialize($roster->config['versioncache']);
-		if( !isset($cache[$addon['basename']]) )
+		$cache = unserialize($addon['versioncache']);
+
+		if( $addon['versioncache'] == '' )
 		{
-			$cache[$addon['basename']] = time();
-			$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+			$cache['timestamp'] = 0;
+			$cache['ver_latest'] = '';
+			$cache['ver_info'] = '';
+			$cache['ver_link'] = '';
+			$cache['ver_date'] = '';
 		}
 
-		if( ($cache[$addon['basename']] + (60 * 60 * $roster->config['check_updates'])) <= time() )
+		if( ($cache['timestamp'] + (60 * 60 * $roster->config['check_updates'])) <= time() )
 		{
-			$cache[$addon['basename']] = time();
-			$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+			$cache['timestamp'] = time();
 
 			$content = urlgrabber(sprintf(ROSTER_ADDONUPDATEURL,$addon['wrnet_id']));
 
 			if( preg_match('#<version>(.+)</version>#i',$content,$info) )
 			{
-				$ver_latest = $info[1];
+				$cache['ver_latest'] = $info[1];
 			}
 
 			if( preg_match('#<info>(.+)</info>#i',$content,$info) )
 			{
-				$ver_info = '<br />' . $info[1];
+				$cache['ver_info'] = $info[1];
 			}
 
 			if( preg_match_all('#<link>(.+)</link>#i',$content,$info) )
 			{
-				$ver_link = $info[1][2];
+				$cache['ver_link'] = $info[1][2];
 			}
 
 			if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
 			{
-				$ver_date = date($roster->locale->act['phptimeformat'], $info[1]);
+				$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $info[1]);
 			}
 
-			if( version_compare($ver_latest,$addon['version'],'>') )
+			$roster->db->query ( "UPDATE `" . $roster->db->table('addon') . "` SET `versioncache` = '" . serialize($cache) . "' WHERE `addon_id` = '" . $addon['addon_id'] . "' LIMIT 1;");
+		}
+
+		if( version_compare($cache['ver_latest'],$addon['version'],'>') )
+		{
+			// Save current locale array
+			// Since we add all locales for localization, we save the current locale array
+			// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+			$localetemp = $roster->locale->wordings;
+
+			foreach( $roster->multilanguages as $lang )
 			{
-				// Save current locale array
-				// Since we add all locales for localization, we save the current locale array
-				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-				$localetemp = $roster->locale->wordings;
-
-				foreach( $roster->multilanguages as $lang )
-				{
-					$roster->locale->add_locale_file(ROSTER_ADDONS . $addon['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-				}
-
-				$name = ( isset($roster->locale->act[$addon['fullname']]) ? $roster->locale->act[$addon['fullname']] : $addon['fullname'] );
-
-				// Restore our locale array
-				$roster->locale->wordings = $localetemp;
-				unset($localetemp);
-
-				$return = messagebox(sprintf($roster->locale->act['new_version_available'],$name,$ver_latest,$ver_date,$ver_link) . $ver_info,$roster->locale->act['update']);
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $addon['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 			}
+
+			$name = ( isset($roster->locale->act[$addon['fullname']]) ? $roster->locale->act[$addon['fullname']] : $addon['fullname'] );
+
+			// Restore our locale array
+			$roster->locale->wordings = $localetemp;
+			unset($localetemp);
+
+			$return = messagebox(sprintf($roster->locale->act['new_version_available'],$name,$cache['ver_latest'],$cache['ver_date'],$cache['ver_link']) . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
 		}
 	}
 	return $return;
