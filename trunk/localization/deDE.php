@@ -592,7 +592,7 @@ $lang['tooltip_speed']='Tempo';
 $lang['tooltip_poisoneffect']='^Bei jedem Schlag';
 
 $lang['tooltip_preg_armor']='/^(\d+) Rüstung/';
-$lang['tooltip_preg_durability']='/Haltbarkeit (\d+) \/ (\d+)/';
+$lang['tooltip_preg_durability']='/Haltbarkeit(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/';
 $lang['tooltip_preg_bags']='/(\d+) Platz/';
 $lang['tooltip_preg_socketbonus']='/Sockelbonus: (.+)\n/';
@@ -601,7 +601,7 @@ $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer)(?:.?sockel)/i';
-$lang['tooltip_preg_reinforcedarmor']='(Verstärkt \(\+\d+ Rüstung\))';
+$lang['tooltip_preg_reinforcedarmor']='/(Verstärkt \(\+\d+ Rüstung\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
@@ -614,7 +614,7 @@ $lang['tooltip_armor_types']='Stoff|Leder|Schwere Rüstung|Platte';
 $lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig|Kugel|Pfeil';
 $lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest|Wird beim Aufheben gebunden';
 $lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust|Beine|Füße';
-$lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>|Verbleibende Abklingzeit';
+$lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>|Duration|Verbleibende Abklingzeit|<Right Click to Open>|Source:|Boss:|Drop Rate:';
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem

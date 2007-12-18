@@ -548,6 +548,9 @@
 	color:#FFFFFF;
 	margin-top:3px;
 	position:absolute;
+	width:117px;
+	height:15px;
+	overflow:hidden;
 }
 .char_panel .tab3 .rep_bar_field {
 	/* Placement of empty rep progess bar */
@@ -564,8 +567,8 @@
 	/* Placement of rep progess text */
 	color:#FFFFFF;
 	text-align:center;
-	width:133px;
-	margin-left:119px;
+	width:140px;
+	margin-left:117px;
 	margin-top:4px;
 	position:absolute;
 	font-size:10px;
