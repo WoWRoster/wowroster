@@ -592,7 +592,7 @@ $lang['tooltip_speed']='Veloc.';
 $lang['tooltip_poisoneffect']='^Cada golpe tiene';  // this is found in poison tooltips  I need the common text that decribes the poison.
 
 $lang['tooltip_preg_armor']='/^(\d+) armadura/';
-$lang['tooltip_preg_durability']='/Durabilidad (\d+) \/ (\d+)/';
+$lang['tooltip_preg_durability']='/Durabilidad(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Hecho por (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
 $lang['tooltip_preg_bags']='/de (\d+) casillas/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus ranura: (.+)\n/';
@@ -614,7 +614,7 @@ $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
 $lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|�?dolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Objeto de misión|Se liga al recogerlo|Este objeto inicia una misión';
 $lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda|Pies';
-$lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>|Duración|<Clic derecho para abrir>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
+$lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>|Duración|<Clic derecho para abrir>|<Right Click to Open>|Source:|Boss:|Drop Rate:';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem

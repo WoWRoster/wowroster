@@ -1013,8 +1013,8 @@ class item
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_durability'], $line, $matches) )
 			{
 				$tt['Attributes']['Durability']['Line']= $matches[0];
-				$tt['Attributes']['Durability']['Current'] = $matches[1];
-				$tt['Attributes']['Durability']['Max'] = $matches[2];
+				$tt['Attributes']['Durability']['Current'] = $matches[2];
+				$tt['Attributes']['Durability']['Max'] = $matches[3];
 			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
 			{

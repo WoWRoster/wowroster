@@ -592,7 +592,7 @@ $lang['tooltip_speed']='Vitesse';
 $lang['tooltip_poisoneffect']='^Chaque coup a';
 
 $lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
-$lang['tooltip_preg_durability']='/Durabilité (\d+) \/ (\d+)/';
+$lang['tooltip_preg_durability']='/Durabilité(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.
 $lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
 $lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)\n/';
@@ -614,7 +614,7 @@ $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armo
 $lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Arme à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|Flèche|Balle';
 $lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé|Cet objet permet de lancer une quête';
 $lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse|Jambes|Pieds';
-$lang['tooltip_garbage']='Maj clic-droit pour sertir|Temps de recharge';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
+$lang['tooltip_garbage']='Maj clic-droit pour sertir|<Right Click to Read>|Duration|Temps de recharge|<Right Click to Open>|Source:|Boss:|Drop Rate:';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem

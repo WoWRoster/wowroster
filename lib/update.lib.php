@@ -2500,27 +2500,26 @@ class update
 		}
 
 		$num = $roster->db->num_rows($result);
-
-		// Get guildless guild for this realm
-		$query = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '$guild_id';";
-		$result2 = $roster->db->query($query);
-		$row = $roster->db->fetch($result2);
-		$roster->db->free_result($result2);
-
-		$query = "SELECT `guild_id` FROM `" . $roster->db->table('guild') . "` WHERE `server` = '" . $roster->db->escape($row['server']) . "' AND `region` = '" . $roster->db->escape($row['region']) . "' AND `factionEn` = '" . $roster->db->escape($row['factionEn']) . "' AND `guild_name` LIKE 'guildless-%';";
-		$guild_id = $roster->db->query_first($query);
-
-		if( !$guild_id )
-		{
-			$guilddata['Faction'] = $row['factionEn'];
-			$guilddata['FactionEn'] = $row['factionEn'];
-			$guilddata['Info'] = '';
-			$guild_id = $this->update_guild($row['server'],'GuildLess-' . substr($row['factionEn'],0,1),strtotime($timestamp),$guilddata,$row['region']);
-			unset($guilddata);
-		}
-
 		if( $num > 0 )
 		{
+			// Get guildless guild for this realm
+			$query = "SELECT * FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '$guild_id';";
+			$result2 = $roster->db->query($query);
+			$row = $roster->db->fetch($result2);
+			$roster->db->free_result($result2);
+
+			$query = "SELECT `guild_id` FROM `" . $roster->db->table('guild') . "` WHERE `server` = '" . $roster->db->escape($row['server']) . "' AND `region` = '" . $roster->db->escape($row['region']) . "' AND `factionEn` = '" . $roster->db->escape($row['factionEn']) . "' AND `guild_name` LIKE 'guildless-%';";
+			$guild_id = $roster->db->query_first($query);
+
+			if( !$guild_id )
+			{
+				$guilddata['Faction'] = $row['factionEn'];
+				$guilddata['FactionEn'] = $row['factionEn'];
+				$guilddata['Info'] = '';
+				$guild_id = $this->update_guild($row['server'],'GuildLess-' . substr($row['factionEn'],0,1),strtotime($timestamp),$guilddata,$row['region']);
+				unset($guilddata);
+			}
+
 			$inClause = array();
 			while( $row = $roster->db->fetch($result) )
 			{
