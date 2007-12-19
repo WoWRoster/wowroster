@@ -89,8 +89,9 @@ if( $roster_login->getAuthorized() >= $addon['config']['money'] )
 
 if( $data != '' )
 {
-	print '<div class="vault" style="background-image:url(' . $addon['image_path'] . 'vaultframe_' . strtolower(substr($roster->data['factionEn'],0,1)) . '.png);">'
-		. $data;
+
+
+	print '<div class="vault" style="background-image:url(' . $addon['image_path'] . 'vaultframe_' . strtolower(substr($roster->data['factionEn'],0,1)) . '.png);">';
 
 	if( $tabs != '' )
 	{
@@ -98,13 +99,17 @@ if( $data != '' )
 	<!-- Begin Navagation Tabs -->
 	<ul class="tab_nav" id="vault_navagation">
 	' . $tabs . '
-	</ul>
-	<script type="text/javascript">
+	</ul>';
+	}
+
+	print $data . '</div>';
+	if( $tabs != '' )
+	{
+		print '<script type="text/javascript">
 		var vault_navagation=new tabcontent(\'vault_navagation\');
 		vault_navagation.init();
 	</script>';
 	}
-	print '</div>';
 }
 
 
