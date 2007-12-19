@@ -43,38 +43,38 @@ you have this one part it will mark all other parts lower than this one as compl
 // ALLIANCE KEYS
 $lang['inst_keys']['A'] = array(
 	'SG' => array( 'Quests',
-		'SG' => 'Schlüssel zur Sengenden Schlucht|4826',
+		'SG' => 'Schlüssel zur Sengenden Schlucht|5396',
 			'Das Horn der Bestie|',
 			'Besitznachweis|',
 			'Endlich!|'
 		),
 	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Werkstattschlüssel|2288'
+		'Gnome' => 'Werkstattschlüssel|6893'
 		),
 	'SM' => array( 'Key-Only',
-		'SM' => 'Der scharlachrote Schlüssel|4445'
+		'SM' => 'Der scharlachrote Schlüssel|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Schlaghammer von Zul\\\'Farrak|5695',
+		'ZF' => 'Schlaghammer von Zul\\\'Farrak|9240',
 			'Hochheiliger Schlaghammer|8250'
 		),
 	'Mauro' => array( 'Parts',
-		'Mauro' => 'Szepter von Celebras|19710',
+		'Mauro' => 'Szepter von Celebras|17191',
 			'Celebriangriff|19549',
 			'Celebriandiamant|19545'
 		),
 	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Gefängniszellenschlüssel|15545'
+		'BRDp' => 'Gefängniszellenschlüssel|11140'
 		),
 	'BRDs' => array( 'Parts',
-		'BRDs' => 'Schlüssel zur Schattenschmiede|2966',
+		'BRDs' => 'Schlüssel zur Schattenschmiede|11000',
 			'Ironfel|9673'
 		),
 	'DM' => array( 'Key-Only',
-		'DM' => 'Mondsichelschlüssel|35607'
+		'DM' => 'Mondsichelschlüssel|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skelettschlüssel|16854',
+		'Scholo' => 'Skelettschlüssel|13704',
 			'Scholomance|',
 			'Skelettfragmente|',
 			'Sold reimt sich auf...|',
@@ -83,10 +83,10 @@ $lang['inst_keys']['A'] = array(
 			'Der Schlüssel zur Scholomance|'
 		),
 	'Strath' => array( 'Key-Only',
-		'Strath' => 'Schlüssel zur Stadt|13146'
+		'Strath' => 'Schlüssel zur Stadt|12382'
 		),
 	'UBRS' => array( 'Parts',
-		'UBRS' => 'Siegel des Aufstiegs|17057',
+		'UBRS' => 'Siegel des Aufstiegs|12344',
 			'Unverziertes Siegel des Aufstiegs|5370',
 			'Edelstein der Felsspitzoger|5379',
 			'Edelstein der Gluthauer|16095',
@@ -95,7 +95,7 @@ $lang['inst_keys']['A'] = array(
 			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drachenfeueramulett|4829',
+		'Onyxia' => 'Drachenfeueramulett|16309',
 			'Drachkin-Bedrohung|',
 			'Die wahren Meister|',
 			'Marshal Windsor|',
@@ -117,35 +117,35 @@ $lang['inst_keys']['A'] = array(
 // HORDE KEYS
 $lang['inst_keys']['H'] = array(
 	'SG' => array( 'Key-Only',
-		'SG' => 'Schlüssel zur Sengenden Schlucht|4826'
+		'SG' => 'Schlüssel zur Sengenden Schlucht|5396'
 		),
 	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Werkstattschlüssel|2288'
+		'Gnome' => 'Werkstattschlüssel|6893'
 		),
 	'SM' => array( 'Key-Only',
-		'SM' => 'Der scharlachrote Schlüssel|4445'
+		'SM' => 'Der scharlachrote Schlüssel|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Schlaghammer von Zul\\\'Farrak|5695',
+		'ZF' => 'Schlaghammer von Zul\\\'Farrak|9240',
 			'Hochheiliger Schlaghammer|8250'
 		),
 	'Mauro' => array( 'Parts',
-		'Mauro' => 'Szepter von Celebras|19710',
+		'Mauro' => 'Szepter von Celebras|17191',
 			'Celebriangriff|19549',
 			'Celebriandiamant|19545'
 		),
 	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Gefängniszellenschlüssel|15545'
+		'BRDp' => 'Gefängniszellenschlüssel|11140'
 		),
 	'BRDs' => array( 'Parts',
-		'BRDs' => 'Schlüssel zur Schattenschmiede|2966',
+		'BRDs' => 'Schlüssel zur Schattenschmiede|11000',
 			'Ironfel|9673'
 		),
 	'DM' => array( 'Key-Only',
-		'DM' => 'Mondsichelschlüssel|35607'
+		'DM' => 'Mondsichelschlüssel|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skelettschlüssel|16854',
+		'Scholo' => 'Skelettschlüssel|13704',
 			'Scholomance|',
 			'Skelettfragmente|',
 			'Sold reimt sich auf...|',
@@ -154,10 +154,10 @@ $lang['inst_keys']['H'] = array(
 			'Der Schlüssel zur Scholomance|'
 		),
 	'Strath' => array( 'Key-Only', 'Strath' =>
-			'Schlüssel zur Stadt|13146'
+		'Schlüssel zur Stadt|12382'
 		),
 	'UBRS' => array( 'Parts',
-		'UBRS' => 'Siegel des Aufstiegs|17057',
+		'UBRS' => 'Siegel des Aufstiegs|12344',
 			'Unverziertes Siegel des Aufstiegs|5370',
 			'Edelstein der Felsspitzoger|5379',
 			'Edelstein der Gluthauer|16095',
@@ -166,7 +166,7 @@ $lang['inst_keys']['H'] = array(
 			'Geschmiedetes Siegel des Aufstiegs|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drachenfeueramulett|4829',
+		'Onyxia' => 'Drachenfeueramulett|16309',
 			'Befehl des Kriegsherrn|',
 			'Eitriggs Weisheit|',
 			'Für die Horde!|',

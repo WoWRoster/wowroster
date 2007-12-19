@@ -43,38 +43,38 @@ you have this one part it will mark all other parts lower than this one as compl
 // ALLIANCE KEYS
 $lang['inst_keys']['A'] = array(
 	'SG' => array( 'Quests',
-		'SG' =>	'Key to Searing Gorge|4826',
+		'SG' =>	'Key to Searing Gorge|5396',
 			'The Horn of the Beast|',
 			'Proof of Deed|',
 			'At Last!|'
 		),
 	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Workshop Key|2288'
+		'Gnome' => 'Workshop Key|6893'
 		),
 	'SM' => array( 'Key-Only',
-		'SM' => 'The Scarlet Key|4445'
+		'SM' => 'The Scarlet Key|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Mallet of Zul\\\'Farrak|5695',
+		'ZF' => 'Mallet of Zul\\\'Farrak|9240',
 			'Sacred Mallet|8250'
 		),
 	'Mauro' => array( 'Parts',
-		'Mauro' => 'Scepter of Celebras|19710',
+		'Mauro' => 'Scepter of Celebras|17191',
 			'Celebrian Rod|19549',
 			'Celebrian Diamond|19545'
 		),
 	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Prison Cell Key|15545'
+		'BRDp' => 'Prison Cell Key|11140'
 		),
 	'BRDs' => array( 'Parts',
-		'BRDs' => 'Shadowforge Key|2966',
+		'BRDs' => 'Shadowforge Key|11000',
 			'Ironfel|9673'
 		),
 	'DM' => array( 'Key-Only',
-		'DM' => 'Crescent Key|35607'
+		'DM' => 'Crescent Key|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skeleton Key|16854',
+		'Scholo' => 'Skeleton Key|13704',
 			'Scholomance|',
 			'Skeletal Fragments|',
 			'Mold Rhymes With...|',
@@ -83,10 +83,10 @@ $lang['inst_keys']['A'] = array(
 			'The Key to Scholomance|'
 		),
 	'Strath' => array( 'Key-Only',
-		'Strath' => 'Key to the City|13146'
+		'Strath' => 'Key to the City|12382'
 		),
 	'UBRS' => array( 'Parts',
-		'UBRS' => 'Seal of Ascension|17057',
+		'UBRS' => 'Seal of Ascension|12344',
 			'Unadorned Seal of Ascension|5370',
 			'Gemstone of Spirestone|5379',
 			'Gemstone of Smolderthorn|16095',
@@ -95,7 +95,7 @@ $lang['inst_keys']['A'] = array(
 			'Forged Seal of Ascension|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drakefire Amulet|4829',
+		'Onyxia' => 'Drakefire Amulet|16309',
 			'Dragonkin Menace|',
 			'The True Masters|',
 			'Marshal Windsor|',
@@ -109,7 +109,7 @@ $lang['inst_keys']['A'] = array(
 			'Drakefire Amulet|'
 		),
 	'MC' => array( 'Key-Only',
-		'MC' => 'Eternal Quintessence|53490'
+		'MC' => 'Eternal Quintessence|22754'
 		),
 );
 
@@ -117,35 +117,35 @@ $lang['inst_keys']['A'] = array(
 // HORDE KEYS
 $lang['inst_keys']['H'] = array(
 	'SG' => array( 'Key-Only',
-		'SG' => 'Key to Searing Gorge|4826'
+		'SG' => 'Key to Searing Gorge|5396'
 		),
 	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Workshop Key|2288'
+		'Gnome' => 'Workshop Key|6893'
 		),
 	'SM' => array( 'Key-Only',
-		'SM' => 'The Scarlet Key|4445'
+		'SM' => 'The Scarlet Key|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Mallet of Zul\\\'Farrak|5695',
+		'ZF' => 'Mallet of Zul\\\'Farrak|9240',
 			'Sacred Mallet|8250'
 		),
 	'Mauro' => array( 'Parts',
-		'Mauro' => 'Scepter of Celebras|19710',
+		'Mauro' => 'Scepter of Celebras|17191',
 			'Celebrian Rod|19549',
 			'Celebrian Diamond|19545'
 		),
 	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Prison Cell Key|15545'
+		'BRDp' => 'Prison Cell Key|11140'
 		),
 	'BRDs' => array( 'Parts',
-		'BRDs' => 'Shadowforge Key|2966',
+		'BRDs' => 'Shadowforge Key|11000',
 			'Ironfel|9673'
 		),
 	'DM' => array( 'Key-Only',
-		'DM' => 'Crescent Key|35607'
+		'DM' => 'Crescent Key|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Skeleton Key|16854',
+		'Scholo' => 'Skeleton Key|13704',
 			'Scholomance|',
 			'Skeletal Fragments|',
 			'Mold Rhymes With...|',
@@ -154,10 +154,10 @@ $lang['inst_keys']['H'] = array(
 			'The Key to Scholomance|'
 		),
 	'Strath' => array( 'Key-Only',
-		'Strath' => 'Key to the City|13146'
+		'Strath' => 'Key to the City|12382'
 		),
 	'UBRS' => array( 'Parts',
-		'UBRS' => 'Seal of Ascension|17057',
+		'UBRS' => 'Seal of Ascension|12344',
 			'Unadorned Seal of Ascension|5370',
 			'Gemstone of Spirestone|5379',
 			'Gemstone of Smolderthorn|16095',
@@ -166,7 +166,7 @@ $lang['inst_keys']['H'] = array(
 			'Forged Seal of Ascension|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Drakefire Amulet|4829',
+		'Onyxia' => 'Drakefire Amulet|16309',
 			'Warlord\\\'s Command|',
 			'Eitrigg\\\'s Wisdom|',
 			'For The Horde!|',
