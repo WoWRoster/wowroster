@@ -515,6 +515,27 @@ class item
 		$html = '<span style="color:#ffd517;">' . $this->attributes['ItemNote'] . '</span><br />';
 		return $html;
 	}
+ 
+	function _getBoss()
+	{
+		$tmp = explode ( ':', $this->attributes['Boss'] );
+		$html = '<span style="color:#ffd800;">' . $tmp[0] . ':</span><span style="color:#ffffff;">' . $tmp[1] . '</span><br />';
+		return $html;
+	}
+
+	function _getSource()
+	{
+		$tmp = explode ( ':', $this->attributes['Source'] );
+		$html = '<br /><span style="color:#ffd800;">' . $tmp[0] . ':</span><span style="color:#ffffff;">' . $tmp[1] . '</span><br />';
+		return $html;
+	}
+
+	function _getDropRate()
+	{
+		$tmp = explode ( ':', $this->attributes['DropRate'] );
+		$html = '<span style="color:#ffd800;">' . $tmp[0] . ':</span><span style="color:#ffffff;">' . $tmp[1] . '</span><br />';
+		return $html;
+	}
 
 	/**
 	 * Reconstructs item's tooltip from parsed information.
@@ -630,6 +651,18 @@ class item
 			if( isset($this->attributes['ItemNote']) )
 			{
 				$html_tt .= $this->_getItemNote();
+			}
+			if( isset($this->attributes['Source']) )
+			{
+				$html_tt .= $this->_getSource();
+			}
+			if( isset($this->attributes['Boss']) )
+			{
+				$html_tt .= $this->_getBoss();
+			}
+			if( isset($this->attributes['DropRate']) )
+			{
+				$html_tt .= $this->_getDropRate();
 			}
 
 			if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
@@ -1088,6 +1121,18 @@ class item
 				$tt['Attributes']['Set']['ArmorSet']['Name'] = $matches[1];
 				$this->isSetPiece = true;
 				$setpiece = 1;
+			}
+			elseif( ereg('^'. $roster->locale->wordings[$locale]['tooltip_source'], $line ) )
+			{
+				$tt['Attributes']['Source'] = $line;
+			}
+			elseif( ereg('^'. $roster->locale->wordings[$locale]['tooltip_boss'], $line ) )
+			{
+				$tt['Attributes']['Boss'] = $line;
+			}
+			elseif( ereg('^'. $roster->locale->wordings[$locale]['tooltip_droprate'], $line ) )
+			{
+				$tt['Attributes']['DropRate'] = $line;
 			}
 			elseif( $setpiece )
 			{
