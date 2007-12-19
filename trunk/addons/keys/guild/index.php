@@ -42,13 +42,13 @@ function tableHeaderRow($th)
 		++$acount;
 		if(isset($items[$header]) && $items[$header])
 		{
-			list($iname, $thottnum) = explode('|', $items[$header][$header]);
+			list($iname, $itemid) = explode('|', $items[$header][$header]);
 			// Item links
 			$num_of_tips = (count($tooltips)+1);
 			$linktip = '';
 			foreach( $roster->locale->act['itemlinks'] as $ikey => $ilink )
 			{
-				$linktip .= '<a href="' . $ilink . urlencode(utf8_decode(stripslashes($iname))) . '" target="_blank">' . $ikey . '</a><br />';
+				$linktip .= '<a href="' . $ilink . $itemid . '" target="_blank">' . $ikey . '</a><br />';
 			}
 			setTooltip($num_of_tips,$linktip);
 			setTooltip('itemlink',$roster->locale->act['itemlink']);
@@ -166,7 +166,6 @@ while ($row = $roster->db->fetch($result))
 	{
 		$row['clientLocale'] = $roster->config['locale'];
 	}
-	$items = $roster->locale->act['inst_keys'][ substr($roster->data['factionEn'],0,1) ];
 	// build SQL search string for the instance keys only
 	$selectk = ''; $wherek = ''; $countk = 0;
 	foreach ($items as $key => $item)
@@ -177,7 +176,7 @@ while ($row = $roster->db->fetch($result))
 			if (!is_numeric($onechar))
 			{
 				++$countk;
-				list($iname, $thottnum) = explode('|', $subitem);
+				list($iname, $itemid) = explode('|', $subitem);
 				$selectk .= ", SUM(if(`items`.`item_name` = '$iname', -1, 0)) AS $key";
 				if ($countk == 1)
 				{
@@ -346,7 +345,7 @@ while ($row = $roster->db->fetch($result))
 		}
 		elseif (isset($krow[$key]) && $krow[$key] == '-1')
 		{
-			list($iname, $thottnum) = explode('|', $data[$key]);
+			list($iname, $itemid) = explode('|', $data[$key]);
 			if(isset($$key))
 			{
 				print($$key);
@@ -371,7 +370,7 @@ while ($row = $roster->db->fetch($result))
 		}
 		else
 		{
-			list($iname, $thottnum) = explode('|', $items[$key][$key]);
+			list($iname, $itemid) = explode('|', $items[$key][$key]);
 			$qcount = count($items[$key])-2;    //number of parts/quests
 			if ($items[$key][0] == 'Quests')    //-> $krow[$key] = "5" (e.g.)
 			{

@@ -43,38 +43,38 @@ you have this one part it will mark all other parts lower than this one as compl
 // ALLIANCE KEYS
 $lang['inst_keys']['A'] = array(
 	'SG' => array( 'Quests',
-		'SG' => 'Llave de la Garganta de Fuego|4826',
+		'SG' => 'Llave de la Garganta de Fuego|5396',
 			'El cuerno de la bestia|',
 			'Certificado de autenticidad|',
 			'Al fin!|'
 		),
 	'Gnome' => array( 'Key-only',
-		'Gnome' => 'Llave de taller|2288'
+		'Gnome' => 'Llave de taller|6893'
 		),
 	'SM' => array( 'Key-only',
-		'SM' => 'La llave Escarlata|4445'
+		'SM' => 'La llave Escarlata|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Marra de Zul\\\'Farrak|5695',
+		'ZF' => 'Marra de Zul\\\'Farrak|9240',
 			'Marra sacra|8250'
 		),
 	'Mauro' => array( 'Parts',
-		'Mauro' => 'Cetro de Celebras|19710',
+		'Mauro' => 'Cetro de Celebras|17191',
 			'Vara de Celebras|19549',
 			'Diamante de Celebras|19545'
 		),
 	'BRDp' => array( 'Key-only',
-		'BRDp' => 'Llave de celda de prisión|15545'
+		'BRDp' => 'Llave de celda de prisión|11140'
 		),
 	'BRDs' => array( 'Partes',
-		'BRDs' => 'Llave Sombratiniebla|2966',
+		'BRDs' => 'Llave Sombratiniebla|11000',
 			'Ferrovil|9673'
 		),
 	'DM' => array( 'Key-only',
-		'DM' => 'Llave creciente|35607'
+		'DM' => 'Llave creciente|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Llave esqueleto|16854',
+		'Scholo' => 'Llave esqueleto|13704',
 			'Scholomance|',
 			'Trozos esqueléticos|',
 			'Molde rima con... ¿oro?|',
@@ -83,10 +83,10 @@ $lang['inst_keys']['A'] = array(
 			'La llave de Scholomance|'
 		),
 	'Strath' => array( 'Key-only',
-		'Strath' => 'Llave de la ciudad|13146'
+		'Strath' => 'Llave de la ciudad|12382'
 		),
 	'UBRS' => array( 'Partes',
-		'UBRS' => 'Lacre de ascensión|17057',
+		'UBRS' => 'Lacre de ascensión|12344',
 			'Sello de ascensión sin adornar|5370',
 			'Gema de Cumbrerroca|5379',
 			'Gema de Espina Ahumada|16095',
@@ -95,7 +95,7 @@ $lang['inst_keys']['A'] = array(
 			'Sello de Ascensión forjado|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amuleto de Pirodraco|4829',
+		'Onyxia' => 'Amuleto de Pirodraco|16309',
 			'La amenaza de los dragonantes|',
 			'Los verdaderos maestros|',
 			'El alguacil Windsor|',
@@ -117,35 +117,35 @@ $lang['inst_keys']['A'] = array(
 // HORDE KEYS
 $lang['inst_keys']['H'] = array(
 	'SG' => array( 'Solo llave',
-		'SG' => 'Llave de la Garganta de Fuego|4826'
+		'SG' => 'Llave de la Garganta de Fuego|5396'
 		),
 	'Gnome' => array( 'Key-only',
-		'Gnome' => 'Llave de taller|2288'
+		'Gnome' => 'Llave de taller|6893'
 		),
 	'SM' => array( 'Key-only',
-		'SM' => 'La llave Escarlata|4445'
+		'SM' => 'La llave Escarlata|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Marra de Zul\\\'Farrak|5695',
+		'ZF' => 'Marra de Zul\\\'Farrak|9240',
 			'Marra sacra|8250'
 		),
 	'Mauro' => array( 'Parts',
-		'Mauro' => 'Cetro de Celebras|19710',
+		'Mauro' => 'Cetro de Celebras|17191',
 			'Vara de Celebras|19549',
 			'Diamante de Celebras|19545'
 		),
 	'BRDp' => array( 'Key-only',
-		'BRDp' => 'Llave de celda de prisión|15545'
+		'BRDp' => 'Llave de celda de prisión|11140'
 		),
 	'BRDs' => array( 'Parts',
-		'BRDs' => 'Llave Sombratiniebla|2966',
+		'BRDs' => 'Llave Sombratiniebla|11000',
 			'Ferrovil|9673'
 		),
 	'DM' => array( 'Key-only',
-		'DM' => 'Llave creciente|35607'
+		'DM' => 'Llave creciente|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Llave esqueleto|16854',
+		'Scholo' => 'Llave esqueleto|13704',
 			'Scholomance|',
 			'Trozos esqueléticos|',
 			'Molde rima con... ¿oro?|',
@@ -154,10 +154,10 @@ $lang['inst_keys']['H'] = array(
 			'La llave de Scholomance|'
 		),
 	'Strath' => array( 'Key-only',
-		'Strath' => 'Llave de la ciudad|13146'
+		'Strath' => 'Llave de la ciudad|12382'
 		),
 	'UBRS' => array( 'Parts',
-		'UBRS' => 'Lacre de ascensión|17057',
+		'UBRS' => 'Lacre de ascensión|12344',
 			'Sello de ascensión sin adornar|5370',
 			'Gema de Cumbrerroca|5379',
 			'Gema de Espina Ahumada|16095',
@@ -166,7 +166,7 @@ $lang['inst_keys']['H'] = array(
 			'Sello de Ascensión forjado|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amuleto de Pirodraco|4829',
+		'Onyxia' => 'Amuleto de Pirodraco|16309',
 			'La orden del Señor de la Guerra|',
 			'La sabiduría de Eitrigg|',
 			'¡Por la Horda!|',

@@ -43,38 +43,38 @@ you have this one part it will mark all other parts lower than this one as compl
 // ALLIANCE KEYS
 $lang['inst_keys']['A'] = array(
 	'SG' => array( 'Quests',
-		'SG' => 'Clé de la gorge des Vents brûlants|4826',
+		'SG' => 'Clé de la gorge des Vents brûlants|5396',
 			'La Corne de la B�te|',
 			'Titre de propriété|',
 			'Enfin !|'
 		),
 	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Clé d\\\'atelier|2288'
+		'Gnome' => 'Clé d\\\'atelier|6893'
 		),
 	'SM' => array( 'Key-Only',
-		'SM' => 'La Clé écarlate|4445'
+		'SM' => 'La Clé écarlate|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Marteau de Zul\\\'Farrak|5695',
+		'ZF' => 'Marteau de Zul\\\'Farrak|9240',
 			'Maillet sacré|8250'
 		),
 	'Marau' => array( 'Parts',
-		'Marau' => 'Sceptre de Celebras|19710',
+		'Marau' => 'Sceptre de Celebras|17191',
 			'Bâtonnet de Celebras|19549',
 			'Diamant de Celebras|19545'
 		),
 	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Clé de la prison|15545'
+		'BRDp' => 'Clé de la prison|11140'
 		),
 	'BRDs' => array( 'Parts',
-		'BRDs' => 'Clé ombreforge|2966',
+		'BRDs' => 'Clé ombreforge|11000',
 			'Souillefer|9673'
 		),
 	'HT' => array( 'Key-Only',
-		'HT' => 'Clé en croissant|35607'
+		'HT' => 'Clé en croissant|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Clé squelette|16854',
+		'Scholo' => 'Clé squelette|13704',
 			'Scholomance|',
 			'Fragments de squelette|',
 			'Moisissure rime avec...|',
@@ -83,10 +83,10 @@ $lang['inst_keys']['A'] = array(
 			'La clé de la Scholomance|'
 		),
 	'Strath' => array( 'Key-Only',
-		'Strath' => 'Clé de la ville|13146'
+		'Strath' => 'Clé de la ville|12382'
 		),
 	'UBRS' => array( 'Parts',
-		'UBRS' => 'Sceau d\\\'ascension|17057',
+		'UBRS' => 'Sceau d\\\'ascension|12344',
 			'Sceau d\\\'ascension non décoré|5370',
 			'Gemme de Pierre-du-pic|5379',
 			'Gemme de Brûleronce|16095',
@@ -95,7 +95,7 @@ $lang['inst_keys']['A'] = array(
 			'Sceau d\\\'ascension forgé|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amulette Drakefeu|4829',
+		'Onyxia' => 'Amulette Drakefeu|16309',
 			'La menace dragonkin|',
 			'Les véritables maîtres|',
 			'Maréchal Windsor|',
@@ -117,35 +117,35 @@ $lang['inst_keys']['A'] = array(
 // HORDE KEYS
 $inst_keys['H'] = array(
 	'SG' => array( 'Key-Only',
-		'SG' => 'Clé de la gorge des Vents brûlants|4826'
+		'SG' => 'Clé de la gorge des Vents brûlants|5396'
 		),
 	'Gnome' => array( 'Key-Only',
-		'Gnome' => 'Clé d\\\'atelier|2288'
+		'Gnome' => 'Clé d\\\'atelier|6893'
 		),
 	'SM' => array( 'Key-Only',
-		'SM' => 'La Clé écarlate|4445'
+		'SM' => 'La Clé écarlate|7146'
 		),
 	'ZF' => array( 'Parts',
-		'ZF' => 'Marteau de Zul\\\'Farrak|5695',
+		'ZF' => 'Marteau de Zul\\\'Farrak|9240',
 			'Maillet sacré|8250'
 		),
 	'Marau' => array( 'Parts',
-		'Marau' => 'Sceptre de Celebras|19710',
+		'Marau' => 'Sceptre de Celebras|17191',
 			'Bâtonnet de Celebras|19549',
 			'Diamant de Celebras|19545'
 		),
 	'BRDp' => array( 'Key-Only',
-		'BRDp' => 'Clé de la prison|15545'
+		'BRDp' => 'Clé de la prison|11140'
 		),
 	'BRDs' => array( 'Parts', 'BRDs' =>
-			'Clé ombreforge|2966',
+			'Clé ombreforge|11000',
 			'Souillefer|9673'
 		),
 	'HT' => array( 'Key-Only',
-		'HT' => 'Clé en croissant|35607'
+		'HT' => 'Clé en croissant|18249'
 		),
 	'Scholo' => array( 'Quests',
-		'Scholo' => 'Clé squelette|16854',
+		'Scholo' => 'Clé squelette|13704',
 			'Scholomance|',
 			'Fragments de squelette|',
 			'Moisissure rime avec...|',
@@ -154,10 +154,10 @@ $inst_keys['H'] = array(
 			'La clé de la Scholomance|'
 		),
 	'Strath' => array( 'Key-Only',
-		'Strath' => 'Clé de la ville|13146'
+		'Strath' => 'Clé de la ville|12382'
 		),
 	'UBRS' => array( 'Parts',
-		'UBRS' => 'Sceau d\\\'ascension|17057',
+		'UBRS' => 'Sceau d\\\'ascension|12344',
 			'Sceau d\\\'ascension non décoré|5370',
 			'Gemme de Pierre-du-pic|5379',
 			'Gemme de Brûleronce|16095',
@@ -166,7 +166,7 @@ $inst_keys['H'] = array(
 			'Sceau d\\\'ascension forgé|19463||MS'
 		),
 	'Onyxia' => array( 'Quests',
-		'Onyxia' => 'Amulette Drakefeu|4829',
+		'Onyxia' => 'Amulette Drakefeu|16309',
 			'Ordres du seigneur de guerre Goretooth|',
 			'Ordre du chef de guerre|',
 			'Pour la Horde !|',
