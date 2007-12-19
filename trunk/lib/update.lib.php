@@ -241,25 +241,25 @@ class update
 		{
 			if( is_array($this->addons) && count($this->addons)>0 )
 			{
-				foreach( $this->addons as $addon )
+				foreach( array_keys($this->addons) as $addon )
 				{
-					if( count(array_intersect($gotfiles, $addon->files))>0 )
+					if( count(array_intersect($gotfiles, $this->addons[$addon]->files))>0 )
 					{
-						if( file_exists($addon->data['trigger_file']) )
+						if( file_exists($this->addons[$addon]->data['trigger_file']) )
 						{
-							$addon->reset_messages();
-							if( method_exists($addon, 'update') )
+							$this->addons[$addon]->reset_messages();
+							if( method_exists($this->addons[$addon], 'update') )
 							{
-								$result = $addon->update();
+								$result = $this->addons[$addon]->update();
 
 								if( $result )
 								{
-									$output .= $addon->messages;
+									$output .= $this->addons[$addon]->messages;
 								}
 								else
 								{
-									$output .= sprintf($roster->locale->act['error_addon'],$addon->data['fullname'],'update') . "<br />\n"
-									. $roster->locale->act['addon_messages'] . "<br />\n" . $addon->messages;
+									$output .= sprintf($roster->locale->act['error_addon'],$this->addons[$addon]->data['fullname'],'update') . "<br />\n"
+									. $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages;
 								}
 							}
 						}
@@ -284,37 +284,37 @@ class update
 		global $roster;
 
 		$output = '';
-		foreach( $this->addons as $addon )
+		foreach( array_keys($this->addons) as $addon )
 		{
-			if( file_exists($addon->data['trigger_file']) )
+			if( file_exists($this->addons[$addon]->data['trigger_file']) )
 			{
-				$addon->reset_messages();
-				if( method_exists($addon, $mode) )
+				$this->addons[$addon]->reset_messages();
+				if( method_exists($this->addons[$addon], $mode) )
 				{
-					$result = $addon->{$mode}($data , $memberid);
+					$result = $this->addons[$addon]->{$mode}($data , $memberid);
 
 					if( $result )
 					{
 						if( $mode == 'guild' )
 						{
-							$output .= '<li>' . $addon->messages . "</li>\n";
+							$output .= '<li>' . $this->addons[$addon]->messages . "</li>\n";
 						}
 						else
 						{
-							$output .= $addon->messages . "<br/>\n";
+							$output .= $this->addons[$addon]->messages . "<br/>\n";
 						}
 					}
 					else
 					{
 						if( $mode == 'guild' )
 						{
-							$output .= '<li>' . sprintf($roster->locale->act['error_addon'],$addon->data['fullname'],$mode) . "<br />\n"
-							. $roster->locale->act['addon_messages'] . "<br />\n" . $addon->messages . "</li>\n";
+							$output .= '<li>' . sprintf($roster->locale->act['error_addon'],$this->addons[$addon]->data['fullname'],$mode) . "<br />\n"
+							. $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages . "</li>\n";
 						}
 						else
 						{
-							$output .= sprintf($roster->locale->act['error_addon'],$addon->data['fullname'],$mode) . "<br />\n"
-							. $roster->locale->act['addon_messages'] . "<br />\n" . $addon->messages . "<br />\n";
+							$output .= sprintf($roster->locale->act['error_addon'],$this->addons[$addon]->data['fullname'],$mode) . "<br />\n"
+							. $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages . "<br />\n";
 						}
 					}
 				}
