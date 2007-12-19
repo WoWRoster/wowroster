@@ -461,7 +461,6 @@ class update
 						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['CPversion']) . "</span><br />\n";
 						$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver']) . "\n";
 					}
-					$output .= "<br />\n";
 				}
 
 				// Start update triggers
@@ -624,20 +623,20 @@ class update
 							else
 							{
 								$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'],$guild_name,$realm_name,$region) . "</span><br />\n";
-								$output .= $roster->locale->act['no_members'] . "<br />\n";
+								$output .= $roster->locale->act['no_members'];
 							}
 						}
 						else
 						// GP Version not new enough
 						{
 							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$guild_name,$guild['GPversion']) . "</span><br />\n";
-							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']) . "<br />\n";
+							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']);
 						}
 					}
 				}
 				else
 				{
-					$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span>'."<br />\n";
+					$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span>';
 				}
 			}
 		}
