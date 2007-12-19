@@ -603,9 +603,9 @@ $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer)(?:.?sockel)/i';
 $lang['tooltip_preg_reinforcedarmor']='/(Verstärkt \(\+\d+ Rüstung\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
-$lang['tooltip_source']='Source';
+$lang['tooltip_source']='Quelle';
 $lang['tooltip_boss']='Boss';
-$lang['tooltip_droprate']='Drop Rate';
+$lang['tooltip_droprate']='Droprate';
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Benötigt';
