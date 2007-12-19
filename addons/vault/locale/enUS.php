@@ -25,6 +25,7 @@ $lang['vault_money_log']='Money Log';
 $lang['vault_log_deposit'] = '%1$s <span class="greenB">deposited</span> %2$s';
 $lang['vault_log_withdraw'] = '%1$s <span class="redB">withdrew</span> %2$s';
 $lang['vault_log_move'] = '%1$s <span class="purpleB">moved</span> %2$s';
+$lang['vault_log_repair'] = '%1$s <span class="redB">spent</span> %2$s for repairs';
 
 $lang['admin']['vault_conf'] = 'Guild Vault|Set up vault display and settings';
 $lang['admin']['tab1'] = 'Tab 1 Access|Control who can view the items in Tab 1';
