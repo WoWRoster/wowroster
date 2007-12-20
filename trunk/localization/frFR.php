@@ -741,7 +741,7 @@ $lang['clean'] = 'Clean up entries based on rules';
 $lang['select_guild'] = 'Select Guild';
 $lang['delete_checked'] = 'Delete Checked';
 $lang['delete_guild'] = 'Delete Guild';
-$lang['delete_guild_confirm'] = 'This will remove this entire guild and all its members.\\n Are you sure you want to do this?\\n\\nNOTE: This cannot be un-done!';
+$lang['delete_guild_confirm'] = 'This will remove this entire guild and all set all members guildless.\\n Are you sure you want to do this?\\n\\nNOTE: This cannot be un-done!';
 
 // Config Reset
 $lang['config_is_reset'] = 'La configuration a été remise à zéro. Merci de ne pas oublier de re-configurer tous vos paramètres avant de renvoyer vos données.';

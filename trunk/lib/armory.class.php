@@ -901,7 +901,7 @@ class RosterArmory
 				break;
 		}
 
-		$url = $base_url . $mode . '&locale=' . $locale;
+		$url = $base_url . $mode;
 
 		if( $this->debug_url )
 		{
