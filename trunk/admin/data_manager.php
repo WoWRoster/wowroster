@@ -42,8 +42,8 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		$sel_guild = substr($_POST['action'],9);
 		$update->deleteGuild( $sel_guild, time() );
 
-		$this->scope = 'none';
-		$this->anchor = '';
+		$roster->scope = 'none';
+		$roster->anchor = '';
 	}
 	elseif( isset($_POST['massdel']) )
 	{
