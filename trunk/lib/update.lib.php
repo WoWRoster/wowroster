@@ -2346,17 +2346,30 @@ class update
 	{
 		global $roster;
 
+		$query = "SELECT ( `guild_name` LIKE 'Guildless-%' ) FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '" . $guild_id . "';";
+
+		if( $roster->db->query_first( $query ) )
+		{
+			$this->setError('Guildless- guilds have a special meaning internally. You cannot explicitly delete them, they will be deleted automatically once the last member is deleted. To delete the guildless guild, delete all its members');
+		}
+
 		// Set all members as left
 		$query = "UPDATE `" . $roster->db->table('members') . "` SET `active` = 0 WHERE `guild_id` = '" . $guild_id . "';";
 		$roster->db->query($query);
 
-		// Process that. Keep this above the 'remove guild' line, because remove_guild_members() needs the guild entry to exist
+		// Set those members guildless. After that the guild will be empty, and remove_guild_members will call deleteEmptyGuilds to clean that up.
 		$this->remove_guild_members( $guild_id, $timestamp );
+	}
 
-		// Remove the guild
-		$query = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` = '" . $guild_id . "';";
+	/**
+	 * Clean up empty guilds.
+	 */
+	function deleteEmptyGuilds()
+	{
+		global $roster;
+
+		$query = "DELETE FROM `" . $roster->db->table('guild') . "` WHERE `guild_id` NOT IN ( SELECT DISTINCT `guild_id` FROM `" . $roster->db->table('members') . "` );";
 		$roster->db->query($query);
-
 
 	}
 
@@ -2476,6 +2489,8 @@ class update
 			$this->setError('Mail Data could not be deleted',$roster->db->error());
 		}
 
+		$this->deleteEmptyGuilds();
+
 		$this->setMessage($messages . '</li>');
 	}
 
@@ -2556,6 +2571,8 @@ class update
 				$this->setError('Guild members could not be set guildless',$roster->db->error());
 			}
 		}
+
+		$this->deleteEmptyGuilds();
 	}
 
 	/**
@@ -2824,6 +2841,9 @@ class update
 				$this->setMemberLog($row,1,$currentTimestamp);
 			}
 		}
+
+		// We may have added the last member of the guildless guild to a real guild, so check for empty guilds
+		$this->deleteEmptyGuilds();
 
 		return $memberId;
 	}
