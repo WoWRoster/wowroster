@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS `renprefix_memberlog`;
 CREATE TABLE `renprefix_memberlog` (
   `log_id` int(11) unsigned NOT NULL auto_increment,
   `member_id` int(11) unsigned NOT NULL,
-  `name` varchar(64) NOT NULL default '',
+  `name` varchar(64) NOT NULL CHARACTER SET utf8 COLLATE utf8_bin default '',
   `server` varchar(32) NOT NULL default '',
   `region` char(2) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
@@ -180,7 +180,7 @@ CREATE TABLE `renprefix_memberlog` (
 DROP TABLE IF EXISTS `renprefix_members`;
 CREATE TABLE `renprefix_members` (
   `member_id` int(11) unsigned NOT NULL auto_increment,
-  `name` varchar(64) NOT NULL default '',
+  `name` varchar(64) NOT NULL CHARACTER SET utf8 COLLATE utf8_bin default '',
   `server` varchar(32) NOT NULL default '',
   `region` char(2) NOT NULL default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
@@ -240,7 +240,7 @@ DROP TABLE IF EXISTS `renprefix_pets`;
 CREATE TABLE `renprefix_pets` (
   `pet_id` int(11) unsigned NOT NULL auto_increment,
   `member_id` int(10) unsigned NOT NULL default '0',
-  `name` varchar(32) NOT NULL default '',
+  `name` varchar(64) NOT NULL CHARACTER SET utf8 COLLATE utf8_bin default '',
   `slot` int(11) NOT NULL default '0',
   `level` int(11) NOT NULL default '0',
   `health` int(11) NOT NULL default '0',
@@ -365,7 +365,7 @@ CREATE TABLE `renprefix_pets` (
 DROP TABLE IF EXISTS `renprefix_players`;
 CREATE TABLE `renprefix_players` (
   `member_id` int(11) unsigned NOT NULL default '0',
-  `name` varchar(64) NOT NULL default '',
+  `name` varchar(64) NOT NULL CHARACTER SET utf8 COLLATE utf8_bin default '',
   `guild_id` int(11) unsigned NOT NULL default '0',
   `dateupdatedutc` datetime default NULL,
   `CPversion` varchar(6) NOT NULL default '0.0.0',
