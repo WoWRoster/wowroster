@@ -141,6 +141,14 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `versioncache` tinytext;");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1556','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('memberlog') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('members') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('players') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();
