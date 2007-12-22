@@ -13,9 +13,11 @@
  * @since      File available since Release 1.03
 */
 
-body { font:12px arial,helvetica,sans-serif;background:#000000;color:#ffffff; }
+body { background:#000000; }
 a:link, a:visited { color:#CBA300;text-decoration:none;font-weight:bold; }
 a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
+
+.roster-wrap { font:12px arial,helvetica,sans-serif; color: #FFFFFF; }
 
 img, p { padding:0;margin:0;border:0; }
 
