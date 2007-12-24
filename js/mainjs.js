@@ -431,18 +431,25 @@ function loadAjaxResult( req )
 		{
 //			Unescape this to show the result XML in a popup for debugging.
 //			alert(req.responseText);
-			response = req.responseXML.documentElement;
-			cont = response.getElementsByTagName('cont')[0].firstChild.data;
-			result = response.getElementsByTagName('result')[0];
-			status = response.getElementsByTagName('status')[0].firstChild.data;
-			errmsg = response.getElementsByTagName('errmsg')[0];
-			if (status == 0)
-			{
-				eval(cont + '(result)');
+		    if (req.responseXML == null)
+		    {
+				alert(req.responseText.replace(/<\/?[^>]+>/gi, ''));
 			}
 			else
 			{
-				alert('Error '+status+': '+errmsg.firstChild.data);
+				response = req.responseXML.documentElement;
+				cont = response.getElementsByTagName('cont')[0].firstChild.data;
+				result = response.getElementsByTagName('result')[0];
+				status = response.getElementsByTagName('status')[0].firstChild.data;
+				errmsg = response.getElementsByTagName('errmsg')[0];
+				if (status == 0)
+				{
+					eval(cont + '(result)');
+				}
+				else
+				{
+					alert('Error '+status+': '+errmsg.firstChild.data);
+				}
 			}
 		}
 		else
