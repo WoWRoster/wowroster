@@ -431,8 +431,8 @@ function loadAjaxResult( req )
 		{
 //			Unescape this to show the result XML in a popup for debugging.
 //			alert(req.responseText);
-		    if (req.responseXML == null)
-		    {
+			if (req.responseXML == null)
+			{
 				alert(req.responseText.replace(/<\/?[^>]+>/gi, ''));
 			}
 			else
