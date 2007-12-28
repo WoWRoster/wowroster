@@ -30,6 +30,7 @@ $lang['filelocation']='zu finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\
 
 $lang['noGuild']='Gilde nicht in der Datenbank gefunden. Bitte lade zunächst die Mitgliederliste hoch.';
 $lang['nodata']='Konnte Gilde <b>\'%1$s\'</b> auf dem Server <b>\'%2$s\'</b> nicht finden.<br />Du musst erst einmal die <a href="%3$s">Gildendaten hochladen</a> oder die <a href="%4$s">Konfiguration beenden</a>.<br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Klicke hier um zur Installationsanleitung zu gelangen</a>';
+$lang['nodefguild']='No default guild has been set yet. Please make sure you have <a href="%1$s">finished configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Click here for installation instructions</a>';
 $lang['nodata_title']='Keine Gildendaten vorhanden';
 
 $lang['update_page']='Gildenmitglied aktualisieren';

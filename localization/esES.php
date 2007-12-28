@@ -30,6 +30,7 @@ $lang['filelocation']='se encuentra en<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\
 
 $lang['noGuild']='No se pudo encontrar la hermandad en la base de datos. Por favor, actualiza primero el listado de miembros.';
 $lang['nodata']='No se pudo encontrar la hermandad: <b>\'%1$s\'</b> del servidor <b>\'%2$s\'</b><br />Necesitas <a href="%3$s">incluir tu hermandad</a> y asegurarte de que has <a href="%4$s">terminado la configuración</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Pulsa aquí para ver las instrucciones de instalación</a>';
+$lang['nodefguild']='No default guild has been set yet. Please make sure you have <a href="%1$s">finished configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Click here for installation instructions</a>';
 $lang['nodata_title']='No hay información de la hermandad';
 
 $lang['update_page']='Actualizar Perfil';
