@@ -253,7 +253,7 @@ class roster
 				$this->atype = 'none';
 				$this->anchor = '';
 
-				roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
+				roster_die( sprintf($this->locale->act['nodefguild'], makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
 			}
 		}
 
