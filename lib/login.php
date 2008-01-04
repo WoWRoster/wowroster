@@ -99,9 +99,9 @@ class RosterLogin
 		return;
 	}
 
-	function getAuthorized()
+	function getAuthorized( $access )
 	{
-		return $this->allow_login;
+		return $this->allow_login >= $access;
 	}
 
 	function getMessage()

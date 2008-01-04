@@ -23,7 +23,7 @@ $roster->output['title'] = $roster->locale->act['keys'];
 $roster_login = new RosterLogin();
 
 // Disallow viewing of the page
-if( $roster_login->getAuthorized() < $addon['config']['keys_access'] )
+if( ! $roster_login->getAuthorized( $addon['config']['keys_access'] ) )
 {
 	include_once(ROSTER_BASE . 'header.php');
 	$roster_menu = new RosterMenu;

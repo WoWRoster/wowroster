@@ -32,7 +32,7 @@ $roster->output['title'] = $roster->locale->act['vault'];
 $roster_login = new RosterLogin();
 
 // Diplay Password Box
-if ( $roster_login->getAuthorized() < 1 )
+if ( ! $roster_login->getAuthorized( 1 ) )
 {
 	print($roster_login->getMessage() . $roster_login->getLoginForm(1));
 }
@@ -48,7 +48,7 @@ $tab_count = 6;
 
 for( $t=1;$t<=$tab_count;$t++ )
 {
-	if( $roster_login->getAuthorized() >= $addon['config']['tab' . $t] )
+	if( $roster_login->getAuthorized( $addon['config']['tab' . $t] ) )
 	{
 		$tab_data['tab' . $t] = vault_tab_get( $roster->data['guild_id'], 'Tab' . $t );
 		if( !is_null( $tab_data['tab' . $t] ) )
@@ -75,7 +75,7 @@ for( $t=1;$t<=$tab_count;$t++ )
 	}
 }
 
-if( $roster_login->getAuthorized() >= $addon['config']['money'] )
+if( $roster_login->getAuthorized( $addon['config']['money'] ) )
 {
 	$data .= vault_money();
 

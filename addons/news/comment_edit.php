@@ -19,7 +19,7 @@ if( !defined('IN_ROSTER') )
 
 $roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
 
-if( $roster_login->getAuthorized() < $addon['config']['comm_edit'] )
+if( ! $roster_login->getAuthorized( $addon['config']['comm_edit'] ) )
 {
 	print $roster_login->getMessage().
 	$roster_login->getLoginForm($addon['config']['comm_edit']);
