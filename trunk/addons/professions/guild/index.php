@@ -26,7 +26,7 @@ $roster->output['title'] = $roster->locale->act['professions'];
 $roster_login = new RosterLogin();
 
 // Disallow viewing of the page
-if( $roster_login->getAuthorized() < $addon['config']['professions_access'] )
+if( ! $roster_login->getAuthorized( $addon['config']['professions_access'] ) )
 {
 	include_once(ROSTER_BASE . 'header.php');
 	$roster_menu = new RosterMenu;

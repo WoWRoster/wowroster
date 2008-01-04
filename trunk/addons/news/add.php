@@ -19,7 +19,7 @@ if( !defined('IN_ROSTER') )
 
 $roster_login = new RosterLogin();
 
-if( $roster_login->getAuthorized() < $addon['config']['news_add'] )
+if( ! $roster_login->getAuthorized( $addon['config']['news_add'] ) )
 {
 	print $roster_login->getMessage().
 	$roster_login->getLoginForm($addon['config']['news_add']);

@@ -234,7 +234,7 @@ $roster_menu = new RosterMenu;
 $roster_menu->makeMenu($roster->output['show_menu']);
 
 // Diplay Password Box
-if ( $roster_login->getAuthorized() < 3 )
+if ( ! $roster_login->getAuthorized( 3 ) )
 {
 	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage().$roster_login->getLoginForm());
 }
@@ -430,7 +430,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 
 	if( $zippackage_files != '' )
 	{
-		if( $roster_login->getAuthorized() < 3 )
+		if( ! $roster_login->getAuthorized( 3 ) )
 		{
 			echo messagebox('Log in as Roster Admin to download update files','Updates Available!','spurple');
 			echo '<br />';

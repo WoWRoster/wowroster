@@ -57,7 +57,7 @@ $roster->output['title'] = $roster->locale->act['guildbank'];
 $roster_login = new RosterLogin();
 
 // Disallow viewing of the page
-if( $roster_login->getAuthorized() < $addon['config']['bank_access'] )
+if( ! $roster_login->getAuthorized( $addon['config']['bank_access'] ) )
 {
 	include_once(ROSTER_BASE . 'header.php');
 	$roster_menu = new RosterMenu;
