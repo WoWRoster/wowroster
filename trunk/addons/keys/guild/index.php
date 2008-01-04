@@ -19,6 +19,30 @@ if ( !defined('IN_ROSTER') )
 
 $roster->output['title'] = $roster->locale->act['keys'];
 
+// ----[ Check log-in ]-------------------------------------
+$roster_login = new RosterLogin();
+
+// Disallow viewing of the page
+if( $roster_login->getAuthorized() < $addon['config']['keys_access'] )
+{
+	include_once(ROSTER_BASE . 'header.php');
+	$roster_menu = new RosterMenu;
+	$roster_menu->makeMenu($roster->output['show_menu']);
+
+	print
+	'<span class="title_text">' . $roster->locale->act['keys'] . '</span><br />'.
+	$roster_login->getMessage().
+	$roster_login->getLoginForm();
+
+	include_once(ROSTER_BASE . 'footer.php');
+	exit();
+}
+else
+{
+	echo $roster_login->getMessage() . '<br />';
+}
+// ----[ End Check log-in ]---------------------------------
+
 require_once (ROSTER_LIB . 'item.php');
 
 

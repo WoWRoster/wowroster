@@ -23,6 +23,7 @@ $lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
 $lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';
 $lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/Parts tooltip';
 $lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
+$lang['admin']['keys_access'] = 'Access|Set who can view the keys list';
 
 // language definitions for the rogue instance keys 'fix'
 $lang['thievestools']='Thieves\\\' Tools';

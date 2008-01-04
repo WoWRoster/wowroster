@@ -23,6 +23,7 @@ $lang['admin']['keys_conf'] = 'Paramètres principaux|Paramètres principaux pou
 $lang['admin']['colorcmp'] = 'Couleur étape achevée|Couleur pour les étapes achevées apparaissant dans l\'infobulle de suivi de quête/partie';
 $lang['admin']['colorcur'] = 'Couleur étape en cours|Couleur pour l\'étape en cours apparaissant dans l\'infobulle de suivi de quête/partie';
 $lang['admin']['colorno'] = 'Couleur étape à venir|Couleur pour les étapes à venir apparaissant dans l\'infobulle de suivi des étapes pour l\'acquisition de la clef (quêtes ou parties)';
+$lang['admin']['keys_access'] = 'Access|Set who can view the keys list';
 
 // language definitions for the rogue instance keys 'fix'
 $lang['thievestools']='Outils de Voleur';

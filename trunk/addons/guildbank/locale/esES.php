@@ -31,3 +31,4 @@ $lang['admin']['guildbank_ver'] = "Banco de la hermandad|Banco de la hermandad<b
 $lang['admin']['bank_money'] = "Mostrar dinero|Muestra el dinero del banco de la hermandad";
 $lang['admin']['banker_rankname'] = "Texto para buscar un banco|Indica el texto con el que se identificará a un personaje banco";
 $lang['admin']['banker_fieldname'] = "Campo de búsqueda de banquero|Indica el campo en el que se localiza el texto que has puesto en el apartado anterior";
+$lang['admin']['bank_access'] = "Access|Set who can view the guild bank";

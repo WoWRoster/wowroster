@@ -28,7 +28,7 @@ class guildinfoInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $version = '1.9.9.1431';
+	var $version = '1.9.9.1562';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';
@@ -48,6 +48,10 @@ class guildinfoInstall
 	{
 		global $installer;
 
+		$installer->add_config("'1','startpage','guildinfo_conf','display','master'");
+		$installer->add_config("'100','guildinfo_conf',NULL,'blockframe','menu'");
+		$installer->add_config("'1000', 'guildinfo_access', '0', 'access', 'guildinfo_conf'");
+
 		$installer->add_menu_button('ginfobutton','guild');
 		return true;
 	}
@@ -60,7 +64,15 @@ class guildinfoInstall
 	 */
 	function upgrade($oldversion)
 	{
-		// Nothing to upgrade from yet
+		global $installer;
+
+		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
+		{
+			$installer->add_config("'1','startpage','guildinfo_conf','display','master'");
+			$installer->add_config("'100','guildinfo_conf',NULL,'blockframe','menu'");
+			$installer->add_config("'1000', 'guildinfo_access', '0', 'access', 'guildinfo_conf'");
+		}
+
 		return true;
 	}
 

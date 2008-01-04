@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1431';
+	var $version = '1.9.9.1562';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -56,6 +56,7 @@ class keysInstall
 		$installer->add_config("'1010','colorcmp','#00ff00','color','keys_conf'");
 		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
 		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
+		$installer->add_config("'1040','keys_access','0','access','keys_conf'");
 
 		$installer->add_menu_button('keybutton','guild');
 		return true;
@@ -69,7 +70,13 @@ class keysInstall
 	 */
 	function upgrade($oldversion)
 	{
-		// Nothing to upgrade from yet
+		global $installer;
+
+		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
+		{
+			$installer->add_config("'1040','keys_access','0','access','keys_conf'");
+		}
+
 		return true;
 	}
 

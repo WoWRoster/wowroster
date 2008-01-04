@@ -22,6 +22,30 @@ if ( !defined('IN_ROSTER') )
 
 $roster->output['title'] = $roster->locale->act['professions'];
 
+// ----[ Check log-in ]-------------------------------------
+$roster_login = new RosterLogin();
+
+// Disallow viewing of the page
+if( $roster_login->getAuthorized() < $addon['config']['professions_access'] )
+{
+	include_once(ROSTER_BASE . 'header.php');
+	$roster_menu = new RosterMenu;
+	$roster_menu->makeMenu($roster->output['show_menu']);
+
+	print
+	'<span class="title_text">' . $roster->locale->act['professions'] . '</span><br />'.
+	$roster_login->getMessage().
+	$roster_login->getLoginForm();
+
+	include_once(ROSTER_BASE . 'footer.php');
+	exit();
+}
+else
+{
+	echo $roster_login->getMessage() . '<br />';
+}
+// ----[ End Check log-in ]---------------------------------
+
 // Build a list of "Skills" to look for
 $inClause = "'";
 foreach( $roster->multilanguages as $lang )
