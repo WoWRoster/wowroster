@@ -21,6 +21,8 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+define('ROSTERLOGIN_ADMIN',3);
+
 class RosterLogin
 {
 	var $allow_login;

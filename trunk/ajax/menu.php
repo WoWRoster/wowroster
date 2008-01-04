@@ -26,7 +26,7 @@ $roster_login = new RosterLogin();
 switch ($method)
 {
 	case 'menu_button_add':
-		if( ! $roster_login->getAuthorized( 3 ) )
+		if( ! $roster_login->getAuthorized( ROSTERLOGIN_ADMIN ) )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';
@@ -95,7 +95,7 @@ switch ($method)
 		break;
 
 	case 'menu_button_del':
-		if( ! $roster_login->getAuthorized( 3 ) )
+		if( ! $roster_login->getAuthorized( ROSTERLOGIN_ADMIN ) )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';

@@ -39,7 +39,7 @@ if( !defined('IN_ROSTER') )
 $roster_login = new RosterLogin();
 
 // Disallow viewing of the page
-if( ! $roster_login->getAuthorized( 3 ) )
+if( ! $roster_login->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
 	include_once(ROSTER_BASE . 'header.php');
 	$roster_menu = new RosterMenu;
