@@ -31,3 +31,4 @@ $lang['admin']['guildbank_ver'] = "Gildenbank Anzeigeeinstellung|Gildenbank Anze
 $lang['admin']['bank_money'] = "Goldanzeige|Steuert die Anzeige der Goldmenge in der Gildenbank";
 $lang['admin']['banker_rankname'] = "Bankchar Suchtext|Text um den Bankchar zu finden";
 $lang['admin']['banker_fieldname'] = "Bankchar Suchfeld|In diesem Tabellenfeld wird nach dem Bankchar Suchtext gesucht";
+$lang['admin']['bank_access'] = "Access|Set who can view the guild bank";

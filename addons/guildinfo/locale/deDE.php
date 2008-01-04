@@ -18,3 +18,5 @@
 $lang['guildinfo'] = 'Gilden Info';
 $lang['guildinfo_desc'] = 'Zeigt den Gildeninformationstext aus WoW';
 $lang['ginfobutton'] = 'Gilden Info|Zeigt den Gildeninformationstext aus WoW';
+
+$lang['admin']['guildinfo_access'] = 'Access|Set who has access to Guild Info';

@@ -23,6 +23,7 @@ $lang['admin']['keys_conf'] = 'Opciones|Muestra las opciones para el addon llave
 $lang['admin']['colorcmp'] = 'Color completo|Para aquellas llaves que requieren de una serie de misiones o partes para conseguirla, indica el color para especificar estas partes';
 $lang['admin']['colorcur'] = 'Color actual|Indica el color de la parte actual para conseguir la llave';
 $lang['admin']['colorno'] = 'Color incompleto|Indica el color de las partes incompletas para conseguir la llave';
+$lang['admin']['keys_access'] = 'Access|Set who can view the keys list';
 
 // language definitions for the rogue instance keys 'fix'
 $lang['thievestools']='Herramientas de ladrón';

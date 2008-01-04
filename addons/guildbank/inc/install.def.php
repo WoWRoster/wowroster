@@ -28,7 +28,7 @@ class guildbankInstall
 	var $active = true;
 	var $icon = 'inv_misc_bag_15';
 
-	var $version = '1.9.9.1431';
+	var $version = '1.9.9.1562';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildbank';
@@ -55,6 +55,7 @@ class guildbankInstall
 		$installer->add_config("'1100', 'bank_money', '1', 'radio{yes^1|no^0', 'guildbank_conf'");
 		$installer->add_config("'1200', 'banker_rankname', 'BankMule', 'text{50|30', 'guildbank_conf'");
 		$installer->add_config("'1300', 'banker_fieldname', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title|Player Name^name', 'guildbank_conf'");
+		$installer->add_config("'1400', 'bank_access', '0', 'access', 'guildbank_conf'");
 
 		$installer->add_menu_button('gbankbutton','guild');
 		return true;
@@ -68,7 +69,13 @@ class guildbankInstall
 	 */
 	function upgrade($oldversion)
 	{
-		// Nothing to upgrade from yet
+		global $installer;
+
+		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
+		{
+			$installer->add_config("'1400', 'bank_access', '0', 'access', 'guildbank_conf'");
+		}
+
 		return true;
 	}
 

@@ -31,3 +31,4 @@ $lang['admin']['guildbank_ver'] = "Type d'affichage de la banque de guilde|Type 
 $lang['admin']['bank_money'] = "Affichage des avoirs de la guilde|Contrôle l'affichage des avoirs de la guilde";
 $lang['admin']['banker_rankname'] = "Texte de recherche des personnages-banques|Texte utilisé pour désigner les personnages-banques";
 $lang['admin']['banker_fieldname'] = "Champ de recherche des personnages-banques|Champ utilisé pour désigner les personnages-banques";
+$lang['admin']['bank_access'] = "Access|Set who can view the guild bank";
