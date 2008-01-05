@@ -149,6 +149,12 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1567','<') )
+		{
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8470, 'rs_color_full', '#990000', 'color', 'rs_right');");
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8480, 'rs_color_recommended', '#0033FF', 'color', 'rs_right');");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

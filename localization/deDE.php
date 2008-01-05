@@ -170,6 +170,8 @@ $lang['rs'] = array(
 	'MEDIUM' => 'Mittel',
 	'HIGH' => 'Hoch',
 	'MAX' => 'Max',
+	'RECOMMENDED' => 'Recommended',
+	'FULL' => 'Full'
 );
 
 
@@ -900,6 +902,8 @@ $lang['admin']['rs_color_medium'] = "Mittel Farbe|Farbe für mittlere Bevölkeru
 $lang['admin']['rs_color_high'] = "Hoch Farbe|Farbe für hohe Bevölkerung";
 $lang['admin']['rs_color_max'] = "Max Farbe|Farbe für maximale Bevölkerung";
 $lang['admin']['rs_color_error'] = "Offline Farbe|Farbe für Realm offline";
+$lang['admin']['rs_color_full'] = "Full Color|Color for full realms (EU realms only)";
+$lang['admin']['rs_color_recommended'] = "Recommended Color|Color for recommended realms (EU realms only)";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";
