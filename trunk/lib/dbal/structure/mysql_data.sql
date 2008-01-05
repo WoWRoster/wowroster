@@ -139,6 +139,8 @@ INSERT INTO `renprefix_config` VALUES (8430, 'rs_color_medium', '#535600', 'colo
 INSERT INTO `renprefix_config` VALUES (8440, 'rs_color_high', '#660D02', 'color', 'rs_right');
 INSERT INTO `renprefix_config` VALUES (8450, 'rs_color_max', '#860D02', 'color', 'rs_right');
 INSERT INTO `renprefix_config` VALUES (8460, 'rs_color_error', '#860D02', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8470, 'rs_color_full', '#990000', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8480, 'rs_color_recommended', '#0033FF', 'color', 'rs_right');
 
 
 # --------------------------------------------------------

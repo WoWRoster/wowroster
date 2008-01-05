@@ -234,17 +234,14 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 					{
 						case 'FULL':
 							$realmData['serverpop'] = 'FULL';
-							$realmData['serverpopcolor'] = '#990000';
 							break;
 
 						case 'RECOMMENDED':
 							$realmData['serverpop'] = 'RECOMMENDED';
-							$realmData['serverpopcolor'] = '#0033FF';
 							break;
 
 						default:
-							$realmData['serverpop'] = '';
-							$realmData['serverpopcolor'] = $roster->config['rs_color_medium'];
+							$realmData['serverpop'] = ' ';
 					}
 				}
 			}
@@ -309,7 +306,14 @@ if( $err )
 }
 else
 {
-	$realmData['serverpopcolor'] = $roster->config['rs_color_' . strtolower($realmData['serverpop'])];
+	if( $realmData['serverpop'] == ' ' )
+	{
+		$realmData['serverpopcolor'] = $roster->config['rs_color_low'];
+	}
+	else
+	{
+		$realmData['serverpopcolor'] = $roster->config['rs_color_' . strtolower($realmData['serverpop'])];
+	}
 	$realmData['servertypecolor'] = $roster->config['rs_color_' . strtolower($realmData['servertype'])];
 	$realmData['serverpop'] = $roster->locale->act['rs'][$realmData['serverpop']];
 	$realmData['servertype'] = $roster->locale->act['rs'][$realmData['servertype']];
