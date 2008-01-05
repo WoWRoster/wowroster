@@ -511,7 +511,7 @@ $lang['notatwar']='Pas en guerre';
 
 $lang['questlinks'][] = array(
 	'name'=>'Judgehype FR',
-	'url1'=>'http://worldofwarcraft.judgehype.com/index.php?page=squete&amp;Ckey=',
+	'url1'=>'http://worldofwarcraft.judgehype.com/index.php?page=bc-result&amp;Ckey=',
 	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
 	'url3'=>'&amp;maxl='
 );
@@ -543,7 +543,7 @@ $lang['questlinks'][] = array(
 // uses the 'item_id' for data
 $lang['itemlink'] = 'Item Links';
 $lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
-$lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=bc-result&Ckey=';
+$lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=bc-result&amp;Ckey=';
 $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 //$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
