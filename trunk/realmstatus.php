@@ -67,21 +67,9 @@ switch( $region )
 {
 	case 'US':
 		$xmlsource = 'http://www.worldofwarcraft.com/realmstatus/status.xml';
-		$xmlmeta['rootxml'] = 'rs';
-		$xmlmeta['realms'] = 'r';
-		$xmlmeta['name'] = 'n';
-		$xmlmeta['status'] = 's';
-		$xmlmeta['type'] = 't';
-		$xmlmeta['pop'] = 'l';
 		break;
 	case 'EU':
 		$xmlsource = 'http://www.wow-europe.com/en/serverstatus/index.xml';
-		$xmlmeta['rootxml'] = 'status';
-		$xmlmeta['realms'] = 'r';
-		$xmlmeta['name'] = 'n';
-		$xmlmeta['status'] = 's';
-		$xmlmeta['type'] = 't';
-		$xmlmeta['pop'] = 'l';
 		break;
 	default:
 		$xmlsource = '';
@@ -129,83 +117,135 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 	$err = 1;
 	if( $xmlsource != false )
 	{
-		foreach( $xmlParser->data[$xmlmeta['rootxml']][0]['child'][$xmlmeta['realms']] as $key => $value )
+		if( $region == 'US' )
 		{
-			$xml_server = $value['attribs'];
-
-			if( $xml_server[$xmlmeta['name']] == $realmname )
+			foreach( $xmlParser->data['rs'][0]['child']['r'] as $key => $value )
 			{
-				$err = 0;
-				switch( strtoupper($xml_server[$xmlmeta['status']]) )
+				$xml_server = $value['attribs'];
+
+				if( $xml_server['n'] == $realmname )
 				{
-					case '0':
-					case 'DOWN':
-						$realmData['serverstatus'] = 'DOWN';
-						break;
+					$err = 0;
+					switch( strtoupper($xml_server['s']) )
+					{
+						case '0':
+							$realmData['serverstatus'] = 'DOWN';
+							break;
 
-					case '1':
-					case 'UP':
-						$realmData['serverstatus'] = 'UP';
-						break;
+						case '1':
+							$realmData['serverstatus'] = 'UP';
+							break;
 
-					case '2':
-					case 'MAINTENANCE':  // <-- unchecked
-						$realmData['serverstatus'] = 'MAINTENANCE';
-						break;
+						case '2':
+							$realmData['serverstatus'] = 'MAINTENANCE';
+							break;
 
-					default:
-						$realmData['serverstatus'] = 'UNKNOWN';
+						default:
+							$realmData['serverstatus'] = 'UNKNOWN';
+					}
+					switch( strtoupper($xml_server['t']) )
+					{
+						case '0':
+							$realmData['servertype'] = 'RPPVP';
+							break;
+
+						case '1':
+							$realmData['servertype'] = 'PVE';
+							break;
+
+						case '2':
+							$realmData['servertype'] = 'PVP';
+							break;
+
+						case '3':
+							$realmData['servertype'] = 'RP';
+							break;
+
+						default:
+							$realmData['servertype'] = 'UNKNOWN';
+					}
+					switch( strtoupper($xml_server['l']) )
+					{
+						case '1':
+							$realmData['serverpop'] = 'LOW';
+							break;
+
+						case '2':
+							$realmData['serverpop'] = 'MEDIUM';
+							break;
+
+						case '3':
+							$realmData['serverpop'] = 'HIGH';
+							break;
+
+						case '4':
+							$realmData['serverpop'] = 'MAX';
+							break;
+
+						default:
+							$realmData['serverpop'] = 'ERROR';
+					}
 				}
-				switch( strtoupper($xml_server[$xmlmeta['type']]) )
+			}
+		}
+		elseif( $region == 'EU' )
+		{
+			foreach( $xmlParser->data['rss'][0]['child']['channel'][0]['child']['item'] as $key => $value )
+			{
+				$xml_server = $value['child'];
+
+				if( $xml_server['title'][0]['data'] == $realmname )
 				{
-					case '0':
-					case 'RPPVP':
-					case 'RP-PVP':
-						$realmData['servertype'] = 'RPPVP';
-						break;
+					$err = 0;
+					switch( strtoupper($xml_server['category'][0]['data']) )
+					{
+						case 'REALM DOWN':
+							$realmData['serverstatus'] = 'DOWN';
+							break;
 
-					case '1':
-					case 'PVE':
-						$realmData['servertype'] = 'PVE';
-						break;
+						case 'REALM UP':
+							$realmData['serverstatus'] = 'UP';
 
-					case '2':
-					case 'PVP':
-						$realmData['servertype'] = 'PVP';
-						break;
+						default:
+							$realmData['serverstatus'] = 'UNKNOWN';
+					}
+					switch( strtoupper($xml_server['category'][2]['data']) )
+					{
+						case 'RPPVP':
+							$realmData['servertype'] = 'RPPVP';
+							break;
 
-					case '3':
-					case 'RP':
-						$realmData['servertype'] = 'RP';
-						break;
+						case 'PVE':
+							$realmData['servertype'] = 'PVE';
+							break;
 
-					default:
-						$realmData['servertype'] = 'UNKNOWN';
-				}
-				switch( strtoupper($xml_server[$xmlmeta['pop']]) )
-				{
-					case '1':
-					case 'LOW':
-						$realmData['serverpop'] = 'LOW';
-						break;
+						case 'PVP':
+							$realmData['servertype'] = 'PVP';
+							break;
 
-					case '2':
-					case 'MEDIUM':
-						$realmData['serverpop'] = 'MEDIUM';
-						break;
+						case 'RP':
+							$realmData['servertype'] = 'RP';
+							break;
 
-					case '3':
-					case 'HIGH':
-						$realmData['serverpop'] = 'HIGH';
-						break;
+						default:
+							$realmData['servertype'] = 'UNKNOWN';
+					}
+					switch( strtoupper($xml_server['category'][3]['data') )
+					{
+						case 'FULL':
+							$realmData['serverpop'] = 'FULL';
+							$realmData['serverpopcolor'] = '#990000';
+							break;
 
-					case '4':
-					case 'MAX': // <-- unused?
-					$realmData['serverpop'] = 'MAX';
-					break;
+						case 'RECOMMENDED':
+							$realmData['serverpop'] = 'RECOMMENDED';
+							$realmData['serverpopcolor'] = '#0033FF';
+							break;
 
-					default:
-						$realmData['serverpop'] = 'ERROR';
+						default:
+							$realmData['serverpop'] = '';
+							$realmData['serverpopcolor'] = $roster->config['rs_color_medium'];
+					}
 				}
 			}
 		}
