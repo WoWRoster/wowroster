@@ -241,6 +241,10 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 							$realmData['serverpop'] = 'RECOMMENDED';
 							break;
 
+						case 'FALSE':
+							$realmData['serverpop'] = 'RECOMMENDED';
+							break;
+
 						default:
 							$realmData['serverpop'] = ' ';
 					}
