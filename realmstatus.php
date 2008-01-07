@@ -230,7 +230,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 						default:
 							$realmData['servertype'] = 'UNKNOWN';
 					}
-					switch( strtoupper($xml_server['category'][3]['data') )
+					switch( strtoupper($xml_server['category'][3]['data']) )
 					{
 						case 'FULL':
 							$realmData['serverpop'] = 'FULL';
