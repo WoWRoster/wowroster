@@ -205,6 +205,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 
 						case 'REALM UP':
 							$realmData['serverstatus'] = 'UP';
+							break;
 
 						default:
 							$realmData['serverstatus'] = 'UNKNOWN';
