@@ -166,6 +166,10 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 					}
 					switch( strtoupper($xml_server['l']) )
 					{
+						case '0':
+							$realmData['serverpop'] = 'OFFLINE';
+							break;
+
 						case '1':
 							$realmData['serverpop'] = 'LOW';
 							break;
