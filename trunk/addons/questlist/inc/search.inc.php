@@ -45,23 +45,23 @@ class questlist_search
 		$quest_list = $roster->db->query("SELECT `quest_name` FROM `" . $roster->db->table('quests') . "` ORDER BY `quest_name`;");
 
 		//advanced options for searching zones
-		$this->options = '<label for="zone">' . $roster->locale->act['zone'] . '</label> <select name="zone" id="zone"> ';
-		$this->options .= "<option value=\"\">-----</option>";
+		$this->options = $roster->locale->act['zone'] . ' <select name="zone"> ';
+		$this->options .= '<option value="">-----</option>';
 		while( list($zone) = $roster->db->fetch($zone_list) )
 		{
 			$quests[$zone] = $zone;
-			$this->options .= "<option value=\"".urlencode($zone)."\">$zone</option>\n";
+			$this->options .= '<option value="' . urlencode($zone) . '">' . $zone . "</option>\n";
 		}
 		$roster->db->free_result($zone_list);
 		$this->options .= '</select>';
 
 		//advanced options for searching levels
-		$this->options .=  ' <label for="levelid">' . $roster->locale->act['level'] . '</label> <select name="levelid" id="levelid"> ';
-		$this->options .= "<option value=\"\">-----</option>";
+		$this->options .=  ' ' . $roster->locale->act['level'] . ' <select name="levelid"> ';
+		$this->options .= '<option value="">-----</option>';
 		while( list($quest_level) = $roster->db->fetch($level_list) )
 		{
 			$quests[$quest_level] = $quest_level;
-			$this->options .= "<option value=\"$quest_level\">$quest_level</option>\n";
+			$this->options .= '<option value="' . $quest_level . '">' . $quest_level . "</option>\n";
 		}
 		$roster->db->free_result($level_list);
 		$this->options .= '</select>';
@@ -128,6 +128,6 @@ class questlist_search
 
 	function add_result( $resultarray )
 	{
-	$this->result[$this->result_count++] = $resultarray;
+		$this->result[$this->result_count++] = $resultarray;
 	}
 }

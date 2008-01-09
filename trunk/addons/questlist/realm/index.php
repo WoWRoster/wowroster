@@ -255,11 +255,11 @@ function selectQuery( $table , $fieldtoget , $field , $current , $fieldid , $url
 
 		if( $current == $optiontocompare )
 		{
-			$option_block .= '			<option value="' . makelink("$urltorun=$id") . '" selected="selected">' . $optiontodisplay . "</option>\n";
+			$option_block .= '			<option value="' . makelink("$urltorun=$id",true) . '" selected="selected">' . $optiontodisplay . "</option>\n";
 		}
 		else
 		{
-			$option_block .= '			<option value="'  .makelink("$urltorun=$id") . '" >' . $optiontodisplay . "</option>\n";
+			$option_block .= '			<option value="' . makelink("$urltorun=$id",true) . '" >' . $optiontodisplay . "</option>\n";
 		}
 	}
 	// dump out the list

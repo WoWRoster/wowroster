@@ -50,11 +50,11 @@ foreach( $choiceArray as $item_value )
 		$display = ( isset($roster->locale->act[$item_value]) ? $roster->locale->act[$item_value] : $item_value );
 		if( $type == $item_value )
 		{
-			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value) . '" selected="selected">' . $display . "</option>\n";
+			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value,true) . '" selected="selected">' . $display . "</option>\n";
 		}
 		else
 		{
-			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value) . '">' . $display . "</option>\n";
+			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value,true) . '">' . $display . "</option>\n";
 		}
 	}
 }

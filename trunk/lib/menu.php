@@ -149,7 +149,7 @@ class RosterMenu
 					{
 						$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
 							'TEXT'       => $name,
-							'U_VALUE'    => makelink("&amp;a=r:$region-$name"),
+							'U_VALUE'    => makelink("&amp;a=r:$region-$name",true),
 							'S_SELECTED' => ( $name == $roster->data['server'] ? true : false )
 							)
 						);
@@ -194,7 +194,7 @@ class RosterMenu
 					{
 						$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
 							'TEXT'       => $name,
-							'U_VALUE'    => makelink('&amp;a=g:' . $id),
+							'U_VALUE'    => makelink('&amp;a=g:' . $id,true),
 							'S_SELECTED' => ( $id == $roster->data['guild_id'] ? true : false )
 							)
 						);
@@ -236,7 +236,7 @@ class RosterMenu
 				{
 					$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
 						'TEXT'       => $name,
-						'U_VALUE'    => makelink('&amp;a=c:' . $id),
+						'U_VALUE'    => makelink('&amp;a=c:' . $id,true),
 						'S_SELECTED' => ( $id == $roster->data['member_id'] ? true : false )
 						)
 					);
