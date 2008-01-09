@@ -1226,15 +1226,18 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 			}
 			$header .= "\r\n";
 			fwrite($file, $header);
+			stream_set_blocking($file, false);
 			stream_set_timeout($file, $timeout);
+
+			$info = stream_get_meta_data($file);
 			$inHeader = true;
 			$redirect = false;
 			$resHeader = '';
 			$tmp = '';
-			while( !feof($file) )
+			while( (!feof($file)) && (!$info['timed_out']) )
 			{
 				$chunk = fgets($file, 256);
-				1;
+				$info = stream_get_meta_data($file);
 				if( $inHeader )
 				{
 					$pos = strpos($chunk, '<');
@@ -1254,6 +1257,10 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 				$contents .= $chunk;
 			}
 			fclose($file);
+			if( $info['timed_out'] )
+			{
+				trigger_error("UrlGrabber Error [fsock]: Timed out", E_USER_WARNING);
+			}
 			if( preg_match('/(?:Set-Cookie: )(.+)/', $resHeader, $tmp) )
 			{
 				$roster->cache->put($tmp[1], $cache_tag);

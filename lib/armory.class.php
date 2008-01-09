@@ -96,7 +96,14 @@ class RosterArmory
 				// otherwise parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$item = $this->xmlParser->getParsedData();
-				$roster->cache->put($item, $cache_tag);
+				if( !isset($item['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($item, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $item;
 			}
 			else
@@ -162,7 +169,14 @@ class RosterArmory
 				// otherwise parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$item = $this->xmlParser->getParsedData();
-				$roster->cache->put($item, $cache_tag);
+				if( !isset($item['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($item, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $item;
 			}
 			else
@@ -241,7 +255,14 @@ class RosterArmory
 				// else parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$char = $this->xmlParser->getParsedData();
-				$roster->cache->put($char, $cache_tag);
+				if( !isset($guild['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($guild, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $char;
 			}
 			else
@@ -410,7 +431,14 @@ class RosterArmory
 				//else parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$talents = $this->xmlParser->getParsedData();
-				$roster->cache->put($talents, $cache_tag);
+				if ( !isset($char['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($talents, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $talents;
 			}
 			else
@@ -492,7 +520,14 @@ class RosterArmory
 				// else parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$char = $this->xmlParser->getParsedData();
-				$roster->cache->put($char, $cache_tag);
+				if( !isset($char['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($char, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $char;
 			}
 			else
@@ -576,7 +611,14 @@ class RosterArmory
 				// else parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$char = $this->xmlParser->getParsedData();
-				$roster->cache->put($char, $cache_tag);
+				if ( ! isset($char['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($char, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $char;
 			}
 			else
@@ -660,7 +702,14 @@ class RosterArmory
 				// else parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$char = $this->xmlParser->getParsedData();
-				$roster->cache->put($char, $cache_tag);
+				if( !isset($char['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($char, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $char;
 			}
 			else
@@ -733,7 +782,14 @@ class RosterArmory
 				// else parse and return array
 				$this->xmlParser->Parse($this->xml);
 				$strings = $this->xmlParser->getParsedData();
-				$roster->cache->put($strings, $cache_tag);
+				if( !isset($strings['page'][0]['child']['errorhtml']) )
+				{
+					$roster->cache->put($strings, $cache_tag);
+				}
+				else
+				{
+					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+				}
 				return $strings;
 			}
 			else
