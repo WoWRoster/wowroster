@@ -67,6 +67,8 @@ class Template_Wrap extends RosterTemplate
 	{
 		$this->set_filenames(array('body' => 'install_error.html'));
 
+		$this->install_message = array();
+
 		$this->assign_vars(array(
 			'MSG_TITLE' => ( $title != '' ) ? $title : '&nbsp;',
 			'MSG_TEXT'  => ( $text  != '' ) ? $text  : '&nbsp;'
@@ -95,6 +97,7 @@ class Template_Wrap extends RosterTemplate
 
 		if( $die )
 		{
+			$this->install_message = '';
 			$this->message_die($install_message, 'Installation ' . (( sizeof($this->install_message) == 1 ) ? 'Note' : 'Notes'));
 		}
 		else
@@ -220,6 +223,11 @@ $DEFAULTS = array(
 	'dbal'           => 'mysql'
 );
 
+$REQUIRE = array(
+	'php_version'    => '4.3.0',
+	'mysql_version'  => '4.1.0'
+);
+
 // Database settings
 $DBALS = array(
 	'mysql' => array(
@@ -278,7 +286,7 @@ switch ( $STEP )
  */
 function process_step1()
 {
-	global $DEFAULTS;
+	global $DEFAULTS, $REQUIRE;
 
 	$tpl = new Template_Wrap();
 	$tpl->set_filenames(array('body' => 'install_step1.html'));
@@ -381,19 +389,19 @@ function process_step1()
 	$our_roster_version   = (( version_compare($our_roster_version, $their_roster_version, '>=') ) ? '<span class="positive">' : '<span class="negative">') . $our_roster_version . '</span>';
 
 	// PHP Versions
-	$our_php_version   = (( phpversion() >= '4.3.0' ) ? '<span class="positive">' : '<span class="negative">') . phpversion() . '</span>';
-	$their_php_version = '4.3 +';
+	$our_php_version   = (( phpversion() >= $REQUIRE['php_version'] ) ? '<span class="positive">' : '<span class="negative">') . phpversion() . '</span>';
+	$their_php_version = $REQUIRE['php_version'] . ' +';
 
 	// Modules
 	$our_mysql   = ( extension_loaded('mysql') ) ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
 	// Required?
-    $their_mysql = '4.1 +';
+    $their_mysql = $REQUIRE['mysql_version'] . ' +';
 
     $our_gd    = ( function_exists('imageTTFBBox') && function_exists('imageTTFText') && function_exists('imagecreatetruecolor') )  ? '<span class="positive">Yes</span>' : '<span class="negative">No</span> - <a href="gd_info.php" target="_blank">More Info</a>';
     // Required?
     $their_gd  = 'Optional';
 
-	if ( (phpversion() < '4.3.0') || (!extension_loaded('mysql')) )
+	if ( (phpversion() < $REQUIRE['php_version']) || (!extension_loaded('mysql')) )
 	{
 		$tpl->error_append('<span style="font-weight: bold; font-size: 14px;">Sorry, your server does not meet the minimum requirements for Roster</span>');
 	}
@@ -493,7 +501,7 @@ function process_step2()
 
 function process_step3()
 {
-	global $DEFAULTS, $DBALS, $LOCALES;
+	global $DEFAULTS, $DBALS, $LOCALES, $REQUIRE;
 
 	$tpl = new Template_Wrap();
 	$tpl->set_filenames(array('body' => 'install_step3.html'));
@@ -536,24 +544,23 @@ function process_step3()
 
 	$remove_remarks_function = $DBALS[$db_config['dbtype']]['comments'];
 
-	// I require MySQL version 4.0.4 minimum.
+	// I require MySQL version 4.1.0 minimum.
 	$server_version = mysql_get_server_info();
 	$client_version = mysql_get_client_info();
 
 	if ( (isset($server_version) && isset($client_version)) )
 	{
-		$tpl->message_append('MySQL server version 4.1.0 or higher is required for Roster.<br /><br />
+		$tpl->message_append('MySQL server version ' . $REQUIRE['mysql_version'] . ' or higher is required for Roster.<br /><br />
 			<strong>You are running:</strong>
 			<ul>
 				<li><strong>Your server version: ' . $server_version . '</strong></li>
 				<li><strong>Your client version: ' . $client_version . '</strong></li>
 			</ul>
-			MySQL versions less than 4.1.0 may experience data corruption and are not supported.<br />
-			We will not provide support for these types of installations.');
+			Your server meets the MySQL requirements for Roster.');
 
-		if( version_compare($server_version,'4.1','<') )
+		if( version_compare($server_version,$REQUIRE['mysql_version'],'<') )
 		{
-			$tpl->message_die('MySQL server version 4.1.0 or higher is required for Roster.<br /><br />
+			$tpl->message_die('MySQL server version ' . $REQUIRE['mysql_version'] . ' or higher is required for Roster.<br /><br />
 				<strong>You are running:</strong>
 				<ul>
 					<li><strong>Your server version: ' . $server_version . '</strong></li>
