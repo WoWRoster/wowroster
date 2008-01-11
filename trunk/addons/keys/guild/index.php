@@ -9,483 +9,260 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @package    InstanceKeys
-*/
+ * @package    IntanceKeys
+ */
 
 if ( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }
 
-$roster->output['title'] = $roster->locale->act['keys'];
-
-// ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin();
-
-// Disallow viewing of the page
-if( ! $roster_login->getAuthorized( $addon['config']['keys_access'] ) )
+if( !active_addon('memberslist') )
 {
-	include_once(ROSTER_BASE . 'header.php');
-	$roster_menu = new RosterMenu;
-	$roster_menu->makeMenu($roster->output['show_menu']);
-
-	print
-	'<span class="title_text">' . $roster->locale->act['keys'] . '</span><br />'.
-	$roster_login->getMessage().
-	$roster_login->getLoginForm();
-
-	include_once(ROSTER_BASE . 'footer.php');
-	exit();
-}
-else
-{
-	echo $roster_login->getMessage() . '<br />';
-}
-// ----[ End Check log-in ]---------------------------------
-
-require_once (ROSTER_LIB . 'item.php');
-
-
-$striping_counter = 1;
-$tableHeader = '<table cellpadding="0" cellspacing="0">' . "\n";
-$tableFooter = "</table>\n";
-
-function borderTop()
-{
-	print border('sgray','start');
+	// Memberslist not installed. Just die for now.
+	roster_die( "You will need to install memberslist to use the keys addon display component" );
 }
 
-function tableHeaderRow($th)
-{
-	global $roster, $items, $tooltips;
+$memberslist_addon = getaddon('memberslist');
 
-	$acount = 0;
-	print "  <tr>\n";
-	foreach ($th as $header)
+// Include addon's locale files if they exist
+foreach( $roster->multilanguages as $lang )
+{
+	$roster->locale->add_locale_file($memberslist_addon['locale_dir'] . $lang . '.php',$lang);
+}
+
+include_once ($memberslist_addon['dir'] . 'inc/memberslist.php');
+include_once (ROSTER_LIB . 'item.php');
+$memberlist = new memberslist(array(), $memberslist_addon);
+
+// First define static data
+$mainSelect =
+	'SELECT '.
+	'`members`.`member_id`, '.
+	'`members`.`name`, '.
+	'`members`.`class`, '.
+	'`members`.`level`, '.
+	'`members`.`zone`, '.
+	'`members`.`online`, '.
+	'`members`.`last_online`, '.
+	"UNIX_TIMESTAMP(`members`.`last_online`) AS 'last_online_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online_format', ".
+	'`members`.`note`, '.
+	'`members`.`guild_title`, '.
+
+	'`guild`.`update_time`, '.
+
+	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
+	'`members`.`officer_note`, '.
+	"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
+	'`members`.`guild_rank`, '.
+
+	'`players`.`server`, '.
+	'`players`.`race`, '.
+	'`players`.`sex`, '.
+	'`players`.`exp`, '.
+	'`players`.`clientLocale`, '.
+
+	'`players`.`lifetimeRankName`, '.
+	'`players`.`lifetimeHighestRank`, '.
+	"IF( `players`.`lifetimeHighestRank` IS NULL OR `players`.`lifetimeHighestRank` = '0', 1, 0 ) AS 'risnull', ".
+	'`players`.`hearth`, '.
+	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
+	"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ";
+
+$mainTables =
+	'FROM `'.$roster->db->table('members').'` AS members '.
+	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
+	'INNER JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
+	'INNER JOIN `'.$roster->db->table('keycache',$addon['basename']).'` AS keycache ON `members`.`member_id` = `keycache`.`member_id` '.
+	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
+	'GROUP BY `members`.`member_id` '.
+	'ORDER BY ';
+
+$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
+
+$FIELD['name'] = array (
+	'lang_field' => 'name',
+	'order'    => array( '`members`.`name` ASC' ),
+	'order_d'    => array( '`members`.`name` DESC' ),
+	'value' => array($memberlist,'name_value'),
+	'js_type' => 'ts_string',
+	'display' => 3,
+);
+
+$FIELD['class'] = array (
+	'lang_field' => 'class',
+	'order'    => array( '`members`.`class` ASC' ),
+	'order_d'    => array( '`members`.`class` DESC' ),
+	'value' => array($memberlist,'class_value'),
+	'js_type' => 'ts_string',
+	'display' => 2
+);
+
+$FIELD['level'] = array (
+	'lang_field' => 'level',
+	'order_d'    => array( '`members`.`level` ASC' ),
+	'value' => array($memberlist,'level_value'),
+	'js_type' => 'ts_number',
+	'display' => 2
+);
+
+// For each key, we get two extra database columns and an extra FIELD
+foreach( $roster->locale->act['inst_keys'][substr($roster->data['faction'],0,1)] as $key_name => $key_data )
+{
+	$mainSelect .=
+		'GROUP_CONCAT( IF( `keycache`.`key_name` = \'' . $key_name . '\', `stage`, NULL) ) AS `' . $key_name . '_stages`, ' .
+		'MAX( IF( `keycache`.`key_name` = \'' . $key_name . '\', `stage`, NULL) ) AS `' . $key_name . '_latest`, ';
+	$FIELD[$key_name] = array(
+		'lang_field' => $key_name,
+		'order' => array( '`keycache`.`' . $key_name . '_latest` ASC' ),
+		'order_d' => array( '`keycache`.`' . $key_name . '_latest` ASC' ),
+		'value' => 'key_value',
+		'js_type' => 'ts_number',
+		'display' => 3
+	);
+}
+
+// Combine the main query. The '1' is to fix the trailing comma for the fields list.
+$mainQuery = $mainSelect . '1 ' . $mainTables;
+
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'keyslist');
+
+// Start output
+echo $memberlist->makeFilterBox();
+
+echo $memberlist->makeToolBar('horizontal');
+
+echo "<br />\n".border('syellow','start')."\n";
+echo $memberlist->makeMembersList();
+echo border('syellow','end');
+
+// Key display logic
+function key_value( $row, $field )
+{
+	global $roster, $addon;
+	static $keycache = array();
+
+	$key_data = $roster->locale->act['inst_keys'][substr($roster->data['faction'],0,1)][$field];
+	if( empty($row[$field . '_stages']) )
 	{
-		++$acount;
-		if(isset($items[$header]) && $items[$header])
-		{
-			list($iname, $itemid) = explode('|', $items[$header][$header]);
-			// Item links
-			$num_of_tips = (count($tooltips)+1);
-			$linktip = '';
-			foreach( $roster->locale->act['itemlinks'] as $ikey => $ilink )
-			{
-				$linktip .= '<a href="' . $ilink . $itemid . '" target="_blank">' . $ikey . '</a><br />';
-			}
-			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$roster->locale->act['itemlink']);
-
-			$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);" onmouseout="return nd();"';
-
-			$header = '<a href="#"' . $linktip . '>' . $header . '</a>';
-		}
-		if ($acount == 1)
-		{
-			print '    <th class="membersHeader">' . $header . "</th>\n";
-		}
-		elseif ($acount == count($th))
-		{
-			print '    <th class="membersHeaderRight">' . $header . "</th>\n";
-		}
-		else
-		{
-			print '    <th class="membersHeader" align="center">' . $header . "</th>\n";
-		}
-	}
-	print "  </tr>\n";
-}
-
-function borderBottom()
-{
-	print border('sgray','end');
-}
-
-function rankLeft($sc)
-{
-	print '    <td class="membersKeyRowLeft' . $sc . '">';
-}
-
-function rankMid($sc)
-{
-	print '    <td class="membersKeyRow' . $sc . '">';
-}
-
-function rankRight($sc)
-{
-	print '    <td class="membersKeyRowRight' . $sc . '">';
-}
-
-function buildSQL($item,$key,$type)
-{
-	global $selectp, $wherep, $pcount, $selectq, $whereq, $qcount;
-
-	$alist = explode('|', $item);
-
-	$iname = isset($alist[0]) ? $alist[0] : '';
-
-	if ($type == 'quest')
-	{
-		++$pcount;
-		$selectq .= ", SUM(IF(`quests`.`quest_name` = '$iname', 1, 0)) AS $key";
-		if ($pcount == 1)
-		{
-			$whereq .= " `quests`.`quest_name` = '$iname'";
-		}
-		else
-		{
-			$whereq .= " OR `quests`.`quest_name` = '$iname'";
-		}
+		return '&nbsp;';
 	}
 	else
 	{
-		++$qcount;
-		$selectp .= ", SUM(IF(items.item_name = '$iname', 1, 0)) AS $key";
-		if ($qcount == 1)
+		$active_stages = explode(',', $row[$field . '_stages']);
+	}
+
+	$num_stages = count($key_data);
+	$num_completed_stages = 0;
+
+	$depth = 0;
+	$completed[0] = false;
+
+	$tooltip = '';
+
+	for( $id = $num_stages - 1; $id >= 0; $id-- )
+	{
+		if( $key_data[$id]['marker'] == 'DRAIN' || $key_data[$id]['marker'] == 'SINGLE' )
 		{
-			$wherep .= " items.item_name = '$iname'";
+			$depth++;
+			$completed[$depth] = $completed[$depth - 1];
+
+			$tooltip = '</div>' . $tooltip;
+		}
+
+		if( in_array( $id, $active_stages ) )
+		{
+			$tipline = '<span style="color:' . $addon['config']['colorcur'] . ';">' . $key_data[$id]['value'] . '</span><br />';
+			$completed[$depth] = true;
+			if( $key_data[$id]['active'] )
+			{
+				$num_completed_stages++;
+			}
+		}
+		elseif( $completed[$depth] )
+		{
+			$tipline = '<span style="color:' . $addon['config']['colorcmp'] . ';">' . $key_data[$id]['value'] . '</span><br />';
+			$num_completed_stages++;
 		}
 		else
 		{
-			$wherep .= " OR items.item_name = '$iname'";
+			$tipline = '<span style="color:' . $addon['config']['colorno'] . ';">' . $key_data[$id]['value'] . '</span><br />';
 		}
+
+		if( $key_data[$id]['marker'] == 'SOURCE' || $key_data[$id]['marker'] == 'SINGLE' )
+		{
+			if( $depth == 0 )
+			{
+				$error = 'key_syntax';
+			}
+
+			if( $completed[$depth] )
+			{
+				$completed[$depth-1] = true;
+			}
+			$depth--;
+			$tipline = '<div class="keyindent">' . $tipline;
+		}
+
+		$tooltip = $tipline . $tooltip;
 	}
+
+	// Set up progress mouseover and item link clickable tooltips
+	$linktip = '';
+	$linktipid = 'keys_' . $field . '_' . $row['member_id'];
+
+	foreach( $roster->locale->act['itemlinks'] as $ikey => $ilink )
+	{
+		$linktip .= '<a href="' . $ilink . urlencode(utf8_decode(stripslashes($key_data[$num_stages - 1]['value']))) . '" target="_blank">' . $ikey . '</a><br />';
+	}
+	setTooltip($linktipid, $linktip);
+	setTooltip('itemlink', $roster->locale->act['itemlink']);
+
+	$linktip = ' onclick="return overlib(overlib_' . $linktipid . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
+	$tooltip = '<div style="cursor:pointer;" '.makeOverlib($tooltip,$tooltip_h,'',2).$linktip.'>';
+
+	if( in_array( $num_stages - 1, $active_stages ) )
+	{
+		if( !isset( $keycache[$field] ) )
+		{
+			$key = $key_data[$num_stages - 1];
+
+			if( $key['type'] == 'Ii' )
+			{
+				$query = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_id` LIKE '" . $key['value'] . ":%' LIMIT 0,1;";
+			}
+			elseif( $key['type'] == 'In' )
+			{
+				$query = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '" . $key['value'] . "' LIMIT 0,1;";
+			}
+			$result = $roster->db->query($query);
+			$item = $roster->db->fetch($result);
+			$roster->db->free_result($result);
+			
+			$item = new item( $item, 'simple' );
+			$keycache[$field] = $item->out();
+		}
+
+		$output = $keycache[$field];
+	}
+	else
+	{
+		$perc_done = round($num_completed_stages / $num_stages * 100);
+		$output = 
+			'<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">' . $num_completed_stages . '/' . $num_stages . '</div></div>' . "\n" .
+			'<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">' . "\n" .
+			'<tr>' . "\n" .
+			'<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $perc_done . '%">' . "\n" .
+			'<img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" />' . "\n" .
+			'</td>' . "\n" .
+			'<td width="' . (100 - $perc_done) . '%"></td>' . "\n" .
+			'</tr>' . "\n" .
+			'</table>' . "\n";
+	}
+	
+	return '<div style="display:none; ">'.$num_completed_stages.'</div>'.$tooltip.$output.'</div>';
 }
-
-//Minimum lockpicking skill to get it, 1000 indicates that the lock can't be picked
-$min_skill_for_lock = array(
-	'SG' => 225,
-	'Gnome' => 150,
-	'SM' => 175,
-	'ZF' => 1000,
-	'Mauro' => 1000,
-	'BRDp' => 250,
-	'BRDs' => 1000,
-	'DM' => 295,
-	'Scholo' => 280,
-	'Strath' => 295,
-	'UBRS' => 1000,
-	'Onyxia' => 1000,
-	'MC' => 1000,
-);
-
-$items = $roster->locale->act['inst_keys'][ substr($roster->data['factionEn'],0,1) ];
-$keys = array('Name');
-foreach ($items as $key => $data)
-{
-	array_push($keys,$key);
-}
-
-borderTop();
-print($tableHeader);
-tableHeaderRow($keys);
-
-$query = "SELECT `name`, `level`, `member_id`, `class`, `clientLocale` FROM `" . $roster->db->table('players') . "` WHERE `guild_id` = '" . $roster->data['guild_id'] . "' GROUP BY `name` ORDER BY `name` ASC;";
-$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-
-while ($row = $roster->db->fetch($result))
-{
-	if ($row['clientLocale'] == '')
-	{
-		$row['clientLocale'] = $roster->config['locale'];
-	}
-	// build SQL search string for the instance keys only
-	$selectk = ''; $wherek = ''; $countk = 0;
-	foreach ($items as $key => $item)
-	{
-		foreach ($items[$key] as $subkey => $subitem)
-		{
-			$onechar = substr($subkey, 0, 1);
-			if (!is_numeric($onechar))
-			{
-				++$countk;
-				list($iname, $itemid) = explode('|', $subitem);
-				$selectk .= ", SUM(if(`items`.`item_name` = '$iname', -1, 0)) AS $key";
-				if ($countk == 1)
-				{
-					$wherek .= " `items`.`item_name` = '$iname'";
-				}
-				else
-				{
-					$wherek .= " OR `items`.`item_name` = '$iname'";
-				}
-			}
-		}
-	}
-	// instance key search
-	$kquery = "SELECT `members`.`name`$selectk FROM `" . $roster->db->table('items') . "` AS items LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `items`.`member_id` WHERE `items`.`member_id` = '" . $row['member_id'] . "' AND ($wherek) GROUP BY `members`.`name`;";
-	$kresult = $roster->db->query($kquery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$kquery);
-	$krow = $roster->db->fetch($kresult);
-	$kcount = 0; // counts how many keys this player has. if 0 at the end don't display
-	$selectp = ''; $wherep = ''; $pcount = 0;
-	$selectq = ''; $whereq = ''; $qcount = 0;
-	// ==============================
-	// VALUE:MEANING for $krow[$key]:
-	// ==============================
-	// -1: player has the key
-	// -2: player (rogue) can pick the lock but doesn't have the key
-	//  0: no access
-	// 1+: current quest step
-	// 0|1|2|...: completed steps
-	// ==============================
-	foreach ($items as $key => $item)
-	{
-		if ( isset($krow[$key]) && $krow[$key] == '-1')
-		{
-			++$kcount;
-		}
-		else
-		{
-			if (($row['class'] == $roster->locale->wordings[$row['clientLocale']]['Rogue']) && ($row['level'] >= 16))
-			{
-				$squery = "SELECT `skill_level` FROM `" . $roster->db->table('skills') . "` WHERE `member_id` = " . $row['member_id'] . " AND `skill_name` = '" . $roster->locale->wordings[$row['clientLocale']]['lockpicking'] . "';";
-				$sresult = $roster->db->query($squery) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$squery);
-				$srow = $roster->db->fetch($sresult);
-				list($current_skill,$max_skill) = explode(':',$srow['skill_level']);
-				$roster->db->free_result($sresult);
-
-				// This is for armory uploads where rouges have the skill, but not the item
-				$iname = $roster->locale->wordings[$row['clientLocale']]['thievestools'];
-				$iquery = "SELECT `item_name` FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '$iname' AND `member_id` = '" . $row['member_id'] . "';";
-				$iresult = $roster->db->query($iquery);
-
-				if ( $roster->db->num_rows() > 0 && $current_skill >= $min_skill_for_lock[$key])
-				{
-					$krow[$key] = '-2';
-					++$kcount;
-					continue;
-				}
-			}
-			if ($items[$key][0] == 'Quests')
-			{
-				$type = 'quest';
-			}
-			else if ($items[$key][0] == 'Parts')
-			{
-				$type = 'item';
-			}
-			else
-			{
-				continue;
-			}
-			for ($acount=1;$acount<count($items[$key])-1;$acount++)
-			{
-				buildSQL($items[$key][$acount], "${key}$acount", $type);
-			}
-		}
-	}
-
-	if ($selectp != '')
-	{
-		// parts search (only the remaining ones!)
-		$queryp = "SELECT `members`.`name`$selectp FROM `" . $roster->db->table('items') . "` AS items LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `items`.`member_id` WHERE `items`.`member_id` = '" . $row['member_id'] . "' AND ($wherep) GROUP BY `members`.`name` ORDER BY `members`.`name` ASC;";
-		$presult = $roster->db->query($queryp) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$queryp);
-		$prow = $roster->db->fetch($presult);
-		if (is_array($prow))
-		{
-			foreach ($prow as $pkey => $pvalue)
-			{
-				if ( $pvalue == 1 && !is_numeric($pkey))
-				{
-					++$kcount;
-					$key = preg_replace('/[0-9]/', '', $pkey);
-					$step = preg_replace('/[A-Za-z]/', '', $pkey);
-					if( !isset($items[$key]) )
-					{
-						continue;
-					}
-					list($junk,$milestone) = explode('|',$items[$key][$step]);
-					if ($milestone == 'MS')
-					{
-						$krow[$key] = '0';
-						for ($i=1;$i<=$step;$i++)
-						{
-							$krow[$key] .= "|$i";
-						}
-					}
-					else
-					{
-						$krow[$key] .= "|$step";
-					}
-				}
-			}
-		}
-		$roster->db->free_result($presult);
-	}
-	if ($selectq != '')
-	{
-		// quests search (only the remaining ones!)
-		$queryq = "SELECT `members`.`name`$selectq FROM `" . $roster->db->table('quests') . "` AS quests LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `quests`.`member_id` WHERE `quests`.`member_id` = '" . $row['member_id'] . "' AND ($whereq) GROUP BY `members`.`name` ORDER BY `members`.`name` ASC;";
-		$qresult = $roster->db->query($queryq) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$queryq);
-		$qrow = $roster->db->fetch($qresult);
-		if (is_array($qrow))
-		{
-			foreach ($qrow as $qkey => $qvalue)
-			{
-				if ($qvalue == 1 && !is_numeric($qkey))
-				{
-					++$kcount;
-					$key = preg_replace('/[0-9]/', '', $qkey);
-					$step = preg_replace('/[A-Za-z]/', '', $qkey);
-					$krow[$key] = $step;
-				}
-			}
-		}
-		$roster->db->free_result($qresult);
-	}
-	if ($kcount == 0)
-	{
-		continue; // nothing to display -> next player
-	}
-
-	// ========================================================================
-	// ----------------------------> DISPLAY CODE <----------------------------
-	// ========================================================================
-	++$striping_counter;
-	print "<tr>\n";
-	$acount = 0;
-	rankLeft((($striping_counter % 2) +1));
-	print ( active_addon('info') ? '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '<br />' . $row['class'] . ' (' . $row['level'] . ')</td>' . "\n";
-	foreach ($items as $key => $data)
-	{
-		++$acount;
-		if($acount == count($items))
-		{
-			rankRight((($striping_counter % 2) +1));
-		}
-		else
-		{
-			rankMid((($striping_counter % 2) +1));
-		}
-		if (isset($krow[$key]) && $krow[$key] == '-2')
-		{
-			$iname = $roster->locale->wordings[$row['clientLocale']]['thievestools'];
-			$iquery = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '$iname' AND `member_id` = '" . $row['member_id'] . "';";
-			$iresult = $roster->db->query($iquery);
-			$idata = $roster->db->fetch($iresult);
-			$item = new item($idata, 'simple');
-			print $item->out($key);
-		}
-		elseif (isset($krow[$key]) && $krow[$key] == '-1')
-		{
-			list($iname, $itemid) = explode('|', $data[$key]);
-			if(isset($$key))
-			{
-				print($$key);
-			}
-			else
-			{
-				$iquery = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '$iname' AND `member_id` = '" . $row['member_id'] . "';";
-				$iresult = $roster->db->query($iquery);
-				$idata = $roster->db->fetch($iresult);
-				$item = new item($idata, 'simple');
-				$$key = $item->out();
-				print $$key;
-			}
-		}
-		elseif (isset($krow[$key]) && $krow[$key] == '0')
-		{
-			print '&nbsp;';
-		}
-		elseif (!isset($krow[$key]) || $krow[$key] == '')
-		{
-			print '&nbsp;';
-		}
-		else
-		{
-			list($iname, $itemid) = explode('|', $items[$key][$key]);
-			$qcount = count($items[$key])-2;    //number of parts/quests
-			if ($items[$key][0] == 'Quests')    //-> $krow[$key] = "5" (e.g.)
-			{
-				$bcount = $krow[$key];
-			}
-			else
-			{                             //-> $krow[$key] = "0|1|2|3" (e.g.)
-				$parray = explode('|',$krow[$key]); //array for completed parts
-				$bcount = count($parray)-1;
-			}
-
-			$tooltip_h = sprintf($roster->locale->act['key_status'],$key,$roster->locale->act['key']);
-
-			$tooltip = '<span style="color:' . $addon['config']['colorcmp'] . ';">' . $roster->locale->act['completedsteps'] . '</span><br />';
-			if ($items[$key][0] == 'Quests')
-			{
-				$tooltip .= '<span style="color:' . $addon['config']['colorcur'] . ';">' . $roster->locale->act['currentstep'] . '</span><br />';
-			}
-			$tooltip .= '<span style="color:' . $addon['config']['colorno'] . ';">' . $roster->locale->act['uncompletedsteps'] . '</span><br /><br />';
-			if ($items[$key][0] == 'Quests')
-			{
-				for ($i=1;$i<count($items[$key])-1;$i++)
-				{
-					if ($krow[$key]>$i)
-					{
-						$color = $addon['config']['colorcmp'];
-					}
-					else if ($krow[$key]==$i)
-					{
-						$color = $addon['config']['colorcur'];
-					}
-					else
-					{
-						$color = $addon['config']['colorno'];
-					}
-					list($qname,$junk) = explode('|',$items[$key][$i]);
-					$qname = preg_replace('/\\\/', '', $qname);
-					$tooltip .= '<span style="color:' . $color . ';">' . $i . ': ' . $qname . '</span><br />';
-				}
-			}
-			else
-			{
-				$j=1;
-				for ($i=1;$i<count($items[$key])-1;$i++)
-				{
-					if ($j < count($parray) && $parray[$j] == $i)
-					{
-						$color = $addon['config']['colorcmp'];
-						$j++;
-					}
-					else
-					{
-						$color = $addon['config']['colorno'];
-					}
-					list($pname,$junk) = explode('|',$items[$key][$i]);
-					$pname = preg_replace('/\\\/', '', $pname);
-					$tooltip .= '<span style="color:' . $color . ';">' . $i . ': ' . $pname . '</span><br />';
-				}
-			}
-
-			$pcent = round(($bcount/$qcount) * 100);
-
-			// Item links
-			$num_of_tips = (count($tooltips)+1);
-			$linktip = '';
-			foreach( $roster->locale->act['itemlinks'] as $ikey => $ilink )
-			{
-				$linktip .= '<a href="' . $ilink . urlencode(utf8_decode(stripslashes($iname))) . '" target="_blank">' . $ikey . '</a><br />';
-			}
-			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$roster->locale->act['itemlink']);
-
-			$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
-
-			echo '<div style="cursor:pointer;" ' . makeOverlib($tooltip,$tooltip_h,'',2) . $linktip . ">\n";
-			print '<span class="name">' . $roster->locale->act[$items[$key][0]] . "</span>\n";
-
-			print '<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">' . $bcount . '/' . $qcount . '</div></div>' . "\n";
-			print '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">' . "\n";
-			print "<tr>\n";
-			print '<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $pcent . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>' . "\n";
-			print '<td width="' . (100 - $pcent) . '%"></td>' . "\n";
-			print "</tr>\n</table>\n</div>\n";
-		}
-
-		print "</td>\n";
-	}
-	print("  </tr>\n");
-	$roster->db->free_result($kresult);
-}
-$roster->db->free_result($result);
-
-print($tableFooter);
-borderBottom();
