@@ -118,7 +118,7 @@ class keysUpdate
 					}
 					else
 					{
-						$keystuff['Ii'][$item['Name']] = $quantity;
+						$keystuff['In'][$item['Name']] = $quantity;
 					}
 				}
 			}
@@ -148,10 +148,10 @@ class keysUpdate
 					}
 					else
 					{
-						$keystuff['Ii'][$bag['Name']] = 1;
+						$keystuff['In'][$bag['Name']] = 1;
 					}
 				}
-				foreach( $bag as $item )
+				foreach( $bag['Contents'] as $item )
 				{
 					$quantity = isset($item['Quantity']) ? $item['Quantity'] : 1;
 					if( isset( $item['Item'] ) )
@@ -174,7 +174,7 @@ class keysUpdate
 						}
 						else
 						{
-							$keystuff['Ii'][$item['Name']] = $quantity;
+							$keystuff['In'][$item['Name']] = $quantity;
 						}
 					}
 				}
@@ -205,10 +205,10 @@ class keysUpdate
 					}
 					else
 					{
-						$keystuff['Ii'][$bag['Name']]++;
+						$keystuff['In'][$bag['Name']]++;
 					}
 				}
-				foreach( $bag as $item )
+				foreach( $bag['Contents'] as $item )
 				{
 					$quantity = isset($item['Quantity']) ? $item['Quantity'] : 1;
 					if( isset( $item['Item'] ) )
@@ -231,7 +231,7 @@ class keysUpdate
 						}
 						else
 						{
-							$keystuff['Ii'][$item['Name']] = $quantity;
+							$keystuff['In'][$item['Name']] = $quantity;
 						}
 					}
 				}
@@ -308,7 +308,7 @@ class keysUpdate
 		{
 			foreach( $stages as $stage_nr => $stage )
 			{
-				if( isset($keystuff[$stage['type']][$stage['value']]) && $keystuff[$stage['type']][$stage['value']] >= $stage['count'] )
+				if( isset($keystuff[$stage['type']][$stage['value']]) && ($keystuff[$stage['type']][$stage['value']] >= $stage['count'] ))
 				{
 					$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` "
 						. "(`member_id`, `key_name`, `stage`) VALUES "
@@ -317,5 +317,7 @@ class keysUpdate
 				}
 			}
 		}
+
+		return true;
 	}
 }
