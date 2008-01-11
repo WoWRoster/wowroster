@@ -33,29 +33,46 @@ $lang['Quests'] = 'Quests';
 $lang['Parts'] = 'Parts';
 $lang['key_status'] = '%1$s %2$s Status';
 
+$lang['rep2level'] = array(
+	'Hated' => '-3',
+	'Hostile' => '-2',
+	'Unfriendly' => '-1',
+	'Neutral' => '0',
+	'Friendly' => '1',
+	'Honored' => '2',
+	'Revered' => '3',
+	'Exalted' => '4'
+);
 
 /*
 Instance Keys
 =============
-A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
-you have this one part it will mark all other parts lower than this one as complete.
 
-$lang['inst_keys'][$fact][$key_name] = array( array( 'type' => $type, 'value' => $value, 'marker' => $marker, 'active' => $active), ... );
+The generic format for a key definition is:
 
-Or, alternatively, with the conversion function in the bottom of this file:
-$lang['inst_keys'][$fact][$key_name] = array( '$type|$value|$marker|$active', ... );
+$lang['inst_keys'][$fact][$key_name] = array( $stage_definition, ...);
+
+The stage definition can be defined in two ways:
+- As an array with named keys. These keys are 'type', 'name', 'count', 'marker', and 'active'.
+- As a shorthand. This consists of 'type|name|count|marker|active'.
+
+Note that in the shorthand format all fields have to be present in this order. Also nonsensical ones like 'count' for a quest, since generic code is easier to maintain than code with exceptions.
 
 $fact is the faction.
 $key_name is the key name. The key name should be alphanumeric, start with a letter, and can't change between versions because it's stored in the database.
-$type and $value indicate the requirement for this stage to be active:
-  $type='Q' means a quest named $value must be in the character's questlog
-  $type='Ii' means an item with base ItemID $value must be in the character's inventory.
-  $type='In' means an item with name $value must be in the characters inventory.
 
-$marker is for rendering purposes. It has these values:
-  $marker='SOURCE'
-  $marker='DRAIN'
-  $marker='SINGLE'
+'type', 'value', and 'count' indicate the requirement for this stage.
+'type' = 'G' means you need to have at least 'count' money. 'value' needs to be 'money' and 'count' must be in copper.
+'type' = 'Ii' means you need to have at least 'count' items with base item ID 'value'.
+'type' = 'In' means you need to have at least 'count' items named 'value'.
+'type' = 'Q' means you need to have at least 'count' quests named 'value'. 'count' will probably always be 1 here, but is still required.
+'type' = 'R' means you need to have at least reputation level 'count' with the faction 'value'. Reputation level is the string for this locale, or the ID defined in the array above.
+'type' = 'S' means you need to have a skill level of at least 'count' at 'value'.
+
+'marker' is for rendering purposes. It has these values:
+  'marker'='SOURCE'
+  'marker'='DRAIN'
+  'marker'='SINGLE'
 
 $active indicates if this stage should be counted as complete if it is active. This means it will count towards key progress in the progress bar. It will still be colored like an active stage in the tooltip.
 
@@ -69,73 +86,73 @@ The key is the last stage of the chain.
 // ALLIANCE KEYS
 $lang['inst_keys']['A'] = array(
 	'SG' => array( 
-		'Q|The Horn of the Beast||',
-		'Q|Proof of deed||',
-		'Q|At Last!||',
-		'In|Key to Searing Gorge||1'
+		'Q|The Horn of the Beast|||',
+		'Q|Proof of deed|||',
+		'Q|At Last!|||',
+		'In|Key to Searing Gorge|||1'
 	),
 	'Gnome' => array(
-		'In|Workshop Key||1'
+		'In|Workshop Key|||1'
 	),
 	'SM' => array(
-		'In|The Scarlet Key||1'
+		'In|The Scarlet Key|||1'
 	),
 	'ZF' => array(
-		'In|Sacred Mallet||1',
-		'In|Mallet of Zul\'Farrak||1'
+		'In|Sacred Mallet|||1',
+		'In|Mallet of Zul\'Farrak|||1'
 	),
 	'Mauro' => array(
-		'In|Celebrian Rod|SINGLE|1',
-		'In|Celebrian Diamond|SINGLE|1',
-		'In|Scepter of Celebras||1'
+		'In|Celebrian Rod||SINGLE|1',
+		'In|Celebrian Diamond||SINGLE|1',
+		'In|Scepter of Celebras|||1'
 	),
 	'BRDp' => array(
-		'In|Prison Cell Key||1'
+		'In|Prison Cell Key|||1'
 	),
 	'BRDs' => array(
-		'In|Ironfel||1',
-		'In|Shadowforge Key||1'
+		'In|Ironfel|||1',
+		'In|Shadowforge Key|||1'
 	),
 	'DM' => array(
-		'In|Crescent Key||1'
+		'In|Crescent Key|||1'
 	),
 	'Scholo' => array(
-		'Q|Scholomance||',
-		'Q|Skeletal Fragments||',
-		'Q|Mold Rhymes With...||',
-		'Q|Fire Plume Forged||',
-		'Q|Araj\'s Scarab||',
-		'Q|The Key to Scholomance||',
-		'In|Skeleton Key||1'
+		'Q|Scholomance|||',
+		'Q|Skeletal Fragments|||',
+		'Q|Mold Rhymes With...|||',
+		'Q|Fire Plume Forged|||',
+		'Q|Araj\'s Scarab|||',
+		'Q|The Key to Scholomance|||',
+		'In|Skeleton Key|||1'
 	),
 	'Strath' => array(
-		'In|Key to the City||1'
+		'In|Key to the City|||1'
 	),
 	'UBRS' => array(
-		'In|Unadorned Seal of Ascension|SINGLE|1',
-		'In|Gemstone of Spirestone|SINGLE|1',
-		'In|Gemstone of Smolderthorn|SINGLE|1',
-		'In|Gemstone of Bloodaxe|SINGLE|1',
-		'In|Unforged Seal of Ascension||1',
-		'In|Forged Seal of Ascension||1',
-		'In|Seal of Ascension||1'
+		'In|Unadorned Seal of Ascension||SINGLE|1',
+		'In|Gemstone of Spirestone||SINGLE|1',
+		'In|Gemstone of Smolderthorn||SINGLE|1',
+		'In|Gemstone of Bloodaxe||SINGLE|1',
+		'In|Unforged Seal of Ascension|||1',
+		'In|Forged Seal of Ascension|||1',
+		'In|Seal of Ascension|||1'
 	),
 	'Onyxia' => array(
-		'Q|Dragonkin Menace||1',
-		'Q|The True Masters||1',
-		'Q|Marshal Windsor||1',
-		'Q|Abandoned Hope||1',
-		'Q|A Crumpled Up Note||1',
-		'Q|A Shred of Hope||1',
-		'Q|Jail Break!||1',
-		'Q|Stormwind Rendezvous||1',
-		'Q|The Great Masquerade||1',
-		'Q|The Dragon\'s Eye||1',
-		'Q|Drakefire Amulet||1',
-		'In|Drakefire Amulet||1'
+		'Q|Dragonkin Menace|||1',
+		'Q|The True Masters|||1',
+		'Q|Marshal Windsor|||1',
+		'Q|Abandoned Hope|||1',
+		'Q|A Crumpled Up Note|||1',
+		'Q|A Shred of Hope|||1',
+		'Q|Jail Break!|||1',
+		'Q|Stormwind Rendezvous|||1',
+		'Q|The Great Masquerade|||1',
+		'Q|The Dragon\'s Eye|||1',
+		'Q|Drakefire Amulet|||1',
+		'In|Drakefire Amulet|||1'
 	),
 	'MC' => array(
-		'In|Eternal Quintessence||1'
+		'In|Eternal Quintessence|||1'
 	)
 );
 
@@ -147,70 +164,70 @@ $lang['inst_keys']['H'] = array(
 		'In|Key to Searing Gorge||1'
 	),*/
 	'Gnome' => array(
-		'In|Workshop Key||1'
+		'In|Workshop Key|||1'
 	),
 	'SM' => array(
-		'In|The Scarlet Key||1'
+		'In|The Scarlet Key|||1'
 	),
 	'ZF' => array(
-		'In|Sacred Mallet||1',
-		'In|Mallet of Zul\'Farrak||1'
+		'In|Sacred Mallet|||1',
+		'In|Mallet of Zul\'Farrak|||1'
 	),
 	'Mauro' => array(
-		'In|Celebrian Rod|SINGLE|1',
-		'In|Celebrian Diamond|SINGLE|1',
-		'In|Scepter of Celebras||1'
+		'In|Celebrian Rod||SINGLE|1',
+		'In|Celebrian Diamond||SINGLE|1',
+		'In|Scepter of Celebras|||1'
 	),
 	'BRDp' => array(
-		'In|Prison Cell Key||1'
+		'In|Prison Cell Key|||1'
 	),
 	'BRDs' => array(
-		'In|Ironfel||1',
-		'In|Shadowforge Key||1'
+		'In|Ironfel|||1',
+		'In|Shadowforge Key|||1'
 	),
 	'DM' => array(
-		'In|Crescent Key||1'
+		'In|Crescent Key|||1'
 	),
 	'Scholo' => array(
-		'Q|Scholomance||',
-		'Q|Skeletal Fragments||',
-		'Q|Mold Rhymes With...||',
-		'Q|Fire Plume Forged||',
-		'Q|Araj\'s Scarab||',
-		'Q|The Key to Scholomance||',
-		'In|Skeleton Key||1'
+		'Q|Scholomance|||',
+		'Q|Skeletal Fragments|||',
+		'Q|Mold Rhymes With...|||',
+		'Q|Fire Plume Forged|||',
+		'Q|Araj\'s Scarab|||',
+		'Q|The Key to Scholomance|||',
+		'In|Skeleton Key|||1'
 	),
 	'Strath' => array(
-		'In|Key to the City||1'
+		'In|Key to the City|||1'
 	),
 	'UBRS' => array(
-		'In|Unadorned Seal of Ascension|SINGLE|1',
-		'In|Gemstone of Spirestone|SINGLE|1',
-		'In|Gemstone of Smolderthorn|SINGLE|1',
-		'In|Gemstone of Bloodaxe|SINGLE|1',
-		'In|Unforged Seal of Ascension||1',
-		'In|Forged Seal of Ascension||1',
-		'In|Seal of Ascension||1'
+		'In|Unadorned Seal of Ascension||SINGLE|1',
+		'In|Gemstone of Spirestone||SINGLE|1',
+		'In|Gemstone of Smolderthorn||SINGLE|1',
+		'In|Gemstone of Bloodaxe||SINGLE|1',
+		'In|Unforged Seal of Ascension|||1',
+		'In|Forged Seal of Ascension|||1',
+		'In|Seal of Ascension|||1'
 	),
 	'Onyxia' => array(
-		'Q|Warlord\'s Command||',
-		'Q|Eitrigg\'s Wisdom||',
-		'Q|For The Horde!||',
-		'Q|What the Wind Carries||',
-		'Q|The Champion of the Horde||',
-		'Q|The Testament of Rexxar||',
-		'Q|Oculus Illusions||',
-		'Q|Emberstrife||',
-		'Q|The Test of Skulls, Scryer|SINGLE|',
-		'Q|The Test of Skulls, Somnus|SINGLE|',
-		'Q|The Test of Skulls, Chronalis|SINGLE|',
-		'Q|The Test of Skulls, Axtroz||',
-		'Q|Ascension...||',
-		'Q|Blood of the Black Dragon Champion||',
-		'In|Drakefire Amulet||1'
+		'Q|Warlord\'s Command|||',
+		'Q|Eitrigg\'s Wisdom|||',
+		'Q|For The Horde!|||',
+		'Q|What the Wind Carries|||',
+		'Q|The Champion of the Horde|||',
+		'Q|The Testament of Rexxar|||',
+		'Q|Oculus Illusions|||',
+		'Q|Emberstrife|||',
+		'Q|The Test of Skulls, Scryer||SINGLE|',
+		'Q|The Test of Skulls, Somnus||SINGLE|',
+		'Q|The Test of Skulls, Chronalis||SINGLE|',
+		'Q|The Test of Skulls, Axtroz|||',
+		'Q|Ascension...|||',
+		'Q|Blood of the Black Dragon Champion|||',
+		'In|Drakefire Amulet|||1'
 	),
 	'MC' => array(
-		'In|Eternal Quintessence||1'
+		'In|Eternal Quintessence|||1'
 	)
 );
 
@@ -221,10 +238,22 @@ foreach( $lang['inst_keys'] as $faction => $keys )
 	{
 		foreach( $stages as $stage => $data )
 		{
-			list( $type, $value, $marker, $active ) = explode('|', $data);
+			if( is_array( $data ) )
+			{
+				continue;
+			}
+
+			list( $type, $value, $count, $marker, $active ) = explode('|', $data);
+
+			if( $type == 'R' && !is_numeric($count) )
+			{
+				$count = $lang['rep2level'][$count];
+			}
+
 			$lang['inst_keys'][$faction][$key][$stage] = array(
 				'type' => $type,
 				'value' => $value,
+				'count' => $count,
 				'marker' => $marker,
 				'active' => $active
 			);
