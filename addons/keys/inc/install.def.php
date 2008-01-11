@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1562';
+	var $version = '1.9.9.1580';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -59,6 +59,12 @@ class keysInstall
 		$installer->add_config("'1040','keys_access','0','access','keys_conf'");
 
 		$installer->add_menu_button('keybutton','guild');
+
+		$installer->create_table($installer->table('keycache'),"
+			`member_id` int(11) NOT NULL DEFAULT 0,
+			`key_name` varchar(16) NOT NULL DEFAULT '',
+			`stage` int(11) NOT NULL DEFAULT 0,
+			PRIMARY KEY (`member_id`, `key_name`, `stage`)");
 		return true;
 	}
 
@@ -75,6 +81,15 @@ class keysInstall
 		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
 		{
 			$installer->add_config("'1040','keys_access','0','access','keys_conf'");
+		}
+
+		if( version_compare( $oldversion, '1.9.9.1580', '<' ) )
+		{
+			$installer->create_table($installer->table('keycache'),"
+				`member_id` int(11) NOT NULL DEFAULT 0,
+				`key_name` varchar(16) NOT NULL DEFAULT '',
+				`stage` int(11) NOT NULL DEFAULT 0,
+				PRIMARY KEY (`member_id`, `key_name`, `stage`)");
 		}
 
 		return true;
