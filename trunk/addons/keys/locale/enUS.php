@@ -86,73 +86,73 @@ The key is the last stage of the chain.
 // ALLIANCE KEYS
 $lang['inst_keys']['A'] = array(
 	'SG' => array( 
-		'Q|The Horn of the Beast|||',
-		'Q|Proof of deed|||',
-		'Q|At Last!|||',
-		'In|Key to Searing Gorge|||1'
+		'Q|The Horn of the Beast|1||',
+		'Q|Proof of deed|1||',
+		'Q|At Last!|1||',
+		'In|Key to Searing Gorge|1||1'
 	),
 	'Gnome' => array(
-		'In|Workshop Key|||1'
+		'In|Workshop Key|1||1'
 	),
 	'SM' => array(
-		'In|The Scarlet Key|||1'
+		'In|The Scarlet Key|1||1'
 	),
 	'ZF' => array(
-		'In|Sacred Mallet|||1',
-		'In|Mallet of Zul\'Farrak|||1'
+		'In|Sacred Mallet|1||1',
+		'In|Mallet of Zul\'Farrak|1||1'
 	),
 	'Mauro' => array(
-		'In|Celebrian Rod||SINGLE|1',
-		'In|Celebrian Diamond||SINGLE|1',
-		'In|Scepter of Celebras|||1'
+		'In|Celebrian Rod|1|SINGLE|1',
+		'In|Celebrian Diamond|1|SINGLE|1',
+		'In|Scepter of Celebras|1||1'
 	),
 	'BRDp' => array(
-		'In|Prison Cell Key|||1'
+		'In|Prison Cell Key|1||1'
 	),
 	'BRDs' => array(
-		'In|Ironfel|||1',
-		'In|Shadowforge Key|||1'
+		'In|Ironfel|1||1',
+		'In|Shadowforge Key|1||1'
 	),
 	'DM' => array(
-		'In|Crescent Key|||1'
+		'In|Crescent Key|1||1'
 	),
 	'Scholo' => array(
-		'Q|Scholomance|||',
-		'Q|Skeletal Fragments|||',
-		'Q|Mold Rhymes With...|||',
-		'Q|Fire Plume Forged|||',
-		'Q|Araj\'s Scarab|||',
-		'Q|The Key to Scholomance|||',
-		'In|Skeleton Key|||1'
+		'Q|Scholomance|1||',
+		'Q|Skeletal Fragments|1||',
+		'Q|Mold Rhymes With...|1||',
+		'Q|Fire Plume Forged|1||',
+		'Q|Araj\'s Scarab|1||',
+		'Q|The Key to Scholomance|1||',
+		'In|Skeleton Key|1||1'
 	),
 	'Strath' => array(
-		'In|Key to the City|||1'
+		'In|Key to the City|1||1'
 	),
 	'UBRS' => array(
-		'In|Unadorned Seal of Ascension||SINGLE|1',
-		'In|Gemstone of Spirestone||SINGLE|1',
-		'In|Gemstone of Smolderthorn||SINGLE|1',
-		'In|Gemstone of Bloodaxe||SINGLE|1',
-		'In|Unforged Seal of Ascension|||1',
-		'In|Forged Seal of Ascension|||1',
-		'In|Seal of Ascension|||1'
+		'In|Unadorned Seal of Ascension|1|SINGLE|1',
+		'In|Gemstone of Spirestone|1|SINGLE|1',
+		'In|Gemstone of Smolderthorn|1|SINGLE|1',
+		'In|Gemstone of Bloodaxe|1|SINGLE|1',
+		'In|Unforged Seal of Ascension|1||1',
+		'In|Forged Seal of Ascension|1||1',
+		'In|Seal of Ascension|1||1'
 	),
 	'Onyxia' => array(
-		'Q|Dragonkin Menace|||1',
-		'Q|The True Masters|||1',
-		'Q|Marshal Windsor|||1',
-		'Q|Abandoned Hope|||1',
-		'Q|A Crumpled Up Note|||1',
-		'Q|A Shred of Hope|||1',
-		'Q|Jail Break!|||1',
-		'Q|Stormwind Rendezvous|||1',
-		'Q|The Great Masquerade|||1',
-		'Q|The Dragon\'s Eye|||1',
-		'Q|Drakefire Amulet|||1',
-		'In|Drakefire Amulet|||1'
+		'Q|Dragonkin Menace|1||1',
+		'Q|The True Masters|1||1',
+		'Q|Marshal Windsor|1||1',
+		'Q|Abandoned Hope|1||1',
+		'Q|A Crumpled Up Note|1||1',
+		'Q|A Shred of Hope|1||1',
+		'Q|Jail Break!|1||1',
+		'Q|Stormwind Rendezvous|1||1',
+		'Q|The Great Masquerade|1||1',
+		'Q|The Dragon\'s Eye|1||1',
+		'Q|Drakefire Amulet|1||1',
+		'In|Drakefire Amulet|1||1'
 	),
 	'MC' => array(
-		'In|Eternal Quintessence|||1'
+		'In|Eternal Quintessence|1||1'
 	)
 );
 
@@ -164,70 +164,70 @@ $lang['inst_keys']['H'] = array(
 		'In|Key to Searing Gorge||1'
 	),*/
 	'Gnome' => array(
-		'In|Workshop Key|||1'
+		'In|Workshop Key|1||1'
 	),
 	'SM' => array(
-		'In|The Scarlet Key|||1'
+		'In|The Scarlet Key|1||1'
 	),
 	'ZF' => array(
-		'In|Sacred Mallet|||1',
-		'In|Mallet of Zul\'Farrak|||1'
+		'In|Sacred Mallet|1||1',
+		'In|Mallet of Zul\'Farrak|1||1'
 	),
 	'Mauro' => array(
-		'In|Celebrian Rod||SINGLE|1',
-		'In|Celebrian Diamond||SINGLE|1',
-		'In|Scepter of Celebras|||1'
+		'In|Celebrian Rod|1|SINGLE|1',
+		'In|Celebrian Diamond|1|SINGLE|1',
+		'In|Scepter of Celebras|1||1'
 	),
 	'BRDp' => array(
-		'In|Prison Cell Key|||1'
+		'In|Prison Cell Key|1||1'
 	),
 	'BRDs' => array(
-		'In|Ironfel|||1',
-		'In|Shadowforge Key|||1'
+		'In|Ironfel|1||1',
+		'In|Shadowforge Key|1||1'
 	),
 	'DM' => array(
-		'In|Crescent Key|||1'
+		'In|Crescent Key|1||1'
 	),
 	'Scholo' => array(
-		'Q|Scholomance|||',
-		'Q|Skeletal Fragments|||',
-		'Q|Mold Rhymes With...|||',
-		'Q|Fire Plume Forged|||',
-		'Q|Araj\'s Scarab|||',
-		'Q|The Key to Scholomance|||',
-		'In|Skeleton Key|||1'
+		'Q|Scholomance|1||',
+		'Q|Skeletal Fragments|1||',
+		'Q|Mold Rhymes With...|1||',
+		'Q|Fire Plume Forged|1||',
+		'Q|Araj\'s Scarab|1||',
+		'Q|The Key to Scholomance|1||',
+		'In|Skeleton Key|1||1'
 	),
 	'Strath' => array(
-		'In|Key to the City|||1'
+		'In|Key to the City|1||1'
 	),
 	'UBRS' => array(
-		'In|Unadorned Seal of Ascension||SINGLE|1',
-		'In|Gemstone of Spirestone||SINGLE|1',
-		'In|Gemstone of Smolderthorn||SINGLE|1',
-		'In|Gemstone of Bloodaxe||SINGLE|1',
-		'In|Unforged Seal of Ascension|||1',
-		'In|Forged Seal of Ascension|||1',
-		'In|Seal of Ascension|||1'
+		'In|Unadorned Seal of Ascension|1|SINGLE|1',
+		'In|Gemstone of Spirestone|1|SINGLE|1',
+		'In|Gemstone of Smolderthorn|1|SINGLE|1',
+		'In|Gemstone of Bloodaxe|1|SINGLE|1',
+		'In|Unforged Seal of Ascension|1||1',
+		'In|Forged Seal of Ascension|1||1',
+		'In|Seal of Ascension|1||1'
 	),
 	'Onyxia' => array(
-		'Q|Warlord\'s Command|||',
-		'Q|Eitrigg\'s Wisdom|||',
-		'Q|For The Horde!|||',
-		'Q|What the Wind Carries|||',
-		'Q|The Champion of the Horde|||',
-		'Q|The Testament of Rexxar|||',
-		'Q|Oculus Illusions|||',
-		'Q|Emberstrife|||',
-		'Q|The Test of Skulls, Scryer||SINGLE|',
-		'Q|The Test of Skulls, Somnus||SINGLE|',
-		'Q|The Test of Skulls, Chronalis||SINGLE|',
-		'Q|The Test of Skulls, Axtroz|||',
-		'Q|Ascension...|||',
-		'Q|Blood of the Black Dragon Champion|||',
-		'In|Drakefire Amulet|||1'
+		'Q|Warlord\'s Command|1||',
+		'Q|Eitrigg\'s Wisdom|1||',
+		'Q|For The Horde!|1||',
+		'Q|What the Wind Carries|1||',
+		'Q|The Champion of the Horde|1||',
+		'Q|The Testament of Rexxar|1||',
+		'Q|Oculus Illusions|1||',
+		'Q|Emberstrife|1||',
+		'Q|The Test of Skulls, Scryer|1|SINGLE|',
+		'Q|The Test of Skulls, Somnus|1|SINGLE|',
+		'Q|The Test of Skulls, Chronalis|1|SINGLE|',
+		'Q|The Test of Skulls, Axtroz|1||',
+		'Q|Ascension...|1||',
+		'Q|Blood of the Black Dragon Champion|1||',
+		'In|Drakefire Amulet|1||1'
 	),
 	'MC' => array(
-		'In|Eternal Quintessence|||1'
+		'In|Eternal Quintessence|1||1'
 	)
 );
 
