@@ -44,7 +44,7 @@ $mainQuery =
 	'`players`.`exp`, '.
 	'`players`.`clientLocale`, '.
 
-	'`talenttable`.`talents`, '.
+	"GROUP_CONCAT( DISTINCT CONCAT( `tree` , '|', `pointsspent` , '|', `background` ) ORDER BY `order`) AS 'talents', ".
 
 	'`skills`.`skill_level`, '.
 	'`skills`.`skill_name` '.
@@ -53,13 +53,10 @@ $mainQuery =
 	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'INNER JOIN `'.$roster->db->table('skills').'` AS skills ON `members`.`member_id` = `skills`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-
-	"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `tree` , '|', `pointsspent` , '|', `background` ) ORDER BY `order`) AS 'talents' ".
-		'FROM `'.$roster->db->table('talenttree').'` '.
-		'GROUP BY `member_id`) AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
-
+	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
 	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 		'AND `skills`.`skill_name` = "'.$skill_name.'" '.
+	'GROUP BY `members`.`member_id` '.
 	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
 $always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
