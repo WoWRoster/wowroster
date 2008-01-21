@@ -50,6 +50,8 @@ $mainSelect =
 	'`members`.`note`, '.
 	'`members`.`guild_title`, '.
 
+	'`alts`.`main_id`, '.
+
 	'`guild`.`update_time`, '.
 
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
@@ -74,6 +76,7 @@ $mainSelect =
 
 $mainTables =
 	'FROM `'.$roster->db->table('members').'` AS members '.
+	'LEFT JOIN `'.$roster->db->table('alts',$memberslist_addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'INNER JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
 	'INNER JOIN `'.$roster->db->table('keycache',$addon['basename']).'` AS keycache ON `members`.`member_id` = `keycache`.`member_id` '.
@@ -146,7 +149,7 @@ function key_value( $row, $field )
 	static $keycache = array();
 
 	$key_data = $roster->locale->act['inst_keys'][substr($roster->data['faction'],0,1)][$field];
-	if( empty($row[$field . '_stages']) )
+	if( $row[$field . '_stages'] === null )
 	{
 		return '&nbsp;';
 	}
@@ -160,6 +163,8 @@ function key_value( $row, $field )
 
 	$depth = 0;
 	$completed[0] = false;
+
+	$tooltip_h = $field;
 
 	$tooltip = '';
 
