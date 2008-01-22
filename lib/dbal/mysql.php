@@ -63,6 +63,10 @@ class roster_db
 			while( $this->queries[$this->file][$this->query_count]['describe'][] = mysql_fetch_assoc( $result ) ) {};
 			mysql_free_result( $result );
 		}
+		else
+		{
+			$this->queries[$this->file][$this->query_count]['describe'] = array();
+		}
 	}
 
 	function _backtrace()
