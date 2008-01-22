@@ -155,6 +155,10 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8480, 'rs_color_recommended', '#0033FF', 'color', 'rs_right');");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1585','<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET form_type = 'radio{extended^2|on^1|off^0' WHERE `id` = 1002;");
+		}
 		$this->beta_upgrade();
 
 		$this->finalize();

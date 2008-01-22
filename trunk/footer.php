@@ -30,6 +30,7 @@ $roster->tpl->assign_vars(array(
 	'S_PROCESSTIME'     => $roster->config['processtime'],
 	'S_DEBUG_MODE'      => $roster->config['debug_mode'] && is_array($error_report),
 	'S_SQL_WIN'         => $roster->config['sql_window'],
+	'S_DESCRIBE'        => $roster->config['sql_window'] == 2,
 
 	'PROCESSTIME'        => $totaltime,
 	'QUERYCOUNT'         => $roster->db->query_count,
@@ -93,6 +94,7 @@ if( $roster->config['sql_window'] )
 					'LINE'      => $query['line'],
 					'TIME'      => $query['time'],
 					'QUERY'     => nl2br(htmlentities($query['query'])),
+					'DESCRIBE'  => aprint($query['describe'],'',true),
 					)
 				);
 			}

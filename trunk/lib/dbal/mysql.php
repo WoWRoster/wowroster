@@ -48,11 +48,21 @@ class roster_db
 
 	function _log( $query )
 	{
+		global $roster;
+
 		$this->_backtrace();
 
 		$this->queries[$this->file][$this->query_count]['query'] = $query;
 		$this->queries[$this->file][$this->query_count]['time'] = round((format_microtime()-$this->querytime), 4);
 		$this->queries[$this->file][$this->query_count]['line'] = $this->line;
+
+		// Describe
+		if( $roster->config['sql_window'] == 2 )
+		{
+			$result = mysql_query("DESCRIBE " . $query);
+			while( $this->queries[$this->file][$this->query_count]['describe'][] = mysql_fetch_assoc( $result ) ) {};
+			mysql_free_result( $result );
+		}
 	}
 
 	function _backtrace()
