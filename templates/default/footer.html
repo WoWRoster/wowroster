@@ -53,6 +53,11 @@
 			<td class="membersRow{sql_debug.row.ROW_CLASS}">{sql_debug.row.TIME}</td>
 			<td class="membersRowRight{sql_debug.row.ROW_CLASS}" style="white-space:normal;">{sql_debug.row.QUERY}</td>
 		</tr>
+<!-- IF S_DESCRIBE -->
+		<tr>
+			<td colspan="3" class="membersRowRight{sql_debug.row.ROW_CLASS}">{sql_debug.row.DESCRIBE}</td>
+		</tr>
+<!-- ENDIF -->
 <!-- END row -->
 <!-- END sql_debug -->
 	</table>
