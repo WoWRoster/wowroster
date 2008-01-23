@@ -189,9 +189,17 @@ if( $addon_pagebar != '' )
 }
 
 // ----[ Render the page ]----------------------------------
-include_once(ROSTER_BASE . 'header.php');
-$roster_menu = new RosterMenu;
-$roster_menu->makeMenu($roster->output['show_menu']);
+
+if( $roster->output['show_header'] )
+{
+	include_once(ROSTER_BASE . 'header.php');
+}
+
+if( $roster->output['show_menu'] )
+{
+	$roster_menu = new RosterMenu;
+	$roster_menu->makeMenu($roster->output['show_menu']);
+}
 
 echo
 	$header . "\n".
@@ -205,4 +213,8 @@ echo
 	"</tr></table>\n".
 	$footer;
 
-include_once(ROSTER_BASE . 'footer.php');
+
+if( $roster->output['show_footer'] )
+{
+	include_once(ROSTER_BASE . 'footer.php');
+}
