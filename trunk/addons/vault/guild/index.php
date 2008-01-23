@@ -97,9 +97,11 @@ if( $data != '' )
 	{
 		print '
 	<!-- Begin Navagation Tabs -->
-	<ul class="tab_nav" id="vault_navagation">
+	<div class="tab_nav">
+		<ul id="vault_navagation">
 	' . $tabs . '
-	</ul>';
+		</ul>
+	</div>';
 	}
 
 	print $data . '</div>';
