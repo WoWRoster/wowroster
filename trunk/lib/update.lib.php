@@ -3259,34 +3259,37 @@ class update
 		{
 			$attack = $data['Attributes']['Ranged'];
 
-			$this->add_rating( 'ranged_power', ( isset($attack['AttackPower']) ? $attack['AttackPower'] : '0' ));
-			$this->add_rating( 'ranged_hit', $attack['HitRating']);
-			$this->add_rating( 'ranged_crit', $attack['CritRating']);
-			$this->add_rating( 'ranged_haste', $attack['HasteRating']);
-
-			$this->add_ifvalue( $attack, 'CritChance', 'ranged_crit_chance' );
-			$this->add_ifvalue( $attack, 'AttackPowerDPS', 'ranged_power_dps', 0 );
-
-			$this->add_ifvalue( $attack, 'AttackSpeed', 'ranged_speed' );
-			$this->add_ifvalue( $attack, 'AttackDPS', 'ranged_dps' );
-			$this->add_ifvalue( $attack, 'AttackSkill', 'ranged_skill' );
-
-			list($mindam, $maxdam) = explode(':',$attack['DamageRange']);
-			$this->add_value( 'ranged_mindam', $mindam);
-			$this->add_value( 'ranged_maxdam', $maxdam);
-			unset($mindam, $maxdam);
-
-			$this->add_rating( 'ranged_rating', $attack['AttackRating']);
-
-			if( isset($attack['DamageRangeTooltip']) )
+			if( is_numeric($attack['ranged_dps'] )
 			{
-				$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+				$this->add_rating( 'ranged_power', ( isset($attack['AttackPower']) ? $attack['AttackPower'] : '0' ));
+				$this->add_rating( 'ranged_hit', $attack['HitRating']);
+				$this->add_rating( 'ranged_crit', $attack['CritRating']);
+				$this->add_rating( 'ranged_haste', $attack['HasteRating']);
+
+				$this->add_ifvalue( $attack, 'CritChance', 'ranged_crit_chance' );
+				$this->add_ifvalue( $attack, 'AttackPowerDPS', 'ranged_power_dps', 0 );
+
+				$this->add_ifvalue( $attack, 'AttackSpeed', 'ranged_speed' );
+				$this->add_ifvalue( $attack, 'AttackDPS', 'ranged_dps' );
+				$this->add_ifvalue( $attack, 'AttackSkill', 'ranged_skill' );
+
+				list($mindam, $maxdam) = explode(':',$attack['DamageRange']);
+				$this->add_value( 'ranged_mindam', $mindam);
+				$this->add_value( 'ranged_maxdam', $maxdam);
+				unset($mindam, $maxdam);
+
+				$this->add_rating( 'ranged_rating', $attack['AttackRating']);
+
+				if( isset($attack['DamageRangeTooltip']) )
+				{
+					$this->add_value( 'ranged_range_tooltip', $this->tooltip( $attack['DamageRangeTooltip'] ) );
+				}
+				if( isset($attack['AttackPowerTooltip']) )
+				{
+					$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
+				}
+				unset($attack);
 			}
-			if( isset($attack['AttackPowerTooltip']) )
-			{
-				$this->add_value( 'ranged_power_tooltip', $this->tooltip( $attack['AttackPowerTooltip'] ) );
-			}
-			unset($attack);
 		}
 		// END RANGED
 

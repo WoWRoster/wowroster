@@ -1179,7 +1179,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 		curl_close($ch);
 
 		$tmp;
-		if( preg_match('/(?:Set-Cookie: (.+)/', $resHeader, $tmp) )
+		if( preg_match('/(?:Set-Cookie: (.+))/', $resHeader, $tmp) )
 		{
 			$roster->cache->put($tmp[1], $cache_tag);
 		}
