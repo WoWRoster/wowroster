@@ -557,15 +557,16 @@ $returnstring .= '  <tr>
 	<div class="background">&nbsp;</div>
 
 	<div id="main_spells">
-		<ul class="skill_types" id="spell_tree">
+		<div class="skill_types">
+			<ul id="spell_tree">
 ';
 
 		foreach( $spelltree as $tree )
 		{
 			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '			<li><div style="background:url(' . $roster->config['interface_url'] . $tree['icon'] . '.' . $roster->config['img_suffix'] . ');"><a href="#" rel="spelltree_' . $tree['id'] . '"></a></div></li>' . "\n";
+			$return_string .= '				<li><div style="background:url(' . $roster->config['interface_url'] . $tree['icon'] . '.' . $roster->config['img_suffix'] . ');"><a href="#" rel="spelltree_' . $tree['id'] . '"></a></div></li>' . "\n";
 		}
-		$return_string .= "		</ul>\n";
+		$return_string .= "\t\t\t</ul>\n\t\t</div>";
 
 
 		foreach( $spelltree as $tree )
@@ -846,9 +847,11 @@ $returnstring .= '  <tr>
 			}
 			$output .= '
 <!-- Begin Navagation Tabs -->
-	<ul class="pet_tabs" id="pet_tabs">
+<div class="pet_tabs">
+	<ul id="pet_tabs">
 ' . $icons . '
 	</ul>
+</div>
 <script type="text/javascript">
 	var pet_tabs=new tabcontent(\'pet_tabs\');
 	pet_tabs.init();
