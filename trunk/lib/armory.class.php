@@ -38,12 +38,30 @@ class RosterArmory
 	var $debug_url = false;
 	var $debug_cachehits = false;
 
+	var $itemTooltip = 0;
+	var $itemInfo = 1;
+	var $characterInfo = 2;
+	var $guildInfo = 3;
+	var $characterTalents = 4;
+	var $characterSkills = 5;
+	var $characterReputation = 6;
+	var $characterArenaTeams = 7;
+	var $strings = 8;
+	var $search = 9;
+
 	/**
 	 * xmlParsing object
 	 *
 	 * @var XmlParser
 	 */
 	var $xmlParser;
+
+	/**
+	 * simpleParsing object
+	 *
+	 * @var XmlParser
+	 */
+	var $simpleParser;
 
 	/**
 	 * Constructor
@@ -53,6 +71,90 @@ class RosterArmory
 	function RosterArmory( $region=false )
 	{
 		$this->region = ( $region !== false ? strtoupper($region) : 'US' );
+	}
+
+	/**
+ 	 * General armory fetch class
+	 * Returns XML, HTML or an array of the parsed XML page
+	 *
+	 * @param int $type
+	 * @param string $character
+	 * @param string $guild
+	 * @param string $realm
+	 * @param int $item_id
+	 * @param string $fetch_type
+	 * @return array
+	 */
+	function fetchArmory( $type = false, $character = false, $guild = false, $realm = false, $item_id = false,$fetch_type = 'array' )
+	{
+		global $roster;
+		$cache_tag = $type.$character.$guild.$realm.$item_id.$fetch_type;
+
+		if( $roster->cache->check($cache_tag) )
+		{
+			if( $this->debug_cachehits )
+			{
+				echo __FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]";
+				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+			}
+			if ( $fetch_type == 'simpleClass' ) {
+				$this->_initSimpleParser();
+				return $this->simpleParser->parse($roster->cache->get($cache_tag));
+			} else {
+				return $roster->cache->get($cache_tag);
+			}
+		}
+		else
+		{
+			$url = $this->_makeUrl( $type, false, $item_id, $character, $realm, $guild );
+			if ( $fetch_type == 'html') {
+				$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
+			}
+			if( $this->_requestXml($url) )
+			{
+				if( $fetch_type == 'array' )
+				{
+					// parse and return array
+					$this->_initXmlParser();
+					$this->xmlParser->Parse($this->xml);
+					$data = $this->xmlParser->getParsedData();
+					if( !isset($data['page'][0]['child']['errorhtml']) )
+					{
+						$roster->cache->put($data, $cache_tag);
+					}
+					else
+					{
+						trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+					}
+				}
+				elseif( $fetch_type == 'simpleClass' )
+				{
+					// parse and return SimpleClass object
+					$this->_initSimpleParser();
+					$data = $this->simpleParser->parse($this->xml);
+					if ( is_object($data) && !$data->hasProp('errorhtml') )
+					{
+						$roster->cache->put($this->xml, $cache_tag);
+					}
+					else
+					{
+						trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+					}
+				}
+				else
+				{
+					// unparsed fetches
+					$roster->cache->put($this->xml, $cache_tag);
+					return $this->xml;
+				}
+				return $data;
+			}
+			else
+			{
+				trigger_error('RosterArmory:: Failed to fetch ' . $url);
+				return false;
+			}
+		}
 	}
 
 	/**
@@ -69,49 +171,7 @@ class RosterArmory
 	 */
 	function fetchItemTooltip( $item_id, $locale, $character=false, $realm=false, $fetch_type='array' )
 	{
-		global $roster;
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $item_id.$locale.$character.$realm.$fetch_type;
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				echo __FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]";
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 0, $locale, $item_id, $character, $realm );
-			if( $this->_requestXml($url) )
-			{
-				// unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($this->xml, $cache_tag);
-					return $this->xml;
-				}
-				// otherwise parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$item = $this->xmlParser->getParsedData();
-				if( !isset($item['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($item, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $item;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 0, $character, false, $realm, $item_id, $fetch_type );
 	}
 
 	/**
@@ -143,48 +203,7 @@ class RosterArmory
 	 */
 	function fetchItemInfo( $item_id, $locale, $fetch_type='array' )
 	{
-		global $roster;
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $item_id.$locale.$fetch_type;
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 1, $locale, $item_id );
-			if( $this->_requestXml($url) )
-			{
-				//unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($this->xml, $cache_tag);
-					return $this->xml;
-				}
-				// otherwise parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$item = $this->xmlParser->getParsedData();
-				if( !isset($item['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($item, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $item;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 1, false, false, false, $item_id, $fetch_type );
 	}
 
 	/**
@@ -228,49 +247,7 @@ class RosterArmory
 	 */
 	function fetchCharacter( $character, $locale, $realm, $fetch_type='array' )
 	{
-		global $roster;
-
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $character.$locale.$realm.$fetch_type;
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 2, $locale, false, $character, $realm );
-			if( $this->_requestXml($url) )
-			{
-				// unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($cache_tag);
-					return $this->xml;
-				}
-				// else parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$char = $this->xmlParser->getParsedData();
-				if( !isset($guild['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($guild, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $char;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 2, $character, $guild, $realm, false, $fetch_type );
 	}
 
 	/**
@@ -321,42 +298,23 @@ class RosterArmory
 	 */
 	function fetchGuild( $guild, $locale, $realm, $fetch_type='array' )
 	{
-		global $roster;
+		return $this->fetchArmory( 3, false, $guild, $realm, false, $fetch_type );
+	}
 
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $guild.$locale.$realm.$fetch_type;
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 3, $locale, false, false, $realm, $guild );
-			if( $this->_requestXml($url) )
-			{
-				//unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($cache_tag);
-					return $this->xml;
-				}
-				//else parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$guild = $this->xmlParser->getParsedData();
-				$roster->cache->put($guild, $cache_tag);
-				return $guild;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+	/**
+	 * Fetch $guild from the Armory
+	 * $guild should be passed as-is
+	 * $realm is required
+	 * Returns XML string
+	 *
+	 * @param string $guild
+	 * @param string $locale
+	 * @param string $realm
+	 * @return string | xml string
+	 */
+	function fetchGuildSimpleClass( $guild, $locale, $realm )
+	{
+		return $this->fetchGuild($guild, $locale, $realm, 'simpleClass');
 	}
 
 	/**
@@ -404,49 +362,7 @@ class RosterArmory
 	 */
 	function fetchCharacterTalents( $character, $locale, $realm, $fetch_type='array' )
 	{
-		global $roster;
-
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $character.$locale.$realm.$fetch_type.'talents';
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 4, $locale, false, $character, $realm );
-			if( $this->_requestXml($url) )
-			{
-				//unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($cache_tag);
-					return $this->xml;
-				}
-				//else parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$talents = $this->xmlParser->getParsedData();
-				if ( !isset($char['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($talents, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $talents;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 4, $character, $guild, $realm, false, $fetch_type );
 	}
 
 	/**
@@ -493,49 +409,7 @@ class RosterArmory
 	 */
 	function fetchCharacterSkills( $character, $locale, $realm, $fetch_type='array' )
 	{
-		global $roster;
-
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $character.$locale.$realm.$fetch_type.'skills';
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 5, $locale, false, $character, $realm );
-			if( $this->_requestXml($url) )
-			{
-				//unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($cache_tag);
-					return $this->xml;
-				}
-				// else parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$char = $this->xmlParser->getParsedData();
-				if( !isset($char['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($char, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $char;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 5, $character, $guild, $realm, false, $fetch_type );
 	}
 
 	/**
@@ -584,49 +458,7 @@ class RosterArmory
 	 */
 	function fetchCharacterReputation( $character, $locale, $realm, $fetch_type='array' )
 	{
-		global $roster;
-
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $character.$locale.$realm.$fetch_type.'reputation';
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 6, $locale, false, $character, $realm );
-			if( $this->_requestXml($url) )
-			{
-				// unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($cache_tag);
-					return $this->xml;
-				}
-				// else parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$char = $this->xmlParser->getParsedData();
-				if ( ! isset($char['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($char, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $char;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 6, $character, $guild, $realm, false, $fetch_type );
 	}
 
 	/**
@@ -675,49 +507,7 @@ class RosterArmory
 	 */
 	function fetchCharacterArenaTeams( $character, $locale, $realm, $fetch_type='array' )
 	{
-		global $roster;
-
-		$locale = substr($locale, 0, 2);
-		$cache_tag = $character.$locale.$realm.$fetch_type.'arenateams';
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 7, $locale, false, $character, $realm );
-			if( $this->_requestXml($url) )
-			{
-				// unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($cache_tag);
-					return $this->xml;
-				}
-				// else parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$char = $this->xmlParser->getParsedData();
-				if( !isset($char['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($char, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $char;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 7, $character, $guild, $realm, false, $fetch_type );
 	}
 
 	/**
@@ -755,49 +545,7 @@ class RosterArmory
 
 	function fetchStrings( $locale, $fetch_type='array' )
 	{
-		global $roster;
-
-		$locale = substr($locale, 0, 2);
-		$cache_tag = 'stings'.$locale;
-
-		if( $roster->cache->check($cache_tag) )
-		{
-			if( $this->debug_cachehits )
-			{
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
-			}
-			return $roster->cache->get($cache_tag);
-		}
-		else
-		{
-			$url = $this->_makeUrl( 8, $locale );
-			if( $this->_requestXml($url) )
-			{
-				// unparsed fetches
-				if( $fetch_type != 'array' )
-				{
-					$roster->cache->put($cache_tag);
-					return $this->xml;
-				}
-				// else parse and return array
-				$this->xmlParser->Parse($this->xml);
-				$strings = $this->xmlParser->getParsedData();
-				if( !isset($strings['page'][0]['child']['errorhtml']) )
-				{
-					$roster->cache->put($strings, $cache_tag);
-				}
-				else
-				{
-					trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
-				}
-				return $strings;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
-		}
+		return $this->fetchArmory( 8, false, false, false, false, $fetch_type );
 	}
 
 	/**
@@ -874,22 +622,13 @@ class RosterArmory
 	 */
 	function _makeUrl($mode, $locale, $id=false, $char=false, $realm=false, $guild=false )
 	{
-		//build base url
-		if( $locale )
-		{
-			$locale = substr($locale, 0, 2);
-		}
-		else
-		{
-			$locale = substr($this->locale, 0, 2);
-		}
-
 		if( $this->region == 'US' )
 		{
-			$base_url = 'http://www.wowarmory.com/';
+			$base_url = 'http://localhost:18080/?url=http://www.wowarmory.com/';
 		}
 		else
 		{
+			//$base_url = 'http://localhost:18080/?url=http://eu.wowarmory.com/';
 			$base_url = 'http://eu.wowarmory.com/';
 		}
 
@@ -938,7 +677,7 @@ class RosterArmory
 				break;
 			case 8:
 			case 'strings':
-				switch( $locale )
+				switch( substr($this->locale, 0, 2) )
 				{
 					case 'en':
 						$val = 'en_us';
@@ -954,6 +693,10 @@ class RosterArmory
 						break;
 				}
 				$mode = 'strings/' . $val . '/strings.xml?';
+				break;
+			case 9:
+			case 'search':
+				$mode = 'search.xml?searchQuery=' . urlencode($id) . '&searchType=items';
 				break;
 		}
 
@@ -979,8 +722,6 @@ class RosterArmory
 	 */
 	function _requestXml( $url, $timeout=false, $user_agent=false )
 	{
-		$this->_initXmlParser();
-
 		$this->xml = ''; // clear xml if any
 
 		if( $timeout === false )
@@ -1019,4 +760,18 @@ class RosterArmory
 		}
 	}
 
+	/**
+	 * Private function that includes simpleparser class if needed and then creates
+	 * a new SimpleParser() object if needed
+	 *
+	 * @return void
+	 */
+	function _initSimpleParser()
+	{
+		if( !is_object($this->simpleParser) )
+		{
+			require_once(ROSTER_LIB . 'simpleparser.class.php');
+			$this->simpleParser = new simpleParser();
+		}
+	}
 }
