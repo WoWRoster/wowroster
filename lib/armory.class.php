@@ -624,7 +624,8 @@ class RosterArmory
 	{
 		if( $this->region == 'US' )
 		{
-			$base_url = 'http://localhost:18080/?url=http://www.wowarmory.com/';
+			//$base_url = 'http://localhost:18080/?url=http://www.wowarmory.com/';
+			$base_url = 'http://www.wowarmory.com/';
 		}
 		else
 		{
