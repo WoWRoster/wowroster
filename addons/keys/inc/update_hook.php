@@ -83,7 +83,7 @@ class keysUpdate
 			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
 			. "`" . $roster->db->table('players') . "` AS data "
 			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
-			. "AND `stages`.`type` = 'G' AND (`data`.`money_c` + `data`.`money_s` * 100 + `data`.`money_g` * 10000) > `stages`.`count`;";
+			. "AND `stages`.`type` = 'G' AND (`data`.`money_c` + `data`.`money_s` * 100 + `data`.`money_g` * 10000) >= `stages`.`count`;";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' gold stages activated';
 
@@ -96,7 +96,7 @@ class keysUpdate
 			. "AND (`stages`.`type` = 'In' AND `data`.`item_name` = `stages`.`value` "
 			. "OR `stages`.`type` = 'Ii' AND `data`.`item_id` LIKE CONCAT(`stages`.`value`, ':%')) "
 			. "GROUP BY `stages`.`key_name`, `stages`.`stage`, `stages`.`count` "
-			. "HAVING SUM(`data`.`item_quantity`) > `stages`.`count`;";
+			. "HAVING SUM(`data`.`item_quantity`) >= `stages`.`count`;";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' item stages activated';
 
@@ -117,7 +117,7 @@ class keysUpdate
 			. "`" . $roster->db->table('reputation') . "` AS data "
 			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
 			. "AND `stages`.`type` = 'R' AND `data`.`name` = `stages`.`value` "
-			. "AND `stages`.`count` < FIND_IN_SET(`data`.`Standing`, '" . implode(',', array_keys($roster->locale->wordings[$char['Locale']]['rep2level'])) . "') ";
+			. "AND `stages`.`count` <= FIND_IN_SET(`data`.`Standing`, '" . implode(',', array_keys($roster->locale->wordings[$char['Locale']]['rep2level'])) . "') ";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' reputation stages activated';
 
@@ -128,7 +128,7 @@ class keysUpdate
 			. "`" . $roster->db->table('skills') . "` AS data "
 			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
 			. "AND `stages`.`type` = 'S' AND `data`.`skill_name` = `stages`.`value` "
-			. "AND `stages`.`count` < SUBSTRING_INDEX(`data`.`skill_level`,':',1);";
+			. "AND `stages`.`count` <= SUBSTRING_INDEX(`data`.`skill_level`,':',1);";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' skill stages activated';
 
