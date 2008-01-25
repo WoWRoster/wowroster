@@ -113,20 +113,37 @@ $FIELD['level'] = array (
 );
 
 // For each key, we get two extra database columns and an extra FIELD
-foreach( $roster->locale->act['inst_keys'][substr($roster->data['faction'],0,1)] as $key_name => $key_data )
+$keyQuery = "SELECT * FROM `" . $roster->db->table('keys', $addon['basename']) . "` WHERE `faction` = '" . substr($roster->data['faction'],0,1) . "';";
+$keyResult = $roster->db->query($keyQuery);
+while( $key_data = $roster->db->fetch( $keyResult ) )
 {
+	$key_name = $key_data['key_name'];
+
 	$mainSelect .=
 		'GROUP_CONCAT( IF( `keycache`.`key_name` = \'' . $key_name . '\', `stage`, NULL) ) AS `' . $key_name . '_stages`, ' .
 		'MAX( IF( `keycache`.`key_name` = \'' . $key_name . '\', `stage`, NULL) ) AS `' . $key_name . '_latest`, ';
+
 	$FIELD[$key_name] = array(
 		'lang_field' => $key_name,
 		'order' => array( '`keycache`.`' . $key_name . '_latest` ASC' ),
 		'order_d' => array( '`keycache`.`' . $key_name . '_latest` ASC' ),
 		'value' => 'key_value',
 		'js_type' => 'ts_number',
-		'display' => 3
+		'display' => 3,
+		'key_icon' => $key_data['icon']
 	);
 }
+$roster->db->free_result( $keyResult );
+
+$stageQuery = "SELECT * FROM `" . $roster->db->table('stages', $addon['basename']) . "` WHERE `faction` = '" . substr($roster->data['faction'],0,1) . "';";
+$stageResult = $roster->db->query( $stageQuery );
+while( $row = $roster->db->fetch( $stageResult, SQL_ASSOC ) )
+{
+	$FIELD[$row['key_name']]['key_data'][$row['stage']] = $row;
+}
+
+$roster->db->free_result( $stageResult );
+
 
 // Combine the main query. The '1' is to fix the trailing comma for the fields list.
 $mainQuery = $mainSelect . '1 ' . $mainTables;
@@ -143,12 +160,12 @@ echo $memberlist->makeMembersList();
 echo border('syellow','end');
 
 // Key display logic
-function key_value( $row, $field )
+function key_value( $row, $field, $data )
 {
 	global $roster, $addon;
-	static $keycache = array();
 
-	$key_data = $roster->locale->act['inst_keys'][substr($roster->data['faction'],0,1)][$field];
+	$key_data = $data['key_data'];
+
 	if( $row[$field . '_stages'] === null )
 	{
 		return '&nbsp;';
@@ -170,7 +187,7 @@ function key_value( $row, $field )
 
 	for( $id = $num_stages - 1; $id >= 0; $id-- )
 	{
-		if( $key_data[$id]['marker'] == 'DRAIN' || $key_data[$id]['marker'] == 'SINGLE' )
+		if( $key_data[$id]['flow'] == ')' || $key_data[$id]['flow'] == '()' )
 		{
 			$depth++;
 			$completed[$depth] = $completed[$depth - 1];
@@ -197,7 +214,7 @@ function key_value( $row, $field )
 			$tipline = '<span style="color:' . $addon['config']['colorno'] . ';">' . $key_data[$id]['value'] . '</span><br />';
 		}
 
-		if( $key_data[$id]['marker'] == 'SOURCE' || $key_data[$id]['marker'] == 'SINGLE' )
+		if( $key_data[$id]['flow'] == '(' || $key_data[$id]['flow'] == '()' )
 		{
 			if( $depth == 0 )
 			{
@@ -215,44 +232,11 @@ function key_value( $row, $field )
 		$tooltip = $tipline . $tooltip;
 	}
 
-	// Set up progress mouseover and item link clickable tooltips
-	$linktip = '';
-	$linktipid = 'keys_' . $field . '_' . $row['member_id'];
-
-	foreach( $roster->locale->act['itemlinks'] as $ikey => $ilink )
-	{
-		$linktip .= '<a href="' . $ilink . urlencode(utf8_decode(stripslashes($key_data[$num_stages - 1]['value']))) . '" target="_blank">' . $ikey . '</a><br />';
-	}
-	setTooltip($linktipid, $linktip);
-	setTooltip('itemlink', $roster->locale->act['itemlink']);
-
-	$linktip = ' onclick="return overlib(overlib_' . $linktipid . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
-
-	$tooltip = '<div style="cursor:pointer;" '.makeOverlib($tooltip,$tooltip_h,'',2).$linktip.'>';
+	$tooltip = '<div style="cursor:pointer;" '.makeOverlib($tooltip,$tooltip_h,'',2).'>';
 
 	if( in_array( $num_stages - 1, $active_stages ) )
 	{
-		if( !isset( $keycache[$field] ) )
-		{
-			$key = $key_data[$num_stages - 1];
-
-			if( $key['type'] == 'Ii' )
-			{
-				$query = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_id` LIKE '" . $key['value'] . ":%' LIMIT 0,1;";
-			}
-			elseif( $key['type'] == 'In' )
-			{
-				$query = "SELECT * FROM `" . $roster->db->table('items') . "` WHERE `item_name` = '" . $key['value'] . "' LIMIT 0,1;";
-			}
-			$result = $roster->db->query($query);
-			$item = $roster->db->fetch($result);
-			$roster->db->free_result($result);
-			
-			$item = new item( $item, 'simple' );
-			$keycache[$field] = $item->out();
-		}
-
-		$output = $keycache[$field];
+		$output = '<img class="icon" alt="" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $data['key_icon'] . '.' . $roster->config['img_suffix'] . '" />';
 	}
 	else
 	{

@@ -72,251 +72,65 @@ class keysUpdate
 	{
 		global $roster;
 
-		// Presetup structure
-		$keystuff = array( 'G' => array(), 'Ii' => array(), 'In' => array(), 'Q' => array(), 'R' => array(), 'S' => array() );
-
-		// Gold
-		if( isset( $char['Money'] ) )
-		{
-			$keystuff['G']['money'] = 0;
-			if( isset( $char['Money']['Gold'] ) )
-			{
-				$keystuff['G']['money'] += 10000 * $char['Money']['Gold'];
-			}
-			if( isset( $char['Money']['Silver'] ) )
-			{
-				$keystuff['G']['money'] += 100 * $char['Money']['Silver'];
-			}
-			if( isset( $char['Money']['Copper'] ) )
-			{
-				$keystuff['G']['money'] += 1 * $char['Money']['Copper'];
-			}
-		}
-		// Items from equipment
-		if( isset( $char['Equipment'] ) )
-		{
-			foreach( $char['Equipment'] as $item )
-			{
-				$quantity = isset($item['Quantity']) ? $item['Quantity'] : 1;
-				if( isset( $item['Item'] ) )
-				{
-					list($itemID) = explode(':',$item['Item']);
-					if( isset( $keystuff['Ii'][$itemID] ) )
-					{
-						$keystuff['Ii'][$itemID] += $quantity;
-					}
-					else
-					{
-						$keystuff['Ii'][$itemID] = $quantity;
-					}
-				}
-				if( isset( $item['Name'] ) )
-				{
-					if( isset( $keystuff['In'][$item['Name']] ) )
-					{
-						$keystuff['In'][$item['Name']] += $quantity;
-					}
-					else
-					{
-						$keystuff['In'][$item['Name']] = $quantity;
-					}
-				}
-			}
-		}
-		// Items from bags
-		if( isset( $char['Inventory'] ) )
-		{
-			foreach( $char['Inventory'] as $bag )
-			{
-				if( isset( $bag['Item'] ) )
-				{
-					list($itemID) = explode(':',$bag['Item']);
-					if( isset( $keystuff['Ii'][$itemID] ) )
-					{
-						$keystuff['Ii'][$itemID]++;
-					}
-					else
-					{
-						$keystuff['Ii'][$itemID] = 1;
-					}
-				}
-				if( isset( $bag['Name'] ) )
-				{
-					if( isset( $keystuff['In'][$bag['Name']] ) )
-					{
-						$keystuff['In'][$bag['Name']]++;
-					}
-					else
-					{
-						$keystuff['In'][$bag['Name']] = 1;
-					}
-				}
-				foreach( $bag['Contents'] as $item )
-				{
-					$quantity = isset($item['Quantity']) ? $item['Quantity'] : 1;
-					if( isset( $item['Item'] ) )
-					{
-						list($itemID) = explode(':',$item['Item']);
-						if( isset( $keystuff['Ii'][$itemID] ) )
-						{
-							$keystuff['Ii'][$itemID] += $quantity;
-						}
-						else
-						{
-							$keystuff['Ii'][$itemID] = $quantity;
-						}
-					}
-					if( isset( $item['Name'] ) )
-					{
-						if( isset( $keystuff['In'][$item['Name']] ) )
-						{
-							$keystuff['In'][$item['Name']] += $quantity;
-						}
-						else
-						{
-							$keystuff['In'][$item['Name']] = $quantity;
-						}
-					}
-				}
-			}
-		}
-		// Items from bank
-		if( isset( $char['Bank'] ) )
-		{
-			foreach( $char['Bank'] as $item )
-			{
-				if( isset( $bag['Item'] ) )
-				{
-					list($itemID) = explode(':',$bag['Item']);
-					if( isset( $keystuff['Ii'][$itemID] ) )
-					{
-						$keystuff['Ii'][$itemID]++;
-					}
-					else
-					{
-						$keystuff['Ii'][$itemID]++;
-					}
-				}
-				if( isset( $bag['Name'] ) )
-				{
-					if( isset( $keystuff['In'][$bag['Name']] ) )
-					{
-						$keystuff['In'][$bag['Name']]++;
-					}
-					else
-					{
-						$keystuff['In'][$bag['Name']]++;
-					}
-				}
-				foreach( $bag['Contents'] as $item )
-				{
-					$quantity = isset($item['Quantity']) ? $item['Quantity'] : 1;
-					if( isset( $item['Item'] ) )
-					{
-						list($itemID) = explode(':',$item['Item']);
-						if( isset( $keystuff['Ii'][$itemID] ) )
-						{
-							$keystuff['Ii'][$itemID] += $quantity;
-						}
-						else
-						{
-							$keystuff['Ii'][$itemID] = $quantity;
-						}
-					}
-					if( isset( $item['Name'] ) )
-					{
-						if( isset( $keystuff['In'][$item['Name']] ) )
-						{
-							$keystuff['In'][$item['Name']] += $quantity;
-						}
-						else
-						{
-							$keystuff['In'][$item['Name']] = $quantity;
-						}
-					}
-				}
-			}
-		}
-		// Quests
-		if( isset( $char['Quests'] ) )
-		{
-			foreach( $char['Quests'] as $zone )
-			{
-				foreach( $zone as $quest )
-				{
-					if( isset( $quest['Title'] ) )
-					{
-						if( isset( $keystuff['Q'][$quest['Title']] ) )
-						{
-							$keystuff['Q'][$quest['Title']]++;
-						}
-						else
-						{
-							$keystuff['Q'][$quest['Title']] = 1;
-						}
-					}
-				}
-			}
-		}
-		// Reputation
-		if( isset( $char['Reputation'] ) )
-		{
-			foreach( $char['Reputation'] as $coalition => $factions )
-			{
-				// There's a count field inbetween...
-				if( !is_array($factions) )
-				{
-					continue;
-				}
-				foreach( $factions as $faction => $data )
-				{
-					if( isset( $data['Standing'] ) )
-					{
-						$keystuff['R'][$faction] = $roster->locale->wordings[$char['Locale']]['rep2level'][$data['Standing']];
-					}
-				}
-			}
-		}
-		// Skills
-		if( isset( $char['Skills'] ) )
-		{
-			foreach( $char['Skills'] as $category => $skills )
-			{
-				foreach( $skills as $skill => $data )
-				{
-					if( $skill == 'Order' )
-					{
-						continue;
-					}
-					list( $level, $max ) = explode( ':', $data );
-					$keystuff['S'][$skill] = $level;
-				}
-			}
-		}
-
-		/**
-		 * We now have all of the data in an easy to check structure:
-		 * Quests in $keystuff['Q'][]
-		 * Items by ID in $keystuff['Ii'][]
-		 * Items by name in $keystuff['In'][]
-		 * Reputation levels in $keystuff['R'][]
-		 */
+		// Delete stale data
 		$query = "DELETE FROM `" . $roster->db->table('keycache', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "';";
 		$roster->db->query($query);
+		$this->messages .= ' - Keycache cleaned';
 
-		foreach( $roster->locale->wordings[$char['Locale']]['inst_keys'][substr($char['Faction'],0,1)] as $key => $stages )
-		{
-			foreach( $stages as $stage_nr => $stage )
-			{
-				if( isset($keystuff[$stage['type']][$stage['value']]) && ($keystuff[$stage['type']][$stage['value']] >= $stage['count'] ))
-				{
-					$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` "
-						. "(`member_id`, `key_name`, `stage`) VALUES "
-						. "(" . $member_id . ",'" . $key . "'," . $stage_nr . ");";
-					$roster->db->query($query);
-				}
-			}
-		}
+		// Gold
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
+			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
+			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
+			. "`" . $roster->db->table('players') . "` AS data "
+			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
+			. "AND `stages`.`type` = 'G' AND (`data`.`money_c` + `data`.`money_s` * 100 + `data`.`money_g` * 10000) > `stages`.`count`;";
+		$roster->db->query($query);
+		$this->messages .= ' - ' . $roster->db->affected_rows() . ' gold stages activated';
+
+		// Items
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
+			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
+			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
+			. "`" . $roster->db->table('items') . "` AS data "
+			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
+			. "AND (`stages`.`type` = 'In' AND `data`.`item_name` = `stages`.`value` "
+			. "OR `stages`.`type` = 'Ii' AND `data`.`item_id` LIKE CONCAT(`stages`.`value`, ':%')) "
+			. "GROUP BY `stages`.`key_name`, `stages`.`stage`, `stages`.`count` "
+			. "HAVING SUM(`data`.`item_quantity`) > `stages`.`count`;";
+		$roster->db->query($query);
+		$this->messages .= ' - ' . $roster->db->affected_rows() . ' item stages activated';
+
+		// Quests
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
+			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
+			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
+			. "`" . $roster->db->table('quests') . "` AS data "
+			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
+			. "AND `stages`.`type` = 'Q' AND `data`.`quest_name` = `stages`.`value`;";
+		$roster->db->query($query);
+		$this->messages .= ' - ' . $roster->db->affected_rows() . ' quest stages activated';
+
+		// Reputation
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
+			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
+			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
+			. "`" . $roster->db->table('reputation') . "` AS data "
+			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
+			. "AND `stages`.`type` = 'R' AND `data`.`name` = `stages`.`value` "
+			. "AND `stages`.`count` < FIND_IN_SET(`data`.`Standing`, '" . implode(',', array_keys($roster->locale->wordings[$char['Locale']]['rep2level'])) . "') ";
+		$roster->db->query($query);
+		$this->messages .= ' - ' . $roster->db->affected_rows() . ' reputation stages activated';
+
+		// Skills
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
+			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
+			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
+			. "`" . $roster->db->table('skills') . "` AS data "
+			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
+			. "AND `stages`.`type` = 'S' AND `data`.`skill_name` = `stages`.`value` "
+			. "AND `stages`.`count` < SUBSTRING_INDEX(`data`.`skill_level`,':',1);";
+		$roster->db->query($query);
+		$this->messages .= ' - ' . $roster->db->affected_rows() . ' skill stages activated';
 
 		return true;
 	}

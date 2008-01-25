@@ -57,15 +57,22 @@ class roster_db
 		$this->queries[$this->file][$this->query_count]['line'] = $this->line;
 
 		// Describe
+		$this->queries[$this->file][$this->query_count]['describe'] = array();
+
 		if( $roster->config['sql_window'] == 2 )
 		{
-			$result = mysql_query("DESCRIBE " . $query);
-			while( $this->queries[$this->file][$this->query_count]['describe'][] = mysql_fetch_assoc( $result ) ) {};
-			mysql_free_result( $result );
-		}
-		else
-		{
-			$this->queries[$this->file][$this->query_count]['describe'] = array();
+			// Only SELECT queries can be DESCRIBEd. If this isn't a SELECT query, this will properly extract the SELECT part of an INSERT ... SELECT or CREATE TABLE ... SELECT statement, which may be interesting to get describe info for.
+			if( ($pos = strpos( $query, "SELECT" )) === false )
+			{
+				return;
+			}
+
+			$result = mysql_query("DESCRIBE " . substr($query, $pos));
+			if( $result )
+			{
+				while( $this->queries[$this->file][$this->query_count]['describe'][] = mysql_fetch_assoc( $result ) ) {};
+				mysql_free_result( $result );
+			}
 		}
 	}
 
