@@ -21,7 +21,7 @@ Note: These files have to be imported from the installer/upgrader. A config GUI 
 
 The generic format for a key definition is:
 
-$inst_keys[$fact][$key_name] = array( $stage_definition, ..., 'key_icon');
+$inst_keys[$fact][$key_name] = array( $stage_definition, ..., 'Key|icon|lockpicking');
 
 The stage definition can be defined in two ways:
 - As an array with named keys. These keys are 'type', 'name', 'count', 'flow', and 'active'.
@@ -54,6 +54,8 @@ stages should be integers, ascending, starting at 0, without gaps. In other word
 The key is the last stage of the chain. If this stage is active (its condition is currently met) the icon will be shown instead of the progress bar. Define the icon by putting it's name in a string as the last element of your key definition.
 
 All single quotes should be slashed for DB insert
+
+The 'Key' entry, recommended to be last (though place doesn't really matter) names the icon and the lockpicking skill. If a lock is unpickable, leave the field empty
 */
 
 // ALLIANCE KEYS
@@ -63,39 +65,39 @@ $inst_keys['A'] = array(
 		'Q|Proof of deed|1||',
 		'Q|At Last!|1||',
 		'In|Key to Searing Gorge|1||1',
-		'inv_misc_key_14'
+		'Key|inv_misc_key_14|225'
 	),
 	'Gnome' => array(
 		'In|Workshop Key|1||1',
-		'inv_misc_key_06'
+		'Key|inv_misc_key_06|150'
 	),
 	'SM' => array(
 		'In|The Scarlet Key|1||1',
-		'inv_misc_key_01'
+		'Key|inv_misc_key_01|175'
 	),
 	'ZF' => array(
 		'In|Sacred Mallet|1||1',
 		'In|Mallet of Zul\\\'Farrak|1||1',
-		'inv_hammer_19'
+		'Key|inv_hammer_19|'
 	),
 	'Mauro' => array(
 		'In|Celebrian Rod|1|()|1',
 		'In|Celebrian Diamond|1|()|1',
 		'In|Scepter of Celebras|1||1',
-		'inv_staff_16'
+		'Key|inv_staff_16|'
 	),
 	'BRDp' => array(
 		'In|Prison Cell Key|1||1',
-		'inv_misc_key_10'
+		'Key|inv_misc_key_10|250'
 	),
 	'BRDs' => array(
 		'In|Ironfel|1||1',
 		'In|Shadowforge Key|1||1',
-		'inv_misc_key_08'
+		'Key|inv_misc_key_08|'
 	),
 	'DM' => array(
 		'In|Crescent Key|1||1',
-		'inv_misc_key_10'
+		'Key|inv_misc_key_10|295'
 	),
 	'Scholo' => array(
 		'Q|Scholomance|1||',
@@ -105,11 +107,11 @@ $inst_keys['A'] = array(
 		'Q|Araj\\\'s Scarab|1||',
 		'Q|The Key to Scholomance|1||',
 		'In|Skeleton Key|1||1',
-		'inv_misc_key_11'
+		'Key|inv_misc_key_11|280'
 	),
 	'Strath' => array(
 		'In|Key to the City|1||1',
-		'inv_misc_key_13'
+		'Key|inv_misc_key_13|295'
 	),
 	'UBRS' => array(
 		'In|Unadorned Seal of Ascension|1|()|1',
@@ -119,7 +121,7 @@ $inst_keys['A'] = array(
 		'In|Unforged Seal of Ascension|1||1',
 		'In|Forged Seal of Ascension|1||1',
 		'In|Seal of Ascension|1||1',
-		'inv_jewelry_ring_01'
+		'Key|inv_jewelry_ring_01|'
 	),
 	'Onyxia' => array(
 		'Q|Dragonkin Menace|1||1',
@@ -134,11 +136,11 @@ $inst_keys['A'] = array(
 		'Q|The Dragon\\\'s Eye|1||1',
 		'Q|Drakefire Amulet|1||1',
 		'In|Drakefire Amulet|1||1',
-		'inv_jewelry_talisman_11'
+		'Key|inv_jewelry_talisman_11|'
 	),
 	'MC' => array(
 		'In|Eternal Quintessence|1||1',
-		'inv_potion_83'
+		'Key|inv_potion_83|'
 	)
 );
 
@@ -148,39 +150,39 @@ $inst_keys['H'] = array(
 /* Horde can't get the searing key
 	'SG' => array( 
 		'In|Key to Searing Gorge|1||1',
-		'inv_misc_key_14'
+		'Key|inv_misc_key_14|225'
 	),*/
 	'Gnome' => array(
 		'In|Workshop Key|1||1',
-		'inv_misc_key_06'
+		'Key|inv_misc_key_06|150'
 	),
 	'SM' => array(
 		'In|The Scarlet Key|1||1',
-		'inv_misc_key_01'
+		'Key|inv_misc_key_01|175'
 	),
 	'ZF' => array(
 		'In|Sacred Mallet|1||1',
 		'In|Mallet of Zul\\\'Farrak|1||1',
-		'inv_hammer_19'
+		'Key|inv_hammer_19|'
 	),
 	'Mauro' => array(
 		'In|Celebrian Rod|1|()|1',
 		'In|Celebrian Diamond|1|()|1',
 		'In|Scepter of Celebras|1||1',
-		'inv_staff_16'
+		'Key|inv_staff_16|'
 	),
 	'BRDp' => array(
 		'In|Prison Cell Key|1||1',
-		'inv_misc_key_10'
+		'Key|inv_misc_key_10|250'
 	),
 	'BRDs' => array(
 		'In|Ironfel|1||1',
 		'In|Shadowforge Key|1||1',
-		'inv_misc_key_08'
+		'Key|inv_misc_key_08|'
 	),
 	'DM' => array(
 		'In|Crescent Key|1||1',
-		'inv_misc_key_10'
+		'Key|inv_misc_key_10|295'
 	),
 	'Scholo' => array(
 		'Q|Scholomance|1||',
@@ -190,11 +192,11 @@ $inst_keys['H'] = array(
 		'Q|Araj\\\'s Scarab|1||',
 		'Q|The Key to Scholomance|1||',
 		'In|Skeleton Key|1||1',
-		'inv_misc_key_11'
+		'Key|inv_misc_key_11|280'
 	),
 	'Strath' => array(
 		'In|Key to the City|1||1',
-		'inv_misc_key_13'
+		'Key|inv_misc_key_13|295'
 	),
 	'UBRS' => array(
 		'In|Unadorned Seal of Ascension|1|()|1',
@@ -204,7 +206,7 @@ $inst_keys['H'] = array(
 		'In|Unforged Seal of Ascension|1||1',
 		'In|Forged Seal of Ascension|1||1',
 		'In|Seal of Ascension|1||1',
-		'inv_jewelry_ring_01'
+		'Key|inv_jewelry_ring_01|'
 	),
 	'Onyxia' => array(
 		'Q|Warlord\\\'s Command|1||',
@@ -222,10 +224,10 @@ $inst_keys['H'] = array(
 		'Q|Ascension...|1||',
 		'Q|Blood of the Black Dragon Champion|1||',
 		'In|Drakefire Amulet|1||1',
-		'inv_jewelry_talisman_11'
+		'Key|inv_jewelry_talisman_11|'
 	),
 	'MC' => array(
 		'In|Eternal Quintessence|1||1',
-		'inv_potion_83'
+		'Key|inv_potion_83|'
 	)
 );

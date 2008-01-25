@@ -432,7 +432,7 @@ class memberslist
 			{
 				if ( isset( $DATA['value'] ) )
 				{
-					$cell_value = call_user_func($DATA['value'], $row, $field, $DATA );
+					$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough'])?$DATA['passthrough'] : array()) );
 				}
 				elseif ( isset( $DATA['jsort'] ) )
 				{

@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1596';
+	var $version = '1.9.9.1599';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -130,10 +130,10 @@ class keysInstall
 				`flow` char(2) NOT NULL DEFAULT '',
 				`active` int(1) NOT NULL DEFAULT 0,
 				PRIMARY KEY (`faction`, `key_name`, `stage`)");
-
-			$this->loadkeys( 'install_' );
 		}
 
+		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
+		$this->loadkeys( 'install_' );
 		return true;
 	}
 
@@ -175,7 +175,7 @@ class keysInstall
 			}
 
 			// We need the rep2level array from the normal locale file
-			if(file_exists( ROSTER_BASE . $installer->addata['basename'] . "/locale/" . $lang . ".php"))
+			if(file_exists( ROSTER_BASE . $installer->addata['basename'] . "/locale/" . $lang . ".php") )
 			{
 				include_once( ROSTER_BASE . $installer->addata['basename'] . "/locale/" . $lang . ".php");
 			}
@@ -184,18 +184,22 @@ class keysInstall
 			{
 				foreach( $keylist as $key_name => $stagelist )
 				{
+					$installer->add_query("DELETE FROM `" . $installer->table('keys') . "` WHERE `key_name` = '" . $key_name . "' AND `faction` = '" . $faction . "';");
+					$installer->add_query("DELETE FROM `" . $installer->table('stages') . "` WHERE `key_name` = '" . $key_name . "' AND `faction` = '" . $faction . "';");
 					$icon = 'inv_misc_questionmark';
+					$lockpicking = 0;
+
 					foreach( $stagelist as $stage => $data )
 					{
 						if( !is_array( $data ) )
 						{
-							if( strpos( $data, '|' ) === false )
-							{
-								$icon = $data;
-								continue;
-							}
-
 							$data = explode('|', $data);
+						}
+
+						if( $data[0] == 'Key' )
+						{
+							list(,$icon,$lockpicking) = $data;
+							continue;
 						}
 
 						list( $type, $value, $count, $flow, $active ) = $data;
@@ -206,6 +210,11 @@ class keysInstall
 						}
 
 						$installer->add_query("INSERT INTO `" . $installer->table('stages') . "` VALUES ( '" . $faction . "','" . $key_name . "'," . (int)$stage . ",'" . $type . "','" . $value . "'," . (int)$count . ",'" . $flow . "'," . (int)$active . ");");
+					}
+
+					if( $lockpicking )
+					{
+						$installer->add_query("INSERT INTO `" . $installer->table('stages') . "` VALUES ( '" . $faction . "','" . $key_name . "',-1,'S','" . $lang['lockpicking'] . "'," . (int)$lockpicking . ",'LP',0);");
 					}
 
 					$installer->add_query("INSERT INTO `" . $installer->table('keys') . "` VALUES ( '" . $faction . "','" . $key_name . "','" . $icon . "');");

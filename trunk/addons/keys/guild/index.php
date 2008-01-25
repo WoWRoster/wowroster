@@ -130,7 +130,7 @@ while( $key_data = $roster->db->fetch( $keyResult ) )
 		'value' => 'key_value',
 		'js_type' => 'ts_number',
 		'display' => 3,
-		'key_icon' => $key_data['icon']
+		'passthrough' => $key_data
 	);
 }
 $roster->db->free_result( $keyResult );
@@ -139,7 +139,7 @@ $stageQuery = "SELECT * FROM `" . $roster->db->table('stages', $addon['basename'
 $stageResult = $roster->db->query( $stageQuery );
 while( $row = $roster->db->fetch( $stageResult, SQL_ASSOC ) )
 {
-	$FIELD[$row['key_name']]['key_data'][$row['stage']] = $row;
+	$FIELD[$row['key_name']]['passthrough']['stages'][$row['stage']] = $row;
 }
 
 $roster->db->free_result( $stageResult );
@@ -164,7 +164,7 @@ function key_value( $row, $field, $data )
 {
 	global $roster, $addon;
 
-	$key_data = $data['key_data'];
+	$key_data = $data['stages'];
 
 	if( $row[$field . '_stages'] === null )
 	{
@@ -175,7 +175,7 @@ function key_value( $row, $field, $data )
 		$active_stages = explode(',', $row[$field . '_stages']);
 	}
 
-	$num_stages = count($key_data);
+	$last_stage = max(array_keys($key_data));
 	$num_completed_stages = 0;
 
 	$depth = 0;
@@ -185,7 +185,7 @@ function key_value( $row, $field, $data )
 
 	$tooltip = '';
 
-	for( $id = $num_stages - 1; $id >= 0; $id-- )
+	for( $id = $last_stage; $id >= 0; $id-- )
 	{
 		if( $key_data[$id]['flow'] == ')' || $key_data[$id]['flow'] == '()' )
 		{
@@ -234,15 +234,15 @@ function key_value( $row, $field, $data )
 
 	$tooltip = '<div style="cursor:pointer;" '.makeOverlib($tooltip,$tooltip_h,'',2).'>';
 
-	if( in_array( $num_stages - 1, $active_stages ) )
+	if( in_array( $last_stage, $active_stages ) )
 	{
-		$output = '<img class="icon" alt="" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $data['key_icon'] . '.' . $roster->config['img_suffix'] . '" />';
+		$output = '<img class="icon" alt="" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $data['icon'] . '.' . $roster->config['img_suffix'] . '" />';
 	}
 	else
 	{
-		$perc_done = round($num_completed_stages / $num_stages * 100);
+		$perc_done = round($num_completed_stages / ($last_stage + 1) * 100);
 		$output = 
-			'<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">' . $num_completed_stages . '/' . $num_stages . '</div></div>' . "\n" .
+			'<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">' . $num_completed_stages . '/' . ($last_stage + 1) . '</div></div>' . "\n" .
 			'<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">' . "\n" .
 			'<tr>' . "\n" .
 			'<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $perc_done . '%">' . "\n" .
