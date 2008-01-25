@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1580';
+	var $version = '1.9.9.1596';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -65,6 +65,26 @@ class keysInstall
 			`key_name` varchar(16) NOT NULL DEFAULT '',
 			`stage` int(11) NOT NULL DEFAULT 0,
 			PRIMARY KEY (`member_id`, `key_name`, `stage`)");
+
+		$installer->create_table($installer->table('keys'),"
+			`faction` char(1) NOT NULL DEFAULT '',
+			`key_name` varchar(16) NOT NULL DEFAULT '',
+			`icon` varchar(64) NOT NULL DEFAULT 'inv_misc_questionmark',
+			PRIMARY KEY (`faction`, `key_name`)");
+
+		$installer->create_table($installer->table('stages'),"
+			`faction` char(1) NOT NULL DEFAULT '',
+			`key_name` varchar(16) NOT NULL DEFAULT '',
+			`stage` int(11) NOT NULL DEFAULT 0,
+			`type` char(2) NOT NULL DEFAULT '',
+			`value` varchar(128) NOT NULL DEFAULT '',
+			`count` int(11) NOT NULL DEFAULT 0,
+			`flow` char(2) NOT NULL DEFAULT '',
+			`active` int(1) NOT NULL DEFAULT 0,
+			PRIMARY KEY (`faction`, `key_name`, `stage`)");
+
+		$this->loadkeys( 'install_' );
+
 		return true;
 	}
 
@@ -92,6 +112,28 @@ class keysInstall
 				PRIMARY KEY (`member_id`, `key_name`, `stage`)");
 		}
 
+		if( version_compare( $oldversion, '1.9.9.1596', '<' ) )
+		{
+			$installer->create_table($installer->table('keys'),"
+				`faction` char(1) NOT NULL DEFAULT '',
+				`key_name` varchar(16) NOT NULL DEFAULT '',
+				`icon` varchar(64) NOT NULL DEFAULT 'inv_misc_questionmark',
+				PRIMARY KEY (`faction`, `key_name`)");
+
+			$installer->create_table($installer->table('stages'),"
+				`faction` varchar(16) NOT NULL DEFAULT '',
+				`key_name` varchar(16) NOT NULL DEFAULT '',
+				`stage` int(11) NOT NULL DEFAULT 0,
+				`type` char(2) NOT NULL DEFAULT '',
+				`value` varchar(128) NOT NULL DEFAULT '',
+				`count` int(11) NOT NULL DEFAULT 0,
+				`flow` char(2) NOT NULL DEFAULT '',
+				`active` int(1) NOT NULL DEFAULT 0,
+				PRIMARY KEY (`faction`, `key_name`, `stage`)");
+
+			$this->loadkeys( 'install_' );
+		}
+
 		return true;
 	}
 
@@ -106,7 +148,69 @@ class keysInstall
 
 		$installer->remove_all_config();
 
+		$installer->drop_table($installer->table('keycache'));
+		$installer->drop_table($installer->table('keys'));
+		$installer->drop_table($installer->table('stages'));
+
 		$installer->remove_all_menu_button();
 		return true;
+	}
+
+	function loadkeys( $prefix )
+	{
+		global $installer, $roster;
+
+		foreach( $roster->multilanguages as $lang )
+		{
+			$inst_keys = array( 'A' => array(), 'H' => array() );
+
+			echo ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php";
+			if(file_exists( ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php"))
+			{
+				include_once( ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php");
+			}
+			else
+			{
+				continue;
+			}
+
+			// We need the rep2level array from the normal locale file
+			if(file_exists( ROSTER_BASE . $installer->addata['basename'] . "/locale/" . $lang . ".php"))
+			{
+				include_once( ROSTER_BASE . $installer->addata['basename'] . "/locale/" . $lang . ".php");
+			}
+
+			foreach( $inst_keys as $faction => $keylist )
+			{
+				foreach( $keylist as $key_name => $stagelist )
+				{
+					$icon = 'inv_misc_questionmark';
+					foreach( $stagelist as $stage => $data )
+					{
+						if( !is_array( $data ) )
+						{
+							if( strpos( $data, '|' ) === false )
+							{
+								$icon = $data;
+								continue;
+							}
+
+							$data = explode('|', $data);
+						}
+
+						list( $type, $value, $count, $flow, $active ) = $data;
+
+						if( $type == 'R' && !is_numeric($count) )
+						{
+							$count = $lang['rep2level'][$count];
+						}
+
+						$installer->add_query("INSERT INTO `" . $installer->table('stages') . "` VALUES ( '" . $faction . "','" . $key_name . "'," . (int)$stage . ",'" . $type . "','" . $value . "'," . (int)$count . ",'" . $flow . "'," . (int)$active . ");");
+					}
+
+					$installer->add_query("INSERT INTO `" . $installer->table('keys') . "` VALUES ( '" . $faction . "','" . $key_name . "','" . $icon . "');");
+				}
+			}
+		}
 	}
 }
