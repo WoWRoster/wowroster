@@ -88,7 +88,7 @@ class RosterArmory
 	function fetchArmory( $type = false, $character = false, $guild = false, $realm = false, $item_id = false,$fetch_type = 'array' )
 	{
 		global $roster;
-		$cache_tag = $type.$character.$guild.$realm.$item_id.$fetch_type;
+		$cache_tag = $type . $character . $guild . $realm . $item_id . $fetch_type;
 
 		if( $roster->cache->check($cache_tag) )
 		{
@@ -97,17 +97,21 @@ class RosterArmory
 				echo __FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]";
 				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
 			}
-			if ( $fetch_type == 'simpleClass' ) {
+			if ( $fetch_type == 'simpleClass' )
+			{
 				$this->_initSimpleParser();
 				return $this->simpleParser->parse($roster->cache->get($cache_tag));
-			} else {
+			}
+			else
+			{
 				return $roster->cache->get($cache_tag);
 			}
 		}
 		else
 		{
 			$url = $this->_makeUrl( $type, false, $item_id, $character, $realm, $guild );
-			if ( $fetch_type == 'html') {
+			if ( $fetch_type == 'html')
+			{
 				$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 			}
 			if( $this->_requestXml($url) )
@@ -124,7 +128,7 @@ class RosterArmory
 					}
 					else
 					{
-						trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+						trigger_error('RosterArmory:: Failed to fetch ' . $url . '. Armory is in maintenance mode');
 					}
 				}
 				elseif( $fetch_type == 'simpleClass' )
@@ -138,7 +142,7 @@ class RosterArmory
 					}
 					else
 					{
-						trigger_error('RosterArmory:: Failed to fetch ' . $url. '. Armory is in maintenance mode');
+						trigger_error('RosterArmory:: Failed to fetch ' . $url . '. Armory is in maintenance mode');
 					}
 				}
 				else

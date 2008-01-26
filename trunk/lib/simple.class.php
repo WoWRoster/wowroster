@@ -25,9 +25,9 @@ if( !defined('IN_ROSTER') )
  * WoWRoster Simple Class
  *
  * Allows easy access to XML Data
- *
  */
-class SimpleClass {
+class SimpleClass
+{
 	var $properties = array();
 
 	/**
@@ -36,13 +36,18 @@ class SimpleClass {
 	 * @param string $propName
 	 * @param string $propValue
 	 */
-	function setProp($propName, $propValue) {
-		if ( isset( $this->$propName ) ) {
+	function setProp( $propName, $propValue )
+	{
+		if( isset($this->$propName) )
+		{
 			$this->$propName .= $propValue;
-		} else {
+		}
+		else
+		{
 			$this->$propName = $propValue;
 		}
-		if (!in_array($propName, $this->properties)) {
+		if( !in_array($propName, $this->properties) )
+		{
 			$this->properties[] = $propName;
 		}
 	}
@@ -52,9 +57,12 @@ class SimpleClass {
 	 *
 	 * @param array $array
 	 */
-	function setArray($array) {
-		if (is_array($array)) {
-			foreach ($array as $key => $value) {
+	function setArray( $array )
+	{
+		if( is_array($array) )
+		{
+			foreach( $array as $key => $value )
+			{
 				$this->setProp($key, $value);
 			}
 		}
@@ -67,7 +75,8 @@ class SimpleClass {
 	 * @param string $propName
 	 * @return bool
 	 */
-	function hasProp($propName) {
+	function hasProp( $propName )
+	{
 		return in_array($propName, $this->properties);
 	}
 }
