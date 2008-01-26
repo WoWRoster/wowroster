@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1599';
+	var $version = '1.9.9.1600';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -131,6 +131,8 @@ class keysInstall
 				`active` int(1) NOT NULL DEFAULT 0,
 				PRIMARY KEY (`faction`, `key_name`, `stage`)");
 		}
+
+		// 1600: Key defines only
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
 		$this->loadkeys( 'install_' );

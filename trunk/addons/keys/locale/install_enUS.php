@@ -141,6 +141,28 @@ $inst_keys['A'] = array(
 	'MC' => array(
 		'In|Eternal Quintessence|1||1',
 		'Key|inv_potion_83|'
+	),
+	'SL' => array(
+                'In|Shadow Labyrinth Key|1||1',
+                'Key|inv_misc_key_02|'
+        ),
+	'AuchH' => array(
+		'R|Lower City|6||1',
+		'In|Auchenai Key|1||1',
+		'Key|inv_misc_key_11|',
+	),
+	'Karazhan' => array(
+		'Q|Arcane Disturbances|1|()|1',
+		'Q|Restless Activity|1|()|1',
+		'Q|Contact from Dalaran|1||1',
+		'Q|Khadgar|1||1',
+		'Q|Entry Into Karazhan|1||1',
+		'In|Second Key Fragment|1|()|1',
+		'In|Third Key Fragment|1|()|1',
+		'Q|The Master\\\'s Touch|1||1',
+		'Q|Return to Khadgar|1||1',
+		'In|The Master\\\'s Key|1||1',
+		'Key|inv_misc_key_07|'
 	)
 );
 
@@ -229,5 +251,27 @@ $inst_keys['H'] = array(
 	'MC' => array(
 		'In|Eternal Quintessence|1||1',
 		'Key|inv_potion_83|'
+	),
+	'SL' => array(
+                'In|Shadow Labyrinth Key|1||1',
+                'Key|inv_misc_key_02|'
+        ),
+	'AuchH' => array(
+		'R|Lower City|6||1',
+		'In|Auchenai Key|1||1',
+		'Key|inv_misc_key_11|',
+	),
+	'Karazhan' => array(
+		'Q|Arcane Disturbances|1|()|1',
+		'Q|Restless Activity|1|()|1',
+		'Q|Contact from Dalaran|1||1',
+		'Q|Khadgar|1||1',
+		'Q|Entry Into Karazhan|1||1',
+		'In|Second Key Fragment|1|()|1',
+		'In|Third Key Fragment|1|()|1',
+		'Q|The Master\\\'s Touch|1||1',
+		'Q|Return to Khadgar|1||1',
+		'In|The Master\\\'s Key|1||1',
+		'Key|inv_misc_key_07|'
 	)
 );
