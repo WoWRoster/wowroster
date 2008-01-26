@@ -166,7 +166,7 @@ class keysInstall
 		{
 			$inst_keys = array( 'A' => array(), 'H' => array() );
 
-			echo ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php";
+			//echo ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php";
 			if(file_exists( ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php"))
 			{
 				include_once( ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php");

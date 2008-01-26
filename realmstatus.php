@@ -29,8 +29,8 @@ if( !defined('IN_ROSTER') )
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
-require_once( $roster_root_path . 'settings.php' );
-require_once( ROSTER_LIB . 'xmlparse.class.php' );
+require_once($roster_root_path . 'settings.php');
+require_once(ROSTER_LIB . 'simpleparser.class.php');
 
 
 //==========[ GET FROM CONF.PHP ]====================================================
@@ -90,7 +90,7 @@ $querystr = "SELECT * FROM `" . $roster->db->table('realmstatus') . "` WHERE `se
 $sql = $roster->db->query($querystr);
 if( $sql && $roster->db->num_rows($sql) > 0 )
 {
-	$realmData = $roster->db->fetch($sql);
+	$realmData = $roster->db->fetch($sql,SQL_ASSOC);
 }
 else
 {
@@ -111,22 +111,20 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 {
 	$xmlsource = urlgrabber($xmlsource);
 
-	$xmlParser =& new XmlParser();
-	$xmlParser->Parse($xmlsource);
+	$simpleParser = new SimpleParser();
+	$simpleParser->parse($xmlsource);
 
 	$err = 1;
 	if( $xmlsource != false )
 	{
 		if( $region == 'US' )
 		{
-			foreach( $xmlParser->data['rs'][0]['child']['r'] as $key => $value )
+			foreach( $simpleParser->data->r as $value )
 			{
-				$xml_server = $value['attribs'];
-
-				if( $xml_server['n'] == $realmname )
+				if( $value->n == $realmname )
 				{
 					$err = 0;
-					switch( strtoupper($xml_server['s']) )
+					switch( strtoupper($value->s) )
 					{
 						case '0':
 							$realmData['serverstatus'] = 'DOWN';
@@ -143,7 +141,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 						default:
 							$realmData['serverstatus'] = 'UNKNOWN';
 					}
-					switch( strtoupper($xml_server['t']) )
+					switch( strtoupper($value->t) )
 					{
 						case '0':
 							$realmData['servertype'] = 'RPPVP';
@@ -164,7 +162,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 						default:
 							$realmData['servertype'] = 'UNKNOWN';
 					}
-					switch( strtoupper($xml_server['l']) )
+					switch( strtoupper($value->l) )
 					{
 						case '0':
 							$realmData['serverpop'] = 'OFFLINE';
@@ -194,14 +192,12 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 		}
 		elseif( $region == 'EU' )
 		{
-			foreach( $xmlParser->data['rss'][0]['child']['channel'][0]['child']['item'] as $key => $value )
+			foreach( $simpleParser->data->channel->item as $value )
 			{
-				$xml_server = $value['child'];
-
-				if( $xml_server['title'][0]['data'] == $realmname )
+				if( $value->title->_CDATA == $realmname )
 				{
 					$err = 0;
-					switch( strtoupper($xml_server['category'][0]['data']) )
+					switch( strtoupper($value->category[0]->_CDATA) )
 					{
 						case 'REALM DOWN':
 							$realmData['serverstatus'] = 'DOWN';
@@ -214,7 +210,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 						default:
 							$realmData['serverstatus'] = 'UNKNOWN';
 					}
-					switch( strtoupper($xml_server['category'][2]['data']) )
+					switch( strtoupper($value->category[2]->_CDATA) )
 					{
 						case 'RPPVP':
 							$realmData['servertype'] = 'RPPVP';
@@ -235,7 +231,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 						default:
 							$realmData['servertype'] = 'UNKNOWN';
 					}
-					switch( strtoupper($xml_server['category'][3]['data']) )
+					switch( strtoupper($value->category[3]->_CDATA) )
 					{
 						case 'FULL':
 							$realmData['serverpop'] = 'FULL';
