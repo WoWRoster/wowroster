@@ -1170,9 +1170,12 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 			return false;
 		}
 
-		if ( preg_match ('/\r/', $contents, $tmp ) ) {
+		if( preg_match('/\r/', $contents, $tmp) )
+		{
 			list($resHeader, $data) = explode("\r\n\r\n", $contents, 2);
-		} else {
+		}
+		else
+		{
 			list($resHeader, $data) = explode("\n\n", $contents, 2);
 		}
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -1184,19 +1187,21 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 			$roster->cache->put($tmp[1], $cache_tag);
 		}
 
-        if ($http_code == 301 || $http_code == 302)
+        if( $http_code == 301 || $http_code == 302 )
         {
             $matches = array();
             preg_match('/Location:(.*?)\n/', $resHeader, $matches);
             $redirect = trim(array_pop($matches));
-            if (!$redirect)
+            if( !$redirect )
             {
                 //couldn't process the url to redirect to
                 return $data;
             }
 
             return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
-        } else {
+        }
+		else
+		{
             return $data;
         }
 	}
@@ -1221,7 +1226,8 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 					. "User-Agent: $user_agent\r\n"
 					. "Accept-Language: ". substr($roster->config['locale'], 0, 2). "\r\n"
 					. "Connection: Close\r\n";
-			if( $roster->cache->check($cache_tag) ) {
+			if( $roster->cache->check($cache_tag) )
+			{
 				$header .= "Cookie: ". $roster->cache->get($cache_tag). "\r\n";
 			}
 			$header .= "\r\n";
@@ -1245,7 +1251,9 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 					{
 						$contents .= substr( $chunk, $pos, strlen($chunk) );
 						$inHeader = false;
-					} else {
+					}
+					else
+					{
 						$resHeader .= $chunk;
 					}
 					if( preg_match('/^(?:Location:\s)(.+)/', $chunk, $tmp) )
@@ -1477,25 +1485,6 @@ function aprint( $arr , $prefix='' , $return=false )
 function socketColorEn( $socket_color, $locale )
 {
 	global $roster;
-
-	if( $locale == 'enUS' )
-	{
-		return strtolower($socket_color);
-	}
-	elseif( $locale == 'deDE' )
-	{
-		switch( trim($socket_color) )
-		{
-			case 'Roter':
-				return 'red';
-			case 'Blauer':
-				return 'blue';
-			case 'Gelber':
-				return 'yellow';
-			default:
-				break;
-		}
-	}
 
 	$colorArr = array_flip($roster->locale->wordings[$locale]['gem_colors']);
 	return (string)strtolower($colorArr[$socket_color]);

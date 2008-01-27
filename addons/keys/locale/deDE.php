@@ -33,6 +33,16 @@ $lang['Quests'] = 'Quests';
 $lang['Parts'] = 'Parts';
 $lang['key_status'] = '%1$s %2$s Status';
 
+$lang['rep2level'] = array(
+	'Hasserfüllt' => 1,
+	'Feindselig' => 2,
+	'Unfreundlich' => 3,
+	'Neutral' => 4,
+	'Freundlich' => 5,
+	'Wohlwollend' => 6,
+	'Respektvoll' => 7,
+	'Ehrfürchtig' => 8
+);
 
 /*
 Instance Keys

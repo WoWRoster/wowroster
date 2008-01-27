@@ -33,6 +33,16 @@ $lang['Quests'] = 'QuÃªtes';
 $lang['Parts'] = 'Parties';
 $lang['key_status'] = 'Progression pour la %2$s %1$s';
 
+$lang['rep2level'] = array(
+	'Détesté' => 1,
+	'Hostile' => 2,
+	'Inamical' => 3,
+	'Neutre' => 4,
+	'Amical' => 5,
+	'Honoré' => 6,
+	'Révéré' => 7,
+	'Exalté' => 8
+);
 
 /*
 Instance Keys
