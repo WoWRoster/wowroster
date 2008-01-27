@@ -165,6 +165,21 @@ $inst_keys['A'] = array(
 		'In|Auchenai Key|1||1',
 		'Key|inv_misc_key_11|',
 	),
+	'CoilH' => array(
+		'R|Cenarion Expedition|6||1',
+		'In|Reservoir Key|1||1',
+		'Key|inv_misc_key_13|',
+	),
+	'KoTH' => array(
+		'R|Keepers of Time|6||1',
+		'In|Key of Time|1||1',
+		'Key|inv_misc_key_04|',
+	),
+	'TempestH' => array(
+		'R|The Sha\\\'tar|6||1',
+		'In|Warpforged Key|1||1',
+		'Key|inv_misc_key_09|',
+	),
 	'Karazhan' => array(
 		'Q|Arcane Disturbances|1|()|1',
 		'Q|Restless Activity|1|()|1',
@@ -288,6 +303,21 @@ $inst_keys['H'] = array(
 		'R|Lower City|6||1',
 		'In|Auchenai Key|1||1',
 		'Key|inv_misc_key_11|',
+	),
+	'CoilH' => array(
+		'R|Cenarion Expedition|6||1',
+		'In|Reservoir Key|1||1',
+		'Key|inv_misc_key_13|',
+	),
+	'KoTH' => array(
+		'R|Keepers of Time|6||1',
+		'In|Key of Time|1||1',
+		'Key|inv_misc_key_04|',
+	),
+	'TempestH' => array(
+		'R|The Sha\\\'tar|6||1',
+		'In|Warpforged Key|1||1',
+		'Key|inv_misc_key_09|',
 	),
 	'Karazhan' => array(
 		'Q|Arcane Disturbances|1|()|1',
