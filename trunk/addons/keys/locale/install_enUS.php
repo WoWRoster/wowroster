@@ -146,6 +146,20 @@ $inst_keys['A'] = array(
                 'In|Shadow Labyrinth Key|1||1',
                 'Key|inv_misc_key_02|'
         ),
+	'SH' => array(
+		'In|Primed Key Mold|1||1',
+		'Q|Entry Into the Citadel|1||1',
+		'Q|Grand Master Dumphry|1||1',
+		'Q|Dumphry\\\'s Request|1||1',
+		'Q|Hotter than Hell|1||1',
+		'In|Shattered Halls Key|1||1',
+		'Key|inv_misc_key_02|350'
+	),
+	'HCH' => array(
+		'R|Honor Hold|6||1',
+		'In|Flamewrought Key|1||1',
+		'Key|inv_misc_key_13|',
+	),
 	'AuchH' => array(
 		'R|Lower City|6||1',
 		'In|Auchenai Key|1||1',
@@ -256,6 +270,20 @@ $inst_keys['H'] = array(
                 'In|Shadow Labyrinth Key|1||1',
                 'Key|inv_misc_key_02|'
         ),
+	'SH' => array(
+		'In|Primed Key Mold|1||1',
+		'Q|Entry Into the Citadel|1||1',
+		'Q|Grand Master Rohok|1||1',
+		'Q|Rohok\\\'s Request|1||1',
+		'Q|Hotter than Hell|1||1',
+		'In|Shattered Halls Key|1||1',
+		'Key|inv_misc_key_02|350'
+	),
+	'HCH' => array(
+		'R|Thrallmar|6||1',
+		'In|Flamewrought Key|1||1',
+		'Key|inv_misc_key_13|',
+	),
 	'AuchH' => array(
 		'R|Lower City|6||1',
 		'In|Auchenai Key|1||1',
