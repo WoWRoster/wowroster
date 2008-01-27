@@ -3259,7 +3259,7 @@ class update
 		{
 			$attack = $data['Attributes']['Ranged'];
 
-			if( is_numeric($attack['ranged_dps']) )
+			if( is_numeric($attack['AttackDPS']) )
 			{
 				$this->add_rating( 'ranged_power', ( isset($attack['AttackPower']) ? $attack['AttackPower'] : '0' ));
 				$this->add_rating( 'ranged_hit', $attack['HitRating']);
