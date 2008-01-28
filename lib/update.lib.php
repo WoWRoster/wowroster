@@ -469,10 +469,6 @@ class update
 					$output .= $this->addon_hook('char_post', $characters);
 				}
 			}
-			else
-			{
-				$output .= $roster->locale->act['noGuild'];
-			}
 		}
 		return $output;
 	}
