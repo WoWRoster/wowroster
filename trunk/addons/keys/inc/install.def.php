@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1604';
+	var $version = '1.9.9.1608';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -134,6 +134,7 @@ class keysInstall
 
 		// 1600: Key defines only
 		// 1604: Key defines only
+		// 1608: Reputation format changed.
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
 		$this->loadkeys( 'install_' );
@@ -209,7 +210,8 @@ class keysInstall
 
 						if( $type == 'R' && !is_numeric($count) )
 						{
-							$count = $lang['rep2level'][$count];
+							list($standing, $count) = explode('+',$count);
+							$count += $lang['rep2level'][$standing];
 						}
 
 						$installer->add_query("INSERT INTO `" . $installer->table('stages') . "` VALUES ( '" . $faction . "','" . $key_name . "'," . (int)$stage . ",'" . $type . "','" . $value . "'," . (int)$count . ",'" . $flow . "'," . (int)$active . ");");

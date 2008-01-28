@@ -117,7 +117,13 @@ class keysUpdate
 			. "`" . $roster->db->table('reputation') . "` AS data "
 			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
 			. "AND `stages`.`type` = 'R' AND `data`.`name` = `stages`.`value` "
-			. "AND `stages`.`count` <= FIND_IN_SET(`data`.`Standing`, '" . implode(',', array_keys($roster->locale->wordings[$char['Locale']]['rep2level'])) . "') ";
+			. "AND `stages`.`count` <= `data`.`curr_rep` + CASE `data`.`Standing` ";
+		foreach( $roster->locale->wordings[$char['Locale']]['rep2level'] as $standing => $number )
+		{
+			$query .= "WHEN '" . $standing . "' THEN " . (int)$number . " ";
+		}
+		$query .= "END;";
+			
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' reputation stages activated';
 
