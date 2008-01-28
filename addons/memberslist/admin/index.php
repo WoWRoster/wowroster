@@ -21,7 +21,8 @@ if ( !defined('IN_ROSTER') )
 $query = "DELETE `".$roster->db->table('config_guild',$addon['basename'])."` ".
 	"FROM `".$roster->db->table('config_guild',$addon['basename'])."` ".
 	"LEFT JOIN `".$roster->db->table('guild')."` USING (`guild_id`) ".
-	"WHERE `".$roster->db->table('guild')."`.`guild_id` IS NULL ";
+	"WHERE `".$roster->db->table('guild')."`.`guild_id` IS NULL ".
+	"AND `".$roster->db->table('config_guild',$addon['basename'])."`.`guild_id` != 0;";
 
 $roster->db->query($query);
 
