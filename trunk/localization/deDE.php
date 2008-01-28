@@ -54,7 +54,7 @@ $lang['addon_error'] = 'Addon Fehler';
 $lang['specify_addon'] = 'Du musste einen Addonnamen angeben!';
 $lang['addon_not_exist'] = '<b>Das Addon [%1$s] existiert nicht!</b>';
 $lang['addon_disabled'] = '<b>Das Addon [%1$s] wurde deaktiviert</b>';
-$lang['addon_upgrade_notice'] = '<b>The addon [%1$s] has been disabled because it needs to be upgraded';
+$lang['addon_upgrade_notice'] = '<b>The addon [%1$s] has been disabled because it needs to be upgraded</b>';
 $lang['addon_not_installed'] = '<b>Das Addon [%1$s] wurde bis jetzt noch nicht installiert</b>';
 $lang['addon_no_config'] = '<b>Das Addon [%1$s] wurde noch nicht konfiguriert</b>';
 
