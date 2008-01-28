@@ -156,27 +156,27 @@ $inst_keys['A'] = array(
 		'Key|inv_misc_key_02|350'
 	),
 	'HCH' => array(
-		'R|Honor Hold|6||1',
+		'R|Honor Hold|9000||1',
 		'In|Flamewrought Key|1||1',
 		'Key|inv_misc_key_13|',
 	),
 	'AuchH' => array(
-		'R|Lower City|6||1',
+		'R|Lower City|9000||1',
 		'In|Auchenai Key|1||1',
 		'Key|inv_misc_key_11|',
 	),
 	'CoilH' => array(
-		'R|Cenarion Expedition|6||1',
+		'R|Cenarion Expedition|9000||1',
 		'In|Reservoir Key|1||1',
 		'Key|inv_misc_key_13|',
 	),
 	'KoTH' => array(
-		'R|Keepers of Time|6||1',
+		'R|Keepers of Time|9000||1',
 		'In|Key of Time|1||1',
 		'Key|inv_misc_key_04|',
 	),
 	'TempestH' => array(
-		'R|The Sha\\\'tar|6||1',
+		'R|The Sha\\\'tar|9000||1',
 		'In|Warpforged Key|1||1',
 		'Key|inv_misc_key_09|',
 	),
@@ -295,27 +295,27 @@ $inst_keys['H'] = array(
 		'Key|inv_misc_key_02|350'
 	),
 	'HCH' => array(
-		'R|Thrallmar|6||1',
+		'R|Thrallmar|9000||1',
 		'In|Flamewrought Key|1||1',
 		'Key|inv_misc_key_13|',
 	),
 	'AuchH' => array(
-		'R|Lower City|6||1',
+		'R|Lower City|9000||1',
 		'In|Auchenai Key|1||1',
 		'Key|inv_misc_key_11|',
 	),
 	'CoilH' => array(
-		'R|Cenarion Expedition|6||1',
+		'R|Cenarion Expedition|9000||1',
 		'In|Reservoir Key|1||1',
 		'Key|inv_misc_key_13|',
 	),
 	'KoTH' => array(
-		'R|Keepers of Time|6||1',
+		'R|Keepers of Time|9000||1',
 		'In|Key of Time|1||1',
 		'Key|inv_misc_key_04|',
 	),
 	'TempestH' => array(
-		'R|The Sha\\\'tar|6||1',
+		'R|The Sha\\\'tar|9000||1',
 		'In|Warpforged Key|1||1',
 		'Key|inv_misc_key_09|',
 	),

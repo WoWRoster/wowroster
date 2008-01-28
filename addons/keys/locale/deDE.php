@@ -34,14 +34,14 @@ $lang['Parts'] = 'Parts';
 $lang['key_status'] = '%1$s %2$s Status';
 
 $lang['rep2level'] = array(
-	'Hasserfüllt' => 1,
-	'Feindselig' => 2,
-	'Unfreundlich' => 3,
-	'Neutral' => 4,
-	'Freundlich' => 5,
-	'Wohlwollend' => 6,
-	'Respektvoll' => 7,
-	'Ehrfürchtig' => 8
+	'Hasserfüllt' => -42000,
+	'Feindselig' => -6000,
+	'Unfreundlich' => -3000,
+	'Neutral' => 0,
+	'Freundlich' => 3000,
+	'Wohlwollend' => 9000,
+	'Respektvoll' => 21000,
+	'Ehrfürchtig' => 42000
 );
 
 /*
