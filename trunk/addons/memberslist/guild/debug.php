@@ -87,7 +87,7 @@ $FIELD['officer_note'] = array (
 	'order' => array( 'onisnull','`members`.`note` ASC' ),
 	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
 	'js_type' => 'ts_string',
-	'display' => 3,
+	'display' => ( $addon['config']['member_onote'] ? 3 : 0 ),
 	'value'   => 'debugNote',
 );
 
