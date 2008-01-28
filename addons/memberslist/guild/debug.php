@@ -17,6 +17,16 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+$query = "SELECT `config_name`, `config_value` "
+	. "FROM `" . $roster->db->table('config_guild',$addon['basename']) . "` "
+	. "WHERE `guild_id` = " . $roster->data['guild_id'] . ";";
+$result = $roster->db->query($query);
+
+while( $row = $roster->db->fetch($result) )
+{
+	$addon['rules'][$row['config_name']] = $row['config_value'];
+}
+
 $mainQuery =
 	'SELECT '.
 	'`members`.`member_id`, '.
@@ -69,6 +79,7 @@ $FIELD['note'] = array (
 	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
 	'js_type' => 'ts_string',
 	'display' => 3,
+	'value'   => 'debugNote',
 );
 
 $FIELD['officer_note'] = array (
@@ -77,6 +88,7 @@ $FIELD['officer_note'] = array (
 	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
 	'js_type' => 'ts_string',
 	'display' => 3,
+	'value'   => 'debugNote',
 );
 
 include_once ($addon['dir'].'inc/memberslist.php');
@@ -91,15 +103,21 @@ echo "<br />\n".border('syellow','start')."\n";
 echo $memberlist->makeMembersList();
 echo border('syellow','end');
 
-$query = "SELECT `config_name`, `config_value` "
-	. "FROM `" . $roster->db->table('config_guild',$addon['basename']) . "` "
-	. "WHERE `guild_id` = " . $roster->data['guild_id'] . ";";
-$result = $roster->db->query($query);
-
-while( $row = $roster->db->fetch($result) )
-{
-	$addon['rules'][$row['config_name']] = $row['config_value'];
-}
-
 echo "<br />\n".scrollbox(aprint($addon,'$addon',true),'Config data','sgray');
 
+function debugNote( $row, $field, $data )
+{
+	global $addon;
+
+	if(preg_match($addon['rules']['getmain_regex'], $row[$field], $regs))
+	{
+		$tooltip_h = $regs[$addon['rules']['getmain_match']];
+		$tooltip = aprint($regs, '', true);
+	}
+	else
+	{
+		$tooltip_h = '';
+		$tooltip = 'No main match';
+	}
+	return '<div ' . makeOverlib($tooltip, $tooltip_h) . '>' . $row[$field] . '</div>' . "\n";
+}
