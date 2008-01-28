@@ -1058,10 +1058,10 @@ function getaddon( $addonname )
 	$addon['inc_dir'] = $addon['dir'] . 'inc' . DIR_SEP;
 
 	// Get the addon's conf file
-	$addon['conf_file'] = $addon['inc_dir'] . DIR_SEP . 'conf.php';
+	$addon['conf_file'] = $addon['inc_dir'] . 'conf.php';
 
 	// Get the addon's search file
-	$addon['search_file'] = $addon['inc_dir'] . DIR_SEP . 'search.inc.php';
+	$addon['search_file'] = $addon['inc_dir'] . 'search.inc.php';
 
 	// Get the addon's locale dir
 	$addon['locale_dir'] = $addon['dir'] . 'locale' . DIR_SEP;
