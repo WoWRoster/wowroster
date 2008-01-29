@@ -605,7 +605,9 @@ $lang['tooltip_preg_block']='/(Bloquer).+?(\d+)/i';  // text for shield blocking
 $lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge|jaune|bleue|Méta)(?:-Châsse)?/i'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
-$lang['tooltip_preg_meta_requires']='/Requires.*?Gems/';
+$lang['tooltip_preg_meta_requires']='/Requires.*?gems/';
+$lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gems/';
+$lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Fréquence de butin';
@@ -639,6 +641,17 @@ $lang['gem_colors'] = array(
 	'purple' => 'pourpre',
 	'prismatic' => 'prismatique',
 	'meta' => 'Méta'
+	);
+
+$lang['gem_colors_to_en'] = array(
+	'red' => 'red',
+	'blue' => 'blue',
+	'yellow' => 'yellow',
+	'green' => 'green',
+	'orange' => 'orange',
+	'purple' => 'purple',
+	'prismatic' => 'prismatic',
+	'meta' => 'meta' //verify translation
 	);
 // -- end tooltip parsing
 

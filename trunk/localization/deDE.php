@@ -606,6 +606,8 @@ $lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer)(?:.?sockel)/i';
 $lang['tooltip_preg_reinforcedarmor']='/(Verstärkt \(\+\d+ Rüstung\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
 $lang['tooltip_preg_meta_requires']='/Benötigt.*?Edelsteine/';
+$lang['tooltip_preg_meta_requires_min']='/Benötigt mindestens (\d) Edelsteine der Kategorie (\S+)/';
+$lang['tooltip_preg_meta_requires_more']='/Benötigt mehr Edelsteine der Kategorie (\S+) als Edelsteine der Kategorie (\S+)/';
 $lang['tooltip_source']='Quelle';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Droprate';
@@ -639,6 +641,17 @@ $lang['gem_colors'] = array(
 	'purple' => 'violett',
 	'prismatic' => 'prismatisch',
 	'meta' => 'Meta' //verify translation
+	);
+
+$lang['gem_colors_to_en'] = array(
+	'rot' => 'red',
+	'blau' => 'blue',
+	'gelb' => 'yellow',
+	'grün' => 'green',
+	'orange' => 'orange',
+	'violett' => 'purple',
+	'prismatisch' => 'prismatic',
+	'meta' => 'meta' //verify translation
 	);
 // -- end tooltip parsing
 

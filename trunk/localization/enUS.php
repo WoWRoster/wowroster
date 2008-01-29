@@ -605,7 +605,9 @@ $lang['tooltip_preg_block']='/(\d+) (Block)/';
 $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';
-$lang['tooltip_preg_meta_requires']='/Requires.*?Gems/';
+$lang['tooltip_preg_meta_requires']='/Requires.*?gems/';
+$lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gems/';
+$lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Drop Rate';
@@ -639,6 +641,17 @@ $lang['gem_colors'] = array(
 	'purple' => 'Purple',
 	'prismatic' => 'Prismatic',
 	'meta' => 'Meta'
+	);
+
+$lang['gem_colors_to_en'] = array(
+	'red' => 'red',
+	'blue' => 'blue',
+	'yellow' => 'yellow',
+	'green' => 'green',
+	'orange' => 'orange',
+	'purple' => 'purple',
+	'prismatic' => 'prismatic',
+	'meta' => 'meta' //verify translation
 	);
 // -- end tooltip parsing
 
