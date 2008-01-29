@@ -605,6 +605,7 @@ $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer)(?:.?sockel)/i';
 $lang['tooltip_preg_reinforcedarmor']='/(Verstärkt \(\+\d+ Rüstung\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
+$lang['tooltip_preg_meta_requires']='/Benötigt.*?Edelsteine/';
 $lang['tooltip_source']='Quelle';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Droprate';

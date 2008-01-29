@@ -605,6 +605,7 @@ $lang['tooltip_preg_block']='/(\d+) (Block)/';
 $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';
+$lang['tooltip_preg_meta_requires']='/Requires.*?Gems/';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Drop Rate';
