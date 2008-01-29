@@ -200,6 +200,9 @@ class memberslistUpdate
 			$this->messages .= " - <span style='color:yellow;'>No main match</span>\n";
 		}
 
+		// Fix name case. Won't work if it's accented or anything like that.
+		$main_name = ucfirst(strtolower($main_name));
+
 		// If the main name is equal to this rules field then this char is a main, and we should set the $main_name accordingly
 		if($main_name == $this->data['rules']['getmain_main'])
 		{
