@@ -605,9 +605,10 @@ $lang['tooltip_preg_block']='/(\d+) (bloqueo)/';  // text for shield blocking va
 $lang['tooltip_preg_emptysocket']='/Ranura (roja|amarilla|azul|meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Reforzado\s\(\+\d+\sarmadura\))/i';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';
-$lang['tooltip_source']='Source';
-$lang['tooltip_boss']='Boss';
-$lang['tooltip_droprate']='Drop Rate';
+$lang['tooltip_preg_meta_requires']='/Requires.*?Gems/';
+$lang['tooltip_source']='Fuente';
+$lang['tooltip_boss']='Jefe';
+$lang['tooltip_droprate']='Pos\. de aparici';
 
 $lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc

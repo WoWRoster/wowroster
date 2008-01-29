@@ -52,6 +52,7 @@ class item
 	var $effects = array(); // holds passive bonus effects of the item
 	var $enchantment;
 	var $sockets = array('red' => 0, 'yellow' => 0, 'blue' => 0, 'meta' => 0); //socket colors
+	var $hasMetaGem = false;
 	var $html_tooltip;
 
 	// item debugging. debug level 0, 1, 2
@@ -296,11 +297,19 @@ class item
 		if( isset($this->attributes['Gems']) )
 		{
 			$gems = $this->attributes['Gems'];
+			$i = 0;
 			foreach( $gems as $gem )
 			{
 				$html .= '<img width="16px" height="16px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '"/>'
 					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['Bonus'] . '</span><br />';
+				if ( $this->hasMetaGem && $i == 0 ) {
+						foreach ( $this->attributes['MetaRequires'] as $requirement )
+						{
+								$html .= '<span style="color:#ffffff;">&nbsp;&nbsp;' . $requirement . '</span><br />';
+						}
+				}
+				$i++;
 			}
 		}
 		return $html;
@@ -515,7 +524,7 @@ class item
 		$html = '<span style="color:#ffd517;">' . $this->attributes['ItemNote'] . '</span><br />';
 		return $html;
 	}
- 
+
 	function _getBoss()
 	{
 		$tmp = explode ( ':', $this->attributes['Boss'] );
@@ -952,7 +961,7 @@ class item
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
-			elseif( preg_match('/(?:.+socket*\n)?\n(.+)\n' . $roster->locale->wordings[$locale]['tooltip_durability'] . '/i', $tooltip, $matches) )
+			elseif( preg_match('/(?:.+socket*\n)?\n(.+)\n(?:' . $roster->locale->wordings[$locale]['tooltip_durability'] . '|\s\s' . $roster->locale->act['tooltip_reg_requires'] . ')/i', $tooltip, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
@@ -1145,6 +1154,11 @@ class item
 				{
 					$setpiece=false;
 				}
+			}
+			elseif( preg_match($roster->locale->act['tooltip_preg_meta_requires'], $line ) )
+			{
+				$tt['Attributes']['MetaRequires'][] = $line;
+				$this->hasMetaGem = true;
 			}
 			else
 			{
