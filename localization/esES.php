@@ -605,7 +605,9 @@ $lang['tooltip_preg_block']='/(\d+) (bloqueo)/';  // text for shield blocking va
 $lang['tooltip_preg_emptysocket']='/Ranura (roja|amarilla|azul|meta)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Reforzado\s\(\+\d+\sarmadura\))/i';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';
-$lang['tooltip_preg_meta_requires']='/Requires.*?Gems/';
+$lang['tooltip_preg_meta_requires']='/Requires.*?gems/';
+$lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gems/';
+$lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
 $lang['tooltip_source']='Fuente';
 $lang['tooltip_boss']='Jefe';
 $lang['tooltip_droprate']='Pos\. de aparici';
@@ -638,6 +640,19 @@ $lang['gem_colors'] = array(
 	'orange' => 'naranja',
 	'purple' => 'morada',
 	'prismatic' => 'centelleante',
+	'meta' => 'meta'
+	);
+
+$lang['gem_colors_to_en'] = array(
+	'roja' => 'red',
+	'rojo' => 'red',
+	'azul' => 'blue',
+	'amarilla' => 'yellow',
+	'amarillo' => 'yellow',
+	'verde' => 'green',
+	'naranja' => 'orange',
+	'morada' => 'purple',
+	'centelleante' => 'prismatic',
 	'meta' => 'meta'
 	);
 // -- end tooltip parsing
