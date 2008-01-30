@@ -301,7 +301,7 @@ class item
 			$i = 0;
 			foreach( $gems as $gem )
 			{
-				$html .= '<img width="16px" height="16px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+				$html .= '<img width="10px" height="10px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '"/>'
 					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['Bonus'] . '</span><br />';
 				if ( $this->hasMetaGem && $i == 0 ) {
