@@ -48,6 +48,8 @@ class SimpleParser
 	 */
 	function parse( $data )
 	{
+		$this->data = array();
+		$this->datas = array();
 		$this->parser = xml_parser_create('UTF-8'); //'UTF-8'
 		xml_set_object($this->parser, $this);
 		xml_parser_set_option($this->parser, XML_OPTION_SKIP_WHITE, 1);
