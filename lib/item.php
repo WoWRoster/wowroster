@@ -921,7 +921,12 @@ class item
 		$tooltip = str_replace("\n\n", "\n", $tooltip);
 		$tooltip = str_replace('<br>', "\n",$tooltip);
 		$tooltip = str_replace('<br />', "\n",$tooltip);
+
+		// As enchants can't be in colored lines we make a copy of tooltip without colored lines
+		$tooltipWithoutColoredLines = $tooltip;
 		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
+		$tooltipWithoutColoredLines = preg_replace( '/\|c[a-f0-9]{6,8}.+?\|r\n/', '', $tooltipWithoutColoredLines );
+
 
 		// tries to capture temp enchants based on pattern
 		if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_tempenchants'], $tooltip, $matches) )
@@ -980,17 +985,17 @@ class item
 
 			//
 			// Check for 'Reinforced (+32 Armor)' enchant types first.
-			if( $enchant < 2000 && preg_match($roster->locale->wordings[$locale]['tooltip_preg_reinforcedarmor'], $tooltip, $matches) )
+			if( $enchant < 2000 && preg_match($roster->locale->wordings[$locale]['tooltip_preg_reinforcedarmor'], $tooltipWithoutColoredLines, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
-			elseif( preg_match('/(?:.+socket*\n)?\n(.+)\n(?:' . $roster->locale->wordings[$locale]['tooltip_durability'] . '|\s\s' . $roster->locale->act['tooltip_reg_requires'] . ')/i', $tooltip, $matches) )
+			elseif( preg_match('/(?:.+socket*\n)?\n(.+)\n(?:' . $roster->locale->wordings[$locale]['tooltip_durability'] . '|\s\s' . $roster->locale->act['tooltip_reg_requires'] . ')/i', $tooltipWithoutColoredLines, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
-			elseif( preg_match( '/\n(.+)\n' . $roster->locale->wordings[$locale]['tooltip_reg_requires'].'/i', $tooltip, $matches) )
+			elseif( preg_match( '/\n(.+)\n' . $roster->locale->wordings[$locale]['tooltip_reg_requires'].'/i', $tooltipWithoutColoredLines, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
@@ -998,7 +1003,7 @@ class item
 			//
 			// add check for "Increased Stealth" and "Subtlety" cloak enchants otherwise could fail
 			//
-			elseif( preg_match_all('/\+\d+.+/', $tooltip, $matches) )
+			elseif( preg_match_all('/\+\d+.+/', $tooltipWithoutColoredLines, $matches) )
 			{
 				//grab the last + stat in the tooltip and call that the enchantment.
 				$tooltip = str_replace($matches[0][count($matches[0])-1], '', $tooltip);
