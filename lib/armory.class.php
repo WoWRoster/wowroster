@@ -88,76 +88,38 @@ class RosterArmory
 	function fetchArmory( $type = false, $character = false, $guild = false, $realm = false, $item_id = false,$fetch_type = 'array' )
 	{
 		global $roster;
-		$cache_tag = $type . $character . $guild . $realm . $item_id . $fetch_type;
 
-		if( $roster->cache->check($cache_tag) )
+		$url = $this->_makeUrl( $type, false, $item_id, $character, $realm, $guild );
+		if ( $fetch_type == 'html')
 		{
-			if( $this->debug_cachehits )
+			$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
+		}
+		if( $this->_requestXml($url) )
+		{
+			if( $fetch_type == 'array' )
 			{
-				echo __FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]";
-				trigger_error(__FUNCTION__ . " ::: Cache Hit: [ $cache_tag ]", E_NOTICE);
+				// parse and return array
+				$this->_initXmlParser();
+				$this->xmlParser->Parse($this->xml);
+				$data = $this->xmlParser->getParsedData();
 			}
-			if ( $fetch_type == 'simpleClass' )
+			elseif( $fetch_type == 'simpleClass' )
 			{
+				// parse and return SimpleClass object
 				$this->_initSimpleParser();
-				return $this->simpleParser->parse($roster->cache->get($cache_tag));
+				$data = $this->simpleParser->parse($this->xml);
 			}
 			else
 			{
-				return $roster->cache->get($cache_tag);
+				// unparsed fetches
+				return $this->xml;
 			}
+			return $data;
 		}
 		else
 		{
-			$url = $this->_makeUrl( $type, false, $item_id, $character, $realm, $guild );
-			if ( $fetch_type == 'html')
-			{
-				$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
-			}
-			if( $this->_requestXml($url) )
-			{
-				if( $fetch_type == 'array' )
-				{
-					// parse and return array
-					$this->_initXmlParser();
-					$this->xmlParser->Parse($this->xml);
-					$data = $this->xmlParser->getParsedData();
-					if( !isset($data['page'][0]['child']['errorhtml']) )
-					{
-						$roster->cache->put($data, $cache_tag);
-					}
-					else
-					{
-						trigger_error('RosterArmory:: Failed to fetch ' . $url . '. Armory is in maintenance mode');
-					}
-				}
-				elseif( $fetch_type == 'simpleClass' )
-				{
-					// parse and return SimpleClass object
-					$this->_initSimpleParser();
-					$data = $this->simpleParser->parse($this->xml);
-					if ( is_object($data) && !$data->hasProp('errorhtml') )
-					{
-						$roster->cache->put($this->xml, $cache_tag);
-					}
-					else
-					{
-						trigger_error('RosterArmory:: Failed to fetch ' . $url . '. Armory is in maintenance mode');
-					}
-				}
-				else
-				{
-					// unparsed fetches
-					$roster->cache->put($this->xml, $cache_tag);
-					return $this->xml;
-				}
-				return $data;
-			}
-			else
-			{
-				trigger_error('RosterArmory:: Failed to fetch ' . $url);
-				return false;
-			}
+			trigger_error('RosterArmory:: Failed to fetch ' . $url);
+			return false;
 		}
 	}
 
