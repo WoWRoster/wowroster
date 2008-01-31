@@ -932,6 +932,7 @@ class item
 		if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_tempenchants'], $tooltip, $matches) )
 		{
 			$tooltip = str_replace( $matches[0], '', $tooltip );
+			$tooltipWithoutColoredLines = str_replace( $matches[0], '', $tooltipWithoutColoredLines );
 			$tt['Attributes']['TempEnchantment'][] = $matches[1];
 		}
 		//
@@ -940,6 +941,7 @@ class item
 		if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_socketbonus'], $tooltip, $matches) )
 		{
 			$tooltip = str_replace( $matches[0], '', $tooltip );
+			$tooltipWithoutColoredLines = str_replace( $matches[0], '', $tooltipWithoutColoredLines );
 			$tt['Attributes']['SocketBonus'] = $matches[0];
 		}
 
@@ -956,6 +958,7 @@ class item
 					if( isset($tt['Attributes']['Gems'][$i]['Bonus']) )
 					{
 						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
+						$tooltipWithoutColoredLines = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltipWithoutColoredLines);
 					}
 					else
 					{
