@@ -1232,7 +1232,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 			}
 			$header .= "\r\n";
 			fwrite($file, $header);
-			stream_set_blocking($file, false);
+			stream_set_blocking($file, true);
 			stream_set_timeout($file, $timeout);
 
 			$info = stream_get_meta_data($file);
