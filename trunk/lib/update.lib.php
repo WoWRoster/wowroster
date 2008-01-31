@@ -1232,7 +1232,7 @@ class update
 				// -- start the parsing
 				if ( eregi( $roster->locale->wordings[$this->locale]['tooltip_boss'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_source'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_droprate'], $line))
 				{
-					next;
+					continue;
 				}
 				elseif( eregi( '\%|\+|'.$roster->locale->wordings[$this->locale]['tooltip_chance'], $line))  // if the line has a + or % or the word Chance assume it's bonus line.
 				{
