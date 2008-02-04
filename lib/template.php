@@ -57,7 +57,7 @@ class RosterTemplate
 			$this->tpl = 'default';
 		}
 		$this->_tpldata['.'][0]['REQUEST_URI'] = str_replace('&', '&amp;', substr(request_uri(),strlen(ROSTER_PATH)));
-		$this->root = 'templates/' . $this->tpl;
+		$this->root = ROSTER_TPLDIR . $this->tpl;
 	}
 
 	// Sets the template filenames for handles. $filename_array
@@ -134,20 +134,20 @@ class RosterTemplate
 		if (!file_exists(ROSTER_BASE.$this->files[$handle]))
 		{
 			//trigger_error('template->_tpl_load(): '.($this->files[$handle]).' does not exist', E_USER_NOTICE);
-			$this->files[$handle] = 'templates/default/'.$this->filename[$handle];
-			$this->_tpldata['.'][0]['THEME_PATH'] = 'templates/default';
-			$this->cachepath = 'cache/tpl_default_';
+			$this->files[$handle] = ROSTER_TPLDIR.'default/'.$this->filename[$handle];
+			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH.'templates/default';
+			$this->cachepath = ROSTER_CACHEDIR.'tpl_default_';
 			$pos = strpos($this->filename[$handle], '/');
 			if( !file_exists(ROSTER_BASE.$this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS.substr($this->filename[$handle],0,$pos).'/templates') )
 			{
-				$this->files[$handle] = 'addons/'.substr($this->filename[$handle],0,$pos).'/templates/'.substr($this->filename[$handle],$pos+1);
-				$this->_tpldata['.'][0]['THEME_PATH'] = 'addons/'.substr($this->filename[$handle],0,$pos);
+				$this->files[$handle] = ROSTER_ADDONS.substr($this->filename[$handle],0,$pos).'/templates/'.substr($this->filename[$handle],$pos+1);
+				$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH.'addons/'.substr($this->filename[$handle],0,$pos);
 			}
 		}
 		else
 		{
-			$this->_tpldata['.'][0]['THEME_PATH'] = 'templates/'.$this->tpl;
-			$this->cachepath = 'cache/tpl_'.$this->tpl.'_';
+			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH.'templates/'.$this->tpl;
+			$this->cachepath = ROSTER_CACHEDIR.'tpl_'.$this->tpl.'_';
 		}
 
 		$filename = ereg_replace('/', '#', $this->filename[$handle]);
@@ -167,7 +167,7 @@ class RosterTemplate
 	function _tpl_load_file( $handle )
 	{
 		// Try and open template for read
-		if( !($fp = fopen(ROSTER_BASE.$this->files[$handle], 'r')) )
+		if( !($fp = fopen($this->files[$handle], 'r')) )
 		{
 			trigger_error("template->_tpl_load_file(): File ".$this->files[$handle]." does not exist or is empty", E_USER_ERROR);
 		}
