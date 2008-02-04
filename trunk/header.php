@@ -66,7 +66,6 @@ $roster->tpl->assign_vars(array(
 	'U_MAKELINK'      => makelink(),
 	'ROSTER_URL'      => ROSTER_URL,
 	'ROSTER_PATH'     => ROSTER_PATH,
-	'THEME_PATH'      => ROSTER_PATH . $roster->config['theme'],
 	'WEBSITE_ADDRESS' => $roster->config['website_address'],
 	'HEADER_LOGO'     => $roster->config['logo'],
 	'IMG_URL'         => $roster->config['img_url'],
