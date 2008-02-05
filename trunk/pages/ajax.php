@@ -21,7 +21,6 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-
 $method = (isset($roster->pages[1]) ? $roster->pages[1] : '');
 
 $cont = (isset($_GET['cont']) ? $_GET['cont'] : '');
@@ -75,6 +74,10 @@ else
 	$status = 1;
 	$errmsg = 'This method is not supported';
 }
+
+$roster->output['show_header'] = false;
+$roster->output['show_menu'] = false;
+$roster->output['show_footer'] = false;
 
 header('Content-Type: text/xml');
 

@@ -744,76 +744,17 @@ class RosterMenu
 		unset($localetemp);
 	}
 	/**
-	 * Builds The search feilds
-	 *
-	 *
-	 *
+	 * Builds the bottom of the menu
 	 */
 	function makeBottom()
 	{
 		global $roster;
 
-		$addonlist = array();
-		$s = $o = 0;
-		foreach( $roster->addon_data as $data )
-		{
-			$addon_search_file = ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'search.inc.php';
-			if( file_exists($addon_search_file) )
-			{
-				include_once($addon_search_file);
-				$sclass = $data['basename'] . '_search';
-				if( class_exists($sclass) )
-				{
-					// Save current locale array
-					// Since we add all locales for localization, we save the current locale array
-					// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-					$localetemp = $roster->locale->wordings;
-
-					foreach( $roster->multilanguages as $lang )
-					{
-						$roster->locale->add_locale_file(ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-					}
-
-					$data['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
-
-					// Restore our locale array
-					$roster->locale->wordings = $localetemp;
-					unset($localetemp);
-
-
-					// this is set to show a checkbox for all installed and active addons with search.inc.php files
-					// it is set to only show 4 addon check boxes per row and allows for the search only in feature
-					$roster->tpl->assign_block_vars('menu_only_search', array(
-						'BASENAME' => $data['basename'],
-						'FULLNAME' => $data['fullname'],
-						'S_DIVIDE' => ( $s && ($s % 4 == 0) ? true : false )
-						)
-					);
-					$s++;
-
-					//include advanced search options
-					//the advanced options are defined in the addon search class using $search->options = then build your forms
-					$search = new $sclass;
-					if( !empty($search->options) )
-					{
-						$roster->tpl->assign_block_vars('menu_addon_search', array(
-							'BASENAME' => $data['basename'],
-							'FULLNAME' => $data['fullname'],
-							'S_DIVIDE' => ( $o && ($o % 4 == 0) ? true : false ),
-							'SEARCH_OPTIONS' => ( $search->options ? $search->options : '' )
-							)
-						);
-						$o++;
-					}
-				}
-			}
-		}
-
 		$roster->tpl->assign_vars(array(
+			'MENU_LOGIN_FORM' => $roster->auth->getMenuLoginForm(),
+
 			'L_SEARCH'        => $roster->locale->act['search'],
 			'L_SEARCH_ROSTER' => $roster->locale->act['search_roster'],
-			'L_SEARCH_ONLYIN' => $roster->locale->act['search_onlyin'],
-			'L_SEARCH_ADVANCED' => $roster->locale->act['search_advancedoptionsfor'],
 
 			'U_SEARCH_FORM_ACTION' => makelink('search')
 			)

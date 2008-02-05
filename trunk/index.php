@@ -80,7 +80,29 @@ switch( $roster->pages[0] )
 		// OK, so it isn't a scope. Prolly a file in pages.
 		if( file_exists($file = ROSTER_PAGES . $roster->pages[0] . '.php') )
 		{
-			require($file);
+			$content = '';
+			ob_start();
+				require($file);
+			$content = ob_get_clean();
+
+			if( $roster->output['show_header'] )
+			{
+				include_once(ROSTER_BASE . 'header.php');
+			}
+
+			if( $roster->output['show_menu'] )
+			{
+				$roster_menu = new RosterMenu;
+				$roster_menu->makeMenu($roster->output['show_menu']);
+			}
+
+			echo $content;
+
+			if( $roster->output['show_footer'] )
+			{
+				include_once(ROSTER_BASE . 'footer.php');
+			}
+
 			exit();
 		}
 		else

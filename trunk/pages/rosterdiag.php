@@ -29,11 +29,6 @@ include_once(ROSTER_LIB.'rosterdiag.lib.php');
 
 
 // Loging in as Admin to allow up- / downgrades && Downloads
-// ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin();
-
-
-include_once(ROSTER_BASE . 'header.php');
 
 // If the entire config page is requested, display only THAT
 if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
@@ -42,8 +37,7 @@ if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
 	aprint($roster->config);
 	print '</div>';
 
-	include_once(ROSTER_BASE . 'footer.php');
-	exit();
+	return;
 }
 
 // If a FileDiff is requested, display the header of the file and display Warning / Confirmation
@@ -225,22 +219,14 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		print(border('sred','start','ERROR').'<div class="membersRow1">UNSPECIFIED ACTION<br />If you get this page, you probably are trying to exploit the system!</div>'.border('sred','end'));
 	}
 
-	include_once(ROSTER_BASE . 'footer.php');
-	exit();
+	return;
 }
-
-// Include the menu-box
-$roster_menu = new RosterMenu;
-$roster_menu->makeMenu($roster->output['show_menu']);
 
 // Diplay Password Box
-if ( ! $roster_login->getAuthorized( ROSTERLOGIN_ADMIN  ) )
+print '<span class="title_text">Roster Diag</span>';
+if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
-	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage().$roster_login->getLoginForm());
-}
-else
-{
-	print('<span class="title_text">Roster Diag</span><br />'.$roster_login->getMessage());
+	print '<br />' . $roster->auth->getLoginForm(ROSTERLOGIN_ADMIN);
 }
 
 echo "<br />\n";
@@ -430,7 +416,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 
 	if( $zippackage_files != '' )
 	{
-		if( ! $roster_login->getAuthorized( ROSTERLOGIN_ADMIN ) )
+		if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 		{
 			echo messagebox('Log in as Roster Admin to download update files','Updates Available!','spurple');
 			echo '<br />';
@@ -605,7 +591,3 @@ else
 	echo '<br /><br /><input type="submit" value="Check files Remotely"></div></div>';
 	echo border('sblue','end');
 }
-
-
-
-include_once(ROSTER_BASE . 'footer.php');

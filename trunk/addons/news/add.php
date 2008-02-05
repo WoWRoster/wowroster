@@ -17,12 +17,9 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-$roster_login = new RosterLogin();
-
-if( ! $roster_login->getAuthorized( $addon['config']['news_add'] ) )
+if( ! $roster->auth->getAuthorized( $addon['config']['news_add'] ) )
 {
-	print $roster_login->getMessage().
-	$roster_login->getLoginForm($addon['config']['news_add']);
+	print $roster->auth->getLoginForm($addon['config']['news_add']);
 
 	return; //To the addon framework
 }

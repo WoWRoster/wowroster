@@ -21,14 +21,8 @@ if( !defined('IN_ROSTER') )
 }
 
 $roster->output['title'] = $roster->locale->act['credit'];
-include_once(ROSTER_BASE . 'header.php');
-
-$roster_menu = new RosterMenu;
-$roster_menu->makeMenu($roster->output['show_menu']);
-
 
 echo "<div style=\"font-size:12px;\">\n".$roster->locale->creditspage['top']."\n</div>\n";
-
 
 // format table locations
 echo "<table cellspacing=\"10\"><tr><td valign=\"top\" width=\"50%\">\n";
@@ -142,7 +136,6 @@ if($AddonCredits != '')
 
 echo "<div style=\"font-size:12px;\">\n".$roster->locale->creditspage['bottom']."\n</div>\n";
 
-include_once(ROSTER_BASE . 'footer.php');
 
 /**
  * Gets the list of currently installed roster addons

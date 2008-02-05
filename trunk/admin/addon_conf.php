@@ -33,7 +33,33 @@ $addon = getaddon($roster->pages[2]);
 // Check if addon is active
 if( $addon['active'] = '1' )
 {
-	if( isset($roster->pages[3]) && file_exists($addon['admin_dir'].$roster->pages[3] . '.php') )
+	// Check if this addon is in the process of an upgrade and deny access if it hasn't yet been upgraded
+	$installfile = $addon['inc_dir'] . 'install.def.php';
+	$install_class = $addon['basename'] . 'Install';
+
+	if( file_exists($installfile) )
+	{
+		include_once($installfile);
+
+		if( class_exists($install_class) )
+		{
+			$addonstuff = new $install_class;
+
+			// -1 = overwrote newer version
+			//  0 = same version
+			//  1 = upgrade available
+
+			if( version_compare($addonstuff->version,$addon['version']) )
+			{
+				$body = messagebox(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
+					. sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error'],'sred');
+				return;
+			}
+			unset($addonstuff);
+		}
+	}
+
+	if( isset($roster->pages[3]) && file_exists($addon['admin_dir'] . $roster->pages[3] . '.php') )
 	{
 		$addon['active_file'] = $addon['admin_dir'] . $roster->pages[3] . '.php';
 	}
@@ -45,7 +71,7 @@ if( $addon['active'] = '1' )
 	// Include addon's locale files if they exist
 	foreach( $roster->multilanguages as $langvalue )
 	{
-		$roster->locale->add_locale_file($addon['locale_dir'].$langvalue.'.php',$langvalue);
+		$roster->locale->add_locale_file($addon['locale_dir'] . $langvalue . '.php',$langvalue);
 	}
 
 	// Include addon's conf.php file
@@ -64,9 +90,9 @@ if( $addon['active'] = '1' )
 	}
 	elseif( $addon['config'] != '' )
 	{
-		if( file_exists($addon['dir'].'admin/config.func.php') )
+		if( file_exists($addon['dir'] . 'admin/config.func.php') )
 		{
-			include($addon['dir'].'admin/config.func.php');
+			include($addon['dir'] . 'admin/config.func.php');
 			if( function_exists('topBox') )
 			{
 				$body .= topBox();
@@ -78,7 +104,7 @@ if( $addon['active'] = '1' )
 		}
 
 		// ----[ Set the tablename and create the config class ]----
-		include(ROSTER_LIB.'config.lib.php');
+		include(ROSTER_LIB . 'config.lib.php');
 		$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
 
 		// ----[ Get configuration data ]---------------------------
@@ -113,5 +139,5 @@ else
 // Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
 if( $addon['css_url'] != '' )
 {
-	$roster->output['html_head'] .= '  <link rel="stylesheet" type="text/css" href="'.$addon['css_url'].'" />'."\n";
+	$roster->output['html_head'] .= '  <link rel="stylesheet" type="text/css" href="' . $addon['css_url'] . '" />' . "\n";
 }

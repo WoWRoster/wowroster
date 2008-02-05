@@ -60,6 +60,13 @@ class roster
 	 */
 	var $cache;
 
+	/**
+	 * Roster Auth Object
+	 *
+	 * @var RosterLogin
+	 */
+	var $auth;
+
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,

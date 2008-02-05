@@ -16,9 +16,11 @@
 
 define('IN_ROSTER',true);
 
-// Set the relative URL here. Use slashes, not backslashes. Use slash in front
-// and omit the one at the end. If your windows server does not accept slashes
-// in pathnames set the include statement seperately.
+/**
+ * Set the relative URL here. Use slashes, not backslashes. Use slash in front
+ * and omit the one at the end. If your windows server does not accept slashes
+ * in pathnames set the include statement seperately.
+ */
 $roster_rel = '';
 
 $_GET[ROSTER_PAGE] = 'dummy';
@@ -55,7 +57,7 @@ else
 
 
 // Check if there's a character with this name
-$query = "SELECT `member_id` FROM `".$roster->db->table('members')."` WHERE $where;";
+$query = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE $where;";
 
 $result = $roster->db->query($query);
 
@@ -67,12 +69,11 @@ if( !$result )
 if( $row = $roster->db->fetch($result) )
 {
 	$roster->db->free_result($result);
-	header("Location: ".str_replace('&amp;','&',makelink('char-info&amp;a=c:'.$row['member_id'],true)));
+	header('Location: ' . str_replace('&amp;','&',makelink('char-info&amp;a=c:' . $row['member_id'],true)));
 	exit();
 }
 
 
 // There's no char with that name? Redirect to guild page.
 
-header('Location: '.ROSTER_URL.$roster_rel);
-
+header('Location: ' . ROSTER_URL . $roster_rel);

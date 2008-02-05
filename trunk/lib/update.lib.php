@@ -207,13 +207,11 @@ class update
 		}
 		$output = $roster->locale->act['processing_files'] . "<br />\n";
 
-		$roster_login = new RosterLogin();
-
 		$gotfiles = array_keys($this->uploadData);
 		if( in_array('characterprofiler',$gotfiles) )
 		{
 
-			if( $roster_login->getAuthorized( $roster->config['gp_user_level'] ) )
+			if( $roster->auth->getAuthorized( $roster->config['gp_user_level'] ) )
 			{
 				$output .= $this->processGuildRoster();
 				$output .= "<br />\n";
@@ -224,7 +222,7 @@ class update
 				}
 			}
 
-			if( $roster_login->getAuthorized( $roster->config['cp_user_level'] ) )
+			if( $roster->auth->getAuthorized( $roster->config['cp_user_level'] ) )
 			{
 				$output .= $this->processMyProfile();
 				$output .= "<br />\n";
@@ -237,7 +235,7 @@ class update
 
 		}
 
-		if( $roster_login->getAuthorized( $roster->config['lua_user_level'] ) )
+		if( $roster->auth->getAuthorized( $roster->config['lua_user_level'] ) )
 		{
 			if( is_array($this->addons) && count($this->addons)>0 )
 			{

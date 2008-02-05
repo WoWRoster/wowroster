@@ -17,22 +17,20 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-$roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
+$roster->auth->setAction('&amp;id=' . $_GET['id']);
 
 // Add the comment if one was POSTed
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
-	if( !$roster_login->getAuthorized( $addon['config']['comm_add'] ) && !isset($_POST['comment_id']) )
+	if( !$roster->auth->getAuthorized( $addon['config']['comm_add'] ) && !isset($_POST['comment_id']) )
 	{
-		print $roster_login->getMessage().
-		$roster_login->getLoginForm($addon['config']['comm_add']);
+		print $roster->auth->getLoginForm($addon['config']['comm_add']);
 
 		return; //To the addon framework
 	}
-	if( !$roster_login->getAuthorized( $addon['config']['comm_edit'] ) && isset($_POST['comment_id']) )
+	if( !$roster->auth->getAuthorized( $addon['config']['comm_edit'] ) && isset($_POST['comment_id']) )
 	{
-		print $roster_login->getMessage().
-		$roster_login->getLoginForm($addon['config']['comm_edit']);
+		print $roster->auth->getLoginForm($addon['config']['comm_edit']);
 
 		return; //To the addon framework
 	}
@@ -198,10 +196,9 @@ $roster->tpl->display('head');
 $roster->tpl->set_filenames(array('body' => $addon['basename'] . '/comment.html'));
 $roster->tpl->display('body');
 
-if( ! $roster_login->getAuthorized( $addon['config']['comm_add'] ) )
+if( ! $roster->auth->getAuthorized( $addon['config']['comm_add'] ) )
 {
-	print $roster_login->getMessage().
-	$roster_login->getLoginForm($addon['config']['comm_add']);
+	print $roster->auth->getLoginForm($addon['config']['comm_add']);
 }
 else
 {
