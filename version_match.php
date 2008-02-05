@@ -34,19 +34,19 @@ define('ROSTER_BASE',dirname(__FILE__) . DIR_SEP);
 define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 
 // This file is for on the SVN only, so this should NOT be shipped to the clients!!!
-require_once ROSTER_BASE . 'lib/constants.php';
-require_once ROSTER_LIB . 'functions.lib.php';
-require_once ROSTER_LIB . 'roster.php';
+require_once(ROSTER_BASE . 'lib/constants.php');
+require_once(ROSTER_LIB . 'functions.lib.php');
+require_once(ROSTER_LIB . 'roster.php');
 $roster = new roster;
 define('ROSTER_PAGE_NAME', '');
 
 $roster->config['seo_url'] = false;
 
-require_once ROSTER_LIB . 'cmslink.lib.php';
+require_once(ROSTER_LIB . 'cmslink.lib.php');
 
 $roster->config['img_url'] = ROSTER_PATH . 'img/';
 
-require_once ROSTER_LIB . 'rosterdiag.lib.php';
+require_once(ROSTER_LIB . 'rosterdiag.lib.php');
 
 if( isset($_GET['getfile']) && $_GET['getfile'] != '' )
 {
@@ -72,7 +72,7 @@ if( isset($_GET['getfile']) && $_GET['getfile'] != '' )
 
 	if( !checkfile($pathparts_getfile, $realpath_getfile, $realpathparts_thisfile['dirname'].'/'.$subpath_getfile) )
 	{
-		print("<pre>[ERROR] INVALID FILE: ".$_GET['getfile'].", Operation NOT Allowed!!!</pre>\n");
+		print("<pre>[ERROR] INVALID FILE: " . $_GET['getfile'] . ", Operation NOT Allowed!!!</pre>\n");
 	}
 	else
 	{
@@ -99,7 +99,7 @@ if( isset($_GET['getfile']) && $_GET['getfile'] != '' )
 		}
 		else
 		{
-			print("<pre>[ERROR] FILE NOT READABLE: ".$filename." is not readable!</pre>\n");
+			print("<pre>[ERROR] FILE NOT READABLE: " . $filename . " is not readable!</pre>\n");
 		}
 
 	}
@@ -114,7 +114,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster->config['logo'] = $roster->config['img_url'] . 'wowroster_logo.jpg';
 	$roster->config['roster_bg'] = $roster->config['img_url'] . 'wowroster_bg.jpg';
 
-	require_once ROSTER_LIB . 'template.php';
+	require_once(ROSTER_LIB . 'template.php');
 	$roster->tpl = new RosterTemplate;
 
 	/**
@@ -211,7 +211,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 						{
 							$zippackage_files .= ';';
 						}
-						$zippackage_files .= $directory.'/'.$file;
+						$zippackage_files .= $directory . '/' . $file;
 					}
 				}
 			}
@@ -220,20 +220,20 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 	if( $zippackage_files != '' )
 	{
-		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
-		echo '<div align="center"><form method="post" action="'.ROSTER_SVNREMOTE.'">';
-		echo '<input type="hidden" name="filestoget" value="'.$zippackage_files.'">';
-		echo '<input type="hidden" name="guildname" value="'.$roster->config['default_name'].'">';
-		echo '<input type="hidden" name="website" value="'.$roster->config['website_address'].'">';
+		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ ' . str_replace('version_match.php', '', ROSTER_SVNREMOTE) . '</i></small>');
+		echo '<div align="center"><form method="post" action="' . ROSTER_SVNREMOTE . '">';
+		echo '<input type="hidden" name="filestoget" value="' . $zippackage_files . '">';
+		echo '<input type="hidden" name="guildname" value="' . $roster->config['default_name'] . '">';
+		echo '<input type="hidden" name="website" value="' . $roster->config['website_address'] . '">';
 		echo '<input type="radio" name="ziptype" value="zip" checked="checked">.zip Archive<br />';
 		echo '<input type="radio" name="ziptype" value="targz">.tar.gz Archive<br /><br />';
 		echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]">';
 		echo '</form></div>';
-		echo border('spurple', 'end').'<br />';
+		echo border('spurple', 'end') . '<br />';
 	}
 
 	// Open the main FileVersion table in total color
-	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
+	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ ' . str_replace('version_match.php', '', ROSTER_SVNREMOTE) . '</i></small>');
 
 	// Get all the gathered information and display it in a table
 
@@ -241,7 +241,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	{
 		if( isset($files[$directory]) )
 		{
-			//echo $directory.', '.$files[$directory]['tooltip'].'<br>';
+			//echo $directory . ', '.$files[$directory]['tooltip'] . '<br />';
 			$dirtooltip = str_replace("'", "\\'", $files[$directory]['tooltip']);
 			$dirtooltip = str_replace('"','&quot;', $dirtooltip);
 			$directory_id = str_replace(array('.','/','\\'),'', $directory);
@@ -249,16 +249,16 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 			$dirshow = substr_replace($directory, ROSTER_PATH, 0, 1);
 
 
-			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '
-							. 'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'
-							. '<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'plus.gif" alt="+" /></div>'.$dirshow.'/</div>';
+			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\'' . $directory_id . 'TableShow\',\'' . $directory_id . 'TableHide\')" '
+							. 'onmouseover="overlib(\'' . $dirtooltip . '\',CAPTION,\'' . $directory . '/&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$files[$directory]['rollup']]['severityname'] . '\',WRAP);" onmouseout="return nd();">'
+							. '<div style="float:right;"><span style="color:' . $severity[$files[$directory]['rollup']]['color'] . ';">' . $severity[$files[$directory]['rollup']]['severityname'] . '</span> <img class="membersRowimg" src="' . $roster->config['img_url'] . 'plus.gif" alt="+" /></div>' . $dirshow . '/</div>';
 
-			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '
-							. 'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$directory.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'
-							. '<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'minus.gif" alt="-" /></div>'.$dirshow.'/</div>';
+			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\'' . $directory_id . 'TableShow\',\'' . $directory_id . 'TableHide\')" '
+							. 'onmouseover="overlib(\'' . $dirtooltip . '\',CAPTION,\'' . $directory . '/&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$files[$directory]['rollup']]['severityname'] . '\',WRAP);" onmouseout="return nd();">'
+							. '<div style="float:right;"><span style="color:' . $severity[$files[$directory]['rollup']]['color'] . ';">' . $severity[$files[$directory]['rollup']]['severityname'] . '</span> <img class="membersRowimg" src="' . $roster->config['img_url'] . 'minus.gif" alt="-" /></div>' . $dirshow . '/</div>';
 
 
-			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
+			echo '<div style="display:none;" id="' . $directory_id . 'TableShow">';
 			echo border($severity[$files[$directory]['rollup']]['style'],'start',$headertext_min);
 
 
@@ -288,9 +288,9 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 				}
 				if( isset($file) && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'diff' && $file != 'missing' )
 				{
-					echo '<tr style="cursor:help;" onmouseover="overlib(\'<span style=&quot;color:blue;&quot;>'.$filetooltip.'</span>\',CAPTION,\''.$file.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$filedata['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">';
-					echo '<td class="membersRow'.$row.'"><span style="color:'.$severity[$filedata['rollup']]['color'].'">'.$file.'</span></td>';
-					echo '<td class="membersRow'.$row.'">'."\n";
+					echo '<tr style="cursor:help;" onmouseover="overlib(\'<span style=&quot;color:blue;&quot;>' . $filetooltip . '</span>\',CAPTION,\'' . $file . '/&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$filedata['rollup']]['severityname'] . '\',WRAP);" onmouseout="return nd();">';
+					echo '<td class="membersRow' . $row . '"><span style="color:' . $severity[$filedata['rollup']]['color'] . '">' . $file . '</span></td>';
+					echo '<td class="membersRow' . $row . '">' . "\n";
 					if( isset($filedata['rev']) )
 					{
 						echo $filedata['rev'];
@@ -300,7 +300,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 						echo 'Unknown Rev';
 					}
 					echo "</td>\n";
-					echo '<td class="membersRow'.$row.'">';
+					echo '<td class="membersRow' . $row . '">';
 					if( isset($filedata['date']) )
 					{
 						echo $filedata['date'];
@@ -310,7 +310,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 						echo 'Unknown Date';
 					}
 					echo "</td>\n";
-					echo '<td class="membersRow'.$row.'">';
+					echo '<td class="membersRow' . $row . '">';
 					if( isset($filedata['author']) )
 					{
 						echo $filedata['author'];
@@ -320,7 +320,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 						echo 'Unknown Author';
 					}
 					echo "</td>\n";
-					echo '<td class="membersRow'.$row.'">';
+					echo '<td class="membersRow' . $row . '">';
 					if( isset($filedata['md5']) )
 					{
 						echo $filedata['md5'];
@@ -330,21 +330,21 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 						echo 'Unknown';
 					}
 					echo "</td>\n";
-					echo '<td class="membersRowRight'.$row.'">'."\n";
+					echo '<td class="membersRowRight' . $row . '">' . "\n";
 					if( $filedata['diff'] || $filedata['missing'] )
 					{
-						echo '<form method="post" action="'.makelink('rosterdiag').'">'."\n";
-						echo '<input type="hidden" name="filename" value="'.$directory.'/'.$file."\">\n";
-						echo '<input type="hidden" name="downloadsvn" value="confirmation">'."\n";
+						echo '<form method="post" action="' . makelink('rosterdiag') . '">' . "\n";
+						echo '<input type="hidden" name="filename" value="' . $directory . '/' . $file . "\">\n";
+						echo '<input type="hidden" name="downloadsvn" value="confirmation">' . "\n";
 						if( isset($filedata['diff']) && $filedata['diff'] )
 						{
-							echo '<input type="hidden" name="downmode" value="update">'."\n";
-							echo '<input type="submit" value="Diff Check">'."\n";
+							echo '<input type="hidden" name="downmode" value="update">' . "\n";
+							echo '<input type="submit" value="Diff Check">' . "\n";
 						}
 						elseif( isset($filedata['missing']) && $filedata['missing'] )
 						{
-							echo '<input type="hidden" name="downmode" value="install">'."\n";
-							echo '<input type="submit" value="Show File">'."\n";
+							echo '<input type="hidden" name="downmode" value="install">' . "\n";
+							echo '<input type="submit" value="Show File">' . "\n";
 						}
 						echo '</form>';
 					}
@@ -359,10 +359,10 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 			echo '</table>';
 
-			echo border($severity[$files[$directory]['rollup']]['style'],'end').'</div>';
-			echo '<div id="'.$directory_id.'TableHide">';
+			echo border($severity[$files[$directory]['rollup']]['style'],'end') . '</div>';
+			echo '<div id="' . $directory_id . 'TableHide">';
 			echo border($severity[$files[$directory]['rollup']]['style'],'start',$headertext_max);
-			echo border($severity[$files[$directory]['rollup']]['style'],'end').'</div>';
+			echo border($severity[$files[$directory]['rollup']]['style'],'end') . '</div>';
 		}
 	}
 	echo border('sgray', 'end');
@@ -382,11 +382,11 @@ elseif( isset($_POST['filestoget']) && isset($_POST['ziptype']) )
 
 	if( $ziptype == 'targz' )
 	{
-		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_'.date('Ymd_Hi').'.tar.gz');
+		$downloadpackage = new gzip_file('WoWRoster_UpdatePackage_' . date('Ymd_Hi') . '.tar.gz');
 	}
 	else
 	{
-		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_'.date('Ymd_Hi').'.zip');
+		$downloadpackage = new zip_file('WoWRoster_UpdatePackage_' . date('Ymd_Hi') . '.zip');
 	}
 
 	$downloadpackage->set_options(array('inmemory' => 1, 'recurse' => 0, 'storepaths' => 1));
@@ -404,7 +404,7 @@ elseif( isset($_POST['filestoget']) && isset($_POST['ziptype']) )
 		$pathparts_thisfile = pathinfo($thisfile);
 		$realpathparts_thisfile = pathinfo($realpath_thisfile);
 
-//		echo $file.', '.$thisfile.', '.		$realpath_thisfile.', '.		$realpathparts_getfile['dirname'].', '.		$realpathparts_thisfile.'<br />';
+		//echo $file . ', ' . $thisfile . ', ' . $realpath_thisfile . ', ' . $realpathparts_getfile['dirname'] . ', ' . $realpathparts_thisfile . '<br />';
 
 
 		if( substr($getfile, 0, 1) == '.' )
@@ -416,14 +416,14 @@ elseif( isset($_POST['filestoget']) && isset($_POST['ziptype']) )
 			$subpath_getfile = $pathparts_getfile['dirname'];
 		}
 
-		if( !checkfile($pathparts_getfile, $realpath_getfile, $realpathparts_thisfile['dirname'].'/'.$subpath_getfile) )
+		if( !checkfile($pathparts_getfile, $realpath_getfile, $realpathparts_thisfile['dirname'] . '/' . $subpath_getfile) )
 		{
-			$errors .= '[ERROR] INVALID FILE: '.$getfile.', Operation NOT Allowed!!!<br />';
+			$errors .= '[ERROR] INVALID FILE: ' . $getfile . ', Operation NOT Allowed!!!<br />';
 		}
 		else
 		{
 			// Add file to Archive
-//			echo $getfile.'<br />';
+//			echo $getfile . '<br />';
 			$downloadpackage->add_files($getfile);
 		}
 	}
@@ -441,13 +441,13 @@ elseif( isset($_POST['filestoget']) && isset($_POST['ziptype']) )
 		{
 			foreach( $downloadpackage->error as $error )
 			{
-				print $error.'<br />';
+				print $error . '<br />';
 			}
 		}
 
 		/*foreach( $filesarray as $file )
 		{
-			echo $file.'<br />';
+			echo $file . '<br />';
 		}
 		echo 'DOWNLOAD STARTING of the following files';*/
 	}
@@ -462,7 +462,7 @@ else
 	{
 		foreach( $filedata as $filename => $file )
 		{
-			print($directory.$explode.$filename.$explode.$file['local']['versionDesc'].$explode.$file['local']['versionRev'].$explode.$file['local']['versionDate'].$explode.$file['local']['versionAuthor'].$explode.$file['local']['versionMD5'].$break);
+			print($directory . $explode . $filename . $explode . $file['local']['versionDesc'] . $explode . $file['local']['versionRev'] . $explode . $file['local']['versionDate'] . $explode . $file['local']['versionAuthor'] . $explode . $file['local']['versionMD5'] . $break);
 		}
 	}
 }
@@ -476,7 +476,7 @@ function checkfile()
 	$returnvalue = 0;
 	$unwanted = 0;
 
-	if( !strcmp($realpath_getfile, $realpath_thisfile.'/'.$subpath_getfile) )
+	if( !strcmp($realpath_getfile, $realpath_thisfile . '/' . $subpath_getfile) )
 	{
 		$unwanted = 1;
 	}

@@ -28,27 +28,14 @@ $armory = new RosterArmory($roster->data['region']);
 $roster->output['title'] = $roster->locale->act['vault'];
 
 
-// ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin();
-
-// Diplay Password Box
-if ( ! $roster_login->getAuthorized( 1 ) )
-{
-	print($roster_login->getMessage() . $roster_login->getLoginForm(1));
-}
-else
-{
-	print($roster_login->getMessage());
-}
-
-
 $tabs = $data = '';
+$auth_req = 0;
 
 $tab_count = 6;
 
 for( $t=1;$t<=$tab_count;$t++ )
 {
-	if( $roster_login->getAuthorized( $addon['config']['tab' . $t] ) )
+	if( $roster->auth->getAuthorized( $addon['config']['tab' . $t] ) )
 	{
 		$tab_data['tab' . $t] = vault_tab_get( $roster->data['guild_id'], 'Tab' . $t );
 		if( !is_null( $tab_data['tab' . $t] ) )
@@ -73,9 +60,13 @@ for( $t=1;$t<=$tab_count;$t++ )
 			$tabs .= '			<li class="selected"><div style="background:url(' . $roster->config['interface_url'] . 'Interface/Icons/' . $tab_data['tab' . $t]->data['item_texture'] . '.' . $roster->config['img_suffix'] . ');"'. makeOverlib($tab_data['tab' . $t]->data['item_name'],'','',0,'',',RIGHT') .'><a rel="Tab' . $t . '" class="text"></a></div></li>' . "\n";
 		}
 	}
+	else
+	{
+		$auth_req = 1;
+	}
 }
 
-if( $roster_login->getAuthorized( $addon['config']['money'] ) )
+if( $roster->auth->getAuthorized( $addon['config']['money'] ) )
 {
 	$data .= vault_money();
 
@@ -85,12 +76,20 @@ if( $roster_login->getAuthorized( $addon['config']['money'] ) )
 		$data .= $money;
 		$tabs .= '			<li><div style="background:url(' . $roster->config['interface_url'] . 'Interface/Icons/inv_misc_coin_01.' . $roster->config['img_suffix'] . ');"'. makeOverlib($roster->locale->act['vault_money_log'],'','',0,'',',RIGHT') .'><a rel="MoneyLog" class="text"></a></div></li>' . "\n";
 	}
+	else
+	{
+		$auth_req = 1;
+	}
+}
+
+// ----[ Check log-in ]-------------------------------------
+if ( $auth_req )
+{
+	print $roster->auth->getLoginForm();
 }
 
 if( $data != '' )
 {
-
-
 	print '<div class="vault" style="background-image:url(' . $addon['image_path'] . 'vaultframe_' . strtolower(substr($roster->data['factionEn'],0,1)) . '.png);">';
 
 	if( $tabs != '' )

@@ -44,7 +44,7 @@ class roster_config
 	 */
 	function roster_config( $tablename, $where='1', $prefix='config_' )
 	{
-		global $roster_login, $roster;
+		global $roster;
 
 		// Color Picker JS
 		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."js/color_functions.js\"></script>\n";
@@ -317,7 +317,7 @@ class roster_config
 	 */
 	function buildBlock($block)
 	{
-		global $roster_login, $roster;
+		global $roster;
 
 		$i = 0;
 		$html = '';
@@ -391,7 +391,7 @@ class roster_config
 					break;
 
 				case 'access':
-					$input_field = $roster_login->rosterAccess($values);
+					$input_field = $roster->auth->rosterAccess($values);
 					break;
 
 				case 'function':
@@ -547,7 +547,7 @@ class roster_config
 				{
 					$desc_tip = explode('|',$roster->locale->act['admin'][$row['config_name']],2);
 					$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
-					$this->db_values[$setitem][$arrayitem]['tooltip'] = $desc_tip[1].$db_val_line;
+					$this->db_values[$setitem][$arrayitem]['tooltip'] = ( isset($desc_tip[1]) ? $desc_tip[1] : '' ).$db_val_line;
 				}
 				else
 				{

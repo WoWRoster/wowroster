@@ -62,7 +62,7 @@ class guildbankInstall
 	}
 
 	/**
-	 * Upgrade functoin
+	 * Upgrade function
 	 *
 	 * @param string $oldversion
 	 * @return bool

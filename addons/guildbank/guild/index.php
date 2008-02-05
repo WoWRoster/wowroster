@@ -54,26 +54,15 @@ $columns = ( $gbank_mode == '2' ? '15' : '2' );
 $roster->output['title'] = $roster->locale->act['guildbank'];
 
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin();
 
 // Disallow viewing of the page
-if( ! $roster_login->getAuthorized( $addon['config']['bank_access'] ) )
+if( ! $roster->auth->getAuthorized( $addon['config']['bank_access'] ) )
 {
-	include_once(ROSTER_BASE . 'header.php');
-	$roster_menu = new RosterMenu;
-	$roster_menu->makeMenu($roster->output['show_menu']);
-
 	print
 	'<span class="title_text">' . $roster->locale->act['guildbank'] . '</span><br />'.
-	$roster_login->getMessage().
-	$roster_login->getLoginForm();
+	$roster->auth->getLoginForm();
 
-	include_once(ROSTER_BASE . 'footer.php');
-	exit();
-}
-else
-{
-	echo $roster_login->getMessage() . '<br />';
+	return;
 }
 // ----[ End Check log-in ]---------------------------------
 
@@ -144,8 +133,7 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 	$bank_print .= '<a id="c_' . $muleRow['member_id'] . '"></a>' . border('sgray','start',$bank_print_member . ' (' . $note . ') - <small>' . $roster->locale->act['lastupdate'] . ': ' . $date_char_data_updated . '</small>')
 				 . '<table class="bodyline" cellspacing="0" cellpadding="0">'
 				 . ( $addon['config']['bank_money'] ?
-				 '<tr>
-    <td colspan="' . $columns . '" class="membersRowRight2">'
+				 "<tr>\n\t<td colspan=\"" . $columns . '" class="membersRowRight2">'
 				 . '<div class="money" align="center">'
 				 . $muleRow['gold'] . ' <img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> '
 				 . $muleRow['silver'] . ' <img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> '
@@ -155,8 +143,8 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 	$localeQuery = "SELECT `clientLocale` FROM `" . $roster->db->table('players') . "` WHERE  member_id = " . $muleRow['member_id'] ;
 	$mulelocale = $roster->db->query_first($localeQuery);
 
-	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) as real_itemid,sum(i.item_quantity) as total_quantity"
-					  . " FROM `" . $roster->db->table('items') . "` as i"
+	$itemsOnMuleQuery = "SELECT i.*,LEFT(i.item_id, (LOCATE(':',i.item_id)-1)) AS real_itemid,sum(i.item_quantity) AS total_quantity"
+					  . " FROM `" . $roster->db->table('items') . "` AS i"
 					  . " WHERE " . $muleRow['member_id'] . " = i.member_id"
 					  . " AND i.item_parent!='bags'"
 					  . " AND i.item_parent!='equip'"
@@ -221,7 +209,7 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 			{
 				$bank_print .= '    <td valign="top" class="' . $stripe_class_right . ' overlib_maintext" style="width:220px;">';
 				$bank_print .= $item->html_tooltip;
-//				$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
+				//$bank_print .= colorTooltip(stripslashes($itemRow['item_tooltip']),$itemRow['item_color']);
 				$bank_print .= '    </td>';
 			}
 
@@ -265,12 +253,12 @@ function DateCharDataUpdated( $id )
 {
 	global $roster;
 
-	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `" . $roster->db->table('players') . "` WHERE `member_id` = '$id'";
+	$query = "SELECT `dateupdatedutc`, `clientLocale` FROM `" . $roster->db->table('players') . "` WHERE `member_id` = '$id';";
 	$result = $roster->db->query($query);
 	$data = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
-	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],"%d-%d-%d %d:%d:%d");
+	list($year,$month,$day,$hour,$minute,$second) = sscanf($data['dateupdatedutc'],'%d-%d-%d %d:%d:%d');
 	$localtime = mktime($hour+$roster->config['localtimeoffset'] ,$minute, $second, $month, $day, $year, -1);
 	return date($roster->locale->wordings[$data['clientLocale']]['phptimeformat'], $localtime);
 }

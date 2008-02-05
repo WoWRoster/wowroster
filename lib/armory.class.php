@@ -586,7 +586,7 @@ class RosterArmory
 	 * @param string $realm |
 	 * @param string $guild |
 	 */
-	function _makeUrl($mode, $locale, $id=false, $char=false, $realm=false, $guild=false )
+	function _makeUrl( $mode, $locale, $id=false, $char=false, $realm=false, $guild=false )
 	{
 		if( $this->region == 'US' )
 		{
@@ -718,7 +718,7 @@ class RosterArmory
 	 *
 	 * @return void
 	 */
-	function _initXmlParser()
+	function _initXmlParser( )
 	{
 		if( !is_object($this->xmlParser) )
 		{
@@ -733,7 +733,7 @@ class RosterArmory
 	 *
 	 * @return void
 	 */
-	function _initSimpleParser()
+	function _initSimpleParser( )
 	{
 		if( !is_object($this->simpleParser) )
 		{

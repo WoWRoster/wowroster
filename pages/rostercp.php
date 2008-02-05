@@ -36,26 +36,13 @@ if( !defined('IN_ROSTER') )
 }
 
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin();
-
-// Disallow viewing of the page
-if( ! $roster_login->getAuthorized( ROSTERLOGIN_ADMIN ) )
+if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
-	include_once(ROSTER_BASE . 'header.php');
-	$roster_menu = new RosterMenu;
-	$roster_menu->makeMenu($roster->output['show_menu']);
-
 	print
 	'<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'.
-	$roster_login->getMessage().
-	$roster_login->getLoginForm();
+	$roster->auth->getLoginForm();
 
-	include_once(ROSTER_BASE . 'footer.php');
-	exit();
-}
-else
-{
-	$body = $roster_login->getMessage() . '<br />';
+	return;
 }
 // ----[ End Check log-in ]---------------------------------
 
@@ -190,17 +177,6 @@ if( $addon_pagebar != '' )
 
 // ----[ Render the page ]----------------------------------
 
-if( $roster->output['show_header'] )
-{
-	include_once(ROSTER_BASE . 'header.php');
-}
-
-if( $roster->output['show_menu'] )
-{
-	$roster_menu = new RosterMenu;
-	$roster_menu->makeMenu($roster->output['show_menu']);
-}
-
 echo
 	$header . "\n".
 	'<table width="100%"><tr>' . "\n".
@@ -212,9 +188,3 @@ echo
 	$pagebar . "</td>\n".
 	"</tr></table>\n".
 	$footer;
-
-
-if( $roster->output['show_footer'] )
-{
-	include_once(ROSTER_BASE . 'footer.php');
-}

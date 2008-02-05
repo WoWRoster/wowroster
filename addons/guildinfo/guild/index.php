@@ -22,26 +22,13 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] = $roster->locale->act['guildinfo'];
 
 // ----[ Check log-in ]-------------------------------------
-$roster_login = new RosterLogin();
-
-// Disallow viewing of the page
-if( ! $roster_login->getAuthorized( $addon['config']['guildinfo_access'] ) )
+if( ! $roster->auth->getAuthorized( $addon['config']['guildinfo_access'] ) )
 {
-	include_once(ROSTER_BASE . 'header.php');
-	$roster_menu = new RosterMenu;
-	$roster_menu->makeMenu($roster->output['show_menu']);
-
 	print
 	'<span class="title_text">' . $roster->locale->act['guildinfo'] . '</span><br />'.
-	$roster_login->getMessage().
-	$roster_login->getLoginForm();
+	$roster->auth->getLoginForm();
 
-	include_once(ROSTER_BASE . 'footer.php');
-	exit();
-}
-else
-{
-	echo $roster_login->getMessage() . '<br />';
+	return;
 }
 // ----[ End Check log-in ]---------------------------------
 

@@ -17,12 +17,11 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-$roster_login = new RosterLogin('&amp;id=' . $_GET['id']);
+$roster->auth->setAction('&amp;id=' . $_GET['id']);
 
-if( ! $roster_login->getAuthorized( $addon['config']['news_edit'] ) )
+if( ! $roster->auth->getAuthorized( $addon['config']['news_edit'] ) )
 {
-	print $roster_login->getMessage().
-	$roster_login->getLoginForm($addon['config']['news_edit']);
+	print $roster->auth->getLoginForm($addon['config']['news_edit']);
 
 	return; //To the addon framework
 }

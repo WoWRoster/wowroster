@@ -21,12 +21,8 @@ if( !defined('IN_ROSTER') )
 }
 
 $roster->output['title'] = 'License';
-include_once(ROSTER_BASE . 'header.php');
 
 require_once (ROSTER_LIB.'item.php');
-
-$roster_menu = new RosterMenu;
-$roster_menu->makeMenu($roster->output['show_menu']);
 
 print "<br />\n";
 
@@ -139,5 +135,3 @@ that are not included under the main WoWRoster license</span></p>
 	</li>
 </ul>
 </div>",'WoWRoster License');
-
-include_once(ROSTER_BASE . 'footer.php');

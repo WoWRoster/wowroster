@@ -531,4 +531,3 @@ function writeText( $image , $size , $xpos , $ypos , $color , $font , $text , $s
 	// Write the text
 	imagettftext($image,$size,0,$xpos,$ypos,$color,$font,$text);
 }
-

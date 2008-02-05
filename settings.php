@@ -17,7 +17,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -26,6 +26,10 @@ if( !defined('IN_ROSTER') )
 //error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(E_ALL);
 
+/**
+ * Attempt to detect a current session and not set it
+ * Sometimes it doesn't work...
+ */
 if( session_id() == '' )
 {
 	session_start();
@@ -44,6 +48,7 @@ if( intval(ini_get('register_globals')) != 0 )
 		}
 	}
 }
+// Unset old style global vars, we use only php 4.3+ style globals
 unset($HTTP_GET_VARS,$HTTP_POST_VARS,$HTTP_COOKIE_VARS);
 
 
@@ -133,8 +138,8 @@ if( !get_magic_quotes_gpc() )
 // --[ Check to see if we need to install ]--
 if( !file_exists(ROSTER_CONF_FILE) )
 {
-    require(ROSTER_BASE . 'install.php');
-    die();
+	require(ROSTER_BASE . 'install.php');
+	die();
 }
 else
 {
@@ -143,8 +148,8 @@ else
 
 if( !defined('ROSTER_INSTALLED') )
 {
-    require(ROSTER_BASE . 'install.php');
-    die();
+	require(ROSTER_BASE . 'install.php');
+	die();
 }
 
 include( ROSTER_LIB . 'roster.php' );
@@ -238,7 +243,7 @@ $roster->get_scope_data();
  * Inject some different settings if the debug url switch is set
  */
 // Beta only: force these on
-//if( isset($_GET['roster_debug']) && $_GET['roster_debug'] == 'roster_debug')
+//if( isset($_GET['rdebug']) )
 {
 	$roster->config['debug_mode'] = 1;
 	if( !$roster->config['sql_window'] )
@@ -279,33 +284,11 @@ $roster->tpl->assign_vars(array(
 	'PAGE_TITLE'         => '',
 	'ROSTER_HEAD'        => $roster->output['html_head'],
 	'ROSTER_BODY'        => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')
-		. (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : '')
-		. (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''),
+						  . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : '')
+						  . (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''),
 	'ROSTER_MENU_BEFORE' => '',
 	)
 );
-
-
-/**
- * If the version doesnt match the one in constants, redirect to upgrader
- */
-if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
-{
-    require(ROSTER_PAGES . 'upgrade.php');
-    die();
-}
-
-
-/**
- * If the install directory or files exist, die()
- */
-if( file_exists(ROSTER_BASE . 'install.php') || file_exists(ROSTER_BASE . 'upgrade.php')  || file_exists(ROSTER_BASE . 'install') )
-{
-	if( !file_exists(ROSTER_BASE . 'version_match.php') )
-	{
-		roster_die($roster->locale->act['remove_install_files_text'],$roster->locale->act['remove_install_files'],'sred');
-	}
-}
 
 
 /**
@@ -318,4 +301,29 @@ if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'in
 else
 {
 	require_once(ROSTER_LIB . 'login.php');
+}
+
+$roster->auth = new RosterLogin();
+
+
+
+/**
+ * If the version doesnt match the one in constants, redirect to upgrader
+ */
+if( empty($roster->config['version']) || version_compare($roster->config['version'],ROSTER_VERSION,'<') )
+{
+	require(ROSTER_PAGES . 'upgrade.php');
+	die();
+}
+
+
+/**
+ * If the install directory or files exist, die()
+ */
+if( file_exists(ROSTER_BASE . 'install.php') )
+{
+	if( !file_exists(ROSTER_BASE . 'version_match.php') )
+	{
+		roster_die($roster->locale->act['remove_install_files_text'],$roster->locale->act['remove_install_files'],'sred');
+	}
 }

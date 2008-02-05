@@ -35,7 +35,6 @@ $roster->tpl->assign_vars(array(
 	'PROCESSTIME'        => $totaltime,
 	'QUERYCOUNT'         => $roster->db->query_count,
 
-
 	'ROSTER_PATH'        => ROSTER_PATH,
 	'ROSTER_BODY'        => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')
 		. (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : '')

@@ -81,29 +81,11 @@
 	</tr>
 	<tr>
 		<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
-			<form id="menu_search" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post" enctype="multipart/form-data" >
-				<img src="{IMG_URL}plus.gif" style="float:right;cursor:pointer;" alt="" id="menu_search_img" onclick="showHide('data_search','menu_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');" />
-				<input size="25" type="text" name="search" value="" class="wowinput192" />
+		<div style="float:left;">{MENU_LOGIN_FORM}</div>
+			<form id="menu_search" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post" enctype="multipart/form-data" style="margin:0;float:right;">
+				<input size="25" type="text" name="search" value="" class="wowinput128" />
 				<input type="submit" value="{L_SEARCH}" />
-				<div id="data_search" style="display:none;">
-					<!-- BEGIN menu_only_search -->
-					<input type="checkbox"  id="menu_{menu_only_search.BASENAME}" name="s_addon[]" value="{menu_only_search.BASENAME}" />
-					<label for="menu_{menu_only_search.BASENAME}">{menu_only_search.FULLNAME}</label><!-- IF menu_only_search.S_DIVIDE --><br /><!-- ENDIF -->
-					<!-- END menu_only_search -->
-
-					<!-- BEGIN menu_addon_search -->
-					<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('menu_adv_{menu_addon_search.BASENAME}','{menu_addon_search.BASENAME}_menu_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
-						<img src="{IMG_URL}plus.gif" style="float:right;" alt="" id="{menu_addon_search.BASENAME}_menu_search_img" />
-						{L_SEARCH_ADVANCED} {menu_addon_search.FULLNAME}
-					</div>
-					<div id="menu_adv_{menu_addon_search.BASENAME}" style="display:none;">
-						{menu_addon_search.SEARCH_OPTIONS}
-					</div>
-					<!-- IF menu_addon_search.S_DIVIDE --><br /><!-- ENDIF -->
-					<!-- END menu_addon_search -->
-				</div>
-			</form>
-			<script type="text/javascript">initARC('menu_search','radioOn','radioOff','checkboxOn','checkboxOff');</script></td>
+			</form></td>
 	</tr>
 <!-- ENDIF -->
 </table>

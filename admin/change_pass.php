@@ -41,7 +41,7 @@ if( array_key_exists('mode',$_POST) )
 	}
 
 
-	if( $roster_login->getauthorized() )
+	if( $roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 	{
 		$oldpass  = ( isset($_POST['oldpass']) ? $_POST['oldpass'] : '' );
 		$newpass = ( isset($_POST['newpass']) ? $_POST['newpass'] : '' );
