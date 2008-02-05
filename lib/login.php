@@ -21,8 +21,6 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTERLOGIN_GUILD',1);
-define('ROSTERLOGIN_OFFICER',2);
 define('ROSTERLOGIN_ADMIN',3);
 
 class RosterLogin
