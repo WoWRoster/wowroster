@@ -48,7 +48,7 @@ if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 
 include_once(ROSTER_ADMIN . 'pages.php');
 
-$header = $menu = $pagebar = $footer = '';
+$header = $menu = $pagebar = $footer = $body = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
 
