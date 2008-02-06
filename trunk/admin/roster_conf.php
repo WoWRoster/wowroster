@@ -24,11 +24,11 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] .= $roster->locale->act['pagebar_rosterconf'];
 
 // ----[ Set the tablename and create the config class ]----
-include(ROSTER_LIB.'config.lib.php');
+include(ROSTER_LIB . 'config.lib.php');
 $config = new roster_config( $roster->db->table('config') );
 
 // ----[ Include special functions file ]-------------------
-include(ROSTER_ADMIN.'roster_config_functions.php');
+include(ROSTER_ADMIN . 'roster_config_functions.php');
 
 // ----[ Get configuration data ]---------------------------
 $config->getConfigData();
@@ -41,10 +41,10 @@ $menu = $config->buildConfigMenu();
 
 $config->buildConfigPage();
 
-$body .= $config->form_start.
-	$save_message.
-	$config->formpages.
-	$config->submit_button.
-	$config->form_end.
-	$config->nonformpages.
-	$config->jscript;
+$body .= $config->form_start
+	   . $save_message
+	   . $config->formpages
+	   . $config->submit_button
+	   . $config->form_end
+	   . $config->nonformpages
+	   . $config->jscript;

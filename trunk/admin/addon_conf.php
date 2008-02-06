@@ -52,7 +52,7 @@ if( $addon['active'] = '1' )
 			if( version_compare($addonstuff->version,$addon['version']) )
 			{
 				$body = messagebox(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
-					. sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error'],'sred');
+					  . sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error'],'sred');
 				return;
 			}
 			unset($addonstuff);
@@ -90,9 +90,9 @@ if( $addon['active'] = '1' )
 	}
 	elseif( $addon['config'] != '' )
 	{
-		if( file_exists($addon['dir'] . 'admin/config.func.php') )
+		if( file_exists($addon['admin_dir'] . 'config.func.php') )
 		{
-			include($addon['dir'] . 'admin/config.func.php');
+			include($addon['admin_dir'] . 'config.func.php');
 			if( function_exists('topBox') )
 			{
 				$body .= topBox();
@@ -118,13 +118,13 @@ if( $addon['active'] = '1' )
 
 		$config->buildConfigPage();
 
-		$body .= $config->form_start.
-			$save_message.
-			$config->formpages.
-			$config->submit_button.
-			$config->form_end.
-			$config->nonformpages.
-			$config->jscript;
+		$body .= $config->form_start
+			   . $save_message
+			   . $config->formpages
+			   . $config->submit_button
+			   . $config->form_end
+			   . $config->nonformpages
+			   . $config->jscript;
 	}
 	else
 	{

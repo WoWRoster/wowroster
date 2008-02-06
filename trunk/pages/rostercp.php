@@ -39,8 +39,8 @@ if( !defined('IN_ROSTER') )
 if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
 	print
-	'<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'.
-	$roster->auth->getLoginForm();
+	'<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
+	. $roster->auth->getLoginForm();
 
 	return;
 }

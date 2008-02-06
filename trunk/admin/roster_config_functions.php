@@ -97,7 +97,7 @@ function pageNames( )
 		}
 		else
 		{
-			$input_field .= '  <option value="' . $row['url'] . '">' . $title . '</option>' ."\n";
+			$input_field .= '  <option value="' . $row['url'] . '">' . $title . '</option>' . "\n";
 		}
 	}
 

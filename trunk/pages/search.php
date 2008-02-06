@@ -21,14 +21,14 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-require_once ROSTER_BASE . 'settings.php';
+require_once(ROSTER_BASE . 'settings.php');
 
 $roster->output['title'] = $roster->locale->act['search'];
 $roster->output['body_onload'] .= 'initARC(\'search\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-$output = "<br />\n";
-
-/*Create an array of active addons with search.inc.php capabilities*/
+/**
+ * Create an array of active addons with search.inc.php capabilities
+ */
 foreach( $roster->addon_data as $name => $data )
 {
 	$roster->addon_data[$name] = getaddon($data['basename']);
@@ -59,7 +59,7 @@ foreach( $roster->addon_data as $name => $data )
 	}
 }
 
-//this is the start of the main form
+// The start of the main form
 if( !isset($_POST['search']) && !isset($_GET['search']) )
 {
 	$addon_icon = $roster->config['img_url'] . 'blue-question-mark.gif';
@@ -110,20 +110,21 @@ if( !isset($_POST['search']) && !isset($_GET['search']) )
 	$item_options = '<input type="checkbox" id="search_items" name="search_items" value="search_items" />'
 				  . '<label for="search_items">Search Items</label>';
 	$item_adv_options = '<br /><div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'item_search_options\',\'item_search_img_options\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-					<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="item_search_img_options" />' . $roster->locale->act['search_advancedoptionsfor'] . ' Item Search
-					</div>';
-	$item_adv_options .= '<div id="item_search_options" style="display:none;">';
-	$item_adv_options .= '<label for="item_minle">Level:</label> <input type="text" name="item_minle" id="item_minle" size="3" maxlength="3"/></label> - <label for="item_maxle"><input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3"  /><br />';
-	$item_adv_options .= '<label for="item_quality">Quality:</label><br />
-		<select name="item_quality" id="item_quality" size="6" multiple="multiple" >
-			<option value="9d9d9d" style="color:#9d9d9d;">Poor</option>
-			<option value="ffffff" style="color:#ffffff;">Common</option>
-			<option value="1eff00" style="color:#1eff00;">Uncommon</option>
-			<option value="0070dd" style="color:#0070dd;">Rare</option>
-			<option value="a335ee" style="color:#a335ee;">Epic</option>
-			<option value="ff8800" style="color:#ff8800;">Legendary</option>
-		</select>';
-	$item_adv_options .= '</div>';
+	<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="item_search_img_options" />' . $roster->locale->act['search_advancedoptionsfor'] . ' Item Search
+</div>
+<div id="item_search_options" style="display:none;">
+	<label for="item_minle">Level:</label> <input type="text" name="item_minle" id="item_minle" size="3" maxlength="3"/> -
+	<label for="item_maxle"><input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3" /><br />
+	<label for="item_quality">Quality:</label><br />
+	<select name="item_quality" id="item_quality" size="6" multiple="multiple">
+		<option value="9d9d9d" style="color:#9d9d9d;">Poor</option>
+		<option value="ffffff" style="color:#ffffff;">Common</option>
+		<option value="1eff00" style="color:#1eff00;">Uncommon</option>
+		<option value="0070dd" style="color:#0070dd;">Rare</option>
+		<option value="a335ee" style="color:#a335ee;">Epic</option>
+		<option value="ff8800" style="color:#ff8800;">Legendary</option>
+	</select>
+</div>';
 
 	echo $item_options . $s_only . $item_adv_options . $s_adv . '</form>';
 

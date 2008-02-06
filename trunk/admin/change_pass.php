@@ -27,7 +27,7 @@ if( array_key_exists('mode',$_POST) )
 {
 	$mode = $_POST['mode'];
 
-	$query = "SELECT * FROM `".$roster->db->table('account')."` WHERE `name` = '" . $mode . "';";
+	$query = "SELECT * FROM `" . $roster->db->table('account') . "` WHERE `name` = '" . $mode . "';";
 	$result = $roster->db->query($query);
 
 	if( !$result )
