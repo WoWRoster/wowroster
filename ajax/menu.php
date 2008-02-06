@@ -75,7 +75,7 @@ switch ($method)
 			return;
 		}
 
-		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $title . "','" . $scope . "','" . $url . "','" . $icon . "')";
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,-1,'" . $title . "','" . $scope . "','" . $url . "','" . $icon . "');";
 
 		$DBres = $roster->db->query($query);
 
@@ -131,7 +131,7 @@ switch ($method)
 			return;
 		}
 
-		$query = "DELETE FROM `".$roster->db->table('menu_button')."` WHERE `button_id` = '" . $button_id . "';";
+		$query = "DELETE FROM `" . $roster->db->table('menu_button') . "` WHERE `button_id` = '" . $button_id . "';";
 
 		$DBres = $roster->db->query($query);
 
@@ -146,4 +146,3 @@ switch ($method)
 		$result = $button;
 		break;
 }
-

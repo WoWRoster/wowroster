@@ -81,7 +81,7 @@ function parse_sql( $sql , $delim )
 
     if( $sql == '' )
     {
-        die('Could not obtain SQL structure/data');
+        die_quietly('Could not obtain SQL structure/data');
     }
 
     $retval     = array();

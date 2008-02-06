@@ -109,7 +109,7 @@ $body .= '<form action="' . makelink('&amp;start=' . $start) . '" method="post" 
 	<input type="hidden" name="action" value="clean" />
 	<input type="hidden" name="process" value="process" />
 	<button type="submit" class="input">' . $roster->locale->act['clean'] . '</button>
-</form>'."\n";
+</form>' . "\n";
 
 $body .= "<br />\n";
 

@@ -80,7 +80,7 @@ if( !empty($addons) )
 		}
 		else
 		{
-			$addon['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+			$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 		}
 
 		$output .= '	<tr>
