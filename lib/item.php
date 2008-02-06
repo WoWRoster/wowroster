@@ -998,7 +998,7 @@ class item
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
-			elseif( preg_match( '/\n(.+)\n' . $roster->locale->wordings[$locale]['tooltip_reg_requires'].'/i', $tooltipWithoutColoredLines, $matches) )
+			elseif( preg_match( '/\n(.+)\n' . $roster->locale->wordings[$locale]['tooltip_reg_requires'] . '/i', $tooltipWithoutColoredLines, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
@@ -1163,15 +1163,15 @@ class item
 				$this->isSetPiece = true;
 				$setpiece = 1;
 			}
-			elseif( ereg('^'. $roster->locale->wordings[$locale]['tooltip_source'], $line ) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_source'], $line ) )
 			{
 				$tt['Attributes']['Source'] = $line;
 			}
-			elseif( ereg('^'. $roster->locale->wordings[$locale]['tooltip_boss'], $line ) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_boss'], $line ) )
 			{
 				$tt['Attributes']['Boss'] = $line;
 			}
-			elseif( ereg('^'. $roster->locale->wordings[$locale]['tooltip_droprate'], $line ) )
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_droprate'], $line ) )
 			{
 				$tt['Attributes']['DropRate'] = $line;
 			}
@@ -1276,7 +1276,7 @@ class item
 
 		if( isset( $unparsed ) )
 		{
-			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br>". implode('<br>', $unparsed) );
+			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br />" . implode('<br />', $unparsed) );
 			$this->isParseError = true;
 			$this->DEBUG_junk = $unparsed;
 		}
@@ -1311,14 +1311,14 @@ class item
 
 		global $roster;
 
-		if( $roster->cache->mcheck($gem_id.$locale) )
+		if( $roster->cache->mcheck($gem_id . $locale) )
 		{
-			return $roster->cache->mget($gem_id.$locale);
+			return $roster->cache->mget($gem_id . $locale);
 		}
 
 		$sql = "SELECT `gem_id` AS GemId, `gem_name` AS Name, `gem_color` AS Color, `gem_tooltip` AS Tooltip, "
 			 . "`gem_texture` AS Icon, `gem_bonus` AS Bonus, `gem_socketid` AS SocketId, `locale` FROM `"
-			 . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "'";
+			 . $roster->db->table('gems') . "` WHERE `gem_socketid` = '" . $gem_id . "' AND `locale` = '" . $locale . "';";
 		$result = $roster->db->query($sql);
 		$gem = $roster->db->fetch($result, SQL_ASSOC);
 
@@ -1330,7 +1330,7 @@ class item
 		}
 
 		$gem['Tooltip'] = str_replace("\n", '<br>', $gem['Tooltip']);
-		$roster->cache->mput( $gem, $gem_id.$locale );
+		$roster->cache->mput( $gem, $gem_id . $locale );
 
 		return $gem;
 	}

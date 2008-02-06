@@ -47,19 +47,19 @@ class roster_config
 		global $roster;
 
 		// Color Picker JS
-		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"". ROSTER_PATH ."js/color_functions.js\"></script>\n";
+		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.js\"></script>\n";
 
 		// ARC Radio/Checkboxes
-		$roster->output['body_onload'] .= 'initARC(\''.$prefix.'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+		$roster->output['body_onload'] .= 'initARC(\'' . $prefix . 'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
 		$this->tablename = $tablename;
 		$this->where = $where;
 		$this->prefix = $prefix;
-		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"".$this->prefix."config\" onsubmit=\"return confirm('".$roster->locale->act['confirm_config_submit']."') &amp;&amp; submitonce(this);\">\n";
-		$this->submit_button = "<br /><br />\n<input type=\"submit\" value=\"".$roster->locale->act['config_submit_button']."\" />\n<input type=\"reset\" name=\"Reset\" value=\"".$roster->locale->act['config_reset_button']."\" onclick=\"return confirm('".$roster->locale->act['confirm_config_reset']."')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n";
+		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"" . $this->prefix . "config\" onsubmit=\"return confirm('" . $roster->locale->act['confirm_config_submit'] . "') &amp;&amp; submitonce(this);\">\n";
+		$this->submit_button = "<br /><br />\n<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n";
 		$this->form_end = "</form>\n";
 
-		$this->jscript  = "\n<script type=\"text/javascript\">\nvar ".$this->prefix."tabs=new tabcontent('".$this->prefix."tabs');\n".$this->prefix."tabs.init();\n</script>\n";
+		$this->jscript  = "\n<script type=\"text/javascript\">\nvar " . $this->prefix . "tabs=new tabcontent('" . $this->prefix . "tabs');\n" . $this->prefix . "tabs.init();\n</script>\n";
 	}
 
 	/**
@@ -71,10 +71,10 @@ class roster_config
 	{
 		global $roster;
 
-		$menu = '<!-- Begin Config Menu -->'."\n".
-			border('sgray','start',$roster->locale->act['roster_config_menu'])."\n".
-			'<div style="width:145px;">'."\n".
-			'  <ul id="'.$this->prefix.'tabs" class="tab_menu">'."\n";
+		$menu = '<!-- Begin Config Menu -->' . "\n"
+			  . border('sgray','start',$roster->locale->act['roster_config_menu']) . "\n"
+			  . '<div style="width:145px;">' . "\n"
+			  . '  <ul id="' . $this->prefix . 'tabs" class="tab_menu">' . "\n";
 
 		if (is_array($this->db_values['menu']))
 		{
@@ -86,19 +86,19 @@ class roster_config
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '    <li><a href="'.$values['value'].'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="' . $values['value'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'newlink':
-						$menu .= '    <li><a href="'.$values['value'].'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="' . $values['value'] . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'makelink':
-						$menu .= '    <li><a href="'.makelink($values['value']).'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="' . makelink($values['value']) . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'makenewlink':
-						$menu .= '    <li><a href="'.makelink($values['value']).'" target="_blank"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li><a href="' . makelink($values['value']) . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'page': 	// all pages are the same here
@@ -107,11 +107,11 @@ class roster_config
 					case 'blockframe':
 					case 'blockhide':
 					case 'function':
-						$menu .= '    <li'.(($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '').'><a href="#" rel="'.$values['name'].'"'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</a></li>'."\n";
+						$menu .= '    <li' . (($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '') . '><a href="#" rel="' . $values['name'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'hr':
-						$menu .= '    <li><hr/></li>'."\n";
+						$menu .= "    <li><hr/></li>\n";
 
 					default:
 						break;
@@ -119,7 +119,7 @@ class roster_config
 			}
 		}
 
-		$menu .= '  </ul>'."\n".'</div>'."\n".border('sgray','end').'<!-- End Config Menu -->';
+		$menu .= "  </ul>\n</div>\n" . border('sgray','end') . '<!-- End Config Menu -->';
 		return $menu;
 	}
 
@@ -135,7 +135,7 @@ class roster_config
 		foreach($this->db_values['menu'] as $values)
 		{
 			$type = explode('{',$values['form_type']);
-			$page = '<div id="'.$values['name'].'" style="display:none;">'."\n";
+			$page = '<div id="' . $values['name'] . '" style="display:none;">' . "\n";
 
 			$type[1] = ( isset($type[1]) ? $type[1] : '');
 
@@ -149,50 +149,50 @@ class roster_config
 					break;
 
 				case 'pageframe':
-					$page .= border('sblue','start',$header_text)."\n";
+					$page .= border('sblue','start',$header_text) . "\n";
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
-					$page .= border('sblue','end')."\n";
+					$page .= border('sblue','end') . "\n";
 					$addpage = true;
 					break;
 
 				case 'pagehide':
-					$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$page .= border('sblue','end');
-					$page .= '</div>'."\n";
-					$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+					$page .= '</div>' . "\n";
+					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
-					$page .= '</div>'."\n";
+					$page .= '</div>' . "\n";
 					$addpage = true;
 					break;
 
 				case 'blockframe':
-					$page .= border('sblue','start',$header_text)."\n";
+					$page .= border('sblue','start',$header_text) . "\n";
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
-					$page .= border('sblue','end')."\n";
+					$page .= border('sblue','end') . "\n";
 					$addpage = true;
 					break;
 
 				case 'blockhide':
-					$page .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$page .= border('sblue','end');
-					$page .= '</div>'."\n";
-					$page .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+					$page .= '</div>' . "\n";
+					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
-					$page .= '</div>'."\n";
+					$page .= '</div>' . "\n";
 					$addpage = true;
 					break;
 
@@ -246,7 +246,7 @@ class roster_config
 					break;
 
 				case 'pageframe':
-					$html .= border('sblue','start',$header_text)."\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= border('sblue','start',$header_text) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
@@ -254,39 +254,39 @@ class roster_config
 					break;
 
 				case 'pagehide':
-					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$html .= border('sblue','end');
-					$html .= '</div>'."\n";
-					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
+					$html .= '</div>' . "\n";
+					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
 					$html .= border('sblue','end');
-					$html .= '</div>'."\n";
+					$html .= '</div>' . "\n";
 					break;
 
 				case 'blockframe':
-					$html .= border('sblue','start',$header_text)."\n";
+					$html .= border('sblue','start',$header_text) . "\n";
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= "</table>\n";
-					$html .= border('sblue','end')."\n";
+					$html .= border('sblue','end') . "\n";
 					break;
 
 				case 'blockhide':
-					$html .= '<div id="'.$values['name'].'Hide" style="display:none;">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Hide','".$values['name']."Show')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\" />".$header_text."</div>");
+					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$html .= border('sblue','end');
-					$html .= '</div>'."\n";
-					$html .= '<div id="'.$values['name'].'Show" style="display:inline">'."\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('".$values['name']."Show','".$values['name']."Hide')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\" />".$header_text."</div>");
-					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">'."\n";
+					$html .= '</div>' . "\n";
+					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
+					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">' . "\n";
 					$html .= $this->buildBlock($values['name']);
-					$html .= '</table>'."\n";
+					$html .= '</table>' . "\n";
 					$html .= border('sblue','end');
-					$html .= '</div>'."\n";
+					$html .= '</div>' . "\n";
 					break;
 
 				case 'function':
@@ -353,7 +353,7 @@ class roster_config
 						$text_class = '';
 					}
 
-					$input_field = '<input class="wowinput'.$text_class.'" name="'.$this->prefix.$values['name'].'" type="text" value="'.htmlentities($values['value']).'" size="'.$length[1].'" maxlength="'.$length[0].'" />';
+					$input_field = '<input class="wowinput' . $text_class . '" name="' . $this->prefix . $values['name'] . '" type="text" value="' . htmlentities($values['value']) . '" size="' . $length[1] . '" maxlength="' . $length[0] . '" />';
 					break;
 
 				case 'radio':
@@ -361,33 +361,33 @@ class roster_config
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
-						$input_field .= '<input type="radio" id="rad_'.$this->prefix.$this->radio_num.'" name="'.$this->prefix.$values['name'].'" value="'.$vals[1].'" '.( $values['value'] == $vals[1] ? 'checked="checked"' : '' ).' /><label for="rad_'.$this->prefix.$this->radio_num.'" class="'.( $values['value'] == $vals[1] ? 'blue' : 'white' ).'">'.$vals[0]."</label>\n";
+						$input_field .= '<input type="radio" id="rad_' . $this->prefix . $this->radio_num . '" name="' . $this->prefix . $values['name'] . '" value="' . $vals[1] . '" ' . ( $values['value'] == $vals[1] ? 'checked="checked"' : '' ) . ' /><label for="rad_' . $this->prefix . $this->radio_num . '" class="' . ( $values['value'] == $vals[1] ? 'blue' : 'white' ) . '">' . $vals[0] . "</label>\n";
 						$this->radio_num++;
 					}
 					break;
 
 				case 'select':
 					$options = explode('|',$input_type[1]);
-					$input_field .= '<select name="'.$this->prefix.$values['name'].'">'."\n";
+					$input_field .= '<select name="' . $this->prefix . $values['name'] . '">' . "\n";
 					$select_one = 1;
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
 						if( $values['value'] == $vals[1] && $select_one )
 						{
-							$input_field .= '  <option value="'.$vals[1].'" selected="selected">-[ '.$vals[0].' ]-</option>'."\n";
+							$input_field .= '  <option value="' . $vals[1] . '" selected="selected">-[ ' . $vals[0] . ' ]-</option>' . "\n";
 							$select_one = 0;
 						}
 						else
 						{
-							$input_field .= '  <option value="'.$vals[1].'">'.$vals[0].'</option>'."\n";
+							$input_field .= '  <option value="' . $vals[1] . '">' . $vals[0] . '</option>' . "\n";
 						}
 					}
 					$input_field .= '</select>';
 					break;
 
 				case 'color':
-					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:'.$values['value'].';" value="'.$values['value'].'" name="'.$this->prefix.'color_'.$values['name'].'" id="'.$this->prefix.'color_'.$values['name'].'" /><img src="'.$roster->config['img_url'].'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\''.$this->prefix.'color_'.$values['name'].'\'))" alt="" />'."\n";
+					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:' . $values['value'] . ';" value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '" id="' . $this->prefix . 'color_' . $values['name'] . '" /><img src="' . $roster->config['img_url'] . 'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'' . $this->prefix . 'color_' . $values['name'] . '\'))" alt="" />' . "\n";
 					break;
 
 				case 'access':
@@ -409,8 +409,8 @@ class roster_config
 
 			$html .= '
 		<tr>
-			<td class="membersRow'.(($i%2)+1).'"><div'.$this->createTip($values['description'],$values['tooltip'],$values['description']).'</div></td>
-			<td class="membersRowRight'.(($i%2)+1).'"><div align="right">'.$input_field.'</div></td>
+			<td class="membersRow' . (($i%2)+1) . '"><div' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</div></td>
+			<td class="membersRowRight' . (($i%2)+1) . '"><div align="right">' . $input_field . '</div></td>
 		</tr>';
 
 			$i++;
@@ -469,7 +469,7 @@ class roster_config
 					{
 						if( substr($settingValue, 0, 1) != '#' )
 						{
-							$settingValue = '#'.strtoupper($settingValue);
+							$settingValue = '#' . strtoupper($settingValue);
 						}
 						else
 						{
@@ -482,7 +482,7 @@ class roster_config
 				{
 					if( $this->db_values['all'][$settingName]['value'] != $settingValue )
 					{
-						$update_sql[] = "UPDATE `".$this->tablename."` SET `config_value` = '".$roster->db->escape($settingValue)."' WHERE (".$this->where.") AND `config_name` = '".$roster->db->escape($settingName)."';";
+						$update_sql[] = "UPDATE `" . $this->tablename . "` SET `config_value` = '" . $roster->db->escape($settingValue) . "' WHERE (" . $this->where . ") AND `config_name` = '" . $roster->db->escape($settingName) . "';";
 					}
 					if( $this->db_values['all'][$settingName]['value'] == $config[$settingName] )
 					{
@@ -503,7 +503,7 @@ class roster_config
 				$result = $roster->db->query($sql);
 				if( !$result )
 				{
-					return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>'.$roster->db->error().'</pre><br />';
+					return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
 				}
 			}
 			return '<span style="color:#0099FF;font-size:11px;">Settings have been changed</span><br />';
@@ -523,7 +523,7 @@ class roster_config
 	{
 		global $roster;
 
-		$sql = "SELECT * FROM `".$this->tablename."` WHERE (".$this->where.") ORDER BY `id` ASC;";
+		$sql = "SELECT * FROM `" . $this->tablename . "` WHERE (" . $this->where . ") ORDER BY `id` ASC;";
 
 		// Get the current config values
 		$results = $roster->db->query($sql);
@@ -540,14 +540,14 @@ class roster_config
 				$this->db_values[$setitem][$arrayitem]['value'] = $row['config_value'];
 				$this->db_values[$setitem][$arrayitem]['form_type'] = $row['form_type'];
 
-				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">'.$row['config_name'].'</span></span>';
+				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">' . $row['config_name'] . '</span></span>';
 
 				// Get description and tooltip
 				if( isset($roster->locale->act['admin'][$row['config_name']]) )
 				{
 					$desc_tip = explode('|',$roster->locale->act['admin'][$row['config_name']],2);
 					$this->db_values[$setitem][$arrayitem]['description'] = $desc_tip[0];
-					$this->db_values[$setitem][$arrayitem]['tooltip'] = ( isset($desc_tip[1]) ? $desc_tip[1] : '' ).$db_val_line;
+					$this->db_values[$setitem][$arrayitem]['tooltip'] = ( isset($desc_tip[1]) ? $desc_tip[1] : '' ) . $db_val_line;
 				}
 				else
 				{

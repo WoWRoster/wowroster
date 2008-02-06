@@ -108,7 +108,7 @@ class roster_error
 		// set of errors for which a trace will be saved
 		if( $errno & $this->error_level )
 		{
-			$this->report[$filename][] = $errortype[$errno]." line $linenum: ".$errmsg;
+			$this->report[$filename][] = $errortype[$errno] . " line $linenum: " . $errmsg;
 		}
 	}
 }

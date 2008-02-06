@@ -104,7 +104,7 @@ class RosterTemplate
 		}
 		else
 		{
-			eval(' ?>'.$this->compiled_code[$handle].'<?php ');
+			eval(' ?>' . $this->compiled_code[$handle] . '<?php ');
 		}
 		return true;
 	}
@@ -131,27 +131,27 @@ class RosterTemplate
 			trigger_error("template->_tpl_load(): No file specified for handle $handle", E_USER_ERROR);
 		}
 
-		if (!file_exists(ROSTER_BASE.$this->files[$handle]))
+		if (!file_exists(ROSTER_BASE . $this->files[$handle]))
 		{
 			//trigger_error('template->_tpl_load(): '.($this->files[$handle]).' does not exist', E_USER_NOTICE);
-			$this->files[$handle] = ROSTER_TPLDIR.'default/'.$this->filename[$handle];
-			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH.'templates/default';
-			$this->cachepath = ROSTER_CACHEDIR.'tpl_default_';
+			$this->files[$handle] = ROSTER_TPLDIR . 'default/' . $this->filename[$handle];
+			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'templates/default';
+			$this->cachepath = ROSTER_CACHEDIR . 'tpl_default_';
 			$pos = strpos($this->filename[$handle], '/');
-			if( !file_exists(ROSTER_BASE.$this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS.substr($this->filename[$handle],0,$pos).'/templates') )
+			if( !file_exists(ROSTER_BASE . $this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS . substr($this->filename[$handle],0,$pos) . '/templates') )
 			{
-				$this->files[$handle] = ROSTER_ADDONS.substr($this->filename[$handle],0,$pos).'/templates/'.substr($this->filename[$handle],$pos+1);
-				$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH.'addons/'.substr($this->filename[$handle],0,$pos);
+				$this->files[$handle] = ROSTER_ADDONS . substr($this->filename[$handle],0,$pos) . '/templates/' . substr($this->filename[$handle],$pos+1);
+				$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'addons/' . substr($this->filename[$handle],0,$pos);
 			}
 		}
 		else
 		{
-			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH.'templates/'.$this->tpl;
-			$this->cachepath = ROSTER_CACHEDIR.'tpl_'.$this->tpl.'_';
+			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'templates/' . $this->tpl;
+			$this->cachepath = ROSTER_CACHEDIR . 'tpl_' . $this->tpl . '_';
 		}
 
 		$filename = ereg_replace('/', '#', $this->filename[$handle]);
-		$filename = $this->cachepath.$filename.'.inc';
+		$filename = $this->cachepath . $filename . '.inc';
 
 		// Don't recompile page if the original template is older then the compiled cache
 		if( file_exists($filename) && filemtime($filename) > filemtime($this->files[$handle]) )
@@ -169,9 +169,9 @@ class RosterTemplate
 		// Try and open template for read
 		if( !($fp = fopen($this->files[$handle], 'r')) )
 		{
-			trigger_error("template->_tpl_load_file(): File ".$this->files[$handle]." does not exist or is empty", E_USER_ERROR);
+			trigger_error("template->_tpl_load_file(): File " . $this->files[$handle] . " does not exist or is empty", E_USER_ERROR);
 		}
-		require_once(ROSTER_LIB.'template_enc.php');
+		require_once(ROSTER_LIB . 'template_enc.php');
 		$this->compiled_code[$handle] = RosterTplEncode::compile(trim(fread($fp, filesize($this->files[$handle]))));
 		fclose($fp);
 		// Actually compile the code now.

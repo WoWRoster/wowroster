@@ -310,14 +310,14 @@ function ajax_die($text, $title, $file, $line, $sql)
 	{
 		$text .= "\n" . 'SQL: ' . $sql;
 	}
-	echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'."\n".
-		'<response>'."\n".
-		'  <method/>'."\n".
-		'  <cont/>'."\n".
-		'  <result/>'."\n".
-		'  <status>255</status>'."\n".
-		'  <errmsg>'.$text.'</errmsg>'."\n".
-		'</response>'."\n";
+	echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n"
+		. "<response>\n"
+		. "  <method/>\n"
+		. "  <cont/>\n"
+		. "  <result/>\n"
+		. "  <status>255</status>\n"
+		. "  <errmsg>" . $text . "</errmsg>\n"
+		. "</response>\n";
 }
 
 
@@ -362,7 +362,7 @@ function backtrace()
 				}
 				elseif( is_object($bt[$i]['args'][$j]) )
 				{
-					$output .= '<li>' . 'object' . "</li>\n";
+					$output .= "<li>object</li>\n";
 				}
 				elseif( is_null($bt[$i]['args'][$j]) )
 				{
@@ -566,7 +566,7 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 				{
 					$color = 'ffffff;font-weight:bold';
 				}
-				elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'].'/i',$line) )
+				elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'] . '/i',$line) )
 				{
 					$color = '666666';
 				}
@@ -594,7 +594,7 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 					foreach( $classes as $class )
 					{
 						$i++;
-						$line .= '<span style="color:#'. $roster->locale->wordings[$locale]['class_colorArray'][$class] . ';">' . $class . '</span>';
+						$line .= '<span style="color:#' . $roster->locale->wordings[$locale]['class_colorArray'][$class] . ';">' . $class . '</span>';
 						if( $count > $i )
 						{
 							$line .= ', ';
@@ -815,9 +815,9 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
 {
 	return
-		border($style, 'start', $title, $width).
-			$message.
-		border($style, 'end');
+		border($style, 'start', $title, $width)
+			. $message
+			. border($style, 'end');
 }
 
 /**
@@ -833,11 +833,11 @@ function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
 function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px' , $height='300px' )
 {
 	return
-		border($style,'start',$title, $width).
-		'<div style="height:' . $height . ';width:100%;overflow:auto;">'.
-			$message.
-		'</div>'.
-		border($style,'end');
+		border($style,'start',$title, $width)
+			. '<div style="height:' . $height . ';width:100%;overflow:auto;">'
+			. $message
+			. '</div>'
+			. border($style,'end');
 }
 
 /**
@@ -860,11 +860,11 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
 		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
-		border($style, 'start', $title, $width).
-		'<div style="display:' . (($open)?'inline':'none') . ';" id="msgbox_' . $toggleboxes . '">'.
-			$message.
-		'</div>'.
-		border($style, 'end');
+		border($style, 'start', $title, $width)
+			. '<div style="display:' . (($open)?'inline':'none') . ';" id="msgbox_' . $toggleboxes . '">'
+			. $message
+			. '</div>'
+			. border($style, 'end');
 }
 
 /**
@@ -887,11 +887,11 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
 		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
-		border($style,'start',$title, $width).
-		'<div style="height:' . $height . ';width:100%;overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'.
-			$message.
-		'</div>'.
-		border($style,'end');
+		border($style,'start',$title, $width)
+			. '<div style="height:' . $height . ';width:100%;overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'
+			. $message
+			. '</div>'
+			. border($style,'end');
 }
 
 /**
@@ -1133,7 +1133,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 	global $roster;
 
 	$pUrl = parse_url($url);
-	$cache_tag = $pUrl['host'].'_cookie';
+	$cache_tag = $pUrl['host'] . '_cookie';
 
 	$loopcount++;
 	$contents = '';
@@ -1148,10 +1148,10 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 	{
 		$ch = curl_init($url);
 
-		$httpHeader = array( 'Accept-Language: '. substr($roster->config['locale'], 0, 2) );
+		$httpHeader = array( 'Accept-Language: ' . substr($roster->config['locale'], 0, 2) );
 		if( $roster->cache->check($cache_tag) )
 		{
-			$httpHeader[] = 'Cookie: '. $roster->cache->get($cache_tag);
+			$httpHeader[] = 'Cookie: ' . $roster->cache->get($cache_tag);
 		}
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -1224,11 +1224,11 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 			$header = "GET $page$page_params HTTP/1.0\r\n"
 					. "Host: $host\r\n"
 					. "User-Agent: $user_agent\r\n"
-					. "Accept-Language: ". substr($roster->config['locale'], 0, 2). "\r\n"
+					. "Accept-Language: " . substr($roster->config['locale'], 0, 2) . "\r\n"
 					. "Connection: Close\r\n";
 			if( $roster->cache->check($cache_tag) )
 			{
-				$header .= "Cookie: ". $roster->cache->get($cache_tag). "\r\n";
+				$header .= "Cookie: " . $roster->cache->get($cache_tag) . "\r\n";
 			}
 			$header .= "\r\n";
 			fwrite($file, $header);

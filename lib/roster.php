@@ -279,14 +279,14 @@ class roster
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm,2);
-						$where = ' `players`.`name` = "' . $name . '" '
-							. 'AND `players`.`server` = "' . $realm . '" '
-						        . 'AND `players`.`region` = "' . strtoupper($region) . '" ';
+						$where  = ' `players`.`name` = "' . $name . '" '
+								. 'AND `players`.`server` = "' . $realm . '" '
+								. 'AND `players`.`region` = "' . strtoupper($region) . '" ';
 					}
 					else
 					{
-						$where = ' `players`.`name` = "' . $name . '" '
-						       . 'AND `players`.`server` = "' . $realm . '" ';
+						$where  = ' `players`.`name` = "' . $name . '" '
+								. 'AND `players`.`server` = "' . $realm . '" ';
 					}
 				}
 				else
@@ -296,13 +296,13 @@ class roster
 				}
 
 				// Get the data
-				$query = 'SELECT guild.*, members.*, players.*, '
-					. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
-					. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
-					. 'FROM `' . $this->db->table('players') . '` players '
-					. 'LEFT JOIN `'.$this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
-					. 'LEFT JOIN `'.$this->db->table('guild').'` guild ON `players`.`guild_id` = `guild`.`guild_id` '
-					. 'WHERE ' . $where . ";";
+				$query  = 'SELECT guild.*, members.*, players.*, '
+						. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
+						. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
+						. 'FROM `' . $this->db->table('players') . '` players '
+						. 'LEFT JOIN `' . $this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
+						. 'LEFT JOIN `' . $this->db->table('guild') . '` guild ON `players`.`guild_id` = `guild`.`guild_id` '
+						. 'WHERE ' . $where . ";";
 
 				$result = $this->db->query($query);
 
@@ -339,14 +339,14 @@ class roster
 					if( strpos($realm,'-') !== false )
 					{
 						list($region, $realm) = explode('-',$realm,2);
-						$where = ' `guild_name` = "' . $name . '" '
-							. 'AND `server` = "' . $realm . '" '
-							. 'AND `region` = "' . strtoupper($region) . '" ';
+						$where  = ' `guild_name` = "' . $name . '" '
+								. 'AND `server` = "' . $realm . '" '
+								. 'AND `region` = "' . strtoupper($region) . '" ';
 					}
 					else
 					{
-						$where = ' `guild_name` = "' . $name . '" '
-							. 'AND `server` = "' . $realm . '" ';
+						$where  = ' `guild_name` = "' . $name . '" '
+								. 'AND `server` = "' . $realm . '" ';
 					}
 				}
 				else
@@ -356,15 +356,15 @@ class roster
 				}
 
 				// Get the data
-				$query = 'SELECT guild.* '
-					. "FROM `" . $this->db->table('guild') . "` guild "
-					. "WHERE " . $where . ";";
+				$query  = 'SELECT guild.* '
+						. "FROM `" . $this->db->table('guild') . "` guild "
+						. "WHERE " . $where . ";";
 
 				$result = $this->db->query($query);
 
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database Error',__FILE__.'<br />Function: '.__FUNCTION__,__LINE__,$query);
+					die_quietly($this->db->error(),'Database Error',__FILE__ . '<br />Function: ' . __FUNCTION__,__LINE__,$query);
 				}
 
 				if(!( $this->data = $this->db->fetch($result)) )
@@ -385,8 +385,8 @@ class roster
 				if( strpos($this->anchor,'-') !== false )
 				{
 					list($region, $realm) = explode('-',$this->anchor,2);
-					$where = ' `server` = "' . $realm . '" '
-						. 'AND `region` = "' . strtoupper($region) . '"';
+					$where  = ' `server` = "' . $realm . '" '
+							. 'AND `region` = "' . strtoupper($region) . '"';
 				}
 				else
 				{
@@ -395,13 +395,13 @@ class roster
 				}
 
 				// Check if there's data for this realm
-				$query = "SELECT DISTINCT `server`, `region`"
-					. " FROM `" . $this->db->table('guild') . "`"
-					. " WHERE $where"
-					. " UNION SELECT DISTINCT `server`, `region`"
-					. " FROM `" . $this->db->table('players') . "`"
-					. " WHERE $where"
-					. " LIMIT 1;";
+				$query  = "SELECT DISTINCT `server`, `region`"
+						. " FROM `" . $this->db->table('guild') . "`"
+						. " WHERE $where"
+						. " UNION SELECT DISTINCT `server`, `region`"
+						. " FROM `" . $this->db->table('players') . "`"
+						. " WHERE $where"
+						. " LIMIT 1;";
 
 				$result = $this->db->query($query);
 

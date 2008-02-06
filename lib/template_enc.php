@@ -1,6 +1,6 @@
 <?php
 /**
- * WoWRoster.net WoWRoster
+ * WoWRoster..net WoWRoster
  *
  * Template Parser
  * Modified from the EQDkp Project
@@ -110,16 +110,16 @@ class RosterTplEncode
 
 					case 'INCLUDE':
 						$temp = array_shift($include_blocks);
-						$compile_blocks[] = '<?php $this->_tpl_include(\''.$temp."'); ?>";
+						$compile_blocks[] = '<?php $this->_tpl_include(\'' . $temp . "'); ?>";
 						$this->_tpl_include($temp, false);
 						break;
 
 					case 'INCLUDEPHP':
-						/*	$compile_blocks[] = "<?php include('".$this->root.'/'.array_shift($includephp_blocks))."'); ?>"; */
+							/* $compile_blocks[] = "<?php include('" . $this->root . '/' . array_shift($includephp_blocks) . "'); ?>"; */
 						break;
 
 					case 'PHP':
-						$compile_blocks[] = '<?php '.array_shift($php_blocks).' ?>';
+						$compile_blocks[] = '<?php ' . array_shift($php_blocks) . ' ?>';
 						break;
 
 					default:
@@ -473,7 +473,7 @@ class RosterTplEncode
 	function compile_write( &$handle , &$data )
 	{
 		$filename = ereg_replace('/', '#', $this->filename[$handle]);
-		$filename = $this->cachepath.$filename.'.inc';
+		$filename = $this->cachepath . $filename . '.inc';
 		file_writer($filename, $data);
 		return;
 	}
