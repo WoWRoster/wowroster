@@ -83,9 +83,10 @@ if( array_key_exists('mode',$_POST) )
 
 			$body = messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
 		}
+
+		$body .= '<br />';
 	}
 
-	$body .= '<br />';
 }
 
 $body .= '<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
