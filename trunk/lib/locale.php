@@ -53,7 +53,7 @@ class roster_locale
 	{
 		global $roster;
 
-		include(ROSTER_LOCALE_DIR.'languages.php');
+		include(ROSTER_LOCALE_DIR . 'languages.php');
 
 		$this->creditspage = $creditspage;
 

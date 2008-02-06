@@ -109,7 +109,7 @@ function GrabAllLocalDirectories($dir)
 	if ($handle = opendir($dir)) {
 		while ($filename = readdir($handle))
 		{
-			$directory = $dir.'/'.$filename;
+			$directory = $dir . '/' . $filename;
 			if(is_dir($directory) && CheckDirectory($filename))
 			{
 				$directories[$directory] = array('localfiles' => 0, 'remotefiles' => 0, 'severity' => 0);
@@ -130,7 +130,7 @@ function GrabLocalVersions($directory)
 	{
 		while ($filename = readdir($handle))
 		{
-			if(isset($filename) && !is_dir($directory.'/'.$filename) && CheckExtension($filename))
+			if(isset($filename) && !is_dir($directory . '/' . $filename) && CheckExtension($filename))
 			{
 				// Increase the filecounter for this directory
 				$directories[$directory]['localfiles']++;
@@ -194,9 +194,9 @@ function GetFileVersionInfo($directory, $file)
 {
 	global $files;
 
-	$filefullpath = $directory.'/'.$file;
+	$filefullpath = $directory . '/' . $file;
 	// Read the first 2k of the file, which should be enough to grab the $fileheader
-	$fp = @fopen($directory.'/'.$file, 'rb');
+	$fp = @fopen($directory . '/' . $file, 'rb');
 	if($fp) {
 		$fileheader = fread($fp, 2048);
 		fclose($fp);
@@ -352,22 +352,22 @@ function VerifyVersions()
 				if (strcmp($file['local']['versionDesc'], $file['remote']['versionDesc']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['description']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['description']]['color'].';">Local Description does NOT match with SVN</span><br />';
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['description']]['color'] . ';">Local Description does NOT match with SVN</span><br />';
 				}
 				// Check if the local version matches the SVN version
 				if (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) < 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisionsmaller']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisionsmaller']]['color'].';">Local Version: '.$file['local']['versionRev'].' is LOWER than SVN Version: '.$file['remote']['versionRev'].'</span><br />';
-					$files[$directory][$filename]['rev'] = $file['local']['versionRev'].' < '.$file['remote']['versionRev'];
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['revisionsmaller']]['color'] . ';">Local Version: ' . $file['local']['versionRev'] . ' is LOWER than SVN Version: ' . $file['remote']['versionRev'] . '</span><br />';
+					$files[$directory][$filename]['rev'] = $file['local']['versionRev'] . ' < ' . $file['remote']['versionRev'];
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				elseif (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) > 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['revisiongreater']]['color'].';">Local Version: '.$file['local']['versionRev'].' is HIGHER than SVN Version: '.$file['remote']['versionRev'].'</span><br />';
-					$files[$directory][$filename]['rev'] = $file['local']['versionRev'].' > '.$file['remote']['versionRev'];
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['revisiongreater']]['color'] . ';">Local Version: ' . $file['local']['versionRev'] . ' is HIGHER than SVN Version: ' . $file['remote']['versionRev'] . '</span><br />';
+					$files[$directory][$filename]['rev'] = $file['local']['versionRev'] . ' > ' . $file['remote']['versionRev'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				elseif (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) == 0)
@@ -379,16 +379,16 @@ function VerifyVersions()
 				if (($file['local']['versionDate'] < $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateolder']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateolder']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is OLDER than SVN Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
-					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']).' < '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['dateolder']]['color'] . ';">Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is OLDER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '</span><br />';
+					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' < ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				elseif (($file['local']['versionDate'] > $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateyounger']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['dateyounger']]['color'].';">Local Date: '.gmdate('Y/m/d H:i', $file['local']['versionDate']).' is NEWER than SVN Date: '.gmdate('Y/m/d H:i', $file['remote']['versionDate']).'</span><br />';
-					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']).' > '.gmdate('Y/m/d H:i', $file['remote']['versionDate']);
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['dateyounger']]['color'] . ';">Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is NEWER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '</span><br />';
+					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' > ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				elseif (($file['local']['versionDate'] == $file['remote']['versionDate']) || check_if_image($filename))
@@ -399,8 +399,8 @@ function VerifyVersions()
 				if (strcmp($file['local']['versionAuthor'], $file['remote']['versionAuthor']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['author']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['author']]['color'].';">Local Author does NOT match with SVN</span><br />';
-					$files[$directory][$filename]['author'] = $file['local']['versionAuthor'].' != '.$file['remote']['versionAuthor'];
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['author']]['color'] . ';">Local Author does NOT match with SVN</span><br />';
+					$files[$directory][$filename]['author'] = $file['local']['versionAuthor'] . ' != ' . $file['remote']['versionAuthor'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				else
@@ -413,13 +413,13 @@ function VerifyVersions()
 					if (check_if_image($filename))
 					{
 						$files[$directory][$filename]['severity'] += $severity[$problemsev['MD5binary']]['weight'];
-						$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['MD5binary']]['color'].';">Local MD5 does not match with SVN</span><br />';
+						$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['MD5binary']]['color'] . ';">Local MD5 does not match with SVN</span><br />';
 						$files[$directory][$filename]['update'] = 1;
 					}
 					else
 					{
 						$files[$directory][$filename]['severity'] += $severity[$problemsev['MD5']]['weight'];
-						$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['MD5']]['color'].';">Local MD5 does not match with SVN</span><br />';
+						$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['MD5']]['color'] . ';">Local MD5 does not match with SVN</span><br />';
 					}
 					$files[$directory][$filename]['md5'] = 'MD5 String does NOT match';
 					$files[$directory][$filename]['diff'] = 1;
@@ -432,7 +432,7 @@ function VerifyVersions()
 			elseif (isset($file['local']) && !isset($file['remote']))
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nosvn']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['nosvn']]['color'].';">Local file does not exist in SVN</span><br />';
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['nosvn']]['color'] . ';">Local file does not exist in SVN</span><br />';
 				$files[$directory][$filename]['rogue'] = 1;
 				$files[$directory][$filename]['rev'] = $file['local']['versionRev'];
 				$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']);
@@ -441,14 +441,14 @@ function VerifyVersions()
 			elseif (!isset($file['local']) && isset($file['remote']))
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nolocal']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['nolocal']]['color'].';">Local file is missing compared to SVN</span><br />';
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['nolocal']]['color'] . ';">Local file is missing compared to SVN</span><br />';
 				$files[$directory][$filename]['update'] = 1;
 				$files[$directory][$filename]['missing'] = 1;
 			}
 			else
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['unknown']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[$problemsev['unknown']]['color'].';">Unknown Issue</span><br />';
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['unknown']]['color'] . ';">Unknown Issue</span><br />';
 			}
 			$files[$directory][$filename]['rollup'] = 0;
 			foreach ($rollups as $rollupkey => $rollup)
@@ -461,11 +461,11 @@ function VerifyVersions()
 			$files[$directory]['severity'] += $files[$directory][$filename]['severity'];
 			if ($files[$directory][$filename]['rollup'])
 			{
-				$files[$directory]['tooltip'] .= '<span style="color:'.$severity[$files[$directory][$filename]['rollup']]['color'].';">File: '.$filename.' - Severity: '.$files[$directory][$filename]['rollup'].'</span><br />';
+				$files[$directory]['tooltip'] .= '<span style="color:' . $severity[$files[$directory][$filename]['rollup']]['color'] . ';">File: ' . $filename . ' - Severity: ' . $files[$directory][$filename]['rollup'] . '</span><br />';
 			}
 			if (!$files[$directory][$filename]['severity'] && !$files[$directory][$filename]['rogue'] && !$files[$directory][$filename]['diff'])
 			{
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:'.$severity[0]['color'].';">Local file same as SVN</span><br />';
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[0]['color'] . ';">Local file same as SVN</span><br />';
 			}
 			if ($files[$directory][$filename]['rogue'])
 			{
@@ -474,7 +474,7 @@ function VerifyVersions()
 		}
 		if ($files[$directory]['tooltip'] == '')
 		{
-			$files[$directory]['tooltip'] = '<span style="color:'.$severity[0]['color'].';">No File Version Issues!</span>';
+			$files[$directory]['tooltip'] = '<span style="color:' . $severity[0]['color'] . ';">No File Version Issues!</span>';
 		}
 		$files[$directory]['rollup'] = 0;
 		foreach ($rollups as $rollupkey => $rollup)
@@ -508,9 +508,9 @@ function describeGDdyn()
 
 	if( function_exists('gd_info') )
 	{
-		$returnVal = border('sgreen','start','GD Support').
-			'<table class="bodyline" cellspacing="0">'."\n";
-		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow".(((++$rowstripe)%2)+1)."\">GD Status</td>\n\t\t<td class=\"membersRowRight".((($rowstripe)%2)+1)."\"><span class=\"green\">On</span></td>\n\t</tr>\n";
+		$returnVal  = border('sgreen','start','GD Support')
+					. '<table class="bodyline" cellspacing="0">' . "\n";
+		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">GD Status</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\"><span class=\"green\">On</span></td>\n\t</tr>\n";
 
 		$info = gd_info();
 		$keys = array_keys($info);
@@ -518,21 +518,21 @@ function describeGDdyn()
 		{
 			if(is_bool($info[$keys[$i]]))
 			{
-				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow".(((++$rowstripe)%2)+1)."\">".$keys[$i]."</td>\n\t\t<td class=\"membersRowRight".((($rowstripe)%2)+1)."\">".yesNo($info[$keys[$i]])."</td>\n\t</tr>\n";
+				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">" . $keys[$i] . "</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\">" . yesNo($info[$keys[$i]]) . "</td>\n\t</tr>\n";
 			}
 			else
 			{
-				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow".(((++$rowstripe)%2)+1)."\">".$keys[$i]."</td>\n\t\t<td class=\"membersRowRight".((($rowstripe)%2)+1)."\">".$info[$keys[$i]]."</td>\n\t</tr>\n";
+				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">" . $keys[$i] . "</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\">" . $info[$keys[$i]] . "</td>\n\t</tr>\n";
 			}
 		}
-		$returnVal .= "</table>\n".border('sgreen','end');
+		$returnVal .= "</table>\n" . border('sgreen','end');
 	}
 	else
 	{
-		$returnVal = border('sred','start','GD Support').
-			'<table class="bodyline" cellspacing="0">'."\n";
+		$returnVal  = border('sred','start','GD Support')
+					.'<table class="bodyline" cellspacing="0">' . "\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow1\">GD Status</td>\n\t\t<td class=\"membersRowRight1\"><span class=\"red\">Off</span></td>\n\t</tr>\n";
-		$returnVal .= "</table>\n".border('sred','end');
+		$returnVal .= "</table>\n" . border('sred','end');
 	}
 
 	return $returnVal;
@@ -582,7 +582,7 @@ function ConfigErrors()
 
 	if( !empty($errors) )
 	{
-		$errors = '<span class="red">'.$errors."</span><br /><br />\n";
+		$errors = '<span class="red">' . $errors . "</span><br /><br />\n";
 	}
 
 	return $errors;
@@ -645,7 +645,7 @@ function yesNo($bool)
 
 function downloadsvn($filename)
 {
-	$file_source = ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=full';
+	$file_source = ROSTER_SVNREMOTE . '?getfile=' . $filename . '&mode=full';
 
 	$rh = fopen($file_source, 'rb');
 	$wh = fopen($filename, 'wb');
@@ -813,8 +813,8 @@ function difffile($old,$new)
 		}
 		if ($op > 0)
 		{
-			$xstr = ($x1 == ($x0+1)) ? $x1 : ($x0+1).",".$x1;
-			$ystr = ($y1 == ($y0+1)) ? $y1 : ($y0+1).",".$y1;
+			$xstr = ($x1 == ($x0+1)) ? $x1 : ($x0+1) . "," . $x1;
+			$ystr = ($y1 == ($y0+1)) ? $y1 : ($y0+1) . "," . $y1;
 			if ($op == 1)
 			{
 				$out[$outcount]['rownr1'] = $xstr;
@@ -875,7 +875,7 @@ function highlight_php($string, $startline=1)
 	{
 		if( !empty($line) )
 		{
-			$line = "<?php x\n".$line;
+			$line = "<?php x\n" . $line;
 
 			$linecoded = highlight_string($line,true);
 
@@ -887,15 +887,15 @@ function highlight_php($string, $startline=1)
 			if( !empty($linecoded) )
 			{
 				$returnstring .= '<tr>';
-				$returnstring .= '  <td width="1%" valign="top" style="background-color:#33ccff;border-style:solid;border-width:1px;border-color:white;"><code>'.$startline.'</code></td>';
-				$returnstring .= '  <td width="99%" valign="top" style="background-color:white;"><code>'.$linecoded.'</code></td>';
+				$returnstring .= '  <td width="1%" valign="top" style="background-color:#33ccff;border-style:solid;border-width:1px;border-color:white;"><code>' . $startline . '</code></td>';
+				$returnstring .= '  <td width="99%" valign="top" style="background-color:white;"><code>' . $linecoded . '</code></td>';
 				$returnstring .= '</tr>';
 			}
 		}
 		else
 		{
 			$returnstring .= '<tr>';
-			$returnstring .= '  <td width="1%" valign="top" style="background-color:#33ccff;border-style:solid;border-width:1px;border-color:white;"><code>'.$startline.'</code></td>';
+			$returnstring .= '  <td width="1%" valign="top" style="background-color:#33ccff;border-style:solid;border-width:1px;border-color:white;"><code>' . $startline . '</code></td>';
 			$returnstring .= '  <td width="99%" valign="top" style="background-color:white;">&nbsp;</td>';
 			$returnstring .= '</tr>';
 		}

@@ -41,25 +41,25 @@ class recipe
 			$lang = $char->data['clientLocale'];
 		}
 
-		$path = $roster->config['interface_url'].'Interface/Icons/'.$this->data['recipe_texture'].'.'.$roster->config['img_suffix'];
+		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['recipe_texture'] . '.' . $roster->config['img_suffix'];
 
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
 		foreach( $roster->locale->wordings[$lang]['data_links'] as $key => $ilink )
 		{
-			$linktip .= '<a href="'.$ilink.urlencode(utf8_decode($this->data['recipe_name'])).'" target="_blank">'.$key.'</a><br />';
+			$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['recipe_name'])) . '" target="_blank">' . $key . '</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
 		setTooltip('itemlink',$roster->locale->wordings[$lang]['data_search']);
 
-		$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
 
-		$returnstring = '<div class="item" '.$tooltip.$linktip.'>';
+		$returnstring = '<div class="item" ' . $tooltip . $linktip . '>';
 
-		$returnstring .= '<img src="'.$path.'" class="icon"'." alt=\"\" />\n";
+		$returnstring .= '<img src="' . $path . '" class="icon" alt="" />' . "\n";
 
 		$returnstring .= '</div>';
 		return $returnstring;
@@ -70,7 +70,7 @@ function recipe_get_many( $member_id, $search, $sort )
 {
 	global $roster;
 
-	$query= "SELECT * FROM `".$roster->db->table('recipes')."` where `member_id` = '$member_id'";
+	$query= "SELECT * FROM `" . $roster->db->table('recipes') . "` where `member_id` = '$member_id'";
 
 	switch ($sort)
 	{
@@ -122,7 +122,7 @@ function recipe_get_all( $skill_name, $search, $sort )
 {
 	global $roster;
 
-	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `".$roster->db->table('recipes')."` WHERE `skill_name` = '$skill_name' ".($search==''?'':" AND (recipe_tooltip LIKE '%".$search."%' OR recipe_name LIKE '%".$search."%')")." GROUP BY recipe_name";
+	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `" . $roster->db->table('recipes') . "` WHERE `skill_name` = '$skill_name' " . ($search==''?'':" AND (recipe_tooltip LIKE '%" . $search . "%' OR recipe_name LIKE '%" . $search . "%')") . " GROUP BY recipe_name";
 
 	switch ($sort)
 	{
@@ -152,7 +152,7 @@ function recipe_get_all( $skill_name, $search, $sort )
 	}
 
 	$result = $roster->db->query( $query );
-//	echo '--'.$query.'--';
+
 	$recipes = array();
 	while( $data = $roster->db->fetch( $result ) ) {
 		$recipe = new recipe( $data );

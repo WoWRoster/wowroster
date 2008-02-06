@@ -702,12 +702,12 @@ class RosterMenu
 					}
 					else
 					{
-						$button['icon'] = $roster->config['interface_url'].'Interface/Icons/' . $button['icon'] . '.' . $roster->config['img_suffix'];
+						$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $button['icon'] . '.' . $roster->config['img_suffix'];
 					}
 				}
 				else
 				{
-					$button['icon'] = $roster->config['interface_url'].'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+					$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 				}
 
 				if( !in_array($button['scope'],array('util','realm','guild','char')) || $button['addon_id'] == 0 )

@@ -58,7 +58,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = 'CREATE' . ( $roster->config['use_temp_tables'] ? ' TEMPORARY ' : ' ' ). 'TABLE `backup_' . $table . '` LIKE `' . $table . '`';
+		$this->sql[] = 'CREATE' . ( $roster->config['use_temp_tables'] ? ' TEMPORARY ' : ' ' ) . 'TABLE `backup_' . $table . '` LIKE `' . $table . '`';
 		$this->sql[] = 'INSERT INTO `backup_' . $table . '` SELECT * FROM `' . $table . '`';
 		$this->tables[$table] = true; // Restore backup on rollback
 	}
@@ -207,7 +207,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = 'DELETE FROM `'.$roster->db->table('menu_button').'` WHERE `addon_id`="'.$this->addata['addon_id'].'" AND `title`="'.$title.'";';
+		$this->sql[] = 'DELETE FROM `' . $roster->db->table('menu_button') . '` WHERE `addon_id`="' . $this->addata['addon_id'] . '" AND `title`="' . $title . '";';
 	}
 
 	/**
@@ -270,7 +270,7 @@ class Install
 		{
 			if (!$roster->db->query($query))
 			{
-				$this->seterrors('Install error in query '.$id.'. MySQL said: <br/>'.$roster->db->error().'<br />The query was: <br />'.$query);
+				$this->seterrors('Install error in query ' . $id . '. MySQL said: <br />' . $roster->db->error() . '<br />The query was: <br />' . $query);
 				$retval = 1;
 				break;
 			}
@@ -279,29 +279,29 @@ class Install
 		{
 			foreach ($this->tables as $table => $backup)
 			{
-				$query = 'DROP TABLE IF EXISTS `'.$table.'`';
+				$query = 'DROP TABLE IF EXISTS `' . $table . '`';
 				if ($result = $roster->db->query($query))
 				{
 					$roster->db->free_result($result);
 				}
 				else
 				{
-					$this->seterrors('Rollback error while dropping '.$table.'. MySQL said: '.$roster->db->error());
+					$this->seterrors('Rollback error while dropping ' . $table . '. MySQL said: ' . $roster->db->error());
 					$retval = 2;
 				}
 				if ($backup)
 				{
-					$query = 'CREATE TABLE `'.$table.'` LIKE `backup_'.$table.'`';
+					$query = 'CREATE TABLE `' . $table . '` LIKE `backup_' . $table . '`';
 					if ($result = $roster->db->query($query))
 					{
 						$roster->db->free_result($result);
 					}
 					else
 					{
-						$this->seterrors('Rollback error while recreating '.$table.'. MySQL said: '.$roster->db->error());
+						$this->seterrors('Rollback error while recreating ' . $table . '. MySQL said: ' . $roster->db->error());
 						$retval = 2;
 					}
-					$query = 'INSERT INTO `'.$table.'` SELECT * FROM `backup_'.$table.'`';
+					$query = 'INSERT INTO `' . $table . '` SELECT * FROM `backup_' . $table . '`';
 
 					if ($result = $roster->db->query($query))
 					{
@@ -309,7 +309,7 @@ class Install
 					}
 					else
 					{
-						$this->seterrors('Rollback error while reinserting data in '.$table.'. MySQL said: '.$roster->db->error());
+						$this->seterrors('Rollback error while reinserting data in ' . $table . '. MySQL said: ' . $roster->db->error());
 						$retval = 2;
 					}
 				}
@@ -342,7 +342,7 @@ class Install
 	{
 		global $roster;
 
-		return (($backup) ? 'backup_' : '').$roster->db->table($table, $this->addata['basename']);
+		return (($backup) ? 'backup_' : '') . $roster->db->table($table, $this->addata['basename']);
 	}
 
 	/**

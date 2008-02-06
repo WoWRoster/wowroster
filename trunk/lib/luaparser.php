@@ -308,11 +308,11 @@ class lua
 			}
 			elseif( is_numeric($name) )
 			{
-				$out .= '['.$name.']';
+				$out .= '[' . $name . ']';
 			}
 			else
 			{
-				$out .= '["'.$name.'"]';
+				$out .= '["' . $name . '"]';
 			}
 
 			$out .= ' = ';
