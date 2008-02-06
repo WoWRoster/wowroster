@@ -27,6 +27,14 @@ if( file_exists(ROSTER_BASE . 'conf.php') )
 	include_once(ROSTER_BASE . 'conf.php');
 }
 
+/**
+ * URL path to Roster's directory
+ * This is needed in template.php
+ * And since we don't want to include cmslink.lib.php, this will have to do
+ * Blank should be fine
+ */
+define('ROSTER_PATH','');
+
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
