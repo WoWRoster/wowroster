@@ -19,4 +19,4 @@ $lang['guildinfo'] = 'Información de la hermandad';
 $lang['guildinfo_desc'] = 'Muestra el texto de información de la hermandad';
 $lang['ginfobutton'] = 'Información de la hermandad|Muestra el texto de información de la hermandad';
 
-$lang['admin']['guildinfo_access'] = 'Access|Set who has access to Guild Info';
+$lang['admin']['guildinfo_access'] = 'Acceso|Selecciona quién tiene acceso a la información de la hermandad';
