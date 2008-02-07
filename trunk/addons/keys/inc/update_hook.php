@@ -90,7 +90,7 @@ class keysUpdate
 		// Items
 		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
 			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
-			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
+			. "FROM (SELECT `faction`,`key_name`,`stage`,`type`,`value`,`count` FROM `" . $roster->db->table('stages', $this->data['basename']) . "`) AS stages, "
 			. "`" . $roster->db->table('items') . "` AS data "
 			. "WHERE `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
 			. "AND (`stages`.`type` = 'In' AND `data`.`item_name` = `stages`.`value` "
