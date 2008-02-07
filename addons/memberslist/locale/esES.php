@@ -36,8 +36,8 @@ $lang['membersfilter']			= 'Filtrar filas';
 $lang['openall']                = 'Abrir todo';
 $lang['closeall']               = 'Cerrar todo';
 $lang['ungroupalts']            = 'Desagrupar alts';
-$lang['openalts']               = 'Agrupar alts (Open)';
-$lang['closealts']              = 'Agrupar alts (Closed)';
+$lang['openalts']               = 'Agrupar alts (Abrir)';
+$lang['closealts']              = 'Agrupar alts (Cerrar)';
 $lang['clientsort']             = 'Orden del cliente';
 $lang['serversort']             = 'Orden del servidor';
 
@@ -52,7 +52,7 @@ $lang['alt_type']               = 'Personaje Alt';
 
 $lang['xp_to_go']               = '%1$s PE hasta nivel %2$s';
 
-$lang['skill_level']		= 'Skill level';
+$lang['skill_level']		= 'Nivel de habilidad';
 
 // Last Online words
 $lang['online_at_update']       = 'Conectado en la actualización';
@@ -178,7 +178,7 @@ $lang['admin']['log_note']		= 'Nota|Elige si mostrar la columna con la nota en l
 $lang['admin']['log_onote']		= 'Nota de oficial|Elige si mostrar la nota de oficial en la página de registro de miembros';
 
 // Settings names on build page
-$lang['admin']['use_global']    = 'Use global settings|Use global settings rather than these local ones for this guild.';
+$lang['admin']['use_global']    = 'Usar configuraciones globales|Utiliza una configuración global en lugar de una local para esta hermandad.';
 $lang['admin']['getmain_regex'] = 'Expresiones|Este campo especifica las expresiones a usar. <br />Mira en el enlace de wiki para mas detalles.';
 $lang['admin']['getmain_field'] = 'Aplicar en un campo|Este campo especifica sobre que campo de miembro se aplica la expresión. <br />Mira en el enlace de wiki para mas detalles.';
 $lang['admin']['getmain_match'] = 'Coincidencias|Este campo especifica que valor devolver con la expresión. <br />Mira en el enlace de wiki para mas detalles.';

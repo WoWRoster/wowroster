@@ -13,7 +13,7 @@
  * @subpackage Locale
 */
 
-// -[ enUS Localization ]-
+// -[ esES Localization ]-
 
 // Installer names
 $lang['news']			        = 'Noticias';
