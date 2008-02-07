@@ -1,0 +1,65 @@
+<!-- $Id$ -->
+
+{MESSAGE}
+
+<!-- IF S_ADDON_LIST -->
+{T_TABLE_START}
+<table class="bodyline" cellspacing="0">
+	<tr>
+		<th class="membersHeader">{L_ICON}</th>
+		<th class="membersHeader">{L_ADDONINFO}</th>
+		<th class="membersHeader">{L_STATUS}</th>
+		<th class="membersHeaderRight">{L_INSTALLATION}</th>
+	</tr>
+<!-- BEGIN addon_list -->
+	<tr>
+		<td class="membersRow{addon_list.ROW_CLASS}"><img src="{addon_list.ICON}" alt="[icon]" /></td>
+		<td class="membersRow{addon_list.ROW_CLASS}"><table cellpadding="0" cellspacing="0">
+			<tr>
+				<td><span style="font-size:18px;" class="green">{addon_list.FULLNAME}</span> v{addon_list.VERSION}</td>
+			</tr>
+			<tr>
+				<td>{addon_list.DESCRIPTION}</td>
+			</tr>
+			<tr>
+				<td><span class="blue">{L_AUTHOR}: {addon_list.AUTHOR}</span></td>
+			</tr>
+		</table></td>
+		<td class="membersRow{addon_list.ROW_CLASS}"><!-- IF addon_list.INSTALL neq 3 --><!-- IF addon_list.ACTIVE --><form name="deactivate_{addon_list.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
+		<input type="hidden" name="op" value="deactivate" />
+		<input type="hidden" name="id" value="{addon_list.ID}" />
+		<input {L_TIP_STATUS_ACTIVE} type="image" src="{IMG_URL}admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
+	</form><!-- ELSE -->
+	<form name="activate_{addon_list.ID}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
+		<input type="hidden" name="op" value="activate" />
+		<input type="hidden" name="id" value="{addon_list.ID}" />
+		<input {L_TIP_STATUS_INACTIVE} type="image" src="{IMG_URL}admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
+	</form><!-- ENDIF --><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
+		<td class="membersRowRight{addon_list.ROW_CLASS}"><!-- IF addon_list.INSTALL eq -1 --><form name="purge_{addon_list.BASENAME}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
+	<input type="hidden" name="op" value="process" />
+	<input type="hidden" name="addon" value="{addon_list.BASENAME}" />
+	<input type="hidden" name="type" value="purge" />
+	<input {L_TIP_INSTALL_OLD} type="image" src="{IMG_URL}admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />
+</form><!-- ELSEIF addon_list.INSTALL eq 0 --><form name="uninstall_{addon_list.BASENAME}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
+	<input type="hidden" name="op" value="process" />
+	<input type="hidden" name="addon" value="{addon_list.BASENAME}" />
+	<input type="hidden" name="type" value="uninstall" />
+	<input {L_TIP_INSTALL} type="image" src="{IMG_URL}admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
+</form><!-- ELSEIF addon_list.INSTALL eq 1 --><form name="upgrade_{addon_list.BASENAME}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
+	<input type="hidden" name="op" value="process" />
+	<input type="hidden" name="addon" value="{addon_list.BASENAME}" />
+	<input type="hidden" name="type" value="upgrade" />
+	<input {addon_list.L_TIP_UPGRADE} type="image" src="{IMG_URL}admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
+</form><!-- ELSEIF addon_list.INSTALL eq 3 --><form name="install_{addon_list.BASENAME}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
+	<input type="hidden" name="op" value="process" />
+	<input type="hidden" name="addon" value="{addon_list.BASENAME}" />
+	<input type="hidden" name="type" value="install" />
+	<input {L_TIP_UNINSTALL} type="image" src="{IMG_URL}admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
+</form><!-- ENDIF --></td>
+	</tr>
+
+<!-- END addon_list -->
+</table>
+
+{T_BORDER_END}
+<!-- ENDIF -->

@@ -1,0 +1,71 @@
+<!-- $Id$ -->
+
+{MESSAGE}
+
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
+	<input type="hidden" name="mode" value="Admin" />
+{T_TABLE_ADMIN}
+	<table class="bodyline" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="membersRow1">{L_OLD_PASS}:</td>
+			<td class="membersRowRight1"><input class="wowinput192" type="password" name="oldpass" value="" /></td>
+		</tr>
+		<tr>
+			<td class="membersRow2">{L_NEW_PASS}:</td>
+			<td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
+		</tr>
+		<tr>
+			<td class="membersRow1">{L_NEW_PASS_CONFIRM}:</td>
+			<td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
+				<input type="submit" value="{L_CHANGE_PASS}" /></div></td>
+		</tr>
+	</table>
+{T_BORDER_END}
+</form>
+
+<br />
+
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="conf_officer_pass" onsubmit="submitonce(this)">
+	<input type="hidden" name="mode" value="Officer" />
+{T_TABLE_OFFICER}
+	<table class="bodyline" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="membersRow2">{L_NEW_PASS}:</td>
+		<td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
+	</tr>
+	<tr>
+		<td class="membersRow1">{L_NEW_PASS_CONFIRM}:</td>
+		<td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
+			<input type="submit" value="{L_CHANGE_PASS}" /></div></td>
+	</tr>
+	</table>
+{T_BORDER_END}
+</form>
+
+<br />
+
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="conf_guild_pass" onsubmit="submitonce(this)">
+<input type="hidden" name="mode" value="Guild" />
+{T_TABLE_GUILD}
+<table class="bodyline" cellspacing="0" cellpadding="0">
+<tr>
+<td class="membersRow2">{L_NEW_PASS}:</td>
+<td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
+</tr>
+<tr>
+<td class="membersRow1">{L_NEW_PASS_CONFIRM}:</td>
+<td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
+</tr>
+<tr>
+<td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
+<input type="submit" value="{L_CHANGE_PASS}" /></div></td>
+</tr>
+</table>
+{T_BORDER_END}
+</form>

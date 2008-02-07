@@ -109,6 +109,26 @@ class RosterTemplate
 		return true;
 	}
 
+	// Methods for loading and evaluating the templates
+	function fetch( $handle , $include_once = true )
+	{
+		$output = '';
+
+		if ($filename = $this->_tpl_load($handle))
+		{
+			ob_start();
+				($include_once) ? include_once($filename) : include($filename);
+			$output = ob_get_clean();
+		}
+		else
+		{
+			ob_start();
+				eval(' ?>' . $this->compiled_code[$handle] . '<?php ');
+			$output = ob_get_clean();
+		}
+		return $output;
+	}
+
 	function assign_var_from_handle( $varname , $handle , $include_once = true )
 	{
 		ob_start();

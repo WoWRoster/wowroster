@@ -23,7 +23,22 @@ if( !defined('IN_ROSTER') )
 
 $roster->output['title'] .= $roster->locale->act['pagebar_changepass'];
 
-if( array_key_exists('mode',$_POST) )
+$roster->tpl->assign_vars(array(
+	'T_TABLE_ADMIN'   => border('sred','start',$roster->locale->act['changeadminpass']),
+	'T_TABLE_OFFICER' => border('syellow','start',$roster->locale->act['changeofficerpass']),
+	'T_TABLE_GUILD'   => border('sgreen','start',$roster->locale->act['changeguildpass']),
+
+	'L_OLD_PASS'         => $roster->locale->act['old_pass'],
+	'L_NEW_PASS'         => $roster->locale->act['new_pass'],
+	'L_NEW_PASS_CONFIRM' => $roster->locale->act['new_pass_confirm'],
+	'L_CHANGE_PASS'      => $roster->locale->act['pagebar_changepass'],
+
+	'MESSAGE' => '',
+	)
+);
+
+
+if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 {
 	$mode = $_POST['mode'];
 
@@ -50,23 +65,23 @@ if( array_key_exists('mode',$_POST) )
 		$success = 0;
 		if( $mode == 'Admin' && md5($oldpass) != $realhash )
 		{
-			$body = messagebox($roster->locale->act['pass_old_error'],$roster->locale->act['roster_cp'],'sred');
+			$message = messagebox($roster->locale->act['pass_old_error'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( !array_key_exists('newpass',$_POST) || !array_key_exists('confirmpass',$_POST) )
 		{
-			$body = messagebox($roster->locale->act['pass_submit_error'],$roster->locale->act['roster_cp'],'sred');
+			$message = messagebox($roster->locale->act['pass_submit_error'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( $newpass != $confirmpass )
 		{
-			$body = messagebox($roster->locale->act['pass_mismatch'],$roster->locale->act['roster_cp'],'sred');
+			$message = messagebox($roster->locale->act['pass_mismatch'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( $newpass === '' || $confirmpass === '' || md5($newpass) == md5('') )
 		{
-			$body = messagebox($roster->locale->act['pass_blank'],$roster->locale->act['roster_cp'],'sred');
+			$message = messagebox($roster->locale->act['pass_blank'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( md5($newpass) == $realhash )
 		{
-			$body = messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sred');
+			$message = messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sred');
 		}
 		else // valid password
 		{
@@ -81,79 +96,13 @@ if( array_key_exists('mode',$_POST) )
 
 			$success = 1;
 
-			$body = messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
+			$message = messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
 		}
 
-		$body .= '<br />';
+		$message .= '<br />';
+		$roster->tpl->assign_var('MESSAGE',$message);
 	}
-
 }
 
-$body .= '<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_admin_pass" onsubmit="submitonce(this)">
-<input type="hidden" name="mode" value="Admin" />
-	' . border('sred','start',$roster->locale->act['changeadminpass']) . '
-	  <table class="bodyline" cellspacing="0" cellpadding="0">
-	    <tr>
-	      <td class="membersRow1">' . $roster->locale->act['old_pass'] . ':</td>
-	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="oldpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td class="membersRow2">' . $roster->locale->act['new_pass'] . ':</td>
-	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td class="membersRow1">' . $roster->locale->act['new_pass_confirm'] . ':</td>
-	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
-		    <input type="submit" value="' . $roster->locale->act['pagebar_changepass'] . '" /></div></td>
-	    </tr>
-	  </table>
-	' . border('sred','end') . '
-	</form>
-<br />';
-
-
-$body .= '<br />
-<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_officer_pass" onsubmit="submitonce(this)">
-<input type="hidden" name="mode" value="Officer" />
-	' . border('syellow','start',$roster->locale->act['changeofficerpass']) . '
-	  <table class="bodyline" cellspacing="0" cellpadding="0">
-	    <tr>
-	      <td class="membersRow2">' . $roster->locale->act['new_pass'] . ':</td>
-	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td class="membersRow1">' . $roster->locale->act['new_pass_confirm'] . ':</td>
-	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
-		    <input type="submit" value="' . $roster->locale->act['pagebar_changepass'] . '" /></div></td>
-	    </tr>
-	  </table>
-	' . border('syellow','end') . '
-	</form>';
-
-
-$body .= '<br />
-<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_guild_pass" onsubmit="submitonce(this)">
-<input type="hidden" name="mode" value="Guild" />
-	' . border('sgreen','start',$roster->locale->act['changeguildpass']) . '
-	  <table class="bodyline" cellspacing="0" cellpadding="0">
-	    <tr>
-	      <td class="membersRow2">' . $roster->locale->act['new_pass'] . ':</td>
-	      <td class="membersRowRight2"><input class="wowinput192" type="password" name="newpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td class="membersRow1">' . $roster->locale->act['new_pass_confirm'] . ':</td>
-	      <td class="membersRowRight1"><input class="wowinput192" type="password" name="confirmpass" value="" /></td>
-	    </tr>
-	    <tr>
-	      <td colspan="2" class="membersRowRight2" valign="bottom"><div align="center">
-		    <input type="submit" value="' . $roster->locale->act['pagebar_changepass'] . '" /></div></td>
-	    </tr>
-	  </table>
-	' . border('sgreen','end') . '
-	</form>';
+$roster->tpl->set_filenames(array('body' => 'admin/change_pass.html'));
+$body = $roster->tpl->fetch('body');

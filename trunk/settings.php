@@ -194,6 +194,10 @@ require_once (ROSTER_LIB . 'cmslink.lib.php');
  */
 include( ROSTER_LIB . 'template.php' );
 $roster->tpl = new RosterTemplate;
+if( file_exists($roster->tpl->root . DIR_SEP . 'theme.php') )
+{
+	include_once($roster->tpl->root . DIR_SEP . 'theme.php');
+}
 
 
 /**
@@ -242,6 +246,7 @@ if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'in
 }
 else
 {
+	$roster->config['external_auth'] = 'roster';
 	require_once(ROSTER_LIB . 'login.php');
 }
 
@@ -291,8 +296,8 @@ $roster->get_scope_data();
  * Assign initial template vars
  */
 $roster->tpl->assign_vars(array(
-	'S_SEO_URL'          => $roster->config['seo_url'],
-	'S_HEADER_LOGO'      => ( !empty($roster->config['logo']) ? true : false ),
+	'S_SEO_URL'       => $roster->config['seo_url'],
+	'S_HEADER_LOGO'   => ( !empty($roster->config['logo']) ? true : false ),
 
 	'U_MAKELINK'      => makelink(),
 	'ROSTER_URL'      => ROSTER_URL,
@@ -313,13 +318,14 @@ $roster->tpl->assign_vars(array(
 	'T_BORDER_YELLOW' => border('syellow','start'),
 	'T_BORDER_GREEN'  => border('sgreen','start'),
 	'T_BORDER_PURPLE' => border('spurple','start'),
+	'T_BORDER_BLUE'   => border('sblue','start'),
 	'T_BORDER_END'    => border('sgray','end'),
 
-	'PAGE_TITLE'         => '',
-	'ROSTER_HEAD'        => $roster->output['html_head'],
-	'ROSTER_BODY'        => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')
-						  . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : '')
-						  . (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''),
+	'PAGE_TITLE'      => '',
+	'ROSTER_HEAD'     => $roster->output['html_head'],
+	'ROSTER_BODY'     => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')
+					   . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : '')
+					   . (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''),
 	'ROSTER_MENU_BEFORE' => '',
 	)
 );

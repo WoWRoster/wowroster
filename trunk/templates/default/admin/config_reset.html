@@ -1,0 +1,22 @@
+<!-- $Id$ -->
+
+{MESSAGE}
+<br />
+
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="conf_change_pass" name="conf_change_pass" onsubmit="return confirm('{L_RESET_CONFIRM}') &amp;&amp; submitonce(this);">
+{T_TABLE_RESET}
+	<table class="bodyline" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="membersRowRight1" colspan="2"><div style="white-space:normal;">{L_RESET_HELP}</div></td>
+		</tr>
+		<tr>
+			<td class="membersRow2">{L_RESET_CONFIRM}</td>
+			<td class="membersRowRight2"><label for="doit"></label><input class="wowinput192" type="checkbox" id="doit" name="doit" value="doit" /></td>
+		</tr>
+		<tr>
+			<td colspan="2" class="membersRowRight1" valign="bottom"><div align="center">
+				<input type="submit" value="{L_PROCEED}" /></div></td>
+		</tr>
+	</table>
+{T_BORDER_END}
+</form>

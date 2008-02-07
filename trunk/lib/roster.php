@@ -118,6 +118,7 @@ class roster
 		}
 
 		$this->db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
+		$this->db->log_level();
 
 		if ( !$this->db->link_id )
 		{
@@ -143,6 +144,8 @@ class roster
 			$this->config[$row['config_name']] = $row['config_value'];
 		}
 		$this->db->free_result($results);
+
+		$this->db->log_level($this->config['sql_window']);
 	}
 
 	/**

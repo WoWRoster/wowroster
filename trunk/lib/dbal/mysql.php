@@ -38,6 +38,7 @@ class roster_db
 	var $query_count = 0;                   // Query count              @var query_count
 	var $queries     = array();             // Queries                  @var queries
 	var $error_die   = false;               // Die on errors?           @var error_die
+	var $log_level   = 0;                   // Log SQL transactions     @var log_level
 
 	var $prefix      = '';
 	var $dbname      = '';
@@ -48,8 +49,6 @@ class roster_db
 
 	function _log( $query )
 	{
-		global $roster;
-
 		$this->_backtrace();
 
 		$this->queries[$this->file][$this->query_count]['query'] = $query;
@@ -59,7 +58,7 @@ class roster_db
 		// Describe
 		$this->queries[$this->file][$this->query_count]['describe'] = array();
 
-		if( $roster->config['sql_window'] == 2 )
+		if( $this->log_level == 2 )
 		{
 			// Only SELECT queries can be DESCRIBEd. If this isn't a SELECT query, this will properly extract the SELECT part of an INSERT ... SELECT or CREATE TABLE ... SELECT statement, which may be interesting to get describe info for.
 			if( ($pos = strpos( $query, "SELECT" )) === false )
@@ -107,8 +106,10 @@ class roster_db
 	 * @param $prefix Database prefix
 	 * @return mixed Link ID / false
 	 */
-	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix)
+	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix )
 	{
+		global $roster;
+
 		$this->prefix = $prefix;
 		$this->dbname = $dbname;
 
@@ -215,7 +216,7 @@ class roster_db
 
 		if( !empty($this->query_id) )
 		{
-			if( is_object($roster) && isset($roster->config['sql_window']) && $roster->config['sql_window'] )
+			if( $this->log_level > 0 )
 			{
 				$this->_log($query);
 			}
@@ -496,6 +497,16 @@ class roster_db
 	function error_die( $setting = true )
 	{
 		$this->error_die = $setting;
+	}
+
+	/**
+	 * Set the log_level var
+	 *
+	 * @param $setting
+	 */
+	function log_level( $setting = 1 )
+	{
+		$this->log_level = $setting;
 	}
 
 	/**

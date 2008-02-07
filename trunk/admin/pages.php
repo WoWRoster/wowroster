@@ -56,11 +56,14 @@ $config_pages['menu'] = array(
 	'title'=>	'pagebar_menuconf',
 	'file'=>	'menu_conf.php',
 	);
-$config_pages['change_pass'] = array(
-	'href'=>	$roster->pages[0].'-change_pass',
-	'title'=>	'pagebar_changepass',
-	'file'=>	'change_pass.php',
-	);
+if( $roster->config['external_auth'] == 'roster' )
+{
+	$config_pages['change_pass'] = array(
+		'href'=>	$roster->pages[0].'-change_pass',
+		'title'=>	'pagebar_changepass',
+		'file'=>	'change_pass.php',
+		);
+}
 $config_pages['config_reset'] = array(
 	'href'=>	$roster->pages[0].'-config_reset',
 	'title'=>	'pagebar_configreset',
