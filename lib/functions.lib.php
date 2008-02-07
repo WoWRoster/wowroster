@@ -234,7 +234,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		print "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
 	}
 
-	if( $roster->config['debug_mode'] )
+	if( $roster->config['debug_mode'] == 2 )
 	{
 		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">";
 		print  backtrace();

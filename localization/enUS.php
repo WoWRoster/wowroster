@@ -697,6 +697,7 @@ $lang['installer_uninstall_2']='Uninstallation of %1$s failed, and rollback also
 $lang['installer_upgrade_0']='Upgrade of %1$s successful';
 $lang['installer_upgrade_1']='Upgrade of %1$s failed, but rollback successful';
 $lang['installer_upgrade_2']='Upgrade of %1$s failed, and rollback also failed';
+$lang['installer_purge_0']='Purge of %1$s successful';
 
 $lang['installer_icon'] = 'Icon';
 $lang['installer_addoninfo'] = 'Addon Info';
@@ -716,7 +717,7 @@ $lang['installer_click_uninstall'] = 'Click to Uninstall';
 $lang['installer_click_upgrade'] = 'Click to Upgrade %1$s to %2$s';
 $lang['installer_click_install'] = 'Click to Install';
 $lang['installer_overwrite'] = 'Old Version Overwrite';
-$lang['installer_replace_files'] = 'You have overwrote your current addon installation with an older version<br />Replace files with latest version';
+$lang['installer_replace_files'] = 'You have overwrote your current addon installation with an older version<br />Replace files with latest version<br /><br />Or Click to Purge AddOn';
 
 $lang['installer_error'] = 'Install Errors';
 $lang['installer_invalid_type'] = 'Invalid install type';
@@ -822,9 +823,8 @@ $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the
 // main_conf
 $lang['admin']['roster_dbver'] = "Roster Database Version|The version of the database";
 $lang['admin']['version'] = "Roster Version|Current version of Roster";
-//$lang['admin']['sqldebug'] = "SQL Debug Output|Print MySQL Debug Statements in html comments";
-$lang['admin']['debug_mode'] = "Debug Mode|Full debug trace in error messages";
-$lang['admin']['sql_window'] = "SQL Window|Displays SQL Queries in a window in the footer";
+$lang['admin']['debug_mode'] = "Debug Mode|off - No debug or error messages<br />on - Display error messages and simple debug<br />extended - Full debug mode and backtrace in error messages";
+$lang['admin']['sql_window'] = "SQL Window|off - Do not show query window<br />on - Display query window in the footer<br />extended - Include DESCRIBE statements";
 $lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler version allowed to upload";
 $lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
 $lang['admin']['locale'] = "Roster Main Language|The main language roster will be displayed in";

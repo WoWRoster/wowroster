@@ -164,6 +164,11 @@ class Upgrade
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET form_type = 'radio{extended^2|on^1|off^0' WHERE `id` = 1002;");
 		}
+
+		if( version_compare($roster->config['version'],'1.9.9.1637','<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET form_type = 'radio{extended^2|on^1|off^0' WHERE `id` = 1001;");
+		}
 		$this->beta_upgrade();
 
 		$this->finalize();

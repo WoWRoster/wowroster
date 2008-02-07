@@ -28,7 +28,7 @@ INSERT INTO `renprefix_config` VALUES (180, 'documentation', 'http://www.wowrost
 # --------------------------------------------------------
 ### Main Roster Config
 
-INSERT INTO `renprefix_config` VALUES (1001, 'debug_mode', '1', 'radio{on^1|off^0', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1001, 'debug_mode', '1', 'radio{extended^2|on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1002, 'sql_window', '1', 'radio{extended^2|on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1010, 'minCPver', '2.3.0', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '2.3.0', 'text{10|10', 'main_conf');
