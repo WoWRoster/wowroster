@@ -699,6 +699,7 @@ $lang['installer_uninstall_2']='Fallo al desinstalar %1$s. No se ha conseguido d
 $lang['installer_upgrade_0']='Mejora de %1$s completada satisfactoriamente';
 $lang['installer_upgrade_1']='Ha fallado la mejora de %1$s. Se ha conseguido dejar la versión anterior';
 $lang['installer_upgrade_2']='Ha fallado la mejora de %1$s. No se ha conseguido dejar la versión anterior';
+$lang['installer_purge_0']='Purge of %1$s successful';
 
 $lang['installer_icon'] = 'Icono';
 $lang['installer_addoninfo'] = 'Información sobre el addon';
@@ -718,7 +719,7 @@ $lang['installer_click_uninstall'] = 'Haz click para desinstalar';
 $lang['installer_click_upgrade'] = 'Haz click para mejorar de %1$s a %2$s';
 $lang['installer_click_install'] = 'Haz click para instalar';
 $lang['installer_overwrite'] = 'Versión anterior sobreescrita';
-$lang['installer_replace_files'] = 'Has sobreescribido tu instalación actual del addon con una versión anterior<br />Reemplaza los archivos con la última versión';
+$lang['installer_replace_files'] = 'Has sobreescribido tu instalación actual del addon con una versión anterior<br />Reemplaza los archivos con la última versión<br /><br />Or Click to Purge AddOn';
 
 $lang['installer_error'] = 'Errores de instalación';
 $lang['installer_invalid_type'] = 'Tipo de instalación invalido';
@@ -824,9 +825,8 @@ $lang['admin']['documentation'] = 'Documentación|Documentación de WoWRoster v�
 // main_conf
 $lang['admin']['roster_dbver'] = "Versión de la base de datos de Roster|Versión de la base de datos";
 $lang['admin']['version'] = "Versión de Roster|Versión actual del Roster";
-//$lang['admin']['sqldebug'] = "Mensajes de SQL|Muestra errores de MySQL en comentarios en HTML";
-$lang['admin']['debug_mode'] = "Modo de depuración|Depura errores de las entradas SQL";
-$lang['admin']['sql_window'] = "Ventana SQL|Muestra entradas de SQL al pie de la ventana";
+$lang['admin']['debug_mode'] = "Debug Mode|off - No debug or error messages<br />on - Display error messages and simple debug<br />extended - Full debug mode and backtrace in error messages";
+$lang['admin']['sql_window'] = "SQL Window|off - Do not show query window<br />on - Display query window in the footer<br />extended - Include DESCRIBE statements";
 $lang['admin']['minCPver'] = "Versión min de CP|Mínima versión permitida del CharacterProfiler";
 $lang['admin']['minGPver'] = "Versión min de GP|Mínima versión permitida del GuildProfiler";
 $lang['admin']['locale'] = "Lenguaje principal del Roster|Elige el lenguaje del interfaz";

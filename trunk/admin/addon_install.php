@@ -179,7 +179,12 @@ function installUpgrade( $addon )
 
 	if( $mode == -1 )
 	{
-		$type = '<img ' . makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']) . ' src="' . $roster->config['img_url'] . 'admin/purple.png" style="height:16px;width:16px;border:0;cursor:help;" alt="" />';
+		$type = '<form name="purge_' . $name . '" style="display:inline;" method="post" enctype="multipart/form-data" action="' . makelink() . '">
+		<input type="hidden" name="op" value="process" />
+		<input type="hidden" name="addon" value="' . $name . '" />
+		<input type="hidden" name="type" value="purge" />
+		<input ' . makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />
+	</form>';
 	}
 	elseif( $mode == 0 )
 	{
@@ -546,10 +551,8 @@ function purge( $dbname )
 				$installer->seterrors('Error while dropping ' . $row[0] . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 				return false;
 			}
-			$roster->db->free_result($dropped);
 		}
 	}
-	$roster->db->free_result($tables);
 
 	// Get the addon id for this basename
 	$query = "SELECT `addon_id` FROM `" . $roster->db->table('addon') . "` WHERE `basename` = '" . $dbname . "';";
@@ -559,6 +562,9 @@ function purge( $dbname )
 	{
 		// Delete menu entries
 		$query = 'DELETE FROM `' . $roster->db->table('menu_button') . '` WHERE `addon_id` = "' . $addon_id . '";';
+		$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+		// Delete addon config entries
+		$query = 'DELETE FROM `' . $roster->db->table('addon_config') . '` WHERE `addon_id` = "' . $addon_id . '";';
 		$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 	}
 

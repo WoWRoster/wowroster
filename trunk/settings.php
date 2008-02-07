@@ -234,6 +234,21 @@ $roster->get_page_name();
 
 
 /**
+ * Include Login class, external or Roster's
+ */
+if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
+{
+	require_once(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php');
+}
+else
+{
+	require_once(ROSTER_LIB . 'login.php');
+}
+
+$roster->auth = new RosterLogin();
+
+
+/**
  * Run the scope algorithm to load the data and figure out the file to load
  */
 $roster->get_scope_data();
@@ -242,10 +257,29 @@ $roster->get_scope_data();
 /**
  * Inject some different settings if the debug url switch is set
  */
-// Beta only: force these on
-//if( isset($_GET['rdebug']) )
-{
-	$roster->config['debug_mode'] = 1;
+// BETA ONLY: force these on
+//if( isset($_GET['rdebug']) && is_numeric($_GET['rdebug']) )
+{/*
+	switch( $_GET['rdebug'] )
+	{
+		case 2:
+			$roster->config['debug_mode'] = 2;
+			if( !$roster->config['sql_window'] )
+			{
+				$roster->config['sql_window'] = 2;
+			}
+			break;
+
+		case 1:
+		default:
+			$roster->config['debug_mode'] = 1;
+			if( !$roster->config['sql_window'] )
+			{
+				$roster->config['sql_window'] = 1;
+			}
+			break;
+	}*/
+	$roster->config['debug_mode'] = 2;
 	if( !$roster->config['sql_window'] )
 	{
 		$roster->config['sql_window'] = 1;
@@ -289,21 +323,6 @@ $roster->tpl->assign_vars(array(
 	'ROSTER_MENU_BEFORE' => '',
 	)
 );
-
-
-/**
- * Include Login class, external or Roster's
- */
-if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
-{
-	require_once(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php');
-}
-else
-{
-	require_once(ROSTER_LIB . 'login.php');
-}
-
-$roster->auth = new RosterLogin();
 
 
 

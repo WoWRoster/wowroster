@@ -325,7 +325,7 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">debug_mode</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev($roster->config['debug_mode']).'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev($roster->config['debug_mode']).( $roster->config['debug_mode'] == 2 ? ' (extended)' : '' ).'</td>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">roster_lang</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['locale'].'</td>

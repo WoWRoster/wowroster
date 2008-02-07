@@ -58,36 +58,23 @@ class newsInstall
 		$installer->add_config("'1040','news_html','1','radio{enabled^1|disabled^0|forbidden^-1','news_conf'");
 		$installer->add_config("'1050','comm_html','-1','radio{enabled^1|disabled^0|forbidden^-1','news_conf'");
 
-		$installer->add_query("
-			DROP TABLE IF EXISTS `" . $installer->table('news') . "`;
-		");
-		$installer->add_query("
-			CREATE TABLE `" . $installer->table('news') . "` (
+		$installer->create_table($installer->table('news'),"
 				`news_id` int(11) unsigned AUTO_INCREMENT,
 				`author` varchar(16) NOT NULL DEFAULT '',
 				`date` datetime,
 				`title` mediumtext,
 				`content` longtext,
 				`html` tinyint(1),
-				PRIMARY KEY (`news_id`)
-			) TYPE=MyISAM;
-		");
+				PRIMARY KEY (`news_id`)");
 
-		$installer->add_query("
-			DROP TABLE IF EXISTS `" . $installer->table('comments') . "`;
-		");
-		$installer->add_query("
-			CREATE TABLE `" . $installer->table('comments') . "` (
+		$installer->create_table($installer->table('comments'),"
 				`comment_id` int(11) unsigned AUTO_INCREMENT,
 				`news_id` int(11) unsigned NOT NULL,
 				`author` varchar(16) NOT NULL DEFAULT '',
 				`date` datetime,
 				`content` longtext,
 				`html` tinyint(1),
-				PRIMARY KEY (`comment_id`)
-			) TYPE=MyISAM;
-		");
-
+				PRIMARY KEY (`comment_id`)");
 
 		$installer->add_menu_button('news_button','util');
 		return true;
@@ -101,7 +88,6 @@ class newsInstall
 	 */
 	function upgrade($oldversion)
 	{
-		// Nothing to upgrade from yet
 		return true;
 	}
 
@@ -114,13 +100,8 @@ class newsInstall
 	{
 		global $installer;
 
-		$installer->add_query("
-			DROP TABLE IF EXISTS `" . $installer->table('news') . "`;
-		");
-		$installer->add_query("
-			DROP TABLE IF EXISTS `" . $installer->table('comments') . "`;
-		");
-
+		$installer->drop_table($installer->table('news'));
+		$installer->drop_table($installer->table('comments'));
 
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();

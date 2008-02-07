@@ -697,6 +697,7 @@ $lang['installer_uninstall_2']='Deinstallation von %1$s fehlgeschlagen und Wiede
 $lang['installer_upgrade_0']='Upgrade von %1$s erfolgreich';
 $lang['installer_upgrade_1']='Upgrade von %1$s fehlgeschlagen, aber Wiederherstellung erfolgreich';
 $lang['installer_upgrade_2']='Upgrade von %1$s fehlgeschlagen und Wiederherstellung ebenfalls fehlgeschlagen';
+$lang['installer_purge_0']='Purge of %1$s successful';
 
 $lang['installer_icon'] = 'Icon';
 $lang['installer_addoninfo'] = 'Addon Info';
@@ -716,7 +717,7 @@ $lang['installer_click_uninstall'] = 'Klicken zum Deinstallieren';
 $lang['installer_click_upgrade'] = 'Klicken um %1$s auf %2$s zu aktualisieren';
 $lang['installer_click_install'] = 'Klicken zum Installieren ';
 $lang['installer_overwrite'] = 'Alte Versionen überschreiben';
-$lang['installer_replace_files'] = 'Du hast dein AddOn durch eine ältere Version überschreiben<br />Ersetze die Dateien durch eine aktuelle Version';
+$lang['installer_replace_files'] = 'Du hast dein AddOn durch eine ältere Version überschreiben<br />Ersetze die Dateien durch eine aktuelle Version<br /><br />Or Click to Purge AddOn';
 
 $lang['installer_error'] = 'Fehler bei der Installation';
 $lang['installer_invalid_type'] = 'Ungültiger Installationstyp';
@@ -822,9 +823,8 @@ $lang['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über d
 // main_conf
 $lang['admin']['roster_dbver'] = "Roster Datenbank Version|Die Version der Datenbank";
 $lang['admin']['version'] = "Roster Version|Aktuelle Version des Rosters";
-//$lang['admin']['sqldebug'] = "SQL Debug Output|Gib MySQL Debug Ausgaben in HTML Kommentaren";
-$lang['admin']['debug_mode'] = "Debug Modus|Zeigt die komplette Debugprotokollierung im Fehlerfalle an";
-$lang['admin']['sql_window'] = "SQL Fenster|Zeigt die SQL Fehler in einem Fenster in der Fußzeile an";
+$lang['admin']['debug_mode'] = "Debug Mode|off - No debug or error messages<br />on - Display error messages and simple debug<br />extended - Full debug mode and backtrace in error messages";
+$lang['admin']['sql_window'] = "SQL Window|off - Do not show query window<br />on - Display query window in the footer<br />extended - Include DESCRIBE statements";
 $lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler Version zum Upload";
 $lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler Version zum Upload";
 $lang['admin']['locale'] = "Roster Hauptsprache|Sprache, in der das Roster anzeigen soll";

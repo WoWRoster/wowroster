@@ -57,7 +57,7 @@ class item
 	var $html_tooltip;
 
 	// item debugging. debug level 0, 1, 2
-	var $DEBUG = 1; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
+	var $DEBUG; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
 	var $DEBUG_junk = '';
 
 	/**
@@ -70,6 +70,10 @@ class item
 	function item( $data, $parse_mode=false )
 	{
 		global $roster;
+
+		//$this->DEBUG = $roster->config['debug_mode'];
+		// Lets hard code this to 1 for BETA ONLY
+		$this->DEBUG = 1;
 
 		$this->isParseMode = $parse_mode;
 		$this->data = $data;
@@ -130,6 +134,11 @@ class item
 		$output .= '</div>';
 
 		return $output;
+	}
+
+	function setDebug( $mode )
+	{
+		$this->DEBUG = $mode;
 	}
 
 // -- makeTooltipHTML() tooltip methods start here //
