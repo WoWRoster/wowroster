@@ -27,16 +27,46 @@ $update = new update;
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
+$roster->output['body_onload'] .= "initARC('delete','radioOn','radioOff','checkboxOn','checkboxOff');";
 
 // Change scope to guild, and rerun detection to load default
 $roster->scope = 'guild';
 $roster->get_scope_data();
+
+
+$roster->tpl->assign_vars(array(
+	'U_ACTION'   => makelink('&amp;start=' . $start),
+	'U_GUILD_ID' => $roster->data['guild_id'],
+
+	'S_DATA'           => false,
+	'S_RESPONSE'       => false,
+	'S_RESPONSE_ERROR' => false,
+
+	'L_CLEAN'          => $roster->locale->act['clean'],
+	'L_SAVE_ERROR_LOG' => $roster->locale->act['save_error_log'],
+	'L_SAVE_LOG'       => $roster->locale->act['save_update_log'],
+
+	'L_NAME' => $roster->locale->act['name'],
+	'L_SERVER' => $roster->locale->act['server'],
+	'L_REGION' => $roster->locale->act['region'],
+	'L_CLASS' => $roster->locale->act['class'],
+	'L_LEVEL' => $roster->locale->act['level'],
+	'L_DELETE' => $roster->locale->act['delete'],
+	'L_DELETE_CHECKED' => $roster->locale->act['delete_checked'],
+	'L_DELETE_GUILD' => $roster->locale->act['delete_guild'],
+	'L_DELETE_GUILD_CONFIRM' => $roster->locale->act['delete_guild_confirm'],
+	)
+);
+
 
 /**
  * Process a new line
  */
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
+	// We have a response
+	$roster->tpl->assign_var('S_RESPONSE',true);
+
 	if( substr($_POST['action'],0,9) == 'delguild_' )
 	{
 		$sel_guild = substr($_POST['action'],9);
@@ -75,43 +105,24 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	// print the error messages
 	if( !empty($errors) )
 	{
-		$body .= scrollboxtoggle($errors,'<span class="red">' . $roster->locale->act['update_errors'] . '</span>','sred',false);
+		// We have errors
+		$roster->tpl->assign_vars(array(
+			'S_RESPONSE_ERROR' => true,
+			'ERROR' => scrollboxtoggle($errors,'<span class="red">' . $roster->locale->act['update_errors'] . '</span>','sred',false),
 
-		// Print the downloadable errors separately so we can generate a download
-		$body .= "<br />\n";
-		$body .= '<form method="post" action="' . makelink() . '" name="post">' . "\n";
-		$body .= '<input type="hidden" name="data" value="' . htmlspecialchars(stripAllHtml($errors)) . '" />' . "\n";
-		$body .= '<input type="hidden" name="send_file" value="error_log" />' . "\n";
-		$body .= '<input type="submit" name="download" value="' . $roster->locale->act['save_error_log'] . '" />' . "\n";
-		$body .= '</form>';
-		$body .= "<br />\n";
+			'RESPONSE_ERROR_DATA' => htmlspecialchars(stripAllHtml($errors)),
+			)
+		);
 	}
 
-	// Print the update messages
-	$body .= scrollbox('<div style="text-align:left;font-size:10px;">' . $messages . '</div>',$roster->locale->act['update_log'],'syellow');
+	$roster->tpl->assign_vars(array(
+		'RESPONSE' => scrollbox('<div style="text-align:left;font-size:10px;">' . $messages . '</div>',$roster->locale->act['update_log'],'syellow'),
 
-	// Print the downloadable messages separately so we can generate a download
-	$body .= "<br />\n";
-	$body .= '<form method="post" action="' . makelink() . '" name="post">' . "\n";
-	$body .= '<input type="hidden" name="data" value="' . htmlspecialchars(stripAllHtml($messages)) . '" />' . "\n";
-	$body .= '<input type="hidden" name="send_file" value="update_log" />' . "\n";
-	$body .= '<input type="submit" name="download" value="' . $roster->locale->act['save_update_log'] . '" />' . "\n";
-	$body .= '</form>';
-	$body .= "<br />\n";
+		'RESPONSE_DATA' => htmlspecialchars(stripAllHtml($messages)),
+		)
+	);
 }
 
-/**
- * Cleanup button
- */
-$roster->output['body_onload'] .= 'initARC(\'delete\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
-$body .= '<form action="' . makelink('&amp;start=' . $start) . '" method="post" id="clean">
-	<input type="hidden" name="action" value="clean" />
-	<input type="hidden" name="process" value="process" />
-	<button type="submit" class="input">' . $roster->locale->act['clean'] . '</button>
-</form>' . "\n";
-
-$body .= "<br />\n";
 
 /**
  * Actual list
@@ -123,13 +134,10 @@ $query = "SELECT "
 
 $num_members = $roster->db->query_first($query);
 
-
-$body .= '<form action="' . makelink('&amp;start=' . $start) . '" method="post" id="delete">
-<input type="hidden" id="deletehide" name="action" value="" />
-<input type="hidden" name="process" value="process" />' . "\n";
-
 if( $num_members > 0 )
 {
+	$roster->tpl->assign_var('S_DATA',true);
+
 	// Draw the header line
 	if ($start > 0)
 	{
@@ -151,26 +159,14 @@ if( $num_members > 0 )
 		$next = '';
 	}
 
-	$body .= border('sgreen','start',$prev . $roster->locale->act['delete'] . $listing . $next) . '
-<table class="bodyline" cellspacing="0">
-	<thead>
-		<tr>
-			<th class="membersHeader"> ' . $roster->locale->act['name'] . '</th>
-			<th class="membersHeader"> ' . $roster->locale->act['server'] . '</th>
-			<th class="membersHeader"> ' . $roster->locale->act['region'] . '</th>
-			<th class="membersHeader"> ' . $roster->locale->act['class'] . '</th>
-			<th class="membersHeader"> ' . $roster->locale->act['level'] . '</th>
-			<th class="membersHeaderRight">&nbsp;</th>
-		</tr>
-	</thead>
-	<tfoot>
-		<tr>
-			<td colspan="6" class="membersRowRight1">
-				<button type="submit" class="input" style="float: right;">' . $roster->locale->act['delete_checked'] . '</button>
-				<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $roster->data['guild_id'] . '\');">' . $roster->locale->act['delete_guild'] . '</button></td>
-		</tr>
-	</tfoot>
-	<tbody>' . "\n";
+	$roster->tpl->assign_vars(array(
+		'PREV' => $prev,
+		'NEXT' => $next,
+		'LISTING' => $listing,
+
+		'T_LIST_START' => border('sgreen','start',$prev . $roster->locale->act['delete'] . $listing . $next),
+		)
+	);
 
 	$i=0;
 
@@ -184,30 +180,22 @@ if( $num_members > 0 )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		$body .= "\n\t\t<tr>\n" . '
-			<td class="membersRow' . (($i%2)+1) . '">' . $row['name'] . '</td>
-			<td class="membersRow' . (($i%2)+1) . '">' . $row['server'] . '</td>
-			<td class="membersRow' . (($i%2)+1) . '">' . $row['region'] . '</td>
-			<td class="membersRow' . (($i%2)+1) . '">' . $row['class'] . '</td>
-			<td class="membersRow' . (($i%2)+1) . '">' . $row['level'] . '</td>
-			<td class="membersRowRight' . (($i%2)+1) . '"><button type="submit" class="input" onclick="setvalue(\'deletehide\',\'del_' . $row['member_id'] . '\');">' . $roster->locale->act['delete'] . '</button>
-				<label for="massdel_' . $row['member_id'] . '">&nbsp;</label><input type="checkbox" name="massdel[' . $row['member_id'] . ']" id="massdel_' . $row['member_id'] . '" value="1" /></td>
-		</tr>' . "\n";
+		$roster->tpl->assign_block_vars('data_list', array(
+			'ROW_CLASS'   => $roster->switch_row_class(),
+			'ID' => $row['member_id'],
+			'NAME' => $row['name'],
+			'SERVER' => $row['server'],
+			'REGION' => $row['region'],
+			'CLASS' => $row['class'],
+			'LEVEL' => $row['level'],
+			)
+		);
+
 		$i++;
 	}
 
 	$roster->db->free_result($result);
-
-	$body .= '
-	</tbody>
-</table>
-' . border('sgreen','end');
-
-	$body .= '</form>' . $prev . $listing . $next;
 }
-else
-{
-	$body .= '<span class="title_text">No Data</span><br />
-	<button type="submit" class="input" onclick="return confirm(\'' . $roster->locale->act['delete_guild_confirm'] . '\') &amp;&amp; setvalue(\'deletehide\',\'delguild_' . $roster->data['guild_id'] . '\');">' . $roster->locale->act['delete_guild'] . '</button>
-	</form>';
-}
+
+$roster->tpl->set_filenames(array('body' => 'admin/data_manager.html'));
+$body = $roster->tpl->fetch('body');

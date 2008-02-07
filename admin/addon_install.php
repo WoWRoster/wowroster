@@ -54,16 +54,25 @@ $addons = getAddonList();
 
 if( !empty($addons) )
 {
-	// Generate addons table
-	$output =
-	'<table class="bodyline" cellspacing="0">
-		<tr>
-			<th class="membersHeader">' . $roster->locale->act['installer_icon'] . '</th>
-			<th class="membersHeader">' . $roster->locale->act['installer_addoninfo'] . '</th>
-			<th class="membersHeader">' . $roster->locale->act['installer_status'] . '</th>
-			<th class="membersHeaderRight">' . $roster->locale->act['installer_installation'] . '</th>
-		</tr>
-	';
+	$roster->tpl->assign_vars(array(
+		'S_ADDON_LIST' => true,
+
+		'L_ICON' => $roster->locale->act['installer_icon'],
+		'L_ADDONINFO' => $roster->locale->act['installer_addoninfo'],
+		'L_STATUS' => $roster->locale->act['installer_status'],
+		'L_INSTALLATION' => $roster->locale->act['installer_installation'],
+		'L_AUTHOR' => $roster->locale->act['installer_author'],
+
+		'L_TIP_STATUS_ACTIVE' => makeOverlib($roster->locale->act['installer_turn_off'],$roster->locale->act['installer_activated']),
+		'L_TIP_STATUS_INACTIVE' => makeOverlib($roster->locale->act['installer_turn_on'],$roster->locale->act['installer_deactivated']),
+		'L_TIP_INSTALL_OLD' => makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']),
+		'L_TIP_INSTALL' => makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']),
+		'L_TIP_UNINSTALL' => makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']),
+
+		'T_TABLE_START' => border('sblue','start',$roster->locale->act['pagebar_addoninst']),
+		'MESSAGE' => '',
+		)
+	);
 
 	foreach( $addons as $addon )
 	{
@@ -83,29 +92,25 @@ if( !empty($addons) )
 			$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 		}
 
-		$output .= '	<tr>
-			<td class="membersRow1"><img src="' . $addon['icon'] . '" alt="[icon]" /></td>
-			<td class="membersRow1"><table cellpadding="0" cellspacing="0">
-				<tr>
-					<td><span style="font-size:18px;" class="green">' . $addon['fullname'] . '</span> v' . $addon['version'] . '</td>
-				</tr>
-				<tr>
-					<td>' . $addon['description'] . '</td>
-				</tr>
-				<tr>
-					<td><span class="blue">' . $roster->locale->act['installer_author'] . ': ' . $addon['author'] . '</span></td>
-				</tr>
-			</table></td>
-			<td class="membersRow1">' . ( $addon['install'] == 3 ? '&nbsp;' : activeInactive($addon['active'],$addon['id']) ) . '</td>
-			<td class="membersRowRight1">' . installUpgrade($addon) . '</td>
-		</tr>
-	';
+		$roster->tpl->assign_block_vars('addon_list', array(
+			'ROW_CLASS'   => $roster->switch_row_class(),
+			'ID'          => ( isset($addon['id']) ? $addon['id'] : '' ),
+			'ICON'        => $addon['icon'],
+			'FULLNAME'    => $addon['fullname'],
+			'BASENAME'    => $addon['basename'],
+			'VERSION'     => $addon['version'],
+			'DESCRIPTION' => $addon['description'],
+			'AUTHOR'      => $addon['author'],
+			'ACTIVE'      => ( isset($addon['active']) ? $addon['active'] : '' ),
+			'INSTALL'     => $addon['install'],
+			'L_TIP_UPGRADE' => ( isset($addon['active']) ? makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'],$addon['oldversion'],$addon['version']),$roster->locale->act['installer_upgrade_avail']) : '' ),
+			)
+		);
 	}
-
-	$output .= '</table>';
 }
 else
 {
+	$roster->tpl->assign_var('S_ADDON_LIST',false);
 	$installer->setmessages('No addons available!');
 }
 
@@ -124,98 +129,14 @@ if( !empty($errorstringout) )
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow');
+	$message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow') . '<br />';
 }
 
-$body .= ($message != '' ? $message . '<br />' : '') . ((isset($output) && !empty($output)) ? messagebox($output,$roster->locale->act['pagebar_addoninst'],'sblue') : '');
+$roster->tpl->assign_var('MESSAGE',$message);
 
-return;
+$roster->tpl->set_filenames(array('body' => 'admin/addon_install.html'));
+$body = $roster->tpl->fetch('body');
 
-/**
- * Gets the current action for active/inactive
- *
- * @param string $mode
- * @param int $id
- * @return string
- */
-function activeInactive( $mode , $id )
-{
-	global $roster;
-
-	if( $mode )
-	{
-		$type = '<form name="deactivate_' . $id . '" style="display:inline;" method="post" enctype="multipart/form-data" action="' . makelink() . '">
-		<input type="hidden" name="op" value="deactivate" />
-		<input type="hidden" name="id" value="' . $id . '" />
-		<input ' . makeOverlib($roster->locale->act['installer_turn_off'],$roster->locale->act['installer_activated']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
-	</form>';
-	}
-	else
-	{
-		$type = '<form name="activate_' . $id . '" style="display:inline;" method="post" enctype="multipart/form-data" action="' . makelink() . '">
-		<input type="hidden" name="op" value="activate" />
-		<input type="hidden" name="id" value="' . $id . '" />
-		<input ' . makeOverlib($roster->locale->act['installer_turn_on'],$roster->locale->act['installer_deactivated']) . ' type="image" src="' . $roster->config['img_url'] . 'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
-	</form>';
-	}
-
-	return $type;
-}
-
-
-/**
- * Gets the current action for install/uninstall/upgrade
- *
- * @param string $mode
- * @param string $name
- * @return string
- */
-function installUpgrade( $addon )
-{
-	global $roster;
-
-	$mode = $addon['install'];
-	$name = $addon['basename'];
-
-	if( $mode == -1 )
-	{
-		$type = '<form name="purge_' . $name . '" style="display:inline;" method="post" enctype="multipart/form-data" action="' . makelink() . '">
-		<input type="hidden" name="op" value="process" />
-		<input type="hidden" name="addon" value="' . $name . '" />
-		<input type="hidden" name="type" value="purge" />
-		<input ' . makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />
-	</form>';
-	}
-	elseif( $mode == 0 )
-	{
-		$type = '<form name="uninstall_' . $name . '" style="display:inline;" method="post" enctype="multipart/form-data" action="' . makelink() . '">
-		<input type="hidden" name="op" value="process" />
-		<input type="hidden" name="addon" value="' . $name . '" />
-		<input type="hidden" name="type" value="uninstall" />
-		<input ' . makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
-	</form>';
-	}
-	elseif( $mode == 1 )
-	{
-		$type = '<form name="upgrade_' . $name . '" style="display:inline;" method="post" enctype="multipart/form-data" action="' . makelink() . '">
-		<input type="hidden" name="op" value="process" />
-		<input type="hidden" name="addon" value="' . $name . '" />
-		<input type="hidden" name="type" value="upgrade" />
-		<input ' . makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'],$addon['oldversion'],$addon['version']),$roster->locale->act['installer_upgrade_avail']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/blue.png" style="height:16px;width:16px;border:0;" alt="" />
-	</form>';
-	}
-	elseif( $mode == 3 )
-	{
-		$type = '<form name="install_' . $name . '" style="display:inline;" method="post" enctype="multipart/form-data" action="' . makelink() . '">
-		<input type="hidden" name="op" value="process" />
-		<input type="hidden" name="addon" value="' . $name . '" />
-		<input type="hidden" name="type" value="install" />
-		<input ' . makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']) . 'type="image" src="' . $roster->config['img_url'] . 'admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
-	</form>';
-	}
-
-	return $type;
-}
 
 
 /**
@@ -528,6 +449,13 @@ function processAddon()
 }
 
 
+/**
+ * Addon purge
+ * Removes an addon with a bad install/upgrade/un-install
+ *
+ * @param string $dbname
+ * @return bool
+ */
 function purge( $dbname )
 {
 	global $roster, $installer;

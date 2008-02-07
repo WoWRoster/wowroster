@@ -23,6 +23,19 @@ if( !defined('IN_ROSTER') )
 
 $roster->output['title'] .= $roster->locale->act['pagebar_configreset'];
 
+$roster->output['body_onload'] .= "initARC('conf_change_pass','radioOn','radioOff','checkboxOn','checkboxOff');";
+
+$roster->tpl->assign_vars(array(
+	'T_TABLE_RESET'   => border('sred','start',$roster->locale->act['pagebar_configreset']),
+
+	'L_RESET_CONFIRM' => $roster->locale->act['config_reset_confirm'],
+	'L_RESET_HELP'    => $roster->locale->act['config_reset_help'],
+	'L_PROCEED'       => $roster->locale->act['proceed'],
+
+	'MESSAGE' => '',
+	)
+);
+
 if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 {
 	$query = 'TRUNCATE `' . $roster->db->table('config') . '`;';
@@ -43,29 +56,11 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
     }
     unset($sql);
 
-	$body .= messagebox($roster->locale->act['config_is_reset'],$roster->locale->act['roster_cp']);
-	return;
+    $roster->tpl->assign_var('MESSAGE',messagebox($roster->locale->act['config_is_reset'],$roster->locale->act['roster_cp']));
 }
 
-$body .= '<form action="' . makelink() . '" method="post" enctype="multipart/form-data" id="conf_change_pass" onsubmit="return confirm(\'' . $roster->locale->act['config_reset_confirm'] . '\') &amp;&amp; submitonce(this);">
-<input type="hidden" name="doit" value="doit" />
-' . border('sred','start',$roster->locale->act['pagebar_configreset']) . '
-	<table class="bodyline" cellspacing="0" cellpadding="0">
-		<tr>
-			<td class="membersRowRight1" colspan="2"><div style="white-space:normal;">' . $roster->locale->act['config_reset_help'] . '</div></td>
-		</tr>
-		<tr>
-			<td class="membersRow2">' . $roster->locale->act['password'] . ':</td>
-			<td class="membersRowRight2"><input class="wowinput192" type="password" name="password" value="" /></td>
-		</tr>
-		<tr>
-			<td colspan="2" class="membersRowRight1" valign="bottom"><div align="center">
-				<input type="submit" value="' . $roster->locale->act['proceed'] . '" /></div></td>
-		</tr>
-	</table>
-' . border('sred','end') . '
-</form>';
-
+$roster->tpl->set_filenames(array('body' => 'admin/config_reset.html'));
+$body = $roster->tpl->fetch('body');
 
 
 /**

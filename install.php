@@ -398,6 +398,9 @@ function process_step1()
 	 */
 	$our_roster_version   = $DEFAULTS['version'];
 	$their_roster_version = 'Unknown';
+
+	$location = str_replace('http://www.wowroster.net','',ROSTER_UPDATECHECK);
+
 	$sh = @fsockopen('wowroster.net', 80, $errno, $error, 5);
 	if( !$sh )
 	{
@@ -405,7 +408,7 @@ function process_step1()
 	}
 	else
 	{
-		@fputs($sh, "GET /roster_updater/version.txt HTTP/1.1\r\nHost: wowroster.net\r\nConnection: close\r\n\r\n");
+		@fputs($sh, "GET $location HTTP/1.1\r\nHost: wowroster.net\r\nConnection: close\r\n\r\n");
 		while( !@feof($sh) )
 		{
 			$content = @fgets($sh, 512);
@@ -566,6 +569,8 @@ function process_step3()
 	 */
 	include_once($dbal_file);
 	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
+	$db->log_level();
+	$db->error_die();
 
 	// Check to make sure a connection was made
 	if( !is_resource($db->link_id) )
@@ -737,6 +742,8 @@ function process_step4()
 	}
 
 	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
+	$db->log_level();
+	$db->error_die();
 
 	if( !is_resource($db->link_id) )
 	{

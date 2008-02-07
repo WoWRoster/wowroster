@@ -87,6 +87,7 @@ $roster->tpl->assign_vars(array(
 	'T_BORDER_YELLOW' => border('syellow','start'),
 	'T_BORDER_GREEN'  => border('sgreen','start'),
 	'T_BORDER_PURPLE' => border('spurple','start'),
+	'T_BORDER_BLUE'   => border('sblue','start'),
 	'T_BORDER_END'    => border('sgray','end'),
 
 	'PAGE_TITLE'      => $roster_title,

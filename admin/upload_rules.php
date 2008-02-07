@@ -23,6 +23,8 @@ if( !defined('IN_ROSTER') )
 
 $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
 
+$roster->output['body_onload'] .= 'initARC(\'allow\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+
 $mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild';
 
 // Process a new line
@@ -149,8 +151,6 @@ $menu .= border('syellow','start','Menu') . "\n"
 		. "	</ul>\n"
 		. "</div>\n"
 		. border('syellow','end');
-
-$roster->output['body_onload'] .= 'initARC(\'allow\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
 // Enforce Upload Rules
 $body .= '<form action="' . makelink() . '" method="post" id="enforce">
