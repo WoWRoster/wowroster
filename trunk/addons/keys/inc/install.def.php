@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1608';
+	var $version = '1.9.9.1645';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -168,10 +168,10 @@ class keysInstall
 		{
 			$inst_keys = array( 'A' => array(), 'H' => array() );
 
-			//echo ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php";
-			if(file_exists( ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php"))
+			//echo ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php";
+			if(file_exists( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php"))
 			{
-				include_once( ROSTER_BASE . 'addons/' . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php");
+				include_once( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php");
 			}
 			else
 			{
@@ -179,9 +179,9 @@ class keysInstall
 			}
 
 			// We need the rep2level array from the normal locale file
-			if(file_exists( ROSTER_BASE . $installer->addata['basename'] . "/locale/" . $lang . ".php") )
+			if(file_exists( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php") )
 			{
-				include_once( ROSTER_BASE . $installer->addata['basename'] . "/locale/" . $lang . ".php");
+				include_once( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php");
 			}
 
 			foreach( $inst_keys as $faction => $keylist )
