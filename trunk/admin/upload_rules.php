@@ -32,7 +32,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 {
 	if( $_POST['action'] == 'enforce' )
 	{
-		$enforce = ( $_POST['enforce'] == '1' ? 1 : 0 );
+		$enforce = ( $_POST['enforce'] );
 		$query = "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '$enforce' WHERE `id` = '1190';";
 
 		if( !$roster->db->query($query) )
@@ -63,9 +63,9 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 				}
 			}
 
-			$query = "INSERT INTO `" . $roster->db->table('upload') . "`
-					(`name`,`server`,`region`,`type`,`default`) VALUES
-						('" . $_POST['value'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
+			$query  = "INSERT INTO `" . $roster->db->table('upload') . "`"
+					. " (`name`,`server`,`region`,`type`,`default`)"
+					. " VALUES ('" . $_POST['value'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
 
 			if( !$roster->db->query($query) )
 			{
@@ -143,145 +143,72 @@ while( $row = $roster->db->fetch($result) )
 }
 
 // OUTPUT
-$menu .= border('syellow','start','Menu') . "\n"
-		. '<div style="width:145px;">' . "\n"
-		. '	<ul class="tab_menu">' . "\n"
-		. '		<li' . ($mode=='guild'?' class="selected"':'') . '><a href="' . makelink($roster->pages[0] . '-' . $roster->pages[1] . '-guild') . '">' . $roster->locale->act['guild'] . '</a></li>' . "\n"
-		. '		<li' . ($mode=='char'?' class="selected"':'') . '><a href="' . makelink($roster->pages[0] . '-' . $roster->pages[1] . '-char') . '">' . $roster->locale->act['character'] . '</a></li>' . "\n"
-		. "	</ul>\n"
-		. "</div>\n"
-		. border('syellow','end');
+$roster->tpl->assign_vars(array(
+	'T_MENU' => border('syellow','start',$roster->locale->act['pagebar_uploadrules']),
+	'T_DENY_TABLE' => border('sred','start',$roster->locale->act['disallow']),
+	'T_ALLOW_TABLE' => border('sgreen','start',$roster->locale->act['allow']),
+
+	'S_ENFORCE_RULES' => $roster->config['enforce_rules'],
+	'S_EXISTING_DATA' => $existing_data,
+
+	'L_ENFORCE_RULES' => substr($roster->locale->act['admin']['enforce_rules'],0,strpos($roster->locale->act['admin']['enforce_rules'],'|')),
+	'L_DEFAULT' => $roster->locale->act['default'],
+	'L_NAME' => $roster->locale->act['name'],
+	'L_NAME_TIP' => makeOverlib( $mode == 'guild' ? $roster->locale->act['guildname'] : $roster->locale->act['charname'] ),
+	'L_SERVER' => $roster->locale->act['server'],
+	'L_SERVER_TIP' => makeOverlib($roster->locale->act['realmname']),
+	'L_REGION' => $roster->locale->act['region'],
+	'L_REGION_TIP' => makeOverlib($roster->locale->act['regionname']),
+	'L_ADD' => $roster->locale->act['add'],
+	'L_DELETE' => $roster->locale->act['delete'],
+	'L_UPLOAD_RULES' => $roster->locale->act['pagebar_uploadrules'],
+	'L_UPLOAD_RULES_HELP' => $roster->locale->act['upload_rules_help'],
+
+	'MODE' => $mode,
+	)
+);
+
+$menu_items = array('guild','char');
+
+foreach( $menu_items as $item )
+{
+	$roster->tpl->assign_block_vars('upload_rules_menu',array(
+		'SELECTED' => ( $mode==$item ? true : false ),
+		'LINK' => makelink($roster->pages[0] . '-' . $roster->pages[1] . '-' . $item),
+		'NAME' => $roster->locale->act[$item]
+		)
+	);
+}
+
 
 // Enforce Upload Rules
-$body .= '<form action="' . makelink() . '" method="post" id="enforce">
-<input type="hidden" name="action" value="enforce" />
-<input type="hidden" name="process" value="process" />
-' . substr($roster->locale->act['admin']['enforce_rules'],0,strpos($roster->locale->act['admin']['enforce_rules'],'|')) . '
-<select name="enforce">
-	<option value="0"' . ( $roster->config['enforce_rules'] == '0' ? ' selected="selected"' : '' ) . '>Never</option>
-	<option value="1"' . ( $roster->config['enforce_rules'] == '1' ? ' selected="selected"' : '' ) . '>All LUA Updates</option>
-	<option value="2"' . ( $roster->config['enforce_rules'] == '2' ? ' selected="selected"' : '' ) . '>CP Updates</option>
-	<option value="3"' . ( $roster->config['enforce_rules'] == '3' ? ' selected="selected"' : '' ) . '>Guild Updates</option>
-</select>
-<input type="submit" value="Go" />
-</form><br />';
-
-$body .= '<form action="' . makelink() . '" method="post" id="deny">
-<input type="hidden" id="denyhide" name="action" value="" />
-<input type="hidden" name="process" value="process" />
-<input type="hidden" name="block" value="disallow" />';
-
-$body .= ruletable_head('sred',$roster->locale->act['disallow'],'deny',$mode);
-
 foreach( $data['deny'] as $row )
 {
-	$body .= ruletable_line($row,'deny',$mode);
+	$roster->tpl->assign_block_vars('deny_list', array(
+		'ID' => $row['rule_id'],
+		'NAME' => $row['name'],
+		'SERVER' => $row['server'],
+		'REGION' => $row['region'],
+		)
+	);
 }
-$body .= ruletable_foot('sred','deny',$mode);
-
-$body .= '</form>';
-
-
-$body .= "<br />\n";
-
-
-$body .= '<form action="' . makelink() . '" method="post" id="allow">
-<input type="hidden" id="allowhide" name="action" value="" />
-<input type="hidden" name="process" value="process" />
-<input type="hidden" name="block" value="allow" />';
-
-$body .= ruletable_head('sgreen',$roster->locale->act['allow'],'allow',$mode);
 
 foreach( $data['allow'] as $row )
 {
-	$body .= ruletable_line($row,'allow',$mode);
-}
-$body .= ruletable_foot('sgreen','allow',$mode);
-
-$body .= '</form>';
-
-$body .= "<br />\n";
-$body .= messagebox($roster->locale->act['upload_rules_help'],'<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" style="float:right;" />' . $roster->locale->act['pagebar_uploadrules'],'sgray');
-
-
-function ruletable_head( $style , $title , $type , $mode )
-{
-	global $roster;
-
-	$output = border($style,'start',$title) . '
-<table class="bodyline" cellspacing="0">
-	<thead>
-		<tr>
-';
-	if( $mode == 'guild' && $type != 'deny' )
-	{
-		$output .= '			<th class="membersHeader">' . $roster->locale->act['default'] . '</th>';
-	}
-
-	if( $mode == 'guild' )
-	{
-		$name = $roster->locale->act['guildname'];
-	}
-	else
-	{
-		$name = $roster->locale->act['charname'];
-	}
-
-	$output .= '
-			<th class="membersHeader" ' . makeOverlib($name) . '> ' . $roster->locale->act['name'] . '</th>
-			<th class="membersHeader" ' . makeOverlib($roster->locale->act['realmname']) . '> ' . $roster->locale->act['server'] . '</th>
-			<th class="membersHeader" ' . makeOverlib($roster->locale->act['regionname']) . '> ' . $roster->locale->act['region'] . '</th>
-			<th class="membersHeaderRight">&nbsp;</th>
-		</tr>
-	</thead>
-	<tbody>' . "\n";
-	return $output;
+	$roster->tpl->assign_block_vars('allow_list', array(
+		'DEFAULT' => (bool)$row['default'],
+		'ID' => $row['rule_id'],
+		'NAME' => $row['name'],
+		'SERVER' => $row['server'],
+		'REGION' => $row['region'],
+		)
+	);
 }
 
-function ruletable_line( $row , $type , $mode )
-{
-	global $roster;
-
-	$output = "\n\t\t<tr>\n";
-
-	if( $mode == 'guild' && $type != 'deny' )
-	{
-		if( $row['default'] == '1' )
-		{
-			$output .= '			<td class="membersRow1" style="text-align:center;"><img src="' . $roster->config['img_url'] . 'check_on.png" alt="" /></td>';
-		}
-		else
-		{
-			$output .= '			<td class="membersRow1" style="text-align:center;"><button class="button_hide" onclick="setvalue(\'' . $type . 'hide\',\'default_' . $row['rule_id'] . '\');"><img src="' . $roster->config['img_url'] . 'check_off.png" alt="" /></button></td>';
-		}
-	}
-	$output .= '
-			<td class="membersRow1">' . $row['name'] . '</td>
-			<td class="membersRow1">' . $row['server'] . '</td>
-			<td class="membersRow1">' . $row['region'] . '</td>
-			<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue(\'' . $type . 'hide\',\'del_' . $row['rule_id'] . '\');">' . $roster->locale->act['delete'] . '</button></td>
-		</tr>' . "\n";
-	return $output;
-}
-
-function ruletable_foot( $style , $type , $mode )
-{
-	global $roster, $existing_data;
-
-	$output = "\n\t\t<tr>\n";
-
-	if( $mode == 'guild' && $type != 'deny' )
-	{
-		$output .= '			<td class="membersRow2" style="text-align:center;"><label for="defaultchk">&nbsp;</label><input type="checkbox" name="defaultchk" id="defaultchk" value="1" ' . ($existing_data ?  '' : ' checked="checked"') . '/></td>';
-	}
-	$output .= '
-			<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
-			<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
-			<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
-			<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue(\'' . $type . 'hide\',\'add\');">' . $roster->locale->act['add'] . '</button></td>
-		</tr>
-	</tbody>
-</table>
-' . border($style,'end');
-	return $output;
-}
+$roster->tpl->set_filenames(array(
+	'body' => 'admin/upload_rules.html',
+	'menu' => 'admin/upload_rules_menu.html'
+	)
+);
+$body = $roster->tpl->fetch('body');
+$menu = $roster->tpl->fetch('menu');

@@ -300,6 +300,7 @@ $roster->tpl->assign_vars(array(
 	'S_HEADER_LOGO'   => ( !empty($roster->config['logo']) ? true : false ),
 
 	'U_MAKELINK'      => makelink(),
+	'U_LINKFORM'      => linkform(),
 	'ROSTER_URL'      => ROSTER_URL,
 	'ROSTER_PATH'     => ROSTER_PATH,
 	'WEBSITE_ADDRESS' => $roster->config['website_address'],

@@ -38,8 +38,7 @@ if( !defined('IN_ROSTER') )
 // ----[ Check log-in ]-------------------------------------
 if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
-	print
-	'<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
+	print '<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
 	. $roster->auth->getLoginForm();
 
 	return;
@@ -48,7 +47,7 @@ if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 
 include_once(ROSTER_ADMIN . 'pages.php');
 
-$header = $menu = $pagebar = $footer = $body = '';
+$header = $menu = $pagebar = $addon_pagebar = $footer = $body = $message = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
 
@@ -91,7 +90,7 @@ if( isset($roster->config['versioncache']) )
 
 	if( version_compare($cache['ver_latest'],ROSTER_VERSION,'>') )
 	{
-		$header = messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
+		$message .= messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
 	}
 }
 
@@ -106,36 +105,27 @@ if( isset($config_pages[$page]['file']) )
 	}
 	else
 	{
-		$body .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
+		$message .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
 	}
 }
 else
 {
-	$body .= messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
+	$message .= messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
 }
 
 // Build the pagebar from admin/pages.php
-foreach ($config_pages as $pindex => $data)
+foreach( $config_pages as $pindex => $data )
 {
-	if (!isset($data['special']))
-	{
-		$pagename = $roster->pages[0] . ( $page != 'roster' ? '-' . $page : '' );
-		$pagebar .= '<li' . ($pagename == $data['href'] ? ' class="selected"' : '') . '><a href="' . makelink($data['href']) . '">' . $roster->locale->act[$data['title']] . "</a></li>\n";
-	}
-	elseif ($data['special'] == 'divider')
-	{
-		$pagebar .= '<li><hr /></li>';
-	}
-}
+	$pagename = $roster->pages[0] . ( $page != 'roster' ? '-' . $page : '' );
 
-if ($pagebar != '')
-{
-	$pagebar = "<ul class=\"tab_menu\">\n$pagebar</ul>";
-	$pagebar = messagebox($pagebar,$roster->locale->act['pagebar_function']) . "<br />\n";
+	$roster->tpl->assign_block_vars('pagebar',array(
+		'SPECIAL' => ( isset($data['special']) ? $data['special'] : '' ),
+		'SELECTED' => ( isset($data['href']) ? ($pagename == $data['href'] ? true : false) : ''),
+		'LINK' => ( isset($data['href']) ? makelink($data['href']) : '' ),
+		'NAME' => ( isset($data['title']) ? ( isset($roster->locale->act[$data['title']]) ? $roster->locale->act[$data['title']] : $data['title'] ) : '' ),
+		)
+	);
 }
-
-// Add addon buttons
-$addon_pagebar = '';
 
 // Added to get the newest addon list because we may have installed/uninstalled something
 $roster->get_addon_data();
@@ -158,7 +148,12 @@ foreach( $roster->addon_data as $row )
 			$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 		}
 
-		$addon_pagebar .= '<li' . (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? ' class="selected"' : '') . '><a href="' . makelink('rostercp-addon-' . $row['basename']) . '">' . ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] ) . "</a></li>\n";
+		$roster->tpl->assign_block_vars('addon_pagebar',array(
+			'SELECTED' => (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? true : false),
+			'LINK' => makelink('rostercp-addon-' . $row['basename']),
+			'NAME' => ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] ),
+			)
+		);
 
 		// Restore our locale array
 		$roster->locale->wordings = $localetemp;
@@ -166,25 +161,19 @@ foreach( $roster->addon_data as $row )
 	}
 }
 
-if( $addon_pagebar != '' )
-{
-	$pagebar .= border('sgray','start',$roster->locale->act['pagebar_addonconf']) . "\n";
-	$pagebar .= '<ul class="tab_menu">' . "\n";
-	$pagebar .= $addon_pagebar;
-	$pagebar .= "</ul>\n";
-	$pagebar .= border('sgray','end') . "\n";
-}
-
 // ----[ Render the page ]----------------------------------
+$roster->tpl->assign_vars(array(
+	'L_ROSTER_CONFIG' => $roster->locale->act['roster_config'],
+	'L_FUNCTION' => $roster->locale->act['pagebar_function'],
+	'L_ADDON_CONF' => $roster->locale->act['pagebar_addonconf'],
+	'ROSTERCP_MESSAGE' => $message,
+	'HEADER' => $header,
+	'MENU' => $menu,
+	'BODY' => $body,
+	'PAGEBAR' => $pagebar,
+	'FOOTER' => $footer,
+	)
+);
 
-echo
-	$header . "\n".
-	'<table width="100%"><tr>' . "\n".
-	'<td valign="top" align="left" width="15%">' . "\n".
-	$menu . "</td>\n".
-	'<td valign="top" align="center" width="70%">' . "\n".
-	$body . "</td>\n".
-	'<td valign="top" align="right" width="15%">' . "\n".
-	$pagebar . "</td>\n".
-	"</tr></table>\n".
-	$footer;
+$roster->tpl->set_filenames(array('rostercp' => 'rostercp.html'));
+$body = $roster->tpl->display('rostercp');
