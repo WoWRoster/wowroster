@@ -47,7 +47,7 @@ if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 
 include_once(ROSTER_ADMIN . 'pages.php');
 
-$header = $menu = $pagebar = $addon_pagebar = $footer = $body = $message = '';
+$header = $menu = $pagebar = $addon_pagebar = $footer = $body = $rcp_message = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
 
@@ -90,7 +90,7 @@ if( isset($roster->config['versioncache']) )
 
 	if( version_compare($cache['ver_latest'],ROSTER_VERSION,'>') )
 	{
-		$message .= messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
+		$rcp_message .= messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
 	}
 }
 
@@ -105,12 +105,12 @@ if( isset($config_pages[$page]['file']) )
 	}
 	else
 	{
-		$message .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
+		$rcp_message .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
 	}
 }
 else
 {
-	$message .= messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
+	$rcp_message .= messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
 }
 
 // Build the pagebar from admin/pages.php
@@ -166,7 +166,7 @@ $roster->tpl->assign_vars(array(
 	'L_ROSTER_CONFIG' => $roster->locale->act['roster_config'],
 	'L_FUNCTION' => $roster->locale->act['pagebar_function'],
 	'L_ADDON_CONF' => $roster->locale->act['pagebar_addonconf'],
-	'ROSTERCP_MESSAGE' => $message,
+	'ROSTERCP_MESSAGE' => $rcp_message,
 	'HEADER' => $header,
 	'MENU' => $menu,
 	'BODY' => $body,
