@@ -1,0 +1,41 @@
+<!-- $Id$ -->
+
+{T_MENU_START}
+<form action="{U_MAKELINK}" method="get">
+{U_LINKFORM}
+	<select name="section" id="section">
+<!-- BEGIN section_select -->
+		<option value="{section_select.NAME}"<!-- IF section_select.SELECTED --> selected="selected">-[{section_select.NAME}]-<!-- ELSE -->>{section_select.NAME}<!-- ENDIF --></option>
+<!-- END section_select -->
+	</select>
+	<input type="submit" value="Go" />
+</form>
+{T_BORDER_END}
+
+<br />
+
+{T_ADD_BUTTON}
+<table cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td>{L_TITLE}:</td>
+		<td><input id="title" type="text" size="16" maxlength="32" /></td>
+	</tr>
+	<tr>
+		<td>{L_URL}: </td>
+		<td><input id="url" type="text" size="16" maxlength="128"/></td>
+	</tr>
+	<tr>
+		<td>{L_ICON}: </td>
+		<td><input id="icon" type="text" size="16" maxlength="64" /></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="right"><button class="input" onclick="sendAddElement()">Go</button></td>
+	</tr>
+</table>
+{T_BORDER_END}
+
+<br />
+
+{T_DELETE_BOX}
+<div id="rec_bin" style="width:135px;height:65px;background-color:black;"></div>
+{T_BORDER_END}

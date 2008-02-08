@@ -203,7 +203,7 @@ function doDeleteElement(result)
 	div.parentNode.removeChild(div);
 }
 
-/** 
+/**
  * Function called by the add button button. Fetches the info from the form
  * fields and sends the request off to the server.
  * After the server is done doAddElement() is called.
