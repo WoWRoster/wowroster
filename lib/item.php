@@ -1558,6 +1558,65 @@ class item
 		return $items;
 	}
 
+	/**
+	 * Fetches passed itemID from the database. First Match is used.
+	 *
+	 * @param unknown_type $item_id
+	 * @param unknown_type $parse_mode
+	 * @return unknown
+	 */
+	function fetchItemID( $item_id, $parse_mode=false )
+	{
+		global $roster;
+
+		$item_id = $roster->db->escape($item_id);
+		$sql = " SELECT *"
+			 . " FROM `" . $roster->db->table('items') . "`"
+			 . " WHERE `item_id` = '$item_id'"
+			 . " LIMIT 1;";
+		$result = $roster->db->query($sql);
+		$data = $roster->db->fetch($result);
+		if( $data )
+		{
+			return new item( $data, $parse_mode );
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Fetches passed item itemID with associated member_id from the database.
+	 *
+	 * @param unknown_type $member_id
+	 * @param unknown_type $item_id
+	 * @param unknown_type $parse_mode
+	 * @return unknown
+	 */
+	function fetchOneMemberItemID( $member_id, $item_id, $parse_mode=false )
+	{
+		global $roster;
+
+		$item_id = $roster->db->escape($item_id);
+		$member_id = $roster->db->escape($member_id);
+		$query  = " SELECT *"
+			. " FROM `" . $roster->db->table('items') . "`"
+			. " WHERE `member_id` = '$member_id'"
+			. " AND `item_id` = '$item_id';";
+
+		$result = $roster->db->query($query);
+		$data = $roster->db->fetch($result);
+		if( $data )
+		{
+			return new item( $data, $parse_mode );
+		}
+		else
+		{
+			return null;
+		}
+	}
+
 	function debugPrintAttributes()
 	{
 		return aprint($this->parsed_item['Attributes']);
