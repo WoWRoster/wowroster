@@ -93,7 +93,7 @@ $inst_keys['A'] = array(
 	'BRDs' => array(
 		'In|Ferrovil|1||1',
 		'In|Llave Sombratiniebla|1||1',
-		'Key|inv_misc_key_08|'
+		'Key|inv_misc_key_08|250'
 	),
 	'DM' => array(
 		'In|Llave creciente|1||1',
@@ -143,9 +143,9 @@ $inst_keys['A'] = array(
 		'Key|inv_potion_83|'
 	),
 	'SL' => array(
-        'In|Llave del Laberinto de las Sombras|1||1',
-        'Key|inv_misc_key_02|'
-        ),
+		'In|Llave del Laberinto de las Sombras|1||1',
+		'Key|inv_misc_key_02|350'
+	),
 	'SH' => array(
 		'In|Molde de llave preparado|1||1',
 		'Q|Entrada a la Ciudadela|1||1',
@@ -192,17 +192,48 @@ $inst_keys['A'] = array(
 		'Q|Khadgar de nuevo|1||1',
 		'In|La llave del maestro|1||1',
 		'Key|inv_misc_key_07|'
+	),
+	'Arcatraz' => array(
+		'Q|Warp-Raider Nesaad|1||1',
+		'Q|Request for Assistance|1||1',
+		'Q|Rightful Repossession|1||1',
+		'Q|An Audience with the Prince|1||1',
+		'Q|Triangulation Point One|1||1',
+		'Q|Triangulation Point Two|1||1',
+		'Q|Full Triangle|1||1',
+		'Q|Special Delivery to Shattrath City|1||1',
+		'Q|How to Break Into the Arcatraz|1||1',
+		'In|Key to the Arcatraz|1||1',
+		'Key|inv_datacrystal03|350'
+	),
+	'Temple' => array(
+		'Q|Tablets of Baa\'ri|1||1',
+		'Q|Oronu the Elder|1||1',
+		'Q|The Ashtongue Corruptors|1||1',
+		'Q|The Warden\'s Cage|1||1',
+		'Q|Proof of Allegiance|1||1',
+		'Q|Akama|1||1',
+		'Q|Seer Udalo|1||1',
+		'Q|A Mysterious Portent|1||1',
+		'Q|The Ata\'mal Terrace|1||1',
+		'Q|Akama\'s Promise|1||1',
+		'Q|The Secret Compromised|1||1',
+		'Q|Ruse of the Ashtongue|1||1',
+		'Q|An Artifact From the Past|1||1',
+		'Q|The Hostage Soul|1||1',
+		'Q|Entry Into the Black Temple|1||1',
+		'Q|A Distraction for Akama|1||1',
+		'In|Medallion of Karabor|1||1',
+		'Key|inv_jewelry_amulet_04|'
 	)
 );
 
 
 // HORDE KEYS
 $inst_keys['H'] = array(
-/* Horde can't get the searing key
 	'SG' => array( 
-		'In|Key to Searing Gorge|1||1',
 		'Key|inv_misc_key_14|225'
-	),*/
+	),
 	'Gnome' => array(
 		'In|Llave de taller|1||1',
 		'Key|inv_misc_key_06|150'
@@ -229,7 +260,7 @@ $inst_keys['H'] = array(
 	'BRDs' => array(
 		'In|Ferrovil|1||1',
 		'In|Llave Sombratiniebla|1||1',
-		'Key|inv_misc_key_08|'
+		'Key|inv_misc_key_08|250'
 	),
 	'DM' => array(
 		'In|Llave creciente|1||1',
@@ -282,9 +313,9 @@ $inst_keys['H'] = array(
 		'Key|inv_potion_83|'
 	),
 	'SL' => array(
-        'In|Llave del Laberinto de las Sombras|1||1',
-        'Key|inv_misc_key_02|'
-        ),
+		'In|Llave del Laberinto de las Sombras|1||1',
+		'Key|inv_misc_key_02|350'
+	),
 	'SH' => array(
 		'In|Molde de llave preparado|1||1',
 		'Q|Entrada a la Ciudadela|1||1',
@@ -293,7 +324,7 @@ $inst_keys['H'] = array(
 		'Q|Más caliente que el infierno|1||1',
 		'In|Llave de las Salas Arrasadas|1||1',
 		'Key|inv_misc_key_02|350'
-		),
+	),
 	'HCH' => array(
 		'R|Thrallmar|9000||1',
 		'In|Llave de Forjallamas|1||1',
@@ -331,5 +362,38 @@ $inst_keys['H'] = array(
 		'Q|Khadgar de nuevo|1||1',
 		'In|La llave del maestro|1||1',
 		'Key|inv_misc_key_07|'
+	),
+	'Arcatraz' => array(
+		'Q|Warp-Raider Nesaad|1||1',
+		'Q|Request for Assistance|1||1',
+		'Q|Rightful Repossession|1||1',
+		'Q|An Audience with the Prince|1||1',
+		'Q|Triangulation Point One|1||1',
+		'Q|Triangulation Point Two|1||1',
+		'Q|Full Triangle|1||1',
+		'Q|Special Delivery to Shattrath City|1||1',
+		'Q|How to Break Into the Arcatraz|1||1',
+		'In|Key to the Arcatraz|1||1',
+		'Key|inv_datacrystal03|350'
+	),
+	'Temple' => array(
+		'Q|Tablets of Baa\'ri|1||1',
+		'Q|Oronu the Elder|1||1',
+		'Q|The Ashtongue Corruptors|1||1',
+		'Q|The Warden\'s Cage|1||1',
+		'Q|Proof of Allegiance|1||1',
+		'Q|Akama|1||1',
+		'Q|Seer Udalo|1||1',
+		'Q|A Mysterious Portent|1||1',
+		'Q|The Ata\'mal Terrace|1||1',
+		'Q|Akama\'s Promise|1||1',
+		'Q|The Secret Compromised|1||1',
+		'Q|Ruse of the Ashtongue|1||1',
+		'Q|An Artifact From the Past|1||1',
+		'Q|The Hostage Soul|1||1',
+		'Q|Entry Into the Black Temple|1||1',
+		'Q|A Distraction for Akama|1||1',
+		'In|Medallion of Karabor|1||1',
+		'Key|inv_jewelry_amulet_04|'
 	)
 );
