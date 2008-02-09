@@ -226,22 +226,6 @@ $roster->locale = new roster_locale;
 
 
 /**
- * Include Login class, external or Roster's
- */
-if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
-{
-	require_once(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php');
-}
-else
-{
-	$roster->config['external_auth'] = 'roster';
-	require_once(ROSTER_LIB . 'login.php');
-}
-
-$roster->auth = new RosterLogin();
-
-
-/**
  * Include the Roster Menu class
  */
 require_once(ROSTER_LIB . 'menu.php');
@@ -257,6 +241,22 @@ $roster->get_page_name();
  * Run the scope algorithm to load the data and figure out the file to load
  */
 $roster->get_scope_data();
+
+
+/**
+ * Include Login class, external or Roster's
+ */
+if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
+{
+	require_once(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php');
+}
+else
+{
+	$roster->config['external_auth'] = 'roster';
+	require_once(ROSTER_LIB . 'login.php');
+}
+
+$roster->auth = new RosterLogin();
 
 
 /**
