@@ -146,7 +146,7 @@ class RosterLogin
 					<tr>
 						<td class="membersRowRight2" valign="bottom">
 							<div style="float:right;"><input type="submit" value="Go" /></div>
-							' . $roster->auth->getMessage() . '</td>
+							' . $this->getMessage() . '</td>
 					</tr>
 				</table>
 			' . border('sred','end') . '
@@ -155,7 +155,7 @@ class RosterLogin
 		}
 		else
 		{
-			return $this->message;
+			return $this->getMessage();
 		}
 	}
 
@@ -167,11 +167,11 @@ class RosterLogin
 			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" onsubmit="submitonce(this);" style="margin:0;">
 				Log in: <input name="password" class="wowinput128" type="password" size="30" maxlength="30" />
 				<input type="submit" value="Go" />
-			</form>' . $this->message;
+			</form>' . $this->getMessage();
 		}
 		else
 		{
-			return $this->message;
+			return $this->getMessage();
 		}
 	}
 
