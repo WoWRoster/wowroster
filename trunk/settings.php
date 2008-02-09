@@ -184,6 +184,18 @@ $roster->load_config();
 
 
 /**
+ * Inject some different locale setting if the locale url switch is set
+ */
+$locale = (isset($_GET['locale']) ? $_GET['locale'] : isset($_POST['locale']) ? $_POST['locale'] : '');
+if( $locale != '' )
+{
+	$_SESSION['locale'] = $locale;
+	$roster->config['locale'] = $locale;
+}
+unset($locale);
+
+
+/**
  * Include linking file
  */
 require_once (ROSTER_LIB . 'cmslink.lib.php');
@@ -207,34 +219,10 @@ $roster->get_addon_data();
 
 
 /**
- * Inject some different locale setting if the locale url switch is set
- */
-$locale = (isset($_GET['locale']) ? $_GET['locale'] : isset($_POST['locale']) ? $_POST['locale'] : '');
-if( $locale != '' )
-{
-	$_SESSION['locale'] = $locale;
-	$roster->config['locale'] = $locale;
-}
-unset($locale);
-
-
-/**
  * Load the locale class
  */
 include(ROSTER_LIB . 'locale.php');
 $roster->locale = new roster_locale;
-
-
-/**
- * Include the Roster Menu class
- */
-require_once(ROSTER_LIB . 'menu.php');
-
-
-/**
- * Figure out the page
- */
-$roster->get_page_name();
 
 
 /**
@@ -251,6 +239,18 @@ else
 }
 
 $roster->auth = new RosterLogin();
+
+
+/**
+ * Include the Roster Menu class
+ */
+require_once(ROSTER_LIB . 'menu.php');
+
+
+/**
+ * Figure out the page
+ */
+$roster->get_page_name();
 
 
 /**
