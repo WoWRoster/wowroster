@@ -192,7 +192,7 @@ $inst_keys['A'] = array(
 		'Q|Khadgar de nuevo|1||1',
 		'In|La llave del maestro|1||1',
 		'Key|inv_misc_key_07|'
-	),
+	),/*
 	'Arcatraz' => array(
 		'Q|Warp-Raider Nesaad|1||1',
 		'Q|Request for Assistance|1||1',
@@ -207,16 +207,16 @@ $inst_keys['A'] = array(
 		'Key|inv_datacrystal03|350'
 	),
 	'Temple' => array(
-		'Q|Tablets of Baa\'ri|1||1',
+		'Q|Tablets of Baa\\\'ri|1||1',
 		'Q|Oronu the Elder|1||1',
 		'Q|The Ashtongue Corruptors|1||1',
-		'Q|The Warden\'s Cage|1||1',
+		'Q|The Warden\\\'s Cage|1||1',
 		'Q|Proof of Allegiance|1||1',
 		'Q|Akama|1||1',
 		'Q|Seer Udalo|1||1',
 		'Q|A Mysterious Portent|1||1',
-		'Q|The Ata\'mal Terrace|1||1',
-		'Q|Akama\'s Promise|1||1',
+		'Q|The Ata\\\'mal Terrace|1||1',
+		'Q|Akama\\\'s Promise|1||1',
 		'Q|The Secret Compromised|1||1',
 		'Q|Ruse of the Ashtongue|1||1',
 		'Q|An Artifact From the Past|1||1',
@@ -225,7 +225,7 @@ $inst_keys['A'] = array(
 		'Q|A Distraction for Akama|1||1',
 		'In|Medallion of Karabor|1||1',
 		'Key|inv_jewelry_amulet_04|'
-	)
+	)*/
 );
 
 
@@ -362,7 +362,7 @@ $inst_keys['H'] = array(
 		'Q|Khadgar de nuevo|1||1',
 		'In|La llave del maestro|1||1',
 		'Key|inv_misc_key_07|'
-	),
+	),/*
 	'Arcatraz' => array(
 		'Q|Warp-Raider Nesaad|1||1',
 		'Q|Request for Assistance|1||1',
@@ -377,16 +377,16 @@ $inst_keys['H'] = array(
 		'Key|inv_datacrystal03|350'
 	),
 	'Temple' => array(
-		'Q|Tablets of Baa\'ri|1||1',
+		'Q|Tablets of Baa\\\'ri|1||1',
 		'Q|Oronu the Elder|1||1',
 		'Q|The Ashtongue Corruptors|1||1',
-		'Q|The Warden\'s Cage|1||1',
+		'Q|The Warden\\\'s Cage|1||1',
 		'Q|Proof of Allegiance|1||1',
 		'Q|Akama|1||1',
 		'Q|Seer Udalo|1||1',
 		'Q|A Mysterious Portent|1||1',
-		'Q|The Ata\'mal Terrace|1||1',
-		'Q|Akama\'s Promise|1||1',
+		'Q|The Ata\\\'mal Terrace|1||1',
+		'Q|Akama\\\'s Promise|1||1',
 		'Q|The Secret Compromised|1||1',
 		'Q|Ruse of the Ashtongue|1||1',
 		'Q|An Artifact From the Past|1||1',
@@ -395,5 +395,5 @@ $inst_keys['H'] = array(
 		'Q|A Distraction for Akama|1||1',
 		'In|Medallion of Karabor|1||1',
 		'Key|inv_jewelry_amulet_04|'
-	)
+	)*/
 );
