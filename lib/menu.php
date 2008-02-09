@@ -751,7 +751,7 @@ class RosterMenu
 		global $roster;
 
 		$roster->tpl->assign_vars(array(
-			'MENU_LOGIN_FORM' => $roster->auth->getMenuLoginForm(),
+			'MENU_LOGIN_FORM' => ( is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : '' ),
 
 			'L_SEARCH'        => $roster->locale->act['search'],
 			'L_SEARCH_ROSTER' => $roster->locale->act['search_roster'],
