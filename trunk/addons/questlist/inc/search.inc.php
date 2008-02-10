@@ -18,6 +18,12 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * QuestList Search
+ *
+ * @package    QuestList
+ * @subpackage Search
+ */
 class questlist_search
 {
 	var $options;

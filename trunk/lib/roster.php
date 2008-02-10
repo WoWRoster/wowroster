@@ -21,6 +21,12 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Roster global class
+ *
+ * @package    WoWRoster
+ * @subpackage RosterClass
+ */
 class roster
 {
 	var $config = array();

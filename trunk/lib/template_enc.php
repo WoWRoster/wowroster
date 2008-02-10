@@ -2,7 +2,7 @@
 /**
  * WoWRoster..net WoWRoster
  *
- * Template Parser
+ * Template Encoder
  * Modified from the EQDkp Project
  *
  * LICENSE: Licensed under the Creative Commons
@@ -22,6 +22,12 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Template Encoder
+ *
+ * @package    WoWRoster
+ * @subpackage Template
+ */
 class RosterTplEncode
 {
 	// The all seeing all doing compile method. Parts are inspired by or directly

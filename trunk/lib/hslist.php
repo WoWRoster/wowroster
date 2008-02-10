@@ -20,14 +20,33 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Create Row
+ *
+ * @param string $sc
+ * @return string
+ */
 function rankMid($sc)
 {
 	return '    <td class="membersRow'.$sc.'">';
 }
+
+/**
+ * Create Right Side Row
+ *
+ * @param string $sc
+ * @return string
+ */
 function rankRight($sc)
 {
 	return '    <td class="membersRowRight'.$sc.'">';
 }
+
+/**
+ * Generate the Honor List
+ *
+ * @return string
+ */
 function generateHsList( )
 {
 	global $roster;

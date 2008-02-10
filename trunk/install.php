@@ -43,6 +43,13 @@ if( !include_once(ROSTER_LIB . 'template.php') )
 	die('Could not include lib/template.php - check to make sure that the file exists!');
 }
 
+/**
+ * Template Parser
+ * TemplateWrap: Special for the installer
+ *
+ * @package    WoWRoster
+ * @subpackage Template
+ */
 class Template_Wrap extends RosterTemplate
 {
 	var $error_message   = array();           // Array of errors      @var $error_message

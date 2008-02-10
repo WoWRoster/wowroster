@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
+ * @package    WoWRoster
+ * @subpackage Item
 */
 
 if( !defined('IN_ROSTER') )
@@ -19,6 +21,12 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+/**
+ * Item class
+ *
+ * @package    WoWRoster
+ * @subpackage Item
+ */
 class item
 {
 	var $data = array(); // raw data from database deprecated -- use class properties

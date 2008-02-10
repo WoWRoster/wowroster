@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.9.9
  * @package    WoWRoster
- * @subpackage RosterClass
+ * @subpackage Armory
 */
 
 if( !defined('IN_ROSTER') )
@@ -28,6 +28,8 @@ if( !defined('IN_ROSTER') )
  * Returns pre-parsed XML as an Array or
  * returns unparsed XML page as a string
  *
+ * @package    WoWRoster
+ * @subpackage Armory
  */
 class RosterArmory
 {

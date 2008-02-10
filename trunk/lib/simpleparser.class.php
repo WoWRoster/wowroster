@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.9.9
  * @package    WoWRoster
- * @subpackage RosterClass
+ * @subpackage SimpleXMLParser
 */
 
 if( !defined('IN_ROSTER') )
@@ -28,6 +28,8 @@ require_once(ROSTER_LIB . 'simple.class.php');
  *
  * Allows converion of XML data to a simple class object
  *
+ * @package    WoWRoster
+ * @subpackage SimpleXMLParser
  */
 class SimpleParser
 {

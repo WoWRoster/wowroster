@@ -22,6 +22,12 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Template Parser
+ *
+ * @package    WoWRoster
+ * @subpackage Template
+ */
 class RosterTemplate
 {
 	// variable that holds all the data we'll be substituting into

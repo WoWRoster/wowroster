@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
+ * @subpackage ErrorControl
 */
 
 if( !defined('IN_ROSTER') )
@@ -24,6 +26,12 @@ if( !defined('E_STRICT') )
 	define('E_STRICT', 2048);
 }
 
+/**
+ * Roster Error Handler
+ *
+ * @package    WoWRoster
+ * @subpackage ErrorControl
+ */
 class roster_error
 {
 	// Define variables that store the old error reporting and logging states
@@ -55,7 +63,12 @@ class roster_error
 		}
 	}
 
-	function stop( )
+	/**
+	 * End our handler and return error control to php
+	 *
+	 * @return array Error report
+	 */
+	function stop()
 	{
 		if( $this->active )
 		{
@@ -74,7 +87,15 @@ class roster_error
 		}
 	}
 
-	// user defined error handling function
+	/**
+	 * User defined error handling function
+	 *
+	 * @param int $errno
+	 * @param string $errmsg
+	 * @param string $filename
+	 * @param int $linenum
+	 * @param mixed $vars
+	 */
 	function handler( $errno , $errmsg , $filename , $linenum , $vars='' )
 	{
 		global $roster;

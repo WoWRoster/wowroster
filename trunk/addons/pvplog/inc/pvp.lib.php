@@ -12,7 +12,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    PvPLog
- * @subpackage PvPLog Library
+ * @subpackage Library
 */
 
 if( !defined('IN_ROSTER') )

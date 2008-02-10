@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.9.9
  * @package    WoWRoster
- * @subpackage RosterClass
+ * @subpackage SimpleClass
 */
 
 if( !defined('IN_ROSTER') )
@@ -25,6 +25,9 @@ if( !defined('IN_ROSTER') )
  * WoWRoster Simple Class
  *
  * Allows easy access to XML Data
+ *
+ * @package    WoWRoster
+ * @subpackage SimpleClass
  */
 class SimpleClass
 {

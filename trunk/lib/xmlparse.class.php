@@ -12,7 +12,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    WoWRoster
- * @subpackage LiteXmlParser
+ * @subpackage XMLParser
 */
 
 if( !defined('IN_ROSTER') )
@@ -20,6 +20,12 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+/**
+ * Light weight Xml Parser class using php's xml handling functions
+ *
+ * @package    WoWRoster
+ * @subpackage XMLParser
+ */
 class XmlParser
 {
 	var $parser;
@@ -83,7 +89,7 @@ class XmlParser
 		$this->data = & $this->datas[count($this->datas)-1];
 		array_pop($this->datas);
 	}
-	
+
 	function getParsedData()
 	{
 		return $this->data;
