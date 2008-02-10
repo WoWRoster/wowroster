@@ -12,6 +12,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
+ * @package    WoWRoster
 */
 
 if( !defined('IN_ROSTER') )

@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1647';
+	var $version = '1.9.9.1651';
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';

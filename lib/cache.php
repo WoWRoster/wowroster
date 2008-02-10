@@ -2,7 +2,7 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * cache class
+ * Cache Class
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
- * @subpackage RosterClass
+ * @subpackage RosterCache
 */
 
 if( !defined('IN_ROSTER') )
@@ -21,6 +21,12 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+/**
+ * Cache Class
+ *
+ * @package    WoWRoster
+ * @subpackage RosterCache
+ */
 class RosterCache
 {
 	var $cache_suffix;
@@ -40,12 +46,12 @@ class RosterCache
 	 */
 	function RosterCache()
 	{
-		$this->cache_suffix = '.inc'; 
+		$this->cache_suffix = '.inc';
 		$this->object_ttl = '10800'; //3 hours
 		$this->sql_ttl = '60';
 		$this->cache_dir = ROSTER_CACHEDIR;
 	}
-	
+
 	/**
 	 * Maint function to clean cache directory
 	 * optional prefix arg
@@ -54,7 +60,7 @@ class RosterCache
 	 */
 	function cleanCache( $prefix=null )
 	{
-		foreach( glob($this->cache_dir . $prefix . '*') as $file ) 
+		foreach( glob($this->cache_dir . $prefix . '*') as $file )
 		{
 			@unlink($file);
 		}
@@ -70,12 +76,12 @@ class RosterCache
 	function check( $cache_file )
 	{
 		global $roster;
-		
+
 		if( !$roster->config['local_cache'] )
 		{
 			return false;
-		}		
-		
+		}
+
 		$cache_file = $this->cache_dir . 'obj_' . md5($cache_file) . $this->cache_suffix;
 
 		if( file_exists($cache_file) && filemtime($cache_file) > (time() - $this->object_ttl) )
@@ -87,7 +93,7 @@ class RosterCache
 			return false;
 		}
 	}
-	
+
 	function mcheck( $cache_name )
 	{
 		$cache_name = md5($cache_name);
@@ -96,15 +102,15 @@ class RosterCache
 		{
 			return true;
 		}
-		else 
+		else
 		{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * returns contains of $cache_file if cache file exists
-	 * 
+	 *
 	 * @param string $cache_file
 	 * @return bool
 	 */
@@ -119,16 +125,16 @@ class RosterCache
 		else
 		{
 			return false;
-		}		
+		}
 	}
-	
+
 	function mget( $cache_name )
 	{
 		$cache_name = md5($cache_name);
-		
+
 		return $this->cache_data[$cache_name];
 	}
-	
+
 	/**
 	 * writes object cache for $data
 	 * accepts optional $cache_file otherwise uses $data as the $cache_file name
@@ -141,26 +147,26 @@ class RosterCache
 	function put( $data, $cache_file=false )
 	{
 		global $roster;
-		
+
 		if( !$roster->config['local_cache'] )
 		{
 			return false;
 		}
-		
+
 		if( $cache_file )
 		{
 			$cache_file = $this->cache_dir . 'obj_' . md5($cache_file) . $this->cache_suffix;
 		}
-		else 
+		else
 		{
 			$cache_file = $this->cache_dir . 'obj_' . md5($data) . $this->cache_suffix;
 		}
 
 		if( !empty($data) )
-		{		
+		{
 			return $this->_writeCache($data, $cache_file);
 		}
-		else 
+		else
 		{
 			return false;
 		}
@@ -172,7 +178,7 @@ class RosterCache
 		$this->cache_data[$cache_name] = $data;
 		return;
 	}
-	
+
 	function sqlFetch()
 	{
 		if( !empty($this->sql_cache_data) )
@@ -185,7 +191,7 @@ class RosterCache
 			return false;
 		}
 	}
-	
+
 	/**
 	 * preps the cache object to handle requests on cached object
 	 *
@@ -196,7 +202,7 @@ class RosterCache
 	function sqlCache( $sql, $link_id )
 	{
 		$cache_file = $this->cache_dir . 'sql_' . md5($sql) . $this->cache_suffix;
-				
+
 		$this->sql_link_id = $link_id;
 		$this->sql_query = $sql;
 		$this->sql_cache_rows = -1;
@@ -207,11 +213,11 @@ class RosterCache
 			$this->sql_cache_data = $this->_readCache($cache_file);
 			$this->sql_cache_rows = count($this->sql_cache_data);
 		}
-		else 
+		else
 		{
 			echo "Cache Created!<br>";
 			$result = @mysql_query($sql, $link_id);
-			
+
 			$data = array();
 			while( $data = @mysql_fetch_array($result) )
 			{
@@ -222,8 +228,8 @@ class RosterCache
 			unset($data);
 		}
 		return md5($sql);
-	}	
-	
+	}
+
 	/**
 	 * writes serialized $data to $cache_file
 	 *
@@ -238,13 +244,13 @@ class RosterCache
 			trigger_error('Could not open cache file');
 			return false;
 		}
-		
+
 		if( !flock($file, LOCK_EX) )
 		{
 			trigger_error('Unable to set file lock');
 			return false;
 		}
-		
+
 		if( !fwrite($file, serialize($data)) )
 		{
 			trigger_error('Unable to write cache file');
@@ -252,12 +258,12 @@ class RosterCache
 			fclose($file);
 			return false;
 		}
-		
+
 		flock($file, LOCK_UN);
 		fclose($file);
 		return true;
 	}
-	
+
 	/**
 	 * return the unserialized $cache_file
 	 *
@@ -268,11 +274,11 @@ class RosterCache
 	{
 		return unserialize(file_get_contents($cache_file));
 	}
-	
+
 	/**
 	 * Verifies that the cache directory is readable/writeable.  Will return an error code on fault.
-	 * 
-	 * @return int | 	1 on success else: 
+	 *
+	 * @return int | 	1 on success else:
 	 * 					-1 : cannot open cache file
 	 * 					-2 : cannot set file lock
 	 * 					-3 : cannot write to opened file
@@ -281,31 +287,31 @@ class RosterCache
 	function verifyCacheDirectory()
 	{
 		$cache_file = $this->cache_dir . md5('cache_test') . $this->cache_suffix;
-		
+
 		if( !$file=fopen($cache_file, 'w') )
 		{
 			trigger_error('Could not open cache file');
 			return -1;
 		}
-		
+
 		if( !flock($file, LOCK_EX) )
 		{
 			trigger_error('Unable to set file lock');
 			return -2;
 		}
-		
+
 		$test_var = 'test of cache<br />';
-		
+
 		if( !fwrite($file, serialize($test_var)) )
 		{
 			trigger_error('Unable to write cache file');
 			flock( $file, LOCK_UN );
 			return -3;
 		}
-		
+
 		flock($file, LOCK_UN);
 		fclose($file);
-		
+
 		if( $this->readCache(md5('cache_test')) )
 		{
 			return 1;

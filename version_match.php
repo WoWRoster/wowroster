@@ -13,6 +13,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.7.0
+ * @package    WoWRoster
+ * @subpackage RosterDiag
 */
 
 error_reporting(E_ALL);

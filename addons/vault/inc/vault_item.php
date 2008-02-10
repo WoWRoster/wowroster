@@ -2,7 +2,7 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Item class
+ * Vault Item class, extends item class
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -22,6 +22,12 @@ if( !defined('IN_ROSTER') )
 
 require_once(ROSTER_LIB . 'item.php');
 
+/**
+ * Vault Item class, extends item class
+ *
+ * @package    Vault
+ * @subpackage VaultItem
+ */
 class VaultItem extends item
 {
 	/**

@@ -2,7 +2,7 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Character Bag class, extends item class
+ * Vault Tab class, extends item class
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
+ * @package    Vault
+ * @subpackage VaultTab
 */
 
 if( !defined('IN_ROSTER') )
@@ -21,6 +23,12 @@ if( !defined('IN_ROSTER') )
 
 require_once( ROSTER_LIB . 'item.php');
 
+/**
+ * Vault Tab class, extends item class
+ *
+ * @package    Vault
+ * @subpackage VaultTab
+ */
 class VaultTab extends VaultItem
 {
 	var $contents;

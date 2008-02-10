@@ -23,6 +23,12 @@ if( !defined('IN_ROSTER') )
 
 define('ROSTERLOGIN_ADMIN',3);
 
+/**
+ * Login and authorization
+ *
+ * @package    WoWRoster
+ * @subpackage User
+ */
 class RosterLogin
 {
 	var $allow_login;

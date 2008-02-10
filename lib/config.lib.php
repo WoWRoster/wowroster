@@ -21,6 +21,12 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Roster Control Panel library
+ *
+ * @package    WoWRoster
+ * @subpackage ConfigAPI
+ */
 class roster_config
 {
 	var $db_values;

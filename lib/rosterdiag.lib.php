@@ -101,7 +101,11 @@ foreach ($files as $directory => $filedata)
 
 //DisplayTheStuffTemp();
 
-// Grab all directories and subdirectories for directory $dir and shove them into the global array $directories
+/**
+ * Grab all directories and subdirectories for directory $dir and shove them into the global array $directories
+ *
+ * @param string $dir
+ */
 function GrabAllLocalDirectories($dir)
 {
 	global $directories;
@@ -120,8 +124,12 @@ function GrabAllLocalDirectories($dir)
 	closedir($handle);
 }
 
-// This function will determine all version of all files in the current directory
-// and will fill the $versions array with this data
+/**
+ * This function will determine all version of all files in the current directory
+ * and will fill the $versions array with this data
+ *
+ * @param string $directory
+ */
 function GrabLocalVersions($directory)
 {
 	global $directories;
@@ -142,7 +150,12 @@ function GrabLocalVersions($directory)
 	closedir($handle);
 }
 
-// Check the file against the $extension array
+/**
+ * Check the file against the $extension array
+ *
+ * @param string $filename
+ * @return int
+ */
 function CheckExtension($filename)
 {
 	global $extensions, $ignored_files;
@@ -170,7 +183,12 @@ function CheckExtension($filename)
 	return $returnvalue;
 }
 
-// Check the file against the $extension array
+/**
+ * Check the file against the $extension array
+ *
+ * @param string $dirname
+ * @return int
+ */
 function CheckDirectory($dirname)
 {
 	global $ignored_dirs;
@@ -188,8 +206,12 @@ function CheckDirectory($dirname)
 	return $returnvalue;
 }
 
-
-// Grab all the versioning data regarding the $file inside the $directory
+/**
+ * Grab all the versioning data regarding the $file inside the $directory
+ *
+ * @param string $directory
+ * @param string $file
+ */
 function GetFileVersionInfo($directory, $file)
 {
 	global $files;
@@ -273,6 +295,11 @@ function GetFileVersionInfo($directory, $file)
 	}
 }
 
+/**
+ * Grab all the remote versioning data
+ *
+ * @return bool False on failure
+ */
 function GrabRemoteVersions()
 {
 	global $directories, $files, $break, $explode;
@@ -322,6 +349,10 @@ function GrabRemoteVersions()
 	}
 }
 
+/**
+ * Verify version info
+ *
+ */
 function VerifyVersions()
 {
 	global $files, $directories, $problemsev, $severity, $rollups, $totalrollup, $totalseverity;
@@ -538,6 +569,11 @@ function describeGDdyn()
 	return $returnVal;
 }
 
+/**
+ * Show any config setup errors
+ *
+ * @return string
+ */
 function ConfigErrors()
 {
 	global $roster;
@@ -864,6 +900,13 @@ function difffile($old,$new)
 	return $out;
 }
 
+/**
+ * Highlight php code
+ *
+ * @param string $string
+ * @param int $startline
+ * @return string
+ */
 function highlight_php($string, $startline=1)
 {
   $lines = explode("\n",$string);
@@ -907,6 +950,13 @@ function highlight_php($string, $startline=1)
 	return $returnstring;
 }
 
+/**
+ * Check the timestamp
+ *
+ * @param sting $date
+ * @param sting $time
+ * @return sting
+ */
 function check_date_time($date, $time)
 {
 	if (preg_match("~([1-9][0-9][0-9][0-9]).([1-9]|0[1-9]|[1[0-9]).([1-9]|0[0-9]|1[0-9]|2[0-9])~", $date, $datepart))

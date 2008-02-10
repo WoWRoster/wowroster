@@ -12,6 +12,8 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
+ * @package    CharacterInfo
+ * @subpackage Bag
 */
 
 if( !defined('IN_ROSTER') )
@@ -21,6 +23,12 @@ if( !defined('IN_ROSTER') )
 
 require_once( ROSTER_LIB . 'item.php');
 
+/**
+ * Character Bag class, extends item class
+ *
+ * @package    CharacterInfo
+ * @subpackage Item
+ */
 class bag extends item
 {
 	var $contents;

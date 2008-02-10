@@ -874,8 +874,6 @@ function seconds_to_time( $seconds )
  *
  * @param string $addonname | The name of the addon
  * @return array $addon  | The addon's database record
- *
- * @global array $addon_conf | The addon's config data is added to this global array.
  */
 function getaddon( $addonname )
 {

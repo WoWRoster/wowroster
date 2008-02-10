@@ -18,6 +18,12 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+/**
+ * Members List Search
+ *
+ * @package    MembersList
+ * @subpackage Search
+ */
 class memberslist_search
 {
 	var $options;

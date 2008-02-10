@@ -28,6 +28,9 @@ define('SQL_BOTH',MYSQL_BOTH);
 /**
  * SQL_DB class, MySQL version
  * Abstracts MySQL database functions
+ *
+ * @package    WoWRoster
+ * @subpackage MySQL
  */
 class roster_db
 {
