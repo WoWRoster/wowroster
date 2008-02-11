@@ -113,7 +113,7 @@ $FIELD['level'] = array (
 );
 
 // For each key, we get two extra database columns and an extra FIELD
-$keyQuery = "SELECT * FROM `" . $roster->db->table('keys', $addon['basename']) . "` WHERE `faction` = '" . substr($roster->data['faction'],0,1) . "';";
+$keyQuery = "SELECT * FROM `" . $roster->db->table('keys', $addon['basename']) . "` WHERE `locale` = '" . $roster->locale->curlocale . "' AND `faction` = '" . substr($roster->data['faction'],0,1) . "';";
 $keyResult = $roster->db->query($keyQuery);
 while( $key_data = $roster->db->fetch( $keyResult ) )
 {
@@ -135,7 +135,7 @@ while( $key_data = $roster->db->fetch( $keyResult ) )
 }
 $roster->db->free_result( $keyResult );
 
-$stageQuery = "SELECT * FROM `" . $roster->db->table('stages', $addon['basename']) . "` WHERE `faction` = '" . substr($roster->data['faction'],0,1) . "';";
+$stageQuery = "SELECT * FROM `" . $roster->db->table('stages', $addon['basename']) . "` WHERE `locale` = '" . $roster->locale->curlocale . "' AND `faction` = '" . substr($roster->data['faction'],0,1) . "';";
 $stageResult = $roster->db->query( $stageQuery );
 while( $row = $roster->db->fetch( $stageResult, SQL_ASSOC ) )
 {
