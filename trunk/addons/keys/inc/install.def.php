@@ -137,6 +137,10 @@ class keysInstall
 		// 1600: Key defines only
 		// 1604: Key defines only
 		// 1608: Reputation format changed.
+		// 1642: esES key defines
+		// 1646: Added Arca and BT key defines
+		// 1647: Key defines only
+		// 1651: frFR key defines
 
 		if( version_compare( $oldversion, '1.9.9.1653', '<' ) )
 		{
