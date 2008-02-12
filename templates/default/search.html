@@ -11,7 +11,7 @@
 				<div class="header_text sgoldborder">{L_SEARCH_ONLY}</div>
 
 				<!-- BEGIN only_search -->
-				<input type="checkbox" id="c_{only_search.BASENAME}" name="s_addon[]" value="{only_search.BASENAME}" />
+				<input type="checkbox" id="c_{only_search.BASENAME}" name="s_addon[]" value="{only_search.BASENAME}" <!-- IF only_search.SELECTED --> checked="checked"<!-- ENDIF --> />
 				<label for="c_{only_search.BASENAME}">{only_search.FULLNAME}</label>
 				<!-- IF only_search.S_DIVIDE --><br /><!-- ENDIF -->
 				<!-- END only_search -->
@@ -19,7 +19,7 @@
 				<!-- BEGIN advanced_search -->
 				<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{advanced_search.BASENAME}_options','{advanced_search.BASENAME}_img_options','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
 					<img src="{IMG_URL}plus.gif" style="float:right;" alt="" id="{advanced_search.BASENAME}_img_options" />
-					{L_SEARCH_ADVANCED}
+					{L_SEARCH_ADVANCED} {advanced_search.FULLNAME}
 				</div>
 				<div id="{advanced_search.BASENAME}_options" style="display:none;">
 					{advanced_search.SEARCH_OPTIONS}
