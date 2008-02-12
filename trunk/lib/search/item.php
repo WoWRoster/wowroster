@@ -52,19 +52,23 @@ class roster_itemSearch
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
 						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['character'] . '</th></tr>';
 
+		$minlvl = isset($_POST['item_minle']) ? $_POST['item_minle'] : ( isset($_GET['item_minle']) ? $_GET['item_minle'] : '' );
+		$maxlvl = isset($_POST['item_maxle']) ? $_POST['item_maxle'] : ( isset($_GET['item_maxle']) ? $_GET['item_maxle'] : '' );
+		$quality = isset($_POST['item_quality']) ? $_POST['item_quality'] : ( isset($_GET['item_quality']) ? $_GET['item_quality'] : '' );
+
 		//advanced options for searching zones
 		$this->options = '
 <label for="item_minle">' . $roster->locale->act['level'] . ':</label>
-	<input type="text" name="item_minle" id="item_minle" size="3" maxlength="3"/> -
-	<input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3" /><br />
+	<input type="text" name="item_minle" id="item_minle" size="3" maxlength="3" value="' . $minlvl . '" /> -
+	<input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3" value="' . $maxlvl . '" /><br />
 	<label for="item_quality">Quality:</label><br />
-	<select name="item_quality[]" id="item_quality" size="6" multiple="multiple">
-		<option value="9d9d9d" style="color:#9d9d9d;">Poor</option>
-		<option value="ffffff" style="color:#ffffff;">Common</option>
-		<option value="1eff00" style="color:#1eff00;">Uncommon</option>
-		<option value="0070dd" style="color:#0070dd;">Rare</option>
-		<option value="a335ee" style="color:#a335ee;">Epic</option>
-		<option value="ff8800" style="color:#ff8800;">Legendary</option>
+	<select name="item_quality" id="item_quality" size="6" multiple="multiple">
+		<option value="9d9d9d" style="color:#9d9d9d;"' . ( isset($quality['9d9d9d']) ? ' selected="selected"' : '' ) . '>Poor</option>
+		<option value="ffffff" style="color:#ffffff;"' . ( isset($quality['ffffff']) ? ' selected="selected"' : '' ) . '>Common</option>
+		<option value="1eff00" style="color:#1eff00;"' . ( isset($quality['1eff00']) ? ' selected="selected"' : '' ) . '>Uncommon</option>
+		<option value="0070dd" style="color:#0070dd;"' . ( isset($quality['0070dd']) ? ' selected="selected"' : '' ) . '>Rare</option>
+		<option value="a335ee" style="color:#a335ee;"' . ( isset($quality['a335ee']) ? ' selected="selected"' : '' ) . '>Epic</option>
+		<option value="ff8800" style="color:#ff8800;"' . ( isset($quality['ff8800']) ? ' selected="selected"' : '' ) . '>Legendary</option>
 	</select>';
 	}
 
@@ -74,9 +78,12 @@ class roster_itemSearch
 
 		$first = $page*$limit;
 
-		$minlvl = isset($_POST['item_minle']) ? intval($_POST['item_minle']) : '';
-		$maxlvl = isset($_POST['item_maxle']) ? intval($_POST['item_maxle']) : '';
-		$quality = isset($_POST['item_quality']) ? $_POST['item_quality'] : '';
+		$minlvl = isset($_POST['item_minle']) ? $_POST['item_minle'] : ( isset($_GET['item_minle']) ? $_GET['item_minle'] : '' );
+		$maxlvl = isset($_POST['item_maxle']) ? $_POST['item_maxle'] : ( isset($_GET['item_maxle']) ? $_GET['item_maxle'] : '' );
+		$quality = isset($_POST['item_quality']) ? $_POST['item_quality'] : ( isset($_GET['item_quality']) ? $_GET['item_quality'] : '' );
+
+		$q_search  = ( $minlvl != '' ? '&amp;item_minle=' . $minlvl : '' );
+		$q_search .= ( $maxlvl != '' ? '&amp;item_maxle=' . $maxlvl : '' );
 
 		$q  = "SELECT `players`.`name`, `players`.`member_id`, `players`.`server`, `players`.`region`, `items`.*"
 			. " FROM `" . $roster->db->table('items') . "` items,`" . $roster->db->table('players') . "` AS players"
@@ -87,9 +94,11 @@ class roster_itemSearch
 
 		if( $quality != '' )
 		{
-			foreach( $quality as $level )
+			$i = 0;
+			foreach( $quality as $color )
 			{
-				$q .= " AND `items`.`item_color` = '$level'";
+				$q .= " AND `items`.`item_color` = '$color'";
+				$q_search .= urlencode('&amp;item_search[' . $i++ . ']=' . $color);
 			}
 		}
 
@@ -126,11 +135,11 @@ class roster_itemSearch
 
 		if( $page > 0 )
 		{
-			$this->link_prev = '<a href="' . makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong>' . $roster->locale->act['search_previous_matches'] . $this->data['fullname'] . '</strong></a>';
+			$this->link_prev = '<a href="' . makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename'] . $q_search) . '"><strong>' . $roster->locale->act['search_previous_matches'] . $this->data['fullname'] . '</strong></a>';
 		}
 		if( $nrows > $limit )
 		{
-			$this->link_next = '<a href="' . makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong> ' . $roster->locale->act['search_next_matches'] . $this->data['fullname'] . '</strong></a>';
+			$this->link_next = '<a href="' . makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename'] . $q_search) . '"><strong> ' . $roster->locale->act['search_next_matches'] . $this->data['fullname'] . '</strong></a>';
 		}
 	}
 
