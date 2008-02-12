@@ -89,6 +89,7 @@ class item
 		$this->item_id = $data['item_id'];
 		$this->name = $data['item_name'];
 		$this->level = $data['item_level'];
+		$this->requires_level = $data['level'];
 		$this->icon = $data['item_texture'];
 		$this->slot = $data['item_slot'];
 		$this->parent = $data['item_parent'];

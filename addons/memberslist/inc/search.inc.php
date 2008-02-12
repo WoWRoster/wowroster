@@ -39,19 +39,11 @@ class memberslistSearch
 	var $data = array();    // Addon data
 
 	// class constructor
-	function memberslist_search()
+	function memberslistSearch()
 	{
 		global $roster;
 
 		$this->open_table = '<tr><th class="membersHeader ts_string">Lv</th><th class="membersHeader ts_string">' . $roster->locale->act['class'] . '</th><th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th><th class="membersHeaderRight ts_string">' . $roster->locale->act['title'] . '</th></tr>';
-
-		$members[0] = 'All Members';
-		$memberslist = $roster->db->query("SELECT `member_id`, `name` FROM `" . $roster->db->table('members') . "` ORDER BY `name`;");
-		while( list($member_id, $name) = $roster->db->fetch($memberslist) )
-		{
-			$members[$name] = $name;
-		}
-		$roster->db->free_result($memberslist);
 	}
 
 	function search( $search , $url_search , $limit=10 , $page=0 )
