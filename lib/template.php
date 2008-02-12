@@ -157,14 +157,14 @@ class RosterTemplate
 			trigger_error("template->_tpl_load(): No file specified for handle $handle", E_USER_ERROR);
 		}
 
-		if (!file_exists(ROSTER_BASE . $this->files[$handle]))
+		if (!file_exists($this->files[$handle]))
 		{
 			//trigger_error('template->_tpl_load(): '.($this->files[$handle]).' does not exist', E_USER_NOTICE);
 			$this->files[$handle] = ROSTER_TPLDIR . 'default/' . $this->filename[$handle];
 			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'templates/default';
 			$this->cachepath = ROSTER_CACHEDIR . 'tpl_default_';
 			$pos = strpos($this->filename[$handle], '/');
-			if( !file_exists(ROSTER_BASE . $this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS . substr($this->filename[$handle],0,$pos) . '/templates') )
+			if( !file_exists($this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS . substr($this->filename[$handle],0,$pos) . '/templates') )
 			{
 				$this->files[$handle] = ROSTER_ADDONS . substr($this->filename[$handle],0,$pos) . '/templates/' . substr($this->filename[$handle],$pos+1);
 				$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'addons/' . substr($this->filename[$handle],0,$pos);

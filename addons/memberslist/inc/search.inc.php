@@ -24,7 +24,7 @@ if( !defined('IN_ROSTER') )
  * @package    MembersList
  * @subpackage Search
  */
-class memberslist_search
+class memberslistSearch
 {
 	var $options;
 	var $result = array();
