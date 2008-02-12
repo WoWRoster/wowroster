@@ -324,10 +324,8 @@ $roster->tpl->assign_vars(array(
 	'T_BORDER_END'    => border('sgray','end'),
 
 	'PAGE_TITLE'      => '',
-	'ROSTER_HEAD'     => $roster->output['html_head'],
-	'ROSTER_BODY'     => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')
-					   . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : '')
-					   . (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''),
+	'ROSTER_HEAD'     => '',
+	'ROSTER_BODY'     => '',
 	'ROSTER_MENU_BEFORE' => '',
 	)
 );

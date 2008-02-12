@@ -24,7 +24,7 @@ if( !defined('IN_ROSTER') )
  * @package    News
  * @subpackage Search
  */
-class news_search
+class newsSearch
 {
 	var $options;
 	var $result = array();

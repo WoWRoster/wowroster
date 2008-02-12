@@ -176,4 +176,4 @@ $roster->tpl->assign_vars(array(
 );
 
 $roster->tpl->set_filenames(array('rostercp' => 'rostercp.html'));
-$body = $roster->tpl->display('rostercp');
+$roster->tpl->display('rostercp');

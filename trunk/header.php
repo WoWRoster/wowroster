@@ -66,32 +66,6 @@ switch( $roster->scope )
  * Assign template vars
  */
 $roster->tpl->assign_vars(array(
-	'S_SEO_URL'       => $roster->config['seo_url'],
-	'S_HEADER_LOGO'   => ( !empty($roster->config['logo']) ? true : false ),
-
-	'U_MAKELINK'      => makelink(),
-	'U_LINKFORM'      => linkform(),
-	'ROSTER_URL'      => ROSTER_URL,
-	'ROSTER_PATH'     => ROSTER_PATH,
-	'WEBSITE_ADDRESS' => $roster->config['website_address'],
-	'HEADER_LOGO'     => $roster->config['logo'],
-	'IMG_URL'         => $roster->config['img_url'],
-	'INTERFACE_URL'   => $roster->config['interface_url'],
-	'ROSTER_VERSION'  => $roster->config['version'],
-	'ROSTER_CREDITS'  => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
-	'XML_LANG'        => substr($roster->config['locale'],0,2),
-
-	'T_BORDER_WHITE'  => border('swhite','start'),
-	'T_BORDER_GRAY'   => border('sgray','start'),
-	'T_BORDER_GOLD'   => border('sgold','start'),
-	'T_BORDER_RED'    => border('sred','start'),
-	'T_BORDER_ORANGE' => border('sorange','start'),
-	'T_BORDER_YELLOW' => border('syellow','start'),
-	'T_BORDER_GREEN'  => border('sgreen','start'),
-	'T_BORDER_PURPLE' => border('spurple','start'),
-	'T_BORDER_BLUE'   => border('sblue','start'),
-	'T_BORDER_END'    => border('sgray','end'),
-
 	'PAGE_TITLE'      => $roster_title,
 	'ROSTER_HEAD'     => $roster->output['html_head'],
 	'ROSTER_BODY'     => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')

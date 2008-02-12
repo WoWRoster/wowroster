@@ -40,7 +40,7 @@ Full license: <a href=\"http://creativecommons.org/licenses/by-nc-sa/2.5/legalco
 </ul>
 <strong>Regarding ShareAlike:</strong>
 <ul>
-	<li>Any changes made to the WoWRoster code must be archived and accessible for public download<br />
+	<li>Any changes made to the WoWRoster code must be archived and accessible for public download</li>
 	<li>Including, but not limited to:
 		<ul>
 		<li>HTML, TXT, PHP, CSS, SQL, images, and Javascript</li>

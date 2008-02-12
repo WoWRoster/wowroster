@@ -24,7 +24,7 @@ if( !defined('IN_ROSTER') )
  * @package    QuestList
  * @subpackage Search
  */
-class questlist_search
+class questlistSearch
 {
 	var $options;
 	var $result = array();
