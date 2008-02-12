@@ -39,7 +39,7 @@ class questlistSearch
 	var $data = array();    // Addon data
 
 	// class constructor
-	function questlist_search()
+	function questlistSearch()
 	{
 		global $roster;
 

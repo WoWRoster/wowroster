@@ -48,7 +48,10 @@ $roster->tpl->assign_vars(array(
 	)
 );
 
-// We need all the addon data for search
+/**
+ * We need all the addon data for search
+ * So we inject the full addon data into the global array
+ */
 foreach( $roster->addon_data as $name => $data )
 {
 	$roster->addon_data[$name] = getaddon($name);
@@ -73,8 +76,36 @@ foreach( $roster->addon_data as $name => $data )
 	{
 		include_once($roster->addon_data[$name]['search_file']);
 	}
-}
 
+	// Open the lib/search directory for roster core search files
+	$tmp_dir = @opendir( ROSTER_LIB . 'search' );
+
+	if( $tmp_dir )
+	{
+		// Read the files
+		while( $file = readdir($tmp_dir) )
+		{
+			$pfad_info = pathinfo($file);
+
+			if( strtolower($pfad_info['extension']) == strtolower('php') )
+			{
+				$name = str_replace('.' . $pfad_info['extension'],'',$file);
+
+				$file = ROSTER_LIB . 'search' . DIR_SEP . $file;
+				include_once($file);
+
+				$basename = 'roster_' . $name;
+				$roster->addon_data[$basename]['basename'] = $basename;
+				$roster->addon_data[$basename]['fullname'] = $roster->locale->act[$name];
+				$roster->addon_data[$basename]['search_file'] = $file;
+				$roster->addon_data[$basename]['search_class'] = $basename . 'Search';
+				$roster->addon_data[$basename]['icon'] = 'inv_misc_gear_02';
+			}
+		}
+		// close the directory
+		closedir($tmp_dir);
+	}
+}
 
 
 /**
@@ -194,7 +225,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 							'AUTHOR' => ( isset($result['author']) ? $result['author'] : '' ),
 							'DATE' => ( isset($result['date']) ? readbleDate($result['date']) : '' ),
 							'LINK' => ( isset($result['url']) ? $result['url'] : '' ),
-							'TITLE' => $result['title'],
+							'TITLE' => ( isset($result['title']) ? $result['title'] : '' ),
 							'SHORT_TEXT' => ( isset($result['short_text']) ? $result['short_text'] : '' ),
 							'MORE_TEXT' => ( isset($result['more_text']) ? $result['more_text'] : '' ),
 							'FOOTER' => ( isset($result['footer']) ? $result['footer'] : '' ),
@@ -273,10 +304,11 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 	}
 }
 
-/**
- * Lets include some Roster search files
- */
+$s_addon = ( isset($_POST['s_addon']) ? array_flip($_POST['s_addon']) : ( isset($_GET['s_addon']) ? array_flip($_GET['s_addon']) : '' ) );
 
+/**
+ * Build the search form
+ */
 $i = 0;
 foreach( $roster->addon_data as $addon_name => $addon_data )
 {
@@ -292,7 +324,8 @@ foreach( $roster->addon_data as $addon_name => $addon_data )
 		$roster->tpl->assign_block_vars('only_search', array(
 			'BASENAME' => $addon_data['basename'],
 			'FULLNAME' => $addon_data['fullname'],
-			'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false )
+			'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false ),
+			'SELECTED' => ( isset($s_addon[$addon_data['basename']]) ? true : false )
 			)
 		);
 		$i++;
@@ -312,26 +345,6 @@ foreach( $roster->addon_data as $addon_name => $addon_data )
 		}
 	}
 }
-
-// Advanced options for searching for items
-$item_options = '<input type="checkbox" id="search_items" name="search_items" value="search_items" />'
-			  . '<label for="search_items">Search Items</label>';
-$item_adv_options = '<br /><div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide(\'item_search_options\',\'item_search_img_options\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-<img src="' . $roster->config['img_url'] . 'plus.gif" style="float:right;" alt="" id="item_search_img_options" />' . $roster->locale->act['search_advancedoptionsfor'] . ' Item Search
-</div>
-<div id="item_search_options" style="display:none;">
-<label for="item_minle">Level:</label> <input type="text" name="item_minle" id="item_minle" size="3" maxlength="3"/> -
-<label for="item_maxle"><input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3" /><br />
-<label for="item_quality">Quality:</label><br />
-<select name="item_quality" id="item_quality" size="6" multiple="multiple">
-	<option value="9d9d9d" style="color:#9d9d9d;">Poor</option>
-	<option value="ffffff" style="color:#ffffff;">Common</option>
-	<option value="1eff00" style="color:#1eff00;">Uncommon</option>
-	<option value="0070dd" style="color:#0070dd;">Rare</option>
-	<option value="a335ee" style="color:#a335ee;">Epic</option>
-	<option value="ff8800" style="color:#ff8800;">Legendary</option>
-</select>
-</div>';
 
 $roster->tpl->set_filenames(array('body' => 'search.html'));
 $roster->tpl->display('body');
