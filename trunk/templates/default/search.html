@@ -5,7 +5,7 @@
 		<td class="border_color sgreenborder">
 			<div class="header_text sgreenborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" />
 				{L_SEARCH_FOR}</div>
-			<form id="search" name="search" action="" method="post" enctype="multipart/form-data">
+			<form id="search" name="search" action="{U_SEARCH_LINK}" method="post" enctype="multipart/form-data">
 				<input size="25" type="text" name="search" value="{SEARCH}" class="wowinput192" />
 				<input type="submit" value="{L_SEARCH}" />
 				<div class="header_text sgoldborder">{L_SEARCH_ONLY}</div>
@@ -38,14 +38,14 @@
 	<tr>
 		<td class="border_color sgreenborder">
 			<div class="header_text sgreenborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" />
-				{L_SEARCH_RESULTS}: {SEARCH}
+				{L_SEARCH_RESULTS}: '{SEARCH}'
 			</div>
 
 			<!-- BEGIN addon_results -->
 			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
 				<img src="{addon_results.ICON}" style="float:left;" alt="" id="{addon_results.BASENAME}_item_img" width="16" height="16" />
 				<img src="{IMG_URL}minus.gif" style="float:right;" alt="" id="{addon_results.BASENAME}_search_img" />
-				{addon_results.FULLNAME} <small>({addon_results.COUNT} / {addon_results.TOTAL} {L_RESULTS_COUNT} {addon_results.TIME})</small>
+				{addon_results.FULLNAME} <small>({addon_results.COUNT}-{RESULTS} / {addon_results.TOTAL} {L_RESULTS_COUNT} {addon_results.TIME})</small>
 			</div>
 			<div id="{addon_results.BASENAME}">
 				<table width="100%" cellspacing="0" cellpadding="0">

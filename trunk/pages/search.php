@@ -31,6 +31,8 @@ $roster->tpl->assign_vars(array(
 	'S_NO_RESULTS' => false,
 	'S_RESULT' => false,
 
+	'U_SEARCH_LINK' => makelink('search'),
+
 	'L_SEARCH_FOR' => $roster->locale->act['search_for'],
 	'L_SEARCH' => $roster->locale->act['search'],
 	'L_SEARCH_ONLY' => $roster->locale->act['search_onlyin'],
@@ -120,15 +122,18 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 	$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 
 	// search is what we are searching for
-	$query = isset($_POST['search']) ? $_POST['search'] : $_GET['search'];
+	$query = ( isset($_POST['search']) ? $_POST['search'] : ( isset($_GET['search']) ? $_GET['search'] : '' ) );
 
 	// variables that can be used in the addon search class which are being defined here
 	$sql_query = $query;
 	$url_query = urlencode($query);
 
 	$roster->tpl->assign_vars(array(
-		'SEARCH' => $query,
+		'SEARCH'   => $query,
 		'S_RESULT' => true,
+		'LIMIT'    => $limit,
+		'PAGE'     => $page+1,
+		'RESULT'  => ($page+1)*$limit
 		)
 	);
 
@@ -304,7 +309,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 	}
 }
 
-$s_addon = ( isset($_POST['s_addon']) ? array_flip($_POST['s_addon']) : ( isset($_GET['s_addon']) ? array_flip($_GET['s_addon']) : '' ) );
+$s_addon = ( isset($_POST['s_addon']) ? $_POST['s_addon'] : ( isset($_GET['s_addon']) ? $_GET['s_addon'] : array() ) );
 
 /**
  * Build the search form
@@ -325,7 +330,7 @@ foreach( $roster->addon_data as $addon_name => $addon_data )
 			'BASENAME' => $addon_data['basename'],
 			'FULLNAME' => $addon_data['fullname'],
 			'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false ),
-			'SELECTED' => ( isset($s_addon[$addon_data['basename']]) ? true : false )
+			'SELECTED' => ( is_array($s_addon) ? ( in_array($addon_data['basename'],$s_addon) ? true : false ) : $addon_data['basename'] == $s_addon )
 			)
 		);
 		$i++;
