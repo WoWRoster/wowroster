@@ -93,7 +93,7 @@ if( $roster->config['sql_window'] )
 					'ROW_CLASS' => $roster->switch_row_class(),
 					'LINE'      => $query['line'],
 					'TIME'      => $query['time'],
-					'QUERY'     => nl2br(htmlentities($query['query'])),
+					'QUERY'     => nl2br(htmlentities($query['query'])) . ( empty($query['error']) ? '' : '<hr />' . nl2br(htmlentities($query['error'])) ),
 					'DESCRIBE'  => aprint($query['describe'],'',true),
 					)
 				);

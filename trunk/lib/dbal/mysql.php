@@ -40,7 +40,7 @@ class roster_db
 	var $record_set  = array();             // Record set               @var record_set
 	var $query_count = 0;                   // Query count              @var query_count
 	var $queries     = array();             // Queries                  @var queries
-	var $error_die   = false;               // Die on errors?           @var error_die
+	var $error_die   = true;                // Die on errors?           @var error_die
 	var $log_level   = 0;                   // Log SQL transactions     @var log_level
 
 	var $prefix      = '';
@@ -57,6 +57,9 @@ class roster_db
 		$this->queries[$this->file][$this->query_count]['query'] = $query;
 		$this->queries[$this->file][$this->query_count]['time'] = round((format_microtime()-$this->querytime), 4);
 		$this->queries[$this->file][$this->query_count]['line'] = $this->line;
+
+		// Error message in case of failed query
+		$this->queries[$this->file][$this->query_count]['error'] = empty($this->query_id) ? $this->error : '';
 
 		// Describe
 		$this->queries[$this->file][$this->query_count]['describe'] = array();
@@ -227,12 +230,15 @@ class roster_db
 			unset($this->record_set[$this->query_id]);
 			return $this->query_id;
 		}
-		elseif( is_object($roster) && $roster->config['debug_mode'] || $this->error_die )
+		elseif( $this->error_die )
 		{
 			die_quietly($this->error(), 'Database Error',__FILE__,__LINE__,$query);
 		}
 		else
 		{
+			$this->_log($query);
+			trigger_error('Database error. See query log for details', E_USER_NOTICE);
+
 			return false;
 		}
 	}
@@ -499,7 +505,9 @@ class roster_db
 	 */
 	function error_die( $setting = true )
 	{
+		$oldval = $this->error_die;
 		$this->error_die = $setting;
+		return $oldval;
 	}
 
 	/**
