@@ -43,7 +43,10 @@ class memberslistSearch
 	{
 		global $roster;
 
-		$this->open_table = '<tr><th class="membersHeader ts_string">Lv</th><th class="membersHeader ts_string">' . $roster->locale->act['class'] . '</th><th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th><th class="membersHeaderRight ts_string">' . $roster->locale->act['title'] . '</th></tr>';
+		$this->open_table = '<tr><th class="membersHeader ts_string">Lv</th>'
+						  . '<th class="membersHeader ts_string">' . $roster->locale->act['class'] . '</th>'
+						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
+						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['title'] . '</th></tr>';
 	}
 
 	function search( $search , $url_search , $limit=10 , $page=0 )
@@ -51,25 +54,36 @@ class memberslistSearch
 		global $roster;
 
 		$first = $page * $limit;
-		$q = "SELECT `member_id`, `name`, `server`, `region`, `guild_id`, `class`, `level`, `note`, `guild_rank`,`guild_title`, `zone`, `last_online`"
-		   . " FROM `" . $roster->db->table('members') . "`"
-		   . " WHERE (`member_id` LIKE '%$search%' OR `name` LIKE '%$search%' OR `server` LIKE '%$search%' OR `region` LIKE '%$search%' OR `guild_id` LIKE '%$search%' OR `class` LIKE '%$search%' OR `level` LIKE '%$search%' OR `note` LIKE '%$search%' OR `guild_rank` LIKE '%$search%' OR `guild_title` LIKE '%$search%' OR `zone` LIKE '%$search%')"
-		   . " GROUP BY `member_id`"
-		   . ( $limit > 0 ? " LIMIT $first," . ($limit+1) : '' ) . ';';
+
+		$sql = "SELECT `member_id`, `name`, `server`, `region`, `guild_id`, `class`, `level`, `note`, `guild_rank`,`guild_title`, `zone`, `last_online`"
+			 . " FROM `" . $roster->db->table('members') . "`"
+			 . " WHERE (`member_id` LIKE '%$search%'"
+				 . " OR `name` LIKE '%$search%'"
+				 . " OR `server` LIKE '%$search%'"
+				 . " OR `region` LIKE '%$search%'"
+				 . " OR `guild_id` LIKE '%$search%'"
+				 . " OR `class` LIKE '%$search%'"
+				 . " OR `level` LIKE '%$search%'"
+				 . " OR `note` LIKE '%$search%'"
+				 . " OR `guild_rank` LIKE '%$search%'"
+				 . " OR `guild_title` LIKE '%$search%'"
+				 . " OR `zone` LIKE '%$search%')"
+			 . " GROUP BY `member_id`"
+			 . ( $limit > 0 ? " LIMIT $first," . $limit : '' ) . ';';
 
 		// calculating the search time
 		$this->start_search = format_microtime();
 
-		$result = $roster->db->query($q);
+		$result = $roster->db->query($sql);
 
 		$this->stop_search = format_microtime();
-		$this->time_search = round($this->stop_search - $this->start_search,3);
+		$this->time_search = $this->stop_search - $this->start_search;
 
 		$nrows = $roster->db->num_rows($result);
 		$crows = 0;
 
 		$x = ($limit > $nrows) ? $nrows : ($limit > 0 ? $limit : $nrows);
-		if( $nrows > 0 )
+		if( $nrows > 0 && $limit > 0 )
 		{
 			while( $x > 0 )
 			{
@@ -84,13 +98,20 @@ class memberslistSearch
 				$x--;
 			}
 		}
-		$roster->db->fetch($result);
+		else
+		{
+			while( $row = $roster->db->fetch($result) )
+			{
+				$this->result_count++;
+			}
+		}
+		$roster->db->free_result($result);
 
 		if( $page > 0 )
 		{
 			$this->link_prev = '<a href="' . makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong>' . $roster->locale->act['search_previous_matches'] . $this->data['fullname'] . '</strong></a>';
 		}
-		if( ($nrows > $limit) || ($crows > $limit) )
+		if( $nrows > $limit )
 		{
 			$this->link_next = '<a href="' . makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong>' . $roster->locale->act['search_next_matches'] . $this->data['fullname'] . '</strong></a>';
 		}

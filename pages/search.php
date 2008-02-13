@@ -28,25 +28,25 @@ $roster->output['body_onload'] .= "initARC('search','radioOn','radioOff','checkb
 
 
 $roster->tpl->assign_vars(array(
-	'S_NO_RESULTS' => false,
-	'S_RESULT' => false,
+	'S_NO_RESULTS'      => false,
+	'S_RESULT'          => false,
 
-	'U_SEARCH_LINK' => makelink('search'),
+	'U_SEARCH_LINK'     => makelink('search'),
 
-	'L_SEARCH_FOR' => $roster->locale->act['search_for'],
-	'L_SEARCH' => $roster->locale->act['search'],
-	'L_SEARCH_ONLY' => $roster->locale->act['search_onlyin'],
+	'L_SEARCH_FOR'      => $roster->locale->act['search_for'],
+	'L_SEARCH'          => $roster->locale->act['search'],
+	'L_SEARCH_ONLY'     => $roster->locale->act['search_onlyin'],
 	'L_SEARCH_ADVANCED' => $roster->locale->act['search_advancedoptionsfor'],
-	'L_SEARCH_RESULTS' => $roster->locale->act['search_results'],
-	'L_RESULTS_COUNT' => $roster->locale->act['search_results_count'],
-	'L_AUTHOR' => $roster->locale->act['submited_author'],
-	'L_DATE' => $roster->locale->act['submited_date'],
-	'L_NO_MATCHES' => $roster->locale->act['search_nomatches'],
-	'L_DID_NOT_FIND' => $roster->locale->act['search_didnotfind'],
-	'L_DATA_SEARCH' => $roster->locale->act['data_search'],
-	'L_GOOGLE_SEARCH' => $roster->locale->act['google_search'],
+	'L_SEARCH_RESULTS'  => $roster->locale->act['search_results'],
+	'L_RESULTS_COUNT'   => $roster->locale->act['search_results_count'],
+	'L_AUTHOR'          => $roster->locale->act['submited_author'],
+	'L_DATE'            => $roster->locale->act['submited_date'],
+	'L_NO_MATCHES'      => $roster->locale->act['search_nomatches'],
+	'L_DID_NOT_FIND'    => $roster->locale->act['search_didnotfind'],
+	'L_DATA_SEARCH'     => $roster->locale->act['data_search'],
+	'L_GOOGLE_SEARCH'   => $roster->locale->act['google_search'],
 
-	'SEARCH' => ''
+	'SEARCH'            => ''
 	)
 );
 
@@ -133,7 +133,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 		'S_RESULT' => true,
 		'LIMIT'    => $limit,
 		'PAGE'     => $page+1,
-		'RESULT'  => ($page+1)*$limit
+		'FIRST'    => ($page*$limit)+1
 		)
 	);
 
@@ -194,21 +194,21 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 
 					$search_count = new $addon['search_class'];
 					$search_count->data = $addon;
-					$search_count->search($sql_query, $url_query, 0, 0);
+					$search_count->search($sql_query, $url_query, 0, $page);
 
 					$roster->tpl->assign_block_vars('addon_results', array(
 						'BASENAME' => $addon['basename'],
 						'FULLNAME' => $addon['fullname'],
-						'ICON' => $addon['icon'],
-						'COUNT' => $search->result_count,
-						'TOTAL' => $search_count->result_count,
-						'TIME' => $search->time_search,
+						'ICON'     => $addon['icon'],
+						'COUNT'    => ($page+1)*$search->result_count,
+						'TIME'     => round($search->time_search,4),
 
-						'OPEN_TABLE' => ( isset($search->open_table) ? $search->open_table : '' ),
+						'OPEN_TABLE'  => ( isset($search->open_table) ? $search->open_table : '' ),
 						'CLOSE_TABLE' => ( isset($search->close_table) ? $search->close_table : '' ),
 
-						'PREV' => ( $search->link_prev ? ' [ ' . $search->link_prev . ' ] ' : '' ),
-						'NEXT' => ( $search->link_next ? ' [ ' . $search->link_next . ' ] ' : '' ),
+						'TOTAL' => $search_count->result_count,
+						'PREV'  => ( $search_count->link_prev ? ' [ ' . $search_count->link_prev . ' ] ' : '' ),
+						'NEXT'  => ( $search_count->link_next ? ' [ ' . $search_count->link_next . ' ] ' : '' ),
 						)
 					);
 
@@ -220,25 +220,25 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 						$roster->tpl->assign_block_vars('addon_results.row', array(
 							'ROW_CLASS' => $roster->switch_row_class(),
 
-							'S_HTML' => ( isset($result['html']) && $result['html'] != '' ? true : false ),
-							'HTML' => ( isset($result['html']) && $result['html'] != '' ? $result['html'] : '' ),
+							'S_HTML'    => ( isset($result['html']) && $result['html'] != '' ? true : false ),
+							'HTML'      => ( isset($result['html']) && $result['html'] != '' ? $result['html'] : '' ),
 
 							'RESULTS_HEADER' => ( isset($result['results_header']) ? $result['results_header'] : '' ),
 							'RESULTS_FOOTER' => ( isset($result['results_footer']) ? $result['results_footer'] : '' ),
 
-							'HEADER' => ( isset($result['header']) ? $result['header'] . '<br />' : '' ),
-							'AUTHOR' => ( isset($result['author']) ? $result['author'] : '' ),
-							'DATE' => ( isset($result['date']) ? readbleDate($result['date']) : '' ),
-							'LINK' => ( isset($result['url']) ? $result['url'] : '' ),
-							'TITLE' => ( isset($result['title']) ? $result['title'] : '' ),
+							'HEADER'     => ( isset($result['header']) ? $result['header'] . '<br />' : '' ),
+							'AUTHOR'     => ( isset($result['author']) ? $result['author'] : '' ),
+							'DATE'       => ( isset($result['date']) ? readbleDate($result['date']) : '' ),
+							'LINK'       => ( isset($result['url']) ? $result['url'] : '' ),
+							'TITLE'      => ( isset($result['title']) ? $result['title'] : '' ),
 							'SHORT_TEXT' => ( isset($result['short_text']) ? $result['short_text'] : '' ),
-							'MORE_TEXT' => ( isset($result['more_text']) ? $result['more_text'] : '' ),
-							'FOOTER' => ( isset($result['footer']) ? $result['footer'] : '' ),
+							'MORE_TEXT'  => ( isset($result['more_text']) ? $result['more_text'] : '' ),
+							'FOOTER'     => ( isset($result['footer']) ? $result['footer'] : '' ),
 							)
 						);
 					}
 				}
-				unset($search);
+				unset($search,$search_count);
 			}
 		}
 
@@ -246,7 +246,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 		//this is where we want to set up item searches
 
 		// a loop to add all the non included addons into the did not find box which also has a counter to show the count of results
-		if( !$total_search_results )
+		if( $total_search_results == 0 )
 		{
 			$roster->tpl->assign_var('S_NO_RESULTS',true);
 		}
@@ -271,9 +271,9 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 					$more = true;
 
 					$roster->tpl->assign_block_vars('more_results', array(
-						'LINK' => makelink('search&amp;search=' . $url_query. '&amp;s_addon=' . $leftover['basename']),
+						'LINK'     => makelink('search&amp;search=' . $url_query. '&amp;s_addon=' . $leftover['basename']),
 						'FULLNAME' => $leftover['fullname'],
-						'COUNT' => $search->result_count,
+						'COUNT'    => $search->result_count,
 						)
 					);
 				}
@@ -342,8 +342,8 @@ foreach( $roster->addon_data as $addon_name => $addon_data )
 		if( !empty($search->options) )
 		{
 			$roster->tpl->assign_block_vars('advanced_search', array(
-				'BASENAME' => $addon_data['basename'],
-				'FULLNAME' => $addon_data['fullname'],
+				'BASENAME'       => $addon_data['basename'],
+				'FULLNAME'       => $addon_data['fullname'],
 				'SEARCH_OPTIONS' => ( $search->options ? $search->options : '' )
 				)
 			);

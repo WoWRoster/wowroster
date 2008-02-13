@@ -45,7 +45,7 @@
 			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
 				<img src="{addon_results.ICON}" style="float:left;" alt="" id="{addon_results.BASENAME}_item_img" width="16" height="16" />
 				<img src="{IMG_URL}minus.gif" style="float:right;" alt="" id="{addon_results.BASENAME}_search_img" />
-				{addon_results.FULLNAME} <small>({addon_results.COUNT}-{RESULTS} / {addon_results.TOTAL} {L_RESULTS_COUNT} {addon_results.TIME})</small>
+				{addon_results.FULLNAME} <small>{FIRST}-{addon_results.COUNT} / {addon_results.TOTAL} {L_RESULTS_COUNT} &lt;{addon_results.TIME}&gt;</small>
 			</div>
 			<div id="{addon_results.BASENAME}">
 				<table width="100%" cellspacing="0" cellpadding="0">
