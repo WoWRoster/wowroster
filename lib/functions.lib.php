@@ -1360,7 +1360,7 @@ function format_microtime( )
  * @param array $arr
  * @return array
  */
-function array_overlay( $skel , $arr )
+function array_overlay( $skel , &$arr )
 {
 	foreach ($skel as $key => $val)
 	{

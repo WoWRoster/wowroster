@@ -84,8 +84,12 @@ function parse_params()
 			}
 			else
 			{
-				list($var,$val) = explode('=',$get);
-				$_GET[$var] = $val;
+				parse_str($get, $get);
+				if( !get_magic_quotes_gpc() )
+				{
+					$get = escape_array($get);
+				}
+				$_GET = array_overlay($get, $_GET);
 			}
 		}
 		// Needed in case someone specified www.example.com/roster/index.php.
