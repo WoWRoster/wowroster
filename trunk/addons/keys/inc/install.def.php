@@ -153,7 +153,7 @@ class keysInstall
 				ALTER TABLE `" . $installer->table('stages') . "`
 				ADD `locale` varchar(4) NOT NULL DEFAULT 'enUS' FIRST,
 				DROP PRIMARY KEY,
-				DD PRIMARY KEY (`locale`, `faction`, `key_name`, `stage`);");
+				ADD PRIMARY KEY (`locale`, `faction`, `key_name`, `stage`);");
 		}
 
 
