@@ -9,7 +9,6 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @since      File available since Release 2.0
  * @package    WoWRoster
  * @subpackage Search
 */
@@ -19,11 +18,10 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-
 /**
- * QuestList Search
+ * Item Search
  *
- * @package    QuestList
+ * @package    WoWRoster
  * @subpackage Search
  */
 class roster_itemSearch
@@ -34,16 +32,14 @@ class roster_itemSearch
 	var $start_search;
 	var $stop_search;
 	var $time_search;
-	var $link_next;
-	var $link_prev;
 	var $open_table;
 	var $close_table;
+	var $search_url;
 	var $data = array();    // Addon data
 
 	var $minlvl;
 	var $maxlvl;
 	var $quality;
-	var $search_url;
 	var $quality_sql;
 
 	// class constructor
@@ -79,9 +75,9 @@ class roster_itemSearch
 			$this->quality_sql = ' AND (' . implode(' OR ',$this->quality_sql) . ')';
 		}
 
-		//advanced options for searching zones
+		//advanced options for searching items
 		$this->options = '
-<label for="item_minle">' . $roster->locale->act['level'] . ':</label>
+	<label for="item_minle">' . $roster->locale->act['level'] . ':</label>
 	<input type="text" name="item_minle" id="item_minle" size="3" maxlength="3" value="' . $this->minlvl . '" /> -
 	<input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3" value="' . $this->maxlvl . '" /><br />
 	<label for="item_quality">Quality:</label><br />
@@ -95,20 +91,20 @@ class roster_itemSearch
 	</select>';
 	}
 
-	function search( $search , $url_search , $limit=10 , $page=0 )
+	function search( $search , $limit=10 , $page=0 )
 	{
 		global $roster;
 
 		$first = $page*$limit;
 
 		$sql = "SELECT `players`.`name`, `players`.`member_id`, `players`.`server`, `players`.`region`, `items`.*"
-			 . " FROM `" . $roster->db->table('items') . "` items,`" . $roster->db->table('players') . "` AS players"
+			 . " FROM `" . $roster->db->table('items') . "` AS items,`" . $roster->db->table('players') . "` AS players"
 			 . " WHERE `items`.`member_id` = `players`.`member_id`"
 				. " AND (`items`.`item_name` LIKE '%$search%' OR `items`.`item_tooltip` LIKE '%$search%')"
 				. ( $this->minlvl != '' ? " AND `items`.`level` >= '$this->minlvl'" : '' )
 				. ( $this->maxlvl != '' ? " AND `items`.`level` <= '$this->maxlvl'" : '' )
 				. $this->quality_sql
-			 . " ORDER BY `players`.`name` ASC"
+			 . " ORDER BY `items`.`item_name` ASC"
 			 . ( $limit > 0 ? " LIMIT $first," . $limit : '' ) . ';';
 
 		//calculating the search time
@@ -121,10 +117,12 @@ class roster_itemSearch
 
 		$nrows = $roster->db->num_rows($result);
 
+		$x = ($limit > $nrows) ? $nrows : ($limit > 0 ? $limit : $nrows);
 		if( $nrows > 0 && $limit > 0 )
 		{
-			while( $row = $roster->db->fetch($result) )
+			while( $x > 0 )
 			{
+				$row = $roster->db->fetch($result);
 				$icon = new item($row);
 
 				$item['html'] = '<td class="SearchRowCell">' . $icon->out() . '</td>'
@@ -134,25 +132,14 @@ class roster_itemSearch
 
 				$this->add_result($item);
 				unset($item);
+				$x--;
 			}
 		}
 		else
 		{
-			while( $row = $roster->db->fetch($result) )
-			{
-				$this->result_count++;
-			}
+			$this->result_count = $nrows;
 		}
 		$roster->db->free_result($result);
-
-		if( $page > 0 )
-		{
-			$this->link_prev = '<a href="' . makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename'] . $this->search_url) . '"><strong>' . $roster->locale->act['search_previous_matches'] . $this->data['fullname'] . '</strong></a>';
-		}
-		if( $nrows > $limit )
-		{
-			$this->link_next = '<a href="' . makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename'] . $this->search_url) . '"><strong> ' . $roster->locale->act['search_next_matches'] . $this->data['fullname'] . '</strong></a>';
-		}
 	}
 
 	function add_result( $resultarray )

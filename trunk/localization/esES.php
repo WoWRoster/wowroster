@@ -216,7 +216,7 @@ $lang['byclass']='Por Clase';
 $lang['menustats']='Estadísticas';
 $lang['menuhonor']='Honor';
 $lang['basename']='Nombre base';
-$lang['scope']='Ámbito';
+$lang['scope']='�?mbito';
 
 //start search engine
 $lang['search']='Búsqueda';
@@ -228,8 +228,8 @@ $lang['search_results_from']='Aquí están los resultados de tu búsqueda';
 $lang['search_nomatches']='Lo siento, no se encuentran coincidencias';
 $lang['search_didnotfind']='¿No has encontrado lo que estabas buscando? ¡Inténtalo aquí!';
 $lang['search_for']='Buscar en Roster';
-$lang['search_next_matches'] = 'Mas coincidencias de: ';
-$lang['search_previous_matches'] = 'Coincidencias anteriores de: ';
+$lang['search_next_matches'] = 'Mas coincidencias de';
+$lang['search_previous_matches'] = 'Coincidencias anteriores de';
 $lang['search_results_count'] = 'Resultados';
 $lang['submited_author'] = 'Publicado por';
 $lang['submited_date'] = 'Fecha de publicación';

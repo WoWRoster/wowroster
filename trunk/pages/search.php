@@ -45,6 +45,8 @@ $roster->tpl->assign_vars(array(
 	'L_DID_NOT_FIND'    => $roster->locale->act['search_didnotfind'],
 	'L_DATA_SEARCH'     => $roster->locale->act['data_search'],
 	'L_GOOGLE_SEARCH'   => $roster->locale->act['google_search'],
+	'L_NEXT_MATCHES'    => $roster->locale->act['search_next_matches'],
+	'L_PREV_MATCHES'    => $roster->locale->act['search_previous_matches'],
 
 	'SEARCH'            => ''
 	)
@@ -170,7 +172,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 			{
 				$search = new $addon['search_class'];
 				$search->data = $addon;
-				$search->search($sql_query, $url_query, $limit, $page);
+				$search->search($sql_query, $limit, $page);
 
 				if( $search->result_count > 0 )
 				{
@@ -194,21 +196,22 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 
 					$search_count = new $addon['search_class'];
 					$search_count->data = $addon;
-					$search_count->search($sql_query, $url_query, 0, $page);
+					$search_count->search($sql_query, 0, 0);
 
 					$roster->tpl->assign_block_vars('addon_results', array(
 						'BASENAME' => $addon['basename'],
 						'FULLNAME' => $addon['fullname'],
 						'ICON'     => $addon['icon'],
-						'COUNT'    => ($page+1)*$search->result_count,
+						'COUNT'    => (($page*$limit))+$search->result_count,
 						'TIME'     => round($search->time_search,4),
 
-						'OPEN_TABLE'  => ( isset($search->open_table) ? $search->open_table : '' ),
-						'CLOSE_TABLE' => ( isset($search->close_table) ? $search->close_table : '' ),
+						'OPEN_TABLE'  => $search->open_table,
+						'CLOSE_TABLE' => $search->close_table,
 
 						'TOTAL' => $search_count->result_count,
-						'PREV'  => ( $search_count->link_prev ? ' [ ' . $search_count->link_prev . ' ] ' : '' ),
-						'NEXT'  => ( $search_count->link_next ? ' [ ' . $search_count->link_next . ' ] ' : '' ),
+
+						'PREV'  => ( $page > 0 ? makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url) : '' ),
+						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url) : '' ),
 						)
 					);
 
@@ -265,7 +268,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 			{
 				$search = new $leftover['search_class'];
 				$search->data = $leftover;
-				$search->search($sql_query, $url_query, 0, 0);
+				$search->search($sql_query, 0, 0);
 				if( $search->result_count > 0 )
 				{
 					$more = true;
@@ -314,7 +317,7 @@ $s_addon = ( isset($_POST['s_addon']) ? $_POST['s_addon'] : ( isset($_GET['s_add
 /**
  * Build the search form
  */
-$i = 0;
+$i = 1;
 foreach( $roster->addon_data as $addon_name => $addon_data )
 {
 	if( !class_exists($addon_data['search_class']) )

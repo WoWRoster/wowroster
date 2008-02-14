@@ -253,7 +253,7 @@ function selectQuery( $table , $fieldtoget , $field , $current , $fieldid , $url
 		$optiontocompare = $row["$field"]; // must leave double quote
 		$optiontodisplay = $row["$field"]; // must leave double quote
 
-		if( $current == $optiontocompare )
+		if( stripslashes($current) == $optiontocompare )
 		{
 			$option_block .= '			<option value="' . makelink("$urltorun=$id",true) . '" selected="selected">' . $optiontodisplay . "</option>\n";
 		}
