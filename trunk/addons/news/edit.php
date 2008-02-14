@@ -53,7 +53,6 @@ $roster->tpl->assign_vars(array(
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$news['html'],
 
-	'U_NEWS_EDIT_BORDER' => border('sgreen','start',$roster->locale->act['edit_news']),
 	'U_EDIT_FORMACTION'  => makelink('util-news'),
 	'U_NEWS_ID'          => $news['news_id'],
 

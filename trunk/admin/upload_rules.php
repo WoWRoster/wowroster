@@ -144,24 +144,22 @@ while( $row = $roster->db->fetch($result) )
 
 // OUTPUT
 $roster->tpl->assign_vars(array(
-	'T_MENU' => border('syellow','start',$roster->locale->act['pagebar_uploadrules']),
-	'T_DENY_TABLE' => border('sred','start',$roster->locale->act['disallow']),
-	'T_ALLOW_TABLE' => border('sgreen','start',$roster->locale->act['allow']),
-
 	'S_ENFORCE_RULES' => $roster->config['enforce_rules'],
 	'S_EXISTING_DATA' => $existing_data,
 
-	'L_ENFORCE_RULES' => substr($roster->locale->act['admin']['enforce_rules'],0,strpos($roster->locale->act['admin']['enforce_rules'],'|')),
-	'L_DEFAULT' => $roster->locale->act['default'],
-	'L_NAME' => $roster->locale->act['name'],
-	'L_NAME_TIP' => makeOverlib( $mode == 'guild' ? $roster->locale->act['guildname'] : $roster->locale->act['charname'] ),
-	'L_SERVER' => $roster->locale->act['server'],
-	'L_SERVER_TIP' => makeOverlib($roster->locale->act['realmname']),
-	'L_REGION' => $roster->locale->act['region'],
-	'L_REGION_TIP' => makeOverlib($roster->locale->act['regionname']),
-	'L_ADD' => $roster->locale->act['add'],
-	'L_DELETE' => $roster->locale->act['delete'],
-	'L_UPLOAD_RULES' => $roster->locale->act['pagebar_uploadrules'],
+	'L_DISALLOW'          => $roster->locale->act['disallow'],
+	'L_ALLOW'             => $roster->locale->act['allow'],
+	'L_ENFORCE_RULES'     => substr($roster->locale->act['admin']['enforce_rules'],0,strpos($roster->locale->act['admin']['enforce_rules'],'|')),
+	'L_DEFAULT'           => $roster->locale->act['default'],
+	'L_NAME'              => $roster->locale->act['name'],
+	'L_NAME_TIP'          => makeOverlib( $mode == 'guild' ? $roster->locale->act['guildname'] : $roster->locale->act['charname'] ),
+	'L_SERVER'            => $roster->locale->act['server'],
+	'L_SERVER_TIP'        => makeOverlib($roster->locale->act['realmname']),
+	'L_REGION'            => $roster->locale->act['region'],
+	'L_REGION_TIP'        => makeOverlib($roster->locale->act['regionname']),
+	'L_ADD'               => $roster->locale->act['add'],
+	'L_DELETE'            => $roster->locale->act['delete'],
+	'L_UPLOAD_RULES'      => $roster->locale->act['pagebar_uploadrules'],
 	'L_UPLOAD_RULES_HELP' => $roster->locale->act['upload_rules_help'],
 
 	'MODE' => $mode,

@@ -8,9 +8,17 @@
 </form>
 
 <br />
-{T_BUTTON_GRID}
-	<div id="array" style="width:{BUTTON_GRID_WIDTH}px;height:{BUTTON_GRID_HEIGHT}px;"></div>
-{T_BORDER_END}
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgreenborder">
+			<div class="header_text sgreenborder">{SECTION}</div>
+
+			<div id="array" style="width:{BUTTON_GRID_WIDTH}px;height:{BUTTON_GRID_HEIGHT}px;"></div>
+
+		</td>
+	</tr>
+</table>
 
 <!-- BEGIN button_grid -->
 <div id="b{button_grid.ID}" style="background-image:url({button_grid.ICON}); background-position:center; background-repeat:no-repeat;" class="{button_grid.CLASS}"{button_grid.TOOLTIP}></div>

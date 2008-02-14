@@ -38,7 +38,6 @@ $roster->tpl->assign_vars(array(
 	'S_NEWS_HTML'   => $addon['config']['news_html'],
 
 	'U_FORMACTION'  => makelink('util-news'),
-	'U_BORDER_S'    => border('sgreen','start',$roster->locale->act['add_news']),
 	)
 );
 

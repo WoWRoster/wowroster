@@ -30,40 +30,49 @@
 	<input type="hidden" id="deletehide" name="action" value="" />
 	<input type="hidden" name="process" value="process" />
 <!-- IF S_DATA -->
-{T_LIST_START}
-	<table class="bodyline" cellspacing="0">
-		<thead>
-			<tr>
-				<th class="membersHeader"> {L_NAME}</th>
-				<th class="membersHeader"> {L_SERVER}</th>
-				<th class="membersHeader"> {L_REGION}</th>
-				<th class="membersHeader"> {L_CLASS}</th>
-				<th class="membersHeader"> {L_LEVEL}</th>
-				<th class="membersHeaderRight">&nbsp;</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="6" class="membersRowRight1">
-					<button type="submit" class="input" style="float: right;">{L_DELETE_CHECKED}</button>
-					<button type="submit" class="input" onclick="return confirm('{L_DELETE_GUILD_CONFIRM}') &amp;&amp; setvalue('deletehide','delguild_{U_GUILD_ID}');">{L_DELETE_GUILD}</button></td>
-			</tr>
-		</tfoot>
-		<tbody>
-<!-- BEGIN data_list -->
-			<tr>
-				<td class="membersRow{data_list.ROW_CLASS}">{data_list.NAME}</td>
-				<td class="membersRow{data_list.ROW_CLASS}">{data_list.SERVER}</td>
-				<td class="membersRow{data_list.ROW_CLASS}">{data_list.REGION}</td>
-				<td class="membersRow{data_list.ROW_CLASS}">{data_list.CLASS}</td>
-				<td class="membersRow{data_list.ROW_CLASS}">{data_list.LEVEL}</td>
-				<td class="membersRowRight{data_list.ROW_CLASS}"><button type="submit" class="input" onclick="setvalue('deletehide','del_{data_list.ID}');">{L_DELETE}</button>
-					<label for="massdel_{data_list.ID}">&nbsp;</label><input type="checkbox" name="massdel[{data_list.ID}]" id="massdel_{data_list.ID}" value="1" /></td>
-			</tr>
-<!-- END data_list -->
-		</tbody>
-	</table>
-{T_BORDER_END}
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgreenborder">
+			<div class="header_text sgreenborder">{LIST_START}</div>
+
+			<table class="bodyline" cellspacing="0">
+				<thead>
+					<tr>
+						<th class="membersHeader"> {L_NAME}</th>
+						<th class="membersHeader"> {L_SERVER}</th>
+						<th class="membersHeader"> {L_REGION}</th>
+						<th class="membersHeader"> {L_CLASS}</th>
+						<th class="membersHeader"> {L_LEVEL}</th>
+						<th class="membersHeaderRight">&nbsp;</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6" class="membersRowRight1">
+							<button type="submit" class="input" style="float: right;">{L_DELETE_CHECKED}</button>
+							<button type="submit" class="input" onclick="return confirm('{L_DELETE_GUILD_CONFIRM}') &amp;&amp; setvalue('deletehide','delguild_{U_GUILD_ID}');">{L_DELETE_GUILD}</button></td>
+					</tr>
+				</tfoot>
+				<tbody>
+		<!-- BEGIN data_list -->
+					<tr>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.NAME}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.SERVER}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.REGION}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.CLASS}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.LEVEL}</td>
+						<td class="membersRowRight{data_list.ROW_CLASS}"><button type="submit" class="input" onclick="setvalue('deletehide','del_{data_list.ID}');">{L_DELETE}</button>
+							<label for="massdel_{data_list.ID}">&nbsp;</label><input type="checkbox" name="massdel[{data_list.ID}]" id="massdel_{data_list.ID}" value="1" /></td>
+					</tr>
+		<!-- END data_list -->
+				</tbody>
+			</table>
+
+		</td>
+	</tr>
+</table>
+
 </form>
 {PREV}{LISTING}{NEXT}
 <!-- ELSE -->

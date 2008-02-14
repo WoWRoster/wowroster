@@ -120,6 +120,7 @@ $roster->tpl->assign_vars(array(
 	'L_POSTEDBY'     => $roster->locale->act['posted_by'],
 	'L_EDIT'         => $roster->locale->act['edit'],
 	'L_NAME'         => $roster->locale->act['name'],
+	'L_COMMENTS'     => $roster->locale->act['comments'],
 	'L_ADD_COMMENT'  => $roster->locale->act['add_comment'],
 	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
@@ -127,8 +128,6 @@ $roster->tpl->assign_vars(array(
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => $addon['config']['comm_html'],
 
-	'U_COMMENT_BORDER_S' => border('swhite','start',$roster->locale->act['comments'],'60%'),
-	'U_COMMENT_ADD_B_S'  => border('sblue','start',$roster->locale->act['add_comment']),
 	'U_ADD_FORMACTION'   => makelink('util-news-comment&amp;id=' . $_GET['id']),
 	'U_NEWS_ID'          => $news['news_id'],
 	)
@@ -147,7 +146,6 @@ $roster->tpl->assign_block_vars('news_row', array(
 	'AUTHOR'        => $news['author'],
 	'DATE'          => $news['date_format'],
 
-	'U_BORDER_S' => border('sorange','start',$news['title'],'60%'),
 	'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
 	'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
 

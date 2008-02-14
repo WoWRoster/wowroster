@@ -1,11 +1,18 @@
 <!-- $Id$ -->
 
-{T_MENU}
-<div style="width:145px;">
-	<ul class="tab_menu">
-<!-- BEGIN upload_rules_menu -->
-		<li<!-- IF upload_rules_menu.SELECTED --> class="selected"<!-- ENDIF -->><a href="{upload_rules_menu.LINK}">{upload_rules_menu.NAME}</a></li>
-<!-- END upload_rules_menu -->
-	</ul>
-</div>
-{T_BORDER_END}
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color syellowborder">
+			<div class="header_text syellowborder">{L_UPLOAD_RULES}</div>
+
+			<div style="width:145px;">
+				<ul class="tab_menu">
+			<!-- BEGIN upload_rules_menu -->
+					<li<!-- IF upload_rules_menu.SELECTED --> class="selected"<!-- ENDIF -->><a href="{upload_rules_menu.LINK}">{upload_rules_menu.NAME}</a></li>
+			<!-- END upload_rules_menu -->
+				</ul>
+			</div>
+
+		</td>
+	</tr>
+</table>

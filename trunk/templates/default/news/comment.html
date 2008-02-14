@@ -1,14 +1,21 @@
 <!-- $Id$ -->
-{U_COMMENT_BORDER_S}
-<!-- BEGIN comment_row -->
 
-<div style="text-align:left;">
-{comment_row.CONTENT}
-<br />
-<br />
-<span style="float:right;"><a href="{comment_row.U_EDIT}">{L_EDIT}</a></span>
-{L_POSTEDBY}: {comment_row.AUTHOR} - {comment_row.DATE}
-</div>
-<hr />
-<!-- END comment_row -->
-{T_BORDER_END}
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:60%;">
+	<tr>
+		<td class="border_color swhiteborder">
+			<div class="header_text swhiteborder">{L_COMMENTS}</div>
+
+			<!-- BEGIN comment_row -->
+			<div style="text-align:left;">
+				{comment_row.CONTENT}
+				<br />
+				<br />
+				<span style="float:right;"><a href="{comment_row.U_EDIT}">{L_EDIT}</a></span>
+				{L_POSTEDBY}: {comment_row.AUTHOR} - {comment_row.DATE}
+			</div>
+			<hr />
+			<!-- END comment_row -->
+
+		</td>
+	</tr>
+</table>
