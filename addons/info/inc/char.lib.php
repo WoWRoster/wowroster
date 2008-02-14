@@ -289,7 +289,7 @@ $returnstring .= '  <tr>
 
 				$returnstring .= $recipe->out();
 				$returnstring .= '</td>
-    <td class="membersRow' . $stripe . '"><span style="color:#' . substr( $recipe->data['item_color'], 2, 6 ) . '">&nbsp;' . $recipe->data['recipe_name'] . '</span></td>
+    <td class="membersRow' . $stripe . '"><span style="color:#' . $recipe->data['item_color'] . '">&nbsp;' . $recipe->data['recipe_name'] . '</span></td>
     <td class="membersRow' . $stripe . '"><span style="color:#' . $difficultycolor . '">&nbsp;' . $this->locale['recipe_' . $recipe->data['difficulty']] . '</span></td>
     <td class="membersRow' . $stripe . '">&nbsp;' . $recipe->data['recipe_type'] . '&nbsp;</td>
     <td class="membersRow' . $stripe . '">&nbsp;' . $recipe->data['level'] . '&nbsp;</td>

@@ -32,10 +32,9 @@ class memberslistSearch
 	var $start_search;
 	var $stop_search;
 	var $time_search;
-	var $link_next;
-	var $link_prev;
 	var $open_table;
 	var $close_table;
+	var $search_url;
 	var $data = array();    // Addon data
 
 	// class constructor
@@ -49,7 +48,7 @@ class memberslistSearch
 						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['title'] . '</th></tr>';
 	}
 
-	function search( $search , $url_search , $limit=10 , $page=0 )
+	function search( $search , $limit=10 , $page=0 )
 	{
 		global $roster;
 
@@ -83,7 +82,7 @@ class memberslistSearch
 		$crows = 0;
 
 		$x = ($limit > $nrows) ? $nrows : ($limit > 0 ? $limit : $nrows);
-		if( $nrows > 0 && $limit > 0 )
+		if( $nrows > 0 )
 		{
 			while( $x > 0 )
 			{
@@ -98,23 +97,7 @@ class memberslistSearch
 				$x--;
 			}
 		}
-		else
-		{
-			while( $row = $roster->db->fetch($result) )
-			{
-				$this->result_count++;
-			}
-		}
 		$roster->db->free_result($result);
-
-		if( $page > 0 )
-		{
-			$this->link_prev = '<a href="' . makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong>' . $roster->locale->act['search_previous_matches'] . $this->data['fullname'] . '</strong></a>';
-		}
-		if( $nrows > $limit )
-		{
-			$this->link_next = '<a href="' . makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_search . '&amp;s_addon=' . $this->data['basename']) . '"><strong>' . $roster->locale->act['search_next_matches'] . $this->data['fullname'] . '</strong></a>';
-		}
 	}
 
 	function add_result( $resultarray )
