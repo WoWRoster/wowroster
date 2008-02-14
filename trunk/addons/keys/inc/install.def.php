@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1653';
+	var $version = '1.9.9.1667';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -156,6 +156,7 @@ class keysInstall
 				ADD PRIMARY KEY (`locale`, `faction`, `key_name`, `stage`);");
 		}
 
+		// 1667: frFR key defines
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
 		$this->loadkeys( 'install_' );

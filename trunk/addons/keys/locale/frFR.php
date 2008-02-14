@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * WoWRoster.net WoWRoster
  *
@@ -16,8 +16,8 @@
 */
 
 $lang['keys'] = 'Clefs';
-$lang['keys_desc'] = 'Liste les clefs des donjons que poss�dent les membres de la guilde';
-$lang['keybutton'] = 'Clefs|Liste les clefs des donjons que poss�dent les membres de la guilde';
+$lang['keys_desc'] = 'Liste les clefs des donjons que possèdent les membres de la guilde';
+$lang['keybutton'] = 'Clefs|Liste les clefs des donjons que possèdent les membres de la guilde';
 
 $lang['admin']['keys_conf'] = 'Paramètres principaux|Paramètres principaux pour les clefs d\'instance';
 $lang['admin']['colorcmp'] = 'Couleur étape achevée|Couleur pour les étapes achevées apparaissant dans l\'infobulle de suivi de quête/partie';

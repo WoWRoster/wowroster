@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * WoWRoster.net WoWRoster
  *
@@ -192,40 +192,40 @@ $inst_keys['A'] = array(
 		'Q|Retour vers Khadgar|1||1',
 		'In|La clé du maître|1||1',
 		'Key|inv_misc_key_07|'
-	)/*,
-	'Arcatraz' => array(
-		'Q|Warp-Raider Nesaad|1||1',
-		'Q|Request for Assistance|1||1',
-		'Q|Rightful Repossession|1||1',
-		'Q|An Audience with the Prince|1||1',
-		'Q|Triangulation Point One|1||1',
-		'Q|Triangulation Point Two|1||1',
-		'Q|Full Triangle|1||1',
-		'Q|Special Delivery to Shattrath City|1||1',
-		'Q|How to Break Into the Arcatraz|1||1',
-		'In|Key to the Arcatraz|1||1',
-		'Key|inv_datacrystal03|350'
 	),
-	'Temple' => array(
-		'Q|Tablets of Baa\\\'ri|1||1',
-		'Q|Oronu the Elder|1||1',
-		'Q|The Ashtongue Corruptors|1||1',
-		'Q|The Warden\\\'s Cage|1||1',
-		'Q|Proof of Allegiance|1||1',
-		'Q|Akama|1||1',
-		'Q|Seer Udalo|1||1',
-		'Q|A Mysterious Portent|1||1',
-		'Q|The Ata\\\'mal Terrace|1||1',
-		'Q|Akama\\\'s Promise|1||1',
-		'Q|The Secret Compromised|1||1',
-		'Q|Ruse of the Ashtongue|1||1',
-		'Q|An Artifact From the Past|1||1',
-		'Q|The Hostage Soul|1||1',
-		'Q|Entry Into the Black Temple|1||1',
-		'Q|A Distraction for Akama|1||1',
-		'In|Medallion of Karabor|1||1',
-		'Key|inv_jewelry_amulet_04|'
-	)*/
+    'Arcatraz' => array(
+        'Q|L\\\'écumeur-dimensionnel Nesaad|1||1',
+        'Q|Demande d\\\'assistance|1||1',
+        'Q|Récupérer ce qui nous revient de droit|1||1',
+        'Q|Une audience avec le prince|1||1',
+        'Q|Point de triangulation numéro un|1||1',
+        'Q|Point de triangulation numéro deux|1||1',
+        'Q|Le triangle est triangulé|1||1',
+        'Q|Livraison spéciale à Shattrath|1||1',
+        'Q|Comment pénétrer dans l\\\'Arcatraz|1||1',
+        'In|Clé de l\\\'Arcatraz|1||1',
+        'Key|inv_datacrystal03|350'
+    ),
+    'Temple' => array(
+        'Q|Tablettes de Baa\\\'ri |1||1',
+        'Q|Oronu l\\\'Ancien |1||1',
+        'Q|Les corrupteurs cendrelangue|1||1',
+        'Q|La cage du gardien|1||1',
+        'Q|Preuve d\\\'allégeance|1||1',
+        'Q|Akama|1||1',
+        'Q|Le voyant Udalo|1||1',
+        'Q|La terrasse Ata\\\'mal|1||1',
+        'Q|promesse d\\\'Akama|1||1',
+        'Q| Un secret compromis|1||1',
+        'Q|Un artefact du passé|1||1',
+        'Q|L\\\'Âme de l\\\'Otage |1||1',
+        'Q|Entrée dans le Temple Noir|1||1',
+        'Q|Une diversion pour Akama|1||1',
+        'Q|À la recherche des Cendrelangue|1||1',
+        'Q|La rédemption des Cendrelangue|1||1',
+        'In|Le Médaillon de Karabor|1||1',
+        'Key|inv_jewelry_amulet_04|'
+    )
 );
 
 
@@ -362,38 +362,38 @@ $inst_keys['H'] = array(
 		'Q|Retour vers Khadgar|1||1',
 		'In|La clé du maître|1||1',
 		'Key|inv_misc_key_07|'
-	)/*,
-	'Arcatraz' => array(
-		'Q|Warp-Raider Nesaad|1||1',
-		'Q|Request for Assistance|1||1',
-		'Q|Rightful Repossession|1||1',
-		'Q|An Audience with the Prince|1||1',
-		'Q|Triangulation Point One|1||1',
-		'Q|Triangulation Point Two|1||1',
-		'Q|Full Triangle|1||1',
-		'Q|Special Delivery to Shattrath City|1||1',
-		'Q|How to Break Into the Arcatraz|1||1',
-		'In|Key to the Arcatraz|1||1',
-		'Key|inv_datacrystal03|350'
 	),
-	'Temple' => array(
-		'Q|Tablets of Baa\\\'ri|1||1',
-		'Q|Oronu the Elder|1||1',
-		'Q|The Ashtongue Corruptors|1||1',
-		'Q|The Warden\\\'s Cage|1||1',
-		'Q|Proof of Allegiance|1||1',
-		'Q|Akama|1||1',
-		'Q|Seer Udalo|1||1',
-		'Q|A Mysterious Portent|1||1',
-		'Q|The Ata\\\'mal Terrace|1||1',
-		'Q|Akama\\\'s Promise|1||1',
-		'Q|The Secret Compromised|1||1',
-		'Q|Ruse of the Ashtongue|1||1',
-		'Q|An Artifact From the Past|1||1',
-		'Q|The Hostage Soul|1||1',
-		'Q|Entry Into the Black Temple|1||1',
-		'Q|A Distraction for Akama|1||1',
-		'In|Medallion of Karabor|1||1',
-		'Key|inv_jewelry_amulet_04|'
-	)*/
+    'Arcatraz' => array(
+        'Q|L\\\'écumeur-dimensionnel Nesaad|1||1',
+        'Q|Demande d\\\'assistance|1||1',
+        'Q|Récupérer ce qui nous revient de droit|1||1',
+        'Q|Une audience avec le prince|1||1',
+        'Q|Point de triangulation numéro un|1||1',
+        'Q|Point de triangulation numéro deux|1||1',
+        'Q|Le triangle est triangulé|1||1',
+        'Q|Livraison spéciale à Shattrath|1||1',
+        'Q|Comment pénétrer dans l\\\'Arcatraz|1||1',
+        'In|Clé de l\\\'Arcatraz|1||1',
+        'Key|inv_datacrystal03|350'
+    ),
+    'Temple' => array(
+        'Q|Tablettes de Baa\\\'ri |1||1',
+        'Q|Oronu l\\\'Ancien |1||1',
+        'Q|Les corrupteurs cendrelangue|1||1',
+        'Q|La cage du gardien|1||1',
+        'Q|Preuve d\\\'allégeance|1||1',
+        'Q|Akama|1||1',
+        'Q|Le voyant Udalo|1||1',
+        'Q|La terrasse Ata\\\'mal|1||1',
+        'Q|promesse d\\\'Akama|1||1',
+        'Q| Un secret compromis|1||1',
+        'Q|Un artefact du passé|1||1',
+        'Q|L\\\'Âme de l\\\'Otage |1||1',
+        'Q|Entrée dans le Temple Noir|1||1',
+        'Q|Une diversion pour Akama|1||1',
+        'Q|À la recherche des Cendrelangue|1||1',
+        'Q|La rédemption des Cendrelangue|1||1',
+        'In|Le Médaillon de Karabor|1||1',
+        'Key|inv_jewelry_amulet_04|'
+    )
 );
