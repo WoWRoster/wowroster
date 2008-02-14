@@ -24,10 +24,9 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] .= $roster->locale->act['pagebar_changepass'];
 
 $roster->tpl->assign_vars(array(
-	'T_TABLE_ADMIN'   => border('sred','start',$roster->locale->act['changeadminpass']),
-	'T_TABLE_OFFICER' => border('syellow','start',$roster->locale->act['changeofficerpass']),
-	'T_TABLE_GUILD'   => border('sgreen','start',$roster->locale->act['changeguildpass']),
-
+	'L_CHANGE_ADMIN'   => $roster->locale->act['changeadminpass'],
+	'L_CHANGE_OFFICER' => $roster->locale->act['changeofficerpass'],
+	'L_CHANGE_GUILD'   => $roster->locale->act['changeguildpass'],
 	'L_OLD_PASS'         => $roster->locale->act['old_pass'],
 	'L_NEW_PASS'         => $roster->locale->act['new_pass'],
 	'L_NEW_PASS_CONFIRM' => $roster->locale->act['new_pass_confirm'],

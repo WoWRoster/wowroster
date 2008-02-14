@@ -127,6 +127,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		'S_HEADER_LOGO'      => ( !empty($roster->config['logo']) ? true : false ),
 
 		'U_MAKELINK'      => makelink(),
+		'U_LINKFORM'      => linkform(),
 		'ROSTER_URL'      => ROSTER_URL,
 		'ROSTER_PATH'     => ROSTER_PATH,
 		'WEBSITE_ADDRESS' => $roster->config['website_address'],
@@ -145,8 +146,10 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		'T_BORDER_YELLOW' => border('syellow','start'),
 		'T_BORDER_GREEN'  => border('sgreen','start'),
 		'T_BORDER_PURPLE' => border('spurple','start'),
+		'T_BORDER_BLUE'   => border('sblue','start'),
 		'T_BORDER_END'    => border('sgray','end'),
 
+		'PAGE_TITLE'         => '',
 		'ROSTER_HEAD'        => '',
 		'ROSTER_BODY'        => '',
 		'ROSTER_MENU_BEFORE' => '',

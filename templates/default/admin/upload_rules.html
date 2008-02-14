@@ -19,36 +19,45 @@
 	<input type="hidden" id="denyhide" name="action" value="" />
 	<input type="hidden" name="process" value="process" />
 	<input type="hidden" name="block" value="disallow" />
-{T_DENY_TABLE}
-	<table class="bodyline" cellspacing="0">
-		<thead>
-			<tr>
-				<th class="membersHeader" {L_NAME_TIP}>{L_NAME}</th>
-				<th class="membersHeader" {L_SERVER_TIP}>{L_SERVER}</th>
-				<th class="membersHeader" {L_REGION_TIP}>{L_REGION}</th>
-				<th class="membersHeaderRight">&nbsp;</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
-				<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
-				<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
-				<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('denyhide','add');">{L_ADD}</button></td>
-			</tr>
-		</tfoot>
-		<tbody>
-		<!-- BEGIN deny_list -->
-			<tr>
-				<td class="membersRow1">{deny_list.NAME}</td>
-				<td class="membersRow1">{deny_list.SERVER}</td>
-				<td class="membersRow1">{deny_list.REGION}</td>
-				<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('denyhide','del_{deny_list.ID}');">{L_DELETE}</button></td>
-			</tr>
-		<!-- END deny_list -->
-		</tbody>
-	</table>
-{T_BORDER_END}
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sredborder">
+			<div class="header_text sredborder">{L_DISALLOW}</div>
+
+			<table class="bodyline" cellspacing="0">
+				<thead>
+					<tr>
+						<th class="membersHeader" {L_NAME_TIP}>{L_NAME}</th>
+						<th class="membersHeader" {L_SERVER_TIP}>{L_SERVER}</th>
+						<th class="membersHeader" {L_REGION_TIP}>{L_REGION}</th>
+						<th class="membersHeaderRight">&nbsp;</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
+						<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
+						<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
+						<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('denyhide','add');">{L_ADD}</button></td>
+					</tr>
+				</tfoot>
+				<tbody>
+				<!-- BEGIN deny_list -->
+					<tr>
+						<td class="membersRow1">{deny_list.NAME}</td>
+						<td class="membersRow1">{deny_list.SERVER}</td>
+						<td class="membersRow1">{deny_list.REGION}</td>
+						<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('denyhide','del_{deny_list.ID}');">{L_DELETE}</button></td>
+					</tr>
+				<!-- END deny_list -->
+				</tbody>
+			</table>
+
+		</td>
+	</tr>
+</table>
+
 </form>
 
 <br />
@@ -57,43 +66,52 @@
 	<input type="hidden" id="allowhide" name="action" value="" />
 	<input type="hidden" name="process" value="process" />
 	<input type="hidden" name="block" value="allow" />
-{T_ALLOW_TABLE}
-	<table class="bodyline" cellspacing="0">
-		<thead>
-			<tr><!-- IF MODE eq 'guild' -->
-				<th class="membersHeader">{L_DEFAULT}</th><!-- ENDIF -->
-				<th class="membersHeader" {L_NAME_TIP}>{L_NAME}</th>
-				<th class="membersHeader" {L_SERVER_TIP}>{L_SERVER}</th>
-				<th class="membersHeader" {L_REGION_TIP}>{L_REGION}</th>
-				<th class="membersHeaderRight">&nbsp;</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr><!-- IF MODE eq 'guild' -->
-				<td class="membersRow2" style="text-align:center;"><label for="defaultchk">&nbsp;</label>
-					<input type="checkbox" name="defaultchk" id="defaultchk" value="1" <!-- IF S_EXISTING_DATA neq '1' --> checked="checked"<!-- ENDIF --> /></td><!-- ENDIF -->
-				<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
-				<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
-				<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
-				<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('allowhide','add');">{L_ADD}</button></td>
-			</tr>
-		</tfoot>
-		<tbody>
-		<!-- BEGIN allow_list -->
-			<tr>
-				<!-- IF MODE eq 'guild' -->
-				<td class="membersRow1" style="text-align:center;"><!-- IF allow_list.DEFAULT --><img src="{IMG_URL}check_on.png" alt="" />
-					<!-- ELSE --><button class="button_hide" onclick="setvalue('allowhide','default_{allow_list.ID}');"><img src="{IMG_URL}check_off.png" alt="" /></button><!-- ENDIF --></td>
-				<!-- ENDIF -->
-				<td class="membersRow1">{allow_list.NAME}</td>
-				<td class="membersRow1">{allow_list.SERVER}</td>
-				<td class="membersRow1">{allow_list.REGION}</td>
-				<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('allowhide','del_{allow_list.ID}');">{L_DELETE}</button></td>
-			</tr>
-		<!-- END allow_list -->
-		</tbody>
-	</table>
-{T_BORDER_END}
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgreenborder">
+			<div class="header_text sgreenborder">{L_ALLOW}</div>
+
+			<table class="bodyline" cellspacing="0">
+				<thead>
+					<tr><!-- IF MODE eq 'guild' -->
+						<th class="membersHeader">{L_DEFAULT}</th><!-- ENDIF -->
+						<th class="membersHeader" {L_NAME_TIP}>{L_NAME}</th>
+						<th class="membersHeader" {L_SERVER_TIP}>{L_SERVER}</th>
+						<th class="membersHeader" {L_REGION_TIP}>{L_REGION}</th>
+						<th class="membersHeaderRight">&nbsp;</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr><!-- IF MODE eq 'guild' -->
+						<td class="membersRow2" style="text-align:center;"><label for="defaultchk">&nbsp;</label>
+							<input type="checkbox" name="defaultchk" id="defaultchk" value="1" <!-- IF S_EXISTING_DATA neq '1' --> checked="checked"<!-- ENDIF --> /></td><!-- ENDIF -->
+						<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
+						<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
+						<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" /></td>
+						<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('allowhide','add');">{L_ADD}</button></td>
+					</tr>
+				</tfoot>
+				<tbody>
+				<!-- BEGIN allow_list -->
+					<tr>
+						<!-- IF MODE eq 'guild' -->
+						<td class="membersRow1" style="text-align:center;"><!-- IF allow_list.DEFAULT --><img src="{IMG_URL}check_on.png" alt="" />
+							<!-- ELSE --><button class="button_hide" onclick="setvalue('allowhide','default_{allow_list.ID}');"><img src="{IMG_URL}check_off.png" alt="" /></button><!-- ENDIF --></td>
+						<!-- ENDIF -->
+						<td class="membersRow1">{allow_list.NAME}</td>
+						<td class="membersRow1">{allow_list.SERVER}</td>
+						<td class="membersRow1">{allow_list.REGION}</td>
+						<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('allowhide','del_{allow_list.ID}');">{L_DELETE}</button></td>
+					</tr>
+				<!-- END allow_list -->
+				</tbody>
+			</table>
+
+		</td>
+	</tr>
+</table>
+
 </form>
 
 <br />

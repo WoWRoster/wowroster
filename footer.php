@@ -68,12 +68,6 @@ if( $roster->config['debug_mode'] )
 				);
 			}
 		}
-
-		$roster->tpl->assign_vars(array(
-			'PHP_DEBUG_B_S' => border('sred','start','PHP Errors'),
-			'PHP_DEBUG_B_E' => border('sred','end'),
-			)
-		);
 	}
 }
 
@@ -100,11 +94,7 @@ if( $roster->config['sql_window'] )
 			}
 		}
 
-		$roster->tpl->assign_vars(array(
-			'SQL_DEBUG_B_S' => border('sgreen','start',$roster->locale->act['sql_queries']),
-			'SQL_DEBUG_B_E' => border('sgreen','end'),
-			)
-		);
+		$roster->tpl->assign_var('L_SQL_QUERIES', $roster->locale->act['sql_queries']);
 	}
 }
 

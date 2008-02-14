@@ -16,53 +16,70 @@
 
 <!-- IF S_DEBUG_MODE -->
 <br />
-{PHP_DEBUG_B_S}
-<table cellpadding="0" cellspacing="0" width="100%">
-<!-- BEGIN php_debug -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
-		<th class="membersHeaderRight">{php_debug.FILE}</th>
+		<td class="border_color sredborder">
+			<div class="header_text sredborder">PHP Errors</div>
+
+			<table cellpadding="0" cellspacing="0" width="100%">
+			<!-- BEGIN php_debug -->
+				<tr>
+					<th class="membersHeaderRight">{php_debug.FILE}</th>
+				</tr>
+			<!-- BEGIN row -->
+				<tr>
+					<td class="membersRowRight{php_debug.row.ROW_CLASS}" style="font-size:10px;">&nbsp;&nbsp;{php_debug.row.ERROR}</td>
+				</tr>
+			<!-- END row -->
+			<!-- END php_debug -->
+			</table>
+
+		</td>
 	</tr>
-<!-- BEGIN row -->
-	<tr>
-		<td class="membersRowRight{php_debug.row.ROW_CLASS}" style="font-size:10px;">&nbsp;&nbsp;{php_debug.row.ERROR}</td>
-	</tr>
-<!-- END row -->
-<!-- END php_debug -->
 </table>
-{PHP_DEBUG_B_E}
+
 <br />
 <!-- ENDIF -->
 
 <!-- IF S_SQL_WIN -->
 <br />
-{SQL_DEBUG_B_S}
-<div class="sqlwindow">
-	<table cellpadding="0" cellspacing="0">
-		<tr>
-			<th class="membersHeader">Line</th>
-			<th class="membersHeader">Time</th>
-			<th class="membersHeaderRight">Query</th>
-		</tr>
-<!-- BEGIN sql_debug -->
-		<tr>
-			<th colspan="3" class="membersHeaderRight">{sql_debug.FILE}</th>
-		</tr>
-<!-- BEGIN row -->
-		<tr>
-			<td class="membersRow{sql_debug.row.ROW_CLASS}">&nbsp;&nbsp;{sql_debug.row.LINE}</td>
-			<td class="membersRow{sql_debug.row.ROW_CLASS}">{sql_debug.row.TIME}</td>
-			<td class="membersRowRight{sql_debug.row.ROW_CLASS}" style="white-space:normal;">{sql_debug.row.QUERY}</td>
-		</tr>
-<!-- IF S_DESCRIBE -->
-		<tr>
-			<td colspan="3" class="membersRowRight{sql_debug.row.ROW_CLASS}">{sql_debug.row.DESCRIBE}</td>
-		</tr>
-<!-- ENDIF -->
-<!-- END row -->
-<!-- END sql_debug -->
-	</table>
-</div>
-{SQL_DEBUG_B_E}
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgreenborder">
+			<div class="header_text sgreenborder">{L_SQL_QUERIES}</div>
+
+			<div class="sqlwindow">
+				<table cellpadding="0" cellspacing="0">
+					<tr>
+						<th class="membersHeader">Line</th>
+						<th class="membersHeader">Time</th>
+						<th class="membersHeaderRight">Query</th>
+					</tr>
+			<!-- BEGIN sql_debug -->
+					<tr>
+						<th colspan="3" class="membersHeaderRight">{sql_debug.FILE}</th>
+					</tr>
+			<!-- BEGIN row -->
+					<tr>
+						<td class="membersRow{sql_debug.row.ROW_CLASS}">&nbsp;&nbsp;{sql_debug.row.LINE}</td>
+						<td class="membersRow{sql_debug.row.ROW_CLASS}">{sql_debug.row.TIME}</td>
+						<td class="membersRowRight{sql_debug.row.ROW_CLASS}" style="white-space:normal;">{sql_debug.row.QUERY}</td>
+					</tr>
+			<!-- IF S_DESCRIBE -->
+					<tr>
+						<td colspan="3" class="membersRowRight{sql_debug.row.ROW_CLASS}">{sql_debug.row.DESCRIBE}</td>
+					</tr>
+			<!-- ENDIF -->
+			<!-- END row -->
+			<!-- END sql_debug -->
+				</table>
+			</div>
+
+		</td>
+	</tr>
+</table>
 <!-- ENDIF -->
 
 {ROSTER_TOOLTIPS}

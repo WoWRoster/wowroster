@@ -112,6 +112,8 @@ $roster->tpl->assign_vars(array(
 	'L_ADD_NEWS' => $roster->locale->act['add_news'],
 
 	'U_ADD_NEWS'  => makelink('util-news-add'),
+
+	'S_ADD_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_add'])
 	)
 );
 
@@ -134,7 +136,6 @@ while( $news = $roster->db->fetch($result) )
 		'AUTHOR'        => $news['author'],
 		'DATE'          => $news['date_format'],
 
-		'U_BORDER_S' => border('sorange','start',$news['title'],'60%'),
 		'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
 		'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
 

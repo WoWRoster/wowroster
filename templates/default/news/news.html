@@ -2,16 +2,21 @@
 
 <!-- BEGIN news_row -->
 
-{news_row.U_BORDER_S}
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:60%;">
+	<tr>
+		<td class="border_color sorangeborder">
+			<div class="header_text sorangeborder">{news_row.TITLE}</div>
 
-<div style="text-align:left;">
-{news_row.CONTENT}
-<hr />
-	<span style="float:right;">
-	<a href="{news_row.U_COMMENT}">{news_row.L_COMMENT}</a> | <a href="{news_row.U_EDIT}">{L_EDIT}</a></span>
-	{L_POSTEDBY}: {news_row.AUTHOR} - {news_row.DATE}
-</div>
+			<div style="text-align:left;">
+				{news_row.CONTENT}
+				<hr />
+				<span style="float:right;"><a href="{news_row.U_COMMENT}">{news_row.L_COMMENT}</a> | <a href="{news_row.U_EDIT}">{L_EDIT}</a></span>
+				{L_POSTEDBY}: {news_row.AUTHOR} - {news_row.DATE}
+			</div>
 
-{T_BORDER_END}
+		</td>
+	</tr>
+</table>
+
 <br />
 <!-- END news_row -->

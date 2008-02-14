@@ -164,7 +164,7 @@ if( $num_members > 0 )
 		'NEXT' => $next,
 		'LISTING' => $listing,
 
-		'T_LIST_START' => border('sgreen','start',$prev . $roster->locale->act['delete'] . $listing . $next),
+		'LIST_START' => $prev . $roster->locale->act['delete'] . $listing . $next,
 		)
 	);
 

@@ -127,10 +127,9 @@ $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER
 $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/menuconf.js"></script>' . "\n";
 
 $roster->tpl->assign_vars(array(
-	'T_MENU_START'  => border('sorange','start',$roster->locale->act['menuconf_sectionselect']),
-	'T_ADD_BUTTON'  => border('syellow','start',$roster->locale->act['menuconf_add_button']),
-	'T_DELETE_BOX'  => border('sred','start',$roster->locale->act['menuconf_drag_delete']),
-	'T_BUTTON_GRID' => border('sgreen','start',$section),
+	'L_MENU_SELECT' => $roster->locale->act['menuconf_sectionselect'],
+	'L_ADD_BUTTON'  => $roster->locale->act['menuconf_add_button'],
+	'L_DRAG_DELETE' => $roster->locale->act['menuconf_drag_delete'],
 
 	'UNUSED_PALLET' => messagebox('<div id="palet" style="width:' . (40*$paletWidth+5) . 'px;height:' . (40*$paletHeight+5) . 'px;"></div>',$roster->locale->act['menuconf_unused_buttons'],'sblue'),
 

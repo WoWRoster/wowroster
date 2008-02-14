@@ -57,11 +57,12 @@ if( !empty($addons) )
 	$roster->tpl->assign_vars(array(
 		'S_ADDON_LIST' => true,
 
-		'L_ICON' => $roster->locale->act['installer_icon'],
-		'L_ADDONINFO' => $roster->locale->act['installer_addoninfo'],
-		'L_STATUS' => $roster->locale->act['installer_status'],
-		'L_INSTALLATION' => $roster->locale->act['installer_installation'],
-		'L_AUTHOR' => $roster->locale->act['installer_author'],
+		'L_ICON'          => $roster->locale->act['installer_icon'],
+		'L_ADDONINFO'     => $roster->locale->act['installer_addoninfo'],
+		'L_STATUS'        => $roster->locale->act['installer_status'],
+		'L_INSTALLATION'  => $roster->locale->act['installer_installation'],
+		'L_AUTHOR'        => $roster->locale->act['installer_author'],
+		'L_MANAGE_ADDONS' => $roster->locale->act['pagebar_addoninst'],
 
 		'L_TIP_STATUS_ACTIVE' => makeOverlib($roster->locale->act['installer_turn_off'],$roster->locale->act['installer_activated']),
 		'L_TIP_STATUS_INACTIVE' => makeOverlib($roster->locale->act['installer_turn_on'],$roster->locale->act['installer_deactivated']),
@@ -69,7 +70,6 @@ if( !empty($addons) )
 		'L_TIP_INSTALL' => makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']),
 		'L_TIP_UNINSTALL' => makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']),
 
-		'T_TABLE_START' => border('sblue','start',$roster->locale->act['pagebar_addoninst']),
 		'MESSAGE' => '',
 		)
 	);

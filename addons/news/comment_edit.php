@@ -48,7 +48,6 @@ $roster->tpl->assign_vars(array(
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$comment['html'],
 
-	'U_COMMENT_EDIT_B_S'  => border('sblue','start',$roster->locale->act['edit_comment']),
 	'U_EDIT_FORMACTION'   => makelink('util-news-comment&amp;id=' . $comment['news_id']),
 	'U_NEWS_ID'           => $comment['news_id'],
 	'U_COMMENT_ID'        => $comment['comment_id'],
