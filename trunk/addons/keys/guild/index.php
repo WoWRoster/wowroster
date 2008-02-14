@@ -129,7 +129,7 @@ while( $key_data = $roster->db->fetch( $keyResult ) )
 		'order_d' => array( '`keycache`.`' . $key_name . '_latest` ASC' ),
 		'value' => 'key_value',
 		'js_type' => 'ts_number',
-		'display' => 3,
+		'display' => 2,
 		'passthrough' => $key_data
 	);
 }
