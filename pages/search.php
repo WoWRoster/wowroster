@@ -127,7 +127,6 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 	$query = ( isset($_POST['search']) ? $_POST['search'] : ( isset($_GET['search']) ? $_GET['search'] : '' ) );
 
 	// variables that can be used in the addon search class which are being defined here
-	$sql_query = $query;
 	$url_query = urlencode($query);
 
 	$roster->tpl->assign_vars(array(
@@ -172,7 +171,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 			{
 				$search = new $addon['search_class'];
 				$search->data = $addon;
-				$search->search($sql_query, $limit, $page);
+				$search->search($query, $limit, $page);
 
 				if( $search->result_count > 0 )
 				{
@@ -196,7 +195,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 
 					$search_count = new $addon['search_class'];
 					$search_count->data = $addon;
-					$search_count->search($sql_query, 0, 0);
+					$search_count->search($query, 0, 0);
 
 					$roster->tpl->assign_block_vars('addon_results', array(
 						'BASENAME' => $addon['basename'],
@@ -223,7 +222,6 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 						$roster->tpl->assign_block_vars('addon_results.row', array(
 							'ROW_CLASS' => $roster->switch_row_class(),
 
-							'S_HTML'    => ( isset($result['html']) && $result['html'] != '' ? true : false ),
 							'HTML'      => ( isset($result['html']) && $result['html'] != '' ? $result['html'] : '' ),
 
 							'RESULTS_HEADER' => ( isset($result['results_header']) ? $result['results_header'] : '' ),
@@ -268,7 +266,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 			{
 				$search = new $leftover['search_class'];
 				$search->data = $leftover;
-				$search->search($sql_query, 0, 0);
+				$search->search($query, 0, 0);
 				if( $search->result_count > 0 )
 				{
 					$more = true;
