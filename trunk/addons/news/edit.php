@@ -53,8 +53,6 @@ $roster->tpl->assign_vars(array(
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$news['html'],
 	
-	'S_NICEDIT_ENABLE' => false,
-
 	'U_EDIT_FORMACTION'  => makelink('util-news'),
 	'U_NEWS_ID'          => $news['news_id'],
 
@@ -67,16 +65,16 @@ $roster->tpl->assign_vars(array(
 if($addon['config']['news_html'] >= 0)
 {
 	$roster->tpl->assign_var('S_HTML_ENABLE',true);
-}
-
-if($addon['config']['news_nicedit'] > 0)
-{
-	$roster->tpl->assign_var('S_NICEDIT_ENABLE', true);
-	$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"http://js.nicedit.com/nicEdit.js\"></script>
+	
+	if($addon['config']['news_nicedit'] > 0 && $addonc)
+	{
+		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"http://js.nicedit.com/nicEdit.js\"></script>
 <script type=\"text/javascript\">
     bkLib.onDomLoaded(nicEditors.allTextAreas);
 </script>";
+	}
 }
+
 
 $roster->tpl->set_filenames(array('head' => $addon['basename'] . '/news_head.html'));
 $roster->tpl->display('head');
