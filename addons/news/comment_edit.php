@@ -45,8 +45,6 @@ $roster->tpl->assign_vars(array(
 	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
 
-	'S_NICEDIT_ENABLE' => false,
-	
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$comment['html'],
 
@@ -61,7 +59,6 @@ $roster->tpl->assign_vars(array(
 
 if($addon['config']['news_nicedit'] > 0)
 {
-	$roster->tpl->assign_var('S_NICEDIT_ENABLE', true);
 	$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"http://js.nicedit.com/nicEdit.js\"></script>
 <script type=\"text/javascript\">
     bkLib.onDomLoaded(nicEditors.allTextAreas);
