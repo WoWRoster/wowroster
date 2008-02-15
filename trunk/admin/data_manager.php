@@ -46,14 +46,16 @@ $roster->tpl->assign_vars(array(
 	'L_SAVE_ERROR_LOG' => $roster->locale->act['save_error_log'],
 	'L_SAVE_LOG'       => $roster->locale->act['save_update_log'],
 
-	'L_NAME' => $roster->locale->act['name'],
-	'L_SERVER' => $roster->locale->act['server'],
-	'L_REGION' => $roster->locale->act['region'],
-	'L_CLASS' => $roster->locale->act['class'],
-	'L_LEVEL' => $roster->locale->act['level'],
-	'L_DELETE' => $roster->locale->act['delete'],
+	'L_NAME'           => $roster->locale->act['name'],
+	'L_SERVER'         => $roster->locale->act['server'],
+	'L_REGION'         => $roster->locale->act['region'],
+	'L_CLASS'          => $roster->locale->act['class'],
+	'L_LEVEL'          => $roster->locale->act['level'],
+	'L_UPDATE_ERRORS'  => $roster->locale->act['update_errors'],
+	'L_UPDATE_LOG'     => $roster->locale->act['update_log'],
+	'L_DELETE'         => $roster->locale->act['delete'],
 	'L_DELETE_CHECKED' => $roster->locale->act['delete_checked'],
-	'L_DELETE_GUILD' => $roster->locale->act['delete_guild'],
+	'L_DELETE_GUILD'   => $roster->locale->act['delete_guild'],
 	'L_DELETE_GUILD_CONFIRM' => $roster->locale->act['delete_guild_confirm'],
 	)
 );
@@ -107,18 +109,16 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	{
 		// We have errors
 		$roster->tpl->assign_vars(array(
-			'S_RESPONSE_ERROR' => true,
-			'ERROR' => scrollboxtoggle($errors,'<span class="red">' . $roster->locale->act['update_errors'] . '</span>','sred',false),
-
-			'RESPONSE_ERROR_DATA' => htmlspecialchars(stripAllHtml($errors)),
+			'S_RESPONSE_ERROR'   => true,
+			'RESPONSE_ERROR'     => $errors,
+			'RESPONSE_ERROR_LOG' => htmlspecialchars(stripAllHtml($errors)),
 			)
 		);
 	}
 
 	$roster->tpl->assign_vars(array(
-		'RESPONSE' => scrollbox('<div style="text-align:left;font-size:10px;">' . $messages . '</div>',$roster->locale->act['update_log'],'syellow'),
-
-		'RESPONSE_DATA' => htmlspecialchars(stripAllHtml($messages)),
+		'RESPONSE'      => $messages,
+		'RESPONSE_POST' => htmlspecialchars(stripAllHtml($messages)),
 		)
 	);
 }
