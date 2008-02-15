@@ -89,6 +89,8 @@ class newsInstall
 	 */
 	function upgrade($oldversion)
 	{
+		global $installer;
+
 		if( version_compare('1.9.9.1668', $oldversion, '>') == true )
 		{
 			$installer->add_config("'1060','news_nicedit','1','radio{enabled^1|disabled^0', 'news_conf'");
