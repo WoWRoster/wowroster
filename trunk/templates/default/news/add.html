@@ -16,7 +16,12 @@
 				<br /><br />
 				<!-- ENDIF -->
 
+				<!-- IF S_NICEDIT_ENABLE -->
+				<textarea name="news" id="news" cols="85" rows="20"></textarea>
+				<!-- ENDIF -->
+				<!-- IF ! S_NICEDIT_ENABLE -->
 				<textarea class="input" name="news" id="news" cols="85" rows="20"></textarea>
+				<!-- ENDIF -->
 				<br />
 				<br />
 				<input type="hidden" name="process" value="process" />

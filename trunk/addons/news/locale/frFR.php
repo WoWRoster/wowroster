@@ -54,3 +54,4 @@ $lang['admin']['comm_add']		= 'Ajouter des commentaires|Accréditation minimale 
 $lang['admin']['comm_edit']		= 'Editer des commentaires|Accréditation minimale pour pouvoir éditer un commentaire.';
 $lang['admin']['news_html']		= 'HTML dans l\'article|Pour autoriser ou interdire par défaut l\'usage du HTML dans les articles.<br />N\'affecte pas les articles déjà existants.';
 $lang['admin']['comm_html']		= 'HTML dans le commentaire|Pour autoriser ou interdire par défaut l\'usage du HTML dans les commentaires.<br />N\'affecte pas les commentaires déjà existants.';
+$lang['admin']['news_nicedit']  = 'Nicedit text Box|Whether to enable or disable the Nicedit text box.';

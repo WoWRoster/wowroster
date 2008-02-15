@@ -57,6 +57,7 @@ class newsInstall
 		$installer->add_config("'1030','comm_edit','2','access','news_conf'");
 		$installer->add_config("'1040','news_html','1','radio{enabled^1|disabled^0|forbidden^-1','news_conf'");
 		$installer->add_config("'1050','comm_html','-1','radio{enabled^1|disabled^0|forbidden^-1','news_conf'");
+		$installer->add_config("'1060','news_nicedit','1','radio{enabled^1|disabled^0', 'news_conf'");
 
 		$installer->create_table($installer->table('news'),"
 				`news_id` int(11) unsigned AUTO_INCREMENT,
@@ -88,6 +89,10 @@ class newsInstall
 	 */
 	function upgrade($oldversion)
 	{
+		if( version_compare('1.9.9.1668', $oldversion, '>') == true )
+		{
+			$installer->add_config("'1060','news_nicedit','1','radio{enabled^1|disabled^0', 'news_conf'");
+		}
 		return true;
 	}
 
