@@ -653,6 +653,14 @@ $lang['gem_colors_to_en'] = array(
 	'prismatic' => 'prismatic',
 	'meta' => 'meta' //verify translation
 	);
+
+$lang['socket_colors_to_en'] = array(
+	'red' => 'red',
+	'blue' => 'blue',
+	'yellow' => 'yellow',
+	'meta' => 'meta',
+	);
+
 // -- end tooltip parsing
 
 // Warlock pet names for icon displaying
