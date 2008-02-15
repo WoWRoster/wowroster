@@ -308,7 +308,7 @@ class item
 			foreach( $emptysockets as $socket_color => $socket_line )
 			{
 				$html .= '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
-					   . socketColorEn($socket_color, $this->locale) . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;'
+					   . $roster->locale->act['socket_colors_to_en'][strtolower($socket_color)] . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;'
 					   . $socket_line . '<br />';
 			}
 		}

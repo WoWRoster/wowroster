@@ -1333,20 +1333,6 @@ function aprint( $arr , $prefix='' , $return=false )
 	}
 }
 
-/**
- * Helper function that returns the localized gem color in english
- *
- * @param string $socket_color
- * @return string $color
- */
-function socketColorEn( $socket_color, $locale )
-{
-	global $roster;
-
-	$colorArr = array_flip($roster->locale->wordings[$locale]['gem_colors']);
-	return (string)strtolower($colorArr[$socket_color]);
-}
-
 function format_microtime( )
 {
 	list($usec, $sec) = explode(' ', microtime());
