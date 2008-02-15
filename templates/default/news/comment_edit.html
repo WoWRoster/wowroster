@@ -17,7 +17,12 @@
 				<br /><br />
 				<!-- ENDIF -->
 
+				<!-- IF S_NICEDIT_ENABLE -->
+				<textarea name="comment" id="comment" cols="85" rows="20">{CONTENT}</textarea>
+				<!-- ENDIF -->
+				<!-- IF ! S_NICEDIT_ENABLE -->
 				<textarea class="input" name="comment" id="comment" cols="85" rows="20">{CONTENT}</textarea>
+				<!-- ENDIF -->
 				<input type="hidden" name="process" value="process" />
 				<input type="hidden" name="comment_id" value="{U_COMMENT_ID}" />
 				<br />

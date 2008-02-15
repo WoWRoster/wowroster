@@ -54,3 +54,4 @@ $lang['admin']['comm_add']		= 'Add comments|Minimum login level needed to add co
 $lang['admin']['comm_edit']		= 'Edit comments|Minimum login level needed to edit comments.';
 $lang['admin']['news_html']		= 'HTML news|Whether to enable or disable html in news by default, or disallow it entirely.<br />Does not affect existing news';
 $lang['admin']['comm_html']		= 'HTML comments|Whether to enable or disable html in comments by default, or disallow it entirely.<br />Does not affect existing comments';
+$lang['admin']['news_nicedit']  = 'Nicedit text Box|Whether to enable or disable the Nicedit text box.';
