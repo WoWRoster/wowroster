@@ -66,7 +66,7 @@ if($addon['config']['news_html'] >= 0)
 {
 	$roster->tpl->assign_var('S_HTML_ENABLE',true);
 	
-	if($addon['config']['news_nicedit'] > 0 && $addonc)
+	if($addon['config']['news_nicedit'] > 0)
 	{
 		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"http://js.nicedit.com/nicEdit.js\"></script>
 <script type=\"text/javascript\">
