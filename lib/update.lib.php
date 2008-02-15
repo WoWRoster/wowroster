@@ -61,7 +61,7 @@ class update
 
 		if( !$roster->config['use_update_triggers'] )
 		{
-			return '';
+			return;
 		}
 
 		if( !empty($roster->addon_data) )
@@ -132,8 +132,6 @@ class update
 		}
 
 		$this->files = array_unique($this->files);
-
-		return '';
 	}
 
 	/**
@@ -738,8 +736,8 @@ class update
 						$steps = 1;
 					}
 
-					$output .= "<tr><td class=\"membersRowRight$steps\">$message<br />\n"
-					. "$error</td></tr>\n";
+					$output .= "<tr><td class=\"membersRowRight$steps\">$error<br />\n"
+					. "$message</td></tr>\n";
 				}
 			}
 			$output .= '</table>';

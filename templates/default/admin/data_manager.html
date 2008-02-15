@@ -2,17 +2,45 @@
 
 <!-- IF S_RESPONSE -->
 <!-- IF S_RESPONSE_ERROR -->
-{ERROR}
+
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
+	<tr>
+		<td class="border_color sredborder">
+			<div class="header_text sredborder" style="cursor:pointer;width:100%;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
+				<img src="{IMG_URL}plus.gif" style="float:right;" alt="" id="msgboximg_data_error" />{L_UPDATE_ERRORS}
+			</div>
+
+			<div style="height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
+				{RESPONSE_ERROR}
+			</div>
+
+		</td>
+	</tr>
+</table>
+
 <form method="post" action="{U_MAKELINK}" name="post">
-	<input type="hidden" name="data" value="{RESPONSE_ERROR_DATA}" />
+	<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
 	<input type="hidden" name="send_file" value="error_log" />
 	<input type="submit" name="download" value="{L_SAVE_ERROR_LOG}" />
 </form>
 <br />
 <!-- ENDIF -->
-{RESPONSE}
+
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
+	<tr>
+		<td class="border_color syellowborder">
+			<div class="header_text syellowborder">{L_UPDATE_LOG}</div>
+
+			<div style="height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
+				{RESPONSE}
+			</div>
+
+		</td>
+	</tr>
+</table>
+
 <form method="post" action="{U_MAKELINK}" name="post">
-	<input type="hidden" name="data" value="{RESPONSE_DATA}" />
+	<input type="hidden" name="data" value="{RESPONSE_POST}" />
 	<input type="hidden" name="send_file" value="update_log" />
 	<input type="submit" name="download" value="{L_SAVE_LOG}" />
 </form>

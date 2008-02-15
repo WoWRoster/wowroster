@@ -31,8 +31,32 @@ if( eregi('uniuploader',$_SERVER['HTTP_USER_AGENT']) )
 	$update->textmode = true;
 }
 
+// Set template vars
+$roster->tpl->assign_vars(array(
+	'S_DATA'           => false,
+	'S_RESPONSE'       => false,
+	'S_RESPONSE_ERROR' => false,
+	'S_PASS'           => true,
+
+	'L_SAVE_ERROR_LOG' => $roster->locale->act['save_error_log'],
+	'L_SAVE_LOG'       => $roster->locale->act['save_update_log'],
+
+	'L_UPDATE_ERRORS'  => $roster->locale->act['update_errors'],
+	'L_UPDATE_LOG'     => $roster->locale->act['update_log'],
+
+	'L_UPDATE_PAGE'    => $roster->locale->act['update_page'],
+	'L_UPDATE'         => $roster->locale->act['upload'],
+	'L_PASSWORD'       => $roster->locale->act['password'],
+	'L_PASSWORD_REQ'   => $roster->locale->act['roster_upd_pwLabel'],
+	'L_PASSWORD_HELP'  => $roster->locale->act['roster_upd_pw_help'],
+
+	'MESSAGES' => ''
+	)
+);
+
 // Fetch addon data
-$messages = $update->fetchAddonData();
+$update->fetchAddonData();
+
 
 // Has data been uploaded?
 if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->textmode )
@@ -45,32 +69,28 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 	// Normal upload results
 	if( !$update->textmode )
 	{
+		$roster->tpl->assign_var('S_RESPONSE',true);
+
 		// print the error messages
 		if( !empty($errors) )
 		{
-			print scrollboxtoggle($errors,'<span class="red">' . $roster->locale->act['update_errors'] . '</span>','sred',false);
-
-			// Print the downloadable errors separately so we can generate a download
-			print "<br />\n";
-			print '<form method="post" action="' . makelink() . '" name="post">' . "\n";
-			print '<input type="hidden" name="data" value="' . htmlspecialchars(stripAllHtml($errors)) . '" />' . "\n";
-			print '<input type="hidden" name="send_file" value="error_log" />' . "\n";
-			print '<input type="submit" name="download" value="' . $roster->locale->act['save_error_log'] . '" />' . "\n";
-			print '</form>';
-			print "<br />\n";
+			// We have errors
+			$roster->tpl->assign_vars(array(
+				'S_RESPONSE_ERROR'   => true,
+				'RESPONSE_ERROR'     => $errors,
+				'RESPONSE_ERROR_LOG' => htmlspecialchars(stripAllHtml($errors)),
+				)
+			);
 		}
 
-		// Print the update messages
-		print scrollbox('<div style="text-align:left;font-size:10px;">' . $messages . '</div>',$roster->locale->act['update_log'],'syellow');
+		$roster->tpl->assign_vars(array(
+			'RESPONSE'      => $messages,
+			'RESPONSE_POST' => htmlspecialchars(stripAllHtml($messages)),
+			)
+		);
 
-		// Print the downloadable messages separately so we can generate a download
-		print "<br />\n";
-		print '<form method="post" action="' . makelink() . '" name="post">' . "\n";
-		print '<input type="hidden" name="data" value="' . htmlspecialchars(stripAllHtml($messages)) . '" />' . "\n";
-		print '<input type="hidden" name="send_file" value="update_log" />' . "\n";
-		print '<input type="submit" name="download" value="' . $roster->locale->act['save_update_log'] . '" />' . "\n";
-		print '</form>';
-		print "<br />\n";
+		$roster->tpl->set_filenames(array('body' => 'update.html'));
+		$roster->tpl->display('body');
 	}
 	else
 	{
@@ -80,43 +100,30 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 		$roster->output['show_header'] = false;
 		$roster->output['show_menu'] = false;
 		$roster->output['show_footer'] = false;
-
 	}
 }
 else
 {
 	// No data uploaded, so return upload form
-
-	print '<form action="' . makelink() . '" enctype="multipart/form-data" method="post" onsubmit="submitonce(this);">' . "\n";
-
-	print messagebox('<table class="bodyline" cellspacing="0" cellpadding="0">' . $update->makeFileFields() . '</table>',$roster->locale->act['update_page'],'sblue');
-
-	print "<br />\n";
-
-	if( !$roster->auth->getAuthorized($roster->config['gp_user_level']) ||
-		!$roster->auth->getAuthorized($roster->config['cp_user_level']) ||
-		!$roster->auth->getAuthorized($roster->config['lua_user_level']) )
+	foreach( $update->files as $file )
 	{
-		print border('sgray','start',$roster->locale->act['roster_upd_pwLabel']);
-		print '
-                  <table class="bodyline" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td class="membersRow1" style="cursor:help;" onmouseover="overlib(\'' . $roster->locale->act['roster_upd_pw_help'] . '\',CAPTION,\'' . $roster->locale->act['password'] . '\',WRAP,RIGHT);" onmouseout="return nd();"><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" /> ' . $roster->locale->act['password'] . '</td>
-                      <td class="membersRowRight1"><input class="wowinput128" type="password" name="password" /></td>
-                    </tr>
-                  </table>' . "\n";
-		print border('sgray','end');
-
-		print "<br />\n";
+		$roster->tpl->assign_block_vars('file_fields',array(
+			'TOOLTIP' => makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP'),
+			'FILE' => $file
+			)
+		);
 	}
 
-	print '<input type="hidden" name="process" value="process" />' . "\n";
-	print '<input type="submit" value="' . $roster->locale->act['upload'] . '" />' . "\n";
-	print "</form>\n";
-
-	if (!empty($messages))
+	if( $roster->auth->getAuthorized($roster->config['gp_user_level']) ||
+		$roster->auth->getAuthorized($roster->config['cp_user_level']) ||
+		$roster->auth->getAuthorized($roster->config['lua_user_level']) )
 	{
-		print "<br />\n";
-		print scrollbox($messages,'Messages','syellow');
+		$roster->tpl->assign_var('S_PASS',false);
 	}
+
+	$messages = $update->getErrors();
+	$roster->tpl->assign_var('MESSAGES',$messages);
+
+	$roster->tpl->set_filenames(array('body' => 'update.html'));
+	$roster->tpl->display('body');
 }

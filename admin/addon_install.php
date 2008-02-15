@@ -99,6 +99,7 @@ if( !empty($addons) )
 			'FULLNAME'    => $addon['fullname'],
 			'BASENAME'    => $addon['basename'],
 			'VERSION'     => $addon['version'],
+			'OLD_VERSION' => $addon['oldversion'],
 			'DESCRIPTION' => $addon['description'],
 			'AUTHOR'      => $addon['author'],
 			'ACTIVE'      => ( isset($addon['active']) ? $addon['active'] : '' ),
