@@ -797,7 +797,7 @@ class update
 
 		if( isset($array[$key]) )
 		{
-			$this->add_value( $field, $array[$key] );
+			$this->add_value( $field, str_replace( chr(160), ' ', $array[$key] ) );
 			return true;
 		}
 		else
