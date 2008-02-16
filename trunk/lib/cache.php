@@ -201,6 +201,8 @@ class RosterCache
 	 */
 	function sqlCache( $sql, $link_id )
 	{
+		global $roster;
+		
 		$cache_file = $this->cache_dir . 'sql_' . md5($sql) . $this->cache_suffix;
 
 		$this->sql_link_id = $link_id;
@@ -216,10 +218,10 @@ class RosterCache
 		else
 		{
 			echo "Cache Created!<br>";
-			$result = @mysql_query($sql, $link_id);
+			$result = $roster->db->query($sql, $link_id);
 
 			$data = array();
-			while( $data = @mysql_fetch_array($result) )
+			while( $data = $roster->db->fetch($result) )
 			{
 				$this->sql_cache_data[] = $data;
 			}
