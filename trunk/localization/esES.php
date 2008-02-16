@@ -579,6 +579,7 @@ $lang['tooltip_equip_restores']='Equipar: Restaura';
 $lang['tooltip_equip_when']='Equipar: Cuando';
 $lang['tooltip_chance']='Probabilidad';
 $lang['tooltip_enchant']='Encantar';
+$lang['tooltip_random_enchant']='Encantamiento aleatorio';
 $lang['tooltip_set']='Conjunto|Bonif.';
 $lang['tooltip_rank']='Rango';
 $lang['tooltip_next_rank']='Siguiente Rango';

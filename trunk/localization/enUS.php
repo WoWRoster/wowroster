@@ -579,6 +579,7 @@ $lang['tooltip_equip_restores']='Equip: Restores';
 $lang['tooltip_equip_when']='Equip: When';
 $lang['tooltip_chance']='Chance';
 $lang['tooltip_enchant']='Enchant';
+$lang['tooltip_random_enchant']='Random enchantment';
 $lang['tooltip_set']='Set.';
 $lang['tooltip_rank']='Rank';
 $lang['tooltip_next_rank']='Next rank';

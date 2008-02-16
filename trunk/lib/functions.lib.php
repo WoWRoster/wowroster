@@ -499,6 +499,11 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 				{
 					$color = '00ff00';
 				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_random_enchant'], $line) )
+				{
+					$line = htmlspecialchars($line);
+					$color = '00ff00';
+				}
 				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'], $line) )
 				{
 					$color = '00bbff';
