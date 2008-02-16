@@ -1298,13 +1298,13 @@ class item
 			$test1 = htmlentities($test);
 			$test2 = utf8_decode($test);
 			$test3 = utf8_encode($test);
-			$test4 = '<table><tr>';
+			$test4 = '<table border="1" cellspacing="0" cellpadding="0"><tr>';
 			for ( $i = 0; $i < strlen($source); $i++ ) {
 				$char = substr( $source, $i, 1);
-				$test4 .= '<td>'. $char. "<br />". ord($char). "</td>";
+				$test4 .= '<td align="center">'. $char. "<br />". ord($char). "</td>";
 			}
-			$test4 = '</tr></table>';
-			$cmp = "Result=>__BR__". $source. "__BR____BR__htmlentities=>__BR__". $test1. "__BR____BR__utf8_decode=>__BR__". $test2. "__BR____BR__utf8_encode=>__BR__". $test3. "__BR____BR__ord=>__BR__". $test4;
+			$test4 .= '</tr></table>';
+			$cmp = "Result=>__BR__". $source. "__BR____BR__htmlentities=>__BR__". $test1. "__BR____BR__utf8_decode=>__BR__". $test2. "__BR____BR__utf8_encode=>__BR__". $test3. "__BR____BR__ord=>__BR__";
 
 			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br />" . implode('<br />', $unparsed) . '<br />' . str_replace( '__BR__', '<br />', htmlspecialchars( $cmp) . $test4 ) );
 			$this->isParseError = true;
