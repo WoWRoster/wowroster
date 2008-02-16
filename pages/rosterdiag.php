@@ -253,7 +253,7 @@ echo border('syellow','start','Basic Server Info').'
 	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">MySQL Version</td>
-		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.mysql_get_server_info().'</td>
+		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->db->server_info().'</td>
 	</tr>
 </table>'.
 border('syellow','end').'

@@ -538,4 +538,20 @@ class roster_db
 			return $this->prefix . $table;
 		}
 	}
+	
+	/**
+	 * Retrieves mysql server information
+	 * @return string mysql server info
+	 */
+	function server_info()
+	{
+		if(is_resource($this->link_id))
+		{
+			return mysql_get_server_info($this->link_id);
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

@@ -229,7 +229,7 @@ class memberslistUpdate
 				return false;
 			}
 
-			$row = mysql_fetch_array( $result );
+			$row = $roster->db->fetch( $result );
 
 			if ($row[0] == 1) {
 				$alt_type = ALTMONITOR_MAIN_NO_ALTS;
