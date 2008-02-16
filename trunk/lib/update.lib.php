@@ -797,7 +797,8 @@ class update
 
 		if( isset($array[$key]) )
 		{
-			$this->add_value( $field, str_replace( chr(160), ' ', $array[$key] ) );
+			// str_replace added to get rid of non breaking spaces in cp.lua tooltips
+			$this->add_value( $field, str_replace(chr(194).chr(160), ' ', $array[$key]) );
 			return true;
 		}
 		else
