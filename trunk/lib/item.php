@@ -316,13 +316,12 @@ class item
 		if( isset($this->attributes['Gems']) )
 		{
 			$gems = $this->attributes['Gems'];
-			$i = 0;
 			foreach( $gems as $gem )
 			{
 				$html .= '<img width="10px" height="10px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '" />'
 					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['Bonus'] . '</span><br />';
-				if ( $this->hasMetaGem && $i == 0 ) {
+				if ( $this->hasMetaGem && ereg( 'inv_misc_gem_diamond', $gem['Icon']  ) ) {
 					foreach ( $this->attributes['MetaRequires'] as $requirement )
 					{
 						if ( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_meta_requires_min'], $requirement, $matches) )
@@ -351,7 +350,6 @@ class item
 						}
 					}
 				}
-				$i++;
 			}
 		}
 		return $html;
