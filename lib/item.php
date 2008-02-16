@@ -307,8 +307,8 @@ class item
 			$emptysockets = $this->attributes['Sockets'];
 			foreach( $emptysockets as $socket_color => $socket_line )
 			{
-				$html .= '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
-					   . $roster->locale->act['socket_colors_to_en'][strtolower($socket_color)] . '.' . $roster->config['img_suffix'] . '"/>&nbsp;&nbsp;'
+				$html .= '<img width="10px" height="10px" src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
+					   . $roster->locale->wordings[$this->locale]['socket_colors_to_en'][strtolower($socket_color)] . '.' . $roster->config['img_suffix'] . '" />&nbsp;&nbsp;'
 					   . $socket_line . '<br />';
 			}
 		}
@@ -320,14 +320,14 @@ class item
 			foreach( $gems as $gem )
 			{
 				$html .= '<img width="10px" height="10px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '"/>'
+					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '" />'
 					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['Bonus'] . '</span><br />';
 				if ( $this->hasMetaGem && $i == 0 ) {
 					foreach ( $this->attributes['MetaRequires'] as $requirement )
 					{
-						if ( preg_match( $roster->locale->act['tooltip_preg_meta_requires_min'], $requirement, $matches) )
+						if ( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_meta_requires_min'], $requirement, $matches) )
 						{
-							$tmp = $roster->locale->act['gem_colors_to_en'];
+							$tmp = $roster->locale->wordings[$this->locale]['gem_colors_to_en'];
 							if ( $matches[1] <= $this->gemColors[$tmp[strtolower($matches[2])]] )
 							{
 								$html .= '<span style="color:#ffffff;">&nbsp;&nbsp;' . $requirement . '</span><br />';
@@ -337,9 +337,9 @@ class item
 								$html .= '<span style="color:#787880;">&nbsp;&nbsp;' . $requirement . '</span><br />';
 							}
 						}
-						elseif ( preg_match( $roster->locale->act['tooltip_preg_meta_requires_more'], $requirement, $matches) )
+						elseif ( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_meta_requires_more'], $requirement, $matches) )
 						{
-							$tmp = $roster->locale->act['gem_colors_to_en'];
+							$tmp = $roster->locale->wordings[$this->locale]['gem_colors_to_en'];
 							if ( $this->gemColors[$tmp[strtolower($matches[1])]] > $this->gemColors[$tmp[strtolower($matches[2])]] )
 							{
 								$html .= '<span style="color:#ffffff;">&nbsp;&nbsp;' . $requirement . '</span><br />';
@@ -1011,7 +1011,7 @@ class item
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
 			}
-			elseif( preg_match('/(?:.+socket*\n)?\n(.+)\n(?:' . $roster->locale->wordings[$locale]['tooltip_durability'] . '|\s\s' . $roster->locale->act['tooltip_reg_requires'] . ')/i', $tooltipWithoutColoredLines, $matches) )
+			elseif( preg_match('/\n(.+?)\n(?:' . $roster->locale->wordings[$locale]['tooltip_durability'] . '|\s\s' . $roster->locale->wordings[$locale]['tooltip_reg_requires'] . '|' . substr($roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], 1, strlen($roster->locale->wordings[$locale]['tooltip_preg_emptysocket']) - 3 ) . ')/i', $tooltipWithoutColoredLines, $matches) )
 			{
 				$tooltip = str_replace( $matches[1], '', $tooltip );
 				$tt['Attributes']['Enchantment'] = $matches[1];
@@ -1205,7 +1205,7 @@ class item
 					$setpiece=false;
 				}
 			}
-			elseif( preg_match($roster->locale->act['tooltip_preg_meta_requires'], $line ) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_meta_requires'], $line ) )
 			{
 				$tt['Attributes']['MetaRequires'][] = $line;
 				$this->hasMetaGem = true;
@@ -1294,7 +1294,21 @@ class item
 
 		if( isset( $unparsed ) )
 		{
-			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br />" . implode('<br />', $unparsed) );
+			$source = implode( '\n', $unparsed);
+			$test = "|". str_replace( "\n", "|__BR__|", $source). "|";
+			$test = str_replace( "\t", "|__BR__|", $test);
+			$test1 = htmlentities($test);
+			$test2 = utf8_decode($test);
+			$test3 = utf8_encode($test);
+			$test4 = '<table><tr>';
+			for ( $i = 0; $i < strlen($source); $i++ ) {
+				$char = substr( $source, $i, 1);
+				$test4 .= '<td>'. $char. "<br />". ord($char). "</td>";
+			}
+			$test4 = '</tr></table>';
+			$cmp = "Result=>__BR__". $source. "__BR____BR__htmlentities=>__BR__". $test1. "__BR____BR__utf8_decode=>__BR__". $test2. "__BR____BR__utf8_encode=>__BR__". $test3. "__BR____BR__ord=>__BR__". $test4;
+
+			trigger_error( "Failed to Parse \"$this->name\": [$this->item_id] ($this->locale) colorToolTip() used<br />" . implode('<br />', $unparsed) . '<br />' . str_replace( '__BR__', '<br />', htmlspecialchars( $cmp) . $test4 ) );
 			$this->isParseError = true;
 			$this->DEBUG_junk = $unparsed;
 		}

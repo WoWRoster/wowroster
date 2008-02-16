@@ -530,7 +530,7 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], $line, $matches) )
 				{
 					$line = '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
-						  . $roster->locale->act['socket_colors_to_en'][$matches[1]] . '.' . $roster->config['img_suffix'] . '">&nbsp;&nbsp;' . $matches[0];
+						  . $roster->locale->wordings[$locale]['socket_colors_to_en'][strtolower($matches[1])] . '.' . $roster->config['img_suffix'] . '" />&nbsp;&nbsp;' . $matches[0];
 				}
 				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
 				{
