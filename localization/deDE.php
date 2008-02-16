@@ -579,6 +579,7 @@ $lang['tooltip_equip_restores']='Anlegen: Stellt';
 $lang['tooltip_equip_when']='Anlegen: Erhöht';
 $lang['tooltip_chance']='Gewährt';
 $lang['tooltip_enchant']='Enchant';
+$lang['tooltip_random_enchant']='Zufällige Verzauberung';
 $lang['tooltip_set']='Set:';
 $lang['tooltip_rank']='Rang';
 $lang['tooltip_next_rank']='Nächster Rang';

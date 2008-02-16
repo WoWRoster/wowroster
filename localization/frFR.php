@@ -579,6 +579,7 @@ $lang['tooltip_equip_restores']='Équipé.:.Rend';
 $lang['tooltip_equip_when']='Équipé : Lorsque';
 $lang['tooltip_chance']='Chance';
 $lang['tooltip_enchant']='Enchantement';
+$lang['tooltip_random_enchant']='Enchantement aléatoire';
 $lang['tooltip_set']='Ensemble...|Complet...|Set...';
 $lang['tooltip_rank']='Rang';
 $lang['tooltip_next_rank']='Prochain rang';
