@@ -90,15 +90,18 @@ class keysUpdate
 
 		// Items
 		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
-			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
-			. "FROM (SELECT `locale`,`faction`,`key_name`,`stage`,`type`,`value`,`count` FROM `" . $roster->db->table('stages', $this->data['basename']) . "`) AS stages, "
-			. "`" . $roster->db->table('items') . "` AS data "
-			. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
-			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
-			. "AND (`stages`.`type` = 'In' AND `data`.`item_name` = `stages`.`value` "
-			. "OR `stages`.`type` = 'Ii' AND `data`.`item_id` LIKE CONCAT(`stages`.`value`, ':%')) "
-			. "GROUP BY `stages`.`key_name`, `stages`.`stage`, `stages`.`count` "
-			. "HAVING SUM(`data`.`item_quantity`) >= `stages`.`count`;";
+			. "SELECT '" . $member_id . "', `key_name`, `stage` "
+			. "FROM ("
+				. "SELECT `stages`.`key_name`, `stages`.`stage`, `stages`.`count` AS need_count, SUM(`data`.`item_quantity`) AS item_count "
+				. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
+				. "`" . $roster->db->table('items') . "` AS data "
+				. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
+				. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
+				. "AND (`stages`.`type` = 'In' AND `data`.`item_name` = `stages`.`value` "
+				. "OR `stages`.`type` = 'Ii' AND `data`.`item_id` LIKE CONCAT(`stages`.`value`, ':%')) "
+				. "GROUP BY `stages`.`key_name`, `stages`.`stage`, `stages`.`count` "
+			. ") AS data_query "
+			. "WHERE `item_count` >= `need_count`;";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' item stages activated';
 
