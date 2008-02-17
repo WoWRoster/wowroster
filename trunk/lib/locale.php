@@ -131,7 +131,7 @@ class roster_locale
 			$locale = $this->curlocale;
 		}
 
-		$lang = '';
+		$lang = array();
 		if( $addon != '' )
 		{
 			$localefile = ROSTER_ADDONS . $addon . DIR_SEP . 'locale' . DIR_SEP . $locale . '.php';
@@ -164,7 +164,7 @@ class roster_locale
 		}
 		else
 		{
-			return '';
+			return $key;
 		}
 	}
 }
