@@ -224,19 +224,6 @@ select {
  */
 .bodyline { border:1px #212121 solid; }
 
-.GuildInfoText {
-	background:url(../../img/paperback.jpg) no-repeat;
-	text-align:left;
-	font-weight:bold;
-	font-size:12px;
-	color:#260A17;
-	padding:10px 8px;
-	margin:0;
-	width:306px;
-	height:337px;
-	overflow:auto;
-}
-
 .lastupdated { color:#0099FF;font-size:x-small;font-style:italic; }
 
 

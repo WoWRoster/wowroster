@@ -112,4 +112,59 @@ class roster_locale
 			unset($lang);
 		}
 	}
+
+	/**
+	 * Method to get a locale string using the passed key/addonname/locale
+	 * Pass a key to return the desired locale string
+	 * If addonname is not passed, it will return $roster->locale->wordings[$locale][$key]
+	 * If locale is not passed, it will default to the current locale setting
+	 *
+	 * @param string $key | Locale string to return
+	 * @param string $addon | Addon to search key
+	 * @param string $locale | Locale to search key
+	 * @return string
+	 */
+	function get_string( $key , $addon='' , $locale='' )
+	{
+		if( $locale == '' )
+		{
+			$locale = $this->curlocale;
+		}
+
+		$lang = '';
+		if( $addon != '' )
+		{
+			$localefile = ROSTER_ADDONS . $addon . DIR_SEP . 'locale' . DIR_SEP . $locale . '.php';
+
+			if( file_exists($localefile) )
+			{
+				include($localefile);
+			}
+			else
+			{
+				$enUSfile = str_replace($locale . '.php','enUS.php',$localefile);
+				if( file_exists($enUSfile) )
+				{
+					include($enUSfile);
+				}
+			}
+		}
+
+		if( isset($lang[$key]) )
+		{
+			return $lang[$key];
+		}
+		elseif( isset($this->wordings[$locale][$key]) )
+		{
+			return $this->wordings[$locale][$key];
+		}
+		elseif( isset($this->act[$key]) )
+		{
+			return $this->act[$key];
+		}
+		else
+		{
+			return '';
+		}
+	}
 }

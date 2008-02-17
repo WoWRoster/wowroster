@@ -1365,7 +1365,7 @@ function array_overlay( $skel , &$arr )
 		}
 		else
 		{
-			// UnComment if you want to know if you are overwritting a locale variable
+			// UnComment if you want to know if you are overwritting a variable
 			//trigger_error('Key already set: ' . $key . '->' . $arr[$key] . '<br />&nbsp;&nbsp;New value tried: ' . $skel[$key]);
 		}
 	}
