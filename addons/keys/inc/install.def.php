@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1667';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
+	var $version = '1.9.9.1686';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -84,6 +84,11 @@ class keysInstall
 			`flow` char(2) NOT NULL DEFAULT '',
 			`active` int(1) NOT NULL DEFAULT 0,
 			PRIMARY KEY (`locale`, `faction`, `key_name`, `stage`)");
+
+		$installer->create_table($installer->table('categories'),"
+			`category` varchar(16) NOT NULL DEFAULT '',
+			`key` varchar(16) NOT NULL DEFAULT '',
+			PRIMARY KEY (`category`, `key`)");
 
 		$this->loadkeys( 'install_' );
 
@@ -157,6 +162,14 @@ class keysInstall
 		}
 
 		// 1667: frFR key defines
+
+		if( version_compare( $oldversion, '1.9.9.1686', '<' ) )
+		{
+			$installer->create_table($installer->table('categories'),"
+				`category` varchar(16) NOT NULL DEFAULT '',
+				`key` varchar(16) NOT NULL DEFAULT '',
+				PRIMARY KEY (`category`, `key`)");
+		}
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
 		$this->loadkeys( 'install_' );
