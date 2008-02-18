@@ -34,19 +34,14 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 	}
 }
 
-$table = "<table class='bodyline'>\n"
-	. "\t<thead>\n"
-	. "\t\t<tr>\n"
-	. "\t\t\t<th class='membersHeader'>Category</th>\n"
-	. "\t\t\t<th class='membersHeader'>Key</th>\n"
-	. "\t\t\t<th class='membersHeaderRight'>Delete</th>\n"
-	. "\t\t</tr>\n"
-	. "\t</thead>\n"
-	. "\t<tfoot>\n"
-	. "\t\t<tr>\n"
-	. "\t\t\t<td><input class='wowinput128' type='text' name='category' value='' /></td>\n"
-	. "\t\t\t<td>\n"
-	. "\t\t\t\t<select name='key'>\n";
+$roster->tpl->assign_vars(array(
+	'L_CATEGORY' => 'Category',
+	'L_KEY'      => 'Key',
+	'L_DELETE'   => 'Delete',
+	'L_ADD'      => 'Add',
+	'L_KEY_CATEGORIES' => 'Key Categories'
+	)
+);
 
 $query = "SELECT DISTINCT key_name "
 	. "FROM `" . $roster->db->table('keys', 'keys') . "` "
@@ -56,19 +51,12 @@ $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch($result) )
 {
-	$table .= "\t\t\t\t\t<option name='" . $row['key_name'] . "'>" . $row['key_name'] . "</option>\n";
+	$roster->tpl->assign_block_vars('key_select',array(
+		'NAME' => $row['key_name'],
+		'VALUE' => $row['key_name'],
+		)
+	);
 }
-
-$table .= "\t\t\t\t</select>\n"
-	. "\t\t\t</td>\n"
-	. "\t\t\t<td>"
-	. "\t\t\t\t" . '<button type="submit" class="input" onclick="setvalue(\'action\',\'add\');">' . "\n"
-	. "\t\t\t\t\tAdd\n"
-	. "\t\t\t\t</button>\n"
-	. "\t\t\t</td>\n"
-	. "\t\t</tr>\n"
-	. "\t</tfoot>\n"
-	. "\t<tbody>\n";
 
 $query = "SELECT `category`, `key` "
 	. "FROM `" . $roster->db->table('categories', 'keys') . "` "
@@ -78,24 +66,16 @@ $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch($result) )
 {
-	$table .= "\t\t<tr>\n"
-		. "\t\t\t<td class='membersRow1'>" . $row['category'] . "</td>\n"
-		. "\t\t\t<td class='membersRow1'>" . $row['key'] . "</td>\n"
-		. "\t\t\t<td class='membersRowRight1'>\n"
-		. "\t\t\t\t" . '<button type="submit" class="input" onclick="setvalue(\'action\',\'del_' . $row['category'] . '_' . $row['key'] . '\');">' . "\n"
-		. "\t\t\t\t\tDelete\n"
-		. "\t\t\t\t</button>\n"
-		. "\t\t\t</td>\n"
-		. "\t\t</tr>\n";
+	$roster->tpl->assign_block_vars('categories',array(
+		'ROW_CLASS' => $roster->switch_row_class(),
+		'KEY' => $row['key'],
+		'CATEGORY' => $row['category'],
+		)
+	);
 }
-
-$table .= "\t</tbody>\n"
-	. "</table>\n";
 
 $roster->db->free_result($result);
 
-$body .= '<form action="' . makelink() . '" method="post">' . "\n"
-	. "\t" . '<input type="hidden" id="action" name="action" value="" />' . "\n"
-	. "\t" . '<input type="hidden" name="process" value="process" />' . "\n"
-	. messagebox($table, 'Key Categories', 'syellow')
-	. '</form>' . "\n";
+$roster->tpl->set_handle('categories',$addon['basename'] . '/admin/categories.html');
+
+$body .= $roster->tpl->fetch('categories');
