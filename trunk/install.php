@@ -75,12 +75,12 @@ class Template_Wrap extends RosterTemplate
 		);
 
 		//$this->_tpldata['.'][0]['REQUEST_URI'] = str_replace('&', '&amp;', substr(request_uri(),strlen(ROSTER_PATH)));
-		$this->root = 'templates/' . $this->tpl;
+		$this->root = ROSTER_TPLDIR . $this->tpl;
 	}
 
 	function message_die( $text = '' , $title = '' )
 	{
-		$this->set_filenames(array('body' => 'install_error.html'));
+		$this->set_handle('body', 'install_error.html');
 
 		$this->install_message = array();
 
@@ -164,7 +164,7 @@ class Template_Wrap extends RosterTemplate
 			)
 		);
 
-		$this->set_filenames(array('header' => 'install_header.html'));
+		$this->set_handle('header', 'install_header.html');
 	}
 
 	function page_tail()
@@ -197,7 +197,7 @@ class Template_Wrap extends RosterTemplate
 			$db->close_db();
 		}
 
-		$this->set_filenames(array('footer' => 'install_tail.html'));
+		$this->set_handle('footer', 'install_tail.html');
 
 		$this->display('header');
 
@@ -244,7 +244,7 @@ $STEP = ( isset($_POST['install_step']) ? $_POST['install_step'] : '1' );
 if( defined('ROSTER_INSTALLED') )
 {
 	$tpl = new Template_Wrap();
-	$tpl->set_filenames(array('body' => 'install_error.html'));
+	$tpl->set_handle('body', 'install_error.html');
 	$tpl->message_die('WoWRoster is already installed - please remove the file <strong>install.php</strong>', 'Installation Error');
 }
 
@@ -329,7 +329,7 @@ function process_step1()
 	global $DEFAULTS, $REQUIRE;
 
 	$tpl = new Template_Wrap();
-	$tpl->set_filenames(array('body' => 'install_step1.html'));
+	$tpl->set_handle('body', 'install_step1.html');
 
 	/**
 	 * Check to make sure conf.php exists and is readable / writeable
@@ -480,7 +480,7 @@ function process_step2()
 	global $DEFAULTS, $DBALS, $LOCALES;
 
 	$tpl = new Template_Wrap();
-	$tpl->set_filenames(array('body' => 'install_step2.html'));
+	$tpl->set_handle('body', 'install_step2.html');
 
 	/**
 	 * Build the default language drop-down
@@ -548,7 +548,7 @@ function process_step3()
 	global $DEFAULTS, $DBALS, $LOCALES, $REQUIRE;
 
 	$tpl = new Template_Wrap();
-	$tpl->set_filenames(array('body' => 'install_step3.html'));
+	$tpl->set_handle('body', 'install_step3.html');
 
 	/**
 	 * Get our posted data
@@ -561,6 +561,10 @@ function process_step3()
 	$db_config['table_prefix'] = post_or_db('table_prefix', $DEFAULTS);
     $default_locale            = post_or_db('default_locale', $DEFAULTS);
     $server_name               = post_or_db('server_name');
+
+	$create['username']     = post_or_db('dbuser_c');
+	$create['password']     = post_or_db('dbpass_c');
+
 
 	define('CONFIG_TABLE', $db_config['table_prefix'] . 'config');
 	define('ROSTER_DB_DIR',  ROSTER_LIB . 'dbal' . DIR_SEP);
@@ -575,6 +579,17 @@ function process_step3()
 	 * Database population
 	 */
 	include_once($dbal_file);
+
+	// Hey, looks like we are making the database, YAY!
+	if( $create['username'] != '' && $create['password'] != '' )
+	{
+		include_once($dbal_file);
+		$db = new roster_db($db_config['host'], '', $create['username'], $create['password']);
+		$db->query("CREATE DATABASE IF NOT EXISTS `" . $db_config['database'] . "`;");
+		unset($db,$create);
+	}
+
+	// Try to connect
 	$db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
 	$db->log_level();
 	$db->error_die();
@@ -582,7 +597,9 @@ function process_step3()
 	// Check to make sure a connection was made
 	if( !is_resource($db->link_id) )
 	{
-		$tpl->message_die('Failed to connect to database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br /><br /><a href="index.php">Restart Installation</a>');
+		// Attempt to
+		$tpl->message_die('Failed to connect to database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />'
+			. '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
 	}
 
 	$db_structure_file = ROSTER_DB_DIR . 'structure' . DIR_SEP . $db_config['dbtype'] . '_structure.sql';
@@ -591,8 +608,8 @@ function process_step3()
 	$remove_remarks_function = $DBALS[$db_config['dbtype']]['comments'];
 
 	// I require MySQL version 4.1.0 minimum.
-	$server_version = mysql_get_server_info();
-	$client_version = mysql_get_client_info();
+	$server_version = $db->server_info();
+	$client_version = $db->client_info();
 
 	if( (isset($server_version) && isset($client_version)) )
 	{
@@ -617,7 +634,8 @@ function process_step3()
 	}
 	else
 	{
-		$tpl->message_die('Failed to get version information for database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br /><br /><a href="index.php">Restart Installation</a>');
+		$tpl->message_die('Failed to get version information for database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />'
+			. '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
 	}
 
 	// Parse structure file and create database tables
@@ -721,7 +739,7 @@ function process_step4()
 	global $DEFAULTS;
 
 	$tpl = new Template_Wrap();
-	$tpl->set_filenames(array('body' => 'install_step4.html'));
+	$tpl->set_handle('body', 'install_step4.html');
 
 	/**
 	 * Get our posted data
