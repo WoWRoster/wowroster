@@ -20,6 +20,7 @@ $lang['keys_desc'] = 'Lists Azeroth Dungeon keys for guild members';
 $lang['keybutton'] = 'Schlüssel|Lists Azeroth Dungeon keys for guild members';
 
 $lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
+$lang['admin']['keys_cats'] = 'Categories|Define what keys to show in what categories';
 $lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';
 $lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/Parts tooltip';
 $lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
