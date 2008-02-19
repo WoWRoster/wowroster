@@ -238,7 +238,7 @@ class Template_Wrap extends RosterTemplate
 	}
 }
 
-$STEP = ( isset($_POST['install_step']) ? $_POST['install_step'] : '1' );
+$STEP = ( isset($_POST['install_step']) ? $_POST['install_step'] : '0' );
 
 // If Roster is already installed, don't let them install it again
 if( defined('ROSTER_INSTALLED') )
@@ -304,6 +304,9 @@ $LOCALES = array(
  */
 switch( $STEP )
 {
+	case 0:
+		process_step0();
+		break;
 	case 1:
 		process_step1();
 		break;
@@ -324,6 +327,36 @@ switch( $STEP )
 /**
  * And do it
  */
+function process_step0()
+{
+	$tpl = new Template_Wrap();
+	$tpl->set_handle('body', 'install_step0.html');
+
+	if( file_exists(ROSTER_BASE . 'license.txt') )
+	{
+
+		if( function_exists('readgzfile') )
+		{
+			ob_start();
+				readgzfile(ROSTER_BASE . 'license.txt');
+			$content = ob_get_clean();
+			$tpl->assign_var('LICENSE', $content);
+		}
+		else
+		{
+			$tpl->assign_var('LICENSE', false);
+		}
+	}
+	else
+	{
+		$tpl->set_handle('body', 'install_error.html');
+		$tpl->message_die('You removed the license.txt file<br /><br />This file MUST be present to install Roster!', 'Installation Error');
+	}
+
+	$tpl->page_header();
+	$tpl->page_tail();
+}
+
 function process_step1()
 {
 	global $DEFAULTS, $REQUIRE;
@@ -470,7 +503,6 @@ function process_step1()
 		)
 	);
 
-	$tpl->sql_output();
 	$tpl->page_header();
 	$tpl->page_tail();
 }
@@ -537,8 +569,6 @@ function process_step2()
 		)
 	);
 
-
-	$tpl->sql_output();
 	$tpl->page_header();
 	$tpl->page_tail();
 }
