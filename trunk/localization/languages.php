@@ -76,6 +76,8 @@ $creditspage['devs'] = array(
 					"info"=>	"<a href='http://www.walterzorn.com/dragdrop/dragdrop_e.htm'>DHTML Drag/Drop library</a><br /><a href='http://gnu.org/copyleft/lesser.html'>Lesser General Public License</a>"),
 			array(	"name"=>	"MiniXML",
 					"info"=>	"<a href='http://minixml.psychogenic.com'>MiniXML Library</a><br /><a href='http://gnu.org/copyleft/gpl.html'>GNU General Public License</a>"),
+			array(  "name"=>	"nicEdit",
+					"info"=>	"<a href='http://www.nicEdit.com'>nicEdit</a><br /><a href='http://www.nicedit.com/license.php'>MIT License</a>"),
 		),
 
 		'3rdparty'=>array(
