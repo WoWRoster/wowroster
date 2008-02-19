@@ -24,7 +24,7 @@ Any of these conditions can be waived if you get permission from the dev team at
 
 ---------------------------------------------------------------------------------------------------
 
-Serveral external libraries are included with WoWRoster that are not included under the main WoWRoster license
+Several external libraries are included with WoWRoster that are not included under the main WoWRoster license
 
 These are:
 
@@ -73,10 +73,9 @@ MiniXML Library
       o lib/minixml/LICENSE
       o lib/minixml/node.inc.php
       o lib/minixml/treecomp.inc.php
-	  
+
 NicEdit
   * http://www.nicedit.com
   * MIT License: http://www.nicedit.com/license.php
   * This concerns the files:
       o js/nicEdit.js
-	  
