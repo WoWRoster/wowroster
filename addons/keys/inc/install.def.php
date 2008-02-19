@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1686';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
+	var $version = '1.9.9.1696';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -52,7 +52,7 @@ class keysInstall
 		// Master and menu entries
 		$installer->add_config("'1','startpage','keys_conf','display','master'");
 		$installer->add_config("'110','keys_conf',NULL,'blockframe','menu'");
-
+		$installer->add_config("'200','keys_cats','rostercp-addon-keys-categories','makelink','menu'");
 		$installer->add_config("'1010','colorcmp','#00ff00','color','keys_conf'");
 		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
 		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
@@ -169,6 +169,11 @@ class keysInstall
 				`category` varchar(16) NOT NULL DEFAULT '',
 				`key` varchar(16) NOT NULL DEFAULT '',
 				PRIMARY KEY (`category`, `key`)");
+		}
+
+		if( version_compare( $oldversion, '1.9.9.1696', '<' ) )
+		{
+			$installer->add_config("'200','keys_cats','rostercp-addon-keys-categories','makelink','menu'");
 		}
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.

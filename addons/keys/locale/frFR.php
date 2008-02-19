@@ -20,6 +20,7 @@ $lang['keys_desc'] = 'Liste les clefs des donjons que possèdent les membres de 
 $lang['keybutton'] = 'Clefs|Liste les clefs des donjons que possèdent les membres de la guilde';
 
 $lang['admin']['keys_conf'] = 'Paramètres principaux|Paramètres principaux pour les clefs d\'instance';
+$lang['admin']['keys_cats'] = 'Categories|Define what keys to show in what categories';
 $lang['admin']['colorcmp'] = 'Couleur étape achevée|Couleur pour les étapes achevées apparaissant dans l\'infobulle de suivi de quête/partie';
 $lang['admin']['colorcur'] = 'Couleur étape en cours|Couleur pour l\'étape en cours apparaissant dans l\'infobulle de suivi de quête/partie';
 $lang['admin']['colorno'] = 'Couleur étape à venir|Couleur pour les étapes à venir apparaissant dans l\'infobulle de suivi des étapes pour l\'acquisition de la clef (quêtes ou parties)';
