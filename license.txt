@@ -73,3 +73,10 @@ MiniXML Library
       o lib/minixml/LICENSE
       o lib/minixml/node.inc.php
       o lib/minixml/treecomp.inc.php
+	  
+NicEdit
+  * http://www.nicedit.com
+  * MIT License: http://www.nicedit.com/license.php
+  * This concerns the files:
+      o js/nicEdit.js
+	  

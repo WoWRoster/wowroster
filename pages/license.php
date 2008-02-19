@@ -130,4 +130,15 @@ that are not included under the main WoWRoster license</span></p>
 		</ul>
 	</li>
 </ul>
+
+<strong>NicEdit</strong>
+<ul>
+	<li><a href=\"http://www.nicedit.com\" target=\"_blank\">http://www.nicedit.com</a></li>
+	<li>MIT License: <a href=\"http://www.nicedit.com/license.php\" target=\"_blank\">http://www.nicedit.com/license.php</a></li>
+	<li>This concerns the files:
+		<ul>
+			<li>js/nicEdit.js</li>
+		</ul>
+	</li>
+</ul>
 </div>",'WoWRoster License');
