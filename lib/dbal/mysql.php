@@ -112,7 +112,7 @@ class roster_db
 	 * @param $prefix Database prefix
 	 * @return mixed Link ID / false
 	 */
-	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix )
+	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix='' )
 	{
 		global $roster;
 
@@ -538,14 +538,14 @@ class roster_db
 			return $this->prefix . $table;
 		}
 	}
-	
+
 	/**
 	 * Retrieves mysql server information
 	 * @return string mysql server info
 	 */
 	function server_info()
 	{
-		if(is_resource($this->link_id))
+		if( is_resource($this->link_id) )
 		{
 			return mysql_get_server_info($this->link_id);
 		}
@@ -553,5 +553,14 @@ class roster_db
 		{
 			return false;
 		}
+	}
+
+	/**
+	 * Retrieves mysql client information
+	 * @return string mysql client info
+	 */
+	function client_info()
+	{
+		return mysql_get_client_info();
 	}
 }
