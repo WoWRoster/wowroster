@@ -37,6 +37,8 @@ class Install
 
 	var $addon_id;
 
+	var $temp_tables=true;	// addon_install.php does a create temp table check
+
 	/**
 	 * Add a query to be installed.
 	 *
@@ -58,7 +60,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = 'CREATE' . ( $roster->config['use_temp_tables'] ? ' TEMPORARY ' : ' ' ) . 'TABLE `backup_' . $table . '` LIKE `' . $table . '`';
+		$this->sql[] = 'CREATE' . ( $this->temp_tables ? ' TEMPORARY ' : ' ' ) . 'TABLE `backup_' . $table . '` LIKE `' . $table . '`';
 		$this->sql[] = 'INSERT INTO `backup_' . $table . '` SELECT * FROM `' . $table . '`';
 		$this->tables[$table] = true; // Restore backup on rollback
 	}
