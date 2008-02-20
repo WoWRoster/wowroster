@@ -79,3 +79,14 @@ $roster->db->free_result($result);
 $roster->tpl->set_handle('categories',$addon['basename'] . '/admin/categories.html');
 
 $body .= $roster->tpl->fetch('categories');
+
+
+$tab1 = explode('|',$roster->locale->act['admin']['keys_conf']);
+$tab2 = explode('|',$roster->locale->act['admin']['keys_cats']);
+
+$menu .= messagebox('
+<ul class="tab_menu">
+	<li><a href="' . makelink('rostercp-addon-keys') . '" style="cursor:help;"' . makeOverlib($tab1[1],$tab1[0],'',1,'',',WRAP') . '>' . $tab1[0] . '</a></li>
+	<li class="selected"><a href="' . makelink('rostercp-addon-keys-categories') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
+</ul>
+',$roster->locale->act['roster_config_menu'],'sgray','145px');
