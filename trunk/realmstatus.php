@@ -123,7 +123,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 		{
 			foreach( $simpleParser->data->r as $value )
 			{
-				if( $value->n == $realmname )
+				if( str_replace(' ','',$value->n) == str_replace(' ','',$realmname) )
 				{
 					$err = 0;
 					switch( strtoupper($value->s) )
@@ -196,7 +196,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 		{
 			foreach( $simpleParser->data->channel->item as $value )
 			{
-				if( $value->title->_CDATA == $realmname )
+				if( str_replace(' ','',$value->title->_CDATA) == str_replace(' ','',$realmname) )
 				{
 					$err = 0;
 					switch( strtoupper($value->category[0]->_CDATA) )
