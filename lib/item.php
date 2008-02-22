@@ -938,6 +938,10 @@ class item
 		$tooltip = str_replace('<br>', "\n",$tooltip);
 		$tooltip = str_replace('<br />', "\n",$tooltip);
 
+		// Another filter for non breaking spaces
+		// this might be removed once all character data is updated
+		$tooltip = str_replace(chr(194).chr(160), ' ', $tooltip);
+
 		// As enchants can't be in colored lines we make a copy of tooltip without colored lines
 		$tooltipWithoutColoredLines = $tooltip;
 		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
