@@ -733,12 +733,12 @@ function process_step3()
 	 */
 	$config_file  = "<?php\n";
 	$config_file .= "/**\n * AUTO-GENERATED CONF FILE\n * DO NOT EDIT !!!\n */\n\n";
-	$config_file .= "\$db_config['host']         = '" . $db_config['host']         . "';\n";
-	$config_file .= "\$db_config['username']     = '" . $db_config['username']     . "';\n";
-	$config_file .= "\$db_config['password']     = '" . $db_config['password']     . "';\n";
-	$config_file .= "\$db_config['database']     = '" . $db_config['database']     . "';\n";
-	$config_file .= "\$db_config['table_prefix'] = '" . $db_config['table_prefix'] . "';\n";
-	$config_file .= "\$db_config['dbtype']       = '" . $db_config['dbtype']       . "';\n";
+	$config_file .= "\$db_config['host']         = " . var_export($db_config['host'],true)         . ";\n";
+	$config_file .= "\$db_config['username']     = " . var_export($db_config['username'],true)     . ";\n";
+	$config_file .= "\$db_config['password']     = " . var_export($db_config['password'],true)     . ";\n";
+	$config_file .= "\$db_config['database']     = " . var_export($db_config['database'],true)     . ";\n";
+	$config_file .= "\$db_config['table_prefix'] = " . var_export($db_config['table_prefix'],true) . ";\n";
+	$config_file .= "\$db_config['dbtype']       = " . var_export($db_config['dbtype'],true)       . ";\n";
 
 	// Set our permissions to execute-only
 	@umask(0111);
