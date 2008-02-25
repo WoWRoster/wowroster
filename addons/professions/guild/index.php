@@ -103,9 +103,11 @@ if( $roster->db->num_rows($result) )
 		$stripe_class = 'membersRow' . $stripe_counter;
 		$stripe_class_right =  'membersRowRight' . $stripe_counter;
 
+		$max_level = ( $skill_name == $roster->locale->wordings[$row['clientLocale']]['Poisons'] ? '350' : ROSTER_MAXSKILLLEVEL );
+
 		// Setup some user row data
 		$level_array = explode (':',$row['skill_level']);
-		$levelpct = $level_array[0] / $level_array[1] * 100 ;
+		$levelpct = $level_array[0] / ( $max_level > $level_array[1] ? $max_level : $level_array[1] ) * 100;
 		settype( $levelpct, 'integer' );
 
 		if ( !$levelpct )

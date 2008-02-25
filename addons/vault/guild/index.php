@@ -89,7 +89,7 @@ if( $roster->auth->getAuthorized($addon['config']['money']) )
 
 
 
-$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/vault.html'));
+$roster->tpl->set_handle('body', $addon['basename'] . '/vault.html');
 $roster->tpl->display('body');
 
 

@@ -57,7 +57,7 @@ class memberslistSearch
 		$sql = "SELECT `member_id`, `name`, `server`, `region`, `guild_id`, `class`, `level`, `note`, `guild_rank`,`guild_title`, `zone`, `last_online`"
 			 . " FROM `" . $roster->db->table('members') . "`"
 			 . " WHERE (`member_id` LIKE '%$search%'"
-				 . " OR `name` LIKE '%$search%'"
+				 . " OR `name` LIKE '%" . ucfirst($search) . "%'"
 				 . " OR `server` LIKE '%$search%'"
 				 . " OR `region` LIKE '%$search%'"
 				 . " OR `guild_id` LIKE '%$search%'"
