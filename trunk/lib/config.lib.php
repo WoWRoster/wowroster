@@ -156,7 +156,7 @@ class roster_config
 
 				case 'pageframe':
 					$page .= border('sblue','start',$header_text) . "\n";
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
 					$page .= border('sblue','end') . "\n";
@@ -170,7 +170,7 @@ class roster_config
 					$page .= '</div>' . "\n";
 					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
 					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
@@ -180,7 +180,7 @@ class roster_config
 
 				case 'blockframe':
 					$page .= border('sblue','start',$header_text) . "\n";
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
 					$page .= border('sblue','end') . "\n";
@@ -194,7 +194,7 @@ class roster_config
 					$page .= '</div>' . "\n";
 					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
 					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
@@ -252,8 +252,8 @@ class roster_config
 					break;
 
 				case 'pageframe':
-					$html .= border('sblue','start',$header_text) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= border('sblue','start',$header_text) . "\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
 					$html .= border('sblue','end');
@@ -266,7 +266,7 @@ class roster_config
 					$html .= '</div>' . "\n";
 					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
 					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
-					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
 					$html .= border('sblue','end');
@@ -275,7 +275,7 @@ class roster_config
 
 				case 'blockframe':
 					$html .= border('sblue','start',$header_text) . "\n";
-					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= "</table>\n";
 					$html .= border('sblue','end') . "\n";
@@ -288,7 +288,7 @@ class roster_config
 					$html .= '</div>' . "\n";
 					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
 					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
-					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline">' . "\n";
+					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline" width="100%">' . "\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= '</table>' . "\n";
 					$html .= border('sblue','end');
