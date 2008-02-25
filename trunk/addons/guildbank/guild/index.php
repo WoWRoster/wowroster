@@ -68,18 +68,18 @@ if( ! $roster->auth->getAuthorized( $addon['config']['bank_access'] ) )
 
 $roster->tpl->assign_vars(array(
 	'U_FULL' => makelink('&amp;mode=full'),
-	'U_INV' => makelink('&amp;mode=inv'),
+	'U_INV'  => makelink('&amp;mode=inv'),
 
-	'S_MONEY' => (bool)$addon['config']['bank_money'],
+	'S_MONEY'      => (bool)$addon['config']['bank_money'],
 	'S_INFO_ADDON' => active_addon('info'),
 
 	'S_COLUMNS' => $columns,
 	'S_MODE'    => $gbank_mode,
 
-	'L_GUILDBANK' => $roster->locale->act['guildbank'],
-	'L_LIST' => $roster->locale->act['gbank_list'],
-	'L_INV' => $roster->locale->act['gbank_inv'],
-	'L_TOTAL_MONEY' => $roster->locale->act['guildbank_totalmoney'],
+	'L_GUILDBANK'    => $roster->locale->act['guildbank'],
+	'L_LIST'         => $roster->locale->act['gbank_list'],
+	'L_INV'          => $roster->locale->act['gbank_inv'],
+	'L_TOTAL_MONEY'  => $roster->locale->act['guildbank_totalmoney'],
 	'L_LAST_UPDATED' => $roster->locale->act['lastupdate'],
 	)
 );
@@ -159,10 +159,10 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 	$itemsOnMule = $roster->db->query($itemsOnMuleQuery);
 
 	$roster->tpl->assign_block_vars('bank',array(
-		'ID' => $muleRow['member_id'],
-		'NAME' => $muleRow['member_name'],
-		'LINK' => makelink('char-info&amp;a=c:' . $muleRow['member_id']),
-		'NOTE' => $note,
+		'ID'      => $muleRow['member_id'],
+		'NAME'    => $muleRow['member_name'],
+		'LINK'    => makelink('char-info&amp;a=c:' . $muleRow['member_id']),
+		'NOTE'    => $note,
 		'UPDATED' => $date_char_data_updated,
 		'MONEY_C' => $muleRow['gold'],
 		'MONEY_S' => $muleRow['silver'],
@@ -186,10 +186,10 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 			$item = new item($itemRow);
 
 			$roster->tpl->assign_block_vars('bank.items',array(
-				'ITEM' => $item->out(),
+				'ITEM'         => $item->out(),
 				'ITEM_TOOLTIP' => $item->html_tooltip,
-				'ROW_CLASS' => $roster->switch_row_class(),
-				'COUNT' => $column_counter
+				'ROW_CLASS'    => $roster->switch_row_class(),
+				'COUNT'        => $column_counter
 				)
 			);
 

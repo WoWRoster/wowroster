@@ -57,12 +57,12 @@ $roster->tpl->assign_vars(array(
 	)
 );
 
-if($addon['config']['news_nicedit'] > 0)
+if( $addon['config']['comm_html'] >= 0 && $addon['config']['news_nicedit'] > 0 )
 {
-	$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"http://js.nicedit.com/nicEdit.js\"></script>
-<script type=\"text/javascript\">
-    bkLib.onDomLoaded(nicEditors.allTextAreas);
-</script>";
+	$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'js/nicEdit.js"></script>
+<script type="text/javascript">
+     bkLib.onDomLoaded(nicEditors.allTextAreas);
+</script>';
 }
 
 $roster->tpl->set_filenames(array('body' => $addon['basename'] . '/comment_edit.html'));

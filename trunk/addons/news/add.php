@@ -33,7 +33,7 @@ $roster->tpl->assign_vars(array(
 	'L_TITLE'        => $roster->locale->act['title'],
 	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
-	
+
 	'S_HTML_ENABLE' => false,
 	'S_NEWS_HTML'   => $addon['config']['news_html'],
 
@@ -47,10 +47,10 @@ if($addon['config']['news_html'] >= 0)
 
 	if($addon['config']['news_nicedit'] > 0)
 	{
-		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"http://js.nicedit.com/nicEdit.js\"></script>
-<script type=\"text/javascript\">
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'js/nicEdit.js"></script>
+<script type="text/javascript">
      bkLib.onDomLoaded(nicEditors.allTextAreas);
-</script>";
+</script>';
 	}
 }
 
