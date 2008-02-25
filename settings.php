@@ -308,6 +308,7 @@ $roster->tpl->assign_vars(array(
 	'HEADER_LOGO'     => $roster->config['logo'],
 	'IMG_URL'         => $roster->config['img_url'],
 	'INTERFACE_URL'   => $roster->config['interface_url'],
+	'IMG_SUFFIX'      => $roster->config['img_suffix'],
 	'ROSTER_VERSION'  => $roster->config['version'],
 	'ROSTER_CREDITS'  => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
 	'XML_LANG'        => substr($roster->config['locale'],0,2),

@@ -22,15 +22,25 @@ if ( !defined('IN_ROSTER') )
 
 $roster->output['title'] = $roster->locale->act['professions'];
 
-print '<span class="title_text">' . $roster->locale->act['professions'] . '</span>';
 // ----[ Check log-in ]-------------------------------------
 if( ! $roster->auth->getAuthorized( $addon['config']['professions_access'] ) )
 {
+	print '<span class="title_text">' . $roster->locale->act['professions'] . "</span>\n";
 	print '<br />' . $roster->auth->getLoginForm();
 
 	return;
 }
 // ----[ End Check log-in ]---------------------------------
+
+$roster->tpl->assign_vars(array(
+	'S_HIDE'       => $addon['config']['collapse_list'],
+	'S_INFO_ADDON' => active_addon('info'),
+
+	'L_PROFESSIONS' => $roster->locale->act['professions'],
+	'L_LEVEL'       => $roster->locale->act['level'],
+	'L_NAME'        => $roster->locale->act['name'],
+	)
+);
 
 // Build a list of "Skills" to look for
 $inClause = "'";
@@ -55,90 +65,65 @@ $query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `" 
 $result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 
-############################### START OUTPUT ##############################
-
-// Counter for row striping
-$striping_counter = 0;
-$last_value = 'some obscurely random string to keep me lazy';
-
-
 if( $roster->db->num_rows($result) )
 {
-	$id = 0;
 	while( $row = $roster->db->fetch($result) )
 	{
 		$skill_name = $row['skill_name'];
-		$skill_image = 'Interface/Icons/' . $roster->locale->wordings[$row['clientLocale']]['ts_iconArray'][$skill_name];
-		$skill_image = '<div style="display:inline;float:left;"><img width="17" height="17" src="' . $roster->config['interface_url'] . $skill_image . '.' . $roster->config['img_suffix'] . '" alt="" /></div>';
-
-		$skill_output = '<div style="cursor:pointer;width:370px;" onclick="showHide(\'table_' . $id . '\',\'img_' . $id . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
-	' . $skill_image . '
-	<div style="display:inline;float:right;"><img id="img_' . $id . '" src="' . $roster->config['img_url'] . ( $addon['config']['collapse_list'] ? 'plus' : 'minus' ) . '.gif" alt="" /></div>
-' . $skill_name . '</div>';
-
-		if( $last_value != $skill_name )
+		foreach( $roster->multilanguages as $lang )
 		{
-			if( $striping_counter )
+			if( $key = array_search($skill_name,$roster->locale->wordings[$lang]) )
 			{
-				print '</table>';
-				print border('sgray','end');
-				print '<br />';
+				break;
 			}
-
-			print border('sgray','start',$skill_output);
-			print ('
-<table border="0" cellpadding="0" cellspacing="0" class="bodyline" id="table_'.$id.'"' . ( $addon['config']['collapse_list'] ? ' style="display:none;"' : '' ) . '>
-	<tr>
-		<th class="membersHeader">' . $roster->locale->act['level'] . '</th>
-		<th class="membersHeaderRight" width="150">' . $roster->locale->act['name'] . '</th>
-	</tr>
-');
-
-			$striping_counter = 0;
-			$last_value = $skill_name;
 		}
-
-		// Increment counter so rows are colored alternately
-		$stripe_counter = ( ( $striping_counter++ % 2 ) + 1 );
-		$stripe_class = 'membersRow' . $stripe_counter;
-		$stripe_class_right =  'membersRowRight' . $stripe_counter;
-
-		$max_level = ( $skill_name == $roster->locale->wordings[$row['clientLocale']]['Poisons'] ? '350' : ROSTER_MAXSKILLLEVEL );
-
-		// Setup some user row data
-		$level_array = explode (':',$row['skill_level']);
-		$levelpct = $level_array[0] / ( $max_level > $level_array[1] ? $max_level : $level_array[1] ) * 100;
-		settype( $levelpct, 'integer' );
-
-		if ( !$levelpct )
-		{
-			$levelpct = 1;
-		}
-
-		print '
-	<tr>
-		<td class="' . $stripe_class . '">
-			<div class="levelbarParent" style="width:200px;">
-				<div class="levelbarChild">' . $level_array[0] . '/' . $level_array[1] . '</div>
-			</div>
-			<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="100%">
-				<tr>
-					<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $levelpct . '%">
-						<img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" />
-					</td>
-					<td width="' . (100-$levelpct) . '%"></td>
-				</tr>
-			</table>
-		</td>
-		<td class="' . $stripe_class_right . '">
-			' . ( active_addon('info') ? '<a href="' . makelink('char-info-recipes&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a>' : $row['name'] ) . '
-		</td>
-	</tr>
-';
-		$id++;
+		$skill_name = $roster->locale->act[$key];
+		$member_id = $row['member_id'];
+		$skills_array[$skill_name][] = array(
+			'member_id' => $row['member_id'],
+			'name'      => $row['name'],
+			'level'     => $row['skill_level']
+		);
 	}
 
-	print '</table>';
-	print border('sgray','end');
-	print '<br />';
+	$id = 0;
+	foreach( $skills_array as $skill_name => $skills )
+	{
+		$max_level = ( $skill_name == $roster->locale->act['Poisons'] ? '350' : ROSTER_MAXSKILLLEVEL );
+
+		$roster->tpl->assign_block_vars('profession',array(
+			'ID'        => $id,
+			'ICON'      => $roster->locale->act['ts_iconArray'][$skill_name],
+			'NAME'      => $skill_name,
+			'MAX_LEVEL' => $max_level
+			)
+		);
+
+		foreach( $skills as $skill )
+		{
+			$level_array = explode (':',$skill['level']);
+			$levelpct = $level_array[0] / ( $max_level > $level_array[1] ? $max_level : $level_array[1] ) * 100;
+			settype( $levelpct, 'integer' );
+
+			if( !$levelpct )
+			{
+				$levelpct = 1;
+			}
+
+			$roster->tpl->assign_block_vars('profession.skills',array(
+				'ROW_CLASS' => $roster->switch_row_class(),
+				'NAME'      => $skill['name'],
+				'LINK'      => makelink('char-info-recipes&amp;a=c:' . $skill['member_id']),
+				'LEVEL'     => $level_array[0],
+				'MAX'       => $level_array[1],
+				'PERCENT'   => $levelpct,
+				'REMAIN'    => (100-$levelpct)
+				)
+			);
+		}
+		$id++;
+	}
 }
+
+$roster->tpl->set_handle('body', $addon['basename'] . '/professions.html');
+$roster->tpl->display('body');
