@@ -150,11 +150,11 @@ class lua
 	 * @param string	$file_location
 	 * @return array	Lua file converted to PHP array
 	 */
-	function luatophp( $file_location )
+	function luatophp( $file_location, $blinds )
 	{
 		if( $this->setfile($file_location) )
 		{
-			return $this->tophp();
+			return $this->tophp( $blinds );
 		}
 		else
 		{
@@ -169,13 +169,13 @@ class lua
 	 *
 	 * @return array	Lua file converted to PHP array
 	 */
-	function tophp( )
+	function tophp( $blinds )
 	{
 		if( $this->file_location != '' )
 		{
 			$stack = array( array( '',  array() ) );
 			$stack_pos = 0;
-
+			$path = '/';
 			$this->__openfile('r');
 
 			while( !$this->__endoffile() )
@@ -192,7 +192,11 @@ class lua
 					$hash = $stack[$stack_pos];
 					unset($stack[$stack_pos]);
 					$stack_pos--;
-					$stack[$stack_pos][1][$hash[0]] = $hash[1];
+					if( !isset($blinds[$path]) )
+					{
+						$stack[$stack_pos][1][$hash[0]] = $hash[1];
+					}
+					$path = substr($path, 0, -strlen($hash[0]) - 1);
 					unset($hash);
 				}
 				// Handle other cases
@@ -239,6 +243,7 @@ class lua
 					{
 						$stack_pos++;
 						$stack[$stack_pos] = array($name, array());
+						$path .= $name . '/';
 					}
 					else
 					{
