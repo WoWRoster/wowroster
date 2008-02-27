@@ -169,6 +169,12 @@ class Upgrade
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET form_type = 'radio{extended^2|on^1|off^0' WHERE `id` = 1001;");
 		}
+
+		if( version_compare($roster->config['version'],'1.9.9.1706','<') )
+		{
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('blinds') . "` ( `file_name` varchar(32) NOT NULL DEFAULT '', `blind` varchar(255) NOT NULL DEFAULT '') ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

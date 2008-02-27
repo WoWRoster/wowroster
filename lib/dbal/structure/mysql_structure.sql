@@ -47,6 +47,15 @@ CREATE TABLE `renprefix_addon_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
+### Lua Blinds
+
+DROP TABLE IF EXISTS `renprefix_blinds`;
+CREATE TABLE `renprefix_blinds` (
+  `file_name` varchar(32) NOT NULL DEFAULT '',
+  `blind` varchar(255) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
 ### Buffs
 
 DROP TABLE IF EXISTS `renprefix_buffs`;

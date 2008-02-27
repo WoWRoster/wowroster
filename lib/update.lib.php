@@ -34,6 +34,7 @@ class update
 	var $addons = array();
 	var $files = array();
 	var $locale;
+	var $blinds = array();
 
 	var $messages = array();
 	var $errors = array();
@@ -135,11 +136,30 @@ class update
 	}
 
 	/**
+	 * Load LUA blinds from DB
+	 * 
+	 * @return string $output | Output messages
+	 */
+	function loadBlinds( )
+	{
+		global $roster;
+
+		$query = "SELECT file_name, blind FROM `" . $roster->db->table('blinds') . "`";
+		$result = $roster->db->query($query);
+		while( $row = $roster->db->fetch($result) )
+		{
+			$this->blinds[$row['file_name']][$row['blind']] = true;
+		}
+		$roster->db->free_result($result);
+		return '';
+	}
+
+	/**
 	 * Parses the files and put it in $uploadData
 	 *
 	 * @return string $output | Output messages
 	 */
-	function parseFiles()
+	function parseFiles( )
 	{
 		global $roster;
 		if( !is_array($_FILES) )
@@ -163,7 +183,7 @@ class update
 					$parse_starttime = format_microtime();
 
 					$luahandler = new lua();
-					$data = $luahandler->luatophp( $file['tmp_name'] );
+					$data = $luahandler->luatophp( $file['tmp_name'], isset($this->blinds[$filebase]) ? $this->blinds[$filebase] : array() );
 
 					// Calculate parse time
 					$parse_totaltime = round((format_microtime() - $parse_starttime), 2);
