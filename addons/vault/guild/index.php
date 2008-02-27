@@ -30,7 +30,7 @@ $roster->output['title'] = $roster->locale->act['vault'];
 
 $roster->tpl->assign_vars(array(
 	'S_MONEY' => false,
-	'U_IMAGE_PATH' => $addon['image_path'],
+	'U_IMAGE_PATH' => $addon['tpl_image_path'],
 	'U_FRAME_IMAGE' => strtolower(substr($roster->data['factionEn'],0,1)),
 
 	'L_LOG' => $roster->locale->act['vault_log'],

@@ -11,7 +11,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
-*/
+ */
 
 body { background:#000000; }
 a:link, a:visited { color:#CBA300;text-decoration:none;font-weight:bold; }
@@ -39,7 +39,6 @@ select {
 /**
  * Search Rows
  */
-
 .SearchRowAltColor1 { background-color:#1F1E1D; }
 
 .SearchRowAltColor2 { background-color:#2E2D2B; }
@@ -210,7 +209,7 @@ select {
 	margin:0;
 	padding:2px; /* NS 6 problem */
 	padding-left:15px;
-	background:transparent url('../../img/radio_on.png') no-repeat 0% 50%;
+	background:transparent url(../../img/radio_on.png) no-repeat 0% 50%;
 }
 /* use CSS to full effect with hover states. Ohhh, perty! */
 .checkboxOn:hover { background-image:url(../../img/check_on_hover.png); }
@@ -253,7 +252,6 @@ select {
  */
 
 /* Container for the main roster menu */
-
 .menu_container {
 	background: #1F1E1D;
 	width: 528px;
@@ -270,14 +268,12 @@ select {
 }
 
 /* Header Backgrounds */
-
 .menu_bg_01 { background: url(../../img/menu/menu_btn_guild.png) no-repeat left center; }
 .menu_bg_02 { background: url(../../img/menu/menu_btn_realm.png) no-repeat left center; }
 .menu_bg_03 { background: url(../../img/menu/menu_btn_update.png) no-repeat left center; }
 .menu_bg_04 { background: url(../../img/menu/menu_btn_utilities.png) no-repeat left center; }
 
 /* Main Header Block */
-
 .menu_header {
 	font:11px verdana,arial,helvetica,sans-serif;
 	margin:0px;
@@ -316,7 +312,6 @@ select {
 .menu_header li a:hover { border: 2px solid #0066FF; }
 
 /* Utility Scope Block */
-
 .menu_utility {
 	margin:2px 0px 0px;
 	padding:0px;
@@ -352,7 +347,6 @@ select {
 
 
 /* General Scope Block */
-
 .menu_scope {
 	margin:2px 0px 0px;
 	padding:0px;
@@ -441,7 +435,6 @@ select {
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 }
 
-
 .menu_config_div {
 	/* The div elements used for the menu config screen */
 	position:absolute;
@@ -476,7 +469,7 @@ select {
 
 /**
  * Row Coloring
-**/
+ */
 .membersHeader {
 	text-align:left;
 	white-space:nowrap;
@@ -496,83 +489,6 @@ select {
 	border:solid #5D5D5D;
 	border-width:1px 1px 0 1px;
 	padding:0 6px 0 6px;
-}
-
-.membersKeyRow1 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font:bold 11px arial,helvetica,sans-serif;
-	border-style:solid;
-	border-width:1px 0 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:42px;
-	width:42px;
-}
-.membersKeyRowLeft1 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font:bold 11px arial,helvetica,sans-serif;
-	border-style:solid;
-	border-width:1px 0 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-}
-.membersKeyRowRight1 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font:bold 11px arial,helvetica,sans-serif;
-	border-style:solid;
-	border-width:1px 1px 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-	width:42px;
-}
-.membersKeyRow2 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font:bold 11px arial,helvetica,sans-serif;
-	border-style:solid;
-	border-width:1px 0 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:42px;
-	width:42px;
-}
-.membersKeyRowLeft2 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font:bold 11px arial,helvetica,sans-serif;
-	border-style:solid;
-	border-width:1px 0 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-}
-.membersKeyRowRight2 {
-	text-align:left;
-	vertical-align:middle;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font:bold 11px arial,helvetica,sans-serif;
-	border-style:solid;
-	border-width:1px 1px 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-	height:47px;
-	width:42px;
 }
 
 .membersRowCell {
@@ -650,19 +566,11 @@ select {
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }
-.membersGroup {
-	text-align:left;
-	color:#EABB00;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-}
-.membersGroup a { color:#ffffff; }
 
 
 /**
  * Border Styles
-**/
-
+ */
 .border_frame {
 	background-color: #000000;
 	border-top: 1px solid #c6c7cb;
@@ -693,7 +601,6 @@ select {
 .motd_setup { font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #FFFFFF; font-style: normal; padding-right: 8px; padding-left: 23px; background: #660000 url(../../img/motd_left.gif) no-repeat left center; height: 21px; }
 
 /* Header Text */
-
 .header_text {
 	margin-bottom: 1px;
 	border-bottom-width: 1px;
@@ -709,46 +616,37 @@ select {
 }
 
 /* Border Colours */
-
 .swhiteborder {
 	border-color: #FFFFFF;
 }
-
 .sgreyborder, .sgrayborder {
 	border-color: #999999;
 }
-
 .sgoldborder {
 	border-color: #D3A229;
 }
-
 .sredborder {
 	border-color: #FF0000;
 }
-
 .sorangeborder {
 	border-color: #FFA500;
 }
-
 .syellowborder {
 	border-color: #FFCC00;
 }
-
 .sgreenborder {
 	border-color: #008000;
 }
-
 .sblueborder {
 	border-color: #0000FF;
 }
-
 .spurpleborder {
 	border-color: #4B0082;
 }
 
 /**
  * Bag Styles
-**/
+ */
 .bankbag { float:left;margin:0 5px 10px 0;color:#ffffff;width:395px;height:275px;background-repeat:no-repeat; }
 .bankbag .item { float:left;margin:0 9px 4px 0;width:40px;height:40px; }
 .bankbag .item .icon { margin:0;width:40px;height:40px;border-width:0;cursor:pointer; }
@@ -793,7 +691,7 @@ select {
 }
 /**
  * END Bag Styles
-**/
+ */
 
 .item { position:relative;width:40px;height:40px;cursor:pointer; }
 .item span { position:absolute;bottom:0;right:3px;color:#fff;font-weight:bold;font-size:12px; }
@@ -826,9 +724,9 @@ select {
 	color:#ffffff;
 }
 
-/*******
+/**
  * Class colorization
-*******/
+ */
 .classDruidtxt { color:#FF7C0A; }
 .classHuntertxt { color:#AAD372; }
 .classMagetxt { color:#68CCEF; }
@@ -840,10 +738,9 @@ select {
 .classWarriortxt { color:#C69B6D; }
 
 
-/**********
+/**
  * Random color defines
-**********/
-
+ */
 .white { color:#ffffff; }
 .yellow { color:#ffd200; }
 .green { color:#7eff00; }
@@ -866,20 +763,20 @@ select {
 .goldB { font-weight:bold;color:#ffcc00; }
 .brownB { font-weight:bold;color:#593300; }
 
-.iconwhite, .icongrey, .icongreen, .iconblue, .iconpurple { float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1; }
-.iconwhite { border:2px solid #ffffff; }
-.icongrey { border:2px solid #9d9d9d; }
-.icongreen { border:2px solid #1eff00; }
-.iconblue { border:2px solid #0070dd; }
-.iconpurple { border:2px solid #aa00dd; }
+.iconwhite, .icongrey, .icongreen, .iconblue, .iconpurple { float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1;border:2px solid #ffffff; }
+.iconwhite { }
+.icongrey { border-color:#9d9d9d; }
+.icongreen { border-color:#1eff00; }
+.iconblue { border-color:#0070dd; }
+.iconpurple { border-color:#aa00dd; }
 
 /**
  * END Random color defines
-**/
+ */
 
 /**
  * Navagation tabs
-**/
+ */
 .tab_navagation { position:absolute;font:11px arial,helvetica,sans-serif;line-height:normal;width:344px; }
 .tab_navagation ul { margin:0;padding:0;list-style:none; }
 .tab_navagation li { float:left;background:url(../../img/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer;margin-bottom:-7px; }
@@ -891,7 +788,7 @@ select {
 
 /**
  * Overlib Tooltip Styles
- **/
+ */
 
 /* Sets main text background - ol_fgclass*/
 .overlib_fg { background-color:#000000; }
@@ -912,7 +809,7 @@ select {
 
 /**
  * Color Picker
- **/
+ */
 #colorPicker {
 	position:absolute;
 	width:250px;
@@ -950,7 +847,6 @@ select {
 	height/* */:/**/13px;	/* Other browsers */
 	height: /**/13px;
 }
-
 #colorPicker .colorSquare {
 	margin-left:1px;
 	margin-bottom:1px;
@@ -968,8 +864,8 @@ select {
 .colorPickerTab_inactive,
 .colorPickerTab_active { height:17px;padding-left:4px;cursor:pointer; }
 
-.colorPickerTab_inactive span { background-image:url('../../img/color/tab_left_inactive.gif'); }
-.colorPickerTab_active span{ background-image:url('../../img/color/tab_left_active.gif'); }
+.colorPickerTab_inactive span { background-image:url(../../img/color/tab_left_inactive.gif); }
+.colorPickerTab_active span{ background-image:url(../../img/color/tab_left_active.gif); }
 
 .colorPickerTab_inactive span,
 .colorPickerTab_active span {
@@ -1003,7 +899,6 @@ select {
 	vertical-align:top;
 	line-height:13px;
 }
-/*form { padding-left:5px; }*/
 
 .form_widget_amount_slider {
 	border-top:1px solid #9d9c99;
