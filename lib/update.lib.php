@@ -136,25 +136,6 @@ class update
 	}
 
 	/**
-	 * Load LUA blinds from DB
-	 * 
-	 * @return string $output | Output messages
-	 */
-	function loadBlinds( )
-	{
-		global $roster;
-
-		$query = "SELECT file_name, blind FROM `" . $roster->db->table('blinds') . "`";
-		$result = $roster->db->query($query);
-		while( $row = $roster->db->fetch($result) )
-		{
-			$this->blinds[$row['file_name']][$row['blind']] = true;
-		}
-		$roster->db->free_result($result);
-		return '';
-	}
-
-	/**
 	 * Parses the files and put it in $uploadData
 	 *
 	 * @return string $output | Output messages
