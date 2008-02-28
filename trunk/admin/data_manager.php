@@ -160,11 +160,9 @@ if( $num_members > 0 )
 	}
 
 	$roster->tpl->assign_vars(array(
-		'PREV' => $prev,
-		'NEXT' => $next,
-		'LISTING' => $listing,
-
-		'LIST_START' => $prev . $roster->locale->act['delete'] . $listing . $next,
+		'PREV'    => $prev,
+		'NEXT'    => $next,
+		'LISTING' => $listing
 		)
 	);
 
@@ -181,13 +179,13 @@ if( $num_members > 0 )
 	while( $row = $roster->db->fetch($result) )
 	{
 		$roster->tpl->assign_block_vars('data_list', array(
-			'ROW_CLASS'   => $roster->switch_row_class(),
-			'ID' => $row['member_id'],
-			'NAME' => $row['name'],
-			'SERVER' => $row['server'],
-			'REGION' => $row['region'],
-			'CLASS' => $row['class'],
-			'LEVEL' => $row['level'],
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'ID'        => $row['member_id'],
+			'NAME'      => $row['name'],
+			'SERVER'    => $row['server'],
+			'REGION'    => $row['region'],
+			'CLASS'     => $row['class'],
+			'LEVEL'     => $row['level'],
 			)
 		);
 
