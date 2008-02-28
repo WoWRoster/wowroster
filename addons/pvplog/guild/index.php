@@ -23,7 +23,6 @@ $roster->output['title'] = $roster->locale->act['pvplist'];
 
 $type = ( isset($_GET['type']) ? $_GET['type'] : 'guildwins' );
 
-
 $choiceArray = array(
 	'---------',
 	'guildwins',
@@ -39,73 +38,57 @@ $choiceArray = array(
 	'guildinfo'
 );
 
-$choiceForm = '<form action="' . makelink() . '" method="get">
-'.$roster->locale->act['pvplist'].':
-<select name="type" onchange="window.location.href=this.options[this.selectedIndex].value">
-';
+$roster->tpl->assign_vars(array(
+	'S_HEADER' => false,
+	'S_TYPE'   => $type,
+
+	'INFO_TEXT' => false,
+
+	'L_PVP_LIST'      => $roster->locale->act['pvplist'],
+	'L_TYPE'          => $roster->locale->act[$type],
+	'L_UNKNOWN'       => $roster->locale->act['unknown'],
+	'L_WIN'           => $roster->locale->act['win'],
+	'L_LOSS'          => $res = $roster->locale->act['loss']
+	)
+);
+
+
 foreach( $choiceArray as $item_value )
 {
 	if( $item_value != 'playerinfo' && $item_value != 'guildinfo' )
 	{
-		$display = ( isset($roster->locale->act[$item_value]) ? $roster->locale->act[$item_value] : $item_value );
-		if( $type == $item_value )
-		{
-			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value,true) . '" selected="selected">' . $display . "</option>\n";
-		}
-		else
-		{
-			$choiceForm .= '  <option value="' . makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value,true) . '">' . $display . "</option>\n";
-		}
+		$roster->tpl->assign_block_vars('choice',array(
+			'VALUE'    => makelink('guild-' . $addon['basename'] . '&amp;type=' . $item_value,true),
+			'NAME'     => ( isset($roster->locale->act[$item_value]) ? $roster->locale->act[$item_value] : $item_value ),
+			'SELECTED' => ( $type == $item_value ? true : false )
+			)
+		);
 	}
 }
-$choiceForm .= '</select>
-</form><br />';
 
-print $choiceForm;
-
-
-$striping_counter = 1;
-
-$tableHeader = border('sgray','start',$roster->locale->act[$type]) . '<table width="100%" cellspacing="0" class="bodyline">';
 
 function tableHeaderRow( $th )
 {
+	global $roster;
+
+	$roster->tpl->assign_var('S_HEADER', true);
+
 	$acount = 0;
-	$output = "\t<tr>\n";
 	foreach( $th as $header )
 	{
 		++$acount;
-		if( $acount == count($th) )
-		{
-			$output .= '		<th class="membersHeaderRight">' . $header . "</th>\n";
-		}
-		else
-		{
-			$output .= '		<th class="membersHeader">' . $header . "</th>\n";
-		}
+
+		$roster->tpl->assign_block_vars('header',array(
+			'NAME'  => $header,
+			'RIGHT' => ( $acount == count($th) ? true : false )
+			)
+		);
 	}
-	return $output . "\t</tr>\n";
 }
 
-$tableFooter = "</table>\n".border('sgray','end');
-
-function rankLeft( $sc )
-{
-	print '		<td class="membersRow' . $sc . '">';
-}
-function rankMid( $sc )
-{
-	print '		<td class="membersRow' . $sc . '">';
-}
-function rankRight( $sc )
-{
-	print '		<td class="membersRowRight' . $sc . '">';
-}
 
 if( $type == 'guildwins' )
 {
-	print $tableHeader;
-
 	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
@@ -117,38 +100,19 @@ if( $type == 'guildwins' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "  <tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
-
-		if( $row['guild'] == '' )
-		{
-			$guildname = '(' . $roster->locale->act['unknown'] . ')';
-		}
-		else
-		{
-			$guildname = $row['guild'];
-		}
-
-		print $guildname;
-		print "</a></td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])),
+			'NAME'      => $row['guild'],
+			'COUNT'     => $row['countg']
+			)
+		);
 	}
-	$roster->db->free_result($result);
 
-	print $tableFooter;
+	$roster->db->free_result($result);
 }
 elseif( $type == 'guildlosses' )
 {
-	print $tableHeader;
-
 	$query = "SELECT `pvp`.`guild`, COUNT(`pvp`.`guild`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
@@ -160,45 +124,28 @@ elseif( $type == 'guildlosses' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">';
-		if( $row['guild'] == '' )
-		{
-			$guildname = '(' . $roster->locale->act['unknown'] . ')';
-		}
-		else
-		{
-			$guildname = $row['guild'];
-		}
-
-		print $guildname;
-		print "</a></td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])),
+			'NAME'      => $row['guild'],
+			'COUNT'     => $row['countg']
+			)
+		);
 	}
 	$roster->db->free_result($result);
 
-	print $tableFooter;
 }
 elseif( $type == 'enemywins' )
 {
-	print $tableHeader;
-
-	print tableHeaderRow(array(
+	tableHeaderRow(array(
 		$roster->locale->act['name'],
 		$roster->locale->act['kills'],
 		$roster->locale->act['guild'],
 		$roster->locale->act['race'],
 		$roster->locale->act['class'],
 		$roster->locale->act['leveldiff'],
-	));
+		)
+	);
 
 	$query = "SELECT `pvp`.`name`, `pvp`.`guild`, `pvp`.`race`, `pvp`.`class`, `pvp`.`leveldiff`, COUNT(`pvp`.`name`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
@@ -211,56 +158,32 @@ elseif( $type == 'enemywins' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print '<tr class="membersRow' . (($striping_counter % 2) +1) . "\">\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
-		print $row['name'];
-		print "</a></td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		if ($row['guild'] == '')
-		{
-			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
-		}
-		else
-		{
-			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
-		}
-
-		print $guildname;
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['race'];
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['class'];
-		print "</td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['leveldiff'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])),
+			'NAME'      => $row['name'],
+			'COUNT'     => $row['countg'],
+			'GLINK'     => makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])),
+			'GNAME'     => $row['guild'],
+			'RACE'      => $row['race'],
+			'CLASS'     => $row['class'],
+			'LEVELDIFF' => $row['leveldiff'],
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
 elseif( $type == 'enemylosses' )
 {
-	print $tableHeader;
-	print tableHeaderRow(array(
+	tableHeaderRow(array(
 		$roster->locale->act['name'],
 		$roster->locale->act['kills'],
 		$roster->locale->act['guild'],
 		$roster->locale->act['race'],
 		$roster->locale->act['class'],
 		$roster->locale->act['leveldiff'],
-	));
+		)
+	);
 
 	$query = "SELECT `pvp`.`name`, `pvp`.`guild`, `pvp`.`race`, `pvp`.`class`, `pvp`.`leveldiff`, COUNT(`pvp`.`name`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
@@ -273,50 +196,23 @@ elseif( $type == 'enemylosses' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">';
-
-		print $row['name'];
-		print "</a></td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		if( $row['guild'] == '' )
-		{
-			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=') . '">(' . $roster->locale->act['unknown'] . ')</a>';
-		}
-		else
-		{
-			$guildname = '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . $row['guild'] . '</a>';
-		}
-
-		print $guildname;
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['race'];
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['class'];
-		print "</td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['leveldiff'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])),
+			'NAME'      => $row['name'],
+			'COUNT'     => $row['countg'],
+			'GLINK'     => makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])),
+			'GNAME'     => $row['guild'],
+			'RACE'      => $row['race'],
+			'CLASS'     => $row['class'],
+			'LEVELDIFF' => $row['leveldiff'],
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
 elseif( $type == 'purgewins' )
 {
-	print $tableHeader;
-
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
@@ -328,26 +224,18 @@ elseif( $type == 'purgewins' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']),
+			'NAME'      => $row['gn'],
+			'COUNT'     => $row['countg']
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
 elseif( $type == 'purgelosses' )
 {
-	print $tableHeader;
-
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, COUNT(`pvp`.`member_id`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
@@ -359,26 +247,18 @@ elseif( $type == 'purgelosses' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']),
+			'NAME'      => $row['gn'],
+			'COUNT'     => $row['countg']
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
 elseif( $type == 'purgeavewins' )
 {
-	print $tableHeader;
-
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
@@ -390,34 +270,25 @@ elseif( $type == 'purgeavewins' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
-		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if( $ave > 0 )
 		{
-			$ave = '+'.$ave;
+			$ave = '+' . $ave;
 		}
 
-		print $ave;
-		rankRight((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']),
+			'NAME'      => $row['gn'],
+			'AVE'       => $ave,
+			'COUNT'     => $row['countg']
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
 elseif( $type == 'purgeavelosses' )
 {
-	print $tableHeader;
-
 	$query = "SELECT `pvp`.`member_id`, `members`.`name` AS gn, AVG(`pvp`.`leveldiff`) AS ave, COUNT(`pvp`.`member_id`) AS countg"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
@@ -429,34 +300,26 @@ elseif( $type == 'purgeavelosses' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
-		rankMid((($striping_counter % 2) +1));
 		$ave = round($row['ave'], 2);
 		if( $ave > 0 )
 		{
-			$ave = '+'.$ave;
+			$ave = '+' . $ave;
 		}
 
-		print $ave;
-		rankRight((($striping_counter % 2) +1));
-		print $row['countg'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']),
+			'NAME'      => $row['gn'],
+			'AVE'       => $ave,
+			'COUNT'     => $row['countg']
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
 elseif( $type == 'pvpratio' )
 {
-	print '<br />'.$roster->locale->act['solo_win_loss'].'</small><br /><br />';
-	print $tableHeader;
+	$roster->tpl->assign_var('INFO_TEXT', $roster->locale->act['solo_win_loss']);
 
 	$query = "SELECT `members`.`name`, `members`.`member_id`, IF(`pvp`.`win` = '1', 1, 0) AS win, SUM(`pvp`.`win`) AS wtotal, COUNT(`pvp`.`win`) AS btotal"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
@@ -469,46 +332,41 @@ elseif( $type == 'pvpratio' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . "</a></td>\n";
-		rankRight((($striping_counter % 2) +1));
-		$wins = $row['wtotal'];
-		$battles = $row ['btotal'];
-		if( $wins == $battles )
+		if( $row['wtotal'] == $row['btotal'] )
 		{
-			print 'Winless';
+			$ratio = $roster->locale->act['winless'];
 		}
-		elseif( $wins == 0 )
+		elseif( $row['wtotal'] == 0 )
 		{
-			print 'Unbeaten';
+			$ratio = $roster->locale->act['Unbeaten'];
 		}
 		else
 		{
-			$ratio = round(($wins / ($battles-$wins)), 2);
-			print "$ratio to 1";
+			$ratio = round(($row['wtotal'] / ($row['btotal']-$row['wtotal'])), 2) . ' to 1';
 		}
-		print "</td>\n</tr>\n";
+
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'      => makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']),
+			'NAME'      => $row['name'],
+			'WINS'      => $row['wtotal'],
+			'BATTLES'   => $row['btotal'],
+			'RATIO'     => $ratio,
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print($tableFooter);
 }
 elseif( $type == 'playerinfo' )
 {
-	$player = ( isset($_GET['player']) ? stripslashes($_GET['player']) : '' );
+	$player = ( isset($_GET['player']) ? $_GET['player'] : '' );
 	$sort = ( isset($_GET['s']) ? $_GET['s'] : '' );
 
 	$first = true;
 	$query = "SELECT `pvp`.*, `members`.`name` AS gn"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
-		   . " WHERE `pvp`.`name` = '" . $roster->db->escape($player) . "'";
+		   . " WHERE `pvp`.`name` = '" . $player . "'";
 
 	if ($sort == 'name')
 	{
@@ -551,104 +409,70 @@ elseif( $type == 'playerinfo' )
 
 	while( $row = $roster->db->fetch($result) )
 	{
-		$url = 'guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($player);
+		$url = 'guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name']);
 
 		if( $first )
 		{
-			print '<br />' . sprintf($roster->locale->act['kill_lost_hist'],$player,$row['race'],$row['class'],'<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(' . $roster->locale->act['unknown'] . ')' ) . '</a>');
-			print '<br /><br />';
+			$roster->tpl->assign_var('INFO_TEXT', sprintf($roster->locale->act['kill_lost_hist'],$row['name'],$row['race'],$row['class'],'<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($row['guild'])) . '">' . ( !empty($row['guild']) ? $row['guild'] : '(' . $roster->locale->act['unknown'] . ')' ) . '</a>') );
 
-			print $tableHeader;
-			print tableHeaderRow(array(
+			tableHeaderRow(array(
 				'<a href="' . makelink($url . '&amp;s=date') . '">' . $roster->locale->act['when'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=name') . '">' . $roster->locale->act['name'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=result') . '">' . $roster->locale->act['result'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=zone') . '">' . $roster->locale->act['zone'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=subzone') . '">' . $roster->locale->act['subzone'] . '</a>',
 				'<a href="' . makelink($url . '&amp;s=diff') . '">' . $roster->locale->act['leveldiff'] . '</a>',
-			));
+				)
+			);
 			$first = false;
 		}
 
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print readbleDate($row['date']);
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		if( $row['win'] == '1' )
-		{
-			$res = $roster->locale->act['win'];
-		}
-		else
-		{
-			$res = $roster->locale->act['loss'];
-		}
-
-		print $res;
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['zone'];
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		if( $row['subzone'] == '' )
-		{
-			$szone = '&nbsp;';
-		}
-		else
-		{
-			$szone = $row['subzone'];
-		}
-
-		print $szone;
-		print "</td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['leveldiff'];
-		print "</td>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'DATE'      => readbleDate($row['date']),
+			'LINK'      => makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']),
+			'NAME'      => $row['gn'],
+			'WIN'       => ( $row['win'] == '1' ? true : false ),
+			'ZONE'      => $row['zone'],
+			'SUBZONE'   => $row['subzone'],
+			'LEVELDIFF' => $row['leveldiff']
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
 elseif( $type == 'guildinfo' )
 {
-	$guild = ( isset($_GET['pvpguild']) ? stripslashes($_GET['pvpguild']) : '' );
+	$guild = ( isset($_GET['pvpguild']) ? $_GET['pvpguild'] : '' );
 	$sort = ( isset($_GET['s']) ? $_GET['s'] : '' );
 
-	print '<br />';
-	print sprintf($roster->locale->act['kill_lost_hist_guild'],($guild ? $guild : '(' . $roster->locale->act['unknown'] . ')'));
-	print '<br /><br />';
+	$roster->tpl->assign_var('INFO_TEXT', sprintf($roster->locale->act['kill_lost_hist_guild'],($guild != '' ? stripslashes($guild) : '(' . $roster->locale->act['unknown'] . ')')) );
 
-	print $tableHeader;
+	$url = 'guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode(stripslashes($guild));
 
-	$url = 'guild-' . $addon['basename'] . '&amp;type=guildinfo&amp;pvpguild=' . urlencode($guild);
-
-	print tableHeaderRow(array(
+	tableHeaderRow(array(
 		'<a href="' . makelink($url . '&amp;s=date') . '">' . $roster->locale->act['when'] . '</a>',
-		'<a href="' . makelink($url . '&amp;s=name') . '">Them</a>',
-		'<a href="' . makelink($url . '&amp;s=name') . '">Us</a>',
+		'<a href="' . makelink($url . '&amp;s=name') . '">' . $roster->locale->act['them'] . '</a>',
+		'<a href="' . makelink($url . '&amp;s=gn') . '">' . $roster->locale->act['us'] . '</a>',
 		'<a href="' . makelink($url . '&amp;s=result') . '">' . $roster->locale->act['result'] . '</a>',
 		'<a href="' . makelink($url . '&amp;s=zone') . '">' . $roster->locale->act['zone'] . '</a>',
 		'<a href="' . makelink($url . '&amp;s=subzone') . '">' . $roster->locale->act['subzone'] . '</a>',
 		'<a href="' . makelink($url . '&amp;s=diff') . '">' . $roster->locale->act['leveldiff'] . '</a>',
-	));
-
+		)
+	);
 
 	$query = "SELECT `pvp`.*, `members`.`name` AS gn"
 		   . " FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` AS pvp"
 		   . " LEFT JOIN `" . $roster->db->table('members') . "` AS members ON `members`.`member_id` = `pvp`.`member_id`"
-		   . " WHERE `pvp`.`guild` = '" . $roster->db->escape($guild) . "'";
+		   . " WHERE `pvp`.`guild` = '" . $guild . "'";
 
 	if( $sort == 'name' )
 	{
 		$query .= ' ORDER BY `name`, `leveldiff` DESC, `guild`;';
+	}
+	elseif( $sort == 'gn' )
+	{
+		$query .= ' ORDER BY `gn`, `leveldiff` DESC;';
 	}
 	elseif( $sort == 'race' )
 	{
@@ -687,53 +511,22 @@ elseif( $type == 'guildinfo' )
 
 	while($row = $roster->db->fetch($result))
 	{
-		// Striping rows
-		print "<tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-
-		rankLeft((($striping_counter % 2) +1));
-		print readbleDate($row['date']);
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print '<a href="' . makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])) . '">' . $row['name'] . '</a>';
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print '<a href="' . makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']) . '">' . $row['gn'] . "</a></td>\n";
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		if( $row['win'] == '1' )
-		{
-			$res = $roster->locale->act['win'];
-		}
-		else
-		{
-			$res = $roster->locale->act['loss'];
-		}
-
-		print $res;
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		print $row['zone'];
-		print "</td>\n";
-		rankMid((($striping_counter % 2) +1));
-		if( $row['subzone'] == '' )
-		{
-			$szone = '&nbsp;';
-		}
-		else
-		{
-			$szone = $row['subzone'];
-		}
-
-		print $szone;
-		print "</td>\n";
-		rankRight((($striping_counter % 2) +1));
-		print $row['leveldiff'];
-		print "</td>\n</tr>\n";
+		$roster->tpl->assign_block_vars('rows',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'DATE'      => readbleDate($row['date']),
+			'LINK'      => makelink('guild-' . $addon['basename'] . '&amp;type=playerinfo&amp;player=' . urlencode($row['name'])),
+			'NAME'      => $row['name'],
+			'GLINK'     => makelink('char-' . $addon['basename'] . '-pvp&amp;a=c:' . $row['member_id']),
+			'GNAME'     => $row['gn'],
+			'WIN'       => ( $row['win'] == '1' ? true : false ),
+			'ZONE'      => $row['zone'],
+			'SUBZONE'   => $row['subzone'],
+			'LEVELDIFF' => $row['leveldiff']
+			)
+		);
 	}
 	$roster->db->free_result($result);
-
-	print $tableFooter;
 }
+
+$roster->tpl->set_handle('body', $addon['basename'] . '/guild.html');
+$roster->tpl->display('body');

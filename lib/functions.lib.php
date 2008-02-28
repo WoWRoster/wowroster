@@ -929,7 +929,7 @@ function getaddon( $addonname )
 		$addon['tpl_url'] = ROSTER_URL . 'templates/default/';
 		$addon['tpl_url_path'] = ROSTER_PATH . 'templates/default/';
 
-		if( !file_exists($addon['tpl_css_file']) )
+		if( !file_exists($addon['tpl_dir']) )
 		{
 			$addon['tpl_dir'] = $addon['dir'] . 'templates' . DIR_SEP;
 			$addon['tpl_url'] = $addon['url_full'] . 'templates/' . $addon['basename'] . '/';

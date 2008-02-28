@@ -56,6 +56,10 @@ $lang['most_killed']='El más asesinado';
 $lang['most_killed_by']='El que más nos ha asesinado';
 $lang['leveldiff']='Dif. de nivel';
 $lang['bg']='Campo de batalla';
+$lang['winless']='Winless';
+$lang['unbeaten']='Unbeaten';
+$lang['them']='Them';
+$lang['us']='Us';
 
 // guildpvp strings
 $lang['guildwins'] = 'Victorias por hermandad';

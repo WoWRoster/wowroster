@@ -22,8 +22,6 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] = $roster->locale->act['questlist'];
 
 $roster->tpl->assign_vars(array(
-	'U_FORM_ACTION' => getFormAction(),
-
 	'S_INFO_ADDON' => active_addon('info'),
 	'S_SHOW'       => false,
 
