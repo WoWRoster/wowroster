@@ -61,7 +61,6 @@ $update->fetchAddonData();
 // Has data been uploaded?
 if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->textmode )
 {
-	$messages  = $update->loadBlinds();
 	$messages .= $update->parseFiles();
 	$messages .= $update->processFiles();
 
