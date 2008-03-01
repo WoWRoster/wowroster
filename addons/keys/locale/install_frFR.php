@@ -226,6 +226,13 @@ $inst_keys['A'] = array(
         'In|Le Médaillon de Karabor|1||1',
         'Key|inv_jewelry_amulet_04|'
     )
+	'MH' => array(
+		'Q|The Vials of Eternity|1||1',
+		'In|Vash\\\'s Vial Remnant|1|()|1',
+		'In|Kael\\\'s Vial Remnant|1|()|1',
+		'R|The Scale of the Sands|1||1',
+		'Key|inv_potion_101|'
+	)
 );
 
 
@@ -396,4 +403,11 @@ $inst_keys['H'] = array(
         'In|Le Médaillon de Karabor|1||1',
         'Key|inv_jewelry_amulet_04|'
     )
+	'MH' => array(
+		'Q|The Vials of Eternity|1||1',
+		'In|Vash\\\'s Vial Remnant|1|()|1',
+		'In|Kael\\\'s Vial Remnant|1|()|1',
+		'R|The Scale of the Sands|1||1',
+		'Key|inv_potion_101|'
+	)
 );

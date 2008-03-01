@@ -192,7 +192,7 @@ $inst_keys['A'] = array(
 		'Q|Khadgar de nuevo|1||1',
 		'In|La llave del maestro|1||1',
 		'Key|inv_misc_key_07|'
-	),/*
+	),
 	'Arcatraz' => array(
 		'Q|Warp-Raider Nesaad|1||1',
 		'Q|Request for Assistance|1||1',
@@ -225,7 +225,14 @@ $inst_keys['A'] = array(
 		'Q|A Distraction for Akama|1||1',
 		'In|Medallion of Karabor|1||1',
 		'Key|inv_jewelry_amulet_04|'
-	)*/
+	)
+	'MH' => array(
+		'Q|The Vials of Eternity|1||1',
+		'In|Vash\\\'s Vial Remnant|1|()|1',
+		'In|Kael\\\'s Vial Remnant|1|()|1',
+		'R|The Scale of the Sands|1||1',
+		'Key|inv_potion_101|'
+	)
 );
 
 
@@ -362,7 +369,7 @@ $inst_keys['H'] = array(
 		'Q|Khadgar de nuevo|1||1',
 		'In|La llave del maestro|1||1',
 		'Key|inv_misc_key_07|'
-	),/*
+	),
 	'Arcatraz' => array(
 		'Q|Warp-Raider Nesaad|1||1',
 		'Q|Request for Assistance|1||1',
@@ -395,5 +402,12 @@ $inst_keys['H'] = array(
 		'Q|A Distraction for Akama|1||1',
 		'In|Medallion of Karabor|1||1',
 		'Key|inv_jewelry_amulet_04|'
-	)*/
+	)
+	'MH' => array(
+		'Q|The Vials of Eternity|1||1',
+		'In|Vash\\\'s Vial Remnant|1|()|1',
+		'In|Kael\\\'s Vial Remnant|1|()|1',
+		'R|The Scale of the Sands|1||1',
+		'Key|inv_potion_101|'
+	)
 );
