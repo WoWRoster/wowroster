@@ -35,6 +35,8 @@ class keysUpdate
 	// LUA upload files accepted. We don't use any.
 	var $files = array();
 
+	// Own locale strings, since I don't understand the hassle they go through in the usual channels
+	var $wordings = array();
 	/**
 	 * Constructor
 	 *
@@ -43,7 +45,29 @@ class keysUpdate
 	 */
 	function keysUpdate($data)
 	{
+		global $roster;
+
 		$this->data = $data;
+
+		foreach( $roster->multilanguages as $locale )
+		{
+			$lang = array();
+			$localefile = $this->data['locale_dir'] . $locale . '.php';
+			if( file_exists($localefile) )
+			{
+				include($localefile);
+			}
+			else
+			{
+				$enUSfile = $this->data['locale_dir'] . 'enUS.php';
+				if( file_exists($enUSfile) )
+				{
+					include($enUSfile);
+				}
+			}
+			$this->wordings[$locale] =& $lang;
+			unset($lang);
+		}
 	}
 
 	/**
@@ -125,7 +149,7 @@ class keysUpdate
 			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
 			. "AND `stages`.`type` = 'R' AND `data`.`name` = `stages`.`value` "
 			. "AND `stages`.`count` <= `data`.`curr_rep` + CASE `data`.`Standing` ";
-		foreach( $roster->locale->wordings[$char['Locale']]['rep2level'] as $standing => $number )
+		foreach( $this->wordings[$char['Locale']]['rep2level'] as $standing => $number )
 		{
 			$query .= "WHEN '" . $standing . "' THEN " . (int)$number . " ";
 		}
