@@ -225,7 +225,7 @@ $inst_keys['A'] = array(
         'Q|La rédemption des Cendrelangue|1||1',
         'In|Le Médaillon de Karabor|1||1',
         'Key|inv_jewelry_amulet_04|'
-    )
+    ),
 	'MH' => array(
 		'Q|The Vials of Eternity|1||1',
 		'In|Vash\\\'s Vial Remnant|1|()|1',
@@ -402,7 +402,7 @@ $inst_keys['H'] = array(
         'Q|La rédemption des Cendrelangue|1||1',
         'In|Le Médaillon de Karabor|1||1',
         'Key|inv_jewelry_amulet_04|'
-    )
+    ),
 	'MH' => array(
 		'Q|The Vials of Eternity|1||1',
 		'In|Vash\\\'s Vial Remnant|1|()|1',
