@@ -30,7 +30,6 @@ $lang['enable_html']            = 'Activer HTML';
 $lang['disable_html']           = 'Désactiver HTML';
 $lang['posted_by']              = 'Ecrit par';
 $lang['edit']                   = 'Editer';
-$lang['edit']                   = 'Editer';
 $lang['edit_news']              = 'Editer l\'article';
 $lang['comments']               = 'Commentaires';
 $lang['add_comment']            = 'Ajouter un commentaire';
