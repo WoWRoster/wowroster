@@ -438,16 +438,6 @@ $lang['race_to_en'] = array(
 	'Tauren'   => 'Tauren'
 );
 
-$lang['pvplist']='PvP Statistiken';
-$lang['pvplist1']='Gilde, die am meisten unter uns zu leiden hat';
-$lang['pvplist2']='Gilde, die uns am meisten zu schaffen macht';
-$lang['pvplist3']='Spieler, der am meisten unter uns zu leiden hat';
-$lang['pvplist4']='Spieler, der uns am meisten zu schaffen macht';
-$lang['pvplist5']='Mitglied mit den meisten Kills';
-$lang['pvplist6']='Mitglied, das am häufigsten gestorben ist';
-$lang['pvplist7']='Besten Kills-Level-Durchschnitt';
-$lang['pvplist8']='Besten Tod-Level-Durchschnitt';
-
 $lang['hslist']=' Ehren Statistiken';
 $lang['hslist1']='Höchsten Lebenszeit Rang';
 $lang['hslist2']='Höchsten Lebenszeit ES';
