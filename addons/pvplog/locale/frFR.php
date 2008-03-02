@@ -61,6 +61,16 @@ $lang['unbeaten']='Unbeaten';
 $lang['them']='Them';
 $lang['us']='Us';
 
+$lang['pvplist']='Stats JcJ/PvP';
+$lang['pvplist1']='Guilde qui a le plus souffert de nos actions';
+$lang['pvplist2']='Guilde qui nous a le plus fait souffrir';
+$lang['pvplist3']='Joueur qui a le plus souffert de nos actions';
+$lang['pvplist4']='Joueur qui nous a le plus tué';
+$lang['pvplist5']='Membre de la guilde tuant le plus';
+$lang['pvplist6']='Membre de la guilde tué le plus';
+$lang['pvplist7']='Membre ayant la meilleure moyenne de mort';
+$lang['pvplist8']='Membre ayant la meilleure moyenne de défaîte';
+
 // guildpvp strings
 $lang['guildwins'] = 'Victoires par guilde';
 $lang['guildlosses'] = 'Défaites par guilde';

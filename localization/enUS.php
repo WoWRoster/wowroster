@@ -438,16 +438,6 @@ $lang['race_to_en'] = array(
 	'Tauren'    => 'Tauren'
 );
 
-$lang['pvplist']='PvP Stats';
-$lang['pvplist1']='Guild that suffered most at our hands';
-$lang['pvplist2']='Guild that killed us the most';
-$lang['pvplist3']='Player who we killed the most';
-$lang['pvplist4']='Player who killed us the most';
-$lang['pvplist5']='Member with the most kills';
-$lang['pvplist6']='Member who has died the most';
-$lang['pvplist7']='Member with best kill average';
-$lang['pvplist8']='Member with best loss average';
-
 $lang['hslist']=' Honor System Stats';
 $lang['hslist1']='Highest Lifetime Rank';
 $lang['hslist2']='Highest Lifetime HKs';

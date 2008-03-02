@@ -438,16 +438,6 @@ $lang['race_to_en'] = array(
 	'Tauren'    => 'Tauren'
 );
 
-$lang['pvplist'] ='Estadísticas JcJ';
-$lang['pvplist1']='Hermandad a la que más hemos hecho sufrir';
-$lang['pvplist2']='Hermandad que más nos ha hecho sufrir';
-$lang['pvplist3']='Jugador al que más hemos matado';
-$lang['pvplist4']='Jugador que más nos ha matado';
-$lang['pvplist5']='Miembro con más muertes';
-$lang['pvplist6']='Miembro que más ha muerto';
-$lang['pvplist7']='Miembro con la mejor media de muertes';
-$lang['pvplist8']='Miembro con la mejor media de derrotas';
-
 $lang['hslist']=' Estadísticas de honor';
 $lang['hslist1']='Personaje con mayor rango';
 $lang['hslist2']='Mayor número de muertes con honor';

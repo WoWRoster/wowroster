@@ -438,16 +438,6 @@ $lang['race_to_en'] = array(
 	'Tauren'       => 'Tauren'
 );
 
-$lang['pvplist']='Stats JcJ/PvP';
-$lang['pvplist1']='Guilde qui a le plus souffert de nos actions';
-$lang['pvplist2']='Guilde qui nous a le plus fait souffrir';
-$lang['pvplist3']='Joueur qui a le plus souffert de nos actions';
-$lang['pvplist4']='Joueur qui nous a le plus tué';
-$lang['pvplist5']='Membre de la guilde tuant le plus';
-$lang['pvplist6']='Membre de la guilde tué le plus';
-$lang['pvplist7']='Membre ayant la meilleure moyenne de mort';
-$lang['pvplist8']='Membre ayant la meilleure moyenne de défaîte';
-
 $lang['hslist']=' Stats du Système d\'Honneur';
 $lang['hslist1']='Membre le mieux classé';
 $lang['hslist2']='Membre ayant le plus de VH';
