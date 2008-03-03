@@ -39,7 +39,7 @@ if( !defined('IN_ROSTER') )
 if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
 	print '<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
-	. $roster->auth->getLoginForm();
+		. $roster->auth->getLoginForm();
 
 	return;
 }
@@ -51,16 +51,16 @@ $header = $menu = $pagebar = $addon_pagebar = $footer = $body = $rcp_message = '
 
 // ----[ Check for latest WoWRoster Version ]------------------
 
-if( isset($roster->config['versioncache']) )
+if( $roster->config['check_updates'] && isset($roster->config['versioncache']) )
 {
 	$cache = unserialize($roster->config['versioncache']);
 
 	if( $roster->config['versioncache'] == '' )
 	{
 		$cache['timestamp'] = 0;
-			$cache['ver_latest'] = '';
-			$cache['ver_info'] = '';
-			$cache['ver_date'] = '';
+		$cache['ver_latest'] = '';
+		$cache['ver_info'] = '';
+		$cache['ver_date'] = '';
 	}
 
 	if( ($cache['timestamp'] + (60 * 60 * $roster->config['check_updates'])) <= time() )
@@ -81,7 +81,7 @@ if( isset($roster->config['versioncache']) )
 
 		if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
 		{
-			$cache['ver_date'] = date($roster->locale->act['phptimeformat'], strtotime($info[1]));
+			$cache['ver_date'] = strtotime($info[1]);
 		}
 
 		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
@@ -90,6 +90,7 @@ if( isset($roster->config['versioncache']) )
 
 	if( version_compare($cache['ver_latest'],ROSTER_VERSION,'>') )
 	{
+		$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600*$roster->config['localtimeoffset']));
 		$rcp_message .= messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
 	}
 }
@@ -134,7 +135,7 @@ foreach( $roster->addon_data as $row )
 {
 	$addon = getaddon($row['basename']);
 
-	$header .= updateCheck($addon);
+	$rcp_message .= updateCheck($addon);
 
 	if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
 	{
