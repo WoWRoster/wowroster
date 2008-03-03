@@ -176,6 +176,14 @@ class Upgrade
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('blinds') . "`;");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1715','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` DROP INDEX `categoriesI`;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` DROP `categories`;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` ADD `recipe_id` VARCHAR(32) NULL AFTER `member_id`;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` ADD `item_id` VARCHAR(64) NULL AFTER `recipe_id`;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

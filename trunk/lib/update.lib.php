@@ -774,9 +774,12 @@ class update
 			$this->assignstr .= ',';
 		}
 
-		$row_data = "'" . $roster->db->escape( stripslashes($row_data) ) . "'";
+		// str_replace added to get rid of non breaking spaces in cp.lua tooltips
+		$row_data = str_replace(chr(194) . chr(160), ' ', $row_data);
+		$row_data = stripslashes($row_data);
+		$row_data = $roster->db->escape($row_data);
 
-		$this->assignstr .= " `$row_name` = $row_data";
+		$this->assignstr .= " `$row_name` = '$row_data'";
 	}
 
 
@@ -798,8 +801,7 @@ class update
 
 		if( isset($array[$key]) )
 		{
-			// str_replace added to get rid of non breaking spaces in cp.lua tooltips
-			$this->add_value( $field, str_replace(chr(194).chr(160), ' ', $array[$key]) );
+			$this->add_value( $field, $array[$key] );
 			return true;
 		}
 		else
@@ -1045,6 +1047,8 @@ class update
 
 		$this->reset_values();
 		$this->add_ifvalue( $recipe, 'member_id' );
+		$this->add_ifvalue( $recipe, 'recipe_id' );
+		$this->add_ifvalue( $recipe, 'item_id' );
 		$this->add_ifvalue( $recipe, 'recipe_name' );
 		$this->add_ifvalue( $recipe, 'recipe_type' );
 		$this->add_ifvalue( $recipe, 'skill_name' );
@@ -1304,13 +1308,15 @@ class update
 		$recipe['skill_name'] = $parent;
 		$recipe['difficulty'] = $recipe_data['Difficulty'];
 		$recipe['item_color'] = isset($recipe_data['Color']) ? $recipe_data['Color'] : '';
+		$recipe['item_id'] = isset($recipe_data['Item']) ? $recipe_data['Item'] : '';
+		$recipe['recipe_id'] = isset($recipe_data['RecipeID']) ? $recipe_data['RecipeID'] : '';
 
-		$recipe['reagents'] = '';
+		$recipe['reagents'] = array();
 		foreach( $recipe_data['Reagents'] as $reagent )
 		{
-			$recipe['reagents'] .= $reagent['Name'] . ' [x' . $reagent['Count'] . ']<br>';
+			$recipe['reagents'][] = $reagent['Name'] . ' [x' . $reagent['Count'] . ']';
 		}
-		$recipe['reagents'] = substr($recipe['reagents'],0,-4);
+		$recipe['reagents'] = implode('<br>',$recipe['reagents']);
 
 		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
 

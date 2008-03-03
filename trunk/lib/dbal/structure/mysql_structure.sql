@@ -624,6 +624,8 @@ CREATE TABLE `renprefix_realmstatus` (
 DROP TABLE IF EXISTS `renprefix_recipes`;
 CREATE TABLE `renprefix_recipes` (
   `member_id` int(11) unsigned NOT NULL default '0',
+  `recipe_id` varchar(32) default NULL,
+  `item_id` varchar(64) default NULL,
   `recipe_name` varchar(64) NOT NULL default '',
   `recipe_type` varchar(100) NOT NULL default '',
   `skill_name` varchar(64) NOT NULL default '',
@@ -632,13 +634,11 @@ CREATE TABLE `renprefix_recipes` (
   `reagents` mediumtext NOT NULL,
   `recipe_texture` varchar(64) NOT NULL default '',
   `recipe_tooltip` mediumtext NOT NULL,
-  `categories` varchar(64) NOT NULL default '',
   `level` int(11) default NULL,
   `item_level` int(11) default NULL,
-  PRIMARY KEY  (`member_id`,`skill_name`,`recipe_name`,`categories`),
+  PRIMARY KEY  (`member_id`,`skill_name`,`recipe_name`),
   KEY `skill_nameI` (`skill_name`),
   KEY `recipe_nameI` (`recipe_name`),
-  KEY `categoriesI` (`categories`),
   KEY `levelI` (`level`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
