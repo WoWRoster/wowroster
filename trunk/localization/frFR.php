@@ -913,7 +913,8 @@ $lang['admin']['rs_color_low'] = "Couleur Faible|Couleur pour un niveau de peupl
 $lang['admin']['rs_color_medium'] = "Couleur Moyen|Couleur pour un niveau de peuplement moyen";
 $lang['admin']['rs_color_high'] = "Couleur Haute|Couleur pour un niveau de peuplement élevé";
 $lang['admin']['rs_color_max'] = "Couleur Max|Couleur pour un niveau de peuplement maximum";
-$lang['admin']['rs_color_error'] = "Couleur hors-ligne|Couleur dans le cas d'un royaume hors-ligne";
+$lang['admin']['rs_color_error'] = "Error Color|Color for realm error";
+$lang['admin']['rs_color_offline'] = "Couleur hors-ligne|Couleur dans le cas d'un royaume hors-ligne";
 $lang['admin']['rs_color_full'] = "Full Color|Color for full realms (EU realms only)";
 $lang['admin']['rs_color_recommended'] = "Recommended Color|Color for recommended realms (EU realms only)";
 

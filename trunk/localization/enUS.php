@@ -913,7 +913,8 @@ $lang['admin']['rs_color_low'] = "Low Color|Color for low population";
 $lang['admin']['rs_color_medium'] = "Medium Color|Color for medium population";
 $lang['admin']['rs_color_high'] = "High Color|Color for high population";
 $lang['admin']['rs_color_max'] = "Max Color|Color for max population";
-$lang['admin']['rs_color_error'] = "Offline Color|Color for realm offline";
+$lang['admin']['rs_color_error'] = "Error Color|Color for realm error";
+$lang['admin']['rs_color_offline'] = "Offline Color|Color for realm offline";
 $lang['admin']['rs_color_full'] = "Full Color|Color for full realms (EU realms only)";
 $lang['admin']['rs_color_recommended'] = "Recommended Color|Color for recommended realms (EU realms only)";
 

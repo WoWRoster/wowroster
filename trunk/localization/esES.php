@@ -915,7 +915,8 @@ $lang['admin']['rs_color_low'] = "Bajo Color|Color para poblaciones bajas";
 $lang['admin']['rs_color_medium'] = "Medio Color|Color para poblaciones medias";
 $lang['admin']['rs_color_high'] = "Alto Color|Color para poblaciones altas";
 $lang['admin']['rs_color_max'] = "Max Color|Color para poblaciones con el máximo";
-$lang['admin']['rs_color_error'] = "Desconectado Color|Color para reinos desconectados";
+$lang['admin']['rs_color_error'] = "Error Color|Color for realm error";
+$lang['admin']['rs_color_offline'] = "Desconectado Color|Color para reinos desconectados";
 $lang['admin']['rs_color_full'] = "Lleno Color|Color para reinos lleinos (solo en reinos europeos)";
 $lang['admin']['rs_color_recommended'] = "Recomendado Color|Color para reinos recomendados (solo en reinos europeos)";
 
