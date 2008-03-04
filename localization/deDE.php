@@ -912,7 +912,8 @@ $lang['admin']['rs_color_low'] = "Niedrig Farbe|Farbe für niedrige Bevölkerung
 $lang['admin']['rs_color_medium'] = "Mittel Farbe|Farbe für mittlere Bevölkerung";
 $lang['admin']['rs_color_high'] = "Hoch Farbe|Farbe für hohe Bevölkerung";
 $lang['admin']['rs_color_max'] = "Max Farbe|Farbe für maximale Bevölkerung";
-$lang['admin']['rs_color_error'] = "Offline Farbe|Farbe für Realm offline";
+$lang['admin']['rs_color_error'] = "Error Color|Color for realm error";
+$lang['admin']['rs_color_offline'] = "Offline Farbe|Farbe für Realm offline";
 $lang['admin']['rs_color_full'] = "Full Color|Color for full realms (EU realms only)";
 $lang['admin']['rs_color_recommended'] = "Recommended Color|Color for recommended realms (EU realms only)";
 

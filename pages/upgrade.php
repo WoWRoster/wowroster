@@ -162,12 +162,12 @@ class Upgrade
 
 		if( version_compare($roster->config['version'],'1.9.9.1585','<') )
 		{
-			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET form_type = 'radio{extended^2|on^1|off^0' WHERE `id` = 1002;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'radio{extended^2|on^1|off^0' WHERE `id` = 1002;");
 		}
 
 		if( version_compare($roster->config['version'],'1.9.9.1637','<') )
 		{
-			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET form_type = 'radio{extended^2|on^1|off^0' WHERE `id` = 1001;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'radio{extended^2|on^1|off^0' WHERE `id` = 1001;");
 		}
 
 		/* All that remains of a bad idea... */
@@ -182,6 +182,12 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` DROP `categories`;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` ADD `recipe_id` VARCHAR(32) NULL AFTER `member_id`;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` ADD `item_id` VARCHAR(64) NULL AFTER `recipe_id`;");
+		}
+
+		if( version_compare($roster->config['version'],'1.9.9.1717','<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#646464' WHERE `id` = 8460;");
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8465, 'rs_color_offline', '#646464', 'color', 'rs_right');");
 		}
 
 		$this->beta_upgrade();
