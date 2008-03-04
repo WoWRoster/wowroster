@@ -39,10 +39,10 @@ It may take a couple of seconds to sort the full list; sorting a filtered list
 is faster.
 
 MEMBERSLIST VERSION LOG:
-1.8.0-0
+2.0.0.0
 -- Merged AltMonitor, SortMembers, and the built-in memberslist and memberlog
    into a single roster addon
--- Roster 1.8.0 compatibility
+-- Roster 2.0 compatibility
 -- Extra pages for all characters in a realm
 -- Talent icons/specs column
 -- Column show/hide configuration for all columns on all pages
@@ -360,8 +360,12 @@ $FIELD['name'] = array (
 		// 'value' is a callback to the function that draws this column. The
 		// function should also be defined in the list file (except for the
 		// name/class/level/honor value functions included in the lib).
-		// It has two parameter, the DB row for the current player and the
-		// db field name to be displayed.
+		// It has three parameters:
+		// - $row	The current DB record
+		// - $field	'name' of this FIELD
+		// - $data	The contents of the 'passthrough' element
+		// This element is optional, and if it exists it overrides the $FIELD
+		// key and the 'jsort' attribute.
 	'js_type' => 'js_string',
 		// 'js_type' is the field type for the javascript. There are currently
 		// three supported values:
@@ -372,7 +376,7 @@ $FIELD['name'] = array (
 	'jsort' => 'name',
 		// 'jsort' is the field the javascript (clientside sorting) should sort
 		// and filter on. This can be omitted if it's the same as the display
-		// field, and should never occur together with 'value'
+		// field, and is overridden if the 'value' attribute is used.
 	'display' => 3,
 		// 'display' generally refers to a config field. It determines if the
 		// column is visible:
