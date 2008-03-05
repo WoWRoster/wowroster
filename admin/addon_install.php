@@ -24,7 +24,7 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] .= $roster->locale->act['pagebar_addoninst'];
 
 
-require(ROSTER_LIB . 'install.lib.php');
+include(ROSTER_LIB . 'install.lib.php');
 
 
 $op = ( isset($_POST['op']) ? $_POST['op'] : '' );
@@ -175,7 +175,7 @@ function getAddonList()
 
 			if( file_exists($installfile) )
 			{
-				require($installfile);
+				include_once($installfile);
 
 				if( !class_exists($install_class) )
 				{

@@ -116,13 +116,13 @@ define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 /**
  * Include constants file
  */
-require(ROSTER_LIB . 'constants.php');
+require_once (ROSTER_LIB . 'constants.php');
 
 
 /**
  * Include common functions
  **/
-require(ROSTER_LIB . 'functions.lib.php');
+require_once (ROSTER_LIB . 'functions.lib.php');
 
 
 /**
@@ -144,7 +144,7 @@ if( !file_exists(ROSTER_CONF_FILE) )
 }
 else
 {
-	require(ROSTER_CONF_FILE);
+	require_once (ROSTER_CONF_FILE);
 }
 
 if( !defined('ROSTER_INSTALLED') )
@@ -153,14 +153,14 @@ if( !defined('ROSTER_INSTALLED') )
 	die();
 }
 
-require(ROSTER_LIB . 'roster.php');
+include( ROSTER_LIB . 'roster.php' );
 $roster = new roster;
 
 
 /**
  * Roster Error Handler
  */
-require(ROSTER_LIB . 'roster_error.php');
+include( ROSTER_LIB . 'roster_error.php' );
 $roster->error =& new roster_error();
 
 
@@ -175,7 +175,7 @@ unset($db_config);
 /**
  * Include cache class
  */
-require(ROSTER_LIB . 'cache.php');
+require_once(ROSTER_LIB . 'cache.php');
 $roster->cache = new RosterCache();
 
 /**
@@ -199,17 +199,17 @@ unset($locale);
 /**
  * Include linking file
  */
-require(ROSTER_LIB . 'cmslink.lib.php');
+require_once (ROSTER_LIB . 'cmslink.lib.php');
 
 
 /**
  * Load the Template Parser
  */
-require(ROSTER_LIB . 'template.php');
+include( ROSTER_LIB . 'template.php' );
 $roster->tpl = new RosterTemplate;
 if( file_exists($roster->tpl->root . DIR_SEP . 'theme.php') )
 {
-	require($roster->tpl->root . DIR_SEP . 'theme.php');
+	include_once($roster->tpl->root . DIR_SEP . 'theme.php');
 }
 
 
@@ -222,14 +222,14 @@ $roster->get_addon_data();
 /**
  * Load the locale class
  */
-require(ROSTER_LIB . 'locale.php');
+include(ROSTER_LIB . 'locale.php');
 $roster->locale = new roster_locale;
 
 
 /**
  * Include the Roster Menu class
  */
-require(ROSTER_LIB . 'menu.php');
+require_once(ROSTER_LIB . 'menu.php');
 
 
 /**
@@ -249,12 +249,12 @@ $roster->get_scope_data();
  */
 if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
 {
-	require(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php');
+	require_once(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php');
 }
 else
 {
 	$roster->config['external_auth'] = 'roster';
-	require(ROSTER_LIB . 'login.php');
+	require_once(ROSTER_LIB . 'login.php');
 }
 
 $roster->auth = new RosterLogin();

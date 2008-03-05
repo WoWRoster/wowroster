@@ -687,14 +687,14 @@ function downloadsvn($filename)
 	$wh = fopen($filename, 'wb');
 	if ($rh===false || $wh===false)
 	{
-		echo "[ERROR] Cannot Read File\n";
+		print("[ERROR] Cannot Read File\n");
 		return false;
 	}
 	while (!feof($rh))
 	{
 		if(fwrite($wh, fread($rh, 1024)) === FALSE)
 		{
-			echo "[ERROR] Cannot Write File\n";
+			print("[ERROR] Cannot Write File\n");
 			return false;
 		}
 	}
@@ -832,7 +832,7 @@ function difffile($old,$new)
 	$y0 = $y1 = 0;
 	$out = array();
 	$outcount = 0;
-//	aprint($actions);
+//	print_r($actions);
 	foreach ($actions as $act)
 	{
 		if ($act == 1)

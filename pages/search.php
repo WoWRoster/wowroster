@@ -21,6 +21,8 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+require_once(ROSTER_BASE . 'settings.php');
+
 $roster->output['title'] = $roster->locale->act['search'];
 $roster->output['body_onload'] .= "initARC('search','radioOn','radioOff','checkboxOn','checkboxOff');";
 
@@ -76,7 +78,7 @@ foreach( $roster->addon_data as $name => $data )
 
 	if( file_exists($roster->addon_data[$name]['search_file']) )
 	{
-		require($roster->addon_data[$name]['search_file']);
+		include_once($roster->addon_data[$name]['search_file']);
 	}
 
 	// Open the lib/search directory for roster core search files
@@ -94,7 +96,7 @@ foreach( $roster->addon_data as $name => $data )
 				$name = str_replace('.' . $pfad_info['extension'],'',$file);
 
 				$file = ROSTER_LIB . 'search' . DIR_SEP . $file;
-				require($file);
+				include_once($file);
 
 				$basename = 'roster_' . $name;
 				$roster->addon_data[$basename]['basename'] = $basename;

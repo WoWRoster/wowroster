@@ -266,12 +266,12 @@ class Upgrade
 
 		$roster->output['title'] = $roster->locale->act['upgrade_wowroster'];
 
-		require(ROSTER_BASE . 'header.php');
+		include(ROSTER_BASE . 'header.php');
 
 		$roster->tpl->set_filenames(array('body' => 'upgrade.html'));
 		$roster->tpl->display('body');
 
-		require(ROSTER_BASE . 'footer.php');
+		include(ROSTER_BASE . 'footer.php');
 	}
 }
 

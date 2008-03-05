@@ -55,14 +55,14 @@ class keysUpdate
 			$localefile = $this->data['locale_dir'] . $locale . '.php';
 			if( file_exists($localefile) )
 			{
-				require($localefile);
+				include($localefile);
 			}
 			else
 			{
 				$enUSfile = $this->data['locale_dir'] . 'enUS.php';
 				if( file_exists($enUSfile) )
 				{
-					require($enUSfile);
+					include($enUSfile);
 				}
 			}
 			$this->wordings[$locale] =& $lang;
@@ -154,7 +154,7 @@ class keysUpdate
 			$query .= "WHEN '" . $standing . "' THEN " . (int)$number . " ";
 		}
 		$query .= "END;";
-
+			
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' reputation stages activated';
 

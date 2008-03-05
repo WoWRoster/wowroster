@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require(ROSTER_LIB . 'update.lib.php');
+include( ROSTER_LIB . 'update.lib.php' );
 $update = new update;
 
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);

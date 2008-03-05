@@ -19,7 +19,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require($addon['inc_dir'] . 'pvp.lib.php');
+include_once($addon['inc_dir'] . 'pvp.lib.php');
 
 $roster->output['title'] = sprintf($roster->locale->act['duellog'],$roster->data['name']);
 

@@ -53,7 +53,7 @@ class roster_locale
 	{
 		global $roster;
 
-		require(ROSTER_LOCALE_DIR . 'languages.php');
+		include(ROSTER_LOCALE_DIR . 'languages.php');
 
 		$this->creditspage = $creditspage;
 
@@ -82,14 +82,14 @@ class roster_locale
 	{
 		if( file_exists($localefile) )
 		{
-			require($localefile);
+			include($localefile);
 		}
 		else
 		{
 			$enUSfile = str_replace($locale . '.php','enUS.php',$localefile);
 			if( file_exists($enUSfile) )
 			{
-				require($enUSfile);
+				include($enUSfile);
 			}
 			else
 			{
@@ -138,14 +138,14 @@ class roster_locale
 
 			if( file_exists($localefile) )
 			{
-				require($localefile);
+				include($localefile);
 			}
 			else
 			{
 				$enUSfile = str_replace($locale . '.php','enUS.php',$localefile);
 				if( file_exists($enUSfile) )
 				{
-					require($enUSfile);
+					include($enUSfile);
 				}
 			}
 		}

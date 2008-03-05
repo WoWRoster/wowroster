@@ -724,7 +724,7 @@ class RosterArmory
 	{
 		if( !is_object($this->xmlParser) )
 		{
-			require(ROSTER_LIB . 'xmlparse.class.php');
+			require_once(ROSTER_LIB . 'xmlparse.class.php');
 			$this->xmlParser = new XmlParser();
 		}
 	}
@@ -739,7 +739,7 @@ class RosterArmory
 	{
 		if( !is_object($this->simpleParser) )
 		{
-			require(ROSTER_LIB . 'simpleparser.class.php');
+			require_once(ROSTER_LIB . 'simpleparser.class.php');
 			$this->simpleParser = new simpleParser();
 		}
 	}

@@ -129,13 +129,13 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 	{
 		echo "<pre>The quiet die function suffered a fatal error. Die information below\n";
 		echo "First die data:\n";
-		aprint($GLOBALS['die_data']);
+		print_r($GLOBALS['die_data']);
 		echo "\nSecond die data:\n";
-		aprint(func_get_args());
+		print_r(func_get_args());
 		if( !empty($roster->error->report) )
 		{
 			echo "\nPHP Notices/Warnings:\n";
-			aprint( $roster->error->report );
+			print_r( $roster->error->report );
 		}
 		exit();
 	}
@@ -148,7 +148,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		require(ROSTER_BASE . 'header.php');
+		include_once(ROSTER_BASE . 'header.php');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
@@ -194,7 +194,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		require(ROSTER_BASE . 'footer.php');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -218,7 +218,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		require(ROSTER_BASE . 'header.php');
+		include_once(ROSTER_BASE . 'header.php');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
@@ -236,7 +236,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		require(ROSTER_BASE . 'footer.php');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -267,8 +267,6 @@ function ajax_die($text, $title, $file, $line, $sql)
 		. "  <status>255</status>\n"
 		. "  <errmsg>" . $text . "</errmsg>\n"
 		. "</response>\n";
-
-	exit();
 }
 
 

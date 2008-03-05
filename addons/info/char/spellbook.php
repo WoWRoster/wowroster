@@ -19,11 +19,11 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require($addon['dir'] . 'inc/header.php');
+include( $addon['dir'] . 'inc/header.php' );
 
 if( $addon['config']['show_spellbook'] == 1 )
 {
 	$char_page .= $char->show_spellbook();
 }
 
-require($addon['dir'] . 'inc/footer.php');
+include( $addon['dir'] . 'inc/footer.php' );

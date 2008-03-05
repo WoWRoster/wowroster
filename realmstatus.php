@@ -31,8 +31,8 @@ if( !defined('IN_ROSTER') )
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
-require($roster_root_path . 'settings.php');
-require(ROSTER_LIB . 'simpleparser.class.php');
+require_once($roster_root_path . 'settings.php');
+require_once(ROSTER_LIB . 'simpleparser.class.php');
 
 
 //==========[ GET FROM CONF.PHP ]====================================================
