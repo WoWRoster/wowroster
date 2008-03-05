@@ -50,7 +50,7 @@ class memberslistUpdate
 	{
 		$this->data = $data;
 
-		include_once($this->data['conf_file']);
+		require($this->data['conf_file']);
 	}
 
 	/**
@@ -105,7 +105,7 @@ class memberslistUpdate
 		}
 
 		if( isset($guild['ScanInfo']) && is_array($guild['ScanInfo'])
-			&& isset($guild['ScanInfo']['HasOfficerNote']) 
+			&& isset($guild['ScanInfo']['HasOfficerNote'])
 			|| $this->data['rules']['getmain_field'] != 'OfficerNote' )
 		{
 			$this->passedCheck = true;

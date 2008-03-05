@@ -206,14 +206,16 @@ class keysInstall
 	{
 		global $installer, $roster;
 
+		$locale_dir = ROSTER_ADDONS . $installer->addata['basename'] . DIR_SEP . 'locale' . DIR_SEP;
+
 		foreach( $roster->multilanguages as $lang )
 		{
 			$inst_keys = array( 'A' => array(), 'H' => array() );
 
-			//echo ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php";
-			if(file_exists( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php"))
+			//echo $locale_dir . $prefix . $lang . '.php';
+			if(file_exists( $locale_dir . $prefix . $lang . '.php'))
 			{
-				include_once( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php");
+				require($locale_dir . $prefix . $lang . '.php');
 			}
 			else
 			{
@@ -221,9 +223,9 @@ class keysInstall
 			}
 
 			// We need the rep2level array from the normal locale file
-			if(file_exists( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php") )
+			if(file_exists( $locale_dir . $lang . '.php') )
 			{
-				include_once( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php");
+				require($locale_dir . $lang . '.php');
 			}
 
 			foreach( $inst_keys as $faction => $keylist )

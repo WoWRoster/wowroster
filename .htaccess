@@ -5,6 +5,9 @@
 <IfModule mod_rewrite.c>
 	# ENABLE ENGINE
 	RewriteEngine On
+	
+	# SIGEN REWRITE
+	RewriteRule ^/?(signature|avatar)/(.*)\.(.*)$ /index.php?p=util-siggen-$1&member=$2&format=$3
 
 	# CONIDITIONS
 	RewriteCond %{REQUEST_FILENAME} -f [OR]

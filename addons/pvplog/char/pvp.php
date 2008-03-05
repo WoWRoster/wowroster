@@ -19,7 +19,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include_once($addon['inc_dir'] . 'pvp.lib.php');
+require($addon['inc_dir'] . 'pvp.lib.php');
 
 $roster->output['title'] = sprintf($roster->locale->act['pvplog'],$roster->data['name']);
 

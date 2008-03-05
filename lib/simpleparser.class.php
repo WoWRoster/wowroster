@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-require_once(ROSTER_LIB . 'simple.class.php');
+require(ROSTER_LIB . 'simple.class.php');
 
 /**
  * WoWRoster Simple Parser

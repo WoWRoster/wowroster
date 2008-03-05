@@ -21,7 +21,7 @@ $roster->auth->setAction('&amp;id=' . $_GET['id']);
 
 if( ! $roster->auth->getAuthorized( $addon['config']['comm_edit'] ) )
 {
-	print $roster->auth->getLoginForm($addon['config']['comm_edit']);
+	echo $roster->auth->getLoginForm($addon['config']['comm_edit']);
 
 	return; //To the addon framework
 }

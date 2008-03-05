@@ -21,7 +21,7 @@ $roster->auth->setAction('&amp;id=' . $_GET['id']);
 
 if( ! $roster->auth->getAuthorized( $addon['config']['news_edit'] ) )
 {
-	print $roster->auth->getLoginForm($addon['config']['news_edit']);
+	echo $roster->auth->getLoginForm($addon['config']['news_edit']);
 
 	return; //To the addon framework
 }

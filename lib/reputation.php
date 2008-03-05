@@ -46,7 +46,7 @@ class reputation
 	{
 		if ($this->data['faction'] != $fac)
 		{
-			print '<div class="skilltype">' . $this->data['faction'] . '</div>';
+			echo '<div class="skilltype">' . $this->data['faction'] . '</div>';
 		}
 
 		$this->lastfaction = $this->data['faction'];

@@ -47,7 +47,7 @@ class roster_itemSearch
 	{
 		global $roster;
 
-		require_once (ROSTER_LIB . 'item.php');
+		require(ROSTER_LIB . 'item.php');
 
 		$this->open_table = '<tr><th class="membersHeader ts_string">' . $roster->locale->act['item'] . '</th>'
 						  . '<th class="membersHeader ts_string">Lv</th>'

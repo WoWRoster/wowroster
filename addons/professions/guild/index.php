@@ -25,8 +25,8 @@ $roster->output['title'] = $roster->locale->act['professions'];
 // ----[ Check log-in ]-------------------------------------
 if( ! $roster->auth->getAuthorized( $addon['config']['professions_access'] ) )
 {
-	print '<span class="title_text">' . $roster->locale->act['professions'] . "</span>\n";
-	print '<br />' . $roster->auth->getLoginForm();
+	echo '<span class="title_text">' . $roster->locale->act['professions'] . "</span>\n";
+	echo '<br />' . $roster->auth->getLoginForm();
 
 	return;
 }

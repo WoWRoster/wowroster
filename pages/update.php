@@ -22,7 +22,7 @@ if( !defined('IN_ROSTER') )
 }
 
 // Include update lib
-require_once(ROSTER_LIB.'update.lib.php');
+require(ROSTER_LIB . 'update.lib.php');
 $update = new update;
 
 // See if UU is requesting this page
@@ -95,7 +95,7 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 	else
 	{
 		// No-HTML result page for UU
-		print stripAllHtml($messages);
+		echo stripAllHtml($messages);
 
 		$roster->output['show_header'] = false;
 		$roster->output['show_menu'] = false;

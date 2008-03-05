@@ -37,7 +37,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include( ROSTER_LIB . 'item.php' );
+require( ROSTER_LIB . 'item.php' );
 
 if( isset($_GET['mode']) )
 {

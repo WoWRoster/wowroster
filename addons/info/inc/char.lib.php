@@ -20,11 +20,11 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_LIB . 'item.php');
-require_once ($addon['inc_dir'] . 'bag.php');
-require_once (ROSTER_LIB . 'skill.php');
-require_once (ROSTER_LIB . 'quest.php');
-require_once (ROSTER_LIB . 'recipes.php');
+require(ROSTER_LIB . 'item.php');
+require($addon['inc_dir'] . 'bag.php');
+require(ROSTER_LIB . 'skill.php');
+require(ROSTER_LIB . 'quest.php');
+require(ROSTER_LIB . 'recipes.php');
 
 /**
  * Character Information Class

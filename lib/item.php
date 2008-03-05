@@ -1677,7 +1677,7 @@ class item
 
 	function _initArmoryDb()
 	{
-		require_once(ROSTER_LIB . 'armory.class.php');
+		require(ROSTER_LIB . 'armory.class.php');
 		$this->armory_db = new RosterArmory();
 	}
 } //end class item

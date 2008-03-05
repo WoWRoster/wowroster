@@ -19,7 +19,7 @@ if( !defined('IN_ROSTER') )
 
 if( ! $roster->auth->getAuthorized( $addon['config']['news_add'] ) )
 {
-	print $roster->auth->getLoginForm($addon['config']['news_add']);
+	echo $roster->auth->getLoginForm($addon['config']['news_add']);
 
 	return; //To the addon framework
 }

@@ -19,11 +19,8 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require_once ($addon['inc_dir'] . 'vault_item.php');
-require_once ($addon['inc_dir'] . 'vault_tab.php');
-//require_once (ROSTER_LIB . 'armory.class.php');
-
-//$armory = new RosterArmory($roster->data['region']);
+require($addon['inc_dir'] . 'vault_item.php');
+require($addon['inc_dir'] . 'vault_tab.php');
 
 $roster->output['title'] = $roster->locale->act['vault'];
 
@@ -188,7 +185,6 @@ function vault_log( $parent )
 		elseif( $row['item_id'] != '' )
 		{
 			$money_item = itemidname($row['item_id']);
-			//aprint($armory->fetchItemInfo($row['item_id'],$roster->config['locale']));
 		}
 
 		$roster->tpl->assign_block_vars('tab_data.log',array(

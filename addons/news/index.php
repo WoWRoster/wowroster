@@ -22,13 +22,13 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	if( ! $roster->auth->getAuthorized( $addon['config']['news_add'] ) && !isset($_POST['id']) )
 	{
-		print $roster->auth->getLoginForm($addon['config']['news_add']);
+		echo $roster->auth->getLoginForm($addon['config']['news_add']);
 
 		return; //To the addon framework
 	}
 	if( ! $roster->auth->getAuthorized( $addon['config']['news_edit'] ) && isset($_POST['id']) )
 	{
-		print $roster->auth->getLoginForm($addon['config']['news_edit']);
+		echo $roster->auth->getLoginForm($addon['config']['news_edit']);
 
 		return; //To the addon framework
 	}

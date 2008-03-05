@@ -19,11 +19,11 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include( $addon['dir'] . 'inc/header.php' );
+require($addon['dir'] . 'inc/header.php');
 
 if( $addon['config']['show_talents'] == 1 )
 {
 	$char_page .= $char->printTalents();
 }
 
-include( $addon['dir'] . 'inc/footer.php' );
+require($addon['dir'] . 'inc/footer.php');

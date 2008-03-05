@@ -552,7 +552,7 @@ class RosterMenu
 			elseif( file_exists(ROSTER_BASE . 'realmstatus.php') )
 			{
 				ob_start();
-					include_once (ROSTER_BASE . 'realmstatus.php');
+					require(ROSTER_BASE . 'realmstatus.php');
 				$realmStatus .= ob_get_clean() . "\n";
 			}
 			else
