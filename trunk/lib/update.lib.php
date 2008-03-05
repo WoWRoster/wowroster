@@ -79,7 +79,7 @@ class update
 
 					if( file_exists($installfile) )
 					{
-						require($installfile);
+						include_once($installfile);
 
 						if( class_exists($install_class) )
 						{
@@ -100,7 +100,7 @@ class update
 
 					$addon = getaddon($row['basename']);
 
-					require($hookfile);
+					include_once($hookfile);
 
 					$updateclass = $row['basename'] . 'Update';
 
@@ -148,7 +148,7 @@ class update
 			return '<span class="red">Upload failed: No files present</span>' . "<br />\n";
 		}
 
-		require(ROSTER_LIB . 'luaparser.php');
+		require_once(ROSTER_LIB . 'luaparser.php');
 
 		$output = $roster->locale->act['parsing_files'] . "<br />\n<ul>";
 		foreach( $_FILES as $file )

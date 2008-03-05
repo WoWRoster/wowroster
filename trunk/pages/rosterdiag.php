@@ -25,7 +25,7 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] = $roster->locale->act['rosterdiag'];
 
 // Include the library for RosterDiag
-require(ROSTER_LIB.'rosterdiag.lib.php');
+include_once(ROSTER_LIB.'rosterdiag.lib.php');
 
 
 // Loging in as Admin to allow up- / downgrades && Downloads
@@ -59,7 +59,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		$rhmd5 = fopen(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=md5', 'rb');
 		if ($rhmd5===false)
 		{
-			echo "[ERROR] Cannot Read MD5 Remote File\n";
+			print("[ERROR] Cannot Read MD5 Remote File\n");
 			exit();
 		}
 		else
@@ -75,7 +75,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		$rhheadersvn = fopen(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=diff', 'rb');
 		if ($rhheadersvn===false)
 		{
-			echo "[ERROR] Cannot Read Remote File\n";
+			print("[ERROR] Cannot Read Remote File\n");
 			exit();
 		}
 		else
@@ -93,7 +93,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 			$rhheaderlocal = fopen($filename, 'rb');
 			if ($rhheaderlocal===false)
 			{
-				echo "[ERROR] Cannot Read Local File\n";
+				print("[ERROR] Cannot Read Local File\n");
 				exit();
 			}
 			else
@@ -180,26 +180,26 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 			}
 		}
 
-		echo '<table width="100%" border="0"><tr valign="top"><td align="center">'."\n";
-		echo border('syellow','start','MD5 Information for file: '.$filename)."\n";
-		echo '<table width="100%" cellspacing="0" border="0" class="bodyline"><tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">'.$md5remote."</td>\n";
-		echo "</tr><tr>\n";
-		echo '<td class="membersRow2">Local:</td><td class="membersRowRight2">'.$md5local."</td>\n";
-		echo "</tr></table>\n";
-		echo border('syellow','end').'<br />';
+		print('<table width="100%" border="0"><tr valign="top"><td align="center">'."\n");
+		print(border('syellow','start','MD5 Information for file: '.$filename)."\n");
+		print('<table width="100%" cellspacing="0" border="0" class="bodyline"><tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">'.$md5remote."</td>\n");
+		print("</tr><tr>\n");
+		print('<td class="membersRow2">Local:</td><td class="membersRowRight2">'.$md5local."</td>\n");
+		print("</tr></table>\n");
+		print(border('syellow','end').'<br />');
 
-		echo '<td>&nbsp;</td><td align="center">';
+		print('<td>&nbsp;</td><td align="center">');
 
-		echo border('sblue','start','Back Link');
-		echo '<table width="100%" cellspacing="0" border="0" class="bodyline">';
-		echo '<tr><td class="membersRowRight2"><form method="post" action="'.makelink().'">';
-		echo '<input type="hidden" name="filename" value="'.$filename.'" />';
-		echo '<input type="hidden" name="downloadsvn" value="savefile" />';
-		echo '<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />';
-		echo '</form></td></tr></table>';
-		echo border('sblue','end');
+		print(border('sblue','start','Back Link'));
+		print('<table width="100%" cellspacing="0" border="0" class="bodyline">');
+		print('<tr><td class="membersRowRight2"><form method="post" action="'.makelink().'">');
+		print('<input type="hidden" name="filename" value="'.$filename.'" />');
+		print('<input type="hidden" name="downloadsvn" value="savefile" />');
+		print('<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />');
+		print('</form></td></tr></table>');
+		print(border('sblue','end'));
 
-		echo '</td></tr><tr><td colspan="3">';
+		print('</td></tr><tr><td colspan="3">');
 		if (isset($_POST['downmode']) && $_POST['downmode'] == 'install')
 		{
 			$diffwindow = 'File Contents:&nbsp;&nbsp;';
@@ -208,15 +208,15 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		{
 			$diffwindow = 'File Differences for file:&nbsp;&nbsp;';
 		}
-		echo '<div align="center" style="width:100%;">'.border('sblue','start',$diffwindow.$filename);
-		echo $diffcheck;
-		echo border('sblue','end').'</div>';
-		echo '</td></tr></table>';
+		print('<div align="center" style="width:100%;">'.border('sblue','start',$diffwindow.$filename));
+		print($diffcheck);
+		print(border('sblue','end').'</div>');
+		print('</td></tr></table>');
 
 	}
 	else
 	{
-		echo border('sred','start','ERROR').'<div class="membersRow1">UNSPECIFIED ACTION<br />If you get this page, you probably are trying to exploit the system!</div>'.border('sred','end');
+		print(border('sred','start','ERROR').'<div class="membersRow1">UNSPECIFIED ACTION<br />If you get this page, you probably are trying to exploit the system!</div>'.border('sred','end'));
 	}
 
 	return;

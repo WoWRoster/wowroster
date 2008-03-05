@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['dir'] . 'inc/memberslist.php');
 
 $memberlist = new memberslist;
 

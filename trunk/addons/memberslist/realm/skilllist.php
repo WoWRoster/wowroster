@@ -19,7 +19,7 @@ if ( !defined('IN_ROSTER') )
 
 $skill_name = isset($_POST['skill']) ? $_POST['skill'] : 'Unarmed';
 
-require($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['dir'] . 'inc/memberslist.php');
 
 $memberlist = new memberslist;
 

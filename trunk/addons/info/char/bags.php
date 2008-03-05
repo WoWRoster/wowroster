@@ -19,7 +19,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require($addon['dir'] . 'inc/header.php');
+include( $addon['dir'] . 'inc/header.php' );
 
 if( $addon['config']['show_bags'] == 1 )
 {
@@ -60,4 +60,4 @@ if( $addon['config']['show_bags'] == 1 )
 	}
 }
 
-require($addon['dir'] . 'inc/footer.php');
+include( $addon['dir'] . 'inc/footer.php' );

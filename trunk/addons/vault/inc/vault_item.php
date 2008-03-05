@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-require(ROSTER_LIB . 'item.php');
+require_once(ROSTER_LIB . 'item.php');
 
 /**
  * Vault Item class, extends item class

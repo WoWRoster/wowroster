@@ -31,8 +31,8 @@ foreach( $roster->multilanguages as $lang )
 	$roster->locale->add_locale_file($memberslist_addon['locale_dir'] . $lang . '.php',$lang);
 }
 
-require($memberslist_addon['dir'] . 'inc/memberslist.php');
-require(ROSTER_LIB . 'item.php');
+include_once ($memberslist_addon['dir'] . 'inc/memberslist.php');
+include_once (ROSTER_LIB . 'item.php');
 $memberlist = new memberslist(array(), $memberslist_addon);
 
 // First define static data
@@ -254,7 +254,7 @@ function key_value( $row, $field, $data )
 	else
 	{
 		$perc_done = round($num_completed_stages / ($last_stage + 1) * 100);
-		$output =
+		$output = 
 			'<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">' . $num_completed_stages . '/' . ($last_stage + 1) . '</div></div>' . "\n" .
 			'<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">' . "\n" .
 			'<tr>' . "\n" .
@@ -265,6 +265,6 @@ function key_value( $row, $field, $data )
 			'</tr>' . "\n" .
 			'</table>' . "\n";
 	}
-
+	
 	return '<div style="display:none; ">'.$num_completed_stages.'</div>'.$tooltip.$output.'</div>';
 }

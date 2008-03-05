@@ -20,7 +20,7 @@ define('IN_ROSTER',true);
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
-require($roster_root_path . 'settings.php');     ##  Uses the same settings.php as WoWProfiler
+require_once($roster_root_path . 'settings.php');     ##  Uses the same settings.php as WoWProfiler
 $char = addslashes(urldecode($_SERVER['QUERY_STRING']));
 
 if( is_numeric($char) )

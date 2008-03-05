@@ -24,9 +24,8 @@ $roster->output['title'] = $roster->locale->act['guildinfo'];
 // ----[ Check log-in ]-------------------------------------
 if( ! $roster->auth->getAuthorized( $addon['config']['guildinfo_access'] ) )
 {
-	print
-	'<span class="title_text">' . $roster->locale->act['guildinfo'] . '</span><br />'.
-	$roster->auth->getLoginForm();
+	echo '<span class="title_text">' . $roster->locale->act['guildinfo'] . '</span><br />'.
+		$roster->auth->getLoginForm();
 
 	return;
 }

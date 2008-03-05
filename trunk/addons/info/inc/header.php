@@ -23,7 +23,7 @@ if( !defined('IN_ROSTER') )
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 // Include character class file
-require($addon['inc_dir'] . 'char.lib.php');
+require_once ($addon['dir'] . 'inc/char.lib.php');
 
 // Get Character Info
 $char = new char($roster->data);

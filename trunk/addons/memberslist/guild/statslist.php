@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-require($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['dir'] . 'inc/memberslist.php');
 
 $memberlist = new memberslist;
 
@@ -234,7 +234,7 @@ if( $addon['config']['stats_hslist'] == 1 || $addon['config']['stats_pvplist'] =
 	if ( $addon['config']['stats_hslist'] == 1 )
 	{
 		echo '    <td valign="top">';
-		require(ROSTER_LIB.'hslist.php');
+		include_once( ROSTER_LIB.'hslist.php');
 		echo generateHsList();
 		echo "    </td>\n";
 	}
@@ -242,7 +242,7 @@ if( $addon['config']['stats_hslist'] == 1 || $addon['config']['stats_pvplist'] =
 	if ( $addon['config']['honor_pvplist'] == 1 && active_addon('pvplog') )
 	{
 		echo '    <td valign="top">';
-		require(ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
+		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
 		echo generatePvpList();
 		echo "    </td>\n";
 	}

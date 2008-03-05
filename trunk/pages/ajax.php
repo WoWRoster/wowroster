@@ -44,10 +44,10 @@ if( $roster->pages[1] == 'addon' )
 		// Include addon's conf.php file
 		if( file_exists($addon['conf_file']) )
 		{
-			require($addon['conf_file']);
+			include_once( $addon['conf_file'] );
 		}
 
-		require($addon['ajax_file']);
+		include_once( $addon['ajax_file'] );
 	}
 	else
 	{
@@ -56,13 +56,13 @@ if( $roster->pages[1] == 'addon' )
 }
 else
 {
-	require(ROSTER_AJAX . 'functions.php');
+	include(ROSTER_AJAX . 'functions.php');
 }
 
 // Check if the function is valid, if so run it, else error
 if( isset($ajaxfuncs[$method]) )
 {
-	require($ajaxfuncs[$method]['file']);
+	include($ajaxfuncs[$method]['file']);
 }
 elseif( $method == '')
 {

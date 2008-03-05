@@ -45,7 +45,7 @@ if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 }
 // ----[ End Check log-in ]---------------------------------
 
-require(ROSTER_ADMIN . 'pages.php');
+include_once(ROSTER_ADMIN . 'pages.php');
 
 $header = $menu = $pagebar = $addon_pagebar = $footer = $body = $rcp_message = '';
 
@@ -102,7 +102,7 @@ if( isset($config_pages[$page]['file']) )
 {
 	if (file_exists(ROSTER_ADMIN . $config_pages[$page]['file']))
 	{
-		require(ROSTER_ADMIN . $config_pages[$page]['file']);
+		require_once(ROSTER_ADMIN . $config_pages[$page]['file']);
 	}
 	else
 	{

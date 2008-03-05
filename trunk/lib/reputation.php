@@ -73,33 +73,33 @@ class reputation
 
 		switch ( $this->data['Standing'] )
 		{
-		case ($roster->locale->wordings[$lang]['hated']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_r.gif';
-			$width = intval((($level+26000)/23000) * 354);
-			break;
-		case ($roster->locale->wordings[$lang]['hostile']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_r.gif';
-			$width = intval((($level+6000)/3000) * 354);
-			break;
-		case ($roster->locale->wordings[$lang]['neutral']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_y.gif';
-			break;
-		case ($roster->locale->wordings[$lang]['unfriendly']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_o.gif';
-			$width = intval(($level/-3000) * 354);
-			break;
-		case ($roster->locale->wordings[$lang]['honored']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
-			break;
-		case ($roster->locale->wordings[$lang]['friendly']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
-			break;
-		case ($roster->locale->wordings[$lang]['exalted']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
-			break;
-		case ($roster->locale->wordings[$lang]['revered']):
-			$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
-			break;
+			case ($roster->locale->wordings[$lang]['hated']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_r.gif';
+				$width = intval((($level+26000)/23000) * 354);
+				break;
+			case ($roster->locale->wordings[$lang]['hostile']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_r.gif';
+				$width = intval((($level+6000)/3000) * 354);
+				break;
+			case ($roster->locale->wordings[$lang]['neutral']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_y.gif';
+				break;
+			case ($roster->locale->wordings[$lang]['unfriendly']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_o.gif';
+				$width = intval(($level/-3000) * 354);
+				break;
+			case ($roster->locale->wordings[$lang]['honored']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
+				break;
+			case ($roster->locale->wordings[$lang]['friendly']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
+				break;
+			case ($roster->locale->wordings[$lang]['exalted']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
+				break;
+			case ($roster->locale->wordings[$lang]['revered']):
+				$RepBarImg = $roster->config['img_url'] . 'barbit_g.gif';
+				break;
 		}
 
 		// Giving each rep a unique id so the onmouseover can work correctly

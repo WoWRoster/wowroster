@@ -16,7 +16,7 @@
 */
 
 define('IN_ROSTER',true);
-require('../../settings.php');
+include('../../settings.php');
 
 // Parameter fetching and checking
 $barnames = isset($_GET['barnames'])?$_GET['barnames']:false;

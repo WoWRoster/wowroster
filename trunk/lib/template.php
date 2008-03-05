@@ -197,7 +197,7 @@ class RosterTemplate
 		{
 			trigger_error("template->_tpl_load_file(): File " . $this->files[$handle] . " does not exist or is empty", E_USER_ERROR);
 		}
-		require(ROSTER_LIB . 'template_enc.php');
+		require_once(ROSTER_LIB . 'template_enc.php');
 		$this->compiled_code[$handle] = RosterTplEncode::compile(trim(fread($fp, filesize($this->files[$handle]))));
 		fclose($fp);
 		// Actually compile the code now.
