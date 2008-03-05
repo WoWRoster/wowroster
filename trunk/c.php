@@ -27,7 +27,7 @@ $roster_rel = '';
 $_GET[ROSTER_PAGE] = 'dummy';
 
 // Environment
-include('.'.$roster_rel.'/settings.php');
+require('.' . $roster_rel . '/settings.php');
 
 // Get the char from the query string. To keep the link as short as
 // possible, we don't use member= or anything like that

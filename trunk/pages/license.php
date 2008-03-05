@@ -22,7 +22,7 @@ if( !defined('IN_ROSTER') )
 
 $roster->output['title'] = 'License';
 
-print messagebox("<div align=\"left\">
+echo messagebox("<div align=\"left\">
 <p align=\"center\"><span class=\"headline_3\">WoWRoster is licensed under a Creative Commons<br />
 &quot;Attribution-NonCommercial-ShareAlike 2.5&quot; license</span></p>
 

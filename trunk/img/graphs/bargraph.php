@@ -16,7 +16,7 @@
 */
 
 define('IN_ROSTER',true);
-include('../../settings.php');
+require('../../settings.php');
 
 // Parameter fetching and checking
 $barnames = isset($_GET['barnames'])?$_GET['barnames']:false;
@@ -240,7 +240,7 @@ function debugMode( $line,$message,$file=null,$config=null,$message2=null )
 		{
 			$string .= "$message2\n";
 		}
-		print $string;
+		echo $string;
 	}
 
 	exit();

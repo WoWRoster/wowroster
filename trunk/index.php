@@ -31,7 +31,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 
 define('IN_ROSTER',true);
 
-require_once( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php' );
+require( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php' );
 
 // --[ Get path info based on scope ]--
 if( !isset($roster->pages[1]) )
@@ -88,7 +88,7 @@ switch( $roster->pages[0] )
 
 			if( $roster->output['show_header'] )
 			{
-				include_once(ROSTER_BASE . 'header.php');
+				require(ROSTER_BASE . 'header.php');
 			}
 
 			if( $roster->output['show_menu'] )
@@ -101,7 +101,7 @@ switch( $roster->pages[0] )
 
 			if( $roster->output['show_footer'] )
 			{
-				include_once(ROSTER_BASE . 'footer.php');
+				require(ROSTER_BASE . 'footer.php');
 			}
 
 			exit();
@@ -139,7 +139,7 @@ if( $addon['active'] == '1' )
 
 	if( file_exists($installfile) )
 	{
-		include_once($installfile);
+		require($installfile);
 
 		if( class_exists($install_class) )
 		{
@@ -167,7 +167,7 @@ if( $addon['active'] == '1' )
 	// Include addon's inc/conf.php file
 	if( file_exists($addon['conf_file']) )
 	{
-		include_once($addon['conf_file']);
+		require($addon['conf_file']);
 	}
 
 	// The addon will now assign its output to $content
@@ -189,7 +189,7 @@ if( $addon['active'] == '1' )
 
 	if( $roster->output['show_header'] )
 	{
-		include_once(ROSTER_BASE . 'header.php');
+		require(ROSTER_BASE . 'header.php');
 	}
 
 	if( $roster->output['show_menu'] )
@@ -202,7 +202,7 @@ if( $addon['active'] == '1' )
 
 	if( $roster->output['show_footer'] )
 	{
-		include_once(ROSTER_BASE . 'footer.php');
+		require(ROSTER_BASE . 'footer.php');
 	}
 }
 else

@@ -24,7 +24,7 @@ if( !defined('IN_ROSTER') )
 // Get the config file
 if( file_exists(ROSTER_BASE . 'conf.php') )
 {
-	include_once(ROSTER_BASE . 'conf.php');
+	require(ROSTER_BASE . 'conf.php');
 }
 
 /**
@@ -38,10 +38,7 @@ define('ROSTER_PATH','');
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
-if( !include_once(ROSTER_LIB . 'template.php') )
-{
-	die('Could not include lib/template.php - check to make sure that the file exists!');
-}
+require(ROSTER_LIB . 'template.php');
 
 /**
  * Template Parser
@@ -203,7 +200,7 @@ class Template_Wrap extends RosterTemplate
 
 		if( file_exists(ROSTER_BASE . 'valid.inc') )
 		{
-			include(ROSTER_BASE . 'valid.inc');
+			require(ROSTER_BASE . 'valid.inc');
 		}
 
 		$this->display('body');
@@ -608,12 +605,12 @@ function process_step3()
 	/**
 	 * Database population
 	 */
-	include_once($dbal_file);
+	require($dbal_file);
 
 	// Hey, looks like we are making the database, YAY!
 	if( $create['username'] != '' && $create['password'] != '' )
 	{
-		include_once($dbal_file);
+		require($dbal_file);
 		$db = new roster_db($db_config['host'], '', $create['username'], $create['password']);
 		$db->query("CREATE DATABASE IF NOT EXISTS `" . $db_config['database'] . "`;");
 		unset($db,$create);
@@ -780,7 +777,7 @@ function process_step4()
 	/**
 	 * Update admin account
 	 */
-	include(ROSTER_BASE . 'conf.php');
+	require(ROSTER_BASE . 'conf.php');
 	define('CONFIG_TABLE', $db_config['table_prefix'] . 'config');
 	define('ACCOUNT_TABLE',  $db_config['table_prefix'] . 'account');
 	define('ROSTER_DB_DIR',  ROSTER_LIB . 'dbal' . DIR_SEP);
@@ -788,11 +785,11 @@ function process_step4()
 	switch( $db_config['dbtype'] )
 	{
 		case 'mysql':
-			include_once(ROSTER_DB_DIR . 'mysql.php');
+			require(ROSTER_DB_DIR . 'mysql.php');
 			break;
 
 		default:
-			include_once(ROSTER_DB_DIR . 'mysql.php');
+			require(ROSTER_DB_DIR . 'mysql.php');
 			break;
 	}
 

@@ -87,7 +87,7 @@ while( $row = $roster->db->fetch( $result ) )
 }
 
 // ----[ Fetch master config ]------------------------------
-include(ROSTER_LIB.'config.lib.php');
+require(ROSTER_LIB.'config.lib.php');
 $config['master'] = new roster_config( $roster->db->table('addon_config'), '`addon_id` = \'' . $addon['addon_id'] . '\'', 'config_master_' );
 $config['master']->getConfigData();
 $save_message = $config['master']->processData($addon['config']);

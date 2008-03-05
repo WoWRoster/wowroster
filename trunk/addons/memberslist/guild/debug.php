@@ -91,7 +91,7 @@ $FIELD['officer_note'] = array (
 	'value'   => 'debugNote',
 );
 
-include_once ($addon['dir'].'inc/memberslist.php');
+require($addon['dir'].'inc/memberslist.php');
 
 $memberlist = new memberslist;
 

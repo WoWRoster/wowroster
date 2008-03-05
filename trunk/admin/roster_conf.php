@@ -24,11 +24,11 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] .= $roster->locale->act['pagebar_rosterconf'];
 
 // ----[ Set the tablename and create the config class ]----
-include(ROSTER_LIB . 'config.lib.php');
+require(ROSTER_LIB . 'config.lib.php');
 $config = new roster_config( $roster->db->table('config') );
 
 // ----[ Include special functions file ]-------------------
-include(ROSTER_ADMIN . 'roster_config_functions.php');
+require(ROSTER_ADMIN . 'roster_config_functions.php');
 
 // ----[ Get configuration data ]---------------------------
 $config->getConfigData();

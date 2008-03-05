@@ -27,7 +27,7 @@ if( isset($_GET['motd']) )
 }
 elseif( isset($_GET['id']) )
 {
-	include( $roster_root_path . 'settings.php' );
+	require($roster_root_path . 'settings.php');
 
 	$guild_escape = $_GET['id'];
 
@@ -45,7 +45,7 @@ elseif( isset($_GET['id']) )
 }
 else
 {
-	include( $roster_root_path . 'settings.php' );
+	require($roster_root_path . 'settings.php');
 
 	$guildMOTD = 'Invalid Access';
 }

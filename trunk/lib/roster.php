@@ -115,11 +115,11 @@ class roster
 		switch( $db_config['dbtype'] )
 		{
 			case 'mysql':
-				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
+				require(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
 
 			default:
-				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
+				require(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
 		}
 

@@ -36,19 +36,19 @@ define('ROSTER_BASE',dirname(__FILE__) . DIR_SEP);
 define('ROSTER_LIB',ROSTER_BASE . 'lib' . DIR_SEP);
 
 // This file is for on the SVN only, so this should NOT be shipped to the clients!!!
-require_once(ROSTER_BASE . 'lib/constants.php');
-require_once(ROSTER_LIB . 'functions.lib.php');
-require_once(ROSTER_LIB . 'roster.php');
+require(ROSTER_BASE . 'lib' . DIR_SEP . 'constants.php');
+require(ROSTER_LIB . 'functions.lib.php');
+require(ROSTER_LIB . 'roster.php');
 $roster = new roster;
 define('ROSTER_PAGE_NAME', '');
 
 $roster->config['seo_url'] = false;
 
-require_once(ROSTER_LIB . 'cmslink.lib.php');
+require(ROSTER_LIB . 'cmslink.lib.php');
 
 $roster->config['img_url'] = ROSTER_PATH . 'img/';
 
-require_once(ROSTER_LIB . 'rosterdiag.lib.php');
+require(ROSTER_LIB . 'rosterdiag.lib.php');
 
 if( isset($_GET['getfile']) && $_GET['getfile'] != '' )
 {
@@ -74,7 +74,7 @@ if( isset($_GET['getfile']) && $_GET['getfile'] != '' )
 
 	if( !checkfile($pathparts_getfile, $realpath_getfile, $realpathparts_thisfile['dirname'].'/'.$subpath_getfile) )
 	{
-		print("<pre>[ERROR] INVALID FILE: " . $_GET['getfile'] . ", Operation NOT Allowed!!!</pre>\n");
+		echo "<pre>[ERROR] INVALID FILE: " . $_GET['getfile'] . ", Operation NOT Allowed!!!</pre>\n";
 	}
 	else
 	{
@@ -88,20 +88,20 @@ if( isset($_GET['getfile']) && $_GET['getfile'] != '' )
 				$handle = fopen($filename, 'rb');
 				$contents = fread($handle, filesize($filename));
 				fclose($handle);
-				print($contents);
+				echo $contents;
 			}
 			elseif( isset($_GET['mode']) && $_GET['mode'] == 'md5' )
 			{
-				print(md5_file($filename));
+				echo md5_file($filename);
 			}
 			else
 			{
-				print("<pre>[ERROR] FILE MODE ERROR: No Get-Mode specified</pre>\n");
+				echo "<pre>[ERROR] FILE MODE ERROR: No Get-Mode specified</pre>\n";
 			}
 		}
 		else
 		{
-			print("<pre>[ERROR] FILE NOT READABLE: " . $filename . " is not readable!</pre>\n");
+			echo "<pre>[ERROR] FILE NOT READABLE: " . $filename . " is not readable!</pre>\n";
 		}
 
 	}
@@ -116,7 +116,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 	$roster->config['logo'] = $roster->config['img_url'] . 'wowroster_logo.jpg';
 	$roster->config['roster_bg'] = $roster->config['img_url'] . 'wowroster_bg.jpg';
 
-	require_once(ROSTER_LIB . 'template.php');
+	require(ROSTER_LIB . 'template.php');
 	$roster->tpl = new RosterTemplate;
 
 	/**
@@ -156,7 +156,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		)
 	);
 
-	include_once(ROSTER_BASE . 'header.php');
+	require(ROSTER_BASE . 'header.php');
 	$temp_array = split('&', $_SERVER['QUERY_STRING']);
 	foreach( $temp_array as $key=>$value )
 	{
@@ -446,7 +446,7 @@ elseif( isset($_POST['filestoget']) && isset($_POST['ziptype']) )
 		{
 			foreach( $downloadpackage->error as $error )
 			{
-				print $error . '<br />';
+				echo $error . '<br />';
 			}
 		}
 
@@ -467,7 +467,7 @@ else
 	{
 		foreach( $filedata as $filename => $file )
 		{
-			print($directory . $explode . $filename . $explode . $file['local']['versionDesc'] . $explode . $file['local']['versionRev'] . $explode . $file['local']['versionDate'] . $explode . $file['local']['versionAuthor'] . $explode . $file['local']['versionMD5'] . $break);
+			echo $directory . $explode . $filename . $explode . $file['local']['versionDesc'] . $explode . $file['local']['versionRev'] . $explode . $file['local']['versionDate'] . $explode . $file['local']['versionAuthor'] . $explode . $file['local']['versionMD5'] . $break;
 		}
 	}
 }
@@ -535,7 +535,7 @@ The following example creates a gzipped tar file:
 	$test->create_archive();
 // Check for errors (you can check for errors at any point)
 	if (count($test->errors) > 0)
-		print ('Errors occurred.'); // Process errors here
+		echo ('Errors occurred.'); // Process errors here
 
 The following example creates a zip file:
 // Create new zip file in the directory below the current one
@@ -576,7 +576,7 @@ The following example extracts a tar file:
 	$test->extract_files();
 // Write out the name and size of each file extracted
 	foreach ($test->files as $file)
-		print ('File ' + $file['name'] + ' is ' + $file['stat'][7] + " bytes\n");
+		echo ('File ' + $file['name'] + ' is ' + $file['stat'][7] + " bytes\n");
 
 */
 
@@ -972,7 +972,7 @@ class archive
 		header('Content-Transfer-Encoding: binary');
 		header('Cache-Control: no-cache, must-revalidate, max-age=60');
 		header('Expires: Sat, 01 Jan 2000 12:00:00 GMT');
-		print($this->archive);
+		echo $this->archive;
 	}
 }
 

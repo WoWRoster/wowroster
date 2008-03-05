@@ -38,14 +38,14 @@ if( !defined('IN_ROSTER') )
 // ----[ Check log-in ]-------------------------------------
 if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
-	print '<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
+	echo '<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
 		. $roster->auth->getLoginForm();
 
 	return;
 }
 // ----[ End Check log-in ]---------------------------------
 
-include_once(ROSTER_ADMIN . 'pages.php');
+require(ROSTER_ADMIN . 'pages.php');
 
 $header = $menu = $pagebar = $addon_pagebar = $footer = $body = $rcp_message = '';
 
@@ -102,7 +102,7 @@ if( isset($config_pages[$page]['file']) )
 {
 	if (file_exists(ROSTER_ADMIN . $config_pages[$page]['file']))
 	{
-		require_once(ROSTER_ADMIN . $config_pages[$page]['file']);
+		require(ROSTER_ADMIN . $config_pages[$page]['file']);
 	}
 	else
 	{

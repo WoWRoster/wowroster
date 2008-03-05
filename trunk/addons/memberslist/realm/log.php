@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include_once ($addon['dir'] . 'inc/memberslist.php');
+require($addon['dir'] . 'inc/memberslist.php');
 
 $memberlist = new memberslist(array('group_alts'=>-1, 'page_size'=>25));
 
@@ -130,7 +130,7 @@ echo border('syellow','end');
 // Print the update instructions
 if( $addon['config']['log_update_inst'] )
 {
-	print "<br />\n\n<a name=\"update\"></a>\n";
+	echo "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
 	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);

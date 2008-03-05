@@ -39,7 +39,7 @@ if( $addon['active'] = '1' )
 
 	if( file_exists($installfile) )
 	{
-		include_once($installfile);
+		require($installfile);
 
 		if( class_exists($install_class) )
 		{
@@ -77,7 +77,7 @@ if( $addon['active'] = '1' )
 	// Include addon's conf.php file
 	if( file_exists($addon['conf_file']) )
 	{
-		include_once( $addon['conf_file'] );
+		require($addon['conf_file']);
 	}
 
 	// Check to see if the index file exists
@@ -85,14 +85,14 @@ if( $addon['active'] = '1' )
 	{
 		// The addon will now assign its output to $body
 		ob_start();
-			include_once( $addon['active_file'] );
+			require($addon['active_file']);
 		$body .= ob_get_clean();
 	}
 	elseif( $addon['config'] != '' )
 	{
 		if( file_exists($addon['admin_dir'] . 'config.func.php') )
 		{
-			include($addon['admin_dir'] . 'config.func.php');
+			require($addon['admin_dir'] . 'config.func.php');
 			if( function_exists('topBox') )
 			{
 				$body .= topBox();
@@ -104,7 +104,7 @@ if( $addon['active'] = '1' )
 		}
 
 		// ----[ Set the tablename and create the config class ]----
-		include(ROSTER_LIB . 'config.lib.php');
+		require(ROSTER_LIB . 'config.lib.php');
 		$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
 
 		// ----[ Get configuration data ]---------------------------

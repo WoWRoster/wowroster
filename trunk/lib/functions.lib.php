@@ -127,15 +127,15 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 	// die_quitely died quietly
 	if(defined('ROSTER_DIED') )
 	{
-		print "<pre>The quiet die function suffered a fatal error. Die information below\n";
-		print "First die data:\n";
-		print_r($GLOBALS['die_data']);
-		print "\nSecond die data:\n";
-		print_r(func_get_args());
+		echo "<pre>The quiet die function suffered a fatal error. Die information below\n";
+		echo "First die data:\n";
+		aprint($GLOBALS['die_data']);
+		echo "\nSecond die data:\n";
+		aprint(func_get_args());
 		if( !empty($roster->error->report) )
 		{
-			print "\nPHP Notices/Warnings:\n";
-			print_r( $roster->error->report );
+			echo "\nPHP Notices/Warnings:\n";
+			aprint( $roster->error->report );
 		}
 		exit();
 	}
@@ -148,7 +148,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'header.php');
+		require(ROSTER_BASE . 'header.php');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
@@ -162,39 +162,39 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		$roster->db->close_db();
 	}
 
-	print border('sred','start',$title) . '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
+	echo border('sred','start',$title) . '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
 
 	if( !empty($text) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\"><div align=\"center\">$text</div></td>\n</tr>\n";
+		echo "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\"><div align=\"center\">$text</div></td>\n</tr>\n";
 	}
 	if( !empty($sql) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />" . sql_highlight($sql) . "</td>\n</tr>\n";
+		echo "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />" . sql_highlight($sql) . "</td>\n</tr>\n";
 	}
 	if( !empty($file) )
 	{
 		$file = str_replace(ROSTER_BASE,'',$file);
 
-		print "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
+		echo "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
 	}
 	if( !empty($line) )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
+		echo "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
 	}
 
 	if( $roster->config['debug_mode'] == 2 )
 	{
-		print "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">";
-		print  backtrace();
-		print "</td>\n</tr>\n";
+		echo "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">";
+		echo  backtrace();
+		echo "</td>\n</tr>\n";
 	}
 
-	print "</table>\n" . border('sred','end');
+	echo "</table>\n" . border('sred','end');
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'footer.php');
+		require(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -218,7 +218,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'header.php');
+		require(ROSTER_BASE . 'header.php');
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
@@ -232,11 +232,11 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 		$roster->db->close_db();
 	}
 
-	print messagebox('<div align="center">' . $message . '</div>',$title,$style);
+	echo messagebox('<div align="center">' . $message . '</div>',$title,$style);
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		include_once(ROSTER_BASE . 'footer.php');
+		require(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -267,6 +267,8 @@ function ajax_die($text, $title, $file, $line, $sql)
 		. "  <status>255</status>\n"
 		. "  <errmsg>" . $text . "</errmsg>\n"
 		. "</response>\n";
+
+	exit();
 }
 
 
