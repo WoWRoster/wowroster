@@ -21,39 +21,15 @@ if( !defined('IN_ROSTER') )
 }
 
 /**
- * Create Row
- *
- * @param string $sc
- * @return string
- */
-function rankMid($sc)
-{
-	return '    <td class="membersRow'.$sc.'">';
-}
-
-/**
- * Create Right Side Row
- *
- * @param string $sc
- * @return string
- */
-function rankRight($sc)
-{
-	return '    <td class="membersRowRight'.$sc.'">';
-}
-
-/**
  * Generate the Honor List
  *
  * @return string
  */
-function generateHsList( )
+function generateHsList()
 {
 	global $roster;
 
-	$output = '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">' . "\n";
-
-	$striping_counter = 0;
+	$roster->tpl->assign_var('L_HSLIST', $roster->locale->act['hslist']);
 
 	//Highest Lifetime Rank
 	$query = "SELECT `name`, `lifetimeRankName` FROM `" . $roster->db->table('players') . "` WHERE `guild_id` = '" . $roster->data['guild_id'] . "' ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
@@ -62,26 +38,14 @@ function generateHsList( )
 
 	if( $row )
 	{
-		// Striping rows
-		$output .= "  <tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildhonor&amp;s=lifetimeRankName') . '">' . $roster->locale->act['hslist1'] . '</a></td>' . "\n";
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= $row['name'];
-		$output .= "</td>\n";
-		$output .= rankRight((($striping_counter % 2) +1));
-		if( $row['lifetimeRankName'] == '' )
-		{
-			$output .= '&nbsp;';
-		}
-		else
-		{
-			$output .= $row['lifetimeRankName'];
-		}
-		$output .= "</td>\n  </tr>\n";
+		$roster->tpl->assign_block_vars('hslist',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'  => makelink('guild-memberslist-honorlist'),
+			'VALUE' => $roster->locale->act['hslist1'],
+			'NAME'  => $row['name'],
+			'COUNT' => ( $row['lifetimeRankName'] ? $row['lifetimeRankName'] : '&nbsp;' )
+			)
+		);
 	}
 
 	//Highest LifeTime HKs
@@ -91,19 +55,14 @@ function generateHsList( )
 
 	if( $row )
 	{
-		// Striping rows
-		$output .= "  <tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildhonor&amp;s=lifetimeHK') . '">' . $roster->locale->act['hslist2'] . '</a></td>' . "\n";
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= $row['name'];
-		$output .= "</td>\n";
-		$output .= rankRight((($striping_counter % 2) +1));
-		$output .= $row['lifetimeHK'];
-		$output .= "</td>\n  </tr>\n";
+		$roster->tpl->assign_block_vars('hslist',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'  => makelink('guild-memberslist-honorlist'),
+			'VALUE' => $roster->locale->act['hslist2'],
+			'NAME'  => $row['name'],
+			'COUNT' => $row['lifetimeHK']
+			)
+		);
 	}
 
 	//Highest honorpoints
@@ -113,19 +72,14 @@ function generateHsList( )
 
 	if( $row )
 	{
-		// Striping rows
-		$output .= "  <tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildhonor&amp;s=honorpoints') . '">' . $roster->locale->act['hslist3'] . '</a></td>' . "\n";
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= $row['name'];
-		$output .= "</td>\n";
-		$output .= rankRight((($striping_counter % 2) +1));
-		$output .= $row['honorpoints'];
-		$output .= "</td>\n  </tr>\n";
+		$roster->tpl->assign_block_vars('hslist',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'  => makelink('guild-memberslist-honorlist'),
+			'VALUE' => $roster->locale->act['hslist3'],
+			'NAME'  => $row['name'],
+			'COUNT' => $row['honorpoints']
+			)
+		);
 	}
 
 	//Highest arenapoints
@@ -135,23 +89,17 @@ function generateHsList( )
 
 	if( $row )
 	{
-		// Striping rows
-		$output .= "  <tr>\n";
-
-		// Increment counter so rows are colored alternately
-		++$striping_counter;
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= '<a href="' . makelink('guildhonor&amp;s=arenapoints') . '">' . $roster->locale->act['hslist4'] . '</a></td>' . "\n";
-		$output .= rankMid((($striping_counter % 2) +1));
-		$output .= $row['name'];
-		$output .= "</td>\n";
-		$output .= rankRight((($striping_counter % 2) +1));
-		$output .= $row['arenapoints'];
-		$output .= "</td>\n  </tr>\n";
+		$roster->tpl->assign_block_vars('hslist',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'LINK'  => makelink('guild-memberslist-honorlist'),
+			'VALUE' => $roster->locale->act['hslist4'],
+			'NAME'  => $row['name'],
+			'COUNT' => $row['arenapoints']
+			)
+		);
 	}
-
-	$output .= "</table>\n";
 	$roster->db->free_result($result);
 
-	return messageboxtoggle($output, $roster->locale->act['hslist'], 'sgray', false, $width='400px');
+	$roster->tpl->set_handle('hslist', 'hslist.html');
+	return $roster->tpl->fetch('hslist');
 }
