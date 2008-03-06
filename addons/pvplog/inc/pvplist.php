@@ -19,6 +19,11 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+/**
+ * Generate the PvP stats List
+ *
+ * @return string
+ */
 function generatePvpList()
 {
 	global $roster;
