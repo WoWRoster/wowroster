@@ -120,8 +120,8 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
-		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">"
+		   . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style, 'start', $title, $width)
@@ -147,8 +147,8 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['img_url'] . "minus.gif','" . $roster->config['img_url'] . "plus.gif');\">"
-		   . "<img src=\"" . $roster->config['img_url'] . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">"
+		   . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style,'start',$title, $width)

@@ -104,7 +104,7 @@ select {
 	padding-top:3px;
 	padding-left:5px;
 	padding-right:5px;
-	background:transparent url(../../img/searchbox.png) no-repeat;
+	background:transparent url(images/searchbox.png) no-repeat;
 }
 .wowinput192 {
 	border:0;
@@ -112,7 +112,7 @@ select {
 	width:182px;
 	height:16px;
 	padding:3px 5px 0 5px;
-	background:transparent url(../../img/searchbox192.png) no-repeat;
+	background:transparent url(images/searchbox192.png) no-repeat;
 }
 .wowinput128 {
 	border:0;
@@ -120,7 +120,7 @@ select {
 	width:118px;
 	height:16px;
 	padding:3px 5px 0 5px;
-	background:transparent url(../../img/searchbox128.png) no-repeat;
+	background:transparent url(images/searchbox128.png) no-repeat;
 }
 .wowinput64 {
 	border:0;
@@ -128,7 +128,7 @@ select {
 	width:54px;
 	height:16px;
 	padding:3px 5px 0 5px;
-	background:transparent url(../../img/searchbox64.png) no-repeat;
+	background:transparent url(images/searchbox64.png) no-repeat;
 }
 .colorinput {
 	border:0;
@@ -182,7 +182,7 @@ select {
 	padding:2px; /* NS 6 problem */
 	padding-left:20px;
 	line-height:16px;
-	background:transparent url(../../img/check_off.png) no-repeat 0% 50%;
+	background:transparent url(images/check_off.png) no-repeat 0% 50%;
 	border:0;
 }
 /* On state for checkbox */
@@ -192,7 +192,7 @@ select {
 	padding:2px; /* NS 6 problem */
 	padding-left:20px;
 	line-height:16px;
-	background:transparent url(../../img/check_on.png) no-repeat 0% 50%;
+	background:transparent url(images/check_on.png) no-repeat 0% 50%;
 	border:0;
 }
 /* Off state for radio button */
@@ -201,7 +201,7 @@ select {
 	margin:0;
 	padding:2px;
 	padding-left:15px;
-	background:transparent url(../../img/radio_off.png) no-repeat 0% 50%;
+	background:transparent url(images/radio_off.png) no-repeat 0% 50%;
 }
 /* On state for radio button */
 .radioOn {
@@ -209,13 +209,13 @@ select {
 	margin:0;
 	padding:2px; /* NS 6 problem */
 	padding-left:15px;
-	background:transparent url(../../img/radio_on.png) no-repeat 0% 50%;
+	background:transparent url(images/radio_on.png) no-repeat 0% 50%;
 }
 /* use CSS to full effect with hover states. Ohhh, perty! */
-.checkboxOn:hover { background-image:url(../../img/check_on_hover.png); }
-.checkboxOff:hover { background-image:url(../../img/check_off_hover.png); }
-.radioOn:hover { background-image:url(../../img/radio_on_hover.png); }
-.radioOff:hover { background-image:url(../../img/radio_off_hover.png); }
+.checkboxOn:hover { background-image:url(images/check_on_hover.png); }
+.checkboxOff:hover { background-image:url(images/check_off_hover.png); }
+.radioOn:hover { background-image:url(images/radio_on_hover.png); }
+.radioOff:hover { background-image:url(images/radio_off_hover.png); }
 
 
 /**
@@ -268,10 +268,10 @@ select {
 }
 
 /* Header Backgrounds */
-.menu_bg_01 { background: url(../../img/menu/menu_btn_guild.png) no-repeat left center; }
-.menu_bg_02 { background: url(../../img/menu/menu_btn_realm.png) no-repeat left center; }
-.menu_bg_03 { background: url(../../img/menu/menu_btn_update.png) no-repeat left center; }
-.menu_bg_04 { background: url(../../img/menu/menu_btn_utilities.png) no-repeat left center; }
+.menu_bg_01 { background: url(images/menu/menu_btn_guild.png) no-repeat left center; }
+.menu_bg_02 { background: url(images/menu/menu_btn_realm.png) no-repeat left center; }
+.menu_bg_03 { background: url(images/menu/menu_btn_update.png) no-repeat left center; }
+.menu_bg_04 { background: url(images/menu/menu_btn_utilities.png) no-repeat left center; }
 
 /* Main Header Block */
 .menu_header {
@@ -414,7 +414,7 @@ select {
 .main_roster_menu .links a:hover { background-color:#7A7772; }
 
 .main_roster_menu .header {
-	background:#1F1E1D url(../../img/bgrep.gif);
+	background:#1F1E1D url(images/bgrep.gif);
 	color:#ffffff;
 	border-style:solid;
 	border-width:0 1px 0 1px;
@@ -612,7 +612,7 @@ select {
 	white-space:nowrap;
 	overflow:hidden;
 	padding-bottom: 1px;
-	background-image: url(../../img/bgheader.gif);
+	background-image: url(images/bgheader.gif);
 }
 
 /* Border Colours */
@@ -779,11 +779,11 @@ select {
  */
 .tab_navagation { position:absolute;font:11px arial,helvetica,sans-serif;line-height:normal;width:344px; }
 .tab_navagation ul { margin:0;padding:0;list-style:none; }
-.tab_navagation li { float:left;background:url(../../img/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer;margin-bottom:-7px; }
-.tab_navagation .text { display:block;background:url(../../img/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
+.tab_navagation li { float:left;background:url(images/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer;margin-bottom:-7px; }
+.tab_navagation .text { display:block;background:url(images/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
 .tab_navagation .text:hover { color:#ffffff;font-weight:normal; }
-.tab_navagation .selected { background-image:url(../../img/tabs/active_left.gif);cursor:default; }
-.tab_navagation .selected .text { background-image:url(../../img/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
+.tab_navagation .selected { background-image:url(images/tabs/active_left.gif);cursor:default; }
+.tab_navagation .selected .text { background-image:url(images/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
 
 
 /**
