@@ -454,11 +454,11 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 
 			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'plus.gif" alt="" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['theme_path'].'/images/plus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
 			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
 			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['img_url'].'minus.gif" alt="" /></div>'.$dirshow.'/</div>';
+			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['theme_path'].'/images/minus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';

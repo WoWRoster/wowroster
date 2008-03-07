@@ -137,7 +137,7 @@ select {
 	height:16px;
 	padding:3px 5px 0 5px;
 	font-weight:bold;
-	background:transparent url(../../img/color/input_img.png) no-repeat;
+	background:transparent url(images/color/input_img.png) no-repeat;
 }
 * html .wowinput,
 * html .wowinput192,
@@ -864,8 +864,8 @@ select {
 .colorPickerTab_inactive,
 .colorPickerTab_active { height:17px;padding-left:4px;cursor:pointer; }
 
-.colorPickerTab_inactive span { background-image:url(../../img/color/tab_left_inactive.gif); }
-.colorPickerTab_active span{ background-image:url(../../img/color/tab_left_active.gif); }
+.colorPickerTab_inactive span { background-image:url(images/color/tab_left_inactive.gif); }
+.colorPickerTab_active span{ background-image:url(images/color/tab_left_active.gif); }
 
 .colorPickerTab_inactive span,
 .colorPickerTab_active span {

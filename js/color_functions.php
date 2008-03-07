@@ -1,3 +1,4 @@
+<?php
 /**
  * WoWRoster.net WoWRoster
  *
@@ -29,10 +30,22 @@ Alf Magne Kalleland
 
 ************************************************************************************************************/
 
+header('content-type: application/x-javascript');
+
+$path = ( isset($_GET['path']) ? $_GET['path'] : 'templates/default' )
+
+?>
+
 var MSIE = navigator.userAgent.indexOf('MSIE')>=0?true:false;
 var navigatorVersion = navigator.appVersion.replace(/.*?MSIE (\d\.\d).*/g,'$1')/1;
 
-var form_widget_amount_slider_handle = 'img/color/slider_handle.gif';
+var form_widget_path = '<?php echo $path; ?>';
+
+var form_widget_close = form_widget_path + '/images/color/close.gif';
+var form_widget_amount_slider_handle = form_widget_path + '/images/color/slider_handle.gif';
+var form_widget_tab_right_active = form_widget_path + '/images/color/tab_right_active.gif';
+var form_widget_tab_right_inactive = form_widget_path + '/images/color/tab_right_inactive.gif';
+
 var slider_handle_image_obj = false;
 var sliderObjectArray = new Array();
 var slider_counter = 0;
@@ -271,7 +284,7 @@ function showHideColorOptions(e,inputObj)
 				thisObj.className='colorPickerTab_active';
 				thisObj.style.zIndex = 50;
 				var img = thisObj.getElementsByTagName('IMG')[0];
-				img.src = "img/color/tab_right_active.gif";
+				img.src = form_widget_tab_right_active;
 				img.src = img.src.replace(/inactive/,'active');
 				contentDiv.style.display='block';
 				activeColorDiv = contentDiv;
@@ -281,7 +294,7 @@ function showHideColorOptions(e,inputObj)
 			{
 				subDiv.className = 'colorPickerTab_inactive';
 				var img = subDiv.getElementsByTagName('IMG')[0];
-				img.src = "img/color/tab_right_inactive.gif";
+				img.src = form_widget_tab_right_inactive;
 				if(activeColorDiv)
 					subDiv.style.zIndex = initZIndex - counter;
 				else
@@ -339,7 +352,7 @@ function createColorPickerTopRow(inputObj)
 		tabSpan.innerHTML = tabs[no];
 		tabDiv.appendChild(tabSpan);
 		var tabImg = document.createElement('IMG');
-		tabImg.src = "img/color/tab_right_" + suffix + ".gif";
+		tabImg.src = form_widget_path + '/images/color/tab_right_' + suffix + '.gif';
 		tabDiv.appendChild(tabImg);
 		div.appendChild(tabDiv);
 		if(navigatorVersion<6 && MSIE)	/* Lower IE version fix */
@@ -355,7 +368,7 @@ function createColorPickerTopRow(inputObj)
 	var closeImg = document.createElement('IMG');
 	closeImg.className='colorPickerCloseButton';
 	closeImg.style.zIndex = 5;
-	closeImg.src = 'img/color/close.gif';
+	closeImg.src = form_widget_close;
 	closeImg.onclick = closeColorPicker;
 	div.appendChild(closeImg);
 }
