@@ -53,7 +53,7 @@ class roster_config
 		global $roster;
 
 		// Color Picker JS
-		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.js\"></script>\n";
+		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
 
 		// ARC Radio/Checkboxes
 		$roster->output['body_onload'] .= 'initARC(\'' . $prefix . 'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
@@ -165,11 +165,11 @@ class roster_config
 
 				case 'pagehide':
 					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$page .= border('sblue','end');
 					$page .= '</div>' . "\n";
 					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
@@ -189,11 +189,11 @@ class roster_config
 
 				case 'blockhide':
 					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$page .= border('sblue','end');
 					$page .= '</div>' . "\n";
 					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
@@ -261,11 +261,11 @@ class roster_config
 
 				case 'pagehide':
 					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$html .= border('sblue','end');
 					$html .= '</div>' . "\n";
 					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\" width=\"100%\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
@@ -283,11 +283,11 @@ class roster_config
 
 				case 'blockhide':
 					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['img_url'] . "plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
 					$html .= border('sblue','end');
 					$html .= '</div>' . "\n";
 					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['img_url'] . "minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
 					$html .= '<table cellspacing="0" cellpadding="0" class="bodyline" width="100%">' . "\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= '</table>' . "\n";
@@ -393,7 +393,7 @@ class roster_config
 					break;
 
 				case 'color':
-					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:' . $values['value'] . ';" value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '" id="' . $this->prefix . 'color_' . $values['name'] . '" /><img src="' . $roster->config['img_url'] . 'color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'' . $this->prefix . 'color_' . $values['name'] . '\'))" alt="" />' . "\n";
+					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:' . $values['value'] . ';" value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '" id="' . $this->prefix . 'color_' . $values['name'] . '" /><img src="' . $roster->config['theme_path'] . '/images/color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'' . $this->prefix . 'color_' . $values['name'] . '\'))" alt="" />' . "\n";
 					break;
 
 				case 'access':

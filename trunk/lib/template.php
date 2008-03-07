@@ -64,6 +64,7 @@ class RosterTemplate
 		}
 		$this->_tpldata['.'][0]['REQUEST_URI'] = str_replace('&', '&amp;', substr(request_uri(),strlen(ROSTER_PATH)));
 		$this->root = ROSTER_TPLDIR . $this->tpl;
+		$roster->config['theme_path'] = ROSTER_PATH . 'templates/' . $this->tpl;
 	}
 
 	// Sets the template filenames for handles. $filename_array

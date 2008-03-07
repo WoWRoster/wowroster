@@ -292,7 +292,7 @@ function note_value ( $row, $field )
 
 		if( $addon['config']['compress_note'] )
 		{
-			$value = '<img src="'.$roster->config['img_url'].'note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
+			$value = '<img src="'.$roster->config['theme_path'].'/images/note.gif" style="cursor:help;" '.makeOverlib($note,$roster->locale->act['note'],'',1,'',',WRAP').' alt="[]" />';
 		}
 		else
 		{
@@ -304,7 +304,7 @@ function note_value ( $row, $field )
 		$note = '&nbsp;';
 		if( $addon['config']['compress_note'] )
 		{
-			$value = '<img src="'.$roster->config['img_url'].'no_note.gif" alt="[]" />';
+			$value = '<img src="'.$roster->config['theme_path'].'/images/no_note.gif" alt="[]" />';
 		}
 		else
 		{

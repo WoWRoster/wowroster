@@ -324,11 +324,11 @@ class memberslist
 
 		$output =
 			'<div id="sortfilterCol" style="display:'.(($this->addon['config']['openfilter'])?'none':'inline').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['img_url']."plus.gif\" style=\"float:right;\" alt=\"+\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['theme_path']."/images/plus.gif\" style=\"float:right;\" alt=\"+\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
 			border('sblue','end')."\n".
 			'</div>'."\n".
 			'<div id="sortfilter" style="display:'.(($this->addon['config']['openfilter'])?'inline':'none').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['img_url']."minus.gif\" style=\"float:right;\" alt=\"-\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
+			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['theme_path']."/images/minus.gif\" style=\"float:right;\" alt=\"-\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
 			'<table><tr>'."\n".
 			'<td class="membersHeader">'.$roster->locale->act['memberssort'].'</td>'."\n".
 			'<td class="membersHeader">'.$roster->locale->act['memberscolshow'].'</td>'."\n".
@@ -370,8 +370,8 @@ class memberslist
 
 		if( $this->addon['config']['group_alts']>=1 )
 		{
-			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'plus.gif\'); return false;"><img src="'.$roster->config['img_url'].'minus.gif" alt="+" />'.$roster->locale->act['closeall'].'</a></th>';
-			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['img_url'].'minus.gif\'); return false;"><img src="'.$roster->config['img_url'].'plus.gif" alt="-" />'.$roster->locale->act['openall'].'</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['theme_path'].'/images/plus.gif\'); return false;"><img src="'.$roster->config['theme_path'].'/images/minus.gif" alt="+" />'.$roster->locale->act['closeall'].'</a></th>';
+			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['theme_path'].'/images/minus.gif\'); return false;"><img src="'.$roster->config['theme_path'].'/images/plus.gif" alt="-" />'.$roster->locale->act['openall'].'</a></th>';
 			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=ungroup'.$get).'">'.$roster->locale->act['ungroupalts'].'</a></th>';
 		}
 		elseif( $this->addon['config']['group_alts'] == 0 )
@@ -547,7 +547,7 @@ class memberslist
 			}
 
 			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'.
-				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\'); return false;">'.
+				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster->config['theme_path'].'/images/minus.gif\',\''.$roster->config['theme_path'].'/images/plus.gif\'); return false;">'.
 				'<img src="'.$roster->config['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="'.$openalt.'" /></a></td>'.
 				$block['main']."\n".'</tr>'."\n";
 

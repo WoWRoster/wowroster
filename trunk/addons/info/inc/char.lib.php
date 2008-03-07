@@ -252,9 +252,9 @@ class char
 					$skill_image = 'Interface/Icons/' . $roster->locale->wordings[$this->data['clientLocale']]['ts_iconArray'][$skill_name];
 					$skill_image = "<img style=\"float:left;\" width=\"17\" height=\"17\" src=\"" . $roster->config['interface_url'] . $skill_image . '.' . $roster->config['img_suffix'] . "\" alt=\"\" />\n";
 
-					$header = '<div style="cursor:pointer;width:600px;" onclick="showHide(\'table_' . $rc . '\',\'img_' . $rc . '\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');">
+					$header = '<div style="cursor:pointer;width:600px;" onclick="showHide(\'table_' . $rc . '\',\'img_' . $rc . '\',\'' . $roster->config['theme_path'] . '/images/minus.gif\',\'' . $roster->config['theme_path'] . '/images/plus.gif\');">
 	' . $skill_image . '
-	<div style="display:inline;float:right;"><img id="img_' . $rc . '" src="' . $roster->config['img_url'] . 'plus.gif" alt="" /></div>
+	<div style="display:inline;float:right;"><img id="img_' . $rc . '" src="' . $roster->config['theme_path'] . '/images/plus.gif" alt="" /></div>
 <a name="' . strtolower(str_replace(' ','',$skill_name)) . '"></a>' . $skill_name . '</div>';
 
 
@@ -1893,7 +1893,7 @@ $returnstring .= '  <tr>
 		foreach( $skillData as $sindex => $skill )
 		{
 			$output .= '
-		<div class="header"><img src="'.$roster->config['img_url'].'minus.gif" id="skill'.$sindex.'_img" class="minus_plus" alt="" onclick="showHide(\'skill'.$sindex.'\',\'skill'.$sindex.'_img\',\''.$roster->config['img_url'].'minus.gif\',\''.$roster->config['img_url'].'plus.gif\');" />'.$skill['name'].'</div>
+		<div class="header"><img src="'.$roster->config['theme_path'].'/images/minus.gif" id="skill'.$sindex.'_img" class="minus_plus" alt="" onclick="showHide(\'skill'.$sindex.'\',\'skill'.$sindex.'_img\',\''.$roster->config['theme_path'].'/images/minus.gif\',\''.$roster->config['theme_path'].'/images/plus.gif\');" />'.$skill['name'].'</div>
 		<div id="skill'.$sindex.'">
 ';
 			foreach( $skill['bars'] as $skillbar )
@@ -1993,7 +1993,7 @@ $returnstring .= '  <tr>
 		foreach( $repData as $findex => $faction )
 		{
 			$output .= '
-		<div class="header" onclick="showHide(\'rep' . $findex . '\',\'rep' . $findex . '_img\',\'' . $roster->config['img_url'] . 'minus.gif\',\'' . $roster->config['img_url'] . 'plus.gif\');"><img src="' . $roster->config['img_url'] . '' . ( $faction['name'] == $roster->locale->act['inactive'] ? 'plus' : 'minus' ) . '.gif" id="rep' . $findex . '_img" class="minus_plus" alt="" />' . $faction['name'] . '</div>
+		<div class="header" onclick="showHide(\'rep' . $findex . '\',\'rep' . $findex . '_img\',\'' . $roster->config['theme_path'] . '/images/minus.gif\',\'' . $roster->config['theme_path'] . '/images/plus.gif\');"><img src="' . $roster->config['img_url'] . '' . ( $faction['name'] == $roster->locale->act['inactive'] ? 'plus' : 'minus' ) . '.gif" id="rep' . $findex . '_img" class="minus_plus" alt="" />' . $faction['name'] . '</div>
 		<div id="rep' . $findex . '"' . ( $faction['name'] == $roster->locale->act['inactive'] ? ' style="display:none;"' : '' ) . ">\n";
 
 			foreach( $faction['bars'] as $repbar )
