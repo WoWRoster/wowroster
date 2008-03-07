@@ -25,11 +25,11 @@
 /** Tab Navigation Overide **/
 .tab_navagation { position:absolute;font:11px arial,helvetica,sans-serif;line-height:normal;width:700px;margin:476px 0 0 17px; }
 .tab_navagation ul { margin:0;padding:0;list-style:none; }
-.tab_navagation li { float:left;background:url(../../../img/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer;margin-bottom:-7px; }
-.tab_navagation .text { display:block;background:url(../../../img/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
+.tab_navagation li { float:left;background:url(../images/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer;margin-bottom:-7px; }
+.tab_navagation .text { display:block;background:url(../images/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
 .tab_navagation .text:hover { color:#ffffff;font-weight:normal; }
-.tab_navagation .selected { background-image:url(../../../img/tabs/active_left.gif);cursor:default; }
-.tab_navagation .selected .text { background-image:url(../../../img/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
+.tab_navagation .selected { background-image:url(../images/tabs/active_left.gif);cursor:default; }
+.tab_navagation .selected .text { background-image:url(../images/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
 
 
 .tab_nav { position:absolute;font:11px arial,helvetica,sans-serif;margin:78px 0 0 755px;line-height:normal; }
@@ -48,7 +48,7 @@
 	width:182px;
 	height:16px;
 	padding:3px 5px 0 5px;
-	background:transparent url(../../../img/searchbox192.png) no-repeat;
+	background:transparent url(../images/searchbox192.png) no-repeat;
 }
 
 .vault_name {

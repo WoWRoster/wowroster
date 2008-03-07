@@ -80,8 +80,6 @@ function motd_img( $guildMOTD,$image_path,$font_path )
 	$image_size = ( $text_length < $maxw ? ceil($text_length/198) : ceil($maxw/198) );
 	$final_size = 54 + ($image_size*198);
 
-	$text_loc = ($final_size/2) - ($box[2]/2);
-
 	// Create new image
 	$img = imagecreatetruecolor( $final_size,38 );
 
@@ -130,9 +128,6 @@ function motd_img( $guildMOTD,$image_path,$font_path )
 		imagettftext( $img, 11, 0, round(($final_size-$text_length)/2), 23+($i*14)+$vadj, $textcolor, $visitor, $value );
 		$i++;
 	}
-
-
-	//imagettftext( $img, 11, 0, $text_loc, 23, $textcolor, $visitor, $guildMOTD );
 
 	header('Content-type: image/png');
 	imagepng($img);

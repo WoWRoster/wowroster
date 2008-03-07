@@ -9,9 +9,9 @@
 	<tr>
 		<td class="border_color sgrayborder">
 			<div class="header_text sgrayborder">
-				<div style="cursor:pointer;width:450px;" onclick="showHide('table_{profession.ID}','img_{profession.ID}','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
+				<div style="cursor:pointer;width:450px;" onclick="showHide('table_{profession.ID}','img_{profession.ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
 					<img style="float:left;width:17px;height:17px;" src="{INTERFACE_URL}Interface/Icons/{profession.ICON}.{IMG_SUFFIX}" alt="" />
-					<img style="float:right;" id="img_{profession.ID}" src="{IMG_URL}<!-- IF S_HIDE -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" />
+					<img style="float:right;" id="img_{profession.ID}" src="{THEME_PATH}/images/<!-- IF S_HIDE -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" />
 					{profession.NAME}
 				</div>
 			</div>

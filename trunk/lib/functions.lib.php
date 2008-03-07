@@ -1512,3 +1512,81 @@ function updateCheck( $addon )
  * Dummy function. For when you need a callback that doesn't do anything.
  */
 function dummy(){}
+
+
+function pagination( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
+{
+	function pagination_page( $page , $url , $first=false )
+	{
+		global $roster;
+		$roster->tpl->assign_block_vars('pagination', array(
+			'PAGE'  => $page,
+			'URL'   => $url,
+			'FIRST' => $first
+			)
+		);
+	}
+
+	global $roster;
+
+	$total_pages = ceil($num_items/$per_page);
+	$on_page = floor($start_item / $per_page);
+	if( $total_pages < 2 )
+	{
+		return $roster->tpl->assign_var('B_PAGINATION', false);
+	}
+
+	$roster->tpl->assign_vars(array(
+		'B_PAGINATION'    => true,
+		'PAGINATION_PREV' => ($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false,
+		'PAGINATION_NEXT' => ($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false,
+		'L_PREVIOUS'      => $roster->locale->act['prev'],
+		'L_NEXT'          => $roster->locale->act['next'],
+		'L_GOTO_PAGE'     => 'Go to:',
+		)
+	);
+
+	if( $total_pages > 10 )
+	{
+		$init_page_max = ($total_pages > 3) ? 3 : $total_pages;
+		for( $i = 1; $i <= $init_page_max; $i++ )
+		{
+			pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($i == 1));
+		}
+		if( $total_pages > 3 )
+		{
+			if( $on_page > 1 && $on_page < $total_pages )
+			{
+				if( $on_page > 5 )
+				{
+					pagination_page(' ... ', false, true);
+				}
+				$init_page_min = ($on_page > 4) ? $on_page : 5;
+				$init_page_max = ($on_page < $total_pages - 4 ) ? $on_page : $total_pages - 4;
+				for( $i = $init_page_min - 1; $i < $init_page_max + 2; $i++ )
+				{
+					pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($on_page <= 5 && $i == $init_page_min-1));
+				}
+				if ($on_page < $total_pages-4)
+				{
+					pagination_page(' ... ', false, true);
+				}
+			}
+			else
+			{
+				pagination_page(' ... ', false, true);
+			}
+			for( $i = $total_pages - 2; $i <= $total_pages; $i++ )
+			{
+				pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
+			}
+		}
+	}
+	else
+	{
+		for ($i = 1; $i <= $total_pages; $i++)
+		{
+			pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
+		}
+	}
+}

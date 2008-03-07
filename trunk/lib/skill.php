@@ -40,49 +40,6 @@ class skill
 	{
 		return $this->data[$field];
 	}
-
-	function outHeader()
-	{
-		return '<div class="skilltype">' . $this->data['skill_type'] . ' </div>';
-	}
-	function out()
-	{
-		global $roster;
-
-		list($level, $max) = explode( ':', $this->data['skill_level'] );
-		if( $max == 1 )
-		{
-			$bgImage = $roster->config['img_url'] . 'bargrey.gif';
-		}
-		else
-		{
-			$bgImage = $roster->config['img_url'] . 'barempty.gif';
-		}
-
-		$returnstring = '
-<div class="skill">
-  <div class="skillbox">
-    <img class="bg" alt="" src="' . $bgImage . '" />';
-		if( $max > 1 )
-		{
-			$width = intval(($level/$max) * 354);
-			$returnstring .= '<img src="' . $roster->config['img_url'] . 'barbit.gif" alt="" class="bit" width="' . $width . '" />';
-		}
-
-		$returnstring .= '
-    <span class="name">' . $this->data['skill_name'] . '</span>';
-
-		if( $max > 1 )
-		{
-			$returnstring .= '<span class="level">' . $level . '/' . $max . '</span>';
-		}
-		$returnstring .= '
-  </div>
-</div>
-';
-
-		return $returnstring;
-	}
 }
 
 function skill_get_many_by_type( $member_id, $type )

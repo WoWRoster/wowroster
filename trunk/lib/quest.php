@@ -40,49 +40,6 @@ class quest
 	{
 		return $this->data[$field];
 	}
-
-	function outHeader()
-	{
-		echo '<div class="questtype">' . $this->data['quest_zone'] . ' </div>';
-	}
-
-	function out2()
-	{
-		echo '[' . $this->data['quest_level'] . '] ' . $this->data['quest_name'];
-	}
-
-	function out()
-	{
-		global $roster;
-
-		$max = ROSTER_MAXCHARLEVEL;
-		$level = $this->data['quest_level'];
-		if( $max == 1 )
-		{
-			$bgImage = $roster->config['img_url'] . 'bargrey.gif';
-		}
-		else
-		{
-			$bgImage = $roster->config['img_url'] . 'barempty.gif';
-		}
-
-		echo '
-	<div class="quest">
-		<div class="questbox">
-			<img class="bg" alt="" src="' . $bgImage . '" />';
-		if( $max > 1 )
-		{
-			$width = intval(($level/$max) * 354);
-			echo '<img src="' . $roster->config['img_url'] . 'barbit.gif" alt="" class="bit" width="' . $width . '" />';
-		}
-		echo '
-		<span class="name">' . $this->data['quest_name'] . '</span>';
-		if( $max > 1 )
-		{
-			echo '<span class="level"> [' . $level . ']</span>';
-		}
-		echo '</div></div>';
-	}
 }
 
 function quest_get_many( $member_id, $search )

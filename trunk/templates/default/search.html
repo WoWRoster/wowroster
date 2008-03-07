@@ -16,8 +16,8 @@
 				<!-- END only_search -->
 
 				<!-- BEGIN advanced_search -->
-				<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{advanced_search.BASENAME}_options','{advanced_search.BASENAME}_img_options','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
-					<img src="{IMG_URL}plus.gif" style="float:right;" alt="" id="{advanced_search.BASENAME}_img_options" />
+				<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{advanced_search.BASENAME}_options','{advanced_search.BASENAME}_img_options','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
+					<img src="{THEME_PATH}/images/plus.gif" style="float:right;" alt="" id="{advanced_search.BASENAME}_img_options" />
 					{L_SEARCH_ADVANCED} {advanced_search.FULLNAME}
 				</div>
 				<div id="{advanced_search.BASENAME}_options" style="display:none;">
@@ -41,9 +41,9 @@
 			</div>
 
 			<!-- BEGIN addon_results -->
-			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{IMG_URL}minus.gif','{IMG_URL}plus.gif');">
+			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
 				<img src="{addon_results.ICON}" style="float:left;" alt="" id="{addon_results.BASENAME}_item_img" width="16" height="16" />
-				<img src="{IMG_URL}minus.gif" style="float:right;" alt="" id="{addon_results.BASENAME}_search_img" />
+				<img src="{THEME_PATH}/images/minus.gif" style="float:right;" alt="" id="{addon_results.BASENAME}_search_img" />
 				{addon_results.FULLNAME} <small>{FIRST}-{addon_results.COUNT} / {addon_results.TOTAL} {L_RESULTS_COUNT} &lt;{addon_results.TIME}&gt;</small>
 			</div>
 			<div id="{addon_results.BASENAME}">
