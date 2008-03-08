@@ -72,7 +72,7 @@ class char
 	 * Array $this->equip
 	 *
 	 */
-	function fetchEquip( )
+	function fetchEquip()
 	{
 		if( !is_array($this->equip) )
 		{
@@ -81,7 +81,7 @@ class char
 	}
 
 
-	function show_buffs( )
+	function show_buffs()
 	{
 		global $roster;
 
@@ -115,91 +115,90 @@ class char
 	 *
 	 * @return string
 	 */
-	function show_quests( )
+	function show_quests()
 	{
-		global $roster;
+		global $roster, $addon;
 
-		$quests = quest_get_many($this->data['member_id'],'');
+		$query= "SELECT * FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `zone` ASC, `quest_level` ASC;";
 
-		$returnstring = '';
-		if( isset($quests[0]) )
+		$result = $roster->db->query($query);
+
+		$quests = array();
+		while( $row = $roster->db->fetch($result,SQL_ASSOC) )
 		{
-			$zone = '';
-			$returnstring = border('sgray','start',$this->locale['questlog'] . ' (' . count($quests) . '/' . ROSTER_MAXQUESTS . ')').
-				'<table class="bodyline" cellspacing="0" cellpadding="0">';
-
-			foreach( $quests as $quest )
-			{
-				if( $zone != $quest->data['zone'] )
-				{
-					$zone = $quest->data['zone'];
-					$returnstring .= '<tr><th colspan="10" class="membersHeaderRight">' . $zone . '</th></tr>';
-				}
-				$quest_level = $quest->data['quest_level'];
-				$char_level = $this->data['level'];
-
-				if( $quest_level + 9 < $char_level )
-				{
-					$font = 'grey';
-				}
-				elseif( $quest_level + 2 < $char_level )
-				{
-					$font = 'green';
-				}
-				elseif( $quest_level < $char_level+3 )
-				{
-					$font = 'yellow';
-				}
-				else
-				{
-					$font = 'red';
-				}
-
-				$name = $quest->data['quest_name'];
-				if( $name{0} == '[' )
-				{
-					$name = trim(strstr($name, ' '));
-				}
-
-				$returnstring .= '<tr><td class="membersRow1">';
-
-				$returnstring .= '<span class="' . $font . '">[' . $quest_level . '] ' . $name . '</span>';
-
-				$quest_tags = '';
-
-				if( $quest->data['quest_tag'] )
-				{
-					$quest_tags[] = $quest->data['quest_tag'];
-				}
-
-				if( $quest->data['is_complete'] == 1 )
-				{
-					$quest_tags[] = $this->locale['complete'];
-				}
-				elseif( $quest->data['is_complete'] == -1 )
-				{
-					$quest_tags[] = $this->locale['failed'];
-				}
-
-				if( is_array($quest_tags) )
-				{
-						$returnstring .= ' (' . implode(', ',$quest_tags) . ')';
-				}
-
-				$returnstring .= "</td>\n";
-
-				$returnstring .= '<td class="membersRowRight1 quest_link">';
-
-				foreach( $this->locale['questlinks'] as $link )
-				{
-					$returnstring .= '<a href="' . $link['url1'] . urlencode(utf8_decode($name)) . (isset($link['url2']) ? $link['url2'] . $quest_level : '') . (isset($link['url3']) ? $link['url3'] . $quest_level : '') . '" target="_blank">' . $link['name'] . "</a>\n";
-				}
-
-				$returnstring .= '</td></tr>';
-			}
-			$returnstring .= '</table>' . border('sgray','end');
+			$quests[$row['zone']][$row['quest_name']]['quest_index'] = $row['quest_index'];
+			$quests[$row['zone']][$row['quest_name']]['quest_level'] = $row['quest_level'];
+			$quests[$row['zone']][$row['quest_name']]['quest_tag'] = $row['quest_tag'];
+			$quests[$row['zone']][$row['quest_name']]['is_complete'] = $row['is_complete'];
 		}
-		return $returnstring;
+		$num_rows = $roster->db->num_rows($result);
+		$roster->db->free_result($result);
+
+		$roster->tpl->assign_vars(array(
+			'S_QUESTS' => $num_rows,
+			'S_MAXQUESTS' => ROSTER_MAXQUESTS,
+
+			'L_QUESTLOG' => $this->locale['questlog'],
+			'L_COMPLETE' => $this->locale['complete'],
+			'L_FAILED' => $this->locale['failed'],
+			'L_NO_QUESTS' => sprintf($this->locale['no_quests'],$this->data['name']),
+			)
+		);
+
+		if( $num_rows > 0 )
+		{
+			foreach( $quests as $zone => $quest )
+			{
+				$roster->tpl->assign_block_vars('zone',array(
+					'NAME' => $zone,
+					)
+				);
+
+				foreach( $quest as $quest_name => $data )
+				{
+					$quest_level = $data['quest_level'];
+					$char_level = $this->data['level'];
+
+					if( $quest_level + 9 < $char_level )
+					{
+						$color = 'grey';
+					}
+					elseif( $quest_level + 2 < $char_level )
+					{
+						$color = 'green';
+					}
+					elseif( $quest_level < $char_level+3 )
+					{
+						$color = 'yellow';
+					}
+					else
+					{
+						$color = 'red';
+					}
+
+					$roster->tpl->assign_block_vars('zone.quest',array(
+						'ROW_CLASS' => $roster->switch_row_class(),
+						'NAME' => $quest_name,
+						'LEVEL' => $quest_level,
+						'COLOR' => $color,
+						'TAG' => $data['quest_tag'],
+						'COMPLETE' => $data['is_complete'],
+						)
+					);
+
+					foreach( $this->locale['questlinks'] as $link )
+					{
+						$roster->tpl->assign_block_vars('zone.quest.links',array(
+							'NAME' => $link['name'],
+							'LINK' => $link['url1'] . urlencode(utf8_decode($quest_name)) . (isset($link['url2']) ? $link['url2'] . $quest_level : '') . (isset($link['url3']) ? $link['url3'] . $quest_level : ''),
+							)
+						);
+					}
+				}
+			}
+		}
+		$roster->tpl->set_filenames(array('quests' => $addon['basename'] . '/quests.html'));
+		return $roster->tpl->fetch('quests');
 	}
 
 
@@ -208,7 +207,7 @@ class char
 	 *
 	 * @return string
 	 */
-	function show_recipes( )
+	function show_recipes()
 	{
 		global $roster, $sort, $addon;
 
@@ -309,7 +308,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function show_mailbox( )
+	function show_mailbox()
 	{
 		global $roster, $tooltips, $addon;
 
@@ -319,33 +318,26 @@ $returnstring .= '  <tr>
 
 		$result = $roster->db->query($sqlquery);
 
-		if( !$result )
+		$roster->tpl->assign_vars(array(
+			'S_MAIL_DISP' => $addon['config']['mail_disp'],
+			'S_MAIL' => false,
+
+			'L_MAILBOX' => $this->locale['mailbox'],
+			'L_ITEM'    => $this->locale['mail_item'],
+			'L_SENDER'  => $this->locale['mail_sender'],
+			'L_SUBJECT' => $this->locale['mail_subject'],
+			'L_EXPIRES' => $this->locale['mail_expires'],
+			'L_NO_MAIL' => sprintf($this->locale['no_mail'],$this->data['name']),
+			)
+		);
+
+		if( $result && $roster->db->num_rows($result) > 0 )
 		{
-			return '<span class="headline_1">' . sprintf($this->locale['no_mail'],$this->data['name']) . '</span>';
-		}
+			$roster->tpl->assign_var('S_MAIL', true);
 
-		$content = '';
-		$boxes = '';
-
-		if( $roster->db->num_rows($result) > 0 )
-		{
-			//begin generation of mailbox's output
-			$content .= border('sgray','start',$this->locale['mailbox'])
-					  . '<table cellpadding="0" cellspacing="0" class="bodyline">' . "\n";
-			$content .= "<tr>\n";
-			$content .= '<th class="membersHeader">' . $this->locale['mail_item'] . "</th>\n";
-			$content .= '<th class="membersHeader">' . $this->locale['mail_sender'] . "</th>\n";
-			$content .= '<th class="membersHeader">' . $this->locale['mail_subject'] . "</th>\n";
-			$content .= '<th class="membersHeaderRight">' . $this->locale['mail_expires'] . "</th>\n";
-			$content .= "</tr>\n";
-
-			$cur_row = 1;
 			while( $row = $roster->db->fetch($result) )
 			{
 				$maildateutc = strtotime($this->data['maildateutc']);
-
-				$content .= "<tr>\n";
-				$content .= '<td class="membersRow' . $cur_row . '">' . "\n";
 
 				// Get money in mail
 				$money_included = '';
@@ -371,7 +363,7 @@ $returnstring .= '  <tr>
 				}
 
 				// Fix icon texture
-					$item_icon = $roster->config['interface_url'] . 'Interface/Icons/' . $row['mailbox_icon'] . '.' . $roster->config['img_suffix'];
+				$item_icon = $roster->config['interface_url'] . 'Interface/Icons/' . $row['mailbox_icon'] . '.' . $roster->config['img_suffix'];
 
 				// Start the tooltips
 				$tooltip_h = $row['mailbox_subject'];
@@ -398,22 +390,7 @@ $returnstring .= '  <tr>
 					$tooltip .= $roster->locale->wordings[$this->data['clientLocale']]['mail_money'] . ': ' . $money_included;
 				}
 
-
 				$tooltipcode = makeOverlib($tooltip,$tooltip_h,'',2,$this->data['clientLocale']);
-
-				$content .= '<div ' . $tooltipcode . '>';
-
-				$content .= '<img src="' . $item_icon . '"' . " alt=\"\" />\n";
-
-				$content .= "</div>\n</td>\n";
-
-				$content .= '<td class="membersRow' . $cur_row . '">' . $row['mailbox_sender'] . "</td>\n";
-				$content .= '<td class="membersRow' . $cur_row . '">' . $row['mailbox_subject'] . "</td>\n";
-				$content .= '<td class="membersRowRight' . $cur_row . '">' . $expires_line . "</td>\n";
-
-				$content .= "</tr>\n";
-
-				$cur_row = (($cur_row%2)+1);
 
 				if( $addon['config']['mail_disp'] > 0 )
 				{
@@ -430,18 +407,23 @@ $returnstring .= '  <tr>
 					$row['locale'] = $this->data['clientLocale'];
 
 					$attach = new bag($row);
-					$boxes .= $attach->out();
+					$attach->out();
 				}
+
+				$roster->tpl->assign_block_vars('mail',array(
+					'ROW_CLASS' => $roster->switch_row_class(),
+					'TOOLTIP'   => $tooltipcode,
+					'ITEM_ICON' => $row['mailbox_icon'],
+					'SENDER'    => $row['mailbox_sender'],
+					'SUBJECT'   => $row['mailbox_subject'],
+					'EXPIRES'   => $expires_line,
+					)
+				);
 			}
-
-			$content .= "</table>\n" . border('sgray','end');
-
-			return $boxes . ( $addon['config']['mail_disp'] == '0' || $addon['config']['mail_disp'] == '2' ? '<div style="clear: left;">' . $content . '</div>' : '' );
 		}
-		else
-		{
-			return '<span class="headline_1">' . sprintf($this->locale['no_mail'],$this->data['name']) . '</span>';
-		}
+
+		$roster->tpl->set_filenames(array('mailbox' => $addon['basename'] . '/mailbox.html'));
+		return $roster->tpl->fetch('mailbox');
 	}
 
 
@@ -450,7 +432,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function show_spellbook( )
+	function show_spellbook()
 	{
 		global $roster, $addon;
 
@@ -552,7 +534,7 @@ $returnstring .= '  <tr>
 
 		$return_string = '
 <div class="char_panel spell_panel">
-	<img class="panel_icon" src="' . $addon['image_path'] . 'icon_spellbook.gif" alt=""/>
+	<img class="panel_icon" src="' . $addon['tpl_image_path'] . 'icon_spellbook.gif" alt=""/>
 	<div class="panel_title">' . $this->locale['spellbook'] . '</div>
 	<div class="background">&nbsp;</div>
 
@@ -590,29 +572,29 @@ $returnstring .= '  <tr>
 					if( ($num_pages-1) == $page )
 					{
 						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
-						$return_string .= '				<div class="page_back_off"><img src="' . $addon['image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-						$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
+						$return_string .= '				<div class="page_back_off"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+						$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
 						$first_page = false;
 					}
 					else
 					{
 						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
-						$return_string .= '				<div class="page_back_off"><img src="' . $addon['image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
+						$return_string .= '				<div class="page_back_off"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
 						$first_page = false;
 					}
 				}
 				elseif( ($num_pages-1) == $page )
 				{
 					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-					$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+					$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
 				}
 				else
 				{
 					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
+					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
+					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
 				}
 				$return_string .= '				<div class="pagenumber">' . $this->locale['page'] . ' ' . ($page+1) . "</div>\n";
 
@@ -710,7 +692,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function printPet( )
+	function printPet()
 	{
 		global $roster, $addon;
 
@@ -809,8 +791,8 @@ $returnstring .= '  <tr>
 				if( $xpbarshow )
 				{
 					$output .= '
-			<img src="' . $addon['image_path'] . 'expbar_empty.gif" class="xpbar_empty" alt="" />
-			<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $addon['image_path'] . 'expbar_full.gif" alt="" /></div>
+			<img src="' . $addon['tpl_image_path'] . 'expbar_empty.gif" class="xpbar_empty" alt="" />
+			<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $addon['tpl_image_path'] . 'expbar_full.gif" alt="" /></div>
 			<div class="xpbar_text">' . $expbar_text . '</div>';
 				}
 
@@ -934,7 +916,7 @@ $returnstring .= '  <tr>
 	 * @param array $data
 	 * @return string
 	 */
-	function printPetWSkill ( $data )
+	function printPetWSkill( $data )
 	{
 		global $roster;
 
@@ -956,7 +938,7 @@ $returnstring .= '  <tr>
 	 * @param array $data
 	 * @return string
 	 */
-	function printPetWDamage ( $data )
+	function printPetWDamage( $data )
 	{
 		global $roster;
 
@@ -1345,7 +1327,7 @@ $returnstring .= '  <tr>
 	 * @param string $location
 	 * @return string
 	 */
-	function printWSkill ( $location )
+	function printWSkill( $location )
 	{
 		global $roster;
 
@@ -1390,7 +1372,7 @@ $returnstring .= '  <tr>
 	 * @param string $location
 	 * @return string
 	 */
-	function printWDamage ( $location )
+	function printWDamage( $location )
 	{
 		global $roster;
 
@@ -1440,7 +1422,7 @@ $returnstring .= '  <tr>
 	 * @param string $location
 	 * @return string
 	 */
-	function printWSpeed ( $location )
+	function printWSpeed( $location )
 	{
 		global $roster;
 
@@ -1480,7 +1462,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function printSpellDamage( )
+	function printSpellDamage()
 	{
 		global $roster, $addon;
 
@@ -1489,12 +1471,12 @@ $returnstring .= '  <tr>
 
 		$tooltipheader = $name.' '.$value;
 
-		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="' . $addon['image_path'] . 'resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="' . $addon['image_path'] . 'resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="' . $addon['image_path'] . 'resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="' . $addon['image_path'] . 'resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="' . $addon['image_path'] . 'resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="' . $addon['image_path'] . 'resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
+		$tooltip  = '<div><span style="float:right;">'.$this->data['spell_damage_holy'].'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_fire'].'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_nature'].'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_frost'].'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_shadow'].'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.$this->data['spell_damage_arcane'].'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1517,12 +1499,12 @@ $returnstring .= '  <tr>
 
 		$tooltipheader = $this->locale['spell_crit_rating'].' '.$this->printRatingLong('spell_crit');
 
-		$tooltip = '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_holy']).'</span><img src="' . $addon['image_path'] . 'resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_fire']).'</span><img src="' . $addon['image_path'] . 'resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_nature']).'</span><img src="' . $addon['image_path'] . 'resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_frost']).'</span><img src="' . $addon['image_path'] . 'resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_shadow']).'</span><img src="' . $addon['image_path'] . 'resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
-		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_arcane']).'</span><img src="' . $addon['image_path'] . 'resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
+		$tooltip = '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_holy']).'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-holy.gif" alt="" />'.$this->locale['holy'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_fire']).'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-fire.gif" alt="" />'.$this->locale['fire'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_nature']).'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-nature.gif" alt="" />'.$this->locale['nature'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_frost']).'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-frost.gif" alt="" />'.$this->locale['frost'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_shadow']).'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-shadow.gif" alt="" />'.$this->locale['shadow'].'</div>';
+		$tooltip .= '<div><span style="float:right;">'.sprintf('%.2f%%',$this->data['spell_crit_chance_arcane']).'</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-arcane.gif" alt="" />'.$this->locale['arcane'].'</div>';
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />';
 		$line .= '<span style="color:#DFB801;">'.$tooltip.'</span>';
@@ -1536,7 +1518,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function printDefense( )
+	function printDefense()
 	{
 		global $roster;
 
@@ -1596,7 +1578,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function printResilience( )
+	function printResilience()
 	{
 		global $roster;
 
@@ -1701,7 +1683,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function printTalents( )
+	function printTalents()
 	{
 		global $roster, $addon;
 
@@ -1723,10 +1705,10 @@ $returnstring .= '  <tr>
 			$returndata = '
 <div class="char_panel talent_panel">
 
-	<img class="panel_icon" src="' . $addon['image_path'] . 'icon_talents.gif" alt="" />
+	<img class="panel_icon" src="' . $addon['tpl_image_path'] . 'icon_talents.gif" alt="" />
 	<div class="panel_title">'.$this->locale['talents'].'</div>
-	<img class="top_bar" src="' . $addon['image_path'] . 'talent/bar_top.gif" alt="" />
-	<img class="bot_bar" src="' . $addon['image_path'] . 'talent/bar_bottom.gif" alt="" />
+	<img class="top_bar" src="' . $addon['tpl_image_path'] . 'talent/bar_top.gif" alt="" />
+	<img class="bot_bar" src="' . $addon['tpl_image_path'] . 'talent/bar_bottom.gif" alt="" />
 
 	<div class="link"><a href="';
 
@@ -1779,7 +1761,7 @@ $returnstring .= '  <tr>
 							if( $cell['rank'] != 0 )
 							{
 								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
-					<img class="rank_icon" src="' . $addon['image_path'] . 'talent/rank.gif" alt="" />
+					<img class="rank_icon" src="' . $addon['tpl_image_path'] . 'talent/rank.gif" alt="" />
 					<div class="rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
 					<img src="'.$roster->config['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
 							}
@@ -1883,7 +1865,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function printSkills( )
+	function printSkills()
 	{
 		global $roster, $addon;
 
@@ -1903,13 +1885,13 @@ $returnstring .= '  <tr>
 				if( $skillbar['maxvalue'] == '1' )
 				{
 					$output .= '
-				<div style="position:absolute;"><img src="' . $addon['image_path'] . 'skill/bar_grey.gif" alt="" /></div>
+				<div style="position:absolute;"><img src="' . $addon['tpl_image_path'] . 'skill/bar_grey.gif" alt="" /></div>
 				<div class="text">'.$skillbar['name'].'</div>';
 				}
 				else
 				{
 					$output .= '
-				<div style="position:absolute;clip:rect(0px '.$skillbar['barwidth'].'px 15px 0px);"><img src="' . $addon['image_path'] . 'skill/bar.gif" alt="" /></div>
+				<div style="position:absolute;clip:rect(0px '.$skillbar['barwidth'].'px 15px 0px);"><img src="' . $addon['tpl_image_path'] . 'skill/bar.gif" alt="" /></div>
 				<div class="text">'.$skillbar['name'].'<span class="text_num">'.$skillbar['value'].' / '.$skillbar['maxvalue'].'</span></div>';
 				}
 				$output .= "\n			</div>\n";
@@ -1945,7 +1927,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return array
 	 */
-	function getSkillTabValues( )
+	function getSkillTabValues()
 	{
 		global $roster;
 
@@ -1983,7 +1965,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return string
 	 */
-	function printReputation( )
+	function printReputation()
 	{
 		global $roster, $addon;
 
@@ -1993,7 +1975,7 @@ $returnstring .= '  <tr>
 		foreach( $repData as $findex => $faction )
 		{
 			$output .= '
-		<div class="header" onclick="showHide(\'rep' . $findex . '\',\'rep' . $findex . '_img\',\'' . $roster->config['theme_path'] . '/images/minus.gif\',\'' . $roster->config['theme_path'] . '/images/plus.gif\');"><img src="' . $roster->config['img_url'] . '' . ( $faction['name'] == $roster->locale->act['inactive'] ? 'plus' : 'minus' ) . '.gif" id="rep' . $findex . '_img" class="minus_plus" alt="" />' . $faction['name'] . '</div>
+		<div class="header" onclick="showHide(\'rep' . $findex . '\',\'rep' . $findex . '_img\',\'' . $roster->config['theme_path'] . '/images/minus.gif\',\'' . $roster->config['theme_path'] . '/images/plus.gif\');"><img src="' . $roster->config['theme_path'] . '/images/' . ( $faction['name'] == $roster->locale->act['inactive'] ? 'plus' : 'minus' ) . '.gif" id="rep' . $findex . '_img" class="minus_plus" alt="" />' . $faction['name'] . '</div>
 		<div id="rep' . $findex . '"' . ( $faction['name'] == $roster->locale->act['inactive'] ? ' style="display:none;"' : '' ) . ">\n";
 
 			foreach( $faction['bars'] as $repbar )
@@ -2006,7 +1988,7 @@ $returnstring .= '  <tr>
 				<div class="rep_bar_text">' . $repbar['standing'] . ' - ' . $repbar['value'] . ' / ' . $repbar['maxvalue'] . '</div>' . "\n";
 				if( $repbar['atwar'] == 1 )
 				{
-					$output .= '				<img src="' . $addon['image_path'] . '/rep/atwar.gif" style="float:right;" alt="" />' . "\n";
+					$output .= '				<img src="' . $addon['tpl_image_path'] . '/rep/atwar.gif" style="float:right;" alt="" />' . "\n";
 				}
 				$output .= "			</div>\n";
 			}
@@ -2022,7 +2004,7 @@ $returnstring .= '  <tr>
 	 *
 	 * @return array
 	 */
-	function getRepTabValues( )
+	function getRepTabValues()
 	{
 		global $roster;
 
@@ -2071,14 +2053,14 @@ $returnstring .= '  <tr>
 		$max = $repdata['max_rep'];
 
 		$img = array(
-			$this->locale['exalted'] => $addon['image_path'] . 'rep/green.gif',
-			$this->locale['revered'] => $addon['image_path'] . 'rep/green.gif',
-			$this->locale['honored'] => $addon['image_path'] . 'rep/green.gif',
-			$this->locale['friendly'] => $addon['image_path'] . 'rep/green.gif',
-			$this->locale['neutral'] => $addon['image_path'] . 'rep/yellow.gif',
-			$this->locale['unfriendly'] => $addon['image_path'] . 'rep/orange.gif',
-			$this->locale['hostile'] => $addon['image_path'] . 'rep/red.gif',
-			$this->locale['hated'] => $addon['image_path'] . 'rep/red.gif'
+			$this->locale['exalted'] => $addon['tpl_image_path'] . 'rep/green.gif',
+			$this->locale['revered'] => $addon['tpl_image_path'] . 'rep/green.gif',
+			$this->locale['honored'] => $addon['tpl_image_path'] . 'rep/green.gif',
+			$this->locale['friendly'] => $addon['tpl_image_path'] . 'rep/green.gif',
+			$this->locale['neutral'] => $addon['tpl_image_path'] . 'rep/yellow.gif',
+			$this->locale['unfriendly'] => $addon['tpl_image_path'] . 'rep/orange.gif',
+			$this->locale['hostile'] => $addon['tpl_image_path'] . 'rep/red.gif',
+			$this->locale['hated'] => $addon['tpl_image_path'] . 'rep/red.gif'
 		);
 
 		$returnData['name'] = $repdata['name'];
@@ -2198,7 +2180,7 @@ $returnstring .= '  <tr>
 	/**
 	 * Main output function
 	 */
-	function out( )
+	function out()
 	{
 		global $roster, $addon;
 
@@ -2264,7 +2246,7 @@ $returnstring .= '  <tr>
 	<!-- End Resists -->
 
 	<!-- Begin Advanced Stats -->
-		<img src="' . $addon['image_path'] . 'percentframe.gif" class="percent_frame" alt="" />
+		<img src="' . $addon['tpl_image_path'] . 'percentframe.gif" class="percent_frame" alt="" />
 
 		<div class="health"><span class="yellowB">' . $this->locale['health'] . ':</span> ' . $this->data['health'] . '</div>
 		<div class="mana"><span class="yellowB">' . $this->data['power'] . ':</span> ' . $this->data['mana'] . '</div>
@@ -2356,8 +2338,8 @@ $returnstring .= '  <tr>
 
 			$output .= '
 	<!-- Begin EXP Bar -->
-		<img src="' . $addon['image_path'] . 'expbar_empty.gif" class="xpbar_empty" alt="" />
-		<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $addon['image_path'] . '/' . $expbar_type . '.gif" alt="" /></div>
+		<img src="' . $addon['tpl_image_path'] . 'expbar_empty.gif" class="xpbar_empty" alt="" />
+		<div class="xpbar" style="clip:rect(0px ' . $expbar_width . 'px 12px 0px);"><img src="' . $addon['tpl_image_path'] . '/' . $expbar_type . '.gif" alt="" /></div>
 		<div class="xpbar_text">' . $expbar_text . '</div>
 	<!-- End EXP Bar -->
 ';
@@ -2529,11 +2511,11 @@ function char_get_one_by_id( $member_id )
 	$query = "SELECT a.*, b.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
 		"FROM `".$roster->db->table('players')."` a, `".$roster->db->table('members')."` b, `".$roster->db->table('guild')."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`member_id` = '$member_id' AND `a`.`guild_id` = `c`.`guild_id`;";
-	$result = $roster->db->query( $query );
+	$result = $roster->db->query($query);
 	if( $roster->db->num_rows($result) > 0 )
 	{
-		$data = $roster->db->fetch( $result );
-		return new char( $data );
+		$data = $roster->db->fetch($result);
+		return new char($data);
 	}
 	else
 	{
@@ -2558,11 +2540,11 @@ function char_get_one( $name, $server )
 	$query = "SELECT `a`.*, `b`.*, `c`.`guild_name`, DATE_FORMAT(  DATE_ADD(`a`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'update_format' ".
 		"FROM `".$roster->db->table('players')."` a, `".$roster->db->table('members')."` b, `".$roster->db->table('guild')."` c " .
 		"WHERE `a`.`member_id` = `b`.`member_id` AND `a`.`name` = '$name' AND `a`.`server` = '$server' AND `a`.`guild_id` = `c`.`guild_id`;";
-	$result = $roster->db->query( $query );
+	$result = $roster->db->query($query);
 	if( $roster->db->num_rows($result) > 0 )
 	{
-		$data = $roster->db->fetch( $result );
-		return new char( $data );
+		$data = $roster->db->fetch($result);
+		return new char($data);
 	}
 	else
 	{

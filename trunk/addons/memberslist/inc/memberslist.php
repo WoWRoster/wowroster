@@ -548,7 +548,7 @@ class memberslist
 
 			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'.
 				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster->config['theme_path'].'/images/minus.gif\',\''.$roster->config['theme_path'].'/images/plus.gif\'); return false;">'.
-				'<img src="'.$roster->config['img_url'].$openimg.'" id="foldout-'.$member_id.'" alt="'.$openalt.'" /></a></td>'.
+				'<img src="'.$roster->config['theme_path'].'/images/'.$openimg.'" id="foldout-'.$member_id.'" alt="'.$openalt.'" /></a></td>'.
 				$block['main']."\n".'</tr>'."\n";
 
 			$alt_counter = 0;
@@ -663,9 +663,8 @@ class memberslist
 					$icon_name = isset($roster->locale->wordings[$language]['class_iconArray'][$row['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row['class']] : '';
 					if( strlen($icon_name) > 0 ) break;
 				}
-				$icon_name = 'class/' . $icon_name;
 
-				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . $icon_name . '.jpg" alt="" />';
+				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.jpg" alt="" />';
 			}
 
 			// Don't proceed for characters without data

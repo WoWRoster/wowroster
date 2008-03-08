@@ -57,85 +57,67 @@ class bag extends item
 
 		$lang = $this->data['locale'];
 
-		if( $this->data['item_slot'] == 'Bank Bag0' )
+		$bag_type = ( strpos($this->data['item_slot'],'Bank') !== false ? 'bank' : 'bag');
+		$bag_type = ( $this->data['item_slot'] == 'Bag5' ? 'key' : $bag_type);
+
+		$bag_style = $this->data['item_quantity'] % 4;
+
+		if( $bag_style == 0 )
 		{
-
-			$returnstring = '
-<div class="bankbag" style="background-image:url(' . $addon['image_path'] . 'bags/bank_frame.png);">
-	<div class="bankcont_name">' . $this->data['item_name'] . '</div>
-	<div class="holder">';
+			$offset = (($this->data['item_quantity'] / 4) * 41);
+			$offset += 42;
 		}
-		else
+		elseif( $bag_style == 2 )
 		{
-			$bag_type = ( strpos($this->data['item_slot'],'Bank') !== false ? 'bank' : 'bag');
-			$bag_type = ( $this->data['item_slot'] == 'Bag5' ? 'key' : $bag_type);
-
-			$bag_style = $this->data['item_quantity'] % 4;
-
-			if( $bag_style == 0 )
-			{
-				$offset = (($this->data['item_quantity'] / 4) * 41);
-				$offset += 42;
-			}
-			elseif( $bag_style == 2 )
-			{
-				$offset = ((($this->data['item_quantity'] - 2)+1) / 4) * 41;
-				$offset += 53;
-			}
-
-			// Item links
-			list($item_id) = explode(':', $this->item_id);
-			$num_of_tips = (count($tooltips)+1);
-			$linktip = '';
-			foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
-			{
-				//$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
-				$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
-			}
-			setTooltip($num_of_tips,$linktip);
-			setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
-
-			$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
-
-			$returnstring = '
-<div class="bag" style="height:' . $offset . 'px;background-image:url(' . $addon['image_path'] . 'bags/' . $bag_type . '_top_' . $bag_style . '.png);">
-	<div class="' . $bag_type . '_name">' . $this->data['item_name'] . '</div>
-	<img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['item_texture'] . '.' . $roster->config['img_suffix'] . '" class="bagicon" alt="" />
-	<img src="' . $addon['image_path'] . 'bags/' . $bag_type . '_mask.png" class="bagmask" alt="" ' . makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang) . ' ' . $linktip . ' />
-	<div class="bottom" style="margin-top:' . $offset . 'px;background-image:url(' . $addon['image_path'] . 'bags/' . $bag_type . '_bot.png);"></div>
-	<div class="holder' . $bag_style . '">
-			<div class="bagspacer' . $bag_style . '">&nbsp;</div>
-			<div class="bagspacer' . $bag_style . '">&nbsp;</div>
-';
+			$offset = ((($this->data['item_quantity'] - 2)+1) / 4) * 41;
+			$offset += 53;
 		}
+
+		// Item links
+		list($item_id) = explode(':', $this->item_id);
+		$num_of_tips = (count($tooltips)+1);
+		$linktip = '';
+		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
+		{
+			$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
+		}
+		setTooltip($num_of_tips,$linktip);
+		setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
+
+		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
+		$roster->tpl->assign_block_vars('bag',array(
+			'IMAGE_PATH' => $addon['tpl_image_path'],
+			'NAME' => $this->data['item_name'],
+			'SLOT' => $this->data['item_slot'],
+			'TYPE' => $bag_type,
+			'STYLE' => $bag_style,
+			'OFFSET' => $offset,
+			'ICON' => $this->data['item_texture'],
+			'TOOLTIP' => makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang),
+			'LINKTIP' => $linktip,
+			)
+		);
 
 		// Select all item for this bag
 		for( $slot = 0; $slot < $this->data['item_quantity'] ; $slot++ )
 		{
-			if( $slot < 0 )
+			if( isset($this->contents[$slot+1]) )
 			{
-				$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
+				$item = $this->contents[$slot+1];
+				$roster->tpl->assign_block_vars('bag.item',array(
+					'ICON' => $item->out()
+					)
+				);
 			}
 			else
 			{
-				if( isset($this->contents[$slot+1]) )
-				{
-					$item = $this->contents[$slot+1];
-					$returnstring .= $item->out();
-				}
-				else
-				{
-					$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
-				}
+				$roster->tpl->assign_block_vars('bag.item',array(
+					'ICON' => '<div class="item"><img src="{IMG_URL}pixel.gif" class="noicon" alt="" /></div>'
+					)
+				);
 			}
 		}
-
-		$returnstring .= '
-	</div>
-</div>
-';
-
-		return $returnstring;
 	}
 }
 

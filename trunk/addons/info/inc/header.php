@@ -23,13 +23,14 @@ if( !defined('IN_ROSTER') )
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 // Include character class file
-require_once ($addon['dir'] . 'inc/char.lib.php');
+require_once ($addon['inc_dir'] . 'char.lib.php');
 
 // Get Character Info
 $char = new char($roster->data);
 
 // Set <html><title> and <form action=""> and $char_url
 $roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'));
+
 $char_url = '&amp;a=c:' . $char->get('member_id');
 
 
@@ -73,11 +74,11 @@ foreach( $disp_array as $global_setting )
 
 if( $char->data['raceEn'] == '' || $char->data['sexid'] == '' )
 {
-	$char->data['char_icon'] = $addon['image_path'] . 'portrait/unknown';
+	$char->data['char_icon'] = $addon['tpl_image_path'] . 'portrait/unknown';
 }
 else
 {
-	$char->data['char_icon'] = $addon['image_path'] . 'portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
+	$char->data['char_icon'] = $addon['tpl_image_path'] . 'portrait/' . strtolower($char->data['raceEn']) . '-' . ($char->data['sexid'] == '0' ? 'male' : 'female');
 }
 
 $char_page = '<table border="0" cellpadding="0" cellspacing="0"><tr><td align="left">';
