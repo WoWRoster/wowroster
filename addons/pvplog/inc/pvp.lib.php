@@ -483,8 +483,7 @@ function output_bglog( $pvps )
 
 				if( !empty($icon_name) )
 				{
-					$icon_name = 'class/' . $icon_name;
-					$class_icon = '<img style="cursor:help;" onmouseover="return overlib(\'' . $eclass . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . $icon_name . '.jpg" alt="" />&nbsp;';
+					$class_icon = '<img style="cursor:help;" onmouseover="return overlib(\'' . $eclass . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.jpg" alt="" />&nbsp;';
 				}
 				else
 				{
@@ -657,8 +656,7 @@ function output_duellog( $member_id )
 
 		if( !empty($dataset['icon_name']) )
 		{
-			$dataset['icon_name'] = 'class/' . $dataset['icon_name'];
-			$data[$datakey]['class_icon'] = '<img style="cursor:help;" onmouseover="return overlib(\'' . $dataset['class'] . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . $dataset['icon_name'] . '.jpg" alt="" />&nbsp;';
+			$data[$datakey]['class_icon'] = '<img style="cursor:help;" onmouseover="return overlib(\'' . $dataset['class'] . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . 'class/' . $dataset['icon_name'] . '.jpg" alt="" />&nbsp;';
 		}
 		else
 		{
@@ -760,8 +758,7 @@ function output_pvplog( $pvps )
 
 		if( !empty($dataset['icon_name']) )
 		{
-			$dataset['icon_name'] = 'class/' . $dataset['icon_name'];
-			$data[$datakey]['class_icon'] = '<img style="cursor:help;" onmouseover="return overlib(\'' . $dataset['class'] . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . $dataset['icon_name'] . '.jpg" alt="" />&nbsp;';
+			$data[$datakey]['class_icon'] = '<img style="cursor:help;" onmouseover="return overlib(\'' . $dataset['class'] . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . 'class/' . $dataset['icon_name'] . '.jpg" alt="" />&nbsp;';
 		}
 		else
 		{
@@ -861,8 +858,7 @@ function output_pvp2( $pvps , $url , $type )
 
 		if( !empty($icon_name) )
 		{
-			$icon_name = 'class/' . $icon_name;
-			$class_icon = '<img style="cursor:help;" onmouseover="return overlib(\'' . $row->data['class'] . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . $icon_name . '.jpg" alt="" />&nbsp;';
+			$class_icon = '<img style="cursor:help;" onmouseover="return overlib(\'' . $row->data['class'] . '\',WRAP);" onmouseout="return nd();" class="membersRowimg" width="16" height="16" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.jpg" alt="" />&nbsp;';
 		}
 		else
 		{

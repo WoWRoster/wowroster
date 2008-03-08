@@ -47,6 +47,9 @@ $lang['mail_expires'] = 'Messages expirés';
 $lang['mail_money'] = 'Argent Inclus';
 $lang['no_mail'] = 'Pas de courrier pour %1$s';
 
+// Quests
+$lang['no_quests'] = '%1$s has no Quests';
+
 //skills
 $lang['skilltypes'] = array(
 	1 => 'Compétences de Classe',

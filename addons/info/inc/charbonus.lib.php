@@ -66,7 +66,7 @@ class CharBonus
 		global $roster, $addon;
 		//build header of bonus box
 		$out = '<div class="char_panel" style="margin-left:20px;">
-	<img src="' . $addon['image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
+	<img src="' . $addon['tpl_image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
 	<div class="panel_title">' . $roster->locale->act['item_bonuses_full'] . '</div>
 	<div class="container">';
 
@@ -412,9 +412,9 @@ class CharBonus
 			if( strpos($value, addslashes($this->item->name)) )
 			{
 				return 	'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
-				  	   	. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-				  	   	. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
-				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span></a>&nbsp;:&nbsp;' . $modifier;
+						. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+						. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
+						. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span></a>&nbsp;:&nbsp;' . $modifier;
 			}
 		}
 	}

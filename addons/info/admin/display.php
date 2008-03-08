@@ -21,26 +21,54 @@ if( !defined('IN_ROSTER') )
 
 if( isset($_POST['process']) && $_POST['process'] != '' )
 {
-	$roster_config_message = processData();
+	$rcp_message = processData();
 }
 
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
+
+$roster->output['body_onload'] .= "initARC('config','radioOn','radioOff','checkboxOn','checkboxOff');";
 
 // Change scope to guild, and rerun detection to load default
 $roster->scope = 'guild';
 $roster->get_scope_data();
 
-$listing = $next = $prev = '';
 
 /**
  * Actual list
  */
-$query = "SELECT "
-	. " COUNT( `member_id` )"
+$query = "SELECT COUNT(`member_id`)"
 	. " FROM `" . $roster->db->table('players') . "`"
 	. " WHERE `guild_id` = " . ( isset($roster->data['guild_id']) ? $roster->data['guild_id'] : 0 ) . ";";
 
 $num_members = $roster->db->query_first($query);
+
+$roster->tpl->assign_vars(array(
+	'L_PER_CHAR_DISPLAY' => $roster->locale->act['admin']['per_character_display'],
+	'L_SUBMIT' => $roster->locale->act['config_submit_button'],
+	'L_RESET'  => $roster->locale->act['config_reset_button'],
+	'L_CONFIRM_RESET' => $roster->locale->act['confirm_config_reset'],
+
+	'L_NAME'       => $roster->locale->act['name'],
+	'L_MONEY'      => $roster->locale->act['money'],
+	'L_TIMEPLAYED' => $roster->locale->act['timeplayed'],
+	'L_PETS'       => $roster->locale->act['tab2'],
+	'L_REPUTATION' => $roster->locale->act['tab3'],
+	'L_SKILLS'     => $roster->locale->act['tab4'],
+	'L_PVP'        => $roster->locale->act['tab5'],
+	'L_TALENTS'    => $roster->locale->act['talents'],
+	'L_SPELLBOOK'  => $roster->locale->act['spellbook'],
+	'L_MAILBOX'    => $roster->locale->act['mailbox'],
+	'L_BAGS'       => $roster->locale->act['bags'],
+	'L_BANK'       => $roster->locale->act['bank'],
+	'L_QUESTS'     => $roster->locale->act['quests'],
+	'L_RECIPES'    => $roster->locale->act['recipes'],
+	'L_BONUSES'     => $roster->locale->act['item_bonuses'],
+
+	'PREV'    => '',
+	'NEXT'    => '',
+	'LISTING' => ''
+	)
+);
 
 
 if( $num_members > 0 )
@@ -66,50 +94,41 @@ if( $num_members > 0 )
 		$next = '';
 	}
 
-	$formbody = "<br /><div id=\"char_disp\">\n" . border('sblue','start',$prev . $roster->locale->act['admin']['per_character_display'] . $listing . $next) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
+	$roster->tpl->assign_vars(array(
+		'PREV'    => $prev,
+		'NEXT'    => $next,
+		'LISTING' => $listing
+		)
+	);
 
-	$formbody .= '
-	<tr>
-		<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['money'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['timeplayed'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['tab2'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['tab3'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['tab4'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['tab5'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['talents'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['spellbook'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['mailbox'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['bags'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['bank'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['quests'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['recipes'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['item_bonuses'] . "</th>\n\t</tr>\n";
-
-	$i=0;
-
-	$query = "SELECT "
-		. " `member_id`, `name`,"
-		. " `level`, `class`,"
-		. " `show_money`, `show_played`,"
-		. " `show_tab2`, `show_tab3`,"
-		. " `show_tab4`, `show_tab5`,"
-		. " `show_talents`, `show_spellbook`,"
-		. " `show_mail`, `show_bags`,"
-		. " `show_bank`, `show_quests`,"
-		. " `show_recipes`, `show_item_bonuses`"
-		. " FROM `" . $roster->db->table('players') . "`"
-		. " WHERE `guild_id` = " . $roster->data['guild_id']
-		. " ORDER BY `name` ASC"
-		. " LIMIT " . ($start > 0 ? $start : 0) . ", 15;";
+	$query = 'SELECT '
+		. ' `member_id`, `name`,'
+		. ' `level`, `class`,'
+		. ' `show_money`, `show_played`,'
+		. ' `show_tab2`, `show_tab3`,'
+		. ' `show_tab4`, `show_tab5`,'
+		. ' `show_talents`, `show_spellbook`,'
+		. ' `show_mail`, `show_bags`,'
+		. ' `show_bank`, `show_quests`,'
+		. ' `show_recipes`, `show_item_bonuses`'
+		. ' FROM `' . $roster->db->table('players') . '`'
+		. ' WHERE `guild_id` = ' . $roster->data['guild_id']
+		. ' ORDER BY `name` ASC'
+		. ' LIMIT ' . ($start > 0 ? $start : 0) . ', 15;';
 
 	$result = $roster->db->query($query);
 
 	while( $data = $roster->db->fetch($result) )
 	{
-		$formbody .= '	<tr>
-		<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('char-info&amp;a=c:' . $data['member_id']) . '" target="_blank">' . $data['name'] . '</a><br />
-			' . $data['level'] . ':' . $data['class'] . "</td>\n";
+		$roster->tpl->assign_block_vars('members',array(
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'ID' => $data['member_id'],
+			'LINK' => makelink('char-info&amp;a=c:' . $data['member_id']),
+			'NAME' => $data['name'],
+			'LEVEL' => $data['level'],
+			'CLASS' => $data['class'],
+			)
+		);
 
 		$k=0;
 		foreach( $data as $val_name => $value )
@@ -119,32 +138,22 @@ if( $num_members > 0 )
 				continue;
 			}
 
-			$formbody .= '		<td class="membersRow' . (($i%2)+1) . '">' . "\n";
-			$formbody .= '			<input type="radio" id="chard_f' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['member_id'] . '">off</label><br />' . "\n";
-			$formbody .= '			<input type="radio" id="chard_n' . $k . '_' . $data['member_id'] . '" name="disp_' . $data['member_id'] . ':' . $val_name . '" value="3" ' . ( $value == '3' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['member_id'] . '">on</label>' . "\n";
-			$formbody .= "\t\t</td>\n";
+			$roster->tpl->assign_block_vars('members.data',array(
+				'ID' => $k,
+				'NAME' => $val_name,
+				'VALUE' => $value,
+				'CLASS' => $data['class'],
+				)
+			);
 
 			$k++;
 		}
-		$formbody .= "\t</tr>\n";
-		$i++;
 	}
-	$formbody .= "</table>\n" . border('syellow','end') . "\n</div>\n";
-
-	$formbody .= $prev . $listing . $next;
 }
 else
 {
-	$formbody = 'No Data';
+	return 'No Data';
 }
-
-$roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
-$body .= "
-<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('" . $roster->locale->act['confirm_config_submit'] . "');submitonce(this);\">
-	$formbody
-<br /><br />\n<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n
-</form>";
 
 $tab1 = explode('|',$roster->locale->act['admin']['char_conf']);
 $tab2 = explode('|',$roster->locale->act['admin']['char_pref']);
@@ -155,6 +164,12 @@ $menu = messagebox('
 	<li class="selected"><a href="' . makelink('rostercp-addon-info-display') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
 </ul>
 ',$roster->locale->act['roster_config_menu'],'sgray','145px');
+
+
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/admin/index.html'));
+$body = $roster->tpl->fetch('body');
+
+
 
 
 /**

@@ -47,6 +47,9 @@ $lang['mail_expires'] = 'Gültig bis';
 $lang['mail_money'] = 'Geldanhang';
 $lang['no_mail'] = 'Keine Briefe für %1$s';
 
+// Quests
+$lang['no_quests'] = '%1$s has no Quests';
+
 //skills
 $lang['skilltypes'] = array(
 	1 => 'Klassenfertigkeiten',
