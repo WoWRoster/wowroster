@@ -33,6 +33,10 @@ $roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get
 
 $char_url = '&amp;a=c:' . $char->get('member_id');
 
+$roster->tpl->assign_vars(array(
+	'U_IMAGE_PATH' => $addon['tpl_image_path'],
+	)
+);
 
 // Array of db fields to get ( 'globalsetting'=>'usersetting' )
 $disp_array = array(

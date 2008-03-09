@@ -74,13 +74,13 @@ class recipe
 	}
 }
 
-function recipe_get_many( $member_id, $search, $sort )
+function recipe_get_many( $member_id , $search , $sort )
 {
 	global $roster;
 
-	$query= "SELECT * FROM `" . $roster->db->table('recipes') . "` where `member_id` = '$member_id'";
+	$query= "SELECT * FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '$member_id'" . ($search==''?'':" AND (`recipe_tooltip` LIKE '%" . $search . "%' OR `recipe_name` LIKE '%" . $search . "%')");
 
-	switch ($sort)
+	switch( $sort )
 	{
 		case 'item':
 			$query .= " ORDER BY `skill_name` ASC , `difficulty` DESC , `recipe_type` ASC , `recipe_name` ASC";
@@ -115,22 +115,22 @@ function recipe_get_many( $member_id, $search, $sort )
 			break;
 	}
 
-	$result = $roster->db->query( $query );
+	$result = $roster->db->query($query);
 	$recipes = array();
-	while( $data = $roster->db->fetch( $result ) )
+	while( $data = $roster->db->fetch($result) )
 	{
-		$recipe = new recipe( $data );
+		$recipe = new recipe($data);
 		$recipes[] = $recipe;
 	}
 	return $recipes;
 }
 
 
-function recipe_get_all( $skill_name, $search, $sort )
+function recipe_get_all( $skill_name , $search , $sort )
 {
 	global $roster;
 
-	$query= "SELECT distinct recipe_tooltip, recipe_name, recipe_type, item_color, skill_name, reagents, recipe_texture, level, 1 difficulty FROM `" . $roster->db->table('recipes') . "` WHERE `skill_name` = '$skill_name' " . ($search==''?'':" AND (recipe_tooltip LIKE '%" . $search . "%' OR recipe_name LIKE '%" . $search . "%')") . " GROUP BY recipe_name";
+	$query= "SELECT DISTINCT `recipe_tooltip`, `recipe_name`, `recipe_type`, `item_color`, `skill_name`, `reagents`, `recipe_texture`, `level`, 1 `difficulty` FROM `" . $roster->db->table('recipes') . "` WHERE `skill_name` = '$skill_name' " . ($search==''?'':" AND (`recipe_tooltip` LIKE '%" . $search . "%' OR `recipe_name` LIKE '%" . $search . "%')") . " GROUP BY `recipe_name`";
 
 	switch ($sort)
 	{
@@ -159,10 +159,11 @@ function recipe_get_all( $skill_name, $search, $sort )
 			break;
 	}
 
-	$result = $roster->db->query( $query );
+	$result = $roster->db->query($query);
 
 	$recipes = array();
-	while( $data = $roster->db->fetch( $result ) ) {
+	while( $data = $roster->db->fetch($result) )
+	{
 		$recipe = new recipe( $data );
 		$recipes[] = $recipe;
 	}
