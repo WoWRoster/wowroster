@@ -4,17 +4,17 @@
 
 <!-- IF bag.SLOT eq 'Bank Bag0' -->
 
-<div class="bankbag" style="background-image:url({bag.IMAGE_PATH}bags/bank_frame.png);">
+<div class="bankbag" style="background-image:url({U_IMAGE_PATH}bags/bank_frame.png);">
 	<div class="bankcont_name">{bag.NAME}</div>
 	<div class="holder">
 
 <!-- ELSE -->
 
-<div class="bag" style="height:{bag.OFFSET}px;background-image:url({bag.IMAGE_PATH}bags/{bag.TYPE}_top_{bag.STYLE}.png);">
+<div class="bag" style="height:{bag.OFFSET}px;background-image:url({U_IMAGE_PATH}bags/{bag.TYPE}_top_{bag.STYLE}.png);">
 	<div class="{bag.TYPE}_name">{bag.NAME}</div>
 	<img src="{INTERFACE_URL}Interface/Icons/{bag.ICON}.{IMG_SUFFIX}" class="bagicon" alt="" />
-	<img src="{bag.IMAGE_PATH}bags/{bag.TYPE}_mask.png" class="bagmask" alt=""{bag.TOOLTIP}{bag.LINKTIP} />
-	<div class="bottom" style="margin-top:{bag.OFFSET}px;background-image:url({bag.IMAGE_PATH}bags/{bag.TYPE}_bot.png);"></div>
+	<img src="{U_IMAGE_PATH}bags/{bag.TYPE}_mask.png" class="bagmask" alt=""{bag.TOOLTIP}{bag.LINKTIP} />
+	<div class="bottom" style="margin-top:{bag.OFFSET}px;background-image:url({U_IMAGE_PATH}bags/{bag.TYPE}_bot.png);"></div>
 	<div class="holder{bag.STYLE}">
 		<div class="bagspacer{bag.STYLE}">&nbsp;</div>
 		<div class="bagspacer{bag.STYLE}">&nbsp;</div>

@@ -87,7 +87,6 @@ class bag extends item
 		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 		$roster->tpl->assign_block_vars('bag',array(
-			'IMAGE_PATH' => $addon['tpl_image_path'],
 			'NAME' => $this->data['item_name'],
 			'SLOT' => $this->data['item_slot'],
 			'TYPE' => $bag_type,

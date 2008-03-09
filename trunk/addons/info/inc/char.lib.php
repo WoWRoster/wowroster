@@ -119,23 +119,10 @@ class char
 	{
 		global $roster, $addon;
 
-		$query= "SELECT * FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `zone` ASC, `quest_level` ASC;";
-
-		$result = $roster->db->query($query);
-
-		$quests = array();
-		while( $row = $roster->db->fetch($result,SQL_ASSOC) )
-		{
-			$quests[$row['zone']][$row['quest_name']]['quest_index'] = $row['quest_index'];
-			$quests[$row['zone']][$row['quest_name']]['quest_level'] = $row['quest_level'];
-			$quests[$row['zone']][$row['quest_name']]['quest_tag'] = $row['quest_tag'];
-			$quests[$row['zone']][$row['quest_name']]['is_complete'] = $row['is_complete'];
-		}
-		$num_rows = $roster->db->num_rows($result);
-		$roster->db->free_result($result);
+		$quests = quest_get_many($this->data['member_id']);
 
 		$roster->tpl->assign_vars(array(
-			'S_QUESTS' => $num_rows,
+			'S_QUESTS' => count($quests),
 			'S_MAXQUESTS' => ROSTER_MAXQUESTS,
 
 			'L_QUESTLOG' => $this->locale['questlog'],
@@ -145,9 +132,20 @@ class char
 			)
 		);
 
-		if( $num_rows > 0 )
+		if( isset($quests[0]) )
 		{
-			foreach( $quests as $zone => $quest )
+			$quests_arr = array();
+			foreach( $quests as $object )
+			{
+				$zone = $object->data['zone'];
+				$quest_name = $object->data['quest_name'];
+				$quests_arr[$zone][$quest_name]['quest_index'] = $object->data['quest_index'];
+				$quests_arr[$zone][$quest_name]['quest_level'] = $object->data['quest_level'];
+				$quests_arr[$zone][$quest_name]['quest_tag'] = $object->data['quest_tag'];
+				$quests_arr[$zone][$quest_name]['is_complete'] = $object->data['is_complete'];
+			}
+
+			foreach( $quests_arr as $zone => $quest )
 			{
 				$roster->tpl->assign_block_vars('zone',array(
 					'NAME' => $zone,
@@ -211,95 +209,104 @@ class char
 	{
 		global $roster, $sort, $addon;
 
-		$returnstring = '';
+		$roster->tpl->assign_vars(array(
+			'S_RECIPE_HIDE' => $addon['config']['recipe_disp'],
+
+			'L_ITEM'     => $this->locale['item'],
+			'L_NAME'     => $this->locale['name'],
+			'L_DIFFICULTY' => $this->locale['difficulty'],
+			'L_TYPE'     => $this->locale['type'],
+			'L_LEVEL'    => $this->locale['level'],
+			'L_REAGENTS' => $this->locale['reagents'],
+
+			'U_ITEM'     => makelink('char-info-recipes&amp;s=item'),
+			'U_NAME'     => makelink('char-info-recipes&amp;s=name'),
+			'U_DIFFICULTY' => makelink('char-info-recipes&amp;s=difficulty'),
+			'U_TYPE'     => makelink('char-info-recipes&amp;s=type'),
+			'U_LEVEL'    => makelink('char-info-recipes&amp;s=level'),
+			'U_REAGENTS' => makelink('char-info-recipes&amp;s=reagents'),
+			)
+		);
 
 		$recipes = recipe_get_many( $this->data['member_id'],'', $sort );
-		if( isset( $recipes[0] ) )
+
+		if( isset($recipes[0]) )
 		{
-			$skill_name = '';
-			$returnstring = '';
-
-			// Get char professions for quick links
-			$query = "SELECT `skill_name` FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' GROUP BY `skill_name` ORDER BY `skill_name`";
-			$result = $roster->db->query( $query );
-
-			// Set a ank for link to top of page
-			$returnstring .= "<a name=\"top\">&nbsp;</a>\n";
-			$returnstring .= '<div align="center">';
-			$skill_name_divider = '';
-			while( $data = $roster->db->fetch( $result ) )
+			$recipe_arr = array();
+			foreach( $recipes as $object )
 			{
-				$skill_name_header = $data['skill_name'];
-				$returnstring .= $skill_name_divider .'<a href="' . makelink('#' . strtolower(str_replace(' ','',$skill_name_header))) . '">' . $skill_name_header . '</a>';
-				$skill_name_divider = '&nbsp;-&nbsp;';
+				$skill = $object->data['skill_name'];
+				$recipe = $object->data['recipe_name'];
+				$recipe_arr[$skill][$recipe]['recipe_type'] = $object->data['recipe_type'];
+				$recipe_arr[$skill][$recipe]['difficulty'] = $object->data['difficulty'];
+				$recipe_arr[$skill][$recipe]['item_color'] = $object->data['item_color'];
+				$recipe_arr[$skill][$recipe]['reagents'] = $object->data['reagents'];
+				$recipe_arr[$skill][$recipe]['recipe_texture'] = $object->data['recipe_texture'];
+				$recipe_arr[$skill][$recipe]['level'] = $object->data['level'];
+				$recipe_arr[$skill][$recipe]['item_id'] = $object->data['item_id'];
+				$recipe_arr[$skill][$recipe]['recipe_id'] = $object->data['recipe_id'];
+				$recipe_arr[$skill][$recipe]['item'] = $object->out();
 			}
-			$returnstring .= "</div>\n<br />\n";
 
-			$rc = 0;
-			$first_run = 1;
-
-			foreach ($recipes as $recipe)
+			foreach( $recipe_arr as $skill_name => $recipe )
 			{
-				if ($skill_name != $recipe->data['skill_name'])
+				$roster->tpl->assign_block_vars('recipe',array(
+					'ID' => strtolower(str_replace(' ','',$skill_name)),
+					'NAME' => $skill_name,
+					'ICON' => $roster->locale->wordings[$this->data['clientLocale']]['ts_iconArray'][$skill_name],
+					'LINK' => makelink('#' . strtolower(str_replace(' ','',$skill_name))),
+					)
+				);
+				foreach( $recipe as $name => $data )
 				{
-					$skill_name = $recipe->data['skill_name'];
-					if ( !$first_run )
-						$returnstring .= '</table>' . border('sgray','end') . "<br />\n";
-					$first_run = 0;
+					if( $data['difficulty'] == '4' )
+					{
+						$difficultycolor = 'FF9900';
+					}
+					elseif( $data['difficulty'] == '3' )
+					{
+						$difficultycolor = 'FFFF66';
+					}
+					elseif( $data['difficulty'] == '2' )
+					{
+						$difficultycolor = '339900';
+					}
+					elseif( $data['difficulty'] == '1' )
+					{
+						$difficultycolor = 'CCCCCC';
+					}
+					else
+					{
+						$difficultycolor = 'FFFF80';
+					}
 
-					// Set an link to the top behind the profession image
-					$skill_image = 'Interface/Icons/' . $roster->locale->wordings[$this->data['clientLocale']]['ts_iconArray'][$skill_name];
-					$skill_image = "<img style=\"float:left;\" width=\"17\" height=\"17\" src=\"" . $roster->config['interface_url'] . $skill_image . '.' . $roster->config['img_suffix'] . "\" alt=\"\" />\n";
+					$roster->tpl->assign_block_vars('recipe.row',array(
+						'ROW_CLASS'    => $roster->switch_row_class(),
+						'DIFFICULTY'   => $data['difficulty'],
+						'L_DIFFICULTY' => $this->locale['recipe_' . $data['difficulty']],
+						'ITEM_COLOR'   => $data['item_color'],
+						'NAME'         => $name,
+						'DIFFICULTY_COLOR' => $difficultycolor,
+						'TYPE'         => $data['recipe_type'],
+						'LEVEL'        => $data['level'],
+						'REAGENTS'     => str_replace('<br>','&nbsp;<br />&nbsp;',$data['reagents']),
+						'ICON'         => $data['item'],
+						)
+					);
 
-					$header = '<div style="cursor:pointer;width:600px;" onclick="showHide(\'table_' . $rc . '\',\'img_' . $rc . '\',\'' . $roster->config['theme_path'] . '/images/minus.gif\',\'' . $roster->config['theme_path'] . '/images/plus.gif\');">
-	' . $skill_image . '
-	<div style="display:inline;float:right;"><img id="img_' . $rc . '" src="' . $roster->config['theme_path'] . '/images/plus.gif" alt="" /></div>
-<a name="' . strtolower(str_replace(' ','',$skill_name)) . '"></a>' . $skill_name . '</div>';
-
-
-					$returnstring .= border('sgray','start',$header) . "\n<table width=\"100%\" " . ($addon['config']['recipe_disp'] == '0' ? 'style="display:none;"' : '') . ";\" class=\"bodyline\" cellspacing=\"0\" id=\"table_$rc\">\n";
-
-$returnstring .= '  <tr>
-    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=item') . '">' . $this->locale['item'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=name') . '">' . $this->locale['name'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=difficulty') . '">' . $this->locale['difficulty'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=type') . '">' . $this->locale['type'] . '</a></th>
-    <th class="membersHeader"><a href="' . makelink('char-info-recipes&amp;s=level') . '">' . $this->locale['level'] . '</a></th>
-    <th class="membersHeaderRight"><a href="' . makelink('char-info-recipes&amp;s=reagents') . '">' . $this->locale['reagents'] . '</a></th>
-  </tr>
-';
+					$reagents = explode('<br>',$data['reagents']);
+					foreach( $reagents as $reagent )
+					{
+						$roster->tpl->assign_block_vars('recipe.row.reagents',array(
+							'DATA' => $reagent,
+							)
+						);
+					}
 				}
-
-				if( $recipe->data['difficulty'] == '4' )
-					$difficultycolor = 'FF9900';
-				elseif( $recipe->data['difficulty'] == '3' )
-					$difficultycolor = 'FFFF66';
-				elseif( $recipe->data['difficulty'] == '2' )
-					$difficultycolor = '339900';
-				elseif( $recipe->data['difficulty'] == '1' )
-					$difficultycolor = 'CCCCCC';
-				else
-					$difficultycolor = 'FFFF80';
-
-				// Dont' set an CSS class for the image cell - center it
-				$stripe = (($rc%2)+1);
-				$returnstring .= '  <tr>
-    <td class="membersRow' . $stripe . ' equip">';
-
-				$returnstring .= $recipe->out();
-				$returnstring .= '</td>
-    <td class="membersRow' . $stripe . '"><span style="color:#' . $recipe->data['item_color'] . '">&nbsp;' . $recipe->data['recipe_name'] . '</span></td>
-    <td class="membersRow' . $stripe . '"><span style="color:#' . $difficultycolor . '">&nbsp;' . $this->locale['recipe_' . $recipe->data['difficulty']] . '</span></td>
-    <td class="membersRow' . $stripe . '">&nbsp;' . $recipe->data['recipe_type'] . '&nbsp;</td>
-    <td class="membersRow' . $stripe . '">&nbsp;' . $recipe->data['level'] . '&nbsp;</td>
-    <td class="membersRowRight' . $stripe . '">&nbsp;' . str_replace('<br>','&nbsp;<br />&nbsp;',$recipe->data['reagents']) . '</td>
-  </tr>
-';
-			$rc++;
 			}
-			$returnstring .= "</table>" . border('sgray','end');
 		}
-		return $returnstring;
+		$roster->tpl->set_filenames(array('recipes' => $addon['basename'] . '/recipes.html'));
+		return $roster->tpl->fetch('recipes');
 	}
 
 
@@ -436,6 +443,18 @@ $returnstring .= '  <tr>
 	{
 		global $roster, $addon;
 
+		$roster->tpl->assign_vars(array(
+			'L_SPELLBOOK' => $this->locale['spellbook'],
+			'L_PREV' => $this->locale['prev'],
+			'L_NEXT' => $this->locale['next'],
+			'L_PAGE' => $this->locale['page'],
+			)
+		);
+
+		// Initialize $spellbook array
+		$spellbook[$this->data['name']] = array();
+
+
 		$query = "SELECT `spelltree`.*, `talenttree`.`order`
 			FROM `" . $roster->db->table('spellbooktree') . "` AS spelltree
 			LEFT JOIN `" . $roster->db->table('talenttree') . "` AS talenttree
@@ -460,49 +479,36 @@ $returnstring .= '  <tr>
 
 		for( $t=0; $t < $num_trees; $t++)
 		{
-			$treedata = $roster->db->fetch($result);
+			$row = $roster->db->fetch($result,SQL_ASSOC);
 
-			$spelltree[$t]['name'] = $treedata['spell_type'];
-			$spelltree[$t]['icon'] = 'Interface/Icons/' . $treedata['spell_texture'];
-			$spelltree[$t]['id'] = $t;
+			$spell_type = $row['spell_type'];
+			$spellbook[$this->data['name']][$spell_type]['order'] = $t;
+			$spellbook[$this->data['name']][$spell_type]['icon'] = $row['spell_texture'];
+			$spellbook[$this->data['name']][$spell_type]['tooltip'] = makeOverlib($spell_type,'','',2,'',',WRAP,RIGHT');
 
-			$name_id[$treedata['spell_type']] = $t;
-		}
+			// Get the spell data
+			$query2 = "SELECT * FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `spell_type` = '$spell_type' ORDER BY `spell_name`;";
 
-		$roster->db->free_result($result);
+			$result2 = $roster->db->query($query2);
 
-		// Get the spell data
-		$query = "SELECT * FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `spell_name`;";
-
-		$result = $roster->db->query($query);
-
-		while ($row = $roster->db->fetch($result))
-		{
-			$spelltree[$name_id[$row['spell_type']]]['rawspells'][] = $row;
-		}
-
-		foreach ($spelltree as $t => $tree)
-		{
-			$i=0;
-			$p=0;
-			foreach ($spelltree[$t]['rawspells'] as $spell)
+			$s = $p = 0;
+			while( $row2 = $roster->db->fetch($result2,SQL_ASSOC) )
 			{
-				if( $i >= 14 )
+				if( ($s / 14) == 1 )
 				{
-					$i=0;
-					$p++;
+					$s = 0;
+					++$p;
 				}
-				$spelltree[$t]['spells'][$p][$i]['name'] = $spell['spell_name'];
-				$spelltree[$t]['spells'][$p][$i]['type'] = $spell['spell_type'];
-				$spelltree[$t]['spells'][$p][$i]['icon'] = 'Interface/Icons/' . $spell['spell_texture'];
-				$spelltree[$t]['spells'][$p][$i]['rank'] = $spell['spell_rank'];
-
-				// Parse the tooltip
-				$spelltree[$t]['spells'][$p][$i]['tooltip'] = makeOverlib($spell['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
-
-				$i++;
+				$spell_name = $row2['spell_name'];
+				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['num'] = $s;
+				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['icon'] = $row2['spell_texture'];
+				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['rank'] = $row2['spell_rank'];
+				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['tooltip'] = makeOverlib($row2['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
+				++$s;
 			}
+			$roster->db->free_result($result2);
 		}
+
 		$roster->db->free_result($result);
 
 
@@ -515,175 +521,81 @@ $returnstring .= '  <tr>
 
 		$result = $roster->db->query($query);
 
-		$petspells = array();
-		while( $row = $roster->db->fetch($result) )
-		{
-			$petid = $row['pet_id'];
-			$petspells[$petid]['name'] = $row['name'];
-			$petspells[$petid][$i]['name'] = $row['spell_name'];
-			$petspells[$petid][$i]['icon'] = 'Interface/Icons/' . $row['spell_texture'];
-			$petspells[$petid][$i]['rank'] = $row['spell_rank'];
+		$pet_rows = $roster->db->num_rows($result);
 
-			// Parse the tooltip
-			$petspells[$petid][$i]['tooltip'] = makeOverlib($row['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
-			$i++;
+		if( $pet_rows > 0 )
+		{
+
+			$s = $p = 0;
+			$sn = 1;
+			while( $row = $roster->db->fetch($result,SQL_ASSOC) )
+			{
+				if( ($s / 14) == 1 )
+				{
+					$s = 0;
+					++$p;
+				}
+				$petname = $row['name'];
+				$spell_name = $row['spell_name'];
+
+				$spellbook[$petname][0]['order'] = 0;
+				$spellbook[$petname][0]['icon'] = 'ability_kick';
+				$spellbook[$petname][0]['tooltip'] = '';
+
+				$spellbook[$petname][0]['spells'][0][$spell_name]['num'] = $s;
+				$spellbook[$petname][0]['spells'][0][$spell_name]['icon'] = $row['spell_texture'];
+				$spellbook[$petname][0]['spells'][0][$spell_name]['rank'] = $row['spell_rank'];
+				$spellbook[$petname][0]['spells'][0][$spell_name]['tooltip'] = makeOverlib($row['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
+				++$s;
+			}
 		}
 		$roster->db->free_result($result);
 
-
-
-		$return_string = '
-<div class="char_panel spell_panel">
-	<img class="panel_icon" src="' . $addon['tpl_image_path'] . 'icon_spellbook.gif" alt=""/>
-	<div class="panel_title">' . $this->locale['spellbook'] . '</div>
-	<div class="background">&nbsp;</div>
-
-	<div id="main_spells">
-		<div class="skill_types">
-			<ul id="spell_tree">
-';
-
-		foreach( $spelltree as $tree )
+		foreach( $spellbook as $name => $spell_tree )
 		{
-			$treetip = makeOverlib($tree['name'],'','',2,'',',WRAP,RIGHT');
-			$return_string .= '				<li><div style="background:url(' . $roster->config['interface_url'] . $tree['icon'] . '.' . $roster->config['img_suffix'] . ');"><a href="#" rel="spelltree_' . $tree['id'] . '"></a></div></li>' . "\n";
+			$roster->tpl->assign_block_vars('spell_book',array(
+				'NAME' => $name,
+				'ID' => strtolower(str_replace("'",'',$name)),
+				'S_TREES' => !isset($spell_tree[0])
+				)
+			);
+			foreach( $spell_tree as $spell_type => $spell_tree )
+			{
+				$roster->tpl->assign_block_vars('spell_book.tree',array(
+					'NAME'  => $spell_type,
+					'ORDER' => $spell_tree['order'],
+					'ID'    => strtolower(str_replace(' ','',$spell_type)),
+					'ICON'  => $spell_tree['icon'],
+					'TOOLTIP' => $spell_tree['tooltip'],
+					)
+				);
+				foreach( $spell_tree['spells'] as $page => $spell )
+				{
+					$num = $page+1;
+					$roster->tpl->assign_block_vars('spell_book.tree.page',array(
+						'ID'   => $page,
+						'NUM'  => $page+1,
+						'PREV' => ( isset($spell_tree['spells'][$page-1]) ? $page-1 : false ),
+						'NEXT' => ( isset($spell_tree['spells'][$page+1]) ? $page+1 : false ),
+						)
+					);
+					foreach( $spell as $spell_name => $spell_data )
+					{
+						$roster->tpl->assign_block_vars('spell_book.tree.page.spell',array(
+							'NUM'  => $spell_data['num'],
+							'NAME' => $spell_name,
+							'ICON' => $spell_data['icon'],
+							'RANK' => $spell_data['rank'],
+							'TOOLTIP' => $spell_data['tooltip'],
+							)
+						);
+					}
+				}
+			}
 		}
-		$return_string .= "\t\t\t</ul>\n\t\t</div>";
-
-
-		foreach( $spelltree as $tree )
-		{
-			if( $tree['id'] == 0 )
-			{
-				$return_string .= '		<div id="spelltree_' . $tree['id'] . '">' . "\n";
-			}
-			else
-			{
-				$return_string .= '		<div id="spelltree_' . $tree['id'] . '" style="display:none;">' . "\n";
-			}
-
-			$num_pages = count($tree['spells']);
-			$first_page = true;
-			$page = 0;
-			foreach( $tree['spells'] as $spellpage )
-			{
-				if( $first_page )
-				{
-					if( ($num_pages-1) == $page )
-					{
-						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
-						$return_string .= '				<div class="page_back_off"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-						$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
-						$first_page = false;
-					}
-					else
-					{
-						$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '">' . "\n";
-						$return_string .= '				<div class="page_back_off"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback_off.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-						$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
-						$first_page = false;
-					}
-				}
-				elseif( ($num_pages-1) == $page )
-				{
-					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-					$return_string .= '				<div class="page_forward_off">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward_off.gif" class="navicon" alt="" /></div>' . "\n";
-				}
-				else
-				{
-					$return_string .= '			<div id="page_' . $page . '_' . $tree['id'] . '" style="display:none;">' . "\n";
-					$return_string .= '				<div class="page_back" onclick="swapShow(\'page_' . ($page-1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');"><img src="' . $addon['tpl_image_path'] . 'spellbook/pageback.gif" class="navicon" alt="" /> ' . $this->locale['prev'] . "</div>\n";
-					$return_string .= '				<div class="page_forward" onclick="swapShow(\'page_' . ($page+1) . '_' . $tree['id'] . '\',\'page_' . $page . '_' . $tree['id'] . '\');">' . $this->locale['next'] . ' <img src="' . $addon['tpl_image_path'] . 'spellbook/pageforward.gif" class="navicon" alt="" /></div>' . "\n";
-				}
-				$return_string .= '				<div class="pagenumber">' . $this->locale['page'] . ' ' . ($page+1) . "</div>\n";
-
-
-				$icon_num = 0;
-				foreach( $spellpage as $spellicons )
-				{
-					if( $icon_num == 0 )
-					{
-						$return_string .= '				<div class="container_1">' . "\n";
-					}
-					elseif( $icon_num == 7 )
-					{
-						$return_string .= "				</div>\n				<div class=\"container_2\">\n";
-					}
-					$return_string .= '
-				<div class="info_container">
-					<img src="' . $roster->config['interface_url'] . $spellicons['icon'] . '.' . $roster->config['img_suffix'] . '" class="icon" ' . $spellicons['tooltip'] . ' alt="" />
-					<span class="text"><span class="yellowB">' . $spellicons['name'] . '</span>';
-					if( $spellicons['rank'] != '' )
-					{
-						$return_string .= '<br /><span class="brownB">' . $spellicons['rank'] . '</span>';
-					}
-					$return_string .= "</span>\n					</div>\n";
-					$icon_num++;
-				}
-				$return_string .= "				</div>\n			</div>\n";
-
-				$page++;
-			}
-			$return_string .= "		</div>\n";
-		}
-		$return_string .= "	</div>\n";
-
-		// PET SPELLS
-		$pet_tabs = '';
-		foreach( $petspells as $petid => $pet )
-		{
-			$pet_tabs .= '			<li><a rel="petspell_' . $petid . '" class="text">' . $pet['name'] . "</a></li>\n";
-
-			$return_string .= '		<div id="petspell_' . $petid . '" style="display:none;">' . "\n";
-
-			$icon_num = 0;
-			foreach( $pet as $arrayname => $spellicons )
-			{
-				if( $arrayname != 'name' )
-				{
-					if( $icon_num == 0 )
-					{
-						$return_string .= '			<div class="container_1">' . "\n";
-					}
-					elseif( $icon_num == 7 )
-					{
-						$return_string .= "			</div>\n			<div class=\"container_2\">\n";
-					}
-					$return_string .= '
-			<div class="info_container">
-				<img src="' . $roster->config['interface_url'] . $spellicons['icon'] . '.' . $roster->config['img_suffix'] . '" class="icon" ' . $spellicons['tooltip'] . ' alt="" />
-				<span class="text"><span class="yellowB">' . $spellicons['name'] . '</span>';
-					if( $spellicons['rank'] != '' )
-					{
-						$return_string .= '<br /><span class="brownB">' . $spellicons['rank'] . '</span>';
-					}
-					$return_string .= "</span>\n				</div>\n";
-					$icon_num++;
-				}
-			}
-			$return_string .= "			</div>\n		</div>\n";
-		}
-
-
-		$return_string .= '
-<!-- Begin Navagation Tabs -->
-	<div class="tab_navagation" style="margin:428px 0 0 17px;">
-		<ul id="spell_set">
-			<li class="selected"><a rel="main_spells" class="text">' . $this->data['name'] . '</a></li>
-' . $pet_tabs . '
-		</ul>
-	</div>
-</div>
-
-<script type="text/javascript">
-	var spell_set=new tabcontent(\'spell_set\');
-	spell_set.init();
-	var spell_tree=new tabcontent(\'spell_tree\');
-	spell_tree.init();
-</script>' . "\n";
-
-		return $return_string;
+//		return aprint($roster->tpl->_tpldata['spell_book'],'',true);
+		$roster->tpl->set_filenames(array('spellbook' => $addon['basename'] . '/spellbook.html'));
+		return $roster->tpl->fetch('spellbook');
 	}
 
 
