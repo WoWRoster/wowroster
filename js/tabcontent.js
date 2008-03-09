@@ -21,6 +21,8 @@
 //   -Ability to set where the CSS classname "selected" get assigned- either to the target tab's link ("A"), or its parent container
 //   -Documentation: http://www.dynamicdrive.com/dynamicindex17/tabcontent_suppliment.htm
 
+//** Updated Feb 18th, 08 to version 2.1: Adds a "tabinstance.cycleit(dir)" method to cycle forward or backward between tabs dynamically
+
 ////NO NEED TO EDIT BELOW////////////////////////
 
 function tabcontent(tabinterfaceid){
@@ -28,6 +30,7 @@ function tabcontent(tabinterfaceid){
 	this.tabs=document.getElementById(tabinterfaceid).getElementsByTagName("a") //Get all tab links within container
 	this.enabletabpersistence=true
 	this.hottabspositions=[] //Array to store position of tabs that have a "rel" attr defined, relative to all tab links, within container
+	this.currentTabIndex=0 //Index of currently selected hot tab (tab with sub content) within hottabspositions[] array
 	this.subcontentids=[] //Array to store ids of the sub contents ("rel" attr values)
 	this.revcontentids=[] //Array to store ids of arbitrary contents to expand/contact as well ("rev" attr values)
 	this.selectedClassTarget="linkparent" //keyword to indicate which target element to assign "selected" CSS class ("linkparent" or "link")
@@ -60,6 +63,18 @@ tabcontent.prototype={
 			this.expandtab(tabref) //expand this tab
 	},
 
+	cycleit:function(dir, autorun){ //PUBLIC function to move foward or backwards through each hot tab (tabinstance.cycleit('foward/back') )
+		if (dir=="next"){
+			var currentTabIndex=(this.currentTabIndex<this.hottabspositions.length-1)? this.currentTabIndex+1 : 0
+		}
+		else if (dir=="prev"){
+			var currentTabIndex=(this.currentTabIndex>0)? this.currentTabIndex-1 : this.hottabspositions.length-1
+		}
+		if (typeof autorun=="undefined") //if cycleit() is being called by user, versus autorun() function
+			this.cancelautorun() //stop auto cycling of tabs (if running)
+		this.expandtab(this.tabs[this.hottabspositions[currentTabIndex]])
+	},
+
 	setpersist:function(bool){ //PUBLIC function to toggle persistence feature
 			this.enabletabpersistence=bool
 	},
@@ -83,6 +98,7 @@ tabcontent.prototype={
 		}
 		if (this.enabletabpersistence) //if persistence enabled, save selected tab position(int) relative to its peers
 			tabcontent.setCookie(this.tabinterfaceid, tabref.tabposition)
+		this.setcurrenttabindex(tabref.tabposition) //remember position of selected tab within hottabspositions[] array
 	},
 
 	expandsubcontent:function(subcontentid){
@@ -92,7 +108,6 @@ tabcontent.prototype={
 		}
 	},
 
-
 	expandrevcontent:function(associatedrevids){
 		var allrevids=this.revcontentids
 		for (var i=0; i<allrevids.length; i++){ //Loop through rev attributes for all tabs in this tab interface
@@ -101,11 +116,17 @@ tabcontent.prototype={
 		}
 	},
 
+	setcurrenttabindex:function(tabposition){ //store current position of tab (within hottabspositions[] array)
+		for (var i=0; i<this.hottabspositions.length; i++){
+			if (tabposition==this.hottabspositions[i]){
+				this.currentTabIndex=i
+				break
+			}
+		}
+	},
+
 	autorun:function(){ //function to auto cycle through and select tabs based on a set interval
-		var currentTabIndex=this.automode_currentTabIndex //index within this.hottabspositions to begin
-		var hottabspositions=this.hottabspositions //Array containing position numbers of "hot" tabs (those with a "rel" attr)
-		this.expandtab(this.tabs[hottabspositions[currentTabIndex]])
-		this.automode_currentTabIndex=(currentTabIndex<hottabspositions.length-1)? currentTabIndex+1 : 0 //increment currentTabIndex
+		this.cycleit('next', true)
 	},
 
 	cancelautorun:function(){
@@ -134,15 +155,12 @@ tabcontent.prototype={
 				if (this.enabletabpersistence && parseInt(persistedtab)==i || !this.enabletabpersistence && this.getselectedClassTarget(this.tabs[i]).className=="selected"){
 					this.expandtab(this.tabs[i]) //expand current tab if it's the persisted tab, or if persist=off, carries the "selected" CSS class
 					persisterror=false //Persisted tab (if applicable) was found, so set "persisterror" to false
-					//If currently selected tab's index(i) is greater than 0, this means its not the 1st tab, so set the tab to begin in automode to 1st tab:
-					this.automode_currentTabIndex=(i>0)? 0 : 1
 				}
 			}
 		} //END for loop
 		if (persisterror) //if an error has occured while trying to retrieve persisted tab (based on its position within its peers)
 			this.expandtab(this.tabs[this.hottabspositions[0]]) //Just select first tab that contains a "rel" attr
 		if (parseInt(this.automodeperiod)>500 && this.hottabspositions.length>1){
-			this.automode_currentTabIndex=this.automode_currentTabIndex || 0
 			this.autoruntimer=setInterval(function(){tabinstance.autorun()}, this.automodeperiod)
 		}
 	} //END int() function

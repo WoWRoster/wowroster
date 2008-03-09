@@ -168,6 +168,9 @@ $lang['res_shadow_tooltip']='Erhöht die Fähigkeit, auf Schattenschaden basiere
 
 $lang['empty_equip']='Kein Gegenstand angelegt';
 $lang['pointsspent']='Punkte verteilt in %1$s Talents';
+$lang['export_url']='http://www.wow-europe.com/de/info/basics/talents/';
+$lang['no_talents']='No Talents for %1$s';
+
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Boni für angelegte Gegenstände';
 $lang['item_bonuses'] = 'Gegenstand Boni';
