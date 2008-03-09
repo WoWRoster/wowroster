@@ -36,7 +36,7 @@ class char
 {
 	var $data;
 	var $equip;
-	var $talent_build;
+	var $talent_build_url;
 	var $locale;
 	var $alt_hover;
 
@@ -593,7 +593,6 @@ class char
 				}
 			}
 		}
-//		return aprint($roster->tpl->_tpldata['spell_book'],'',true);
 		$roster->tpl->set_filenames(array('spellbook' => $addon['basename'] . '/spellbook.html'));
 		return $roster->tpl->fetch('spellbook');
 	}
@@ -1520,33 +1519,37 @@ class char
 	{
 		global $roster;
 
-		switch($resname)
+		switch( $resname )
 		{
-		case 'fire':
-			$name = $this->locale['res_fire'];
-			$tooltip = $this->locale['res_fire_tooltip'];
-			$color = 'red';
-			break;
-		case 'nature':
-			$name = $this->locale['res_nature'];
-			$tooltip = $this->locale['res_nature_tooltip'];
-			$color = 'green';
-			break;
-		case 'arcane':
-			$name = $this->locale['res_arcane'];
-			$tooltip = $this->locale['res_arcane_tooltip'];
-			$color = 'yellow';
-			break;
-		case 'frost':
-			$name = $this->locale['res_frost'];
-			$tooltip = $this->locale['res_frost_tooltip'];
-			$color = 'blue';
-			break;
-		case 'shadow':
-			$name = $this->locale['res_shadow'];
-			$tooltip = $this->locale['res_shadow_tooltip'];
-			$color = 'purple';
-			break;
+			case 'fire':
+				$name = $this->locale['res_fire'];
+				$tooltip = $this->locale['res_fire_tooltip'];
+				$color = 'red';
+				break;
+
+			case 'nature':
+				$name = $this->locale['res_nature'];
+				$tooltip = $this->locale['res_nature_tooltip'];
+				$color = 'green';
+				break;
+
+			case 'arcane':
+				$name = $this->locale['res_arcane'];
+				$tooltip = $this->locale['res_arcane_tooltip'];
+				$color = 'yellow';
+				break;
+
+			case 'frost':
+				$name = $this->locale['res_frost'];
+				$tooltip = $this->locale['res_frost_tooltip'];
+				$color = 'blue';
+				break;
+
+			case 'shadow':
+				$name = $this->locale['res_shadow'];
+				$tooltip = $this->locale['res_shadow_tooltip'];
+				$color = 'purple';
+				break;
 		}
 
 		$line = '<span style="color:'.$color.';font-size:11px;font-weight:bold;">'.$name.'</span> '.$this->printRatingLong('res_'.$resname).'<br />';
@@ -1599,120 +1602,77 @@ class char
 	{
 		global $roster, $addon;
 
-		$sqlquery = "SELECT * FROM `".$roster->db->table('talenttree')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `order`;";
-		$trees = $roster->db->query( $sqlquery );
+		$roster->tpl->assign_vars(array(
+			'L_TALENTS' => $this->locale['talents'],
+			'L_TALENT_EXPORT' => $roster->locale->act['talentexport'],
+			'L_UNUSED_TALENTS' => $roster->locale->wordings[$this->data['clientLocale']]['unusedtalentpoints'],
 
-		if( $roster->db->num_rows($trees) > 0 )
+			'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
+
+			'TALENT_POINTS' => $this->data['talent_points'],
+			)
+		);
+
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `order`;";
+		$trees = $roster->db->query($sqlquery);
+
+		$tree_rows = $roster->db->num_rows($trees);
+
+		if( $tree_rows > 0 )
 		{
-			for( $j=0; $j < $roster->db->num_rows($trees); $j++)
+			$treeshow = 0;
+			$treeshowp = 0;
+			for( $j=0; $j < $tree_rows; $j++)
 			{
 				$treedata = $roster->db->fetch($trees);
+				if( $treedata['pointsspent'] > $treeshowp )
+				{
+					$treeshow = $j;
+					$treeshowp = $treedata['pointsspent'];
+				}
 
 				$treelayer[$j]['name'] = $treedata['tree'];
-				$treelayer[$j]['image'] = $treedata['background'].'.'.$roster->config['img_suffix'];
+				$treelayer[$j]['image'] = $treedata['background'];
 				$treelayer[$j]['points'] = $treedata['pointsspent'];
 				$treelayer[$j]['talents'] = $this->talentLayer($treedata['tree']);
 			}
 
-			$returndata = '
-<div class="char_panel talent_panel">
-
-	<img class="panel_icon" src="' . $addon['tpl_image_path'] . 'icon_talents.gif" alt="" />
-	<div class="panel_title">'.$this->locale['talents'].'</div>
-	<img class="top_bar" src="' . $addon['tpl_image_path'] . 'talent/bar_top.gif" alt="" />
-	<img class="bot_bar" src="' . $addon['tpl_image_path'] . 'talent/bar_bottom.gif" alt="" />
-
-	<div class="link"><a href="';
-
-			switch($this->data['clientLocale'])
-			{
-				case 'enUS':
-					$returndata .= 'http://www.worldofwarcraft.com/info/classes/';
-					break;
-
-				case 'frFR':
-					$returndata .= 'http://www.wow-europe.com/fr/info/basics/talents/';
-					break;
-
-				case 'deDE':
-					$returndata .= 'http://www.wow-europe.com/de/info/basics/talents/';
-					break;
-
-				case 'esES':
-					$returndata .= 'http://www.wow-europe.com/es/info/basics/talents/';
-					break;
-
-				default:
-					$returndata .= 'http://www.worldofwarcraft.com/info/classes/';
-					break;
-			}
-
-			$returndata .= strtolower($this->data['classEn']).'/talents.html?'.$this->talent_build.'" target="_blank">'.$roster->locale->wordings[$this->data['clientLocale']]['talentexport'].'</a></div>
-	<div class="points_unused"><span class="label">'.$roster->locale->wordings[$this->data['clientLocale']]['unusedtalentpoints'].':</span> '.$this->data['talent_points'].'</div>'."\n";
-
-			$treeshow = 0;
-			$treeshowp = 0;
 			foreach( $treelayer as $treeindex => $tree )
 			{
-				$treeshow = ( $tree['points'] > $treeshowp ? $tree['points'] : $treeshowp);
-
-				$returndata .= '	<div id="treetab'.$treeindex.'" style="display:none;" >
-
-		<div class="points"><span style="color:#ffdd00">'.sprintf($roster->locale->wordings[$this->data['clientLocale']]['pointsspent'],$tree['name']).':</span> '.$tree['points'].'</div>
-		<img class="background" src="'.$roster->config['interface_url'].'Interface/TalentFrame/'.$tree['image'].'" alt="" />
-
-		<div class="container">'."\n";
+				$roster->tpl->assign_block_vars('talent_tree',array(
+					'L_POINTS_SPENT' => sprintf($roster->locale->wordings[$this->data['clientLocale']]['pointsspent'],$tree['name']),
+					'NAME' => $tree['name'],
+					'ID' => $treeindex,
+					'POINTS' => $tree['points'],
+					'ICON' => $tree['image'],
+					'SELECTED' => ( $treeshow == $treeindex ? true : false )
+					)
+				);
 
 				foreach( $tree['talents'] as $row )
 				{
-					$returndata .= '			<div class="row">'."\n";
+					$roster->tpl->assign_block_vars('talent_tree.row',array());
+
 					foreach( $row as $cell )
 					{
-						if( $cell['name'] != '' )
-						{
-							if( $cell['rank'] != 0 )
-							{
-								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
-					<img class="rank_icon" src="' . $addon['tpl_image_path'] . 'talent/rank.gif" alt="" />
-					<div class="rank_text" style="font-weight:bold;color:#'.$cell['numcolor'].';">'.$cell['rank'].'</div>
-					<img src="'.$roster->config['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
-							}
-							else
-							{
-								$returndata .= '				<div class="cell" '.$cell['tooltipid'].'>
-					<img class="icon_grey" src="'.$roster->config['interface_url'].'Interface/Icons/'.$cell['image'].'" alt="" /></div>'."\n";
-							}
-						}
-						else
-						{
-							$returndata .= '				<div class="cell">&nbsp;</div>'."\n";
-						}
+						$roster->tpl->assign_block_vars('talent_tree.row.cell',array(
+							'NAME'    => $cell['name'],
+							'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
+							'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
+							'MAX'     => ( isset($cell['rank']) ? $cell['maxrank'] : 0 ),
+							'TOOLTIP' => ( isset($cell['tooltip']) ? $cell['tooltip'] : '' ),
+							'ICON'    => ( isset($cell['image']) ? $cell['image'] : '' )
+							)
+						);
 					}
-					$returndata .= '			</div>'."\n";
 				}
-
-				$returndata .= "		</div>\n	</div>\n";
 			}
-			$returndata .= '
-	<div class="tab_navagation" style="margin:428px 0 0 17px;">
-		<ul id="talent_navagation">
-			<li' . ($treeshow==0?' class="selected"':'') . '><a rel="treetab0" class="text">'.$treelayer[0]['name'].'</a></li>
-			<li' . ($treeshow==0?' class="selected"':'') . '><a rel="treetab1" class="text">'.$treelayer[1]['name'].'</a></li>
-			<li' . ($treeshow==0?' class="selected"':'') . '><a rel="treetab2" class="text">'.$treelayer[2]['name'].'</a></li>
-		</ul>
-	</div>
-
-</div>
-
-<script type="text/javascript">
-	var talent_navagation=new tabcontent(\'talent_navagation\');
-	talent_navagation.init();
-</script>';
-			return $returndata;
+			$roster->tpl->set_filenames(array('talents' => $addon['basename'] . '/talents.html'));
+			return $roster->tpl->fetch('talents');
 		}
 		else
 		{
-			return '<span class="headline_1">No Talents for '.$this->data['name'].'</span>';
+			return '<span class="title_text">' . sprintf($roster->locale->act['no_talents'],$this->data['name']) . '</span>';
 		}
 	}
 
@@ -1727,7 +1687,7 @@ class char
 	{
 		global $roster;
 
-		$sqlquery = "SELECT * FROM `".$roster->db->table('talents')."` WHERE `member_id` = '".$this->data['member_id']."' AND `tree` = '".$treename."' ORDER BY `row` ASC , `column` ASC";
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `tree` = '" . $treename . "' ORDER BY `row` ASC , `column` ASC";
 
 		$result = $roster->db->query($sqlquery);
 
@@ -1735,20 +1695,20 @@ class char
 		if( $roster->db->num_rows($result) > 0 )
 		{
 			// initialize the rows and cells
-			for($r=1; $r < 10; $r++)
+			for( $r=1; $r < 10; $r++ )
 			{
-				for($c=1; $c < 5; $c++)
+				for( $c=1; $c < 5; $c++ )
 				{
 					$returndata[$r][$c]['name'] = '';
 				}
 			}
 
-			while( $talentdata = $roster->db->fetch( $result ) )
+			while( $talentdata = $roster->db->fetch($result,SQL_ASSOC) )
 			{
 				$r = $talentdata['row'];
 				$c = $talentdata['column'];
 
-				$this->talent_build .= $talentdata['rank'];
+				$this->talent_build_url .= $talentdata['rank'];
 
 				$returndata[$r][$c]['name'] = $talentdata['name'];
 				$returndata[$r][$c]['rank'] = $talentdata['rank'];
@@ -1756,16 +1716,7 @@ class char
 				$returndata[$r][$c]['row'] = $r;
 				$returndata[$r][$c]['column'] = $c;
 				$returndata[$r][$c]['image'] = $talentdata['texture'].'.'.$roster->config['img_suffix'];
-				$returndata[$r][$c]['tooltipid'] = makeOverlib($talentdata['tooltip'],'','',0,$this->data['clientLocale']);
-
-				if( $talentdata['rank'] == $talentdata['maxrank'] )
-				{
-					$returndata[$r][$c]['numcolor'] = 'ffdd00';
-				}
-				else
-				{
-					$returndata[$r][$c]['numcolor'] = '00dd00';
-				}
+				$returndata[$r][$c]['tooltip'] = makeOverlib($talentdata['tooltip'],'','',0,$this->data['clientLocale']);
 			}
 		}
 		return $returndata;

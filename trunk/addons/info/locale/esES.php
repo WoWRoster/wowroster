@@ -168,6 +168,9 @@ $lang['res_shadow_tooltip']='Aumenta tu facultad para resistir ataques, hechizos
 
 $lang['empty_equip']='No hay objetos equipados';
 $lang['pointsspent']='Puntos de talento gastados en %1$s';
+$lang['export_url']='http://www.wow-europe.com/es/info/basics/talents/';
+$lang['no_talents']='No Talents for %1$s';
+
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonificaciones de objetos equipados';
 $lang['item_bonuses'] = 'Bonificaciones de objetos';

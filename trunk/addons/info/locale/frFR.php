@@ -168,6 +168,9 @@ $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-
 
 $lang['empty_equip']='No item equipped';
 $lang['pointsspent']='Points Utilisés dans %1$s Talents';
+$lang['export_url']='http://www.wow-europe.com/fr/info/basics/talents/';
+$lang['no_talents']='No Talents for %1$s';
+
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonus dûs à l\'équipement';
 $lang['item_bonuses'] = 'Objets Bonus';
