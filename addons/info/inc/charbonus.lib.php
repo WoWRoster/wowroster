@@ -58,17 +58,19 @@ class CharBonus
 	 */
 	function CharBonus( $char )
 	{
+		global $roster;
+
 		$this->equip = item::fetchManyItems($char->data['member_id'], 'equip', 'full');
+
+		$roster->tpl->assign_vars(array(
+			'L_ITEM_BONUSES' => $roster->locale->act['item_bonuses_full'],
+			)
+		);
 	}
 
-	function dumpBonus( )
+	function dumpBonus()
 	{
 		global $roster, $addon;
-		//build header of bonus box
-		$out = '<div class="char_panel" style="margin-left:20px;">
-	<img src="' . $addon['tpl_image_path'] . 'icon_bonuses.gif" class="panel_icon" alt="" />
-	<div class="panel_title">' . $roster->locale->act['item_bonuses_full'] . '</div>
-	<div class="container">';
 
 		/* @var $item item */
 		foreach( $this->equip as $item )
@@ -81,19 +83,17 @@ class CharBonus
 			$this->getBonus();
 		}
 		$this->_formatTooltip(); // call this to format bonus tooltip html
-		$out .= $this->printBonus();
-		return $out;
+		$this->printBonus();
+
+		$roster->tpl->set_filenames(array('charbonus' => $addon['basename'] . '/charbonus.html'));
+		return $roster->tpl->fetch('charbonus');
 	}
 
 
 	// prints out all status based on array of catagories
-	function printBonus( )
+	function printBonus()
 	{
 		global $roster, $tooltips;
-
-		$row = 0;
-		$out = '';
-		$tabs = array();
 
 		foreach( $roster->locale->act['item_bonuses_tabs'] as $catkey => $catval )
 		{
@@ -101,58 +101,32 @@ class CharBonus
 			if( isset($this->bonus[$catkey]) )
 			{
 				$cat = $this->bonus[$catkey];
-				$out .= '<div id="' . $catkey . '" style="display:none;">';
-				$tabs += array($catkey => $catval);
+
+				$roster->tpl->assign_block_vars('bonus',array(
+					'KEY'   => $catkey,
+					'VALUE' => $catval
+					)
+				);
 
 				foreach( $cat as $key => $value )
 				{
 					$value = explode(':', $value);
 					$idx = count($tooltips)+1;
-					setTooltip( $idx, $this->bonus_tooltip[$catkey][$key]['html'] );
-					setTooltip( 'cap_' . $idx, str_replace(array( 'XX', 'YY' ), $value, $key) );
+					setTooltip($idx, $this->bonus_tooltip[$catkey][$key]['html']);
+					setTooltip('cap_' . $idx, str_replace(array( 'XX', 'YY' ), $value, $key));
 
-					$out .= '<div class="membersRow' . (($row%2)+1) . '" style="white-space:normal;cursor:pointer;"'
-						  . ' onmouseover="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,HAUTO);" onmouseout="return nd();"'
-						  . ' onclick="return overlib(overlib_' . $idx . ',CAPTION,overlib_cap_' . $idx . ',WIDTH,325,STICKY,OFFSETX,-5,OFFSETY,-5,HAUTO);">'
-						  . str_replace(array( 'XX', 'YY' ), $value, $key) . "</div>\n";
-					$row++;
+					$roster->tpl->assign_block_vars('bonus.row',array(
+						'ROW_CLASS' => $roster->switch_row_class(),
+						'IDX' => $idx,
+						'VALUE' => str_replace(array('XX', 'YY'), $value, $key)
+						)
+					);
 				}
-			$out .= '</div>';
-			}
-		}
-		// build tabs
-		$out .= '</div>
-	<div class="tab_navagation" style="margin:428px 0 0 17px;">
-		<ul id="bonus_navagation">';
-		$first_tab = true;
-
-		foreach( $tabs as $tab_id => $tab_txt )
-		{
-			if( $first_tab )
-			{
-				$out .= '<li class="selected"><a rel="' . $tab_id . '" class="text">' . $tab_txt . '</a></li>';
-				$first_tab = false;
-			}
-			else
-			{
-				$out .= '<li><a rel="' . $tab_id . '" class="text">' . $tab_txt . '</a></li>';
 			}
 		}
 
-		$out .= '		</ul>
-	</div>
-</div>
-<script type="text/javascript">
-	var bonus_navagation=new tabcontent(\'bonus_navagation\');
-	bonus_navagation.init();
-</script>';
-
-//		echo "bonus";
-//		aprint($this->bonus);
-//		echo "bonus HTML:";
-//		aprint($this->bonus_tooltip);
-
-		return $out;
+//		aprint($this->bonus,'bonus');
+//		aprint($this->bonus_tooltip,'bonus HTML');
 	}
 
 	// gets all the bonus from the item and sets the tooltips
@@ -411,10 +385,10 @@ class CharBonus
 		{
 			if( strpos($value, addslashes($this->item->name)) )
 			{
-				return 	'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
-						. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+				return 	/*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
+						. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 						. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
-						. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span></a>&nbsp;:&nbsp;' . $modifier;
+						. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier;
 			}
 		}
 	}
@@ -427,15 +401,15 @@ class CharBonus
 		{
 			if( strpos(substr($value, 0, 256), addslashes($this->item->name)) ) //search the first 256 characters only
 			{
-				return 	'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
-				  	   	. '<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
+				return 	/*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
+				  	   	. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 				  	   	. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
-				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span></a>';
+				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>';
 			}
 		}
 	}
 
-	function _formatTooltip( )
+	function _formatTooltip()
 	{
 		foreach( $this->bonus_tooltip as $catagory => $catagory_value )
 		{
@@ -471,7 +445,7 @@ class CharBonus
 	 * @param mixed $value2	| 20:5
 	 * @return string	| 30:15
 	 */
-	function _add( $value1, $value2 )
+	function _add( $value1 , $value2 )
 	{
 		if( strpos($value1, ':') !== false )
 		{
@@ -540,5 +514,3 @@ class CharBonus
 		}
 	}
 } // end class CharBonus
-
-
