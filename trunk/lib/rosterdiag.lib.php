@@ -33,35 +33,38 @@ $ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'cache');
 $extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
 
 // Files to ignore
-$ignored_files = array('conf.php','.htaccess');
+$ignored_files = array('conf.php','.htaccess','valid.inc','install.php');
 
 // Do we want to check the SubDirs ?? I think we do :)
 $subdirectories = 1;
 
 // Set the severity information
-$problemsev['description'] = 6;
-$problemsev['revisiongreater'] = 6;
-$problemsev['revisionsmaller'] = 6;
-$problemsev['dateolder'] = 6;
-$problemsev['dateyounger'] = 6;
-$problemsev['author'] = 5;
+$problemsev['description'] = 7;
+$problemsev['revisiongreater'] = 1;
+$problemsev['revisionsmaller'] = 7;
+$problemsev['dateolder'] = 7;
+$problemsev['dateyounger'] = 1;
+$problemsev['author'] = 6;
 $problemsev['MD5'] = 0;
-$problemsev['MD5binary'] = 4;
-$problemsev['nosvn'] = 1;
-$problemsev['nolocal'] = 6;
+$problemsev['MD5binary'] = 5;
+$problemsev['nosvn'] = 2;
+$problemsev['nolocal'] = 7;
 $problemsev['unknown'] = 2;
 
 $severity[0] = array('style' => 'sgreen',  'color' => '#12C312', 'weight' => 0,  'severityname' => 'No Issues');
-$severity[1] = array('style' => 'sgray',   'color' => '#AFAFAF', 'weight' => 0,  'severityname' => 'Unknown');
-$severity[2] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 1,  'severityname' => 'Initial');
-$severity[3] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 1,  'severityname' => 'Strange');
-$severity[4] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 3,  'severityname' => 'Minor');
-$severity[5] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 7,  'severityname' => 'Major');
-$severity[6] = array('style' => 'sred',    'color' => '#FF0000', 'weight' => 15, 'severityname' => 'Critical');
+$severity[1] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 1,  'severityname' => 'Newer Files');
+$severity[2] = array('style' => 'sgray',   'color' => '#AFAFAF', 'weight' => 0,  'severityname' => 'Unknown');
+$severity[3] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 6,  'severityname' => 'Initial');
+$severity[4] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 6,  'severityname' => 'Strange');
+$severity[5] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 15,  'severityname' => 'Minor');
+$severity[6] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 30,  'severityname' => 'Major');
+$severity[7] = array('style' => 'sred',    'color' => '#FF0000', 'weight' => 60, 'severityname' => 'Critical');
 
-$rollups[] = array('rollup' => 2,  'severity' => 4);
-$rollups[] = array('rollup' => 5,  'severity' => 5);
-$rollups[] = array('rollup' => 14, 'severity' => 6);
+
+$rollups[] = array('rollup' => 1,  'severity' => 1);
+$rollups[] = array('rollup' => 14,  'severity' => 5);
+$rollups[] = array('rollup' => 29,  'severity' => 6);
+$rollups[] = array('rollup' => 59, 'severity' => 7);
 
 $totalseverity = 0;
 
@@ -597,22 +600,22 @@ function ConfigErrors()
 	{
 		if( !function_exists('gd_info') )
 		{
-			$errors .= "Realm Status GD image mode enabled (rs_mode = on) in Config but GD library was not found.<br />Either load the GD extension in PHP or set (rs_mode = off) in Roster Config<br />\n";
+			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = on) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = off) in RosterCP<br />\n";
 		}
 		if ($FreeType == 0)
 		{
-			$errors .= "Realm Status GD image mode enabled (rs_mode = on) in Config but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (rs_mode = off) in Roster Config<br />\n";
+			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = on) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = off) in RosterCP<br />\n";
 		}
 	}
 	if ($roster->config['motd_display_mode'] == 1)
 	{
 		if( !function_exists('gd_info') )
 		{
-			$errors .= "MOTD GD image mode enabled (motd_display_mode = on) in Config but GD library was not found.<br />Either load the GD extension in PHP or set (motd_display_mode = off) in Roster Config<br />\n";
+			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = off) in RosterCP<br />\n";
 		}
 		if ($FreeType == 0)
 		{
-			$errors .= "MOTD GD image mode enabled (motd_display_mode = on) in Config but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (motd_display_mode = off) in Roster Config<br />\n";
+			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = off) in RosterCP<br />\n";
 		}
 	}
 
@@ -634,11 +637,11 @@ function onOff($bool)
 {
 	if( $bool )
 	{
-		return "<span class=\"green\">On</span>";
+		return '<span class="green">On</span>';
 	}
 	else
 	{
-		return "<span class=\"red\">Off</span>";
+		return '<span class="red">Off</span>';
 	}
 }
 
@@ -652,11 +655,11 @@ function onOffRev($bool)
 {
 	if( $bool )
 	{
-		return "<span class=\"red\">On</span>";
+		return '<span class="red">On</span>';
 	}
 	else
 	{
-		return "<span class=\"green\">Off</span>";
+		return '<span class="green">Off</span>';
 	}
 }
 
@@ -670,11 +673,11 @@ function yesNo($bool)
 {
 	if($bool)
 	{
-		return "<span class=\"green\">Yes</span>";
+		return '<span class="green">Yes</span>';
 	}
 	else
 	{
-		return "<span class=\"red\">No</span>";
+		return '<span class="red">No</span>';
 	}
 }
 

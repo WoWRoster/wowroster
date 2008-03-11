@@ -42,7 +42,7 @@ class quest
 	}
 }
 
-function quest_get_many( $member_id, $search )
+function quest_get_many( $member_id, $search='' )
 {
 	global $roster;
 
