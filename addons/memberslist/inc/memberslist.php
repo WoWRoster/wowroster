@@ -65,7 +65,7 @@ class memberslist
 		}
 
 		// Set the js in the roster header
-		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/sorttable.js"></script>';
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . $addon['url_path'] . 'js/sorttable.js"></script>';
 
 		// Merge in the override options from the calling file
 		if( !empty($options) )
