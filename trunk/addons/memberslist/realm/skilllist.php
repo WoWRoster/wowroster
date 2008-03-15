@@ -19,7 +19,7 @@ if ( !defined('IN_ROSTER') )
 
 $skill_name = isset($_POST['skill']) ? $_POST['skill'] : 'Unarmed';
 
-include_once ($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
 
@@ -107,15 +107,13 @@ if ( $addon['config']['stats_motd'] == 1 )
 
 $roster->output['before_menu'] .= $menu;
 
-echo $memberlist->makeFilterBox();
+$memberlist->makeFilterBox();
 
-echo $memberlist->makeToolBar('horizontal');
+$memberlist->makeToolBar('horizontal');
 
 echo skill_dropdown();
 
-echo "<br />\n".border('syellow','start')."\n";
-echo $memberlist->makeMembersList();
-echo border('syellow','end');
+echo $memberlist->makeMembersList('syellow');
 
 function skill_dropdown()
 {

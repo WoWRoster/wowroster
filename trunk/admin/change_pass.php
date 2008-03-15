@@ -80,7 +80,7 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 		}
 		elseif( md5($newpass) == $realhash )
 		{
-			$message = messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sred');
+			$message = messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sorange');
 		}
 		else // valid password
 		{

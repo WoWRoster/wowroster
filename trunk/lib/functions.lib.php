@@ -267,6 +267,7 @@ function ajax_die($text, $title, $file, $line, $sql)
 		. "  <status>255</status>\n"
 		. "  <errmsg>" . $text . "</errmsg>\n"
 		. "</response>\n";
+	exit();
 }
 
 
@@ -1514,14 +1515,15 @@ function updateCheck( $addon )
 function dummy(){}
 
 
-function pagination( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
+function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
 {
-	function pagination_page( $page , $url , $first=false )
+	function paginate_page( $page , $url , $first=false )
 	{
 		global $roster;
+
 		$roster->tpl->assign_block_vars('pagination', array(
-			'PAGE'  => $page,
-			'URL'   => $url,
+			'PAGE' => $page,
+			'URL' => $url,
 			'FIRST' => $first
 			)
 		);
@@ -1530,19 +1532,20 @@ function pagination( $base_url , $num_items , $per_page , $start_item , $add_pre
 	global $roster;
 
 	$total_pages = ceil($num_items/$per_page);
-	$on_page = floor($start_item / $per_page);
+	$on_page = floor($start_item/$per_page);
+
 	if( $total_pages < 2 )
 	{
 		return $roster->tpl->assign_var('B_PAGINATION', false);
 	}
 
 	$roster->tpl->assign_vars(array(
-		'B_PAGINATION'    => true,
+		'B_PAGINATION' => true,
 		'PAGINATION_PREV' => ($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false,
 		'PAGINATION_NEXT' => ($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false,
-		'L_PREVIOUS'      => $roster->locale->act['prev'],
-		'L_NEXT'          => $roster->locale->act['next'],
-		'L_GOTO_PAGE'     => 'Go to:',
+		'L_PREVIOUS' => $roster->locale->act['prev'],
+		'L_NEXT' => $roster->locale->act['next'],
+		'L_GOTO_PAGE' => 'Go to:',
 		)
 	);
 
@@ -1551,7 +1554,7 @@ function pagination( $base_url , $num_items , $per_page , $start_item , $add_pre
 		$init_page_max = ($total_pages > 3) ? 3 : $total_pages;
 		for( $i = 1; $i <= $init_page_max; $i++ )
 		{
-			pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($i == 1));
+			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($i == 1));
 		}
 		if( $total_pages > 3 )
 		{
@@ -1559,26 +1562,26 @@ function pagination( $base_url , $num_items , $per_page , $start_item , $add_pre
 			{
 				if( $on_page > 5 )
 				{
-					pagination_page(' ... ', false, true);
+					paginate_page(' ... ', false, true);
 				}
 				$init_page_min = ($on_page > 4) ? $on_page : 5;
 				$init_page_max = ($on_page < $total_pages - 4 ) ? $on_page : $total_pages - 4;
 				for( $i = $init_page_min - 1; $i < $init_page_max + 2; $i++ )
 				{
-					pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($on_page <= 5 && $i == $init_page_min-1));
+					paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($on_page <= 5 && $i == $init_page_min-1));
 				}
-				if ($on_page < $total_pages-4)
+				if( $on_page < $total_pages-4 )
 				{
-					pagination_page(' ... ', false, true);
+					paginate_page(' ... ', false, true);
 				}
 			}
 			else
 			{
-				pagination_page(' ... ', false, true);
+				paginate_page(' ... ', false, true);
 			}
 			for( $i = $total_pages - 2; $i <= $total_pages; $i++ )
 			{
-				pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
+				paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
 			}
 		}
 	}
@@ -1586,7 +1589,7 @@ function pagination( $base_url , $num_items , $per_page , $start_item , $add_pre
 	{
 		for ($i = 1; $i <= $total_pages; $i++)
 		{
-			pagination_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
+			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
 		}
 	}
 }

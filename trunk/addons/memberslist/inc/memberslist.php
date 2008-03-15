@@ -43,11 +43,11 @@ class memberslist
 	 *		Override any of the default options, like client/server sorting, alt
 	 *		grouping, or pagination.
 	 * @param array $addon
-	 *		If the SortMembers addon array has already been loaded, pass it here
+	 *		If the MembersList addon array has already been loaded, pass it here
 	 *		for efficiency. if the addon array is not available, omit it, and it
 	 *		will be loaded automatically.
 	 */
-	function memberslist($options = array(), $addon = array())
+	function memberslist( $options = array(), $addon = array() )
 	{
 		global $roster;
 
@@ -64,8 +64,18 @@ class memberslist
 			$this->addon = getaddon($basename);
 		}
 
+		// Select the template to use, so other addons can make their own memberslist templates
+		if( isset($this->addon['config']['template']) )
+		{
+			$roster->tpl->set_handle('memberslist', $this->addon['config']['template']);
+		}
+		else
+		{
+			$roster->tpl->set_handle('memberslist', $basename . '/memberslist.html');
+		}
+
 		// Set the js in the roster header
-		$roster->output['html_head'] .= '<script type="text/javascript" src="' . $this->addon['url_path'] . 'js/sorttable.js"></script>';
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/sorttable.js"></script>';
 
 		// Merge in the override options from the calling file
 		if( !empty($options) )
@@ -76,11 +86,11 @@ class memberslist
 		// Overwrite some options if they're specified by the client
 		if( isset($_GET['style']) )
 		{
-			$this->addon['config']['nojs'] = ($_GET['style'] == 'server')?1:0;
+			$this->addon['config']['nojs'] = ($_GET['style'] == 'server') ? 1 : 0;
 		}
 		if( isset($_GET['alts']) )
 		{
-			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open')?2:($_GET['alts'] == 'close')?1:0;
+			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : ($_GET['alts'] == 'close') ? 1 : 0;
 		}
 	}
 
@@ -96,7 +106,7 @@ class memberslist
 	 * @param string $listname
 	 *	The ID used by javascript to identify this memberstable.
 	 */
-	function prepareData($query, $always_sort, $fields, $listname)
+	function prepareData( $query, $always_sort, $fields, $listname )
 	{
 		global $roster;
 
@@ -104,7 +114,36 @@ class memberslist
 		$this->listname = $listname;
 		$this->fields = $fields;
 		unset($fields);
-		$cols = count( $this->fields );
+		$cols = count($this->fields);
+
+		$roster->tpl->assign_vars(array(
+			'S_FILTER' => false,
+			'S_TOOLBAR' => false,
+			'S_HIDE_FILTER' => (($this->addon['config']['openfilter']) ? false : true),
+			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
+			'S_NOJS' => (bool)$this->addon['config']['nojs'],
+
+			'B_PAGINATION' => false,
+
+			'COLS' => $cols+1,
+			'LISTNAME' => $this->listname,
+
+			'L_SORT_FILTER' => $roster->locale->act['memberssortfilter'],
+			'L_SORT' => $roster->locale->act['memberssort'],
+			'L_COL_SHOW' => $roster->locale->act['memberscolshow'],
+			'L_FILTER' => $roster->locale->act['membersfilter'],
+			'L_GO' => 'Go',
+			'L_MA' => 'MA',
+
+			'L_CLOSE_ALL' => $roster->locale->act['closeall'],
+			'L_OPEN_ALL' => $roster->locale->act['openall'],
+			'L_CLOSE_ALTS' => $roster->locale->act['closealts'],
+			'L_OPEN_ALTS' => $roster->locale->act['openalts'],
+			'L_UNGROUP_ALTS' => $roster->locale->act['ungroupalts'],
+			'L_CLIENT_SORT' => $roster->locale->act['clientsort'],
+			'L_SERVER_SORT' => $roster->locale->act['serversort'],
+			)
+		);
 
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
@@ -113,75 +152,18 @@ class memberslist
 		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size'] )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
-			$rowsqry = 'SELECT COUNT(*) '.substr($query, strpos($query,'FROM')).'1';
-			$result = $roster->db->query($rowsqry);
-			if( !$result )
-			{
-				die_quietly($roster->db->error(),'Database error',__FILE__,__LINE__,$rowsqry);
-			}
-
-			$row = $roster->db->fetch($result);
-			$num_rows = $row[0];
+			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM')) . '1';
+			$num_rows = $roster->db->query_first($rowsqry);
 		}
 		// --[ Page list ]--
 		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size']
 			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
 		)
 		{
-			$get_st = isset($_GET['st']) ? $_GET['st'] : 0;
+			$params = '&amp;style=' . ($this->addon['config']['nojs'] ? 'server' : 'client')
+					. '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : $this->addon['config']['group_alts']==1 ? 'close' : 'ungroup');
 
-			$pages = array_fill(0,$num_pages - 1, false);
-
-			$pages[0] = true;
-			$pages[1] = true;
-			if( $get_st > 0 )
-			{
-				$pages[$get_st - 1] = true;
-			}
-			$pages[$get_st] = true;
-			if( $get_st < $num_pages - 1 )
-			{
-				$pages[$get_st + 1] = true;
-			}
-			$pages[$num_pages - 2] = true;
-			$pages[$num_pages - 1] = true;
-
-			$params = '&amp;style='.($this->addon['config']['nojs']?'server':'client').
-				'&amp;alts='.($this->addon['config']['group_alts']==2?'open':$this->addon['config']['group_alts']==1?'close':'ungroup');
-
-			$this->tableHeaderRow = "<thead>\n  <tr>\n" . '    <th colspan="'.($cols+1).'" class="membersHeader" style="text-align:center;color:#ffffff">';
-
-			$dots = true;
-			foreach( $pages as $id => $show )
-			{
-				if( !$show )
-				{
-					if( !$dots )
-					{
-						$this->tableHeaderRow .= ' ... ';
-					}
-					$dots = 'true';
-					continue;
-				}
-				if( !$dots )
-				{
-					$this->tableHeaderRow .= ' - ';
-				}
-				$dots = false;
-
-				if( $id == $get_st )
-				{
-					$this->tableHeaderRow .= ($id+1)."\n";
-				}
-				else
-				{
-					$this->tableHeaderRow .= '<a href="'.makelink($params.'&amp;st='.($id+1)).'">'.($id+1).'</a>'."\n";
-				}
-			}
-		}
-		else
-		{
-			$this->tableHeaderRow = "<thead>\n";
+			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 		}
 
 		// --[ Add sorting SQL ]--
@@ -197,14 +179,14 @@ class memberslist
 			{
 				foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
 				{
-					$query .= $order_field_sql.', ';
+					$query .= $order_field_sql . ', ';
 				}
 			}
 			elseif( isset( $ORDER_FIELD['order']) )
 			{
 				foreach ( $ORDER_FIELD['order'] as $order_field_sql )
 				{
-					$query .= $order_field_sql.', ';
+					$query .= $order_field_sql . ', ';
 				}
 			}
 		}
@@ -217,18 +199,23 @@ class memberslist
 			&& is_numeric($get_st) )
 		{
 			$start = $get_st * $this->addon['config']['page_size'];
-			$query .= ' LIMIT '.$start.','.$this->addon['config']['page_size'];
+			$query .= ' LIMIT ' . $start . ',' . $this->addon['config']['page_size'];
 		}
 
-		$this->query = $query.';';
+		$this->query = $query . ';';
 
-		// If group alts is off, hide the column for it
-		$style = ($this->addon['config']['group_alts']>=1)?'':' style="display:none;"';
+		// Print out the alt control row
+		$roster->tpl->assign_block_vars('header_cell',array(
+			'LINK' => false,
+			'TEXT' => '&nbsp;',
+			'ID' => false,
+			'DISPLAY' => ($this->addon['config']['group_alts'] >= 1) ? false : true
+			)
+		);
 
 		// header row
-		$this->tableHeaderRow .= "<tr>\n".'<th class="membersHeader"'.$style.'>&nbsp;</th>'."\n";
 		$this->sortFields = '';
-		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>'."\n";
+		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>' . "\n";
 		$current_col = 1;
 		foreach ( $this->fields as $field => $DATA )
 		{
@@ -262,49 +249,41 @@ class memberslist
 					$desc = '';
 				}
 
-				$this->tableHeaderRow .= '    <th class="membersHeader"><a href="'.makelink('&amp;style=server&amp;alts='.($this->addon['config']['group_alts']==2?'open':($this->addon['config']['group_alts']==1)?'close':'ungroup').'&amp;s='.$field.$desc).'">'.$th_text."</a></th>\n";
+				$roster->tpl->assign_block_vars('header_cell',array(
+					'LINK' => makelink('&amp;style=server&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field . $desc),
+					'TEXT' => $th_text,
+					'ID' => false,
+					'DISPLAY' => false
+					)
+				);
 			}
 			else
 			{
-				if( $DATA['display'] == 1 )
-				{
-					$this->tableHeaderRow .= '    <th class="membersHeader '.$DATA['js_type'].'" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;display:none;">'.$th_text."</th>\n";
-				}
-				else
-				{
-					$this->tableHeaderRow .= '    <th class="membersHeader '.$DATA['js_type'].'" id="'.$DATA['lang_field'].'" onclick="sortColumn('.$current_col.',6,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text."</th>\n";
-				}
+				$roster->tpl->assign_block_vars('header_cell',array(
+					'LINK' => makelink('&amp;style=server&amp;alts=' . ($this->addon['config']['group_alts'] == 2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field),
+					'TEXT' => $th_text,
+					'JS' => $DATA['js_type'],
+					'ID' => $DATA['lang_field'],
+					'DISPLAY' => ( $DATA['display'] == 1 ? true : false ),
+					'COLUMN' => $current_col
+					)
+				);
 			}
 
-			$this->sortoptions .= '<optgroup label="'.$th_text.'">'.
-				'<option value="'.$current_col.'_asc">'.$th_text.' ASC</option>'.
-				'<option value="'.$current_col.'_desc">'.$th_text.' DESC</option>'.
-				'</optgroup>'."\n";
+			$this->sortoptions .= '<optgroup label="' . $th_text . '">'
+				. '<option value="' . $current_col . '_asc">' . $th_text . ' ASC</option>'
+				. '<option value="' . $current_col . '_desc">' . $th_text . ' DESC</option>'
+				. '</optgroup>';
 
-			if( $current_col > 1 )
-			{
-				$this->sortFields .= '    <tr>';
-			}
-
-			// Name in sort box toggles if this isn't a force visible field.
-			if( $DATA['display'] == 3 )
-			{
-				$this->sortFields .= '<th class="membersHeader">'.$th_text.'</th>';
-			}
-			elseif( $DATA['display'] == 2 )
-			{
-				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col).',this,\''.$this->listname.'\');" style="cursor:pointer;">'.$th_text.'</th>';
-			}
-			else
-			{
-				$this->sortFields .= '<th class="membersHeader" onclick="toggleColumn('.($current_col).',this,\''.$this->listname.'\');" style="cursor:pointer; background-color:#5b5955;">'.$th_text.'</th>';
-			}
-
-			$this->sortFields .= '<td><input type="text" id="'.$this->listname.'_filter_'.$current_col.'" onkeydown="enter_sort(event,6,\''.$this->listname.'\');" name="'.$this->listname.'_filter_'.$current_col.'" /></td></tr>'."\n";
+			$roster->tpl->assign_block_vars('sort_field',array(
+				'TEXT' => $th_text,
+				'DISPLAY' => $DATA['display'],
+				'COLUMN' => $current_col
+				)
+			);
 
 			$current_col++;
 		}
-		$this->tableHeaderRow .= "  </tr>\n</thead>\n";
 		// end header row
 	}
 
@@ -317,38 +296,19 @@ class memberslist
 
 		if( $this->addon['config']['nojs'] )
 		{
-			return '';
+			return;
 		}
 
-		$cols = count( $this->fields );
+		$roster->tpl->assign_var('S_FILTER',true);
 
-		$output =
-			'<div id="sortfilterCol" style="display:'.(($this->addon['config']['openfilter'])?'none':'inline').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['theme_path']."/images/plus.gif\" style=\"float:right;\" alt=\"+\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
-			border('sblue','end')."\n".
-			'</div>'."\n".
-			'<div id="sortfilter" style="display:'.(($this->addon['config']['openfilter'])?'inline':'none').';">'."\n".
-			border('sblue','start',"<div style=\"cursor:pointer;width:440px;\" onclick=\"swapShow('sortfilterCol','sortfilter')\"><img src=\"".$roster->config['theme_path']."/images/minus.gif\" style=\"float:right;\" alt=\"-\"/>".$roster->locale->act['memberssortfilter']."</div>")."\n".
-			'<table><tr>'."\n".
-			'<td class="membersHeader">'.$roster->locale->act['memberssort'].'</td>'."\n".
-			'<td class="membersHeader">'.$roster->locale->act['memberscolshow'].'</td>'."\n".
-			'<td class="membersHeader">'.$roster->locale->act['membersfilter'].'</td>'."\n".
-			'</tr>'."\n".
-			'<tr><td rowspan="'.$cols.'">'."\n";
-		for ($i=0; $i<4; $i++) {
-			$output .= '<select id="'.$this->listname.'_sort_'.$i.'" name="'.$this->listname.'_sort_'.$i.'">'."\n".$this->sortoptions.'</select><br />';
+		for ($i=0; $i<4; $i++)
+		{
+			$roster->tpl->assign_block_vars('sort_option',array(
+				'ID' => $i,
+				'OPTIONS' => $this->sortoptions
+				)
+			);
 		}
-		$output .=
-			'<button onclick="dosort(6,\''.$this->listname.'\'); return false;">Go</button>'."\n".
-			'<input type="hidden" id="'.$this->listname.'_sort_4" name="'.$this->listname.'_sort_4" value="3_desc" />'."\n".
-			'<input type="hidden" id="'.$this->listname.'_sort_5" name="'.$this->listname.'_sort_5" value="1_asc" />'."\n".
-			'</td>'."\n".
-			$this->sortFields.
-			'</table>'."\n".
-			border('sblue','end').
-			'</div>'."\n";
-
-		return $output;
 	}
 
 	/**
@@ -362,55 +322,38 @@ class memberslist
 		global $roster;
 
 		// Pre-store server get params
-		$get = ( isset($_GET['s']) ? '&amp;s='.$_GET['s'] : '' );
-		$get = ( isset($_GET['d']) ? '&amp;d='.$_GET['d'] : '' );
+		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' );
+		$get = ( isset($_GET['d']) ? '&amp;d=' . $_GET['d'] : '' );
 
-		$style = '&amp;style='.($this->addon['config']['nojs']?'server':'client');
-		$alts = '&amp;alts='.($this->addon['config']['group_alts']==1?'show':'hide');
+		$style = '&amp;style=' . ($this->addon['config']['nojs'] ? 'server' : 'client');
+		$alts = '&amp;alts=' . ($this->addon['config']['group_alts']==1 ? 'show' : 'hide');
 
-		if( $this->addon['config']['group_alts']>=1 )
-		{
-			$button[] = '<th class="membersHeader"><a href="#" onclick="closeAlts(\''.$this->listname.'\',\''.$roster->config['theme_path'].'/images/plus.gif\'); return false;"><img src="'.$roster->config['theme_path'].'/images/minus.gif" alt="+" />'.$roster->locale->act['closeall'].'</a></th>';
-			$button[] = '<th class="membersHeader"><a href="#" onclick="openAlts(\''.$this->listname.'\',\''.$roster->config['theme_path'].'/images/minus.gif\'); return false;"><img src="'.$roster->config['theme_path'].'/images/plus.gif" alt="-" />'.$roster->locale->act['openall'].'</a></th>';
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=ungroup'.$get).'">'.$roster->locale->act['ungroupalts'].'</a></th>';
-		}
-		elseif( $this->addon['config']['group_alts'] == 0 )
-		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=open'.$get).'">'.$roster->locale->act['openalts'].'</a></th>';
-			$button[] = '<th class="membersHeader"><a href="'.makelink($style.'&amp;alts=close'.$get).'">'.$roster->locale->act['closealts'].'</a></th>';
-		}
-		if( $this->addon['config']['nojs'] )
-		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=client'.$alts).'">'.$roster->locale->act['clientsort'].'</a></th>';
-		}
-		else
-		{
-			$button[] = '<th class="membersHeader"><a href="'.makelink('&amp;style=server'.$alts.$get).'">'.$roster->locale->act['serversort'].'</a></th>';
-		}
-
-		if( $dir == 'horizontal' )
-		{
-			$output = implode("\n",$button);
-		}
-		else
-		{
-			$output = implode("</tr>\n<tr>",$button);
-		}
-		return messagebox('<table><tr>'.$output.'</tr></table>','','sgray');
+		$roster->tpl->assign_vars(array(
+			'S_TOOLBAR' => $dir,
+			'U_UNGROUP_ALTS' => makelink($style . '&amp;alts=ungroup' . $get),
+			'U_OPEN_ALTS' => makelink($style . '&amp;alts=open' . $get),
+			'U_CLOSE_ALTS' => makelink($style . '&amp;alts=close' . $get),
+			'U_CLIENT_SORT' => makelink('&amp;style=client' . $alts),
+			'U_SERVER_SORT' => makelink('&amp;style=server' . $alts . $get),
+			)
+		);
 	}
 
 	/**
 	 * Returns the actual list. (but not the border)
 	 */
-	function makeMembersList()
+	function makeMembersList( $border=false )
 	{
 		global $roster;
 
-		$cols = count( $this->fields );
+		$roster->tpl->assign_vars(array(
+			'S_ML_BORDER' => $border,
+			)
+		);
 
-		$output  = "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" id=\"".$this->listname."\">\n".$this->tableHeaderRow;
+		$cols = count($this->fields);
 
-		$result = $roster->db->query( $this->query );
+		$result = $roster->db->query($this->query);
 
 		if ( !$result )
 		{
@@ -418,13 +361,13 @@ class memberslist
 		}
 
 		// --[ Cache arrays for main/alt ordering ]--
-		$lines = array();
+		$lines = $line = array();
 		$lookup = array();
 
 		// --[ Actual list ]--
 		while ( $row = $roster->db->fetch( $result ) )
 		{
-			$line = '';
+			$line = array();
 			$current_col = 1;
 
 			// Echoing cells w/ data
@@ -432,11 +375,11 @@ class memberslist
 			{
 				if ( isset( $DATA['value'] ) )
 				{
-					$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough'])?$DATA['passthrough'] : array()) );
+					$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
 				}
 				elseif ( isset( $DATA['jsort'] ) )
 				{
-					$cell_value = '<div style="display:none; ">'.$row[$DATA['jsort']].'</div>'.$row[$field];
+					$cell_value = '<div style="display:none;">' . $row[$DATA['jsort']] . '</div>' . $row[$field];
 					if (empty($row[$field]))
 					{
 						$cell_value .= '&nbsp;';
@@ -448,7 +391,7 @@ class memberslist
 					{
 						$row[$field] = '&nbsp;';
 					}
-					$cell_value = '<div>'.$row[$field].'</div>';
+					$cell_value = '<div>' . $row[$field] . '</div>';
 				}
 
 
@@ -459,26 +402,11 @@ class memberslist
 				 * that's no problem cause it's probably the name anyway which
 				 * is locked on force visible.
 				 */
-				if( $current_col == 1 )
-				{
-					// Cache lines for main/alt stuff
-					if( $this->addon['config']['group_alts']<=0 || $row['main_id'] == $row['member_id'] )
-					{
-						$line .= '    <td class="membersRowCell">'.$cell_value.'</td>'."\n";
-					}
-					else
-					{
-						$line .= '    <td class="membersRowCell" style="padding-left:20px;">'.$cell_value.'</td>'."\n";
-					}
-				}
-				elseif( $DATA['display'] == 1 )
-				{
-					$line .= '    <td class="membersRowCell" style="display:none;">'.$cell_value.'</td>'."\n";
-				}
-				else
-				{
-					$line .= '    <td class="membersRowCell">'.$cell_value.'</td>'."\n";
-				}
+				$line[] = array(
+					'cell_value' => $cell_value,
+					'display' => $DATA['display'] == 1 ? true : false,
+					'padding' => ($current_col == 1) ? ( ($this->addon['config']['group_alts'] <= 0 || $row['main_id'] == $row['member_id']) ? false : true ) : false,
+				);
 				$current_col++;
 			}
 
@@ -499,75 +427,131 @@ class memberslist
 			}
 		}
 
-		$stripe_counter = 0;
 		// Main/Alt block
-		foreach(array_diff(array_keys($lines),$lookup) as $member_id)
+		$new_lookup = array_diff(array_keys($lines),$lookup);
+		foreach($new_lookup as $member_id)
 		{
 			$lookup[] = $member_id;
 		}
-		for($i=0; $i<count($lookup); $i++)
+		$lookup_count = count($lookup);
+		for($i=0; $i<$lookup_count; $i++)
 		{
 			$member_id = $lookup[$i];
 			$block = $lines[$member_id];
-			$stripe_counter = ($stripe_counter % 2) + 1;
-			$stripe_class = ' class="membersRowColor'.$stripe_counter.'"';
 
 			// Group alts off
 			if( $this->addon['config']['group_alts'] <= 0 )
 			{
-				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell" style="display:none;">&nbsp;</td>'.$block['main'].'</tr></tbody>';
+				$roster->tpl->assign_block_vars('members_row',array(
+					'SIMPLE' => true,
+					'ROW_CLASS' => $roster->switch_row_class(),
+					'MA' => false,
+					'DISPLAY' => true
+					)
+				);
+
+				foreach( $block['main'] as $line )
+				{
+					$roster->tpl->assign_block_vars('members_row.cell',array(
+						'VALUE' => $line['cell_value'],
+						'DISPLAY' => $line['display'],
+						'PADDING' => $line['padding'],
+						)
+					);
+				}
 				continue;
 			}
+
 			// Main, or no alt data
 			if( !isset($block['alts']) || 0 == count($block['alts']) )
 			{
-				$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell">&nbsp;</td>'.$block['main'].'</tr></tbody>';
+				$roster->tpl->assign_block_vars('members_row',array(
+					'SIMPLE' => true,
+					'ROW_CLASS' => $roster->switch_row_class(),
+					'MA' => false,
+					'DISPLAY' => false
+					)
+				);
+
+				foreach( $block['main'] as $line )
+				{
+					$roster->tpl->assign_block_vars('members_row.cell',array(
+						'VALUE' => $line['cell_value'],
+						'DISPLAY' => $line['display'],
+						'PADDING' => $line['padding'],
+						)
+					);
+				}
 				continue;
 			}
+
 			// Mainless alt.
 			if( !isset($block['main']) )
 			{
-				foreach( $block['alts'] as $line )
+				foreach( $block['alts'] as $rows )
 				{
-					$output .= '<tbody><tr'.$stripe_class.'><td class="membersRowCell"><span class="red">MA</span></td>'.$line.'</tr></tbody>';
+					$roster->tpl->assign_block_vars('members_row',array(
+						'SIMPLE' => true,
+						'ROW_CLASS' => $roster->switch_row_class(),
+						'MA' => true,
+						'DISPLAY' => false
+						)
+					);
+
+					foreach( $rows as $line )
+					{
+						$roster->tpl->assign_block_vars('members_row.cell',array(
+							'VALUE' => $line['cell_value'],
+							'DISPLAY' => $line['display'],
+							'PADDING' => $line['padding'],
+							)
+						);
+					}
 				}
 				continue;
 			}
 
 			// Main with alts
-			if( $this->addon['config']['group_alts'] == 2 )
+			$roster->tpl->assign_block_vars('members_row',array(
+				'SIMPLE' => false,
+				'ROW_CLASS' => $roster->switch_row_class(),
+				'MEMBER_ID' => $member_id,
+				'DISPLAY' => false,
+				'OPEN' => ($this->addon['config']['group_alts'] == 2) ? true : false
+				)
+			);
+
+			foreach( $block['main'] as $line )
 			{
-				$openimg = 'minus.gif';
-				$openalt = '-';
-			}
-			else
-			{
-				$openimg = 'plus.gif';
-				$openalt = '+';
+				$roster->tpl->assign_block_vars('members_row.cell',array(
+					'VALUE' => $line['cell_value'],
+					'DISPLAY' => $line['display'],
+					'PADDING' => $line['padding']
+					)
+				);
 			}
 
-			$output .= '<tbody id="playerrow-'.$member_id.'"><tr'.$stripe_class.'><td class="membersRowCell">'.
-				'<a href="#" onclick="toggleAlts(\'playerrow-'.$member_id.'\',\'foldout-'.$member_id.'\',\''.$roster->config['theme_path'].'/images/minus.gif\',\''.$roster->config['theme_path'].'/images/plus.gif\'); return false;">'.
-				'<img src="'.$roster->config['theme_path'].'/images/'.$openimg.'" id="foldout-'.$member_id.'" alt="'.$openalt.'" /></a></td>'.
-				$block['main']."\n".'</tr>'."\n";
-
-			$alt_counter = 0;
-			foreach( $block['alts'] as $line )
+			foreach( $block['alts'] as $rows )
 			{
-				$alt_counter = ($alt_counter % 2) + 1;
-				$stripe_class = ' class="membersRowAltColor'.$alt_counter.'"';
-				if( $this->addon['config']['group_alts'] == 1 )
+				$roster->tpl->assign_block_vars('members_row.alt',array(
+					'ROW_CLASS' => $roster->switch_alt_row_class(),
+					'DISPLAY' => ($this->addon['config']['group_alts'] == 1) ? true : false
+					)
+				);
+
+				foreach( $rows as $line )
 				{
-					$stripe_class .= ' style="display:none;"';
+					$roster->tpl->assign_block_vars('members_row.alt.cell',array(
+						'VALUE' => $line['cell_value'],
+						'DISPLAY' => $line['display'],
+						'PADDING' => $line['padding']
+						)
+					);
 				}
-				$output .= '<tr'.$stripe_class.'><td class="membersRowCell">&nbsp;</td>'."\n".$line."\n".'</tr>'."\n";
 			}
-			$output .= '</tbody>'."\n";
 		}
 
-		$output .= "</table>\n";
-
-		return $output;
+		return $roster->tpl->fetch('memberslist');
 	}
 
 
@@ -584,11 +568,11 @@ class memberslist
 		{
 			if( $roster->config['motd_display_mode'] )
 			{
-				return '<img src="motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: '.htmlspecialchars($roster->data['guild_motd']).'" /><br /><br />';
+				return '<img src="motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: ' . htmlspecialchars($roster->data['guild_motd']) . '" /><br /><br />';
 			}
 			else
 			{
-				return '<table class="border_frame" cellpadding="0px" cellspacing="1px" ><tr><td class="border_colour sgoldborder motd_setup">'.htmlspecialchars($roster->data['guild_motd']).'</td></tr></table><br /><br />';
+				return '<table class="border_frame" cellpadding="0" cellspacing="1" ><tr><td class="border_colour sgoldborder motd_setup">' . htmlspecialchars($roster->data['guild_motd']) . '</td></tr></table><br /><br />';
 			}
 		}
 	}
@@ -610,34 +594,34 @@ class memberslist
 
 		if( $this->addon['config']['member_tooltip'] )
 		{
-			$tooltip_h = $row['name'].' : '.$row['guild_title'];
+			$tooltip_h = $row['name'] . ' : ' . $row['guild_title'];
 
-			$tooltip = 'Level '.$row['level'].' '.$row['sex'].' '.$row['race'].' '.$row['class']."\n";
+			$tooltip = 'Level ' . $row['level'] . ' ' . $row['sex'] . ' ' . $row['race'] . ' ' . $row['class'] . "\n";
 
-			$tooltip .= $roster->locale->act['lastonline'].': '.$row['last_online'].' in '.$row['zone'];
-			$tooltip .= ($row['nisnull'] ? '' : "\n".$roster->locale->act['note'].': '.$row['note']);
+			$tooltip .= $roster->locale->act['lastonline'] . ': ' . $row['last_online'] . ' in ' . $row['zone'];
+			$tooltip .= ($row['nisnull'] ? '' : "\n" . $roster->locale->act['note'] . ': ' . $row['note']);
 
-			$tooltip = '<div style="cursor:help;" '.makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP').'>';
+			$tooltip = '<div style="cursor:help;" ' . makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP') . '>';
 
 
 			if( active_addon('info') && $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.'<a href="'.makelink('char-info&amp;a=c:'.$row['member_id']).'">'.$row['name'].'</a></div>';
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $tooltip . '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
 			}
 			else
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.$tooltip.$row['name'].'</div>';
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $tooltip . $row['name'] . '</div>';
 			}
 		}
 		else
 		{
 			if ( active_addon('info') && $row['server'] )
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.'<a href="'.makelink('char-info&amp;a=c:'.$row['member_id']).'">'.$row['name'].'</a></div>';
+				return '<div style="display:none;">' . $row['name'] . '</div><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
 			}
 			else
 			{
-				return '<div style="display:none; ">'.$row['name'].'</div>'.$row['name'];
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $row['name'];
 			}
 		}
 	}
@@ -693,7 +677,7 @@ class memberslist
 				$specline = implode(' / ', $tooltip);
 				if( !$notalent )
 				{
-					$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP').' />';
+					$specicon = '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP') . ' />';
 				}
 
 				if( active_addon('info') )
@@ -730,20 +714,20 @@ class memberslist
 
 				if( $class_color != '' )
 				{
-					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $class_color . 'txt">' . $fieldtext . '</span>';
+					return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $class_color . 'txt">' . $fieldtext . '</span>';
 				}
 				else
 				{
-					return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $row['class'] . 'txt">' . $fieldtext . '</span>';
+					return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $row['class'] . 'txt">' . $fieldtext . '</span>';
 				}
 			}
 			elseif( $this->addon['config']['class_text'] == 1 )
 			{
-				return '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value . $fieldtext;
+				return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . $fieldtext;
 			}
 			else
 			{
-				return ($icon_value != '' ? '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value : '&nbsp;');
+				return ($icon_value != '' ? '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value : '&nbsp;');
 			}
 		}
 		else
@@ -770,17 +754,17 @@ class memberslist
 
 			if( $rested > 0 )
 			{
-				$rested = ' : '.$rested;
+				$rested = ' : ' . $rested;
 			}
 			$togo = sprintf($roster->locale->act['xp_to_go'], $max - $current, ($row['level']+1));
 
 			$percent_exp = ($max > 0 ? round(($current/$max)*100) : 0);
 
-			$tooltip = '<div style="white-space:nowrap;" class="levelbarParent" style="width:200px;"><div class="levelbarChild">XP '.$current.'/'.$max.$rested.'</div></div>';
+			$tooltip = '<div style="white-space:nowrap;" class="levelbarParent" style="width:200px;"><div class="levelbarChild">XP ' . $current . '/' . $max . $rested . '</div></div>';
 			$tooltip .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="200">';
 			$tooltip .= '<tr>';
-			$tooltip .= '<td style="background-image: url(\''.$roster->config['img_url'].'expbar-var2.gif\');" width="'.$percent_exp.'%"><img src="'.$roster->config['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
-			$tooltip .= '<td width="'.(100 - $percent_exp).'%"></td>';
+			$tooltip .= '<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $percent_exp . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>';
+			$tooltip .= '<td width="' . (100 - $percent_exp) . '%"></td>';
 			$tooltip .= '</tr>';
 			$tooltip .= '</table>';
 
@@ -799,19 +783,19 @@ class memberslist
 		{
 			$percentage = round(($row['level']/ROSTER_MAXCHARLEVEL)*100);
 
-			$cell_value = '<div '.$tooltip.' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">'.$row['level'].'</div></div>';
+			$cell_value = '<div ' . $tooltip . ' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">' . $row['level'] . '</div></div>';
 			$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 			$cell_value .= '<tr>';
-			$cell_value .= '<td style="background-image: url(\''.$roster->config['img_url'].'expbar-var2.gif\');" width="'.$percentage.'%"><img src="'.$roster->config['img_url'].'pixel.gif" height="14" width="1" alt="" /></td>';
-			$cell_value .= '<td width="'.(100 - $percentage).'%"></td>';
+			$cell_value .= '<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $percentage . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>';
+			$cell_value .= '<td width="' . (100 - $percentage) . '%"></td>';
 			$cell_value .= "</tr>\n</table>\n</div>\n";
 		}
 		else
 		{
-			$cell_value = '<div'.$tooltip.' style="cursor:default;">'.$row['level'].'</div>';
+			$cell_value = '<div ' . $tooltip . ' style="cursor:default;">' . $row['level'] . '</div>';
 		}
 
-		return '<div style="display:none; ">' . str_pad($row['level'],2,'0',STR_PAD_LEFT) . '</div>'.$cell_value;
+		return '<div style="display:none;">' . str_pad($row['level'],2,'0',STR_PAD_LEFT) . '</div>' . $cell_value;
 	}
 
 	/**
@@ -830,23 +814,23 @@ class memberslist
 			{
 				if( $row['lifetimeHighestRank'] < 10 )
 				{
-					$rankicon = 'Interface/PvPRankBadges/pvprank0'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
+					$rankicon = 'Interface/PvPRankBadges/pvprank0' . $row['lifetimeHighestRank'] . '.' . $roster->config['alt_img_suffix'];
 				}
 				else
 				{
-					$rankicon = 'Interface/PvPRankBadges/pvprank'.$row['lifetimeHighestRank'].'.'.$roster->config['alt_img_suffix'];
+					$rankicon = 'Interface/PvPRankBadges/pvprank' . $row['lifetimeHighestRank'] . '.' . $roster->config['alt_img_suffix'];
 				}
-				$rankicon = $roster->config['interface_url'].$rankicon;
-				$rankicon = "<img class=\"membersRowimg\" width=\"".$this->addon['config']['icon_size']."\" height=\"".$this->addon['config']['icon_size']."\" src=\"".$rankicon."\" alt=\"\" />";
+				$rankicon = $roster->config['interface_url'] . $rankicon;
+				$rankicon = "<img class=\"membersRowimg\" width=\"" . $this->addon['config']['icon_size'] . "\" height=\"" . $this->addon['config']['icon_size'] . "\" src=\"" . $rankicon . "\" alt=\"\" />";
 			}
 			else
 			{
 				$rankicon = '';
 			}
 
-			$cell_value = $rankicon.' '.$row['lifetimeRankName'];
+			$cell_value = $rankicon . ' ' . $row['lifetimeRankName'];
 
-			return '<div style="display:none; ">'.$row['lifetimeHighestRank'].'</div>'.$cell_value;
+			return '<div style="display:none;">' . $row['lifetimeHighestRank'] . '</div>' . $cell_value;
 		}
 		else
 		{
@@ -862,7 +846,7 @@ class memberslist
 	 */
 	function guild_name_value ( $row, $field )
 	{
-		return '<div style="display:none; ">'.$row['guild_name'].'</div><a href="'.makelink('guild-memberslist&amp;a=g:'.$row['guild_id']).'">'.$row['guild_name'].'</a></div>';
+		return '<div style="display:none;">' . $row['guild_name'] . '</div><a href="' . makelink('guild-memberslist&amp;a=g:' . $row['guild_id']) . '">' . $row['guild_name'] . '</a></div>';
 	}
 
 	/**
@@ -880,7 +864,7 @@ class memberslist
 		// Don't proceed for characters without data
 		if( !isset($row['talents']) || $row['talents'] == '' )
 		{
-			return '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'pixel.gif" alt="" />';
+			return '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'pixel.gif" alt="" />';
 		}
 
 		$lang = $row['clientLocale'];
@@ -903,7 +887,7 @@ class memberslist
 		}
 		$tooltip = implode(' / ', $tooltip);
 
-		$specicon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP').' />';
+		$specicon = '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP') . ' />';
 
 		if( active_addon('info') )
 		{

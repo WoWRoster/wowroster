@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include_once ($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
 
@@ -197,13 +197,11 @@ if( $addon['config']['member_update_inst'] )
 	$roster->output['before_menu'] .= '<a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
-echo $memberlist->makeFilterBox();
+$memberlist->makeFilterBox();
 
-echo $memberlist->makeToolBar('horizontal');
+$memberlist->makeToolBar('horizontal');
 
-echo "<br />\n".border('syellow','start')."\n";
-echo $memberlist->makeMembersList();
-echo border('syellow','end');
+echo $memberlist->makeMembersList('syellow');
 
 // Print the update instructions
 if( $addon['config']['member_update_inst'] )
@@ -312,5 +310,5 @@ function note_value ( $row, $field )
 		}
 	}
 
-	return '<div style="display:none; ">'.$note.'</div>'.$value;
+	return '<div style="display:none;">'.$note.'</div>'.$value;
 }

@@ -37,7 +37,7 @@ $lang['update_page']='Update Profile';
 $lang['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
 
 $lang['ignored']='Ignored';
-$lang['update_disabled']='Update.php access has been disabled';
+$lang['update_disabled']='Update access has been disabled';
 
 $lang['nofileUploaded']='UniUploader did not upload any file(s), or uploaded the wrong file(s).';
 $lang['roster_upd_pwLabel']='Roster Update Password';

@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include_once ($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
 
@@ -184,7 +184,7 @@ if( $addon['config']['honor_hslist'] == 1 || $addon['config']['honor_pvplist'] =
 		echo "    </td>\n";
 	}
 
-	if ( $addon['config']['honor_pvplist'] == 1 && active_addon('pvplog') )
+	if ( active_addon('pvplog') && $addon['config']['honor_pvplist'] == 1 )
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
@@ -195,13 +195,11 @@ if( $addon['config']['honor_hslist'] == 1 || $addon['config']['honor_pvplist'] =
 	echo "  </tr>\n</table>\n";
 }
 
-echo $memberlist->makeFilterBox();
+$memberlist->makeFilterBox();
 
-echo $memberlist->makeToolBar('horizontal');
+$memberlist->makeToolBar('horizontal');
 
-echo "<br />\n".border('syellow','start')."\n";
-echo $memberlist->makeMembersList();
-echo border('syellow','end');
+echo $memberlist->makeMembersList('syellow');
 
 // Print the update instructions
 if( $addon['config']['honor_update_inst'] )

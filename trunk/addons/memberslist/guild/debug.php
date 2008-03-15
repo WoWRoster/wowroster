@@ -22,7 +22,7 @@ $query = "SELECT `config_name`, `config_value` "
 	. "WHERE `guild_id` = " . $roster->data['guild_id'] . ";";
 $result = $roster->db->query($query);
 
-while( $row = $roster->db->fetch($result) )
+while( $row = $roster->db->fetch($result,SQL_ASSOC) )
 {
 	$addon['rules'][$row['config_name']] = $row['config_value'];
 }
@@ -91,17 +91,15 @@ $FIELD['officer_note'] = array (
 	'value'   => 'debugNote',
 );
 
-include_once ($addon['dir'].'inc/memberslist.php');
+include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
 
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
-echo $memberlist->makeFilterBox();
+$memberlist->makeFilterBox();
 
-echo "<br />\n".border('syellow','start')."\n";
-echo $memberlist->makeMembersList();
-echo border('syellow','end');
+echo $memberlist->makeMembersList('syellow');
 
 echo "<br />\n".scrollbox(aprint($addon,'$addon',true),'Config data','sgray');
 

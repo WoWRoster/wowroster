@@ -21,6 +21,12 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
+if( !$roster->config['authenticated_user'] )
+{
+	print messagebox($roster->locale->act['update_disabled'],$roster->locale->act['update_errors'],'sred');
+	return;
+}
+
 // Include update lib
 require_once(ROSTER_LIB.'update.lib.php');
 $update = new update;
@@ -114,8 +120,8 @@ else
 		);
 	}
 
-	if( $roster->auth->getAuthorized($roster->config['gp_user_level']) ||
-		$roster->auth->getAuthorized($roster->config['cp_user_level']) ||
+	if( $roster->auth->getAuthorized($roster->config['gp_user_level']) &&
+		$roster->auth->getAuthorized($roster->config['cp_user_level']) &&
 		$roster->auth->getAuthorized($roster->config['lua_user_level']) )
 	{
 		$roster->tpl->assign_var('S_PASS',false);
