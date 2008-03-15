@@ -104,6 +104,7 @@ class roster
 	 */
 	var $tpl;								// Template object
 	var $row_class         = 2;				// For row striping in templates
+	var $alt_row_class     = 2;				// For row striping in templates
 
 	/**
 	 * Load the DBAL
@@ -473,6 +474,24 @@ class roster
 		if( $set_new )
 		{
 			$this->row_class = $row_class;
+		}
+
+		return $row_class;
+	}
+
+	/**
+	 * Switches the class for alternate row coloring
+	 *
+	 * @param bool $set_new
+	 * @return int
+	 */
+	function switch_alt_row_class( $set_new = true )
+	{
+		$row_class = ( $this->alt_row_class == 1 ) ? 2 : 1;
+
+		if( $set_new )
+		{
+			$this->alt_row_class = $row_class;
 		}
 
 		return $row_class;

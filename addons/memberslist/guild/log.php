@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include_once ($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist(array('group_alts'=>-1, 'page_size'=>25));
 
@@ -131,7 +131,7 @@ if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 
 		echo "    </td>\n";
 	}
 
-	if ( $addon['config']['honor_pvplist'] == 1 && active_addon('pvplog') )
+	if ( active_addon('pvplog') && $addon['config']['honor_pvplist'] == 1 )
 	{
 		echo '    <td valign="top">';
 		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
@@ -142,13 +142,11 @@ if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 
 	echo "  </tr>\n</table>\n";
 }
 
-echo $memberlist->makeFilterBox();
+$memberlist->makeFilterBox();
 
-echo $memberlist->makeToolBar('horizontal');
+$memberlist->makeToolBar('horizontal');
 
-echo "<br />\n".border('syellow','start')."\n";
-echo $memberlist->makeMembersList();
-echo border('syellow','end');
+echo $memberlist->makeMembersList('syellow');
 
 // Print the update instructions
 if( $addon['config']['log_update_inst'] )
@@ -197,7 +195,7 @@ function note_value ( $row, $field )
 		}
 	}
 
-	return '<div style="display:none; ">'.$row['note'].'</div>'.$note;
+	return '<div style="display:none;">'.$row['note'].'</div>'.$note;
 }
 
 
@@ -220,5 +218,5 @@ function type_value ( $row, $field )
 		$return = '<span class="green">' . $roster->locale->act['added'] . '</span>';
 	}
 
-	return '<div style="display:none; ">'.$row['type'].'</div>'.$return;
+	return '<div style="display:none;">'.$row['type'].'</div>'.$return;
 }

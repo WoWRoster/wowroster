@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-include_once ($addon['dir'] . 'inc/memberslist.php');
+include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist(array('group_alts'=>-1));
 
@@ -89,13 +89,11 @@ if( $addon['config']['member_update_inst'] )
 	$roster->output['before_menu'] .= '<a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
-echo $memberlist->makeFilterBox();
+$memberlist->makeFilterBox();
 
-echo $memberlist->makeToolBar('horizontal');
+$memberlist->makeToolBar('horizontal');
 
-echo "<br />\n".border('syellow','start')."\n";
-echo $memberlist->makeMembersList();
-echo border('syellow','end');
+echo $memberlist->makeMembersList('syellow');
 
 // Print the update instructions
 if( $addon['config']['member_update_inst'] )
@@ -143,7 +141,7 @@ function note_value ( $row, $field )
 		}
 	}
 
-	return '<div style="display:none; ">'.htmlentities($row[$field]).'</div>'.$note;
+	return '<div style="display:none;">'.htmlentities($row[$field]).'</div>'.$note;
 }
 
 /**
@@ -158,11 +156,11 @@ function guild_value ( $row, $field )
 
 	if( $row['guild_id'] )
 	{
-		return '<div style="display:none; ">' . $row['guild_name'] . '</div><a href="' . makelink('guild-memberslist&amp;a=g:' . $row['guild_id']) . '">' . $row['guild_name'] . '</a></div>';
+		return '<div style="display:none;">' . $row['guild_name'] . '</div><a href="' . makelink('guild-memberslist&amp;a=g:' . $row['guild_id']) . '">' . $row['guild_name'] . '</a></div>';
 	}
 	else
 	{
-		return '<div style="display:none; ">' . $row['guild_name'] . '</div>' . $row['guild_name'];
+		return '<div style="display:none;">' . $row['guild_name'] . '</div>' . $row['guild_name'];
 	}
 }
 
@@ -200,5 +198,5 @@ function faction_value ( $row, $field )
 
 	$cell_value = $icon . $row['faction'];
 
-	return '<div style="display:none; ">' . $row['faction'] . '</div>' . $cell_value;
+	return '<div style="display:none;">' . $row['faction'] . '</div>' . $cell_value;
 }
