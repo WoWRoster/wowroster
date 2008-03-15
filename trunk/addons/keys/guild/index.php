@@ -31,7 +31,9 @@ foreach( $roster->multilanguages as $lang )
 	$roster->locale->add_locale_file($memberslist_addon['locale_dir'] . $lang . '.php',$lang);
 }
 
-include_once ($memberslist_addon['dir'] . 'inc/memberslist.php');
+$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $memberslist_addon['tpl_css_url'] . '" />' . "\n";
+
+include_once ($memberslist_addon['inc_dir'] . 'memberslist.php');
 include_once (ROSTER_LIB . 'item.php');
 $memberlist = new memberslist(array(), $memberslist_addon);
 
@@ -164,13 +166,11 @@ $mainQuery = $mainSelect . '1 ' . $mainTables;
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'keyslist');
 
 // Start output
-echo $memberlist->makeFilterBox();
+$memberlist->makeFilterBox();
 
-echo $memberlist->makeToolBar('horizontal');
+$memberlist->makeToolBar('horizontal');
 
-echo "<br />\n".border('syellow','start')."\n";
-echo $memberlist->makeMembersList();
-echo border('syellow','end');
+echo $memberlist->makeMembersList('syellow');
 
 // Key display logic
 function key_value( $row, $field, $data )
@@ -254,7 +254,7 @@ function key_value( $row, $field, $data )
 	else
 	{
 		$perc_done = round($num_completed_stages / ($last_stage + 1) * 100);
-		$output = 
+		$output =
 			'<div class="levelbarParent" style="width:40px;"><div class="levelbarChild">' . $num_completed_stages . '/' . ($last_stage + 1) . '</div></div>' . "\n" .
 			'<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="40">' . "\n" .
 			'<tr>' . "\n" .
@@ -265,6 +265,6 @@ function key_value( $row, $field, $data )
 			'</tr>' . "\n" .
 			'</table>' . "\n";
 	}
-	
+
 	return '<div style="display:none; ">'.$num_completed_stages.'</div>'.$tooltip.$output.'</div>';
 }
