@@ -150,7 +150,20 @@ class roster_locale
 			}
 		}
 
-		if( isset($lang[$key]) )
+		if( is_array($key) )
+		{
+			$array_key = key($key);
+			$sub_key = array_pop($key);
+			if( isset($lang[$array_key][$sub_key]))
+			{
+				return $lang[$array_key][$sub_key];
+			}
+			else
+			{
+				return $sub_key;
+			}
+		}
+		elseif( isset($lang[$key]) )
 		{
 			return $lang[$key];
 		}
