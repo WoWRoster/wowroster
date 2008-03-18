@@ -364,6 +364,11 @@ class update
 						{
 							$region = '';
 						}
+						// Official realms don't trigger this. I looked up and verified the asian ones as well.
+						if( strlen($region) > 2 )
+						{
+							roster_die( "Invalid realm. You are not playing on an official realm, and your realm setup is incompatible with roster. Good luck fixing it up.<br/><br/>I'm adding this message cause I'm getting annoyed by the occasional person who can't get roster to work on his private server" );
+						}
 						$this->current_region = $region;
 
 						// take the current time
