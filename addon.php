@@ -25,6 +25,12 @@ if( empty($guild_info) )
 	die_quietly( $wordings[$roster_conf['roster_lang']]['nodata'] );
 }
 
+// Sanity check on the addon name. We check both / and \ explicitly: \ may work on unix as well as the default /.
+if( strpos($_REQUEST['roster_addon_name'], '/' ) || strpos($_REQUEST['roster_addon_name'], '\\' ) )
+{
+	die_quietly( "Hacking attempt averted" );
+}
+
 // Get the addon's location
 $addonDir = ROSTER_ADDONS.$_REQUEST['roster_addon_name'].DIR_SEP;
 
