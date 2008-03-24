@@ -107,9 +107,10 @@ function debugNote( $row, $field, $data )
 {
 	global $addon;
 
-	if(preg_match($addon['rules']['getmain_regex'], $row[$field], $regs))
+	$rules = $addon['rules']['use_global'] ? $addon['config'] : $addon['rules'];
+	if(preg_match($rules['getmain_regex'], $row[$field], $regs))
 	{
-		$tooltip_h = $regs[$addon['rules']['getmain_match']];
+		$tooltip_h = $regs[$rules['getmain_match']];
 		$tooltip = aprint($regs, '', true);
 	}
 	else
