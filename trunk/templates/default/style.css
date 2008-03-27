@@ -17,7 +17,11 @@ body { background:#000000; }
 a:link, a:visited { color:#CBA300;text-decoration:none;font-weight:bold; }
 a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
-.roster-wrap { font:12px arial,helvetica,sans-serif;color:#FFFFFF; }
+.roster-wrap {
+	font:12px arial,helvetica,sans-serif;
+	color:#FFFFFF;
+	text-align: center;
+}
 
 img, p { padding:0;margin:0;border:0; }
 
@@ -577,6 +581,7 @@ select {
 	border-right: 1px solid #5f6060;
 	border-bottom: 1px solid #393939;
 	border-left: 1px solid #696b6e;
+	margin: auto;
 }
 
 .border_color {
