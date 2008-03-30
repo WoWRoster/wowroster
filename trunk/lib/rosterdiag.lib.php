@@ -33,38 +33,41 @@ $ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'cache');
 $extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
 
 // Files to ignore
-$ignored_files = array('conf.php','.htaccess','valid.inc','install.php');
+$ignored_files = array('conf.php', '.htaccess');
 
 // Do we want to check the SubDirs ?? I think we do :)
 $subdirectories = 1;
 
 // Set the severity information
-$problemsev['description'] = 7;
-$problemsev['revisiongreater'] = 1;
-$problemsev['revisionsmaller'] = 7;
-$problemsev['dateolder'] = 7;
-$problemsev['dateyounger'] = 1;
-$problemsev['author'] = 6;
+$problemsev['description'] = 9;
+$problemsev['revisiongreater'] = 4;
+$problemsev['revisionsmaller'] = 9;
+$problemsev['dateolder'] = 9;
+$problemsev['dateyounger'] = 4;
+$problemsev['author'] = 8;
 $problemsev['MD5'] = 0;
-$problemsev['MD5binary'] = 5;
+$problemsev['MD5binary'] = 7;
 $problemsev['nosvn'] = 2;
-$problemsev['nolocal'] = 7;
-$problemsev['unknown'] = 2;
+$problemsev['nolocal'] = 3;
+$problemsev['unknown'] = 1;
 
-$severity[0] = array('style' => 'sgreen',  'color' => '#12C312', 'weight' => 0,  'severityname' => 'No Issues');
-$severity[1] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 1,  'severityname' => 'Newer Files');
-$severity[2] = array('style' => 'sgray',   'color' => '#AFAFAF', 'weight' => 0,  'severityname' => 'Unknown');
-$severity[3] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 6,  'severityname' => 'Initial');
-$severity[4] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 6,  'severityname' => 'Strange');
-$severity[5] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 15,  'severityname' => 'Minor');
-$severity[6] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 30,  'severityname' => 'Major');
-$severity[7] = array('style' => 'sred',    'color' => '#FF0000', 'weight' => 60, 'severityname' => 'Critical');
+$severity[0] = array('style' => 'sgreen', 'color' => '#12C312', 'weight' => 0, 'severityname' => 'No Issues');
+$severity[1] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Unknown');
+$severity[2] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Not in SVN');
+$severity[3] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Not in Local');
+$severity[4] = array('style' => 'sblue', 'color' => '#312CF8', 'weight' => 0, 'severityname' => 'Newer Files');
+$severity[5] = array('style' => 'sblue', 'color' => '#312CF8', 'weight' => 1, 'severityname' => 'Initial');
+$severity[6] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 1, 'severityname' => 'Strange');
+$severity[7] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 3, 'severityname' => 'Minor');
+$severity[8] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 7, 'severityname' => 'Major');
+$severity[9] = array('style' => 'sred', 'color' => '#FF0000', 'weight' => 15, 'severityname' => 'Critical');
 
 
-$rollups[] = array('rollup' => 1,  'severity' => 1);
-$rollups[] = array('rollup' => 14,  'severity' => 5);
-$rollups[] = array('rollup' => 29,  'severity' => 6);
-$rollups[] = array('rollup' => 59, 'severity' => 7);
+$rollups[] = array('rollup' => 2, 'severity' => 7);
+$rollups[] = array('rollup' => 5, 'severity' => 8);
+$rollups[] = array('rollup' => 14, 'severity' => 9);
+
+$newerfilesev = 4;
 
 $totalseverity = 0;
 
@@ -308,18 +311,10 @@ function GrabRemoteVersions()
 	global $directories, $files, $break, $explode;
 
 	// Execute the addon_versioncheck.php script in the SVN remote site
-	$handle = @fopen(ROSTER_SVNREMOTE, 'rb');
-	$contents = '';
+	$contents = urlgrabber(ROSTER_SVNREMOTE);
 
-	if( $handle )
+	if( $contents !== false )
 	{
-		// Read the first 80kb from the file. This should be enough for most add-ons.
-		while (!feof($handle))
-		{
-			$contents .= @fread($handle, 1024*80);
-		}
-		fclose($handle);
-
 		// Break the header into lines
 		$remoteversions = explode($break, $contents);
 		foreach ($remoteversions as $remoteversion)
@@ -358,7 +353,7 @@ function GrabRemoteVersions()
  */
 function VerifyVersions()
 {
-	global $files, $directories, $problemsev, $severity, $rollups, $totalrollup, $totalseverity;
+	global $files, $directories, $problemsev, $severity, $rollups, $totalrollup, $totalseverity, $newerfilesev;
 
 	// Process verification for all directories, Local and SVN
 	foreach ($files as $directory => $filedata)
@@ -367,6 +362,11 @@ function VerifyVersions()
 		$files[$directory]['severity'] = 0;
 		// Initialize the File tooltip
 		$files[$directory]['tooltip'] = '';
+		$files[$directory]['newer'] = 0;
+		$nosvn = 0;
+		$nolocal = 0;
+
+
 
 		foreach ($filedata as $filename => $file)
 		{
@@ -378,6 +378,7 @@ function VerifyVersions()
 			$files[$directory][$filename]['update'] = 0;
 			$files[$directory][$filename]['missing'] = 0;
 			$files[$directory][$filename]['diff'] = 0;
+			$files[$directory][$filename]['newer'] = 0;
 
 			// Check if Both Local and SVN files are present
 			if (isset($file['local']) && isset($file['remote']))
@@ -391,8 +392,9 @@ function VerifyVersions()
 				// Check if the local version matches the SVN version
 				if (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) < 0)
 				{
-					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisionsmaller']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['revisionsmaller']]['color'] . ';">Local Version: ' . $file['local']['versionRev'] . ' is LOWER than SVN Version: ' . $file['remote']['versionRev'] . '</span><br />';
+					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
+					$files[$directory][$filename]['newer'] = 1;
+					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['revisiongreater']]['color'] . ';">Local Version: ' . $file['local']['versionRev'] . ' is HIGHER than SVN Version: ' . $file['remote']['versionRev'] . '</span><br />';
 					$files[$directory][$filename]['rev'] = $file['local']['versionRev'] . ' < ' . $file['remote']['versionRev'];
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
@@ -421,6 +423,7 @@ function VerifyVersions()
 				elseif (($file['local']['versionDate'] > $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateyounger']]['weight'];
+					$files[$directory][$filename]['newer'] = 1;
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['dateyounger']]['color'] . ';">Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is NEWER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '</span><br />';
 					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' > ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['diff'] = 1;
@@ -492,25 +495,45 @@ function VerifyVersions()
 					$files[$directory][$filename]['rollup'] = $rollup['severity'];
 				}
 			}
+
 			$files[$directory]['severity'] += $files[$directory][$filename]['severity'];
+
+			if (!$files[$directory][$filename]['severity'] && $files[$directory][$filename]['newer'])
+			{
+				$files[$directory][$filename]['rollup'] = $newerfilesev;
+				$files[$directory]['newer'] = 1;
+			}
+
+			if ($files[$directory][$filename]['tooltip'] == '' && !$files[$directory][$filename]['severity'] && !$files[$directory][$filename]['rogue'] && !$files[$directory][$filename]['diff'] && !$files[$directory][$filename]['newer'])
+			{
+				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[0]['color'] . ';">Local file same as SVN</span><br />';
+			}
+
+			if ($files[$directory][$filename]['rogue'])
+			{
+				$files[$directory][$filename]['rollup'] = $problemsev['nosvn'];
+				$nosvn = 1;
+			}
+
+			if ($files[$directory][$filename]['missing'])
+			{
+				$files[$directory][$filename]['rollup'] = $problemsev['nolocal'];
+				$nolocal = 1;
+			}
+
 			if ($files[$directory][$filename]['rollup'])
 			{
 				$files[$directory]['tooltip'] .= '<span style="color:' . $severity[$files[$directory][$filename]['rollup']]['color'] . ';">File: ' . $filename . ' - Severity: ' . $files[$directory][$filename]['rollup'] . '</span><br />';
 			}
-			if (!$files[$directory][$filename]['severity'] && !$files[$directory][$filename]['rogue'] && !$files[$directory][$filename]['diff'])
-			{
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[0]['color'] . ';">Local file same as SVN</span><br />';
-			}
-			if ($files[$directory][$filename]['rogue'])
-			{
-				$files[$directory][$filename]['rollup'] = 1;
-			}
 		}
+
 		if ($files[$directory]['tooltip'] == '')
 		{
 			$files[$directory]['tooltip'] = '<span style="color:' . $severity[0]['color'] . ';">No File Version Issues!</span>';
 		}
+
 		$files[$directory]['rollup'] = 0;
+
 		foreach ($rollups as $rollupkey => $rollup)
 		{
 			if ($files[$directory]['severity'] > $rollup['rollup'])
@@ -518,9 +541,30 @@ function VerifyVersions()
 				$files[$directory]['rollup'] = $rollup['severity'];
 			}
 		}
+
+		if (!$files[$directory]['severity'])
+		{
+			if ($files[$directory]['newer'])
+			{
+				$files[$directory]['rollup'] = $newerfilesev;
+			}
+
+			if ($nosvn)
+			{
+				$files[$directory]['rollup'] = $problemsev['nosvn'];
+			}
+
+			if ($nolocal)
+			{
+				$files[$directory]['rollup'] = $problemsev['nolocal'];
+			}
+		}
+
 		$totalseverity += $files[$directory]['severity'];
 	}
+
 	$totalrollup = 0;
+
 	foreach ($rollups as $rollupkey => $rollup)
 	{
 		if ($files[$directory]['severity'] > $rollup['rollup'])
@@ -542,8 +586,7 @@ function describeGDdyn()
 
 	if( function_exists('gd_info') )
 	{
-		$returnVal  = border('sgreen','start','GD Support')
-					. '<table class="bodyline" cellspacing="0">' . "\n";
+		$returnVal  = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">GD Status</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\"><span class=\"green\">On</span></td>\n\t</tr>\n";
 
 		$info = gd_info();
@@ -559,14 +602,13 @@ function describeGDdyn()
 				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">" . $keys[$i] . "</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\">" . $info[$keys[$i]] . "</td>\n\t</tr>\n";
 			}
 		}
-		$returnVal .= "</table>\n" . border('sgreen','end');
+		$returnVal .= "</table>\n";
 	}
 	else
 	{
-		$returnVal  = border('sred','start','GD Support')
-					.'<table class="bodyline" cellspacing="0">' . "\n";
+		$returnVal  = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow1\">GD Status</td>\n\t\t<td class=\"membersRowRight1\"><span class=\"red\">Off</span></td>\n\t</tr>\n";
-		$returnVal .= "</table>\n" . border('sred','end');
+		$returnVal .= "</table>\n";
 	}
 
 	return $returnVal;
@@ -682,33 +724,33 @@ function yesNo($bool)
 }
 
 
+/**
+ * Writes a file from the SVN copy
+ * (Not currently used)
+ *
+ * @param string $filename
+ * @return bool
+ */
 function downloadsvn($filename)
 {
 	$file_source = ROSTER_SVNREMOTE . '?getfile=' . $filename . '&mode=full';
 
-	$rh = fopen($file_source, 'rb');
-	$wh = fopen($filename, 'wb');
-	if ($rh===false || $wh===false)
+	$file_source = str_replace("\r\n","\n",urlgrabber($file_source));
+	if ($file_source===false)
 	{
-		print("[ERROR] Cannot Read File\n");
-		return false;
+		roster_die("[ERROR] Cannot Read File");
 	}
-	while (!feof($rh))
-	{
-		if(fwrite($wh, fread($rh, 1024)) === FALSE)
-		{
-			print("[ERROR] Cannot Write File\n");
-			return false;
-		}
-	}
-	fclose($rh);
-	fclose($wh);
+	file_writer($filename,$file_source);
 	return true;
 }
 
 
 function difffile($old,$new)
 {
+	// Clean up multiple line breaks
+	$old = str_replace("\r\n","\n",$old);
+	$new = str_replace("\r\n","\n",$new);
+
 	// Split the source text into arrays of lines
 	$t1 = explode("\n",$old);
 	$x = array_pop($t1);
@@ -900,6 +942,7 @@ function difffile($old,$new)
 		$op = 0;
 		$outcount++;
 	}
+
 	return $out;
 }
 
@@ -912,11 +955,10 @@ function difffile($old,$new)
  */
 function highlight_php($string, $startline=1)
 {
-  $lines = explode("\n",$string);
+	$lines = explode("\n",$string);
 
 	$returnstring = '<div style="white-space:nowrap;overflow:auto;"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-style:solid;border-width:1px;border-color:white black black white">';
 
-	$startline=1;
 	foreach( $lines as $key => $line )
 	{
 		if( !empty($line) )

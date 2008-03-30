@@ -1046,7 +1046,7 @@ function active_addon( $name )
  * @param  string $user_agent	| Useragent to use for connection
  * @return mixed		| False on error, contents on success
  */
-function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
+function urlgrabber( $url , $timeout=5 , $user_agent=false, $loopcount=0 )
 {
 	global $roster;
 
@@ -1064,6 +1064,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 
 	if( function_exists('curl_init') )
 	{
+//		trigger_error('UrlGrabber Info [CURL]: Activated', E_USER_WARNING);
 		$ch = curl_init($url);
 
 		$httpHeader = array( 'Accept-Language: ' . substr($roster->config['locale'], 0, 2) );
@@ -1125,6 +1126,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 	}
 	elseif( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
 	{
+//		trigger_error('UrlGrabber Info [fsock]: Activated', E_USER_WARNING);
 		// 0 = $url, 1 = host, 2 = port or null, 3 = page requested, 4 = pararms
 		$host = $matches[1];
 		$port = (($matches[2] == '') ? 80 : $matches[2]);
@@ -1164,19 +1166,17 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 				$info = stream_get_meta_data($file);
 				if( $inHeader )
 				{
-					$pos = strpos($chunk, '<');
-					if( $pos !== false )
+					if( $chunk == "\r\n" || $chunk == "\n" )
 					{
-						$contents .= substr( $chunk, $pos, strlen($chunk) );
 						$inHeader = false;
 					}
 					else
 					{
 						$resHeader .= $chunk;
-					}
-					if( preg_match('/^(?:Location:\s)(.+)/', $chunk, $tmp) )
-					{
-						$redirect = $tmp[1];
+						if( preg_match('/^(?:Location:\s)(.+)/', $chunk, $tmp) )
+						{
+							$redirect = $tmp[1];
+						}
 					}
 					continue;
 				}
@@ -1203,6 +1203,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent=false, $loopcount = 0 )
 	}
 	elseif( $contents = file_get_contents($url) )
 	{
+//		trigger_error('UrlGrabber Info [file_get_contents]: Activated', E_USER_WARNING);
 		return $contents;
 	}
 	else
