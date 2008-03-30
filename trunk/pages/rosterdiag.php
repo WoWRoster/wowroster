@@ -27,6 +27,7 @@ $roster->output['title'] = $roster->locale->act['rosterdiag'];
 // Include the library for RosterDiag
 include_once(ROSTER_LIB.'rosterdiag.lib.php');
 
+echo '<span class="title_text">' . $roster->locale->act['rosterdiag'] . '</span>';
 
 // Loging in as Admin to allow up- / downgrades && Downloads
 
@@ -145,36 +146,42 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnurl = parse_url(ROSTER_SVNREMOTE);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
-				$diffcheck = '<table><tr><th colspan="3" class="membersHeaderRight">SVN Image</th></tr><tr><td>&nbsp;</td><td><img src="'.$svnurl.$filename.'" alt="" /></td><td>&nbsp;</td></tr><tr><td colspan="3">&nbsp;</td></tr></table>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0">'
+						   . '<tr><th class="membersHeaderRight">SVN Image</th></tr>'
+						   . '<tr><td class="membersRowRight1"><img src="'.$svnurl.$filename.'" alt="" /></td></tr>'
+						   . '<tr><td class="membersRowRight2">&nbsp;</td></tr></table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">SVN File</th></tr>';
-				$diffcheck .= '<tr><td>'.highlight_php($filesvnsource).'</td></tr>';
-				$diffcheck .= '</table>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0">'
+						   . '<tr><th class="membersHeaderRight">SVN File</th></tr>'
+						   . '<tr><td class="membersRowRight1">'.highlight_php(str_replace("\r\n","\n",$filesvnsource)).'</td></tr>'
+						   . '</table>';
 			}
 		}
 
-		print('<table width="100%" border="0"><tr valign="top"><td align="center">'."\n");
-		print(border('syellow','start','MD5 Information for file: '.$filename)."\n");
-		print('<table width="100%" cellspacing="0" border="0" class="bodyline"><tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">'.$md5remote."</td>\n");
-		print("</tr><tr>\n");
-		print('<td class="membersRow2">Local:</td><td class="membersRowRight2">'.$md5local."</td>\n");
-		print("</tr></table>\n");
-		print(border('syellow','end').'<br />');
+		print '<table border="0" cellspacing="6"><tr><td valign="top" align="right">'."\n";
 
-		print('<td>&nbsp;</td><td align="center">');
+		print border('syellow','start','MD5 Information for file: '.$filename)."\n";
+		print '<table width="100%" cellspacing="0" border="0" class="bodyline">';
+		print '<tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">'.$md5remote."</td></tr>\n";
+		print '<tr><td class="membersRow2">Local:</td><td class="membersRowRight2">'.$md5local."</td></tr>\n";
+		print "</table>\n";
+		print border('syellow','end');
 
-		print(border('sblue','start','Back Link'));
-		print('<table width="100%" cellspacing="0" border="0" class="bodyline">');
-		print('<tr><td class="membersRowRight2"><form method="post" action="'.makelink().'">');
-		print('<input type="hidden" name="filename" value="'.$filename.'" />');
-		print('<input type="hidden" name="downloadsvn" value="savefile" />');
-		print('<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />');
-		print('</form></td></tr></table>');
-		print(border('sblue','end'));
+		print '</td><td>&nbsp;</td><td valign="top" align="left">';
 
-		print('</td></tr><tr><td colspan="3">');
+		print border('sblue','start','Back Link');
+		print '<table width="100%" cellspacing="0" border="0" class="bodyline">';
+		print '<tr><td class="membersRowRight2"><form method="post" action="'.makelink().'">';
+		print '<input type="hidden" name="filename" value="'.$filename.'" />';
+		print '<input type="hidden" name="downloadsvn" value="savefile" />';
+		print '<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />';
+		print '</form></td></tr></table>';
+		print border('sblue','end');
+
+		print '</td></tr></table><br />' ;
+
 		if (isset($_POST['downmode']) && $_POST['downmode'] == 'install')
 		{
 			$diffwindow = 'File Contents:&nbsp;&nbsp;';
@@ -183,22 +190,20 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		{
 			$diffwindow = 'File Differences for file:&nbsp;&nbsp;';
 		}
-		print('<div align="center" style="width:100%;">'.border('sblue','start',$diffwindow.$filename));
-		print($diffcheck);
-		print(border('sblue','end').'</div>');
-		print('</td></tr></table>');
+		print '<div align="center" style="width:100%;">'.border('sblue','start',$diffwindow.$filename);
+		print $diffcheck;
+		print border('sblue','end').'</div>';
 
 	}
 	else
 	{
-		print(border('sred','start','ERROR').'<div class="membersRow1">UNSPECIFIED ACTION<br />If you get this page, you probably are trying to exploit the system!</div>'.border('sred','end'));
+		roster_die('If you get this page, you probably are trying to exploit the system!','UNSPECIFIED ACTION');
 	}
 
 	return;
 }
 
 // Diplay Password Box
-echo '<span class="title_text">Roster Diag</span>';
 if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
 	echo '<br />' . $roster->auth->getLoginForm(ROSTERLOGIN_ADMIN);

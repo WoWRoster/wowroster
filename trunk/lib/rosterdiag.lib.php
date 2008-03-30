@@ -968,7 +968,7 @@ function highlight_php($string, $startline=1)
 			$linecoded = highlight_string($line,true);
 
 			$linecoded = str_replace(array('<font ', '</font>','<code>','</code>'), array('<span ', '</span>','',''), $linecoded);
-			$linecoded = preg_replace('#color="(.*?)"#', 'style="color: \\1"', $linecoded);
+			$linecoded = preg_replace('/color="(.*?)"/', 'style="color:\\1;"', $linecoded);
 
 			$linecoded = str_replace('&lt;?php&nbsp;x<br />', '', $linecoded);
 

@@ -297,7 +297,7 @@ $lang['stamina']='Stamina';
 $lang['intellect']='Intellect';
 $lang['spirit']='Spirit';
 
-$lang['rosterdiag'] = 'Roster Diag.';
+$lang['rosterdiag'] = 'RosterDiag';
 $lang['difficulty'] = 'Difficulty';
 $lang['recipe_4'] = 'optimal';
 $lang['recipe_3'] = 'medium';
