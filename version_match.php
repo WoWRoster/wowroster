@@ -210,7 +210,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 			{
 				if( $filedata['update'] )
 				{
-					if( isset($file) && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'missing' )
+					if( isset($file) && $file != 'newer' && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'missing' )
 					{
 						if( $zippackage_files != '' )
 						{
@@ -291,7 +291,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 				{
 					$filetooltip = 'Unknown';
 				}
-				if( isset($file) && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'diff' && $file != 'missing' )
+				if( isset($file) && $file != 'newer' && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'diff' && $file != 'missing' )
 				{
 					echo '<tr style="cursor:help;" onmouseover="overlib(\'<span style=&quot;color:blue;&quot;>' . $filetooltip . '</span>\',CAPTION,\'' . $file . '/&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$filedata['rollup']]['severityname'] . '\',WRAP);" onmouseout="return nd();">';
 					echo '<td class="membersRow' . $row . '"><span style="color:' . $severity[$filedata['rollup']]['color'] . '">' . $file . '</span></td>';

@@ -32,7 +32,7 @@ define('R_TPL_VERSION', '2.0.0.0');
  * @param string $hwidth Set a fixed width for the box
  * @return string
  */
-function border( $style , $mode , $header_text=null , $width='' )
+function border( $style , $mode , $header_text='' , $width='' )
 {
 	$backg_css = $style . 'border';
 	if( substr($style,0,1) == 's' )
@@ -43,7 +43,7 @@ function border( $style , $mode , $header_text=null , $width='' )
 
 	if( $header_text != '' && $style != 'end' )
 	{
-		$header_text = '<div class="header_text ' . $backg_css . '">' . $header_text . '</div>';
+		$header_text = "\n" . '<div class="header_text ' . $backg_css . '">' . $header_text . "</div>\n";
 	}
 	else
 	{
@@ -53,7 +53,7 @@ function border( $style , $mode , $header_text=null , $width='' )
 	// Dynamic Bordering
 	$start = '<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_color ' . $backg_css . '">' . $header_text;
 
-	$end = '</td></tr></table>';
+	$end = "\n</td></tr></table>\n";
 
 	switch( $mode )
 	{

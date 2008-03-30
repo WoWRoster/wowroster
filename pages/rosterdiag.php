@@ -56,45 +56,24 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 			$md5local = "Local File does not exist yet";
 		}
 
-		$rhmd5 = fopen(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=md5', 'rb');
-		if ($rhmd5===false)
+		$md5remote = urlgrabber(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=md5');
+		if ($md5remote===false)
 		{
-			print("[ERROR] Cannot Read MD5 Remote File\n");
-			exit();
+			roster_die("[ERROR] Cannot Read MD5 Remote File\n");
 		}
-		else
-		{
-			$md5remote = '';
-			while (!feof($rhmd5))
-			{
-				$md5remote .= fread($rhmd5, 1024);
-			}
-		}
-		fclose($rhmd5);
 
-		$rhheadersvn = fopen(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=diff', 'rb');
-		if ($rhheadersvn===false)
+		$filesvnsource = urlgrabber(ROSTER_SVNREMOTE.'?getfile='.$filename.'&mode=diff');
+		if ($filesvnsource===false)
 		{
-			print("[ERROR] Cannot Read Remote File\n");
-			exit();
+			roster_die("[ERROR] Cannot Read Remote File\n");
 		}
-		else
-		{
-			$filesvnsource = '';
-			while (!feof($rhheadersvn))
-			{
-				$filesvnsource .= fread($rhheadersvn, 2048+10);
-			}
-		}
-		fclose($rhheadersvn);
 
 		if (file_exists($filename) && is_file($filename) && filesize($filename))
 		{
 			$rhheaderlocal = fopen($filename, 'rb');
 			if ($rhheaderlocal===false)
 			{
-				print("[ERROR] Cannot Read Local File\n");
-				exit();
+				roster_die("[ERROR] Cannot Read Local File\n");
 			}
 			else
 			{
@@ -105,7 +84,6 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				}
 			}
 			fclose($rhheaderlocal);
-
 
 
 			// Perform a DIFF check on the local and remote file
@@ -126,12 +104,17 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				foreach ($difffiles as $difference)
 				{
 					if($row_color==1)
+					{
 						$row_color=2;
+					}
 					else
+					{
 						$row_color=1;
+					}
 
 					$rowfile1 = explode(",", $difference['rownr1']);
 					$rowfile2 = explode(",", $difference['rownr2']);
+
 					$diffcheck .= "<tr valign=\"top\">";
 
 					$diffcheck .= '<td class="membersRow'.$row_color.'">';
@@ -142,20 +125,12 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 					if (isset($difference['from']))
 					{
-						foreach ($difference['from'] as $key => $value)
-						{
-							$from = $value."\n";
-						}
-						$diffcheck .= highlight_php($from, $rowfile1[0]);
+						$diffcheck .= highlight_php(implode("\n",$difference['from']), $rowfile1[0]);
 					}
 					$diffcheck .= '</td><td class="membersRowRight'.$row_color.'">';
 					if (isset($difference['to']))
 					{
-						foreach ($difference['to'] as $key => $value)
-						{
-							$to = $value."\n";
-						}
-						$diffcheck .= highlight_php($to, $rowfile2[0]);
+						$diffcheck .= highlight_php(implode("\n",$difference['to']), $rowfile2[0]);
 					}
 					$diffcheck .= '</td>';
 					$diffcheck .= '</tr>';
@@ -241,8 +216,8 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display basic server info
 $rowstripe = 0;
-echo border('syellow','start','Basic Server Info').'
-<table width="300" class="bodyline" cellspacing="0">
+echo messageboxtoggle('
+<table width="100%" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">OS</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.php_uname('s').'</td>
@@ -255,12 +230,11 @@ echo border('syellow','start','Basic Server Info').'
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">MySQL Version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->db->server_info().'</td>
 	</tr>
-</table>'.
-border('syellow','end').'
+</table>','Basic Server Info','syellow',false,'350px').'
 <br />
 '.
-border('syellow','start','PHP Settings').'
-<table width="300" class="bodyline" cellspacing="0">
+messageboxtoggle('
+<table width="100%" class="bodyline" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">PHP Version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.PHP_VERSION.'</td>
@@ -289,8 +263,7 @@ border('syellow','start','PHP Settings').'
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">upload_max_filesize</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.ini_get('upload_max_filesize').'</td>
 	</tr>
-</table>
-'.border('syellow','end');
+</table>','PHP Settings','syellow',false,'350px');
 
 
 
@@ -300,7 +273,7 @@ echo "</td><td valign=\"top\">\n";
 
 
 // Display GD info
-echo describeGDdyn();
+echo messageboxtoggle(describeGDdyn(),'GD Support','sgreen',false,'350px');
 
 
 // Table display fix
@@ -309,8 +282,11 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display conf.php info
 
-echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'.makelink('rosterdiag&amp;printconf=1').'" target="_blank">Show Entire $roster->config array</a></small></i>').
-'<table width="100%" class="bodyline" cellspacing="0">
+echo messageboxtoggle('
+<table width="100%" class="bodyline" cellspacing="0">
+	<tr>
+		<th colspan="2" class="membersHeaderRight"><i><a href="'.makelink('rosterdiag&amp;printconf=1').'" target="_blank">Show Entire $roster->config array</a></i></th>
+	</tr>
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['version'].'</td>
@@ -326,6 +302,7 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">debug_mode</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOffRev($roster->config['debug_mode']).( $roster->config['debug_mode'] == 2 ? ' (extended)' : '' ).'</td>
+	</tr>
 	<tr>
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">roster_lang</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->config['locale'].'</td>
@@ -350,8 +327,7 @@ echo border('sblue','start','Config Values&nbsp;&nbsp;&nbsp;<i><small><a href="'
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">rs_mode</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['rs_mode']).'</td>
 	</tr>
-</table>
-'.border('sblue','end')."
+</table>','Config Values','sblue',false,'350px')."
 <br />\n";
 
 
@@ -360,32 +336,32 @@ echo "</td><td valign=\"top\">\n";
 
 
 // Display MySQL Tables
-echo border('sgray','start','List of Tables').
-'<table width="100%" class="bodyline" cellspacing="0">'."\n";
+$sql_tables = '<table width="100%" class="bodyline" cellspacing="0">'."\n";
 
 $result = $roster->db->query("SHOW TABLES;");
 if( !$result )
 {
-	echo '<tr><td class="membersRow1">DB Error, could not list tables<br />'."\n";
-	echo 'MySQL Error: '.$roster->db->error().'</td></tr>'."\n";
+	$sql_tables .= '<tr><td class="membersRow1">DB Error, could not list tables<br />'."\n";
+	$sql_tables .= 'MySQL Error: '.$roster->db->error().'</td></tr>'."\n";
 }
 else
 {
 	$rowstripe = 1;
 	while( $row = $roster->db->fetch($result) )
 	{
-		echo '<tr><td class="membersRowRight'.(((++$rowstripe)%2)+1).'">'.$row[0].'</td></tr>'."\n";
+		$sql_tables .= '<tr><td class="membersRowRight'.(((++$rowstripe)%2)+1).'">'.$row[0].'</td></tr>'."\n";
 	}
+	$roster->db->free_result($result);
 }
-echo "</table>\n".border('sgray','end');
-$roster->db->free_result($result);
+$sql_tables .= "</table>\n";
+echo messageboxtoggle($sql_tables,'List of Tables','',false,'350px');
 
 
 // Table display fix
 echo "</td></tr></table>\n<br />\n";
 
 // File Versioning Information
-if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
+if( GrabRemoteVersions() !== false )
 {
 	//GrabRemoteVersions();
 	VerifyVersions();
@@ -401,7 +377,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 			{
 				if($filedata['update'])
 				{
-					if (isset($file) && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'missing')
+					if (isset($file) && $file != 'newer' && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'missing')
 					{
 						if ($zippackage_files != '')
 						{
@@ -452,13 +428,13 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 			$dirshow = substr_replace($directory, substr(ROSTER_PATH,1,-1), 0, 1);
 
 
-			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
-			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['theme_path'].'/images/plus.gif" alt="" /></div>'.$dirshow.'/</div>';
+			$headertext_max = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '
+							. 'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'
+							. '<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['theme_path'].'/images/plus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
-			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '.
-			'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'.
-			'<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['theme_path'].'/images/minus.gif" alt="" /></div>'.$dirshow.'/</div>';
+			$headertext_min = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="swapShow(\''.$directory_id.'TableShow\',\''.$directory_id.'TableHide\')" '
+							. 'onmouseover="overlib(\''.$dirtooltip.'\',CAPTION,\''.$dirshow.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$files[$directory]['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">'
+							. '<div style="float:right;"><span style="color:'.$severity[$files[$directory]['rollup']]['color'].';">'.$severity[$files[$directory]['rollup']]['severityname'].'</span> <img class="membersRowimg" src="'.$roster->config['theme_path'].'/images/minus.gif" alt="" /></div>'.$dirshow.'/</div>';
 
 
 			echo '<div style="display:none;" id="'.$directory_id.'TableShow">';
@@ -485,7 +461,7 @@ if (ini_get('allow_url_fopen') && GrabRemoteVersions() !== false )
 				{
 					$filetooltip = 'Unknown';
 				}
-				if (isset($file) && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'diff' && $file != 'missing')
+				if (isset($file) && $file != 'newer' && $file != 'severity' && $file != 'tooltip' && $file != 'rollup' && $file != 'rev' && $file != 'date' && $file != 'author' && $file != 'md5' && $file != 'update' && $file != 'diff' && $file != 'missing')
 				{
 					echo '<tr style="cursor:help;" onmouseover="overlib(\'<span style=&quot;color:blue;&quot;>'.$filetooltip.'</span>\',CAPTION,\''.$file.'/&nbsp;&nbsp;-&nbsp;&nbsp;'.$severity[$filedata['rollup']]['severityname'].'\',WRAP);" onmouseout="return nd();">';
 					echo '<td class="membersRow'.$row.'"><span style="color:'.$severity[$filedata['rollup']]['color'].'">'.$file.'</span></td>';
@@ -573,7 +549,7 @@ else
 	echo '<form method="post" action="'.ROSTER_SVNREMOTE.'">';
 	echo '<input type="hidden" name="remotediag" value="true" />';
 	echo '<input type="hidden" name="guildname" value="'.$roster->config['default_name'].'" />';
-	echo '<input type="hidden" name="website" value="'.	ROSTER_PATH .'" />';
+	echo '<input type="hidden" name="website" value="'.ROSTER_PATH .'" />';
 
 	foreach ($files as $directory => $filedata)
 	{
@@ -587,7 +563,7 @@ else
 		}
 	}
 	echo border('sblue','start','File Version Information');
-	echo '<div class="membersRowRight1"><div align="center"><b>fopen_url</b> is <span style="color:red;">NOT Supported</span> by your Web Server.<br />Please press the button to process the File Verion Check remotely';
+	echo '<div class="membersRowRight1"><div align="center">Cannot access Roster site for file integrity checking<br />Please press the button to perform a remote File Verion Check';
 	echo '<br /><br /><input type="submit" value="Check files Remotely"></div></div>';
 	echo border('sblue','end');
 }

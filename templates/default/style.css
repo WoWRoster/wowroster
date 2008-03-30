@@ -20,7 +20,6 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .roster-wrap {
 	font:12px arial,helvetica,sans-serif;
 	color:#FFFFFF;
-	text-align: center;
 }
 
 img, p { padding:0;margin:0;border:0; }
@@ -79,22 +78,22 @@ select {
 	border-width:1px;
 	border-style:solid;
 	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding: 3px 5px;
-	font-size: 11px;
+	padding:3px 5px;
+	font-size:11px;
 }
 
 .search-other td {
-	text-align: left;
-	border-left: 1px solid #4e4d4c;
-	padding: 3px 5px;
-	font-size: 13px;
+	text-align:left;
+	border-left:1px solid #4e4d4c;
+	padding:3px 5px;
+	font-size:13px;
 }
 
 .search-other ul {
-	padding: 0px;
-	margin: 0px 0px;
-	list-style: inside;
-	font-size: 11px;
+	padding:0px;
+	margin:0px 0px;
+	list-style:inside;
+	font-size:11px;
 }
 
 /**
@@ -257,25 +256,25 @@ select {
 
 /* Container for the main roster menu */
 .menu_container {
-	background: #1F1E1D;
-	width: 528px;
-/*	padding: 2px; */
-/*	border: 1px solid #CBA300; */
-	color: #FFFFFF;
+	background:#1F1E1D;
+	width:528px;
+/*	padding:2px; */
+/*	border:1px solid #CBA300; */
+	color:#FFFFFF;
 }
 
 .menu_container div div {
 	font:9px verdana,arial,helvetica,sans-serif;
 	margin:0px;
 	padding:0px;
-	border-top: 1px solid #CBA300;
+	border-top:1px solid #CBA300;
 }
 
 /* Header Backgrounds */
-.menu_bg_01 { background: url(images/menu/menu_btn_guild.png) no-repeat left center; }
-.menu_bg_02 { background: url(images/menu/menu_btn_realm.png) no-repeat left center; }
-.menu_bg_03 { background: url(images/menu/menu_btn_update.png) no-repeat left center; }
-.menu_bg_04 { background: url(images/menu/menu_btn_utilities.png) no-repeat left center; }
+.menu_bg_01 { background:url(images/menu/menu_btn_guild.png) no-repeat left center; }
+.menu_bg_02 { background:url(images/menu/menu_btn_realm.png) no-repeat left center; }
+.menu_bg_03 { background:url(images/menu/menu_btn_update.png) no-repeat left center; }
+.menu_bg_04 { background:url(images/menu/menu_btn_utilities.png) no-repeat left center; }
 
 /* Main Header Block */
 .menu_header {
@@ -290,64 +289,64 @@ select {
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
-	display: table;
-	width: 100%;
+	display:table;
+	width:100%;
 }
 
 .menu_header li {
 	width:128px;
 	float:left;
-	cursor: pointer;
-	margin: 2px;
-	background: #2E2D2C;
+	cursor:pointer;
+	margin:2px;
+	background:#2E2D2C;
 }
 
 .menu_header li a {
-	text-align: left;
-	display: block;
-	border: 2px solid #4E4D4C;
-	height: 32px;
-	padding: 2px 2px 2px 34px;
-	margin: 0px;
-	color: #FFCC00;
-	text-decoration: none;
+	text-align:left;
+	display:block;
+	border:2px solid #4E4D4C;
+	height:32px;
+	padding:2px 2px 2px 34px;
+	margin:0px;
+	color:#FFCC00;
+	text-decoration:none;
 }
 
-.menu_header li a:hover { border: 2px solid #0066FF; }
+.menu_header li a:hover { border:2px solid #0066FF; }
 
 /* Utility Scope Block */
 .menu_utility {
 	margin:2px 0px 0px;
 	padding:0px;
 	width:100%;
-	display: block;
+	display:block;
 }
 
 .menu_utility ul {
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
-	display: table;
-	width: 100%;
-	border-top: 1px solid #A37300;
+	display:table;
+	width:100%;
+	border-top:1px solid #A37300;
 }
 
 .menu_utility li {
-	float: right;
-	cursor: pointer;
-	margin: 3px;
-	background: #2E2D2C;
+	float:right;
+	cursor:pointer;
+	margin:3px;
+	background:#2E2D2C;
 }
 
 .menu_utility li a {
-	display: block;
-	border: 2px solid #4E4D4C;
-	height: 30px;
-	width: 30px;
-	padding: 2px;
+	display:block;
+	border:2px solid #4E4D4C;
+	height:30px;
+	width:30px;
+	padding:2px;
 }
 
-.menu_utility li a:hover { border: 2px solid #0066FF; }
+.menu_utility li a:hover { border:2px solid #0066FF; }
 
 
 /* General Scope Block */
@@ -355,34 +354,34 @@ select {
 	margin:2px 0px 0px;
 	padding:0px;
 	width:100%;
-	display: block;
+	display:block;
 }
 
 .menu_scope ul {
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
-	display: table;
-	width: 100%;
-	border-top: 1px solid #A37300;
+	display:table;
+	width:100%;
+	border-top:1px solid #A37300;
 }
 
 .menu_scope li {
 	float:left;
-	cursor: pointer;
-	margin: 3px;
-	background: #2E2D2C;
+	cursor:pointer;
+	margin:3px;
+	background:#2E2D2C;
 }
 
 .menu_scope li a {
-	display: block;
-	border: 2px solid #4E4D4C;
-	height: 30px;
-	width: 30px;
-	padding: 2px;
+	display:block;
+	border:2px solid #4E4D4C;
+	height:30px;
+	width:30px;
+	padding:2px;
 }
 
-.menu_scope li a:hover { border: 2px solid #0066FF; }
+.menu_scope li a:hover { border:2px solid #0066FF; }
 
 
 /* Ignore the following options except in the cp */
@@ -576,78 +575,69 @@ select {
  * Border Styles
  */
 .border_frame {
-	background-color: #000000;
-	border-top: 1px solid #c6c7cb;
-	border-right: 1px solid #5f6060;
-	border-bottom: 1px solid #393939;
-	border-left: 1px solid #696b6e;
-	margin: auto;
+	background-color:#000000;
+	border-top:1px solid #c6c7cb;
+	border-right:1px solid #5f6060;
+	border-bottom:1px solid #393939;
+	border-left:1px solid #696b6e;
+	margin:auto;
 }
 
 .border_color {
-	background-color: #1F1E1D;
-	padding: 1px;
-	color: #FFFFFF;
-	font-family: Arial, Helvetica, sans-serif;
-	text-align: center;
-	border-width: 1px;
-	border-style: solid;
+	background-color:#1F1E1D;
+	padding:1px;
+	color:#FFFFFF;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+	border-width:1px;
+	border-style:solid;
 }
 
 .divider_gold {
-	height: 1px;
-	margin: 0px;
-	padding: 0px;
-	background-color: #D3A229;
-	border-top: 1px solid #000000;
-	border-bottom: 1px solid #000000;
+	height:1px;
+	margin:0px;
+	padding:0px;
+	background-color:#D3A229;
+	border-top:1px solid #000000;
+	border-bottom:1px solid #000000;
 }
 
-.motd_setup { font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #FFFFFF; font-style: normal; padding-right: 8px; padding-left: 23px; background: #660000 url(../../img/motd_left.gif) no-repeat left center; height: 21px; }
+.motd_setup {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#FFFFFF;
+	font-style:normal;
+	padding-right:8px;
+	padding-left:23px;
+	background:#660000 url(../../img/motd_left.gif) no-repeat left center;
+	height:21px;
+}
 
 /* Header Text */
 .header_text {
-	margin-bottom: 1px;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	text-align: center;
-	background-color: #333333;
+	margin-bottom:1px;
+	border-bottom-width:1px;
+	border-bottom-style:solid;
+	text-align:center;
+	background-color:#333333;
 	font-weight:bold;
 	font-size:14px;
 	white-space:nowrap;
 	overflow:hidden;
-	padding-bottom: 1px;
-	background-image: url(images/bgheader.gif);
+	padding-bottom:1px;
+	background-image:url(images/bgheader.gif);
 }
 
-/* Border Colours */
-.swhiteborder {
-	border-color: #FFFFFF;
-}
-.sgreyborder, .sgrayborder {
-	border-color: #999999;
-}
-.sgoldborder {
-	border-color: #D3A229;
-}
-.sredborder {
-	border-color: #FF0000;
-}
-.sorangeborder {
-	border-color: #FFA500;
-}
-.syellowborder {
-	border-color: #FFCC00;
-}
-.sgreenborder {
-	border-color: #008000;
-}
-.sblueborder {
-	border-color: #0000FF;
-}
-.spurpleborder {
-	border-color: #4B0082;
-}
+/* Border Colors */
+.swhiteborder { border-color:#FFFFFF; }
+.sgreyborder, .sgrayborder { border-color:#999999; }
+.sgoldborder { border-color:#D3A229; }
+.sredborder { border-color:#FF0000; }
+.sorangeborder { border-color:#FFA500; }
+.syellowborder { border-color:#FFCC00; }
+.sgreenborder { border-color:#008000; }
+.sblueborder { border-color:#0000FF; }
+.spurpleborder { border-color:#4B0082; }
 
 /**
  * Bag Styles
@@ -821,21 +811,21 @@ select {
 	padding-bottom:1px;
 	background-color:#1F1E1D;
 	border:1px solid #5D5D5D;
-	width: 252px;	/* IE 5.x */
+	width:252px;	/* IE 5.x */
 	width/* */:/**/250px;	/* Other browsers */
-	width: /**/250px;
+	width:/**/250px;
 }
 #colorPicker .colorPicker_topRow {
 	padding-bottom:1px;
 	border-bottom:3px double #5D5D5D;
 	background-color:#2E2D2B;
 	padding-left:2px;
-	width: 250px;	/* IE 5.x */
+	width:250px;	/* IE 5.x */
 	width/* */:/**/248px;	/* Other browsers */
-	width: /**/248px;
-	height: 20px;	/* IE 5.x */
+	width:/**/248px;
+	height:20px;	/* IE 5.x */
 	height/* */:/**/16px;	/* Other browsers */
-	height: /**/16px;
+	height:/**/16px;
 }
 #colorPicker .colorPicker_statusBar {
 	height:13px;
@@ -845,12 +835,12 @@ select {
 	background-color:#2E2D2B;
 	padding-left:2px;
 	clear:both;
-	width: 250px;	/* IE 5.x */
+	width:250px;	/* IE 5.x */
 	width/* */:/**/248px;	/* Other browsers */
-	width: /**/248px;
-	height: 18px;	/* IE 5.x */
+	width:/**/248px;
+	height:18px;	/* IE 5.x */
 	height/* */:/**/13px;	/* Other browsers */
-	height: /**/13px;
+	height:/**/13px;
 }
 #colorPicker .colorSquare {
 	margin-left:1px;
@@ -858,12 +848,12 @@ select {
 	float:left;
 	border:1px solid #000;
 	cursor:pointer;
-	width: 12px;	/* IE 5.x */
+	width:12px;	/* IE 5.x */
 	width/* */:/**/10px;	/* Other browsers */
-	width: /**/10px;
-	height: 12px;	/* IE 5.x */
+	width:/**/10px;
+	height:12px;	/* IE 5.x */
 	height/* */:/**/10px;	/* Other browsers */
-	height: /**/10px;
+	height:/**/10px;
 }
 
 .colorPickerTab_inactive,
@@ -878,11 +868,11 @@ select {
 	font-weight:bold;
 	font-family:arial,helvetica,sans-serif;
 	font-size:11px;
-	color: #CBA300;
+	color:#CBA300;
 	padding-top:1px;
 	vertical-align:middle;
 	background-position:top left;
-	background-repeat: no-repeat;
+	background-repeat:no-repeat;
 	float:left;
 	padding-left:6px;
 }
@@ -900,7 +890,7 @@ select {
 #colorPicker_statusBarTxt {
 	font-size:11px;
 	font-family:arial,helvetica,sans-serif;
-	color: #CBA300;
+	color:#CBA300;
 	vertical-align:top;
 	line-height:13px;
 }
@@ -913,12 +903,12 @@ select {
 	background-color:#2E2D2B;
 	position:absolute;
 	bottom:0px;
-	width: 5px;	/* IE 5.x */
+	width:5px;	/* IE 5.x */
 	width/* */:/**/3px;	/* Other browsers */
-	width: /**/3px;
-	height: 5px;	/* IE 5.x */
+	width:/**/3px;
+	height:5px;	/* IE 5.x */
 	height/* */:/**/3px;	/* Other browsers */
-	height: /**/3px;
+	height:/**/3px;
 }
 .colorSliderLabel {
 	width:15px;
@@ -926,7 +916,7 @@ select {
 	float:left;
 	font-size:11px;
 	font-weight:bold;
-	color: #CBA300;
+	color:#CBA300;
 }
 .colorSlider { width:175px;height:20px;float:left; }
 .colorInput { width:45px;height:20px;float:left; }
@@ -939,11 +929,11 @@ select {
 	height:20px;
 	float:left;
 	cursor:pointer;
-	width: 182px;	/* IE 5.x */
+	width:182px;	/* IE 5.x */
 	width/* */:/**/180px;	/* Other browsers */
-	width: /**/180px;
-	height: 22px;	/* IE 5.x */
+	width:/**/180px;
+	height:22px;	/* IE 5.x */
 	height/* */:/**/20px;	/* Other browsers */
-	height: /**/20px;
+	height:/**/20px;
 }
 .colorCodeDiv { width:50px;height:20px;float:left; }
