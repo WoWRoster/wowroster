@@ -308,11 +308,31 @@ function backtrace()
 			{
 				if( is_array($bt[$i]['args'][$j]) )
 				{
-					$output .= '<li>' . print_r($bt[$i]['args'][$j],true) . "</li>\n";
+					$output .= '<li>Array(<ul>';
+					foreach( $bt[$i]['args'][$j] as $key => $value )
+					{
+						if( is_array( $value ) )
+						{
+							$output .= '<li>' . $key . ' => array</li>';
+						}
+						elseif( is_object( $value ) )
+						{
+							$output .= '<li>' . $key . ' => ' . get_class( $value ) . ' object</li>';
+						}
+						elseif( is_null( $value ) )
+						{
+							$output .= '<li>' . $key . ' => <i>NULL</i></li>';
+						}
+						else
+						{
+							$output .= '<li>' . $key . ' => ' . $value . '</li>';
+						}
+					}
+					$output .= "</ul></li>\n";
 				}
 				elseif( is_object($bt[$i]['args'][$j]) )
 				{
-					$output .= "<li>object</li>\n";
+					$output .= "<li>" . get_class($bt[$i]['args'][$j]) . " object</li>\n";
 				}
 				elseif( is_null($bt[$i]['args'][$j]) )
 				{
