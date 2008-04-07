@@ -23,7 +23,6 @@
 //\  Contributors are listed on the homepage.
 //\  See http://www.bosrup.com/web/overlib/ for details.
 //\/////
-//\ Added for SVN Versioning: * $Id$
 //\  THIS IS A VERY MODIFIED VERSION. DO NOT EDIT OR PUBLISH. GET THE ORIGINAL!
 if(typeof olInfo=='undefined'||typeof olInfo.meets=='undefined'||!olInfo.meets(4.10))alert('overLIB 4.10 or later is required for the HideForm Plugin.');else{
 function generatePopUp(content){if(!olIe4||olOp||!olIe55||(typeof o3_shadow!='undefined'&&o3_shadow)||(typeof o3_bubble!='undefined'&&o3_bubble))return;

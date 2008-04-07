@@ -190,9 +190,9 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		{
 			$diffwindow = 'File Differences for file:&nbsp;&nbsp;';
 		}
-		print '<div align="center" style="width:100%;">'.border('sblue','start',$diffwindow.$filename);
+		print border('sblue','start',$diffwindow.$filename,'90%');
 		print $diffcheck;
-		print border('sblue','end').'</div>';
+		print border('sblue','end');
 
 	}
 	else

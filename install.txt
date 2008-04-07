@@ -27,8 +27,7 @@ For corrections and/or suggestions - http://www.wowroster.net
     o Check out the First Upload instructions for help [http://www.wowroster.net/MediaWiki/Roster:FirstUpload]
 
 * Have members install CharacterProfiler (and optional PVPLog)
-    o Deputize people you trust with the Roster Upload/Officer password
-      to also run GuildProfiler
+    o Deputize people you trust with the Roster Upload/Officer password to also run GuildProfiler
 	o Profiler Add-ons can be downloaded here [http://www.wowroster.net/Downloads/c=3.html]
 
 * Have everyone upload their data with regularity or look into using UniUploader, javaUniUploader, or phpUniUploader
