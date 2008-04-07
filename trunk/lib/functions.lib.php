@@ -1536,6 +1536,17 @@ function updateCheck( $addon )
 function dummy(){}
 
 
+/**
+ * A nifty Pagination function, sets template variables
+ * Can only be used once on a page
+ *
+ * @param string $base_url
+ * @param int $num_items
+ * @param int $per_page
+ * @param int $start_item
+ * @param bool $add_prevnext
+ * @return void
+ */
 function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
 {
 	function paginate_page( $page , $url , $first=false )
@@ -1557,7 +1568,8 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 
 	if( $total_pages < 2 )
 	{
-		return $roster->tpl->assign_var('B_PAGINATION', false);
+		$roster->tpl->assign_var('B_PAGINATION', false);
+		return;
 	}
 
 	$roster->tpl->assign_vars(array(

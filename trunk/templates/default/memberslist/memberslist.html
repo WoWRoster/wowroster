@@ -5,11 +5,9 @@
 <table class="border_frame" cellpadding="0" cellspacing="1" style="width:450px;">
 	<tr>
 		<td class="border_color sblueborder">
-			<div class="header_text sblueborder">
-				<div style="cursor:pointer;width:100%;" onclick="showHide('sortfilter','img_sortfilter','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
-					<img style="float:right;" id="img_sortfilter" src="{THEME_PATH}/images/<!-- IF S_HIDE_FILTER -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" />
-					{L_SORT_FILTER}
-				</div>
+			<div class="header_text sblueborder" style="cursor:pointer;width:100%;" onclick="showHide('sortfilter','img_sortfilter','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
+				<img style="float:right;" id="img_sortfilter" src="{THEME_PATH}/images/<!-- IF S_HIDE_FILTER -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" />
+				{L_SORT_FILTER}
 			</div>
 
 			<table id="sortfilter" cellpadding="0" cellspacing="0" style="width:100%;<!-- IF S_HIDE_FILTER -->display:none;<!-- ENDIF -->">
@@ -60,9 +58,11 @@
 				<tr>
 
 <!-- IF S_GROUP_ALTS gte 1 -->
-					<th class="membersHeader"><a href="#" onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;"><img src="{THEME_PATH}/images/minus.gif" alt="+" />{L_CLOSE_ALL}</a></th>
+					<th class="membersHeader"><a href="#" onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+						<img src="{THEME_PATH}/images/minus.gif" alt="+" />{L_CLOSE_ALL}</a></th>
 <!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-					<th class="membersHeader"><a href="#" onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;"><img src="{THEME_PATH}/images/plus.gif" alt="-" />{L_OPEN_ALL}</a></th>
+					<th class="membersHeader"><a href="#" onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
+						<img src="{THEME_PATH}/images/plus.gif" alt="-" />{L_OPEN_ALL}</a></th>
 <!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
 					<th class="membersHeader"><a href="{U_UNGROUP_ALTS}">{L_UNGROUP_ALTS}</a></th>
 <!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->

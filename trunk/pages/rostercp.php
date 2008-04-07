@@ -47,7 +47,7 @@ if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 
 include_once(ROSTER_ADMIN . 'pages.php');
 
-$header = $menu = $pagebar = $addon_pagebar = $footer = $body = $rcp_message = '';
+$header = $menu = $pagebar = $footer = $body = $rcp_message = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
 
@@ -130,6 +130,8 @@ foreach( $config_pages as $pindex => $data )
 
 // Added to get the newest addon list because we may have installed/uninstalled something
 $roster->get_addon_data();
+
+$roster->tpl->assign_var('ADDON_PAGEBAR',(bool)count($roster->addon_data));
 
 foreach( $roster->addon_data as $row )
 {
