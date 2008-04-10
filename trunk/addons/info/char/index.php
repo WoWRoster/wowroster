@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
 }
 
 /*
-if( $addon['config']['show_item_bonuses'] )
+if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
 {
 	$roster->output['html_head'] .= '<script type="text/javascript" src="' . $addon['url_path'] . 'js/overlib_overtwo.js"></script>';
 	$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'js/overlib.js"></script>';
@@ -31,7 +31,7 @@ include( $addon['inc_dir'] . 'header.php' );
 
 $char_page .= $char->out();
 
-if( $addon['config']['show_item_bonuses'] )
+if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
 {
 	$char_page .= "</td><td align=\"left\">\n";
 	require_once($addon['inc_dir'] . 'charbonus.lib.php');

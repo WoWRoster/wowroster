@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
 
 include( $addon['inc_dir'] . 'header.php' );
 
-if( $addon['config']['show_bank'] == 1 )
+if( $roster->auth->getAuthorized($addon['config']['show_bank']) )
 {
 	$bag0 = bag_get( $char->get('member_id'), 'Bank Bag0' );
 	if( !is_null( $bag0 ) )

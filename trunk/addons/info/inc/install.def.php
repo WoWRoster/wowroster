@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '1.9.9.1477';
+	var $version = '1.9.9.1745';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -54,37 +54,75 @@ class infoInstall
 		$installer->add_config("'120','char_pref','rostercp-addon-info-display','makelink','menu'");
 
 		$installer->add_config("'1000', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
-		$installer->add_config("'1005', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
-		$installer->add_config("'1010', 'show_money', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1020', 'show_played', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1030', 'show_tab2', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1040', 'show_tab3', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1050', 'show_tab4', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1060', 'show_tab5', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1070', 'show_talents', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1080', 'show_spellbook', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1090', 'show_mail', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1100', 'show_bags', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1110', 'show_bank', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1120', 'show_quests', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1130', 'show_recipes', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
-		$installer->add_config("'1140', 'show_item_bonuses', '2', 'radio{on^1|off^0|user^2', 'char_conf'");
+		$installer->add_config("'1010', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
+		$installer->add_config("'1020', 'show_money', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1030', 'show_played', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1040', 'show_tab2', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1050', 'show_tab3', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1060', 'show_tab4', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1070', 'show_tab5', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1080', 'show_talents', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1090', 'show_spellbook', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1100', 'show_mail', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1110', 'show_bags', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1120', 'show_bank', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1130', 'show_quests', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1140', 'show_recipes', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1150', 'show_item_bonuses', '0', 'function{infoAccess', 'char_conf'");
 
-		$installer->add_query("ALTER TABLE `" . $roster->db->table('players') . "`
-		  ADD `show_money` TINYINT(1) NOT NULL default '3',
-		  ADD `show_played` TINYINT(1) NOT NULL default '3',
-		  ADD `show_tab2` TINYINT(1) NOT NULL default '3',
-		  ADD `show_tab3` TINYINT(1) NOT NULL default '3',
-		  ADD `show_tab4` TINYINT(1) NOT NULL default '3',
-		  ADD `show_tab5` TINYINT(1) NOT NULL default '3',
-		  ADD `show_talents` TINYINT(1) NOT NULL default '3',
-		  ADD `show_spellbook` TINYINT(1) NOT NULL default '3',
-		  ADD `show_mail` TINYINT(1) NOT NULL default '3',
-		  ADD `show_bags` TINYINT(1) NOT NULL default '3',
-		  ADD `show_bank` TINYINT(1) NOT NULL default '3',
-		  ADD `show_quests` TINYINT(1) NOT NULL default '3',
-		  ADD `show_recipes` TINYINT(1) NOT NULL default '3',
-		  ADD `show_item_bonuses` TINYINT(1) NOT NULL default '3';");
+		$installer->create_table($installer->table(''),"
+		  `member_id` int(11) NOT NULL default '0',
+		  `show_money` tinyint(1) NOT NULL default '0',
+		  `show_played` tinyint(1) NOT NULL default '0',
+		  `show_tab2` tinyint(1) NOT NULL default '0',
+		  `show_tab3` tinyint(1) NOT NULL default '0',
+		  `show_tab4` tinyint(1) NOT NULL default '0',
+		  `show_tab5` tinyint(1) NOT NULL default '0',
+		  `show_talents` tinyint(1) NOT NULL default '0',
+		  `show_spellbook` tinyint(1) NOT NULL default '0',
+		  `show_mail` tinyint(1) NOT NULL default '0',
+		  `show_bags` tinyint(1) NOT NULL default '0',
+		  `show_bank` tinyint(1) NOT NULL default '0',
+		  `show_quests` tinyint(1) NOT NULL default '0',
+		  `show_recipes` tinyint(1) NOT NULL default '0',
+		  `show_item_bonuses` tinyint(1) NOT NULL default '0',
+		  PRIMARY KEY  (`member_id`)");
+
+
+		$installer->create_table($installer->table('default'),"
+		  `show_money` tinyint(1) NOT NULL default '0',
+		  `show_played` tinyint(1) NOT NULL default '0',
+		  `show_tab2` tinyint(1) NOT NULL default '0',
+		  `show_tab3` tinyint(1) NOT NULL default '0',
+		  `show_tab4` tinyint(1) NOT NULL default '0',
+		  `show_tab5` tinyint(1) NOT NULL default '0',
+		  `show_talents` tinyint(1) NOT NULL default '0',
+		  `show_spellbook` tinyint(1) NOT NULL default '0',
+		  `show_mail` tinyint(1) NOT NULL default '0',
+		  `show_bags` tinyint(1) NOT NULL default '0',
+		  `show_bank` tinyint(1) NOT NULL default '0',
+		  `show_quests` tinyint(1) NOT NULL default '0',
+		  `show_recipes` tinyint(1) NOT NULL default '0',
+		  `show_item_bonuses` tinyint(1) NOT NULL default '0'");
+
+		$build_query = array(
+			'show_money' => '0',
+			'show_played' => '0',
+			'show_tab2' => '0',
+			'show_tab3' => '0',
+			'show_tab4' => '0',
+			'show_tab5' => '0',
+			'show_talents' => '0',
+			'show_spellbook' => '0',
+			'show_mail' => '0',
+			'show_bags' => '0',
+			'show_bank' => '0',
+			'show_quests' => '0',
+			'show_recipes' => '0',
+			'show_item_bonuses' => '0'
+		);
+
+		$installer->add_query('INSERT INTO `' . $installer->table('default') . '` ' . $roster->db->build_query('INSERT',$build_query) . ';');
 
 		$installer->add_menu_button('cb_character','char');
 		$installer->add_menu_button('cb_talents','char','talents','ability_marksmanship');
@@ -106,11 +144,32 @@ class infoInstall
 	 */
 	function upgrade($oldversion)
 	{
-		global $installer;
+		global $installer, $roster;
 
-		if( version_compare('1.9.9.1477', $oldversion,'>') == true )
+		// Basicly we are re-installing this addon, since the config section has changed so much
+		// This means all previous version upgrade routines are not needed
+		if( version_compare('1.9.9.1745', $oldversion,'>') == true )
 		{
-			$installer->add_config("'1005', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
+			$installer->remove_all_config();
+			$installer->remove_all_menu_button();
+
+			$installer->add_query("ALTER TABLE `" . $roster->db->table('players') . "`
+			  DROP `show_money`,
+			  DROP `show_played`,
+			  DROP `show_tab2`,
+			  DROP `show_tab3`,
+			  DROP `show_tab4`,
+			  DROP `show_tab5`,
+			  DROP `show_talents`,
+			  DROP `show_spellbook`,
+			  DROP `show_mail`,
+			  DROP `show_bags`,
+			  DROP `show_bank`,
+			  DROP `show_quests`,
+			  DROP `show_recipes`,
+			  DROP `show_item_bonuses`;");
+
+			$this->install();
 		}
 		return true;
 	}
@@ -126,22 +185,7 @@ class infoInstall
 
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
-
-		$installer->add_query("ALTER TABLE `" . $roster->db->table('players') . "`
-		  DROP `show_money`,
-		  DROP `show_played`,
-		  DROP `show_tab2`,
-		  DROP `show_tab3`,
-		  DROP `show_tab4`,
-		  DROP `show_tab5`,
-		  DROP `show_talents`,
-		  DROP `show_spellbook`,
-		  DROP `show_mail`,
-		  DROP `show_bags`,
-		  DROP `show_bank`,
-		  DROP `show_quests`,
-		  DROP `show_recipes`,
-		  DROP `show_item_bonuses`;");
+		$installer->drop_table($installer->table(''));
 
 		return true;
 	}

@@ -278,3 +278,6 @@ $lang['admin']['show_duels'] = "Duell PvPLog Daten|Anzeige der Duell PvPLog Data
 $lang['admin']['show_item_bonuses'] = "Gegenstands Boni|Anzeige der Boni durch angelegte Gegenstände<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 
 $lang['admin']['char_pref'] = 'Anzeige Vorlieben|Kontrolliert, was auf den Charakterseiten pro Charakter angezeigt wird';
+
+$lang['admin']['no_data'] = 'No Data';
+$lang['admin']['nothing_to_config'] = 'Nothing to configure<br />All Global settings are set to override per-character settings';

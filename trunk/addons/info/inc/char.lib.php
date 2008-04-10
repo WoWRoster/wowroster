@@ -51,6 +51,37 @@ class char
 		$this->data = $data;
 		$this->locale = $roster->locale->wordings[$this->data['clientLocale']];
 
+		$querystr = "SELECT * FROM `" . $roster->db->table('',$addon['basename']) . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
+
+		$result = $roster->db->query($querystr);
+
+		$row = $roster->db->fetch($result,SQL_ASSOC);
+
+		$disp_array = array(
+			'show_money',
+			'show_played',
+			'show_tab2',
+			'show_tab3',
+			'show_tab4',
+			'show_tab5',
+			'show_talents',
+			'show_spellbook',
+			'show_mail',
+			'show_bags',
+			'show_bank',
+			'show_quests',
+			'show_recipes',
+			'show_item_bonuses'
+		);
+
+		foreach( $disp_array as $setting )
+		{
+			if( $addon['config'][$setting] == -1 )
+			{
+				$addon['config'][$setting] = $row[$setting];
+			}
+		}
+
 		// Create a character based icon
 		if( $this->data['raceEn'] == '' || $this->data['sexid'] == '' )
 		{
@@ -68,12 +99,12 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
-			'S_PLAYED'    => $addon['config']['show_played'],
-			'S_MONEY'     => $addon['config']['show_money'],
-			'S_PET_TAB'   => $addon['config']['show_tab2'],
-			'S_REP_TAB'   => $addon['config']['show_tab3'],
-			'S_SKILL_TAB' => $addon['config']['show_tab4'],
-			'S_PVP_TAB'   => $addon['config']['show_tab5'],
+			'S_PLAYED'    => $roster->auth->getAuthorized($addon['config']['show_played']),
+			'S_MONEY'     => $roster->auth->getAuthorized($addon['config']['show_money']),
+			'S_PET_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab2']),
+			'S_REP_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab3']),
+			'S_SKILL_TAB' => $roster->auth->getAuthorized($addon['config']['show_tab4']),
+			'S_PVP_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab5']),
 
 			'L_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
 			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
@@ -428,7 +459,7 @@ class char
 
 				// Get money in mail
 				$money_included = '';
-				if( $row['mailbox_coin'] > 0 && $addon['config']['show_money'] )
+				if( $row['mailbox_coin'] > 0 && $roster->auth->getAuthorized($addon['config']['show_money']) )
 				{
 					$db_money = $row['mailbox_coin'];
 
@@ -2154,7 +2185,7 @@ class char
 			);
 		}
 
-		if( $addon['config']['show_played'] )
+		if( $roster->auth->getAuthorized($addon['config']['show_played']) )
 		{
 			$TimeLevelPlayedConverted = seconds_to_time($this->data['timelevelplayed']);
 			$TimePlayedConverted = seconds_to_time($this->data['timeplayed']);
@@ -2274,7 +2305,7 @@ class char
 			)
 		);
 
-		if( $addon['config']['show_tab2'] && $pet_num )
+		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && $pet_num )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab2'],
@@ -2284,7 +2315,7 @@ class char
 			);
 		}
 
-		if( $addon['config']['show_tab3'] )
+		if( $roster->auth->getAuthorized($addon['config']['show_tab3']) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab3'],
@@ -2294,7 +2325,7 @@ class char
 			);
 		}
 
-		if( $addon['config']['show_tab4'] )
+		if( $roster->auth->getAuthorized($addon['config']['show_tab4']) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab4'],
@@ -2304,7 +2335,7 @@ class char
 			);
 		}
 
-		if( $addon['config']['show_tab5'] )
+		if( $roster->auth->getAuthorized($addon['config']['show_tab5']) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab5'],
