@@ -129,7 +129,6 @@ class roster_db
 		}
 
 		@mysql_query("SET NAMES 'utf8'");
-		@mysql_query("SET CHARACTER SET 'utf8'");
 
 		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($dbname != '') )
 		{
