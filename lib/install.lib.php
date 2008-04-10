@@ -399,5 +399,3 @@ class Install
 		return implode("<br />\n",$this->sql);
 	}
 }
-
-$installer = new Install;

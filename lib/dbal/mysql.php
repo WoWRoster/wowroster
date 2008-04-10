@@ -323,7 +323,7 @@ class roster_db
 	 * Fetch one record
 	 *
 	 * @param $query_id Query ID
-	 * @param $result_type SQL_ASSOC, SQL_NUM, or SQL_BOTH
+	 * @param $result_type SQL_ASSOC SQL_NUM or SQL_BOTH
 	 * @return mixed Record / false
 	 */
 	function fetch( $query_id = 0, $result_type = SQL_BOTH)
@@ -529,7 +529,7 @@ class roster_db
 	 */
 	function table($table, $addon='')
 	{
-		if( $addon)
+		if( $addon )
 		{
 			return $this->prefix . 'addons_' . $addon . ($table != '' ? '_' . $table : '');
 		}

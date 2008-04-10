@@ -31,7 +31,7 @@
 					<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
 					<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
 <!-- ENDIF -->
-					<img src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt="" />
+					<img src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt="" <!-- IF talent_tree.row.cell.RANK eq 0 --> class="icon_grey"<!-- ENDIF --> />
 				</div>
 
 <!-- ELSE -->
@@ -53,9 +53,7 @@
 		<ul id="talent_nav">
 
 <!-- BEGIN talent_tree -->
-
 			<li<!-- IF talent_tree.SELECTED --> class="selected"<!-- ENDIF -->><a rel="treetab_{talent_tree.ID}" class="text">{talent_tree.NAME}</a></li>
-
 <!-- END talent_tree -->
 
 		</ul>

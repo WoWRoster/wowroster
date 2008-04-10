@@ -25,6 +25,7 @@ $roster->output['title'] .= $roster->locale->act['pagebar_addoninst'];
 
 
 include(ROSTER_LIB . 'install.lib.php');
+$installer = new Install;
 
 
 $op = ( isset($_POST['op']) ? $_POST['op'] : '' );

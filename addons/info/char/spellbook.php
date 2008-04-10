@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
 
 include( $addon['inc_dir'] . 'header.php' );
 
-if( $addon['config']['show_spellbook'] == 1 )
+if( $roster->auth->getAuthorized($addon['config']['show_spellbook']) )
 {
 	$char_page .= $char->show_spellbook();
 }

@@ -21,12 +21,14 @@ if( !defined('IN_ROSTER') )
 
 if( isset($_POST['process']) && $_POST['process'] != '' )
 {
-	$rcp_message = processData();
+	$rcp_message .= processData();
+}
+if( isset($_POST['default']) && $_POST['default'] != '' )
+{
+	$rcp_message .= defaultData();
 }
 
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
-
-$roster->output['body_onload'] .= "initARC('config','radioOn','radioOff','checkboxOn','checkboxOff');";
 
 // Change scope to guild, and rerun detection to load default
 $roster->scope = 'guild';
@@ -42,27 +44,53 @@ $query = "SELECT COUNT(`member_id`)"
 
 $num_members = $roster->db->query_first($query);
 
+
+$query = 'SELECT * FROM `' . $roster->db->table('default',$addon['basename']) . '`;';
+
+$result = $roster->db->query($query);
+$disp_defaults = $roster->db->fetch_all($result, SQL_ASSOC);
+$disp_defaults = $disp_defaults[0];
+
+
+// Check to see if we can actually configure anything
+$config = false;
+foreach( $disp_defaults as $name => $value )
+{
+	if( $addon['config'][$name] == -1 )
+	{
+		$config = true;
+	}
+
+	$values = array(
+		'name' => $name,
+		'value' => $value,
+	);
+
+	$l_name = explode('|',$roster->locale->act['admin'][$name]);
+	$l_name = $l_name[0];
+
+	$roster->tpl->assign_block_vars('headers', array(
+		'L_NAME' => $l_name,
+		'NAME' => $name,
+		'VALUE' => $value,
+		'DISPLAY' => ( $addon['config'][$name] == -1 ? true : false ),
+		'SELECT' => $roster->auth->rosterAccess($values)
+		)
+	);
+}
+
 $roster->tpl->assign_vars(array(
+	'S_CONFIG' => $config,
+
 	'L_PER_CHAR_DISPLAY' => $roster->locale->act['admin']['per_character_display'],
-	'L_SUBMIT' => $roster->locale->act['config_submit_button'],
-	'L_RESET'  => $roster->locale->act['config_reset_button'],
+	'L_DEFAULT' => $roster->locale->act['default'],
+	'L_SUBMIT'  => $roster->locale->act['config_submit_button'],
+	'L_RESET'   => $roster->locale->act['config_reset_button'],
 	'L_CONFIRM_RESET' => $roster->locale->act['confirm_config_reset'],
 
+	'L_NOTHING_TO_CONFIG' => $roster->locale->act['admin']['nothing_to_config'],
+
 	'L_NAME'       => $roster->locale->act['name'],
-	'L_MONEY'      => $roster->locale->act['money'],
-	'L_TIMEPLAYED' => $roster->locale->act['timeplayed'],
-	'L_PETS'       => $roster->locale->act['tab2'],
-	'L_REPUTATION' => $roster->locale->act['tab3'],
-	'L_SKILLS'     => $roster->locale->act['tab4'],
-	'L_PVP'        => $roster->locale->act['tab5'],
-	'L_TALENTS'    => $roster->locale->act['talents'],
-	'L_SPELLBOOK'  => $roster->locale->act['spellbook'],
-	'L_MAILBOX'    => $roster->locale->act['mailbox'],
-	'L_BAGS'       => $roster->locale->act['bags'],
-	'L_BANK'       => $roster->locale->act['bank'],
-	'L_QUESTS'     => $roster->locale->act['quests'],
-	'L_RECIPES'    => $roster->locale->act['recipes'],
-	'L_BONUSES'     => $roster->locale->act['item_bonuses'],
 
 	'PREV'    => '',
 	'NEXT'    => '',
@@ -71,10 +99,11 @@ $roster->tpl->assign_vars(array(
 );
 
 
+
 if( $num_members > 0 )
 {
 	// Draw the header line
-	if ($start > 0)
+	if( $start > 0 )
 	{
 		$prev = '<a href="' . makelink('&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ($start - 15)) . '">&lt;</a> ';
 	}
@@ -83,7 +112,7 @@ if( $num_members > 0 )
 		$prev = '';
 	}
 
-	if (($start+15) < $num_members)
+	if( ($start+15) < $num_members )
 	{
 		$listing = ' <small>[' . $start . ' - ' . ($start+15) . '] of ' . $num_members . '</small>';
 		$next = ' <a href="' . makelink('&amp;start=' . ($start+15)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ( floor( $num_members / 15) * 15 )) . '">&gt;&gt;|</a>';
@@ -102,23 +131,25 @@ if( $num_members > 0 )
 	);
 
 	$query = 'SELECT '
-		. ' `member_id`, `name`,'
-		. ' `level`, `class`,'
-		. ' `show_money`, `show_played`,'
-		. ' `show_tab2`, `show_tab3`,'
-		. ' `show_tab4`, `show_tab5`,'
-		. ' `show_talents`, `show_spellbook`,'
-		. ' `show_mail`, `show_bags`,'
-		. ' `show_bank`, `show_quests`,'
-		. ' `show_recipes`, `show_item_bonuses`'
-		. ' FROM `' . $roster->db->table('players') . '`'
-		. ' WHERE `guild_id` = ' . $roster->data['guild_id']
-		. ' ORDER BY `name` ASC'
+		. ' `p`.`member_id`, `p`.`name`,'
+		. ' `p`.`level`, `p`.`class`,'
+		. ' `i`.`show_money`, `i`.`show_played`,'
+		. ' `i`.`show_tab2`, `i`.`show_tab3`,'
+		. ' `i`.`show_tab4`, `i`.`show_tab5`,'
+		. ' `i`.`show_talents`, `i`.`show_spellbook`,'
+		. ' `i`.`show_mail`, `i`.`show_bags`,'
+		. ' `i`.`show_bank`, `i`.`show_quests`,'
+		. ' `i`.`show_recipes`, `i`.`show_item_bonuses`'
+		. ' FROM `' . $roster->db->table('',$addon['basename']) . '` AS i'
+		. ' LEFT JOIN `' . $roster->db->table('players') . '` AS p'
+		. ' ON `p`.`member_id` = `i`.`member_id`'
+		. ' WHERE `p`.`guild_id` = ' . $roster->data['guild_id']
+		. ' ORDER BY `p`.`name` ASC'
 		. ' LIMIT ' . ($start > 0 ? $start : 0) . ', 15;';
 
 	$result = $roster->db->query($query);
 
-	while( $data = $roster->db->fetch($result) )
+	while( $data = $roster->db->fetch($result,SQL_ASSOC) )
 	{
 		$roster->tpl->assign_block_vars('members',array(
 			'ROW_CLASS' => $roster->switch_row_class(),
@@ -137,12 +168,21 @@ if( $num_members > 0 )
 			{
 				continue;
 			}
+			if( $addon['config'][$val_name] != -1 )
+			{
+				continue;
+			}
+
+			$values = array(
+				'name' => $data['member_id'] . ':' .$val_name,
+				'value' => $value,
+			);
 
 			$roster->tpl->assign_block_vars('members.data',array(
 				'ID' => $k,
 				'NAME' => $val_name,
 				'VALUE' => $value,
-				'CLASS' => $data['class'],
+				'SELECT' => $roster->auth->rosterAccess($values),
 				)
 			);
 
@@ -152,7 +192,7 @@ if( $num_members > 0 )
 }
 else
 {
-	return 'No Data';
+	return $roster->locale->act['admin']['no_data'];
 }
 
 $tab1 = explode('|',$roster->locale->act['admin']['char_conf']);
@@ -177,53 +217,89 @@ $body = $roster->tpl->fetch('body');
  *
  * @return string Settings changed or not changed
  */
-function processData( )
+function processData()
 {
-	global $roster;
+	global $roster, $addon;
 
 	$update_sql = array();
 
 	// Update only the changed fields
 	foreach( $_POST as $settingName => $settingValue )
 	{
-		if( substr($settingName,0,5) == 'disp_' )
+		if( $settingName != 'process' && substr($settingName,0,7) == 'config_' )
 		{
-			$settingName = str_replace('disp_','',$settingName);
+			$settingName = str_replace('config_','',$settingName);
 
 			list($member_id,$settingName) = explode(':',$settingName);
 
-			$get_val = "SELECT `$settingName`"
-					 . " FROM `" . $roster->db->table('players') . "`"
-					 . " WHERE `member_id` = '$member_id';";
+			$update_sql[$member_id][$settingName] = $settingValue;
 
-			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
-
-			$config = $roster->db->fetch($result);
-
-			if( $config[$settingName] != $settingValue && $settingName != 'process' )
-			{
-				$update_sql[] = "UPDATE `" . $roster->db->table('players') . "`"
-							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
-							  . " WHERE `member_id` = '$member_id';";
-			}
 		}
 	}
 
 	// Update DataBase
-	if( !empty($update_sql) )
+	if( count($update_sql) > 0 )
 	{
-		foreach( $update_sql as $sql )
+		foreach( $update_sql as $member_id => $data )
 		{
+			$sql = "UPDATE `" . $roster->db->table('',$addon['basename']) . "`"
+				 . " SET " . $roster->db->build_query('UPDATE',$data)
+				 . " WHERE `member_id` = '$member_id';";
+
 			$result = $roster->db->query($sql);
 			if( !$result )
 			{
 				return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
 			}
 		}
-		return '<span style="color:#0099FF;font-size:11px;">Settings have been changed</span>';
 	}
 	else
 	{
 		return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span>';
+	}
+}
+/**
+ * Process Defaults
+ *
+ * @return string Settings changed or not changed
+ */
+function defaultData()
+{
+	global $roster, $addon;
+
+	$build_sql = array();
+	// Update only the changed fields
+	foreach( $_POST as $settingName => $settingValue )
+	{
+		if( $settingName != 'default' && substr($settingName,0,7) == 'config_' )
+		{
+			$settingName = str_replace('config_','',$settingName);
+
+			$build_sql[$settingName] = $settingValue;
+		}
+	}
+
+	if( count($build_sql) > 0 )
+	{
+		if( $_POST['default'] == 'setall' )
+		{
+			$sql = "UPDATE `" . $roster->db->table('',$addon['basename']) . "` SET " . $roster->db->build_query('UPDATE',$build_sql) . ";";
+
+			// Update DataBase
+			$result = $roster->db->query($sql);
+			if( !$result )
+			{
+				return '<span style="color:#0099FF;font-size:11px;">Error saving defaults</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
+			}
+		}
+
+		$sql = "UPDATE `" . $roster->db->table('default',$addon['basename']) . "` SET " . $roster->db->build_query('UPDATE',$build_sql) . ";";
+
+		// Update DataBase
+		$result = $roster->db->query($sql);
+		if( !$result )
+		{
+			return '<span style="color:#0099FF;font-size:11px;">Error saving defaults</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
+		}
 	}
 }

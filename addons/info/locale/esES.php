@@ -278,3 +278,6 @@ $lang['admin']['show_duels'] = "Información de duelos|Elige si mostrar la infor
 $lang['admin']['show_item_bonuses'] = "Bonificaciones de objetos|Elige si mostrar las bonificaciones de los objetos.<br /><br />La configuración es global y afectará a todos los personajes";
 
 $lang['admin']['char_pref'] = 'Mostrar preferencias|Controla que mostrar en la página de personajes para cada personaje';
+
+$lang['admin']['no_data'] = 'No Data';
+$lang['admin']['nothing_to_config'] = 'Nothing to configure<br />All Global settings are set to override per-character settings';

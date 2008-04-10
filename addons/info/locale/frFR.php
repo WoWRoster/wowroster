@@ -279,3 +279,6 @@ $lang['admin']['show_duels'] = "Duel|Affichage des données de duel<br />Nécess
 $lang['admin']['show_item_bonuses'] = "Bonus d'équipement|Affichage des bonus d'équipement<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 
 $lang['admin']['char_pref'] = 'Préférences d\'affichage|Définir ce qui est affiché sur la page de personnage pour chacun d\'eux';
+
+$lang['admin']['no_data'] = 'No Data';
+$lang['admin']['nothing_to_config'] = 'Nothing to configure<br />All Global settings are set to override per-character settings';

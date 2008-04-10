@@ -1,54 +1,68 @@
 <!-- $Id$ -->
 
-<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="config" onsubmit="return submitonce(this);">
+<!-- IF S_CONFIG -->
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" onsubmit="return submitonce(this);">
 
-	<input type="submit" value="{L_SUBMIT}" />
+	<table class="border_frame" cellpadding="0" cellspacing="1">
+		<tr>
+			<td class="border_color sgrayborder">
+				<div class="header_text sgrayborder">{L_DEFAULT}</div>
+
+				<table cellspacing="0" cellpadding="0" class="bodyline" width="100%">
+					<tr>
+<!-- BEGIN headers -->
+						<!-- IF headers.DISPLAY --><th class="membersHeader">{headers.L_NAME}</th><!-- ENDIF -->
+<!-- END headers -->
+					</tr>
+					<tr>
+<!-- BEGIN headers -->
+						<!-- IF headers.DISPLAY --><th class="membersRow1">{headers.SELECT}</th><!-- ENDIF -->
+<!-- END headers -->
+					</tr>
+				</table>
+
+			</td>
+		</tr>
+	</table>
+
+	<br />
+
+	<button type="submit" class="input" onclick="setvalue('default','process');">{L_SUBMIT}</button>
+	<button type="submit" class="input" onclick="setvalue('default','setall');">Set All</button>
 	<input type="reset" name="Reset" value="{L_RESET}" onclick="return confirm('{L_CONFIRM_RESET}')" />
-	<input type="hidden" name="process" value="process" />
+	<input type="hidden" id="default" name="default" value="process" />
 
-	<br />
-	<br />
+</form>
+
+<br />
+<br />
+
+
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" onsubmit="return submitonce(this);">
 
 	<table class="border_frame" cellpadding="0" cellspacing="1">
 		<tr>
 			<td class="border_color sblueborder">
 				<div class="header_text sblueborder">{PREV}{L_PER_CHAR_DISPLAY}{LISTING}{NEXT}</div>
 
-				<table cellspacing="0" cellpadding="0" class="bodyline">
+				<table cellspacing="0" cellpadding="0" class="bodyline" width="100%">
 					<tr>
 						<th class="membersHeader">{L_NAME}</th>
-						<th class="membersHeader">{L_MONEY}</th>
-						<th class="membersHeader">{L_TIMEPLAYED}</th>
-						<th class="membersHeader">{L_PETS}</th>
-						<th class="membersHeader">{L_REPUTATION}</th>
-						<th class="membersHeader">{L_SKILLS}</th>
-						<th class="membersHeader">{L_PVP}</th>
-						<th class="membersHeader">{L_TALENTS}</th>
-						<th class="membersHeader">{L_SPELLBOOK}</th>
-						<th class="membersHeader">{L_MAILBOX}</th>
-						<th class="membersHeader">{L_BAGS}</th>
-						<th class="membersHeader">{L_BANK}</th>
-						<th class="membersHeader">{L_QUESTS}</th>
-						<th class="membersHeader">{L_RECIPES}</th>
-						<th class="membersHeader">{L_BONUSES}</th>
+<!-- BEGIN headers -->
+						<!-- IF headers.DISPLAY --><th class="membersHeader">{headers.L_NAME}</th><!-- ENDIF -->
+<!-- END headers -->
 					</tr>
 
 <!-- BEGIN members -->
-
 					<tr>
 						<td class="membersRow{members.ROW_CLASS}"><a href="{members.LINK}" target="_blank">{members.NAME}</a><br />
 							{members.LEVEL}: {members.CLASS}</td>
 
 <!-- BEGIN data -->
-
-						<td class="membersRow{members.ROW_CLASS}">
-							<input type="radio" id="chard_f{members.data.ID}_{members.ID}" name="disp_{members.ID}:{members.data.NAME}" value="1"<!-- IF members.data.VALUE eq 1 -->checked="checked"<!-- ENDIF --> /><label for="chard_f{members.data.ID}_{members.ID}">off</label><br />
-							<input type="radio" id="chard_n{members.data.ID}_{members.ID}" name="disp_{members.ID}:{members.data.NAME}" value="3"<!-- IF members.data.VALUE eq 3 -->checked="checked"<!-- ENDIF --> /><label for="chard_n{members.data.ID}_{members.ID}">on</label></td>
-
+						<td class="membersRow{members.ROW_CLASS}">{members.data.SELECT}</td>
 <!-- END data -->
 
 					</tr>
-
 <!-- END members -->
 
 				</table>
@@ -59,4 +73,16 @@
 
 	{PREV}{LISTING}{NEXT}
 
+	<br />
+	<br />
+
+	<input type="submit" value="{L_SUBMIT}" />
+	<input type="reset" name="Reset" value="{L_RESET}" onclick="return confirm('{L_CONFIRM_RESET}')" />
+	<input type="hidden" name="process" value="process" />
+
 </form>
+<!-- ELSE -->
+
+{L_NOTHING_TO_CONFIG}
+
+<!-- ENDIF -->
