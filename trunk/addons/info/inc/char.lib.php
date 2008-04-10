@@ -51,7 +51,7 @@ class char
 		$this->data = $data;
 		$this->locale = $roster->locale->wordings[$this->data['clientLocale']];
 
-		$querystr = "SELECT * FROM `" . $roster->db->table('',$addon['basename']) . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
+		$querystr = "SELECT * FROM `" . $roster->db->table('display',$addon['basename']) . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
 
 		$result = $roster->db->query($querystr);
 

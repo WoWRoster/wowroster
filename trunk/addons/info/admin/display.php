@@ -140,7 +140,7 @@ if( $num_members > 0 )
 		. ' `i`.`show_mail`, `i`.`show_bags`,'
 		. ' `i`.`show_bank`, `i`.`show_quests`,'
 		. ' `i`.`show_recipes`, `i`.`show_item_bonuses`'
-		. ' FROM `' . $roster->db->table('',$addon['basename']) . '` AS i'
+		. ' FROM `' . $roster->db->table('display',$addon['basename']) . '` AS i'
 		. ' LEFT JOIN `' . $roster->db->table('players') . '` AS p'
 		. ' ON `p`.`member_id` = `i`.`member_id`'
 		. ' WHERE `p`.`guild_id` = ' . $roster->data['guild_id']
@@ -242,7 +242,7 @@ function processData()
 	{
 		foreach( $update_sql as $member_id => $data )
 		{
-			$sql = "UPDATE `" . $roster->db->table('',$addon['basename']) . "`"
+			$sql = "UPDATE `" . $roster->db->table('display',$addon['basename']) . "`"
 				 . " SET " . $roster->db->build_query('UPDATE',$data)
 				 . " WHERE `member_id` = '$member_id';";
 
@@ -283,7 +283,7 @@ function defaultData()
 	{
 		if( $_POST['default'] == 'setall' )
 		{
-			$sql = "UPDATE `" . $roster->db->table('',$addon['basename']) . "` SET " . $roster->db->build_query('UPDATE',$build_sql) . ";";
+			$sql = "UPDATE `" . $roster->db->table('display',$addon['basename']) . "` SET " . $roster->db->build_query('UPDATE',$build_sql) . ";";
 
 			// Update DataBase
 			$result = $roster->db->query($sql);

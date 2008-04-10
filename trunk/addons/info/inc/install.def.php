@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '1.9.9.1745';
+	var $version = '1.9.9.1747';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -70,7 +70,7 @@ class infoInstall
 		$installer->add_config("'1140', 'show_recipes', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1150', 'show_item_bonuses', '0', 'function{infoAccess', 'char_conf'");
 
-		$installer->create_table($installer->table(''),"
+		$installer->create_table($installer->table('display'),"
 		  `member_id` int(11) NOT NULL default '0',
 		  `show_money` tinyint(1) NOT NULL default '0',
 		  `show_played` tinyint(1) NOT NULL default '0',
@@ -124,6 +124,8 @@ class infoInstall
 
 		$installer->add_query('INSERT INTO `' . $installer->table('default') . '` ' . $roster->db->build_query('INSERT',$build_query) . ';');
 
+		$installer->add_query('INSERT INTO `' . $installer->table('display') . '` SELECT `p`.`member_id` , `d` . * FROM `' . $roster->db->table('players') . '` p, `' . $installer->table('default') . '` d ');
+
 		$installer->add_menu_button('cb_character','char');
 		$installer->add_menu_button('cb_talents','char','talents','ability_marksmanship');
 		$installer->add_menu_button('cb_spellbook','char','spellbook','inv_misc_book_09');
@@ -147,7 +149,7 @@ class infoInstall
 		global $installer, $roster;
 
 		// Basicly we are re-installing this addon, since the config section has changed so much
-		// This means all previous version upgrade routines are not needed
+		// This means any version upgrade routines are not needed
 		if( version_compare('1.9.9.1745', $oldversion,'>') == true )
 		{
 			$installer->remove_all_config();
@@ -169,8 +171,16 @@ class infoInstall
 			  DROP `show_recipes`,
 			  DROP `show_item_bonuses`;");
 
-			$this->install();
+			// Important to return here, a re-install updates to the latest version no matter what, no upgrades needed
+			return $this->install();
 		}
+
+		// Basicly I screwed up on the table naming here
+		if( version_compare('1.9.9.1747', $oldversion,'>') == true )
+		{
+			$installer->add_query('RENAME TABLE `' . $installer->table('') . '`  TO `' . $installer->table('display') . '` ;');
+		}
+
 		return true;
 	}
 
@@ -185,7 +195,7 @@ class infoInstall
 
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
-		$installer->drop_table($installer->table(''));
+		$installer->drop_table($installer->table('display'));
 
 		return true;
 	}
