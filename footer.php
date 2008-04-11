@@ -38,8 +38,8 @@ $roster->tpl->assign_vars(array(
 
 	'ROSTER_PATH'        => ROSTER_PATH,
 	'ROSTER_BODY'        => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')
-		. (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : '')
-		. (!empty($roster->output['body_onload']) ? ' onload="' . $roster->output['body_onload'] . '"' : ''),
+		. (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
+	'ROSTER_ONLOAD'      => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
 	'WEBSITE_ADDRESS'    => $roster->config['website_address'],
 	'HEADER_LOGO'        => $roster->config['logo'],
 	'IMG_URL'            => $roster->config['img_url'],
