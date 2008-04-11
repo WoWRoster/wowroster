@@ -327,6 +327,7 @@ $roster->tpl->assign_vars(array(
 	'PAGE_TITLE'      => '',
 	'ROSTER_HEAD'     => '',
 	'ROSTER_BODY'     => '',
+	'ROSTER_ONLOAD'   => '',
 	'ROSTER_MENU_BEFORE' => '',
 	)
 );
