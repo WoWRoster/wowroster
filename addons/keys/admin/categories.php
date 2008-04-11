@@ -38,10 +38,15 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 
 		$query = "DELETE FROM `" . $roster->db->table('category', 'keys') . "` WHERE `category` = '" . $cat ."';";
 		$roster->db->query($query);
+		$query = "DELETE FROM `" . $roster->db->table('menu_button') . "` WHERE `addon_id` = " . $addon['addon_id'] . " AND `title` = '" . $cat . "';";
+		$roster->db->query($query);
 	}
 	elseif( $_POST['action'] == 'addcat' )
 	{
 		$query = "INSERT INTO `" . $roster->db->table('category', 'keys') . "` (`category`) VALUES ('" . $_POST['category'] . "');";
+		$roster->db->query($query);
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $addon['addon_id'] . ",'" . $_POST['category'] . "','keypane','guild-" . $addon['basename'] . '-' . $_POST['category'] . "','" . $addon['icon'] . "');";
+		$roster->db->query($query);
 	}
 }
 

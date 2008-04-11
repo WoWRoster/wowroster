@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1750';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
+	var $version = '1.9.9.1751';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -59,6 +59,8 @@ class keysInstall
 		$installer->add_config("'1040','keys_access','0','access','keys_conf'");
 
 		$installer->add_menu_button('keybutton','guild');
+		$installer->add_menu_pane('keypane');
+		$installer->add_menu_button('keybutton','keypane','guild-keys');
 
 		$installer->create_table($installer->table('keycache'),"
 			`member_id` int(11) NOT NULL DEFAULT 0,
@@ -193,6 +195,12 @@ class keysInstall
 			$installer->add_query('INSERT INTO `' . $installer->table('category') . '`
 				SELECT DISTINCT `category`
 				FROM `' . $installer->table('category_key') . '`;');
+		}
+
+		if( version_compare( $oldversion, '1.9.9.1751', '<' ) )
+		{
+			$installer->add_menu_pane('keypane');
+			$installer->add_menu_button('keybutton','keypane','guild-keys');
 		}
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
