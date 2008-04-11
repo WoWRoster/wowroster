@@ -166,6 +166,8 @@ $mainQuery = $mainSelect . '1 ' . $mainTables;
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'keyslist');
 
 // Start output
+$roster->output['show_menu']['keypane'] = 1;
+
 $memberlist->makeFilterBox();
 
 $memberlist->makeToolBar('horizontal');
