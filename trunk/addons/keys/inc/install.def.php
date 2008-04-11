@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1709';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
+	var $version = '1.9.9.1750';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -85,10 +85,14 @@ class keysInstall
 			`active` int(1) NOT NULL DEFAULT 0,
 			PRIMARY KEY (`locale`, `faction`, `key_name`, `stage`)");
 
-		$installer->create_table($installer->table('categories'),"
+		$installer->create_table($installer->table('category_key'),"
 			`category` varchar(16) NOT NULL DEFAULT '',
 			`key` varchar(16) NOT NULL DEFAULT '',
 			PRIMARY KEY (`category`, `key`)");
+
+		$installer->create_table($installer->table('category'),"
+			`category` varchar(16) NOT NULL DEFAULT '',
+			PRIMARY KEY (`category`)");
 
 		$this->loadkeys( 'install_' );
 
@@ -177,6 +181,19 @@ class keysInstall
 		}
 
 		// 1709: enUS mount hijal
+
+		if( version_compare( $oldversion, '1.9.9.1750', '<' ) )
+		{
+			$installer->add_query('RENAME TABLE `' . $installer->table('categories') . '`  TO `' . $installer->table('category_key') . '` ;');
+
+			$installer->create_table($installer->table('category'),"
+				`category` varchar(16) NOT NULL DEFAULT '',
+				PRIMARY KEY (`category`)");
+
+			$installer->add_query('INSERT INTO `' . $installer->table('category') . '`
+				SELECT DISTINCT `category`
+				FROM `' . $installer->table('category_key') . '`;');
+		}
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
 		$this->loadkeys( 'install_' );

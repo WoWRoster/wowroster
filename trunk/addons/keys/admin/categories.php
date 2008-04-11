@@ -24,13 +24,24 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 		$cat = substr( $_POST['action'], 4, ( $keypos = strpos( $_POST['action'], '_', 4 ) ) - 4 );
 		$key = substr( $_POST['action'], $keypos + 1 );
 
-		$query = "DELETE FROM `" . $roster->db->table('categories', 'keys') . "` WHERE `category` = '" . $cat ."' AND `key` = '" . $key . "';";
+		$query = "DELETE FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $cat ."' AND `key` = '" . $key . "';";
 		$roster->db->query($query);
 	}
 	elseif( $_POST['action'] == 'add' )
 	{
-		$query = "INSERT INTO `" . $roster->db->table('categories', 'keys') . "` (`category`,`key`) VALUES ('" . $_POST['category'] . "','" . $_POST['key'] . "');";
+		$query = "INSERT INTO `" . $roster->db->table('category_key', 'keys') . "` (`category`,`key`) VALUES ('" . $_POST['category'] . "','" . $_POST['key'] . "');";
 		$roster->db->query($query);
+	}
+	if( substr( $_POST['action'], 0, 4 ) == 'delcat_' )
+	{
+		$cat = substr( $_POST['action'], 4 );
+
+		$query = "DELETE FROM `" . $roster->db->table('category', 'keys') . "` WHERE `category` = '" . $cat ."';";
+		$roster->db->query($query);
+	}
+	elseif( $_POST['action'] == 'addcat' )
+	{
+		$query = "INSERT INTO `" . $roster->db->table('category', 'keys') . "` (`category`) VALUES ('" . $_POST['category'] . "');";
 	}
 }
 
@@ -39,7 +50,8 @@ $roster->tpl->assign_vars(array(
 	'L_KEY'      => 'Key',
 	'L_DELETE'   => 'Delete',
 	'L_ADD'      => 'Add',
-	'L_KEY_CATEGORIES' => 'Key Categories'
+	'L_KEY_CATEGORIES' => 'Key Categories',
+	'L_KEY_CATEGORY_ASSIGN' => 'Key Category Assignments'
 	)
 );
 
@@ -58,15 +70,30 @@ while( $row = $roster->db->fetch($result) )
 	);
 }
 
+$query = "SELECT category "
+	. "FROM `" . $roster->db->table('category', 'keys') . "` "
+	. "ORDER BY `category` ";
+
+$result = $roster->db->query($query);
+
+while( $row = $roster->db->fetch($result) )
+{
+	$roster->tpl->assign_block_vars('category_select',array(
+		'NAME' => $row['category'],
+		'VALUE' => $row['category'],
+		)
+	);
+}
+
 $query = "SELECT `category`, `key` "
-	. "FROM `" . $roster->db->table('categories', 'keys') . "` "
+	. "FROM `" . $roster->db->table('category_key', 'keys') . "` "
 	. "ORDER BY `category`, `key` ";
 
 $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch($result) )
 {
-	$roster->tpl->assign_block_vars('categories',array(
+	$roster->tpl->assign_block_vars('category_key',array(
 		'ROW_CLASS' => $roster->switch_row_class(),
 		'KEY' => $row['key'],
 		'CATEGORY' => $row['category'],

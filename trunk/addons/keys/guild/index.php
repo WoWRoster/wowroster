@@ -119,8 +119,8 @@ $keyQuery = "SELECT * "
 	. "FROM `" . $roster->db->table('keys', $addon['basename']) . "` ";
 if( isset( $roster->pages[2] ) && $roster->pages[2] != 'index' )
 {
-	$keyQuery .= "INNER JOIN `" . $roster->db->table('categories', $addon['basename']) . "` categories "
-		. "ON `key_name` = `categories`.`key` AND `categories`.`category` = '" . $roster->pages[2] . "' ";
+	$keyQuery .= "INNER JOIN `" . $roster->db->table('category_key', $addon['basename']) . "` category_key "
+		. "ON `key_name` = `category_key`.`key` AND `category_key`.`category` = '" . $roster->pages[2] . "' ";
 }
 $keyQuery .= "WHERE `locale` = '" . $roster->locale->curlocale . "' "
 	. "AND `faction` = '" . substr($roster->data['faction'],0,1) . "';";
