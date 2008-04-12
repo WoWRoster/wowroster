@@ -24,14 +24,14 @@
 					</tfoot>
 					<tbody>
 
-					<!-- BEGIN categories -->
+					<!-- BEGIN category_select -->
 					<tr>
-						<td class="membersRow{categories.ROW_CLASS}">{categories.CATEGORY}</td>
-						<td class="membersRowRight{categories.ROW_CLASS}">
-							<button type="submit" class="input" onclick="setvalue('action','delcat_{categories.CATEGORY}');">
+						<td class="membersRow{category_select.ROW_CLASS}">{category_select.NAME}</td>
+						<td class="membersRowRight{category_select.ROW_CLASS}">
+							<button type="submit" class="input" onclick="setvalue('action','delcat_{category_select.VALUE}');">
 							{L_DELETE}</button></td>
 					</tr>
-					<!-- END categories -->
+					<!-- END category_select -->
 
 					</tbody>
 				</table>

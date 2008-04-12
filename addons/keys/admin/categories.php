@@ -32,9 +32,10 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 		$query = "INSERT INTO `" . $roster->db->table('category_key', 'keys') . "` (`category`,`key`) VALUES ('" . $_POST['category'] . "','" . $_POST['key'] . "');";
 		$roster->db->query($query);
 	}
-	if( substr( $_POST['action'], 0, 4 ) == 'delcat_' )
+
+	if( substr( $_POST['action'], 0, 7 ) == 'delcat_' )
 	{
-		$cat = substr( $_POST['action'], 4 );
+		$cat = substr( $_POST['action'], 7 );
 
 		$query = "DELETE FROM `" . $roster->db->table('category', 'keys') . "` WHERE `category` = '" . $cat ."';";
 		$roster->db->query($query);
@@ -45,7 +46,7 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 	{
 		$query = "INSERT INTO `" . $roster->db->table('category', 'keys') . "` (`category`) VALUES ('" . $_POST['category'] . "');";
 		$roster->db->query($query);
-		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $addon['addon_id'] . ",'" . $_POST['category'] . "','keypane','guild-" . $addon['basename'] . '-' . $_POST['category'] . "','" . $addon['icon'] . "');";
+		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $addon['addon_id'] . "','" . $_POST['category'] . "','keypane','guild-" . $addon['basename'] . '-' . $_POST['category'] . "','" . $addon['icon'] . "');";
 		$roster->db->query($query);
 	}
 }
@@ -60,9 +61,9 @@ $roster->tpl->assign_vars(array(
 	)
 );
 
-$query = "SELECT DISTINCT key_name "
+$query = "SELECT DISTINCT `key_name` "
 	. "FROM `" . $roster->db->table('keys', 'keys') . "` "
-	. "ORDER BY `key_name` ";
+	. "ORDER BY `key_name`;";
 
 $result = $roster->db->query($query);
 
@@ -75,15 +76,16 @@ while( $row = $roster->db->fetch($result) )
 	);
 }
 
-$query = "SELECT category "
+$query = "SELECT `category` "
 	. "FROM `" . $roster->db->table('category', 'keys') . "` "
-	. "ORDER BY `category` ";
+	. "ORDER BY `category`;";
 
 $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch($result) )
 {
 	$roster->tpl->assign_block_vars('category_select',array(
+		'ROW_CLASS' => $roster->switch_row_class(),
 		'NAME' => $row['category'],
 		'VALUE' => $row['category'],
 		)
@@ -92,7 +94,7 @@ while( $row = $roster->db->fetch($result) )
 
 $query = "SELECT `category`, `key` "
 	. "FROM `" . $roster->db->table('category_key', 'keys') . "` "
-	. "ORDER BY `category`, `key` ";
+	. "ORDER BY `category`, `key`;";
 
 $result = $roster->db->query($query);
 
