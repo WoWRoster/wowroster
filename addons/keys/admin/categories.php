@@ -29,14 +29,20 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 	}
 	elseif( $_POST['action'] == 'add' )
 	{
-		$query = "INSERT INTO `" . $roster->db->table('category_key', 'keys') . "` (`category`,`key`) VALUES ('" . $_POST['category'] . "','" . $_POST['key'] . "');";
-		$roster->db->query($query);
+		$query = "SELECT COUNT(*) FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $_POST['category'] . "' AND `key` = '" . $_POST['key'] . "';";
+		if( 0 == $roster->db->query_first($query) )
+		{
+			$query = "INSERT INTO `" . $roster->db->table('category_key', 'keys') . "` (`category`,`key`) VALUES ('" . $_POST['category'] . "','" . $_POST['key'] . "');";
+			$roster->db->query($query);
+		}
 	}
 
 	if( substr( $_POST['action'], 0, 7 ) == 'delcat_' )
 	{
 		$cat = substr( $_POST['action'], 7 );
 
+		$query = "DELETE FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $cat ."';";
+		$roster->db->query($query);
 		$query = "DELETE FROM `" . $roster->db->table('category', 'keys') . "` WHERE `category` = '" . $cat ."';";
 		$roster->db->query($query);
 		$query = "DELETE FROM `" . $roster->db->table('menu_button') . "` WHERE `addon_id` = " . $addon['addon_id'] . " AND `title` = '" . $cat . "';";
@@ -44,10 +50,14 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 	}
 	elseif( $_POST['action'] == 'addcat' )
 	{
-		$query = "INSERT INTO `" . $roster->db->table('category', 'keys') . "` (`category`) VALUES ('" . $_POST['category'] . "');";
-		$roster->db->query($query);
-		$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $addon['addon_id'] . "','" . $_POST['category'] . "','keypane','guild-" . $addon['basename'] . '-' . $_POST['category'] . "','" . $addon['icon'] . "');";
-		$roster->db->query($query);
+		$query = "SELECT COUNT(*) FROM `" . $roster->db->table('category', 'keys') . "` WHERE `category` = '" . $_POST['category'] . "';";
+		if( 0 == $roster->db->query_first($query) )
+		{
+			$query = "INSERT INTO `" . $roster->db->table('category', 'keys') . "` (`category`) VALUES ('" . $_POST['category'] . "');";
+			$roster->db->query($query);
+			$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $addon['addon_id'] . "','" . $_POST['category'] . "','keypane','guild-" . $addon['basename'] . '-' . $_POST['category'] . "','" . $addon['icon'] . "');";
+			$roster->db->query($query);
+		}
 	}
 }
 
