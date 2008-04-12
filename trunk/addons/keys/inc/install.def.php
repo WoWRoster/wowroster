@@ -223,6 +223,8 @@ class keysInstall
 		$installer->drop_table($installer->table('keys'));
 		$installer->drop_table($installer->table('stages'));
 
+		$installer->remove_menu_pane('keypane');
+
 		$installer->remove_all_menu_button();
 		return true;
 	}
