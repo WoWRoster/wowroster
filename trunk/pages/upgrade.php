@@ -190,6 +190,12 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8465, 'rs_color_offline', '#646464', 'color', 'rs_right');");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1754','<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '2.4.0' WHERE `id` = 1010;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '2.4.0' WHERE `id` = 1020;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

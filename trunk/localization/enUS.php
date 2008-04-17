@@ -46,7 +46,7 @@ $lang['roster_upd_pw_help']='(Some lua updates may require a password)';
 
 $lang['roster_error'] = 'Roster Error';
 $lang['sql_queries'] = 'SQL Queries';
-$lang['invalid_char_module'] = 'Invalid characters in module name';
+$lang['invalid_char_module'] = 'Invalid characters in addon name';
 $lang['module_not_exist'] = 'The module [%1$s] does not exist';
 
 $lang['addon_error'] = 'Addon Error';
@@ -651,8 +651,9 @@ $lang['socket_colors_to_en'] = array(
 	'yellow' => 'yellow',
 	'meta' => 'meta',
 	);
-
 // -- end tooltip parsing
+
+
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Imp';
@@ -731,6 +732,13 @@ $lang['installer_no_upgrade'] = '%1$s doesn\`t contain data to upgrade from';
 $lang['installer_not_upgradable'] = '%1$s cannot upgrade %2$s since its basename %3$s isn\'t in the list of upgradable addons';
 $lang['installer_no_uninstall'] = '%1$s doesn\'t contain an addon to uninstall';
 $lang['installer_not_uninstallable'] = '%1$s contains an addon %2$s which must be uninstalled with that addons\' uninstaller';
+
+// After Install guide
+$lang['install'] = 'Install';
+$lang['setup_guide'] = 'After Install Guide';
+$lang['default_data'] = 'Default Data';
+$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter % for guild name<br />Enter your default realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
+$lang['initial_settings'] = 'Initial Settings';
 
 // Password Stuff
 $lang['password'] = 'Password';
@@ -837,14 +845,14 @@ $lang['admin']['img_url'] = "Roster Images Directory URL|Directory that Roster's
 $lang['admin']['timezone'] = "Timezone|Displayed after timestamps so people know what timezone the time references are in";
 $lang['admin']['localtimeoffset'] = "Time Offset|Your timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
-$lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to check if you have the newest version of the software";
+$lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to<br />check if you have the newest version of the software";
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "File System Cache|Use server local file system to cache some files to increase performance.";
 $lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br />Leaving this on is recommended for performance.";
 $lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />- Never: Never enforce rules<br />- All LUA Updates: Enforce rules on all lua updates<br />- CP Updates: Enforce rules on any CP.lua update<br />- Guild Updates: Enforce rules only on guild updates<br /><br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf
-$lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
+$lang['admin']['default_name'] = "WoWRoster Name|Enter a name to be displayed when not in the guild or char scope";
 $lang['admin']['default_desc'] = "Description|Enter a short description to be displayed when not in the guild or char scope";
 $lang['admin']['alt_type'] = "Alt-Text Search|Text used to designate alts for display count in the main menu<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 $lang['admin']['alt_location'] = "Alt-Search Field|Search location, what field to search for Alt-Text<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
