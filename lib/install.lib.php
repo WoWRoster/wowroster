@@ -318,7 +318,7 @@ class Install
 				}
 			}
 		}
-		if( !$roster->config['use_temp_tables'] )
+		if( !$this->temp_tables )
 		{
 			foreach( $this->tables as $table => $backup )
 			{

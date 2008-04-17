@@ -206,7 +206,7 @@ $menu = messagebox('
 ',$roster->locale->act['roster_config_menu'],'sgray','145px');
 
 
-$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/admin/index.html'));
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/admin/display.html'));
 $body = $roster->tpl->fetch('body');
 
 

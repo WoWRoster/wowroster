@@ -72,14 +72,16 @@ textarea {
 	vertical-align:middle;
 	overflow:hidden;
 }
-.install_error_table td {
+.install_error_table td,
+.install_error_table td.row1 {
 	font-size:11px;
 	border-right:1px solid #B32400;
 	border-bottom:1px solid #B32400;
 	padding:1px 2px 1px 2px;
 	background-color:#1F1E1D;
 }
-.install_table td {
+.install_table td,
+.install_table td.row1 {
 	font-size:11px;
 	border-right:1px solid #5D5D5D;
 	border-bottom:1px solid #5D5D5D;

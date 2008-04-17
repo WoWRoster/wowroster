@@ -653,6 +653,8 @@ $lang['socket_colors_to_en'] = array(
 	);
 // -- end tooltip parsing
 
+
+
 // Warlock pet names for icon displaying
 $lang['Imp']='Wichtel';
 $lang['Voidwalker']='Leerwandler';
@@ -730,6 +732,13 @@ $lang['installer_no_upgrade'] = '%1$s enthält keine Daten zum upgraden';
 $lang['installer_not_upgradable'] = '%1$s kann %2$s nicht upgraden, weil der Basisname %3$s nicht in der Liste der upgradebaren Addons ist';
 $lang['installer_no_uninstall'] = '%1$s enthält kein Addon zum deinstallieren';
 $lang['installer_not_uninstallable'] = '%1$s enthält ein Addon %2$s welches mit dessen Addon-Deinstaller deinstalliert werden muss';
+
+// After Install guide
+$lang['install'] = 'Install';
+$lang['setup_guide'] = 'After Install Guide';
+$lang['default_data'] = 'Default Data';
+$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter % for guild name<br />Enter your default realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
+$lang['initial_settings'] = 'Initial Settings';
 
 // Password Stuff
 $lang['password'] = 'Passwort';
@@ -836,7 +845,7 @@ $lang['admin']['img_url'] = "Roster Bilder Verzeichnis URL|Verzeichnis zu den Ro
 $lang['admin']['timezone'] = "Zeitzone|Wird hinter der Zeit angezeigt, damit man weis in welcher Zeitzone sich der Zeithinweis befindet";
 $lang['admin']['localtimeoffset'] = "Zeitzonenabstand|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
-$lang['admin']['check_updates'] = "Überprüfe auf Updates|Dies erlaubt deiner Rosterkopie (und Addons, die dieses Feature benutzen) zu überprüfen, ob du die neueste Version der Software hast";
+$lang['admin']['check_updates'] = "Überprüfe auf Updates|Dies erlaubt deiner Rosterkopie (und Addons, die dieses Feature benutzen)<br />zu überprüfen, ob du die neueste Version der Software hast";
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Dateisystem Cache|Benutze lokales Server Dateisystem um einige Dateien zu cachen und damit die Leistung zu erhöhen.";
 $lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";

@@ -596,7 +596,6 @@ function process_step3()
 	$create['password']     = post_or_db('dbpass_c');
 
 
-	define('CONFIG_TABLE', $db_config['table_prefix'] . 'config');
 	define('ROSTER_DB_DIR',  ROSTER_LIB . 'dbal' . DIR_SEP);
 
 	$dbal_file = ROSTER_DB_DIR . $db_config['dbtype'] . '.php';
@@ -724,9 +723,9 @@ function process_step3()
 	/**
 	 * Update some config settings
 	 */
-    $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value` = '$default_locale' WHERE `config_name` = 'locale';");
-    $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `config_name` = 'version';");
-    $db->query("UPDATE `" . CONFIG_TABLE . "` SET `config_value` = '$server_name' WHERE `config_name` = 'website_address';");
+    $db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '$default_locale' WHERE `config_name` = 'locale';");
+    $db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `config_name` = 'version';");
+    $db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '$server_name' WHERE `config_name` = 'website_address';");
 
 	/**
 	 * Write the config file
@@ -781,8 +780,6 @@ function process_step4()
 	 * Update admin account
 	 */
 	include(ROSTER_BASE . 'conf.php');
-	define('CONFIG_TABLE', $db_config['table_prefix'] . 'config');
-	define('ACCOUNT_TABLE',  $db_config['table_prefix'] . 'account');
 	define('ROSTER_DB_DIR',  ROSTER_LIB . 'dbal' . DIR_SEP);
 
 	switch( $db_config['dbtype'] )
@@ -821,12 +818,14 @@ function process_step4()
 	{
 		$pass_word = md5('admin');
 	}
-	$db->query("INSERT INTO `" . ACCOUNT_TABLE . "` (`account_id`, `name`) VALUES
+	$db->query("INSERT INTO `" . $db->table('account') . "` (`account_id`, `name`) VALUES
 		(1, 'Guild'),
 		(2, 'Officer'),
 		(3, 'Admin');");
 
-	$db->query("UPDATE `" . ACCOUNT_TABLE . "` SET `hash` = '" . $pass_word . "';");
+	$db->query("UPDATE `" . $db->table('account') . "` SET `hash` = '" . $pass_word . "';");
+
+	$tpl->message_append('The Roster Officer and Guild accounts have been set to the same password as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');
 
 	/**
 	 * Rewrite the config file to its final form

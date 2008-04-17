@@ -651,8 +651,9 @@ $lang['socket_colors_to_en'] = array(
 	'jaune' => 'yellow',
 	'méta' => 'meta', //verify translation
 	);
-
 // -- end tooltip parsing
+
+
 
 // Warlock pet names for icon displaying
 $lang['Imp']='Diablotin';
@@ -731,6 +732,13 @@ $lang['installer_no_upgrade'] = '%1$s ne contient pas de données à mettre à j
 $lang['installer_not_upgradable'] = '%1$s ne peut pas mettre à jour %2$s car son nom %3$s n\'est pas dans la liste des greffons pouvant être mis à jour.';
 $lang['installer_no_uninstall'] = '%1$s ne contient pas de greffon pouvant être désinstallé.';
 $lang['installer_not_uninstallable'] = '%1$s contient le greffon %2$s qui doit être supprimé avec ce programme de désinstallation de greffon.';
+
+// After Install guide
+$lang['install'] = 'Install';
+$lang['setup_guide'] = 'After Install Guide';
+$lang['default_data'] = 'Default Data';
+$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter % for guild name<br />Enter your default realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
+$lang['initial_settings'] = 'Initial Settings';
 
 // Password Stuff
 $lang['password'] = 'Mot de passe';
@@ -837,7 +845,7 @@ $lang['admin']['img_url'] = "URL du répertoire des images du roster|Répertoire
 $lang['admin']['timezone'] = "Fuseau horaire|Affiché après les dates et heures afin de savoir à quel fuseau horaire l'heure fait référence";
 $lang['admin']['localtimeoffset'] = "Décalage horaire|Le décalage horaire par rapport à l'heure UTC/GMT<br />Les heures sur le roster seront affichées avec ce décalage";
 $lang['admin']['use_update_triggers'] = "Permettre le déclenchement de mise à jour d'AddOn|Le déclenchement de mise à jour d'AddOn est nécessaire pour les AddOns qui ont besoin de fonctionner lors d'une mise à jour d'un profil<br />Quelques AddOns ont besoin de ce paramètre à on pour fonctionner correctement";
-$lang['admin']['check_updates'] = "Vérification des mises à jour|Ceci permet au site de vérifier si une nouvelle version du roster (ou des greffons possèdant cette fonctionalité) est disponible et si vous avez la dernière version d\'installée";
+$lang['admin']['check_updates'] = "Vérification des mises à jour|Ceci permet au site de vérifier si une nouvelle version du roster (ou des greffons possèdant cette fonctionalité)<br />est disponible et si vous avez la dernière version d\'installée";
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Cache des fichiers du système|Utilise le système de fichier local comme cache pour permettre un accroissement de performance.";
 $lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";

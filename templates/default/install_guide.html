@@ -1,0 +1,105 @@
+<!-- $Id$ -->
+
+<span class="title_text">{L_SETUP_GUIDE}</span><br />
+<a href="{U_ROSTERCP}">Skip install guide -&gt;</a>
+
+<form action="" method="post" enctype="multipart/form-data" id="guide" onsubmit="submitonce(this);">
+
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:400px;">
+	<tr>
+		<td class="border_color sredborder">
+			<div class="header_text sredborder">{L_DEFAULT_DATA}</div>
+
+			<table class="bodyline" cellspacing="0" width="100%">
+				<tr>
+					<th class="membersHeader" {L_NAME_TIP}>{L_NAME}</th>
+					<th class="membersHeader" {L_SERVER_TIP}>{L_SERVER}</th>
+					<th class="membersHeaderRight" {L_REGION_TIP}>{L_REGION}</th>
+				</tr>
+				<tr>
+					<td class="membersRowRight1" colspan="3">{L_DEFAULT_DATA_HELP}</td>
+				</tr>
+				<tr>
+					<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
+					<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
+					<td class="membersRowRight2"><input class="wowinput64" type="text" name="region" value="" /></td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<br />
+
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:400px;">
+	<tr>
+		<td class="border_color syellowborder">
+			<div class="header_text syellowborder">{L_INITIAL_SETTINGS}</div>
+
+			<table class="bodyline" cellspacing="0" width="100%">
+				<tr>
+					<td class="membersRow1" {L_USE_TEMP_TABLES_TIP}>{L_USE_TEMP_TABLES}</td>
+					<td class="membersRowRight1"><input type="radio" id="use_temp_tables_on" name="use_temp_tables" value="1" checked="checked" />
+						<label for="use_temp_tables_on">on</label>
+						<input type="radio" id="use_temp_tables_off" name="use_temp_tables" value="0" />
+						<label for="use_temp_tables_off">off</label></td>
+				</tr>
+				<tr>
+					<td class="membersRow2" {L_DEFAULT_NAME_TIP}>{L_DEFAULT_NAME}</td>
+					<td class="membersRowRight2"><input class="wowinput192" type="text" maxlength="50" size="30" value="WoWRoster" name="default_name"/></td>
+				</tr>
+				<tr>
+					<td class="membersRow1"{L_DEFAULT_DESC_TIP}>{L_DEFAULT_DESC}</td>
+					<td class="membersRowRight1"><input class="wowinput192" type="text" maxlength="255" size="30" value="THE original Roster for World of Warcraft" name="default_desc"/></td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<br />
+
+{MESSAGE}
+
+<!-- IF S_ADDON_LIST -->
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sblueborder">
+			<div class="header_text sblueborder">{L_MANAGE_ADDONS}</div>
+
+			<table class="bodyline" cellspacing="0" width="100%">
+				<tr>
+					<th class="membersHeader">{L_ADDONINFO}</th>
+					<th class="membersHeaderRight">{L_INSTALL}</th>
+				</tr>
+			<!-- BEGIN addon_list -->
+				<tr>
+					<td class="membersRow{addon_list.ROW_CLASS}">
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td><span style="font-size:18px;" class="green">{addon_list.FULLNAME}</span>
+									v{addon_list.VERSION}</td>
+							</tr>
+							<tr>
+								<td>{addon_list.DESCRIPTION}</td>
+							</tr>
+							<tr>
+								<td><span class="blue">{L_AUTHOR}: {addon_list.AUTHOR}</span></td>
+							</tr>
+						</table>
+					</td>
+					<td class="membersRowRight{addon_list.ROW_CLASS}"><label for="addon[{addon_list.FULLNAME}]"></label><input class="wowinput192" type="checkbox" id="addon[{addon_list.FULLNAME}]" name="addon[{addon_list.FULLNAME}]" value="1" /></td>
+				</tr>
+
+			<!-- END addon_list -->
+			</table>
+
+		</td>
+	</tr>
+</table>
+<br />
+<!-- ENDIF -->
+
+
+<input type="submit" name="submit" value="Proceed" class="submit" />
+</form>

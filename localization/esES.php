@@ -653,7 +653,6 @@ $lang['socket_colors_to_en'] = array(
 	'amarilla' => 'yellow',
 	'meta' => 'meta',
 	);
-
 // -- end tooltip parsing
 
 // Warlock pet names for icon displaying
@@ -733,6 +732,13 @@ $lang['installer_no_upgrade'] = '%1$s no contiene información de mejora';
 $lang['installer_not_upgradable'] = '%1$s no se puede mejorar %2$s desde que su nombre base %3$s no esta en la lista de addons mejorables';
 $lang['installer_no_uninstall'] = '%1$s no se puede desinstalar';
 $lang['installer_not_uninstallable'] = '%1$s contiene un addon %2$s que debe de ser instalado con este desinstalador de addons';
+
+// After Install guide
+$lang['install'] = 'Install';
+$lang['setup_guide'] = 'After Install Guide';
+$lang['default_data'] = 'Default Data';
+$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter % for guild name<br />Enter your default realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
+$lang['initial_settings'] = 'Initial Settings';
 
 // Password Stuff
 $lang['password'] = 'Contraseña';
@@ -839,7 +845,7 @@ $lang['admin']['img_url'] = "Directorio de imágenes del Roster|Directorio donde
 $lang['admin']['timezone'] = "Hora de la zona|Muestra la hora de tu región geográfica";
 $lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria desde el UTC/GMT<br />La hora del Roster se calcula con esta diferencia";
 $lang['admin']['use_update_triggers'] = "Actualizar addon triggers|Esto se utiliza con addons que necesitan ser ejecutados mientras actualizas un personaje o la hermandad.<br />Algunos addons requieren de esto para funcionar correctamente";
-$lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y a los addons que usan esta opción) comprobar si existe alguna versión nueva del software";
+$lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y a los addons que usan esta opción)<br />comprobar si existe alguna versión nueva del software";
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Sistema de archivos en caché|Permite al servidor local guardar algunos archivos para mejorar el rendimiento.";
 $lang['admin']['use_temp_tables'] = "Usar tablas temporales|Desactiva esta opción si tu servidor no permite crear tablas temporales en la base de datos (CREATE TEMPORARY TABLE privilege).<br/>Se recomienda activarlo para mejorar el rendimiento.";
