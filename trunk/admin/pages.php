@@ -81,3 +81,7 @@ $config_pages['addon'] = array(
 	'special'=>	'hidden',
 	'file'=>	'addon_conf.php',
 	);
+$config_pages['guide'] = array(
+	'special'=>	'hidden',
+	'file'=>	'install_guide.php',
+	);

@@ -24,6 +24,8 @@ if( !defined('IN_ROSTER') )
 $roster->output['title'] .= $roster->locale->act['pagebar_addoninst'];
 
 
+include(ROSTER_ADMIN . 'roster_config_functions.php');
+
 include(ROSTER_LIB . 'install.lib.php');
 $installer = new Install;
 
@@ -31,7 +33,6 @@ $installer = new Install;
 $op = ( isset($_POST['op']) ? $_POST['op'] : '' );
 
 $id = ( isset($_POST['id']) ? $_POST['id'] : '' );
-
 
 switch( $op )
 {
@@ -47,9 +48,27 @@ switch( $op )
 		$processed = processAddon();
 		break;
 
+	case 'default_page':
+		processPage();
+		break;
+
 	default:
 		break;
 }
+
+$l_default_page = explode('|',$roster->locale->act['admin']['default_page']);
+
+$roster->tpl->assign_vars(array(
+	'S_ADDON_LIST' => false,
+
+	'L_DEFAULT_PAGE' => $l_default_page[0],
+	'L_DEFAULT_PAGE_HELP' => makeOverlib($l_default_page[1],$l_default_page[0],'',0,'',',WRAP'),
+
+	'S_DEFAULT_SELECT' => pageNames(),
+
+	'MESSAGE' => '',
+	)
+);
 
 $addons = getAddonList();
 
@@ -70,8 +89,6 @@ if( !empty($addons) )
 		'L_TIP_INSTALL_OLD' => makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']),
 		'L_TIP_INSTALL' => makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']),
 		'L_TIP_UNINSTALL' => makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']),
-
-		'MESSAGE' => '',
 		)
 	);
 
@@ -112,7 +129,6 @@ if( !empty($addons) )
 }
 else
 {
-	$roster->tpl->assign_var('S_ADDON_LIST',false);
 	$installer->setmessages('No addons available!');
 }
 
@@ -287,6 +303,7 @@ function processAddon()
 	if( false === $roster->db->query("CREATE TEMPORARY TABLE `test` (id int);") )
 	{
 		$installer->temp_tables = false;
+		$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '0' WHERE `id` = 1180;");
 	}
 	else
 	{
@@ -515,4 +532,22 @@ function purge( $dbname )
 	$roster->db->query($query) or $installer->seterrors('Error while deleting addon table entry for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
 
 	return true;
+}
+
+function processPage()
+{
+	global $roster;
+
+	$default = ( $_POST['config_default_page'] );
+	$query = "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '$default' WHERE `id` = '1050';";
+
+	if( !$roster->db->query($query) )
+	{
+		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	}
+	else
+	{
+		// Set this enforce_rules value to the right one since roster_config isn't refreshed here
+		$roster->config['default_page'] = $default;
+	}
 }
