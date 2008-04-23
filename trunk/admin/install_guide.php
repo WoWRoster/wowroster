@@ -17,20 +17,18 @@
  * @subpackage RosterCP
 */
 
-if( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
     exit('Detected invalid access to this file!');
 }
 
-// ----[ Check log-in ]-------------------------------------
-if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
-{
-	echo '<span class="title_text">' . $roster->locale->act['setup_guide'] . '</span><br />'
-		. $roster->auth->getLoginForm();
+$data_present = $roster->db->query_first("SELECT `name` FROM `" . $roster->db->table('upload') . "` WHERE `default` = 1;");
 
+if( !empty($data_present) )
+{
+	$body .= messagebox($roster->locale->act['guide_already_complete'],$roster->locale->act['setup_guide'],'sred');
 	return;
 }
-// ----[ End Check log-in ]---------------------------------
 
 $roster->output['body_onload'] .= 'initARC(\'guide\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
@@ -44,6 +42,7 @@ $roster->tpl->assign_vars(array(
 	'MESSAGE' => '',
 
 	'L_SETUP_GUIDE' => $roster->locale->act['setup_guide'],
+	'L_NEXT'        => $roster->locale->act['next'],
 
 	'S_STEP_1' => false,
 	'S_STEP_2' => false,
@@ -95,25 +94,30 @@ function guide_step2()
 {
 	global $roster;
 
-	$roster->tpl->assign_vars(array(
-		'S_STEP_2' => true,
-		)
-	);
+	$roster->tpl->assign_var('S_STEP_2',true);
 
-	$name = post_or_db('name');
-	$server = post_or_db('server');
-	$region = post_or_db('region');
+	$name = trim(post_or_db('name'));
+	$server = trim(post_or_db('server'));
+	$region = strtoupper(substr(trim(post_or_db('region')),0,2));
 
 	if( !empty($name) || !empty($server) || !empty($region) )
 	{
-		$query  = "INSERT INTO `" . $roster->db->table('upload') . "`"
-				. " (`name`,`server`,`region`,`type`,`default`)"
-				. " VALUES ('" . $name . "','" . $server . "','" . strtoupper($region) . "','0','1');";
+		$query = "UPDATE `" . $roster->db->table('upload') . "` SET `default` = '0';";
 
 		if( !$roster->db->query($query) )
 		{
 			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 		}
+
+		$query  = "INSERT INTO `" . $roster->db->table('upload') . "`"
+				. " (`name`,`server`,`region`,`type`,`default`)"
+				. " VALUES ('" . $name . "','" . $server . "','" . $region . "','0','1');";
+
+		if( !$roster->db->query($query) )
+		{
+			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+		}
+		$roster->tpl->assign_var('MESSAGE',messagebox( sprintf($roster->locale->act['guide_complete'],makelink('rostercp-install')) ));
 	}
 	else
 	{
@@ -121,8 +125,8 @@ function guide_step2()
 	}
 }
 
-$roster->tpl->set_handle('guide','install_guide.html');
-$roster->tpl->display('guide');
+$roster->tpl->set_handle('guide','admin/install_guide.html');
+$body .= $roster->tpl->fetch('guide');
 
 
 /**

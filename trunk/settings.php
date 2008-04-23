@@ -261,39 +261,6 @@ $roster->auth = new RosterLogin();
 
 
 /**
- * Inject some different settings if the debug url switch is set
- */
-// BETA ONLY: force these on
-//if( isset($_GET['rdebug']) && is_numeric($_GET['rdebug']) )
-{/*
-	switch( $_GET['rdebug'] )
-	{
-		case 2:
-			$roster->config['debug_mode'] = 2;
-			if( !$roster->config['sql_window'] )
-			{
-				$roster->config['sql_window'] = 2;
-			}
-			break;
-
-		case 1:
-		default:
-			$roster->config['debug_mode'] = 1;
-			if( !$roster->config['sql_window'] )
-			{
-				$roster->config['sql_window'] = 1;
-			}
-			break;
-	}*/
-	$roster->config['debug_mode'] = 2;
-	if( !$roster->config['sql_window'] )
-	{
-		$roster->config['sql_window'] = 1;
-	}
-}
-
-
-/**
  * Assign initial template vars
  */
 $roster->tpl->assign_vars(array(

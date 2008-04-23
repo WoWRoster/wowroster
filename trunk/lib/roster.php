@@ -152,6 +152,38 @@ class roster
 		}
 		$this->db->free_result($results);
 
+		/**
+		 * Inject some different settings if the debug url switch is set
+		 */
+		if( isset($_GET['rdebug']) && is_numeric($_GET['rdebug']) )
+		{
+			switch( $_GET['rdebug'] )
+			{
+				case 2:
+					$this->config['debug_mode'] = 2;
+					$this->config['sql_window'] = 2;
+					break;
+
+				case 1:
+				default:
+					$this->config['debug_mode'] = 1;
+					$this->config['sql_window'] = 1;
+					break;
+			}
+		}
+
+		// BETA ONLY, COMMENT THIS IN RC OR LATER!
+		// if these equal 0, force these on
+		if( $this->config['debug_mode'] == 0 )
+		{
+			$this->config['debug_mode'] = 1;
+		}
+		if( $this->config['sql_window'] == 0 )
+		{
+			$this->config['sql_window'] = 1;
+		}
+		// END BETA ONLY
+
 		$this->db->log_level($this->config['sql_window']);
 	}
 

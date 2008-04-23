@@ -45,6 +45,8 @@ if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 }
 // ----[ End Check log-in ]---------------------------------
 
+define('IN_ROSTER_ADMIN',true);
+
 include_once(ROSTER_ADMIN . 'pages.php');
 
 $header = $menu = $pagebar = $footer = $body = $rcp_message = '';
@@ -119,7 +121,7 @@ foreach( $config_pages as $pindex => $data )
 {
 	$pagename = $roster->pages[0] . ( $page != 'roster' ? '-' . $page : '' );
 
-	if( $data['special'] != 'hidden' )
+	if( !isset($data['special']) || $data['special'] != 'hidden' )
 	{
 		$roster->tpl->assign_block_vars('pagebar',array(
 			'SPECIAL' => ( isset($data['special']) ? $data['special'] : '' ),

@@ -16,7 +16,7 @@
  * @subpackage RosterCP
 */
 
-if( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -65,8 +65,6 @@ $roster->tpl->assign_vars(array(
 	'L_DEFAULT_PAGE_HELP' => makeOverlib($l_default_page[1],$l_default_page[0],'',0,'',',WRAP'),
 
 	'S_DEFAULT_SELECT' => pageNames(),
-
-	'MESSAGE' => '',
 	)
 );
 
@@ -136,21 +134,17 @@ $errorstringout = $installer->geterrors();
 $messagestringout = $installer->getmessages();
 $sqlstringout = $installer->getsql();
 
-$message = '';
-
 // print the error messages
 if( !empty($errorstringout) )
 {
-	$message .= messagebox($errorstringout,$roster->locale->act['installer_error'],'sred') . '<br />';
+	$rcp_message .= messagebox($errorstringout,$roster->locale->act['installer_error'],'sred') . '<br />';
 }
 
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow') . '<br />';
+	$rcp_message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow') . '<br />';
 }
-
-$roster->tpl->assign_var('MESSAGE',$message);
 
 $roster->tpl->set_filenames(array('body' => 'admin/addon_install.html'));
 $body = $roster->tpl->fetch('body');
