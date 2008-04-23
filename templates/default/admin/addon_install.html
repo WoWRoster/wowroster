@@ -2,6 +2,15 @@
 
 {MESSAGE}
 
+<form action="{U_MAKELINK}" method="post" id="default">
+	<input type="hidden" name="op" value="default_page" />
+	<span {L_DEFAULT_PAGE_HELP}>{L_DEFAULT_PAGE}</span>
+	{S_DEFAULT_SELECT}
+	<input type="submit" value="Go" />
+</form>
+
+<br />
+
 <!-- IF S_ADDON_LIST -->
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>

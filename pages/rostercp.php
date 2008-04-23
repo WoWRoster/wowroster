@@ -119,13 +119,16 @@ foreach( $config_pages as $pindex => $data )
 {
 	$pagename = $roster->pages[0] . ( $page != 'roster' ? '-' . $page : '' );
 
-	$roster->tpl->assign_block_vars('pagebar',array(
-		'SPECIAL' => ( isset($data['special']) ? $data['special'] : '' ),
-		'SELECTED' => ( isset($data['href']) ? ($pagename == $data['href'] ? true : false) : ''),
-		'LINK' => ( isset($data['href']) ? makelink($data['href']) : '' ),
-		'NAME' => ( isset($data['title']) ? ( isset($roster->locale->act[$data['title']]) ? $roster->locale->act[$data['title']] : $data['title'] ) : '' ),
-		)
-	);
+	if( $data['special'] != 'hidden' )
+	{
+		$roster->tpl->assign_block_vars('pagebar',array(
+			'SPECIAL' => ( isset($data['special']) ? $data['special'] : '' ),
+			'SELECTED' => ( isset($data['href']) ? ($pagename == $data['href'] ? true : false) : ''),
+			'LINK' => ( isset($data['href']) ? makelink($data['href']) : '' ),
+			'NAME' => ( isset($data['title']) ? ( isset($roster->locale->act[$data['title']]) ? $roster->locale->act[$data['title']] : $data['title'] ) : '' ),
+			)
+		);
+	}
 }
 
 // Added to get the newest addon list because we may have installed/uninstalled something

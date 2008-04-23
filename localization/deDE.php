@@ -737,8 +737,7 @@ $lang['installer_not_uninstallable'] = '%1$s enthält ein Addon %2$s welches mit
 $lang['install'] = 'Install';
 $lang['setup_guide'] = 'After Install Guide';
 $lang['default_data'] = 'Default Data';
-$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter % for guild name<br />Enter your default realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
-$lang['initial_settings'] = 'Initial Settings';
+$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter Guildless-F for guild name<br />Replace F with your Faction (A-Alliance, H-Horde)<br />Enter your realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
 
 // Password Stuff
 $lang['password'] = 'Passwort';

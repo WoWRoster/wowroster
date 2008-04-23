@@ -3,7 +3,7 @@
 <form action="{U_MAKELINK}" method="post" id="enforce">
 	<input type="hidden" name="action" value="enforce" />
 	<input type="hidden" name="process" value="process" />
-	{L_ENFORCE_RULES}
+	<span {L_ENFORCE_RULES_HELP}>{L_ENFORCE_RULES}</span>
 	<select name="enforce">
 		<option value="0"<!-- IF S_ENFORCE_RULES eq '0' --> selected="selected"<!-- ENDIF -->>Never</option>
 		<option value="1"<!-- IF S_ENFORCE_RULES eq '1' --> selected="selected"<!-- ENDIF -->>All LUA Updates</option>

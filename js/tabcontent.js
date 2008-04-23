@@ -19,9 +19,10 @@
 //   -Ability to expand/contract arbitrary DIVs on the page as the tabbed content is expanded/ contracted
 //   -Ability to dynamically select a tab either based on its position within its peers, or its ID attribute (give the target tab one 1st)
 //   -Ability to set where the CSS classname "selected" get assigned- either to the target tab's link ("A"), or its parent container
-//   -Documentation: http://www.dynamicdrive.com/dynamicindex17/tabcontent_suppliment.htm
-
 //** Updated Feb 18th, 08 to version 2.1: Adds a "tabinstance.cycleit(dir)" method to cycle forward or backward between tabs dynamically
+//** Updated April 8th, 08 to version 2.2: Adds support for expanding a tab using a URL parameter (ie: http://mysite.com/tabcontent.htm?tabinterfaceid=0)
+
+//   -Documentation: http://www.dynamicdrive.com/dynamicindex17/tabcontent_suppliment.htm
 
 ////NO NEED TO EDIT BELOW////////////////////////
 
@@ -87,6 +88,11 @@ tabcontent.prototype={
 		return (this.selectedClassTarget==("linkparent".toLowerCase()))? tabref.parentNode : tabref
 	},
 
+	urlparamselect:function(tabinterfaceid){
+		var result=window.location.search.match(new RegExp(tabinterfaceid+"=(\\d+)", "i")) //check for "?tabinterfaceid=2" in URL
+		return (result==null)? null : parseInt(RegExp.$1) //returns null or index, where index (int) is the selected tab's index
+	},
+
 	expandtab:function(tabref){
 		var subcontentid=tabref.getAttribute("rel") //Get id of subcontent to expand
 		//Get "rev" attr as a string of IDs in the format ",john,george,trey,etc," to easily search through
@@ -136,7 +142,8 @@ tabcontent.prototype={
 
 	init:function(automodeperiod){
 		var persistedtab=tabcontent.getCookie(this.tabinterfaceid) //get position of persisted tab (applicable if persistence is enabled)
-		var persisterror=true //Bool variable to check whether persisted tab position is valid (can become invalid if user has modified tab structure)
+		var selectedtab=-1 //Currently selected tab index (-1 meaning none)
+		var selectedtabfromurl=this.urlparamselect(this.tabinterfaceid) //returns null or index from: tabcontent.htm?tabinterfaceid=index
 		this.automodeperiod=automodeperiod || 0
 		for (var i=0; i<this.tabs.length; i++){
 			this.tabs[i].tabposition=i //remember position of tab relative to its peers
@@ -152,13 +159,14 @@ tabcontent.prototype={
 				if (this.tabs[i].getAttribute("rev")){ //if "rev" attr defined, store each value within "rev" as an array element
 					this.revcontentids=this.revcontentids.concat(this.tabs[i].getAttribute("rev").split(/\s*,\s*/))
 				}
-				if (this.enabletabpersistence && parseInt(persistedtab)==i || !this.enabletabpersistence && this.getselectedClassTarget(this.tabs[i]).className=="selected"){
-					this.expandtab(this.tabs[i]) //expand current tab if it's the persisted tab, or if persist=off, carries the "selected" CSS class
-					persisterror=false //Persisted tab (if applicable) was found, so set "persisterror" to false
+				if (selectedtabfromurl==i || this.enabletabpersistence && selectedtab==-1 && parseInt(persistedtab)==i || !this.enabletabpersistence && selectedtab==-1 && this.getselectedClassTarget(this.tabs[i]).className=="selected"){
+					selectedtab=i //Selected tab index, if found
 				}
 			}
 		} //END for loop
-		if (persisterror) //if an error has occured while trying to retrieve persisted tab (based on its position within its peers)
+		if (selectedtab!=-1) //if a valid default selected tab index is found
+			this.expandtab(this.tabs[selectedtab]) //expand selected tab (either from URL parameter, persistent feature, or class="selected" class)
+		else //if no valid default selected index found
 			this.expandtab(this.tabs[this.hottabspositions[0]]) //Just select first tab that contains a "rel" attr
 		if (parseInt(this.automodeperiod)>500 && this.hottabspositions.length>1){
 			this.autoruntimer=setInterval(function(){tabinstance.autorun()}, this.automodeperiod)

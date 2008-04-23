@@ -34,312 +34,121 @@ if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 
 $roster->output['body_onload'] .= 'initARC(\'guide\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-$use_temp_tables = explode('|',$roster->locale->act['admin']['use_temp_tables']);
-$default_name = explode('|',$roster->locale->act['admin']['default_name']);
-$default_desc = explode('|',$roster->locale->act['admin']['default_desc']);
 
-// ----[ Render the page ]----------------------------------
+include(ROSTER_LIB . 'install.lib.php');
+
+
 $roster->tpl->assign_vars(array(
 	'U_ROSTERCP' => makelink('rostercp'),
 
-	'L_SETUP_GUIDE'       => $roster->locale->act['setup_guide'],
-	'L_INITIAL_SETTINGS'  => $roster->locale->act['initial_settings'],
-	'L_DEFAULT_DATA'      => $roster->locale->act['default_data'],
-	'L_DEFAULT_DATA_HELP' => $roster->locale->act['default_data_help'],
+	'MESSAGE' => '',
 
-	'L_NAME'              => $roster->locale->act['name'],
-	'L_NAME_TIP'          => makeOverlib( $roster->locale->act['guildname'] ),
-	'L_SERVER'            => $roster->locale->act['server'],
-	'L_SERVER_TIP'        => makeOverlib($roster->locale->act['realmname']),
-	'L_REGION'            => $roster->locale->act['region'],
-	'L_REGION_TIP'        => makeOverlib($roster->locale->act['regionname']),
+	'L_SETUP_GUIDE' => $roster->locale->act['setup_guide'],
 
-	'L_DEFAULT_NAME'            => $default_name[0],
-	'L_DEFAULT_NAME_TIP'        => makeOverlib($default_name[1],$default_name[0]),
-
-	'L_DEFAULT_DESC'            => $default_desc[0],
-	'L_DEFAULT_DESC_TIP'        => makeOverlib($default_desc[1],$default_desc[0]),
-
-	'L_USE_TEMP_TABLES'     => $use_temp_tables[0],
-	'L_USE_TEMP_TABLES_TIP' => makeOverlib($use_temp_tables[1],$use_temp_tables[0]),
+	'S_STEP_1' => false,
+	'S_STEP_2' => false,
 	)
 );
 
 
-include(ROSTER_LIB . 'install.lib.php');
-$installer = new Install;
+$STEP = ( isset($_POST['guide_step']) ? $_POST['guide_step'] : '1' );
 
 
-$addons = getAddonList();
-
-if( !empty($addons) )
+/**
+ * Figure out what we're doing...
+ */
+switch( $STEP )
 {
+	case 1:
+		guide_step1();
+		break;
+	case 2:
+		guide_step2();
+		break;
+	default:
+		guide_step1();
+		break;
+}
+
+
+function guide_step1()
+{
+	global $roster;
+
 	$roster->tpl->assign_vars(array(
-		'S_ADDON_LIST' => true,
+		'S_STEP_1' => true,
 
-		'L_ADDONINFO'     => $roster->locale->act['installer_addoninfo'],
-		'L_STATUS'        => $roster->locale->act['installer_status'],
-		'L_INSTALL'  => $roster->locale->act['install'],
-		'L_AUTHOR'        => $roster->locale->act['installer_author'],
-		'L_MANAGE_ADDONS' => $roster->locale->act['pagebar_addoninst'],
+		'L_DEFAULT_DATA'      => $roster->locale->act['default_data'],
+		'L_DEFAULT_DATA_HELP' => $roster->locale->act['default_data_help'],
 
-		'MESSAGE' => '',
+		'L_NAME'              => $roster->locale->act['name'],
+		'L_NAME_TIP'          => makeOverlib( $roster->locale->act['guildname'] ),
+		'L_SERVER'            => $roster->locale->act['server'],
+		'L_SERVER_TIP'        => makeOverlib($roster->locale->act['realmname']),
+		'L_REGION'            => $roster->locale->act['region'],
+		'L_REGION_TIP'        => makeOverlib($roster->locale->act['regionname']),
+		)
+	);
+}
+
+function guide_step2()
+{
+	global $roster;
+
+	$roster->tpl->assign_vars(array(
+		'S_STEP_2' => true,
 		)
 	);
 
-	foreach( $addons as $addon )
+	$name = post_or_db('name');
+	$server = post_or_db('server');
+	$region = post_or_db('region');
+
+	if( !empty($name) || !empty($server) || !empty($region) )
 	{
-		$roster->tpl->assign_block_vars('addon_list', array(
-			'ROW_CLASS'   => $roster->switch_row_class(),
-			'ID'          => ( isset($addon['id']) ? $addon['id'] : '' ),
-			'FULLNAME'    => $addon['fullname'],
-			'BASENAME'    => $addon['basename'],
-			'VERSION'     => $addon['version'],
-			'DESCRIPTION' => $addon['description'],
-			'AUTHOR'      => $addon['author'],
-			)
-		);
+		$query  = "INSERT INTO `" . $roster->db->table('upload') . "`"
+				. " (`name`,`server`,`region`,`type`,`default`)"
+				. " VALUES ('" . $name . "','" . $server . "','" . strtoupper($region) . "','0','1');";
+
+		if( !$roster->db->query($query) )
+		{
+			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+		}
+	}
+	else
+	{
+		$roster->tpl->assign_var('MESSAGE',messagebox($roster->locale->act['upload_rules_error'],'','sred'));
 	}
 }
-else
-{
-	$roster->tpl->assign_var('S_ADDON_LIST',false);
-	$installer->setmessages('No addons available!');
-}
 
-$errorstringout = $installer->geterrors();
-$messagestringout = $installer->getmessages();
-$sqlstringout = $installer->getsql();
-
-$message = '';
-
-// print the error messages
-if( !empty($errorstringout) )
-{
-	$message .= messagebox($errorstringout,$roster->locale->act['installer_error'],'sred') . '<br />';
-}
-
-// Print the update messages
-if( !empty($messagestringout) )
-{
-	$message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow') . '<br />';
-}
-
-$roster->tpl->assign_var('MESSAGE',$message);
-
-
-$roster->tpl->set_filenames(array('guide' => 'install_guide.html'));
+$roster->tpl->set_handle('guide','install_guide.html');
 $roster->tpl->display('guide');
 
 
 /**
- * Gets the list of currently installed roster addons
+ * Checks if a POST field value exists;
+ * If it does, we use that one, otherwise we use the optional database field value,
+ * or return a null string if $db_row contains no data
  *
- * @return array
+ * @param    string  $post_field POST field name
+ * @param    array   $db_row     Array of DB values
+ * @param    string  $db_field   DB field name
+ * @return   string
  */
-function getAddonList()
+function post_or_db( $post_field , $db_row = array() , $db_field = '' )
 {
-	global $roster, $installer;
-
-	// Initialize output
-	$addons = '';
-	$output = '';
-
-	if( $handle = opendir(ROSTER_ADDONS) )
+	if ( @sizeof($db_row) > 0 )
 	{
-		while( false !== ($file = readdir($handle)) )
+		if ( $db_field == '' )
 		{
-			if( $file != '.' && $file != '..' && $file != '.svn' )
-			{
-				$addons[] = $file;
-			}
+			$db_field = $post_field;
 		}
-	}
 
-	usort($addons, 'strnatcasecmp');
-
-	if( is_array($addons) )
-	{
-		foreach( $addons as $addon )
-		{
-			$installfile = ROSTER_ADDONS . $addon . DIR_SEP . 'inc' . DIR_SEP . 'install.def.php';
-			$install_class = $addon . 'Install';
-
-			if( file_exists($installfile) )
-			{
-				include_once($installfile);
-
-				if( !class_exists($install_class) )
-				{
-					$installer->seterrors(sprintf($roster->locale->act['installer_no_class'],$addon));
-					continue;
-				}
-
-				$addonstuff = new $install_class;
-
-				$query = "SELECT * FROM `" . $roster->db->table('addon') . "` WHERE `basename` = '$addon';";
-				$result = $roster->db->query($query);
-				if (!$result)
-				{
-					$installer->seterrors('Database Error: ' . $roster->db->error() . '<br />SQL: ' . $query);
-					return;
-				}
-
-				if( $roster->db->num_rows($result) > 0 )
-				{
-					$row = $roster->db->fetch($result);
-
-					$output[$addon]['id'] = $row['addon_id'];
-					$output[$addon]['active'] = $row['active'];
-					$output[$addon]['oldversion'] = $row['version'];
-
-					// -1 = overwrote newer version
-					//  0 = same version
-					//  1 = upgrade available
-					$output[$addon]['install'] = version_compare($addonstuff->version,$row['version']);
-
-				}
-				else
-				{
-					$output[$addon]['install'] = 3;
-				}
-
-				// Save current locale array
-				// Since we add all locales for localization, we save the current locale array
-				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-				$localetemp = $roster->locale->wordings;
-
-				foreach( $roster->multilanguages as $lang )
-				{
-					$roster->locale->add_locale_file(ROSTER_ADDONS . $addon . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-				}
-
-				$output[$addon]['basename'] = $addon;
-				$output[$addon]['fullname'] = ( isset($roster->locale->act[$addonstuff->fullname]) ? $roster->locale->act[$addonstuff->fullname] : $addonstuff->fullname );
-				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
-				$output[$addon]['version'] = $addonstuff->version;
-				$output[$addon]['icon'] = $addonstuff->icon;
-				$output[$addon]['description'] = ( isset($roster->locale->act[$addonstuff->description]) ? $roster->locale->act[$addonstuff->description] : $addonstuff->description );
-
-				unset($addonstuff);
-
-				// Restore our locale array
-				$roster->locale->wordings = $localetemp;
-				unset($localetemp);
-			}
-		}
-	}
-	return $output;
-}
-
-
-/**
- * Addon installer/upgrader/uninstaller
- *
- */
-function processAddon()
-{
-	global $roster, $installer;
-
-	$addon_name = $_POST['addon'];
-
-	if( preg_match('/[^a-zA-Z0-9_]/', $addon_name) )
-	{
-		$installer->seterrors($roster->locale->act['invalid_char_module'],$roster->locale->act['installer_error']);
-		return;
-	}
-
-	// Check for temp tables
-	$old_error_die = $roster->db->error_die(false);
-	if( false === $roster->db->query("CREATE TEMPORARY TABLE `test` (id int);") )
-	{
-		$installer->temp_tables = false;
+		$db_value = $db_row[$db_field];
 	}
 	else
 	{
-		$installer->temp_tables = true;
+		$db_value = '';
 	}
-	$roster->db->error_die($old_error_die);
-
-	// Include addon install definitions
-	$addonDir = ROSTER_ADDONS . $addon_name . DIR_SEP;
-	$addon_install_file = $addonDir . 'inc' . DIR_SEP . 'install.def.php';
-	$install_class = $addon_name . 'Install';
-
-	if( !file_exists($addon_install_file) )
-	{
-		$installer->seterrors(sprintf($roster->locale->act['installer_no_installdef'],$addon_name),$roster->locale->act['installer_error']);
-		return;
-	}
-
-	require($addon_install_file);
-
-	$addon = new $install_class();
-	$addata = escape_array((array)$addon);
-	$addata['basename'] = $addon_name;
-
-	if( $addata['basename'] == '' )
-	{
-		$installer->seterrors($roster->locale->act['installer_no_empty'],$roster->locale->act['installer_error']);
-		return;
-	}
-
-	// Give the installer the addon data
-	$installer->addata = $addata;
-
-	$success = false;
-
-
-	// Save current locale array
-	// Since we add all locales for localization, we save the current locale array
-	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-	$localetemp = $roster->locale->wordings;
-
-	foreach( $roster->multilanguages as $lang )
-	{
-		$roster->locale->add_locale_file(ROSTER_ADDONS . $addata['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-	}
-
-	// Collect data for this install type
-	$query = 'INSERT INTO `' . $roster->db->table('addon') . '` VALUES (NULL,"' . $installer->addata['basename'] . '","' . $installer->addata['version'] . '",0,"' . $installer->addata['fullname'] . '","' . $installer->addata['description'] . '","' . $roster->db->escape(serialize($installer->addata['credits'])) . '","' . $installer->addata['icon'] . '","' . $installer->addata['wrnet_id'] . '",NULL);';
-	$result = $roster->db->query($query);
-	if( !$result )
-	{
-		$installer->seterrors('DB error while creating new addon record. <br /> MySQL said:' . $roster->db->error(),$roster->locale->act['installer_error']);
-		break;
-	}
-	$installer->addata['addon_id'] = $roster->db->insert_id();
-
-	// We backup the addon config table to prevent damage
-	$installer->add_backup($roster->db->table('addon_config'));
-
-	$success = $addon->install();
-
-	// Delete the addon record if there is an error
-	if( !$success )
-	{
-		$query = 'DELETE FROM `' . $roster->db->table('addon') . "` WHERE `addon_id` = '" . $installer->addata['addon_id'] . "';";
-		$result = $roster->db->query($query);
-	}
-	else
-	{
-		$installer->sql[] = 'UPDATE `' . $roster->db->table('addon') . '` SET `active` = ' . (int)$installer->addata['active'] . " WHERE `addon_id` = '" . $installer->addata['addon_id'] . "';";
-	}
-
-	if( !$success )
-	{
-		$installer->seterrors($roster->locale->act['installer_no_success_sql']);
-		return false;
-	}
-	else
-	{
-		$success = $installer->install();
-		$installer->setmessages(sprintf($roster->locale->act['installer_' . $_POST['type'] . '_' . $success],$installer->addata['basename']));
-	}
-
-	// Restore our locale array
-	$roster->locale->wordings = $localetemp;
-	unset($localetemp);
-
-	return true;
+	return( (isset($_POST[$post_field])) || (!empty($_POST[$post_field])) ) ? $_POST[$post_field] : $db_value;
 }
