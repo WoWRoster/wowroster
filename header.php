@@ -66,6 +66,17 @@ switch( $roster->scope )
  * Assign template vars
  */
 $roster->tpl->assign_vars(array(
+	// These are duplicated since there might be an error before settings.php finishes and sets these
+	'XML_LANG'        => substr($roster->config['locale'],0,2),
+	'ROSTER_URL'      => ROSTER_URL,
+	'ROSTER_PATH'     => ROSTER_PATH,
+	'S_HEADER_LOGO'   => ( !empty($roster->config['logo']) ? true : false ),
+	'WEBSITE_ADDRESS' => $roster->config['website_address'],
+	'U_MAKELINK'      => makelink(),
+	'HEADER_LOGO'     => $roster->config['logo'],
+	'IMG_URL'         => $roster->config['img_url'],
+	// End duplication
+
 	'PAGE_TITLE'      => $roster_title,
 	'ROSTER_HEAD'     => $roster->output['html_head'],
 	'ROSTER_BODY'     => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '')

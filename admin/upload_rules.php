@@ -16,7 +16,7 @@
  * @subpackage RosterCP
 */
 
-if( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -51,6 +51,10 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 
 		if( !empty($_POST['value']) || !empty($_POST['server']) || !empty($_POST['region']) )
 		{
+			$name = trim($_POST['value']);
+			$server = trim($_POST['server']);
+			$region = strtoupper(substr(trim($_POST['region']),0,2));
+
 			$default = ( (isset($_POST['defaultchk']) && $_POST['defaultchk'] == '1') ? '1' : '0' );
 
 			if( $default == '1' )
@@ -65,7 +69,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 
 			$query  = "INSERT INTO `" . $roster->db->table('upload') . "`"
 					. " (`name`,`server`,`region`,`type`,`default`)"
-					. " VALUES ('" . $_POST['value'] . "','" . $_POST['server'] . "','" . strtoupper($_POST['region']) . "','" . $type . "','" . $default . "');";
+					. " VALUES ('" . $name . "','" . $server . "','" . $region . "','" . $type . "','" . $default . "');";
 
 			if( !$roster->db->query($query) )
 			{
@@ -140,6 +144,14 @@ while( $row = $roster->db->fetch($result) )
 	{
 		$data['allow'][] = $row;
 	}
+}
+
+
+$default_present = $roster->db->query_first("SELECT `name` FROM `" . $roster->db->table('upload') . "` WHERE `default` = 1;");
+
+if( empty($default_present) )
+{
+	$rcp_message .= messagebox($roster->locale->act['no_default_guild'],$roster->locale->act['pagebar_uploadrules'],'sred');
 }
 
 $l_enforce_rules = explode('|',$roster->locale->act['admin']['enforce_rules']);

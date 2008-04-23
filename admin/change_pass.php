@@ -16,7 +16,7 @@
  * @subpackage RosterCP
 */
 
-if( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
     exit('Detected invalid access to this file!');
 }
@@ -31,8 +31,6 @@ $roster->tpl->assign_vars(array(
 	'L_NEW_PASS'         => $roster->locale->act['new_pass'],
 	'L_NEW_PASS_CONFIRM' => $roster->locale->act['new_pass_confirm'],
 	'L_CHANGE_PASS'      => $roster->locale->act['pagebar_changepass'],
-
-	'MESSAGE' => '',
 	)
 );
 
@@ -64,23 +62,23 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 		$success = 0;
 		if( $mode == 'Admin' && md5($oldpass) != $realhash )
 		{
-			$message = messagebox($roster->locale->act['pass_old_error'],$roster->locale->act['roster_cp'],'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_old_error'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( !array_key_exists('newpass',$_POST) || !array_key_exists('confirmpass',$_POST) )
 		{
-			$message = messagebox($roster->locale->act['pass_submit_error'],$roster->locale->act['roster_cp'],'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_submit_error'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( $newpass != $confirmpass )
 		{
-			$message = messagebox($roster->locale->act['pass_mismatch'],$roster->locale->act['roster_cp'],'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_mismatch'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( $newpass === '' || $confirmpass === '' || md5($newpass) == md5('') )
 		{
-			$message = messagebox($roster->locale->act['pass_blank'],$roster->locale->act['roster_cp'],'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_blank'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( md5($newpass) == $realhash )
 		{
-			$message = messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sorange');
+			$rcp_message .= messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sorange');
 		}
 		else // valid password
 		{
@@ -95,11 +93,10 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 
 			$success = 1;
 
-			$message = messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
+			$rcp_message .= messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
 		}
 
-		$message .= '<br />';
-		$roster->tpl->assign_var('MESSAGE',$message);
+		$rcp_message .= '<br />';
 	}
 }
 
