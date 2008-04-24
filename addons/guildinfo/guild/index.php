@@ -21,16 +21,6 @@ if( !defined('IN_ROSTER') )
 
 $roster->output['title'] = $roster->locale->act['guildinfo'];
 
-// ----[ Check log-in ]-------------------------------------
-if( ! $roster->auth->getAuthorized( $addon['config']['guildinfo_access'] ) )
-{
-	echo '<span class="title_text">' . $roster->locale->act['guildinfo'] . '</span><br />'.
-		$roster->auth->getLoginForm();
-
-	return;
-}
-// ----[ End Check log-in ]---------------------------------
-
 $guild_info_text = empty($roster->data['guild_info_text']) ? '&nbsp;' : $roster->data['guild_info_text'];
 
 echo messagebox('<div class="infotext">' . nl2br($guild_info_text) . '</div>',$roster->locale->act['guildinfo'],'syellow');
