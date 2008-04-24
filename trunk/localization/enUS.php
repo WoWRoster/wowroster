@@ -54,6 +54,7 @@ $lang['addon_error'] = 'Addon Error';
 $lang['specify_addon'] = 'You must specify an addon name!';
 $lang['addon_not_exist'] = '<b>The addon [%1$s] does not exist!</b>';
 $lang['addon_disabled'] = '<b>The addon [%1$s] has been disabled</b>';
+$lang['addon_no_access'] = '<b>Insufficient credentials to access [%1$s]</b>';
 $lang['addon_upgrade_notice'] = '<b>The addon [%1$s] has been disabled because it needs to be upgraded</b>';
 $lang['addon_not_installed'] = '<b>The addon [%1$s] has not been installed yet</b>';
 $lang['addon_no_config'] = '<b>The addon [%1$s] does not have a config</b>';
@@ -67,6 +68,7 @@ $lang['roster_cp'] = 'Roster Control Panel';
 $lang['roster_cp_ab'] = 'Roster CP';
 $lang['roster_cp_not_exist'] = 'Page [%1$s] does not exist';
 $lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials to access this page';
+$lang['access_level'] = 'Access Level';
 
 $lang['parsing_files'] = 'Parsing files';
 $lang['parsed_time'] = 'Parsed %1$s in %2$s seconds';

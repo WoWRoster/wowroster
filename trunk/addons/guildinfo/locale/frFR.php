@@ -18,5 +18,3 @@
 $lang['guildinfo'] = 'Infos Guilde';
 $lang['guildinfo_desc'] = 'Affiche le contenu de la boîte infos guilde du jeu';
 $lang['ginfobutton'] = 'Infos Guilde|Affiche les infos guilde';
-
-$lang['admin']['guildinfo_access'] = 'Access|Set who has access to Guild Info';

@@ -52,6 +52,10 @@ switch( $op )
 		processPage();
 		break;
 
+	case 'access':
+		processAccess();
+		break;
+
 	default:
 		break;
 }
@@ -63,6 +67,8 @@ $roster->tpl->assign_vars(array(
 
 	'L_DEFAULT_PAGE' => $l_default_page[0],
 	'L_DEFAULT_PAGE_HELP' => makeOverlib($l_default_page[1],$l_default_page[0],'',0,'',',WRAP'),
+
+	'L_ACCESS_LEVEL' => $roster->locale->act['access_level'],
 
 	'S_DEFAULT_SELECT' => pageNames(),
 	)
@@ -121,6 +127,7 @@ if( !empty($addons) )
 			'ACTIVE'      => ( isset($addon['active']) ? $addon['active'] : '' ),
 			'INSTALL'     => $addon['install'],
 			'L_TIP_UPGRADE' => ( isset($addon['active']) ? makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'],$addon['oldversion'],$addon['version']),$roster->locale->act['installer_upgrade_avail']) : '' ),
+			'ACCESS'      => ( isset($addon['access']) ? $roster->auth->rosterAccess(array('name' => 'access', 'value' => $addon['access'])) : false )
 			)
 		);
 	}
@@ -210,6 +217,7 @@ function getAddonList()
 
 					$output[$addon]['id'] = $row['addon_id'];
 					$output[$addon]['active'] = $row['active'];
+					$output[$addon]['access'] = $row['access'];
 					$output[$addon]['oldversion'] = $row['version'];
 
 					// -1 = overwrote newer version
@@ -364,7 +372,7 @@ function processAddon()
 				$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 				break;
 			}
-			$query = 'INSERT INTO `' . $roster->db->table('addon') . '` VALUES (NULL,"' . $installer->addata['basename'] . '","' . $installer->addata['version'] . '",0,"' . $installer->addata['fullname'] . '","' . $installer->addata['description'] . '","' . $roster->db->escape(serialize($installer->addata['credits'])) . '","' . $installer->addata['icon'] . '","' . $installer->addata['wrnet_id'] . '",NULL);';
+			$query = 'INSERT INTO `' . $roster->db->table('addon') . '` VALUES (NULL,"' . $installer->addata['basename'] . '","' . $installer->addata['version'] . '","' . (int)$installer->addata['active'] . '",0,"' . $installer->addata['fullname'] . '","' . $installer->addata['description'] . '","' . $roster->db->escape(serialize($installer->addata['credits'])) . '","' . $installer->addata['icon'] . '","' . $installer->addata['wrnet_id'] . '",NULL);';
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
@@ -543,5 +551,20 @@ function processPage()
 	{
 		// Set this enforce_rules value to the right one since roster_config isn't refreshed here
 		$roster->config['default_page'] = $default;
+	}
+}
+
+
+function processAccess()
+{
+	global $roster;
+
+	$access = ( $_POST['config_access'] );
+	$id = ( $_POST['id'] );
+	$query = "UPDATE `" . $roster->db->table('addon') . "` SET `access` = '$access' WHERE `addon_id` = '$id';";
+
+	if( !$roster->db->query($query) )
+	{
+		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 	}
 }

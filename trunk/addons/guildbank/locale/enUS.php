@@ -31,4 +31,3 @@ $lang['admin']['guildbank_ver'] = "Guildbank Display Type|Guild bank display typ
 $lang['admin']['bank_money'] = "Money Display|Controls Money display in guildbanks";
 $lang['admin']['banker_rankname'] = "Banker Search Text|Text used to designate banker characters";
 $lang['admin']['banker_fieldname'] = "Banker Search Field|Banker Search location, what field to search for Banker Text";
-$lang['admin']['bank_access'] = "Access|Set who can view the guild bank";

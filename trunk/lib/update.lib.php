@@ -1093,6 +1093,7 @@ class update
 		$this->add_ifvalue( $data, 'region' );
 		$this->add_ifvalue( $data, 'guild_id' );
 		$this->add_ifvalue( $data, 'class' );
+		$this->add_ifvalue( $data, 'classid' );
 		$this->add_ifvalue( $data, 'level' );
 		$this->add_ifvalue( $data, 'note' );
 		$this->add_ifvalue( $data, 'guild_rank' );
@@ -2668,6 +2669,8 @@ class update
 
 		$guildInfo = $this->get_guild_info($realmName,$guildName,$region);
 
+		$this->locale = $guild['Locale'];
+
 		$this->reset_values();
 
 		$this->add_value( 'guild_name', $guildName );
@@ -2760,6 +2763,7 @@ class update
 		$this->add_value('region', $region);
 		$this->add_value('guild_id', $guildId);
 		$this->add_ifvalue( $char, 'Class', 'class' );
+		$this->add_ifvalue( $char, 'ClassId', 'classid' );
 		$this->add_ifvalue( $char, 'Level', 'level' );
 		$this->add_ifvalue( $char, 'Note', 'note', '' );
 		$this->add_ifvalue( $char, 'Rank', 'guild_rank');
@@ -2838,7 +2842,7 @@ class update
 
 			$memberId = $roster->db->insert_id();
 
-			$querystr = "SELECT * FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '$guildId' AND `name` = '$name_escape' AND `class` = '" . $char['Class'] . "';";
+			$querystr = "SELECT * FROM `" . $roster->db->table('members') . "` WHERE `member_id` = '$memberId';";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{

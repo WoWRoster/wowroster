@@ -21,4 +21,3 @@ $lang['admin']['professions_conf'] = 'Métiers|Configuration des options';
 
 $lang['admin']['show_new_skills'] = 'Montrer les métiers récents|Ceci active l\'affichage des métiers à 1';
 $lang['admin']['collapse_list'] = 'Option d\'affichage de la liste des métier|Contrôle la façon dont les listes sont affichées au chargement de la page.<br />Les listes peuvent être ouvertes ou fermées en cliquant sur l\'en-tête du tableau<br /><br /> &quot;Show&quot; ouvrira la liste au chargement de la page <br /> &quot;Hide&quot; la laissera fermée';
-$lang['admin']['professions_access'] = 'Access|Control who can view the professions addon';

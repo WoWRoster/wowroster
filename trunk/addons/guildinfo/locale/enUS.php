@@ -18,6 +18,3 @@
 $lang['guildinfo'] = 'Guild Info';
 $lang['guildinfo_desc'] = 'Shows Guild Info text from WoW';
 $lang['ginfobutton'] = 'Guild Info|Shows Guild Info text from WoW';
-
-$lang['admin']['guildinfo_conf'] = 'Guild Info';
-$lang['admin']['guildinfo_access'] = 'Access|Set who has access to Guild Info';

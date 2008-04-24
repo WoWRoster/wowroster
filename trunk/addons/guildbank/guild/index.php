@@ -53,19 +53,6 @@ $columns = ( $gbank_mode == '2' ? '15' : '2' );
 
 $roster->output['title'] = $roster->locale->act['guildbank'];
 
-// ----[ Check log-in ]-------------------------------------
-
-// Disallow viewing of the page
-if( ! $roster->auth->getAuthorized( $addon['config']['bank_access'] ) )
-{
-	print
-	'<span class="title_text">' . $roster->locale->act['guildbank'] . '</span><br />'.
-	$roster->auth->getLoginForm();
-
-	return;
-}
-// ----[ End Check log-in ]---------------------------------
-
 $roster->tpl->assign_vars(array(
 	'U_FULL' => makelink('&amp;mode=full'),
 	'U_INV'  => makelink('&amp;mode=inv'),
