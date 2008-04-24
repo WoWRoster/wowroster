@@ -22,16 +22,6 @@ if ( !defined('IN_ROSTER') )
 
 $roster->output['title'] = $roster->locale->act['professions'];
 
-// ----[ Check log-in ]-------------------------------------
-if( ! $roster->auth->getAuthorized( $addon['config']['professions_access'] ) )
-{
-	echo '<span class="title_text">' . $roster->locale->act['professions'] . "</span>\n";
-	echo '<br />' . $roster->auth->getLoginForm();
-
-	return;
-}
-// ----[ End Check log-in ]---------------------------------
-
 $roster->tpl->assign_vars(array(
 	'S_HIDE'       => $addon['config']['collapse_list'],
 	'S_INFO_ADDON' => active_addon('info'),

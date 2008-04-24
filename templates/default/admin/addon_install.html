@@ -26,7 +26,7 @@
 				<tr>
 					<td class="membersRow{addon_list.ROW_CLASS}"><img src="{addon_list.ICON}" alt="[icon]" /></td>
 					<td class="membersRow{addon_list.ROW_CLASS}">
-						<table cellpadding="0" cellspacing="0">
+						<table cellpadding="0" cellspacing="0" width="100%">
 							<tr>
 								<td><span style="font-size:18px;" class="green">{addon_list.FULLNAME}</span>
 									<!-- IF addon_list.INSTALL eq 1 --><span class="red">v{addon_list.OLD_VERSION}</span> =&gt; <!-- ENDIF -->v{addon_list.VERSION}</td>
@@ -37,6 +37,14 @@
 							<tr>
 								<td><span class="blue">{L_AUTHOR}: {addon_list.AUTHOR}</span></td>
 							</tr>
+							<!-- IF addon_list.ACCESS --><tr>
+								<td align="right">{L_ACCESS_LEVEL}: <form action="{U_MAKELINK}" method="post" style="display:inline;">
+										<input type="hidden" name="op" value="access" />
+										<input type="hidden" name="id" value="{addon_list.ID}" />
+										{addon_list.ACCESS}
+										<input type="submit" value="Set" />
+									</form></td>
+							</tr><!-- ENDIF -->
 						</table>
 					</td>
 					<td class="membersRow{addon_list.ROW_CLASS}">

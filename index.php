@@ -131,6 +131,11 @@ if( !file_exists($path) )
 	roster_die(sprintf($roster->locale->act['module_not_exist'],ROSTER_PAGE_NAME),$roster->locale->act['roster_error']);
 }
 
+if( !$roster->auth->getAuthorized($addon['access']) )
+{
+	roster_die(sprintf($roster->locale->act['addon_no_access'],$addon['basename']),$roster->locale->act['addon_error']);
+}
+
 if( $addon['active'] == '1' )
 {
 	// Check if this addon is in the process of an upgrade and deny access if it hasn't yet been upgraded

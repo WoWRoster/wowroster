@@ -54,6 +54,7 @@ $lang['addon_error'] = 'Erreur lié au greffon';
 $lang['specify_addon'] = 'Vous devez spécifier le nom du greffon !';
 $lang['addon_not_exist'] = '<b>Le greffon [%1$s] n\existe pas !</b>';
 $lang['addon_disabled'] = '<b>Le greffon [%1$s] a été désactivé</b>';
+$lang['addon_no_access'] = '<b>Insufficient credentials to access [%1$s]</b>';
 $lang['addon_upgrade_notice'] = '<b>The addon [%1$s] has been disabled because it needs to be upgraded</b>';
 $lang['addon_not_installed'] = '<b>Le greffon [%1$s] n\'est pas encore installé</b>';
 $lang['addon_no_config'] = '<b>Le greffon [%1$s] n\'est pas configuré</b>';
@@ -67,6 +68,7 @@ $lang['roster_cp'] = 'Panneau de contrôle du Roster';
 $lang['roster_cp_ab'] = 'PC Roster';
 $lang['roster_cp_not_exist'] = 'La page [%1$s] n\'existe pas';
 $lang['roster_cp_invalid'] = 'La page spécifiée n\'est pas valide ou vous n\'avez pas les droits nécessaires pour y accéder';
+$lang['access_level'] = 'Access Level';
 
 $lang['parsing_files'] = 'Traitement des fichiers';
 $lang['parsed_time'] = 'Fichier %1$s traité en %2$s secondes';

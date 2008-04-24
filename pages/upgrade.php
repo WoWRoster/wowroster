@@ -196,6 +196,13 @@ class Upgrade
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '2.4.0' WHERE `id` = 1020;");
 		}
 
+		if( version_compare($roster->config['version'],'1.9.9.1758','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `access` INT(1) NOT NULL DEFAULT '0' AFTER `active`;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('memberlog') . "` ADD `classid` INT(11) NOT NULL DEFAULT '0' AFTER `class`;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('members') . "` ADD `classid` INT(11) NOT NULL DEFAULT '0' AFTER `class`;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

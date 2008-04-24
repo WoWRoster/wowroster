@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1751';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
+	var $version = '1.9.9.1758';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -56,7 +56,6 @@ class keysInstall
 		$installer->add_config("'1010','colorcmp','#00ff00','color','keys_conf'");
 		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
 		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
-		$installer->add_config("'1040','keys_access','0','access','keys_conf'");
 
 		$installer->add_menu_button('keybutton','guild');
 		$installer->add_menu_pane('keypane');
@@ -197,10 +196,19 @@ class keysInstall
 				FROM `' . $installer->table('category_key') . '`;');
 		}
 
+		// 1751: Added keypane menu section
+
 		if( version_compare( $oldversion, '1.9.9.1751', '<' ) )
 		{
 			$installer->add_menu_pane('keypane');
 			$installer->add_menu_button('keybutton','keypane','guild-keys');
+		}
+
+		// 1758: Removed access config since roster does module level based auth
+
+		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
+		{
+			$installer->remove_config('1040');
 		}
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.

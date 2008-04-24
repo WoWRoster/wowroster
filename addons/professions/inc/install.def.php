@@ -29,7 +29,7 @@ class professionsInstall
 	var $active = true;
 	var $icon = 'trade_blacksmithing';
 
-	var $version = '1.9.9.1562';
+	var $version = '1.9.9.1758';
 	var $wrnet_id = '0';
 
 	var $fullname = 'professions';
@@ -55,7 +55,6 @@ class professionsInstall
 
 		$installer->add_config("'1010','show_new_skills','0','radio{No^0|Yes^1','professions_conf'");
 		$installer->add_config("'1020','collapse_list','0','radio{Show^0|Hide^1','professions_conf'");
-		$installer->add_config("'1030','professions_access','0','access','professions_conf'");
 
 		$installer->add_menu_button('professions_menu','guild','','trade_blacksmithing');
 		return true;
@@ -75,7 +74,12 @@ class professionsInstall
 		{
 			$installer->add_config("'1030','professions_access','0','access','professions_conf'");
 		}
-			
+
+		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
+		{
+			$installer->remove_config('1030');
+		}
+
 		return true;
 	}
 

@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','1.9.9.1756');
+define('ROSTER_VERSION','1.9.9.1758');
 
 /**
  * Roster Conf File
@@ -77,3 +77,30 @@ define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/rss/downloads.php?id=%
 define('ROSTER_MAXCHARLEVEL','70');
 define('ROSTER_MAXSKILLLEVEL','375');
 define('ROSTER_MAXQUESTS','25');
+
+define('ROSTER_CLASS_1', 'Warrior');
+define('ROSTER_CLASS_2', 'Paladin');
+define('ROSTER_CLASS_3', 'Hunter');
+define('ROSTER_CLASS_4', 'Rogue');
+define('ROSTER_CLASS_5', 'Priest');
+define('ROSTER_CLASS_6', '');
+define('ROSTER_CLASS_7', 'Shaman');
+define('ROSTER_CLASS_8', 'Mage');
+define('ROSTER_CLASS_9', 'Warlock');
+define('ROSTER_CLASS_10','');
+define('ROSTER_CLASS_11','Druid');
+
+define('ROSTER_RACE_1', 'Human');
+define('ROSTER_RACE_2', 'Orc');
+define('ROSTER_RACE_3', 'Dwarf');
+define('ROSTER_RACE_4', 'NightElf');
+define('ROSTER_RACE_5', 'Scourge');
+define('ROSTER_RACE_6', 'Tauren');
+define('ROSTER_RACE_7', 'Gnome');
+define('ROSTER_RACE_8', 'Troll');
+define('ROSTER_RACE_9', '');
+define('ROSTER_RACE_10','BloodElf');
+define('ROSTER_RACE_11','Draenei');
+
+define('ROSTER_SEX_0','Male');
+define('ROSTER_SEX_1','Female');
