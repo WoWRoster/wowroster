@@ -119,6 +119,10 @@ class roster
 				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
 
+			case 'external':
+				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'external.php');
+				break;
+
 			default:
 				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
