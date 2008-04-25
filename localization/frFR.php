@@ -493,7 +493,7 @@ $lang['friendly']='Amical';
 $lang['neutral']='Neutre';
 $lang['unfriendly']='Inamical';
 $lang['hostile']='Hostile';
-$lang['hated']='Détesté';
+$lang['hated']='Haï';
 $lang['atwar']='En guerre';
 $lang['notatwar']='Pas en guerre';
 
