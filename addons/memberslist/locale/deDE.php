@@ -83,12 +83,14 @@ $lang['documentation']			= 'Dokumentation';
 $lang['uninstall']				= 'Uninstall';
 
 // Page names
+$lang['admin']['main']			= 'Main|Back to the global part of the configuration.';
 $lang['admin']['display']       = 'Anzeige|Konfiguriert die Anzeigeoptionen für die Mitgliederliste.';
 $lang['admin']['members']       = 'Mitgliederliste|Konfiguriert die Sichtbarkeit der Mitgliederliste-Spalten.';
 $lang['admin']['stats']         = 'Werteliste|Konfiguriert die Sichtbarkeit der Grundwerte-Spalten.';
 $lang['admin']['honor']         = 'Ehrenliste|Konfiguriert die Sichtbarkeit der Ehrenliste-Spalten.';
 $lang['admin']['log']           = 'Mitglieder Log|Konfiguriert die Sichtbarkeit der Mitglieder Log-Spalten.';
 $lang['admin']['build']         = 'Hauptchar/Twink Beziehungen|Konfiguriert wie Hauptchars/Twinks erkannt werden.';
+$lang['admin']['gbuild']        = 'Main/Alt per guild|Configure guild-specific Main/Alt detection rules.';
 $lang['admin']['ml_wiki']       = 'Dokumentation|Mitgliederliste Dokumentation auf WoWRoster wiki.';
 $lang['admin']['updMainAlt']    = 'Aktualisiere Beziehungen|Aktualisiert die Main/Alt Beziehungen der Daten, die bereits in der DB gespeichert sind.';
 $lang['admin']['page_size']		= 'Seitengröße|Konfiguriert die Anzahl der Zeilen Pro Seite oder 0 für keinen Seitenumbruch';

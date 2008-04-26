@@ -16,11 +16,11 @@
 */
 
 $lang['keys'] = 'Clefs';
-$lang['keys_desc'] = 'Liste les clefs des donjons que possèdent les membres de la guilde';
-$lang['keybutton'] = 'Clefs|Liste les clefs des donjons que possèdent les membres de la guilde';
+$lang['keys_desc'] = 'Liste les clefs de donjon que possèdent les membres de la guilde';
+$lang['keybutton'] = 'Clefs|Liste les clefs de donjon que possèdent les membres de la guilde';
 
 $lang['admin']['keys_conf'] = 'Paramètres principaux|Paramètres principaux pour les clefs d\'instance';
-$lang['admin']['keys_cats'] = 'Categories|Define what keys to show in what categories';
+$lang['admin']['keys_cats'] = 'Catégories|Définir quelle clef appararaît dans quelle catégorie';
 $lang['admin']['colorcmp'] = 'Couleur étape achevée|Couleur pour les étapes achevées apparaissant dans l\'infobulle de suivi de quête/partie';
 $lang['admin']['colorcur'] = 'Couleur étape en cours|Couleur pour l\'étape en cours apparaissant dans l\'infobulle de suivi de quête/partie';
 $lang['admin']['colorno'] = 'Couleur étape à venir|Couleur pour les étapes à venir apparaissant dans l\'infobulle de suivi des étapes pour l\'acquisition de la clef (quêtes ou parties)';
@@ -34,12 +34,12 @@ $lang['Parts'] = 'Parties';
 $lang['key_status'] = 'Progression pour la %2$s %1$s';
 
 $lang['rep2level'] = array(
-	'D�test�' => -42000,
+	'Haï' => -42000,
 	'Hostile' => -6000,
 	'Inamical' => -3000,
 	'Neutre' => 0,
 	'Amical' => 3000,
-	'Honor�' => 9000,
-	'R�v�r�' => 21000,
-	'Exalt�' => 42000
+	'Honoré' => 9000,
+	'Révéré' => 21000,
+	'Exalté' => 42000
 );

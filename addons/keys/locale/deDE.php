@@ -47,8 +47,9 @@ $lang['rep2level'] = array(
 /*
 Instance Keys
 =============
-A part that is marked with 'MS' (milestone) will be designated as an overall status. So if
-you have this one part it will mark all other parts lower than this one as complete.
+TRANSLATORS!
+THESE NEED TO BE MOVED TO install_deDE.php and formatted correctly
+USE install_enUS.php as a guide
 */
 
 // ALLIANCE KEYS

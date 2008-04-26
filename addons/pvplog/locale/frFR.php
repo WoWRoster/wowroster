@@ -49,15 +49,15 @@ $lang['gkilledmostby']='Guild Killed Most By';
 
 $lang['wins']='Victoires';
 $lang['losses']='Défaites';
-$lang['overall']='A vie';
+$lang['overall']='À vie';
 $lang['best_zone']='Meilleure zone';
 $lang['worst_zone']='Pire zone';
 $lang['most_killed']='Le plus tué';
 $lang['most_killed_by']='Le plus tué par';
 $lang['leveldiff']='Différence de Niveau';
 $lang['bg']='Champ de Bataille';
-$lang['winless']='Winless';
-$lang['unbeaten']='Unbeaten';
+$lang['winless']='Sans victoire';
+$lang['unbeaten']='Invaincu';
 $lang['them']='Them';
 $lang['us']='Us';
 
@@ -69,7 +69,7 @@ $lang['pvplist4']='Joueur qui nous a le plus tué';
 $lang['pvplist5']='Membre de la guilde tuant le plus';
 $lang['pvplist6']='Membre de la guilde tué le plus';
 $lang['pvplist7']='Membre ayant la meilleure moyenne de mort';
-$lang['pvplist8']='Membre ayant la meilleure moyenne de défaîte';
+$lang['pvplist8']='Membre ayant la meilleure moyenne de défaite';
 
 // guildpvp strings
 $lang['guildwins'] = 'Victoires par guilde';
@@ -87,7 +87,7 @@ $lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
 $lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';
 $lang['guildinfo'] = 'Informations sur la guilde';
 
-$lang['PvPLogver_err']='La version du PvPLog utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />SVP assurez vous que vous fonctionnez avec la v%1$s et, si vous venez de mettre �  jour PvPLog, assurez vous que vous avez supprimé cotre ancien fichier PvPLog.lua contenu dans les SavedVariables avant de le mettre �  jour.';
+$lang['PvPLogver_err']='La version du PvPLog utilisé pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />SVP assurez vous que vous fonctionnez avec la v%1$s et, si vous venez de mettre Ã  jour PvPLog, assurez vous que vous avez supprimé cotre ancien fichier PvPLog.lua contenu dans les SavedVariables avant de le mettre Ã  jour.';
 
 $lang['admin']['pvpconfig'] = "Configuration PvPLog|Configurer les options principales de PvPLog";
 $lang['admin']['minPvPLogver'] = "Version PvPLog Minimum|Version minimale de PvPLog autorisée";

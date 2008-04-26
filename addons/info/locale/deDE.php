@@ -180,24 +180,36 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sek|min)\.?)(-{0,1}\d*\.{0,1}\d+)/i';
 //
 // patterns to standardize bonus string
 $lang['item_bonuses_preg_patterns'] =
-	array('/increases the block value of your shield by xx\.?/i',	//1
-		  '/(?:increases|improves) (?:your )?(.+) by xx\.?/i',	//2
-		  '/increases (damage) and (Healing) done by magical spells and effects by up to xx\.?$/i',	//3
-		  '/(?:restores|\+)?\s?xx (mana|health) (?:per|every|regen).*$/i',	//4
-		  '/increases damage done by (.+) and.*$/i',	//5
-		  '/^\+?xx (Healing)(?: Spells)?\.?$/',	//6
-		  '/^scope \(\+xx damage\)$/i',	//7
-		  '/^\+?xx (?:shield )?block$/i',	//8
+	array('/increases the block value of your shield by XX\.?/i',	//1
+		  '/(?:increases|improves) (?:your )?(.+) by XX\.?/i',	//2
+		  '/increases (Damage) and (Healing) done by magical spells and effects by up to XX\.?$/i',	//3
+		  '/Increases Healing Done By Spells And Effects By Up To XX\.?/i', //4
+		  '/Increases Damage Done By Spells And Effects By Up To XX\.?/i', //5'
+		  '/(?:restores|\+)?\s?XX (mana|health) (?:per|every|regen).*$/i',	//6
+		  '/increases damage done by (.+) and.*$/i',	//7
+		  '/^\+?XX (Healing)(?: Spells)?\.?$/',	//8
+		  '/^\+XX Spell Damage and Healing/i', //8.5
+		  '/^scope \(\+XX damage\)$/i',	//9
+		  '/^\+?XX (?:shield )?block$/i',	//10
+		  '/^\+XX All Stats/i', //11
+		  '/^\+XX All Resistances/i', //12
+		  '/^\+XX Spell Critical Rating/i', //13
 		 );
 $lang['item_bonuses_preg_replacements'] =
 	array('+XX Shield Block',  //1
 		  '+XX $1', //2
 		  '+XX Spell $1:+XX $2 Spells', //3
-		  '+XX $1 Per 5 Seconds', //4
-		  '+XX $1 Damage', //5
-		  '+XX $1 Spells', //6
-		  '+XX Ranged Damage (Scope)', //7
-		  '+XX Shield Block', //8
+		  '+XX Healing Spells',	// 4
+		  '+XX Damage Spells', // 5
+		  '+XX $1 Per 5 Seconds', //6
+		  '+XX $1 Damage', //7
+		  '+XX $1 Spells', //8
+		  '+XX Spell Damage:+XX Healing Spells', //8.5
+		  '+XX Ranged Damage (Scope)', //9
+		  '+XX Shield Block', //10
+		  '+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit', //11
+		  '+XX Arcane Resistance:+XX Fire Resistance:+XX Nature Resistance:+XX Frost Resistance:+XX Shadow Resistance', //12
+		  '+XX Spell Critical Strike Rating', //13
 		 );
 
 /*
