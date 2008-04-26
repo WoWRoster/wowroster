@@ -391,40 +391,58 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druide'=>'druid_icon',
+// Female variation
 	'Jäger'=>'hunter_icon',
+// Female variation
 	'Magier'=>'mage_icon',
 	'Paladin'=>'paladin_icon',
 	'Priester'=>'priest_icon',
+// Female variation
 	'Schurke'=>'rogue_icon',
+// Female variation
 	'Schamane'=>'shaman_icon',
+// Female variation
 	'Hexenmeister'=>'warlock_icon',
 	'Krieger'=>'warrior_icon',
+// Female variation
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druide' => 'FF7C0A',
+// Female variation
 	'Jäger' => 'AAD372',
+// Female variation
 	'Magier' => '68CCEF',
 	'Paladin' => 'F48CBA',
 	'Priester' => 'ffffff',
+// Female variation
 	'Schurke' => 'FFF468',
+// Female variation
 	'Schamane' => '00DBBA',
+// Female variation
 	'Hexenmeister' => '9382C9',
 	'Krieger' => 'C69B6D'
+// Female variation
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
 	'Druide' => 'Druid',
+// Female variation
 	'Jäger' => 'Hunter',
+// Female variation
 	'Magier' => 'Mage',
 	'Paladin' => 'Paladin',
 	'Priester' => 'Priest',
+// Female variation
 	'Schurke' => 'Rogue',
+// Female variation
 	'Schamane' => 'Shaman',
+// Female variation
 	'Hexenmeister' => 'Warlock',
 	'Krieger' => 'Warrior'
+// Female variation
 );
 
 // Race to English Translation

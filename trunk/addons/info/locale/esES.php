@@ -180,24 +180,36 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 //
 // patterns to standardize bonus string (NOTE: Not all the translations to spanish are exactly, we have to probe them)
 $lang['item_bonuses_preg_patterns'] =
-	array('/Aumenta el valor de bloqueo de tu escudo en xx\.?/i',	//1
-		  '/(?:incrementa|decrementa) (?:tu )?(.+) en xx\.?/i',	//2
-		  '/Aumenta el daño y la sanación de los hechizos mágicos y los efectos hasta en xx\.?$/i',	//3
-		  '/(?:Restaura|\+)?\s?xx de (maná|salud) (?:cada|durante|regen).*$/i',	//4
-		  '/Aumenta el daño hecho en (.+) y.*$/i',	//5
-		  '/^\+?xx (sanación)(?: hechizos)?\.?$/',	//6
-		  '/^alcance \(\+xx daño\)$/i',	//7
-		  '/^\+?xx (?:escudo )?bloquear$/i',	//8
+	array('/increases the block value of your shield by XX\.?/i',	//1
+		  '/(?:increases|improves) (?:your )?(.+) by XX\.?/i',	//2
+		  '/increases (Damage) and (Healing) done by magical spells and effects by up to XX\.?$/i',	//3
+		  '/Increases Healing Done By Spells And Effects By Up To XX\.?/i', //4
+		  '/Increases Damage Done By Spells And Effects By Up To XX\.?/i', //5'
+		  '/(?:restores|\+)?\s?XX (mana|health) (?:per|every|regen).*$/i',	//6
+		  '/increases damage done by (.+) and.*$/i',	//7
+		  '/^\+?XX (Healing)(?: Spells)?\.?$/',	//8
+		  '/^\+XX Spell Damage and Healing/i', //8.5
+		  '/^scope \(\+XX damage\)$/i',	//9
+		  '/^\+?XX (?:shield )?block$/i',	//10
+		  '/^\+XX All Stats/i', //11
+		  '/^\+XX All Resistances/i', //12
+		  '/^\+XX Spell Critical Rating/i', //13
 		 );
 $lang['item_bonuses_preg_replacements'] =
-	array('+XX Bloqueo de escudo',  //1
+	array('+XX Shield Block',  //1
 		  '+XX $1', //2
-		  '+XX Hechizo $1:+XX $2 Hechizos', //3
-		  '+XX $1 Cada 5 segundos', //4
-		  '+XX $1 Daño', //5
-		  '+XX $1 Hechizos', //6
-		  '+XX Daño a distancia (Alcance)', //7
-		  '+XX Bloqueo de escudo', //8
+		  '+XX Spell $1:+XX $2 Spells', //3
+		  '+XX Healing Spells',	// 4
+		  '+XX Damage Spells', // 5
+		  '+XX $1 Per 5 Seconds', //6
+		  '+XX $1 Damage', //7
+		  '+XX $1 Spells', //8
+		  '+XX Spell Damage:+XX Healing Spells', //8.5
+		  '+XX Ranged Damage (Scope)', //9
+		  '+XX Shield Block', //10
+		  '+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit', //11
+		  '+XX Arcane Resistance:+XX Fire Resistance:+XX Nature Resistance:+XX Frost Resistance:+XX Shadow Resistance', //12
+		  '+XX Spell Critical Strike Rating', //13
 		 );
 
 /*

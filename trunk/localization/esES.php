@@ -391,40 +391,58 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druida'=>'druid_icon',
+// Female variation
 	'Cazador'=>'hunter_icon',
+// Female variation
 	'Mago'=>'mage_icon',
-	'Sacerdote'=>'priest_icon',
 	'Paladín'=>'paladin_icon',
+	'Sacerdote'=>'priest_icon',
+// Female variation
 	'Pícaro'=>'rogue_icon',
+// Female variation
 	'Chamán'=>'shaman_icon',
+// Female variation
 	'Brujo'=>'warlock_icon',
 	'Guerrero'=>'warrior_icon',
+// Female variation
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druida' => 'FF7C0A',
+// Female variation
 	'Cazador' => 'AAD372',
+// Female variation
 	'Mago' => '68CCEF',
 	'Paladín' => 'F48CBA',
 	'Sacerdote' => 'ffffff',
+// Female variation
 	'Pícaro' => 'FFF468',
+// Female variation
 	'Chamán' => '00DBBA',
+// Female variation
 	'Brujo' => '9382C9',
 	'Guerrero' => 'C69B6D'
+// Female variation
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
 	'Druida' => 'Druid',
+// Female variation
 	'Cazador' => 'Hunter',
+// Female variation
 	'Mago' => 'Mage',
 	'Paladín' => 'Paladin',
 	'Sacerdote' => 'Priest',
+// Female variation
 	'Pícaro' => 'Rogue',
+// Female variation
 	'Chamán' => 'Shaman',
+// Female variation
 	'Brujo' => 'Warlock',
 	'Guerrero' => 'Warrior'
+// Female variation
 );
 
 // Race to English Translation

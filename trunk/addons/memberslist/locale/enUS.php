@@ -83,7 +83,7 @@ $lang['documentation']			= 'Documentation';
 $lang['uninstall']				= 'Uninstall';
 
 // Page names
-$lang['admin']['main']		= 'Main|Back to the global part of the configuration.';
+$lang['admin']['main']			= 'Main|Back to the global part of the configuration.';
 $lang['admin']['display']       = 'Display|Configure display options specific to memberslist.';
 $lang['admin']['members']       = 'Members List|Configure visibility of members list columns.';
 $lang['admin']['stats']         = 'Stats List|Configure visibility of stats list columns.';
