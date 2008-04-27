@@ -29,10 +29,10 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 	}
 	elseif( $_POST['action'] == 'add' )
 	{
-		$query = "SELECT COUNT(*) FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $_POST['category'] . "' AND `key` = '" . $_POST['key'] . "';";
+		$query = "SELECT COUNT(*) FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $_POST['keycategory'] . "' AND `key` = '" . $_POST['key'] . "';";
 		if( 0 == $roster->db->query_first($query) )
 		{
-			$query = "INSERT INTO `" . $roster->db->table('category_key', 'keys') . "` (`category`,`key`) VALUES ('" . $_POST['category'] . "','" . $_POST['key'] . "');";
+			$query = "INSERT INTO `" . $roster->db->table('category_key', 'keys') . "` (`category`,`key`) VALUES ('" . $_POST['keycategory'] . "','" . $_POST['key'] . "');";
 			$roster->db->query($query);
 		}
 	}
