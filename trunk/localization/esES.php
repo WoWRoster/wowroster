@@ -391,58 +391,70 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druida'=>'druid_icon',
-// Female variation
 	'Cazador'=>'hunter_icon',
-// Female variation
 	'Mago'=>'mage_icon',
 	'Paladín'=>'paladin_icon',
 	'Sacerdote'=>'priest_icon',
-// Female variation
 	'Pícaro'=>'rogue_icon',
-// Female variation
 	'Chamán'=>'shaman_icon',
-// Female variation
 	'Brujo'=>'warlock_icon',
 	'Guerrero'=>'warrior_icon',
 // Female variation
+//	'Druida'=>'druid_icon',
+//	'Cazador'=>'hunter_icon',
+//	'Mago'=>'mage_icon',
+//	'Paladín'=>'paladin_icon',
+//	'Sacerdote'=>'priest_icon',
+//	'Pícaro'=>'rogue_icon',
+//	'Chamán'=>'shaman_icon',
+//	'Brujo'=>'warlock_icon',
+//	'Guerrero'=>'warrior_icon',
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druida' => 'FF7C0A',
-// Female variation
 	'Cazador' => 'AAD372',
-// Female variation
 	'Mago' => '68CCEF',
 	'Paladín' => 'F48CBA',
 	'Sacerdote' => 'ffffff',
-// Female variation
 	'Pícaro' => 'FFF468',
-// Female variation
 	'Chamán' => '00DBBA',
-// Female variation
 	'Brujo' => '9382C9',
-	'Guerrero' => 'C69B6D'
+	'Guerrero' => 'C69B6D',
 // Female variation
+//	'Druida' => 'FF7C0A',
+//	'Cazador' => 'AAD372',
+//	'Mago' => '68CCEF',
+//	'Paladín' => 'F48CBA',
+//	'Sacerdote' => 'ffffff',
+//	'Pícaro' => 'FFF468',
+//	'Chamán' => '00DBBA',
+//	'Brujo' => '9382C9',
+//	'Guerrero' => 'C69B6D',
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
 	'Druida' => 'Druid',
-// Female variation
 	'Cazador' => 'Hunter',
-// Female variation
 	'Mago' => 'Mage',
 	'Paladín' => 'Paladin',
 	'Sacerdote' => 'Priest',
-// Female variation
 	'Pícaro' => 'Rogue',
-// Female variation
 	'Chamán' => 'Shaman',
-// Female variation
 	'Brujo' => 'Warlock',
-	'Guerrero' => 'Warrior'
+	'Guerrero' => 'Warrior',
 // Female variation
+//	'Druida' => 'Druid',
+//	'Cazador' => 'Hunter',
+//	'Mago' => 'Mage',
+//	'Paladín' => 'Paladin',
+//	'Sacerdote' => 'Priest',
+//	'Pícaro' => 'Rogue',
+//	'Chamán' => 'Shaman',
+//	'Brujo' => 'Warlock',
+//	'Guerrero' => 'Warrior'
 );
 
 // Race to English Translation

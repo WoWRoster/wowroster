@@ -391,58 +391,70 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druide'=>'druid_icon',
-// Female variation
 	'Jäger'=>'hunter_icon',
-// Female variation
 	'Magier'=>'mage_icon',
 	'Paladin'=>'paladin_icon',
 	'Priester'=>'priest_icon',
-// Female variation
 	'Schurke'=>'rogue_icon',
-// Female variation
 	'Schamane'=>'shaman_icon',
-// Female variation
 	'Hexenmeister'=>'warlock_icon',
-	'Krieger'=>'warrior_icon',
+	'Kriegerin'=>'warrior_icon'
 // Female variation
+	'Druidin'=>'druid_icon',
+	'Jägerin'=>'hunter_icon',
+	'Magierin'=>'mage_icon',
+//	'Paladin'=>'paladin_icon',
+	'Priesterin'=>'priest_icon',
+	'Schurkin'=>'rogue_icon',
+	'Schamanin'=>'shaman_icon',
+	'Hexenmeisterin'=>'warlock_icon',
+	'Krieger'=>'warrior_icon',
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druide' => 'FF7C0A',
-// Female variation
 	'Jäger' => 'AAD372',
-// Female variation
 	'Magier' => '68CCEF',
 	'Paladin' => 'F48CBA',
-	'Priester' => 'ffffff',
-// Female variation
+	'Priester' => 'FFFFFF',
 	'Schurke' => 'FFF468',
-// Female variation
 	'Schamane' => '00DBBA',
-// Female variation
 	'Hexenmeister' => '9382C9',
-	'Krieger' => 'C69B6D'
+	'Krieger' => 'C69B6D',
 // Female variation
+	'Druidin' => 'FF7C0A',
+	'Jägerin' => 'AAD372',
+	'Magierin' => '68CCEF',
+//	'Paladin' => 'F48CBA',
+	'Priesterin' => 'FFFFFF',
+	'Schurkin' => 'FFF468',
+	'Schamanin' => '00DBBA',
+	'Hexenmeisterin' => '9382C9',
+	'Kriegerin' => 'C69B6D',
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
 	'Druide' => 'Druid',
-// Female variation
 	'Jäger' => 'Hunter',
-// Female variation
 	'Magier' => 'Mage',
 	'Paladin' => 'Paladin',
 	'Priester' => 'Priest',
-// Female variation
 	'Schurke' => 'Rogue',
-// Female variation
 	'Schamane' => 'Shaman',
-// Female variation
 	'Hexenmeister' => 'Warlock',
-	'Krieger' => 'Warrior'
+	'Krieger' => 'Warrior',
 // Female variation
+	'Druidin' => 'Druid',
+	'Jägerin' => 'Hunter',
+	'Magierin' => 'Mage',
+//	'Paladin' => 'Paladin',
+	'Priesterin' => 'Priest',
+	'Schurkin' => 'Rogue',
+	'Schamanin' => 'Shaman',
+	'Hexenmeisterin' => 'Warlock',
+	'Kriegerin' => 'Warrior'
 );
 
 // Race to English Translation

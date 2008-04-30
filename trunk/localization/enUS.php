@@ -391,57 +391,69 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druid'=>'druid_icon',
-
 	'Hunter'=>'hunter_icon',
-
 	'Mage'=>'mage_icon',
 	'Paladin'=>'paladin_icon',
 	'Priest'=>'priest_icon',
-
 	'Rogue'=>'rogue_icon',
-
 	'Shaman'=>'shaman_icon',
-
 	'Warlock'=>'warlock_icon',
-	'Warrior'=>'warrior_icon',
+	'Warrior'=>'warrior_icon'
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
 
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druid' => 'FF7C0A',
-
 	'Hunter' => 'AAD372',
-
 	'Mage' => '68CCEF',
 	'Paladin' => 'F48CBA',
 	'Priest' => 'ffffff',
-
 	'Rogue' => 'FFF468',
-
 	'Shaman' => '00DBBA',
-
 	'Warlock' => '9382C9',
 	'Warrior' => 'C69B6D'
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
 
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
 	'Druid' => 'Druid',
-
 	'Hunter' => 'Hunter',
-
 	'Mage' => 'Mage',
 	'Paladin' => 'Paladin',
 	'Priest' => 'Priest',
-
 	'Rogue' => 'Rogue',
-
 	'Shaman' => 'Shaman',
-
 	'Warlock' => 'Warlock',
 	'Warrior' => 'Warrior'
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
 
 );
 

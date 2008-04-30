@@ -391,57 +391,69 @@ $lang['ts_ridingIcon'] = array(
 // Class Icons-Array
 $lang['class_iconArray'] = array (
 	'Druide'=>'druid_icon',
-	'Druidesse'=>'druid_icon',
 	'Chasseur'=>'hunter_icon',
-	'Chasseresse'=>'hunter_icon',
 	'Mage'=>'mage_icon',
 	'Paladin'=>'paladin_icon',
 	'Prêtre'=>'priest_icon',
-	'Prêtresse'=>'priest_icon',
 	'Voleur'=>'rogue_icon',
-	'Voleuse'=>'rogue_icon',
 	'Chaman'=>'shaman_icon',
-	'Chamane'=>'shaman_icon',
 	'Démoniste'=>'warlock_icon',
 	'Guerrier'=>'warrior_icon',
-	'Guerrière'=>'warrior_icon'
+// Female variation
+	'Druidesse'=>'druid_icon',
+	'Chasseresse'=>'hunter_icon',
+//	'Mage'=>'mage_icon',
+//	'Paladin'=>'paladin_icon',
+	'Prêtresse'=>'priest_icon',
+	'Voleuse'=>'rogue_icon',
+	'Chamane'=>'shaman_icon',
+//	'Démoniste'=>'warlock_icon',
+	'Guerrière'=>'warrior_icon',
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
 	'Druide' => 'FF7C0A',
-	'Druidesse' => 'FF7C0A',
 	'Chasseur' => 'AAD372',
-	'Chasseresse' => 'AAD372',
 	'Mage' => '68CCEF',
 	'Paladin' => 'F48CBA',
 	'Prêtre' => 'ffffff',
-	'Prêtresse' => 'ffffff',
 	'Voleur' => 'FFF468',
-	'Voleuse' => 'FFF468',
 	'Chaman' => '00DBBA',
-	'Chamane' => '00DBBA',
 	'Démoniste' => '9382C9',
 	'Guerrier' => 'C69B6D',
-	'Guerrière' => 'C69B6D'
+// Female variation
+	'Druidesse' => 'FF7C0A',
+	'Chasseresse' => 'AAD372',
+//	'Mage' => '68CCEF',
+//	'Paladin' => 'F48CBA',
+	'Prêtresse' => 'ffffff',
+	'Voleuse' => 'FFF468',
+	'Chamane' => '00DBBA',
+//	'Démoniste' => '9382C9',
+	'Guerrière' => 'C69B6D',
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
 	'Druide' => 'Druid',
-	'Druidesse' => 'Druid',
 	'Chasseur' => 'Hunter',
-	'Chasseresse' => 'Hunter',
 	'Mage' => 'Mage',
 	'Paladin' => 'Paladin',
 	'Prêtre' => 'Priest',
-	'Prêtresse' => 'Priest',
 	'Voleur' => 'Rogue',
-	'Voleuse' => 'Rogue',
 	'Chaman' => 'Shaman',
-	'Chamane' => 'Shaman',
 	'Démoniste' => 'Warlock',
 	'Guerrier' => 'Warrior',
+// Female variation
+	'Druidesse' => 'Druid',
+	'Chasseresse' => 'Hunter',
+//	'Mage' => 'Mage',
+//	'Paladin' => 'Paladin',
+	'Prêtresse' => 'Priest',
+	'Voleuse' => 'Rogue',
+	'Chamane' => 'Shaman',
+//	'Démoniste' => 'Warlock',
 	'Guerrière' => 'Warrior',
 );
 
