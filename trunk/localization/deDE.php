@@ -398,7 +398,7 @@ $lang['class_iconArray'] = array (
 	'Schurke'=>'rogue_icon',
 	'Schamane'=>'shaman_icon',
 	'Hexenmeister'=>'warlock_icon',
-	'Kriegerin'=>'warrior_icon'
+	'Kriegerin'=>'warrior_icon',
 // Female variation
 	'Druidin'=>'druid_icon',
 	'Jägerin'=>'hunter_icon',
