@@ -29,7 +29,7 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1758';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
+	var $version = '1.9.9.1767';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
@@ -210,6 +210,8 @@ class keysInstall
 		{
 			$installer->remove_config('1040');
 		}
+
+		// 1767: deDE key defines
 
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
 		$this->loadkeys( 'install_' );
