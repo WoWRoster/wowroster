@@ -133,7 +133,7 @@ foreach( $config_pages as $pindex => $data )
 	}
 }
 
-// Added to get the newest addon list because we may have installed/uninstalled something
+// Refresh the addon list because we may have installed/uninstalled something
 $roster->get_addon_data();
 
 $roster->tpl->assign_var('ADDON_PAGEBAR',(bool)count($roster->addon_data));

@@ -116,7 +116,7 @@ function GrabAllLocalDirectories($dir)
 {
 	global $directories;
 
-	if ($handle = opendir($dir)) {
+	if ($handle = @opendir($dir)) {
 		while ($filename = readdir($handle))
 		{
 			$directory = $dir . '/' . $filename;
@@ -126,8 +126,8 @@ function GrabAllLocalDirectories($dir)
 				GrabAllLocalDirectories($directory);
 			}
 		}
+		closedir($handle);
 	}
-	closedir($handle);
 }
 
 /**
@@ -140,7 +140,7 @@ function GrabLocalVersions($directory)
 {
 	global $directories;
 
-	if ($handle = opendir($directory))
+	if ($handle = @opendir($directory))
 	{
 		while ($filename = readdir($handle))
 		{
@@ -152,8 +152,8 @@ function GrabLocalVersions($directory)
 				GetFileVersionInfo($directory, $filename);
 			}
 		}
+		closedir($handle);
 	}
-	closedir($handle);
 }
 
 /**

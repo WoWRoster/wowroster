@@ -599,7 +599,7 @@ class memberslist
 			$tooltip = 'Level ' . $row['level'] . ' ' . $row['sex'] . ' ' . $row['race'] . ' ' . $row['class'] . "\n";
 
 			$tooltip .= $roster->locale->act['lastonline'] . ': ' . $row['last_online'] . ' in ' . $row['zone'];
-			$tooltip .= ($row['nisnull'] ? '' : "\n" . $roster->locale->act['note'] . ': ' . $row['note']);
+			$tooltip .= ( $this->addon['config']['member_note'] == 0 || $row['nisnull'] ? '' : "\n" . $roster->locale->act['note'] . ': ' . $row['note'] );
 
 			$tooltip = '<div style="cursor:help;" ' . makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP') . '>';
 
