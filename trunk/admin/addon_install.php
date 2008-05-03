@@ -171,7 +171,7 @@ function getAddonList()
 	$addons = '';
 	$output = '';
 
-	if( $handle = opendir(ROSTER_ADDONS) )
+	if( $handle = @opendir(ROSTER_ADDONS) )
 	{
 		while( false !== ($file = readdir($handle)) )
 		{
@@ -203,27 +203,17 @@ function getAddonList()
 
 				$addonstuff = new $install_class;
 
-				$query = "SELECT * FROM `" . $roster->db->table('addon') . "` WHERE `basename` = '$addon';";
-				$result = $roster->db->query($query);
-				if (!$result)
+				if( array_key_exists($addon,$roster->addon_data) )
 				{
-					$installer->seterrors('Database Error: ' . $roster->db->error() . '<br />SQL: ' . $query);
-					return;
-				}
-
-				if( $roster->db->num_rows($result) > 0 )
-				{
-					$row = $roster->db->fetch($result);
-
-					$output[$addon]['id'] = $row['addon_id'];
-					$output[$addon]['active'] = $row['active'];
-					$output[$addon]['access'] = $row['access'];
-					$output[$addon]['oldversion'] = $row['version'];
+					$output[$addon]['id'] = $roster->addon_data[$addon]['addon_id'];
+					$output[$addon]['active'] = $roster->addon_data[$addon]['active'];
+					$output[$addon]['access'] = $roster->addon_data[$addon]['access'];
+					$output[$addon]['oldversion'] = $roster->addon_data[$addon]['version'];
 
 					// -1 = overwrote newer version
 					//  0 = same version
 					//  1 = upgrade available
-					$output[$addon]['install'] = version_compare($addonstuff->version,$row['version']);
+					$output[$addon]['install'] = version_compare($addonstuff->version,$roster->addon_data[$addon]['version']);
 
 				}
 				else

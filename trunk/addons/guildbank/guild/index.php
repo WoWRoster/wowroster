@@ -185,7 +185,6 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 				$column_counter = 0;
 			}
 			$column_counter++;
-			$itemRow = $roster->db->fetch($itemsOnMule);
 		}
 	}
 }
