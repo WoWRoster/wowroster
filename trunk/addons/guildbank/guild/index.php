@@ -107,9 +107,9 @@ if( $addon['config']['bank_money'] )
 	$mulemoney['gold'] = $mulemoney['gold'] + $addgold;
 
 	$roster->tpl->assign_vars(array(
-		'MONEY_C' => $mulemoney['gold'],
+		'MONEY_G' => $mulemoney['gold'],
 		'MONEY_S' => $mulemoney['silver'],
-		'MONEY_G' => $mulemoney['copper']
+		'MONEY_C' => $mulemoney['copper']
 		)
 	);
 }
@@ -151,9 +151,9 @@ while( $muleRow = $roster->db->fetch($muleNames) )
 		'LINK'    => makelink('char-info&amp;a=c:' . $muleRow['member_id']),
 		'NOTE'    => $note,
 		'UPDATED' => $date_char_data_updated,
-		'MONEY_C' => $muleRow['gold'],
+		'MONEY_G' => $muleRow['gold'],
 		'MONEY_S' => $muleRow['silver'],
-		'MONEY_G' => $muleRow['copper'],
+		'MONEY_C' => $muleRow['copper'],
 
 		'S_ITEMS' => (bool)$roster->db->num_rows(),
 
