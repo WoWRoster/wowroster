@@ -734,6 +734,9 @@ class char
 					else
 					{
 						$xpbarshow = false;
+						$expbar_width = 0;
+						$expbar_text = '';
+						
 					}
 				}
 
