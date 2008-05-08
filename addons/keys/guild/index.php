@@ -137,8 +137,8 @@ while( $key_data = $roster->db->fetch( $keyResult ) )
 
 	$FIELD[$key_name] = array(
 		'lang_field' => $key_name,
-		'order' => array( '`keycache`.`' . $key_name . '_latest` ASC' ),
-		'order_d' => array( '`keycache`.`' . $key_name . '_latest` ASC' ),
+		'order' => array( '`' . $key_name . '_latest` ASC' ),
+		'order_d' => array( '`' . $key_name . '_latest` DESC' ),
 		'value' => 'key_value',
 		'js_type' => 'ts_number',
 		'display' => 2,
