@@ -387,14 +387,14 @@ class RosterMenu
 		}
 		elseif( $type == 'class' )
 		{
-			foreach($roster->locale->act['class_iconArray'] as $class => $icon)
+			foreach($roster->locale->act['id_to_class'] as $class_id => $class)
 			{
-				$dat[$class]['name'] = $class;
-				$dat[$class]['alt'] = 0;
-				$dat[$class]['nonalt'] = 0;
+				$dat[$class_id]['name'] = $class;
+				$dat[$class_id]['alt'] = 0;
+				$dat[$class_id]['nonalt'] = 0;
 			}
 
-			$qrypart = "`class`";
+			$qrypart = "`classid`";
 		}
 		else
 		{
@@ -421,21 +421,7 @@ class RosterMenu
 		// Fetch results
 		while( $row = $roster->db->fetch($result) )
 		{
-			if( $type == 'class' )
-			{
-				// Find the english name, so we can store all the class in different locales
-				foreach ($roster->multilanguages as $language)
-				{
-					$label = isset($roster->locale->wordings[$language]['class_to_en'][$row['label']]) ? $roster->locale->wordings[$language]['class_to_en'][$row['label']] : '';
-					if( strlen($label) > 0 ) break;
-				}
-				// Set the label to the current language
-				$label = $roster->locale->act[$label];
-			}
-			else
-			{
-				$label = $row['label'];
-			}
+			$label = $row['label'];
 
 			if( $row['isalt'] )
 			{
