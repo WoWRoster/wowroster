@@ -457,6 +457,41 @@ $lang['class_to_en'] = array(
 
 );
 
+// Class to game-internal ID
+$lang['class_to_id'] = array(
+	'Warrior' => 1,
+
+	'Paladin' => 2,
+
+	'Hunter' => 3,
+
+	'Rogue' => 4,
+
+	'Priest' => 5,
+
+	'Shaman' => 7,
+
+	'Mage' => 8,
+
+	'Warlock' => 9,
+
+	'Druid' => 11
+
+);
+
+// Game-internal ID to class
+$lang['id_to_class'] = array(
+	1 => 'Warrior',
+	2 => 'Paladin',
+	3 => 'Hunter',
+	4 => 'Rogue',
+	5 => 'Priest',
+	7 => 'Shaman',
+	8 => 'Mage',
+	9 => 'Warlock',
+	11 => 'Druid'
+);
+
 // Race to English Translation
 $lang['race_to_en'] = array(
 	'Blood Elf' => 'Blood Elf',

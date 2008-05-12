@@ -457,6 +457,41 @@ $lang['class_to_en'] = array(
 	'Kriegerin' => 'Warrior'
 );
 
+// Class to game-internal ID
+$lang['class_to_id'] = array(
+	'Krieger' => 1,
+	'Kriegerin' => 1,
+	'Paladin' => 2,
+//	'Paladin' => 2,
+	'Jäger' => 3,
+	'Jägerin' => 3,
+	'Schurke' => 4,
+	'Schurkin' => 4,
+	'Priester' => 5,
+	'Priesterin' => 5,
+	'Shamane' => 7,
+	'Shamanin' => 7,
+	'Magier' => 8,
+	'Magierin' => 8,
+	'Hexenmeister' => 9,
+	'Hexenmeisterin' => 9,
+	'Druide' => 11
+	'Druidin' => 11
+);
+
+// Game-internal ID to class
+$lang['id_to_class'] = array(
+	1 => 'Krieger',
+	2 => 'Paladin',
+	3 => 'Jäger',
+	4 => 'Schurke',
+	5 => 'Priester',
+	7 => 'Shamane',
+	8 => 'Magier',
+	9 => 'Hexenmeister',
+	11 => 'Druide'
+);
+
 // Race to English Translation
 $lang['race_to_en'] = array(
 	'Blutelf'  => 'Blood Elf',
