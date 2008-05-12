@@ -475,7 +475,7 @@ $lang['class_to_id'] = array(
 	'Magierin' => 8,
 	'Hexenmeister' => 9,
 	'Hexenmeisterin' => 9,
-	'Druide' => 11
+	'Druide' => 11,
 	'Druidin' => 11
 );
 
