@@ -736,7 +736,7 @@ class char
 						$xpbarshow = false;
 						$expbar_width = 0;
 						$expbar_text = '';
-						
+
 					}
 				}
 
@@ -2241,23 +2241,23 @@ class char
 			}
 		}
 
-		switch( $this->data['class'] )
+		switch( $this->data['classid'] )
 		{
-			case $this->locale['Warrior']:
-			case $this->locale['Paladin']:
-			case $this->locale['Rogue']:
+			case ROSTER_CLASS_WARRIOR:
+			case ROSTER_CLASS_PALADIN:
+			case ROSTER_CLASS_ROGUE:
 				$rightbox = 'melee';
 				break;
 
-			case $this->locale['Hunter']:
+			case ROSTER_CLASS_HUNTER:
 				$rightbox = 'ranged';
 				break;
 
-			case $this->locale['Shaman']:
-			case $this->locale['Druid']:
-			case $this->locale['Mage']:
-			case $this->locale['Warlock']:
-			case $this->locale['Priest']:
+			case ROSTER_CLASS_SHAMAN:
+			case ROSTER_CLASS_DRUID:
+			case ROSTER_CLASS_MAGE:
+			case ROSTER_CLASS_WARLOCK:
+			case ROSTER_CLASS_PRIEST:
 				$rightbox = 'spell';
 				break;
 		}
