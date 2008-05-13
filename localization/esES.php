@@ -219,7 +219,7 @@ $lang['byclass']='Por Clase';
 $lang['menustats']='Estadísticas';
 $lang['menuhonor']='Honor';
 $lang['basename']='Nombre base';
-$lang['scope']='�?mbito';
+$lang['scope']='�?mbito';
 
 //start search engine
 $lang['search']='Búsqueda';
@@ -459,37 +459,37 @@ $lang['class_to_en'] = array(
 
 // Class to game-internal ID
 $lang['class_to_id'] = array(
-	'Warrior' => 1,
+	'Guerrero' => 1,
 
-	'Paladin' => 2,
+	'Paladín' => 2,
 
-	'Hunter' => 3,
+	'Cazador' => 3,
 
-	'Rogue' => 4,
+	'Pícaro' => 4,
 
-	'Priest' => 5,
+	'Sacerdote' => 5,
 
-	'Shaman' => 7,
+	'Chamán' => 7,
 
-	'Mage' => 8,
+	'Mago' => 8,
 
-	'Warlock' => 9,
+	'Brujo' => 9,
 
-	'Druid' => 11
+	'Druida' => 11
 
 );
 
 // Game-internal ID to class
 $lang['id_to_class'] = array(
-	1 => 'Warrior',
-	2 => 'Paladin',
-	3 => 'Hunter',
-	4 => 'Rogue',
-	5 => 'Priest',
-	7 => 'Shaman',
-	8 => 'Mage',
-	9 => 'Warlock',
-	11 => 'Druid'
+	1 => 'Guerrero',
+	2 => 'Paladín',
+	3 => 'Cazador',
+	4 => 'Pícaro',
+	5 => 'Sacerdote',
+	7 => 'Chamán',
+	8 => 'Mago',
+	9 => 'Brujo',
+	11 => 'Druida'
 );
 
 // Race to English Translation
@@ -678,7 +678,7 @@ $lang['tooltip_reg_conjureditems']='Los objetos creados mágicamente desaparecen
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Añade ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
-$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|�?dolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|�?dolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Objeto de misión|Se liga al recogerlo|Este objeto inicia una misión';
 $lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda|Pies|Abalorio';
 $lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>|Duración|<Clic derecho para abrir>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
