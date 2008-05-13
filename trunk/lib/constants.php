@@ -100,7 +100,7 @@ define('ROSTER_RACE_GNOME', 7);
 define('ROSTER_RACE_TROLL', 8);
 //define('ROSTER_RACE_', 9);
 define('ROSTER_RACE_BLOODELF', 10);
-define('ROSTER_RACE_DRANEI', 11);
+define('ROSTER_RACE_DRAENEI', 11);
 
 define('ROSTER_SEX_MALE', 0);
 define('ROSTER_SEX_FEMALE', 1);
