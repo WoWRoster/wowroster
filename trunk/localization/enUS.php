@@ -386,6 +386,19 @@ $lang['ts_ridingIcon'] = array(
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
 	'Warlock'=>'ability_mount_nightmarehorse'
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
+
+
+
+
 );
 
 // Class Icons-Array
@@ -460,22 +473,23 @@ $lang['class_to_en'] = array(
 // Class to game-internal ID
 $lang['class_to_id'] = array(
 	'Warrior' => 1,
-
 	'Paladin' => 2,
-
 	'Hunter' => 3,
-
 	'Rogue' => 4,
-
 	'Priest' => 5,
-
 	'Shaman' => 7,
-
 	'Mage' => 8,
-
 	'Warlock' => 9,
-
 	'Druid' => 11
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
 
 );
 
@@ -503,7 +517,18 @@ $lang['race_to_en'] = array(
 	'Orc'       => 'Orc',
 	'Undead'    => 'Undead',
 	'Troll'     => 'Troll',
-	'Tauren'    => 'Tauren'
+	'Tauren'    => 'Tauren',
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
+
+
 );
 
 $lang['hslist']=' Honor System Stats';
