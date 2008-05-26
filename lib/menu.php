@@ -719,6 +719,9 @@ class RosterMenu
 				$roster->tpl->assign_block_vars('menu_button_section.menu_buttons', array(
 					'TOOLTIP' => $button['tooltip'],
 					'ICON'    => $button['icon'],
+					'NAME'    => $button['title'],
+					'SCOPE'   => $button['scope'],
+					'BASENAME'   => $button['basename'],
 					'U_LINK'  => $button['url']
 					)
 				);
