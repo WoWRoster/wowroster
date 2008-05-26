@@ -18,7 +18,7 @@
 $lang['vault']='Banco de la hermandad';
 $lang['vault_desc']='Muestra el contenido del banco de la hermandad';
 $lang['vault_menu']='Banco de la hermandad|Muestra el contenido del banco de la hermandad';
-$lang['available_amount']='Available Amount';
+$lang['available_amount']='Cantidad disponible';
 $lang['vault_log']='Registro del banco';
 $lang['vault_money_log']='Registro del dinero';
 
@@ -26,6 +26,8 @@ $lang['vault_log_deposit'] = '%1$s <span class="greenB">depositado</span> %2$s';
 $lang['vault_log_withdraw'] = '%1$s <span class="redB">retirado</span> %2$s';
 $lang['vault_log_move'] = '%1$s <span class="purpleB">movido</span> %2$s';
 $lang['vault_log_repair'] = '%1$s <span class="redB">gastado</span> %2$s for repairs';
+$lang['vault_log_withdrawForTab'] = '%1$s <span class="redB">withdrew</span> %2$s for vault tab';
+$lang['vault_log_buyTab'] = '%1$s <span class="greenB">purchased</span> vault tab %2$s.';
 
 $lang['admin']['vault_conf'] = 'Banco de la hermandad|Configura como mostrar el banco y sus opciones';
 $lang['admin']['tab1'] = 'Tab 1 Acceso|Controla quién tiene acceso a ver los objetos del Tab 1';

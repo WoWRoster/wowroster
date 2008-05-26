@@ -385,7 +385,20 @@ $lang['ts_ridingIcon'] = array(
 	'Blutelf' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
-	'Hexenmeister'=>'ability_mount_nightmarehorse'
+	'Hexenmeister'=>'ability_mount_nightmarehorse',
+// Female variation
+//	'Nachtelf'=>'ability_mount_whitetiger',
+//	'Mensch'=>'ability_mount_ridinghorse',
+//	'Zwerg'=>'ability_mount_mountainram',
+//	'Gnom'=>'ability_mount_mechastrider',
+//	'Untoter'=>'ability_mount_undeadhorse',
+//	'Troll'=>'ability_mount_raptor',
+//	'Tauren'=>'ability_mount_kodo_03',
+//	'Orc'=>'ability_mount_blackdirewolf',
+//	'Blutelf' => 'ability_mount_cockatricemount',
+//	'Draenei' => 'ability_mount_ridingelekk',
+//	'Paladin'=>'ability_mount_dreadsteed',
+	'Hexenmeisterin'=>'ability_mount_nightmarehorse',
 );
 
 // Class Icons-Array
@@ -460,23 +473,24 @@ $lang['class_to_en'] = array(
 // Class to game-internal ID
 $lang['class_to_id'] = array(
 	'Krieger' => 1,
-	'Kriegerin' => 1,
 	'Paladin' => 2,
-//	'Paladin' => 2,
 	'Jäger' => 3,
-	'Jägerin' => 3,
 	'Schurke' => 4,
-	'Schurkin' => 4,
 	'Priester' => 5,
-	'Priesterin' => 5,
 	'Shamane' => 7,
-	'Shamanin' => 7,
 	'Magier' => 8,
-	'Magierin' => 8,
 	'Hexenmeister' => 9,
-	'Hexenmeisterin' => 9,
 	'Druide' => 11,
-	'Druidin' => 11
+// Female variation
+	'Kriegerin' => 1,
+//	'Paladin' => 2,
+	'Jägerin' => 3,
+	'Schurkin' => 4,
+	'Priesterin' => 5,
+	'Shamanin' => 7,
+	'Magierin' => 8,
+	'Hexenmeisterin' => 9,
+	'Druidin' => 11,
 );
 
 // Game-internal ID to class
@@ -503,7 +517,18 @@ $lang['race_to_en'] = array(
 	'Orc'      => 'Orc',
 	'Untoter'  => 'Undead',
 	'Troll'    => 'Troll',
-	'Tauren'   => 'Tauren'
+	'Tauren'   => 'Tauren',
+// Female variation
+//	'Blutelf'  => 'Blood Elf',
+//	'Draenei'  => 'Draenei',
+//	'Nachtelf' => 'Night Elf',
+//	'Zwerg'    => 'Dwarf',
+//	'Gnom'     => 'Gnome',
+//	'Mensch'   => 'Human',
+//	'Orc'      => 'Orc',
+//	'Untoter'  => 'Undead',
+//	'Troll'    => 'Troll',
+//	'Tauren'   => 'Tauren',
 );
 
 $lang['hslist']=' Ehren Statistiken';

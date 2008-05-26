@@ -29,7 +29,7 @@ $lang['lualocation']='Pulsa Examinar y selecciona tus ficheros *.lua para el env
 $lang['filelocation']='se encuentra en<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*NOMBRE_DE_CUENTA*</i>\\\\SavedVariables';
 
 $lang['nodata']='No se pudo encontrar la hermandad: <b>\'%1$s\'</b> del servidor <b>\'%2$s\'</b><br />Necesitas <a href="%3$s">incluir tu hermandad</a> y asegurarte de que has <a href="%4$s">terminado la configuración</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Pulsa aquí para ver las instrucciones de instalación</a>';
-$lang['no_default_guild']='No default guild has been set yet. Please set one here.';
+$lang['no_default_guild']='Todavía no se ha seleccionado ninguna hermandad como predeterminada. Por favor, elige una aquí.';
 $lang['nodefguild']='No se ha seleccionado ninguna hermandad como predeterminada. Por favor, asegurate de haber <a href="%1$s">completado la configuración</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Haz click aquí para ver las instrucciones de instalación</a>';
 $lang['nodata_title']='No hay información de la hermandad';
 
@@ -46,7 +46,7 @@ $lang['roster_upd_pw_help']='(Algunos addons requieren de contraseña para poder
 
 
 $lang['roster_error'] = 'Roster Error';
-$lang['sql_queries'] = 'SQL Queries';
+$lang['sql_queries'] = 'SQL Entradas';
 $lang['invalid_char_module'] = 'Personajes inválidos en el módulo name';
 $lang['module_not_exist'] = 'El módulo [%1$s] no existe';
 
@@ -54,7 +54,7 @@ $lang['addon_error'] = 'Addon Error';
 $lang['specify_addon'] = '¡Debes especificar el nombre del addon!';
 $lang['addon_not_exist'] = '<b>¡El addon [%1$s] no existe!</b>';
 $lang['addon_disabled'] = '<b>El addon [%1$s] ha sido desactivado</b>';
-$lang['addon_no_access'] = '<b>Insufficient credentials to access [%1$s]</b>';
+$lang['addon_no_access'] = '<b>No tienes suficientes credenciales para acceder [%1$s]</b>';
 $lang['addon_upgrade_notice'] = '<b>El addon [%1$s] se ha desabilitado porque necesita actualizarse</b>';
 $lang['addon_not_installed'] = '<b>El addon [%1$s] no ha sido instalado todavía</b>';
 $lang['addon_no_config'] = '<b>El addon [%1$s] no se ha configurado</b>';
@@ -68,7 +68,7 @@ $lang['roster_cp'] = 'Panel de Control Roster';
 $lang['roster_cp_ab'] = 'Roster PC';
 $lang['roster_cp_not_exist'] = 'La página [%1$s] no existe';
 $lang['roster_cp_invalid'] = 'La página especificada es inválida o no tienes suficientes permisos para acceder a ella';
-$lang['access_level'] = 'Access Level';
+$lang['access_level'] = 'Nivel de acceso';
 
 $lang['parsing_files'] = 'Analizando archivos';
 $lang['parsed_time'] = 'Analizados %1$s en %2$s segundos';
@@ -219,7 +219,7 @@ $lang['byclass']='Por Clase';
 $lang['menustats']='Estadísticas';
 $lang['menuhonor']='Honor';
 $lang['basename']='Nombre base';
-$lang['scope']='�?mbito';
+$lang['scope']='Alcance';
 
 //start search engine
 $lang['search']='Búsqueda';
@@ -385,7 +385,20 @@ $lang['ts_ridingIcon'] = array(
 	'Elfo de sangre' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladín'=>'ability_mount_dreadsteed',
-	'Brujo'=>'ability_mount_nightmarehorse'
+	'Brujo'=>'ability_mount_nightmarehorse',
+// Female variation
+	'Elfa de la noche'=>'ability_mount_whitetiger',
+	'Humana'=>'ability_mount_ridinghorse',
+	'Enana'=>'ability_mount_mountainram',
+//	'Gnomo'=>'ability_mount_mechastrider',
+	'No-muerta'=>'ability_mount_undeadhorse',
+//	'Trol'=>'ability_mount_raptor',
+//	'Tauren'=>'ability_mount_kodo_03',
+	'Orca'=>'ability_mount_blackdirewolf',
+	'Elfa de sangre' => 'ability_mount_cockatricemount',
+//	'Draenei' => 'ability_mount_ridingelekk',
+//	'Paladín'=>'ability_mount_dreadsteed',
+	'Bruja'=>'ability_mount_nightmarehorse',
 );
 
 // Class Icons-Array
@@ -401,14 +414,14 @@ $lang['class_iconArray'] = array (
 	'Guerrero'=>'warrior_icon',
 // Female variation
 //	'Druida'=>'druid_icon',
-//	'Cazador'=>'hunter_icon',
-//	'Mago'=>'mage_icon',
+	'Cazadora'=>'hunter_icon',
+	'Maga'=>'mage_icon',
 //	'Paladín'=>'paladin_icon',
-//	'Sacerdote'=>'priest_icon',
-//	'Pícaro'=>'rogue_icon',
+	'Sacerdotisa'=>'priest_icon',
+	'Pícara'=>'rogue_icon',
 //	'Chamán'=>'shaman_icon',
-//	'Brujo'=>'warlock_icon',
-//	'Guerrero'=>'warrior_icon',
+	'Bruja'=>'warlock_icon',
+	'Guerrera'=>'warrior_icon',
 );
 
 // Class Color-Array
@@ -417,21 +430,21 @@ $lang['class_colorArray'] = array(
 	'Cazador' => 'AAD372',
 	'Mago' => '68CCEF',
 	'Paladín' => 'F48CBA',
-	'Sacerdote' => 'ffffff',
+	'Sacerdote' => 'FFFFFF',
 	'Pícaro' => 'FFF468',
 	'Chamán' => '00DBBA',
 	'Brujo' => '9382C9',
 	'Guerrero' => 'C69B6D',
 // Female variation
 //	'Druida' => 'FF7C0A',
-//	'Cazador' => 'AAD372',
-//	'Mago' => '68CCEF',
+	'Cazadora' => 'AAD372',
+	'Maga' => '68CCEF',
 //	'Paladín' => 'F48CBA',
-//	'Sacerdote' => 'ffffff',
-//	'Pícaro' => 'FFF468',
+	'Sacerdotisa' => 'FFFFFF',
+	'Pícara' => 'FFF468',
 //	'Chamán' => '00DBBA',
-//	'Brujo' => '9382C9',
-//	'Guerrero' => 'C69B6D',
+	'Bruja' => '9382C9',
+	'Guerrera' => 'C69B6D',
 );
 
 // Class To English Translation
@@ -447,36 +460,37 @@ $lang['class_to_en'] = array(
 	'Guerrero' => 'Warrior',
 // Female variation
 //	'Druida' => 'Druid',
-//	'Cazador' => 'Hunter',
-//	'Mago' => 'Mage',
+	'Cazadora' => 'Hunter',
+	'Maga' => 'Mage',
 //	'Paladín' => 'Paladin',
-//	'Sacerdote' => 'Priest',
-//	'Pícaro' => 'Rogue',
+	'Sacerdotisa' => 'Priest',
+	'Pícara' => 'Rogue',
 //	'Chamán' => 'Shaman',
-//	'Brujo' => 'Warlock',
-//	'Guerrero' => 'Warrior'
+	'Bruja' => 'Warlock',
+	'Guerrera' => 'Warrior',
 );
 
 // Class to game-internal ID
 $lang['class_to_id'] = array(
 	'Guerrero' => 1,
-
 	'Paladín' => 2,
-
 	'Cazador' => 3,
-
 	'Pícaro' => 4,
-
 	'Sacerdote' => 5,
-
 	'Chamán' => 7,
-
 	'Mago' => 8,
-
 	'Brujo' => 9,
-
-	'Druida' => 11
-
+	'Druida' => 11,
+// Female variation
+	'Guerrera' => 1,
+//	'Paladín' => 2,
+	'Cazadora' => 3,
+	'Pícara' => 4,
+	'Sacerdotisa' => 5,
+//	'Chamán' => 7,
+	'Maga' => 8,
+	'Bruja' => 9,
+//	'Druida' => 11,
 );
 
 // Game-internal ID to class
@@ -503,7 +517,18 @@ $lang['race_to_en'] = array(
 	'Orco'      => 'Orc',
 	'No-muerto' => 'Undead',
 	'Trol'      => 'Troll',
-	'Tauren'    => 'Tauren'
+	'Tauren'    => 'Tauren',
+// Female variation
+	'Elfa de sangre' => 'Blood Elf',
+//	'Draenei'   => 'Draenei',
+	'Elfa de la noche' => 'Night Elf',
+	'Enana'     => 'Dwarf',
+//	'Gnomo'     => 'Gnome',
+	'Humana'    => 'Human',
+	'Orca'      => 'Orc',
+	'No-muerta' => 'Undead',
+//	'Trol'      => 'Troll',
+//	'Tauren'    => 'Tauren',
 );
 
 $lang['hslist']=' Estadísticas de honor';
@@ -678,7 +703,7 @@ $lang['tooltip_reg_conjureditems']='Los objetos creados mágicamente desaparecen
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Añade ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
-$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|�?dolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|Ídolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Objeto de misión|Se liga al recogerlo|Este objeto inicia una misión';
 $lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda|Pies|Abalorio';
 $lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>|Duración|<Clic derecho para abrir>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
@@ -699,7 +724,7 @@ $lang['gem_colors'] = array(
 	'orange' => 'naranja',
 	'purple' => 'morada',
 	'prismatic' => 'centelleante',
-	'meta' => 'meta'
+	'meta' => 'meta',
 	);
 
 $lang['gem_colors_to_en'] = array(
@@ -712,7 +737,7 @@ $lang['gem_colors_to_en'] = array(
 	'naranja' => 'orange',
 	'morada' => 'purple',
 	'centelleante' => 'prismatic',
-	'meta' => 'meta'
+	'meta' => 'meta',
 	);
 
 $lang['socket_colors_to_en'] = array(
@@ -765,7 +790,7 @@ $lang['installer_uninstall_2']='Fallo al desinstalar %1$s. No se ha conseguido d
 $lang['installer_upgrade_0']='Mejora de %1$s completada satisfactoriamente';
 $lang['installer_upgrade_1']='Ha fallado la mejora de %1$s. Se ha conseguido dejar la versión anterior';
 $lang['installer_upgrade_2']='Ha fallado la mejora de %1$s. No se ha conseguido dejar la versión anterior';
-$lang['installer_purge_0']='Purge of %1$s successful';
+$lang['installer_purge_0']='Purgue de %1$s se ha completado';
 
 $lang['installer_icon'] = 'Icono';
 $lang['installer_addoninfo'] = 'Información sobre el addon';
@@ -802,12 +827,12 @@ $lang['installer_no_uninstall'] = '%1$s no se puede desinstalar';
 $lang['installer_not_uninstallable'] = '%1$s contiene un addon %2$s que debe de ser instalado con este desinstalador de addons';
 
 // After Install guide
-$lang['install'] = 'Install';
-$lang['setup_guide'] = 'After Install Guide';
-$lang['default_data'] = 'Default Data';
-$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter Guildless-F for guild name<br />Replace F with your Faction (A-Alliance, H-Horde)<br />Enter your realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
-$lang['guide_complete'] = 'The after install setup is complete<br /><br />Remember to <a href="%1$s">install addons</a> for Roster';
-$lang['guide_already_complete'] = 'The after install guide setup has already been completed<br />You cannot run it again';
+$lang['install'] = 'Instalar';
+$lang['setup_guide'] = 'Guía después de instalar';
+$lang['default_data'] = 'Datos predeterminados';
+$lang['default_data_help'] = 'Elige tu hermandad permitida predeterminada aquí<br />Muchos addons requieren de una hermandad predeterminada para funcionar perfectamente<br />Puedes añadir mas hermandades permitidas en RosterCP-&gt;Normas de subir<br /><br />Si esto es una instalación de una persona que no pertenece a la hermandad:<br />Entre en hermandades-F para ver los nombres de la hermandad<br />Reemplaza F con tu facción (A-Alianza, H-Horda)<br />Introduce tu reino y región<br />Elige las normas de subir personajes en RosterCP-&gt;Normas de subir';
+$lang['guide_complete'] = 'Se ha terminado la configuración después de instalar<br /><br />Recuerda <a href="%1$s">instalar addons</a> para el Roster';
+$lang['guide_already_complete'] = 'La guía de después de instalar acaba de completarse<br />No podrás verla de nuevo';
 
 // Password Stuff
 $lang['password'] = 'Contraseña';
@@ -834,7 +859,7 @@ $lang['clean'] = 'Limpia todas las entradas basándose en las normas';
 $lang['select_guild'] = 'Selecciona hermandad';
 $lang['delete_checked'] = 'Eliminar marcado';
 $lang['delete_guild'] = 'Eliminar hermandad';
-$lang['delete_guild_confirm'] = 'Con esto borraras esta hermandad entera y todos los miembros marcados como miembros de la hermandad.\\n ¿Estas seguro de continuar?\\n\\nNOTA: ¡No podrás volver atrás!';
+$lang['delete_guild_confirm'] = 'Con esto borrarás esta hermandad entera y todos los miembros marcados como miembros de la hermandad.\\n ¿Estas seguro de continuar?\\n\\nNOTA: ¡No podrás volver atrás!';
 
 // Config Reset
 $lang['config_is_reset'] = 'La configuración ha sido restaurada. Por favor, recuerda re-configurar TODAS tus opciones antes de pasar a subir datos';
@@ -899,8 +924,8 @@ $lang['admin']['documentation'] = 'Documentación|Documentación de WoWRoster v�
 // main_conf
 $lang['admin']['roster_dbver'] = "Versión de la base de datos de Roster|Versión de la base de datos";
 $lang['admin']['version'] = "Versión de Roster|Versión actual del Roster";
-$lang['admin']['debug_mode'] = "Debug Mode|off - No debug or error messages<br />on - Display error messages and simple debug<br />extended - Full debug mode and backtrace in error messages";
-$lang['admin']['sql_window'] = "SQL Window|off - Do not show query window<br />on - Display query window in the footer<br />extended - Include DESCRIBE statements";
+$lang['admin']['debug_mode'] = "Modo Depurar|off - No depurar los mensajes de error<br />on - Muestra mensajes de error y una sencilla depuración<br />extendido - Modo de depuración completa";
+$lang['admin']['sql_window'] = "Ventana SQL|off - No mostrará la ventana de entradas<br />on - Muestra la ventana de entradas al pie de la página<br />extendido - Incluye estadisticas de descripción";
 $lang['admin']['minCPver'] = "Versión min de CP|Mínima versión permitida del CharacterProfiler";
 $lang['admin']['minGPver'] = "Versión min de GP|Mínima versión permitida del GuildProfiler";
 $lang['admin']['locale'] = "Lenguaje principal del Roster|Elige el lenguaje del interfaz";
@@ -915,7 +940,7 @@ $lang['admin']['timezone'] = "Hora de la zona|Muestra la hora de tu región geog
 $lang['admin']['localtimeoffset'] = "Diferencia horaria|La diferencia horaria desde el UTC/GMT<br />La hora del Roster se calcula con esta diferencia";
 $lang['admin']['use_update_triggers'] = "Actualizar addon triggers|Esto se utiliza con addons que necesitan ser ejecutados mientras actualizas un personaje o la hermandad.<br />Algunos addons requieren de esto para funcionar correctamente";
 $lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y a los addons que usan esta opción)<br />comprobar si existe alguna versión nueva del software";
-$lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
+$lang['admin']['seo_url'] = "URLs amistosos|Activa enlaces en Roster<br /><br />on - /alguna/página/aquí/param=value.html<br />off - index.php?p=alguna-página-aquí&amp;param=value";
 $lang['admin']['local_cache']= "Sistema de archivos en caché|Permite al servidor local guardar algunos archivos para mejorar el rendimiento.";
 $lang['admin']['use_temp_tables'] = "Usar tablas temporales|Desactiva esta opción si tu servidor no permite crear tablas temporales en la base de datos (CREATE TEMPORARY TABLE privilege).<br/>Se recomienda activarlo para mejorar el rendimiento.";
 $lang['admin']['enforce_rules'] = "Forzar exclusiones|Esta opción forzará las mismas normas de subida para todos los ficheros lua que se suban<br />- Never: Nunca forzará las normas<br />- All LUA Updates: Forzará las normas a todas las actualizaciones de ficheros lua<br />- CP Updates: Forzará las normas solo a los ficheros CP.lua<br />- Guild Updates: Forzará las normas solo con actualizaciones de la hermandad<br /><br />También puedes activar esta opción en el panel &quot;Exclusiones&quot;.";

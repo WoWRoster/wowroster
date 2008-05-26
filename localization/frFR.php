@@ -385,7 +385,20 @@ $lang['ts_ridingIcon'] = array(
 	'Elfe de sang' => 'ability_mount_cockatricemount',
 	'Draeneï' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
-	'Démoniste'=>'ability_mount_nightmarehorse'
+	'Démoniste'=>'ability_mount_nightmarehorse',
+// Female variation
+//	'Elfe de la nuit'=>'ability_mount_whitetiger',
+//	'Humain'=>'ability_mount_ridinghorse',
+//	'Nain'=>'ability_mount_mountainram',
+//	'Gnome'=>'ability_mount_mechastrider',
+//	'Mort-vivant'=>'ability_mount_undeadhorse',
+//	'Troll'=>'ability_mount_raptor',
+//	'Tauren'=>'ability_mount_kodo_03',
+//	'Orc'=>'ability_mount_blackdirewolf',
+//	'Elfe de sang' => 'ability_mount_cockatricemount',
+//	'Draeneï' => 'ability_mount_ridingelekk',
+//	'Paladin'=>'ability_mount_dreadsteed',
+//	'Démoniste'=>'ability_mount_nightmarehorse',
 );
 
 // Class Icons-Array
@@ -460,23 +473,24 @@ $lang['class_to_en'] = array(
 // Class to game-internal ID
 $lang['class_to_id'] = array(
 	'Guerrièr' => 1,
-	'Guerrière' => 1,
 	'Paladin' => 2,
-//	'Paladin' => 2,
 	'Chasseur' => 3,
-	'Chasseresse' => 3,
 	'Voleur' => 4,
-	'Voleuse' => 4,
 	'Prêtre' => 5,
-	'Prêtresse' => 5,
 	'Chaman' => 7,
-	'Chamane' => 7,
 	'Mage' => 8,
-//	'Mage' => 8,
 	'Démoniste' => 9,
-//	'Démoniste' => 9,
 	'Druide' => 11,
-	'Druidesse' => 11
+// Female variation
+	'Guerrière' => 1,
+//	'Paladin' => 2,
+	'Chasseresse' => 3,
+	'Voleuse' => 4,
+	'Prêtresse' => 5,
+	'Chamane' => 7,
+//	'Mage' => 8,
+//	'Démoniste' => 9,
+	'Druidesse' => 11,
 );
 
 // Game-internal ID to class
@@ -491,6 +505,7 @@ $lang['id_to_class'] = array(
 	9 => 'Démoniste',
 	11 => 'Druide'
 );
+
 // Race to English Translation
 $lang['race_to_en'] = array(
 	'Elfe de sang' => 'Blood Elf',
@@ -502,7 +517,18 @@ $lang['race_to_en'] = array(
 	'Orc'          => 'Orc',
 	'Mort-vivant'  => 'Undead',
 	'Troll'        => 'Troll',
-	'Tauren'       => 'Tauren'
+	'Tauren'       => 'Tauren',
+// Female variation
+//	'Elfe de sang' => 'Blood Elf',
+//	'Draeneï'     => 'Draenei',
+//	'Elfe de la nuit' => 'Night Elf',
+//	'Nain'         => 'Dwarf',
+//	'Gnome'        => 'Gnome',
+//	'Humain'       => 'Human',
+//	'Orc'          => 'Orc',
+//	'Mort-vivant'  => 'Undead',
+//	'Troll'        => 'Troll',
+//	'Tauren'       => 'Tauren',
 );
 
 $lang['hslist']=' Statistiques du Système d\'Honneur';

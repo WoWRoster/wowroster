@@ -53,4 +53,4 @@ $lang['admin']['comm_add']		= 'Añadir comentarios|Elige el nivel mínimo necesa
 $lang['admin']['comm_edit']		= 'Editar comentarios|Elige el nivel mínimo necesario para editar un comentario.';
 $lang['admin']['news_html']		= 'Noticias HTML|Activa o desactiva HTML en las noticias predeterminadamente, o desactiva HTML definitivamente.<br />Esto no afecta a las noticias existentes';
 $lang['admin']['comm_html']		= 'Comentario HTML|Activa o desactiva HTML en los comentarios predeterminadamente, o desactiva HTML definitivamente.<br />Esto no afecta a los comentarios existentes';
-$lang['admin']['news_nicedit']  = 'Nicedit text Box|Whether to enable or disable the Nicedit text box.';
+$lang['admin']['news_nicedit']  = 'Nicedit caja de texto|Permite activar o desactivar la caja de texto Nicedit.';

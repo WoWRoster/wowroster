@@ -20,7 +20,7 @@ $lang['keys_desc'] = 'Muestra un listado con las llaves de las mazmorras de Azer
 $lang['keybutton'] = 'Llaves|Muestra un listado con las llaves de las mazmorras de Azeroth que tienen los jugadores';
 
 $lang['admin']['keys_conf'] = 'Opciones|Muestra las opciones para el addon llaves';
-$lang['admin']['keys_cats'] = 'Categories|Define what keys to show in what categories';
+$lang['admin']['keys_cats'] = 'Categorias|Define que llaves mostrar en que categorias';
 $lang['admin']['colorcmp'] = 'Color completo|Para aquellas llaves que requieren de una serie de misiones o partes para conseguirla, indica el color para especificar estas partes';
 $lang['admin']['colorcur'] = 'Color actual|Indica el color de la parte actual para conseguir la llave';
 $lang['admin']['colorno'] = 'Color incompleto|Indica el color de las partes incompletas para conseguir la llave';
