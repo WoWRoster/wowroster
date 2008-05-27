@@ -57,17 +57,22 @@ if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 			$roster->db->query($query);
 			$query = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $addon['addon_id'] . "','" . $_POST['category'] . "','keypane','guild-" . $addon['basename'] . '-' . $_POST['category'] . "','" . $addon['icon'] . "');";
 			$roster->db->query($query);
+
+			// Update the menu config to display the new button automatically
+			$query = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = 'keypane' LIMIT 1;";
+			$roster->db->query($query);
+
 		}
 	}
 }
 
 $roster->tpl->assign_vars(array(
-	'L_CATEGORY' => 'Category',
-	'L_KEY'      => 'Key',
-	'L_DELETE'   => 'Delete',
-	'L_ADD'      => 'Add',
-	'L_KEY_CATEGORIES' => 'Key Categories',
-	'L_KEY_CATEGORY_ASSIGN' => 'Key Category Assignments'
+	'L_CATEGORY' => $roster->locale->act['category'],
+	'L_KEY'      => $roster->locale->act['key'],
+	'L_DELETE'   => $roster->locale->act['delete'],
+	'L_ADD'      => $roster->locale->act['add'],
+	'L_KEY_CATEGORIES' => $roster->locale->act['key_categories'],
+	'L_KEY_CATEGORY_ASSIGN' => $roster->locale->act['key_category_assignment']
 	)
 );
 

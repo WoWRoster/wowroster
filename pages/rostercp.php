@@ -170,8 +170,24 @@ foreach( $roster->addon_data as $row )
 }
 
 // ----[ Render the page ]----------------------------------
+
+// Generate a title, so the user knows where they are at in RosterCP
+$rostercp_title = $roster->locale->act['roster_config'];
+if( isset($roster->pages[1]) )
+{
+	if( $roster->pages[1] == 'addon' )
+	{
+		$fullname = $roster->addon_data[$roster->pages[2]]['fullname'];
+		$rostercp_title .= ' -&gt; ' . ( isset($roster->locale->act[$fullname]) ? $roster->locale->act[$fullname] : $fullname );
+	}
+	elseif( $roster->pages[1] != '' )
+	{
+		$rostercp_title .= ' -&gt; ' . ( isset($config_pages[$roster->pages[1]]['title']) ? ( isset($roster->locale->act[$config_pages[$roster->pages[1]]['title']]) ? $roster->locale->act[$config_pages[$roster->pages[1]]['title']] : $config_pages[$roster->pages[1]]['title'] ) : '' );
+	}
+}
+
 $roster->tpl->assign_vars(array(
-	'L_ROSTER_CONFIG' => $roster->locale->act['roster_config'],
+	'ROSTERCP_TITLE' => $rostercp_title,
 	'L_FUNCTION' => $roster->locale->act['pagebar_function'],
 	'L_ADDON_CONF' => $roster->locale->act['pagebar_addonconf'],
 	'ROSTERCP_MESSAGE' => $rcp_message,

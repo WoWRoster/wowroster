@@ -18,6 +18,11 @@
 $lang['keys'] = 'Llaves';
 $lang['keys_desc'] = 'Muestra un listado con las llaves de las mazmorras de Azeroth que tienen los jugadores';
 $lang['keybutton'] = 'Llaves|Muestra un listado con las llaves de las mazmorras de Azeroth que tienen los jugadores';
+$lang['menupanel_keypane'] = 'Llaves';
+
+$lang['category'] = 'Category';
+$lang['key_categories'] = 'Key Categories';
+$lang['key_category_assignment'] = 'Key Category Assignments';
 
 $lang['admin']['keys_conf'] = 'Opciones|Muestra las opciones para el addon llaves';
 $lang['admin']['keys_cats'] = 'Categorias|Define que llaves mostrar en que categorias';

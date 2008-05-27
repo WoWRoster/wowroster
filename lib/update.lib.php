@@ -416,6 +416,7 @@ class update
 								// Fabricate a guild update
 								$guilddata['Faction'] = $char['FactionEn'];
 								$guilddata['FactionEn'] = $char['FactionEn'];
+								$guilddata['Locale'] = $char['Locale'];
 								$guilddata['Info'] = '';
 								$guildId = $this->update_guild($realm_name,'GuildLess-' . substr($char['FactionEn'],0,1),strtotime($timestamp),$guilddata,$region);
 								unset($guilddata);
@@ -2539,6 +2540,7 @@ class update
 			{
 				$guilddata['Faction'] = $row['factionEn'];
 				$guilddata['FactionEn'] = $row['factionEn'];
+				$guilddata['Locale'] = $row['Locale'];
 				$guilddata['Info'] = '';
 				$guild_id = $this->update_guild($row['server'],'GuildLess-' . substr($row['factionEn'],0,1),strtotime($timestamp),$guilddata,$row['region']);
 				unset($guilddata);
