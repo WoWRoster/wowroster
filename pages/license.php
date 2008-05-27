@@ -138,6 +138,7 @@ that are not included under the main WoWRoster license</span></p>
 	<li>This concerns the files:
 		<ul>
 			<li>js/nicEdit.js</li>
+			<li>img/nicEditorIcons.gif</li>
 		</ul>
 	</li>
 </ul>

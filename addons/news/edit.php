@@ -70,7 +70,7 @@ if($addon['config']['news_html'] >= 0)
 	{
 		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'js/nicEdit.js"></script>
 <script type="text/javascript">
-     bkLib.onDomLoaded(nicEditors.allTextAreas);
+	bkLib.onDomLoaded(function() { nicEditors.allTextAreas({xhtml : true, fullPanel : true, iconsPath : \'' . $roster->config['img_url'] . 'nicEditorIcons.gif\'}) });
 </script>';
 	}
 }
