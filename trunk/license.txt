@@ -79,3 +79,4 @@ NicEdit
   * MIT License: http://www.nicedit.com/license.php
   * This concerns the files:
       o js/nicEdit.js
+      o img/nicEditorIcons.gif
