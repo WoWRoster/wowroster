@@ -18,6 +18,11 @@
 $lang['keys'] = 'Instance Keys';
 $lang['keys_desc'] = 'Lists Dungeon keys for guild members';
 $lang['keybutton'] = 'Instance Keys|Lists Dungeon keys for guild members';
+$lang['menupanel_keypane'] = 'Instance Keys';
+
+$lang['category'] = 'Category';
+$lang['key_categories'] = 'Key Categories';
+$lang['key_category_assignment'] = 'Key Category Assignments';
 
 $lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
 $lang['admin']['keys_cats'] = 'Categories|Define what keys to show in what categories';

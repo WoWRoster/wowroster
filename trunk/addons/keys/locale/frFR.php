@@ -18,6 +18,11 @@
 $lang['keys'] = 'Clefs';
 $lang['keys_desc'] = 'Liste les clefs de donjon que possèdent les membres de la guilde';
 $lang['keybutton'] = 'Clefs|Liste les clefs de donjon que possèdent les membres de la guilde';
+$lang['menupanel_keypane'] = 'Clefs';
+
+$lang['category'] = 'Category';
+$lang['key_categories'] = 'Key Categories';
+$lang['key_category_assignment'] = 'Key Category Assignments';
 
 $lang['admin']['keys_conf'] = 'Paramètres principaux|Paramètres principaux pour les clefs d\'instance';
 $lang['admin']['keys_cats'] = 'Catégories|Définir quelle clef appararaît dans quelle catégorie';
