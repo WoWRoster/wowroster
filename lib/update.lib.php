@@ -132,7 +132,13 @@ class update
 			}
 		}
 
+		// Remove duplicates
 		$this->files = array_unique($this->files);
+
+		// Make all the file names requested lower case
+		$this->files = array_flip($this->files);
+		$this->files = array_change_key_case($this->files);
+		$this->files = array_flip($this->files);
 	}
 
 	/**
