@@ -195,15 +195,20 @@ else
 	return $roster->locale->act['admin']['no_data'];
 }
 
-$tab1 = explode('|',$roster->locale->act['admin']['char_conf']);
-$tab2 = explode('|',$roster->locale->act['admin']['char_pref']);
 
-$menu = messagebox('
-<ul class="tab_menu">
-	<li><a href="' . makelink('rostercp-addon-info') . '" style="cursor:help;"' . makeOverlib($tab1[1],$tab1[0],'',1,'',',WRAP') . '>' . $tab1[0] . '</a></li>
-	<li class="selected"><a href="' . makelink('rostercp-addon-info-display') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
-</ul>
-',$roster->locale->act['roster_config_menu'],'sgray','145px');
+/**
+ * Make our menu from the config api
+ */
+// ----[ Set the tablename and create the config class ]----
+include(ROSTER_LIB . 'config.lib.php');
+$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
+
+// ----[ Get configuration data ]---------------------------
+$config->getConfigData();
+
+// ----[ Build the page items using lib functions ]---------
+$menu .= $config->buildConfigMenu('rostercp-addon-' . $addon['basename']);
+
 
 
 $roster->tpl->set_filenames(array('body' => $addon['basename'] . '/admin/display.html'));
