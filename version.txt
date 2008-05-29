@@ -1,1 +1,1 @@
-<version>1.9.9.1781</version>
+<version>1.9.9.1782</version>

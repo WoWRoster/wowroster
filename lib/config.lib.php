@@ -70,10 +70,12 @@ class roster_config
 
 	/**
 	 * Build the config page menu
+	 * When a parameter is passed, all dynamic config api generated links will be changed from # to makelink(string)
 	 *
+	 * @param string $in_config | Replace # with makelink(string)
 	 * @return string $menu | HTML code for menu/linklist.
 	 */
-	function buildConfigMenu()
+	function buildConfigMenu( $in_config=false )
 	{
 		global $roster;
 
@@ -92,19 +94,21 @@ class roster_config
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '    <li><a href="' . $values['value'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . $values['value'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'newlink':
-						$menu .= '    <li><a href="' . $values['value'] . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . $values['value'] . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'makelink':
-						$menu .= '    <li><a href="' . makelink($values['value']) . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . makelink($values['value']) . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						trigger_error(ROSTER_PAGE_NAME);
+						trigger_error($values['value']);
 						break;
 
 					case 'makenewlink':
-						$menu .= '    <li><a href="' . makelink($values['value']) . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . makelink($values['value']) . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'page': 	// all pages are the same here
@@ -113,11 +117,11 @@ class roster_config
 					case 'blockframe':
 					case 'blockhide':
 					case 'function':
-						$menu .= '    <li' . (($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '') . '><a href="#" rel="' . $values['name'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( !$in_config && ($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '' ) . '><a href="' . ( !$in_config ? '#' : makelink($in_config) ) . '" rel="' . $values['name'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
 						break;
 
 					case 'hr':
-						$menu .= "    <li><hr/></li>\n";
+						$menu .= "    <li><hr /></li>\n";
 
 					default:
 						break;
