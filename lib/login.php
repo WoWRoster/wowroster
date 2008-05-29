@@ -54,7 +54,7 @@ class RosterLogin
 			$this->allow_login = 0;
 			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 		}
-		elseif( isset($_POST['password']) )
+		elseif( isset($_POST['password']) && $_POST['password'] != '' )
 		{
 			$this->checkPass($_POST['password']);
 		}
