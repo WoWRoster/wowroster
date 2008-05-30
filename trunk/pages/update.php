@@ -55,6 +55,7 @@ $roster->tpl->assign_vars(array(
 	'L_PASSWORD'       => $roster->locale->act['password'],
 	'L_PASSWORD_REQ'   => $roster->locale->act['roster_upd_pwLabel'],
 	'L_PASSWORD_HELP'  => $roster->locale->act['roster_upd_pw_help'],
+	'L_PASSWORD_TIP'   => makeOverlib($roster->locale->act['roster_upd_pw_help'],$roster->locale->act['password'],'',2,'',',WRAP,RIGHT'),
 
 	'MESSAGES' => ''
 	)
