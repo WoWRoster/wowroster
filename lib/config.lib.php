@@ -103,8 +103,6 @@ class roster_config
 
 					case 'makelink':
 						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . makelink($values['value']) . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
-						trigger_error(ROSTER_PAGE_NAME);
-						trigger_error($values['value']);
 						break;
 
 					case 'makenewlink':
