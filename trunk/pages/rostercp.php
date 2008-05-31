@@ -83,7 +83,7 @@ if( $roster->config['check_updates'] && isset($roster->config['versioncache']) )
 
 		if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
 		{
-			$cache['ver_date'] = strtotime($info[1]);
+			$cache['ver_date'] = $info[1];
 		}
 
 		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
