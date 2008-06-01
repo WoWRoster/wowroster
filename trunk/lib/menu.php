@@ -403,13 +403,22 @@ class RosterMenu
 		$num_alts = $num_non_alts = 0;
 
 		// Build query
-		$query  = "SELECT count(`member_id`) AS `amount`, "
-				. "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS 'isalt', "
-				. $qrypart . " AS label "
-				. "FROM `" . $roster->db->table('members') . "` "
-				. "WHERE `level` >= $level "
-				. $where
-				. "GROUP BY isalt, label;";
+		$query  = "SELECT count(`member_id`) AS `amount`, ";
+
+		if( empty( $roster->config['alt_location'] ) || empty( $roster->config['alt_type'] ) )
+		{
+			$query .= "0 AS isalt, ";
+		}
+		else
+		{
+			$query .= "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
+		}
+
+		$query .= $qrypart . " AS label "
+			. "FROM `" . $roster->db->table('members') . "` "
+			. "WHERE `level` >= $level "
+			. $where
+			. "GROUP BY isalt, label;";
 
 		$result = $roster->db->query($query);
 

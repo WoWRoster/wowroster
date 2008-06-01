@@ -107,11 +107,11 @@ for($i=0; $i<$count; $i++)
 	}
 
 	// Draw the bar
-	if( $barsizes[$i] >= 0 )
+	if( $barsizes[$i] > 0 )
 	{
 		imagefilledrectangle($image, $offset, $colh * $i, $offset+$barsizes[$i]*$factor, $colh * ($i+1) - 2, $thisbarcolor);
 	}
-	if( isset($bar2sizes[$i]) && $bar2sizes[$i] >= 0 )
+	if( isset($bar2sizes[$i]) && $bar2sizes[$i] > 0 )
 	{
 		imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, $colh * ($i+.3), $thisbar2color);
 	}
