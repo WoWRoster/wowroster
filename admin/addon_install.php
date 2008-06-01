@@ -59,6 +59,8 @@ switch( $op )
 	default:
 		break;
 }
+// This is here to refresh the addon list
+$roster->get_addon_data();
 
 $l_default_page = explode('|',$roster->locale->act['admin']['default_page']);
 
