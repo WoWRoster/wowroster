@@ -250,11 +250,7 @@ function pvp_get_many3( $member_id , $type , $sort , $start )
 		$query = $query . ' LIMIT ' . $start . ', 50';
 	}
 
-	$result = $roster->db->query($query);
-	if( $result === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	if( $roster->db->num_rows($result) > 0 )
 	{
@@ -640,20 +636,14 @@ function output_duellog( $member_id )
 	$data = array();
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `enemy` = '0' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query);
-	if( $result === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+
 	$data['loss'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `enemy` = '0' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query);
-	if( $result === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+
 	$data['win'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
@@ -734,52 +724,30 @@ function output_pvplog( $pvps )
 	// Get the world best zone
 	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM " . $roster->db->table('pvp2',$addon['basename']) . " WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
 	$wbzone = $roster->db->query_first($query);
-	if( $wbzone === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
 
 	// Get the world worst zone
 	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
 	$wwzone = $roster->db->query_first($query);
-	if( $wwzone === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
 
 	// Get vs guild best zone
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
 	$gbzone = $roster->db->query_first($query);
-	if( $gbzone === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
 
 	// Get vs guild worst zone
 	$query = "SELECT guild, COUNT(guild) AS countg FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
 	$gwzone = $roster->db->query_first($query);
-	if( $gwzone === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
 
 	// Get vs player loss stats
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query);
-	if( $result === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+
 	$data['loss'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
 	// Get vs player win stats
 	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query);
-	if( $result === false )
-	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-	}
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+
 	$data['win'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
