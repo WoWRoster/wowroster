@@ -87,3 +87,9 @@ TODO:
 - Create optional, limited signature for characters on the guild roster but do not have profiles uploaded
 - Allow web admins to setup a logo that will show up on the image without having to edit the backgrounds in photoshop (almost completed)
 - Clean up the database code so instead of relying on the installer to comment and comment out various lines depending on the database version using, it is done automatically
+
+
+
+--------------------------------------
+The WoWRoster Dev Team
+http://www.wowroster.net

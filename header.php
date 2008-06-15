@@ -7,7 +7,7 @@
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * @copyright  2002-2007 WoWRoster.net
+ * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
@@ -90,7 +90,9 @@ $roster->tpl->assign_vars(array(
 $roster->tpl->set_filenames(array('roster_header' => 'header.html'));
 $roster->tpl->display('roster_header');
 
-if( file_exists(ROSTER_BASE . 'valid.inc') )
+// BETA ONLY, COMMENT THIS IN RC OR LATER!
+/*if( file_exists(ROSTER_BASE . 'valid.inc') )
 {
 	include(ROSTER_BASE . 'valid.inc');
-}
+}*/
+// END BETA ONLY

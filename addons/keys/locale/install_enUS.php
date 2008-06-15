@@ -7,7 +7,7 @@
  *
  * enUS Locale
  *
- * @copyright  2002-2007 WoWRoster.net
+ * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: enUS.php 1582 2008-01-11 21:13:42Z pleegwat $
  * @link       http://www.wowroster.net
@@ -60,7 +60,7 @@ The 'Key' entry, recommended to be last (though place doesn't really matter) nam
 
 // ALLIANCE KEYS
 $inst_keys['A'] = array(
-	'SG' => array( 
+	'SG' => array(
 		'Q|The Horn of the Beast|1||',
 		'Q|Proof of deed|1||',
 		'Q|At Last!|1||',
@@ -238,7 +238,7 @@ $inst_keys['A'] = array(
 
 // HORDE KEYS
 $inst_keys['H'] = array(
-	'SG' => array( 
+	'SG' => array(
 		'Key|inv_misc_key_14|225'
 	),
 	'Gnome' => array(
