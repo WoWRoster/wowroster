@@ -232,12 +232,17 @@ class keysInstall
 		$installer->drop_table($installer->table('keycache'));
 		$installer->drop_table($installer->table('keys'));
 		$installer->drop_table($installer->table('stages'));
+		$installer->drop_table($installer->table('category_key'));
+		$installer->drop_table($installer->table('category'));
 
 		$installer->remove_menu_pane('keypane');
 
 		$installer->remove_all_menu_button();
 		return true;
 	}
+
+
+
 
 	function loadkeys( $prefix )
 	{

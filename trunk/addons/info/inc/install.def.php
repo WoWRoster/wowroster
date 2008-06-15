@@ -196,6 +196,7 @@ class infoInstall
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
 		$installer->drop_table($installer->table('display'));
+		$installer->drop_table($installer->table('default'));
 
 		return true;
 	}

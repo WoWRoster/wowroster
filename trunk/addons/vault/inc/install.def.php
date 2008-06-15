@@ -143,6 +143,10 @@ class vaultInstall
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
 
+		$installer->drop_table($installer->table('log'));
+		$installer->drop_table($installer->table('money'));
+		$installer->drop_table($installer->table('items'));
+
 		return true;
 	}
 }
