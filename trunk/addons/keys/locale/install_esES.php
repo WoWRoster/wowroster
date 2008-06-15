@@ -7,7 +7,7 @@
  *
  * enUS Locale
  *
- * @copyright  2002-2007 WoWRoster.net
+ * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
@@ -60,7 +60,7 @@ The 'Key' entry, recommended to be last (though place doesn't really matter) nam
 
 // ALLIANCE KEYS
 $inst_keys['A'] = array(
-	'SG' => array( 
+	'SG' => array(
 		'Q|El cuerno de la bestia|1||',
 		'Q|Certificado de autenticidad|1||',
 		'Q|¡Al fin!|1||',
@@ -238,7 +238,7 @@ $inst_keys['A'] = array(
 
 // HORDE KEYS
 $inst_keys['H'] = array(
-	'SG' => array( 
+	'SG' => array(
 		'Key|inv_misc_key_14|225'
 	),
 	'Gnome' => array(

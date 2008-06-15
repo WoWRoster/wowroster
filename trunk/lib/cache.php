@@ -7,7 +7,7 @@
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * @copyright  2002-2007 WoWRoster.net
+ * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
@@ -202,7 +202,7 @@ class RosterCache
 	function sqlCache( $sql, $link_id )
 	{
 		global $roster;
-		
+
 		$cache_file = $this->cache_dir . 'sql_' . md5($sql) . $this->cache_suffix;
 
 		$this->sql_link_id = $link_id;

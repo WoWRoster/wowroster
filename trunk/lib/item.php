@@ -7,7 +7,7 @@
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * @copyright  2002-2007 WoWRoster.net
+ * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
@@ -79,9 +79,9 @@ class item
 	{
 		global $roster;
 
-		//$this->DEBUG = $roster->config['debug_mode'];
+		$this->DEBUG = $roster->config['debug_mode'];
 		// Lets hard code this to 1 for BETA ONLY
-		$this->DEBUG = 1;
+		//$this->DEBUG = 1;
 
 		$this->isParseMode = $parse_mode;
 		$this->data = $data;

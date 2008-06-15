@@ -1,6 +1,6 @@
 WoWRoster v2.0.0
 Copyright (C) 2002-2007 The WoWRoster Dev Team
-Package updated Month DD, YYYY
+Package updated June 20, 2008
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
@@ -22,7 +22,7 @@ Introduction
 
 Information
 ------------
-	Check out our WiKi - http://www.wowroster.net/MediaWiki
+	Check out our WiKi - http://www.wowroster.net/MediaWiki.html
 
 
 Contact
@@ -56,6 +56,7 @@ Credits
 	To the DEVs of Roster, for helping to build and maintain the package. You Rock!
 
 	Thanks to all the coders who have contributed code, bug fixes, time, and testing of WoWRoster
+
 
 
 --------------------------------------
