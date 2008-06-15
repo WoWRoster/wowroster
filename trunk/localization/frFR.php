@@ -626,9 +626,9 @@ $lang['questlinks'][] = array(
 // Just make sure their names are unique
 // uses the 'item_id' for data
 $lang['itemlink'] = 'Liens vers les objets';
-$lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name=';
-$lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=bc-result&amp;Ckey=';
-$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+$lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=bc-obj&w=';
+$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?locale=frFR&witem=';
+$lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name='; // Still in maintenance mode - not accessible yet
 //$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
@@ -686,12 +686,12 @@ $lang['tooltip_preg_classes']='/^(Classes.:.)(.+)$/'; // text for class restrict
 $lang['tooltip_preg_races']='/^(Races.:.)(.+)$/'; // text for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/i'; // text for items with charges
 $lang['tooltip_preg_block']='/(Bloquer).+?(\d+)/i';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge|jaune|bleue|Méta)(?:-Châsse)?/i'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge(?!\()|jaune(?!\()|bleue(?!\()|Méta(?=-))(?:-châsse)?/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
-$lang['tooltip_preg_meta_requires']='/Requires.*?gems/';
-$lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gems/';
-$lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
+$lang['tooltip_preg_meta_requires']='/Nécessite.*?gemme(?:s|)/i';
+$lang['tooltip_preg_meta_requires_min']='/Nécessite au moins (\d) gemme(?:s|) (\S+)\(s\)/i';
+$lang['tooltip_preg_meta_requires_more']='/Nécessite plus de gemmes (jaune|rouge|blue\S+) que de (\S+)/i';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Fréquence de butin';
@@ -728,21 +728,21 @@ $lang['gem_colors'] = array(
 	);
 
 $lang['gem_colors_to_en'] = array(
-	'red' => 'red',
-	'blue' => 'blue',
-	'yellow' => 'yellow',
-	'green' => 'green',
+	'red' => 'rouge',
+	'blue' => 'bleu',
+	'yellow' => 'jaune',
+	'green' => 'verte',
 	'orange' => 'orange',
-	'purple' => 'purple',
+	'purple' => 'violette',
 	'prismatic' => 'prismatic',
-	'meta' => 'meta' //verify translation
+	'meta' => 'meta'
 	);
 
 $lang['socket_colors_to_en'] = array(
 	'rouge' => 'red',
 	'bleue' => 'blue',
 	'jaune' => 'yellow',
-	'méta' => 'meta', //verify translation
+	'méta' => 'meta'
 	);
 // -- end tooltip parsing
 
@@ -1015,10 +1015,10 @@ $lang['admin']['rs_color_low'] = "Couleur Faible|Couleur pour un niveau de peupl
 $lang['admin']['rs_color_medium'] = "Couleur Moyen|Couleur pour un niveau de peuplement moyen";
 $lang['admin']['rs_color_high'] = "Couleur Haute|Couleur pour un niveau de peuplement élevé";
 $lang['admin']['rs_color_max'] = "Couleur Max|Couleur pour un niveau de peuplement maximum";
-$lang['admin']['rs_color_error'] = "Error Color|Color for realm error";
-$lang['admin']['rs_color_offline'] = "Couleur hors-ligne|Couleur dans le cas d'un royaume hors-ligne";
-$lang['admin']['rs_color_full'] = "Full Color|Color for full realms (EU realms only)";
-$lang['admin']['rs_color_recommended'] = "Recommended Color|Color for recommended realms (EU realms only)";
+$lang['admin']['rs_color_error'] = "Couleur Erreur|Couleur d'un serveur avec une erreur";
+$lang['admin']['rs_color_offline'] = "Couleur Hors-ligne|Couleur dans le cas d'un royaume hors-ligne";
+$lang['admin']['rs_color_full'] = "Couleur Complet|Couleur pour un serveur complet (EU serveurs seulement)";
+$lang['admin']['rs_color_recommended'] = "Couleur Recommandé|Couleur pour un serveur recommandé (EU serveurs seulement)";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Accès à Update.php|Contrôle l'accès à update.php<br /><br />Passer ce paramètre à off désactive l'accès à TOUT LE MONDE";
