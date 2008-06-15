@@ -182,7 +182,8 @@ if( isset($roster->pages[1]) )
 	}
 	elseif( $roster->pages[1] != '' )
 	{
-		$rostercp_title .= ' -&gt; ' . ( isset($config_pages[$roster->pages[1]]['title']) ? ( isset($roster->locale->act[$config_pages[$roster->pages[1]]['title']]) ? $roster->locale->act[$config_pages[$roster->pages[1]]['title']] : $config_pages[$roster->pages[1]]['title'] ) : '' );
+		$rostercp_title .= ( isset($config_pages[$roster->pages[1]]['title']) ?
+		( isset($roster->locale->act[$config_pages[$roster->pages[1]]['title']]) ? ' -&gt; ' . $roster->locale->act[$config_pages[$roster->pages[1]]['title']] : ' -&gt; ' . $config_pages[$roster->pages[1]]['title'] ) : '' );
 	}
 }
 
