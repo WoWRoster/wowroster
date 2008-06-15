@@ -256,6 +256,7 @@ class memberslistInstall
 		$installer->remove_all_config();
 
 		$installer->drop_table($installer->table('alts'));
+		$installer->drop_table($installer->table('config_guild'));
 		$installer->remove_all_menu_button();
 
 		return true;
