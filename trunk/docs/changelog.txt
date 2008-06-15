@@ -17,7 +17,7 @@ What's New v2.0.0 (June 20, 2008)
 
 --[ IMPORTANT NOTES ]---------
   * Roster has changed drastically, there is so much new and different from the last version (1.7.3)
-       We did our best to keep a log of every change, but there is so much that has been missed
+       We did our best to keep a log of every change, but there is so much that has been changed, that we could not list everything
   * The license has been modified, you must agree to the license before using WoWRoster!
      o The changes are nothing big, mostly a reformat of the layout
      o Also added a web viewable license  ?p=license (SEO: license.html)

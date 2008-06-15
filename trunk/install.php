@@ -352,7 +352,7 @@ function process_step0()
 	else
 	{
 		$tpl->set_handle('body', 'install_error.html');
-		$tpl->message_die('You removed the license.txt file<br /><br />This file MUST be present to install Roster!', 'Installation Error');
+		$tpl->message_die('You removed the license.txt file<br /><br />This file MUST be present to install WoWRoster!', 'Installation Error');
 	}
 
 	$tpl->page_header();
@@ -387,11 +387,11 @@ function process_step1()
 		{
 			if( !@chmod($config_file, 0666) )
 			{
-				$tpl->error_append('The file <strong>conf.php</strong> is not set to be readable/writeable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <strong>chmod 0666 conf.php</strong> on your server.');
+				$tpl->error_append('The file <strong>conf.php</strong> is not set to be readable/writable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <strong>chmod 0666 conf.php</strong> on your server.');
 			}
 			else
 			{
-				$tpl->message_append('<strong>conf.php</strong> has been set to be readable/writeable in order to let this installer write your configuration file automatically.');
+				$tpl->message_append('<strong>conf.php</strong> has been set to be readable/writable in order to let this installer write your configuration file automatically.');
 			}
 		}
 		// config file exists and is writeable, we're good to go
@@ -407,7 +407,7 @@ function process_step1()
 	{
 		if( !@mkdir(ROSTER_CACHEDIR, 0777) )
 		{
-			$tpl->error_append('The cache directory could not be created, create &quot;cache&quot;one manually in the root directory');
+			$tpl->error_append('The cache directory could not be created, create a directory named &quot;cache&quot; manually in the root directory.');
 			$cache_write = 'red';
 			$cache_write_t = 'Write access denied, read the info above';
 		}
@@ -422,13 +422,13 @@ function process_step1()
 		{
 			if( !@chmod(ROSTER_CACHEDIR, 0777) )
 			{
-				$tpl->error_append('The cache directory exists, but is not set to be writeable and could not be changed automatically.<br />Please change the permissions to 0777 manually by executing <strong>chmod 0777 cache</strong> on your server.');
+				$tpl->error_append('The cache directory exists, but is not set to be writable and could not be changed automatically.<br />Please change the permissions to 0777 manually by executing <strong>chmod 0777 cache</strong> on your server.');
 				$cache_write = 'red';
 				$cache_write_t = 'Write access denied, read the info above';
 			}
 			else
 			{
-				$tpl->message_append('The cache directory has been set to be writeable in order to let the Templating engine to function');
+				$tpl->message_append('The cache directory has been set to be writable in order to let the Template engine to function.');
 			}
 		}
 		// Cache directory exists and is writeable, we're good to go
