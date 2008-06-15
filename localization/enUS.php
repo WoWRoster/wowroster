@@ -65,7 +65,7 @@ $lang['no_char_id'] = 'Sorry no character data for member_id [ %1$s ]';
 $lang['no_char_name'] = 'Sorry no character data for <strong>%1$s</strong> of <strong>%2$s</strong>';
 
 $lang['roster_cp'] = 'Roster Control Panel';
-$lang['roster_cp_ab'] = 'Roster CP';
+$lang['roster_cp_ab'] = 'RosterCP';
 $lang['roster_cp_not_exist'] = 'Page [%1$s] does not exist';
 $lang['roster_cp_invalid'] = 'Invalid page specified or insufficient credentials to access this page';
 $lang['access_level'] = 'Access Level';
@@ -766,7 +766,7 @@ $lang['GPver_err']='The version of GuildProfiler used to capture data for this g
 // Menu titles
 $lang['menu_upprofile']='Update Profile|Update your profile on this site';
 $lang['menu_search']='Search|Search items and recipes in the database';
-$lang['menu_roster_cp']='Roster CP|Roster Configuration Panel';
+$lang['menu_roster_cp']='RosterCP|Roster Configuration Panel';
 $lang['menu_credits']='Credits|Who made WoW Roster';
 $lang['menupanel_util']  = 'Utilities';
 $lang['menupanel_realm'] = 'Realm';

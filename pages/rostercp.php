@@ -172,7 +172,7 @@ foreach( $roster->addon_data as $row )
 // ----[ Render the page ]----------------------------------
 
 // Generate a title, so the user knows where they are at in RosterCP
-$rostercp_title = $roster->locale->act['roster_config'];
+$rostercp_title = $roster->locale->act['roster_cp_ab'];
 if( isset($roster->pages[1]) )
 {
 	if( $roster->pages[1] == 'addon' )

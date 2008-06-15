@@ -65,7 +65,7 @@ $lang['no_char_id'] = 'Entschuldige, keine Charakterdaten für member_id [ %1$s 
 $lang['no_char_name'] = 'Sorry keine Charakterdaten für <strong>%1$s</strong> von <strong>%2$s</strong>';
 
 $lang['roster_cp'] = 'Roster Kontrollbereich';
-$lang['roster_cp_ab'] = 'Roster CP';
+$lang['roster_cp_ab'] = 'RosterCP';
 $lang['roster_cp_not_exist'] = 'Seite [%1$s] existiert nicht';
 $lang['roster_cp_invalid'] = 'Ungültige Seite angegeben oder ungültige Berechtigung um diese Seite aufzurufen';
 $lang['access_level'] = 'Access Level';
@@ -766,7 +766,7 @@ $lang['GPver_err']='Die zur Speicherung der Daten für diese Gilde verwendete Ve
 // Menu titles
 $lang['menu_upprofile']='Update Profile|Aktualisiere dein Profil auf dieser Seite';
 $lang['menu_search']='Suche|Suche Gegenstände oder Rezepte in der Datenbank';
-$lang['menu_roster_cp']='Roster CP|Roster Konfigurationsbereich';
+$lang['menu_roster_cp']='RosterCP|Roster Konfigurationsbereich';
 $lang['menu_credits']='Credits|Wer machte WoW Roster';
 $lang['menupanel_util']  = 'Einstellungen';
 $lang['menupanel_realm'] = 'Realm';
