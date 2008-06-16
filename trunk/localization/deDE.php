@@ -29,8 +29,8 @@ $lang['lualocation']='Wähle deine *.lua Datei für den Upload aus';
 $lang['filelocation']='zu finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['nodata']='Konnte Gilde <b>\'%1$s\'</b> auf dem Server <b>\'%2$s\'</b> nicht finden.<br />Du musst erst einmal die <a href="%3$s">Gildendaten hochladen</a> oder die <a href="%4$s">Konfiguration beenden</a>.<br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Klicke hier um zur Installationsanleitung zu gelangen</a>';
-$lang['no_default_guild']='No default guild has been set yet. Please set one here.';
-$lang['nodefguild']='No default guild has been set yet. Please make sure you have <a href="%1$s">finished configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Click here for installation instructions</a>';
+$lang['no_default_guild']='Es wurde bisher keine Standardgilde gesetzt. Bitte hier eine angeben.';
+$lang['nodefguild']='Es wurde bisher keine Standardgilde gesetzt. Bitte versichere dich, dass die <a href="%1$s">Konfiguration abgeschlossen wurde</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Für Installationsanleitung hier klicken</a>';
 $lang['nodata_title']='Keine Gildendaten vorhanden';
 
 $lang['update_page']='Gildenmitglied aktualisieren';
@@ -54,8 +54,8 @@ $lang['addon_error'] = 'Addon Fehler';
 $lang['specify_addon'] = 'Du musste einen Addonnamen angeben!';
 $lang['addon_not_exist'] = '<b>Das Addon [%1$s] existiert nicht!</b>';
 $lang['addon_disabled'] = '<b>Das Addon [%1$s] wurde deaktiviert</b>';
-$lang['addon_no_access'] = '<b>Insufficient credentials to access [%1$s]</b>';
-$lang['addon_upgrade_notice'] = '<b>The addon [%1$s] has been disabled because it needs to be upgraded</b>';
+$lang['addon_no_access'] = '<b>Ungenügende Rechte um auf [%1$s] zuzugreifen.</b>';
+$lang['addon_upgrade_notice'] = '<b>Das Addon [%1$s] wurde deaktiviert, da es aktualisiert werden muss</b>';
 $lang['addon_not_installed'] = '<b>Das Addon [%1$s] wurde bis jetzt noch nicht installiert</b>';
 $lang['addon_no_config'] = '<b>Das Addon [%1$s] wurde noch nicht konfiguriert</b>';
 
@@ -68,7 +68,7 @@ $lang['roster_cp'] = 'Roster Kontrollbereich';
 $lang['roster_cp_ab'] = 'RosterCP';
 $lang['roster_cp_not_exist'] = 'Seite [%1$s] existiert nicht';
 $lang['roster_cp_invalid'] = 'Ungültige Seite angegeben oder ungültige Berechtigung um diese Seite aufzurufen';
-$lang['access_level'] = 'Access Level';
+$lang['access_level'] = 'Zugriffslevel';
 
 $lang['parsing_files'] = 'Analysiere Dateien';
 $lang['parsed_time'] = '%1$s analysiert in %2$s Sekunden';
@@ -573,7 +573,7 @@ $lang['yes']='Ja';
 $lang['no']='Nein';
 $lang['win']='Sieg';
 $lang['loss']='Niederlage';
-$lang['unknown']='Unknown';
+$lang['unknown']='Unbekannt';
 
 //strings for Rep-tab
 $lang['exalted']='Ehrfürchtig';
@@ -689,8 +689,8 @@ $lang['tooltip_preg_block']='/(\d+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer)(?:.?sockel)/i';
 $lang['tooltip_preg_reinforcedarmor']='/(Verstärkt \(\+\d+ Rüstung\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
-$lang['tooltip_preg_meta_requires']='/Benötigt.*?Edelsteine?/';
-$lang['tooltip_preg_meta_requires_min']='/Benötigt mindestens (\d) Edelsteine? der Kategorie (\S+)/';
+$lang['tooltip_preg_meta_requires']='/Benötigt.*?Edelsteine/';
+$lang['tooltip_preg_meta_requires_min']='/Benötigt mindestens (\d) Edelsteine der Kategorie (\S+)/';
 $lang['tooltip_preg_meta_requires_more']='/Benötigt mehr Edelsteine der Kategorie (\S+) als Edelsteine der Kategorie (\S+)/';
 $lang['tooltip_source']='Quelle';
 $lang['tooltip_boss']='Boss';
@@ -735,7 +735,7 @@ $lang['gem_colors_to_en'] = array(
 	'orange' => 'orange',
 	'violett' => 'purple',
 	'prismatisch' => 'prismatic',
-	'meta' => 'meta' //verify translation
+	'meta' => 'meta' //verify translation, meta is correct, if errors occur try Meta with capital M
 	);
 
 $lang['socket_colors_to_en'] = array(
@@ -753,7 +753,7 @@ $lang['Imp']='Wichtel';
 $lang['Voidwalker']='Leerwandler';
 $lang['Succubus']='Sukkubus';
 $lang['Felhunter']='Teufelsjäger';
-$lang['Infernal']='Infernal';
+$lang['Infernal']='Höllenbestie';
 $lang['Felguard']='Teufelswache';
 
 // Max experiance for exp bar on char page
@@ -790,7 +790,7 @@ $lang['installer_uninstall_2']='Deinstallation von %1$s fehlgeschlagen und Wiede
 $lang['installer_upgrade_0']='Upgrade von %1$s erfolgreich';
 $lang['installer_upgrade_1']='Upgrade von %1$s fehlgeschlagen, aber Wiederherstellung erfolgreich';
 $lang['installer_upgrade_2']='Upgrade von %1$s fehlgeschlagen und Wiederherstellung ebenfalls fehlgeschlagen';
-$lang['installer_purge_0']='Purge of %1$s successful';
+$lang['installer_purge_0']='Säuberung von %1$s erfolgreich';
 
 $lang['installer_icon'] = 'Icon';
 $lang['installer_addoninfo'] = 'Addon Info';
@@ -827,12 +827,12 @@ $lang['installer_no_uninstall'] = '%1$s enthält kein Addon zum deinstallieren';
 $lang['installer_not_uninstallable'] = '%1$s enthält ein Addon %2$s welches mit dessen Addon-Deinstaller deinstalliert werden muss';
 
 // After Install guide
-$lang['install'] = 'Install';
-$lang['setup_guide'] = 'After Install Guide';
-$lang['default_data'] = 'Default Data';
-$lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter Guildless-F for guild name<br />Replace F with your Faction (A-Alliance, H-Horde)<br />Enter your realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
-$lang['guide_complete'] = 'The after install setup is complete<br /><br />Remember to <a href="%1$s">install addons</a> for Roster';
-$lang['guide_already_complete'] = 'The after install guide setup has already been completed<br />You cannot run it again';
+$lang['install'] = 'Installation';
+$lang['setup_guide'] = 'Nach Installationsanleitung';
+$lang['default_data'] = 'Standard Daten';
+$lang['default_data_help'] = 'Hier die standardmäßig zugelassene Gilde einstellen<br />Eine Standardgilde wird von vielen Addons benötigt um korekt zu funktionieren<br />Weitere Gilden können in RosterCP-&gt;Upload Rules zugelassen werden<br /><br />Falls diese eine Gildenlose Roster Installation ist:<br />Guildless-F als Gildenname angeben<br />F mit der eigenen Fraktion ersetzen (A-Alliaz, H-Horde)<br />Realm und Region eingeben<br />Upload Regeln für Charaktäre einstellen unter RosterCP-&gt;Upload Rules';
+$lang['guide_complete'] = 'Das Nach Installationssetup ist komplett<br /><br />Denke daran <a href="%1$s">Addons für den Roster</a> zu installieren';
+$lang['guide_already_complete'] = 'Der Nach Installationsassistent wurde bereits beended<br />Er kann nicht nochmal ausgeführt werden';
 
 // Password Stuff
 $lang['password'] = 'Passwort';
@@ -855,11 +855,11 @@ $lang['upload_rules_error'] = 'Du kannst beim hinzufügen einer Regel kein Feld 
 $lang['upload_rules_help'] = 'Die Regeln sind in zwei Blöcke unterteilt.<br />Für jeden hochgeladene Gilde/Charakter wird zuerst die oberste Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Verbieten\' Regeln, wird er abgewiesen.<br />Anschließend wird der zweite Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Erlauben\' Regeln, wird er akzeptiert.<br />Wenn er mit keiner Regel übereinstimmt, wird er abgewiesen.';
 
 // Data Manager
-$lang['clean'] = 'Clean up entries based on rules';
-$lang['select_guild'] = 'Select Guild';
-$lang['delete_checked'] = 'Delete Checked';
-$lang['delete_guild'] = 'Delete Guild';
-$lang['delete_guild_confirm'] = 'This will remove this entire guild and all set all members guildless.\\n Are you sure you want to do this?\\n\\nNOTE: This cannot be un-done!';
+$lang['clean'] = 'Einträge basiert auf Regeln säubern';
+$lang['select_guild'] = 'Gilde auswählen';
+$lang['delete_checked'] = 'Markierte löschen';
+$lang['delete_guild'] = 'gilde löschen';
+$lang['delete_guild_confirm'] = 'Dies entfernt die gesammte Gilde und setzt all ihre Mitglieder auf Gildenlos.\\n Bist du sicher das du das tun willst?\\n\\nHINWEIS: Dies kann nicht Rückgängig gemacht werden!';
 
 // Config Reset
 $lang['config_is_reset'] = 'Konfiguration wurde zurückgesetzt. Bitte vergiss nicht ALLE deine Einstellung erneut einzugeben, bevor du versuchst deine Daten hochzuladen';
@@ -878,7 +878,7 @@ Um fortzufahren gibt dein Admin-Passwort unten ein und klicke auf \'weiter\'.';
 $lang['pagebar_function'] = 'Aufgaben';
 $lang['pagebar_rosterconf'] = 'Konfiguriere Roster';
 $lang['pagebar_uploadrules'] = 'Upload Rules';
-$lang['pagebar_dataman'] = 'Data Manager';
+$lang['pagebar_dataman'] = 'Daten Manager';
 $lang['pagebar_changepass'] = 'Passwort ändern';
 $lang['pagebar_addoninst'] = 'Verwalte Addons';
 $lang['pagebar_update'] = 'Upload Profil';
@@ -916,7 +916,7 @@ $lang['admin']['index_conf'] = 'Indexseite|Einstellen, was auf der Hauptseite an
 $lang['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen, welche Elemente im Menü gezeigt werden sollen';
 $lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br />css, javascript, motd, etc...';
 $lang['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für die Serverstatus<br /><br />Um ihn auszustellen, bitte bei Menüeinstellungen gucken';
-$lang['admin']['data_links'] = 'Data Links|Externe links';
+$lang['admin']['data_links'] = 'Daten Links|Externe Links';
 $lang['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für Update';
 
 $lang['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über das wowroster.net-Wiki';
@@ -924,13 +924,13 @@ $lang['admin']['documentation'] = 'Dokumentation|WoWRoster Dokumentation über d
 // main_conf
 $lang['admin']['roster_dbver'] = "Roster Datenbank Version|Die Version der Datenbank";
 $lang['admin']['version'] = "Roster Version|Aktuelle Version des Rosters";
-$lang['admin']['debug_mode'] = "Debug Mode|off - No debug or error messages<br />on - Display error messages and simple debug<br />extended - Full debug mode and backtrace in error messages";
-$lang['admin']['sql_window'] = "SQL Window|off - Do not show query window<br />on - Display query window in the footer<br />extended - Include DESCRIBE statements";
+$lang['admin']['debug_mode'] = "Debug Mode|aus - Keine Debug- oder Fehlermeldungen<br />ein - Anzeige von Fehler- und einfachen Debugmeldungen<br />erweitert - Vollständiger Debugmodus und Ablaufverfolgung bei Fehlermeldungen";
+$lang['admin']['sql_window'] = "SQL Fenster|aus - Query Fenster nicht anzeigen<br />ein - Query Fenster in Fußzeile anzeigen<br />erweitert - DESCRIBE statements einbeziehen";
 $lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler Version zum Upload";
 $lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler Version zum Upload";
 $lang['admin']['locale'] = "Roster Hauptsprache|Sprache, in der das Roster anzeigen soll";
 $lang['admin']['default_page'] = "Standard Seite|Seite, die angezeigt wird, wenn keine Seite in der URL angegeben ist";
-$lang['admin']['external_auth'] = "Roster Auth|Here you can choose the auth file Roster will use<br />&quot;Roster&quot; is the default, built-in auth system";
+$lang['admin']['external_auth'] = "Roster Auth|Hier lannst du die auth Datei auswählen die Roster benutzen soll<br />&quot;Roster&quot; ist das Standard, built-in auth System";
 $lang['admin']['website_address'] = "Webseitenadresse|Wird benötigt für das Logo, den Gildennamenlink und das Hauptmenü<br />Einige Roster Addons benötigen diese auch";
 $lang['admin']['interface_url'] = "Interface Verzeichnis URL|Verzeichnis zu den Interface Images<br />Das Standartverzeichnis ist &quot;img/&quot;<br /><br />Du kannst auch eine andere URL verwenden.";
 $lang['admin']['img_suffix'] = "Bilder Dateierweiterung|Der Dateityp deiner Interface Images";
@@ -940,14 +940,14 @@ $lang['admin']['timezone'] = "Zeitzone|Wird hinter der Zeit angezeigt, damit man
 $lang['admin']['localtimeoffset'] = "Zeitzonenabstand|Der Zeitzonenabstand zur UTC/GMT<br />Die Zeiten im Roster werden durch diesen Abstand zur UTC/GMT berechnet.";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers werden für einige AddOns während eines Character oder Gildenupdates benötigt.<br />Einige Addons benötigen wahrscheinlich, dass diese Funktion für sie angestellt ist.";
 $lang['admin']['check_updates'] = "Überprüfe auf Updates|Dies erlaubt deiner Rosterkopie (und Addons, die dieses Feature benutzen)<br />zu überprüfen, ob du die neueste Version der Software hast";
-$lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
+$lang['admin']['seo_url'] = "Friendly URLs|Aktiviert SEO artige URL Links in Roster<br /><br />ein - /some/page/here/param=value.html<br />aus - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Dateisystem Cache|Benutze lokales Server Dateisystem um einige Dateien zu cachen und damit die Leistung zu erhöhen.";
-$lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br/>Leaving this on is recommended for performance.";
-$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />- Never: Never enforce rules<br />- All LUA Updates: Enforce rules on all lua updates<br />- CP Updates: Enforce rules on any CP.lua update<br />- Guild Updates: Enforce rules only on guild updates<br /><br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
+$lang['admin']['use_temp_tables'] = "Benutze Temporary Tables|Diese Einstellung deaktivieren wenn dien Host es nicht erlaubt temporary database tables zu generieren (CREATE TEMPORARY TABLE privilege).<br/>Diese Einstellung eingeschaltet zu lassen wird aus Performancegründen empfohlen.";
+$lang['admin']['enforce_rules'] = "Upload Regeln erzwingen|Diese Einstellung erzwingt die Anwendung der Upload Regeln bei jedem lua Upload<br />- Niemals: Regeln niemals erzwingen<br />- Alle LUA Updates: Regeln bei jedem lua Update erzwingen<br />- CP Updates: Regeln nur bei CP.lua Updates erzwingen<br />- Gilden Updates: Regeln nur bei Gildenupdates erzwingen<br /><br />Diese Einstellungen können auch auf der &quot;Upload Regeln&quot; Seite umgestellt werden.";
 
 // defaults_conf
-$lang['admin']['default_name'] = "WowRoster Name|Enter a name to be displayed when not in the guild or char scope";
-$lang['admin']['default_desc'] = "Description|Enter a short description to be displayed when not in the guild or char scope";
+$lang['admin']['default_name'] = "WowRoster Name|Einen Namen zur Anzeige wenn nicht in Gilden- oder Charakteransicht eingeben";
+$lang['admin']['default_desc'] = "Beschreibung|Eine kurze Beschreibung zur Anzeige wenn nicht in Gilden- oder Charakteransicht eingeben";
 $lang['admin']['alt_type'] = "2.-Char Suche (Twinks)|Text, der zur Anzeige der Anzahl der 2.-Charaktere auf der Hautpseite benutzt wird<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 $lang['admin']['alt_location'] = "Twink Suchfeld|In welchem Feld soll der Twink-Text gesucht werden<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 
@@ -985,7 +985,7 @@ $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br 
 $lang['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Message of the day) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";
 $lang['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
-$lang['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Displays render time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
+$lang['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Render time und query count in der Fußzeile anzeigen<br />&quot;<i>x.xx | xx</i>&quot;";
 
 // data_links
 $lang['admin']['profiler'] = "CharacterProfiler Downloadlink|URL um das CharacterProfiler-Addon herunterzuladen";
@@ -1015,10 +1015,10 @@ $lang['admin']['rs_color_low'] = "Niedrig Farbe|Farbe für niedrige Bevölkerung
 $lang['admin']['rs_color_medium'] = "Mittel Farbe|Farbe für mittlere Bevölkerung";
 $lang['admin']['rs_color_high'] = "Hoch Farbe|Farbe für hohe Bevölkerung";
 $lang['admin']['rs_color_max'] = "Max Farbe|Farbe für maximale Bevölkerung";
-$lang['admin']['rs_color_error'] = "Error Color|Color for realm error";
-$lang['admin']['rs_color_offline'] = "Offline Farbe|Farbe für Realm offline";
-$lang['admin']['rs_color_full'] = "Full Color|Color for full realms (EU realms only)";
-$lang['admin']['rs_color_recommended'] = "Recommended Color|Color for recommended realms (EU realms only)";
+$lang['admin']['rs_color_error'] = "Fehler Farbe|Farbe für Realm Fehler";
+$lang['admin']['rs_color_offline'] = "Offline Farbe|Farbe für offline Realms";
+$lang['admin']['rs_color_full'] = "Voll Farbe|Farbe für volle Realms (Nur EU Realms)";
+$lang['admin']['rs_color_recommended'] = "Empfohlene Farbe|Farbe für empfohlene Realms (Nur EU Realms)";
 
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";

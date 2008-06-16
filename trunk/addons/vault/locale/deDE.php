@@ -19,15 +19,15 @@ $lang['vault']='Gildentresor';
 $lang['vault_desc']='Zeigt den Inhalt des Gildentresors';
 $lang['vault_menu']='Gildentresor|Zeigt den Inhalt des Gildentresors';
 $lang['available_amount']='Verfügbare Summe';
-$lang['vault_log']='Item Log';
+$lang['vault_log']='Gegenstände Log';
 $lang['vault_money_log']='Geld Log';
 
 $lang['vault_log_deposit'] = '%1$s<span class="greenB">Einlagerung</span> %2$s';
 $lang['vault_log_withdraw'] = '%1$s <span class="redB">Entnahme</span> %2$s';
 $lang['vault_log_move'] = '%1$s <span class="purpleB">Verschiebung</span> %2$s';
-$lang['vault_log_repair'] = '%1$s <span class="redB">spent</span> %2$s for repairs';
-$lang['vault_log_withdrawForTab'] = '%1$s <span class="redB">withdrew</span> %2$s for vault tab';
-$lang['vault_log_buyTab'] = '%1$s <span class="greenB">purchased</span> vault tab %2$s.';
+$lang['vault_log_repair'] = '%1$s <span class="redB">Ausgaben von</span> %2$s für Reperaturen';
+$lang['vault_log_withdrawForTab'] = '%1$s <span class="redB">Entnahme von</span> %2$s für Fach';
+$lang['vault_log_buyTab'] = '%1$s <span class="greenB">Kauf von</span> Fach %2$s.';
 
 $lang['admin']['vault_conf'] = 'Gildentresor|Konfiguration der Anzeige';
 $lang['admin']['tab1'] = 'Fach 1 Zugriff|Regelt den Zugriff auf Fach 1';

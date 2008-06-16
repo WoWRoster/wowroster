@@ -16,26 +16,26 @@
 */
 
 $lang['keys'] = 'Schlüssel';
-$lang['keys_desc'] = 'Lists Azeroth Dungeon keys for guild members';
-$lang['keybutton'] = 'Schlüssel|Lists Azeroth Dungeon keys for guild members';
+$lang['keys_desc'] = 'Listet die Azeroth Instanzschlüssel der Gildenmitglieder auf';
+$lang['keybutton'] = 'Schlüssel|Zeigt Azeroth Instanzschlüssel der Gildenmitglieder';
 $lang['menupanel_keypane'] = 'Schlüssel';
 
-$lang['category'] = 'Category';
-$lang['key_categories'] = 'Key Categories';
-$lang['key_category_assignment'] = 'Key Category Assignments';
+$lang['category'] = 'Kategorie';
+$lang['key_categories'] = 'Schlüsselkategorien';
+$lang['key_category_assignment'] = 'Schlüssel Kategorie Zuordnungen';
 
-$lang['admin']['keys_conf'] = 'Main Settings|Main Settings for Instance Keys';
-$lang['admin']['keys_cats'] = 'Categories|Define what keys to show in what categories';
-$lang['admin']['colorcmp'] = 'Completed Color|Color of complete steps in the Quests/Parts tooltip';
-$lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/Parts tooltip';
-$lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
+$lang['admin']['keys_conf'] = 'Haupteinstellungen|Haupteinstellungen für Instanzschlüssel';
+$lang['admin']['keys_cats'] = 'Kategorien|Definiere welche Schlüssel in welchen Kategorien angezeigt werden';
+$lang['admin']['colorcmp'] = 'Vortschritt Farbe|Farbe der Vortschrittsanzeige für Quests/Teile Tooltip';
+$lang['admin']['colorcur'] = 'Stand Farbe|Farbe zur Anzeige des aktuellen Stands im Quests/Teile Tooltip';
+$lang['admin']['colorno'] = 'Nicht Abgeschlossen Farbe|Farbe für noch nicht abgeschlossene Schritte im Quest/Teile Tooltip';
 
 // language definitions for the rogue instance keys 'fix'
 $lang['thievestools']='Diebeswerkzeug';
 $lang['lockpicking']='Schlossknacken';
 
 $lang['Quests'] = 'Quests';
-$lang['Parts'] = 'Parts';
+$lang['Parts'] = 'Teile';
 $lang['key_status'] = '%1$s %2$s Status';
 
 $lang['rep2level'] = array(

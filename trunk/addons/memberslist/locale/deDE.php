@@ -48,11 +48,11 @@ $lang['honorpoints']            = 'Ehrenpunkte';
 $lang['arenapoints']            = 'Arenapunkte';
 
 $lang['main_name']              = 'Hauptcharaktername';
-$lang['alt_type']               = 'Alt type';
+$lang['alt_type']               = 'Alt Typ';
 
-$lang['xp_to_go']               = '%1$s XP until level %2$s';
+$lang['xp_to_go']               = '%1$s EP bis Stufe %2$s';
 
-$lang['skill_level']		= 'Skill level';
+$lang['skill_level']		= 'Fertigkeit Level';
 
 // Last Online words
 $lang['online_at_update']       = 'Online bei Update';
@@ -80,17 +80,17 @@ $lang['accounts']               = 'Accounts';
 $lang['memberslist_config']		= 'Gehe zur Mitgliederliste-Konfiguration';
 $lang['memberslist_config_page']= 'Mitgliederliste-Konfiguration';
 $lang['documentation']			= 'Dokumentation';
-$lang['uninstall']				= 'Uninstall';
+$lang['uninstall']				= 'Deinstallieren';
 
 // Page names
-$lang['admin']['main']			= 'Main|Back to the global part of the configuration.';
+$lang['admin']['main']			= 'Start|Zurück zur Hauptseite der Konfiguration.';
 $lang['admin']['display']       = 'Anzeige|Konfiguriert die Anzeigeoptionen für die Mitgliederliste.';
 $lang['admin']['members']       = 'Mitgliederliste|Konfiguriert die Sichtbarkeit der Mitgliederliste-Spalten.';
 $lang['admin']['stats']         = 'Werteliste|Konfiguriert die Sichtbarkeit der Grundwerte-Spalten.';
 $lang['admin']['honor']         = 'Ehrenliste|Konfiguriert die Sichtbarkeit der Ehrenliste-Spalten.';
 $lang['admin']['log']           = 'Mitglieder Log|Konfiguriert die Sichtbarkeit der Mitglieder Log-Spalten.';
 $lang['admin']['build']         = 'Hauptchar/Twink Beziehungen|Konfiguriert wie Hauptchars/Twinks erkannt werden.';
-$lang['admin']['gbuild']        = 'Main/Alt per guild|Configure guild-specific Main/Alt detection rules.';
+$lang['admin']['gbuild']        = 'Main/Alt per Gilde|Konfiguriert gildenspezifische Main/Alt Erkennungsregeln.';
 $lang['admin']['ml_wiki']       = 'Dokumentation|Mitgliederliste Dokumentation auf WoWRoster wiki.';
 $lang['admin']['updMainAlt']    = 'Aktualisiere Beziehungen|Aktualisiert die Main/Alt Beziehungen der Daten, die bereits in der DB gespeichert sind.';
 $lang['admin']['page_size']		= 'Seitengröße|Konfiguriert die Anzahl der Zeilen Pro Seite oder 0 für keinen Seitenumbruch';
@@ -178,7 +178,7 @@ $lang['admin']['log_note']		= 'Notiz|Setze die Sichtbarkeit der Notizspalte auf 
 $lang['admin']['log_onote']		= 'Offizernotiz|Setze die Sichtbarkeit der Offiziernotizspalte auf der Mitglieder Log Seite';
 
 // Settings names on build page
-$lang['admin']['use_global']    = 'Use global settings|Use global settings rather than these local ones for this guild.';
+$lang['admin']['use_global']    = 'Benutze globale Einstellungen|Benutze globale statt lokale Einstellungen für diese Gilde.';
 $lang['admin']['getmain_regex'] = 'Regex|Dieses Feld spezifiziert die Benutzung des Regex. <br /> Folge dem wiki-Link für Details.';
 $lang['admin']['getmain_field'] = 'Anwenden auf Feld|Dieses Feld spezifiziert auf welches Mitgliederfeld Regex angewendet werden soll. <br />Folge dem wiki-Link für Details.';
 $lang['admin']['getmain_match'] = 'Benutze Treffernr.|Dieses Feld spezifiziert welcher Rückgabewert von Regex verwendet wird. <br /> Folge dem wiki-Link für Details.';

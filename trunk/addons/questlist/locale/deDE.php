@@ -20,5 +20,5 @@ $lang['questlist_help'] = "Suche nach Zone oder Quest";
 $lang['search_by_zone'] = 'Suche nach Zone';
 $lang['search_by_quest'] = 'Suche nach Quest';
 
-$lang['quest_data'] = 'Quest Data';
+$lang['quest_data'] = 'Quest Daten';
 $lang['quest_links'] = 'Quest Links';

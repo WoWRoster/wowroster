@@ -13,12 +13,12 @@
  * @subpackage Locale
 */
 
-$lang['pvplog_desc'] = 'Displays data collected by the PvPLog WoW addon';
+$lang['pvplog_desc'] = 'Zeigt mit dem PvPLog WoW Addon gesammelte Daten an';
 
-$lang['button_pvplog']='PvP Statistiken|Shows PvP Log stats for this guild';
-$lang['button_bg']='Battleground Log|Battleground stats from PvP Log';
-$lang['button_pvp']='PvP Log|World PvP stats from PvP Log';
-$lang['button_duel']='Duel Log|Duel stats from PvP Log';
+$lang['button_pvplog']='PvP Statistiken|Zeigt PvP Log Statistiken für diese Gilde';
+$lang['button_bg']='Schlachtfeld Log|Schlachtfeld Statistiken von PvP Log';
+$lang['button_pvp']='PvP Log|Welt PvP Statistiken von PvP Log';
+$lang['button_duel']='Duell Log|Duell Statistiken von PvP Log';
 
 $lang['bglog']='BG &Uuml;bersicht';
 $lang['pvplog']='PvP &Uuml;bersicht';
@@ -32,7 +32,7 @@ $lang['win_average']='Durchschnittliche Level Differenz (Gewinne)';
 $lang['loss_average']='Durchschnittliche Level Differenz  (Verluste)';
 
 // These need to be EXACTLY what PvPLog stores them as
-$lang['eye_of_the_storm']='Eye of the Storm';
+$lang['eye_of_the_storm']='Auge des Sturms';
 $lang['alterac_valley']='Alteractal';
 $lang['arathi_basin']='Arathibecken';
 $lang['warsong_gulch']='Kriegshymnenschlucht';
@@ -56,10 +56,10 @@ $lang['most_killed']='Meisten get&ouml;tet';
 $lang['most_killed_by']='Meisten get&ouml;tet durch';
 $lang['leveldiff']='LevelDiff';
 $lang['bg']='Schlachtfeld';
-$lang['winless']='Winless';
-$lang['unbeaten']='Unbeaten';
-$lang['them']='Them';
-$lang['us']='Us';
+$lang['winless']='Sieglos';
+$lang['unbeaten']='Ungeschlagen';
+$lang['them']='Die';
+$lang['us']='Wir';
 
 $lang['pvplist']='PvP Statistiken';
 $lang['pvplist1']='Gilde, die am meisten unter uns zu leiden hat';
@@ -72,22 +72,22 @@ $lang['pvplist7']='Besten Kills-Level-Durchschnitt';
 $lang['pvplist8']='Besten Tod-Level-Durchschnitt';
 
 // guildpvp strings
-$lang['guildwins'] = 'Wins by Guild';
-$lang['guildlosses'] = 'Losses by Guild';
-$lang['enemywins'] = 'Wins by Enemy';
-$lang['enemylosses'] = 'Losses by Enemy';
-$lang['purgewins'] = 'Guild Member Kills';
-$lang['purgelosses'] = 'Guild Member Deaths';
-$lang['purgeavewins'] = 'Best Win/Level-Diff Average';
-$lang['purgeavelosses'] = 'Best Loss/Level-Diff Average';
-$lang['pvpratio'] = 'Solo Win/Loss Ratios';
-$lang['playerinfo'] = 'Player Info';
-$lang['kill_lost_hist']='Kill/Loss history for %1$s (%2$s %3$s) of %4$s';
-$lang['kill_lost_hist_guild'] = 'Kill/Loss history for Guild &quot;%1$s&quot;';
-$lang['solo_win_loss'] = 'Solo Win/Loss Ratios (Level differences -7 to +7 counted)';
-$lang['guildinfo'] = 'Guild Info';
+$lang['guildwins'] = 'Siege nach Gilde';
+$lang['guildlosses'] = 'Niederlagen nach Gilde';
+$lang['enemywins'] = 'Siege nach Gegner';
+$lang['enemylosses'] = 'Niederlagen nach Gegner';
+$lang['purgewins'] = 'Gildenmitglieder Kills';
+$lang['purgelosses'] = 'Gildenmitglieder Tode';
+$lang['purgeavewins'] = 'Beste Sieg/Level-Diff Durchschnitt';
+$lang['purgeavelosses'] = 'Best Niederlage/Level-Diff Durchschnitt';
+$lang['pvpratio'] = 'Solo Sieg/Niederlage Verh.';
+$lang['playerinfo'] = 'Spielerinfo';
+$lang['kill_lost_hist']='Kill/Niederlage Verlauf für %1$s (%2$s %3$s) von %4$s';
+$lang['kill_lost_hist_guild'] = 'Kill/Niederlage Verlauf für Gilde &quot;%1$s&quot;';
+$lang['solo_win_loss'] = 'Solo Sieg/Niederlage Verh. (Level Differenz -7 bis +7 gezählt)';
+$lang['guildinfo'] = 'Gildeninfo';
 
 $lang['PvPLogver_err']='Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br />Bitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.';
 
-$lang['admin']['pvpconfig'] = "PvPLog Config|Configure PvPLog main options";
-$lang['admin']['minPvPLogver'] = "Min PvPLog version|Minimum PvPLog Version zum Upload";
+$lang['admin']['pvpconfig'] = "PvPLog Konfiguration|Konfiguriere PvPLog Optionen";
+$lang['admin']['minPvPLogver'] = "Min. PvPLog Version|Minimum PvPLog Version zum Upload";
