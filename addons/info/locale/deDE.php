@@ -169,7 +169,7 @@ $lang['res_shadow_tooltip']='Erhöht die Fähigkeit, auf Schattenschaden basiere
 $lang['empty_equip']='Kein Gegenstand angelegt';
 $lang['pointsspent']='Punkte verteilt in %1$s Talents';
 $lang['export_url']='http://www.wow-europe.com/de/info/basics/talents/';
-$lang['no_talents']='No Talents for %1$s';
+$lang['no_talents']='Keine Talente für %1$s';
 
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Boni für angelegte Gegenstände';
@@ -291,5 +291,5 @@ $lang['admin']['show_item_bonuses'] = "Gegenstands Boni|Anzeige der Boni durch a
 
 $lang['admin']['char_pref'] = 'Anzeige Vorlieben|Kontrolliert, was auf den Charakterseiten pro Charakter angezeigt wird';
 
-$lang['admin']['no_data'] = 'No Data';
-$lang['admin']['nothing_to_config'] = 'Nothing to configure<br />All Global settings are set to override per-character settings';
+$lang['admin']['no_data'] = 'Keine Daten';
+$lang['admin']['nothing_to_config'] = 'Nichts zu Konfigurieren<br />Alle globalen Einstellungen sind so konfiguriert, dass sie die einzelnen Charaktereinstellungen überschreiben';
