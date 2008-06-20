@@ -181,36 +181,36 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 // patterns to standardize bonus string (NOTE: Not all the translations to spanish are exact, we have to probe them)
 $lang['item_bonuses_preg_patterns'] =
 	array('/Aumenta el valor de bloqueo de tu escudo en XX\.?/i',	//1
-		  '/(?:incrementa|decrementa) (?:tu )?(.+) en XX\.?/i',	//2
-		  '/Aumenta el daño y la sanación de los hechizos mágicos y los efectos hasta en XX\.?$/i', //3
-		  '/Aumenta la sanación por hechizos y efectos hasta en XX\.?/i', //4
-		  '/Aumenta el daño hecho con hechizos y los efectos hasta en XX\.?/i', //5
-		  '/(?:Restaura|\+)?\s?XX de (maná|salud)  (?:cada|durante|regen).*$/i', //6
-		  '/Aumenta el daño hecho en (.+) y.*$/i', //7
-		  '/^\+?XX (sanación)(?: hechizos)?\.?$/', //8
-		  '/^\+XX daño y la sanación de los hechizos mágicos/i', //8.5 check
-		  '/^Alcance \(\+XX daño\)$/i', //9
-		  '/^\+?XX (?:escudo )?bloquear$/i', //10
-		  '/^\+XX todas las estadísticas/i', //11
-		  '/^\+XX todas las estadísticas/i', //12 check
-		  '/^\+XX índice de golpe crítico con hechizos/i', //13 check
-		);
+		'/(?:incrementa|decrementa) (?:tu )?(.+) en XX\.?/i',	//2
+		'/Aumenta el daño y la sanación de los hechizos mágicos y los efectos hasta en XX\.?$/i', //3
+		'/Aumenta la sanación por hechizos y efectos hasta en XX\.?/i', //4
+		'/Aumenta el daño hecho con hechizos y los efectos hasta en XX\.?/i', //5
+		'/(?:Restaura|\+)?\s?XX de (maná|salud)  (?:cada|durante|regen).*$/i', //6
+		'/Aumenta el daño hecho en (.+) y.*$/i', //7
+		'/^\+?XX (sanación)(?: hechizos)?\.?$/', //8
+		'/^\+XX daño y la sanación de los hechizos mágicos/i', //8.5 check
+		'/^Alcance \(\+XX daño\)$/i', //9
+		'/^\+?XX (?:escudo )?bloquear$/i', //10
+		'/^\+XX todas las estadísticas/i', //11
+		'/^\+XX todas las estadísticas/i', //12 check
+		'/^\+XX índice de golpe crítico con hechizos/i', //13 check
+	);
 $lang['item_bonuses_preg_replacements'] =
 	array('+XX Bloqueo de escudo',  //1
-		  '+XX $1', //2
-		  '+XX Hechizo $1:+XX $2 Hechizos', //3
-		  '+XX sanación',	// 4 check
-		  '+XX daño con hechizos', // 5
-		  '+XX $1 Cada 5 segundos', //6
-		  '+XX $1 Daño', //7
-		  '+XX $1 Hechizos', //8
-		  '+XX Daño con hechizos:+XX Sanación', //8.5 check
-		  '+XX Daño a distancia (Alcance)', //9
-		  '+XX Bloqueo de escudo', //10
-		  '+XX Fuerza:+XX Agilidad:+XX Aguante:+XX Intelecto:+XX Espiritú', //11
-		  '+XX Arcana Resistencia:+XX Fuego Resistencia:+XX Naturaleza Resistance:+XX Escarcha Resistencia:+XX Sombras Resistencia', //12
-		  '+XX índice de golpe crítico con hechizos', //13 check
-		);
+		'+XX $1', //2
+		'+XX Hechizo $1:+XX $2 Hechizos', //3
+		'+XX sanación',	// 4 check
+		'+XX daño con hechizos', // 5
+		'+XX $1 Cada 5 segundos', //6
+		'+XX $1 Daño', //7
+		'+XX $1 Hechizos', //8
+		'+XX Daño con hechizos:+XX Sanación', //8.5 check
+		'+XX Daño a distancia (Alcance)', //9
+		'+XX Bloqueo de escudo', //10
+		'+XX Fuerza:+XX Agilidad:+XX Aguante:+XX Intelecto:+XX Espiritú', //11
+		'+XX Arcana Resistencia:+XX Fuego Resistencia:+XX Naturaleza Resistance:+XX Escarcha Resistencia:+XX Sombras Resistencia', //12
+		'+XX índice de golpe crítico con hechizos', //13 check
+	);
 
 /*
 $lang['item_bonuses_remap']=

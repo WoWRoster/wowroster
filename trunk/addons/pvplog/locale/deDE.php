@@ -23,7 +23,7 @@ $lang['button_duel']='Duell Log|Duell Statistiken von PvP Log';
 $lang['bglog']='BG &Uuml;bersicht';
 $lang['pvplog']='PvP &Uuml;bersicht';
 $lang['duellog']='Duell &Uuml;bersicht';
-$lang['duelsummary']='Duell Summary';
+$lang['duelsummary']='Duell Zusammenfassung';
 
 $lang['totalwins']='Gewinne total';
 $lang['totallosses']='Verluste total';
@@ -58,7 +58,7 @@ $lang['leveldiff']='LevelDiff';
 $lang['bg']='Schlachtfeld';
 $lang['winless']='Sieglos';
 $lang['unbeaten']='Ungeschlagen';
-$lang['them']='Die';
+$lang['them']='die';
 $lang['us']='Wir';
 
 $lang['pvplist']='PvP Statistiken';
@@ -87,7 +87,7 @@ $lang['kill_lost_hist_guild'] = 'Kill/Niederlage Verlauf für Gilde &quot;%1$s&q
 $lang['solo_win_loss'] = 'Solo Sieg/Niederlage Verh. (Level Differenz -7 bis +7 gezählt)';
 $lang['guildinfo'] = 'Gildeninfo';
 
-$lang['PvPLogver_err']='Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist &auml;lter als die für den Upload minimale zugelassene Version.<br />Bitte stellen Sie sicher, daß Sie mindestens v%1$s verwenden. Falls Sie gerade Ihr PvPLog aktualisiert haben, stellen Sie sicher daß Sie Ihre alte PvPLog.lua Datei gel&ouml;scht haben, bevor Sie aktualisieren.';
+$lang['PvPLogver_err']='Die verwendete Version von PvPLog, zur Speicherung der Daten für diesen Charakter ist älter als die für den Upload minimale zugelassene Version.<br />Bitte stelle sicher, daß Du mindestens v%1$s verwendest. Falls Du gerade dein PvPLog aktualisiert hast, stelle sicher daß Du deine alte PvPLog.lua Datei gelöscht hast, bevor Du aktualisierst.';
 
 $lang['admin']['pvpconfig'] = "PvPLog Konfiguration|Konfiguriere PvPLog Optionen";
 $lang['admin']['minPvPLogver'] = "Min. PvPLog Version|Minimum PvPLog Version zum Upload";

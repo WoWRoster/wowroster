@@ -23,7 +23,7 @@ $lang['memberslist_desc']       = 'Eine sortier- und filterbare Mitgliederliste'
 $lang['memberslist_Members']	= 'Mitglieder|Zeigt die Gildenmitgliederliste mit Spielernotizen, Zuletzt online, usw... an';
 $lang['memberslist_Stats']		= 'Grundwerte|Zeigt die Grundwerte jedes Gildenmitglieds wie Intelligenz, Ausdauer, usw... an';
 $lang['memberslist_Honor']		= 'Ehre|Zeigt die PvP-Informationen jedes Gildenmitglieds an';
-$lang['memberslist_Log']		= 'Mitglieder Log|Zeigt das upload log für neue und entfernte Mitglieder an';
+$lang['memberslist_Log']		= 'Mitglieder Log|Zeigt das Upload Log für neue und entfernte Mitglieder an';
 $lang['memberslist_Realm']		= 'Mitglieder|Zeigt die Mitgliederliste für alle Gilden auf allen Servern an';
 $lang['memberslist_RealmGuild']	= 'Gilden|Zeigt eine Liste für alle Gilden auf allen Realms an';
 
@@ -36,19 +36,19 @@ $lang['membersfilter']			= 'Zeilenfilter';
 $lang['openall']                = 'Öffne alle';
 $lang['closeall']               = 'Schließe alle';
 $lang['ungroupalts']            = 'Twinkgruppen auflösen';
-$lang['openalts']               = 'Gruppiere Twinks (Open)';
-$lang['closealts']              = 'Gruppiere Twinks (Closed)';
+$lang['openalts']               = 'Gruppiere Twinks (Offen)';
+$lang['closealts']              = 'Gruppiere Twinks (Geschlossen)';
 $lang['clientsort']             = 'Clientsortierung';
 $lang['serversort']             = 'Serversortierung';
 
 // Column headers
-$lang['onote']                  = 'Offizier Notiz';
+$lang['onote']                  = 'Offiziers Notiz';
 
 $lang['honorpoints']            = 'Ehrenpunkte';
 $lang['arenapoints']            = 'Arenapunkte';
 
 $lang['main_name']              = 'Hauptcharaktername';
-$lang['alt_type']               = 'Alt Typ';
+$lang['alt_type']               = 'Twink Typ';
 
 $lang['xp_to_go']               = '%1$s EP bis Stufe %2$s';
 
@@ -98,24 +98,24 @@ $lang['admin']['page_size']		= 'Seitengröße|Konfiguriert die Anzahl der Zeilen
 // Settings names on display page
 $lang['admin']['openfilter']	= 'Öffne Filterbereich|Gib an, ob der Filterbereich standardmäßig geöffnet oder geschlossen sein sill.';
 $lang['admin']['nojs']          = 'Listentyp|Gib an, ob du eine serverseitige Sortierung oder eine clientseitige Sortierung+Filterung haben möchtest.';
-$lang['admin']['def_sort']		= 'Standard Sortierung|Gib die standard Sortiermethode an.';
-$lang['admin']['member_tooltip']= 'Mitglieder Tooltip|Schalte den Inf-Tooltip über den Mitgliedernamen an oder aus.';
-$lang['admin']['group_alts']    = 'Gruppiere Twinks|Gruppiere Twinks unterhalb ihrer Hauptcharaktere anstelle sie seperat zu sortieren.';
-$lang['admin']['icon_size']     = 'Icon Größe|Setze die Größe der Klasse/Ehre/Beruf Icons.';
+$lang['admin']['def_sort']		= 'Standard Sortierung|Gib die Standard Sortiermethode an.';
+$lang['admin']['member_tooltip']= 'Mitglieder Tooltip|Schalte den Info-Tooltip über den Mitgliedernamen an oder aus.';
+$lang['admin']['group_alts']    = 'Gruppiere Twinks|Gruppiere Twinks unterhalb ihrer Hauptcharaktere anstelle diese seperat zu sortieren.';
+$lang['admin']['icon_size']     = 'Icon Größe|Setze die Größe der Klassen/Ehren/Berufs Icons.';
 $lang['admin']['spec_icon']		= 'Talent Icon|Schalte das Talent Icon an oder aus.';
-$lang['admin']['class_icon']    = 'Klassen Icon|Kontrolliert die Klass/Talent Icon Anzeige.<br />Full - Anzeige von Talent und Klassen Icon<br />On - Nur Anzeige des Klasse Icons<br />Off- Keine Icons';
-$lang['admin']['class_text']    = 'Klassentext|Kontrolliert die Klassentectanzeige.<br />Color - Farbiger Klassentext<br />On - Anzeige des Klassentextes<br />Off - Kein Klassentext';
-$lang['admin']['talent_text']   = 'Talenttext|Zeigt die Talentspezialisierung anstalle des Klassennamens.';
+$lang['admin']['class_icon']    = 'Klassen Icon|Kontrolliert die Klass/Talent Icon Anzeige.<br />Voll - Anzeige von Talent und Klassen Icon<br />An - Nur Anzeige des Klasse Icons<br />Aus - Keine Icons';
+$lang['admin']['class_text']    = 'Klassentext|Kontrolliert die Klassentextanzeige.<br />Farbe - Farbiger Klassentext<br />An - Anzeige des Klassentextes<br />Aus - Kein Klassentext';
+$lang['admin']['talent_text']   = 'Talenttext|Zeigt die Talentspezialisierung anstelle des Klassennamens.';
 $lang['admin']['level_bar']     = 'Level Balken|Anzeige von Levelbalken anstelle von einfachen Zahlen.';
 $lang['admin']['honor_icon']    = 'Ehre Icon|Anzeige des Ehrenrang Icons.';
 $lang['admin']['compress_note'] = 'Kompakte Notiz|Zeige Gildennotiz als Tooltip anstelle innerhalb der Spalte.';
 
 // Settings on Members page
 $lang['admin']['member_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Mitgliederseite';
-$lang['admin']['member_motd']	= 'Gilden MOTD|Zeige Gilden "Nachtricht des Tages" oben auf der Mitgliederseite';
+$lang['admin']['member_motd']	= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Mitgliederseite';
 $lang['admin']['member_hslist']	= 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Mitgliederseite';
-$lang['admin']['member_pvplist']= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Mitgliederseite<br />Wenn du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
-$lang['admin']['member_class']  = 'Klasse|Setze die Sichtbarkeit der Klassespalte auf der Mitgliederseite';
+$lang['admin']['member_pvplist']= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Mitgliederseite<br />Wenn Du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
+$lang['admin']['member_class']  = 'Klasse|Setze die Sichtbarkeit der Klassenspalte auf der Mitgliederseite';
 $lang['admin']['member_level']  = 'Level|Setze die Sichtbarkeit der Levelspalte auf der Mitgliederseite';
 $lang['admin']['member_gtitle'] = 'Gildenrang|Setze die Sichtbarkeit der Gildenrangspalte auf der Mitgliederseite';
 $lang['admin']['member_hrank']  = 'Ehrenrang|Setze die Sichtbarkeit der letzter Ehrenrangspalte auf der Mitgliederseite';
@@ -129,10 +129,10 @@ $lang['admin']['member_onote']  = 'Offizernotiz|Setze die Sichtbarkeit der Offiz
 
 // Settings on Stats page
 $lang['admin']['stats_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Wertelisteseite';
-$lang['admin']['stats_motd']	= 'Gilden MOTD|Zeige Gilden "Nachtricht des Tages" oben auf der Wertelisteseite';
+$lang['admin']['stats_motd']	= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Wertelisteseite';
 $lang['admin']['stats_hslist']  = 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Wertelisteseite';
 $lang['admin']['stats_pvplist']	= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Wertelisteseite<br />Wenn du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
-$lang['admin']['stats_class']   = 'Klasse|Setze die Sichtbarkeit der Klassespalte auf der Wertelisteseite';
+$lang['admin']['stats_class']   = 'Klasse|Setze die Sichtbarkeit der Klassenspalte auf der Wertelisteseite';
 $lang['admin']['stats_level']   = 'Level|Setze die Sichtbarkeit der Levelspalte auf der Wertelisteseite';
 $lang['admin']['stats_str']     = 'Stärke|Setze die Sichtbarkeit der Stärkepalte auf der Wertelisteseite';
 $lang['admin']['stats_agi']     = 'Beweglichkeit|Setze die Sichtbarkeit der Beweglichkeitspalte auf der Wertelisteseite';
@@ -150,10 +150,10 @@ $lang['admin']['stats_crit']    = 'Krit|Setze die Sichtbarkeit der Kritspalte au
 
 // Settings on Honor page
 $lang['admin']['honor_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Ehrenstatistikseite';
-$lang['admin']['honor_motd']	= 'Gilden MOTD|Zeige Gilden "Nachtricht des Tages" oben auf der Ehrenstatistikseite';
+$lang['admin']['honor_motd']	= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Ehrenstatistikseite';
 $lang['admin']['honor_hslist']  = 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Ehrenstatistikseite';
 $lang['admin']['honor_pvplist']	= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Ehrenstatistikseite<br />Wenn du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
-$lang['admin']['honor_class']   = 'Klasse|Setze die Sichtbarkeit der Klassespalte auf der Ehrenstatistikseite';
+$lang['admin']['honor_class']   = 'Klasse|Setze die Sichtbarkeit der Klassenspalte auf der Ehrenstatistikseite';
 $lang['admin']['honor_level']   = 'Level|Setze die Sichtbarkeit der Levelspalte auf der Ehrenstatistikseite';
 $lang['admin']['honor_thk']     = 'Heute HK|Setze die Sichtbarkeit der Heute HK-Spalte auf der Ehrenstatistikseite';
 $lang['admin']['honor_tcp']     = 'Heute CP|Setze die Sichtbarkeit der Heute CP-Spalte auf der Ehrenstatistikseite';
@@ -166,24 +166,24 @@ $lang['admin']['honor_ap']      = 'Arenapunkte|Setze die Sichtbarkeit der Arenap
 
 // Settings on Members page
 $lang['admin']['log_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Mitglieder Log Seite';
-$lang['admin']['log_motd']		= 'Gilden MOTD|Zeige Gilden "Nachtricht des Tages" oben auf der Mitglieder Log Seite';
+$lang['admin']['log_motd']		= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Mitglieder Log Seite';
 $lang['admin']['log_hslist']	= 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Mitglieder Log Seite';
 $lang['admin']['log_pvplist']	= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Mitglieder Log Seite<br />Wenn du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
-$lang['admin']['log_class']		= 'Klasse|Setze die Sichtbarkeit der Klassespalte auf der Mitglieder Log Seite';
+$lang['admin']['log_class']		= 'Klasse|Setze die Sichtbarkeit der Klassenspalte auf der Mitglieder Log Seite';
 $lang['admin']['log_level']		= 'Level|Setze die Sichtbarkeit der Levelspalte auf der Mitglieder Log Seite';
 $lang['admin']['log_gtitle']	= 'Gildenrang|Setze die Sichtbarkeit der Gildenrangspalte auf der Mitglieder Log Seite';
 $lang['admin']['log_type']		= 'Typ|Setze die Sichtbarkeit der Typspalte auf der Mitglieder Log Seite';
 $lang['admin']['log_date']		= 'Zuletzt Online|Setze die Sichtbarkeit der Zuletzt Online-Spalte auf der Mitglieder Log Seite';
 $lang['admin']['log_note']		= 'Notiz|Setze die Sichtbarkeit der Notizspalte auf der Mitglieder Log Seite';
-$lang['admin']['log_onote']		= 'Offizernotiz|Setze die Sichtbarkeit der Offiziernotizspalte auf der Mitglieder Log Seite';
+$lang['admin']['log_onote']		= 'Offizernotiz|Setze die Sichtbarkeit der Offiziersnotizspalte auf der Mitglieder Log Seite';
 
 // Settings names on build page
-$lang['admin']['use_global']    = 'Benutze globale Einstellungen|Benutze globale statt lokale Einstellungen für diese Gilde.';
-$lang['admin']['getmain_regex'] = 'Regex|Dieses Feld spezifiziert die Benutzung des Regex. <br /> Folge dem wiki-Link für Details.';
-$lang['admin']['getmain_field'] = 'Anwenden auf Feld|Dieses Feld spezifiziert auf welches Mitgliederfeld Regex angewendet werden soll. <br />Folge dem wiki-Link für Details.';
-$lang['admin']['getmain_match'] = 'Benutze Treffernr.|Dieses Feld spezifiziert welcher Rückgabewert von Regex verwendet wird. <br /> Folge dem wiki-Link für Details.';
-$lang['admin']['getmain_main']  = 'Hauptchar-Identifizierung|Wenn Regex diesen Wert findet, so wird dieser Chars als Hauptcharakter angenommen.';
-$lang['admin']['defmain']       = 'Kein Ergebnis|Setze wie die Charaktere definiert weden sollen, bei denen Regex nichts zurückgibt.';
-$lang['admin']['invmain']       = 'Ungültiges Ergebnis|Setze wie die Charaktere definiert weden sollen, <br />wenn Regex ein Ergebnis ausgibt, dass kein Gildenmitglied oder kein Hauptcharakter ist.';
+$lang['admin']['use_global']    = 'Benutze globale Einstellungen|Benutze Globale anstatt lokale Einstellungen für diese Gilde.';
+$lang['admin']['getmain_regex'] = 'Regex|Dieses Feld spezifiziert die Benutzung des Regex. <br /> Folge dem Wiki-Link für Details.';
+$lang['admin']['getmain_field'] = 'Anwenden auf Feld|Dieses Feld spezifiziert auf welches Mitgliederfeld der Regex angewendet werden soll. <br />Folge dem Wiki-Link für Details.';
+$lang['admin']['getmain_match'] = 'Benutze Treffernr.|Dieses Feld spezifiziert welcher Rückgabewert von dem Regex verwendet wird. <br /> Folge dem Wiki-Link für Details.';
+$lang['admin']['getmain_main']  = 'Hauptchar-Identifizierung|Wenn der Regex diesen Wert findet, so wird dieser Chars als Hauptcharakter angenommen.';
+$lang['admin']['defmain']       = 'Kein Ergebnis|Setze wie die Charaktere definiert werden sollen, bei denen der Regex nichts zurückgibt.';
+$lang['admin']['invmain']       = 'Ungültiges Ergebnis|Setze wie die Charaktere definiert werden sollen, <br />wenn der Regex ein Ergebnis ausgibt, dass kein Gildenmitglied oder kein Hauptcharakter ist.';
 $lang['admin']['altofalt']      = 'Twink des Twinks|Gib an, was zu tun ist, wenn der Charakter ein hauptcharakterloser Twink ist.';
 $lang['admin']['update_type']   = 'Aktualisierungstyp|Gib an, an welchem Auslöser die Hauptchar/Twink Beziehungen aktualisiert werden sollen.';
