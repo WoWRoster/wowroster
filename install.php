@@ -591,7 +591,7 @@ function process_step3()
 	$db_config['username']     = post_or_db('dbuser');
 	$db_config['password']     = post_or_db('dbpass');
 	$db_config['table_prefix'] = post_or_db('table_prefix', $DEFAULTS);
-    $default_locale            = post_or_db('default_locale', $DEFAULTS);
+    $default_locale            = post_or_db('default_lang', $DEFAULTS);
     $server_name               = post_or_db('server_name');
 
 	$create['username']     = post_or_db('dbuser_c');
