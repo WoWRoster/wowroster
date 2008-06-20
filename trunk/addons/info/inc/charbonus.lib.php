@@ -60,7 +60,7 @@ class CharBonus
 	{
 		global $roster;
 
-		$this->equip = item::fetchManyItems($char->data['member_id'], 'equip', 'full');
+		$this->equip = $char->equip;
 
 		$roster->tpl->assign_vars(array(
 			'L_ITEM_BONUSES' => $roster->locale->act['item_bonuses_full'],
