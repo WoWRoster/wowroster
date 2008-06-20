@@ -48,7 +48,7 @@ $lang['mail_money'] = 'Geldanhang';
 $lang['no_mail'] = 'Keine Briefe für %1$s';
 
 // Quests
-$lang['no_quests'] = '%1$s has no Quests';
+$lang['no_quests'] = '%1$s hat keine Quests';
 
 //skills
 $lang['skilltypes'] = array(
@@ -118,7 +118,7 @@ $lang['ranged_att_power_tooltip']='Erhöht die Angriffskraft mit Distanzwaffen u
 $lang['weapon_hit_rating']='Trefferwert.';
 $lang['weapon_hit_rating_tooltip']='Erhöht die Trefferchance im Nahkampf gegen ein Ziel.';
 $lang['weapon_expertise']='Expertise';
-$lang['weapon_expertise_tooltip']='Reduces chance to be dodged or parried.';
+$lang['weapon_expertise_tooltip']='Reduziert Chance, das ausgewichen oder pariert wird.';
 $lang['weapon_crit_rating']='Kritisch';
 $lang['weapon_crit_rating_tooltip']='Kritische Trefferchance %.2f%%.';
 
@@ -180,37 +180,37 @@ $lang['item_bonuses_preg_main']='/(?!\d*\s(sek|min)\.?)(-{0,1}\d*\.{0,1}\d+)/i';
 //
 // patterns to standardize bonus string
 $lang['item_bonuses_preg_patterns'] =
-	array('/increases the block value of your shield by XX\.?/i',	//1
-		  '/(?:increases|improves) (?:your )?(.+) by XX\.?/i',	//2
-		  '/increases (Damage) and (Healing) done by magical spells and effects by up to XX\.?$/i',	//3
-		  '/Increases Healing Done By Spells And Effects By Up To XX\.?/i', //4
-		  '/Increases Damage Done By Spells And Effects By Up To XX\.?/i', //5'
-		  '/(?:restores|\+)?\s?XX (mana|health) (?:per|every|regen).*$/i',	//6
-		  '/increases damage done by (.+) and.*$/i',	//7
-		  '/^\+?XX (Healing)(?: Spells)?\.?$/',	//8
-		  '/^\+XX Spell Damage and Healing/i', //8.5
-		  '/^scope \(\+XX damage\)$/i',	//9
-		  '/^\+?XX (?:shield )?block$/i',	//10
-		  '/^\+XX All Stats/i', //11
-		  '/^\+XX All Resistances/i', //12
-		  '/^\+XX Spell Critical Rating/i', //13
-		 );
+	array('/Erhöht den Blockwert Eures Schildes um XX\.?/i',	//1
+		'/(?:Erhöht|Verbessert) (?:Eure )?(.+) um XX\.?/i',	//2
+		'/Erhöht durch Zauber und magische Effekte verursachten Schaden und Heilung um bis zu XX\.?$/i',	//3
+		'/Erhöht durch sämtliche Zauber und magische Effekte verursachte Heilung um bis zu XX\.?/i', //4
+		'/Erhöht durch Zauber und magische Effekte verursachten Schaden um bis zu XX\.?/i', //5'
+		'/(?:stellt|\+)?\s?XX (Mana|Gesundheit) (?:pro|alle|regen).*$/i',	//6
+		'/Erhöht den durch (.+) und *$ verursachten Schaden./i',	//7
+		'/^\+?XX (Heilung)(?: Zauber)?\.?$/',	//8
+		'/^\+XX Zaubertrefferwertung und Heilung/i', //8.5
+		'/^scope \(\+XX Schaden\)$/i',	//9
+		'/^\+?XX (?:Schild )?Block/i',	//10
+		'/^\+XX Alle Stats/i', //11
+		'/^\+XX Alle Widerstandsarten/i', //12
+		'/^\+XX Kritische Zaubertrefferwertung/i', //13
+	);
 $lang['item_bonuses_preg_replacements'] =
-	array('+XX Shield Block',  //1
-		  '+XX $1', //2
-		  '+XX Spell $1:+XX $2 Spells', //3
-		  '+XX Healing Spells',	// 4
-		  '+XX Damage Spells', // 5
-		  '+XX $1 Per 5 Seconds', //6
-		  '+XX $1 Damage', //7
-		  '+XX $1 Spells', //8
-		  '+XX Spell Damage:+XX Healing Spells', //8.5
-		  '+XX Ranged Damage (Scope)', //9
-		  '+XX Shield Block', //10
-		  '+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit', //11
-		  '+XX Arcane Resistance:+XX Fire Resistance:+XX Nature Resistance:+XX Frost Resistance:+XX Shadow Resistance', //12
-		  '+XX Spell Critical Strike Rating', //13
-		 );
+	array('+XX Blockwertung',  //1
+		'+XX $1', //2
+		'+XX Zauber $1:+XX $2 Zauber', //3
+		'+XX Heilungszauber',	// 4
+		'+XX Schadenszauber', // 5
+		'+XX alle 5 Sekunden $1 ', //6
+		'+XX $1 Schaden', //7
+		'+XX $1 Zaubertrefferwertung', //8
+		'+XX Zaubertrefferwertung:+XX Heilungszauber', //8.5
+		'+XX Ranged Damage (Scope)', //9
+		'+XX Blockwertung', //10
+		'+XX Stärke:+XX Beweglichkeit:+XX Ausdauer:+XX Intelligenz:+XX Willenskraft', //11
+		'+XX Arkanwiderstand:+XX Feuerwiderstand:+XX Naturwiderstand:+XX Frostwiderstand:+XX Schattenwiderstand', //12
+		'+XX Kritische Zaubertrefferwertung', //13
+	);
 
 /*
 $lang['item_bonuses_remap']=
@@ -270,9 +270,9 @@ $lang['inactive'] = 'Inaktiv';
 $lang['admin']['char_conf'] = 'Charakterseite|Einstellen was auf den Charakterseite angezeigt werden soll';
 $lang['admin']['char_links'] = "Charakter Seitenlinks|Zeige Charakterseiten Quicklinks auf jeder Charakterseite";
 $lang['admin']['recipe_disp'] = "Rezeptanzeige|Kontrolliere wie die Rezepteliste angezeigt werden soll<br />Die Liste kann per Klick auf die Kopfzeile geöffnet und geschlossen werden<br /><br />&quot;show&quot; wird die komplette Liste beim Seitenaufbau anzeigen <br />&quot;hide&quot; wird die geschlossene Liste zeigen";
-$lang['admin']['mail_disp'] = "Mail Display|Controls how the mail is displayed<br /><br />&quot;Table&quot; Shows the mail in a table view<br />&quot;Bag&quot; Shows each mail as a bag of items<br />&quot;Both&quot; Shows both";
+$lang['admin']['mail_disp'] = "Post Anzeige|Einstellen ob Post angezeigt werden soll<br /><br />&quot;Tabelle&quot; Zeigt die Post tabellarisch an<br />&quot;Tasche&quot; Zeigt jede Post wie eine Tasche mit Items<br />&quot;Beides&quot; Zeigt die Post tabellarisch und als Tasche";
 $lang['admin']['show_money'] = "Gold|Anzeige des Goldes im Rucksack<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_played'] = "Time Played|Controls the display of Time Played and Time Level Played<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_played'] = "Zeit gespielt|Einstellen der Anzeige der Gesamtenspielzeit und der Spielzeit auf dem Level<br /><br />Diese Einstellung ist Global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_tab2'] = "Begleiter|Kontrolliere die Begleiteranzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_tab3'] = "Ruf|Kontrolliert die Rufanzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_tab4'] = "Zaubersprüche|Kontrolliert die Anzeuge der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";

@@ -227,10 +227,10 @@ $inst_keys['A'] = array(
 		'Key|inv_jewelry_amulet_04|'
 	),
 	'MH' => array(
-		'Q|The Vials of Eternity|1||1',
-		'In|Vash\\\'s Vial Remnant|1|()|1',
-		'In|Kael\\\'s Vial Remnant|1|()|1',
-		'R|The Scale of the Sands|1||1',
+		'Q|Die Phiolen der Ewigkeit|1||1',
+		'In|Überreste von Vashjs Phiole|1|()|1',
+		'In|Überreste von Kaels Phiole|1|()|1',
+		'R|Die Wächter der Sande|1||1',
 		'Key|inv_potion_101|'
 	)
 );
@@ -293,8 +293,8 @@ $inst_keys['H'] = array(
 		'In|Edelstein der Gluthauer|1|()|1',
 		'In|Edelstein der Blutäxte|1|()|1',
 		'In|Ungeschmiedetes Siegel des Aufstiegs|1||1',
-		'In|Forged Seal of Ascension|1||1',
 		'In|Geschmiedetes Siegel des Aufstiegs|1||1',
+		'In|Siegel des Aufstiegs|1||1',
 		'Key|inv_jewelry_ring_01|'
 	),
 	'Onyxia' => array(
@@ -404,10 +404,10 @@ $inst_keys['H'] = array(
 		'Key|inv_jewelry_amulet_04|'
 	),
 	'MH' => array(
-		'Q|The Vials of Eternity|1||1',
-		'In|Vash\\\'s Vial Remnant|1|()|1',
-		'In|Kael\\\'s Vial Remnant|1|()|1',
-		'R|The Scale of the Sands|1||1',
+		'Q|Die Phiolen der Ewigkeit|1||1',
+		'In|Überreste von Vashjs Phiole|1|()|1',
+		'In|Überreste von Kaels Phiole|1|()|1',
+		'R|Die Wächter der Sande|1||1',
 		'Key|inv_potion_101|'
 	)
 );
