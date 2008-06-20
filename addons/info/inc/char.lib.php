@@ -204,10 +204,7 @@ class char
 	 */
 	function fetchEquip()
 	{
-		if( !is_array($this->equip) )
-		{
-			$this->equip = item::fetchManyItems($this->data['member_id'], 'equip', 'full');
-		}
+		$this->equip = item::fetchManyItems($this->data['member_id'], 'equip', 'full');
 	}
 
 

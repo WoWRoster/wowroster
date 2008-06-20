@@ -81,7 +81,7 @@ class item
 
 		$this->DEBUG = $roster->config['debug_mode'];
 		// Lets hard code this to 1 for BETA ONLY
-		//$this->DEBUG = 1;
+		//$this->DEBUG = 2;
 
 		$this->isParseMode = $parse_mode;
 		$this->data = $data;
@@ -321,13 +321,14 @@ class item
 				$html .= '<img width="10px" height="10px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '" />'
 					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['Bonus'] . '</span><br />';
-				if ( $this->hasMetaGem && ereg( 'inv_misc_gem_diamond', $gem['Icon']  ) ) {
+				if( $this->hasMetaGem && ereg('inv_misc_gem_diamond', $gem['Icon']) )
+				{
 					foreach ( $this->attributes['MetaRequires'] as $requirement )
 					{
 						if ( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_meta_requires_min'], $requirement, $matches) )
 						{
 							$tmp = $roster->locale->wordings[$this->locale]['gem_colors_to_en'];
-							if ( $matches[1] <= $this->gemColors[$tmp[strtolower($matches[2])]] )
+							if ( $this->gemColors[$tmp[strtolower($matches[2])]] >= $matches[1] )
 							{
 								$html .= '<span style="color:#ffffff;">&nbsp;&nbsp;' . $requirement . '</span><br />';
 							}
@@ -422,8 +423,6 @@ class item
 
 	function _getRequiredRaces()
 	{
-		global $roster;
-
 		$html = $this->attributes['RaceText'] . '&nbsp;';
 		$count = count($this->attributes['Race']);
 
@@ -1529,7 +1528,7 @@ class item
 	{
 		global $roster;
 
-		$parent = $roster->db->escape( $parent );
+		$parent = $roster->db->escape($parent);
 		$items = array();
 		$this->gemColors = array( 'red' => 0, 'yellow' => 0, 'blue' => 0 );
 
@@ -1544,38 +1543,38 @@ class item
 		{
 			$item = new item( $data, $parse_mode );
 			$items[$data['item_slot']] = $item;
-			if ( isset($item->attributes['Gems']) )
+			if( isset($item->attributes['Gems']) )
 			{
-				foreach ( $item->attributes['Gems'] as $gem )
+				foreach( $item->attributes['Gems'] as $gem )
 				{
-						switch ( $gem['Color'])
-						{
-								case 'blue':
-										$this->gemColors['blue']++;
-										break;
-								case 'red':
-										$this->gemColors['red']++;
-										break;
-								case 'yellow':
-										$this->gemColors['yellow']++;
-										break;
-								case 'orange':
-										$this->gemColors['yellow']++;
-										$this->gemColors['red']++;
-										break;
-								case 'purple':
-										$this->gemColors['blue']++;
-										$this->gemColors['red']++;
-										break;
-								case 'green':
-										$this->gemColors['yellow']++;
-										$this->gemColors['blue']++;
-										break;
-						}
+					switch( $gem['Color'] )
+					{
+						case 'blue':
+							$this->gemColors['blue']++;
+							break;
+						case 'red':
+							$this->gemColors['red']++;
+							break;
+						case 'yellow':
+							$this->gemColors['yellow']++;
+							break;
+						case 'orange':
+							$this->gemColors['yellow']++;
+							$this->gemColors['red']++;
+							break;
+						case 'purple':
+							$this->gemColors['blue']++;
+							$this->gemColors['red']++;
+							break;
+						case 'green':
+							$this->gemColors['yellow']++;
+							$this->gemColors['blue']++;
+							break;
+					}
 				}
 			}
 		}
-		if ( isset($items['Head']) && $items['Head']->hasMetaGem )
+		if( isset($items['Head']) && $items['Head']->hasMetaGem )
 		{
 			$items['Head']->gemColors = $this->gemColors;
 			$items['Head']->_makeTooltipHTML();
