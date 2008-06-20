@@ -57,8 +57,8 @@ class roster_professionsSearch
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['reagents'] . '</th>'
 						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['character'] . '</th></tr>';
 
-		$this->minlvl = isset($_POST['recipe_minle']) ? $_POST['recipe_minle'] : ( isset($_GET['recipe_minle']) ? $_GET['recipe_minle'] : '' );
-		$this->maxlvl = isset($_POST['recipe_maxle']) ? $_POST['recipe_maxle'] : ( isset($_GET['recipe_maxle']) ? $_GET['recipe_maxle'] : '' );
+		$this->minlvl = isset($_POST['recipe_minle']) ? (int)$_POST['recipe_minle'] : ( isset($_GET['recipe_minle']) ? (int)$_GET['recipe_minle'] : '' );
+		$this->maxlvl = isset($_POST['recipe_maxle']) ? (int)$_POST['recipe_maxle'] : ( isset($_GET['recipe_maxle']) ? (int)$_GET['recipe_maxle'] : '' );
 		$this->quality = isset($_POST['recipe_quality']) ? $_POST['recipe_quality'] : ( isset($_GET['recipe_quality']) ? $_GET['recipe_quality'] : array() );
 
 		// Set up next/prev search link
