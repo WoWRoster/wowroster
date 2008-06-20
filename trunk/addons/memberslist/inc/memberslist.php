@@ -704,7 +704,8 @@ class memberslist
 			{
 				foreach( $roster->multilanguages as $language )
 				{
-					$class_color = array_search($row['class'],$roster->locale->wordings[$language]);
+					$class_color = ( isset($roster->locale->wordings[$language]['class_to_en'][$row['class']]) ? $roster->locale->wordings[$language]['class_to_en'][$row['class']] : '' );
+
 					if( strlen($class_color) > 0 )
 					{
 						$class_color = $roster->locale->wordings['enUS'][$class_color];
