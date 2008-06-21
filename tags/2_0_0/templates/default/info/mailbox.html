@@ -1,0 +1,49 @@
+<!-- $Id$ -->
+
+<!-- IF S_MAIL -->
+
+<!-- IF S_MAIL_DISP gt 0 -->
+
+<!-- include info/bag.html -->
+
+<br style="clear:left;">
+
+<!-- ENDIF -->
+
+<!-- IF S_MAIL_DISP eq 0 or S_MAIL_DISP eq 2 -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgrayborder">
+			<div class="header_text sgrayborder">{L_MAILBOX}</div>
+
+			<table cellpadding="0" cellspacing="0" class="bodyline">
+				<tr>
+					<th class="membersHeader">{L_ITEM}</th>
+					<th class="membersHeader">{L_SENDER}</th>
+					<th class="membersHeader">{L_SUBJECT}</th>
+					<th class="membersHeaderRight">{L_EXPIRES}</th>
+				</tr>
+
+<!-- BEGIN mail -->
+				<tr>
+					<td class="membersRow{mail.ROW_CLASS}"><img src="{INTERFACE_URL}Interface/Icons/{mail.ITEM_ICON}.{IMG_SUFFIX}" alt=""{mail.TOOLTIP} /></td>
+					<td class="membersRow{mail.ROW_CLASS}">{mail.SENDER}</td>
+					<td class="membersRow{mail.ROW_CLASS}">{mail.SUBJECT}</td>
+					<td class="membersRowRight{mail.ROW_CLASS}">{mail.EXPIRES}</td>
+				</tr>
+<!-- END mail -->
+
+			</table>
+
+		</td>
+	</tr>
+</table>
+
+<!-- ENDIF -->
+
+<!-- ELSE -->
+
+<span class="title_text">{L_NO_MAIL}</span>
+
+<!-- ENDIF -->
