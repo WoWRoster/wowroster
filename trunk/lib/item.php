@@ -944,6 +944,7 @@ class item
 		// As enchants can't be in colored lines we make a copy of tooltip without colored lines
 		$tooltipWithoutColoredLines = $tooltip;
 		$tooltip = preg_replace( '/\|c[a-f0-9]{6,8}(.+?)\|r/', '$1', $tooltip );
+		$tooltipWithoutColoredLines = preg_replace( '/\s\s\|c[a-f0-9]{6,8}.+?\|r\n/', '',$tooltipWithoutColoredLines );
 		$tooltipWithoutColoredLines = preg_replace( '/\|c[a-f0-9]{6,8}.+?\|r\n/', '', $tooltipWithoutColoredLines );
 
 
@@ -959,10 +960,11 @@ class item
 		// perhaps pull base stat info from a db.. check into itemstats mod?
 		if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_socketbonus'], $tooltip, $matches) )
 		{
-			$tooltip = str_replace( $matches[0], '', $tooltip );
-			$tooltipWithoutColoredLines = str_replace( $matches[0], '', $tooltipWithoutColoredLines );
+			$tooltip = str_replace( $matches[0] . "\n", '', $tooltip );
+			$tooltipWithoutColoredLines = str_replace( $matches[0] . "\n", '', $tooltipWithoutColoredLines );
 			$tt['Attributes']['SocketBonus'] = $matches[0];
 		}
+
 
 		// if any gems get the data for them, remove lines from stack.
 		if( $gem1 || $gem2 || $gem3 )
