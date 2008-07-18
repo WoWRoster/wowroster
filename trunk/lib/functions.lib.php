@@ -953,8 +953,8 @@ function getaddon( $addonname )
 		if( !file_exists($addon['tpl_dir']) )
 		{
 			$addon['tpl_dir'] = $addon['dir'] . 'templates' . DIR_SEP;
-			$addon['tpl_url'] = $addon['url_full'] . 'templates/' . $addon['basename'] . '/';
-			$addon['tpl_url_path'] = $addon['url_path'] . 'templates/' . $addon['basename'] . '/';
+			$addon['tpl_url'] = $addon['url_full'] . 'templates/';
+			$addon['tpl_url_path'] = $addon['url_path'] . 'templates/';
 
 			if( !file_exists($addon['tpl_dir']) )
 			{
