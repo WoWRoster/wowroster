@@ -472,7 +472,7 @@ $lang['class_to_en'] = array(
 
 // Class to game-internal ID
 $lang['class_to_id'] = array(
-	'Guerrièr' => 1,
+	'Guerrier' => 1,
 	'Paladin' => 2,
 	'Chasseur' => 3,
 	'Voleur' => 4,
@@ -495,7 +495,7 @@ $lang['class_to_id'] = array(
 
 // Game-internal ID to class
 $lang['id_to_class'] = array(
-	1 => 'Guerrièr',
+	1 => 'Guerrier',
 	2 => 'Paladin',
 	3 => 'Chasseur',
 	4 => 'Voleur',
