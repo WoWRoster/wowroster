@@ -1739,10 +1739,6 @@ class char
 	{
 		global $roster, $addon;
 
-		$roster->tpl->assign_vars(array(
-			'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
-			)
-		);
 
 		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `order`;";
 		$trees = $roster->db->query($sqlquery);
@@ -1798,6 +1794,12 @@ class char
 					}
 				}
 			}
+
+			$roster->tpl->assign_vars(array(
+				'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
+				)
+			);
+
 			$roster->tpl->set_filenames(array('talents' => $addon['basename'] . '/talents.html'));
 			return $roster->tpl->fetch('talents');
 		}
