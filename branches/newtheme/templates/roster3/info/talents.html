@@ -1,0 +1,54 @@
+<!-- $Id: talents.html 1745 2008-04-10 05:15:39Z Zanix $ -->
+
+<!-- tab6 -->
+	<div id="tab6" class="tab6" style="display:none;">
+
+<div class="talent_panel">
+	{L_TALENTS}
+	<img class="top_bar" src="{U_IMAGE_PATH}talent/bar_top.gif" alt="" />
+	<img class="bot_bar" src="{U_IMAGE_PATH}talent/bar_bottom.gif" alt="" />
+
+	<div class="link"><a href="{U_TALENT_EXPORT}" target="_blank">{L_TALENT_EXPORT}</a></div>
+	<div class="points_unused"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
+
+<!-- BEGIN talent_tree -->
+
+	<div class="spec">
+
+		<div class="points"><span style="color:#ffdd00">{talent_tree.L_POINTS_SPENT}:</span> {talent_tree.POINTS}</div>
+		<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
+
+		<div class="container">
+
+<!-- BEGIN row -->
+
+			<div class="row">
+
+<!-- BEGIN cell -->
+
+<!-- IF talent_tree.row.cell.NAME -->
+
+				<div class="cell" {talent_tree.row.cell.TOOLTIP}>
+<!-- IF talent_tree.row.cell.RANK -->
+					<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
+					<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
+<!-- ENDIF -->
+					<img src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" width="40px" height="40px" alt="" <!-- IF talent_tree.row.cell.RANK eq 0 --> class="icon_grey"<!-- ENDIF --> />
+				</div>
+
+<!-- ELSE -->
+				<div class="cell">&nbsp;</div>
+<!-- ENDIF -->
+
+<!-- END cell -->
+
+			</div>
+
+<!-- END row -->
+
+		</div>
+	</div>
+
+<!-- END talent_tree -->
+
+</div></div>

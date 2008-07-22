@@ -1,0 +1,68 @@
+<!-- $Id$ -->
+<table class="borderless" align="center">
+	<tr>
+		<td valign="top">
+
+			<table width="50" class="install_table">
+				<tr>
+					<th align="left" colspan="2">Version</th>
+				</tr>
+				<tr>
+					<td align="right" class="row2"><strong>Using:</strong></td>
+					<td align="left">{OUR_ROSTER_VERSION}</td>
+				</tr>
+				<tr>
+					<td align="right" class="row2"><strong>Latest:</strong></td>
+					<td align="left">{THEIR_ROSTER_VERSION}</td>
+				</tr>
+			</table>
+
+		</td>
+		<td valign="top">
+
+			<table width="420" class="install_table">
+				<tr>
+					<th align="left" colspan="3">PHP Info</th>
+				</tr>
+				<tr>
+					<td align="left" colspan="3" class="row2"><a href="?mode=phpinfo">View phpinfo()</a></td>
+				</tr>
+				<tr>
+					<td align="left" class="row2" nowrap="nowrap"><strong>Version:</strong></td>
+					<td align="left">Using: {OUR_PHP_VERSION}</td>
+					<td align="left">Required: {THEIR_PHP_VERSION}</td>
+				</tr>
+				<tr>
+					<td align="left" class="row2" nowrap="nowrap"><strong>MySQL Module:</strong></td>
+					<td align="left">Available: {OUR_MYSQL}</td>
+					<td align="left">Required: {THEIR_MYSQL}</td>
+				</tr>
+				<tr>
+					<td align="left" class="row2" nowrap="nowrap"><strong>GD Module:</strong></td>
+					<td align="left">Available: {OUR_GD}</td>
+					<td align="left">Required: {THEIR_GD}</td>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<br />
+
+<table width="175" align="center" class="install_table">
+	<tr>
+		<th align="left" colspan="2">Directory Access</th>
+	</tr>
+	<tr>
+		<td class="row2" nowrap="nowrap">Cache:</td>
+		<td width="17" onmouseover="return overlib('{CACHE_TIP}',CAPTION,'Cache Directory');" onmouseout="return nd();"><img src="{THEME_PATH}/images/{CACHE_WRITE}.png" alt="" /></td>
+	</tr>
+</table>
+<br /><br />
+
+<!-- IF S_SHOW_BUTTON -->
+<form method="post" action="{FORMACTION}" name="post">
+	<input type="hidden" name="install_step" value="2" />
+	<div align="center"><input type="submit" name="submit" value="Start Install" class="submit" /></div>
+</form>
+<!-- ENDIF -->
