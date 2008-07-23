@@ -592,7 +592,6 @@ class memberslist
 	{
 		global $roster;
 
-		$tooltip = '';
 		if( $this->addon['config']['member_tooltip'] )
 		{
 			$tooltip_h = $row['name'] . ' : ' . $row['guild_title'];
@@ -602,16 +601,28 @@ class memberslist
 			$tooltip .= $roster->locale->act['lastonline'] . ': ' . $row['last_online'] . ' in ' . $row['zone'];
 			$tooltip .= ( $this->addon['config']['member_note'] == 0 || $row['nisnull'] ? '' : "\n" . $roster->locale->act['note'] . ': ' . $row['note'] );
 
-			$tooltip = ' style="cursor:help;" ' . makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP');
-		}
+			$tooltip = '<div style="cursor:help;" ' . makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP') . '>';
 
-		if( active_addon('info') && $row['server'] )
-		{
-			return '<div style="display:none;">' . $row['name'] . '</div><div' . $tooltip . '><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
+
+			if( active_addon('info') && $row['server'] )
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $tooltip . '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
+			}
+			else
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $tooltip . $row['name'] . '</div>';
+			}
 		}
 		else
 		{
-			return '<div style="display:none;">' . $row['name'] . '</div><div' . $tooltip . '>' . $row['name'] . '</div>';
+			if ( active_addon('info') && $row['server'] )
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
+			}
+			else
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $row['name'];
+			}
 		}
 	}
 

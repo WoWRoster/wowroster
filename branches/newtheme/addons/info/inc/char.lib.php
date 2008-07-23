@@ -714,7 +714,7 @@ class char
 
 				if( $row['level'] == ROSTER_MAXCHARLEVEL )
 				{
-					$expbar_width = '216';
+					$expbar_width = '260';
 					$expbar_text = $roster->locale->act['max_exp'];
 				}
 				else
@@ -722,7 +722,7 @@ class char
 					$xp = explode(':',$row['xp']);
 					if( isset($xp[1]) && $xp[1] != '0' && $xp[1] != '' )
 					{
-						$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 216) : 0);
+						$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 260) : 0);
 
 						$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
@@ -1739,6 +1739,10 @@ class char
 	{
 		global $roster, $addon;
 
+		$roster->tpl->assign_vars(array(
+			'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
+			)
+		);
 
 		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `order`;";
 		$trees = $roster->db->query($sqlquery);
@@ -1794,14 +1798,6 @@ class char
 					}
 				}
 			}
-
-			$roster->tpl->assign_vars(array(
-				'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
-				)
-			);
-
-			$roster->tpl->set_filenames(array('talents' => $addon['basename'] . '/talents.html'));
-			return $roster->tpl->fetch('talents');
 		}
 		else
 		{
@@ -2208,14 +2204,14 @@ class char
 		// Code to write a "Max Exp bar" just like in SigGen
 		if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 		{
-			$expbar_width = '216';
+			$expbar_width = '260';
 			$expbar_text = $roster->locale->act['max_exp'];
-			$expbar_type = 'expbar_full';
+			$expbar_type = 'max';
 		}
 		elseif( $this->data['exp'] == '0' )
 		{
 			$expbar_width = 0;
-			$expbar_type = 'expbar_full';
+			$expbar_type = 'normal';
 			$expbar_text = '';
 		}
 		else
@@ -2223,19 +2219,19 @@ class char
 			$xp = explode(':',$this->data['exp']);
 			if( isset($xp) && $xp[1] != '0' && $xp[1] != '' )
 			{
-				$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 216) : 0);
+				$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 260) : 0);
 
 				$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
 				if( $xp[2] > 0 )
 				{
 					$expbar_text = $xp[0] . '/' . $xp[1] . ' : ' . $xp[2] . ' (' . $exp_percent . '%)';
-					$expbar_type = 'expbar_full_rested';
+					$expbar_type = 'rested';
 				}
 				else
 				{
 					$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
-					$expbar_type = 'expbar_full';
+					$expbar_type = 'normal';
 				}
 			}
 		}
@@ -2297,6 +2293,9 @@ class char
 
 		// PvP
 		$this->printHonor();
+		
+		// Talents
+		$this->printTalents();
 
 
 		// Print tabs
@@ -2346,6 +2345,17 @@ class char
 				)
 			);
 		}
+		
+		if( $roster->auth->getAuthorized($addon['config']['show_talents']) )
+		{
+			$roster->tpl->assign_block_vars('tabs',array(
+				'NAME'     => $roster->locale->act['talents'],
+				'VALUE'    => 'tab6',
+				'SELECTED' => false
+				)
+			);
+		}
+		
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));
 		return $roster->tpl->fetch('char');
 	}

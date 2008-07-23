@@ -1,0 +1,29 @@
+<!-- $Id: edit.html 1781 2008-05-27 07:08:24Z Zanix $ -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgreenborder">
+			<div class="header_text sgreenborder">{L_EDIT_NEWS}</div>
+
+			<form method="post" action="{U_EDIT_FORMACTION}" id="editnews" style="text-align:left;">
+				<label for="author">{L_NAME}:</label> <input class="wowinput128" name="author" id="author" type="text" maxlength="16" size="16" value="{AUTHOR}" />
+				<label for="title">{L_TITLE}:</label> <input class="wowinput192" name="title" id="title" type="text" size="32" value="{TITLE}" />
+				<br /><br />
+
+				<!-- IF S_HTML_ENABLE -->
+				<input type="radio" id="html_on" name="html" value="1" <!-- IF S_COMMENT_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_on">{L_ENABLE_HTML}</label>
+				<input type="radio" id="html_off" name="html" value="0" <!-- IF ! S_COMMENT_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_off">{L_DISABLE_HTML}</label>
+				<br /><br />
+				<!-- ENDIF -->
+
+				<textarea class="input" name="news" id="news" cols="85" rows="20">{CONTENT}</textarea>
+				<br />
+				<br />
+				<input type="hidden" name="process" value="process" />
+				<input type="hidden" name="id" value="{U_NEWS_ID}" />
+				<input type="submit" value="{L_EDIT_NEWS}" />
+			</form>
+
+		</td>
+	</tr>
+</table>

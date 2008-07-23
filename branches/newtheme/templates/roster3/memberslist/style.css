@@ -1,0 +1,79 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2002-2008 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id: style.css 1791 2008-06-15 16:59:24Z Zanix $
+ * @link       http://www.wowroster.net
+ * @package    MembersList
+*/
+
+/* Guild Info Wrapper */
+.guild-info { width: 860px; min-height: 900px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat-y left top; }
+
+/* Current Guild Header */
+.guild-header { width: 870px; height: 170px; position: absolute; z-index: 10; left: -10px; top: -20px; }
+
+.Alliance { background: url(../images/char_alliance.png) no-repeat left top; }
+
+.Horde { background: url(../images/char_horde.png) no-repeat left top; }
+
+.guild-header .content { color: #000000; text-align: left; padding: 45px 15px 15px 165px; }
+
+.guild-header .guild {	font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }
+.guild-header .info { font: bold normal 18px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; z-index: 11; position: relative; }
+
+.guild span { color: #FFCC00; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
+.info span { color: #FFFFFF; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
+
+
+.guild-info .guild-roster { margin-top: 180px; }
+
+/* Guild Member List */
+
+
+
+.membersRowColor1 {
+	background-color:#1F1E1D;
+}
+
+.membersRowColor2 {
+	background-color:#2E2D2B;
+}
+
+.membersRowAltColor1 {
+	background-color:#1F1E3D;
+}
+
+.membersRowAltColor2 {
+	background-color:#2E2D4B;
+}
+
+.skill_bar {
+	background-image:url(images/skill/bar_empty.gif);
+	font-size:11px;
+	vertical-align:top;
+	height:18px;
+	width:287px;
+	padding-left:14px;
+	background-repeat:no-repeat;
+}
+
+.text:hover { background:transparent url(images/skill/bar_empty_hover.gif) no-repeat; }
+
+.text {
+	padding-left:10px;
+	padding-top:0px;
+	width:273px;
+	height:18px;
+	color:#FFDD00;
+	position:absolute;
+}
+.text_num {
+	margin-left:10px;
+	color:#FFFFFF;
+}
+
