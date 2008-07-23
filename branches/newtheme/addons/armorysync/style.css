@@ -1,0 +1,30 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * ArmorySync css file
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2002-2007 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id: style.css 206 2007-09-16 01:53:36Z poetter $
+ * @link       http://www.wowroster.net
+ * @package    ArmorySync
+*/
+
+.membersRowColor1 {
+	background-color:#1F1E3D;
+}
+
+.membersRowColor2 {
+	background-color:#2E2D4B;
+}
+
+.popup {
+	position: absolute; display: none;
+	padding: 3px;
+	background-color: #424242;
+	border: 1px solid #565656;
+
+}

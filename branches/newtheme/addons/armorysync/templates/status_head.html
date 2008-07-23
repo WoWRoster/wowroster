@@ -1,0 +1,67 @@
+<!-- $Id: status_head.html 264 2007-10-09 00:51:58Z poetter $ -->
+
+<!-- ArmorySync Status Head -->
+
+<form name="linker" action="{LINK}" method="post">
+        <input type="hidden" name="job_id" value="{JOB_ID}" />
+        <input type="hidden" name="StatusHidden" value="{STATUSHIDDEN}" />
+		<!-- IF DEBUG neq "" -->
+		{DEBUG}
+		<!-- ENDIF -->
+</form>
+
+
+{START_BORDER}
+<div class="header_text {STYLE}border">
+<table align="center" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td id="progress_next" width="33%" align="center">{NEXT}</td>
+		<td id="progress_title" width="33%" align="center">{TITLE}</td>
+		<td width="33%" align="right">
+			{PROGRESSBAR}
+		</td>
+	</tr>
+</table>
+</div>
+
+<img src="{ICON}" style="float:right;cursor:pointer;" id="update_details_img" onclick="toggleStatus();" alt="" />
+<br />
+<div id="update_details"<!-- IF DISPLAY neq "" --> style="display:{DISPLAY};"<!-- ENDIF -->>
+	<!-- IF SHOW_PIC_TABLE neq "" -->
+	<table cellspacing="0" cellpadding="0">
+		<tr>
+	<!-- ENDIF -->
+	<!-- IF PIC1_SHOW neq "" -->
+			<td>
+				<div style="height:1px; width:0px; overflow:visible;">
+					<img src="{IMAGE_PATH}/as_pic1.png" id="armorysync_pic1" style="position: relative; left:{PIC1_LEFT}px; top:{PIC1_TOP}px; height:{PIC1_HIGHT}px;" <!-- IF USE_EFFECTS neq "" -->onmouseover="new Effect.Fade(this); window.setTimeout('Effect.Appear(\'armorysync_pic1\', {duration:.3})',2500);"<!-- ENDIF --> alt="" />
+				</div>
+			</td>
+	<!-- ENDIF -->
+	<!-- IF PIC2_SHOW neq "" -->
+			<td>
+				<div style="height:1px; width:0px; overflow:visible;">
+					<img src="{IMAGE_PATH}/as_pic2.png" id="armorysync_pic2" style="position: relative; left:{PIC2_LEFT}px; top:{PIC2_TOP}px; height:{PIC2_HIGHT}px;" <!-- IF USE_EFFECTS neq "" -->onmouseover="new Effect.Fade(this); window.setTimeout('Effect.Appear(\'armorysync_pic2\', {duration:.3})',2500);"<!-- ENDIF --> alt="" />
+				</div>
+			</td>
+	<!-- ENDIF -->
+	<!-- IF PIC3_SHOW neq "" -->
+			<td>
+				<div style="height:1px; width:0px; overflow:visible;">
+					<img src="{IMAGE_PATH}/as_pic3.png" id="armorysync_pic3" style="position: relative; left:{PIC3_LEFT}px; top:{PIC3_TOP}px; height:{PIC3_HIGHT}px;" <!-- IF USE_EFFECTS neq "" -->onmouseover="new Effect.Fade(this); window.setTimeout('Effect.Appear(\'armorysync_pic3\', {duration:.3})',2500);"<!-- ENDIF --> alt="" />
+				</div>
+			</td>
+	<!-- ENDIF -->
+	<!-- IF SHOW_PIC_TABLE neq "" -->
+		</tr>
+	</table>
+	<!-- ENDIF -->
+	<table class="bodyline" cellspacing="0" cellpadding="0" align="center">
+		<tr>
+			<td>
+				<table class="border_frame" cellspacing="0" cellpadding="0">
+					<tr>
+<!-- BEGIN head_col -->
+						<th class="membersHeader ts_string">{head_col.HEAD_TITLE}</th>
+<!-- END head_col -->
+					</tr>

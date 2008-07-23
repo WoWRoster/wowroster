@@ -1,0 +1,105 @@
+ArmorySync v2.6.0
+Package updated Month DD, YYYY
+$Id: todo.txt 254 2007-10-03 18:37:30Z poetter $
+
+[Todo]
+
+poetter:
+add use ajax to config
+
+poetter:
+memberlistsync for realms
+
+
+
+[Done]
+
+poetter:
+month_to_en: check positions of months in datestr [done]
+
+poetter:
+ajax memberlist overlib: check why log is cut off [done]
+
+poetter:
+upgrade handling (buttons, tables) [done]
+
+poetter:
+own updatetimeutc check cause player.updatetimeutc = armory update time [done]
+
+leusent: http://www.wowroster.net/Forums/viewtopic/p=26832.html#26832
+lib/update.lib.php
+Notice line 389: strtotime(): Called with empty time parameter [fixed with roster2 svn[1355]]
+
+vblars: http://www.wowroster.net/Forums/viewtopic/p=27064.html#27064
+ I'm using SVN(230) and I'm getting some new error.
+
+Quote::
+addons\armorysync\inc\armorysync.class.php
+Notice line 470: Undefined property: SimpleClass::$item
+Warning line 484: Invalid argument supplied for foreach()
+lib\update.lib.php
+Notice line 2991: Undefined index: MainHand
+addons\armorysync\inc\armorysyncjob.class.php
+Notice line 266: Undefined index: armorysync_credits
+
+addons\armorysync\inc\armorysyncjob.class.php
+Notice line 266: Undefined index: armorysync_credits
+
+Hope it can help you. Razz [fixed with more _checkContent and increaing timeouts]
+
+poetter:
+cache cleanup [submitted pruposal]
+
+I uploaded my charprofiler.lua file to upload my guild then not thinking 
+straight i went and did armorysync for new guild 3 times before i realized 
+that i was supposed to sync the one that i uploaded the .lua to ..
+
+so 
+
+poetter:
+Add check if Uploadrule or guild allready exists [done]
+
+poetter:
+processtime in footer [no need]
+
+poetter:
+job cleanup for interupted jobs [done]
+
+zanix: http://wowroster.net/Forums/viewtopic/p=26775.html#26775
+Also, each page seems to automatically start the updating process
+I think there should be a button that starts it, and not make it automatic [done]
+
+poetter:
+version forth digit back to svn revision [done]
+
+poetter:
+credits in footer [done]
+
+zanix: http://www.wowroster.net/Forums/viewtopic/p=26860.html#26860
+Roster already has faction reputation in the base locale [done]
+
+zanix: http://wowroster.net/Forums/viewtopic/p=26772.html#26772
+Please use $_GET or $_POST and not $_REQUEST [done]
+
+all:
+change function _getLocalisedTime to not use DateTime [done]
+
+tuigii:
+poison max at 1 [maybe done]
+
+zanix: http://wowroster.net/Forums/viewtopic/p=26779.html#26779
+replace mb_convert_encoding with somthing more compatible [done]
+
+zanix:
+replace all url's with makelink [done]
+
+
+zanix: http://wowroster.net/Forums/viewtopic/p=26780.html#26780
+RaceEn, ClassEn, Power are not being set in the players table
+These are needed for the char-info addon
+RaceEn - English Race
+ClassEn - English Class
+Power - Mana, Rage, Energy, Focus, etc.. - This can be localized [done]
+
+
+

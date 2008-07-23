@@ -1,0 +1,29 @@
+<!-- $Id: status_body.html 260 2007-10-04 04:40:43Z Zanix $ -->
+
+<!-- ArmorySync Status Body -->
+<!-- BEGIN body_row -->
+					<tr class="membersRowColor{body_row.COLOR}">
+						<!-- IF CHARLIST -->
+						<td id="as_status_name_{body_row.ASID}" class="membersRowCell">{body_row.NAME}</td>
+						<!-- ENDIF -->
+						<td id="as_status_guild_{body_row.ASID}" class="membersRowCell">{body_row.GUILD}</td>
+						<td id="as_status_server_{body_row.ASID}" class="membersRowCell">{body_row.SERVER}</td>
+						<td id="as_status_guild_info_{body_row.ASID}" class="membersRowCell">{body_row.GUILD_INFO}</td>
+						<!-- IF CHARLIST -->
+						<td id="as_status_character_info_{body_row.ASID}" class="membersRowCell">{body_row.CHARACTER_INFO}</td>
+						<td id="as_status_skill_info_{body_row.ASID}" class="membersRowCell">{body_row.SKILL_INFO}</td>
+						<td id="as_status_reputation_info_{body_row.ASID}" class="membersRowCell">{body_row.REPUTATION_INFO}</td>
+						<td id="as_status_equipment_info_{body_row.ASID}" class="membersRowCell">{body_row.EQUIPMENT_INFO}</td>
+						<td id="as_status_talent_info_{body_row.ASID}" class="membersRowCell">{body_row.TALENT_INFO}</td>
+						<!-- ENDIF -->
+						<td id="as_status_starttimeutc_{body_row.ASID}" class="membersRowCell" width="80px">{body_row.STARTTIMEUTC}</td>
+						<td id="as_status_stoptimeutc_{body_row.ASID}" class="membersRowCell" width="80px">{body_row.STOPTIMEUTC}</td>
+						<td id="as_status_log_{body_row.ASID}" class="membersRowCell">{body_row.LOG}</td>
+					</tr>
+<!-- END body_row -->
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+{STOP_BORDER}

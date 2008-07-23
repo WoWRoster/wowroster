@@ -1,0 +1,166 @@
+/* $Id: style.css 1754 2008-04-17 05:56:41Z Zanix $ */
+form {
+	display: inline;
+}
+img {
+	vertical-align: middle;
+	border: 0;
+}
+
+body {
+	background:#000000;
+	background-image:url(../../img/wowroster_bg.jpg);
+	color:#FFFFFF;
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
+}
+a:link, a:visited, a:active {
+	color:#CBA300;
+	text-decoration:none;
+	background-color:transparent;
+}
+a:hover {
+	color:#EABB00;
+	text-decoration:none;
+	background-color:transparent;
+}
+
+textarea {
+	border:0;
+	color:#000;
+	font:normal 11px verdana, arial, helvetica, geneva, sans-serif;
+}
+
+.install_table {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
+	border-left:1px solid #5D5D5D;
+	border-spacing:0px;
+	empty-cells:show;
+	padding:0;
+	border-collapse:collapse;
+}
+.install_table th {
+	background-color:#2E2D2B;
+	background-image:url(images/bgheader.gif);
+	color:#CBA300;
+	border-right:1px solid #5D5D5D;
+	border-bottom:1px solid #5D5D5D;
+	border-top:1px solid #5D5D5D;
+	font-weight:bold;
+	padding:2px;
+	vertical-align:middle;
+	overflow:hidden;
+}
+.install_error_table {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:12px;
+	border-left:1px solid #B32400;
+	border-spacing:0px;
+	empty-cells:show;
+	padding:0;
+	border-collapse:collapse;
+}
+.install_error_table th {
+	color:#000;
+	background-color:#FFCCBF;
+	border-right:1px solid #B32400;
+	border-bottom:1px solid #B32400;
+	border-top:1px solid #B32400;
+	font-weight:bold;
+	padding:2px;
+	vertical-align:middle;
+	overflow:hidden;
+}
+.install_error_table td,
+.install_error_table td.row1 {
+	font-size:11px;
+	border-right:1px solid #B32400;
+	border-bottom:1px solid #B32400;
+	padding:1px 2px 1px 2px;
+	background-color:#1F1E1D;
+}
+.install_table td,
+.install_table td.row1 {
+	font-size:11px;
+	border-right:1px solid #5D5D5D;
+	border-bottom:1px solid #5D5D5D;
+	padding:1px 2px 1px 2px;
+	background-color:#1F1E1D;
+}
+.install_table th.data_header,
+.install_error_table th.data_header  {
+	background-color:#BFE4FF;
+	font-weight:bold;
+}
+.install_table td.row2,
+.install_error_table td.row2 {
+	background-color:#2E2D2B;
+}
+
+th a:link,
+th a:visited,
+th a:active {
+	color:#006699;
+	text-decoration:none;
+	background-color:transparent;
+}
+th a:hover {
+	color:#000000;
+	text-decoration:none;
+	background-color:#E3E3FF;
+}
+
+.positive {
+	color: #00FF00;
+}
+.negative {
+	color: red;
+}
+.neutral {
+	color: white;
+}
+.maintitle {
+	font-size:18px;
+	font-weight:bold;
+}
+.subtitle {
+	font-size:14px;
+	font-weight:bold;
+}
+.copyright {
+	font-size: 10px;
+}
+.input {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	border:1px solid #CBA300;
+	background-color:#202020;
+	color:#FFF;
+}
+.submit {
+	font-family:verdana, arial, helvetica, geneva, sans-serif;
+	font-size:10px;
+	border:1px solid #CBA300;
+	background-color:#202020;
+	color:#FFF;
+}
+
+/**
+ * Overlib Tooltip Styles
+ **/
+
+/* Sets main text background - ol_fgclass*/
+.overlib_fg { background-color:#000000; }
+
+/* Sets the border style - ol_bgclass*/
+.overlib_border { border:1px outset #CCCCCC; }
+
+/* Sets main text style - ol_textfontclass */
+.overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif;white-space:normal; }
+
+/* Sets Caption Text - ol_captionfontclass */
+.overlib_captiontext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
+
+/* Sets Close Text - ol_closefontclass */
+.overlib_closetext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }

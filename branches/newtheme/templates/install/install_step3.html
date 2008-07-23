@@ -1,0 +1,24 @@
+<!-- $Id: install_step3.html 1237 2007-08-16 04:57:47Z Zanix $ -->
+<!-- IF S_SHOW_BUTTON -->
+<form method="post" action="{FORMACTION}" name="post">
+<input type="hidden" name="install_step" value="4" />
+<!-- ENDIF -->
+<table align="center" class="install_table">
+	<tr>
+		<th align="left" colspan="2">Administrator Account Configuration</th>
+	</tr>
+	<tr>
+		<td class="row2" align="right">Administrator password:</td>
+		<td align="left"><input type="password" name="user_password1" value="" class="input" /></td>
+	</tr>
+	<tr>
+		<td class="row2" align="right">Administrator password [ confirm ]:</td>
+		<td align="left"><input type="password" name="user_password2" value="" class="input" /></td>
+	</tr>
+</table>
+<br />
+
+<!-- IF S_SHOW_BUTTON -->
+<div align="center"><input type="submit" name="submit" value="Proceed" class="submit" /></div>
+</form>
+<!-- ENDIF -->

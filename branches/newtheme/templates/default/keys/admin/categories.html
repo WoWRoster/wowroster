@@ -1,0 +1,98 @@
+<!-- $Id: categories.html 1763 2008-04-27 10:28:16Z pleegwat $ -->
+
+<form action="{U_MAKELINK}" method="post">
+	<input type="hidden" id="action" name="action" value="" />
+	<input type="hidden" name="process" value="process" />
+
+	<table class="border_frame" cellpadding="0" cellspacing="1">
+		<tr>
+			<td class="border_color syellowborder">
+				<div class="header_text syellowborder">{L_KEY_CATEGORIES}</div>
+
+				<table class="bodyline" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							<th class="membersHeader">{L_CATEGORY}</th>
+							<th class="membersHeaderRight">{L_DELETE}</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<td class="membersRow1"><input class="wowinput128" type="text" name="category" value="" /></td>
+							<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('action','addcat');">{L_ADD}</button></td>
+						</tr>
+					</tfoot>
+					<tbody>
+
+					<!-- BEGIN category_select -->
+					<tr>
+						<td class="membersRow{category_select.ROW_CLASS}">{category_select.NAME}</td>
+						<td class="membersRowRight{category_select.ROW_CLASS}">
+							<button type="submit" class="input" onclick="setvalue('action','delcat_{category_select.VALUE}');">
+							{L_DELETE}</button></td>
+					</tr>
+					<!-- END category_select -->
+
+					</tbody>
+				</table>
+
+			</td>
+		</tr>
+	</table>
+
+	<br/>
+
+	<table class="border_frame" cellpadding="0" cellspacing="1">
+		<tr>
+			<td class="border_color syellowborder">
+				<div class="header_text syellowborder">{L_KEY_CATEGORY_ASSIGN}</div>
+
+				<table class="bodyline" cellpadding="0" cellspacing="0">
+					<thead>
+						<tr>
+							<th class="membersHeader">{L_CATEGORY}</th>
+							<th class="membersHeader">{L_KEY}</th>
+							<th class="membersHeaderRight">{L_DELETE}</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<td class="membersRow1">
+								<select name="keycategory">
+
+							<!-- BEGIN category_select -->
+									<option name="{category_select.VALUE}">{category_select.NAME}</option>
+							<!-- END category_select -->
+
+								</select></td>
+							<td class="membersRow1">
+								<select name="key">
+
+							<!-- BEGIN key_select -->
+									<option name="{key_select.VALUE}">{key_select.NAME}</option>
+							<!-- END key_select -->
+
+								</select></td>
+							<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('action','add');">{L_ADD}</button></td>
+						</tr>
+					</tfoot>
+					<tbody>
+
+					<!-- BEGIN category_key -->
+					<tr>
+						<td class="membersRow{category_key.ROW_CLASS}">{category_key.CATEGORY}</td>
+						<td class="membersRow{category_key.ROW_CLASS}">{category_key.KEY}</td>
+						<td class="membersRowRight{category_key.ROW_CLASS}">
+							<button type="submit" class="input" onclick="setvalue('action','del_{category_key.CATEGORY}_{category_key.KEY}');">
+							{L_DELETE}</button></td>
+					</tr>
+					<!-- END category_key -->
+
+					</tbody>
+				</table>
+
+			</td>
+		</tr>
+	</table>
+
+</form>

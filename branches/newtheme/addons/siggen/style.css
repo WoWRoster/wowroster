@@ -1,0 +1,98 @@
+/**
+ * Project: SigGen - Signature and Avatar Generator for WoWRoster
+ * File: /default.css
+ *
+ * Licensed under the Creative Commons
+ * "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * Short summary:
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/
+ *
+ * Legal Information:
+ *  http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode
+ *
+ * Full License:
+ *  license.txt (Included within this library)
+ *
+ * You should have recieved a FULL copy of this license in license.txt
+ * along with this library, if you did not and you are unable to find
+ * and agree to the license you may not use this library.
+ *
+ * For questions, comments, information and documentation please visit
+ * the official website at cpframework.org
+ *
+ * @link http://www.wowroster.net
+ * @license http://creativecommons.org/licenses/by-nc-sa/2.5/
+ * @author Joshua Clark
+ * @version $Id: style.css 240 2007-09-28 02:53:10Z Zanix $
+ * @copyright 2005-2007 Joshua Clark
+ * @package SigGen
+ * @filesource
+ *
+ */
+
+.sc_table {
+	border:1px solid #212121;
+	white-space:nowrap;
+	font-size:10px;
+}
+.sc_row1 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#1F1E1D;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_row2 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_row_right1 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#1F1E1D;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_row_right2 {
+	vertical-align:bottom;
+	color:#FFFFFF;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+}
+.sc_header {
+	vertical-align:bottom;
+	color:#CBA300;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0px 0px 1px;
+	border-color:#5D5D5D;
+}
+.sc_header_right {
+	vertical-align:bottom;
+	color:#CBA300;
+	background-color:#2E2D2B;
+	font-size:10px;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0px 1px;
+	border-color:#5D5D5D;
+}

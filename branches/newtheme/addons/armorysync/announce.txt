@@ -1,0 +1,43 @@
+[align=center][size=24][color=red][u][b]ArmorySync 2.6 beta svn[713] for Roster 2.0 Beta[/b][/u][/color]
+[/size]
+[/align]
+
+Hi all,
+
+attached you find the new Version of ArmorySync for Roster 2.0 Beta >= svn[1329].
+
+After a long code rewrite an adding feature to it, i now need your help in translating and testing it.
+
+Some words about ArmorySync:
+
+What does it?
+
+- It still syncs your characters with Blizzards Armory. It will do that for single chars, for the whole guild and for all chars on the same realm.
+- It syncronises your guild memberlist.
+- As of that you will find four buttons in the menu. First in the character menu, second and third in the guild menu and last but not least the fourth in the realm menu.
+
+What you need to know?
+
+- It only works with Roster 2.0 beta.
+- Right now it needs a version of armory.class.php that is not downloadable yet ( i put it in the archive ).
+- Translations for ES and FR need to be done. This ist not optional! ArmorySync will not function without doing this translations. The terms for bindings, RepStanding, Skills, Classes and Talenttrees need to be replaced with the exact spelling of the armory to work.
+
+What are known issues?
+
+- ArmorySync right know does not work well with the itemparser. As of that some lines in all items are not parsed correctly. ( hope ds will help on that ). If you are botherd of the debug messages, go and find the switch to turn it off ;-)
+
+What was tested yet?
+
+- German locales, of cause with two guilds and about 160 characters.
+- English locales with a british guild with about 105 character.
+
+What needs to be tested?
+
+- French and spanish locales.
+- English locales with an US server.
+
+
+So please help testing. Post you locales, bugs, experience or just praise me
+
+cu
+poetter

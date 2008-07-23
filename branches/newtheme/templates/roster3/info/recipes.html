@@ -1,0 +1,54 @@
+<!-- $Id: recipes.html 1744 2008-04-07 01:20:58Z Zanix $ -->
+
+<div style="text-align:center;"> -
+	<!-- BEGIN recipe -->
+	<a href="{recipe.LINK}">{recipe.NAME}</a> -
+	<!-- END recipe -->
+</div>
+
+<br />
+
+<!-- BEGIN recipe -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:600px;">
+	<tr>
+		<td class="border_color sgrayborder">
+			<div class="header_text sgrayborder">
+				<div style="cursor:pointer;width:100%;" onclick="showHide('recipe_{recipe.ID}','img_{recipe.ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
+					<img style="float:left;" width="17" height="17" src="{INTERFACE_URL}Interface/Icons/{recipe.ICON}.{IMG_SUFFIX}" alt="" />
+					<div style="display:inline;float:right;"><img id="img_{recipe.ID}" src="{THEME_PATH}/images/<!-- IF S_RECIPE_HIDE -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" /></div>
+				<a name="{recipe.ID}"></a>{recipe.NAME}</div>
+			</div>
+
+			<table cellpadding="0" cellspacing="0" class="bodyline" style="width:100%;<!-- IF S_RECIPE_HIDE -->display:none;<!-- ENDIF -->" id="recipe_{recipe.ID}">
+			<tr>
+				<th class="membersHeader"><a href="{U_ITEM}">{L_ITEM}</a></th>
+				<th class="membersHeader"><a href="{U_NAME}">{L_NAME}</a></th>
+				<th class="membersHeader"><a href="{U_DIFFICULTY}">{L_DIFFICULTY}</a></th>
+				<th class="membersHeader"><a href="{U_TYPE}">{L_TYPE}</a></th>
+				<th class="membersHeader"><a href="{U_LEVEL}">{L_LEVEL}</a></th>
+				<th class="membersHeaderRight"><a href="{U_REAGENTS}">{L_REAGENTS}</a></th>
+			</tr>
+
+<!-- BEGIN row -->
+
+			<tr>
+				<td class="membersRow{recipe.row.ROW_CLASS} equip">{recipe.row.ICON}</td>
+				<td class="membersRow{recipe.row.ROW_CLASS}"><span style="color:#{recipe.row.ITEM_COLOR}">&nbsp;{recipe.row.NAME}</span></td>
+				<td class="membersRow{recipe.row.ROW_CLASS}"><span style="color:#{recipe.row.DIFFICULTY_COLOR}">&nbsp;{recipe.row.L_DIFFICULTY}</span></td>
+				<td class="membersRow{recipe.row.ROW_CLASS}">&nbsp;{recipe.row.TYPE}</td>
+				<td class="membersRow{recipe.row.ROW_CLASS}">&nbsp;{recipe.row.LEVEL}</td>
+				<td class="membersRowRight{recipe.row.ROW_CLASS}"><!-- BEGIN reagents -->&nbsp;{recipe.row.reagents.DATA}<br /><!-- END reagents --></td>
+			</tr>
+
+<!-- END row -->
+
+			</table>
+
+		</td>
+	</tr>
+</table>
+
+<br />
+
+<!-- END recipe -->

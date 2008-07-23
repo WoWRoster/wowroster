@@ -1,0 +1,68 @@
+<!-- $Id: talents.html 1745 2008-04-10 05:15:39Z Zanix $ -->
+
+<div class="char_panel talent_panel">
+	<img class="panel_icon" src="{U_IMAGE_PATH}icon_talents.gif" alt="" />
+	<div class="panel_title">{L_TALENTS}</div>
+	<img class="top_bar" src="{U_IMAGE_PATH}talent/bar_top.gif" alt="" />
+	<img class="bot_bar" src="{U_IMAGE_PATH}talent/bar_bottom.gif" alt="" />
+
+	<div class="link"><a href="{U_TALENT_EXPORT}" target="_blank">{L_TALENT_EXPORT}</a></div>
+	<div class="points_unused"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
+
+<!-- BEGIN talent_tree -->
+
+	<div id="treetab_{talent_tree.ID}" style="display:none;">
+
+		<div class="points"><span style="color:#ffdd00">{talent_tree.L_POINTS_SPENT}:</span> {talent_tree.POINTS}</div>
+		<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
+
+		<div class="container">
+
+<!-- BEGIN row -->
+
+			<div class="row">
+
+<!-- BEGIN cell -->
+
+<!-- IF talent_tree.row.cell.NAME -->
+
+				<div class="cell" {talent_tree.row.cell.TOOLTIP}>
+<!-- IF talent_tree.row.cell.RANK -->
+					<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
+					<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
+<!-- ENDIF -->
+					<img src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt="" <!-- IF talent_tree.row.cell.RANK eq 0 --> class="icon_grey"<!-- ENDIF --> />
+				</div>
+
+<!-- ELSE -->
+				<div class="cell">&nbsp;</div>
+<!-- ENDIF -->
+
+<!-- END cell -->
+
+			</div>
+
+<!-- END row -->
+
+		</div>
+	</div>
+
+<!-- END talent_tree -->
+
+	<div class="tab_navagation" style="margin:428px 0 0 17px;">
+		<ul id="talent_nav">
+
+<!-- BEGIN talent_tree -->
+			<li<!-- IF talent_tree.SELECTED --> class="selected"<!-- ENDIF -->><a rel="treetab_{talent_tree.ID}" class="text">{talent_tree.NAME}</a></li>
+<!-- END talent_tree -->
+
+		</ul>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	var talent_nav=new tabcontent('talent_nav');
+	talent_nav.setpersist(false);
+	talent_nav.init();
+</script>
