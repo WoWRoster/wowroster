@@ -171,20 +171,21 @@
 	<div id="tab3" class="tab3" style="display:none;">
 <!-- BEGIN rep -->
 		<div class="container">
-			<div class="name"><div class="icon {rep.NAME}"></div>{rep.NAME}</div>
+			<div class="name">
+				<div class="icon {rep.NAME}"></div>
+				{rep.NAME}</div>
 <!-- BEGIN bar -->
 			<div class="rep">
 				<div class="rep-name">{rep.bar.NAME}</div>
 				<div class="rep-standing">{rep.bar.STANDING}</div>
-					<div class="rep-bar">
-						<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}px;"></div>
-						<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
-					</div>
+				<div class="rep-bar">
+					<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}px;"></div>
+					<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
 				</div>
-<!-- END bar -->
 			</div>
-<!-- END rep -->
+<!-- END bar -->
 		</div>
+<!-- END rep -->
 	</div>
 <!-- ENDIF -->
 
@@ -271,8 +272,7 @@
 
 
 <!-- IF S_SPELL_TAB -->
-	<div id="tab6" class="tab6" style="display:none;">
-	</div>
+	<div id="tab6" class="tab6" style="display:none;"></div>
 <!-- ENDIF -->
 
 
