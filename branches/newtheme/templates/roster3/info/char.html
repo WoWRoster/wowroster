@@ -3,18 +3,16 @@
 </td></tr></table>
 
 <div class="char-info">
-	<div class="char-list">
-  Guild Member List Goes Here...
-	</div>
+	<div class="char-list">Guild Member List Goes Here...</div>
 	<div class="char-header {FACTION}">
-  	<div class="text">
-    	<div class="name" {ALT_TOOLTIP}>{NAME}<span>{NAME}</span></div>
+		<div class="text">
+			<div class="name" {ALT_TOOLTIP}>{NAME}<span>{NAME}</span></div>
 			<div class="guild">{GUILD_NAME}<span>{GUILD_NAME}</span></div>
 			<div class="info">{L_LEVEL_RACE_CLASS}<span>{L_LEVEL_RACE_CLASS}</span></div>
-    </div>
+		</div>
 	</div>
 
-  <!-- Navagation Tabs -->
+<!-- Navagation Tabs -->
 	<div class="sections">
 		<ul id="char_navagation">
 <!-- BEGIN tabs -->
@@ -26,128 +24,144 @@
 	<div class="main-panel" align="left">
 
 <!-- tab1 -->
-	<div id="tab1" class="tab1" style="display:none;">
-		<div class="container"><div class="name">Profile</div>
-			<div class="equip-bg">
-		<div class="equip">
+		<div id="tab1" class="tab1" style="display:none;">
+			<div class="container">
+				<div class="name">Profile</div>
+
+				<div class="equip-bg">
+					<div class="equip">
 <!-- BEGIN equipment -->
-			<div class="equip_{equipment.SLOT}">{equipment.ICON}</div>
+						<div class="equip_{equipment.SLOT}">{equipment.ICON}</div>
 <!-- END equipment -->
-		</div>
+					</div>
 
-
-		<div class="resist shader">
-    	<div class="bar">
-      	<div class="icons">
-<!-- BEGIN resist -->			
-					<div class="{resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
+					<div class="resist shader">
+						<div class="bar">
+							<div class="icons">
+<!-- BEGIN resist -->
+								<div class="{resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
 <!-- END resist -->
-				</div>
-        <div class="text">Resistances:</div>
-    	</div>    
-		</div>
+							</div>
+							<div class="text">Resistances:</div>
+						</div>
+					</div>
 
 
 <!-- Buff Icons -->
-	<div class="buffs shader">
-  	<div class="bar">
+					<div class="buffs shader">
+						<div class="bar">
 <!-- BEGIN buff -->
-			<div class="buff"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" {buff.TOOLTIP} alt="" />
+							<div class="buff">
+								<img class="icon" src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" {buff.TOOLTIP} alt="" />
 <!-- IF buff.COUNT -->
-				<b>{buff.COUNT}</b><span>{buff.COUNT}</span>
+								<b>{buff.COUNT}</b><span>{buff.COUNT}</span>
 <!-- ENDIF -->
-			</div>
+							</div>
 <!-- END buff -->
-	  </div>
-    <div class="buff-name">BUFFS:</div>
-	</div>
+						</div>
+						<div class="buff-name">BUFFS:</div>
+					</div>
 
 
 <!-- Advanced Stats -->
-	<div class="powers shader">
-  	<div class="bar"><div class="power-bar Health">{HEALTH}</div><div class="power-name">{L_HEALTH}:</div></div>
-  	<div class="bar"><div class="power-bar {L_CHAR_POWER}">{POWER}</div><div class="power-name">{L_CHAR_POWER}:</div></div>
-	</div>
+					<div class="powers shader">
+						<div class="bar">
+							<div class="power-bar Health">{HEALTH}</div>
+							<div class="power-name">{L_HEALTH}:</div>
+						</div>
+						<div class="bar">
+							<div class="power-bar {L_CHAR_POWER}">{POWER}</div>
+							<div class="power-name">{L_CHAR_POWER}:</div>
+						</div>
+					</div>
 
 <!-- EXP Bar -->
-	<div class="xp shader">
-  <div class="bar">
-		<div class="xp-bar {EXP_TYPE}">
-			<div class="fill {EXP_TYPE}" style="width: {EXP_WIDTH}px;"></div>
-			<div class="text">{EXP_TEXT}</div>
-		</div>
-    <div class="xp-name">EXP:</div>
-  </div>
-	</div>
-
-	<div class="extras shader">	
-    
-    <div class="info_desc">
-<!-- BEGIN info_stats -->
-			{info_stats.NAME}<br />
-<!-- END info_stats -->
-		</div>
-
-		<div class="info_values">
-<!-- BEGIN info_stats -->
-			{info_stats.VALUE}<br />
-<!-- END info_stats -->
-		</div>
-
-	</div>
-
-	<div class="money shader">
-		<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
-		<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
-		<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
-	</div>
-
-		<script type="text/javascript">
-		<!--
-			addLpage('statsleft');
-			addLpage('meleeleft');
-			addLpage('rangedleft');
-			addLpage('spellleft');
-			addLpage('defenseleft');
-			addRpage('statsright');
-			addRpage('meleeright');
-			addRpage('rangedright');
-			addRpage('spellright');
-			addRpage('defenseright');
-		//-->
-		</script>
-
-		<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
-			<option value="statsleft" selected="selected">{L_MENUSTATS}</option>
-			<option value="meleeleft">{L_MELEE}</option>
-			<option value="rangedleft">{L_RANGED}</option>
-			<option value="spellleft">{L_SPELL}</option>
-			<option value="defenseleft">{L_DEFENSE}</option>
-		</select>
-		<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
-			<option value="statsright">{L_MENUSTATS}</option>
-			<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
-			<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
-			<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
-			<option value="defenseright">{L_DEFENSE}</option>
-		</select>
-
-		<div class="padding">
-<!-- BEGIN box_stats -->
-			<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
-<!-- BEGIN statline -->
-				<div class="statline" {box_stats.statline.TOOLTIP}>
-					<span class="value">{box_stats.statline.VALUE}</span>
-					<span class="label">{box_stats.statline.NAME}:</span>
+					<div class="xp shader">
+						<div class="bar">
+							<div class="xp-bar {EXP_TYPE}">
+								<div class="fill {EXP_TYPE}" style="width: {EXP_WIDTH}px;"></div>
+								<div class="text">{EXP_TEXT}</div>
+						</div>
+						<div class="xp-name">EXP:</div>
+					</div>
 				</div>
+
+				<div class="extras shader">
+
+					<div class="info_desc">
+<!-- BEGIN info_stats -->
+						{info_stats.NAME}<br />
+<!-- END info_stats -->
+					</div>
+
+					<div class="info_values">
+<!-- BEGIN info_stats -->
+						{info_stats.VALUE}<br />
+<!-- END info_stats -->
+					</div>
+
+				</div>
+
+				<div class="money shader">
+					<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
+					<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
+					<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
+				</div>
+
+				<script type="text/javascript">
+				<!--
+					addLpage('statsleft');
+					addLpage('meleeleft');
+					addLpage('rangedleft');
+					addLpage('spellleft');
+					addLpage('defenseleft');
+					addRpage('statsright');
+					addRpage('meleeright');
+					addRpage('rangedright');
+					addRpage('spellright');
+					addRpage('defenseright');
+				//-->
+				</script>
+
+				<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
+					<option value="statsleft" selected="selected">{L_MENUSTATS}</option>
+					<option value="meleeleft">{L_MELEE}</option>
+					<option value="rangedleft">{L_RANGED}</option>
+					<option value="spellleft">{L_SPELL}</option>
+					<option value="defenseleft">{L_DEFENSE}</option>
+				</select>
+				<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
+					<option value="statsright">{L_MENUSTATS}</option>
+					<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
+					<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
+					<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
+					<option value="defenseright">{L_DEFENSE}</option>
+				</select>
+
+				<div class="padding">
+<!-- BEGIN box_stats -->
+					<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
+<!-- BEGIN statline -->
+						<div class="statline" {box_stats.statline.TOOLTIP}>
+							<span class="value">{box_stats.statline.VALUE}</span>
+							<span class="label">{box_stats.statline.NAME}:</span>
+						</div>
 <!-- END statline -->
-			</div>
+					</div>
 <!-- END box_stats -->
+				</div>
+
+			</div>
 		</div>
-    
 	</div>
-  </div>
-</div>
+
+
+
+<!-- IF S_PET_TAB -->
+
+<!-- tab2 -->
+	<div id="tab2" class="tab2" style="display:none;"></div>
+<!-- ENDIF -->
 
 
 
@@ -161,15 +175,16 @@
 <!-- BEGIN bar -->
 			<div class="rep">
 				<div class="rep-name">{rep.bar.NAME}</div>
-      	<div  class="rep-standing">{rep.bar.STANDING}</div>
-        <div class="rep-bar">
-					<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}px;"></div>
-					<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+				<div class="rep-standing">{rep.bar.STANDING}</div>
+					<div class="rep-bar">
+						<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}px;"></div>
+						<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+					</div>
 				</div>
-      </div>
 <!-- END bar -->
-		</div>
+			</div>
 <!-- END rep -->
+		</div>
 	</div>
 <!-- ENDIF -->
 
@@ -181,19 +196,19 @@
 	<div id="tab4" class="tab4" style="display:none;">
 <!-- BEGIN skill -->
 		<div class="container">
-      <div class="name"><div class="icon {skill.NAME}"></div>{skill.NAME}</div>
+			<div class="name"><div class="icon {skill.NAME}"></div>{skill.NAME}</div>
 <!-- BEGIN bar -->
 			<div class="skill">
-        <div class="skill-name">{skill.bar.NAME}</div>
+				<div class="skill-name">{skill.bar.NAME}</div>
 				<div class="skill-bar">
 <!-- IF skill.bar.MAXVALUE eq 1 -->
-          <div class="fill" style="width: 273px;"></div>
+					<div class="fill" style="width: 273px;"></div>
 <!-- ELSE -->
 					<div class="fill" style="width: {skill.bar.WIDTH}px;"></div>
-          <div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
+					<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
 <!-- ENDIF -->
 				</div>
-      </div>
+			</div>
 <!-- END bar -->
 		</div>
 <!-- END skill -->
@@ -202,67 +217,65 @@
 
 
 
+<!-- IF S_TALENT_TAB -->
 
-<!-- tab6 -->
-<div id="tab6" class="tab6" style="display:none;">
-	<div class="container">
-    <div class="name">{L_TALENTS}</div>
+<!-- tab5 -->
+	<div id="tab5" class="tab5" style="display:none;">
+		<div class="container">
+			<div class="name">{L_TALENTS}</div>
 
-	<img class="top_bar" src="{U_IMAGE_PATH}talent/bar_top.gif" alt="" />
-	<img class="bot_bar" src="{U_IMAGE_PATH}talent/bar_bottom.gif" alt="" />
+			<img class="top_bar" src="{U_IMAGE_PATH}talent/bar_top.gif" alt="" />
+			<img class="bot_bar" src="{U_IMAGE_PATH}talent/bar_bottom.gif" alt="" />
 
-	<div class="points_unused"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
+			<div class="points_unused"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
 
-	<div class="framing">
+			<div class="framing">
 <!-- BEGIN talent_tree -->
+				<div class="spec">
 
-	<div class="spec">
+					<div class="points"><span style="color:#ffdd00">{talent_tree.L_POINTS_SPENT}:</span> {talent_tree.POINTS}</div>
+					<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
 
-		<div class="points"><span style="color:#ffdd00">{talent_tree.L_POINTS_SPENT}:</span> {talent_tree.POINTS}</div>
-		<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
-
-		<div class="content">
+					<div class="content">
 
 <!-- BEGIN row -->
-
-			<div class="row">
-
+						<div class="row">
 <!-- BEGIN cell -->
 
 <!-- IF talent_tree.row.cell.NAME -->
-				<div class="cell" {talent_tree.row.cell.TOOLTIP}>
-	<!-- IF talent_tree.row.cell.RANK -->
-					<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
-					<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
-	<!-- ENDIF -->
-					<img class="talent-icon <!-- IF talent_tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt=""  />
-				</div>
+							<div class="cell" {talent_tree.row.cell.TOOLTIP}>
+<!-- IF talent_tree.row.cell.RANK -->
+								<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
+								<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
+<!-- ENDIF -->
+								<img class="talent-icon <!-- IF talent_tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt=""  />
+							</div>
 <!-- ELSE -->
-				<div class="cell">&nbsp;</div>
+							<div class="cell">&nbsp;</div>
 <!-- ENDIF -->
 
 <!-- END cell -->
-
-			</div>
-
+						</div>
 <!-- END row -->
 
-		</div>
-    <div class="spec-name shader">{talent_tree.NAME} : {talent_tree.POINTS}</div>
-	</div>
-
+					</div>
+					<div class="spec-name shader">{talent_tree.NAME} : {talent_tree.POINTS}</div>
+				</div>
 <!-- END talent_tree -->
-	
+
+			</div>
+		</div>
 	</div>
-
-
-</div></div></div>
-
+<!-- ENDIF -->
 
 
 
-  
+<!-- IF S_SPELL_TAB -->
+	<div id="tab6" class="tab6" style="display:none;">
 	</div>
+<!-- ENDIF -->
+
+
 </div>
 
 
@@ -284,7 +297,7 @@
 <!-- IF S_PET_TAB -->
 
 <!-- tab2 -->
-	<div id="tab2" class="tab2" style="display:none;">
+	<div id="tab2_old" class="tab2" style="display:none;">
 		<div class="background">&nbsp;</div>
 
 <!-- BEGIN pet -->
@@ -340,18 +353,18 @@
 <!-- END pet -->
 			</ul>
 		</div>
-</div>
+	</div>
 
-<script type="text/javascript">
-	var pet_tabs=new tabcontent('pet_tabs');
-	pet_tabs.init();
-</script>
+	<script type="text/javascript">
+		var pet_tabs=new tabcontent('pet_tabs');
+		pet_tabs.init();
+	</script>
 <!-- ENDIF -->
 
 <!-- IF S_PVP_TAB -->
 
 <!-- tab5 -->
-	<div id="tab5" class="tab5" style="display:none;">
+	<div id="tab5_old" class="tab5" style="display:none;">
 		<div class="background">&nbsp;</div>
 
 		<div class="honortext">{L_HONOR}:<span>{HONOR_POINTS}</span>
@@ -378,8 +391,6 @@
 
 	</div>
 <!-- ENDIF -->
-
-
 
 </div>
 

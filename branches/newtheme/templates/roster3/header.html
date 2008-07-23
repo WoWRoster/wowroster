@@ -6,12 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>WoWRoster{PAGE_TITLE}</title>
 <base href="{ROSTER_URL}" />
-
 <link rel="stylesheet" type="text/css" href="{THEME_PATH}/style.css" />
-
-<link href="../../../css/common.css" rel="stylesheet" type="text/css" />
-<link href="../../../css/images.css" rel="stylesheet" type="text/css" />
-
 <script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
 /**
@@ -29,45 +24,21 @@
 </script>
 <script type="text/javascript" src="{ROSTER_PATH}js/overlib.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/overlib_hideform.js"></script>
-
 {ROSTER_HEAD}
 </head>
 
-<body <!-- IF ROSTER_ONLOAD --> onload="{ROSTER_ONLOAD}"<!-- ENDIF -->>
-<div style="visibility: hidden; position: absolute"><a href="http://www.milonic.com/">JavaScript Menu Courtesy of Milonic.com</a></div>
+<body{ROSTER_BODY}<!-- IF ROSTER_ONLOAD --> onload="{ROSTER_ONLOAD}"<!-- ENDIF -->>
+
 <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
 
-<div class="site-footer"><!-- Begin Footer Bg -->
+<div class="roster-wrap" align="center">
 
-<div class="site-event"></div>
-	<div class="site-date">
-		<!-- PHP -->
-			date_default_timezone_set('America/New_York');
-			print date("l, F d, Y h:i A");
-		<!-- ENDPHP -->
-	</div>
-  <div class="site-clock">
-   	<object type="application/x-shockwave-flash" data="../../../css/flash/clock.swf" width="65" height="65">
-			<param name="movie" value="../../../css/flash/clock.swf" />
-			<param name="wmode" value="transparent" />
-		</object>
-  </div>
-
-	<div class="page-header">
-  	<div class="page-logo"></div>
-  </div>
-  
-  <div class="page-menu">	
-    <script type="text/javascript" src="../../../menu/milonic_src.js"></script>	
-		<script type="text/javascript" src="../../../menu/mmenudom.js"></script>
-		<script type="text/javascript" src="../../../menu/menu_data_v9.js"></script>
-    <script type="text/javascript" src="../../../menu/preloadmenuimages.js"></script>
-  </div>
-  
-<div class="page"><div class="page-bot">
-
-<div class="page-title">Midnight Cartel Roster</div>
-
-<div class="pagebg">
-
-<div class="roster-wrap">
+<!-- IF S_HEADER_LOGO -->
+<div align="center" style="margin:10px;">
+	<table class="border_frame" cellpadding="0" cellspacing="1">
+		<tr>
+			<td class="border_color sgoldborder"><a href="{WEBSITE_ADDRESS}"><img src="{HEADER_LOGO}" alt="" style="border:0;" /></a></td>
+		</tr>
+	</table>
+</div>
+<!-- ENDIF -->

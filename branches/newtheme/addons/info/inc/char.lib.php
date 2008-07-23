@@ -21,6 +21,7 @@ if( !defined('IN_ROSTER') )
 }
 
 require_once (ROSTER_LIB . 'item.php');
+require_once (ROSTER_LIB . 'equip.php');
 require_once ($addon['inc_dir'] . 'bag.php');
 require_once (ROSTER_LIB . 'quest.php');
 require_once (ROSTER_LIB . 'recipes.php');
@@ -99,12 +100,14 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
-			'S_PLAYED'    => $roster->auth->getAuthorized($addon['config']['show_played']),
-			'S_MONEY'     => $roster->auth->getAuthorized($addon['config']['show_money']),
-			'S_PET_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab2']),
-			'S_REP_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab3']),
-			'S_SKILL_TAB' => $roster->auth->getAuthorized($addon['config']['show_tab4']),
-			'S_PVP_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab5']),
+			'S_PLAYED'     => $roster->auth->getAuthorized($addon['config']['show_played']),
+			'S_MONEY'      => $roster->auth->getAuthorized($addon['config']['show_money']),
+			'S_PET_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab2']),
+			'S_REP_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab3']),
+			'S_SKILL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_tab4']),
+			'S_PVP_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab5']),
+			'S_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_talents']),
+			'S_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
 
 			'L_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
 			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
@@ -204,7 +207,7 @@ class char
 	 */
 	function fetchEquip()
 	{
-		$this->equip = item::fetchManyItems($this->data['member_id'], 'equip', 'full');
+		$this->equip = equip::fetchManyEquip($this->data['member_id'], 'full');
 	}
 
 
@@ -1739,11 +1742,6 @@ class char
 	{
 		global $roster, $addon;
 
-		$roster->tpl->assign_vars(array(
-			'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
-			)
-		);
-
 		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `order`;";
 		$trees = $roster->db->query($sqlquery);
 
@@ -1798,10 +1796,8 @@ class char
 					}
 				}
 			}
-		}
-		else
-		{
-			return '<span class="title_text">' . sprintf($roster->locale->act['no_talents'],$this->data['name']) . '</span>';
+
+			$roster->tpl->assign_var('U_TALENT_EXPORT', $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url);
 		}
 	}
 
@@ -2293,9 +2289,12 @@ class char
 
 		// PvP
 		$this->printHonor();
-		
+
 		// Talents
 		$this->printTalents();
+
+		// Spell Book
+		$this->show_spellbook();
 
 
 		// Print tabs
@@ -2335,7 +2334,7 @@ class char
 				)
 			);
 		}
-
+/*
 		if( $roster->auth->getAuthorized($addon['config']['show_tab5']) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
@@ -2345,17 +2344,27 @@ class char
 				)
 			);
 		}
-		
+*/
 		if( $roster->auth->getAuthorized($addon['config']['show_talents']) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['talents'],
+				'VALUE'    => 'tab5',
+				'SELECTED' => false
+				)
+			);
+		}
+
+		if( $roster->auth->getAuthorized($addon['config']['show_spellbook']) )
+		{
+			$roster->tpl->assign_block_vars('tabs',array(
+				'NAME'     => $roster->locale->act['spellbook'],
 				'VALUE'    => 'tab6',
 				'SELECTED' => false
 				)
 			);
 		}
-		
+
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));
 		return $roster->tpl->fetch('char');
 	}
