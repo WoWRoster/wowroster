@@ -648,30 +648,30 @@
  * Talent Page
  */
 
-.main-panel .tab6 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab6 .container .name { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .tab5 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab5 .container .name { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 
-.main-panel .tab6 .framing { margin: auto; height: 470px; width: auto; padding-right: 5px; padding-left: 5px; }
+.main-panel .tab5 .framing { margin: auto; height: 470px; width: auto; padding-right: 5px; padding-left: 5px; }
 
-.main-panel .tab6 .spec { position:relative; float: left; width:200px; height:470px; margin: 3px; }
-.main-panel .tab6 .spec-name { position:relative; width:188px; padding: 5px; }
-.main-panel .tab6 .background { position:absolute;width:200px;height:470px; }
-.main-panel .tab6 .content { position:absolute;width:200px;height:470px; }
-.main-panel .tab6 .top_bar { position:absolute;margin-top:43px; }
-.main-panel .tab6 .bot_bar { position:absolute;margin-top:402px; }
-.main-panel .tab6 .points { text-align:right;position:absolute;margin-top:48px;margin-left:70px;width:250px; }
-.main-panel .tab6 .link { text-align:left;position:absolute;margin-top:411px;margin-left:25px;width:145px; }
-.main-panel .tab6 .points_unused { text-align:right;position:absolute;width:150px; }
-.main-panel .tab6 .points_unused .label { color:#ffdd00; }
-.main-panel .tab6 .row { height:35px;margin-top:15px; }
-.main-panel .tab6 .rank_icon { position:absolute;margin-top:28px;margin-left:27px; }
-.main-panel .tab6 .rank_text { position:absolute;font-size:12px;margin-top:28px;margin-left:32px;cursor:default; }
-.main-panel .tab6 .talent-icon { height: 35px; width: 35px; }
-.main-panel .tab6 .cell { float:left;width:30px;height:30px;margin-left:15px; }
+.main-panel .tab5 .spec { position:relative; float: left; width:200px; height:470px; margin: 3px; }
+.main-panel .tab5 .spec-name { position:relative; width:188px; padding: 5px; }
+.main-panel .tab5 .background { position:absolute;width:200px;height:470px; }
+.main-panel .tab5 .content { position:absolute;width:200px;height:470px; }
+.main-panel .tab5 .top_bar { position:absolute;margin-top:43px; }
+.main-panel .tab5 .bot_bar { position:absolute;margin-top:402px; }
+.main-panel .tab5 .points { text-align:right;position:absolute;margin-top:48px;margin-left:70px;width:250px; }
+.main-panel .tab5 .link { text-align:left;position:absolute;margin-top:411px;margin-left:25px;width:145px; }
+.main-panel .tab5 .points_unused { text-align:right;position:absolute;width:150px; }
+.main-panel .tab5 .points_unused .label { color:#ffdd00; }
+.main-panel .tab5 .row { height:35px;margin-top:15px; }
+.main-panel .tab5 .rank_icon { position:absolute;margin-top:28px;margin-left:27px; }
+.main-panel .tab5 .rank_text { position:absolute;font-size:12px;margin-top:28px;margin-left:32px;cursor:default; }
+.main-panel .tab5 .talent-icon { height: 35px; width: 35px; }
+.main-panel .tab5 .cell { float:left;width:30px;height:30px;margin-left:15px; }
 
 /* Grey out unused talents */
 /* filter:gray only works in IE so we do this to half-assed transparency for Mozilla and Opera */
-.main-panel .tab6 .icon_grey { filter:gray;opacity:0.5; }
+.main-panel .tab5 .icon_grey { filter:gray;opacity:0.5; }
 
 
 /**
