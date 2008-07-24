@@ -225,20 +225,13 @@
 		<div class="container">
 			<div class="name">{L_TALENTS}</div>
 
-			<img class="top_bar" src="{U_IMAGE_PATH}talent/bar_top.gif" alt="" />
-			<img class="bot_bar" src="{U_IMAGE_PATH}talent/bar_bottom.gif" alt="" />
-
-			<div class="points_unused"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
+			<div class="shader"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
 
 			<div class="framing">
 <!-- BEGIN talent_tree -->
 				<div class="spec">
-
-					<div class="points"><span style="color:#ffdd00">{talent_tree.L_POINTS_SPENT}:</span> {talent_tree.POINTS}</div>
 					<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
-
 					<div class="content">
-
 <!-- BEGIN row -->
 						<div class="row">
 <!-- BEGIN cell -->
@@ -260,7 +253,7 @@
 <!-- END row -->
 
 					</div>
-					<div class="spec-name shader">{talent_tree.NAME} : {talent_tree.POINTS}</div>
+					<div class="spec-name shader"><span style="color:#ffdd00">{talent_tree.NAME}</span> : {talent_tree.POINTS}</div>
 				</div>
 <!-- END talent_tree -->
 
