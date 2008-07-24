@@ -83,7 +83,7 @@ $lang['Trinket0']      = 'Schmuck 0';
 $lang['Trinket1']      = 'Schmuck 1';
 
 //tabs
-$lang['tab1']='Charakter';
+$lang['tab1']='Profile';
 $lang['tab2']='Tier';
 $lang['tab3']='Ruf';
 $lang['tab4']='Fertigk.';

@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '1.9.9.1747';
+	var $version = '1.9.9.1818';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -127,8 +127,6 @@ class infoInstall
 		$installer->add_query('INSERT INTO `' . $installer->table('display') . '` SELECT `p`.`member_id` , `d` . * FROM `' . $roster->db->table('players') . '` p, `' . $installer->table('default') . '` d ');
 
 		$installer->add_menu_button('cb_character','char');
-		$installer->add_menu_button('cb_talents','char','talents','ability_marksmanship');
-		$installer->add_menu_button('cb_spellbook','char','spellbook','inv_misc_book_09');
 		$installer->add_menu_button('cb_mailbox','char','mailbox','inv_letter_02');
 		$installer->add_menu_button('cb_bags','char','bags','inv_misc_bag_08');
 		$installer->add_menu_button('cb_bank','char','bank','inv_misc_bag_15');
@@ -175,10 +173,17 @@ class infoInstall
 			return $this->install();
 		}
 
-		// Basicly I screwed up on the table naming here
+		// I screwed up on the table naming here
 		if( version_compare('1.9.9.1747', $oldversion,'>') == true )
 		{
 			$installer->add_query('RENAME TABLE `' . $installer->table('') . '`  TO `' . $installer->table('display') . '` ;');
+		}
+
+		// Remove the talents and spellbook icons since they are on the same page as "profile" now
+		if( version_compare('1.9.9.1818', $oldversion,'>') == true )
+		{
+			$installer->remove_menu_button('cb_talents');
+			$installer->remove_menu_button('cb_spellbook');
 		}
 
 		return true;
