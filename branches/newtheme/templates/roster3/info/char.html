@@ -258,7 +258,6 @@
 					<div class="spec-name shader"><span style="color:#ffdd00">{talent_tree.NAME}</span> : {talent_tree.POINTS}</div>
 				</div>
 <!-- END talent_tree -->
-
 			</div>
 		</div>
 	</div>
@@ -268,111 +267,37 @@
 
 <!-- IF S_SPELL_TAB -->
 	<div id="tab6" class="tab6" style="display:none;">
-  
+
+<!-- BEGIN spell_book -->
   	<div class="container">
-			<div class="name"><div class="icon {skill.NAME}"></div>{skill.NAME}</div>
-
-			<div class="skill">
-				<div class="skill-name">{skill.bar.NAME}</div>
-				</div>
-			</div>
-		</div>
-  
-  
-  
-  <div class="char_panel spell_panel">
-	<img class="panel_icon" src="{U_IMAGE_PATH}icon_spellbook.gif" alt="" />
-	<div class="panel_title">{L_SPELLBOOK}</div>
-	<div class="background">&nbsp;</div>
-
-<!-- BEGIN spell_book -->
-
-	<div id="{spell_book.ID}" style="display:none;">
-
-		<div class="skill_types">
-			<ul id="spell_tree_{spell_book.ID}">
+			<div class="name"><div class="icon {skill.NAME}"></div>{spell_book.NAME}'s {L_SPELLBOOK}</div>
 
 <!-- BEGIN tree -->
-
-				<li {spell_book.tree.TOOLTIP}><div style="background:url({INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX});"><a href="#" rel="{spell_book.ID}_spelltree_{spell_book.tree.ID}"></a></div></li>
-
-<!-- END tree -->
-
-			</ul>
-		</div>
-
-<!-- BEGIN tree -->
-
-		<div id="{spell_book.ID}_spelltree_{spell_book.tree.ID}" style="display:none;">
-
+				<div class="spell-tree shader">
+					<div class="tree-name"><img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" class="icon" /><div class="id-name">{spell_book.tree.ID}</div></div>
+					<div class="spell-page">
 <!-- BEGIN page -->
-
-			<div id="page_{spell_book.tree.page.ID}_{spell_book.tree.ID}"<!-- IF spell_book.tree.page.ID --> style="display:none;"<!-- ENDIF -->>
-<!-- IF spell_book.tree.page.PREV !== false -->
-				<div class="page_back" onclick="swapShow('page_{spell_book.tree.page.PREV}_{spell_book.tree.ID}','page_{spell_book.tree.page.ID}_{spell_book.tree.ID}');"><img src="{U_IMAGE_PATH}spellbook/pageback.gif" class="navicon" alt="" /> {L_PREV}</div>
-<!-- ENDIF -->
-<!-- IF spell_book.tree.page.NEXT !== false -->
-				<div class="page_forward" onclick="swapShow('page_{spell_book.tree.page.NEXT}_{spell_book.tree.ID}','page_{spell_book.tree.page.ID}_{spell_book.tree.ID}');">{L_NEXT} <img src="{U_IMAGE_PATH}spellbook/pageforward.gif" class="navicon" alt="" /></div>
-<!-- ENDIF -->
-				<div class="pagenumber">{L_PAGE} {spell_book.tree.page.NUM}</div>
-
-				<div class="container_1">
-
 <!-- BEGIN spell -->
-
-<!-- IF spell_book.tree.page.spell.NUM eq 7 -->
-				</div>
-				<div class="container_2">
-<!-- ENDIF -->
-					<div class="info_container">
-						<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" class="icon" {spell_book.tree.page.spell.TOOLTIP} alt="" />
-						<span class="text"><span class="yellowB">{spell_book.tree.page.spell.NAME}</span>
-						<!-- IF spell_book.tree.page.spell.RANK --><br /><span class="brownB">{spell_book.tree.page.spell.RANK}</span><!-- ENDIF -->
-						</span>
-					</div>
-
+		        <div class="spell-container shader">
+							<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" class="icon" {spell_book.tree.page.spell.TOOLTIP} alt="" />
+							<div class="text">
+              	<div>{spell_book.tree.page.spell.NAME}</div>
+								<!-- IF spell_book.tree.page.spell.RANK --><div class="rank">{spell_book.tree.page.spell.RANK}</div><!-- ENDIF -->
+              </div>
+						</div>
 <!-- END spell -->
-
-				</div>
-			</div>
-
 <!-- END page -->
-
-		</div>
-
+					</div>
+				</div>
 <!-- END tree -->
+			</div>
+<!-- END spell_book -->
 
 	</div>
-
-<!-- END spell_book -->
-
-	<div class="tab_navagation" style="margin:428px 0 0 17px;">
-		<ul id="spell_set">
-
-<!-- BEGIN spell_book -->
-			<li class="selected"><a rel="{spell_book.ID}" class="text">{spell_book.NAME}</a></li>
-<!-- END spell_book -->
-
-		</ul>
-	</div>
-</div>
-
-<script type="text/javascript">
-	var spell_set=new tabcontent('spell_set');
-	spell_set.init();
-
-<!-- BEGIN spell_book -->
-
-	var spell_tree_{spell_book.ID}=new tabcontent('spell_tree_{spell_book.ID}');
-	spell_tree_{spell_book.ID}.init();
-
-<!-- END spell_book -->
-
-</script>
-  
-  
-  </div>
 <!-- ENDIF -->
+
+
+
 
 
 </div>
