@@ -674,11 +674,11 @@
 .main-panel .tab6 .container .spell-tree .tree-name { position: relative; text-transform: uppercase; font: bold 24px/40px "Times New Roman", Times, serif; width:100%; color: #FFFFFF; padding: 2px; }
 .main-panel .tab6 .container .spell-tree .tree-name img { height: 40px; width: 40px; float: left;}
 .main-panel .tab6 .container .spell-tree .tree-name .id-name { height: 40px; float: left; margin-left: 5px; }
-.main-panel .tab6 .container .spell-tree .spell-page { position: relative; margin: 5px; padding-bottom: 5px; clear: both; }
-.main-panel .tab6 .container .spell-tree .spell-page .spell-container { position: relative; height: 40px; width: 31%; float: left; margin-bottom: 5px; margin-right: 5px; padding: 2px;}
+.main-panel .tab6 .container .spell-tree .spell-page { padding: 5px; clear: both; }
+.main-panel .tab6 .container .spell-tree .spell-page .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
 .main-panel .tab6 .container .spell-tree .spell-page .spell-container img { height: 40px; width: 40px; float: left; }
 .main-panel .tab6 .container .spell-tree .spell-page .spell-container .text { height: 40px; float: left; margin-left: 5px; color: #FFCC00; }
-.main-panel .tab6 .container .spell-tree .spell-page .spell-container .text .rank { height: 40px; float: left; color: #CCCCCC; font-size: 10px; }
+.main-panel .tab6 .container .spell-tree .spell-page .spell-container .text .rank { float: left; color: #CCCCCC; font-size: 10px; }
 
 
 
