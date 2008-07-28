@@ -677,7 +677,7 @@
 .main-panel .tab6 .container .spell-tree .spell-page { padding: 5px; clear: both; }
 .main-panel .tab6 .container .spell-tree .spell-page .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
 .main-panel .tab6 .container .spell-tree .spell-page .spell-container img { height: 40px; width: 40px; float: left; }
-.main-panel .tab6 .container .spell-tree .spell-page .spell-container .text { height: 40px; float: left; margin-left: 5px; color: #FFCC00; }
+.main-panel .tab6 .container .spell-tree .spell-page .spell-container .text { height: 40px; float: left; margin-left: 5px; color: #FFCC00; white-space: normal; }
 .main-panel .tab6 .container .spell-tree .spell-page .spell-container .text .rank { float: left; color: #CCCCCC; font-size: 10px; }
 
 
