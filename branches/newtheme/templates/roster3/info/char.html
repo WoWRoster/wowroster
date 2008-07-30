@@ -4,28 +4,24 @@
 
 <div class="char-info">
 	<div class="char-list">
+		<div class="list">
 <!-- BEGIN mini_memberslist -->
-		{mini_memberslist.ID}
-
+			<div class="member <!-- IF mini_memberslist.S_SELECTED -->yselect<!-- ELSE -->nselect<!-- ENDIF -->">
 <!-- IF mini_memberslist.U_LINK --><!-- U_LINK will be FALSE if the player has no data -->
-		<a href="{mini_memberslist.U_LINK}">{mini_memberslist.NAME}</a>
+				<span class="name"><a href="{mini_memberslist.U_LINK}">{mini_memberslist.NAME}</a></span>
 <!-- ELSE -->
-		{mini_memberslist.NAME}
+				<span class="name">{mini_memberslist.NAME}</span>
 <!-- ENDIF -->
-
-		{mini_memberslist.CLASS}
-		{mini_memberslist.CLASSID}
-		{mini_memberslist.LEVEL}
-		{mini_memberslist.TITLE}
-		{mini_memberslist.RANK}
-		<!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSE -->!select<!-- ENDIF -->
-
+				<span class="info">
+					{mini_memberslist.LEVEL}
 <!-- THE FOLLOWING ONLY EXIST IF THERE IS PLAYER DATA -->
-		{mini_memberslist.RACE}
-		{mini_memberslist.RACEID}
-		{mini_memberslist.GENDER}
-		<br />
+					{mini_memberslist.RACE}
+					{mini_memberslist.RACEID}
+					<img src="templates/roster3/info/images/icons/class/{mini_memberslist.CLASSID}.gif" width="20px" height="20px" />
+				</span>		
+			</div>
 <!-- END mini_memberslist -->
+		</div>
 	</div>
 
 	<div class="char-header {FACTION}">
@@ -159,9 +155,9 @@
 					</select>
 					<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
 						<option value="statsright">{L_MENUSTATS}</option>
-						<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
-						<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
-						<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
+						<!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}<!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
+						<!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}<!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
+						<!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}<!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
 						<option value="defenseright">{L_DEFENSE}</option>
 					</select>
 

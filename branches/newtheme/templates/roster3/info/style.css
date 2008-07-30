@@ -17,7 +17,16 @@
 .char-info { width: 860px; min-height: 900px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat-y center top; }
 
 /* Guild Member List */
-.char-list { width: 200px; height: 600px; position: absolute; z-index: 30; right: -10px; top: -20px; background: url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; overflow: auto; }
+.char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -20px; background: url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
+.char-list .list { margin: 5px; height: 600px; overflow: auto; }
+.char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold; border-top: 1px solid #9D7D1C; }
+.char-list .list .yselect { background: url(../images/char_select.png) repeat-x left top; color: #FFFFFF; }
+.char-list .list .yselect a { color: #FFFFFF; }
+.char-list .list .nselect { background: url(../images/char_normal.png) repeat-x left top; color: #000099; }
+.char-list .list .nselect:hover { background: url(../images/char_hover.png) repeat-x left top; }
+.char-list .list .name { float: left; }
+.char-list .list .info { float: right; }
+
 
 /* Current Char Header */
 .char-header { width: 870px; height: 170px; position: absolute; z-index: 10; left: -10px; top: -20px; }
@@ -48,24 +57,10 @@
 /* Current page text */
 .main-panel { margin: 180px 210px 20px 20px; }
 
-.char_title {
-	width:454px;
-	height:15px;
-	text-align:center;
-	font-weight:bold;
-}
+.char_title { width:454px; height:15px; text-align:center; font-weight:bold; }
 .char_title .lastupdated { color:#0099ff;font-size:x-small;font-style:italic; }
 
-
-.char_panel {
-	background:url(images/character_back.gif) no-repeat;
-	color:#ffffff;
-	font:11px arial,helvetica,sans-serif;
-	width:344px;
-	height:434px;
-	margin-top:15px;
-	margin-bottom:40px;
-}
+.char_panel { background:url(images/character_back.gif) no-repeat; color:#ffffff; width:344px; height:434px; margin-top:15px; margin-bottom:40px; font-family: arial, helvetica, sans-serif; font-size: 11px; }
 
 .char_panel .container {
 	/* Container for reputation tab contents */
@@ -187,11 +182,11 @@
 .resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 95px; top: 227px; padding: 5px; }
 .resist .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; height: 20px; text-transform: uppercase; }
 .resist .bar .text { float: right; line-height: 21px; }
-.resist .bar .icons { float: right; width: 220px; }
-.main-panel .tab1 .resist b { color:black; text-align:center; font-size:12px; font-weight:bold; position:absolute; right:-1px; text-align:center; top:6px; width:21px; }
-.main-panel .tab1 .resist span { color:white; font-size:12px !important; font-weight:bold; position:absolute; right:0px; text-align:center; top:5px; width:21px; }
+.resist .bar .icons { float: right; width: 220px; top: -1px; position: relative; }
+.main-panel .tab1 .resist b { color:black; text-align:center; font-size:12px; font-weight:bold; position:absolute; right:-1px; text-align:center; top:6px; width:20px; }
+.main-panel .tab1 .resist span { color:white; font-size:12px !important; font-weight:bold; position:absolute; right:0px; text-align:center; top:5px; width:20px; }
 
-.main-panel .tab1 .resist .icon { width:21px; height:21px; cursor:default; float: left; position: relative; margin-left: 10px; border: 1px solid #000000; }
+.main-panel .tab1 .resist .icon { width:20px; height:20px; cursor:default; float: left; position: relative; margin-left: 10px; border: 1px solid #000000; }
 .main-panel .tab1 .resist .arcane { background-image:url(images/resist/arcane.gif); }
 .main-panel .tab1 .resist .arcane:hover { border: 1px solid #FFFFFF; }
 .main-panel .tab1 .resist .fire { background-image:url(images/resist/fire.gif); }
@@ -447,10 +442,10 @@
 .main-panel .tab3 .container .name { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab3 .rep { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
 .main-panel .tab3 .rep-name { float: left; position: relative; line-height: 20px; }
-.main-panel .tab3 .rep-bar { height: 16px; width: 139px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
+.main-panel .tab3 .rep-bar { height: 16px; width: 200px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
 .main-panel .tab3 .rep-bar:hover { border: 1px solid #FFFFFF; }
 .main-panel .tab3 .rep-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
-.main-panel .tab3 .rep-bar .text { width:139px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.main-panel .tab3 .rep-bar .text { width:200px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 .main-panel .tab3 .rep-standing { width: 110px; float: right; position: relative; line-height: 20px; text-align: center; }
 
 .main-panel .tab3 .container .name .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
