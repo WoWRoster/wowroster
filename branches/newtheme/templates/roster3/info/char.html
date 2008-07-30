@@ -16,8 +16,10 @@
 					{mini_memberslist.LEVEL}
 <!-- THE FOLLOWING ONLY EXIST IF THERE IS PLAYER DATA -->
 					{mini_memberslist.RACE}
-					{mini_memberslist.RACEID}
-					<img src="templates/roster3/info/images/icons/class/{mini_memberslist.CLASSID}.gif" width="20px" height="20px" />
+					{mini_memberslist.RACE_EN}
+					{mini_memberslist.RACE_ID}
+					{mini_memberslist.CLASS_EN}
+					<img src="templates/roster3/info/images/icons/class/{mini_memberslist.CLASS_ID}.gif" width="20px" height="20px" />
 				</span>		
 			</div>
 <!-- END mini_memberslist -->
@@ -155,9 +157,9 @@
 					</select>
 					<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
 						<option value="statsright">{L_MENUSTATS}</option>
-						<!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}<!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
-						<!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}<!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
-						<!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}<!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
+						<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
+						<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
+						<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
 						<option value="defenseright">{L_DEFENSE}</option>
 					</select>
 
