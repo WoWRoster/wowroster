@@ -20,11 +20,14 @@
 .char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -20px; background: url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
 .char-list .list { margin: 10px; height: 600px; overflow: auto; }
 .char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold; border-top: 1px solid #9D7D1C; }
-.char-list .list .yselect { background: url(../images/char_select.png) repeat-x left top; color: #FFFFFF; }
-.char-list .list .yselect a { color: #FFFFFF; }
-.char-list .list .nselect { background: url(../images/char_normal.png) repeat-x left top; color: #000099; }
-.char-list .list .nselect a { color: #000000; }
-.char-list .list .nselect:hover { background: url(../images/char_hover.png) repeat-x left top; }
+.char-list .list .select { background: url(../images/char_select.png) repeat-x left top; color: #FFFFFF; }
+.char-list .list .select a { color: #FFFFFF; }
+.char-list .list .u-link { background: url(../images/char_normal.png) repeat-x left top; color: #000099; }
+.char-list .list .u-link a { color: #000000; }
+.char-list .list .u-link:hover { background: url(../images/char_hover.png) repeat-x left top; }
+.char-list .list .plain { color: #000099; }
+.char-list .list .plain:hover { background: url(../images/char_hover.png) repeat-x left top; }
+.char-list .list .lvl { float: left; width:20px; }
 .char-list .list .name { float: left; }
 .char-list .list .info { float: right; }
 
