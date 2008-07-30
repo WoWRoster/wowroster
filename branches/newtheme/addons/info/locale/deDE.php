@@ -155,6 +155,9 @@ $lang['defense_rating']='Verteidigungswertung ';
 $lang['def_tooltip']='Erhöht die Chance auf %s';
 $lang['resilience']='Abhärtung';
 
+$lang['buffs'] = 'Buffs';
+$lang['resistances'] = 'Resistances';
+
 $lang['res_arcane']='Arkan Widerstand';
 $lang['res_arcane_tooltip']='Erhöht die Fähigkeit, auf Arkanschaden basierenden Angriffen, Zaubern und Fähigkeiten zu widerstehen.';
 $lang['res_fire']='Feuer Widerstand';

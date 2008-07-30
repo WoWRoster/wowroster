@@ -3,11 +3,36 @@
 </td></tr></table>
 
 <div class="char-info">
-	<div class="char-list">Guild Member List Goes Here...</div>
+	<div class="char-list">
+<!-- BEGIN mini_memberslist -->
+		{mini_memberslist.ID}
+
+<!-- IF mini_memberslist.U_LINK --><!-- U_LINK will be FALSE if the player has no data -->
+		<a href="{mini_memberslist.U_LINK}">{mini_memberslist.NAME}</a>
+<!-- ELSE -->
+		{mini_memberslist.NAME}
+<!-- ENDIF -->
+
+		{mini_memberslist.CLASS}
+		{mini_memberslist.CLASSID}
+		{mini_memberslist.LEVEL}
+		{mini_memberslist.TITLE}
+		{mini_memberslist.RANK}
+		<!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSE -->!select<!-- ENDIF -->
+
+<!-- THE FOLLOWING ONLY EXIST IF THERE IS PLAYER DATA -->
+		{mini_memberslist.RACE}
+		{mini_memberslist.RACEID}
+		{mini_memberslist.GENDER}
+		<br />
+<!-- END mini_memberslist -->
+	</div>
+
 	<div class="char-header {FACTION}">
 		<div class="text">
 			<div class="name" {ALT_TOOLTIP}>{NAME}<span>{NAME}</span></div>
-			<div class="guild">{GUILD_NAME}<span>{GUILD_NAME}</span></div>
+			<!-- ADRIC, IF YOU CAN FIND A PLACE FOR THE GUILD TITLE, PLEASE MAKE ONE <div class="guild">{GUILD_NAME}<span>{GUILD_NAME}</span></div> -->
+			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild">{L_GUILD_LINE}<span>{L_GUILD_LINE}</span></div><!-- ENDIF -->
 			<div class="info">{L_LEVEL_RACE_CLASS}<span>{L_LEVEL_RACE_CLASS}</span></div>
 		</div>
 	</div>
@@ -26,7 +51,7 @@
 <!-- tab1 -->
 		<div id="tab1" class="tab1" style="display:none;">
 			<div class="container">
-				<div class="name">Profile</div>
+				<div class="name">{L_PROFILE}</div>
 
 				<div class="equip-bg">
 					<div class="equip">
@@ -39,10 +64,10 @@
 						<div class="bar">
 							<div class="icons">
 <!-- BEGIN resist -->
-								<div class="{resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
+								<div class="icon {resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
 <!-- END resist -->
 							</div>
-							<div class="text">Resistances:</div>
+							<div class="text">{L_RESISTANCES}:</div>
 						</div>
 					</div>
 
@@ -59,18 +84,18 @@
 							</div>
 <!-- END buff -->
 						</div>
-						<div class="buff-name">BUFFS:</div>
+						<div class="buff-name">{L_BUFFS}:</div>
 					</div>
 
 
 <!-- Advanced Stats -->
 					<div class="powers shader">
 						<div class="bar">
-							<div class="power-bar Health">{HEALTH}</div>
+							<div class="power-bar health">{HEALTH}</div>
 							<div class="power-name">{L_HEALTH}:</div>
 						</div>
 						<div class="bar">
-							<div class="power-bar {L_CHAR_POWER}">{POWER}</div>
+							<div class="power-bar {L_CHAR_POWER_ID}">{POWER}</div>
 							<div class="power-name">{L_CHAR_POWER}:</div>
 						</div>
 					</div>
@@ -79,90 +104,91 @@
 					<div class="xp shader">
 						<div class="bar">
 							<div class="xp-bar {EXP_TYPE}">
-								<div class="fill {EXP_TYPE}" style="width: {EXP_WIDTH}px;"></div>
+								<div class="fill {EXP_TYPE}" style="width: {EXP_WIDTH}%;"></div>
 								<div class="text">{EXP_TEXT}</div>
+							</div>
+							<div class="xp-name">EXP:</div>
 						</div>
-						<div class="xp-name">EXP:</div>
 					</div>
-				</div>
 
-				<div class="extras shader">
+					<div class="extras shader">
 
-					<div class="info_desc">
+						<div class="info_desc">
 <!-- BEGIN info_stats -->
-						{info_stats.NAME}<br />
+							{info_stats.NAME}<br />
 <!-- END info_stats -->
-					</div>
+						</div>
 
-					<div class="info_values">
+						<div class="info_values">
 <!-- BEGIN info_stats -->
-						{info_stats.VALUE}<br />
+							{info_stats.VALUE}<br />
 <!-- END info_stats -->
+						</div>
+
 					</div>
 
-				</div>
+<!-- IF S_MONEY -->
+					<div class="money shader">
+						<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
+						<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
+						<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
+					</div>
+<!-- ENDIF -->
 
-				<div class="money shader">
-					<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
-					<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
-					<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
-				</div>
+					<script type="text/javascript">
+					<!--
+						addLpage('statsleft');
+						addLpage('meleeleft');
+						addLpage('rangedleft');
+						addLpage('spellleft');
+						addLpage('defenseleft');
+						addRpage('statsright');
+						addRpage('meleeright');
+						addRpage('rangedright');
+						addRpage('spellright');
+						addRpage('defenseright');
+					//-->
+					</script>
 
-				<script type="text/javascript">
-				<!--
-					addLpage('statsleft');
-					addLpage('meleeleft');
-					addLpage('rangedleft');
-					addLpage('spellleft');
-					addLpage('defenseleft');
-					addRpage('statsright');
-					addRpage('meleeright');
-					addRpage('rangedright');
-					addRpage('spellright');
-					addRpage('defenseright');
-				//-->
-				</script>
+					<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
+						<option value="statsleft" selected="selected">{L_MENUSTATS}</option>
+						<option value="meleeleft">{L_MELEE}</option>
+						<option value="rangedleft">{L_RANGED}</option>
+						<option value="spellleft">{L_SPELL}</option>
+						<option value="defenseleft">{L_DEFENSE}</option>
+					</select>
+					<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
+						<option value="statsright">{L_MENUSTATS}</option>
+						<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
+						<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
+						<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
+						<option value="defenseright">{L_DEFENSE}</option>
+					</select>
 
-				<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
-					<option value="statsleft" selected="selected">{L_MENUSTATS}</option>
-					<option value="meleeleft">{L_MELEE}</option>
-					<option value="rangedleft">{L_RANGED}</option>
-					<option value="spellleft">{L_SPELL}</option>
-					<option value="defenseleft">{L_DEFENSE}</option>
-				</select>
-				<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
-					<option value="statsright">{L_MENUSTATS}</option>
-					<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
-					<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
-					<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
-					<option value="defenseright">{L_DEFENSE}</option>
-				</select>
-
-				<div class="padding">
+					<div class="padding">
 <!-- BEGIN box_stats -->
-					<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
+						<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
 <!-- BEGIN statline -->
-						<div class="statline" {box_stats.statline.TOOLTIP}>
-							<span class="value">{box_stats.statline.VALUE}</span>
-							<span class="label">{box_stats.statline.NAME}:</span>
-						</div>
+							<div class="statline" {box_stats.statline.TOOLTIP}>
+								<span class="value">{box_stats.statline.VALUE}</span>
+								<span class="label">{box_stats.statline.NAME}:</span>
+							</div>
 <!-- END statline -->
-					</div>
+						</div>
 <!-- END box_stats -->
-				</div>
+					</div>
 
+				</div>
 			</div>
 		</div>
-	</div>
 
 
 
 <!-- IF S_PET_TAB -->
 
 <!-- tab2 -->
-	<div id="tab2" class="tab2" style="display:none;">
-  
-  </div>
+		<div id="tab2" class="tab2" style="display:none;">
+		</div>
 <!-- ENDIF -->
 
 
@@ -170,25 +196,25 @@
 <!-- IF S_REP_TAB -->
 
 <!-- tab3 -->
-	<div id="tab3" class="tab3" style="display:none;">
+		<div id="tab3" class="tab3" style="display:none;">
 <!-- BEGIN rep -->
-		<div class="container">
-			<div class="name">
-				<div class="icon {rep.NAME}"></div>
-				{rep.NAME}</div>
+			<div class="container">
+				<div class="name">
+					<div class="icon {rep.NAME_ID}"></div>
+					{rep.NAME}</div>
 <!-- BEGIN bar -->
-			<div class="rep">
-				<div class="rep-name">{rep.bar.NAME}</div>
-				<div class="rep-standing">{rep.bar.STANDING}</div>
-				<div class="rep-bar">
-					<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}px;"></div>
-					<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+				<div class="rep">
+					<div class="rep-name">{rep.bar.NAME}</div>
+					<div class="rep-standing">{rep.bar.STANDING}</div>
+					<div class="rep-bar">
+						<div class="fill {rep.bar.IMAGE}" style="width: {rep.bar.WIDTH}%;"></div>
+						<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+					</div>
 				</div>
-			</div>
 <!-- END bar -->
-		</div>
+			</div>
 <!-- END rep -->
-	</div>
+		</div>
 <!-- ENDIF -->
 
 
@@ -196,26 +222,26 @@
 <!-- IF S_SKILL_TAB -->
 
 <!-- tab4 -->
-	<div id="tab4" class="tab4" style="display:none;">
+		<div id="tab4" class="tab4" style="display:none;">
 <!-- BEGIN skill -->
-		<div class="container">
-			<div class="name"><div class="icon {skill.NAME}"></div>{skill.NAME}</div>
+			<div class="container">
+				<div class="name"><div class="icon {skill.NAME_ID}"></div>{skill.NAME}</div>
 <!-- BEGIN bar -->
-			<div class="skill">
-				<div class="skill-name">{skill.bar.NAME}</div>
-				<div class="skill-bar">
+				<div class="skill">
+					<div class="skill-name">{skill.bar.NAME}</div>
+					<div class="skill-bar">
 <!-- IF skill.bar.MAXVALUE eq 1 -->
-					<div class="fill" style="width: 273px;"></div>
+						<div class="fill" style="width: 100%;"></div>
 <!-- ELSE -->
-					<div class="fill" style="width: {skill.bar.WIDTH}px;"></div>
-					<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
+						<div class="fill" style="width: {skill.bar.WIDTH}%;"></div>
+						<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
 <!-- ENDIF -->
+					</div>
 				</div>
-			</div>
 <!-- END bar -->
-		</div>
+			</div>
 <!-- END skill -->
-	</div>
+		</div>
 <!-- ENDIF -->
 
 
@@ -223,67 +249,72 @@
 <!-- IF S_TALENT_TAB -->
 
 <!-- tab5 -->
-	<div id="tab5" class="tab5" style="display:none;">
-		<div class="container">
-			<div class="name">{L_TALENTS}</div>
+		<div id="tab5" class="tab5" style="display:none;">
+			<div class="container">
+				<div class="name">{L_TALENTS}</div>
 
-			<div class="shader"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
+				<div class="shader"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
 
-			<div class="framing">
+				<div class="framing">
 <!-- BEGIN talent_tree -->
-				<div class="spec">
-					<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
-					<div class="content">
+					<div class="spec">
+						<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
+						<div class="content">
 <!-- BEGIN row -->
-						<div class="row">
+							<div class="row">
 <!-- BEGIN cell -->
 
 <!-- IF talent_tree.row.cell.NAME -->
-							<div class="cell" {talent_tree.row.cell.TOOLTIP}>
+								<div class="cell" {talent_tree.row.cell.TOOLTIP}>
 <!-- IF talent_tree.row.cell.RANK -->
-								<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
-								<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
+									<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
+									<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
 <!-- ENDIF -->
-								<img class="talent-icon <!-- IF talent_tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt=""  />
-							</div>
+									<img class="talent-icon <!-- IF talent_tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt=""  />
+								</div>
 <!-- ELSE -->
-							<div class="cell">&nbsp;</div>
+								<div class="cell">&nbsp;</div>
 <!-- ENDIF -->
 
 <!-- END cell -->
-						</div>
+							</div>
 <!-- END row -->
 
+						</div>
+						<div class="spec-name shader"><span style="color:#ffdd00">{talent_tree.NAME}</span> : {talent_tree.POINTS}</div>
 					</div>
-					<div class="spec-name shader"><span style="color:#ffdd00">{talent_tree.NAME}</span> : {talent_tree.POINTS}</div>
-				</div>
 <!-- END talent_tree -->
+				</div>
 			</div>
 		</div>
-	</div>
 <!-- ENDIF -->
 
 
 
 <!-- IF S_SPELL_TAB -->
-	<div id="tab6" class="tab6" style="display:none;">
+		<div id="tab6" class="tab6" style="display:none;">
 
 <!-- BEGIN spell_book -->
-  	<div class="container">
-			<div class="name"><div class="icon {skill.NAME}"></div>{spell_book.NAME}'s {L_SPELLBOOK}</div>
+			<div class="container">
+				<div class="name">
+					<div class="icon"></div>
+					{spell_book.NAME}'s {L_SPELLBOOK}
+				</div>
 
 <!-- BEGIN tree -->
 				<div class="spell-tree shader">
-					<div class="tree-name"><img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" class="icon" /><div class="id-name">{spell_book.tree.ID}</div></div>
+					<div class="tree-name"><img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" class="icon" alt="" />
+						<div class="id-name">{spell_book.tree.ID}</div>
+					</div>
 					<div class="spell-page">
 <!-- BEGIN page -->
 <!-- BEGIN spell -->
-		        <div class="spell-container shader">
+						<div class="spell-container shader">
 							<div class="text">
-              	<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" class="icon" {spell_book.tree.page.spell.TOOLTIP} alt="" />
-              	<span>{spell_book.tree.page.spell.NAME}</span><br />
+								<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" class="icon" {spell_book.tree.page.spell.TOOLTIP} alt="" />
+								<span>{spell_book.tree.page.spell.NAME}</span><br />
 								<!-- IF spell_book.tree.page.spell.RANK --><span class="rank">{spell_book.tree.page.spell.RANK}</span><!-- ENDIF -->
-              </div>
+							</div>
 						</div>
 <!-- END spell -->
 <!-- END page -->
@@ -293,12 +324,10 @@
 <!-- END tree -->
 			</div>
 <!-- END spell_book -->
-
-	</div>
+		</div>
 <!-- ENDIF -->
 
-
-</div>
+	</div>
 </div>
 
 

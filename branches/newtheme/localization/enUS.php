@@ -335,6 +335,16 @@ $lang['PvPRankNone']='none';
 // Uses preg_match() to find required level in recipe tooltip
 $lang['requires_level'] = '/Requires Level ([\d]+)/';
 
+// Skills to EN id array
+$lang['skill_to_id'] = array(
+	'Class Skills' => 'classskills',
+	'Professions' => 'professions',
+	'Secondary Skills' => 'secondaryskills',
+	'Weapon Skills' => 'weaponskills',
+	'Armor Proficiencies' => 'armorproficiencies',
+	'Languages' => 'languages',
+);
+
 //Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
@@ -575,7 +585,7 @@ $lang['win']='Win';
 $lang['loss']='Loss';
 $lang['unknown']='Unknown';
 
-//strings for Rep-tab
+//strings for Reputation
 $lang['exalted']='Exalted';
 $lang['revered']='Revered';
 $lang['honored']='Honored';
@@ -586,6 +596,16 @@ $lang['hostile']='Hostile';
 $lang['hated']='Hated';
 $lang['atwar']='At War';
 $lang['notatwar']='Not at War';
+
+// Factions to EN id
+$lang['faction_to_id'] = array(
+	'Alliance' => 'alliance',
+	'Alliance Forces' => 'allianceforces',
+	'Other' => 'other',
+	'Outland' => 'outland',
+	'Shattrath City' => 'shattrathcity',
+	'Steamwheedle Cartel' => 'steamwheedlecartel',
+);
 
 
 // Quests page external links (on character quests page)

@@ -155,6 +155,9 @@ $lang['defense_rating']='Defense Rating ';
 $lang['def_tooltip']='Increases your chance to %s';
 $lang['resilience']='Résilience';
 
+$lang['buffs'] = 'Buffs';
+$lang['resistances'] = 'Resistances';
+
 $lang['res_arcane']='Résistance aux arcanes';
 $lang['res_arcane_tooltip']='Augmente la capacité à résister aux attaques, sorts et techniques de type Arcane.';
 $lang['res_fire']='Résistance au feu';

@@ -155,6 +155,9 @@ $lang['defense_rating']='Defensa ';
 $lang['def_tooltip']='Incrementa tu indice de defensa en %s';
 $lang['resilience']='Resistencia';
 
+$lang['buffs'] = 'Buffs';
+$lang['resistances'] = 'Resistances';
+
 $lang['res_arcane']='Resistencia a lo arcano';
 $lang['res_arcane_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de arcano.';
 $lang['res_fire']='Resistencia al fuego';

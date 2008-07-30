@@ -111,6 +111,7 @@ class char
 
 			'L_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
 			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
+			'L_PROFILE'          => $roster->locale->act['tab1'],
 			'L_HEALTH'           => $roster->locale->act['health'],
 			'L_INACTIVE'         => $roster->locale->act['inactive'],
 			'L_UNUSED_TALENTS'   => $roster->locale->act['unusedtalentpoints'],
@@ -120,6 +121,9 @@ class char
 			'L_LEVEL'            => $roster->locale->act['level'],
 			'L_TALENTS'          => $roster->locale->act['talents'],
 			'L_TALENT_EXPORT'    => $roster->locale->act['talentexport'],
+
+			'L_RESISTANCES' => $roster->locale->act['resistances'],
+			'L_BUFFS'       => $roster->locale->act['buffs'],
 
 			'L_QUESTLOG'  => $roster->locale->act['questlog'],
 			'L_COMPLETE'  => $roster->locale->act['complete'],
@@ -146,6 +150,7 @@ class char
 			'L_REAGENTS' => $roster->locale->act['reagents'],
 
 			'L_CHAR_POWER'       => $this->data['power'],
+			'L_CHAR_POWER_ID'    => strtolower($this->data['power']),
 			'L_CHAR_INACTIVE'    => $this->locale['inactive'],
 
 			'L_MENUSTATS' => $roster->locale->act['menustats'],
@@ -625,7 +630,6 @@ class char
 
 		if( $pet_rows > 0 )
 		{
-
 			$s = $p = 0;
 			while( $row = $roster->db->fetch($result,SQL_ASSOC) )
 			{
@@ -717,7 +721,7 @@ class char
 
 				if( $row['level'] == ROSTER_MAXCHARLEVEL )
 				{
-					$expbar_width = '260';
+					$exp_percent = 100;
 					$expbar_text = $roster->locale->act['max_exp'];
 				}
 				else
@@ -725,8 +729,6 @@ class char
 					$xp = explode(':',$row['xp']);
 					if( isset($xp[1]) && $xp[1] != '0' && $xp[1] != '' )
 					{
-						$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 260) : 0);
-
 						$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
 						$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
@@ -734,7 +736,7 @@ class char
 					else
 					{
 						$xpbarshow = false;
-						$expbar_width = 0;
+						$exp_percent = 0;
 						$expbar_text = '';
 
 					}
@@ -790,7 +792,7 @@ class char
 					'L_POWER' => $row['power'],
 
 					'S_EXP' => $xpbarshow,
-					'EXP_WIDTH' => $expbar_width,
+					'EXP_WIDTH' => $exp_percent,
 					'EXP_TEXT' => $expbar_text,
 					)
 				);
@@ -1862,8 +1864,9 @@ class char
 		foreach( $skillData as $sindex => $skill )
 		{
 			$roster->tpl->assign_block_vars('skill',array(
-				'ID'   => $sindex,
-				'NAME' => $skill['name']
+				'ID'      => $sindex,
+				'NAME'    => $skill['name'],
+				'NAME_ID' => $this->locale['skill_to_id'][$skill['name']]
 				)
 			);
 
@@ -1894,7 +1897,7 @@ class char
 		$returnData['maxvalue'] = $max;
 		$returnData['value'] = $level;
 		$returnData['name'] = $skilldata['skill_name'];
-		$returnData['barwidth'] = ceil($level/$max*273);
+		$returnData['barwidth'] = ceil($level/$max*100);
 
 		return $returnData;
 	}
@@ -1952,8 +1955,9 @@ class char
 		foreach( $repData as $findex => $faction )
 		{
 			$roster->tpl->assign_block_vars('rep',array(
-				'ID'   => $findex,
-				'NAME' => $faction['name']
+				'ID'      => $findex,
+				'NAME'    => $faction['name'],
+				'NAME_ID' => $this->locale['faction_to_id'][$faction['name']]
 				)
 			);
 
@@ -2029,18 +2033,18 @@ class char
 		$max = $repdata['max_rep'];
 
 		$img = array(
-			$this->locale['exalted'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['revered'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['honored'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['friendly'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['neutral'] => $addon['tpl_image_path'] . 'rep/yellow.gif',
-			$this->locale['unfriendly'] => $addon['tpl_image_path'] . 'rep/orange.gif',
-			$this->locale['hostile'] => $addon['tpl_image_path'] . 'rep/red.gif',
-			$this->locale['hated'] => $addon['tpl_image_path'] . 'rep/red.gif'
+			$this->locale['exalted'] => 'exalted',
+			$this->locale['revered'] => 'revered',
+			$this->locale['honored'] => 'honored',
+			$this->locale['friendly'] => 'friendly',
+			$this->locale['neutral'] => 'neutral',
+			$this->locale['unfriendly'] => 'unfriendly',
+			$this->locale['hostile'] => 'hostile',
+			$this->locale['hated'] => 'hated'
 		);
 
 		$returnData['name'] = $repdata['name'];
-		$returnData['barwidth'] = ceil($level / $max * 139);
+		$returnData['barwidth'] = ceil($level / $max * 100);
 		$returnData['image'] = $img[$repdata['Standing']];
 		$returnData['barid'] = $repnum;
 		$returnData['standing'] = $repdata['Standing'];
@@ -2129,6 +2133,51 @@ class char
 		$roster->tpl->assign_var('ALT_TOOLTIP',$alt_hover);
 	}
 
+	function miniMemberslist()
+	{
+		global $roster;
+
+		// Get the scope select data
+		$query = 'SELECT `members`.`member_id`, `members`.`name`, `members`.`class`, `members`.`classid`, `members`.`level`, `members`.`guild_title`, `members`.`guild_rank`, `players`.`race`, `players`.`raceid`, `players`.`sex` '
+			   . 'FROM `' . $roster->db->table('members') . '` AS members '
+			   . 'LEFT JOIN `' . $roster->db->table('players') . '` AS players ON `members`.`member_id` = `players`.`member_id` '
+			   . 'WHERE `members`.`guild_id` = "' . $this->data['guild_id'] . '" '
+			   . 'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+
+		$result = $roster->db->query($query);
+
+		if( !$result )
+		{
+			trigger_error($roster->db->error());
+			return false;
+		}
+
+		while( $data = $roster->db->fetch($result,SQL_ASSOC) )
+		{
+			$roster->tpl->assign_block_vars('mini_memberslist', array(
+				'ID'         => $data['member_id'],
+				'NAME'       => $data['name'],
+				'CLASS'      => $data['class'],
+				'CLASSID'    => $data['classid'],
+				'LEVEL'      => $data['level'],
+				'TITLE'      => $data['guild_title'],
+				'RANK'       => $data['guild_rank'],
+				'RACE'       => $data['race'],
+				'RACEID'     => $data['raceid'],
+				'GENDER'     => $data['sex'],
+				'U_LINK'     => ( $data['race'] != '' ? makelink('&amp;a=c:' . $data['member_id'],true) : false ),
+				'S_SELECTED' => ( $data['member_id'] == $this->data['member_id'] ? true : false )
+				)
+			);
+		}
+
+        $roster->tpl->assign_var('S_MINI_MEMBERSLIST',( $roster->db->num_rows() > 1 ? true : false ));
+
+		$roster->db->free_result($result);
+
+		return true;
+	}
+
 	/**
 	 * Main output function
 	 */
@@ -2200,13 +2249,13 @@ class char
 		// Code to write a "Max Exp bar" just like in SigGen
 		if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 		{
-			$expbar_width = '260';
+			$exp_percent = 100;
 			$expbar_text = $roster->locale->act['max_exp'];
 			$expbar_type = 'max';
 		}
 		elseif( $this->data['exp'] == '0' )
 		{
-			$expbar_width = 0;
+			$exp_percent = 0;
 			$expbar_type = 'normal';
 			$expbar_text = '';
 		}
@@ -2215,8 +2264,6 @@ class char
 			$xp = explode(':',$this->data['exp']);
 			if( isset($xp) && $xp[1] != '0' && $xp[1] != '' )
 			{
-				$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 260) : 0);
-
 				$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
 				if( $xp[2] > 0 )
@@ -2254,7 +2301,7 @@ class char
 		}
 
 		$roster->tpl->assign_vars(array(
-			'EXP_WIDTH' => $expbar_width,
+			'EXP_WIDTH' => $exp_percent,
 			'EXP_TYPE'  => $expbar_type,
 			'EXP_TEXT'  => $expbar_text,
 
@@ -2296,6 +2343,9 @@ class char
 		// Spell Book
 		$this->show_spellbook();
 
+		// Mini Memberslist
+		$this->miniMemberslist();
+
 
 		// Print tabs
 		$roster->tpl->assign_block_vars('tabs',array(
@@ -2334,17 +2384,7 @@ class char
 				)
 			);
 		}
-/*
-		if( $roster->auth->getAuthorized($addon['config']['show_tab5']) )
-		{
-			$roster->tpl->assign_block_vars('tabs',array(
-				'NAME'     => $roster->locale->act['tab5'],
-				'VALUE'    => 'tab5',
-				'SELECTED' => false
-				)
-			);
-		}
-*/
+
 		if( $roster->auth->getAuthorized($addon['config']['show_talents']) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
