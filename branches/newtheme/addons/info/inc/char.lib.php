@@ -2166,7 +2166,8 @@ class char
 				'RACE'       => $data['race'],
 				'RACE_ID'    => $data['raceid'],
 				'RACE_EN'    => strtolower(str_replace(' ','',$this->locale['race_to_en'][$data['race']])),
-				'GENDER'     => $data['sex'],
+				'SEX'        => $data['sex'],
+				'SEX_ID'     => $data['sexid'],
 				'U_LINK'     => ( $data['race'] != '' ? makelink('&amp;a=c:' . $data['member_id'],true) : false ),
 				'S_SELECTED' => ( $data['member_id'] == $this->data['member_id'] ? true : false )
 				)
