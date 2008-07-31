@@ -17,15 +17,17 @@
 .char-info { width: 860px; min-height: 900px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat-y center top; }
 
 /* Guild Member List */
-.char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -20px; background: url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
-.char-list .list { margin: 10px; height: 600px; overflow: auto; }
+.char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -0px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
+.char-list .banner { background: url(images/member_banner.png); position: absolute; height: 68px; width: 340px; left: -70px; top: -40px; }
+.char-list .banner .title { font: bold 16px/42px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFFFFF; text-align: center; }
+.char-list .list { margin: 25px 10px 10px; height: 600px; overflow: auto; }
 .char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold; border-top: 1px solid #9D7D1C; }
 .char-list .list .select { background: url(../images/char_select.png) repeat-x left top; color: #FFFFFF; }
 .char-list .list .select a { color: #FFFFFF; }
-.char-list .list .u-link { background: url(../images/char_normal.png) repeat-x left top; color: #000099; }
+.char-list .list .u-link { background: url(../images/char_normal.png) repeat-x left top; color: #000000; }
 .char-list .list .u-link a { color: #000000; }
 .char-list .list .u-link:hover { background: url(../images/char_hover.png) repeat-x left top; }
-.char-list .list .plain { color: #000099; }
+.char-list .list .plain { color: #555555; }
 .char-list .list .plain:hover { background: url(../images/char_hover.png) repeat-x left top; }
 .char-list .list .lvl { float: left; width:20px; }
 .char-list .list .name { float: left; }

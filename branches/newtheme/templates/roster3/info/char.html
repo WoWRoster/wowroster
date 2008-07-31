@@ -4,6 +4,9 @@
 
 <div class="char-info">
 	<div class="char-list">
+		<div class="banner">
+			<div class="title">{GUILD_NAME}</div>
+		</div>
 		<div class="list">
 <!-- BEGIN mini_memberslist -->
 			<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->u-link<!-- ELSE -->plain<!-- ENDIF -->">
@@ -14,13 +17,13 @@
 				<span class="name">{mini_memberslist.NAME}</span>
 <!-- ENDIF -->
 				<span class="info">
-
+					
 <!-- THE FOLLOWING ONLY EXIST IF THERE IS PLAYER DATA -->
-<!-- IF mini_memberslist.RACE_ID -->
-					<img src="{U_IMAGE_PATH}icons/race/{mini_memberslist.RACE_ID}.gif" width="20" height="20" alt="" />
+<!-- IF mini_memberslist.RACEID -->
+					<img src="{U_IMAGE_PATH}icons/race/{mini_memberslist.RACE_ID}.gif" width="20" height="20" />
 <!-- ENDIF -->
-					<img src="{U_IMAGE_PATH}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" alt="" />
-				</span>
+					<img src="{U_IMAGE_PATH}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" />
+				</span>		
 			</div>
 <!-- END mini_memberslist -->
 		</div>
