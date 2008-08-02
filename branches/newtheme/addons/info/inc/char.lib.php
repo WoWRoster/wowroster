@@ -2138,7 +2138,7 @@ class char
 		global $roster;
 
 		// Get the scope select data
-		$query = 'SELECT `members`.`member_id`, `members`.`name`, `members`.`class`, `members`.`classid`, `members`.`level`, `members`.`guild_title`, `members`.`guild_rank`, `players`.`race`, `players`.`raceid`, `players`.`sex` '
+		$query = 'SELECT `members`.`member_id`, `members`.`name`, `members`.`class`, `members`.`classid`, `members`.`level`, `members`.`guild_title`, `members`.`guild_rank`, `players`.`race`, `players`.`raceid`, `players`.`sex`, `players`.`sexid` '
 			   . 'FROM `' . $roster->db->table('members') . '` AS members '
 			   . 'LEFT JOIN `' . $roster->db->table('players') . '` AS players ON `members`.`member_id` = `players`.`member_id` '
 			   . 'WHERE `members`.`guild_id` = "' . $this->data['guild_id'] . '" '
