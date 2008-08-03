@@ -85,6 +85,7 @@ $lang['uninstall']				= 'Desinstalar';
 // Page names
 $lang['admin']['main']			= 'Principal|Vuelve a la parte de configuración global.';
 $lang['admin']['display']       = 'Mostrar|Configura opciones específicas de como mostrar el listado de miembros.';
+$lang['admin']['default']       = 'Default List|Configure visibility of default members list columns.';
 $lang['admin']['members']       = 'Listado de miembros|Configura el modo de mostrar las columnas del listado de miembros.';
 $lang['admin']['stats']         = 'Lista de estadísticas|Configura el modo de mostrar las columnas del listado de estadísticas.';
 $lang['admin']['honor']         = 'Lista de honor|Configura el modo de mostrar las columnas del listado de honor.';
@@ -105,10 +106,24 @@ $lang['admin']['icon_size']     = 'Tamaño de icono|Elige el tamaño del icono d
 $lang['admin']['spec_icon']		= 'Icono de talento espec.|Activa o desactiva mostrar el icono de la especialización en talentos.';
 $lang['admin']['class_icon']    = 'Icono de clase|Elige si mostrar el icono de clase/talento.<br />Completo - Muestra todos los iconos<br />On - Muestra solo el icono de clase<br />Off - Esconde los iconos';
 $lang['admin']['class_text']    = 'Texto de clase|Elige si mostrar el texto de la clase.<br />Color - Colorea el nombre de la clase<br />On - Muestra el texto de la clase<br />Off - Esconde el texto de la clase';
+$lang['admin']['race_icon']     = 'Race Icon|Controls the race icon display.<br />On - Display race icon<br />Off - Hide icon';
+$lang['admin']['race_text']     = 'Race Text|Controls the race text display.<br />On - Display race text<br />Off - Hide race text';
 $lang['admin']['talent_text']   = 'Texto de talento|Muestra la especialización de talentos en lugar del nombre de clase.';
 $lang['admin']['level_bar']     = 'Barras de nivel|Muestra barras de nivel en lugar de números.';
 $lang['admin']['honor_icon']    = 'Icono de honor|Muestra el icono con el rango de honor.';
 $lang['admin']['compress_note'] = 'Comprimir nota|Muestra la nota de la hermandad en una ventana en lugar de en una columna.';
+
+// Settings on Default page
+$lang['admin']['default_motd']   = 'MDD de la hermandad|Muestra el mensaje del día de la hermandad encima de la lista de miembros.';
+$lang['admin']['default_hslist'] = 'Estadísticas de honor|Configura el modo de mostrar el listado de las estadísticas de honor, en la página de miembros.';
+$lang['admin']['default_pvplist']= 'Estadísticas de JcJ|Elige si mostrar o no el registro de estadísticas JcJ en la página de miembros.<br />Si tienes desactivada la subida de PvPlog, no necesitas activar esta opción';
+$lang['admin']['default_class']  = 'Clases|Elige si mostrar la columna de clases en la página de miembros';
+$lang['admin']['default_race']   = 'Race|Set visibility of the race column on the members page';
+$lang['admin']['default_level']  = 'Niveles|Elige si mostrar la columna de niveles en la página de miembros';
+$lang['admin']['default_gtitle'] = 'Título de la hermandad|Elige si mostrar el título de la hermandad en la página de miembros';
+$lang['admin']['default_prof']   = 'Profesiones|Elige si mostrar la columna de profesiones en la página de miembros';
+$lang['admin']['default_note']   = 'Notas|Elige si mostrar la columna de notas de jugador en la página de miembros';
+$lang['admin']['default_onote']  = 'Notas de oficial|Elige si mostrar la columna de notas de oficial en la página de miembros';
 
 // Settings on Members page
 $lang['admin']['member_update_inst'] = 'Instrucciones de actualización|Elige si mostrar o no las instrucciones de actualización en la página de miembros.';

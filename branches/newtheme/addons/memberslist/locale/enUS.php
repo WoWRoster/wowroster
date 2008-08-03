@@ -85,6 +85,7 @@ $lang['uninstall']				= 'Uninstall';
 // Page names
 $lang['admin']['main']			= 'Main|Back to the global part of the configuration.';
 $lang['admin']['display']       = 'Display|Configure display options specific to memberslist.';
+$lang['admin']['default']       = 'Default List|Configure visibility of default members list columns.';
 $lang['admin']['members']       = 'Members List|Configure visibility of members list columns.';
 $lang['admin']['stats']         = 'Stats List|Configure visibility of stats list columns.';
 $lang['admin']['honor']         = 'Honor List|Configure visibility of honor list columns.';
@@ -103,12 +104,26 @@ $lang['admin']['member_tooltip']= 'Member Tooltip|Turn the info tooltips on the 
 $lang['admin']['group_alts']    = 'Group Alts|Goup alts under their main, rather than sorting them separately.';
 $lang['admin']['icon_size']     = 'Icon Size|Set the size for the class/honor/profession icons.';
 $lang['admin']['spec_icon']		= 'Talent Spec icon|Turn the talent spec icon on or off.';
-$lang['admin']['class_icon']    = 'Class Icon|Controls the class/talent spec icon display.<br />Full - Display Talent Spec and Class Icon<br />On - Display only class icon<br />Off- Hide icons';
+$lang['admin']['class_icon']    = 'Class Icon|Controls the class/talent spec icon display.<br />Full - Display Talent Spec and Class Icon<br />On - Display only class icon<br />Off - Hide icons';
 $lang['admin']['class_text']    = 'Class Text|Controls the class text display.<br />Color - Class text with coloring<br />On - Display class text<br />Off - Hide class text';
+$lang['admin']['race_icon']     = 'Race Icon|Controls the race icon display.<br />On - Display race icon<br />Off - Hide icon';
+$lang['admin']['race_text']     = 'Race Text|Controls the race text display.<br />On - Display race text<br />Off - Hide race text';
 $lang['admin']['talent_text']   = 'Talent Text|Shows talent spec instead of class name.';
 $lang['admin']['level_bar']     = 'Level Bars|Display level bars instead of just numbers.';
 $lang['admin']['honor_icon']    = 'Honor Icon|Display honor rank icon.';
 $lang['admin']['compress_note'] = 'Compress Note|Show guild note in a tooltip instead of in the column.';
+
+// Settings on Default page
+$lang['admin']['default_motd']   = 'Guild MOTD|Show Guild Message of the Day on the top of the members page';
+$lang['admin']['default_hslist'] = 'Honor System Stats|Controls the display of the Honor stats list on the members page';
+$lang['admin']['default_pvplist']= 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the members page<br />If you have disabled PvPlog uploading, there is no need to have this on';
+$lang['admin']['default_class']  = 'Class|Set visibility of the class column on the members page';
+$lang['admin']['default_race']   = 'Race|Set visibility of the race column on the members page';
+$lang['admin']['default_level']  = 'Level|Set visibility of the level column on the members page';
+$lang['admin']['default_gtitle'] = 'Guild Title|Set visibility of the guild title column on the members page';
+$lang['admin']['default_prof']   = 'Profession|Set visibility of the profesion column on the members page';
+$lang['admin']['default_note']   = 'Note|Set visibility of the note column on the members page';
+$lang['admin']['default_onote']  = 'Officer Note|Set visibility of the officer note column on the members page';
 
 // Settings on Members page
 $lang['admin']['member_update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the members page';

@@ -19,10 +19,7 @@ if ( !defined('IN_ROSTER') )
 
 include_once ($addon['inc_dir'] . 'memberslist.php');
 
-$options['template'] = $addon['basename'] . '/index.html';
-$options['group_alts'] = false;
-
-$memberlist = new memberslist($options);
+$memberlist = new memberslist;
 
 $mainQuery =
 	'SELECT '.
@@ -31,8 +28,15 @@ $mainQuery =
 	'`members`.`class`, '.
 	'`members`.`classid`, '.
 	'`members`.`level`, '.
+	'`members`.`zone`, '.
+	'`members`.`online`, '.
+	'`members`.`last_online`, '.
+	"UNIX_TIMESTAMP(`members`.`last_online`) AS 'last_online_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online_format', ".
 	'`members`.`note`, '.
 	'`members`.`guild_title`, '.
+
+	'`alts`.`main_id`, '.
 
 	'`guild`.`update_time`, '.
 
@@ -46,7 +50,17 @@ $mainQuery =
 	'`players`.`raceid`, '.
 	'`players`.`sex`, '.
 	'`players`.`sexid`, '.
+	'`players`.`exp`, '.
 	'`players`.`clientLocale`, '.
+
+	'`players`.`lifetimeRankName`, '.
+	'`players`.`lifetimeHighestRank`, '.
+	"IF( `players`.`lifetimeHighestRank` IS NULL OR `players`.`lifetimeHighestRank` = '0', 1, 0 ) AS 'risnull', ".
+	'`players`.`hearth`, '.
+	"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
+	"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
+	"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
+	"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
 	"GROUP_CONCAT( DISTINCT CONCAT( `proftable`.`skill_name` , '|', `proftable`.`skill_level` ) ORDER BY `proftable`.`skill_order`) as professions, ".
 	"GROUP_CONCAT( DISTINCT CONCAT( `talenttable`.`tree` , '|', `talenttable`.`pointsspent` , '|', `talenttable`.`background` ) ORDER BY `talenttable`.`order`) AS 'talents' ".
@@ -55,12 +69,13 @@ $mainQuery =
 	'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
+	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
 	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
 	'GROUP BY `members`.`member_id` '.
-	'ORDER BY ';
+	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
 
-$always_sort = '`members`.`level` DESC, `members`.`name` ASC';
+$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
@@ -77,16 +92,7 @@ $FIELD['class'] = array (
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value' => array($memberlist,'class_value'),
 	'js_type' => 'ts_string',
-	'display' => $addon['config']['default_class'],
-);
-
-$FIELD['race'] = array (
-	'lang_field' => 'race',
-	'order'    => array( '`members`.`race` ASC' ),
-	'order_d'    => array( '`members`.`race` DESC' ),
-	'value' => 'race_value',
-	'js_type' => 'ts_string',
-	'display' => $addon['config']['default_race'],
+	'display' => $addon['config']['member_class'],
 );
 
 $FIELD['level'] = array (
@@ -94,7 +100,7 @@ $FIELD['level'] = array (
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value' => array($memberlist,'level_value'),
 	'js_type' => 'ts_number',
-	'display' => $addon['config']['default_level'],
+	'display' => $addon['config']['member_level'],
 );
 
 $FIELD['guild_title'] = array (
@@ -103,14 +109,57 @@ $FIELD['guild_title'] = array (
 	'order_d' => array( '`members`.`guild_rank` DESC' ),
 	'js_type' => 'ts_number',
 	'jsort' => 'guild_rank',
-	'display' => $addon['config']['default_gtitle'],
+	'display' => $addon['config']['member_gtitle'],
+);
+
+$FIELD['lifetimeRankName'] = array (
+	'lang_field' => 'currenthonor',
+	'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
+	'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
+	'value' => array($memberlist,'honor_value'),
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['member_hrank'],
 );
 
 $FIELD['professions'] = array (
 	'lang_field' => 'professions',
 	'value' => 'tradeskill_icons',
 	'js_type' => '',
-	'display' => $addon['config']['default_prof'],
+	'display' => $addon['config']['member_prof'],
+);
+
+$FIELD['hearth'] = array (
+	'lang_field' => 'hearthed',
+	'order' => array( 'hisnull', 'hearth ASC' ),
+	'order_d' => array( 'hisnull', 'hearth DESC' ),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['member_hearth'],
+);
+
+$FIELD['zone'] = array (
+	'lang_field' => 'lastzone',
+	'order' => array( '`members`.`zone` ASC' ),
+	'order_d' => array( '`members`.`zone` DESC' ),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['member_zone'],
+);
+
+$FIELD['last_online'] = array (
+	'lang_field' => 'lastonline',
+	'order' => array( '`members`.`last_online` DESC' ),
+	'order_d' => array( '`members`.`last_online` ASC' ),
+	'value' => array($memberlist,'last_online_value'),
+	'js_type' => 'ts_date',
+	'display' => $addon['config']['member_online'],
+);
+
+$FIELD['last_update_format'] = array (
+	'lang_field' => 'lastupdate',
+	'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
+	'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
+	'jsort' => 'last_update_stamp',
+	'js_type' => 'ts_date',
+	'display' => $addon['config']['member_update'],
 );
 
 $FIELD['note'] = array (
@@ -119,7 +168,7 @@ $FIELD['note'] = array (
 	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
 	'value' => 'note_value',
 	'js_type' => 'ts_string',
-	'display' => $addon['config']['default_note'],
+	'display' => $addon['config']['member_note'],
 );
 
 $FIELD['officer_note'] = array (
@@ -128,51 +177,63 @@ $FIELD['officer_note'] = array (
 	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
 	'value' => 'note_value',
 	'js_type' => 'ts_string',
-	'display' => $addon['config']['default_onote'],
+	'display' => $addon['config']['member_onote'],
 );
 
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
-if ( $addon['config']['default_motd'] == 1 )
+$menu = '';
+// Start output
+if( $addon['config']['member_update_inst'] )
 {
-	$roster->tpl->assign_var('MOTD',$roster->data['guild_motd']);
+	$menu .= '            <a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
-// Assign some variables
-$roster->tpl->assign_vars(array(
-	'S_HSLIST' => (bool)$addon['config']['default_hslist'],
-	'S_PVPLOG' => ( active_addon('pvplog') && $addon['config']['honor_pvplist'] == 1 ? true : false ),
-
-	'ML_GUILD_NAME' => $roster->data['guild_name'],
-	'ML_FACTION'    => $roster->data['faction'],
-	'ML_FACTION_EN' => $roster->data['factionEn'],
-	'ML_REALM'      => $roster->data['server'],
-	'NUM_MEMBERS'   => $roster->data['guild_num_members'],
-	)
-);
-
-if( $addon['config']['default_hslist'] == 1 || $addon['config']['default_pvplist'] == 1 )
+if ( $addon['config']['member_motd'] == 1 )
 {
-	if ( $addon['config']['default_hslist'] == 1 )
+	$menu .= $memberlist->makeMotd();
+}
+
+$roster->output['before_menu'] .= $menu;
+
+if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist'] == 1 )
+{
+	echo "<table>\n  <tr>\n";
+
+	if ( $addon['config']['member_hslist'] == 1 )
 	{
-		include_once( ROSTER_LIB . 'hslist.php');
-		generateHsList(false);
+		echo '    <td valign="top">';
+		include_once( ROSTER_LIB.'hslist.php');
+		echo generateHsList();
+		echo "    </td>\n";
 	}
 
 	if ( active_addon('pvplog') && $addon['config']['honor_pvplist'] == 1 )
 	{
-		include_once( ROSTER_ADDONS . 'pvplog' . DIR_SEP . 'inc' . DIR_SEP . 'pvplist.php');
-		generatePvpList(false);
+		echo '    <td valign="top">';
+		include_once( ROSTER_ADDONS.'pvplog'.DIR_SEP.'inc'.DIR_SEP.'pvplist.php');
+		echo generatePvpList();
+		echo "    </td>\n";
 	}
+
+	echo "  </tr>\n</table>\n";
 }
 
 $memberlist->makeFilterBox();
 
 $memberlist->makeToolBar('horizontal');
 
-echo $memberlist->makeMembersList();
+echo $memberlist->makeMembersList('syellow');
 
 // Print the update instructions
+if( $addon['config']['member_update_inst'] )
+{
+	echo "<br />\n\n<a name=\"update\"></a>\n";
+
+	echo border('sgray','start',$roster->locale->act['update_instructions']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
+	echo '</div>'.border('sgray','end');
+}
 
 /**
  * Controls Output of the Tradeskill Icons Column
@@ -272,39 +333,4 @@ function note_value ( $row, $field )
 	}
 
 	return '<div style="display:none;">'.$note.'</div>'.$value;
-}
-
-
-/**
- * Controls Output of the Class Column
- *
- * @param array $row - of character data
- * @return string - Formatted output
- */
-function race_value ( $row, $field )
-{
-	global $roster, $addon;
-
-	if( $row['race'] != '' )
-	{
-		$icon_value = '';
-		// Race Icon
-		if( $addon['config']['race_icon'] >= 1 )
-		{
-			$icon_value .= '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'icons/race/' . $row['raceid'] . '-' . $row['sexid'] . '.gif" alt="" /> ';
-		}
-
-		if( $addon['config']['race_text'] == 1 )
-		{
-			return '<div style="display:none;">' . $row['race'] . '</div>' . $icon_value . $row['race'];
-		}
-		else
-		{
-			return ($icon_value != '' ? '<div style="display:none;">' . $row['race'] . '</div>' . $icon_value : '&nbsp;');
-		}
-	}
-	else
-	{
-		return '&nbsp;';
-	}
 }

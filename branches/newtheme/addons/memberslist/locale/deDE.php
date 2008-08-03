@@ -85,6 +85,7 @@ $lang['uninstall']				= 'Deinstallieren';
 // Page names
 $lang['admin']['main']			= 'Start|Zurück zur Hauptseite der Konfiguration.';
 $lang['admin']['display']       = 'Anzeige|Konfiguriert die Anzeigeoptionen für die Mitgliederliste.';
+$lang['admin']['default']       = 'Default List|Configure visibility of default members list columns.';
 $lang['admin']['members']       = 'Mitgliederliste|Konfiguriert die Sichtbarkeit der Mitgliederliste-Spalten.';
 $lang['admin']['stats']         = 'Werteliste|Konfiguriert die Sichtbarkeit der Grundwerte-Spalten.';
 $lang['admin']['honor']         = 'Ehrenliste|Konfiguriert die Sichtbarkeit der Ehrenliste-Spalten.';
@@ -105,10 +106,23 @@ $lang['admin']['icon_size']     = 'Icon Größe|Setze die Größe der Klassen/Eh
 $lang['admin']['spec_icon']		= 'Talent Icon|Schalte das Talent Icon an oder aus.';
 $lang['admin']['class_icon']    = 'Klassen Icon|Kontrolliert die Klass/Talent Icon Anzeige.<br />Voll - Anzeige von Talent und Klassen Icon<br />An - Nur Anzeige des Klasse Icons<br />Aus - Keine Icons';
 $lang['admin']['class_text']    = 'Klassentext|Kontrolliert die Klassentextanzeige.<br />Farbe - Farbiger Klassentext<br />An - Anzeige des Klassentextes<br />Aus - Kein Klassentext';
+$lang['admin']['race_icon']     = 'Race Icon|Controls the race icon display.<br />On - Display race icon<br />Off - Hide icon';
+$lang['admin']['race_text']     = 'Race Text|Controls the race text display.<br />On - Display race text<br />Off - Hide race text';
 $lang['admin']['talent_text']   = 'Talenttext|Zeigt die Talentspezialisierung anstelle des Klassennamens.';
 $lang['admin']['level_bar']     = 'Level Balken|Anzeige von Levelbalken anstelle von einfachen Zahlen.';
 $lang['admin']['honor_icon']    = 'Ehre Icon|Anzeige des Ehrenrang Icons.';
 $lang['admin']['compress_note'] = 'Kompakte Notiz|Zeige Gildennotiz als Tooltip anstelle innerhalb der Spalte.';
+
+// Settings on Default page
+$lang['admin']['default_motd']   = 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Mitgliederseite';
+$lang['admin']['default_hslist'] = 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Mitgliederseite';
+$lang['admin']['default_pvplist']= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Mitgliederseite<br />Wenn Du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
+$lang['admin']['default_race']   = 'Race|Set visibility of the race column on the members page';
+$lang['admin']['default_level']  = 'Level|Setze die Sichtbarkeit der Levelspalte auf der Mitgliederseite';
+$lang['admin']['default_gtitle'] = 'Gildenrang|Setze die Sichtbarkeit der Gildenrangspalte auf der Mitgliederseite';
+$lang['admin']['default_prof']   = 'Beruf|Setze die Sichtbarkeit der Berufspalte auf der Mitgliederseite';
+$lang['admin']['default_note']   = 'Notiz|Setze die Sichtbarkeit der Notizspalte auf der Mitgliederseite';
+$lang['admin']['default_onote']  = 'Offizernotiz|Setze die Sichtbarkeit der Offiziernotizspalte auf der Mitgliederseite';
 
 // Settings on Members page
 $lang['admin']['member_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Mitgliederseite';

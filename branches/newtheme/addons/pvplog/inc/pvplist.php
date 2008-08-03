@@ -22,9 +22,10 @@ if( !defined('IN_ROSTER') )
 /**
  * Generate the PvP stats List
  *
- * @return string
+ * @param bool $output Return the list as a string
+ * @return mixed
  */
-function generatePvpList()
+function generatePvpList( $output=true )
 {
 	global $roster;
 
@@ -219,6 +220,13 @@ function generatePvpList()
 
 	$roster->db->free_result($result);
 
-	$roster->tpl->set_handle('pvplist', 'pvplog/pvplist.html');
-	return $roster->tpl->fetch('pvplist');
+	if ( $output )
+	{
+		$roster->tpl->set_handle('pvplist', 'pvplog/pvplist.html');
+		return $roster->tpl->fetch('pvplist');
+	}
+	else
+	{
+		return true;
+	}
 }

@@ -28,7 +28,7 @@ class memberslistInstall
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '1.9.9.1607';
+	var $version = '1.9.9.1839';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
@@ -55,6 +55,7 @@ class memberslistInstall
 
 		# Config menu entries
 		$installer->add_config("110,'display',NULL,'blockframe','menu'");
+		$installer->add_config("115,'default',NULL,'blockframe','menu'");
 		$installer->add_config("120,'members',NULL,'blockframe','menu'");
 		$installer->add_config("130,'stats',NULL,'blockframe','menu'");
 		$installer->add_config("140,'honor',NULL,'blockframe','menu'");
@@ -72,11 +73,25 @@ class memberslistInstall
 		$installer->add_config("1050,'icon_size','16','select{8px^8|9px^9|10px^10|11px^11|12px^12|13px^13|14px^14|15px^15|16px^16|17px^17|18px^18|19px^19|20px^20','display'");
 		$installer->add_config("1060,'class_icon','2','radio{Full^2|On^1|Off^0','display'");
 		$installer->add_config("1070,'class_text','0','radio{Color^2|On^1|Off^0','display'");
+		$installer->add_config("1075,'race_icon','1','radio{On^1|Off^0','display'");
+		$installer->add_config("1077,'race_text','0','radio{On^1|Off^0','display'");
 		$installer->add_config("1080,'talent_text','0','radio{On^1|Off^0','display'");
 		$installer->add_config("1090,'level_bar','1','radio{On^1|Off^0','display'");
 		$installer->add_config("1100,'honor_icon','1','radio{On^1|Off^0','display'");
 		$installer->add_config("1110,'compress_note','1','radio{On^1|Off^0','display'");
 		$installer->add_config("1120,'page_size','0','text{4|30','display'");
+
+		# Per page settings: Default List
+		$installer->add_config("1500,'default_motd','1','radio{Off^0|On^1','default'");
+		$installer->add_config("1510,'default_hslist','1','radio{Off^0|On^1','default'");
+		$installer->add_config("1520,'default_pvplist','1','radio{Off^0|On^1','default'");
+		$installer->add_config("1530,'default_class','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+		$installer->add_config("1540,'default_race','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+		$installer->add_config("1550,'default_level','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+		$installer->add_config("1560,'default_gtitle','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+		$installer->add_config("1570,'default_prof','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+		$installer->add_config("1580,'default_note','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+		$installer->add_config("1590,'default_onote','0','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
 
 		# Per page settings: Memberlist
 		$installer->add_config("2000,'member_update_inst','1','radio{Off^0|On^1','members'");
@@ -176,6 +191,7 @@ class memberslistInstall
 
 		# Roster menu entry
 		$installer->add_menu_button('memberslist_Members','guild','','spell_holy_prayerofspirit');
+		$installer->add_menu_button('memberslist_Full','guild','full','spell_holy_prayerofspirit');
 		$installer->add_menu_button('memberslist_Stats','guild','statslist','inv_misc_book_09');
 		$installer->add_menu_button('memberslist_Honor','guild','honorlist','inv_jewelry_necklace_37');
 		$installer->add_menu_button('memberslist_Log','guild','log','inv_misc_symbolofkings_01');
@@ -240,6 +256,28 @@ class memberslistInstall
 				SELECT DISTINCT `guild_id`, 5590, 'use_global', '0', 'radio{on^1|off^0', CONCAT('guild_', `guild_id`)
 				FROM `" . $installer->table('config_guild') . "`
 				WHERE `guild_id` > 0;");
+		}
+
+		// Adding a new page section called Default
+		if( version_compare('1.9.9.1839', $oldversion, '>') == true )
+		{
+			$installer->add_config("115,'default',NULL,'blockframe','menu'");
+
+			$installer->add_config("1075,'race_icon','1','radio{On^1|Off^0','display'");
+			$installer->add_config("1077,'race_text','0','radio{On^1|Off^0','display'");
+
+			$installer->add_config("1500,'default_motd','1','radio{Off^0|On^1','default'");
+			$installer->add_config("1510,'default_hslist','1','radio{Off^0|On^1','default'");
+			$installer->add_config("1520,'default_pvplist','1','radio{Off^0|On^1','default'");
+			$installer->add_config("1530,'default_class','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+			$installer->add_config("1540,'default_race','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+			$installer->add_config("1550,'default_level','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+			$installer->add_config("1560,'default_gtitle','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+			$installer->add_config("1570,'default_prof','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+			$installer->add_config("1580,'default_note','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+			$installer->add_config("1590,'default_onote','0','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','default'");
+
+			$installer->add_menu_button('memberslist_Full','guild','full','spell_holy_prayerofspirit');
 		}
 		return true;
 	}

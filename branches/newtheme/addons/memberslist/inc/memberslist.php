@@ -64,16 +64,6 @@ class memberslist
 			$this->addon = getaddon($basename);
 		}
 
-		// Select the template to use, so other addons can make their own memberslist templates
-		if( isset($this->addon['config']['template']) )
-		{
-			$roster->tpl->set_handle('memberslist', $this->addon['config']['template']);
-		}
-		else
-		{
-			$roster->tpl->set_handle('memberslist', $basename . '/memberslist.html');
-		}
-
 		// Set the js in the roster header
 		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/sorttable.js"></script>';
 
@@ -91,6 +81,16 @@ class memberslist
 		if( isset($_GET['alts']) )
 		{
 			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : ($_GET['alts'] == 'close') ? 1 : 0;
+		}
+
+		// Select the template to use, so other addons can make their own memberslist templates
+		if( isset($this->addon['config']['template']) )
+		{
+			$roster->tpl->set_handle('memberslist', $this->addon['config']['template']);
+		}
+		else
+		{
+			$roster->tpl->set_handle('memberslist', $basename . '/memberslist.html');
 		}
 	}
 
@@ -132,6 +132,7 @@ class memberslist
 			'L_SORT' => $roster->locale->act['memberssort'],
 			'L_COL_SHOW' => $roster->locale->act['memberscolshow'],
 			'L_FILTER' => $roster->locale->act['membersfilter'],
+			'L_MEMBERS' => $roster->locale->act['members'],
 			'L_GO' => 'Go',
 			'L_MA' => 'MA',
 
@@ -404,8 +405,8 @@ class memberslist
 				 */
 				$line[] = array(
 					'cell_value' => $cell_value,
-					'display' => $DATA['display'] == 1 ? true : false,
-					'padding' => ($current_col == 1) ? ( ($this->addon['config']['group_alts'] <= 0 || $row['main_id'] == $row['member_id']) ? false : true ) : false,
+					'display'    => $DATA['display'] == 1 ? true : false,
+					'padding'    => ($current_col == 1) ? ( ($this->addon['config']['group_alts'] <= 0 || $row['main_id'] == $row['member_id']) ? false : true ) : false,
 				);
 				$current_col++;
 			}
@@ -594,12 +595,19 @@ class memberslist
 
 		if( $this->addon['config']['member_tooltip'] )
 		{
-			$tooltip_h = $row['name'] . ' : ' . $row['guild_title'];
+			$tooltip_h = $row['name'] . ( isset($row['guild_title']) ? ' : ' . $row['guild_title'] : '' );
 
-			$tooltip = 'Level ' . $row['level'] . ' ' . $row['sex'] . ' ' . $row['race'] . ' ' . $row['class'] . "\n";
+			$tooltip = 'Level ' . $row['level'] . ' ' . $row['sex'] . ' ' . $row['race'] . ' ' . $row['class'];
 
-			$tooltip .= $roster->locale->act['lastonline'] . ': ' . $row['last_online'] . ' in ' . $row['zone'];
-			$tooltip .= ( $this->addon['config']['member_note'] == 0 || $row['nisnull'] ? '' : "\n" . $roster->locale->act['note'] . ': ' . $row['note'] );
+			if( isset($row['last_online']) )
+			{
+				$tooltip .= "\n" . $roster->locale->act['lastonline'] . ': ' . $row['last_online'] . ' in ' . $row['zone'];
+			}
+
+			if( isset($row['note']) )
+			{
+				$tooltip .= ( $this->addon['config']['member_note'] == 0 || $row['nisnull'] ? '' : "\n" . $roster->locale->act['note'] . ': ' . $row['note'] );
+			}
 
 			$tooltip = '<div style="cursor:help;" ' . makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP') . '>';
 
@@ -648,7 +656,7 @@ class memberslist
 					if( strlen($icon_name) > 0 ) break;
 				}
 
-				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.jpg" alt="" />';
+				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.jpg" alt="" /> ';
 			}
 
 			// Don't proceed for characters without data
@@ -677,17 +685,17 @@ class memberslist
 				$specline = implode(' / ', $tooltip);
 				if( !$notalent )
 				{
-					$specicon = '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP') . ' />';
+					$specicon = '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP') . ' /> ';
 				}
 
-				if( active_addon('info') )
+/*				if( active_addon('info') )
 				{
-					$icon_value .= '<a href="' . makelink('char-info-talents&amp;a=c:' . $row['member_id']) . '">' . $specicon . '</a>';
+					$icon_value .= '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $specicon . '</a>';
 				}
 				else
-				{
+				{*/
 					$icon_value .= $specicon;
-				}
+//				}
 			}
 
 			// Talent or class text

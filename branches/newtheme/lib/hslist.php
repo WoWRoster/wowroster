@@ -23,9 +23,10 @@ if( !defined('IN_ROSTER') )
 /**
  * Generate the Honor List
  *
- * @return string
+ * @param bool $output Return the list as a string
+ * @return mixed
  */
-function generateHsList()
+function generateHsList( $output=true )
 {
 	global $roster;
 
@@ -100,6 +101,13 @@ function generateHsList()
 	}
 	$roster->db->free_result($result);
 
-	$roster->tpl->set_handle('hslist', 'hslist.html');
-	return $roster->tpl->fetch('hslist');
+	if ( $output )
+	{
+		$roster->tpl->set_handle('hslist', 'hslist.html');
+		return $roster->tpl->fetch('hslist');
+	}
+	else
+	{
+		return true;
+	}
 }

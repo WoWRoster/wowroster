@@ -85,6 +85,7 @@ $lang['uninstall']				= 'Désinstaller';
 // Page names
 $lang['admin']['main']			= 'Main|Back to the global part of the configuration.';
 $lang['admin']['display']       = 'Affichage|Configurer les options d\'affichage relatif à la liste des membres.';
+$lang['admin']['default']       = 'Default List|Configure visibility of default members list columns.';
 $lang['admin']['members']       = 'Membres|Configurer la lisibilité des colonnes de la liste des membres.';
 $lang['admin']['stats']         = 'Statistiques|Configurer la lisibilité des colonnes de la liste des statistiques.';
 $lang['admin']['honor']         = 'Honneur|Configurer la lisibilité des colonnes de la liste d\'honneur.';
@@ -105,10 +106,24 @@ $lang['admin']['icon_size']     = 'Taille des icônes|Spécifier la taille des i
 $lang['admin']['spec_icon']		= 'Icône de talent|Affiche ou non l\'icône de spécialisation de talent.';
 $lang['admin']['class_icon']    = 'Icône de classe|Contrôler l\'affichage des icônes de classe et de spécialisation de talent.<br />Full - affiche les icônes de classe et de talent<br />On - affiche uniquement l\'icône de classe<br />Off- cache les icônes';
 $lang['admin']['class_text']    = 'Texte de classe|Contrôler l\'affichage du texte de la classe.<br />Color - texte de classe en couleur<br />On - affiche le texte de classe<br />Off - cache le texte de classe';
+$lang['admin']['race_icon']     = 'Race Icon|Controls the race icon display.<br />On - Display race icon<br />Off - Hide icon';
+$lang['admin']['race_text']     = 'Race Text|Controls the race text display.<br />On - Display race text<br />Off - Hide race text';
 $lang['admin']['talent_text']   = 'Texte de talent|Affiche la spécialisation du talent à la place du texte de classe.';
 $lang['admin']['level_bar']     = 'Barre de niveau|Afficher des barres de niveau à la place de nombres.';
 $lang['admin']['honor_icon']    = 'Icône d\'honneur|Affiche l\'îcone du rang d\'honneur.';
 $lang['admin']['compress_note'] = 'Notes compressées|Afficher les notes de guilde dans un tooltip à la place d\'une colonne.';
+
+// Settings on Default page
+$lang['admin']['default_motd']   = 'MOTD de guilde|Monte le message du jour de la guide en haut de la page des membres';
+$lang['admin']['default_hslist'] = 'Statistiques d\'honneur|Contrôle l\'affichage des statistiques d\'honneur sur la page des membres';
+$lang['admin']['default_pvplist']= 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the members page<br />If you have disabled PvPlog uploading, there is no need to have this on';
+$lang['admin']['default_class']  = 'Classe|Spécifie la présence de la colonne de classe sur la page des membres';
+$lang['admin']['default_race']   = 'Race|Set visibility of the race column on the members page';
+$lang['admin']['default_level']  = 'Niveau|Spécifie la présence de la colonne de niveau sur la page des membres';
+$lang['admin']['default_gtitle'] = 'Titre de guilde|Spécifie la présence de la colonne de titre de guilde sur la page des membres';
+$lang['admin']['default_prof']   = 'Profession|Spécifie la présence de la colonne des professions sur la page des membres';
+$lang['admin']['default_note']   = 'Note|Spécifie la présence de la colonne des notes sur la page des membres';
+$lang['admin']['default_onote']  = 'Note d\'officer|Spécifie la présence de la colonne des notes d\'officier sur la page des membres';
 
 // Settings on Members page
 $lang['admin']['member_update_inst'] = 'Instructions de mise à jour|Contrôle l\'affichage des instructions de mise à jour sur la page des membres';
