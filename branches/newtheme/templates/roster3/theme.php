@@ -9,7 +9,7 @@
  *
  * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @version    SVN: $Id: theme.php 1791 2008-06-15 16:59:24Z Zanix $
+ * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    WoWRoster
  * @subpackage Theme
