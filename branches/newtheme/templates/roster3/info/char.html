@@ -54,7 +54,7 @@
 <!-- tab1 -->
 		<div id="tab1" class="tab1" style="display:none;">
 			<div class="container">
-				<div class="name">{L_PROFILE}</div>
+				<div class="box-label"><div class="icon profile"></div>{L_PROFILE}</div>
 
 				<div class="equip-bg">
 					<div class="equip">
@@ -193,7 +193,7 @@
 		<div id="tab2" class="tab2" style="display:none;">
 		
 			<div class="container">
-				<div class="box-label">{ Pets }</div>
+				<div class="box-label"><div class="icon pets"></div>{ Pets }</div>
 				
 <!-- BEGIN pet -->
 		<div class="pet shader" >
@@ -242,11 +242,11 @@
 			</div>
 			
 			<div class="container">
-				<div class="box-label">{ Mounts }</div>
+				<div class="box-label"><div class="icon mounts"></div>{ Mounts }</div>
 			</div>
 			
 			<div class="container">
-				<div class="box-label">{ Companions }</div>
+				<div class="box-label"><div class="icon companions"></div>{ Companions }</div>
 			</div>
 			
 		</div>
@@ -327,7 +327,7 @@
 		<div id="tab3" class="tab3" style="display:none;">
 <!-- BEGIN rep -->
 			<div class="container">
-				<div class="name">
+				<div class="box-label">
 					<div class="icon {rep.NAME_ID}"></div>
 					{rep.NAME}</div>
 <!-- BEGIN bar -->
@@ -353,7 +353,7 @@
 		<div id="tab4" class="tab4" style="display:none;">
 <!-- BEGIN skill -->
 			<div class="container">
-				<div class="name"><div class="icon {skill.NAME_ID}"></div>{skill.NAME}</div>
+				<div class="box-label"><div class="icon {skill.NAME_ID}"></div>{skill.NAME}</div>
 <!-- BEGIN bar -->
 				<div class="skill">
 					<div class="skill-name">{skill.bar.NAME}</div>
@@ -379,7 +379,7 @@
 <!-- tab5 -->
 		<div id="tab5" class="tab5" style="display:none;">
 			<div class="container">
-				<div class="name">{L_TALENTS}</div>
+				<div class="box-label"><div class="icon talents"></div>{L_TALENTS}</div>
 
 				<div class="shader"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
 
@@ -424,15 +424,21 @@
 
 <!-- BEGIN spell_book -->
 			<div class="container">
-				<div class="name">
-					<div class="icon"></div>
+				<div class="box-label">
+					<div class="icon spellbook"></div>
 					{spell_book.NAME}'s {L_SPELLBOOK}
 				</div>
 
 <!-- BEGIN tree -->
 				<div class="spell-tree shader">
 					<div class="tree-name"><img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" class="icon" alt="" />
-						<div class="id-name">{spell_book.tree.ID}</div>
+						<div class="id-name">
+							<!-- IF spell_book.tree.ID == "0" -->
+								General
+							<!-- ELSE -->
+								{spell_book.tree.ID}
+							<!-- ENDIF -->
+						</div>
 					</div>
 					<div class="spell-page">
 <!-- BEGIN page -->
