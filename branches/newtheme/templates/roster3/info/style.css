@@ -22,13 +22,14 @@
 .char-list .banner .title { font: bold 16px/42px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFFFFF; text-align: center; }
 .char-list .list { margin: 25px 10px 10px; height: 600px; overflow: auto; border-bottom: 1px solid #9D7D1C; border-left: 1px solid #9D7D1C; }
 .char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold; border-top: 1px solid #9D7D1C; }
-.char-list .list .select { background: url(../images/char_select.png) repeat-x left top; color: #FFFFFF; }
-.char-list .list .select a { color: #FFFFFF; }
-.char-list .list .u-link { background: url(../images/char_row.png) repeat-x left bottom; color: #000000; }
-.char-list .list .u-link a { color: #000000; }
-.char-list .list .u-link:hover { background: url(../images/char_row_select.png) repeat-x left top; }
 .char-list .list .plain { background: url(../images/char_row.png) repeat-x left top; color: #333333; }
 .char-list .list .plain:hover { background: transparent repeat-x left top; }
+.char-list .list .u-link { background: url(../images/char_row.png) repeat-x left bottom; color: #000000; }
+.char-list .list .u-link a { color: #000000; }
+.char-list .list .u-link:hover { background: url(../images/char_row_hover.png) repeat-x left top; }
+.char-list .list .select { background: url(../images/char_row_select.png) repeat-x left top; color: #FFFFFF; }
+.char-list .list .select a { color: #FFFFFF; }
+
 .char-list .list .lvl { float: left; width:20px; }
 .char-list .list .name { float: left; }
 .char-list .list .info { float: right; }
