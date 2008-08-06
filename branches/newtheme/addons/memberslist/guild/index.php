@@ -71,13 +71,12 @@ $FIELD['name'] = array (
 	'display' => 3,
 );
 
-$FIELD['class'] = array (
-	'lang_field' => 'class',
-	'order'    => array( '`members`.`class` ASC' ),
-	'order_d'    => array( '`members`.`class` DESC' ),
-	'value' => array($memberlist,'class_value'),
-	'js_type' => 'ts_string',
-	'display' => $addon['config']['default_class'],
+$FIELD['level'] = array (
+	'lang_field' => 'level',
+	'order_d'    => array( '`members`.`level` ASC' ),
+	'value' => array($memberlist,'level_value'),
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['default_level'],
 );
 
 $FIELD['race'] = array (
@@ -89,12 +88,20 @@ $FIELD['race'] = array (
 	'display' => $addon['config']['default_race'],
 );
 
-$FIELD['level'] = array (
-	'lang_field' => 'level',
-	'order_d'    => array( '`members`.`level` ASC' ),
-	'value' => array($memberlist,'level_value'),
-	'js_type' => 'ts_number',
-	'display' => $addon['config']['default_level'],
+$FIELD['class'] = array (
+	'lang_field' => 'class',
+	'order'    => array( '`members`.`class` ASC' ),
+	'order_d'    => array( '`members`.`class` DESC' ),
+	'value' => array($memberlist,'class_value'),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['default_class'],
+);
+
+$FIELD['professions'] = array (
+	'lang_field' => 'professions',
+	'value' => 'tradeskill_icons',
+	'js_type' => '',
+	'display' => $addon['config']['default_prof'],
 );
 
 $FIELD['guild_title'] = array (
@@ -104,13 +111,6 @@ $FIELD['guild_title'] = array (
 	'js_type' => 'ts_number',
 	'jsort' => 'guild_rank',
 	'display' => $addon['config']['default_gtitle'],
-);
-
-$FIELD['professions'] = array (
-	'lang_field' => 'professions',
-	'value' => 'tradeskill_icons',
-	'js_type' => '',
-	'display' => $addon['config']['default_prof'],
 );
 
 $FIELD['note'] = array (

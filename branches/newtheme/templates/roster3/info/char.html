@@ -191,7 +191,132 @@
 
 <!-- tab2 -->
 		<div id="tab2" class="tab2" style="display:none;">
+		
+			<div class="container">
+				<div class="box-label">{ Pets }</div>
+				
+<!-- BEGIN pet -->
+		<div class="pet shader" >
+			<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
+			<div class="basics">
+				<div class="name">{pet.NAME}</div>
+				<div class="info">{L_LEVEL} {pet.LEVEL} {pet.TYPE}</div>
+				<div class="loyalty">{pet.LOYALTY}</div>
+			</div>
+			<div class="bars">
+				<div class="health"><span class="yellowB">{L_HEALTH}:</span> {pet.HEALTH}</div>
+				<div class="mana"><span class="yellowB">{pet.L_POWER}:</span> {pet.POWER}</div>
+<!-- IF pet.S_EXP -->
+				<div class="xpbar" style="clip:rect(0px {pet.EXP_WIDTH}px 12px 0px);"><img src="{U_IMAGE_PATH}expbar_full.gif" alt="" /></div>
+				<div class="xpbar_text">{pet.EXP_TEXT}</div>
+<!-- ENDIF -->
+
+			</div>
+
+			<div class="resist">
+<!-- BEGIN resist -->
+				<div class="{pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
+<!-- END resist -->
+			</div>
+
+			<div class="padding">
+<!-- BEGIN box_stats -->
+				<div class="stats">
+<!-- BEGIN statline -->
+					<div class="statline" {pet.box_stats.statline.TOOLTIP}>
+						<span class="value">{pet.box_stats.statline.VALUE}</span>
+						<span class="label">{pet.box_stats.statline.NAME}:</span>
+					</div>
+<!-- END statline -->
+				</div>
+<!-- END box_stats -->
+			</div>
+
+<!-- IF pet.TOTAL_TP -->
+			<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
+<!-- ENDIF -->
 		</div>
+
+<!-- END pet -->
+				
+			</div>
+			
+			<div class="container">
+				<div class="box-label">{ Mounts }</div>
+			</div>
+			
+			<div class="container">
+				<div class="box-label">{ Companions }</div>
+			</div>
+			
+		</div>
+<!-- ENDIF -->
+
+<!-- IF S_PET_TAB -->
+
+<!-- tab2 -->
+	<div id="tab2_old" class="tab2" style="display:none;">
+		<div class="background">&nbsp;</div>
+
+<!-- BEGIN pet -->
+		<div id="pet_{pet.ID}" style="display:none;">
+			<div class="name">{pet.NAME}</div>
+			<div class="info">{L_LEVEL} {pet.LEVEL} {pet.TYPE}</div>
+
+			<div class="loyalty">{pet.LOYALTY}</div>
+
+			<img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" />
+
+			<div class="health"><span class="yellowB">{L_HEALTH}:</span> {pet.HEALTH}</div>
+			<div class="mana"><span class="yellowB">{pet.L_POWER}:</span> {pet.POWER}</div>
+
+			<div class="resist">
+<!-- BEGIN resist -->
+				<div class="{pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
+<!-- END resist -->
+			</div>
+
+<!-- IF pet.S_EXP -->
+			<img src="{U_IMAGE_PATH}expbar_empty.gif" class="xpbar_empty" alt="" />
+			<div class="xpbar" style="clip:rect(0px {pet.EXP_WIDTH}px 12px 0px);"><img src="{U_IMAGE_PATH}expbar_full.gif" alt="" /></div>
+			<div class="xpbar_text">{pet.EXP_TEXT}</div>
+<!-- ENDIF -->
+
+			<div class="padding">
+<!-- BEGIN box_stats -->
+				<div class="stats">
+<!-- BEGIN statline -->
+					<div class="statline" {pet.box_stats.statline.TOOLTIP}>
+						<span class="value">{pet.box_stats.statline.VALUE}</span>
+						<span class="label">{pet.box_stats.statline.NAME}:</span>
+					</div>
+<!-- END statline -->
+				</div>
+<!-- END box_stats -->
+			</div>
+
+<!-- IF pet.TOTAL_TP -->
+			<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
+<!-- ENDIF -->
+		</div>
+
+<!-- END pet -->
+
+<!-- Pet Navagation Tabs -->
+		<div class="pet_tabs">
+			<ul id="pet_tabs">
+<!-- BEGIN pet -->
+				<li {pet.TOOLTIP} style="background-image:url('{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}');">
+					<a rel="pet_{pet.ID}" class="text"></a></li>
+<!-- END pet -->
+			</ul>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var pet_tabs=new tabcontent('pet_tabs');
+		pet_tabs.init();
+	</script>
 <!-- ENDIF -->
 
 
@@ -348,73 +473,6 @@
 <!-- IF GUILD_NAME and GUILD_TITLE -->	<div class="infoline_2">{L_GUILD_LINE}</div><!-- ENDIF -->
 	</div>
 
-
-<!-- IF S_PET_TAB -->
-
-<!-- tab2 -->
-	<div id="tab2_old" class="tab2" style="display:none;">
-		<div class="background">&nbsp;</div>
-
-<!-- BEGIN pet -->
-		<div id="pet_{pet.ID}" style="display:none;">
-			<div class="name">{pet.NAME}</div>
-			<div class="info">{L_LEVEL} {pet.LEVEL} {pet.TYPE}</div>
-
-			<div class="loyalty">{pet.LOYALTY}</div>
-
-			<img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" />
-
-			<div class="health"><span class="yellowB">{L_HEALTH}:</span> {pet.HEALTH}</div>
-			<div class="mana"><span class="yellowB">{pet.L_POWER}:</span> {pet.POWER}</div>
-
-			<div class="resist">
-<!-- BEGIN resist -->
-				<div class="{pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
-<!-- END resist -->
-			</div>
-
-<!-- IF pet.S_EXP -->
-			<img src="{U_IMAGE_PATH}expbar_empty.gif" class="xpbar_empty" alt="" />
-			<div class="xpbar" style="clip:rect(0px {pet.EXP_WIDTH}px 12px 0px);"><img src="{U_IMAGE_PATH}expbar_full.gif" alt="" /></div>
-			<div class="xpbar_text">{pet.EXP_TEXT}</div>
-<!-- ENDIF -->
-
-			<div class="padding">
-<!-- BEGIN box_stats -->
-				<div class="stats">
-<!-- BEGIN statline -->
-					<div class="statline" {pet.box_stats.statline.TOOLTIP}>
-						<span class="value">{pet.box_stats.statline.VALUE}</span>
-						<span class="label">{pet.box_stats.statline.NAME}:</span>
-					</div>
-<!-- END statline -->
-				</div>
-<!-- END box_stats -->
-			</div>
-
-<!-- IF pet.TOTAL_TP -->
-			<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
-<!-- ENDIF -->
-		</div>
-
-<!-- END pet -->
-
-<!-- Pet Navagation Tabs -->
-		<div class="pet_tabs">
-			<ul id="pet_tabs">
-<!-- BEGIN pet -->
-				<li {pet.TOOLTIP} style="background-image:url('{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}');">
-					<a rel="pet_{pet.ID}" class="text"></a></li>
-<!-- END pet -->
-			</ul>
-		</div>
-	</div>
-
-	<script type="text/javascript">
-		var pet_tabs=new tabcontent('pet_tabs');
-		pet_tabs.init();
-	</script>
-<!-- ENDIF -->
 
 <!-- IF S_PVP_TAB -->
 

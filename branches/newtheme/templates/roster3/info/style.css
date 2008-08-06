@@ -20,15 +20,15 @@
 .char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -0px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
 .char-list .banner { background: url(images/member_banner.png); position: absolute; height: 68px; width: 340px; left: -70px; top: -40px; }
 .char-list .banner .title { font: bold 16px/42px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFFFFF; text-align: center; }
-.char-list .list { margin: 25px 10px 10px; height: 600px; overflow: auto; }
+.char-list .list { margin: 25px 10px 10px; height: 600px; overflow: auto; border-bottom: 1px solid #9D7D1C; border-left: 1px solid #9D7D1C; }
 .char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold; border-top: 1px solid #9D7D1C; }
 .char-list .list .select { background: url(../images/char_select.png) repeat-x left top; color: #FFFFFF; }
 .char-list .list .select a { color: #FFFFFF; }
-.char-list .list .u-link { background: url(../images/char_normal.png) repeat-x left top; color: #000000; }
+.char-list .list .u-link { background: url(../images/char_row.png) repeat-x left bottom; color: #000000; }
 .char-list .list .u-link a { color: #000000; }
-.char-list .list .u-link:hover { background: url(../images/char_hover.png) repeat-x left top; }
-.char-list .list .plain { color: #555555; }
-.char-list .list .plain:hover { background: url(../images/char_hover.png) repeat-x left top; }
+.char-list .list .u-link:hover { background: url(../images/char_row_select.png) repeat-x left top; }
+.char-list .list .plain { background: url(../images/char_row.png) repeat-x left top; color: #333333; }
+.char-list .list .plain:hover { background: transparent repeat-x left top; }
 .char-list .list .lvl { float: left; width:20px; }
 .char-list .list .name { float: left; }
 .char-list .list .info { float: right; }
@@ -61,7 +61,7 @@
 .sections .selected .text { background-image:url(../images/tabs/active_right.gif); color:#ffffff; padding:8px 11px 10px 3px; }
 
 /* Current page text */
-.main-panel { margin: 180px 210px 20px 20px; }
+.main-panel { margin: 170px 210px 20px 20px; }
 
 .char_title { width:454px; height:15px; text-align:center; font-weight:bold; }
 .char_title .lastupdated { color:#0099ff;font-size:x-small;font-style:italic; }
@@ -226,220 +226,24 @@
 
 .main-panel .tab1 .padding { cursor: default; position:absolute; width:360px; height:90px; left: 95px; top: 330px; z-index: 200; }
 .main-panel .tab1 .padding .stats { float:left; width:158px; height:74px; padding:5px; color:#FFCC00; margin-right: 10px; }
-.main-panel .tab1 .padding .stats .statline {
-	padding:0;
-	font:10px verdana, tahoma, sans-serif;
-}
-.main-panel .tab1 .padding .stats .statline .label {
-	overflow:hidden;
-	width:85px;
-}
-.main-panel .tab1 .padding .stats .statline .value {
-	float:right;
-	overflow:hidden;
-	text-align:right;
-}
+.main-panel .tab1 .padding .stats .statline {	padding:0; font:10px verdana, tahoma, sans-serif;}
+.main-panel .tab1 .padding .stats .statline .label { overflow:hidden; width:85px;}
+.main-panel .tab1 .padding .stats .statline .value { float:right; overflow:hidden; text-align:right; }
 
 
 /*********** Pet Page Tab(2) ***********/
 
-/* Background image for pet tab */
-.char_panel .tab2 .background {
-	position:absolute;
-	width:333px;
-	height:87px;
-	margin:342px 0pt 0pt 9px;
-	background:url(images/pet_back.gif) no-repeat;
-}
-.char_panel .tab2 .name {
-	font-weight:bold;
-	font-size:14px;
-	color:#FFDD00;
-	position:absolute;
-	margin-top:78px;
-	margin-left:85px;
-}
-.char_panel .tab2 .info {
-	font-weight:bold;
-	font-size:12px;
-	position:absolute;
-	margin-top:98px;
-	margin-left:85px;
-}
-.char_panel .tab2 .loyalty {
-	font-weight:bold;
-	font-size:12px;
-	position:absolute;
-	margin-top:118px;
-	margin-left:85px;
-}
-.char_panel .tab2 .icon {
-	position:absolute;
-	margin-left:25px;
-	margin-top:78px;
-	width:55px;
-	height:55px;
-}
-.char_panel .tab2 .health {
-	position:absolute;
-	margin:143px 0 0 40px;
-	background:url(images/bar_health.gif) no-repeat;
-	width:125px;
-	font:9px verdana,arial,helvetica,sans-serif;
-	padding-top:3px;
-	padding-bottom:3px;
-	padding-left:25px;
-}
-.char_panel .tab2 .mana {
-	position:absolute;
-	margin:165px 0 0 40px;
-	background:url(images/bar_mana.gif) no-repeat;
-	width:125px;
-	font:9px verdana,arial,helvetica,sans-serif;
-	padding-top:3px;
-	padding-bottom:3px;
-	padding-left:25px;
-}
+.main-panel .tab2 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab2 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .tab2 .pet { height:200px; margin: 10px; position:relative; }
+.main-panel .tab2 .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
+.main-panel .tab2 .pet .basics { height: 64px; width: 200px; position:absolute; left: 75px; top: 6px; }
+.main-panel .tab2 .pet .basics .name { font: bold 20px/22px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFCC00; }
 
-/* Resistances */
-.char_panel .tab2 .resist b {
-	color:black;
-	text-align:center;
-	font-size:12px;
-	font-weight:bold;
-	position:absolute;
-	right:-1px;
-	text-align:center;
-	top:6px;
-	width:27px;
-}
-.char_panel .tab2 .resist span {
-	color:white;
-	font-size:12px !important;
-	font-weight:bold;
-	position:absolute;
-	right:0px;
-	text-align:center;
-	top:5px;
-	width:27px;
-}
-.char_panel .tab2 .resist .arcane {
-	background-image:url(images/resist/arcane.gif);
-	margin:84px 0pt 0pt 304px;
-	position:absolute;
-	width:27px;
-	height:21px;
-	padding-top:6px;
-	cursor:default;
-}
-.char_panel .tab2 .resist .fire {
-	background-image:url(images/resist/fire.gif);
-	margin:113px 0 0 304px;
-	position:absolute;
-	width:27px;
-	height:21px;
-	padding-top:6px;
-	cursor:default;
-}
-.char_panel .tab2 .resist .nature {
-	background-image:url(images/resist/nature.gif);
-	margin:142px 0 0 304px;
-	position:absolute;
-	width:27px;
-	height:21px;
-	padding-top:6px;
-	cursor:default;
-}
-.char_panel .tab2 .resist .frost {
-	background-image:url(images/resist/frost.gif);
-	margin:171px 0 0 304px;
-	position:absolute;
-	width:27px;
-	height:21px;
-	padding-top:6px;
-	cursor:default;
-}
-.char_panel .tab2 .resist .shadow {
-	background-image:url(images/resist/shadow.gif);
-	margin:200px 0 0 304px;
-	position:absolute;
-	width:27px;
-	height:21px;
-	padding-top:6px;
-	cursor:default;
-}
 
-.char_panel .tab2 .padding {
-	position:absolute;
-	margin:245px 0 0 59px;
-	width:235px;
-	height:79px;
-	background:url(images/stat_back.gif) no-repeat;
-}
-.char_panel .tab2 .padding .stats {
-	float:left;
-	width:109px;
-	height:74px;
-	padding:3px 2px 1px 4px;
-	color:#DFB801;
-}
-.char_panel .tab2 .padding .stats .statline {
-	padding:0;
-	font:10px verdana, tahoma, sans-serif;
-	font-weight:bold;
-}
-.char_panel .tab2 .padding .stats .statline .label {
-	overflow:hidden;
-	width:85px;
-}
-.char_panel .tab2 .padding .stats .statline .value {
-	float:right;
-	overflow:hidden;
-	text-align:right;
-}
 
-.char_panel .tab2 .xpbar_empty {
-	/* Placement for the empty experience bar */
-	width:216px;
-	height:12px;
-	position:absolute;
-	margin-top:208px;
-	margin-left:67px;
-}
-.char_panel .tab2 .xpbar {
-	/* Placement for the experience bar */
-	width:216px;
-	height:12px;
-	position:absolute;
-	margin-top:208px;
-	margin-left:67px;
-}
-.char_panel .tab2 .xpbar_text {
-	/* Placement for experience text */
-	color:#FFFFFF;
-	text-align:center;
-	font-size:9px;
-	width:216px;
-	position:absolute;
-	margin-top:208px;
-	margin-left:67px;
-}
-.char_panel .tab2 .trainingpts {
-	/* Placement for training points */
-	text-align:right;
-	font-size:12px;
-	font-weight:bold;
-	width:200px;
-	position:absolute;
-	margin-top:411px;
-	margin-left:120px;
-}
-.pet_tabs { position:absolute;font:11px arial,helvetica,sans-serif;margin:360px 0 0 17px;line-height:normal; }
-.pet_tabs ul { margin:0;padding:0;list-style:none; }
-.pet_tabs li { float:left;margin:3px;cursor:pointer;background-position:center;background-repeat:no-repeat; }
-.pet_tabs li a { border:2px solid #4E4D4C;display:block;height:30px;width:30px;padding:2px; }
-.pet_tabs li a:hover, .pet_tabs li.selected a:hover { border:2px solid #0066FF; }
-.pet_tabs li.selected a { border:2px solid #FFFF00; }
+.main-panel .tab2 .pet .padding { visibility: hidden; }
+
 
 
 /*********** Reputation Page Tab(3) ***********/
