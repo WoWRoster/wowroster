@@ -23,12 +23,14 @@
 .char-list .list { margin: 25px 10px 10px; height: 600px; overflow: auto; border-bottom: 1px solid #9D7D1C; border-left: 1px solid #9D7D1C; }
 .char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold; border-top: 1px solid #9D7D1C; }
 .char-list .list .plain { background: url(../images/char_row.png) repeat-x left top; color: #333333; }
-.char-list .list .plain:hover { background: transparent repeat-x left top; }
-.char-list .list .u-link { background: url(../images/char_row.png) repeat-x left bottom; color: #000000; }
+.char-list .list .plain:hover { background: url(../images/char_row.png) repeat-x left bottom; }
+.char-list .list .u-link { cursor:pointer; background: url(../images/char_row_link.png) repeat-x left top; color: #000000; }
 .char-list .list .u-link a { color: #000000; }
-.char-list .list .u-link:hover { background: url(../images/char_row_hover.png) repeat-x left top; }
-.char-list .list .select { background: url(../images/char_row_select.png) repeat-x left top; color: #FFFFFF; }
+.char-list .list .u-link:hover { background: url(../images/char_row_link.png) repeat-x left bottom; }
+.char-list .list .select { cursor:pointer; background: url(../images/char_row_select.png) repeat-x left top; color: #FFFFFF; }
 .char-list .list .select a { color: #FFFFFF; }
+.char-list .list .select:hover { background: url(../images/char_row_select.png) repeat-x left bottom; }
+
 
 .char-list .list .lvl { float: left; width:20px; }
 .char-list .list .name { float: left; }
@@ -239,19 +241,78 @@
 
 .main-panel .tab2 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab2 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab2 .pet { height:200px; margin: 10px; position:relative; }
+.main-panel .tab2 .pet { height:80px; margin: 10px; position:relative; }
 .main-panel .tab2 .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
 .main-panel .tab2 .pet .basics { height: 64px; width: 200px; position:absolute; left: 75px; top: 6px; }
-.main-panel .tab2 .pet .basics .name { font: bold 20px/22px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFCC00; }
+.main-panel .tab2 .pet .basics .name { font: bold 18px/20px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFCC00; }
 
 
 
-.main-panel .tab2 .pet .padding { visibility: hidden; }
+.main-panel .tab2 .pet .padding { top: 1px; right: 1px; position: absolute; }
+.main-panel .tab2 .pet .padding .stats {
+	float:left;
+	width:109px;
+	height:74px;
+	padding:3px 2px 1px 4px;
+	color:#DFB801;
+}
+.main-panel .tab2 .pet .padding .stats .statline {
+	padding:0;
+	font:10px verdana, tahoma, sans-serif;
+	font-weight:bold;
+}
+.main-panel .tab2 .pet .padding .stats .statline .label {
+	overflow:hidden;
+	width:85px;
+}
+.main-panel .tab2 .pet .padding .stats .statline .value {
+	float:right;
+	overflow:hidden;
+	text-align:right;
+}
 
 .main-panel .tab2 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .main-panel .tab2 .container .box-label .pets { background: url(images/icons/pets.gif); }
 .main-panel .tab2 .container .box-label .mounts { background: url(images/icons/mounts.gif); }
 .main-panel .tab2 .container .box-label .companions { background: url(images/icons/companions.gif); }
+
+/* Powers */
+.tab2 .powers { cursor: default; padding: 5px; width: 180px; position: absolute; left: 180px; top: 0px; }
+.tab2 .powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
+.tab2 .powers .bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
+.tab2 .powers .bar .power-bar { background: transparent repeat-x left center; margin: 1px; float: right; line-height: 16px; height: 16px; width: 100px; position: relative; text-align: center; border: 1px solid #000000; }
+.tab2 .powers .bar .health { background: url(images/bars/bar-life.gif); }
+.tab2 .powers .bar .health:hover { border-color: #7EFF00; }
+.tab2 .powers .bar .Mana { background: url(images/bars/bar-mana.gif); }
+.tab2 .powers .bar .Mana:hover { border-color: #00A8FF; }
+.tab2 .powers .bar .Rage { background: url(images/bars/bar-rage.gif); }
+.tab2 .powers .bar .Rage:hover { border-color: #FF0000; }
+.tab2 .powers .bar .Energy { background: url(images/bars/bar-energy.gif); }
+.tab2 .powers .bar .Energy:hover { border-color: #000000; }
+
+.tab2 .powers .bar .xp-bar .fill { background: url(images/bars/xp-rested.gif); }
+.tab2 .powers .bar .xp-bar .text { width:100px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.tab2 .powers .bar .xp-bar:hover { border-color: #8F00FF; }
+
+/* Resistances */
+.main-panel .tab2 .resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 70px; top: 60px; padding: 5px; }
+.main-panel .tab2 .resist .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; height: 20px; text-transform: uppercase; }
+.main-panel .tab2 .resist .bar .text { float: right; line-height: 21px; }
+.main-panel .tab2 .resist .bar .icons { float: right; width: 220px; top: -1px; position: relative; }
+.main-panel .tab2 .resist b { color:black; text-align:center; font-size:12px; font-weight:bold; position:absolute; right:-1px; text-align:center; top:6px; width:20px; }
+.main-panel .tab2 .resist span { color:white; font-size:12px !important; font-weight:bold; position:absolute; right:0px; text-align:center; top:5px; width:20px; }
+
+.main-panel .tab2 .resist .icon { width:20px; height:20px; cursor:default; float: left; position: relative; margin-left: 2px; border: 1px solid #000000; }
+.main-panel .tab2 .resist .arcane { background-image:url(images/resist/arcane.gif); }
+.main-panel .tab2 .resist .arcane:hover { border: 1px solid #FFFFFF; }
+.main-panel .tab2 .resist .fire { background-image:url(images/resist/fire.gif); }
+.main-panel .tab2 .resist .fire:hover { border: 1px solid #FF0000; }
+.main-panel .tab2 .resist .nature { background-image:url(images/resist/nature.gif);  }
+.main-panel .tab2 .resist .nature:hover { border: 1px solid #008000; }
+.main-panel .tab2 .resist .frost { background-image:url(images/resist/frost.gif); }
+.main-panel .tab2 .resist .frost:hover { border: 1px solid #0000FF; }
+.main-panel .tab2 .resist .shadow { background-image:url(images/resist/shadow.gif); }
+.main-panel .tab2 .resist .shadow:hover { border: 1px solid #4B0082; }
 
 
 

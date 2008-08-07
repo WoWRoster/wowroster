@@ -10,13 +10,12 @@
 		<div class="spacer">
 			<div class="list">
 <!-- BEGIN mini_memberslist -->
+			<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}"><!-- ENDIF -->
 			<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->u-link<!-- ELSE -->plain<!-- ENDIF -->">
 				<span class="lvl">{mini_memberslist.LEVEL}</span>
-<!-- IF mini_memberslist.U_LINK --><!-- U_LINK will be FALSE if the player has no data -->
-				<span class="name"><a href="{mini_memberslist.U_LINK}">{mini_memberslist.NAME}</a></span>
-<!-- ELSE -->
+<!-- U_LINK will be FALSE if the player has no data -->
 				<span class="name">{mini_memberslist.NAME}</span>
-<!-- ENDIF -->
+
 				<span class="info">
 
 <!-- THE FOLLOWING ONLY EXIST IF THERE IS PLAYER DATA -->
@@ -26,6 +25,7 @@
 					<img src="{IMG_URL}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" />
 				</span>
 			</div>
+			<!-- IF mini_memberslist.U_LINK --></a><!-- ENDIF -->
 <!-- END mini_memberslist -->
 			</div>
 		</div>
@@ -200,22 +200,33 @@
 			<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
 			<div class="basics">
 				<div class="name">{pet.NAME}</div>
-				<div class="info">{L_LEVEL} {pet.LEVEL} {pet.TYPE}</div>
+				<div class="info">{pet.TYPE}</div>
+				<div class="info">{L_LEVEL} {pet.LEVEL}</div>
 				<div class="loyalty">{pet.LOYALTY}</div>
 			</div>
-			<div class="bars">
-				<div class="health"><span class="yellowB">{L_HEALTH}:</span> {pet.HEALTH}</div>
-				<div class="mana"><span class="yellowB">{pet.L_POWER}:</span> {pet.POWER}</div>
+			<div class="powers">
+				<div class="bar">
+					<div class="power-bar health">{pet.HEALTH}</div>
+					<div class="power-name">{L_HEALTH}:</div>
+				</div>
+				<div class="bar">
+					<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
+					<div class="power-name">{pet.L_POWER}:</div>
+				</div>
 <!-- IF pet.S_EXP -->
-				<div class="xpbar" style="clip:rect(0px {pet.EXP_WIDTH}px 12px 0px);"><img src="{U_IMAGE_PATH}expbar_full.gif" alt="" /></div>
-				<div class="xpbar_text">{pet.EXP_TEXT}</div>
+				<div class="bar">
+					<div class="power-bar xp-bar">
+						<div class="fill" style="width: {pet.EXP_WIDTH}%;"></div>
+						<div class="text">{EXP_TEXT}</div>
+					</div>
+					<div class="power-name">EXP:</div>
+				</div>
 <!-- ENDIF -->
-
 			</div>
 
 			<div class="resist">
 <!-- BEGIN resist -->
-				<div class="{pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
+				<div class="icon {pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
 <!-- END resist -->
 			</div>
 
