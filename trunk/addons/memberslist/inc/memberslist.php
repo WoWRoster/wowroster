@@ -32,10 +32,6 @@ class memberslist
 
 	var $addon;						// SortMembers addon data
 
-	var $tableHeaderRow;			// Column headers
-	var $sortFields;				// Column names and sort input fields
-	var $sortoptions;				// List of 'option' fields for the sort select boxes
-
 	/**
 	 * Constructor
 	 *
@@ -75,7 +71,7 @@ class memberslist
 		}
 
 		// Set the js in the roster header
-		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/sorttable.js"></script>';
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/alts.js"></script>';
 
 		// Merge in the override options from the calling file
 		if( !empty($options) )
@@ -84,10 +80,6 @@ class memberslist
 		}
 
 		// Overwrite some options if they're specified by the client
-		if( isset($_GET['style']) )
-		{
-			$this->addon['config']['nojs'] = ($_GET['style'] == 'server') ? 1 : 0;
-		}
 		if( isset($_GET['alts']) )
 		{
 			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : ($_GET['alts'] == 'close') ? 1 : 0;
@@ -119,9 +111,8 @@ class memberslist
 		$roster->tpl->assign_vars(array(
 			'S_FILTER' => false,
 			'S_TOOLBAR' => false,
-			'S_HIDE_FILTER' => (($this->addon['config']['openfilter']) ? false : true),
+			'S_HIDE_FILTER' => (bool)!$this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
-			'S_NOJS' => (bool)$this->addon['config']['nojs'],
 
 			'B_PAGINATION' => false,
 
@@ -140,8 +131,6 @@ class memberslist
 			'L_CLOSE_ALTS' => $roster->locale->act['closealts'],
 			'L_OPEN_ALTS' => $roster->locale->act['openalts'],
 			'L_UNGROUP_ALTS' => $roster->locale->act['ungroupalts'],
-			'L_CLIENT_SORT' => $roster->locale->act['clientsort'],
-			'L_SERVER_SORT' => $roster->locale->act['serversort'],
 			)
 		);
 
@@ -149,19 +138,18 @@ class memberslist
 		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
 		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
 
-		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size'] )
+		if( $this->addon['config']['page_size'] )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
 			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM')) . '1';
 			$num_rows = $roster->db->query_first($rowsqry);
 		}
 		// --[ Page list ]--
-		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size']
+		if( $this->addon['config']['page_size']
 			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
 		)
 		{
-			$params = '&amp;style=' . ($this->addon['config']['nojs'] ? 'server' : 'client')
-					. '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : $this->addon['config']['group_alts']==1 ? 'close' : 'ungroup');
+			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : $this->addon['config']['group_alts']==1 ? 'close' : 'ungroup');
 
 			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 		}
@@ -194,17 +182,15 @@ class memberslist
 		$query .=  $always_sort;
 
 		// --[ Add pagination SQL, if we're in server sort mode ]--
-		if( $this->addon['config']['nojs']
-			&& $this->addon['config']['page_size']
+		if( $this->addon['config']['page_size']
 			&& is_numeric($get_st) )
 		{
-			$start = $get_st * $this->addon['config']['page_size'];
-			$query .= ' LIMIT ' . $start . ',' . $this->addon['config']['page_size'];
+			$query .= ' LIMIT ' . $get_st . ',' . $this->addon['config']['page_size'];
 		}
 
 		$this->query = $query . ';';
 
-		// Print out the alt control row
+		// Print out the alt control column
 		$roster->tpl->assign_block_vars('header_cell',array(
 			'LINK' => false,
 			'TEXT' => '&nbsp;',
@@ -214,13 +200,11 @@ class memberslist
 		);
 
 		// header row
-		$this->sortFields = '';
-		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>' . "\n";
 		$current_col = 1;
 		foreach ( $this->fields as $field => $DATA )
 		{
 			// If this is a force invisible field, don't do anything with it.
-			if( $DATA['display'] == 0 || ($DATA['display'] == 1 && $this->addon['config']['nojs']))
+			if( $DATA['display'] == 0 || $DATA['display'] == 1 )
 			{
 				unset($this->fields[$field]);
 				continue;
@@ -236,44 +220,24 @@ class memberslist
 				$th_text = $DATA['lang_field'];
 			}
 
-			if( $this->addon['config']['nojs'] )
+			// click a sorted field again to reverse sort it
+			// Don't add it if it is detected already
+			if( $get_d != 'true' )
 			{
-				// click a sorted field again to reverse sort it
-				// Don't add it if it is detected already
-				if( $get_d != 'true' )
-				{
-					$desc = ( $get_s == $field ) ? '&amp;d=true' : '';
-				}
-				else
-				{
-					$desc = '';
-				}
-
-				$roster->tpl->assign_block_vars('header_cell',array(
-					'LINK' => makelink('&amp;style=server&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field . $desc),
-					'TEXT' => $th_text,
-					'ID' => false,
-					'DISPLAY' => false
-					)
-				);
+				$desc = ( $get_s == $field ) ? '&amp;d=true' : '';
 			}
 			else
 			{
-				$roster->tpl->assign_block_vars('header_cell',array(
-					'LINK' => makelink('&amp;style=server&amp;alts=' . ($this->addon['config']['group_alts'] == 2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field),
-					'TEXT' => $th_text,
-					'JS' => $DATA['js_type'],
-					'ID' => $DATA['lang_field'],
-					'DISPLAY' => ( $DATA['display'] == 1 ? true : false ),
-					'COLUMN' => $current_col
-					)
-				);
+				$desc = '';
 			}
 
-			$this->sortoptions .= '<optgroup label="' . $th_text . '">'
-				. '<option value="' . $current_col . '_asc">' . $th_text . ' ASC</option>'
-				. '<option value="' . $current_col . '_desc">' . $th_text . ' DESC</option>'
-				. '</optgroup>';
+			$roster->tpl->assign_block_vars('header_cell',array(
+				'LINK' => makelink('&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field . $desc),
+				'TEXT' => $th_text,
+				'ID' => false,
+				'DISPLAY' => false
+				)
+			);
 
 			$roster->tpl->assign_block_vars('sort_field',array(
 				'TEXT' => $th_text,
@@ -285,30 +249,6 @@ class memberslist
 			$current_col++;
 		}
 		// end header row
-	}
-
-	/**
-	 * Returns the sort/filter box
-	 */
-	function makeFilterBox()
-	{
-		global $roster;
-
-		if( $this->addon['config']['nojs'] )
-		{
-			return;
-		}
-
-		$roster->tpl->assign_var('S_FILTER',true);
-
-		for ($i=0; $i<4; $i++)
-		{
-			$roster->tpl->assign_block_vars('sort_option',array(
-				'ID' => $i,
-				'OPTIONS' => $this->sortoptions
-				)
-			);
-		}
 	}
 
 	/**
@@ -325,22 +265,17 @@ class memberslist
 		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' );
 		$get = ( isset($_GET['d']) ? '&amp;d=' . $_GET['d'] : '' );
 
-		$style = '&amp;style=' . ($this->addon['config']['nojs'] ? 'server' : 'client');
-		$alts = '&amp;alts=' . ($this->addon['config']['group_alts']==1 ? 'show' : 'hide');
-
 		$roster->tpl->assign_vars(array(
 			'S_TOOLBAR' => $dir,
-			'U_UNGROUP_ALTS' => makelink($style . '&amp;alts=ungroup' . $get),
-			'U_OPEN_ALTS' => makelink($style . '&amp;alts=open' . $get),
-			'U_CLOSE_ALTS' => makelink($style . '&amp;alts=close' . $get),
-			'U_CLIENT_SORT' => makelink('&amp;style=client' . $alts),
-			'U_SERVER_SORT' => makelink('&amp;style=server' . $alts . $get),
+			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
+			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
+			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
 			)
 		);
 	}
 
 	/**
-	 * Returns the actual list. (but not the border)
+	 * Returns the actual list.
 	 */
 	function makeMembersList( $border=false )
 	{
@@ -377,31 +312,12 @@ class memberslist
 				{
 					$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
 				}
-				elseif ( isset( $DATA['jsort'] ) )
-				{
-					$cell_value = '<div style="display:none;">' . $row[$DATA['jsort']] . '</div>' . $row[$field];
-					if (empty($row[$field]))
-					{
-						$cell_value .= '&nbsp;';
-					}
-				}
 				else
 				{
-					if($row[$field] == '')
-					{
-						$row[$field] = '&nbsp;';
-					}
-					$cell_value = '<div>' . $row[$field] . '</div>';
+					$cell_value = ($row[$field] != '') ? $row[$field] : '&nbsp;';
 				}
 
 
-				/**
-				 * IMPORTANT do not add any spaces between the td and the
-				 * $cell_value or the javascript will break
-				 * This construct means we can't hide the first column. But
-				 * that's no problem cause it's probably the name anyway which
-				 * is locked on force visible.
-				 */
 				$line[] = array(
 					'cell_value' => $cell_value,
 					'display' => $DATA['display'] == 1 ? true : false,

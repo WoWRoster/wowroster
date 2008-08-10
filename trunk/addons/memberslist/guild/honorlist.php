@@ -195,8 +195,6 @@ if( $addon['config']['honor_hslist'] == 1 || $addon['config']['honor_pvplist'] =
 	echo "  </tr>\n</table>\n";
 }
 
-$memberlist->makeFilterBox();
-
 $memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList('syellow');

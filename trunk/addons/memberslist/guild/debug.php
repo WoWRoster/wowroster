@@ -97,8 +97,6 @@ $memberlist = new memberslist;
 
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
-$memberlist->makeFilterBox();
-
 echo $memberlist->makeMembersList('syellow');
 
 echo "<br />\n".scrollbox(aprint($addon,'$addon',true),'Config data','sgray');
