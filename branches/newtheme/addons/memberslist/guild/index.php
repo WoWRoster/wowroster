@@ -166,8 +166,6 @@ if( $addon['config']['default_hslist'] == 1 || $addon['config']['default_pvplist
 	}
 }
 
-$memberlist->makeFilterBox();
-
 $memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList();

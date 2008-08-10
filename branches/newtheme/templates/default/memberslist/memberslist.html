@@ -72,11 +72,6 @@
 					<th class="membersHeader"><a href="{U_CLOSE_ALTS}">{L_CLOSE_ALTS}</a></th>
 <!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
 <!-- ENDIF -->
-<!-- IF S_NOJS -->
-					<th class="membersHeader"><a href="{U_CLIENT_SORT}">{L_CLIENT_SORT}</a></th>
-<!-- ELSE -->
-					<th class="membersHeader"><a href="{U_SERVER_SORT}">{L_SERVER_SORT}</a></th>
-<!-- ENDIF -->
 				</tr>
 			</table>
 
@@ -97,10 +92,10 @@
 <!-- IF B_PAGINATION -->
 		<tr>
 			<th colspan="{COLS}" class="membersHeader" style="text-align:center;color:#ffffff">
-				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}">{L_PREVIOUS}</a><!-- ENDIF -->
-<!-- BEGIN paginate -->
-				<!-- IF paginate.URL --><a href="{paginate.URL}">{paginate.PAGE}</a><!-- ELSE -->{paginate.PAGE}<!-- ENDIF -->
-<!-- END paginate -->
+				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}">{L_PREVIOUS}</a><!-- ENDIF --> - 
+<!-- BEGIN pagination -->
+				<!-- IF pagination.URL --><a href="{pagination.URL}">{pagination.PAGE}</a><!-- ELSE -->{pagination.PAGE}<!-- ENDIF --> - 
+<!-- END pagination -->
 				<!-- IF PAGINATION_NEXT --><a href="{PAGINATION_NEXT}">{L_NEXT}</a><!-- ENDIF -->
 		</tr>
 <!-- ENDIF -->
