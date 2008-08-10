@@ -216,8 +216,6 @@ if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist']
 	echo "  </tr>\n</table>\n";
 }
 
-$memberlist->makeFilterBox();
-
 $memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList('syellow');

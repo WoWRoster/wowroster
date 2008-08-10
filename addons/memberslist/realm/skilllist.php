@@ -107,8 +107,6 @@ if ( $addon['config']['stats_motd'] == 1 )
 
 $roster->output['before_menu'] .= $menu;
 
-$memberlist->makeFilterBox();
-
 $memberlist->makeToolBar('horizontal');
 
 echo skill_dropdown();

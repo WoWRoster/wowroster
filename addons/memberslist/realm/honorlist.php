@@ -165,8 +165,6 @@ if( $addon['config']['honor_update_inst'] )
 	$roster->output['before_menu'] .= '<a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
 
-$memberlist->makeFilterBox();
-
 $memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList('syellow');
