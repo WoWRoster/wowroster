@@ -63,6 +63,44 @@
 <!-- END equipment -->
 					</div>
 
+
+			<div class="spec shader">
+				{L_TALENT_SPEC}
+				<div class="skill">
+					<div class="icon"><img src="{IMG_URL}spec/{SPEC_ICON}.jpg" /></div>
+					<div class="data">
+						<div class="skill-name">{SPEC_NAME}</div>
+						<div class="skill-bar">
+							<div class="text">{SPEC_POINTS}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="professions shader">
+				{L_PROFESSIONS}
+<!-- BEGIN professions -->
+				<div class="skill">
+					<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{professions.ICON}.jpg" /></div>
+					<div class="data">
+						<div class="skill-name">{professions.NAME}</div>
+						<div class="skill-bar">
+<!-- IF professions.MAXVALUE eq 1 -->
+							<div class="fill" style="width: 100%;"></div>
+<!-- ELSE -->
+							<div class="fill" style="width: {professions.WIDTH}%;"></div>
+							<div class="text">{professions.VALUE} / {professions.MAXVALUE}</div>
+<!-- ENDIF -->
+						</div>
+					</div>
+				</div>
+<!-- END professions -->
+			</div>
+
+
+
 					<div class="resist shader">
 						<div class="bar">
 							<div class="icons">
@@ -73,7 +111,6 @@
 							<div class="text">{L_RESISTANCES}:</div>
 						</div>
 					</div>
-
 
 <!-- Buff Icons -->
 					<div class="buffs shader">
@@ -101,10 +138,6 @@
 							<div class="power-bar {L_CHAR_POWER_ID}">{POWER}</div>
 							<div class="power-name">{L_CHAR_POWER}:</div>
 						</div>
-					</div>
-
-<!-- EXP Bar -->
-					<div class="xp shader">
 						<div class="bar">
 							<div class="xp-bar {EXP_TYPE}">
 								<div class="fill {EXP_TYPE}" style="width: {EXP_WIDTH}%;"></div>
@@ -113,6 +146,7 @@
 							<div class="xp-name">EXP:</div>
 						</div>
 					</div>
+
 
 					<div class="extras shader">
 
@@ -181,6 +215,7 @@
 <!-- END box_stats -->
 					</div>
 
+
 				</div>
 			</div>
 		</div>
@@ -192,7 +227,7 @@
 <!-- tab2 -->
 		<div id="tab2" class="tab2" style="display:none;">
 
-<!-- IF S_PETS -->
+<!-- IF S_PETS == "" -->
 			<div class="container">
 				<div class="box-label"><div class="icon pets"></div>{L_PETS}</div>
 <!-- BEGIN pet -->

@@ -146,6 +146,32 @@
 .equip_Ranged { position:absolute; cursor:pointer; left: 306px; top: 500px; }
 .equip_Ammo { position:absolute; cursor:pointer; left: 374px; top: 500px; visibility: hidden; }
 
+
+/* Specialization */
+.tab1 .spec { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; left: 95px; top: 19px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif;  }
+.tab1 .spec .skill { text-align:left; color:#FFDD00; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
+.tab1 .spec .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
+.tab1 .spec .skill .icon img { height: 30px; width: 30px; }
+.tab1 .spec .skill .data { margin-left: 35px; }
+.tab1 .spec .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
+.tab1 .spec .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
+.tab1 .spec .skill-bar:hover { border: 1px solid #FFFFFF; }
+.tab1 .spec .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.tab1 .spec .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+
+/* Professions */
+.tab1 .professions { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; right: 95px; top: 19px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif; }
+.tab1 .professions .skill { text-align:left; color:#FFDD00; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
+.tab1 .professions .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
+.tab1 .professions .skill .icon img { height: 30px; width: 30px; }
+.tab1 .professions .skill .data { margin-left: 35px; }
+.tab1 .professions .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
+.tab1 .professions .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
+.tab1 .professions .skill-bar:hover { border: 1px solid #FFFFFF; }
+.tab1 .professions .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.tab1 .professions .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+
+
 /* Framing */
 
 .extras { cursor: default; position: absolute; height: 40px; width: 256px; left: 95px; top: 426px; padding: 5px; }
@@ -153,7 +179,7 @@
 .money div { text-align: right; font-size: 10px; line-height: 12px; }
 .money .coin { width:11px;height:10px; }
 
-.powers { cursor: default; padding: 5px; width: 338px; position: absolute; left: 95px; top: 164px; }
+.powers { cursor: default; padding: 5px; width: 338px; position: absolute; left: 95px; top: 144px; }
 .powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
 .powers .bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
 .powers .bar .power-bar { background: transparent repeat-x left center; margin: 1px; float: right; line-height: 16px; height: 16px; width: 260px; position: relative; text-align: center; border: 1px solid #000000; }
@@ -165,19 +191,16 @@
 .powers .bar .rage:hover { border-color: #FF0000; }
 .powers .bar .energy { background: url(images/bars/bar-energy.gif); }
 .powers .bar .energy:hover { border-color: #000000; }
-
-.xp { cursor: default; padding: 5px; width: 338px; height: 20px; position: absolute; left: 95px; top: 122px; }
-.xp .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; height: 20px; text-transform: uppercase; }
-.xp .bar .xp-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
-.xp .bar .xp-bar { margin: 1px; float: right; line-height: 16px; height: 16px; width: 260px; position: relative; text-align: center; border: 1px solid #000000; }
-.xp .bar .xp-bar .fill { background: transparent url(images/bars/xp-normal.gif) repeat-x left center; position: absolute; height: 16px; left: 0px; top: 0px; }
-.xp .bar .xp-bar .text { width:260px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
-.xp .bar .xp-bar .normal { background: url(images/bars/xp-normal.gif); }
-.xp .bar .normal:hover { border-color: #00A8FF; }
-.xp .bar .xp-bar .rested { background: url(images/bars/xp-rested.gif); }
-.xp .bar .rested:hover { border-color: #8F00FF; }
-.xp .bar .xp-bar .max { background: url(images/bars/xp-rested.gif); }
-.xp .bar .max:hover { border-color: #8F00FF; }
+.powers .bar .xp-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
+.powers .bar .xp-bar { margin: 1px; float: right; line-height: 16px; height: 16px; width: 260px; position: relative; text-align: center; border: 1px solid #000000; background: #333333; }
+.powers .bar .xp-bar .fill { background: transparent url(images/bars/xp-normal.gif) repeat-x left center; position: absolute; height: 16px; left: 0px; top: 0px; }
+.powers .bar .xp-bar .text { width:260px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.powers .bar .xp-bar .normal { background: url(images/bars/xp-normal.gif); }
+.powers .bar .normal:hover { border-color: #00A8FF; }
+.powers .bar .xp-bar .rested { background: url(images/bars/xp-rested.gif); }
+.powers .bar .rested:hover { border-color: #8F00FF; }
+.powers .bar .xp-bar .max { background: url(images/bars/xp-rested.gif); }
+.powers .bar .max:hover { border-color: #8F00FF; }
 
 
 /* Buff Icons */
