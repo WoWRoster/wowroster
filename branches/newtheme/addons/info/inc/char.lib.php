@@ -1248,43 +1248,43 @@ class char
 		switch( $cat )
 		{
 			case 'stats':
-				$this->stat_line('stat_str');
-				$this->stat_line('stat_agl');
-				$this->stat_line('stat_sta');
-				$this->stat_line('stat_int');
-				$this->stat_line('stat_spr');
-				$this->stat_line('stat_armor');
+				$this->box_stat_line('stat_str');
+				$this->box_stat_line('stat_agl');
+				$this->box_stat_line('stat_sta');
+				$this->box_stat_line('stat_int');
+				$this->box_stat_line('stat_spr');
+				$this->box_stat_line('stat_armor');
 				break;
 
 			case 'melee':
 				$this->wdamage('melee');
 				$this->wspeed('melee');
-				$this->stat_line('melee_power');
-				$this->stat_line('melee_hit');
-				$this->stat_line('melee_crit');
-				$this->stat_line('melee_expertise');
+				$this->box_stat_line('melee_power');
+				$this->box_stat_line('melee_hit');
+				$this->box_stat_line('melee_crit');
+				$this->box_stat_line('melee_expertise');
 				break;
 
 			case 'ranged':
 				$this->wskill('ranged');
 				$this->wdamage('ranged');
 				$this->wspeed('ranged');
-				$this->stat_line('ranged_power');
-				$this->stat_line('ranged_hit');
-				$this->stat_line('ranged_crit');
+				$this->box_stat_line('ranged_power');
+				$this->box_stat_line('ranged_hit');
+				$this->box_stat_line('ranged_crit');
 				break;
 
 			case 'spell':
 				$this->spell_damage();
 				$this->status_value('spell_healing');
-				$this->stat_line('spell_hit');
+				$this->box_stat_line('spell_hit');
 				$this->spell_crit();
 				$this->status_value('spell_penetration');
 				$this->status_value('mana_regen');
 				break;
 
 			case 'defense':
-				$this->stat_line('stat_armor');
+				$this->box_stat_line('stat_armor');
 				$this->defense_rating();
 				$this->defense_line('dodge');
 				$this->defense_line('parry');
@@ -1301,7 +1301,7 @@ class char
 	 * @param string $statname
 	 * @return string
 	 */
-	function stat_line( $statname )
+	function box_stat_line( $statname )
 	{
 		global $roster;
 
