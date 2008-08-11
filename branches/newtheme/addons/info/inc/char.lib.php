@@ -1829,8 +1829,8 @@ class char
 				if( abs($treedata['pointsspent'] - $spec_points_temp) > 5 )
 				{
 					$talent_spec = $j;
-					$spec_points_temp = $treedata['pointsspent'];
 					$talent_spec_icon = $treedata['background'];
+					$spec_points_temp = $treedata['pointsspent'];
 				}
 				else
 				{
@@ -1881,7 +1881,7 @@ class char
 			$roster->tpl->assign_vars(array(
 				'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
 				'SPEC_POINTS'     => implode(' / ',$spec_points),
-				'SPEC_NAME'       => $talent_spec,
+				'SPEC_NAME'       => $treelayer[$talent_spec]['name'],
 				'SPEC_ICON'       => $talent_spec_icon,
 				)
 			);
