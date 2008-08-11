@@ -1974,7 +1974,8 @@ class char
 						'NAME'     => $skillbar['name'],
 						'WIDTH'    => $skillbar['barwidth'],
 						'VALUE'    => $skillbar['value'],
-						'MAXVALUE' => $skillbar['maxvalue']
+						'MAXVALUE' => $skillbar['maxvalue'],
+						'ICON'     => $roster->locale->act['ts_iconArray'][$skillbar['name']]
 						)
 					);
 				}
