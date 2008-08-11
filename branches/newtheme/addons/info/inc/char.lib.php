@@ -569,7 +569,6 @@ class char
 		// Initialize $spellbook array
 		$spellbook[$this->data['name']] = array();
 
-
 		$query = "SELECT `spelltree`.*, `talenttree`.`order`
 			FROM `" . $roster->db->table('spellbooktree') . "` AS spelltree
 			LEFT JOIN `" . $roster->db->table('talenttree') . "` AS talenttree
@@ -582,7 +581,7 @@ class char
 
 		if( !$result )
 		{
-			return sprintf($roster->locale->act['no_spellbook'],$this->data['name']);
+			return false;
 		}
 
 		$num_trees = $roster->db->num_rows($result);
@@ -705,8 +704,8 @@ class char
 				}
 			}
 		}
-		$roster->tpl->set_filenames(array('spellbook' => $addon['basename'] . '/spellbook.html'));
-		return $roster->tpl->fetch('spellbook');
+
+		return true;
 	}
 
 
@@ -2443,7 +2442,7 @@ class char
 		$talent_data = $this->printTalents();
 
 		// Spell Book
-		$this->show_spellbook();
+		$spell_data = $this->show_spellbook();
 
 		// Mini Memberslist
 		$this->miniMemberslist();
@@ -2501,7 +2500,7 @@ class char
 			$roster->tpl->assign_var('S_TALENT_TAB',false);
 		}
 
-		if( $roster->auth->getAuthorized($addon['config']['show_spellbook']) )
+		if( $roster->auth->getAuthorized($addon['config']['show_spellbook']) && $spell_data )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['spellbook'],
@@ -2509,6 +2508,10 @@ class char
 				'SELECTED' => false
 				)
 			);
+		}
+		else
+		{
+			$roster->tpl->assign_var('S_SPELL_TAB',false);
 		}
 
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));
