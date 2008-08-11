@@ -1,77 +1,41 @@
 <!-- $Id$ -->
 
-
-<!-- IF S_FILTER -->
-<table class="border_frame" cellpadding="0" cellspacing="1" style="width:450px;">
-	<tr>
-		<td class="border_color sblueborder">
-			<div class="header_text sblueborder" style="cursor:pointer;width:100%;" onclick="showHide('sortfilter','img_sortfilter','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
-				<img style="float:right;" id="img_sortfilter" src="{THEME_PATH}/images/<!-- IF S_HIDE_FILTER -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" />
-				{L_SORT_FILTER}
-			</div>
-
-			<table id="sortfilter" cellpadding="0" cellspacing="0" style="width:100%;<!-- IF S_HIDE_FILTER -->display:none;<!-- ENDIF -->">
-				<tr>
-					<td class="membersHeader">{L_SORT}</td>
-					<td class="membersHeader">{L_COL_SHOW}</td>
-					<td class="membersHeader">{L_FILTER}</td>
-				</tr>
-				<tr>
-					<td rowspan="{COLS}" class="membersRow1">
-<!-- BEGIN sort_option -->
-						<select id="{LISTNAME}_sort_{sort_option.ID}" name="{LISTNAME}_sort_{sort_option.ID}">
-{sort_option.OPTIONS}
-						</select><br />
-<!-- END sort_option -->
-						<br />
-						<button class="input" onclick="dosort(6,'{LISTNAME}'); return false;">{L_GO}</button>
-						<input type="hidden" id="{LISTNAME}_sort_4" name="{LISTNAME}_sort_4" value="3_desc" />
-						<input type="hidden" id="{LISTNAME}_sort_5" name="{LISTNAME}_sort_5" value="1_asc" />
-					</td>
-				</tr>
-
-<!-- BEGIN sort_field -->
-				<tr>
-<!-- IF sort_field.DISPLAY eq 3 -->
-					<th class="membersHeader membersRowAltColor1">{sort_field.TEXT}</th>
-<!-- ELSE -->
-					<th class="membersHeader" onclick="toggleColumn({sort_field.COLUMN},this,'{LISTNAME}');" style="cursor:pointer;<!-- IF sort_field.DISPLAY neq 2 -->background-color:#5b5955;<!-- ENDIF -->">{sort_field.TEXT}</th>
-<!-- ENDIF -->
-					<td class="membersRowRight1"><input type="text" id="{LISTNAME}_filter_{sort_field.COLUMN}" onkeydown="enter_sort(event,6,'{LISTNAME}');" name="{LISTNAME}_filter_{sort_field.COLUMN}" /></td>
-				</tr>
-<!-- END sort_field -->
-			</table>
-
-		</td>
-	</tr>
-</table>
-<br />
-<!-- ENDIF -->
-
-
 <!-- IF S_TOOLBAR -->
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgrayborder">
 
-			<table cellpadding="0" cellspacing="0" style="width:100%">
+			<table cellpadding="0" cellspacing="0" id="{LISTNAME}-toolbar" style="width:100%">
 				<tr>
-
-<!-- IF S_GROUP_ALTS gte 1 -->
-					<th class="membersHeader"><a href="#" onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
-						<img src="{THEME_PATH}/images/minus.gif" alt="+" />{L_CLOSE_ALL}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-					<th class="membersHeader"><a href="#" onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
-						<img src="{THEME_PATH}/images/plus.gif" alt="-" />{L_OPEN_ALL}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-					<th class="membersHeader"><a href="{U_UNGROUP_ALTS}">{L_UNGROUP_ALTS}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-<!-- ELSEIF S_GROUP_ALTS eq 0 -->
-					<th class="membersHeader"><a href="{U_OPEN_ALTS}">{L_OPEN_ALTS}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-					<th class="membersHeader"><a href="{U_CLOSE_ALTS}">{L_CLOSE_ALTS}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-<!-- ENDIF -->
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="#"
+						       	onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+							<img src="{THEME_PATH}/images/minus.gif" alt="+" />{L_CLOSE_ALL}
+						</a>
+					</th>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="#"
+							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
+							<img src="{THEME_PATH}/images/plus.gif" alt="-" />{L_OPEN_ALL}
+						</a>
+					</th>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="#"
+							onclick="unGroupAlts('{LISTNAME}'); return false;">
+							{L_UNGROUP_ALTS}
+						</a>
+					</th>
+					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="#"
+							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
+							{L_OPEN_ALTS}
+						</a>
+					</th>
+					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="#" onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+							{L_CLOSE_ALTS}
+						</a>
+					</th>
 				</tr>
 			</table>
 
@@ -100,37 +64,62 @@
 		</tr>
 <!-- ENDIF -->
 		<tr>
+			<th class="membersHeader groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>&nbsp;</th>
 <!-- BEGIN header_cell -->
-<!-- IF header_cell.ID -->
-			<th class="membersHeader<!-- IF header_cell.JS --> {header_cell.JS}<!-- ENDIF -->" id="{header_cell.ID}" onclick="sortColumn({header_cell.COLUMN},6,'{LISTNAME}');" style="cursor:pointer;<!-- IF header_cell.DISPLAY -->display:none;<!-- ENDIF -->">{header_cell.TEXT}</th>
+			<th class="membersHeader">
+<!-- IF header_cell.LINK -->
+				<a href="{header_cell.LINK}">{header_cell.TEXT}</a>
 <!-- ELSE -->
-			<th class="membersHeader"<!-- IF header_cell.DISPLAY --> style="display:none;"<!-- ENDIF -->><!-- IF header_cell.LINK --><a href="{header_cell.LINK}">{header_cell.TEXT}</a><!-- ELSE -->{header_cell.TEXT}<!-- ENDIF --></th>
+				{header_cell.TEXT}
 <!-- ENDIF -->
+			</th>
 <!-- END header_cell -->
 		</tr>
 	</thead>
 <!-- BEGIN members_row -->
-<!-- IF members_row.SIMPLE -->
-	<tbody><tr class="membersRowColor{members_row.ROW_CLASS}">
-			<td class="membersRowCell"<!-- IF members_row.DISPLAY --> style="display:none;"<!-- ENDIF -->><!-- IF members_row.MA --><span class="red">{L_MA}</span><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
-<!-- BEGIN cell -->
-				<td class="membersRowCell"<!-- IF members_row.cell.PADDING --> style="padding-left:20px;"<!-- ENDIF --><!-- IF members_row.cell.DISPLAY eq 1 --> style="display:none;"<!-- ENDIF -->>{members_row.cell.VALUE}</td>
-<!-- END cell -->
-		</tr>
+	<tbody id="playerrow-{members_row.MEMBER_ID}">
+		<tr class="membersRowColor{members_row.ROW_CLASS} {members_row.CLASS} <!-- IF members_row.CLASS == 'amain' -->ungroupalt<!-- ENDIF -->">
+			<td class="membersRowCell groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+<!-- IF members_row.CLASS == 'main' --> 
+				<a href="#" 
+					onclick="toggleAlts('playerrow-{members_row.MEMBER_ID}','foldout-{members_row.MEMBER_ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
+					<img src="{THEME_PATH}/images/<!-- IF members_row.OPEN -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					class="foldout"
+					id="foldout-{members_row.MEMBER_ID}"
+					alt="<!-- IF members_row.OPEN -->-<!-- ELSE -->+<!-- ENDIF -->" />
+				</a>
+<!-- ELSEIF members_row.CLASS == 'alt_mainless' -->
+				{L_MA}
 <!-- ELSE -->
-	<tbody id="playerrow-{members_row.MEMBER_ID}"><tr class="membersRowColor{members_row.ROW_CLASS}"><td class="membersRowCell"><a href="#" onclick="toggleAlts('playerrow-{members_row.MEMBER_ID}','foldout-{members_row.MEMBER_ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;"><img src="{THEME_PATH}/images/<!-- IF members_row.OPEN -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" id="foldout-{members_row.MEMBER_ID}" alt="<!-- IF members_row.OPEN -->-<!-- ELSE -->+<!-- ENDIF -->" /></a></td>
+				&nbsp;
+<!-- ENDIF -->
+			</td>
 <!-- BEGIN cell -->
-			<td class="membersRowCell"<!-- IF members_row.cell.PADDING --> style="padding-left:20px;"<!-- ENDIF --><!-- IF members_row.cell.DISPLAY eq 1 --> style="display:none;"<!-- ENDIF -->>{members_row.cell.VALUE}</td>
+			<td class="membersRowCell">
+				{members_row.cell.VALUE}
+			</td>
 <!-- END cell -->
 		</tr>
 <!-- BEGIN alt -->
-		<tr class="membersRowAltColor{members_row.alt.ROW_CLASS}"<!-- IF members_row.alt.DISPLAY --> style="display:none;"<!-- ENDIF -->><td class="membersRowCell">&nbsp;</td>
-<!-- BEGIN cell -->
-			<td class="membersRowCell"<!-- IF members_row.alt.cell.PADDING --> style="padding-left:20px;"<!-- ENDIF --><!-- IF members_row.alt.cell.DISPLAY eq 1 --> style="display:none;"<!-- ENDIF -->>{members_row.alt.cell.VALUE}</td>
+		<tr class="membersRowAltColor{members_row.alt.ROW_CLASS} groupalt {members_row.alt.CLASS}"
+			<!-- IF members_row.alt.DISPLAY --> style="display:none;"<!-- ENDIF -->>
+			<td class="membersRowCell"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+			</td>
+<!-- BEGIN cell(0,0) -->
+			<td class="membersRowCell" style="padding-left:20px;">
+				{members_row.alt.cell.VALUE}
+			</td>
+<!-- END -->
+<!-- BEGIN cell(1) -->
+			<td class="membersRowCell">
+				{members_row.alt.cell.VALUE}
+			</td>
 <!-- END cell -->
 		</tr>
 <!-- END alt -->
-<!-- ENDIF -->
 	</tbody>
 <!-- END members_row -->
 </table>

@@ -169,7 +169,55 @@ function setOpacity( sEl,val )
 	}
 }
 
+function getElementsByClass( searchClass, domNode, tagName)
+{
+	if( domNode.getElementsByClassName )
+		{ return domNode.getElementsByClassName( searchClass ); }
+	if (domNode == null)
+		{ domNode = document; }
+	if (tagName == null)
+		{ tagName = '*'; }
 
+	var el = new Array();
+
+	/* tags with matching tagname */
+	var tags = domNode.getElementsByTagName(tagName);
+
+	/* Search text */
+	var tcl = " "+searchClass+" ";
+
+	for(i=0, j=0; i<tags.length; i++)
+	{
+		var test = " " + tags[i].className + " ";
+		if (test.indexOf(tcl) != -1)
+			el[j++] = tags[i];
+	}
+	return el;
+}
+
+function hideElements( els )
+{
+	for( i = 0; i < els.length; i++ )
+	{
+		els[i].style.display = 'none';
+	}
+}
+
+function showElements( els )
+{
+	for( i = 0; i < els.length; i++ )
+	{
+		els[i].style.display = '';
+	}
+}
+
+function setElementsSrc( els, img )
+{
+	for( i = 0; i < els.length; i++ )
+	{
+		els[i].src = img;
+	}
+}
 
 // ADAMS's RADIO CUSTOMISATION
 // adam.burmister@gmail.com, Copyright 2005.
