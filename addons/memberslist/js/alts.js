@@ -27,25 +27,13 @@ function toggleAlts(ElementID,ImgID,ImgShow,ImgHide)
 
 		if(image.src.indexOf(ImgHide) >= 0)
 		{
-			element = element.firstChild;
-			while(element = element.nextSibling)
-			{
-				if( element.tagName !== undefined )
-					element.style.display = '';
-			}
-			image.src = ImgShow;
-			image.alt = '-';
+			showElements(getElementsByClass('alt', element));
+			setElementsSrc(getElementsByClass('foldout', element, 'img'), ImgShow );
 		}
 		else
 		{
-			element = element.firstChild;
-			while(element = element.nextSibling)
-			{
-				if( element.tagName !== undefined )
-					element.style.display = 'none';
-			}
-			image.src = ImgHide;
-			image.alt = '+';
+			hideElements(getElementsByClass('alt', element));
+			setElementsSrc(getElementsByClass('foldout', element, 'img'), ImgHide );
 		}
 	}
 }
@@ -62,23 +50,15 @@ function openAlts(listname, Img)
 {
 	if(document.getElementById)
 	{
-		table = document.getElementById(listname);
-		for(i=0; i<table.tBodies.length; i++)
-		{
-			// The first element in the first cell.
-			el = table.tBodies[i].rows[0].cells[0].firstChild;
-			if( (el !== null) && (el.tagName !== undefined) && (el.tagName.toLowerCase() == 'a'))
-			{
-				el.firstChild.src = Img;
-				el.firstChild.alt = '-';
+		toolbar = document.getElementById(listname + '-toolbar');
+		showElements(getElementsByClass('groupalt', toolbar));
+		hideElements(getElementsByClass('ungroupalt', toolbar));
 
-				// Now hide the rows
-				for( j=1; j < table.tBodies[i].rows.length; j++ )
-				{
-					table.tBodies[i].rows[j].style.display = '';
-				}
-			}
-		}
+		table = document.getElementById(listname);
+		showElements(getElementsByClass('groupalt', table));
+		hideElements(getElementsByClass('ungroupalt', table));
+		showElements(getElementsByClass('alt', table));
+		setElementsSrc(getElementsByClass('foldout', table, 'img'), Img );
 	}
 }
 
@@ -94,23 +74,34 @@ function closeAlts(listname, Img)
 {
 	if(document.getElementById)
 	{
-		table = document.getElementById(listname);
-		for(i=0; i<table.tBodies.length; i++)
-		{
-			// The first element in the first cell.
-			el = table.tBodies[i].rows[0].cells[0].firstChild;
-			if( (el !== null) && (el.tagName !== undefined) && (el.tagName.toLowerCase() == 'a'))
-			{
-				el.firstChild.src = Img;
-				el.firstChild.alt = '+';
+		toolbar = document.getElementById(listname + '-toolbar');
+		showElements(getElementsByClass('groupalt', toolbar));
+		hideElements(getElementsByClass('ungroupalt', toolbar));
 
-				// Now hide the rows
-				for( j=1; j < table.tBodies[i].rows.length; j++ )
-				{
-					table.tBodies[i].rows[j].style.display = 'none';
-				}
-			}
-		}
+		table = document.getElementById(listname);
+		showElements(getElementsByClass('groupalt', table));
+		hideElements(getElementsByClass('ungroupalt', table));
+		hideElements(getElementsByClass('alt', table));
+		setElementsSrc(getElementsByClass('foldout', table, 'img'), Img );
 	}
 }
 
+/**
+ * Ungroup alts
+ *
+ * @param listname
+ * 		Name of the list to ungroup alts in
+ */
+function unGroupAlts( listname )
+{
+	if(document.getElementById)
+	{
+		toolbar = document.getElementById(listname + '-toolbar');
+		hideElements(getElementsByClass('groupalt', toolbar));
+		showElements(getElementsByClass('ungroupalt', toolbar));
+
+		table = document.getElementById(listname);
+		hideElements(getElementsByClass('groupalt', table));
+		showElements(getElementsByClass('ungroupalt', table));
+	}
+}

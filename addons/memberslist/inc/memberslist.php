@@ -190,15 +190,6 @@ class memberslist
 
 		$this->query = $query . ';';
 
-		// Print out the alt control column
-		$roster->tpl->assign_block_vars('header_cell',array(
-			'LINK' => false,
-			'TEXT' => '&nbsp;',
-			'ID' => false,
-			'DISPLAY' => ($this->addon['config']['group_alts'] >= 1) ? false : true
-			)
-		);
-
 		// header row
 		$current_col = 1;
 		foreach ( $this->fields as $field => $DATA )
@@ -235,14 +226,6 @@ class memberslist
 				'LINK' => makelink('&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field . $desc),
 				'TEXT' => $th_text,
 				'ID' => false,
-				'DISPLAY' => false
-				)
-			);
-
-			$roster->tpl->assign_block_vars('sort_field',array(
-				'TEXT' => $th_text,
-				'DISPLAY' => $DATA['display'],
-				'COLUMN' => $current_col
 				)
 			);
 
@@ -320,14 +303,12 @@ class memberslist
 
 				$line[] = array(
 					'cell_value' => $cell_value,
-					'display' => $DATA['display'] == 1 ? true : false,
-					'padding' => ($current_col == 1) ? ( ($this->addon['config']['group_alts'] <= 0 || $row['main_id'] == $row['member_id']) ? false : true ) : false,
 				);
 				$current_col++;
 			}
 
 			// Cache lines for main/alt stuff
-			if( $this->addon['config']['group_alts'] <= 0 )
+			if( $this->addon['config']['group_alts'] < 0 )
 			{
 				$lookup[] = count($lines);
 				$lines[]['main'] = $line;
@@ -339,6 +320,8 @@ class memberslist
 			}
 			else
 			{
+				$lookup[] = $row['member_id'];
+				$lines[$row['member_id']]['amain'] = $line;
 				$lines[$row['main_id']]['alts'][] = $line;
 			}
 		}
@@ -355,114 +338,34 @@ class memberslist
 			$member_id = $lookup[$i];
 			$block = $lines[$member_id];
 
-			// Group alts off
-			if( $this->addon['config']['group_alts'] <= 0 )
+			// Main without alts, or ungrouped
+			if( $this->addon['config']['group_alts'] <= 0 || !isset($block['alts']) || 0 == count($block['alts']) )
 			{
-				$roster->tpl->assign_block_vars('members_row',array(
-					'SIMPLE' => true,
-					'ROW_CLASS' => $roster->switch_row_class(),
-					'MA' => false,
-					'DISPLAY' => true
-					)
-				);
-
-				foreach( $block['main'] as $line )
+				if( isset( $block['main'] ) )
 				{
-					$roster->tpl->assign_block_vars('members_row.cell',array(
-						'VALUE' => $line['cell_value'],
-						'DISPLAY' => $line['display'],
-						'PADDING' => $line['padding'],
-						)
-					);
+					$this->assignRow( 'members_row', $member_id, 'main altless', $block['main'] );
 				}
-				continue;
-			}
-
-			// Main, or no alt data
-			if( !isset($block['alts']) || 0 == count($block['alts']) )
-			{
-				$roster->tpl->assign_block_vars('members_row',array(
-					'SIMPLE' => true,
-					'ROW_CLASS' => $roster->switch_row_class(),
-					'MA' => false,
-					'DISPLAY' => false
-					)
-				);
-
-				foreach( $block['main'] as $line )
+				else
 				{
-					$roster->tpl->assign_block_vars('members_row.cell',array(
-						'VALUE' => $line['cell_value'],
-						'DISPLAY' => $line['display'],
-						'PADDING' => $line['padding'],
-						)
-					);
+					$this->assignRow( 'members_row', $member_id, 'amain', $block['amain'] );
 				}
-				continue;
 			}
-
 			// Mainless alt.
-			if( !isset($block['main']) )
+			else if( !isset($block['main']) )
 			{
-				foreach( $block['alts'] as $rows )
+				foreach( $block['alts'] as $id => $alt )
 				{
-					$roster->tpl->assign_block_vars('members_row',array(
-						'SIMPLE' => true,
-						'ROW_CLASS' => $roster->switch_row_class(),
-						'MA' => true,
-						'DISPLAY' => false
-						)
-					);
-
-					foreach( $rows as $line )
-					{
-						$roster->tpl->assign_block_vars('members_row.cell',array(
-							'VALUE' => $line['cell_value'],
-							'DISPLAY' => $line['display'],
-							'PADDING' => $line['padding'],
-							)
-						);
-					}
+					$this->assignRow( 'members_row', $member_id . '-' . $id, 'alt_mainless', $alt );
 				}
-				continue;
 			}
-
 			// Main with alts
-			$roster->tpl->assign_block_vars('members_row',array(
-				'SIMPLE' => false,
-				'ROW_CLASS' => $roster->switch_row_class(),
-				'MEMBER_ID' => $member_id,
-				'DISPLAY' => false,
-				'OPEN' => ($this->addon['config']['group_alts'] == 2) ? true : false
-				)
-			);
-
-			foreach( $block['main'] as $line )
+			else
 			{
-				$roster->tpl->assign_block_vars('members_row.cell',array(
-					'VALUE' => $line['cell_value'],
-					'DISPLAY' => $line['display'],
-					'PADDING' => $line['padding']
-					)
-				);
-			}
+				$this->assignRow( 'members_row', $member_id, 'main', $block['main'] );
 
-			foreach( $block['alts'] as $rows )
-			{
-				$roster->tpl->assign_block_vars('members_row.alt',array(
-					'ROW_CLASS' => $roster->switch_alt_row_class(),
-					'DISPLAY' => ($this->addon['config']['group_alts'] == 1) ? true : false
-					)
-				);
-
-				foreach( $rows as $line )
+				foreach( $block['alts'] as $alt )
 				{
-					$roster->tpl->assign_block_vars('members_row.alt.cell',array(
-						'VALUE' => $line['cell_value'],
-						'DISPLAY' => $line['display'],
-						'PADDING' => $line['padding']
-						)
-					);
+					$this->assignRow( 'members_row.alt', $member_id, 'alt', $alt );
 				}
 			}
 		}
@@ -470,6 +373,29 @@ class memberslist
 		return $roster->tpl->fetch('memberslist');
 	}
 
+	/**
+	 * Assigns a data row to $roster->tpl
+	 */
+	function assignRow( $class, $member_id, $type, $cells )
+	{
+		global $roster;
+
+		$roster->tpl->assign_block_vars($class,array(
+			'MEMBER_ID' => $member_id,
+			'ROW_CLASS' => ( ( 0 !== strpos( $type, 'alt') )           ?
+		       				$roster->switch_row_class()        :
+						$roster->switch_alt_row_class() ),
+			'CLASS'     => $type,
+			'OPEN'      => ($this->addon['config']['group_alts'] == 2),
+			'DISPLAY'   => ( $type == 'alt' && $this->addon['config']['group_alts'] == 1)
+		));
+		foreach( $cells as $cell )
+		{
+			$roster->tpl->assign_block_vars($class . '.cell',array(
+				'VALUE'   => $cell['cell_value']
+			));
+		}
+	}
 
 	/**
 	 * Returns the MOTD
