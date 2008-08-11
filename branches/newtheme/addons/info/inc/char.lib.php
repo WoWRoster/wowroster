@@ -1825,7 +1825,7 @@ class char
 				$treedata = $roster->db->fetch($trees,SQL_ASSOC);
 
 				// does this tree have the most points?
-				if( abs($treedata['pointsspent'] - $spec_points_temp) > 5 )
+				if( abs($treedata['pointsspent'] - $spec_points_temp) < 5 )
 				{
 					$talent_spec = $j;
 					$talent_spec_icon = $treedata['background'];
