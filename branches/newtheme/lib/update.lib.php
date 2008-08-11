@@ -2212,10 +2212,13 @@ class update
 							$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']) );
 						}
 
-						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
-						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
-						$this->add_value('rank', substr($data_talent_skill['Rank'], 0, 1) );
-						$this->add_value('maxrank', substr($data_talent_skill['Rank'], 2, 1) );
+						$location = explode(':',$data_talent_skill['Location']);
+						$this->add_value('row', $location[0] );
+						$this->add_value('column', $location[1] );
+						$rank = explode(':',$data_talent_skill['Rank']);
+						$this->add_value('rank', $rank[0] );
+						$this->add_value('maxrank', $rank[1] );
+						unset($location,$rank);
 
 						$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
 						$result = $roster->db->query($querystr);

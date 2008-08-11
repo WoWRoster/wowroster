@@ -32,6 +32,14 @@ $lang['char_stats'] = 'Statisques du personnage : %1$s';
 $lang['char_level_race_class'] = 'Niveau %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s de %2$s';
 $lang['talents'] = 'Talents';
+$lang['talent_specialization'] = 'Talent Specialization';
+$lang['unusedtalentpoints']='Points de talent non utilisés';
+$lang['talentexport']='Construction de l\'arbre de talents';
+
+$lang['pets']='Pets';
+$lang['companions']='Companions';
+$lang['mounts']='Mounts';
+$lang['unusedtrainingpoints']='Points de formation non utilisés';
 
 // Spellbook
 $lang['spellbook'] = 'Grimoire';

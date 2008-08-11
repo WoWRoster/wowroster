@@ -32,6 +32,14 @@ $lang['char_stats'] = 'Character Stats for: %1$s';
 $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s of %2$s';
 $lang['talents'] = 'Talents';
+$lang['talent_specialization'] = 'Talent Specialization';
+$lang['unusedtalentpoints']='Unused Talent Points';
+$lang['talentexport']='Export Talent Build';
+
+$lang['pets']='Pets';
+$lang['companions']='Companions';
+$lang['mounts']='Mounts';
+$lang['unusedtrainingpoints']='Unused Training Points';
 
 // Spellbook
 $lang['spellbook'] = 'Spellbook';

@@ -109,6 +109,10 @@ class char
 			'S_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_talents']),
 			'S_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
 
+			'S_PETS'       => false,
+			'S_MOUNTS'     => false,
+			'S_COMPANIONS' => false,
+
 			'L_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
 			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
 			'L_PROFILE'          => $roster->locale->act['tab1'],
@@ -119,9 +123,15 @@ class char
 			'L_TIMELEVELPLAYED'  => $roster->locale->act['timelevelplayed'],
 			'L_UNUSED_TRAINING'  => $roster->locale->act['unusedtrainingpoints'],
 			'L_LEVEL'            => $roster->locale->act['level'],
+			'L_TALENT_SPEC'      => $roster->locale->act['talent_specialization'],
 			'L_TALENTS'          => $roster->locale->act['talents'],
 			'L_TALENT_EXPORT'    => $roster->locale->act['talentexport'],
 
+			'L_PETS'       => $roster->locale->act['pets'],
+			'L_COMPANIONS' => $roster->locale->act['companions'],
+			'L_MOUNTS'     => $roster->locale->act['mounts'],
+
+			'L_PROFESSIONS' => $roster->locale->act['professions'],
 			'L_RESISTANCES' => $roster->locale->act['resistances'],
 			'L_BUFFS'       => $roster->locale->act['buffs'],
 
@@ -700,12 +710,67 @@ class char
 	}
 
 
+	function printCompanions()
+	{
+		global $roster, $addon;
+		return true;
+
+		$query = "SELECT * FROM `" . $roster->db->table('companions') . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
+		$result = $roster->db->query($query);
+
+		$mount_num = $comp_num = 0;
+		if( $roster->db->num_rows($result) > 0 )
+		{
+			while( $row = $roster->db->fetch($result,SQL_ASSOC) )
+			{
+				if( $row['icon'] == '' || !isset($row['icon']) )
+				{
+					$row['icon'] = 'inv_misc_questionmark';
+				}
+
+				if( $row['type'] == 'Mount' )
+				{
+					$roster->tpl->assign_block_vars('mounts',array(
+						'ID'        => $mount_num,
+						'NAME'      => $row['name'],
+						'ICON'      => $row['icon'],
+						'TOOLTIP' => makeOverlib($row['tooltip']),
+						)
+					);
+					$mount_num++;
+				}
+
+				if( $row['type'] == 'Critter' )
+				{
+					$roster->tpl->assign_block_vars('companions',array(
+						'ID'        => $comp_num,
+						'NAME'      => $row['name'],
+						'ICON'      => $row['icon'],
+						'TOOLTIP' => makeOverlib($row['tooltip']),
+						)
+					);
+					$comp_num++;
+				}
+			}
+
+			$roster->tpl->assign_vars(array(
+				'S_MOUNTS'     => (bool)$mount_num,
+				'S_COMPANIONS' => (bool)$comp_num,
+				)
+			);
+
+			return true;
+		}
+		return false;
+	}
+
+
 	/**
 	 * Build Pet
 	 *
 	 * @return string
 	 */
-	function printPet()
+	function printPets()
 	{
 		global $roster, $addon;
 
@@ -715,6 +780,8 @@ class char
 		$petNum = 0;
 		if( $roster->db->num_rows($result) > 0 )
 		{
+			$roster->tpl->assign_var('S_PETS',true);
+
 			while ($row = $roster->db->fetch($result,SQL_ASSOC))
 			{
 				$xpbarshow = true;
@@ -824,9 +891,8 @@ class char
 				$petNum++;
 			}
 		}
-		return $petNum;
+		return (bool)$petNum;
 	}
-
 
 
 	/**
@@ -1751,16 +1817,29 @@ class char
 
 		if( $tree_rows > 0 )
 		{
-			$treeshow = 0;
-			$treeshowp = 0;
+			// Set vars for talent specialization
+			$talent_spec = $spec_points_temp = 0;
+			$spec_points = array();
+
 			for( $j=0; $j < $tree_rows; $j++)
 			{
 				$treedata = $roster->db->fetch($trees,SQL_ASSOC);
-				if( $treedata['pointsspent'] > $treeshowp )
+
+				// does this tree have the most points?
+				if( abs($treedata['pointsspent'] - $spec_points_temp) > 5 )
 				{
-					$treeshow = $j;
-					$treeshowp = $treedata['pointsspent'];
+					$talent_spec = $j;
+					$spec_points_temp = $treedata['pointsspent'];
+					$talent_spec_icon = $treedata['background'];
 				}
+				else
+				{
+					$talent_spec = $talent_spec_icon = 'hybrid';
+					$spec_points_temp = $treedata['pointsspent'];
+				}
+
+				// store our talents
+				$spec_points[] = $treedata['pointsspent'];
 
 				$treelayer[$j]['name'] = $treedata['tree'];
 				$treelayer[$j]['image'] = $treedata['background'];
@@ -1776,7 +1855,7 @@ class char
 					'ID'       => $treeindex,
 					'POINTS'   => $tree['points'],
 					'ICON'     => $tree['image'],
-					'SELECTED' => ( $treeshow == $treeindex ? true : false )
+					'SELECTED' => ( $talent_spec == $treeindex ? true : false )
 					)
 				);
 
@@ -1799,8 +1878,18 @@ class char
 				}
 			}
 
-			$roster->tpl->assign_var('U_TALENT_EXPORT', $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url);
+			$roster->tpl->assign_vars(array(
+				'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
+				'SPEC_POINTS'     => implode(' / ',$spec_points),
+				'SPEC_NAME'       => $talent_spec,
+				'SPEC_ICON'       => $talent_spec_icon,
+				)
+			);
+
+			return true;
 		}
+
+		return false;
 	}
 
 
@@ -1879,6 +1968,17 @@ class char
 					'MAXVALUE' => $skillbar['maxvalue']
 					)
 				);
+
+				if( $skill['name'] == $this->locale['professions'] )
+				{
+					$roster->tpl->assign_block_vars('professions',array(
+						'NAME'     => $skillbar['name'],
+						'WIDTH'    => $skillbar['barwidth'],
+						'VALUE'    => $skillbar['value'],
+						'MAXVALUE' => $skillbar['maxvalue']
+						)
+					);
+				}
 			}
 		}
 	}
@@ -2328,8 +2428,7 @@ class char
 		$this->printBuffs();
 
 		// Pets
-		$pet_num = $this->printPet();
-		$roster->tpl->assign_var('S_PET_TAB', $pet_num);
+		$this->printPets();
 
 		// Reputation
 		$this->printReputation();
@@ -2341,7 +2440,7 @@ class char
 		$this->printHonor();
 
 		// Talents
-		$this->printTalents();
+		$talent_data = $this->printTalents();
 
 		// Spell Book
 		$this->show_spellbook();
@@ -2358,7 +2457,7 @@ class char
 			)
 		);
 
-		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && $pet_num )
+		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab2'],
@@ -2388,7 +2487,7 @@ class char
 			);
 		}
 
-		if( $roster->auth->getAuthorized($addon['config']['show_talents']) )
+		if( $roster->auth->getAuthorized($addon['config']['show_talents']) && $talent_data )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['talents'],
@@ -2396,6 +2495,10 @@ class char
 				'SELECTED' => false
 				)
 			);
+		}
+		else
+		{
+			$roster->tpl->assign_var('S_TALENT_TAB',false);
 		}
 
 		if( $roster->auth->getAuthorized($addon['config']['show_spellbook']) )
