@@ -39,45 +39,45 @@ $always_sort = ' `guild`.`guild_name` ASC';
 
 $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
-	'order' => array( '`guild`.`guild_name` ASC' ),
-	'order_d' => array( '`guild`.`guild_name` DESC' ),
-	'value' => 'guild_value',
-	'js_type' => 'ts_string',
-	'display' => 3,
+	'order'      => array( '`guild`.`guild_name` ASC' ),
+	'order_d'    => array( '`guild`.`guild_name` DESC' ),
+	'value'      => 'guild_value',
+	'js_type'    => 'ts_string',
+	'display'    => 3,
 );
 
 $FIELD['faction'] = array (
 	'lang_field' => 'faction',
-	'order' => array( '`guild`.`faction` ASC' ),
-	'order_d' => array( '`guild`.`faction` DESC' ),
-	'value' => 'faction_value',
-	'js_type' => 'ts_string',
-	'display' => 2,
+	'order'      => array( '`guild`.`faction` ASC' ),
+	'order_d'    => array( '`guild`.`faction` DESC' ),
+	'value'      => 'faction_value',
+	'js_type'    => 'ts_string',
+	'display'    => 2,
 );
 
 $FIELD['guild_num_members'] = array (
 	'lang_field' => 'members',
-	'order' => array( '`guild`.`guild_num_members` ASC' ),
-	'order_d' => array( '`guild`.`guild_num_members` DESC' ),
-	'js_type' => 'ts_number',
-	'display' => 2,
+	'order'      => array( '`guild`.`guild_num_members` ASC' ),
+	'order_d'    => array( '`guild`.`guild_num_members` DESC' ),
+	'js_type'    => 'ts_number',
+	'display'    => 2,
 );
 
 $FIELD['guild_num_accounts'] = array (
 	'lang_field' => 'accounts',
-	'order' => array( '`guild`.`guild_num_accounts` ASC' ),
-	'order_d' => array( '`guild`.`guild_num_accounts` DESC' ),
-	'js_type' => 'ts_number',
-	'display' => 2,
+	'order'      => array( '`guild`.`guild_num_accounts` ASC' ),
+	'order_d'    => array( '`guild`.`guild_num_accounts` DESC' ),
+	'js_type'    => 'ts_number',
+	'display'    => 2,
 );
 
 $FIELD['guild_motd'] = array (
 	'lang_field' => 'motd',
-	'order' => array( '`guild`.`guild_motd` ASC' ),
-	'order_d' => array( '`guild`.`guild_motd` DESC' ),
-	'value' => 'note_value',
-	'js_type' => 'ts_string',
-	'display' => 2,
+	'order'      => array( '`guild`.`guild_motd` ASC' ),
+	'order_d'    => array( '`guild`.`guild_motd` DESC' ),
+	'value'      => 'note_value',
+	'js_type'    => 'ts_string',
+	'display'    => 2,
 );
 
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');

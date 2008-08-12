@@ -63,37 +63,38 @@ $always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
-	'order'    => array( '`members`.`name` ASC' ),
+	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'value' => array($memberlist,'name_value'),
-	'js_type' => 'ts_string',
-	'display' => 3,
+	'value'      => array($memberlist,'name_value'),
+	'js_type'    => 'ts_string',
+	'display'    => 3,
 );
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
-	'order'    => array( '`members`.`class` ASC' ),
+	'order'      => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
-	'value' => array($memberlist,'class_value'),
-	'js_type' => 'ts_string',
-	'display' => $addon['config']['stats_class'],
+	'value'      => array($memberlist,'class_value'),
+	'js_type'    => 'ts_string',
+	'display'    => $addon['config']['stats_class'],
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
+	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
-	'value' => array($memberlist,'level_value'),
-	'js_type' => 'ts_number',
-	'display' => $addon['config']['stats_level'],
+	'value'      => array($memberlist,'level_value'),
+	'js_type'    => 'ts_number',
+	'display'    => $addon['config']['stats_level'],
 );
 
 $FIELD['skill_level'] = array (
 	'lang_field' => 'skill_level',
-	'order' => array( "`skill_level` DESC" ),
-	'order_d' => array( "`skill_level` ASC" ),
-	'value' => 'skill_value',
-	'js_type' => 'ts_number',
-	'display' => $addon['config']['stats_str'],
+	'order'      => array( "`skill_level` DESC" ),
+	'order_d'    => array( "`skill_level` ASC" ),
+	'value'      => 'skill_value',
+	'js_type'    => 'ts_number',
+	'display'    => $addon['config']['stats_str'],
 );
 
 $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
