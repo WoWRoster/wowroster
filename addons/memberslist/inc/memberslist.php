@@ -148,7 +148,7 @@ class memberslist
 			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
 		)
 		{
-			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : $this->addon['config']['group_alts']==1 ? 'close' : 'ungroup');
+			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
 
 			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 		}
@@ -222,7 +222,7 @@ class memberslist
 			}
 
 			$roster->tpl->assign_block_vars('header_cell',array(
-				'LINK' => makelink('&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field . $desc),
+				'LINK' => makelink('&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;s=' . $field . $desc),
 				'TEXT' => $th_text,
 				'ID' => false,
 				)

@@ -202,7 +202,7 @@ $roster->load_config();
 /**
  * Inject some different locale setting if the locale url switch is set
  */
-$locale = (isset($_GET['locale']) ? $_GET['locale'] : isset($_POST['locale']) ? $_POST['locale'] : '');
+$locale = (isset($_GET['locale']) ? $_GET['locale'] : (isset($_POST['locale']) ? $_POST['locale'] : ''));
 if( $locale != '' )
 {
 	$_SESSION['locale'] = $locale;
