@@ -1,6 +1,6 @@
 <!-- $Id$ -->
 
-<!-- IF S_TOOLBAR -->
+<!-- IF S_GROUP_ALTS ge 0 -->
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgrayborder">
@@ -8,31 +8,32 @@
 			<table cellpadding="0" cellspacing="0" id="{LISTNAME}-toolbar" style="width:100%">
 				<tr>
 					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
-						<a href="#"
+						<a href="{U_CLOSE_ALTS}" class="internal_link"
 						       	onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
 							<img src="{THEME_PATH}/images/minus.gif" alt="+" />{L_CLOSE_ALL}
 						</a>
 					</th>
 					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
-						<a href="#"
+						<a href="{U_OPEN_ALTS}" class="internal_link"
 							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
 							<img src="{THEME_PATH}/images/plus.gif" alt="-" />{L_OPEN_ALL}
 						</a>
 					</th>
 					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
-						<a href="#"
+						<a href="{U_UNGROUP_ALTS}" class="internal_link"
 							onclick="unGroupAlts('{LISTNAME}'); return false;">
 							{L_UNGROUP_ALTS}
 						</a>
 					</th>
 					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
-						<a href="#"
+						<a href="{U_OPEN_ALTS}" class="internal_link"
 							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
 							{L_OPEN_ALTS}
 						</a>
 					</th>
 					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
-						<a href="#" onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+						<a href="{U_CLOSE_ALTS}" class="internal_link"
+							onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
 							{L_CLOSE_ALTS}
 						</a>
 					</th>
@@ -56,11 +57,11 @@
 <!-- IF B_PAGINATION -->
 		<tr>
 			<th colspan="{COLS}" class="membersHeader" style="text-align:center;color:#ffffff">
-				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}">{L_PREVIOUS}</a><!-- ENDIF --> - 
+				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}" class="internal_link">{L_PREVIOUS}</a><!-- ENDIF --> - 
 <!-- BEGIN pagination -->
-				<!-- IF pagination.URL --><a href="{pagination.URL}">{pagination.PAGE}</a><!-- ELSE -->{pagination.PAGE}<!-- ENDIF --> - 
+				<!-- IF pagination.URL --><a href="{pagination.URL}" class="internal_link">{pagination.PAGE}</a><!-- ELSE -->{pagination.PAGE}<!-- ENDIF --> - 
 <!-- END pagination -->
-				<!-- IF PAGINATION_NEXT --><a href="{PAGINATION_NEXT}">{L_NEXT}</a><!-- ENDIF -->
+				<!-- IF PAGINATION_NEXT --><a href="{PAGINATION_NEXT}" class="internal_link">{L_NEXT}</a><!-- ENDIF -->
 		</tr>
 <!-- ENDIF -->
 		<tr>
@@ -69,7 +70,7 @@
 <!-- BEGIN header_cell -->
 			<th class="membersHeader">
 <!-- IF header_cell.LINK -->
-				<a href="{header_cell.LINK}">{header_cell.TEXT}</a>
+				<a href="{header_cell.LINK}" class="internal_link">{header_cell.TEXT}</a>
 <!-- ELSE -->
 				{header_cell.TEXT}
 <!-- ENDIF -->
@@ -79,16 +80,17 @@
 	</thead>
 <!-- BEGIN members_row -->
 	<tbody id="playerrow-{members_row.MEMBER_ID}">
-		<tr class="membersRowColor{members_row.ROW_CLASS} {members_row.CLASS} <!-- IF members_row.CLASS == 'amain' -->ungroupalt<!-- ENDIF -->">
+		<tr class="membersRowColor{members_row.ROW_CLASS} {members_row.CLASS} <!-- IF members_row.CLASS == 'amain' -->ungroupalt<!-- ENDIF -->"
+			<!-- IF members_row.CLASS eq 'amain' && S_GROUP_ALTS neq 0 --> style="display:none;"<!-- ENDIF -->>
 			<td class="membersRowCell groupalt"
 				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
 <!-- IF members_row.CLASS == 'main' --> 
 				<a href="#" 
 					onclick="toggleAlts('playerrow-{members_row.MEMBER_ID}','foldout-{members_row.MEMBER_ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
-					<img src="{THEME_PATH}/images/<!-- IF members_row.OPEN -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					<img src="{THEME_PATH}/images/<!-- IF S_GROUP_ALTS eq 2 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
 					class="foldout"
 					id="foldout-{members_row.MEMBER_ID}"
-					alt="<!-- IF members_row.OPEN -->-<!-- ELSE -->+<!-- ENDIF -->" />
+					alt="<!-- IF S_GROUP_ALTS eq 2 -->-<!-- ELSE -->+<!-- ENDIF -->" />
 				</a>
 <!-- ELSEIF members_row.CLASS == 'alt_mainless' -->
 				{L_MA}
@@ -104,10 +106,8 @@
 		</tr>
 <!-- BEGIN alt -->
 		<tr class="membersRowAltColor{members_row.alt.ROW_CLASS} groupalt {members_row.alt.CLASS}"
-			<!-- IF members_row.alt.DISPLAY --> style="display:none;"<!-- ENDIF -->>
-			<td class="membersRowCell"
-				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
-			</td>
+			<!-- IF S_GROUP_ALTS neq 2 --> style="display:none;"<!-- ENDIF -->>
+			<td class="membersRowCell">&nbsp;</td>
 <!-- BEGIN cell(0,0) -->
 			<td class="membersRowCell" style="padding-left:20px;">
 				{members_row.alt.cell.VALUE}

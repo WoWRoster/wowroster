@@ -59,6 +59,9 @@ function openAlts(listname, Img)
 		hideElements(getElementsByClass('ungroupalt', table));
 		showElements(getElementsByClass('alt', table));
 		setElementsSrc(getElementsByClass('foldout', table, 'img'), Img );
+		
+		patchHref(getElementsByClass('internal_link', table, 'a'), 'alts', 'open');
+		patchHref(getElementsByClass('internal_link', toolbar, 'a'), 'alts', 'open');
 	}
 }
 
@@ -83,6 +86,9 @@ function closeAlts(listname, Img)
 		hideElements(getElementsByClass('ungroupalt', table));
 		hideElements(getElementsByClass('alt', table));
 		setElementsSrc(getElementsByClass('foldout', table, 'img'), Img );
+		
+		patchHref(getElementsByClass('internal_link', table, 'a'), 'alts', 'close');
+		patchHref(getElementsByClass('internal_link', toolbar, 'a'), 'alts', 'close');
 	}
 }
 
@@ -103,5 +109,8 @@ function unGroupAlts( listname )
 		table = document.getElementById(listname);
 		hideElements(getElementsByClass('groupalt', table));
 		showElements(getElementsByClass('ungroupalt', table));
+		
+		patchHref(getElementsByClass('internal_link', table, 'a'), 'alts', 'ungroup');
+		patchHref(getElementsByClass('internal_link', toolbar, 'a'), 'alts', 'ungroup');
 	}
 }
