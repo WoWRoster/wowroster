@@ -786,7 +786,8 @@ class char
 
 			while ($row = $roster->db->fetch($result,SQL_ASSOC))
 			{
-				$xpbarshow = true;
+				$expbar_show = true;
+				$expbar_amount = $expbar_max = '';
 
 				if( $row['level'] == ROSTER_MAXCHARLEVEL )
 				{
@@ -800,16 +801,17 @@ class char
 					{
 						$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
-						$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
+						$expbar_amount = $xp[0];
+						$expbar_max = $xp[1];
 					}
 					else
 					{
-						$xpbarshow = false;
+						$expbarshow = false;
 						$exp_percent = 0;
-						$expbar_text = '';
 
 					}
 				}
+
 
 				// Start Warlock Pet Icon Fix
 				if( $row['type'] == $this->locale['Imp'] )
@@ -860,9 +862,10 @@ class char
 
 					'L_POWER' => $row['power'],
 
-					'S_EXP' => $xpbarshow,
-					'EXP_WIDTH' => $exp_percent,
-					'EXP_TEXT' => $expbar_text,
+					'S_EXP'      => $expbar_show,
+					'EXP_AMOUNT' => $expbar_amount,
+					'EXP_MAX'    => $expbar_max,
+					'EXP_PERC'   => $exp_percent,
 					)
 				);
 
@@ -2382,17 +2385,17 @@ class char
 		}
 
 		// Code to write a "Max Exp bar" just like in SigGen
+		$expbar_amount = $expbar_max = $expbar_rest = '';
 		if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 		{
 			$exp_percent = 100;
-			$expbar_text = $roster->locale->act['max_exp'];
+			$expbar_amount = $roster->locale->act['max_exp'];
 			$expbar_type = 'max';
 		}
 		elseif( $this->data['exp'] == '0' )
 		{
 			$exp_percent = 0;
 			$expbar_type = 'normal';
-			$expbar_text = '';
 		}
 		else
 		{
@@ -2401,18 +2404,22 @@ class char
 			{
 				$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
-				if( $xp[2] > 0 )
-				{
-					$expbar_text = $xp[0] . '/' . $xp[1] . ' : ' . $xp[2] . ' (' . $exp_percent . '%)';
-					$expbar_type = 'rested';
-				}
-				else
-				{
-					$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
-					$expbar_type = 'normal';
-				}
+				$expbar_amount = $xp[0];
+				$expbar_max = $xp[1];
+
+				$expbar_rest = ( $xp[2] > 0 ? $xp[2] : '' );
+				$expbar_type = ( $xp[2] > 0 ? 'rested' : 'normal' );
 			}
 		}
+
+		$roster->tpl->assign_vars(array(
+			'EXP_AMOUNT' => $expbar_amount,
+			'EXP_MAX'    => $expbar_max,
+			'EXP_REST'   => $expbar_rest,
+			'EXP_PERC'   => $exp_percent,
+			'EXP_TYPE'   => $expbar_type,
+			)
+		);
 
 		switch( $this->data['classid'] )
 		{
@@ -2435,14 +2442,7 @@ class char
 				break;
 		}
 
-		$roster->tpl->assign_vars(array(
-			'EXP_WIDTH' => $exp_percent,
-			'EXP_TYPE'  => $expbar_type,
-			'EXP_TEXT'  => $expbar_text,
-
-			'RIGHTBOX'  => $rightbox
-			)
-		);
+		$roster->tpl->assign_var('RIGHTBOX', $rightbox);
 
 		// Print stat boxes
 		$this->status_box('stats','left',true);

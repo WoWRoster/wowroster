@@ -136,8 +136,8 @@
 						</div>
 						<div class="bar">
 							<div class="xp-bar {EXP_TYPE}">
-								<div class="fill {EXP_TYPE}" style="width: {EXP_WIDTH}%;"></div>
-								<div class="text">{EXP_TEXT}</div>
+								<div class="fill {EXP_TYPE}" style="width: {EXP_PERC}%;"></div>
+								<div class="text">{EXP_AMOUNT} / {EXP_MAX} <!-- IF EXP_REST -->: {EXP_REST} <!-- ENDIF -->({EXP_PERC}%)</div>
 							</div>
 							<div class="xp-name">EXP:</div>
 						</div>
@@ -247,8 +247,8 @@
 <!-- IF pet.S_EXP -->
 				<div class="bar">
 					<div class="power-bar xp-bar">
-						<div class="fill" style="width: {pet.EXP_WIDTH}%;"></div>
-						<div class="text">{EXP_TEXT}</div>
+						<div class="fill" style="width: {pet.EXP_PERC}%;"></div>
+						<div class="text">{EXP_AMOUNT} / {EXP_MAX} ({EXP_PERC}%)</div>
 					</div>
 					<div class="power-name">EXP:</div>
 				</div>
