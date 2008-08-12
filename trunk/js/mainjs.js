@@ -219,6 +219,17 @@ function setElementsSrc( els, img )
 	}
 }
 
+function patchHref( els, name, value )
+{
+	var re = new RegExp("\\b" + name + "=([\\w]*)");
+	var replace = name + "=" + value;
+
+	for( i = 0; i < els.length; i++ )
+	{
+		els[i].href = els[i].href.replace(re, replace);
+	}
+}
+
 // ADAMS's RADIO CUSTOMISATION
 // adam.burmister@gmail.com, Copyright 2005.
 

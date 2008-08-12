@@ -82,7 +82,7 @@ class memberslist
 		// Overwrite some options if they're specified by the client
 		if( isset($_GET['alts']) )
 		{
-			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : ($_GET['alts'] == 'close') ? 1 : 0;
+			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : (($_GET['alts'] == 'close') ? 1 : 0);
 		}
 	}
 
@@ -110,7 +110,6 @@ class memberslist
 
 		$roster->tpl->assign_vars(array(
 			'S_FILTER' => false,
-			'S_TOOLBAR' => false,
 			'S_HIDE_FILTER' => (bool)!$this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
 
@@ -240,7 +239,7 @@ class memberslist
 	 * @param string $dir
 	 *		direction
 	 */
-	function makeToolBar($dir = 'horizontal')
+	function makeToolBar()
 	{
 		global $roster;
 
@@ -249,7 +248,6 @@ class memberslist
 		$get = ( isset($_GET['d']) ? '&amp;d=' . $_GET['d'] : '' );
 
 		$roster->tpl->assign_vars(array(
-			'S_TOOLBAR' => $dir,
 			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
 			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
 			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
@@ -339,7 +337,7 @@ class memberslist
 			$block = $lines[$member_id];
 
 			// Main without alts, or ungrouped
-			if( $this->addon['config']['group_alts'] <= 0 || !isset($block['alts']) || 0 == count($block['alts']) )
+			if( $this->addon['config']['group_alts'] < 0 || !isset($block['alts']) || 0 == count($block['alts']) )
 			{
 				if( isset( $block['main'] ) )
 				{
@@ -385,9 +383,7 @@ class memberslist
 			'ROW_CLASS' => ( ( 0 !== strpos( $type, 'alt') )           ?
 		       				$roster->switch_row_class()        :
 						$roster->switch_alt_row_class() ),
-			'CLASS'     => $type,
-			'OPEN'      => ($this->addon['config']['group_alts'] == 2),
-			'DISPLAY'   => ( $type == 'alt' && $this->addon['config']['group_alts'] == 1)
+			'CLASS'     => $type
 		));
 		foreach( $cells as $cell )
 		{
