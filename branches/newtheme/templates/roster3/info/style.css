@@ -310,6 +310,8 @@
 .tab2 .powers .bar .Mana:hover { border-color: #00A8FF; }
 .tab2 .powers .bar .Rage { background: url(images/bars/bar-rage.gif); }
 .tab2 .powers .bar .Rage:hover { border-color: #FF0000; }
+.tab2 .powers .bar .Focus { background: url(images/bars/bar-energy.gif); }
+.tab2 .powers .bar .Focus:hover { border-color: #000000; }
 .tab2 .powers .bar .Energy { background: url(images/bars/bar-energy.gif); }
 .tab2 .powers .bar .Energy:hover { border-color: #000000; }
 
