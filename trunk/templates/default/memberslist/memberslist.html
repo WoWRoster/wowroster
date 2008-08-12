@@ -80,8 +80,8 @@
 	</thead>
 <!-- BEGIN members_row -->
 	<tbody id="playerrow-{members_row.MEMBER_ID}">
-		<tr class="membersRowColor{members_row.ROW_CLASS} {members_row.CLASS} <!-- IF members_row.CLASS == 'amain' -->ungroupalt<!-- ENDIF -->"
-			<!-- IF members_row.CLASS eq 'amain' && S_GROUP_ALTS neq 0 --> style="display:none;"<!-- ENDIF -->>
+		<tr class="membersRowColor{members_row.ROW_CLASS} {members_row.CLASS} <!-- IF members_row.CLASS == 'amain' -->ungroupalt<!-- ELSEIF members_row.CLASS == 'alt_mainless' -->groupalt<!-- ENDIF -->"
+			<!-- IF (members_row.CLASS eq 'amain' && S_GROUP_ALTS neq 0) or (members_row.CLASS eq 'alt_mainless' && S_GROUP_ALTS eq 0) --> style="display:none;"<!-- ENDIF -->>
 			<td class="membersRowCell groupalt"
 				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
 <!-- IF members_row.CLASS == 'main' --> 
