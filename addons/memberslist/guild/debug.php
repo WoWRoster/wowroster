@@ -51,44 +51,44 @@ $always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
-	'order'    => array( '`members`.`name` ASC' ),
+	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'js_type' => 'ts_string',
-	'display' => 3,
+	'js_type'    => 'ts_string',
+	'display'    => 3,
 );
 
 $FIELD['main_name'] = array (
 	'lang_field' => 'main_name',
-	'order'    => array( '`mains`.`name` ASC' ),
+	'order'      => array( '`mains`.`name` ASC' ),
 	'order_d'    => array( '`mains`.`name` DESC' ),
-	'js_type' => 'ts_string',
-	'display' => 3,
+	'js_type'    => 'ts_string',
+	'display'    => 3,
 );
 
 $FIELD['alt_type'] = array (
 	'lang_field' => 'alt_type',
-	'order'    => array('`alts`.`alt_type` ASC' ),
+	'order'      => array('`alts`.`alt_type` ASC' ),
 	'order_d'    => array('`alts`.`alt_type` DESC' ),
-	'js_type' => 'ts_number',
-	'display' => 3,
+	'js_type'    => 'ts_number',
+	'display'    => 3,
 );
 
 $FIELD['note'] = array (
 	'lang_field' => 'note',
-	'order' => array( 'nisnull','`members`.`note` ASC' ),
-	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
-	'js_type' => 'ts_string',
-	'display' => 3,
-	'value'   => 'debugNote',
+	'order'      => array( 'nisnull','`members`.`note` ASC' ),
+	'order_d'    => array( 'nisnull','`members`.`note` DESC' ),
+	'js_type'    => 'ts_string',
+	'display'    => 3,
+	'value'      => 'debugNote',
 );
 
 $FIELD['officer_note'] = array (
 	'lang_field' => 'officer_note',
-	'order' => array( 'onisnull','`members`.`note` ASC' ),
-	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
-	'js_type' => 'ts_string',
-	'display' => ( $addon['config']['member_onote'] ? 3 : 0 ),
-	'value'   => 'debugNote',
+	'order'      => array( 'onisnull','`members`.`note` ASC' ),
+	'order_d'    => array( 'onisnull','`members`.`note` DESC' ),
+	'js_type'    => 'ts_string',
+	'display'    => ( $addon['config']['member_onote'] ? 3 : 0 ),
+	'value'      => 'debugNote',
 );
 
 include_once ($addon['inc_dir'] . 'memberslist.php');

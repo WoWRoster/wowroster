@@ -134,7 +134,6 @@ class memberslist
 		);
 
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
-		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
 		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
 
 		if( $this->addon['config']['page_size'] )
@@ -159,10 +158,19 @@ class memberslist
 		   $get_s = $this->addon['config']['def_sort'];
 		}
 
-		if( isset($this->fields[$get_s]) )
+		foreach( explode( ',', $get_s ) as $sort )
 		{
-			$ORDER_FIELD = $this->fields[$get_s];
-			if( !empty($get_d) && isset( $ORDER_FIELD['order_d'] ) )
+			if( strpos( $sort, ':' ) )
+			{
+				list($field, $dir) = explode( ':', $sort );
+			}
+			else
+			{
+				$field = $sort; $dir = 'a';
+			}
+
+			$ORDER_FIELD = $this->fields[$field];
+			if( $dir == 'd' && isset( $ORDER_FIELD['order_d'] ) )
 			{
 				foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
 				{
@@ -212,17 +220,27 @@ class memberslist
 
 			// click a sorted field again to reverse sort it
 			// Don't add it if it is detected already
-			if( $get_d != 'true' )
+			$sorts = explode( ',', $get_s );
+			if( false !== ($key = array_search( $field, $sorts )) || 
+				false !== ($key = array_search( $field . ':a', $sorts)) )
 			{
-				$desc = ( $get_s == $field ) ? '&amp;d=true' : '';
+				unset( $sorts[$key] );
+				array_unshift( $sorts, $field . ':d' );
 			}
 			else
 			{
-				$desc = '';
+				$key = array_search( $field . ':d', $sorts );
+				if( $key !== false )
+				{
+					unset( $sorts[$key] );
+				}
+				array_unshift( $sorts, $field . ':a' );
 			}
+			$newsort = implode( ',', $sorts );
+			
 
 			$roster->tpl->assign_block_vars('header_cell',array(
-				'LINK' => makelink('&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;s=' . $field . $desc),
+				'LINK' => makelink('&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;s=' . $newsort ),
 				'TEXT' => $th_text,
 				'ID' => false,
 				)
