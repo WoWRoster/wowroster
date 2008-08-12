@@ -23,7 +23,5 @@ include( $addon['inc_dir'] . 'header.php' );
 
 if( $roster->auth->getAuthorized($addon['config']['show_spellbook']) )
 {
-	$char_page .= $char->show_spellbook();
+	print $char->show_spellbook();
 }
-
-include( $addon['inc_dir'] . 'footer.php' );

@@ -381,14 +381,14 @@ $lang['ts_iconArray'] = array (
 // Riding Skill Icons-Array
 $lang['riding'] = 'Riding';
 $lang['ts_ridingIcon'] = array(
-	'Night Elf'=>'ability_mount_whitetiger',
 	'Human'=>'ability_mount_ridinghorse',
-	'Dwarf'=>'ability_mount_mountainram',
-	'Gnome'=>'ability_mount_mechastrider',
-	'Undead'=>'ability_mount_undeadhorse',
-	'Troll'=>'ability_mount_raptor',
-	'Tauren'=>'ability_mount_kodo_03',
 	'Orc'=>'ability_mount_blackdirewolf',
+	'Dwarf'=>'ability_mount_mountainram',
+	'Night Elf'=>'ability_mount_whitetiger',
+	'Undead'=>'ability_mount_undeadhorse',
+	'Tauren'=>'ability_mount_kodo_03',
+	'Gnome'=>'ability_mount_mechastrider',
+	'Troll'=>'ability_mount_raptor',
 	'Blood Elf' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
@@ -410,15 +410,15 @@ $lang['ts_ridingIcon'] = array(
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
-	'Druid'=>'druid_icon',
-	'Hunter'=>'hunter_icon',
-	'Mage'=>'mage_icon',
+	'Warrior'=>'warrior_icon',
 	'Paladin'=>'paladin_icon',
-	'Priest'=>'priest_icon',
+	'Hunter'=>'hunter_icon',
 	'Rogue'=>'rogue_icon',
+	'Priest'=>'priest_icon',
 	'Shaman'=>'shaman_icon',
+	'Mage'=>'mage_icon',
 	'Warlock'=>'warlock_icon',
-	'Warrior'=>'warrior_icon'
+	'Druid'=>'druid_icon',
 // Space so locale files are line synced
 
 
@@ -433,15 +433,15 @@ $lang['class_iconArray'] = array (
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
-	'Druid' => 'FF7C0A',
-	'Hunter' => 'AAD372',
-	'Mage' => '68CCEF',
-	'Paladin' => 'F48CBA',
+	'Warrior' => 'c69b6d',
+	'Paladin' => 'f48cba',
+	'Hunter' => 'aad372',
+	'Rogue' => 'fff468',
 	'Priest' => 'ffffff',
-	'Rogue' => 'FFF468',
-	'Shaman' => '00DBBA',
-	'Warlock' => '9382C9',
-	'Warrior' => 'C69B6D'
+	'Shaman' => '00dbba',
+	'Mage' => '68ccef',
+	'Warlock' => '9382c9',
+	'Druid' => 'ff7c0a',
 // Space so locale files are line synced
 
 
@@ -456,15 +456,15 @@ $lang['class_colorArray'] = array(
 
 // Class To English Translation
 $lang['class_to_en'] = array(
-	'Druid' => 'Druid',
-	'Hunter' => 'Hunter',
-	'Mage' => 'Mage',
+	'Warrior' => 'Warrior',
 	'Paladin' => 'Paladin',
-	'Priest' => 'Priest',
+	'Hunter' => 'Hunter',
 	'Rogue' => 'Rogue',
+	'Priest' => 'Priest',
 	'Shaman' => 'Shaman',
+	'Mage' => 'Mage',
 	'Warlock' => 'Warlock',
-	'Warrior' => 'Warrior'
+	'Druid' => 'Druid',
 // Space so locale files are line synced
 
 
@@ -538,6 +538,43 @@ $lang['race_to_en'] = array(
 
 );
 
+$lang['race_to_id'] = array(
+	'Human'     => 1,
+	'Orc'       => 2,
+	'Dwarf'     => 3,
+	'Night Elf' => 4,
+	'Undead'    => 5,
+	'Tauren'    => 6,
+	'Gnome'     => 7,
+	'Troll'     => 8,
+	'Blood Elf' => 10,
+	'Draenei'   => 11,
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
+
+
+);
+
+$lang['id_to_race'] = array(
+	1 => 'Human',
+	2 => 'Orc',
+	3 => 'Dwarf',
+	4 => 'Night Elf',
+	5 => 'Undead',
+	6 => 'Tauren',
+	7 => 'Gnome',
+	8 => 'Troll',
+	10 => 'Blood Elf',
+	11 => 'Draenei',
+);
+
 $lang['hslist']=' Honor System Stats';
 $lang['hslist1']='Highest Lifetime Rank';
 $lang['hslist2']='Highest Lifetime HKs';
@@ -598,6 +635,7 @@ $lang['notatwar']='Not at War';
 $lang['faction_to_id'] = array(
 	'Alliance' => 'alliance',
 	'Alliance Forces' => 'allianceforces',
+	'Alliance Vanguard' => 'alliancevanguard',
 	'Other' => 'other',
 	'Outland' => 'outland',
 	'Shattrath City' => 'shattrathcity',

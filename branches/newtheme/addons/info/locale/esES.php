@@ -35,6 +35,7 @@ $lang['talents'] = 'Talentos';
 $lang['talent_specialization'] = 'Talent Specialization';
 $lang['unusedtalentpoints']='Puntos de talento sin usar';
 $lang['talentexport']='Exporta tus talentos';
+$lang['hybrid']='Hybrid';
 
 $lang['pets']='Pets';
 $lang['companions']='Companions';

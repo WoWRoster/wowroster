@@ -29,15 +29,12 @@ if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
 
 include( $addon['inc_dir'] . 'header.php' );
 
-$char_page .= $char->out();
+print $char->out();
 
 if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
 {
-	$char_page .= "</td><td align=\"left\">\n";
 	require_once($addon['inc_dir'] . 'charbonus.lib.php');
 	$char_bonus = new CharBonus($char);
-	$char_page .= $char_bonus->dumpBonus();
+	print $char_bonus->dumpBonus();
 	unset($char_bonus);
 }
-
-include( $addon['inc_dir'] . 'footer.php' );

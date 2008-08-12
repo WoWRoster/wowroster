@@ -23,7 +23,5 @@ include( $addon['inc_dir'] . 'header.php' );
 
 if( $roster->auth->getAuthorized($addon['config']['show_quests']) )
 {
-	$char_page .= $char->show_quests();
+	print $char->show_quests();
 }
-
-include( $addon['inc_dir'] . 'footer.php' );

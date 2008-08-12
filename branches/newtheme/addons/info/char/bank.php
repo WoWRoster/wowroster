@@ -73,6 +73,4 @@ if( $roster->auth->getAuthorized($addon['config']['show_bank']) )
 }
 
 $roster->tpl->set_filenames(array('bag' => $addon['basename'] . '/bag.html'));
-$char_page .= $roster->tpl->fetch('bag');
-
-include( $addon['inc_dir'] . 'footer.php' );
+print $roster->tpl->fetch('bag');
