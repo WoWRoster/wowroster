@@ -108,8 +108,6 @@ if ( $addon['config']['stats_motd'] == 1 )
 
 $roster->output['before_menu'] .= $menu;
 
-$memberlist->makeToolBar('horizontal');
-
 echo skill_dropdown();
 
 echo $memberlist->makeMembersList('syellow');

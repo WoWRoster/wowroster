@@ -217,8 +217,6 @@ if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist']
 	echo "  </tr>\n</table>\n";
 }
 
-$memberlist->makeToolBar('horizontal');
-
 echo $memberlist->makeMembersList('syellow');
 
 // Print the update instructions
