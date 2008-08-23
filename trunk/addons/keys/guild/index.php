@@ -90,28 +90,29 @@ $always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
-	'order'    => array( '`members`.`name` ASC' ),
+	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'value' => array($memberlist,'name_value'),
-	'js_type' => 'ts_string',
-	'display' => 3,
+	'value'      => array($memberlist,'name_value'),
+	'js_type'    => 'ts_string',
+	'display'    => 3,
 );
 
 $FIELD['class'] = array (
 	'lang_field' => 'class',
-	'order'    => array( '`members`.`class` ASC' ),
+	'order'      => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
-	'value' => array($memberlist,'class_value'),
-	'js_type' => 'ts_string',
-	'display' => 2
+	'value'      => array($memberlist,'class_value'),
+	'js_type'    => 'ts_string',
+	'display'    => 2
 );
 
 $FIELD['level'] = array (
 	'lang_field' => 'level',
+	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
-	'value' => array($memberlist,'level_value'),
-	'js_type' => 'ts_number',
-	'display' => 2
+	'value'      => array($memberlist,'level_value'),
+	'js_type'    => 'ts_number',
+	'display'    => 2
 );
 
 // For each key, we get two extra database columns and an extra FIELD
@@ -137,11 +138,11 @@ while( $key_data = $roster->db->fetch( $keyResult ) )
 
 	$FIELD[$key_name] = array(
 		'lang_field' => $key_name,
-		'order' => array( '`' . $key_name . '_latest` ASC' ),
-		'order_d' => array( '`' . $key_name . '_latest` DESC' ),
-		'value' => 'key_value',
-		'js_type' => 'ts_number',
-		'display' => 2,
+		'order'      => array( '`' . $key_name . '_latest` ASC' ),
+		'order_d'    => array( '`' . $key_name . '_latest` DESC' ),
+		'value'      => 'key_value',
+		'js_type'    => 'ts_number',
+		'display'    => 2,
 		'passthrough' => $key_data
 	);
 }
@@ -167,8 +168,6 @@ $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'keyslist');
 
 // Start output
 $roster->output['show_menu']['keypane'] = 1;
-
-$memberlist->makeFilterBox();
 
 $memberlist->makeToolBar('horizontal');
 
