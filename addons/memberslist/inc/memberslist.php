@@ -108,7 +108,14 @@ class memberslist
 		unset($fields);
 		$cols = count($this->fields);
 
+		// Pre-store server get params
+		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['s'] : '' );
+
 		$roster->tpl->assign_vars(array(
+			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
+			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
+			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
+
 			'S_FILTER' => false,
 			'S_HIDE_FILTER' => (bool)!$this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
@@ -160,6 +167,11 @@ class memberslist
 
 		foreach( explode( ',', $get_s ) as $sort )
 		{
+			if( empty($sort) )
+			{
+				continue;
+			}
+
 			if( strpos( $sort, ':' ) )
 			{
 				list($field, $dir) = explode( ':', $sort );
@@ -249,28 +261,6 @@ class memberslist
 			$current_col++;
 		}
 		// end header row
-	}
-
-	/**
-	 * Returns the additional controls
-	 *
-	 * @param string $dir
-	 *		direction
-	 */
-	function makeToolBar()
-	{
-		global $roster;
-
-		// Pre-store server get params
-		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' );
-		$get = ( isset($_GET['d']) ? '&amp;d=' . $_GET['d'] : '' );
-
-		$roster->tpl->assign_vars(array(
-			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
-			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
-			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
-			)
-		);
 	}
 
 	/**

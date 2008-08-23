@@ -169,8 +169,6 @@ $memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'keyslist');
 // Start output
 $roster->output['show_menu']['keypane'] = 1;
 
-$memberlist->makeToolBar('horizontal');
-
 echo $memberlist->makeMembersList('syellow');
 
 // Key display logic
