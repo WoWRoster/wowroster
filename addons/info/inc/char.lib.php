@@ -584,7 +584,7 @@ class char
 			$spellbook[$this->data['name']][$spell_type]['tooltip'] = makeOverlib($spell_type,'','',2,'',',WRAP,RIGHT');
 
 			// Get the spell data
-			$query2 = "SELECT * FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `spell_type` = '$spell_type' ORDER BY `spell_name`;";
+			$query2 = "SELECT * FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `spell_type` = '" . $roster->db->escape($spell_type) . "' ORDER BY `spell_name`;";
 
 			$result2 = $roster->db->query($query2);
 
