@@ -71,7 +71,7 @@ switch( $region )
 		$xmlsource = 'http://www.worldofwarcraft.com/realmstatus/status.xml';
 		break;
 	case 'EU':
-		$xmlsource = 'http://www.wow-europe.com/en/serverstatus/index.xml';
+		$xmlsource = 'http://www.wow-europe.com/realmstatus/index.xml';
 		break;
 	default:
 		$xmlsource = '';

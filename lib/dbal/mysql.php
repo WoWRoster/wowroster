@@ -50,6 +50,11 @@ class roster_db
 	var $file;
 	var $line;
 
+	/**
+	 * Log the query
+	 *
+	 * @param string $query
+	 */
 	function _log( $query )
 	{
 		$this->_backtrace();
@@ -81,6 +86,9 @@ class roster_db
 		}
 	}
 
+	/**
+	 * Backtrace the query, to get the calling file name
+	 */
 	function _backtrace()
 	{
 		$this->file = 'unknown';
