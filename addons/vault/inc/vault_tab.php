@@ -35,7 +35,7 @@ class VaultTab extends VaultItem
 
 	function VaultTab( $data )
 	{
-		$this->VaultItem( $data );
+		$this->VaultItem($data);
 		$this->contents = $this->fetchManyItems($this->data['guild_id'], $this->data['item_slot']);
 	}
 

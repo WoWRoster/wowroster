@@ -51,7 +51,7 @@ class roster_professionsSearch
 		require_once (ROSTER_LIB . 'recipes.php');
 
 		$this->open_table = '<tr><th class="membersHeader ts_string">' . $roster->locale->act['item'] . '</th>'
-						  . '<th class="membersHeader ts_string">Lv</th>'
+						  . '<th class="membersHeader ts_string">' . $roster->locale->act['level'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['type'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['reagents'] . '</th>'

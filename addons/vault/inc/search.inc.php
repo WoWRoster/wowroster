@@ -9,7 +9,7 @@
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
- * @package    WoWRoster
+ * @package    Vault
  * @subpackage Search
 */
 
@@ -19,12 +19,12 @@ if( !defined('IN_ROSTER') )
 }
 
 /**
- * Item Search
+ * Vault Search
  *
- * @package    WoWRoster
+ * @package    Vault
  * @subpackage Search
  */
-class roster_itemSearch
+class vaultSearch
 {
 	var $options;
 	var $result = array();
@@ -43,7 +43,7 @@ class roster_itemSearch
 	var $quality_sql;
 
 	// class constructor
-	function roster_itemSearch()
+	function vaultSearch()
 	{
 		global $roster;
 
@@ -52,15 +52,15 @@ class roster_itemSearch
 		$this->open_table = '<tr><th class="membersHeader ts_string">' . $roster->locale->act['item'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['level'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
-						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['character'] . '</th></tr>';
+						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['page'] . '</th></tr>';
 
-		$this->minlvl = isset($_POST['item_minle']) ? (int)$_POST['item_minle'] : ( isset($_GET['item_minle']) ? (int)$_GET['item_minle'] : '' );
-		$this->maxlvl = isset($_POST['item_maxle']) ? (int)$_POST['item_maxle'] : ( isset($_GET['item_maxle']) ? (int)$_GET['item_maxle'] : '' );
-		$this->quality = isset($_POST['item_quality']) ? $_POST['item_quality'] : ( isset($_GET['item_quality']) ? $_GET['item_quality'] : array() );
+		$this->minlvl = isset($_POST['vault_minle']) ? (int)$_POST['vault_minle'] : ( isset($_GET['vault_minle']) ? (int)$_GET['vault_minle'] : '' );
+		$this->maxlvl = isset($_POST['vault_maxle']) ? (int)$_POST['vault_maxle'] : ( isset($_GET['vault_maxle']) ? (int)$_GET['vault_maxle'] : '' );
+		$this->quality = isset($_POST['vault_quality']) ? $_POST['vault_quality'] : ( isset($_GET['vault_quality']) ? $_GET['vault_quality'] : array() );
 
 		// Set up next/prev search link
-		$this->search_url  = ( $this->minlvl != '' ? '&amp;item_minle=' . $this->minlvl : '' );
-		$this->search_url .= ( $this->maxlvl != '' ? '&amp;item_maxle=' . $this->maxlvl : '' );
+		$this->search_url  = ( $this->minlvl != '' ? '&amp;vault_minle=' . $this->minlvl : '' );
+		$this->search_url .= ( $this->maxlvl != '' ? '&amp;vault_maxle=' . $this->maxlvl : '' );
 
 		// Assemble sql for item quality
 		if( count($this->quality) > 0 )
@@ -69,19 +69,19 @@ class roster_itemSearch
 			$this->quality_sql = array();
 			foreach( $this->quality as $color )
 			{
-				$this->quality_sql[] = "`items`.`item_color` = '$color'";
-				$this->search_url .= '&amp;item_quality[' . $i++ . ']=' . $color;
+				$this->quality_sql[] = "`item_color` = '$color'";
+				$this->search_url .= '&amp;vault_quality[' . $i++ . ']=' . $color;
 			}
 			$this->quality_sql = ' AND (' . implode(' OR ',$this->quality_sql) . ')';
 		}
 
 		//advanced options for searching items
 		$this->options = '
-	<label for="item_minle">' . $roster->locale->act['level'] . ':</label>
-	<input type="text" name="item_minle" id="item_minle" size="3" maxlength="3" value="' . $this->minlvl . '" /> -
-	<input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3" value="' . $this->maxlvl . '" /><br />
-	<label for="item_quality">Quality:</label><br />
-	<select name="item_quality[]" id="item_quality" size="6" multiple="multiple">
+	<label for="vault_minle">' . $roster->locale->act['level'] . ':</label>
+	<input type="text" name="vault_minle" id="vault_minle" size="3" maxlength="3" value="' . $this->minlvl . '" /> -
+	<input type="text" name="vault_maxle" id="vault_maxle" size="3" maxlength="3" value="' . $this->maxlvl . '" /><br />
+	<label for="vault_quality">Quality:</label><br />
+	<select name="vault_quality[]" id="vault_quality" size="6" multiple="multiple">
 		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>Poor</option>
 		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>Common</option>
 		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>Uncommon</option>
@@ -95,19 +95,38 @@ class roster_itemSearch
 	{
 		global $roster;
 
+		include_once($this->data['inc_dir'] . 'vault_item.php');
+
+		// Get all the vault page names first
+		$sql = "SELECT `guild_id`, `item_slot`, `item_name`, `item_texture` FROM `" . $roster->db->table('addons_vault_items') . "` WHERE `item_parent` = 'vault';";   
+		$result = $roster->db->query($sql);
+		$x = $roster->db->num_rows($result);
+
+		$tab_name = array();
+		while( $x > 0 )
+		{ 
+			$row = $roster->db->fetch($result);
+			$tab_name[$row['guild_id']][$row['item_slot']] = array(
+				'name' => $row['item_name'],
+				'icon' => $row['item_texture']
+				);
+			$x--;
+		}
+		$roster->db->free_result($result);
+
+		// Search the items
 		$first = $page * $limit;
 
-		$sql = "SELECT `players`.`name`, `players`.`member_id`, `players`.`server`, `players`.`region`, `items`.*"
-			 . " FROM `" . $roster->db->table('items') . "` AS items,`" . $roster->db->table('players') . "` AS players"
-			 . " WHERE `items`.`member_id` = `players`.`member_id`"
-				. " AND (`items`.`item_name` LIKE '%$search%' OR `items`.`item_tooltip` LIKE '%$search%')"
-				. ( $this->minlvl != '' ? " AND `items`.`level` >= '$this->minlvl'" : '' )
-				. ( $this->maxlvl != '' ? " AND `items`.`level` <= '$this->maxlvl'" : '' )
+		$sql = "SELECT *, SUM(item_quantity) AS total_quantity"
+			 . " FROM `" . $roster->db->table('addons_vault_items') . "`"
+			 . " WHERE (`item_parent` LIKE 'Tab%') AND (`item_name` LIKE '%$search%' OR `item_tooltip` LIKE '%$search%')"
+				. ( $this->minlvl != '' ? " AND `level` >= '$this->minlvl'" : '' )
+				. ( $this->maxlvl != '' ? " AND `level` <= '$this->maxlvl'" : '' )
 				. $this->quality_sql
-			 . " ORDER BY `items`.`item_name` ASC"
+			 . " GROUP BY `item_name`"
 			 . ( $limit > 0 ? " LIMIT $first," . $limit : '' ) . ';';
 
-		//calculating the search time
+		// calculating the search time
 		$this->start_search = format_microtime();
 
 		$result = $roster->db->query($sql);
@@ -123,12 +142,15 @@ class roster_itemSearch
 			while( $x > 0 )
 			{
 				$row = $roster->db->fetch($result);
-				$icon = new item($row);
+				$row['item_quantity'] = $row['total_quantity']; // Totals quantity, found on all pages
+				$icon = new VaultItem($row, false);
 
 				$item['html'] = '<td class="SearchRowCell">' . $icon->out() . '</td>'
 							  . '<td class="SearchRowCell">' . $icon->requires_level . '</td>'
 							  . '<td class="SearchRowCell"><span style="color:#' . $icon->color . '">[' . $icon->name . ']</span></td>'
-							  . '<td class="SearchRowCellRight"><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '"><strong>' . $row['name'] . '</strong></a></td>';
+							  . '<td class="SearchRowCellRight"><a href="' . makelink('guild-vault&amp;a=g:' . $row['guild_id']) . '">'
+							  . '<img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $tab_name[$row['guild_id']][$row['item_parent']]['icon'] . '.' . $roster->config['img_suffix'] . '" style="width:16px;height:16px;" alt="" /> '
+							  . $tab_name[$row['guild_id']][$row['item_parent']]['name'] . '</a></td>';
 
 				$this->add_result($item);
 				unset($item);
