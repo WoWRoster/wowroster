@@ -122,8 +122,6 @@ class roster_db
 	 */
 	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix='' )
 	{
-		global $roster;
-
 		$this->prefix = $prefix;
 		$this->dbname = $dbname;
 
@@ -212,8 +210,6 @@ class roster_db
 	 */
 	function query( $query )
 	{
-		global $roster;
-
 		// Remove pre-existing query resources
 		unset($this->query_id);
 
@@ -239,6 +235,8 @@ class roster_db
 		}
 		elseif( $this->error_die )
 		{
+			// I think we should use this method for dying
+			// die(__FILE__ . ': line[' . __LINE__ . ']<br />Database Error "' . $query . '"<br />MySQL said:<br />' . $this->error());
 			die_quietly($this->error(), 'Database Error',__FILE__,__LINE__,$query);
 		}
 		else
