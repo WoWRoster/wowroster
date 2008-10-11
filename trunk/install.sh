@@ -61,7 +61,7 @@ then
 
 	if [ $mode == 'svn' ]
 	then
-		svn checkout 'http://svn.wowroster.net/roster1/trunk'
+		svn checkout 'http://svn.wowroster.net/roster/trunk'
 		rm -f 'trunk/install.sh'
 		mv trunk/* trunk/.htaccess trunk/.svn .
 		rm -rf trunk
