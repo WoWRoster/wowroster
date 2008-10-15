@@ -325,6 +325,8 @@ $lang['Skinning']='Desollar';
 $lang['Tailoring']='Sastrería';
 $lang['Enchanting']='Encantamiento';
 $lang['Engineering']='Ingeniería';
+$lang['Inscription']='Inscription';
+$lang['Runeforging']='Runeforging';
 $lang['Cooking']='Cocina';
 $lang['Fishing']='Pesca';
 $lang['First Aid']='Primeros auxilios';
@@ -347,6 +349,8 @@ $lang['tsArray'] = array (
 	$lang['Tailoring'],
 	$lang['Enchanting'],
 	$lang['Engineering'],
+	$lang['Inscription'],
+	$lang['Runeforging'],
 	$lang['Cooking'],
 	$lang['Fishing'],
 	$lang['First Aid'],
@@ -365,6 +369,8 @@ $lang['ts_iconArray'] = array (
 	$lang['Tailoring']=>'trade_tailoring',
 	$lang['Enchanting']=>'trade_engraving',
 	$lang['Engineering']=>'trade_engineering',
+	$lang['Inscription']=>'',
+	$lang['Runeforging']=>'',
 	$lang['Cooking']=>'inv_misc_food_15',
 	$lang['Fishing']=>'trade_fishing',
 	$lang['First Aid']=>'spell_holy_sealofsacrifice',

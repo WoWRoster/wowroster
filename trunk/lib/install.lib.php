@@ -268,7 +268,7 @@ class Install
 		global $roster;
 
 		$retval = 0;
-		$old_error_die = $roster->db->error_die(false);
+		//$old_error_die = $roster->db->error_die(false);
 		foreach ($this->sql as $id => $query)
 		{
 			if (!$roster->db->query($query))
@@ -332,7 +332,7 @@ class Install
 				}
 			}
 		}
-		$roster->db->error_die($old_error_die);
+		//$roster->db->error_die($old_error_die);
 		return $retval;
 	}
 

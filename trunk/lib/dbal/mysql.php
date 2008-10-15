@@ -236,8 +236,8 @@ class roster_db
 		elseif( $this->error_die )
 		{
 			// I think we should use this method for dying
-			// die(__FILE__ . ': line[' . __LINE__ . ']<br />Database Error "' . $query . '"<br />MySQL said:<br />' . $this->error());
-			die_quietly($this->error(), 'Database Error',__FILE__,__LINE__,$query);
+			die(__FILE__ . ': line[' . __LINE__ . ']<br />Database Error "' . $query . '"<br />MySQL said:<br />' . $this->error());
+			//die_quietly($this->error(), 'Database Error',__FILE__,__LINE__,$query);
 		}
 		else
 		{
