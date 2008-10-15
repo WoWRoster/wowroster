@@ -91,8 +91,8 @@ $roster->tpl->set_filenames(array('roster_header' => 'header.html'));
 $roster->tpl->display('roster_header');
 
 // BETA ONLY, COMMENT THIS IN RC OR LATER!
-/*if( file_exists(ROSTER_BASE . 'valid.inc') )
+if( file_exists(ROSTER_BASE . 'valid.inc') )
 {
 	include(ROSTER_BASE . 'valid.inc');
-}*/
+}
 // END BETA ONLY

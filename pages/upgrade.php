@@ -35,14 +35,14 @@ if( version_compare($roster->config['version'], ROSTER_VERSION,'>=') )
  */
 class Upgrade
 {
-	var $versions = array('1.9.9');
+	var $versions = array('1.9.9','2.0.0','2.0.9');
 	var $index = null;
 
 	function Upgrade()
 	{
 		global $roster;
 
-		$roster->db->error_die(false);
+		//$roster->db->error_die(false);
 
 		if( isset($_POST['upgrade']) )
 		{
@@ -85,6 +85,34 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
+	/**
+	 * Upgrades the 2.0.9.x beta versions into the 2.1.0 release
+	 */
+	function upgrade_209()
+	{
+		global $roster;
+
+		$this->beta_upgrade();
+
+		$this->finalize();
+	}
+
+	/**
+	 * Upgrades 2.0.0 to 2.1.0
+	 */
+	function upgrade_200()
+	{
+		global $roster;
+
+		// This will be active when the release is done
+		//$this->standard_upgrader();
+
+		$this->finalize();
+	}
+
+	/**
+	 * Upgrades the 1.9.9.x beta versions into the 2.0.0 release
+	 */
 	function upgrade_199()
 	{
 		global $roster;

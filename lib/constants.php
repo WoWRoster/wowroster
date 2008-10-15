@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','2.0.0');
+define('ROSTER_VERSION','2.0.9.1877');
 
 /**
  * Roster Conf File
@@ -67,15 +67,15 @@ define('ROSTER_LOCALE_DIR',ROSTER_BASE . 'localization' . DIR_SEP);
  * Please make a page on the web where you place the most rescent version of the files, including this file.
  * The webpage must be entered below without a trailing slash
  */
-define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_updater/version_match.php');
-define('ROSTER_UPDATECHECK', 'http://www.wowroster.net/roster_updater/version.txt');
+define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/roster_beta/version_match.php');
+define('ROSTER_UPDATECHECK', 'http://www.wowroster.net/roster_beta/version.txt');
 define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/rss/downloads.php?id=%1$s');
 
 /**
  * Some static and semi-static game data.
  */
-define('ROSTER_MAXCHARLEVEL','70');
-define('ROSTER_MAXSKILLLEVEL','375');
+define('ROSTER_MAXCHARLEVEL','80');
+define('ROSTER_MAXSKILLLEVEL','425');
 define('ROSTER_MAXQUESTS','25');
 
 define('ROSTER_CLASS_WARRIOR', 1);

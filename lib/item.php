@@ -81,7 +81,7 @@ class item
 
 		$this->DEBUG = $roster->config['debug_mode'];
 		// Lets hard code this to 1 for BETA ONLY
-		//$this->DEBUG = 2;
+		$this->DEBUG = 1;
 
 		$this->isParseMode = $parse_mode;
 		$this->data = $data;

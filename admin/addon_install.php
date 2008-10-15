@@ -293,7 +293,7 @@ function processAddon()
 	}
 
 	// Check for temp tables
-	$old_error_die = $roster->db->error_die(false);
+	//$old_error_die = $roster->db->error_die(false);
 	if( false === $roster->db->query("CREATE TEMPORARY TABLE `test` (id int);") )
 	{
 		$installer->temp_tables = false;
@@ -303,7 +303,7 @@ function processAddon()
 	{
 		$installer->temp_tables = true;
 	}
-	$roster->db->error_die($old_error_die);
+	//$roster->db->error_die($old_error_die);
 
 	// Include addon install definitions
 	$addonDir = ROSTER_ADDONS . $addon_name . DIR_SEP;

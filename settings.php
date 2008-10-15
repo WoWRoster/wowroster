@@ -319,7 +319,7 @@ $roster->tpl->assign_vars(array(
  * Set db->error_die off, our framework is good to go
  * That is, if it works correctly
  */
-//$roster->db->error_die(false);
+$roster->db->error_die(false);
 
 
 
