@@ -156,13 +156,15 @@ class Install
 	 * @param string $title
 	 *		Localization key for the button title
 	 * @param string $scope
-	 *		Scope to link to
+	 *		Scope to link to (default - util)
 	 * @param string $url
 	 *		URL parameters for the addon function
 	 * @param string $icon
-	 * 		Icon for display
+	 * 		Icon for display (default - use main addon icon)
+	 * @param bool $active
+	 * 		Activate the icon in the menu (default - true)
 	 */
-	function add_menu_button($title, $scope='util', $url='', $icon='')
+	function add_menu_button($title, $scope='util', $url='', $icon='', $active=true)
 	{
 		global $roster;
 
@@ -172,7 +174,12 @@ class Install
 		}
 
 		$this->sql[] = "INSERT INTO `" . $roster->db->table('menu_button') . "` VALUES (NULL,'" . $this->addata['addon_id'] . "','" . $title . "','" . $scope . "','" . $url . "','" . $icon . "');";
-		$this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = '" . $scope . "' LIMIT 1;";
+
+		// Insert the button in the menu pane if it is set to be active
+		if( $active )
+		{
+			$this->sql[] = "UPDATE `" . $roster->db->table('menu') . "` SET `config` = CONCAT(`config`,':','b',LAST_INSERT_ID()) WHERE `section` = '" . $scope . "' LIMIT 1;";
+		}
 	}
 
 	/**
