@@ -124,9 +124,20 @@ class Upgrade
 				PRIMARY KEY  (`member_id`,`quest_id`),
 				KEY `quest_index` (`quest_id`,`quest_index`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		}
+
+		if( version_compare($roster->config['version'],'2.0.9.1882','<') )
+		{
+			// Fix commit 1879 renprefix_ error...oops
+			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_spellbook`;");
+			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talents`;");
+			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talenttree`;");
+
+			// And we have to re-add the tables, uhg
 
 			// Rename spellbook_pet to pet_spellbook
-			$roster->db->query("CREATE TABLE `renprefix_pet_spellbook` (
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('pet_spellbook') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('pet_spellbook') . "` (
 				`member_id` int( 11 ) unsigned NOT NULL default '0',
 				`pet_id` int( 11 ) unsigned NOT NULL default '0',
 				`spell_name` varchar( 64 ) NOT NULL default '',
@@ -136,15 +147,15 @@ class Upgrade
 				PRIMARY KEY ( `member_id` , `pet_id` , `spell_name` , `spell_rank` )
 				) ENGINE = MYISAM DEFAULT CHARSET = utf8;");
 
-			$roster->db->query("INSERT INTO `renprefix_pet_spellbook`
+			$roster->db->query("INSERT INTO `" . $roster->db->table('pet_spellbook') . "`
 				SELECT *
-				FROM `renprefix_spellbook_pet`;");
+				FROM `" . $roster->db->table('spellbook_pet') . "`;");
 
-			$roster->db->query("DROP TABLE `renprefix_spellbook_pet` ;");
+			$roster->db->query("DROP TABLE `" . $roster->db->table('spellbook_pet') . "` ;");
 
 			// Pet Talents
-			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talents`;");
-			$roster->db->query("CREATE TABLE `renprefix_pet_talents` (
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('pet_talents') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('pet_talents') . "` (
 				`member_id` int(11) NOT NULL default '0',
 				`pet_id` int(11) unsigned NOT NULL default '0',
 				`name` varchar(64) NOT NULL default '',
@@ -158,8 +169,8 @@ class Upgrade
 				PRIMARY KEY  (`member_id`,`pet_id`,`tree`,`row`,`column`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
-			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talenttree`;");
-			$roster->db->query("CREATE TABLE `renprefix_pet_talenttree` (
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('pet_talenttree') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('pet_talenttree') . "` (
 				`member_id` int(11) NOT NULL default '0',
 				`pet_id` int(11) unsigned NOT NULL default '0',
 				`tree` varchar(64) NOT NULL default '',
