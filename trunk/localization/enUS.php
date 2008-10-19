@@ -220,6 +220,8 @@ $lang['menustats']='Stats';
 $lang['menuhonor']='Honor';
 $lang['basename']='Basename';
 $lang['scope']='Scope';
+$lang['tag']='Tag';
+$lang['daily']='Daily';
 
 //start search engine
 $lang['search']='Search';
@@ -596,35 +598,27 @@ $lang['notatwar']='Not at War';
 
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
-// 		'name'=> 'Name',  //This is the name displayed on the quests page
-// 		'url#'=> 'url',  //This is the URL used for the quest lookup
+// 		'name'=> 'Name',  // This is the name displayed on the quests page
+// 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
 
 $lang['questlinks'][] = array(
 	'name'=>'WoWHead',
-	'url1'=>'http://www.wowhead.com/?quests&amp;filter=na=',
-	'url2'=>';minle=',
-	'url3'=>';maxle='
+	'url'=>'http://www.wowhead.com/?quest=%1$s'
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Thottbot',
-	'url1'=>'http://www.thottbot.com/?f=q&amp;title=',
-	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
-	'url3'=>'&amp;maxl='
+	'url'=>'http://thottbot.com/q%1$s'
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Allakhazam',
-	'url1'=>'http://wow.allakhazam.com/db/qlookup.html?name=',
-	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
-	'url3'=>'&amp;maxl='
+	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%1$s'
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'WoW Digger',
-	'url1'=>'http://wowdigger.com/?c=quest&amp;m=filter&amp;title=',
-	//'url2'=>'&amp;levelmin=',
-	//'url3'=>'&amp;levelmax='
+	'url'=>'http://wowdigger.com/quest/view/%1$s'
 );
 
 // Items external link

@@ -149,6 +149,7 @@ class update
 	function parseFiles( )
 	{
 		global $roster;
+
 		if( !is_array($_FILES) )
 		{
 			return '<span class="red">Upload failed: No files present</span>' . "<br />\n";
@@ -1021,33 +1022,6 @@ class update
 
 
 	/**
-	 * Inserts a quest into the Databse
-	 *
-	 * @param array $quest
-	 */
-	function insert_quest( $quest )
-	{
-		global $roster;
-
-		$this->reset_values();
-		$this->add_ifvalue( $quest, 'member_id' );
-		$this->add_ifvalue( $quest, 'quest_name' );
-		$this->add_ifvalue( $quest, 'quest_index' );
-		$this->add_ifvalue( $quest, 'quest_level' );
-		$this->add_ifvalue( $quest, 'zone' );
-		$this->add_ifvalue( $quest, 'quest_tag' );
-		$this->add_ifvalue( $quest, 'is_complete' );
-
-		$querystr = "INSERT INTO `" . $roster->db->table('quests') . "` SET " . $this->assignstr;
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('Quest [' . $quest['quest_name'] . '] could not be inserted',$roster->db->error());
-		}
-	}
-
-
-	/**
 	 * Inserts a recipe into the Database
 	 *
 	 * @param array $recipe
@@ -1119,39 +1093,125 @@ class update
 
 
 	/**
-	 * Formats quest data to be inserted to the db
+	 * Formats quest data and inserts into the DB
 	 *
-	 * @param array $quest_data
-	 * @param int $memberId
+	 * @param array $quest
+	 * @param int $member_id
 	 * @param string $zone
-	 * @return array
+	 * @param array $data
 	 */
-	function make_quest( $quest_data, $memberId, $zone, $slot )
+	function insert_quest( $quest, $member_id, $zone, $slot, $data )
 	{
-		$quest = array();
-		$quest['member_id'] = $memberId;
-		$quest['quest_name'] = $quest_data['Title'];
+		global $roster;
 
-		//Fix quest name if too many 'quest' addons cause level number to be added to title
-		while(substr($quest['quest_name'],0,1) == '[')
+		// Fix quest name since many 'quest' addons cause the level number to be added to title
+		while( substr($quest['Title'],0,1) == '[' )
 		{
-			$quest['quest_name'] = ltrim(substr($quest['quest_name'],strpos($quest['quest_name'],']')+1));
-		}
-		$quest['quest_tag'] = ( isset($quest_data['Tag']) ? $quest_data['Tag'] : '' );
-		$quest['quest_index'] = $slot;
-		$quest['quest_level'] = $quest_data['Level'];
-		$quest['zone'] = $zone;
-
-		if( isset($quest_data['Complete']) )
-		{
-			$quest['is_complete'] = $quest_data['Complete'];
-		}
-		else
-		{
-			$quest['is_complete'] = 0;
+			$quest['Title'] = ltrim(substr($quest['Title'],strpos($quest['Title'],']')+1));
 		}
 
-		return $quest;
+		// Insert this quest into the quest data table, db normalization is great huh?
+		$this->reset_values();
+		$this->add_ifvalue( $quest, 'QuestId', 'quest_id' );
+		$this->add_value( 'quest_name', $quest['Title'] );
+		$this->add_ifvalue( $quest, 'Level', 'quest_level' );
+		$this->add_ifvalue( $quest, 'Tag', 'quest_tag' );
+		$this->add_ifvalue( $quest, 'Group', 'group' );
+		$this->add_ifvalue( $quest, 'Daily', 'daily' );
+		$this->add_ifvalue( $quest, 'RewardMoney', 'reward_money' );
+
+		if( isset($quest['Description']) )
+		{
+			$description = str_replace('\n',"\n",$quest['Description']);
+			$description = str_replace($data['Class'],'<class>',$description);
+			$description = str_replace($data['Name'],'<name>',$description);
+
+			$this->add_value('description', $description);
+
+			unset($description);
+		}
+
+		if( isset($quest['Objective']) )
+		{
+			$objective = str_replace('\n',"\n",$quest['Objective']);
+			$objective = str_replace($data['Class'],'<class>',$objective);
+			$objective = str_replace($data['Name'],'<name>',$objective);
+
+			$this->add_value('objective', $objective);
+
+			unset($objective);
+		}
+
+		$this->add_value( 'zone', $zone );
+		$this->add_value( 'locale', $data['Locale'] );
+
+		$querystr = "REPLACE INTO `" . $roster->db->table('quest_data') . "` SET " . $this->assignstr . ";";
+		$result = $roster->db->query($querystr);
+		if( !$result )
+		{
+			$this->setError('Quest Data [' . $quest['QuestId'] . ' : ' . $quest['Title'] . '] could not be inserted',$roster->db->error());
+		}
+
+		// Now process tasks
+		/* NOT PROCESSING, BUT CODE AND TABLE LAYOUT IS HERE FOR LATER
+
+# --------------------------------------------------------
+### Quest Tasks
+
+DROP TABLE IF EXISTS `renprefix_quest_task_data`;
+CREATE TABLE `renprefix_quest_task_data` (
+  `quest_id` int(11) NOT NULL default '0',
+  `task_id` int(11) NOT NULL default '0',
+  `note` varchar(128) NOT NULL default '',
+  `type` varchar(32) NOT NULL default '',
+  `locale` varchar(4) NOT NULL default '',
+  PRIMARY KEY  (`quest_id`,`task_id`,`locale`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+		if( isset($quest['Tasks']) && !empty($quest['Tasks']) && is_array($quest['Tasks']) )
+		{
+			$tasks = $quest['Tasks'];
+
+			foreach( array_keys($tasks) as $task )
+			{
+				$taskInfo = $tasks[$task];
+
+				$this->reset_values();
+				$this->add_ifvalue( $quest, 'QuestId', 'quest_id' );
+				$this->add_value( 'task_id', $task );
+
+				if( isset($taskInfo['Note']) )
+				{
+					$note = explode(':',$taskInfo['Note']);
+					$this->add_value('note', $note[0]);
+					unset($note);
+				}
+				$this->add_ifvalue( $taskInfo, 'Type', 'type' );
+				$this->add_value( 'locale', $data['Locale'] );
+
+				$querystr = "REPLACE INTO `" . $roster->db->table('quest_task_data') . "` SET " . $this->assignstr . ";";
+				$result = $roster->db->query($querystr);
+				if( !$result )
+				{
+					$this->setError('Quest Task [' . $taskInfo['Note'] . '] for Quest Data [' . $quest['QuestId'] . ' : ' . $quest['Title'] . '] could not be inserted',$roster->db->error());
+				}
+			}
+		}*/
+
+		// Insert this quest id for the character
+		$this->reset_values();
+		$this->add_value( 'member_id', $member_id );
+		$this->add_ifvalue( $quest, 'QuestId', 'quest_id' );
+		$this->add_value( 'quest_index', $slot );
+		$this->add_ifvalue( $quest, 'Difficulty', 'difficulty' );
+		$this->add_ifvalue( $quest, 'Complete', 'is_complete' );
+
+		$querystr = "INSERT INTO `" . $roster->db->table('quests') . "` SET " . $this->assignstr . ";";
+		$result = $roster->db->query($querystr);
+		if( !$result )
+		{
+			$this->setError('Quest [' . $quest['Title'] . '] could not be inserted',$roster->db->error());
+		}
 	}
 
 
@@ -1169,8 +1229,8 @@ class update
 		$mail['member_id'] = $memberId;
 		$mail['mail_slot'] = $slot_num;
 		$mail['mail_icon'] = $this->fix_icon($mail_data['MailIcon']);
-		$mail['mail_coin'] = $mail_data['Coin'];
-		$mail['mail_coin_icon'] = $this->fix_icon($mail_data['CoinIcon']);
+		$mail['mail_coin'] = ( isset($mail_data['Coin']) ? $mail_data['Coin'] : 0 );
+		$mail['mail_coin_icon'] = ( isset($mail_data['CoinIcon']) ? $this->fix_icon($mail_data['CoinIcon']) : '' );
 		$mail['mail_days'] = $mail_data['Days'];
 		$mail['mail_sender'] = $mail_data['Sender'];
 		$mail['mail_subject'] = $mail_data['Subject'];
@@ -1423,49 +1483,47 @@ class update
 	 * Handles formating and insertion of quest data
 	 *
 	 * @param array $data
-	 * @param int $memberId
+	 * @param int $member_id
 	 */
-	function do_quests( $data, $memberId )
+	function do_quests( $data, $member_id )
 	{
 		global $roster;
 
-		if(isset($data['Quests']))
+		if(isset($data['Quests']) && !empty($data['Quests']) && is_array($data['Quests']) )
 		{
 			$quests = $data['Quests'];
-		}
-
-		if( !empty($quests) && is_array($quests) )
-		{
-			// Delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '$memberId';";
-			if( !$roster->db->query($querystr) )
-			{
-				$this->setError('Quests could not be deleted',$roster->db->error());
-				return;
-			}
-			// Then process quests
-			$questnum = 0;
-			foreach( array_keys($quests) as $zone )
-			{
-				$zoneInfo = $quests[$zone];
-				foreach( array_keys($zoneInfo) as $slot)
-				{
-					$slotInfo = $zoneInfo[$slot];
-					if( is_null($slotInfo) || !is_array($slotInfo) || empty($slotInfo) )
-					{
-						continue;
-					}
-					$item = $this->make_quest( $slotInfo, $memberId, $zone, $slot );
-					$this->insert_quest( $item );
-					$questnum++;
-				}
-			}
-			$this->setMessage('<li>Updating Quests: ' . $questnum . '</li>');
 		}
 		else
 		{
 			$this->setMessage('<li>No Quest Data</li>');
+			return;
 		}
+
+		// Delete the stale data
+		$querystr = "DELETE FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '$member_id';";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Quests could not be deleted',$roster->db->error());
+			return;
+		}
+
+		// Then process quests
+		$questnum = 0;
+		foreach( array_keys($quests) as $zone )
+		{
+			$zoneInfo = $quests[$zone];
+			foreach( array_keys($zoneInfo) as $slot)
+			{
+				$slotInfo = $zoneInfo[$slot];
+				if( is_null($slotInfo) || !is_array($slotInfo) || empty($slotInfo) )
+				{
+					continue;
+				}
+				$this->insert_quest( $slotInfo, $member_id, $zone, $slot, $data );
+				$questnum++;
+			}
+		}
+		$this->setMessage('<li>Updating Quests: ' . $questnum . '</li>');
 	}
 
 
@@ -1793,6 +1851,9 @@ class update
 	{
 		global $roster;
 
+		// Not working yet
+		return;
+
 		if(isset($data['Reputation']))
 		{
 			$repData = $data['Reputation'];
@@ -2012,7 +2073,7 @@ class update
 							{
 								$this->add_value('spell_texture', $this->fix_icon($data_spell_name['Icon']) );
 							}
-							if( !empty($data_spell_name['Rank']) )
+							if( isset($data_spell_name['Rank']) )
 							{
 								$this->add_value('spell_rank', $data_spell_name['Rank'] );
 							}
@@ -2021,9 +2082,9 @@ class update
 							{
 								$this->add_value('spell_tooltip', $this->tooltip($data_spell_name['Tooltip']) );
 							}
-							elseif( !empty($spell_name) || !empty($data_spell_name['Rank']) )
+							else
 							{
-								$this->add_value('spell_tooltip', $spell_name . "\n" . $data_spell_name['Rank'] );
+								$this->add_value('spell_tooltip', $spell_name . ( isset($data_spell_name['Rank']) ? "\n" . $data_spell_name['Rank'] : '' ));
 							}
 
 							$querystr = "INSERT INTO `" . $roster->db->table('spellbook') . "` SET " . $this->assignstr;
@@ -2076,7 +2137,7 @@ class update
 			$messages = '<ul><li>Updating Spellbook';
 
 			// first delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('spellbook_pet') . "` WHERE `pet_id` = '$petID'";
+			$querystr = "DELETE FROM `" . $roster->db->table('pet_spellbook') . "` WHERE `pet_id` = '$petID'";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Spells could not be deleted',$roster->db->error());
@@ -2108,7 +2169,7 @@ class update
 						$this->add_value('spell_tooltip', $spell . "\n" . $data_spell['Rank'] );
 					}
 
-					$querystr = "INSERT INTO `" . $roster->db->table('spellbook_pet') . "` SET " . $this->assignstr;
+					$querystr = "INSERT INTO `" . $roster->db->table('pet_spellbook') . "` SET " . $this->assignstr;
 					$result = $roster->db->query($querystr);
 					if( !$result )
 					{
@@ -2212,10 +2273,15 @@ class update
 							$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']) );
 						}
 
-						$this->add_value('row', substr($data_talent_skill['Location'], 0, 1) );
-						$this->add_value('column', substr($data_talent_skill['Location'], 2, 1) );
-						$this->add_value('rank', substr($data_talent_skill['Rank'], 0, 1) );
-						$this->add_value('maxrank', substr($data_talent_skill['Rank'], 2, 1) );
+						$location = explode(':', $data_talent_skill['Location']);
+						$rank = explode(':', $data_talent_skill['Rank']);
+
+						$this->add_value('row', $location[0] );
+						$this->add_value('column', $location[1] );
+						$this->add_value('rank', $rank[0] );
+						$this->add_value('maxrank', $rank[1] );
+
+						unset($location,$rank);
 
 						$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
 						$result = $roster->db->query($querystr);
@@ -2484,7 +2550,7 @@ class update
 		}
 
 		$messages .= 'Pet Spellbooks..';
-		$querystr = "DELETE FROM `" . $roster->db->table('spellbook_pet') . "` WHERE `member_id` IN ($inClause)";
+		$querystr = "DELETE FROM `" . $roster->db->table('pet_spellbook') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Spell Tree Data could not be deleted',$roster->db->error());
@@ -3025,10 +3091,8 @@ class update
 			$this->add_ifvalue( $data, 'Power', 'power', 0 );
 
 			$this->add_ifvalue( $data, 'Experience', 'xp', 0 );
-			$this->add_ifvalue( $data, 'TalentPointsUsed', 'usedtp', 0 );
 			$this->add_ifvalue( $data, 'TalentPoints', 'totaltp', 0 );
 			$this->add_ifvalue( $data, 'Type', 'type', '' );
-			$this->add_ifvalue( $data, 'Loyalty', 'loyalty', '' );
 			if( !empty($data['Icon']) )
 			{
 				$this->add_value('icon', $this->fix_icon($data['Icon']) );
@@ -3464,7 +3528,7 @@ class update
 				$this->setError('Cannot delete Pet Data',$roster->db->error());
 			}
 
-			$querystr = "DELETE FROM `" . $roster->db->table('spellbook_pet') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('pet_spellbook') . "` WHERE `member_id` = '$memberId'";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{

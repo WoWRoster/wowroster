@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '1.9.9.1747';
+	var $version = '2.0.9.1879';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';

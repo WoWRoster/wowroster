@@ -113,7 +113,6 @@ class char
 			'L_UNUSED_TALENTS'   => $roster->locale->act['unusedtalentpoints'],
 			'L_TIMEPLAYED'       => $roster->locale->act['timeplayed'],
 			'L_TIMELEVELPLAYED'  => $roster->locale->act['timelevelplayed'],
-			'L_UNUSED_TRAINING'  => $roster->locale->act['unusedtrainingpoints'],
 			'L_LEVEL'            => $roster->locale->act['level'],
 			'L_TALENTS'          => $roster->locale->act['talents'],
 			'L_TALENT_EXPORT'    => $roster->locale->act['talentexport'],
@@ -121,6 +120,7 @@ class char
 			'L_QUESTLOG'  => $roster->locale->act['questlog'],
 			'L_COMPLETE'  => $roster->locale->act['complete'],
 			'L_FAILED'    => $roster->locale->act['failed'],
+			'L_DAILY'     => $roster->locale->act['daily'],
 			'L_NO_QUESTS' => sprintf($roster->locale->act['no_quests'],$this->data['name']),
 
 			'L_SPELLBOOK' => $roster->locale->act['spellbook'],
@@ -261,9 +261,23 @@ class char
 			{
 				$zone = $object->data['zone'];
 				$quest_name = $object->data['quest_name'];
+				$quests_arr[$zone][$quest_name]['quest_id'] = $object->data['quest_id'];
 				$quests_arr[$zone][$quest_name]['quest_index'] = $object->data['quest_index'];
 				$quests_arr[$zone][$quest_name]['quest_level'] = $object->data['quest_level'];
 				$quests_arr[$zone][$quest_name]['quest_tag'] = $object->data['quest_tag'];
+				$quests_arr[$zone][$quest_name]['difficulty'] = $object->data['difficulty'];
+
+				$description = str_replace('<class>',$this->data['class'],$object->data['description']);
+				$description = str_replace('<name>',$this->data['name'],$description);
+				$quests_arr[$zone][$quest_name]['description'] = nl2br($description);
+
+				$objective = str_replace('<class>',$this->data['class'],$object->data['objective']);
+				$objective = str_replace('<name>',$this->data['name'],$objective);
+				$quests_arr[$zone][$quest_name]['objective'] = nl2br($objective);
+
+				$quests_arr[$zone][$quest_name]['reward_money'] = $object->data['reward_money'];
+				$quests_arr[$zone][$quest_name]['daily'] = $object->data['daily'];
+				$quests_arr[$zone][$quest_name]['group'] = $object->data['group'];
 				$quests_arr[$zone][$quest_name]['is_complete'] = $object->data['is_complete'];
 			}
 
@@ -276,33 +290,66 @@ class char
 
 				foreach( $quest as $quest_name => $data )
 				{
-					$quest_level = $data['quest_level'];
-					$char_level = $this->data['level'];
+					switch( $data['difficulty'] )
+					{
+						case 4:
+							$color = 'red';
+							break;
 
-					if( $quest_level + 9 < $char_level )
-					{
-						$color = 'grey';
+						case 3:
+							$color = 'orange';
+							break;
+
+						case 2:
+							$color = 'yellow';
+							break;
+
+						case 1:
+							$color = 'green';
+							break;
+
+						case 0:
+						default:
+							$color = 'grey';
+							break;
 					}
-					elseif( $quest_level + 2 < $char_level )
+
+					$reward_money_c = $reward_money_s = $reward_money_g = 0;
+					if( $data['reward_money'] > 0 )
 					{
-						$color = 'green';
-					}
-					elseif( $quest_level < $char_level+3 )
-					{
-						$color = 'yellow';
-					}
-					else
-					{
-						$color = 'red';
+						$money = $row['reward_money'];
+
+						$reward_money_c = $money % 100;
+						$money = floor( $money / 100 );
+
+						if( !empty($money) )
+						{
+							$reward_money_s = $money % 100;
+							$money = floor( $money / 100 );
+						}
+						if( !empty($money) )
+						{
+							$reward_money_g = $money;
+						}
 					}
 
 					$roster->tpl->assign_block_vars('zone.quest',array(
-						'ROW_CLASS' => $roster->switch_row_class(),
-						'NAME'     => $quest_name,
-						'LEVEL'    => $quest_level,
-						'COLOR'    => $color,
-						'TAG'      => $data['quest_tag'],
-						'COMPLETE' => $data['is_complete'],
+						'ROW_CLASS'    => $roster->switch_row_class(),
+						'NAME'         => $quest_name,
+						'COLOR'        => $color,
+						'ID'           => $data['quest_id'],
+						'INDEX'        => $data['quest_index'],
+						'LEVEL'        => $data['quest_level'],
+						'DIFFICULTY'   => $data['difficulty'],
+						'TAG'          => $data['quest_tag'],
+						'COMPLETE'     => $data['is_complete'],
+						'DESCRIPTION'  => $data['description'],
+						'REWARD_MONEY_C' => $reward_money_c,
+						'REWARD_MONEY_S' => $reward_money_s,
+						'REWARD_MONEY_G' => $reward_money_g,
+						'OBJECTIVE'    => $data['objective'],
+						'DAILY'        => $data['daily'],
+						'GROUP'        => $data['group'],
 						)
 					);
 
@@ -310,7 +357,7 @@ class char
 					{
 						$roster->tpl->assign_block_vars('zone.quest.links',array(
 							'NAME' => $link['name'],
-							'LINK' => $link['url1'] . urlencode(utf8_decode($quest_name)) . (isset($link['url2']) ? $link['url2'] . $quest_level : '') . (isset($link['url3']) ? $link['url3'] . $quest_level : ''),
+							'LINK' => sprintf($link['url'],$data['quest_id']),
 							)
 						);
 					}
@@ -551,7 +598,6 @@ class char
 		// Initialize $spellbook array
 		$spellbook[$this->data['name']] = array();
 
-
 		$query = "SELECT `spelltree`.*, `talenttree`.`order`
 			FROM `" . $roster->db->table('spellbooktree') . "` AS spelltree
 			LEFT JOIN `" . $roster->db->table('talenttree') . "` AS talenttree
@@ -611,7 +657,7 @@ class char
 
 		// Get the PET spell data
 		$query = "SELECT `spell`.*, `pet`.`name`
-			FROM `" . $roster->db->table('spellbook_pet') . "` as spell
+			FROM `" . $roster->db->table('pet_spellbook') . "` as spell
 			LEFT JOIN `" . $roster->db->table('pets') . "` AS pet
 			ON `spell`.`pet_id` = `pet`.`pet_id`
 			WHERE `spell`.`member_id` = '" . $this->data['member_id'] . "' ORDER BY `spell`.`spell_name`;";
@@ -723,9 +769,7 @@ class char
 					if( isset($xp[1]) && $xp[1] != '0' && $xp[1] != '' )
 					{
 						$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 216) : 0);
-
 						$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
-
 						$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
 					}
 					else
@@ -774,13 +818,10 @@ class char
 					'NAME'      => stripslashes($row['name']),
 					'LEVEL'     => $row['level'],
 					'TYPE'      => stripslashes($row['type']),
-					'LOYALTY'   => $row['loyalty'],
 					'HEALTH'    => (isset($row['health']) ? $row['health'] : '0'),
 					'POWER'     => (isset($row['mana']) ? $row['mana'] : '0'),
 					'ICON'      => $row['icon'],
-					'USED_TP'   => $row['usedtp'],
 					'TOTAL_TP'  => $row['totaltp'],
-					'UNUSED_TP' => $row['totaltp'] - $row['usedtp'],
 
 					'TOOLTIP' => makeOverlib($row['name'],$row['type'],'',2,'',',WRAP'),
 
@@ -1828,7 +1869,7 @@ class char
 		if( $roster->db->num_rows($result) > 0 )
 		{
 			// initialize the rows and cells
-			for( $r=1; $r < 10; $r++ )
+			for( $r=1; $r < 12; $r++ )  // 11 Talent Rows
 			{
 				for( $c=1; $c < 5; $c++ )
 				{

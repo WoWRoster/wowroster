@@ -220,6 +220,8 @@ $lang['menustats']='Grundwerte';
 $lang['menuhonor']='Ehre';
 $lang['basename']='Basisname';
 $lang['scope']='Bereich';
+$lang['tag']='Tag';
+$lang['daily']='Daily';
 
 //start search engine
 $lang['search']='Suche';
@@ -596,36 +598,28 @@ $lang['notatwar']='Nicht im Krieg';
 
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
-// 		'name'=> 'Name',  //This is the name displayed on the quests page
-// 		'url#'=> 'url',  //This is the URL used for the quest lookup
+// 		'name'=> 'Name',  // This is the name displayed on the quests page
+// 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
 
 $lang['questlinks'][] = array(
 	'name'=>'WoW-Handwerk',
-	'url1'=>'http://www.wow-handwerk.de/search.php?quicksearch=',
-	//'url2'=>'',
-	//'url3'=>'&amp;maxl=''
+	'url'=>'http://wowhandwerk.onlinewelten.com/quest.php?id=%1$s'
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Buffed DE',
-	'url1'=>'http://www.buffed.de/?f=',
-	//'url2'=>'',
-	//'url3'=>''
+	'url'=>'http://wow.buffed.de/?q=%1$s'
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Thottbot',
-	'url1'=>'http://www.thottbot.com/?f=q&amp;title=',
-	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
-	'url3'=>'&amp;maxl='
+	'url'=>'http://thottbot.com/q%1$s'
 );
 
-/*$lang['questlinks'][] = array(
+$lang['questlinks'][] = array(
 	'name'=>'WoWHead',
-	'url1'=>'http://www.wowhead.com/?quests&amp;filter=na=',
-	'url2'=>';minle=',
-	'url3'=>';maxle='
-);*/
+	'url'=>'http://de.wowhead.com/?quest=%1$s'
+);
 
 // Items external link
 // Add as many item links as you need
@@ -635,7 +629,7 @@ $lang['itemlink'] = 'Item Links';
 $lang['itemlinks']['WoW-Handwerk'] = 'http://wowhandwerk.onlinewelten.com/item.php?id=';
 $lang['itemlinks']['Buffed DE'] = 'http://www.buffed.de/?i=';
 $lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
-//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
+$lang['itemlinks']['WoWHead'] = 'http://de.wowhead.com/?item=';
 
 // WoW Data Site Search
 // Add as many item links as you need
@@ -645,7 +639,7 @@ $lang['data_search'] = 'WoW Daten Homepage Suche';
 $lang['data_links']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
 $lang['data_links']['buffed.de'] = 'http://www.buffed.de/?f=';
 $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
-//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
+$lang['data_links']['WoWHead'] = 'http://de.wowhead.com/?search=';
 
 // Google Search
 // Add as many item links as you need
