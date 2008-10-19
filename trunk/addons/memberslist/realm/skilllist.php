@@ -114,7 +114,7 @@ echo $memberlist->makeMembersList('syellow');
 
 function skill_dropdown()
 {
-	global $roster;
+	global $roster, $skill_name;
 
 	$query = 'SELECT DISTINCT `skill_order`, `skill_type`, `skill_name` '.
 		'FROM `'.$roster->db->table('skills').'` '.
@@ -124,6 +124,7 @@ function skill_dropdown()
 
 	$output = '<form name="skillpicker" action="'.makelink().'" method="post">'."\n";
 	$output .= '  <select name="skill" onchange="document.forms[\'skillpicker\'].submit();">'."\n";
+	$output .= '      <option value="">-------</option>'."\n";
 	$type = null;
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -136,7 +137,7 @@ function skill_dropdown()
 			$output .= '    <optgroup label="'.$row['skill_type'].'">'."\n";
 			$type = $row['skill_type'];
 		}
-		$output .= '      <option value="'.$row['skill_name'].'">'.$row['skill_name'].'</option>'."\n";
+		$output .= '      <option value="'.$row['skill_name'].'"'.($skill_name==$row['skill_name'] ? ' selected="selected"' : '').'>'.$row['skill_name'].'</option>'."\n";
 	}
 	if( $type == null )
 	{
@@ -144,7 +145,7 @@ function skill_dropdown()
 	}
 	$output .= '    </optgroup>'."\n";
 	$output .= '  </select>'."\n";
-	$output .= '</form>'."\n";
+	$output .= '</form><br />'."\n";
 
 	return $output;
 }
@@ -161,12 +162,12 @@ function skill_value( $row )
 	$output = '<div class="skill_bar">'."\n";
 	if( $maxvalue == '1' )
 	{
-		$output .= '  <div style="position:absolute;"><img src="'.$addon['image_url'].'skill/bar_grey.gif" alt="" /></div>'."\n";
+		$output .= '  <div style="position:absolute;"><img src="'.$addon['tpl_image_url'].'skill/bar_grey.gif" alt="" /></div>'."\n";
 		$output .= '  <div class="text">'.$row['skill_name'].'</div>';
 	}
 	else
 	{
-		$output .= '  <div style="position:absolute;clip:rect(0px '.$barwidth.'px 15px 0px);"><img src="'.$addon['image_url'].'skill/bar.gif" alt="" /></div>'."\n";
+		$output .= '  <div style="position:absolute;clip:rect(0px '.$barwidth.'px 15px 0px);"><img src="'.$addon['tpl_image_url'].'skill/bar.gif" alt="" /></div>'."\n";
 		$output .= '  <div class="text">'.$skill_name.'<span class="text_num">'.$value.' / '.$maxvalue.'</span></div>'."\n";
 	}
 	$output .= '</div>'."\n";

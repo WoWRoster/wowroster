@@ -455,6 +455,7 @@ select {
 	font-weight:bold;
 	font-size:10px;
 }
+.menu_config_div:hover { border:2px solid #0066FF; }
 
 .menu_config_div_disabled {
 	/* The div elements used for the menu config screen */
@@ -471,6 +472,7 @@ select {
 	font-weight:bold;
 	font-size:10px;
 }
+.menu_config_div_disabled:hover { border:2px solid #FF3300; }
 
 /**
  * Row Coloring

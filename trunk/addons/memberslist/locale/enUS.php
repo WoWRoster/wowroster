@@ -20,12 +20,13 @@ $lang['memberslist']            = 'Members List';
 $lang['memberslist_desc']       = 'A sortable, filterable member list';
 
 // Button names
-$lang['memberslist_Members']	= 'Members|Displays the guild member list with player notes, last online time, etc...';
-$lang['memberslist_Stats']		= 'Stats|Displays each guild member\'s stats such as intellect, stamina, etc...';
-$lang['memberslist_Honor']		= 'Honor|Displays each guild member\'s pvp information';
+$lang['memberslist_Members']	= 'Members|Displays the member list with player notes, last online time, etc...';
+$lang['memberslist_Stats']		= 'Stats|Displays each member\'s stats such as intellect, stamina, etc...';
+$lang['memberslist_Honor']		= 'Honor|Displays each member\'s pvp information';
 $lang['memberslist_Log']		= 'Member Log|Displays the upload log for new members and removed members';
 $lang['memberslist_Realm']		= 'Members|Displays the member list for all guilds on the realm';
 $lang['memberslist_RealmGuild']	= 'Guilds|Displays a list of all guilds on the realm';
+$lang['memberslist_Skills']		= 'Skills|Displays each member\'s skills';
 
 // Interface wordings
 $lang['memberssortfilter']		= 'Sorting order and filtering';

@@ -17,7 +17,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-$skill_name = isset($_POST['skill']) ? $_POST['skill'] : '';
+$skill_name = isset($_POST['skill']) ? $_POST['skill'] : 'Unarmed';
 
 include_once ($addon['inc_dir'] . 'memberslist.php');
 
@@ -145,7 +145,7 @@ function skill_dropdown()
 	}
 	$output .= '    </optgroup>'."\n";
 	$output .= '  </select>'."\n";
-	$output .= '</form>'."\n";
+	$output .= '</form><br />'."\n";
 
 	return $output;
 }

@@ -26,6 +26,7 @@ $lang['memberslist_Honor']		= 'Ehre|Zeigt die PvP-Informationen jedes Gildenmitg
 $lang['memberslist_Log']		= 'Mitglieder Log|Zeigt das Upload Log für neue und entfernte Mitglieder an';
 $lang['memberslist_Realm']		= 'Mitglieder|Zeigt die Mitgliederliste für alle Gilden auf allen Servern an';
 $lang['memberslist_RealmGuild']	= 'Gilden|Zeigt eine Liste für alle Gilden auf allen Realms an';
+$lang['memberslist_Skills']		= 'Skills|Displays each member\'s skills';
 
 // Interface wordings
 $lang['memberssortfilter']		= 'Sortierreihenfolge und Filterung';
