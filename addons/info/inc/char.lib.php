@@ -317,7 +317,7 @@ class char
 					$reward_money_c = $reward_money_s = $reward_money_g = 0;
 					if( $data['reward_money'] > 0 )
 					{
-						$money = $row['reward_money'];
+						$money = $data['reward_money'];
 
 						$reward_money_c = $money % 100;
 						$money = floor( $money / 100 );
