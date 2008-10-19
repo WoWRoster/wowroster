@@ -17,8 +17,9 @@
 
 				<tr>
 					<td class="membersRow1"><span class="{zone.quest.COLOR}">[{zone.quest.LEVEL}] {zone.quest.NAME}</span>
+						<!-- IF zone.quest.DAILY -->({L_DAILY})<!-- ENDIF -->
 						<!-- IF zone.quest.TAG neq '' or zone.quest.COMPLETE neq 0 -->
-						({zone.quest.TAG}<!-- IF zone.quest.COMPLETE eq 1 -->{L_COMPLETE}<!-- ELSEIF zone.quest.COMPLETE eq -1 -->{L_FAILED}<!-- ENDIF -->)
+						({zone.quest.TAG}<!-- IF zone.quest.GROUP gt 0 -->, {zone.quest.GROUP}<!-- ENDIF --><!-- IF zone.quest.COMPLETE eq 1 --><span class="green">{L_COMPLETE}</span><!-- ELSEIF zone.quest.COMPLETE eq -1 --><span class="red">{L_FAILED}</span><!-- ENDIF -->)
 						<!-- ENDIF --></td>
 					<td class="membersRowRight1 quest_link"><!-- BEGIN links --><a href="{zone.quest.links.LINK}" target="_blank">{zone.quest.links.NAME}</a><!-- BEGINELSE -->&nbsp;<!-- END links --></td>
 				</tr>

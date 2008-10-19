@@ -110,8 +110,6 @@
 			<div class="name">{pet.NAME}</div>
 			<div class="info">{L_LEVEL} {pet.LEVEL} {pet.TYPE}</div>
 
-			<div class="loyalty">{pet.LOYALTY}</div>
-
 			<img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" />
 
 			<div class="health"><span class="yellowB">{L_HEALTH}:</span> {pet.HEALTH}</div>
@@ -143,7 +141,7 @@
 			</div>
 
 <!-- IF pet.TOTAL_TP -->
-			<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
+			<div class="trainingpts">{pet.TOTAL_TP}</div>
 <!-- ENDIF -->
 		</div>
 

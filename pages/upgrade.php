@@ -92,6 +92,85 @@ class Upgrade
 	{
 		global $roster;
 
+		if( version_compare($roster->config['version'],'2.0.9.1879','<') )
+		{
+			// Quest Data
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('quest_data') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('quest_data') . "` (
+				`quest_id` int(11) NOT NULL default '0',
+				`quest_name` varchar(64) NOT NULL default '',
+				`quest_level` int(11) unsigned NOT NULL default '0',
+				`quest_tag` varchar(32) NOT NULL default '',
+				`group` int(1) NOT NULL default '0',
+				`daily` int(1) NOT NULL default '0',
+				`reward_money` int(11) NOT NULL default '0',
+				`zone` varchar(32) NOT NULL default '',
+				`description` text NOT NULL,
+				`objective` text NOT NULL,
+				`locale` varchar(4) NOT NULL default '',
+				PRIMARY KEY  (`quest_id`,`locale`),
+				FULLTEXT KEY `quest_name` (`quest_name`),
+				FULLTEXT KEY `zone` (`zone`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+			// Member Quests
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('quests') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('quests') . "` (
+				`member_id` int(11) unsigned NOT NULL default '0',
+				`quest_id` int(11) NOT NULL default '0',
+				`quest_index` int(11) NOT NULL default '0',
+				`difficulty` int(1) NOT NULL default '0',
+				`is_complete` int(1) NOT NULL default '0',
+				PRIMARY KEY  (`member_id`,`quest_id`),
+				KEY `quest_index` (`quest_id`,`quest_index`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+			// Rename spellbook_pet to pet_spellbook
+			$roster->db->query("CREATE TABLE `renprefix_pet_spellbook` (
+				`member_id` int( 11 ) unsigned NOT NULL default '0',
+				`pet_id` int( 11 ) unsigned NOT NULL default '0',
+				`spell_name` varchar( 64 ) NOT NULL default '',
+				`spell_texture` varchar( 64 ) NOT NULL default '',
+				`spell_rank` varchar( 64 ) NOT NULL default '',
+				`spell_tooltip` mediumtext NOT NULL ,
+				PRIMARY KEY ( `member_id` , `pet_id` , `spell_name` , `spell_rank` )
+				) ENGINE = MYISAM DEFAULT CHARSET = utf8;");
+
+			$roster->db->query("INSERT INTO `renprefix_pet_spellbook`
+				SELECT *
+				FROM `renprefix_spellbook_pet`;");
+
+			$roster->db->query("DROP TABLE `renprefix_spellbook_pet` ;");
+
+			// Pet Talents
+			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talents`;");
+			$roster->db->query("CREATE TABLE `renprefix_pet_talents` (
+				`member_id` int(11) NOT NULL default '0',
+				`pet_id` int(11) unsigned NOT NULL default '0',
+				`name` varchar(64) NOT NULL default '',
+				`tree` varchar(64) NOT NULL default '',
+				`row` tinyint(4) NOT NULL default '0',
+				`column` tinyint(4) NOT NULL default '0',
+				`rank` tinyint(4) NOT NULL default '0',
+				`maxrank` tinyint(4) NOT NULL default '0',
+				`tooltip` mediumtext NOT NULL,
+				`icon` varchar(64) NOT NULL default '',
+				PRIMARY KEY  (`member_id`,`pet_id`,`tree`,`row`,`column`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talenttree`;");
+			$roster->db->query("CREATE TABLE `renprefix_pet_talenttree` (
+				`member_id` int(11) NOT NULL default '0',
+				`pet_id` int(11) unsigned NOT NULL default '0',
+				`tree` varchar(64) NOT NULL default '',
+				`background` varchar(64) NOT NULL default '',
+				`pointsspent` tinyint(4) NOT NULL default '0',
+				PRIMARY KEY  (`member_id`,`pet_id`,`tree`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` DROP `usedtp`, DROP `loyalty`;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();
@@ -277,12 +356,17 @@ class Upgrade
 			roster_die('Could not obtain SQL structure/data',$roster->locale->act['upgrade_wowroster']);
 		}
 
+		$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `id` = '4' LIMIT 1;");
+		$roster->db->query("ALTER TABLE `" . $roster->db->table('config') . "` ORDER BY `id`;");
+
 		return;
 	}
 
 	function display_form()
 	{
 		global $roster;
+
+		$this->versions = array_reverse($this->versions);
 
 		foreach ( $this->versions as $version )
 		{

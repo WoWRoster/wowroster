@@ -48,12 +48,13 @@
 			<table cellpadding="0" cellspacing="0" width="100%">
 <!-- BEGIN quests -->
 				<tr>
-					<th class="membersHeaderRight"><a href="#"{quests.TOOLTIP}>[{quests.LEVEL}] {quests.NAME}</a></th>
+					<th class="membersHeaderRight"><!-- IF quests.TAG --><span style="float:right;">{quests.TAG}<!-- IF quests.GROUP -->, {quests.GROUP}<!-- ENDIF --></span><!-- ENDIF -->
+						<a href="#"{quests.TOOLTIP}>[{quests.LEVEL}] {quests.NAME}</a><!-- IF quests.DAILY --> ({L_DAILY})<!-- ENDIF --></th>
 				</tr>
 
 			<!-- BEGIN members -->
 				<tr>
-					<td class="membersRowRight1"><span style="float:right;">{quests.members.TAGS}</span>
+					<td class="membersRowRight1"><!-- IF quests.members.COMPLETE neq 0 --><span style="float:right;"><!-- IF quests.members.COMPLETE eq 1 --><span class="green">{L_COMPLETE}</span><!-- ELSEIF quests.members.COMPLETE eq -1 --><span class="red">{L_FAILED}</span><!-- ENDIF --></span><!-- ENDIF -->
 						&lt;{quests.members.LEVEL}&gt; <!-- IF S_INFO_ADDON --><a href="{quests.members.LINK}">{quests.members.NAME}</a><!-- ELSE -->{quests.members.NAME}<!-- ENDIF --></td>
 				</tr>
 			<!-- END members -->
