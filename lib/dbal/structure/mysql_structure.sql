@@ -401,6 +401,7 @@ CREATE TABLE `renprefix_pet_talenttree` (
   `pet_id` int(11) unsigned NOT NULL default '0',
   `tree` varchar(64) NOT NULL default '',
   `background` varchar(64) NOT NULL default '',
+  `order` tinyint(4) NOT NULL default '0',
   `pointsspent` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`member_id`,`pet_id`,`tree`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

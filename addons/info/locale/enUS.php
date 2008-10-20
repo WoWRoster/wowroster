@@ -84,7 +84,7 @@ $lang['Trinket1']      = 'Trinket 1';
 
 //tabs
 $lang['tab1']='Character';
-$lang['tab2']='Pet';
+$lang['tab2']='Pets';
 $lang['tab3']='Reputation';
 $lang['tab4']='Skills';
 $lang['tab5']='PvP';

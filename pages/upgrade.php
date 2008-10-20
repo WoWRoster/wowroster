@@ -182,6 +182,11 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` DROP `usedtp`, DROP `loyalty`;");
 		}
 
+		if( version_compare($roster->config['version'],'2.0.9.1884','<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('pet_talenttree') . "` ADD `order` tinyint(4) NOT NULL default '0' AFTER `background`;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();
