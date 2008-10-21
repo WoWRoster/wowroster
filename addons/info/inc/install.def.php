@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '2.0.9.1879';
+	var $version = '2.0.9.1885';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -179,6 +179,12 @@ class infoInstall
 		if( version_compare('1.9.9.1747', $oldversion,'>') == true )
 		{
 			$installer->add_query('RENAME TABLE `' . $installer->table('') . '`  TO `' . $installer->table('display') . '` ;');
+		}
+
+		// Basicly I screwed up on the table naming here
+		if( version_compare('2.0.9.1885', $oldversion,'>') == true )
+		{
+			$installer->update_menu_button('cb_quests','char','quests','achievement_quests_completed_06');
 		}
 
 		return true;
