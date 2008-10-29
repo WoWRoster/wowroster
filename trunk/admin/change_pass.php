@@ -23,18 +23,6 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 
 $roster->output['title'] .= $roster->locale->act['pagebar_changepass'];
 
-$roster->tpl->assign_vars(array(
-	'L_CHANGE_ADMIN'   => $roster->locale->act['changeadminpass'],
-	'L_CHANGE_OFFICER' => $roster->locale->act['changeofficerpass'],
-	'L_CHANGE_GUILD'   => $roster->locale->act['changeguildpass'],
-	'L_OLD_PASS'         => $roster->locale->act['old_pass'],
-	'L_NEW_PASS'         => $roster->locale->act['new_pass'],
-	'L_NEW_PASS_CONFIRM' => $roster->locale->act['new_pass_confirm'],
-	'L_CHANGE_PASS'      => $roster->locale->act['pagebar_changepass'],
-	)
-);
-
-
 if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 {
 	$mode = $_POST['mode'];
