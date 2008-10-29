@@ -100,7 +100,7 @@ foreach( $roster->addon_data as $name => $data )
 /**
  * Result processing
  */
-if( isset($_POST['search']) || isset($_GET['search']) )
+if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 {
 	// if page is set in the addon search class this will tell the results what page we are looking at
 	$page  = isset($_GET['page']) ? intval($_GET['page']) : 0;
@@ -109,7 +109,7 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 	$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 
 	// search is what we are searching for
-	$query = ( isset($_POST['search']) ? $_POST['search'] : ( isset($_GET['search']) ? $_GET['search'] : '' ) );
+	$query = ( isset($_POST['s_term']) ? $_POST['s_term'] : ( isset($_GET['s_term']) ? $_GET['s_term'] : '' ) );
 
 	// variables that can be used in the addon search class which are being defined here
 	$url_query = urlencode($query);
@@ -194,8 +194,8 @@ if( isset($_POST['search']) || isset($_GET['search']) )
 
 						'TOTAL' => $search_count->result_count,
 
-						'PREV'  => ( $page > 0 ? makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url) : '' ),
-						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url) : '' ),
+						'PREV'  => ( $page > 0 ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page-1)) : '' ),
+						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page+1)) : '' ),
 						)
 					);
 
