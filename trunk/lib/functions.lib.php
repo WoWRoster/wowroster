@@ -1576,9 +1576,6 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 		'B_PAGINATION' => true,
 		'PAGINATION_PREV' => ($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false,
 		'PAGINATION_NEXT' => ($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false,
-		'L_PREVIOUS' => $roster->locale->act['prev'],
-		'L_NEXT' => $roster->locale->act['next'],
-		'L_GOTO_PAGE' => 'Go to:',
 		)
 	);
 
