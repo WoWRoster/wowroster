@@ -397,10 +397,6 @@ class Upgrade
 		}
 
 		$roster->tpl->assign_vars(array(
-			'L_UPGRADE'        => $roster->locale->act['upgrade_wowroster'],
-			'L_SELECT_VERSION' => $roster->locale->act['select_version'],
-			'L_UPGRADE'        => $roster->locale->act['upgrade'],
-
 			'U_UPGRADE'        => makelink('upgrade'),
 			)
 		);

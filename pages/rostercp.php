@@ -189,8 +189,6 @@ if( isset($roster->pages[1]) )
 
 $roster->tpl->assign_vars(array(
 	'ROSTERCP_TITLE' => $rostercp_title,
-	'L_FUNCTION' => $roster->locale->act['pagebar_function'],
-	'L_ADDON_CONF' => $roster->locale->act['pagebar_addonconf'],
 	'ROSTERCP_MESSAGE' => $rcp_message,
 	'HEADER' => $header,
 	'MENU' => $menu,

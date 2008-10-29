@@ -33,21 +33,6 @@ $roster->tpl->assign_vars(array(
 
 	'U_SEARCH_LINK'     => makelink('search'),
 
-	'L_SEARCH_FOR'      => $roster->locale->act['search_for'],
-	'L_SEARCH'          => $roster->locale->act['search'],
-	'L_SEARCH_ONLY'     => $roster->locale->act['search_onlyin'],
-	'L_SEARCH_ADVANCED' => $roster->locale->act['search_advancedoptionsfor'],
-	'L_SEARCH_RESULTS'  => $roster->locale->act['search_results'],
-	'L_RESULTS_COUNT'   => $roster->locale->act['search_results_count'],
-	'L_AUTHOR'          => $roster->locale->act['submited_author'],
-	'L_DATE'            => $roster->locale->act['submited_date'],
-	'L_NO_MATCHES'      => $roster->locale->act['search_nomatches'],
-	'L_DID_NOT_FIND'    => $roster->locale->act['search_didnotfind'],
-	'L_DATA_SEARCH'     => $roster->locale->act['data_search'],
-	'L_GOOGLE_SEARCH'   => $roster->locale->act['google_search'],
-	'L_NEXT_MATCHES'    => $roster->locale->act['search_next_matches'],
-	'L_PREV_MATCHES'    => $roster->locale->act['search_previous_matches'],
-
 	'SEARCH'            => ''
 	)
 );

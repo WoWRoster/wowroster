@@ -33,8 +33,6 @@ $roster->tpl->assign_vars(array(
 	'L_JS_LIB'         => 'Javascript Libraries',
 	'L_ROSTER_ADDONS'  => 'WoWRoster Addons',
 	'L_VERSION'        => 'Version',
-	'L_NAME'           => $roster->locale->act['name'],
-	'L_INFO'           => $roster->locale->act['info'],
 	)
 );
 
