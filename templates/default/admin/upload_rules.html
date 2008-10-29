@@ -23,14 +23,14 @@
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sredborder">
-			<div class="header_text sredborder">{L_DISALLOW}</div>
+			<div class="header_text sredborder"><!-- TRANSLATE disallow --></div>
 
 			<table class="bodyline" cellspacing="0">
 				<thead>
 					<tr>
-						<th class="membersHeader" {L_NAME_TIP}>{L_NAME}</th>
-						<th class="membersHeader" {L_SERVER_TIP}>{L_SERVER}</th>
-						<th class="membersHeader" {L_REGION_TIP}>{L_REGION}</th>
+						<th class="membersHeader" {L_NAME_TIP}><!-- TRANSLATE name --></th>
+						<th class="membersHeader" {L_SERVER_TIP}><!-- TRANSLATE server --></th>
+						<th class="membersHeader" {L_REGION_TIP}><!-- TRANSLATE region --></th>
 						<th class="membersHeaderRight">&nbsp;</th>
 					</tr>
 				</thead>
@@ -39,7 +39,7 @@
 						<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
 						<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
 						<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" maxlength="2" /></td>
-						<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('denyhide','add');">{L_ADD}</button></td>
+						<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('denyhide','add');"><!-- TRANSLATE add --></button></td>
 					</tr>
 				</tfoot>
 				<tbody>
@@ -48,7 +48,7 @@
 						<td class="membersRow1">{deny_list.NAME}</td>
 						<td class="membersRow1">{deny_list.SERVER}</td>
 						<td class="membersRow1">{deny_list.REGION}</td>
-						<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('denyhide','del_{deny_list.ID}');">{L_DELETE}</button></td>
+						<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('denyhide','del_{deny_list.ID}');"><!-- TRANSLATE delete --></button></td>
 					</tr>
 				<!-- END deny_list -->
 				</tbody>
@@ -70,15 +70,15 @@
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgreenborder">
-			<div class="header_text sgreenborder">{L_ALLOW}</div>
+			<div class="header_text sgreenborder"><!-- TRANSLATE allow --></div>
 
 			<table class="bodyline" cellspacing="0">
 				<thead>
 					<tr><!-- IF MODE eq 'guild' -->
-						<th class="membersHeader">{L_DEFAULT}</th><!-- ENDIF -->
-						<th class="membersHeader" {L_NAME_TIP}>{L_NAME}</th>
-						<th class="membersHeader" {L_SERVER_TIP}>{L_SERVER}</th>
-						<th class="membersHeader" {L_REGION_TIP}>{L_REGION}</th>
+						<th class="membersHeader"><!-- TRANSLATE default --></th><!-- ENDIF -->
+						<th class="membersHeader" {L_NAME_TIP}><!-- TRANSLATE name --></th>
+						<th class="membersHeader" {L_SERVER_TIP}><!-- TRANSLATE server --></th>
+						<th class="membersHeader" {L_REGION_TIP}><!-- TRANSLATE region --></th>
 						<th class="membersHeaderRight">&nbsp;</th>
 					</tr>
 				</thead>
@@ -89,7 +89,7 @@
 						<td class="membersRow2"><input class="wowinput128" type="text" name="value" value="" /></td>
 						<td class="membersRow2"><input class="wowinput128" type="text" name="server" value="" /></td>
 						<td class="membersRow2"><input class="wowinput64" type="text" name="region" value="" maxlength="2" /></td>
-						<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('allowhide','add');">{L_ADD}</button></td>
+						<td class="membersRowRight2"><button type="submit" class="input" onclick="setvalue('allowhide','add');"><!-- TRANSLATE add --></button></td>
 					</tr>
 				</tfoot>
 				<tbody>
@@ -102,7 +102,7 @@
 						<td class="membersRow1">{allow_list.NAME}</td>
 						<td class="membersRow1">{allow_list.SERVER}</td>
 						<td class="membersRow1">{allow_list.REGION}</td>
-						<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('allowhide','del_{allow_list.ID}');">{L_DELETE}</button></td>
+						<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('allowhide','del_{allow_list.ID}');"><!-- TRANSLATE delete --></button></td>
 					</tr>
 				<!-- END allow_list -->
 				</tbody>
@@ -119,8 +119,8 @@
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" />{L_UPLOAD_RULES}</div>
-			{L_UPLOAD_RULES_HELP}
+			<div class="header_text sgrayborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" /><!-- TRANSLATE pagebar_uploadrules --></div>
+			<!-- TRANSLATE upload_rules_help -->
 		</td>
 	</tr>
 </table>

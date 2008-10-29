@@ -41,9 +41,6 @@ $roster->tpl->assign_vars(array(
 
 	'MESSAGE' => '',
 
-	'L_SETUP_GUIDE' => $roster->locale->act['setup_guide'],
-	'L_NEXT'        => $roster->locale->act['next'],
-
 	'S_STEP_1' => false,
 	'S_STEP_2' => false,
 	)
@@ -77,14 +74,8 @@ function guide_step1()
 	$roster->tpl->assign_vars(array(
 		'S_STEP_1' => true,
 
-		'L_DEFAULT_DATA'      => $roster->locale->act['default_data'],
-		'L_DEFAULT_DATA_HELP' => $roster->locale->act['default_data_help'],
-
-		'L_NAME'              => $roster->locale->act['name'],
 		'L_NAME_TIP'          => makeOverlib( $roster->locale->act['guildname'] ),
-		'L_SERVER'            => $roster->locale->act['server'],
 		'L_SERVER_TIP'        => makeOverlib($roster->locale->act['realmname']),
-		'L_REGION'            => $roster->locale->act['region'],
 		'L_REGION_TIP'        => makeOverlib($roster->locale->act['regionname']),
 		)
 	);

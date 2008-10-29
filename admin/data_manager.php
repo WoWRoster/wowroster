@@ -41,22 +41,6 @@ $roster->tpl->assign_vars(array(
 	'S_DATA'           => false,
 	'S_RESPONSE'       => false,
 	'S_RESPONSE_ERROR' => false,
-
-	'L_CLEAN'          => $roster->locale->act['clean'],
-	'L_SAVE_ERROR_LOG' => $roster->locale->act['save_error_log'],
-	'L_SAVE_LOG'       => $roster->locale->act['save_update_log'],
-
-	'L_NAME'           => $roster->locale->act['name'],
-	'L_SERVER'         => $roster->locale->act['server'],
-	'L_REGION'         => $roster->locale->act['region'],
-	'L_CLASS'          => $roster->locale->act['class'],
-	'L_LEVEL'          => $roster->locale->act['level'],
-	'L_UPDATE_ERRORS'  => $roster->locale->act['update_errors'],
-	'L_UPDATE_LOG'     => $roster->locale->act['update_log'],
-	'L_DELETE'         => $roster->locale->act['delete'],
-	'L_DELETE_CHECKED' => $roster->locale->act['delete_checked'],
-	'L_DELETE_GUILD'   => $roster->locale->act['delete_guild'],
-	'L_DELETE_GUILD_CONFIRM' => $roster->locale->act['delete_guild_confirm'],
 	)
 );
 
