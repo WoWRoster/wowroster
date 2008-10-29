@@ -44,17 +44,6 @@ $roster->tpl->assign_vars(array(
 	'S_RESPONSE_ERROR' => false,
 	'S_PASS'           => true,
 
-	'L_SAVE_ERROR_LOG' => $roster->locale->act['save_error_log'],
-	'L_SAVE_LOG'       => $roster->locale->act['save_update_log'],
-
-	'L_UPDATE_ERRORS'  => $roster->locale->act['update_errors'],
-	'L_UPDATE_LOG'     => $roster->locale->act['update_log'],
-
-	'L_UPDATE_PAGE'    => $roster->locale->act['update_page'],
-	'L_UPDATE'         => $roster->locale->act['upload'],
-	'L_PASSWORD'       => $roster->locale->act['password'],
-	'L_PASSWORD_REQ'   => $roster->locale->act['roster_upd_pwLabel'],
-	'L_PASSWORD_HELP'  => $roster->locale->act['roster_upd_pw_help'],
 	'L_PASSWORD_TIP'   => makeOverlib($roster->locale->act['roster_upd_pw_help'],$roster->locale->act['password'],'',2,'',',WRAP,RIGHT'),
 
 	'MESSAGES' => ''

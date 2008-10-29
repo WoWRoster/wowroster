@@ -93,8 +93,6 @@ if( $roster->config['sql_window'] )
 				);
 			}
 		}
-
-		$roster->tpl->assign_var('L_SQL_QUERIES', $roster->locale->act['sql_queries']);
 	}
 }
 
