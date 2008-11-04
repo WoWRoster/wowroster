@@ -436,16 +436,16 @@ $lang['class_iconArray'] = array (
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
-	'Death Knight'=>'',
-	'Druid' => 'FF7C0A',
-	'Hunter' => 'AAD372',
-	'Mage' => '68CCEF',
-	'Paladin' => 'F48CBA',
-	'Priest' => 'ffffff',
-	'Rogue' => 'FFF468',
-	'Shaman' => '00DBBA',
-	'Warlock' => '9382C9',
-	'Warrior' => 'C69B6D'
+	'Death Knight'=>'C41F3B',
+	'Druid' => 'FF7D0A',
+	'Hunter' => 'ABD473',
+	'Mage' => '69CCF0',
+	'Paladin' => 'F58CBA',
+	'Priest' => 'FFFFFF',
+	'Rogue' => 'FFF569',
+	'Shaman' => '2459FF',
+	'Warlock' => '9482C9',
+	'Warrior' => 'C79C6E'
 // Space so locale files are line synced
 
 
