@@ -51,8 +51,8 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 
 		if( !empty($_POST['value']) || !empty($_POST['server']) || !empty($_POST['region']) )
 		{
-			$name = trim($_POST['value']);
-			$server = trim($_POST['server']);
+			$name = $_POST['value'];
+			$server = $_POST['server'];
 			$region = strtoupper(substr(trim($_POST['region']),0,2));
 
 			$default = ( (isset($_POST['defaultchk']) && $_POST['defaultchk'] == '1') ? '1' : '0' );
