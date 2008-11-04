@@ -726,15 +726,16 @@ select {
 /**
  * Class colorization
  */
-.classDruidtxt { color:#FF7C0A; }
-.classHuntertxt { color:#AAD372; }
-.classMagetxt { color:#68CCEF; }
-.classPaladintxt { color:#F48CBA; }
-.classPriesttxt { color:#ffffff; }
-.classRoguetxt { color:#FFF468; }
-.classShamantxt { color:#00DBBA; }
-.classWarlocktxt { color:#9382C9; }
-.classWarriortxt { color:#C69B6D; }
+.classDeathKnighttxt { color:#C41F3B; }
+.classDruidtxt { color:#FF7D0A; }
+.classHuntertxt { color:#ABD473; }
+.classMagetxt { color:#69CCF0; }
+.classPaladintxt { color:#F58CBA; }
+.classPriesttxt { color:#FFFFFF; }
+.classRoguetxt { color:#FFF569; }
+.classShamantxt { color:#2459FF; }
+.classWarlocktxt { color:#9482C9; }
+.classWarriortxt { color:#C79C6E; }
 
 
 /**
