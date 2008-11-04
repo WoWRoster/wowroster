@@ -81,12 +81,11 @@ $mainTables =
 	'LEFT JOIN `'.$roster->db->table('alts',$memberslist_addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'INNER JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
-	'INNER JOIN `'.$roster->db->table('keycache',$addon['basename']).'` AS keycache ON `members`.`member_id` = `keycache`.`member_id` '.
-	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
-	'GROUP BY `members`.`member_id` '.
-	'ORDER BY ';
-
-$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
+	'INNER JOIN `'.$roster->db->table('keycache',$addon['basename']).'` AS keycache ON `members`.`member_id` = `keycache`.`member_id` ';
+$where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'"';
+$group[] = '`members`.`member_id`';
+$order_last[] = '`members`.`level` DESC';
+$order_last[] = '`members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
@@ -164,7 +163,7 @@ $roster->db->free_result( $stageResult );
 // Combine the main query. The '1' is to fix the trailing comma for the fields list.
 $mainQuery = $mainSelect . '1 ' . $mainTables;
 
-$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'keyslist');
+$memberlist->prepareData($mainQuery, $where, $group, null, $order_last, $FIELD, 'keyslist');
 
 // Start output
 $roster->output['show_menu']['keypane'] = 1;

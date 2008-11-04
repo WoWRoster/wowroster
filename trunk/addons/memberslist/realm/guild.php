@@ -31,11 +31,9 @@ $mainQuery =
 	'`guild`.`guild_num_accounts`, '.
 	'`guild`.`guild_motd` '.
 
-	'FROM `'.$roster->db->table('guild').'` AS guild '.
-	'WHERE `guild`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
-	'ORDER BY ';
-
-$always_sort = ' `guild`.`guild_name` ASC';
+	'FROM `'.$roster->db->table('guild').'` AS guild ';
+$where[] = '`guild`.`server` = "'.$roster->db->escape($roster->data['server']).'"';
+$order_last[] = '`guild`.`guild_name` ASC';
 
 $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
@@ -80,7 +78,7 @@ $FIELD['guild_motd'] = array (
 	'display'    => 2,
 );
 
-$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $where, null, null, $order_last, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output

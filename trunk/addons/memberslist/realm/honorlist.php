@@ -58,12 +58,12 @@ $mainQuery =
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
-	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
-	'GROUP BY `members`.`member_id` '.
-	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
-
-$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
+	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` ';
+$where[] = '`members`.`server` = "'.$roster->db->escape($roster->data['server']).'"';
+$group[] = '`members`.`member_id`';
+$order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
+$order_last[] = '`members`.`level` DESC';
+$order_last[] = '`members`.`name` ASC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
@@ -157,7 +157,7 @@ $FIELD['arenapoints'] = array(
 	'display'    => $addon['config']['honor_ap'],
 );
 
-$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $where, $group, $order_first, $order_last, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output

@@ -25,11 +25,9 @@ $mainQuery =
 	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'UNIX_TIMESTAMP(`update_time`) AS date_stamp '.
-	'FROM `'.$roster->db->table('memberlog').'` AS members '.
-	'WHERE `guild_id` = "'.$roster->data['guild_id'].'"'.
-	'ORDER BY ';
-
-$always_sort = ' `date_stamp` DESC';
+	'FROM `'.$roster->db->table('memberlog').'` AS members ';
+$where[] = '`guild_id` = "'.$roster->data['guild_id'].'"';
+$order_last[] = '`date_stamp` DESC';
 
 
 $FIELD['name'] = array(
@@ -103,7 +101,7 @@ $FIELD['officer_note'] = array (
 	'display'    => $addon['config']['log_onote'],
 );
 
-$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $where, null, null, $order_last, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output

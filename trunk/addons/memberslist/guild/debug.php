@@ -43,11 +43,11 @@ $mainQuery =
 
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('members').'` AS mains ON `alts`.`main_id` = `mains`.`member_id` '.
-	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
-	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
-
-$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
+	'LEFT JOIN `'.$roster->db->table('members').'` AS mains ON `alts`.`main_id` = `mains`.`member_id` ';
+$where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'"';
+$order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
+$order_last[] = '`members`.`level` DESC';
+$order_last[] = '`members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
@@ -95,7 +95,7 @@ include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
 
-$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $where, null, $order_first, $order_last, $FIELD, 'memberslist');
 
 echo $memberlist->makeMembersList('syellow');
 

@@ -26,11 +26,9 @@ $mainQuery =
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'UNIX_TIMESTAMP(`members`.`update_time`) AS date_stamp '.
 	'FROM `'.$roster->db->table('memberlog').'` AS members '.
-	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
-	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
-	'ORDER BY ';
-
-$always_sort = ' `date_stamp` DESC';
+	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
+$where[] = '`members`.`server` = "'.$roster->db->escape($roster->data['server']).'"';
+$order_last[] = '`date_stamp` DESC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
@@ -111,7 +109,7 @@ $FIELD['officer_note'] = array (
 	'display'    => $addon['config']['log_onote'],
 );
 
-$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $where, null, null, $order_last, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output
