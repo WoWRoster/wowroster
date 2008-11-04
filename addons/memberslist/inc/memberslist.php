@@ -29,6 +29,8 @@ class memberslist
 	var $listname = 'membersData';	// table ID for javascript
 	var $fields;					// field definitions
 	var $query;						// main query
+	var $wheres;					// where clauses
+	var $orders;					// order clauses
 
 	var $addon;						// SortMembers addon data
 
@@ -91,14 +93,20 @@ class memberslist
 	 *
 	 * @param string $query
 	 *	The main SQL query for this list
-	 * @param string $always_sort
-	 *	The trailing end of the sort string, after the columnwise sort.
+	 * @param array $where
+	 *  Default WHERE clauses. These are ANDed together
+	 * @param array $group
+	 *  GROUP BY columns. Should be the ID column of the listed scope (member_id on the default memberslist)
+	 * @param array order_first
+	 *  Initial order clauses, before any order clauses supplied by the UI
+	 * @param array order_last
+	 *  Trailing order clauses, after any order clauses supplied by the UI
 	 * @param array $fields
 	 *	Array with field data. See documentation.
 	 * @param string $listname
 	 *	The ID used by javascript to identify this memberstable.
 	 */
-	function prepareData( $query, $always_sort, $fields, $listname )
+	function prepareData( $query, $where, $group, $order_first, $order_last, $fields, $listname )
 	{
 		global $roster;
 
@@ -110,6 +118,20 @@ class memberslist
 
 		// Pre-store server get params
 		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['s'] : '' );
+
+		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
+		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
+
+		// Extract filters form $_GET
+		$get_filter = array();
+		foreach( $this->fields as $name => $data )
+		{
+			if( isset( $_GET['filter_' . $name] ) )
+			{
+				$get_filter[$name] = $_GET['filter_' . $name];
+				$get .= '&amp;filter_' . $name . '=' . htmlentities($get_filter[$name]);
+			}
+		}
 
 		$roster->tpl->assign_vars(array(
 			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
@@ -124,42 +146,49 @@ class memberslist
 
 			'COLS' => $cols+1,
 			'LISTNAME' => $this->listname,
-
-			'L_SORT_FILTER' => $roster->locale->act['memberssortfilter'],
-			'L_SORT' => $roster->locale->act['memberssort'],
-			'L_COL_SHOW' => $roster->locale->act['memberscolshow'],
-			'L_FILTER' => $roster->locale->act['membersfilter'],
-			'L_GO' => 'Go',
-			'L_MA' => 'MA',
-
-			'L_CLOSE_ALL' => $roster->locale->act['closeall'],
-			'L_OPEN_ALL' => $roster->locale->act['openall'],
-			'L_CLOSE_ALTS' => $roster->locale->act['closealts'],
-			'L_OPEN_ALTS' => $roster->locale->act['openalts'],
-			'L_UNGROUP_ALTS' => $roster->locale->act['ungroupalts'],
 			)
 		);
 
-		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
-		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
+		// --[ Add filter SQL ]--
+		foreach( $get_filter as $field => $filter )
+		{
+			$data = $this->fields[$field];
 
+			if( isset( $data['filter'] ) )
+			{
+				$where_clause = call_user_func($data['filter'], $field, $filter, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array() ) );
+			}
+			else
+			{
+				$where_clause = $this->default_filter( $field, $filter );
+			}
+
+			if( !empty( $where_clause ) )
+			{
+				$where[] = $where_clause;
+			}
+		}
+		if( !empty( $where ) )
+		{
+			$query .= ' WHERE (' . implode( ') AND (', $where ) . ')';
+		}
+
+		// --[ Add grouping SQL ]--
+		if( !empty( $group ) )
+		{
+			$query .= ' GROUP BY ' . implode( ',', $group );
+		}
+
+		// --[ Get number of rows ]--
 		if( $this->addon['config']['page_size'] )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
-			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM')) . '1';
+			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM'));
 			$num_rows = $roster->db->query_first($rowsqry);
-		}
-		// --[ Page list ]--
-		if( $this->addon['config']['page_size']
-			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
-		)
-		{
-			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
-
-			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 		}
 
 		// --[ Add sorting SQL ]--
+		$order = $order_first;
 		if( empty($get_s) && !empty($this->addon['config']['def_sort']) )
 		{
 		   $get_s = $this->addon['config']['def_sort'];
@@ -186,28 +215,46 @@ class memberslist
 			{
 				foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
 				{
-					$query .= $order_field_sql . ', ';
+					$order[] = $order_field_sql;
 				}
 			}
 			elseif( isset( $ORDER_FIELD['order']) )
 			{
 				foreach ( $ORDER_FIELD['order'] as $order_field_sql )
 				{
-					$query .= $order_field_sql . ', ';
+					$order[] = $order_field_sql;
 				}
 			}
 		}
 
-		$query .=  $always_sort;
+		foreach( $order_last as $order_sql )
+		{
+				$order[] = $order_sql;
+		}
 
-		// --[ Add pagination SQL, if we're in server sort mode ]--
-		if( $this->addon['config']['page_size']
-			&& is_numeric($get_st) )
+		if( !empty( $order ) )
+		{
+			$query .= ' ORDER BY ' . implode( ',', $order );
+		}
+
+		// --[ Add pagination SQL ]--
+		if( $get_st )
 		{
 			$query .= ' LIMIT ' . $get_st . ',' . $this->addon['config']['page_size'];
 		}
 
-		$this->query = $query . ';';
+		// --[ Query done, add to class vars ]--
+		$this->query = $query;
+
+		// --[ Page list ]--
+		if( $this->addon['config']['page_size']
+			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
+		)
+		{
+			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
+
+			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
+		}
 
 		// header row
 		$current_col = 1;
@@ -232,7 +279,15 @@ class memberslist
 
 			// click a sorted field again to reverse sort it
 			// Don't add it if it is detected already
-			$sorts = explode( ',', $get_s );
+			if( !empty( $get_s ) )
+			{
+				$sorts = explode( ',', $get_s );
+			}
+			else
+			{
+				$sorts = array();
+			}
+
 			if( false !== ($key = array_search( $field, $sorts )) || 
 				false !== ($key = array_search( $field . ':a', $sorts)) )
 			{
@@ -423,6 +478,37 @@ class memberslist
 		}
 	}
 
+	function default_filter( $field, $filter )
+	{
+		if( !strncmp( $filter, '=', 1 ) )
+		{
+			return $field . '="' . substr( $filter, 1 ) . '"';
+		}
+		else if( !strncmp( $filter, '!=', 2 ) )
+		{
+			return $field . '!="' . substr( $filter, 2 ) . '"';
+		}
+		else if( !strncmp( $filter, '<=', 2 ) )
+		{
+			return $field . '<="' . substr( $filter, 2 ) . '"';
+		}
+		else if( !strncmp( $filter, '>=', 2 ) )
+		{
+			return $field . '>="' . substr( $filter, 2 ) . '"';
+		}
+		else if( !strncmp( $filter, '>', 1 ) )
+		{
+			return $field . '>"' . substr( $filter, 1 ) . '"';
+		}
+		else if( !strncmp( $filter, '<', 1 ) )
+		{
+			return $field . '<"' . substr( $filter, 1 ) . '"';
+		}
+		else
+		{
+			return $field . ' LIKE "%' . $filter . '%"';
+		}
+	}
 	/*********************************************************************
 	 function(s) to return a value from a row with some logic applied.
 	*********************************************************************/
