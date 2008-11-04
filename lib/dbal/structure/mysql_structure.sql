@@ -91,6 +91,18 @@ CREATE TABLE `renprefix_gems` (
   KEY `gem_socketid` (`gem_socketid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+# --------------------------------------------------------
+### Glyphs
+
+DROP TABLE IF EXISTS `renprefix_glyphs`;
+CREATE TABLE `renprefix_glyphs` (
+  `member_id` int(11) unsigned NOT NULL default '0',
+  `glyph_order` tinyint(4) NOT NULL default '0',
+  `glyph_type` tinyint(4) NOT NULL default '0',
+  `glyph_name` varchar(96) NOT NULL default '',
+  `glyph_icon` varchar(64) NOT NULL default '',
+  `glyph_tooltip` mediumtext NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Guild

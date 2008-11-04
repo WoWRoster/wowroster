@@ -411,6 +411,7 @@ $lang['ts_ridingIcon'] = array(
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
+	'Death Knight'=>'deathknight_icon',
 	'Druid'=>'druid_icon',
 	'Hunter'=>'hunter_icon',
 	'Mage'=>'mage_icon',
@@ -430,10 +431,12 @@ $lang['class_iconArray'] = array (
 
 
 
+
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
+	'Death Knight'=>'',
 	'Druid' => 'FF7C0A',
 	'Hunter' => 'AAD372',
 	'Mage' => '68CCEF',
@@ -453,10 +456,12 @@ $lang['class_colorArray'] = array(
 
 
 
+
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
+	'Death Knight'=>'Death Knight',
 	'Druid' => 'Druid',
 	'Hunter' => 'Hunter',
 	'Mage' => 'Mage',
@@ -476,6 +481,7 @@ $lang['class_to_en'] = array(
 
 
 
+
 );
 
 // Class to game-internal ID
@@ -485,11 +491,13 @@ $lang['class_to_id'] = array(
 	'Hunter' => 3,
 	'Rogue' => 4,
 	'Priest' => 5,
+	'Death Knight'=>6,
 	'Shaman' => 7,
 	'Mage' => 8,
 	'Warlock' => 9,
 	'Druid' => 11
 // Space so locale files are line synced
+
 
 
 
@@ -508,6 +516,7 @@ $lang['id_to_class'] = array(
 	3 => 'Hunter',
 	4 => 'Rogue',
 	5 => 'Priest',
+	6 => 'Death Knight',
 	7 => 'Shaman',
 	8 => 'Mage',
 	9 => 'Warlock',

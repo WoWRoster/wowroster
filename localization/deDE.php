@@ -411,6 +411,7 @@ $lang['ts_ridingIcon'] = array(
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
+	'Death Knight'=>'deathknight_icon',
 	'Druide'=>'druid_icon',
 	'Jäger'=>'hunter_icon',
 	'Magier'=>'mage_icon',
@@ -421,6 +422,7 @@ $lang['class_iconArray'] = array (
 	'Hexenmeister'=>'warlock_icon',
 	'Kriegerin'=>'warrior_icon',
 // Female variation
+//	'Death Knight'=>'deathknight_icon',
 	'Druidin'=>'druid_icon',
 	'Jägerin'=>'hunter_icon',
 	'Magierin'=>'mage_icon',
@@ -434,6 +436,7 @@ $lang['class_iconArray'] = array (
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
+	'Death Knight'=>'',
 	'Druide' => 'FF7C0A',
 	'Jäger' => 'AAD372',
 	'Magier' => '68CCEF',
@@ -444,6 +447,7 @@ $lang['class_colorArray'] = array(
 	'Hexenmeister' => '9382C9',
 	'Krieger' => 'C69B6D',
 // Female variation
+	'Death Knight'=>'',
 	'Druidin' => 'FF7C0A',
 	'Jägerin' => 'AAD372',
 	'Magierin' => '68CCEF',
@@ -457,6 +461,7 @@ $lang['class_colorArray'] = array(
 
 // Class To English Translation
 $lang['class_to_en'] = array(
+	'Death Knight'=>'Death Knight',
 	'Druide' => 'Druid',
 	'Jäger' => 'Hunter',
 	'Magier' => 'Mage',
@@ -467,6 +472,7 @@ $lang['class_to_en'] = array(
 	'Hexenmeister' => 'Warlock',
 	'Krieger' => 'Warrior',
 // Female variation
+//	'Death Knight'=>'Death Knight',
 	'Druidin' => 'Druid',
 	'Jägerin' => 'Hunter',
 	'Magierin' => 'Mage',
@@ -485,6 +491,7 @@ $lang['class_to_id'] = array(
 	'Jäger' => 3,
 	'Schurke' => 4,
 	'Priester' => 5,
+	'Death Knight'=>6,
 	'Schamane' => 7,
 	'Magier' => 8,
 	'Hexenmeister' => 9,
@@ -495,6 +502,7 @@ $lang['class_to_id'] = array(
 	'Jägerin' => 3,
 	'Schurkin' => 4,
 	'Priesterin' => 5,
+//	'Death Knight'=>6,
 	'Shamanin' => 7,
 	'Magierin' => 8,
 	'Hexenmeisterin' => 9,
@@ -508,6 +516,7 @@ $lang['id_to_class'] = array(
 	3 => 'Jäger',
 	4 => 'Schurke',
 	5 => 'Priester',
+	6 => 'Death Knight',
 	7 => 'Schamane',
 	8 => 'Magier',
 	9 => 'Hexenmeister',

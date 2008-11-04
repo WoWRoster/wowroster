@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','2.0.9.1884');
+define('ROSTER_VERSION','2.0.9.1891');
 
 /**
  * Roster Conf File
@@ -83,7 +83,7 @@ define('ROSTER_CLASS_PALADIN', 2);
 define('ROSTER_CLASS_HUNTER', 3);
 define('ROSTER_CLASS_ROGUE', 4);
 define('ROSTER_CLASS_PRIEST', 5);
-//define('ROSTER_CLASS_', 6);
+define('ROSTER_CLASS_DEATHKNIGHT', 6);
 define('ROSTER_CLASS_SHAMAN', 7);
 define('ROSTER_CLASS_MAGE', 8);
 define('ROSTER_CLASS_WARLOCK', 9);
