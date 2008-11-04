@@ -36,10 +36,12 @@ class update
 	var $locale;
 	var $blinds = array();
 
+	var $processTime;			// time() starting timestamp for enforceRules
+
 	var $messages = array();
 	var $errors = array();
 	var $assignstr = '';
-	var $assigngem = ''; //2nd tracking property because we build gem list while also building items list.
+	var $assigngem = '';		// 2nd tracking property since we build a gem list while building an items list
 
 	var $membersadded = 0;
 	var $membersupdated = 0;
@@ -88,7 +90,6 @@ class update
 							// -1 = overwrote newer version
 							//  0 = same version
 							//  1 = upgrade available
-
 							if( version_compare($addonstuff->version,$row['version']) )
 							{
 								$this->setError(sprintf($roster->locale->act['addon_upgrade_notice'],$row['basename']),$roster->locale->act['addon_error']);
@@ -184,7 +185,7 @@ class update
 					else
 					{
 						$output .= '<li>' . sprintf($roster->locale->act['error_parsed_time'],$filename[0],$parse_totaltime) . "</li>\n";
-						$output .= ($luahandler->error() !='' ? '<li>' . $luahandler->error() . "</li>\n" : '');
+						$output .= ($luahandler->error() != '' ? '<li>' . $luahandler->error() . "</li>\n" : '');
 					}
 					unset($luahandler);
 				}
@@ -207,6 +208,8 @@ class update
 	{
 		global $roster;
 
+		$this->processTime = time();
+
 		if( !is_array($this->uploadData) )
 		{
 			return '';
@@ -224,7 +227,7 @@ class update
 
 				if( $roster->config['enforce_rules'] == '3' )
 				{
-					$this->enforceRules(time());
+					$this->enforceRules($this->processTime);
 				}
 			}
 
@@ -235,7 +238,7 @@ class update
 
 				if( $roster->config['enforce_rules'] == '2' )
 				{
-					$this->enforceRules(time());
+					$this->enforceRules($this->processTime);
 				}
 			}
 
@@ -263,7 +266,7 @@ class update
 								else
 								{
 									$output .= sprintf($roster->locale->act['error_addon'],$this->addons[$addon]->data['fullname'],'update') . "<br />\n"
-									. $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages;
+											 . $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages;
 								}
 							}
 						}
@@ -273,7 +276,7 @@ class update
 
 			if( $roster->config['enforce_rules'] == '1' )
 			{
-				$this->enforceRules(time());
+				$this->enforceRules($this->processTime);
 			}
 		}
 
@@ -305,7 +308,7 @@ class update
 						}
 						else
 						{
-							$output .= $this->addons[$addon]->messages . "<br/>\n";
+							$output .= $this->addons[$addon]->messages . "<br />\n";
 						}
 					}
 					else
@@ -313,12 +316,12 @@ class update
 						if( $mode == 'guild' )
 						{
 							$output .= '<li>' . sprintf($roster->locale->act['error_addon'],$this->addons[$addon]->data['fullname'],$mode) . "<br />\n"
-							. $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages . "</li>\n";
+									 . $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages . "</li>\n";
 						}
 						else
 						{
 							$output .= sprintf($roster->locale->act['error_addon'],$this->addons[$addon]->data['fullname'],$mode) . "<br />\n"
-							. $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages . "<br />\n";
+									 . $roster->locale->act['addon_messages'] . "<br />\n" . $this->addons[$addon]->messages . "<br />\n";
 						}
 					}
 				}
@@ -340,7 +343,7 @@ class update
 
 		$this->resetMessages();
 
-		foreach( $myProfile as $realm_name => $realm)
+		foreach( $myProfile as $realm_name => $realm )
 		{
 			$this->current_realm = $realm_name;
 
@@ -354,7 +357,7 @@ class update
 					$output .= $this->addon_hook('char_pre', $characters);
 				}
 
-				foreach( $characters as $char_name => $char)
+				foreach( $characters as $char_name => $char )
 				{
 					$this->current_member = $char_name;
 
@@ -374,11 +377,11 @@ class update
 						// Official realms don't trigger this. I looked up and verified the asian ones as well.
 						if( strlen($region) > 2 )
 						{
-							roster_die('You are not playing on an official realm, and your realm setup is incompatible with Roster. Good luck fixing it up.<br/><br/>This message exists because we are getting annoyed by the occasional person who can\'t get Roster to work with a private server, since we clearly state that Roster will not work on private servers.','Invalid Realm');
+							roster_die('You are not playing on an official realm, and your realm setup is incompatible with Roster. Good luck fixing it up.<br /><br />This message exists because we are getting annoyed by the occasional person who can\'t get Roster to work with a private server, since we clearly state that Roster will not work on private servers.','Invalid Realm');
 						}
 						$this->current_region = $region;
 
-						// take the current time
+						// Get the CP timestamp
 						$timestamp = $char['timestamp']['init']['DateUTC'];
 
 						$realm_escape = $roster->db->escape($realm_name);
@@ -397,10 +400,10 @@ class update
 							$query = "SELECT `type`, COUNT(`rule_id`)"
 								   . " FROM `" . $roster->db->table('upload') . "`"
 								   . " WHERE (`type` = 2 OR `type` = 3)"
-								   . " AND '" . $char_name . "' LIKE `name` "
-								   . " AND '" . $realm_escape . "' LIKE `server` "
-								   . " AND '" . $region."' LIKE `region` "
-								   . " GROUP BY `type` "
+								   . " AND '" . $char_name . "' LIKE `name`"
+								   . " AND '" . $realm_escape . "' LIKE `server`"
+								   . " AND '" . $region."' LIKE `region`"
+								   . " GROUP BY `type`"
 								   . " ORDER BY `type` DESC;";
 
 							/**
@@ -421,6 +424,7 @@ class update
 							else
 							{
 								// Fabricate a guild update
+								// We can probably use the $char['Guild'] block for this info instead of Guildless I suppose....
 								$guilddata['Faction'] = $char['FactionEn'];
 								$guilddata['FactionEn'] = $char['FactionEn'];
 								$guilddata['Locale'] = $char['Locale'];
@@ -443,8 +447,8 @@ class update
 						}
 
 						$time = $roster->db->query_first("SELECT `dateupdatedutc` FROM `" . $roster->db->table('players')
-							  . "` WHERE	'" . $char_name . "' LIKE `name` "
-							  . " AND '" . $realm_escape . "' LIKE `server` "
+							  . "` WHERE '" . $char_name . "' LIKE `name`"
+							  . " AND '" . $realm_escape . "' LIKE `server`"
 							  . " AND '" . $region . "' LIKE `region`;");
 
 						// Check if the profile is old
@@ -529,10 +533,10 @@ class update
 							$query = "SELECT `type`, COUNT(`rule_id`)"
 								   . " FROM `" . $roster->db->table('upload') . "`"
 								   . " WHERE (`type` = 0 OR `type` = 1)"
-								   . " AND '" . $guild_escape . "' LIKE `name` "
-								   . " AND '" . $realm_escape . "' LIKE `server` "
-								   . " AND '" . $region . "' LIKE `region` "
-								   . " GROUP BY `type` "
+								   . " AND '" . $guild_escape . "' LIKE `name`"
+								   . " AND '" . $realm_escape . "' LIKE `server`"
+								   . " AND '" . $region . "' LIKE `region`"
+								   . " GROUP BY `type`"
 								   . " ORDER BY `type` DESC;";
 
 							/**
@@ -557,8 +561,8 @@ class update
 								$currentTimestamp = strtotime($guild['timestamp']['init']['DateUTC']);
 
 								$time = $roster->db->query_first("SELECT `update_time` FROM `" . $roster->db->table('guild')
-									  . "` WHERE	'" . $guild_escape . "' LIKE `guild_name` "
-									  . " AND '" . $realm_escape . "' LIKE `server` "
+									  . "` WHERE '" . $guild_escape . "' LIKE `guild_name`"
+									  . " AND '" . $realm_escape . "' LIKE `server`"
 									  . " AND '" . $region . "' LIKE `region`;");
 
 								// Check if the profile is old
@@ -659,16 +663,16 @@ class update
 		global $roster;
 
 		$filefields = '';
-		if (!is_array($this->files) || (count($this->files) == 0)) // Just in case
+		if( !is_array($this->files) || (count($this->files) == 0) ) // Just in case
 		{
 			return "No files accepted!";
 		}
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
-			. "\t" . '<td class="membersRow1" style="cursor:help;" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
-			. "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
-			. "</tr>\n";
+						 . "\t" . '<td class="membersRow1" style="cursor:help;" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+						 . "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
+						 . "</tr>\n";
 		}
 		return $filefields;
 	}
@@ -710,7 +714,7 @@ class update
 	 *
 	 * @param string $message
 	 */
-	function setError($message,$error)
+	function setError( $message , $error )
 	{
 		$this->errors[] = array($message=>$error);
 	}
@@ -725,7 +729,7 @@ class update
 	 */
 	function getErrors( $mode='' )
 	{
-		if( $mode == 'a')
+		if( $mode == 'a' )
 		{
 			return $this->errors;
 		}
@@ -739,7 +743,7 @@ class update
 			$steps = 0;
 			foreach( $errors as $errorArray )
 			{
-				foreach($errorArray as $message => $error)
+				foreach( $errorArray as $message => $error )
 				{
 					if( $steps == 1 )
 					{
@@ -759,9 +763,9 @@ class update
 		return $output;
 	}
 
-	/******************************************************
-	* DB insert code (former WoWDB)
-	******************************************************/
+	/**
+	 * DB insert code (former WoWDB)
+	 */
 
 	/**
 	 * Resets the SQL insert/update string holder
@@ -881,7 +885,7 @@ class update
 	 * @param string $row_name will be appended _d, _b, _c for debuff, buff, total
 	 * @param string $data colon-separated data
 	 */
-	function add_rating( $row_name, $data )
+	function add_rating( $row_name , $data )
 	{
 		$data = explode(':',$data);
 		$data[0] = ( isset($data[0]) && $data[0] != '' ? $data[0] : 0 );
@@ -957,7 +961,7 @@ class update
 
 		$this->add_ifvalue($item, 'item_quantity');
 
-		$querystr = "INSERT INTO `" . $roster->db->table('items') . "` SET " . $this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('items') . "` SET " . $this->assignstr . ";";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -985,7 +989,7 @@ class update
 		$this->add_gem('gem_texture', $gem['gem_texture']);
 		$this->add_gem('locale', $this->locale);
 
-		$querystr = "REPLACE INTO `" . $roster->db->table('gems') . "` SET ".$this->assigngem;
+		$querystr = "REPLACE INTO `" . $roster->db->table('gems') . "` SET ".$this->assigngem . ";";
 		$result = $roster->db->query($querystr);
 		if ( !$result )
 		{
@@ -1016,7 +1020,7 @@ class update
 		$this->add_ifvalue($mail, 'mail_sender', 'mailbox_sender');
 		$this->add_ifvalue($mail, 'mail_subject', 'mailbox_subject');
 
-		$querystr = "INSERT INTO `" . $roster->db->table('mailbox') . "` SET " . $this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('mailbox') . "` SET " . $this->assignstr . ";";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -1054,7 +1058,7 @@ class update
 			$this->add_value('level',$level[1]);
 		}
 
-		$querystr = "INSERT INTO `" . $roster->db->table('recipes') . "` SET " . $this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('recipes') . "` SET " . $this->assignstr . ";";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -1087,7 +1091,7 @@ class update
 		$this->add_time('update_time', getDate($timestamp));
 		$this->add_value('type', $type);
 
-		$querystr = "INSERT INTO `" . $roster->db->table('memberlog') . "` SET " . $this->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('memberlog') . "` SET " . $this->assignstr . ";";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -1158,6 +1162,8 @@ class update
 
 		// Now process tasks
 		/* NOT PROCESSING, BUT CODE AND TABLE LAYOUT IS HERE FOR LATER
+		   The reason is that the task number is in the name
+		   and this is not good for a normalized table
 
 # --------------------------------------------------------
 ### Quest Tasks
@@ -1261,7 +1267,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$item['item_slot'] = $slot_name;
 		$item['item_color'] = ( isset($item_data['Color']) ? $item_data['Color'] : 'ffffff' );
 		$item['item_id'] = ( isset($item_data['Item']) ? $item_data['Item'] : '0:0:0:0:0:0:0:0' );
-		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark');
+		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark' );
 
 		if( isset($item_data['Quantity']) )
 		{
@@ -1309,11 +1315,11 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$colors = array();
 				$line = preg_replace('/\|c[a-f0-9]{8}(.+?)\|r/i','$1',$line); // CP error? strip out color
 				// -- start the parsing
-				if ( eregi( $roster->locale->wordings[$this->locale]['tooltip_boss'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_source'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_droprate'], $line))
+				if( eregi($roster->locale->wordings[$this->locale]['tooltip_boss'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_source'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_droprate'], $line) )
 				{
 					continue;
 				}
-				elseif( eregi( '\%|\+|'.$roster->locale->wordings[$this->locale]['tooltip_chance'], $line))  // if the line has a + or % or the word Chance assume it's bonus line.
+				elseif( eregi('\%|\+|'.$roster->locale->wordings[$this->locale]['tooltip_chance'], $line) )  // if the line has a + or % or the word Chance assume it's bonus line.
 				{
 					$gem_bonus = $line;
 				}
@@ -1421,14 +1427,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 		global $roster;
 
 		// Delete the stale data
-		$querystr = "DELETE FROM `" . $roster->db->table('buffs') . "` WHERE `member_id` = '$memberId'";
+		$querystr = "DELETE FROM `" . $roster->db->table('buffs') . "` WHERE `member_id` = '$memberId';";
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Buffs could not be deleted',$roster->db->error());
 			return;
 		}
 
-		if(isset($data['Attributes']['Buffs']))
+		if( isset($data['Attributes']['Buffs']) )
 		{
 			$buffs = $data['Attributes']['Buffs'];
 		}
@@ -1465,7 +1471,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->add_ifvalue($buff, 'Name', 'tooltip');
 				}
 
-				$querystr = "INSERT INTO `" . $roster->db->table('buffs') . "` SET " . $this->assignstr;
+				$querystr = "INSERT INTO `" . $roster->db->table('buffs') . "` SET " . $this->assignstr . ";";
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
@@ -1551,7 +1557,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$messages = '<li>Updating Professions';
 
 			// Delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Professions could not be deleted',$roster->error());
@@ -1603,7 +1609,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		{
 			$messages = '<li>Updating Equipment ';
 
-			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'equip';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Equipment could not be deleted',$roster->db->error());
@@ -1646,14 +1652,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 		{
 			$messages = '<li>Updating Inventory';
 
-			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BAG%' AND `item_parent` != 'bags';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$roster->db->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BAG%';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Inventory could not be deleted',$roster->db->error());
@@ -1719,14 +1725,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$messages = '<li>Updating Bank';
 
 			// Clearing out old items
-			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND UPPER(`item_parent`) LIKE 'BANK%';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$roster->db->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%'";
+			$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` = '$memberId' AND `item_parent` = 'bags' AND UPPER(`item_slot`) LIKE 'BANK%';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Bank could not be deleted',$roster->db->error());
@@ -1869,7 +1875,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$messages = '<li>Updating Reputation ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('reputation') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('reputation') . "` WHERE `member_id` = '$memberId';";
 
 			if( !$roster->db->query($querystr) )
 			{
@@ -1911,7 +1917,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr;
+						$querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr . ";";
 
 						$result = $roster->db->query($querystr);
 						if( !$result )
@@ -1950,7 +1956,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$messages = '<li>Updating Skills ';
 
 			//first delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('skills') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('skills') . "` WHERE `member_id` = '$memberId';";
 
 			if( !$roster->db->query($querystr) )
 			{
@@ -1962,7 +1968,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			{
 				$sub_skill = $skillData[$skill_type];
 				$order = $sub_skill['Order'];
-				foreach( array_keys( $sub_skill ) as $skill_name )
+				foreach( array_keys($sub_skill) as $skill_name )
 				{
 					if( $skill_name != 'Order' )
 					{
@@ -1975,7 +1981,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 						$messages .= '.';
 
-						$querystr = "INSERT INTO `" . $roster->db->table('skills') . "` SET " . $this->assignstr;
+						$querystr = "INSERT INTO `" . $roster->db->table('skills') . "` SET " . $this->assignstr . ";";
 
 						$result = $roster->db->query($querystr);
 						if( !$result )
@@ -2164,6 +2170,70 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 
 		$this->setMessage($messages . '</li></ul></li>');
+	}
+
+
+	/**
+	 * Handles formating and insertion of glyphs
+	 *
+	 * @param array $data
+	 * @param int $memberId
+	 */
+	function do_glyphs( $data , $memberId )
+	{
+		global $roster;
+
+		if( isset($data['Glyphs']) && !empty($data['Glyphs']) && is_array($data['Glyphs']) )
+		{
+			$glyphData = $data['Glyphs'];
+		}
+		else
+		{
+			$this->setMessage('<li>No Glyph Data</li>');
+			return false;
+		}
+
+		$messages = '<li>Updating Glyphs ';
+
+		//first delete the stale data
+		$querystr = "DELETE FROM `" . $roster->db->table('glyphs') . "` WHERE `member_id` = '$memberId';";
+
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Glyphs could not be deleted',$roster->db->error());
+			return;
+		}
+
+		foreach( array_keys($glyphData) as $glyphOrder )
+		{
+			$glyph = $glyphData[$glyphOrder];
+
+			$this->reset_values();
+			$this->add_value('member_id', $memberId);
+			$this->add_ifvalue($glyph,'Name','glyph_name');
+			$this->add_ifvalue($glyph,'Type','glyph_type');
+			if( isset($glyph['Icon']) )
+			{
+				$this->add_value('glyph_icon', $this->fix_icon($glyph['Icon']));
+			}
+			if( isset($glyph['Tooltip']) )
+			{
+				$this->add_value('glyph_tooltip', $this->tooltip($glyph['Tooltip']));
+			}
+
+			$this->add_value('glyph_order', $glyphOrder);
+
+			$messages .= '.';
+
+			$querystr = "INSERT INTO `" . $roster->db->table('glyphs') . "` SET " . $this->assignstr . ";";
+
+			$result = $roster->db->query($querystr);
+			if( !$result )
+			{
+				$this->setError('Glyph [' . $skill_name . '] could not be inserted',$roster->db->error());
+			}
+		}
+		$this->setMessage($messages . '</li>');
 	}
 
 
@@ -3308,7 +3378,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->add_ifvalue($data['Attributes']['Melee'], 'CritChance', 'crit', 0);
 
 		// BEGIN STATS
-		if( is_array($data['Attributes']['Stats']) )
+		if( isset($data['Attributes']['Stats']) && is_array($data['Attributes']['Stats']) )
 		{
 			$main_stats = $data['Attributes']['Stats'];
 
@@ -3323,7 +3393,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		// END STATS
 
 		// BEGIN DEFENSE
-		if( is_array($data['Attributes']['Defense']) )
+		if( isset($data['Attributes']['Defense']) && is_array($data['Attributes']['Defense']) )
 		{
 			$main_stats = $data['Attributes']['Defense'];
 
@@ -3346,7 +3416,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		// END DEFENSE
 
 		// BEGIN RESISTS
-		if( is_array($data['Attributes']['Resists']) )
+		if( isset($data['Attributes']['Resists']) && is_array($data['Attributes']['Resists']) )
 		{
 			$main_res = $data['Attributes']['Resists'];
 
@@ -3362,7 +3432,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		// END RESISTS
 
 		// BEGIN MELEE
-		if( is_array($data['Attributes']['Melee']) )
+		if( isset($data['Attributes']['Melee']) && is_array($data['Attributes']['Melee']) )
 		{
 			$attack = $data['Attributes']['Melee'];
 
@@ -3375,7 +3445,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->add_ifvalue($attack, 'CritChance', 'melee_crit_chance');
 			$this->add_ifvalue($attack, 'AttackPowerDPS', 'melee_power_dps');
 
-			if( is_array($attack['MainHand']) )
+			if( isset($attack['MainHand']) && is_array($attack['MainHand']) )
 			{
 				$hand = $attack['MainHand'];
 
@@ -3388,7 +3458,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->add_value('melee_mhand_maxdam', $maxdam);
 				unset($mindam, $maxdam);
 
-				$this->add_rating( 'melee_mhand_rating', $hand['AttackRating']);
+				$this->add_rating('melee_mhand_rating', $hand['AttackRating']);
 			}
 
 			if( isset($attack['OffHand']) && is_array($attack['OffHand']) )
@@ -3404,7 +3474,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->add_value('melee_ohand_maxdam', $maxdam);
 				unset($mindam, $maxdam);
 
-				$this->add_rating( 'melee_ohand_rating', $hand['AttackRating']);
+				$this->add_rating('melee_ohand_rating', $hand['AttackRating']);
 			}
 			else
 			{
@@ -3436,42 +3506,39 @@ CREATE TABLE `renprefix_quest_task_data` (
 		{
 			$attack = $data['Attributes']['Ranged'];
 
-			if( is_numeric($attack['AttackDPS']) )
+			$this->add_rating('ranged_power', ( isset($attack['AttackPower']) ? $attack['AttackPower'] : '0' ));
+			$this->add_rating('ranged_hit', $attack['HitRating']);
+			$this->add_rating('ranged_crit', $attack['CritRating']);
+			$this->add_rating('ranged_haste', $attack['HasteRating']);
+
+			$this->add_ifvalue($attack, 'CritChance', 'ranged_crit_chance');
+			$this->add_ifvalue($attack, 'AttackPowerDPS', 'ranged_power_dps', 0);
+
+			$this->add_ifvalue($attack, 'AttackSpeed', 'ranged_speed');
+			$this->add_ifvalue($attack, 'AttackDPS', 'ranged_dps');
+			$this->add_ifvalue($attack, 'AttackSkill', 'ranged_skill');
+
+			list($mindam, $maxdam) = explode(':',$attack['DamageRange']);
+			$this->add_value('ranged_mindam', $mindam);
+			$this->add_value('ranged_maxdam', $maxdam);
+			unset($mindam, $maxdam);
+
+			$this->add_rating( 'ranged_rating', $attack['AttackRating']);
+
+			if( isset($attack['DamageRangeTooltip']) )
 			{
-				$this->add_rating('ranged_power', ( isset($attack['AttackPower']) ? $attack['AttackPower'] : '0' ));
-				$this->add_rating('ranged_hit', $attack['HitRating']);
-				$this->add_rating('ranged_crit', $attack['CritRating']);
-				$this->add_rating('ranged_haste', $attack['HasteRating']);
-
-				$this->add_ifvalue($attack, 'CritChance', 'ranged_crit_chance');
-				$this->add_ifvalue($attack, 'AttackPowerDPS', 'ranged_power_dps', 0);
-
-				$this->add_ifvalue($attack, 'AttackSpeed', 'ranged_speed');
-				$this->add_ifvalue($attack, 'AttackDPS', 'ranged_dps');
-				$this->add_ifvalue($attack, 'AttackSkill', 'ranged_skill');
-
-				list($mindam, $maxdam) = explode(':',$attack['DamageRange']);
-				$this->add_value('ranged_mindam', $mindam);
-				$this->add_value('ranged_maxdam', $maxdam);
-				unset($mindam, $maxdam);
-
-				$this->add_rating( 'ranged_rating', $attack['AttackRating']);
-
-				if( isset($attack['DamageRangeTooltip']) )
-				{
-					$this->add_value('ranged_range_tooltip', $this->tooltip($attack['DamageRangeTooltip']));
-				}
-				if( isset($attack['AttackPowerTooltip']) )
-				{
-					$this->add_value('ranged_power_tooltip', $this->tooltip($attack['AttackPowerTooltip']));
-				}
-				unset($attack);
+				$this->add_value('ranged_range_tooltip', $this->tooltip($attack['DamageRangeTooltip']));
 			}
+			if( isset($attack['AttackPowerTooltip']) )
+			{
+				$this->add_value('ranged_power_tooltip', $this->tooltip($attack['AttackPowerTooltip']));
+			}
+			unset($attack);
 		}
 		// END RANGED
 
 		// BEGIN SPELL
-		if( is_array($data['Attributes']['Spell']) )
+		if( isset($data['Attributes']['Spell']) && is_array($data['Attributes']['Spell']) )
 		{
 			$spell = $data['Attributes']['Spell'];
 
@@ -3490,7 +3557,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->add_ifvalue($spell, 'BonusDamage', 'spell_damage');
 			$this->add_ifvalue($spell, 'BonusHealing', 'spell_healing');
 
-			if(isset($spell['SchoolCrit'])){
+			if( isset($spell['SchoolCrit']) && is_array($spell['SchoolCrit']) )
+			{
 				$schoolcrit = $spell['SchoolCrit'];
 
 				$this->add_ifvalue($schoolcrit, 'Holy', 'spell_crit_chance_holy');
@@ -3503,7 +3571,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				unset($schoolcrit);
 			}
 
-			if(isset($spell['School']))
+			if( isset($spell['School']) && is_array($spell['School']) )
 			{
 				$school = $spell['School'];
 
@@ -3541,30 +3609,15 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->add_ifvalue($data, 'SexId', 'sexid');
 		$this->add_ifvalue($data, 'Hearth', 'hearth');
 
-		if( !empty($data['timestamp']['init']['DateUTC']) )
-		{
-			$this->add_value('dateupdatedutc', $data['timestamp']['init']['DateUTC']);
-		}
+		$this->add_ifvalue($data['timestamp']['init'], 'DateUTC','dateupdatedutc');
 
 		$this->add_ifvalue($data, 'DBversion');
 		$this->add_ifvalue($data, 'CPversion');
 
-		if( isset($data['TimePlayed']) && $data['TimePlayed'] > 0 )
-		{
-			$this->add_value('timeplayed', $data['TimePlayed']);
-		}
+		$this->add_ifvalue($data,'TimePlayed','timeplayed',0);
+		$this->add_ifvalue($data,'TimeLevelPlayed','timelevelplayed',0);
 
-		if( isset($data['TimeLevelPlayed']) && $data['TimeLevelPlayed'] > 0 )
-		{
-			$this->add_value('timelevelplayed', $data['TimeLevelPlayed']);
-		}
-
-
-		// Capture mailbox update time/date
-		if( isset($data['timestamp']['MailBox']) )
-		{
-			$this->add_timestamp('maildateutc', $data['timestamp']['MailBox']);
-		}
+		$this->add_ifvalue($data['timestamp'], 'MailBox','maildateutc');
 
 		// Capture client language
 		$this->add_ifvalue($data, 'Locale', 'clientLocale');
@@ -3573,12 +3626,12 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		if( $update )
 		{
-			$querystr = "UPDATE `" . $roster->db->table('players') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId'";
+			$querystr = "UPDATE `" . $roster->db->table('players') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId';";
 		}
 		else
 		{
 			$this->add_value('member_id', $memberId);
-			$querystr = "INSERT INTO `" . $roster->db->table('players') . "` SET " . $this->assignstr;
+			$querystr = "INSERT INTO `" . $roster->db->table('players') . "` SET " . $this->assignstr . ";";
 		}
 
 		$result = $roster->db->query($querystr);
@@ -3597,6 +3650,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->do_skills($data, $memberId);
 		$this->do_recipes($data, $memberId);
 		$this->do_spellbook($data, $memberId);
+		$this->do_glyphs($data, $memberId);
 		$this->do_talents($data, $memberId);
 		$this->do_reputation($data, $memberId);
 		$this->do_quests($data, $memberId);
@@ -3613,14 +3667,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 		else
 		{
-			$querystr = "DELETE FROM `" . $roster->db->table('pets') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('pets') . "` WHERE `member_id` = '$memberId';";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
 				$this->setError('Cannot delete Pet Data',$roster->db->error());
 			}
 
-			$querystr = "DELETE FROM `" . $roster->db->table('pet_spellbook') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('pet_spellbook') . "` WHERE `member_id` = '$memberId';";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{

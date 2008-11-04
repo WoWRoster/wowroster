@@ -187,6 +187,19 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('pet_talenttree') . "` ADD `order` tinyint(4) NOT NULL default '0' AFTER `background`;");
 		}
 
+		if( version_compare($roster->config['version'],'2.0.9.1891','<') )
+		{
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('glyphs') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('glyphs') . "` (
+				`member_id` int(11) unsigned NOT NULL default '0',
+				`glyph_order` tinyint(4) NOT NULL default '0',
+				`glyph_type` tinyint(4) NOT NULL default '0',
+				`glyph_name` varchar(96) NOT NULL default '',
+				`glyph_icon` varchar(64) NOT NULL default '',
+				`glyph_tooltip` mediumtext NOT NULL
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();
