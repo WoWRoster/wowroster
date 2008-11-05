@@ -4,7 +4,6 @@
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgrayborder">
-
 			<table cellpadding="0" cellspacing="0" id="{LISTNAME}-toolbar" style="width:100%">
 				<tr>
 					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
@@ -52,6 +51,7 @@
 	<tr>
 		<td class="border_color {S_ML_BORDER}border">
 <!-- ENDIF -->
+<form name="{LISTNAME}_filterform" action="{U_FILTER_FORM}" method="GET" onsubmit="submitonce(this);">
 <table cellpadding="0" cellspacing="0" id="{LISTNAME}" style="width:100%;">
 	<thead>
 <!-- IF B_PAGINATION -->
@@ -74,6 +74,21 @@
 <!-- ELSE -->
 				{header_cell.TEXT}
 <!-- ENDIF -->
+			</th>
+<!-- END header_cell -->
+		</tr>
+		<tr>
+			<th class="membersHeader groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>&nbsp;</th>
+<!-- BEGIN header_cell -->
+			<th class="membersHeader">
+				<input
+				type="text"
+				class="wowinput64"
+				name="filter_{header_cell.NAME}"
+				id="filter_{header_cell.NAME"
+				value="{header_cell.FILTER}"
+				onchange="document.{LISTNAME}_filterform.submit()" />
 			</th>
 <!-- END header_cell -->
 		</tr>
@@ -123,6 +138,7 @@
 	</tbody>
 <!-- END members_row -->
 </table>
+</form>
 <!-- IF S_ML_BORDER -->
 		</td>
 	</tr>
