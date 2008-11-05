@@ -118,6 +118,7 @@ class memberslist
 
 		// Pre-store server get params
 		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['s'] : '' );
+		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
 
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
@@ -126,7 +127,7 @@ class memberslist
 		$get_filter = array();
 		foreach( $this->fields as $name => $data )
 		{
-			if( isset( $_GET['filter_' . $name] ) )
+			if( isset( $_GET['filter_' . $name] ) && !empty( $_GET['filter_' . $name] ) )
 			{
 				$get_filter[$name] = $_GET['filter_' . $name];
 				$get .= '&amp;filter_' . $name . '=' . htmlentities($get_filter[$name]);
@@ -137,6 +138,7 @@ class memberslist
 			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
 			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
 			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
+			'U_FILTER_FORM' => makelink($filter_post),
 
 			'S_FILTER' => false,
 			'S_HIDE_FILTER' => (bool)!$this->addon['config']['openfilter'],
@@ -305,11 +307,18 @@ class memberslist
 			}
 			$newsort = implode( ',', $sorts );
 			
+			$get = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;s=' . $newsort;
+			foreach( $get_filter as $key => $filter )
+			{
+				$get .= '&amp;filter_' . $key . '=' . htmlentities($filter);
+			}
 
 			$roster->tpl->assign_block_vars('header_cell',array(
-				'LINK' => makelink('&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;s=' . $newsort ),
+				'LINK' => makelink($get),
 				'TEXT' => $th_text,
 				'ID' => false,
+				'FILTER' => ( isset($get_filter[$field]) ? htmlentities($get_filter[$field]) : '' ),
+				'NAME' => $field,
 				)
 			);
 
