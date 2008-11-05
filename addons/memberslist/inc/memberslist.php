@@ -500,31 +500,43 @@ class memberslist
 	{
 		if( !strncmp( $filter, '=', 1 ) )
 		{
-			return $field . '="' . substr( $filter, 1 ) . '"';
+			return $this->buildclause( $field, '=', substr( $filter, 1 ) );
 		}
 		else if( !strncmp( $filter, '!=', 2 ) )
 		{
-			return $field . '!="' . substr( $filter, 2 ) . '"';
+			return $this->buildclause( $field, '!=', substr( $filter, 2 ) );
 		}
 		else if( !strncmp( $filter, '<=', 2 ) )
 		{
-			return $field . '<="' . substr( $filter, 2 ) . '"';
+			return $this->buildclause( $field, '<=', substr( $filter, 2 ) );
 		}
 		else if( !strncmp( $filter, '>=', 2 ) )
 		{
-			return $field . '>="' . substr( $filter, 2 ) . '"';
+			return $this->buildclause( $field, '>=', substr( $filter, 2 ) );
 		}
 		else if( !strncmp( $filter, '>', 1 ) )
 		{
-			return $field . '>"' . substr( $filter, 1 ) . '"';
+			return $this->buildclause( $field, '>', substr( $filter, 1 ) );
 		}
 		else if( !strncmp( $filter, '<', 1 ) )
 		{
-			return $field . '<"' . substr( $filter, 1 ) . '"';
+			return $this->buildclause( $field, '<', substr( $filter, 1 ) );
 		}
 		else
 		{
 			return $field . ' LIKE "%' . $filter . '%"';
+		}
+	}
+
+	function buildclause( $field, $oper, $value )
+	{
+		if( is_numeric($value) )
+		{
+			return $field . $oper . ((float)$value);
+		}
+		else
+		{
+			return $field . $oper . '"' . $value . '"';
 		}
 	}
 	/*********************************************************************
