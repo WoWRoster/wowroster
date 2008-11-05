@@ -32,6 +32,7 @@ $order_last[] = '`date_stamp` DESC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
+	'filt_field' => '`members`.`name`',
 	'order'      => array( '`name` ASC' ),
 	'order_d'    => array( '`name` DESC' ),
 	'js_type'    => 'ts_string',
@@ -40,6 +41,7 @@ $FIELD['name'] = array(
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
+	'filt_field' => '`members`.`class`',
 	'order'      => array( '`class` ASC' ),
 	'order_d'    => array( '`class` DESC' ),
 	'value'      => array($memberlist,'class_value'),
@@ -49,6 +51,7 @@ $FIELD['class'] = array(
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
+	'filt_field' => '`members`.`level`',
 	'order'      => array( '`level` DESC' ),
 	'order_d'    => array( '`level` ASC' ),
 	'value'      => array($memberlist,'level_value'),
