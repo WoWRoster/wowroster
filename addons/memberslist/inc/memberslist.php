@@ -156,9 +156,17 @@ class memberslist
 		{
 			$data = $this->fields[$field];
 
+			if( isset( $data['filt_field'] ) )
+			{
+				$field = $data['filt_field'];
+			}
+
 			if( isset( $data['filter'] ) )
 			{
-				$where_clause = call_user_func($data['filter'], $field, $filter, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array() ) );
+				if( $data['filter'] !== false )
+				{
+					$where_clause = call_user_func($data['filter'], $field, $filter, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array() ) );
+				}
 			}
 			else
 			{
@@ -317,6 +325,7 @@ class memberslist
 				'LINK' => makelink($get),
 				'TEXT' => $th_text,
 				'ID' => false,
+				'B_FILTER' => ( !isset($DATA['filter']) || $DATA['filter'] !== false ),
 				'FILTER' => ( isset($get_filter[$field]) ? htmlentities($get_filter[$field]) : '' ),
 				'NAME' => $field,
 				)

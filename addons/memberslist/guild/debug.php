@@ -51,6 +51,7 @@ $order_last[] = '`members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
+	'filt_field' => '`members`.`name`',
 	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
 	'js_type'    => 'ts_string',
@@ -59,6 +60,7 @@ $FIELD['name'] = array (
 
 $FIELD['main_name'] = array (
 	'lang_field' => 'main_name',
+	'filt_field' => '`mains`.`name`',
 	'order'      => array( '`mains`.`name` ASC' ),
 	'order_d'    => array( '`mains`.`name` DESC' ),
 	'js_type'    => 'ts_string',
@@ -75,6 +77,7 @@ $FIELD['alt_type'] = array (
 
 $FIELD['note'] = array (
 	'lang_field' => 'note',
+	'filt_field' => '`members`.`note`',
 	'order'      => array( 'nisnull','`members`.`note` ASC' ),
 	'order_d'    => array( 'nisnull','`members`.`note` DESC' ),
 	'js_type'    => 'ts_string',
@@ -84,6 +87,7 @@ $FIELD['note'] = array (
 
 $FIELD['officer_note'] = array (
 	'lang_field' => 'officer_note',
+	'filt_field' => '`members`.`officer_note`',
 	'order'      => array( 'onisnull','`members`.`note` ASC' ),
 	'order_d'    => array( 'onisnull','`members`.`note` DESC' ),
 	'js_type'    => 'ts_string',

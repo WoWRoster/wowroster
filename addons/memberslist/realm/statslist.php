@@ -80,6 +80,7 @@ $order_last[] = '`members`.`name` ASC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
+	'filt_field' => '`members`.`name`',
 	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
 	'value'      => array($memberlist,'name_value'),
@@ -89,6 +90,7 @@ $FIELD['name'] = array(
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
+	'filt_field' => '`members`.`class`',
 	'order'      => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value'      => array($memberlist,'class_value'),
@@ -98,6 +100,7 @@ $FIELD['class'] = array(
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
+	'filt_field' => '`members`.`level`',
 	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value'      => array($memberlist,'level_value'),
@@ -150,6 +153,7 @@ $FIELD['total'] = array (
 	'order'      => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) DESC" ),
 	'order_d'    => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) ASC" ),
 	'value'      => 'total_value',
+	'filter'     => false,
 	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_sum'],
 );

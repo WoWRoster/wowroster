@@ -82,6 +82,7 @@
 				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>&nbsp;</th>
 <!-- BEGIN header_cell -->
 			<th class="membersHeader">
+<!-- IF header_cell.B_FILTER -->
 				<input
 				type="text"
 				class="wowinput64"
@@ -89,6 +90,9 @@
 				id="filter_{header_cell.NAME"
 				value="{header_cell.FILTER}"
 				onchange="document.{LISTNAME}_filterform.submit()" />
+<!-- ELSE -->
+				&nbsp;
+<!-- ENDIF -->
 			</th>
 <!-- END header_cell -->
 		</tr>

@@ -63,6 +63,7 @@ $order_last[] = '`members`.`name` ASC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
+	'filt_field' => '`members`.`name`',
 	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
 	'value'      => array($memberlist,'name_value'),
@@ -72,6 +73,7 @@ $FIELD['name'] = array(
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
+	'filt_field' => '`members`.`class`',
 	'order'      => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value'      => array($memberlist,'class_value'),
@@ -81,6 +83,7 @@ $FIELD['class'] = array(
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
+	'filt_field' => '`members`.`level`',
 	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value'      => array($memberlist,'level_value'),
