@@ -84,7 +84,6 @@ $FIELD['name'] = array(
 	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
 	'value'      => array($memberlist,'name_value'),
-	'js_type'    => 'ts_string',
 	'display'    => 3,
 );
 
@@ -94,7 +93,6 @@ $FIELD['class'] = array(
 	'order'      => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value'      => array($memberlist,'class_value'),
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['stats_class'],
 );
 
@@ -104,7 +102,6 @@ $FIELD['level'] = array(
 	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value'      => array($memberlist,'level_value'),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_level'],
 );
 
@@ -112,7 +109,6 @@ $FIELD['stat_str_c'] = array (
 	'lang_field' => 'strength',
 	'order'      => array( "`stat_str_c` DESC" ),
 	'order_d'    => array( "`stat_str_c` ASC" ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_str'],
 );
 
@@ -120,7 +116,6 @@ $FIELD['stat_agl_c'] = array (
 	'lang_field' => 'agility',
 	'order'      => array( "`stat_agl_c` DESC" ),
 	'order_d'    => array( "`stat_agl_c` ASC" ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_agi'],
 );
 
@@ -128,7 +123,6 @@ $FIELD['stat_sta_c'] = array (
 	'lang_field' => 'stamina',
 	'order'      => array( "`stat_sta_c` DESC" ),
 	'order_d'    => array( "`stat_sta_c` ASC" ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_sta'],
 );
 
@@ -136,7 +130,6 @@ $FIELD['stat_int_c'] = array (
 	'lang_field' => 'intellect',
 	'order'      => array( "`stat_int_c` DESC" ),
 	'order_d'    => array( "`stat_int_c` ASC" ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_int'],
 );
 
@@ -144,17 +137,15 @@ $FIELD['stat_spr_c'] = array (
 	'lang_field' => 'spirit',
 	'order'      => array( "`stat_spr_c` DESC" ),
 	'order_d'    => array( "`stat_spr_c` ASC" ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_spi'],
 );
 
 $FIELD['total'] = array (
 	'lang_field' => 'total',
+	'filt_field' => "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`)",
 	'order'      => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) DESC" ),
 	'order_d'    => array( "(`players`.`stat_int_c` + `players`.`stat_agl_c` + `players`.`stat_sta_c` + `players`.`stat_str_c` + `players`.`stat_spr_c`) ASC" ),
 	'value'      => 'total_value',
-	'filter'     => false,
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_sum'],
 );
 
@@ -162,7 +153,6 @@ $FIELD['health'] = array (
 	'lang_field' => 'health',
 	'order'      => array( 'hisnull','`players`.`health` DESC' ),
 	'order_d'    => array( 'hisnull','`players`.`health` ASC' ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_health'],
 );
 
@@ -170,7 +160,6 @@ $FIELD['mana'] = array(
 	'lang_field' => 'mana',
 	'order'      => array( 'misnull','`players`.`mana` DESC' ),
 	'order_d'    => array( 'misnull','`players`.`mana` ASC' ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_mana'],
 );
 
@@ -179,7 +168,6 @@ $FIELD['stat_armor_c'] = array(
 	'order'      => array( 'aisnull','`players`.`stat_armor_c` DESC' ),
 	'order_d'    => array( 'aisnull','`players`.`stat_armor_c` ASC' ),
 	'value'      => 'armor_value',
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_armor'],
 );
 
@@ -188,7 +176,6 @@ $FIELD['dodge'] = array(
 	'lang_field' => 'dodge',
 	'order'      => array( 'disnull','`players`.`dodge` DESC' ),
 	'order_d'    => array( 'disnull','`players`.`dodge` ASC' ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_dodge'],
 );
 
@@ -196,7 +183,6 @@ $FIELD['parry'] = array(
 	'lang_field' => 'parry',
 	'order'      => array( 'pisnull','`players`.`parry` DESC' ),
 	'order_d'    => array( 'pisnull','`players`.`parry` ASC' ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_parry'],
 );
 
@@ -204,7 +190,6 @@ $FIELD['block'] = array(
 	'lang_field' => 'block',
 	'order'      => array( 'bisnull','`players`.`block` DESC' ),
 	'order_d'    => array( 'bisnull','`players`.`block` ASC' ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_block'],
 );
 
@@ -212,7 +197,6 @@ $FIELD['crit'] = array(
 	'lang_field' => 'crit',
 	'order'      => array( 'cisnull','`players`.`crit` DESC' ),
 	'order_d'    => array( 'cisnull','`players`.`crit` ASC' ),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_crit'],
 );
 

@@ -40,7 +40,6 @@ $FIELD['guild_name'] = array (
 	'order'      => array( '`guild`.`guild_name` ASC' ),
 	'order_d'    => array( '`guild`.`guild_name` DESC' ),
 	'value'      => 'guild_value',
-	'js_type'    => 'ts_string',
 	'display'    => 3,
 );
 
@@ -49,7 +48,6 @@ $FIELD['faction'] = array (
 	'order'      => array( '`guild`.`faction` ASC' ),
 	'order_d'    => array( '`guild`.`faction` DESC' ),
 	'value'      => 'faction_value',
-	'js_type'    => 'ts_string',
 	'display'    => 2,
 );
 
@@ -57,7 +55,6 @@ $FIELD['guild_num_members'] = array (
 	'lang_field' => 'members',
 	'order'      => array( '`guild`.`guild_num_members` ASC' ),
 	'order_d'    => array( '`guild`.`guild_num_members` DESC' ),
-	'js_type'    => 'ts_number',
 	'display'    => 2,
 );
 
@@ -65,7 +62,6 @@ $FIELD['guild_num_accounts'] = array (
 	'lang_field' => 'accounts',
 	'order'      => array( '`guild`.`guild_num_accounts` ASC' ),
 	'order_d'    => array( '`guild`.`guild_num_accounts` DESC' ),
-	'js_type'    => 'ts_number',
 	'display'    => 2,
 );
 
@@ -74,7 +70,6 @@ $FIELD['guild_motd'] = array (
 	'order'      => array( '`guild`.`guild_motd` ASC' ),
 	'order_d'    => array( '`guild`.`guild_motd` DESC' ),
 	'value'      => 'note_value',
-	'js_type'    => 'ts_string',
 	'display'    => 2,
 );
 

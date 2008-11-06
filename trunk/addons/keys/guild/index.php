@@ -144,7 +144,6 @@ while( $key_data = $roster->db->fetch( $keyResult ) )
 		'order_d'    => array( '`' . $key_name . '_latest` DESC' ),
 		'value'      => 'key_value',
 		'filter'     => false,
-		'js_type'    => 'ts_number',
 		'display'    => 2,
 		'passthrough' => $key_data
 	);
