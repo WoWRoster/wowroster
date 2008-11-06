@@ -51,7 +51,7 @@
 	<tr>
 		<td class="border_color {S_ML_BORDER}border">
 <!-- ENDIF -->
-<form name="{LISTNAME}_filterform" action="{U_FILTER_FORM}" method="GET" onsubmit="submitonce(this);">
+<form name="{LISTNAME}_filterform" action="{U_FILTER_FORM}" method="get" onsubmit="submitonce(this);">
 <table cellpadding="0" cellspacing="0" id="{LISTNAME}" style="width:100%;">
 	<thead>
 <!-- IF B_PAGINATION -->
@@ -79,7 +79,9 @@
 		</tr>
 		<tr>
 			<th class="membersHeader groupalt"
-				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>&nbsp;</th>
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+				&nbsp;
+			</th>
 <!-- BEGIN header_cell -->
 			<th class="membersHeader">
 <!-- IF header_cell.B_FILTER -->
@@ -87,9 +89,9 @@
 				type="text"
 				class="wowinput64"
 				name="filter_{header_cell.NAME}"
-				id="filter_{header_cell.NAME"
+				id="filter_{header_cell.NAME}"
 				value="{header_cell.FILTER}"
-				onchange="document.{LISTNAME}_filterform.submit()" />
+				onchange="document.{LISTNAME}_filterform.submit();" />
 <!-- ELSE -->
 				&nbsp;
 <!-- ENDIF -->
