@@ -82,7 +82,6 @@ $FIELD['name'] = array (
 	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
 	'value'      => array($memberlist,'name_value'),
-	'js_type'    => 'ts_string',
 	'display'    => 3,
 );
 
@@ -92,7 +91,6 @@ $FIELD['class'] = array (
 	'order'      => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value'      => array($memberlist,'class_value'),
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['member_class'],
 );
 
@@ -102,7 +100,6 @@ $FIELD['level'] = array (
 	'order_d'    => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value'      => array($memberlist,'level_value'),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['member_level'],
 );
 
@@ -110,7 +107,6 @@ $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
 	'order'      => array( '`guild`.`guild_name` ASC' ),
 	'order_d'    => array( '`guild`.`guild_name` DESC' ),
-	'js_type'    => 'ts_string',
 	'value'      => array($memberlist,'guild_name_value'),
 	'display'    => 2,
 );
@@ -119,8 +115,6 @@ $FIELD['guild_title'] = array (
 	'lang_field' => 'title',
 	'order'      => array( '`members`.`guild_rank` ASC' ),
 	'order_d'    => array( '`members`.`guild_rank` DESC' ),
-	'js_type'    => 'ts_number',
-	'jsort'      => 'guild_rank',
 	'display'    => $addon['config']['member_gtitle'],
 );
 
@@ -129,7 +123,6 @@ $FIELD['lifetimeRankName'] = array (
 	'order'      => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
 	'order_d'    => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
 	'value'      => array($memberlist,'honor_value'),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['member_hrank'],
 );
 
@@ -137,7 +130,6 @@ $FIELD['professions'] = array (
 	'lang_field' => 'professions',
 	'value'      => 'tradeskill_icons',
 	'filter'     => 'false',
-	'js_type'    => '',
 	'display'    => $addon['config']['member_prof'],
 );
 
@@ -145,7 +137,6 @@ $FIELD['hearth'] = array (
 	'lang_field' => 'hearthed',
 	'order'      => array( 'hisnull', 'hearth ASC' ),
 	'order_d'    => array( 'hisnull', 'hearth DESC' ),
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['member_hearth'],
 );
 
@@ -153,7 +144,6 @@ $FIELD['zone'] = array (
 	'lang_field' => 'lastzone',
 	'order'      => array( '`members`.`zone` ASC' ),
 	'order_d'    => array( '`members`.`zone` DESC' ),
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['member_zone'],
 );
 
@@ -162,16 +152,14 @@ $FIELD['last_online'] = array (
 	'order'      => array( '`members`.`last_online` DESC' ),
 	'order_d'    => array( '`members`.`last_online` ASC' ),
 	'value'      => array($memberlist,'last_online_value'),
-	'js_type'    => 'ts_date',
 	'display'    => $addon['config']['member_online'],
 );
 
 $FIELD['last_update_format'] = array (
 	'lang_field' => 'lastupdate',
+	'filt_field' => '`players`.`dateupdatedutc`',
 	'order'      => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
 	'order_d'    => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
-	'jsort'      => 'last_update_stamp',
-	'js_type'    => 'ts_date',
 	'display'    => $addon['config']['member_update'],
 );
 
@@ -180,7 +168,6 @@ $FIELD['note'] = array (
 	'order'      => array( 'nisnull','`members`.`note` ASC' ),
 	'order_d'    => array( 'nisnull','`members`.`note` DESC' ),
 	'value'      => 'note_value',
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['member_note'],
 );
 
@@ -189,7 +176,6 @@ $FIELD['officer_note'] = array (
 	'order'      => array( 'onisnull','`members`.`note` ASC' ),
 	'order_d'    => array( 'onisnull','`members`.`note` DESC' ),
 	'value'      => 'note_value',
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['member_onote'],
 );
 

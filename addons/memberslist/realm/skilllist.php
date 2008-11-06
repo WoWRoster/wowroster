@@ -67,7 +67,6 @@ $FIELD['name'] = array(
 	'order'      => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
 	'value'      => array($memberlist,'name_value'),
-	'js_type'    => 'ts_string',
 	'display'    => 3,
 );
 
@@ -77,7 +76,6 @@ $FIELD['class'] = array(
 	'order'      => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
 	'value'      => array($memberlist,'class_value'),
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['stats_class'],
 );
 
@@ -87,7 +85,6 @@ $FIELD['level'] = array(
 	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
 	'value'      => array($memberlist,'level_value'),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_level'],
 );
 
@@ -96,7 +93,6 @@ $FIELD['skill_level'] = array (
 	'order'      => array( "`skill_level` DESC" ),
 	'order_d'    => array( "`skill_level` ASC" ),
 	'value'      => 'skill_value',
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['stats_str'],
 );
 

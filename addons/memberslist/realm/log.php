@@ -34,7 +34,6 @@ $FIELD['name'] = array(
 	'lang_field' => 'name',
 	'order'      => array( '`name` ASC' ),
 	'order_d'    => array( '`name` DESC' ),
-	'js_type'    => 'ts_string',
 	'display'    => 3,
 );
 
@@ -43,7 +42,6 @@ $FIELD['class'] = array(
 	'order'      => array( '`class` ASC' ),
 	'order_d'    => array( '`class` DESC' ),
 	'value'      => array($memberlist,'class_value'),
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['log_class'],
 );
 
@@ -52,7 +50,6 @@ $FIELD['level'] = array(
 	'order_d'    => array( '`level` DESC' ),
 	'order_d'    => array( '`level` ASC' ),
 	'value'      => array($memberlist,'level_value'),
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['log_level'],
 );
 
@@ -60,7 +57,6 @@ $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
 	'order'      => array( '`guild`.`guild_name` ASC' ),
 	'order_d'    => array( '`guild`.`guild_name` DESC' ),
-	'js_type'    => 'ts_string',
 	'display'    => 2,
 );
 
@@ -68,8 +64,6 @@ $FIELD['guild_title'] = array (
 	'lang_field' => 'title',
 	'order'      => array( '`guild_rank` ASC' ),
 	'order_d'    => array( '`guild_rank` DESC' ),
-	'js_type'    => 'ts_number',
-	'jsort'      => 'guild_rank',
 	'display'    => $addon['config']['log_gtitle'],
 );
 
@@ -78,7 +72,6 @@ $FIELD['type'] = array (
 	'order'      => array( '`type` ASC' ),
 	'order_d'    => array( '`type` DESC' ),
 	'value'      => 'type_value',
-	'js_type'    => 'ts_number',
 	'display'    => $addon['config']['log_type'],
 );
 
@@ -86,8 +79,6 @@ $FIELD['date'] = array (
 	'lang_field' => 'date',
 	'order'      => array( '`date_stamp` DESC' ),
 	'order_d'    => array( '`date_stamp` ASC' ),
-	'jsort'      => 'date_stamp',
-	'js_type'    => 'ts_date',
 	'display'    => $addon['config']['log_date'],
 );
 
@@ -96,7 +87,6 @@ $FIELD['note'] = array (
 	'order'      => array( 'nisnull','`note` ASC' ),
 	'order_d'    => array( 'nisnull','`note` DESC' ),
 	'value'      => 'note_value',
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['log_note'],
 );
 
@@ -105,7 +95,6 @@ $FIELD['officer_note'] = array (
 	'order'      => array( 'onisnull','`note` ASC' ),
 	'order_d'    => array( 'onisnull','`note` DESC' ),
 	'value'      => 'note_value',
-	'js_type'    => 'ts_string',
 	'display'    => $addon['config']['log_onote'],
 );
 
