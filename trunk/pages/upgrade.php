@@ -206,14 +206,26 @@ class Upgrade
 	}
 
 	/**
-	 * Upgrades 2.0.0 to 2.1.0
+	 * Upgrades 2.0.1 to 2.1.0
 	 */
-	function upgrade_200()
+	function upgrade_201()
 	{
 		global $roster;
 
 		// This will be active when the release is done
 		//$this->standard_upgrader();
+
+		$this->finalize();
+	}
+
+	/**
+	 * Upgrades 2.0.0 to 2.0.1
+	 */
+	function upgrade_200()
+	{
+		global $roster;
+
+		$this->standard_upgrader();
 
 		$this->finalize();
 	}
