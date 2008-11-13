@@ -1,0 +1,67 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Character info CSS file
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2002-2008 WoWRoster.net
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @package    Vault
+*/
+
+.vault {width:755px;height:500px;background-repeat:no-repeat;text-align:left; }
+.log { position:absolute;margin-top:116px;margin-left:18px;width:717px;height:310px;overflow:auto; }
+.vaulttab { position:absolute;margin-top:116px;margin-left:17px;width:722px;height:309px;background-repeat:repeat-x;background-image:url(images/vault-slots.png); }
+.vaulttab .itemcol1 { float:left;margin:2px 0 0 5px;width:45px;height:309px; }
+.vaulttab .itemcol2 { float:left;margin:2px 3px 0 5px;width:45px;height:309px; }
+.vaulttab .item { float:left;margin-bottom:4px;width:40px;height:40px; }
+.vaulttab .item .icon { margin:0;width:40px;height:40px;border-width:0;cursor:pointer; }
+.vaulttab .item .noicon { margin:0;width:40px;height:40px;border-width:0;}
+
+/** Tab Navigation Overide **/
+.tab_navagation { position:absolute;font:11px arial,helvetica,sans-serif;line-height:normal;width:700px;margin:476px 0 0 17px; }
+.tab_navagation ul { margin:0;padding:0;list-style:none; }
+.tab_navagation li { float:left;background:url(../images/tabs/inactive_left.gif) no-repeat left top;margin:0;padding-left:7px;cursor:pointer;margin-bottom:-7px; }
+.tab_navagation .text { display:block;background:url(../images/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
+.tab_navagation .text:hover { color:#ffffff;font-weight:normal; }
+.tab_navagation .selected { background-image:url(../images/tabs/active_left.gif);cursor:default; }
+.tab_navagation .selected .text { background-image:url(../images/tabs/active_right.gif);color:#ffffff;padding:8px 11px 10px 3px; }
+
+
+.tab_nav { position:absolute;font:11px arial,helvetica,sans-serif;margin:78px 0 0 755px;line-height:normal; }
+.tab_nav ul { margin:0;padding:0;list-style:none; }
+.tab_nav li { background:url(images/vaultframe_tab.png) no-repeat left top;margin:0;padding:1px 0 0 1px;height:56px;width:44px; }
+.tab_nav li div { margin:8px 0px 0px 1px;cursor:pointer;background-position:center;background-repeat:no-repeat;width:36px;height:36px; }
+.tab_nav li a { border:2px solid #401c18;display:block;height:30px;width:30px;padding:2px;cursor:pointer; }
+.tab_nav li a:hover, .tab_nav div.selected a:hover { border:2px solid #0066FF; }
+.tab_nav div.selected a { border:2px solid #FFFF00; }
+
+.vault_name_back {
+	position:absolute;
+	margin:86px 0 0 277px;
+	border:0;
+	vertical-align:middle;
+	width:182px;
+	height:16px;
+	padding:3px 5px 0 5px;
+	background:transparent url(../images/searchbox192.png) no-repeat;
+}
+
+.vault_name {
+	font:bold 12px arial,helvetica,sans-serif;
+	color:#ffffff;
+	text-align:center;
+	width:182px;
+	height:16px;
+	float:left;
+	overflow:hidden;
+}
+
+.vault_money {
+	position:absolute;
+	margin:460px 0 0 13px;
+}
