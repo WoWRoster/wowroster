@@ -35,7 +35,7 @@ if( version_compare($roster->config['version'], ROSTER_VERSION,'>=') )
  */
 class Upgrade
 {
-	var $versions = array('1.9.9');
+	var $versions = array('1.9.9','2.0.0');
 	var $index = null;
 
 	function Upgrade()
@@ -85,6 +85,21 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
+	/**
+	 * Upgrades 2.0.0 to 2.0.1
+	 */
+	function upgrade_200()
+	{
+		global $roster;
+
+		$this->standard_upgrader();
+
+		$this->finalize();
+	}
+
+	/**
+	 * Upgrades the 1.9.9.x beta versions into the 2.0.0 release
+	 */
 	function upgrade_199()
 	{
 		global $roster;
@@ -249,12 +264,17 @@ class Upgrade
 			roster_die('Could not obtain SQL structure/data',$roster->locale->act['upgrade_wowroster']);
 		}
 
+		$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `id` = '4' LIMIT 1;");
+		$roster->db->query("ALTER TABLE `" . $roster->db->table('config') . "` ORDER BY `id`;");
+
 		return;
 	}
 
 	function display_form()
 	{
 		global $roster;
+
+		$this->versions = array_reverse($this->versions);
 
 		foreach ( $this->versions as $version )
 		{

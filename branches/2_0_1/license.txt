@@ -1,6 +1,6 @@
-WoWRoster v2.0.0
+WoWRoster v2.0.1
 Copyright (C) 2002-2008 The WoWRoster Dev Team
-Package updated June 20, 2008
+Package updated November 15, 2008
 $Id$
 
 WoWRoster is licensed under a Creative Commons

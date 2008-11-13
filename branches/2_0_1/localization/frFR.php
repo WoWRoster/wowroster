@@ -220,6 +220,8 @@ $lang['menustats']='Caractéristiques';
 $lang['menuhonor']='Honneur';
 $lang['basename']='Nom de base';
 $lang['scope']='Scope';
+$lang['tag']='Tag';
+$lang['daily']='Daily';
 
 //start search engine
 $lang['search']='Rechercher';
@@ -325,6 +327,8 @@ $lang['Skinning']='Dépeçage';
 $lang['Tailoring']='Couture';
 $lang['Enchanting']='Enchantement';
 $lang['Engineering']='Ingénierie';
+$lang['Inscription']='Inscription';
+$lang['Runeforging']='Runeforging';
 $lang['Cooking']='Cuisine';
 $lang['Fishing']='Pêche';
 $lang['First Aid']=/*'Premiers soins'*/'Secoursime';
@@ -347,6 +351,8 @@ $lang['tsArray'] = array (
 	$lang['Tailoring'],
 	$lang['Enchanting'],
 	$lang['Engineering'],
+	$lang['Inscription'],
+	$lang['Runeforging'],
 	$lang['Cooking'],
 	$lang['Fishing'],
 	$lang['First Aid'],
@@ -365,6 +371,8 @@ $lang['ts_iconArray'] = array (
 	$lang['Tailoring']=>'trade_tailoring',
 	$lang['Enchanting']=>'trade_engraving',
 	$lang['Engineering']=>'trade_engineering',
+	$lang['Inscription']=>'inv_inscription_tradeskill01',
+	$lang['Runeforging']=>'spell_deathknight_frozenruneweapon',
 	$lang['Cooking']=>'inv_misc_food_15',
 	$lang['Fishing']=>'trade_fishing',
 	$lang['First Aid']=>'spell_holy_sealofsacrifice',
@@ -403,6 +411,7 @@ $lang['ts_ridingIcon'] = array(
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
+	'Death Knight'=>'deathknight_icon',
 	'Druide'=>'druid_icon',
 	'Chasseur'=>'hunter_icon',
 	'Mage'=>'mage_icon',
@@ -413,6 +422,7 @@ $lang['class_iconArray'] = array (
 	'Démoniste'=>'warlock_icon',
 	'Guerrier'=>'warrior_icon',
 // Female variation
+//	'Death Knight'=>'deathknight_icon',
 	'Druidesse'=>'druid_icon',
 	'Chasseresse'=>'hunter_icon',
 //	'Mage'=>'mage_icon',
@@ -426,29 +436,32 @@ $lang['class_iconArray'] = array (
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
-	'Druide' => 'FF7C0A',
-	'Chasseur' => 'AAD372',
-	'Mage' => '68CCEF',
-	'Paladin' => 'F48CBA',
-	'Prêtre' => 'ffffff',
-	'Voleur' => 'FFF468',
-	'Chaman' => '00DBBA',
-	'Démoniste' => '9382C9',
-	'Guerrier' => 'C69B6D',
+	'Death Knight'=>'C41F3B',
+	'Druide' => 'FF7D0A',
+	'Chasseur' => 'ABD473',
+	'Mage' => '69CCF0',
+	'Paladin' => 'F58CBA',
+	'Prêtre' => 'FFFFFF',
+	'Voleur' => 'FFF569',
+	'Chaman' => '2459FF',
+	'Démoniste' => '9482C9',
+	'Guerrier' => 'C79C6E',
 // Female variation
-	'Druidesse' => 'FF7C0A',
-	'Chasseresse' => 'AAD372',
-//	'Mage' => '68CCEF',
-//	'Paladin' => 'F48CBA',
-	'Prêtresse' => 'ffffff',
-	'Voleuse' => 'FFF468',
-	'Chamane' => '00DBBA',
-//	'Démoniste' => '9382C9',
-	'Guerrière' => 'C69B6D',
+//	'Death Knight'=>'C41F3B',
+	'Druidesse' => 'FF7D0A',
+	'Chasseresse' => 'ABD473',
+//	'Mage' => '69CCF0',
+//	'Paladin' => 'F58CBA',
+	'Prêtresse' => 'FFFFFF',
+	'Voleuse' => 'FFF569',
+	'Chamane' => '2459FF',
+//	'Démoniste' => '9482C9',
+	'Guerrière' => 'C79C6E',
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
+	'Death Knight'=>'Death Knight',
 	'Druide' => 'Druid',
 	'Chasseur' => 'Hunter',
 	'Mage' => 'Mage',
@@ -459,6 +472,7 @@ $lang['class_to_en'] = array(
 	'Démoniste' => 'Warlock',
 	'Guerrier' => 'Warrior',
 // Female variation
+//	'Death Knight'=>'Death Knight',
 	'Druidesse' => 'Druid',
 	'Chasseresse' => 'Hunter',
 //	'Mage' => 'Mage',
@@ -472,11 +486,12 @@ $lang['class_to_en'] = array(
 
 // Class to game-internal ID
 $lang['class_to_id'] = array(
-	'Guerrièr' => 1,
+	'Guerrier' => 1,
 	'Paladin' => 2,
 	'Chasseur' => 3,
 	'Voleur' => 4,
 	'Prêtre' => 5,
+	'Death Knight'=>6,
 	'Chaman' => 7,
 	'Mage' => 8,
 	'Démoniste' => 9,
@@ -487,6 +502,7 @@ $lang['class_to_id'] = array(
 	'Chasseresse' => 3,
 	'Voleuse' => 4,
 	'Prêtresse' => 5,
+//	'Death Knight'=>6,
 	'Chamane' => 7,
 //	'Mage' => 8,
 //	'Démoniste' => 9,
@@ -495,11 +511,12 @@ $lang['class_to_id'] = array(
 
 // Game-internal ID to class
 $lang['id_to_class'] = array(
-	1 => 'Guerrièr',
+	1 => 'Guerrier',
 	2 => 'Paladin',
 	3 => 'Chasseur',
 	4 => 'Voleur',
 	5 => 'Prêtre',
+	6 => 'Death Knight',
 	7 => 'Chaman',
 	8 => 'Mage',
 	9 => 'Démoniste',

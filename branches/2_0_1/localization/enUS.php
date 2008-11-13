@@ -220,6 +220,8 @@ $lang['menustats']='Stats';
 $lang['menuhonor']='Honor';
 $lang['basename']='Basename';
 $lang['scope']='Scope';
+$lang['tag']='Tag';
+$lang['daily']='Daily';
 
 //start search engine
 $lang['search']='Search';
@@ -325,6 +327,8 @@ $lang['Skinning']='Skinning';
 $lang['Tailoring']='Tailoring';
 $lang['Enchanting']='Enchanting';
 $lang['Engineering']='Engineering';
+$lang['Inscription']='Inscription';
+$lang['Runeforging']='Runeforging';
 $lang['Cooking']='Cooking';
 $lang['Fishing']='Fishing';
 $lang['First Aid']='First Aid';
@@ -347,6 +351,8 @@ $lang['tsArray'] = array (
 	$lang['Tailoring'],
 	$lang['Enchanting'],
 	$lang['Engineering'],
+	$lang['Inscription'],
+	$lang['Runeforging'],
 	$lang['Cooking'],
 	$lang['Fishing'],
 	$lang['First Aid'],
@@ -365,6 +371,8 @@ $lang['ts_iconArray'] = array (
 	$lang['Tailoring']=>'trade_tailoring',
 	$lang['Enchanting']=>'trade_engraving',
 	$lang['Engineering']=>'trade_engineering',
+	$lang['Inscription']=>'inv_inscription_tradeskill01',
+	$lang['Runeforging']=>'spell_deathknight_frozenruneweapon',
 	$lang['Cooking']=>'inv_misc_food_15',
 	$lang['Fishing']=>'trade_fishing',
 	$lang['First Aid']=>'spell_holy_sealofsacrifice',
@@ -403,6 +411,7 @@ $lang['ts_ridingIcon'] = array(
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
+	'Death Knight'=>'deathknight_icon',
 	'Druid'=>'druid_icon',
 	'Hunter'=>'hunter_icon',
 	'Mage'=>'mage_icon',
@@ -422,20 +431,23 @@ $lang['class_iconArray'] = array (
 
 
 
+
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
-	'Druid' => 'FF7C0A',
-	'Hunter' => 'AAD372',
-	'Mage' => '68CCEF',
-	'Paladin' => 'F48CBA',
-	'Priest' => 'ffffff',
-	'Rogue' => 'FFF468',
-	'Shaman' => '00DBBA',
-	'Warlock' => '9382C9',
-	'Warrior' => 'C69B6D'
+	'Death Knight'=>'C41F3B',
+	'Druid' => 'FF7D0A',
+	'Hunter' => 'ABD473',
+	'Mage' => '69CCF0',
+	'Paladin' => 'F58CBA',
+	'Priest' => 'FFFFFF',
+	'Rogue' => 'FFF569',
+	'Shaman' => '2459FF',
+	'Warlock' => '9482C9',
+	'Warrior' => 'C79C6E'
 // Space so locale files are line synced
+
 
 
 
@@ -449,6 +461,7 @@ $lang['class_colorArray'] = array(
 
 // Class To English Translation
 $lang['class_to_en'] = array(
+	'Death Knight'=>'Death Knight',
 	'Druid' => 'Druid',
 	'Hunter' => 'Hunter',
 	'Mage' => 'Mage',
@@ -468,6 +481,7 @@ $lang['class_to_en'] = array(
 
 
 
+
 );
 
 // Class to game-internal ID
@@ -477,11 +491,13 @@ $lang['class_to_id'] = array(
 	'Hunter' => 3,
 	'Rogue' => 4,
 	'Priest' => 5,
+	'Death Knight'=>6,
 	'Shaman' => 7,
 	'Mage' => 8,
 	'Warlock' => 9,
 	'Druid' => 11
 // Space so locale files are line synced
+
 
 
 
@@ -500,6 +516,7 @@ $lang['id_to_class'] = array(
 	3 => 'Hunter',
 	4 => 'Rogue',
 	5 => 'Priest',
+	6 => 'Death Knight',
 	7 => 'Shaman',
 	8 => 'Mage',
 	9 => 'Warlock',

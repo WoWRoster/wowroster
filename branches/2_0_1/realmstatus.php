@@ -71,7 +71,7 @@ switch( $region )
 		$xmlsource = 'http://www.worldofwarcraft.com/realmstatus/status.xml';
 		break;
 	case 'EU':
-		$xmlsource = 'http://www.wow-europe.com/en/serverstatus/index.xml';
+		$xmlsource = 'http://www.wow-europe.com/realmstatus/index.xml';
 		break;
 	default:
 		$xmlsource = '';
@@ -121,7 +121,7 @@ if( $current_time >= ($realmData['timestamp']+$roster->config['rs_timer']) || $c
 	{
 		if( $region == 'US' )
 		{
-			foreach( $simpleParser->data->r as $value )
+			foreach( $simpleParser->data->rs->r as $value )
 			{
 				if( str_replace(' ','',$value->n) == str_replace(' ','',$realmname) )
 				{

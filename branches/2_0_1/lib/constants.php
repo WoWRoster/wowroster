@@ -20,7 +20,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION','2.0.0');
+define('ROSTER_VERSION','2.0.1');
 
 /**
  * Roster Conf File
@@ -74,8 +74,8 @@ define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/rss/downloads.php?id=%
 /**
  * Some static and semi-static game data.
  */
-define('ROSTER_MAXCHARLEVEL','70');
-define('ROSTER_MAXSKILLLEVEL','375');
+define('ROSTER_MAXCHARLEVEL','80');
+define('ROSTER_MAXSKILLLEVEL','450');
 define('ROSTER_MAXQUESTS','25');
 
 define('ROSTER_CLASS_WARRIOR', 1);
@@ -83,7 +83,7 @@ define('ROSTER_CLASS_PALADIN', 2);
 define('ROSTER_CLASS_HUNTER', 3);
 define('ROSTER_CLASS_ROGUE', 4);
 define('ROSTER_CLASS_PRIEST', 5);
-//define('ROSTER_CLASS_', 6);
+define('ROSTER_CLASS_DEATHKNIGHT', 6);
 define('ROSTER_CLASS_SHAMAN', 7);
 define('ROSTER_CLASS_MAGE', 8);
 define('ROSTER_CLASS_WARLOCK', 9);

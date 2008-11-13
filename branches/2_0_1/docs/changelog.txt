@@ -1,6 +1,6 @@
 WoWRoster Change Log
-Copyright (C) 2002-2007 The WoWRoster Dev Team
-Package updated June 20, 2008
+Copyright (C) 2002-2008 The WoWRoster Dev Team
+Package updated November 15, 2008
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
@@ -12,7 +12,48 @@ http://www.wowroster.net/MediaWiki/Roster:ChangeLog
 
 
 ------------------------------------
-What's New v2.0.0 (June 20, 2008)
+ v2.0.1 (November 15, 2008)
+------------------------------------
+Maintenance release for WotLK for compatibility issues
+  * Fixed notice error in installer
+  * Updated EU realmstatus URL
+  * Realmstatus fix for XML change for US feed
+  * Talent import fixes
+  * Fix style for file input fields in FF3
+     o Now the style will have a white background with grey text and a grey border
+  * Added Death Knight class icon
+  * Added Death Knight class color
+     o Updated other colors to standard Blizz colors (http://www.wowwiki.com/Class_colors)
+  * Added class id for Death Knight = 6
+  * Changed ROSTER_MAXCHARLEVEL to 80
+  * Changed ROSTER_MAXSKILLLEVEL to 450
+  * install.sh had the wrong path
+
+
+--[ LOCALES ]-----------------
+  * frFR fix for Warrior
+  * New strings 'tag', 'daily'
+  * Added locales for 'Runeforging' and 'Inscription'
+  * Added Inscription icon
+  * Added 'Death Knight' locale strings
+  * Updated class colors
+
+
+--[ ADDON FRAMEWORK ]---------
+  * Fixed incorrect $addon variables
+     o 'tpl_image_url' and 'tpl_image_path'
+
+
+--[ CHARACTER INFO ]----------
+  * New talent tiers for WotLK (WoW 3.0) will now show on talents page
+  * Fixed talent export link for character talents
+
+
+
+
+
+------------------------------------
+ v2.0.0 (June 20, 2008)
 ------------------------------------
 
 --[ IMPORTANT NOTES ]---------
@@ -349,7 +390,7 @@ What's New v2.0.0 (June 20, 2008)
 
 
 ------------------------------------
-What's New v1.7.3 (February 14, 2007)
+ v1.7.3 (February 14, 2007)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -424,7 +465,7 @@ What's New v1.7.3 (February 14, 2007)
 
 
 ------------------------------------
-What's New v1.7.2 (December 29, 2006)
+ v1.7.2 (December 29, 2006)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -510,7 +551,7 @@ What's New v1.7.2 (December 29, 2006)
 
 
 ------------------------------------
-What's New v1.7.1 (October 21, 2006)
+ v1.7.1 (October 21, 2006)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -658,7 +699,7 @@ What's New v1.7.1 (October 21, 2006)
 
 
 ------------------------------------
-What's New v1.7.0 (June 17, 2006)
+ v1.7.0 (June 17, 2006)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -891,7 +932,7 @@ What's New v1.7.0 (June 17, 2006)
 
 
 ------------------------------------
-What's New v1.6.0 (February 04, 2006)
+ v1.6.0 (February 04, 2006)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -987,7 +1028,7 @@ What's New v1.6.0 (February 04, 2006)
 
 
 ------------------------------------
-What's New v1.5.1 (October 20, 2005)
+ v1.5.1 (October 20, 2005)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -1004,7 +1045,7 @@ What's New v1.5.1 (October 20, 2005)
 
 
 ------------------------------------
-What's New v1.5.0 (October 17, 2005)
+ v1.5.0 (October 17, 2005)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -1056,7 +1097,7 @@ What's New v1.5.0 (October 17, 2005)
 
 
 ------------------------------------
-What's New v1.04 (July 30, 2005)
+ v1.04 (July 30, 2005)
 ------------------------------------
 
 --[ FIXES ]-------------------
@@ -1096,7 +1137,7 @@ What's New v1.04 (July 30, 2005)
 
 
 ------------------------------------
-What's New v1.03 (July 11, 2005)
+ v1.03 (July 11, 2005)
 ------------------------------------
   * Just a package maintenance update to prevent issues with old addons and links - no functionality changes.
   * Removed GuildProfiler addon from package - must now download saperately
@@ -1108,7 +1149,7 @@ What's New v1.03 (July 11, 2005)
 
 
 ------------------------------------
-What's New v1.03 (May 05, 2005)
+ v1.03 (May 05, 2005)
 ------------------------------------
   * Updated lib/wowdb.php to except Angarth' Wow Profiler 1.0.3
   * Updated lib/wowdb.php for Recipe and Bank Fix

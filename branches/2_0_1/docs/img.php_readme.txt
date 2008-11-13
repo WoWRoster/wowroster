@@ -1,6 +1,11 @@
 CHANGE NOTES
 $Id$
 
+IMG.PHP
+This is the original signature creator that came with Roster v1.03, before SigGen existed
+img.php is kept functional with every Roster version, for Zanix's own nostalgic reasons
+
+
 ----
 fixed typo in readme file that incorrectly showed the variable name as Name in the url
 updated readme to include alternate url links to images
