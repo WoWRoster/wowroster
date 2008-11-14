@@ -327,8 +327,8 @@ $lang['Skinning']='Dépeçage';
 $lang['Tailoring']='Couture';
 $lang['Enchanting']='Enchantement';
 $lang['Engineering']='Ingénierie';
-$lang['Inscription']='Inscription';
-$lang['Runeforging']='Runeforging';
+$lang['Inscription']='Calligraphie';
+$lang['Runeforging']='Runeforge';
 $lang['Cooking']='Cuisine';
 $lang['Fishing']='Pêche';
 $lang['First Aid']=/*'Premiers soins'*/'Secoursime';
@@ -411,7 +411,7 @@ $lang['ts_ridingIcon'] = array(
 
 // Class Icons-Array
 $lang['class_iconArray'] = array (
-	'Death Knight'=>'deathknight_icon',
+	'Chevalier de la mort'=>'deathknight_icon',
 	'Druide'=>'druid_icon',
 	'Chasseur'=>'hunter_icon',
 	'Mage'=>'mage_icon',
@@ -422,7 +422,7 @@ $lang['class_iconArray'] = array (
 	'Démoniste'=>'warlock_icon',
 	'Guerrier'=>'warrior_icon',
 // Female variation
-//	'Death Knight'=>'deathknight_icon',
+//	'Chevalier de la mort'=>'deathknight_icon',
 	'Druidesse'=>'druid_icon',
 	'Chasseresse'=>'hunter_icon',
 //	'Mage'=>'mage_icon',
@@ -436,7 +436,7 @@ $lang['class_iconArray'] = array (
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
-	'Death Knight'=>'C41F3B',
+	'Chevalier de la mort'=>'C41F3B',
 	'Druide' => 'FF7D0A',
 	'Chasseur' => 'ABD473',
 	'Mage' => '69CCF0',
@@ -447,7 +447,7 @@ $lang['class_colorArray'] = array(
 	'Démoniste' => '9482C9',
 	'Guerrier' => 'C79C6E',
 // Female variation
-//	'Death Knight'=>'C41F3B',
+//	'Chevalier de la mort'=>'C41F3B',
 	'Druidesse' => 'FF7D0A',
 	'Chasseresse' => 'ABD473',
 //	'Mage' => '69CCF0',
@@ -461,7 +461,7 @@ $lang['class_colorArray'] = array(
 
 // Class To English Translation
 $lang['class_to_en'] = array(
-	'Death Knight'=>'Death Knight',
+	'Chevalier de la mort'=>'Death Knight',
 	'Druide' => 'Druid',
 	'Chasseur' => 'Hunter',
 	'Mage' => 'Mage',
@@ -472,7 +472,7 @@ $lang['class_to_en'] = array(
 	'Démoniste' => 'Warlock',
 	'Guerrier' => 'Warrior',
 // Female variation
-//	'Death Knight'=>'Death Knight',
+//	'Chevalier de la mort'=>'Death Knight',
 	'Druidesse' => 'Druid',
 	'Chasseresse' => 'Hunter',
 //	'Mage' => 'Mage',
@@ -491,7 +491,7 @@ $lang['class_to_id'] = array(
 	'Chasseur' => 3,
 	'Voleur' => 4,
 	'Prêtre' => 5,
-	'Death Knight'=>6,
+	'Chevalier de la mort'=>6,
 	'Chaman' => 7,
 	'Mage' => 8,
 	'Démoniste' => 9,
@@ -502,7 +502,7 @@ $lang['class_to_id'] = array(
 	'Chasseresse' => 3,
 	'Voleuse' => 4,
 	'Prêtresse' => 5,
-//	'Death Knight'=>6,
+//	'Chevalier de la mort'=>6,
 	'Chamane' => 7,
 //	'Mage' => 8,
 //	'Démoniste' => 9,
@@ -516,7 +516,7 @@ $lang['id_to_class'] = array(
 	3 => 'Chasseur',
 	4 => 'Voleur',
 	5 => 'Prêtre',
-	6 => 'Death Knight',
+	6 => 'Chevalier de la mort',
 	7 => 'Chaman',
 	8 => 'Mage',
 	9 => 'Démoniste',

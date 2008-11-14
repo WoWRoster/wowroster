@@ -57,7 +57,7 @@ $lang['addon_disabled'] = '<b>The addon [%1$s] has been disabled</b>';
 $lang['addon_no_access'] = '<b>Insufficient credentials to access [%1$s]</b>';
 $lang['addon_upgrade_notice'] = '<b>The addon [%1$s] has been disabled because it needs to be upgraded</b>';
 $lang['addon_not_installed'] = '<b>The addon [%1$s] has not been installed yet</b>';
-$lang['addon_no_config'] = '<b>The addon [%1$s] does not have a config</b>';
+$lang['addon_no_config'] = '<b>The addon [%1$s] does not have a configuration</b>';
 
 $lang['char_error'] = 'Character Error';
 $lang['specify_char'] = 'Character was not specified';
