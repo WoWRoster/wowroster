@@ -19,14 +19,14 @@ $lang['char_info'] = 'Character Information';
 $lang['char_info_desc'] = 'Displays info about characters uploaded to Roster';
 
 // Menu Buttons
-$lang['cb_character'] = 'Profile|Shows character stats, equipment, reputation, skills, and pvp info';
-$lang['cb_talents'] = 'Talents|Current talent build';
-$lang['cb_spellbook'] = 'Spellbook|Available spells, actions, and passive abilities';
-$lang['cb_mailbox'] = 'Mailbox|Contents of this character\'s mailbox';
-$lang['cb_bags'] = 'Bags|This character\'s bag inventory';
-$lang['cb_bank'] = 'Bank|This character\'s bank inventory';
-$lang['cb_quests'] = 'Quests|This character\'s quest log';
-$lang['cb_recipes'] = 'Professions|Tradeskills, Recipes, and Crafts';
+$lang['cb_character'] = 'Character|Shows character stats, equipment, reputation, skills, and pvp info';
+$lang['cb_talents'] = 'Talents|Shows current talent build';
+$lang['cb_spellbook'] = 'Spellbook|Shows available spells, actions, and passive abilities';
+$lang['cb_mailbox'] = 'Mailbox|Shows the contents of the mailbox';
+$lang['cb_bags'] = 'Bags|Shows the contents of this character\'s bags';
+$lang['cb_bank'] = 'Bank|Shows the contents of this character\'s bank';
+$lang['cb_quests'] = 'Quests|A list of quest this character is currently on';
+$lang['cb_recipes'] = 'Recipes|Shows what items this character can make';
 
 $lang['char_stats'] = 'Character Stats for: %1$s';
 $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
@@ -84,7 +84,7 @@ $lang['Trinket1']      = 'Trinket 1';
 
 //tabs
 $lang['tab1']='Character';
-$lang['tab2']='Pets';
+$lang['tab2']='Pet';
 $lang['tab3']='Reputation';
 $lang['tab4']='Skills';
 $lang['tab5']='PvP';

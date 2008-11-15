@@ -33,6 +33,21 @@ $roster->tpl->assign_vars(array(
 
 	'U_SEARCH_LINK'     => makelink('search'),
 
+	'L_SEARCH_FOR'      => $roster->locale->act['search_for'],
+	'L_SEARCH'          => $roster->locale->act['search'],
+	'L_SEARCH_ONLY'     => $roster->locale->act['search_onlyin'],
+	'L_SEARCH_ADVANCED' => $roster->locale->act['search_advancedoptionsfor'],
+	'L_SEARCH_RESULTS'  => $roster->locale->act['search_results'],
+	'L_RESULTS_COUNT'   => $roster->locale->act['search_results_count'],
+	'L_AUTHOR'          => $roster->locale->act['submited_author'],
+	'L_DATE'            => $roster->locale->act['submited_date'],
+	'L_NO_MATCHES'      => $roster->locale->act['search_nomatches'],
+	'L_DID_NOT_FIND'    => $roster->locale->act['search_didnotfind'],
+	'L_DATA_SEARCH'     => $roster->locale->act['data_search'],
+	'L_GOOGLE_SEARCH'   => $roster->locale->act['google_search'],
+	'L_NEXT_MATCHES'    => $roster->locale->act['search_next_matches'],
+	'L_PREV_MATCHES'    => $roster->locale->act['search_previous_matches'],
+
 	'SEARCH'            => ''
 	)
 );
@@ -100,7 +115,7 @@ foreach( $roster->addon_data as $name => $data )
 /**
  * Result processing
  */
-if( isset($_POST['s_term']) || isset($_GET['s_term']) )
+if( isset($_POST['search']) || isset($_GET['search']) )
 {
 	// if page is set in the addon search class this will tell the results what page we are looking at
 	$page  = isset($_GET['page']) ? intval($_GET['page']) : 0;
@@ -109,7 +124,7 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 	$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 
 	// search is what we are searching for
-	$query = ( isset($_POST['s_term']) ? $_POST['s_term'] : ( isset($_GET['s_term']) ? $_GET['s_term'] : '' ) );
+	$query = ( isset($_POST['search']) ? $_POST['search'] : ( isset($_GET['search']) ? $_GET['search'] : '' ) );
 
 	// variables that can be used in the addon search class which are being defined here
 	$url_query = urlencode($query);
@@ -194,8 +209,8 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 
 						'TOTAL' => $search_count->result_count,
 
-						'PREV'  => ( $page > 0 ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page-1)) : '' ),
-						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page+1)) : '' ),
+						'PREV'  => ( $page > 0 ? makelink('search&amp;page=' . ($page-1) . '&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url) : '' ),
+						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;page=' . ($page+1) . '&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url) : '' ),
 						)
 					);
 

@@ -26,6 +26,11 @@ $roster->output['title'] .= $roster->locale->act['pagebar_configreset'];
 $roster->output['body_onload'] .= "initARC('conf_change_pass','radioOn','radioOff','checkboxOn','checkboxOff');";
 
 $roster->tpl->assign_vars(array(
+	'L_CONFIG_RESET'  => $roster->locale->act['pagebar_configreset'],
+	'L_RESET_CONFIRM' => $roster->locale->act['config_reset_confirm'],
+	'L_RESET_HELP'    => $roster->locale->act['config_reset_help'],
+	'L_PROCEED'       => $roster->locale->act['proceed'],
+
 	'MESSAGE' => '',
 	)
 );

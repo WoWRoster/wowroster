@@ -1,6 +1,6 @@
-WoWRoster v2.0.0
+WoWRoster v2.0.1
 Copyright (C) 2002-2008 The WoWRoster Dev Team
-Package updated June 20, 2008
+Package updated November 15, 2008
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
@@ -156,25 +156,9 @@ As always, we recommend a fresh install, in a clean folder, and a clean database
 But for those that absolutely need to upgrade, we have worked really hard for you on the upgrade script.
 
 
-Special Instructions for < 2.0.0 to 2.0.x
+Special Instructions for lower than 2.0.0 to 2.0.x
   There is no upgrade path from versions lower than 2.0.0
   This is because Roster 2.0.0 gathers much more data from WoW than earlier versions and causes errors in the core files.
-
-
-Special Instructions for 1.6.0 to 1.7.x
-  This information is specific on upgrading from Roster 1.6.0 to 1.7.x
-
-  Back up your conf.php file!
-  WoWRoster 1.7.x DOES have a new conf.php file, so you should back it up!
-  The new conf.php file should be automatically be upgraded for you.
-  If this fails, the upgrader will give you the option to download this file, then you can upload it to your web server.
-
-  Access www.[domain].com/roster/upgrade.php
-  YOU MUST go to www.[domain].com/roster/upgrade.php
-  If you go to any other page, it WILL display "Detected Invalid Access..."
-
-  Make sure you visit the Roster Config page
-  You will need to visit this page as the upgrader only upgrade certain important fields from version 1.6.0
 
 
 General Instructions

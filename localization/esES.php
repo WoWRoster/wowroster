@@ -607,28 +607,36 @@ $lang['notatwar']='En Paz';
 
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
-// 		'name'=> 'Name',  // This is the name displayed on the quests page
-// 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
+// 		'name'=> 'Name',  //This is the name displayed on the quests page
+// 		'url#'=> 'url',  //This is the URL used for the quest lookup
 
 $lang['questlinks'][] = array(
 	'name'=>'Thottbot',
-	'url'=>'http://thottbot.com/q%1$s'
+	'url1'=>'http://www.thottbot.com/?f=q&amp;title=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Allakhazam',
-	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%1$s;locale=esES'
+	'url1'=>'http://wow.allakhazam.com/db/qlookup.html?name=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'WoW-Lista',
-	'url'=>'http://www.wow-lista.com/verquest.php?num=%1$s'
+	'url1'=>'http://www.wow-lista.com/buscadormision.php?titulo=',
+	'url2'=>'&amp;descripcion=&amp;nivelde=',
+	'url3'=>'&amp;nivelhasta='
 );
 
-$lang['questlinks'][] = array(
+/*$lang['questlinks'][] = array(
 	'name'=>'WoWHead',
-	'url'=>'http://es.wowhead.com/?quest=%1$s'
-);
+	'url1'=>'http://www.wowhead.com/?quests&amp;filter=na=',
+	'url2'=>';minle=',
+	'url3'=>';maxle='
+);*/
 
 // Items external link
 // Add as manu item links as you need
@@ -636,9 +644,9 @@ $lang['questlinks'][] = array(
 // uses the 'item_id' for data
 $lang['itemlink'] = 'Enlaces de objetos';
 $lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
-$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?locale=esES&witem=';
-$lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/veritem.php?num=';
-$lang['itemlinks']['WoWHead'] = 'http://es.wowhead.com/?item=';
+$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
+$lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
+//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
 // Add as many item links as you need
@@ -646,9 +654,9 @@ $lang['itemlinks']['WoWHead'] = 'http://es.wowhead.com/?item=';
 // use these locales for data searches
 $lang['data_search'] = 'Bases de datos de WoW';
 $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
-$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?locale=esES&q=';
+$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 $lang['data_links']['WoW-Lista'] = 'http://www.wow-lista.com/buscador.php?abuscar=';
-$lang['data_links']['WoWHead'] = 'http://es.wowhead.com/?search=';
+//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 // Google Search
 // Add as many item links as you need

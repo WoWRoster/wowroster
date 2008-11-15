@@ -67,109 +67,117 @@ $mainQuery =
 	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
-$where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'"';
-$group[] = '`members`.`member_id`';
-$order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
-$order_last[] = '`members`.`level` DESC';
-$order_last[] = '`members`.`name` ASC';
+	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
+	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
+	'GROUP BY `members`.`member_id` '.
+	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
+
+$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
-	'filt_field' => '`members`.`name`',
-	'order'      => array( '`members`.`name` ASC' ),
+	'order'    => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'value'      => array($memberlist,'name_value'),
-	'display'    => 3,
+	'value' => array($memberlist,'name_value'),
+	'js_type' => 'ts_string',
+	'display' => 3,
 );
 
 $FIELD['class'] = array (
 	'lang_field' => 'class',
-	'filt_field' => '`members`.`class`',
-	'order'      => array( '`members`.`class` ASC' ),
+	'order'    => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
-	'value'      => array($memberlist,'class_value'),
-	'display'    => $addon['config']['member_class'],
+	'value' => array($memberlist,'class_value'),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['member_class'],
 );
 
 $FIELD['level'] = array (
 	'lang_field' => 'level',
-	'filt_field' => '`members`.`level`',
-	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
-	'value'      => array($memberlist,'level_value'),
-	'display'    => $addon['config']['member_level'],
+	'value' => array($memberlist,'level_value'),
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['member_level'],
 );
 
 $FIELD['guild_title'] = array (
 	'lang_field' => 'title',
-	'order'      => array( '`members`.`guild_rank` ASC' ),
-	'order_d'    => array( '`members`.`guild_rank` DESC' ),
-	'display'    => $addon['config']['member_gtitle'],
+	'order' => array( '`members`.`guild_rank` ASC' ),
+	'order_d' => array( '`members`.`guild_rank` DESC' ),
+	'js_type' => 'ts_number',
+	'jsort' => 'guild_rank',
+	'display' => $addon['config']['member_gtitle'],
 );
 
 $FIELD['lifetimeRankName'] = array (
 	'lang_field' => 'currenthonor',
-	'order'      => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
-	'order_d'    => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
-	'value'      => array($memberlist,'honor_value'),
-	'display'    => $addon['config']['member_hrank'],
+	'order' => array( 'risnull', '`players`.`lifetimeHighestRank` DESC' ),
+	'order_d' => array( 'risnull', '`players`.`lifetimeHighestRank` ASC' ),
+	'value' => array($memberlist,'honor_value'),
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['member_hrank'],
 );
 
 $FIELD['professions'] = array (
 	'lang_field' => 'professions',
-	'value'      => 'tradeskill_icons',
-	'filter'     => false,
-	'display'    => $addon['config']['member_prof'],
+	'value' => 'tradeskill_icons',
+	'js_type' => '',
+	'display' => $addon['config']['member_prof'],
 );
 
 $FIELD['hearth'] = array (
 	'lang_field' => 'hearthed',
-	'order'      => array( 'hisnull', 'hearth ASC' ),
-	'order_d'    => array( 'hisnull', 'hearth DESC' ),
-	'display'    => $addon['config']['member_hearth'],
+	'order' => array( 'hisnull', 'hearth ASC' ),
+	'order_d' => array( 'hisnull', 'hearth DESC' ),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['member_hearth'],
 );
 
 $FIELD['zone'] = array (
 	'lang_field' => 'lastzone',
-	'order'      => array( '`members`.`zone` ASC' ),
-	'order_d'    => array( '`members`.`zone` DESC' ),
-	'display'    => $addon['config']['member_zone'],
+	'order' => array( '`members`.`zone` ASC' ),
+	'order_d' => array( '`members`.`zone` DESC' ),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['member_zone'],
 );
 
 $FIELD['last_online'] = array (
 	'lang_field' => 'lastonline',
-	'order'      => array( '`members`.`last_online` DESC' ),
-	'order_d'    => array( '`members`.`last_online` ASC' ),
-	'value'      => array($memberlist,'last_online_value'),
-	'display'    => $addon['config']['member_online'],
+	'order' => array( '`members`.`last_online` DESC' ),
+	'order_d' => array( '`members`.`last_online` ASC' ),
+	'value' => array($memberlist,'last_online_value'),
+	'js_type' => 'ts_date',
+	'display' => $addon['config']['member_online'],
 );
 
 $FIELD['last_update_format'] = array (
 	'lang_field' => 'lastupdate',
-	'filt_field' => '`players`.`dateupdatedutc`',
-	'order'      => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
-	'order_d'    => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
-	'display'    => $addon['config']['member_update'],
+	'order' => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
+	'order_d' => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
+	'jsort' => 'last_update_stamp',
+	'js_type' => 'ts_date',
+	'display' => $addon['config']['member_update'],
 );
 
 $FIELD['note'] = array (
 	'lang_field' => 'note',
-	'order'      => array( 'nisnull','`members`.`note` ASC' ),
-	'order_d'    => array( 'nisnull','`members`.`note` DESC' ),
-	'value'      => 'note_value',
-	'display'    => $addon['config']['member_note'],
+	'order' => array( 'nisnull','`members`.`note` ASC' ),
+	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
+	'value' => 'note_value',
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['member_note'],
 );
 
 $FIELD['officer_note'] = array (
 	'lang_field' => 'onote',
-	'order'      => array( 'onisnull','`members`.`note` ASC' ),
-	'order_d'    => array( 'onisnull','`members`.`note` DESC' ),
-	'value'      => 'note_value',
-	'display'    => $addon['config']['member_onote'],
+	'order' => array( 'onisnull','`members`.`note` ASC' ),
+	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
+	'value' => 'note_value',
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['member_onote'],
 );
 
-$memberlist->prepareData($mainQuery, $where, $group, $order_first, $order_last, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output
@@ -207,6 +215,10 @@ if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist']
 
 	echo "  </tr>\n</table>\n";
 }
+
+$memberlist->makeFilterBox();
+
+$memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList('syellow');
 

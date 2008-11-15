@@ -25,75 +25,85 @@ $mainQuery =
 	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'UNIX_TIMESTAMP(`update_time`) AS date_stamp '.
-	'FROM `'.$roster->db->table('memberlog').'` AS members ';
-$where[] = '`guild_id` = "'.$roster->data['guild_id'].'"';
-$order_last[] = '`date_stamp` DESC';
+	'FROM `'.$roster->db->table('memberlog').'` AS members '.
+	'WHERE `guild_id` = "'.$roster->data['guild_id'].'"'.
+	'ORDER BY ';
+
+$always_sort = ' `date_stamp` DESC';
 
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
-	'filt_field' => '`members`.`name`',
-	'order'      => array( '`name` ASC' ),
+	'order'    => array( '`name` ASC' ),
 	'order_d'    => array( '`name` DESC' ),
-	'display'    => 3,
+	'js_type' => 'ts_string',
+	'display' => 3,
 );
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
-	'filt_field' => '`members`.`class`',
-	'order'      => array( '`class` ASC' ),
+	'order'    => array( '`class` ASC' ),
 	'order_d'    => array( '`class` DESC' ),
-	'value'      => array($memberlist,'class_value'),
-	'display'    => $addon['config']['log_class'],
+	'value' => array($memberlist,'class_value'),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['log_class'],
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
-	'filt_field' => '`members`.`level`',
-	'order'      => array( '`level` DESC' ),
+	'order'    => array( '`level` DESC' ),
 	'order_d'    => array( '`level` ASC' ),
-	'value'      => array($memberlist,'level_value'),
-	'display'    => $addon['config']['log_level'],
+	'value' => array($memberlist,'level_value'),
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['log_level'],
 );
 
 $FIELD['guild_title'] = array (
 	'lang_field' => 'title',
-	'order'      => array( '`guild_rank` ASC' ),
-	'order_d'    => array( '`guild_rank` DESC' ),
-	'display'    => $addon['config']['log_gtitle'],
+	'order' => array( '`guild_rank` ASC' ),
+	'order_d' => array( '`guild_rank` DESC' ),
+	'js_type' => 'ts_number',
+	'jsort' => 'guild_rank',
+	'display' => $addon['config']['log_gtitle'],
 );
 
 $FIELD['type'] = array (
 	'lang_field' => 'type',
-	'order'      => array( '`type` ASC' ),
-	'order_d'    => array( '`type` DESC' ),
-	'display'    => $addon['config']['log_type'],
+	'order' => array( '`type` ASC' ),
+	'order_d' => array( '`type` DESC' ),
+	'value' => 'type_value',
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['log_type'],
 );
 
 $FIELD['date'] = array (
 	'lang_field' => 'date',
-	'order'      => array( '`date_stamp` DESC' ),
-	'order_d'    => array( '`date_stamp` ASC' ),
-	'display'    => $addon['config']['log_date'],
+	'order' => array( '`date_stamp` DESC' ),
+	'order_d' => array( '`date_stamp` ASC' ),
+	'jsort' => 'date_stamp',
+	'js_type' => 'ts_date',
+	'display' => $addon['config']['log_date'],
 );
 
 $FIELD['note'] = array (
 	'lang_field' => 'note',
-	'order'      => array( 'nisnull','`note` ASC' ),
-	'order_d'    => array( 'nisnull','`note` DESC' ),
-	'value'      => 'note_value',
-	'display'    => $addon['config']['log_note'],
+	'order' => array( 'nisnull','`note` ASC' ),
+	'order_d' => array( 'nisnull','`note` DESC' ),
+	'value' => 'note_value',
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['log_note'],
 );
 
 $FIELD['officer_note'] = array (
 	'lang_field' => 'onote',
-	'order'      => array( 'onisnull','`note` ASC' ),
-	'order_d'    => array( 'onisnull','`note` DESC' ),
-	'value'      => 'note_value',
-	'display'    => $addon['config']['log_onote'],
+	'order' => array( 'onisnull','`note` ASC' ),
+	'order_d' => array( 'onisnull','`note` DESC' ),
+	'value' => 'note_value',
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['log_onote'],
 );
 
-$memberlist->prepareData($mainQuery, $where, null, null, $order_last, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output
@@ -131,6 +141,10 @@ if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 
 
 	echo "  </tr>\n</table>\n";
 }
+
+$memberlist->makeFilterBox();
+
+$memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList('syellow');
 

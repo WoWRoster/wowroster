@@ -42,48 +42,16 @@ class quest
 	}
 }
 
-function quest_get_one( $quest_name )
-{
-	global $roster;
-
-	$query = "SELECT * FROM `" . $roster->db->table('quest_data') . "` WHERE `quest_name` LIKE '" . $roster->db->escape($quest_name) . "';";
-	$result = $roster->db->query($query);
-	$data = $roster->db->fetch($result,SQL_ASSOC);
-
-	return new quest($data);
-}
-
-function quest_get_one_id( $quest_id, $locale='enUS' )
-{
-	global $roster;
-
-	if( $locale != '' )
-	{
-		$locale = " AND `locale` = " . $roster->db->escape($locale);
-	}
-
-	$query = "SELECT * FROM `" . $roster->db->table('quest_data') . "` WHERE `quest_id` LIKE '$quest_id'$locale;";
-	$result = $roster->db->query($query);
-	$data = $roster->db->fetch($result,SQL_ASSOC);
-
-	return new quest($data);
-}
-
 function quest_get_many( $member_id, $search='' )
 {
 	global $roster;
 
-	$query  = "SELECT `quest_data`.*, `quest`.*"
-			. " FROM `" . $roster->db->table('quests') . "` AS quest"
-			. " LEFT JOIN `" . $roster->db->table('quest_data') . "` AS quest_data"
-				. " ON `quest`.`quest_id` = `quest_data`.`quest_id`"
-			. " WHERE `quest`.`member_id` = " . $member_id
-			. " ORDER BY `quest`.`quest_index` ASC;";
+	$query= "SELECT * FROM `" . $roster->db->table('quests') . "` WHERE `member_id` = '$member_id' ORDER BY `zone` ASC, `quest_level` ASC;";
 
 	$result = $roster->db->query($query);
 
 	$quests = array();
-	while( $data = $roster->db->fetch($result,SQL_ASSOC) )
+	while( $data = $roster->db->fetch($result) )
 	{
 		$quest = new quest($data);
 		$quests[] = $quest;

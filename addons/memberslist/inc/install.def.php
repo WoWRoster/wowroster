@@ -28,7 +28,7 @@ class memberslistInstall
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '2.0.9.1883';
+	var $version = '1.9.9.1607';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
@@ -179,15 +179,8 @@ class memberslistInstall
 		$installer->add_menu_button('memberslist_Stats','guild','statslist','inv_misc_book_09');
 		$installer->add_menu_button('memberslist_Honor','guild','honorlist','inv_jewelry_necklace_37');
 		$installer->add_menu_button('memberslist_Log','guild','log','inv_misc_symbolofkings_01');
-		$installer->add_menu_button('memberslist_Skills','guild','skilllist','inv_scroll_12',false);
-
 		$installer->add_menu_button('memberslist_Realm','realm','','spell_holy_crusade');
 		$installer->add_menu_button('memberslist_RealmGuild','realm','guild','spell_nature_natureguardian');
-		$installer->add_menu_button('memberslist_Stats','realm','statslist','inv_misc_book_09',false);
-		$installer->add_menu_button('memberslist_Honor','realm','honorlist','inv_jewelry_necklace_37',false);
-		$installer->add_menu_button('memberslist_Log','realm','log','inv_misc_symbolofkings_01',false);
-		$installer->add_menu_button('memberslist_Skills','realm','skilllist','inv_scroll_12',false);
-
 		return true;
 	}
 
@@ -248,17 +241,6 @@ class memberslistInstall
 				FROM `" . $installer->table('config_guild') . "`
 				WHERE `guild_id` > 0;");
 		}
-
-		// Add some missing buttons, add as inactive since they might not be used as much
-		if( version_compare('2.0.9.1883', $oldversion, '>') == true )
-		{
-			$installer->add_menu_button('memberslist_Skills','guild','skilllist','inv_scroll_12',false);
-			$installer->add_menu_button('memberslist_Stats','realm','statslist','inv_misc_book_09',false);
-			$installer->add_menu_button('memberslist_Honor','realm','honorlist','inv_jewelry_necklace_37',false);
-			$installer->add_menu_button('memberslist_Log','realm','log','inv_misc_symbolofkings_01',false);
-			$installer->add_menu_button('memberslist_Skills','realm','skilllist','inv_scroll_12',false);
-		}
-
 		return true;
 	}
 

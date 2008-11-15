@@ -98,7 +98,7 @@ function show_pvp2( $type , $url , $sort , $start )
 	global $roster;
 
 	// Get all the available data
-	$pvps = pvp_get_many3($roster->data['member_id'],$type, '', -1);
+	$pvps = pvp_get_many3($roster->data['member_id'],$type, $sort, -1);
 
 	if( is_array($pvps) )
 	{
@@ -173,13 +173,13 @@ function pvp_get_many3( $member_id , $type , $sort , $start )
 {
 	global $roster, $addon;
 
-	$query = "SELECT *, DATE_FORMAT(date, '" . $roster->locale->act['timeformat'] . "') AS date2 FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND ";
+	$query= "SELECT *, DATE_FORMAT(date, '" . $roster->locale->act['timeformat'] . "') AS date2 FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND ";
 
-	if( $type == 'PvP' )
+	if ($type == 'PvP')
 	{
 		$query .= "`enemy` = '1' AND `bg` = '0'";
 	}
-	elseif( $type == 'BG' )
+	else if ($type == 'BG')
 	{
 		$query .= "`enemy` = '1' AND `bg` >= '1'";
 	}
@@ -188,68 +188,66 @@ function pvp_get_many3( $member_id , $type , $sort , $start )
 		$query .= "`enemy` = '0'";
 	}
 
-	switch( $sort )
+	if ($sort == 'name')
 	{
-		case 'name':
-			$query .= " ORDER BY `name` ASC, `level` DESC, `guild` ASC";
-			break;
-
-		case 'race':
-			$query .= " ORDER BY `race` ASC, `guild` ASC, `name` ASC, `level` DESC";
-			break;
-
-		case 'class':
-			$query .= " ORDER BY `class` ASC, `guild` ASC, `name` ASC, `level` DESC";
-			break;
-
-		case 'leveldiff':
-			$query .= " ORDER BY `leveldiff` DESC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'win':
-			$query .= " ORDER BY `win` DESC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'zone':
-			$query .= " ORDER BY `zone` ASC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'subzone':
-			$query .= " ORDER BY `subzone` ASC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'date':
-			$query .= " ORDER BY `date` ASC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'bg':
-			$query .= " ORDER BY `bg` ASC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'honor':
-			$query .= " ORDER BY `honor` ASC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'rank':
-			$query .= " ORDER BY `rank` ASC, `guild` ASC, `name` ASC ";
-			break;
-
-		case 'guild':
-			$query .= " ORDER BY `guild` ASC, `name` ASC, `level` DESC ";
-			break;
-
-		case 'realm':
-			$query .= " ORDER BY `realm` ASC, `name` ASC, `level` DESC ";
-			break;
-
-		default:
-			$query .= " ORDER BY `date` DESC, `guild` ASC, `name` ASC ";
-			break;
+		$query .= " ORDER BY 'name' ASC, 'level' DESC, 'guild' ASC";
+	}
+	else if ($sort == 'race')
+	{
+		$query .= " ORDER BY 'race' ASC, 'guild' ASC, 'name' ASC, 'level' DESC";
+	}
+	else if ($sort == 'class')
+	{
+		$query .= " ORDER BY 'class' ASC, 'guild' ASC, 'name' ASC, 'level' DESC";
+	}
+	else if ($sort == 'leveldiff')
+	{
+		$query .= " ORDER BY 'leveldiff' DESC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'win')
+	{
+		$query .= " ORDER BY 'win' DESC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'zone')
+	{
+		$query .= " ORDER BY 'zone' ASC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'subzone')
+	{
+		$query .= " ORDER BY 'subzone' ASC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'date')
+	{
+		$query .= " ORDER BY 'date' ASC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'bg')
+	{
+		$query .= " ORDER BY 'bg' ASC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'honor')
+	{
+		$query .= " ORDER BY 'honor' ASC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'rank')
+	{
+		$query .= " ORDER BY 'rank' ASC, 'guild' ASC, 'name' ASC ";
+	}
+	else if ($sort == 'guild')
+	{
+		$query .= " ORDER BY 'guild' ASC, 'name' ASC, 'level' DESC ";
+	}
+	else if ($sort == 'realm')
+	{
+		$query .= " ORDER BY 'realm' ASC, 'name' ASC, 'level' DESC ";
+	}
+	else
+	{
+		$query .= " ORDER BY 'date' DESC, 'guild' ASC, 'name' ASC ";
 	}
 
-	if( $start != -1 )
+	if ($start != -1)
 	{
-		$query .= ' LIMIT ' . $start . ', 50';
+		$query = $query . ' LIMIT ' . $start . ', 50';
 	}
 
 	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);

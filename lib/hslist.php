@@ -29,6 +29,8 @@ function generateHsList()
 {
 	global $roster;
 
+	$roster->tpl->assign_var('L_HSLIST', $roster->locale->act['hslist']);
+
 	//Highest Lifetime Rank
 	$query = "SELECT `name`, `lifetimeRankName` FROM `" . $roster->db->table('players') . "` WHERE `guild_id` = '" . $roster->data['guild_id'] . "' ORDER BY `lifetimeHighestRank`DESC, `lifetimeHK` DESC LIMIT 0 , 1";
 	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);

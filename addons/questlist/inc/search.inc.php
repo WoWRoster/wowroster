@@ -54,12 +54,11 @@ class questlistSearch
 
 		$this->open_table = '<tr><th class="membersHeader ts_string">Lv</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
-						  . '<th class="membersHeader ts_string">' . $roster->locale->act['tag'] . '</th>'
 						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['zone'] . '</th></tr>';
 
 		$quests[0] = 'All';
-		$level_list = $roster->db->query("SELECT DISTINCT `quest_level` FROM `" . $roster->db->table('quest_data') . "` ORDER BY `quest_level` DESC;");
-		$zone_list = $roster->db->query("SELECT DISTINCT `zone` FROM `" . $roster->db->table('quest_data') . "` ORDER BY `zone`;");
+		$level_list = $roster->db->query("SELECT DISTINCT `quest_level` FROM `" . $roster->db->table('quests') . "` ORDER BY `quest_level` DESC;");
+		$zone_list = $roster->db->query("SELECT DISTINCT `zone` FROM `" . $roster->db->table('quests') . "` ORDER BY `zone`;");
 
 		//advanced options for searching zones
 		$this->options = $roster->locale->act['zone'] . ' <select name="zone"> ';
@@ -91,15 +90,14 @@ class questlistSearch
 
 		$first = $page*$limit;
 
-		$search_zone = ($this->zone == '') ? '' : "`qd`.`zone` = '" . $this->zone . "' AND";
-		$search_level = ($this->levelid == '') ? '' : "`qd`.`quest_level` = '" . $this->levelid . "' AND";
+		$search_zone = ($this->zone == '') ? '' : "`q`.`zone` = '" . $this->zone . "' AND";
+		$search_level = ($this->levelid == '') ? '' : "`q`.`quest_level` = '" . $this->levelid . "' AND";
 
-		$sql = "SELECT `qd`.`quest_name`, `qd`.`quest_level`, `qd`.`quest_tag`, `qd`.`zone`, `qd`.`group`, `p`.`region`, `p`.`server`"
-		     . " FROM `" . $roster->db->table('quest_data') . "` AS qd"
-		     . " LEFT JOIN `" . $roster->db->table('quests') . "` AS q USING (`quest_id`)"
+		$sql = "SELECT `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`zone`, `p`.`region`, `p`.`server`"
+		     . " FROM `" . $roster->db->table('quests') . "` AS q"
 		     . " LEFT JOIN `" . $roster->db->table('players') . "` AS p USING (`member_id`)"
-		     . " WHERE $search_zone $search_level `qd`.`quest_name` LIKE '%$search%'"
-		     . " GROUP BY `qd`.`quest_name`"
+		     . " WHERE $search_zone $search_level `q`.`quest_name` LIKE '%$search%'"
+		     . " GROUP BY `quest_name`"
 			 . ( $limit > 0 ? " LIMIT $first," . $limit : '' ) . ';';
 
 		//calculating the search time
@@ -117,17 +115,11 @@ class questlistSearch
 		{
 			while( $x > 0 )
 			{
-				list($quest_name, $quest_level, $quest_tag, $zone, $group, $region, $server) = $roster->db->fetch($result);
-
-				if( $group )
-				{
-					$quest_tag .= ", $group";
-				}
+				list($quest_name, $quest_level, $quest_tag, $zone, $region, $server) = $roster->db->fetch($result);
 
 				$item['title'] = $quest_name;
 				$item['html'] = '<td class="SearchRowCell">' . $quest_level.'</td>'
-							  . '<td class="SearchRowCell"><a href="' . makelink('realm-questlist&amp;a=r:' . $region . '-' . urlencode($server) . '&amp;questid=' . urlencode($quest_name)) . '">' . $quest_name . '</a></td>'
-							  . '<td class="SearchRowCell">' . $quest_tag . '</td>'
+							  . '<td class="SearchRowCell"><a href="' . makelink('realm-questlist&amp;a=r:' . $region . '-' . urlencode($server) . '&amp;questid=' . urlencode($quest_name)) . '"><strong>' . $quest_name . '</strong></a></td>'
 							  . '<td class="SearchRowCellRight">' . $zone . '</td>';
 
 				$this->add_result($item);

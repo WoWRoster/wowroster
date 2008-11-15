@@ -26,7 +26,6 @@ $lang['memberslist_Honor']		= 'Honor|Muestra información sobre JcJ de los miemb
 $lang['memberslist_Log']		= 'Registro de miembros|Muestra el registro de actualizaciones de miembros';
 $lang['memberslist_Realm']		= 'Miembros|Muestra el listado de miembros de todas las hermandades del reino';
 $lang['memberslist_RealmGuild']	= 'Hermandades|Muestra un listado de todas las hermandades del reino';
-$lang['memberslist_Skills']		= 'Skills|Displays each member\'s skills';
 
 // Interface wordings
 $lang['memberssortfilter']		= 'Filtrado y ordenado';

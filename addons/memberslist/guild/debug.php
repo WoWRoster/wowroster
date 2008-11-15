@@ -43,58 +43,61 @@ $mainQuery =
 
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('members').'` AS mains ON `alts`.`main_id` = `mains`.`member_id` ';
-$where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'"';
-$order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
-$order_last[] = '`members`.`level` DESC';
-$order_last[] = '`members`.`name` ASC';
+	'LEFT JOIN `'.$roster->db->table('members').'` AS mains ON `alts`.`main_id` = `mains`.`member_id` '.
+	'WHERE `members`.`guild_id` = "'.$roster->data['guild_id'].'" '.
+	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
+
+$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array (
 	'lang_field' => 'name',
-	'filt_field' => '`members`.`name`',
-	'order'      => array( '`members`.`name` ASC' ),
+	'order'    => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'display'    => 3,
+	'js_type' => 'ts_string',
+	'display' => 3,
 );
 
 $FIELD['main_name'] = array (
 	'lang_field' => 'main_name',
-	'filt_field' => '`mains`.`name`',
-	'order'      => array( '`mains`.`name` ASC' ),
+	'order'    => array( '`mains`.`name` ASC' ),
 	'order_d'    => array( '`mains`.`name` DESC' ),
-	'display'    => 3,
+	'js_type' => 'ts_string',
+	'display' => 3,
 );
 
 $FIELD['alt_type'] = array (
 	'lang_field' => 'alt_type',
-	'order'      => array('`alts`.`alt_type` ASC' ),
+	'order'    => array('`alts`.`alt_type` ASC' ),
 	'order_d'    => array('`alts`.`alt_type` DESC' ),
-	'display'    => 3,
+	'js_type' => 'ts_number',
+	'display' => 3,
 );
 
 $FIELD['note'] = array (
 	'lang_field' => 'note',
-	'filt_field' => '`members`.`note`',
-	'order'      => array( 'nisnull','`members`.`note` ASC' ),
-	'order_d'    => array( 'nisnull','`members`.`note` DESC' ),
-	'value'      => 'debugNote',
-	'display'    => 3,
+	'order' => array( 'nisnull','`members`.`note` ASC' ),
+	'order_d' => array( 'nisnull','`members`.`note` DESC' ),
+	'js_type' => 'ts_string',
+	'display' => 3,
+	'value'   => 'debugNote',
 );
 
 $FIELD['officer_note'] = array (
 	'lang_field' => 'officer_note',
-	'filt_field' => '`members`.`officer_note`',
-	'order'      => array( 'onisnull','`members`.`note` ASC' ),
-	'order_d'    => array( 'onisnull','`members`.`note` DESC' ),
-	'value'      => 'debugNote',
-	'display'    => ( $addon['config']['member_onote'] ? 3 : 0 ),
+	'order' => array( 'onisnull','`members`.`note` ASC' ),
+	'order_d' => array( 'onisnull','`members`.`note` DESC' ),
+	'js_type' => 'ts_string',
+	'display' => ( $addon['config']['member_onote'] ? 3 : 0 ),
+	'value'   => 'debugNote',
 );
 
 include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
 
-$memberlist->prepareData($mainQuery, $where, null, $order_first, $order_last, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
+
+$memberlist->makeFilterBox();
 
 echo $memberlist->makeMembersList('syellow');
 

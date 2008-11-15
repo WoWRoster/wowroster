@@ -55,10 +55,6 @@ class RosterTplEncode
 		$includephp_blocks = $matches[1];
 		$code = preg_replace('#<!-- INCLUDEPHP ([a-zA-Z0-9\_\-\+\.\/]+?) -->#', '<!-- INCLUDEPHP -->', $code);
 
-		preg_match_all('#<!-- TRANSLATE ([a-zA-Z0-9\_\-\+\.\\\\\/]+?) -->#', $code, $matches);
-		$translate_blocks = $matches[1];
-		$code = preg_replace('#<!-- TRANSLATE ([a-zA-Z0-9\_\-\+\.\/]+?) -->#', '<!-- TRANSLATE -->', $code);
-
 		preg_match_all('#<!-- (.*?) (.*?)?[ ]?-->#s', $code, $blocks);
 		$text_blocks = preg_split('#<!-- (.*?) (.*?)?[ ]?-->#s', $code);
 		if( $text_blocks[count($text_blocks)-1] == '' )
@@ -132,10 +128,6 @@ class RosterTplEncode
 						$compile_blocks[] = '<?php ' . array_shift($php_blocks) . ' ?>';
 						break;
 
-					case 'TRANSLATE':
-						$compile_blocks[] = '<?php echo $roster->locale->act[\'' . array_shift($translate_blocks) . '\']; ?>';
-						break;
-
 					default:
 						RosterTplEncode::compile_var_tags($blocks[0][$curr_tb]);
 						$trim_check = trim($blocks[0][$curr_tb]);
@@ -144,7 +136,7 @@ class RosterTplEncode
 				}
 			}
 		}
-		$template_php = '<?php global $roster; ?>';
+		$template_php = '';
 		for( $i = 0; $i < count($text_blocks); $i++ )
 		{
 			$trim_check_text = trim($text_blocks[$i]);
@@ -189,7 +181,7 @@ class RosterTplEncode
 		{
 			$tag_args = $match[1];
 			$loop_start = ($match[2] < 0) ? '$_' . $tag_args . '_count ' . ($match[2] - 1) : $match[2];
-			$loop_end = isset($match[4]) ? (($match[4] < 0) ? '$_' . $tag_args . '_count ' . $match[4] : ($match[4] + 1)) : '$_' . $tag_args . '_count';
+			$loop_end = ($match[4]) ? (($match[4] < 0) ? '$_' . $tag_args . '_count ' . $match[4] : ($match[4] + 1)) : '$_' . $tag_args . '_count';
 		}
 		else
 		{

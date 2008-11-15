@@ -305,6 +305,13 @@
 	margin-top:98px;
 	margin-left:85px;
 }
+.char_panel .tab2 .loyalty {
+	font-weight:bold;
+	font-size:12px;
+	position:absolute;
+	margin-top:118px;
+	margin-left:85px;
+}
 .char_panel .tab2 .icon {
 	position:absolute;
 	margin-left:25px;
