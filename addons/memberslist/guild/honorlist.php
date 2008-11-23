@@ -26,6 +26,7 @@ $mainQuery =
 	'`members`.`member_id`, '.
 	'`members`.`name`, '.
 	'`members`.`class`, '.
+	'`members`.`classid`, '.
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
 	"(UNIX_TIMESTAMP( `members`.`last_online`)*1000+".($roster->config['localtimeoffset']*3600000).") AS 'last_online_stamp', ".

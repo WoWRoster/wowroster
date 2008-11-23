@@ -565,6 +565,7 @@ $lang['hslist2']='Höchsten Lebenszeit ES';
 $lang['hslist3']='Die meisten Ehrenpunkte';
 $lang['hslist4']='Die meisten Arenapunkte';
 
+$lang['Death Knight']='Todesritter';
 $lang['Druid']='Druide';
 $lang['Hunter']='Jäger';
 $lang['Mage']='Magier';

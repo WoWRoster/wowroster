@@ -565,6 +565,7 @@ $lang['hslist2']='Membre ayant le plus de VH';
 $lang['hslist3']='Le plus de Points d\'honneur';
 $lang['hslist4']='Le plus de Points d\'arène';
 
+$lang['Death Knight']='Chevalier de la mort';
 $lang['Druid']='Druide';
 $lang['Hunter']='Chasseur';
 $lang['Mage']='Mage';
