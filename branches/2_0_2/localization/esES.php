@@ -565,6 +565,7 @@ $lang['hslist2']='Mayor número de muertes con honor';
 $lang['hslist3']='Mayor número de puntos de honor';
 $lang['hslist4']='Mayor puntuación de arenas';
 
+$lang['Death Knight']='Caballero de la muerte';
 $lang['Druid']='Druida';
 $lang['Hunter']='Cazador';
 $lang['Mage']='Mago';

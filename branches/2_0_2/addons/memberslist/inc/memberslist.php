@@ -702,25 +702,10 @@ class memberslist
 			// Class name coloring
 			if( $this->addon['config']['class_text'] == 2 )
 			{
-				foreach( $roster->multilanguages as $language )
-				{
-					$class_color = ( isset($roster->locale->wordings[$language]['class_to_en'][$row['class']]) ? $roster->locale->wordings[$language]['class_to_en'][$row['class']] : '' );
+				$class_color = ( isset($roster->locale->wordings['enUS']['id_to_class'][$row['classid']]) ? $roster->locale->wordings['enUS']['id_to_class'][$row['classid']] : $row['class'] );
 
-					if( strlen($class_color) > 0 )
-					{
-						$class_color = $roster->locale->wordings['enUS'][$class_color];
-						break;
-					}
-				}
-
-				if( $class_color != '' )
-				{
-					return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $class_color . 'txt">' . $fieldtext . '</span>';
-				}
-				else
-				{
-					return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . $row['class'] . 'txt">' . $fieldtext . '</span>';
-				}
+				return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . str_replace(' ','',$class_color) . 'txt">' . $fieldtext . '</span>';
+			}
 			}
 			elseif( $this->addon['config']['class_text'] == 1 )
 			{
