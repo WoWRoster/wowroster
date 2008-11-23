@@ -148,6 +148,8 @@ class memberslist
 
 			'COLS' => $cols+1,
 			'LISTNAME' => $this->listname,
+
+			'ML_IMAGE_URL' => $this->addon['tpl_image_url'],
 			)
 		);
 
