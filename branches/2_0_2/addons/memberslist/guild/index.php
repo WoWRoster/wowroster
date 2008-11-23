@@ -38,6 +38,7 @@ $mainQuery =
 	'`alts`.`main_id`, '.
 
 	'`guild`.`update_time`, '.
+	'`guild`.`factionEn`, '.
 
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`officer_note`, '.
@@ -256,18 +257,39 @@ function tradeskill_icons ( $row )
 	foreach ( $profs as $prof )
 	{
 		$r_prof = explode('|',$prof);
-		$toolTip = (isset($r_prof[1]) ? str_replace(':','/',$r_prof[1]) : '');
+		list( $curr, $max ) = isset( $r_prof[1] ) ? explode( ':', $r_prof[1] ) : array( 1, 1);
+		$toolTip = $curr . "/" . $max;
 		$toolTiph = $r_prof[0];
 
 		if( $r_prof[0] == $roster->locale->wordings[$lang]['riding'] )
 		{
-			if( $row['class']==$roster->locale->wordings[$lang]['Paladin'] || $row['class']==$roster->locale->wordings[$lang]['Warlock'] )
+			// Flying
+			if( $curr > 150 )
 			{
-				$icon = $roster->locale->wordings[$lang]['ts_ridingIcon'][$row['class']];
+				// Class-specific flying mount
+				if( isset( $roster->locale->wordings[$lang]['ts_flyingIcon'][$row['class']] ) )
+				{
+					$icon = $roster->locale->wordings[$lang]['ts_flyingIcon'][$row['class']];
+				}
+				// Standard faction flying mount
+				else
+				{
+					$icon = $roster->locale->wordings[$lang]['ts_flyingIcon'][$row['factionEn']];
+				}
 			}
+			// Riding
 			else
 			{
-				$icon = $roster->locale->wordings[$lang]['ts_ridingIcon'][$row['race']];
+				// Class-specific riding mount
+				if( isset( $roster->locale->wordings[$lang]['ts_ridingIcon'][$row['class']] ) )
+				{
+					$icon = $roster->locale->wordings[$lang]['ts_ridingIcon'][$row['class']];
+				}
+				// Standard racial riding mount
+				else
+				{
+					$icon = $roster->locale->wordings[$lang]['ts_ridingIcon'][$row['race']];
+				}
 			}
 		}
 		else

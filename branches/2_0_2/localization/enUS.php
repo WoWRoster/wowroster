@@ -393,7 +393,8 @@ $lang['ts_ridingIcon'] = array(
 	'Blood Elf' => 'ability_mount_cockatricemount',
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
-	'Warlock'=>'ability_mount_nightmarehorse'
+	'Warlock'=>'ability_mount_nightmarehorse',
+	'Death Knight'=>'spell_deathknight_summondeathcharger'
 // Space so locale files are line synced
 
 
@@ -405,6 +406,16 @@ $lang['ts_ridingIcon'] = array(
 
 
 
+
+
+
+);
+$lang['ts_flyingIcon'] = array(
+	'Horde'=>'ability_mount_wyvern_01',
+	'Alliance'=>'ability_mount_gryphon_01',
+	'Druid'=>'ability_druid_flightform',
+	'Death Knight'=>'ability_mount_dreadsteed'
+// Space so locale files are line synced
 
 
 );
