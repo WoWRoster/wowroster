@@ -394,6 +394,7 @@ $lang['ts_ridingIcon'] = array(
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
 	'Hexenmeister'=>'ability_mount_nightmarehorse',
+	'Todesritter'=>'spell_deathknight_summondeathcharger',
 // Female variation
 //	'Nachtelf'=>'ability_mount_whitetiger',
 //	'Mensch'=>'ability_mount_ridinghorse',
@@ -407,6 +408,16 @@ $lang['ts_ridingIcon'] = array(
 //	'Draenei' => 'ability_mount_ridingelekk',
 //	'Paladin'=>'ability_mount_dreadsteed',
 	'Hexenmeisterin'=>'ability_mount_nightmarehorse',
+//	'Todesritter'=>'spell_deathknight_summondeathcharger',
+);
+$lang['ts_flyingIcon'] = array(
+	'Horde'=>'ability_mount_wyvern_01',
+	'Alliance'=>'ability_mount_gryphon_01',
+	'Druide'=>'ability_druid_flightform',
+	'Todesritter'=>'ability_mount_dreadsteed'
+// Female variation
+	'Druidin'=>'ability_druid_flightform',
+//	'Todesritter'=>'ability_mount_dreadsteed'
 );
 
 // Class Icons-Array
