@@ -40,6 +40,7 @@ $mainQuery =
 	'`guild`.`guild_name`, '.
 	'`guild`.`guild_id`, '.
 	'`guild`.`update_time`, '.
+	'`guild`.`factionEn`, '.
 
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`officer_note`, '.
