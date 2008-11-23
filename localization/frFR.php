@@ -394,7 +394,7 @@ $lang['ts_ridingIcon'] = array(
 	'Draeneï' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
 	'Démoniste'=>'ability_mount_nightmarehorse',
-	'Chevalier de la mort'=>'spell_deathknight_summondeathcharger'
+	'Chevalier de la mort'=>'spell_deathknight_summondeathcharger',
 // Female variation
 //	'Elfe de la nuit'=>'ability_mount_whitetiger',
 	'Humaine'=>'ability_mount_ridinghorse',
@@ -414,7 +414,7 @@ $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Alliance'=>'ability_mount_gryphon_01',
 	'Druide'=>'ability_druid_flightform',
-	'Chevalier de la mort'=>'ability_mount_dreadsteed'
+	'Chevalier de la mort'=>'ability_mount_dreadsteed',
 // Female variation
 	'Druidesse'=>'ability_druid_flightform',
 //	'Chevalier de la mort'=>'ability_mount_dreadsteed'

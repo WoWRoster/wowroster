@@ -414,7 +414,7 @@ $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Alliance'=>'ability_mount_gryphon_01',
 	'Druide'=>'ability_druid_flightform',
-	'Todesritter'=>'ability_mount_dreadsteed'
+	'Todesritter'=>'ability_mount_dreadsteed',
 // Female variation
 	'Druidin'=>'ability_druid_flightform',
 //	'Todesritter'=>'ability_mount_dreadsteed'
