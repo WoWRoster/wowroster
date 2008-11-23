@@ -26,6 +26,7 @@ $mainQuery =
 	'`members`.`member_id`, '.
 	'`members`.`name`, '.
 	'`members`.`class`, '.
+	'`members`.`classid`, '.
 	'`members`.`level`, '.
 	'`members`.`zone`, '.
 	'`members`.`online`, '.

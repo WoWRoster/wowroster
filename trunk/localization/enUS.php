@@ -565,6 +565,7 @@ $lang['hslist2']='Highest Lifetime HKs';
 $lang['hslist3']='Most Honor Points';
 $lang['hslist4']='Most Arena Points';
 
+$lang['Death Knight']='Death Knight';
 $lang['Druid']='Druid';
 $lang['Hunter']='Hunter';
 $lang['Mage']='Mage';
