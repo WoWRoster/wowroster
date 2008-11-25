@@ -706,7 +706,6 @@ class memberslist
 
 				return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . str_replace(' ','',$class_color) . 'txt">' . $fieldtext . '</span>';
 			}
-			}
 			elseif( $this->addon['config']['class_text'] == 1 )
 			{
 				return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . $fieldtext;
