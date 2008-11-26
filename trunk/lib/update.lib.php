@@ -3617,7 +3617,11 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->add_ifvalue($data,'TimePlayed','timeplayed',0);
 		$this->add_ifvalue($data,'TimeLevelPlayed','timelevelplayed',0);
 
-		$this->add_ifvalue($data['timestamp'], 'MailBox','maildateutc');
+		// Capture mailbox update time/date
+		if( isset($data['timestamp']['MailBox']) )
+		{
+			$this->add_timestamp('maildateutc',$data['timestamp']['MailBox']);
+		}
 
 		// Capture client language
 		$this->add_ifvalue($data, 'Locale', 'clientLocale');
