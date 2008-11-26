@@ -525,6 +525,10 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 					$line = htmlspecialchars($line);
 					$color = '00ff00';
 				}
+				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_accountbound'], $line) )
+				{
+					$color = 'e5cc80';
+				}
 				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'], $line) )
 				{
 					$color = '00bbff';

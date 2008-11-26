@@ -677,6 +677,7 @@ $lang['tooltip_use']='Utiliser...';
 $lang['tooltip_requires']='Niveau';
 $lang['tooltip_reinforced']='renforcée';
 $lang['tooltip_soulbound']='Lié';
+$lang['tooltip_accountbound']='Account Bound';
 $lang['tooltip_boe']='Lié quand équipé';
 $lang['tooltip_equip']='Équipé...';
 $lang['tooltip_equip_restores']='Équipé.:.Rend';
@@ -725,7 +726,7 @@ $lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
 $lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Arme à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|Flèche|Balle';
-$lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé|Cet objet permet de lancer une quête';
+$lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé|Cet objet permet de lancer une quête|Lier au compte|Account Bound';
 $lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse|Jambes|Pieds';
 $lang['tooltip_garbage']='Maj clic-droit pour sertir|<Right Click to Read>|Duration|Temps de recharge|<Right Click to Open>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 

@@ -173,6 +173,10 @@ class item
 		{
 			$color = '00bbff';
 		}
+		elseif( ereg('^' . $roster->locale->wordings[$this->locale]['tooltip_accountbound'], $bindtype) )
+		{
+			$color = 'e5cc80';
+		}
 		else
 		{
 			$color = 'ffffff';
