@@ -1,0 +1,111 @@
+<!-- $Id$ -->
+
+<!-- IF S_RESPONSE -->
+<!-- IF S_RESPONSE_ERROR -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
+	<tr>
+		<td class="border_color sredborder">
+			<div class="header_text sredborder" style="cursor:pointer;width:100%;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
+				<img src="{THEME_PATH}/images/plus.gif" style="float:right;" alt="" id="msgboximg_data_error" />{L_UPDATE_ERRORS}
+			</div>
+
+			<div style="height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
+				{RESPONSE_ERROR}
+			</div>
+
+		</td>
+	</tr>
+</table>
+
+<form method="post" action="{U_MAKELINK}" name="post">
+	<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
+	<input type="hidden" name="send_file" value="error_log" />
+	<input type="submit" name="download" value="{L_SAVE_ERROR_LOG}" />
+</form>
+<br />
+<!-- ENDIF -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
+	<tr>
+		<td class="border_color syellowborder">
+			<div class="header_text syellowborder">{L_UPDATE_LOG}</div>
+
+			<div style="height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
+				{RESPONSE}
+			</div>
+
+		</td>
+	</tr>
+</table>
+
+<form method="post" action="{U_MAKELINK}" name="post">
+	<input type="hidden" name="data" value="{RESPONSE_POST}" />
+	<input type="hidden" name="send_file" value="update_log" />
+	<input type="submit" name="download" value="{L_SAVE_LOG}" />
+</form>
+<br />
+<!-- ENDIF -->
+
+<form action="{U_ACTION}" method="post" id="clean">
+	<input type="hidden" name="action" value="clean" />
+	<input type="hidden" name="process" value="process" />
+	<button type="submit" class="input">{L_CLEAN}</button>
+</form>
+<br />
+
+<form action="{U_ACTION}" method="post" id="delete">
+	<input type="hidden" id="deletehide" name="action" value="" />
+	<input type="hidden" name="process" value="process" />
+<!-- IF S_DATA -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgreenborder">
+			<div class="header_text sgreenborder">{PREV}{L_DELETE}{LISTING}{NEXT}</div>
+
+			<table class="bodyline" cellspacing="0">
+				<thead>
+					<tr>
+						<th class="membersHeader">{L_NAME}</th>
+						<th class="membersHeader">{L_SERVER}</th>
+						<th class="membersHeader">{L_REGION}</th>
+						<th class="membersHeader">{L_CLASS}</th>
+						<th class="membersHeader">{L_LEVEL}</th>
+						<th class="membersHeaderRight">&nbsp;</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6" class="membersRowRight1">
+							<button type="submit" class="input" style="float: right;">{L_DELETE_CHECKED}</button>
+							<button type="submit" class="input" onclick="return confirm('{L_DELETE_GUILD_CONFIRM}') &amp;&amp; setvalue('deletehide','delguild_{U_GUILD_ID}');">{L_DELETE_GUILD}</button></td>
+					</tr>
+				</tfoot>
+				<tbody>
+		<!-- BEGIN data_list -->
+					<tr>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.NAME}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.SERVER}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.REGION}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.CLASS}</td>
+						<td class="membersRow{data_list.ROW_CLASS}">{data_list.LEVEL}</td>
+						<td class="membersRowRight{data_list.ROW_CLASS}"><button type="submit" class="input" onclick="setvalue('deletehide','del_{data_list.ID}');">{L_DELETE}</button>
+							<label for="massdel_{data_list.ID}">&nbsp;</label><input type="checkbox" name="massdel[{data_list.ID}]" id="massdel_{data_list.ID}" value="1" /></td>
+					</tr>
+		<!-- END data_list -->
+				</tbody>
+			</table>
+
+		</td>
+	</tr>
+</table>
+
+</form>
+{PREV}{LISTING}{NEXT}
+<!-- ELSE -->
+	<span class="title_text">No Data</span>
+	<br />
+	<button type="submit" class="input" onclick="return confirm('{L_DELETE_GUILD_CONFIRM}') &amp;&amp; setvalue('deletehide','delguild_{U_GUILD_ID}');">{L_DELETE_GUILD}</button>
+</form>
+<!-- ENDIF -->
