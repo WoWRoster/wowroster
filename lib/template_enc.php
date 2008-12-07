@@ -55,10 +55,6 @@ class RosterTplEncode
 		$includephp_blocks = $matches[1];
 		$code = preg_replace('#<!-- INCLUDEPHP ([a-zA-Z0-9\_\-\+\.\/]+?) -->#', '<!-- INCLUDEPHP -->', $code);
 
-		preg_match_all('#<!-- TRANSLATE ([a-zA-Z0-9\_\-\+\.\\\\\/]+?) -->#', $code, $matches);
-		$translate_blocks = $matches[1];
-		$code = preg_replace('#<!-- TRANSLATE ([a-zA-Z0-9\_\-\+\.\/]+?) -->#', '<!-- TRANSLATE -->', $code);
-
 		preg_match_all('#<!-- (.*?) (.*?)?[ ]?-->#s', $code, $blocks);
 		$text_blocks = preg_split('#<!-- (.*?) (.*?)?[ ]?-->#s', $code);
 		if( $text_blocks[count($text_blocks)-1] == '' )
@@ -133,7 +129,36 @@ class RosterTplEncode
 						break;
 
 					case 'TRANSLATE':
-						$compile_blocks[] = '<?php echo $roster->locale->act[\'' . array_shift($translate_blocks) . '\']; ?>';
+						$params = explode( ' ', $blocks[2][$curr_tb] );
+						$key = $params[0];
+						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
+								. '{ echo $roster->locale->act[\'' . $key . '\']; }'
+							. 'else'
+								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
+						break;
+
+					case 'TRANSLATE_F':
+						$params = explode( ' ', $blocks[2][$curr_tb] );
+						$key = array_shift( $params );
+						$args = '';
+						foreach( $params as $param )
+						{
+							if( preg_match('#^(([a-z0-9\-_]+?\.)+?)(\$)?([A-Z0-9\-_]+?)$#', $param, $varref) )
+							{
+								$namespace = $varref[1];
+								$varname = $varref[4];
+								$isdefine = $varref[3];
+								$args .= ',' . RosterTplEncode::generate_block_varref($namespace, $varname, false, $isdefine);
+							}
+							else
+							{
+								$args .= ',$this->_tpldata[\'.\'][0][\'' . $param . '\']';
+							}
+						}
+						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
+								. '{ echo sprintf( $roster->locale->act[\'' . $key . '\']' . $args . '); }'
+							. 'else'
+								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
 						break;
 
 					default:
