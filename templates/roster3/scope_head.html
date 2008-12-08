@@ -1,0 +1,61 @@
+
+
+<!-- BEGIN Realm Scope -->
+<div class="realm-info">
+	<div class="realm-header Realm">
+  	<div class="content">
+			<div class="guild">Need { Realm } Key<span>Need { Realm } Key</span></div>
+			<div class="info">Guilds: Need { TOTAL GUILDS } Key<span>Guilds: Need { TOTAL GUILDS } Key</span></div>
+    </div>
+	</div>
+<!-- END Realm Scope -->
+
+
+<!-- BEGIN Guild Scope -->
+<div class="guild-info">
+	<div class="guild-header {ML_FACTION_EN}">
+	  	<div class="content">
+				<div class="guild">{ML_GUILD_NAME} @ {ML_REALM}<span>{ML_GUILD_NAME} @ {ML_REALM}</span></div>
+				<div class="info">{L_MEMBERS}: {NUM_MEMBERS}<span>{L_MEMBERS}: {NUM_MEMBERS}</span></div>
+    </div>
+	</div>
+<!-- END Guild Scope -->
+	
+	
+<!-- BEGIN Char Scope -->
+<div class="char-info">
+	<div class="char-list">
+		<div class="banner">
+			<div class="title">{GUILD_NAME}</div>
+		</div>
+		<div class="spacer">
+			<div class="list">
+<!-- BEGIN mini_memberslist -->
+			<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}"><!-- ENDIF -->
+			<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->u-link<!-- ELSE -->plain<!-- ENDIF -->">
+				<span class="lvl">{mini_memberslist.LEVEL}</span>
+<!-- U_LINK will be FALSE if the player has no data -->
+				<span class="name">{mini_memberslist.NAME}</span>
+
+				<span class="info">
+
+<!-- IF mini_memberslist.RACE_ID -->
+					<img src="{IMG_URL}icons/race/{mini_memberslist.RACE_ID}-{mini_memberslist.SEX_ID}.gif" width="20" height="20" alt="" />
+<!-- ENDIF -->
+					<img src="{IMG_URL}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" alt="" />
+				</span>
+			</div>
+			<!-- IF mini_memberslist.U_LINK --></a><!-- ENDIF -->
+<!-- END mini_memberslist -->
+			</div>
+		</div>
+	</div>
+
+	<div class="char-header {FACTION}">
+		<div class="text">
+			<div class="name" {ALT_TOOLTIP}>{NAME}<span>{NAME}</span></div>
+			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild">{L_GUILD_LINE}<span>{L_GUILD_LINE}</span></div><!-- ENDIF -->
+			<div class="info">{L_LEVEL_RACE_CLASS}<span>{L_LEVEL_RACE_CLASS}</span></div>
+		</div>
+	</div>
+<!-- END Char Scope -->

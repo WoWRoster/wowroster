@@ -3,155 +3,158 @@
 <div class="guild-info">
 	<div class="guild-header Alliance">
   	<div class="content">
-			<div class="guild">Need { GUILD_NAME } Key<span>Need { GUILD_NAME } Key</span></div>
-			<div class="info">Need { TOTAL MEMBERS } Key<span>Need { TOTAL MEMBERS } Key</span></div>
+			<div class="guild">Need { GUILD_NAME } Key @ Need { Realm } Key<span>Need { GUILD_NAME } Key @ Need { Realm } Key</span></div>
+			<div class="info">Members: Need { TOTAL MEMBERS } Key<span>Members: Need { TOTAL MEMBERS } Key</span></div>
     </div>
 	</div>
 
 	<div class="guild-roster">
 
-<table cellpadding="0" cellspacing="0" id="{LISTNAME}" style="width:100%; margin-top: 180px;">
+<!-- IF S_GROUP_ALTS ge 0 -->
+			<table cellpadding="0" cellspacing="0" id="{LISTNAME}-toolbar" style="width:100%">
+				<tr>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_CLOSE_ALTS}" class="internal_link"
+						       	onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+							<img src="{THEME_PATH}/images/minus.gif" alt="+" /><!-- TRANSLATE closeall -->
+						</a>
+					</th>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_OPEN_ALTS}" class="internal_link"
+							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
+							<img src="{THEME_PATH}/images/plus.gif" alt="-" /><!-- TRANSLATE openall -->
+						</a>
+					</th>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_UNGROUP_ALTS}" class="internal_link"
+							onclick="unGroupAlts('{LISTNAME}'); return false;">
+							<!-- TRANSLATE ungroupalts -->
+						</a>
+					</th>
+					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_OPEN_ALTS}" class="internal_link"
+							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
+							<!-- TRANSLATE openalts -->
+						</a>
+					</th>
+					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_CLOSE_ALTS}" class="internal_link"
+							onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+							<!-- TRANSLATE closealts -->
+						</a>
+					</th>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<br />
+<!-- ENDIF -->
+
+
+<!-- IF S_ML_BORDER -->
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color {S_ML_BORDER}border">
+<!-- ENDIF -->
+<form name="{LISTNAME}_filterform" action="{U_FILTER_FORM}" method="get" onsubmit="submitonce(this);">
+<table cellpadding="0" cellspacing="0" id="{LISTNAME}" style="width:100%;">
 	<thead>
 <!-- IF B_PAGINATION -->
 		<tr>
 			<th colspan="{COLS}" class="membersHeader" style="text-align:center;color:#ffffff">
-				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}">{L_PREVIOUS}</a><!-- ENDIF -->
+				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}" class="internal_link"><!-- TRANSLATE prev --></a><!-- ENDIF --> - 
 <!-- BEGIN pagination -->
-				<!-- IF pagination.URL --><a href="{pagination.URL}">{pagination.PAGE}</a><!-- ELSE -->{pagination.PAGE}<!-- ENDIF -->
+				<!-- IF pagination.URL --><a href="{pagination.URL}" class="internal_link">{pagination.PAGE}</a><!-- ELSE -->{pagination.PAGE}<!-- ENDIF --> - 
 <!-- END pagination -->
-				<!-- IF PAGINATION_NEXT --><a href="{PAGINATION_NEXT}">{L_NEXT}</a><!-- ENDIF -->
-		</th></tr>
+				<!-- IF PAGINATION_NEXT --><a href="{PAGINATION_NEXT}" class="internal_link"><!-- TRANSLATE next --></a><!-- ENDIF -->
+		</tr>
 <!-- ENDIF -->
 		<tr>
+			<th class="membersHeader groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>&nbsp;</th>
 <!-- BEGIN header_cell -->
-<!-- IF header_cell.ID -->
-			<th class="membersHeader<!-- IF header_cell.JS --> {header_cell.JS}<!-- ENDIF -->" id="{header_cell.ID}" onclick="sortColumn({header_cell.COLUMN},6,'{LISTNAME}');" style="cursor:pointer;<!-- IF header_cell.DISPLAY -->display:none;<!-- ENDIF -->">{header_cell.TEXT}</th>
+			<th class="membersHeader">
+<!-- IF header_cell.LINK -->
+				<a href="{header_cell.LINK}" class="internal_link">{header_cell.TEXT}</a>
 <!-- ELSE -->
-			<th class="membersHeader"<!-- IF header_cell.DISPLAY --> style="display:none;"<!-- ENDIF -->><!-- IF header_cell.LINK --><a href="{header_cell.LINK}">{header_cell.TEXT}</a><!-- ELSE -->{header_cell.TEXT}<!-- ENDIF --></th>
+				{header_cell.TEXT}
 <!-- ENDIF -->
+			</th>
+<!-- END header_cell -->
+		</tr>
+		<tr>
+			<th class="membersHeader groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+				<img
+				src="{ML_IMAGE_URL}/search24.png"
+				alt="Go"
+				style="cursor:pointer;"
+				onclick="document.{LISTNAME}_filterform.submit();" />
+			</th>
+<!-- BEGIN header_cell -->
+			<th class="membersHeader">
+<!-- IF header_cell.B_FILTER -->
+				<input
+				type="text"
+				class="wowinput64"
+				name="filter_{header_cell.NAME}"
+				id="filter_{header_cell.NAME}"
+				value="{header_cell.FILTER}"
+				onchange="document.{LISTNAME}_filterform.submit();" />
+<!-- ELSE -->
+				&nbsp;
+<!-- ENDIF -->
+			</th>
 <!-- END header_cell -->
 		</tr>
 	</thead>
 <!-- BEGIN members_row -->
-<!-- IF members_row.SIMPLE -->
-	<tbody><tr class="membersRowColor{members_row.ROW_CLASS}">
-			<td class="membersRowCell"<!-- IF members_row.DISPLAY --> style="display:none;"<!-- ENDIF -->><!-- IF members_row.MA --><span class="red">{L_MA}</span><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
-<!-- BEGIN cell -->
-				<td class="membersRowCell"<!-- IF members_row.cell.PADDING --> style="padding-left:20px;"<!-- ENDIF --><!-- IF members_row.cell.DISPLAY eq 1 --> style="display:none;"<!-- ENDIF -->>{members_row.cell.VALUE}</td>
-<!-- END cell -->
-		</tr>
+	<tbody id="playerrow-{members_row.MEMBER_ID}">
+		<tr class="membersRowColor{members_row.ROW_CLASS} {members_row.CLASS} <!-- IF members_row.CLASS == 'amain' -->ungroupalt<!-- ELSEIF members_row.CLASS == 'alt_mainless' -->groupalt<!-- ENDIF -->"
+			<!-- IF (members_row.CLASS eq 'amain' && S_GROUP_ALTS neq 0) or (members_row.CLASS eq 'alt_mainless' && S_GROUP_ALTS eq 0) --> style="display:none;"<!-- ENDIF -->>
+			<td class="membersRowCell groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+<!-- IF members_row.CLASS == 'main' --> 
+				<a href="#" 
+					onclick="toggleAlts('playerrow-{members_row.MEMBER_ID}','foldout-{members_row.MEMBER_ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
+					<img src="{THEME_PATH}/images/<!-- IF S_GROUP_ALTS eq 2 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					class="foldout"
+					id="foldout-{members_row.MEMBER_ID}"
+					alt="<!-- IF S_GROUP_ALTS eq 2 -->-<!-- ELSE -->+<!-- ENDIF -->" />
+				</a>
+<!-- ELSEIF members_row.CLASS == 'alt_mainless' -->
+				MA
 <!-- ELSE -->
-	<tbody id="playerrow-{members_row.MEMBER_ID}"><tr class="membersRowColor{members_row.ROW_CLASS}"><td class="membersRowCell"><a href="#" onclick="toggleAlts('playerrow-{members_row.MEMBER_ID}','foldout-{members_row.MEMBER_ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;"><img src="{THEME_PATH}/images/<!-- IF members_row.OPEN -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" id="foldout-{members_row.MEMBER_ID}" alt="<!-- IF members_row.OPEN -->-<!-- ELSE -->+<!-- ENDIF -->" /></a></td>
+				&nbsp;
+<!-- ENDIF -->
+			</td>
 <!-- BEGIN cell -->
-			<td class="membersRowCell"<!-- IF members_row.cell.PADDING --> style="padding-left:20px;"<!-- ENDIF --><!-- IF members_row.cell.DISPLAY eq 1 --> style="display:none;"<!-- ENDIF -->>{members_row.cell.VALUE}</td>
+			<td class="membersRowCell">
+				{members_row.cell.VALUE}
+			</td>
 <!-- END cell -->
 		</tr>
 <!-- BEGIN alt -->
-		<tr class="membersRowAltColor{members_row.alt.ROW_CLASS}"<!-- IF members_row.alt.DISPLAY --> style="display:none;"<!-- ENDIF -->><td class="membersRowCell">&nbsp;</td>
-<!-- BEGIN cell -->
-			<td class="membersRowCell"<!-- IF members_row.alt.cell.PADDING --> style="padding-left:20px;"<!-- ENDIF --><!-- IF members_row.alt.cell.DISPLAY eq 1 --> style="display:none;"<!-- ENDIF -->>{members_row.alt.cell.VALUE}</td>
+		<tr class="membersRowAltColor{members_row.alt.ROW_CLASS} groupalt {members_row.alt.CLASS}"
+			<!-- IF S_GROUP_ALTS neq 2 --> style="display:none;"<!-- ENDIF -->>
+			<td class="membersRowCell">&nbsp;</td>
+<!-- BEGIN cell(0,0) -->
+			<td class="membersRowCell" style="padding-left:20px;">
+				{members_row.alt.cell.VALUE}
+			</td>
+<!-- END -->
+<!-- BEGIN cell(1) -->
+			<td class="membersRowCell">
+				{members_row.alt.cell.VALUE}
+			</td>
 <!-- END cell -->
 		</tr>
 <!-- END alt -->
-<!-- ENDIF -->
 	</tbody>
 <!-- END members_row -->
 </table>
+</form>
 
-
-
-</div>
-
-</div>
-
-<br />
-<br />
-<br />
-<br />
-
-
-<!-- IF S_FILTER -->
-<table class="border_frame" cellpadding="0" cellspacing="1" style="width:450px;">
-	<tr>
-		<td class="border_color sblueborder">
-			<div class="header_text sblueborder" style="cursor:pointer;width:100%;" onclick="showHide('sortfilter','img_sortfilter','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
-				<img style="float:right;" id="img_sortfilter" src="{THEME_PATH}/images/<!-- IF S_HIDE_FILTER -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" />
-				{L_SORT_FILTER}
-			</div>
-
-			<table id="sortfilter" cellpadding="0" cellspacing="0" style="width:100%;<!-- IF S_HIDE_FILTER -->display:none;<!-- ENDIF -->">
-				<tr>
-					<td class="membersHeader">{L_SORT}</td>
-					<td class="membersHeader">{L_COL_SHOW}</td>
-					<td class="membersHeader">{L_FILTER}</td>
-				</tr>
-				<tr>
-					<td rowspan="{COLS}" class="membersRow1">
-<!-- BEGIN sort_option -->
-						<select id="{LISTNAME}_sort_{sort_option.ID}" name="{LISTNAME}_sort_{sort_option.ID}">
-{sort_option.OPTIONS}
-						</select><br />
-<!-- END sort_option -->
-						<br />
-						<button class="input" onclick="dosort(6,'{LISTNAME}'); return false;">{L_GO}</button>
-						<input type="hidden" id="{LISTNAME}_sort_4" name="{LISTNAME}_sort_4" value="3_desc" />
-						<input type="hidden" id="{LISTNAME}_sort_5" name="{LISTNAME}_sort_5" value="1_asc" />
-					</td>
-				</tr>
-
-<!-- BEGIN sort_field -->
-				<tr>
-<!-- IF sort_field.DISPLAY eq 3 -->
-					<th class="membersHeader membersRowAltColor1">{sort_field.TEXT}</th>
-<!-- ELSE -->
-					<th class="membersHeader" onclick="toggleColumn({sort_field.COLUMN},this,'{LISTNAME}');" style="cursor:pointer;<!-- IF sort_field.DISPLAY neq 2 -->background-color:#5b5955;<!-- ENDIF -->">{sort_field.TEXT}</th>
-<!-- ENDIF -->
-					<td class="membersRowRight1"><input type="text" id="{LISTNAME}_filter_{sort_field.COLUMN}" onkeydown="enter_sort(event,6,'{LISTNAME}');" name="{LISTNAME}_filter_{sort_field.COLUMN}" /></td>
-				</tr>
-<!-- END sort_field -->
-			</table>
-
-		</td>
-	</tr>
-</table>
-<br />
-<!-- ENDIF -->
-
-
-<!-- IF S_TOOLBAR -->
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgrayborder">
-
-			<table cellpadding="0" cellspacing="0" style="width:100%">
-				<tr>
-
-<!-- IF S_GROUP_ALTS gte 1 -->
-					<th class="membersHeader"><a href="#" onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
-						<img src="{THEME_PATH}/images/minus.gif" alt="+" />{L_CLOSE_ALL}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-					<th class="membersHeader"><a href="#" onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
-						<img src="{THEME_PATH}/images/plus.gif" alt="-" />{L_OPEN_ALL}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-					<th class="membersHeader"><a href="{U_UNGROUP_ALTS}">{L_UNGROUP_ALTS}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-<!-- ELSEIF S_GROUP_ALTS eq 0 -->
-					<th class="membersHeader"><a href="{U_OPEN_ALTS}">{L_OPEN_ALTS}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-					<th class="membersHeader"><a href="{U_CLOSE_ALTS}">{L_CLOSE_ALTS}</a></th>
-<!-- IF S_TOOLBAR neq 'horizontal' --></tr><tr><!-- ENDIF -->
-<!-- ENDIF -->
-<!-- IF S_NOJS -->
-					<th class="membersHeader"><a href="{U_CLIENT_SORT}">{L_CLIENT_SORT}</a></th>
-<!-- ELSE -->
-					<th class="membersHeader"><a href="{U_SERVER_SORT}">{L_SERVER_SORT}</a></th>
-<!-- ENDIF -->
-				</tr>
-			</table>
-
-		</td>
-	</tr>
-</table>
-<br />
-<!-- ENDIF -->
 
