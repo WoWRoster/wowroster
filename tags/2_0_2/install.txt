@@ -1,0 +1,257 @@
+WoWRoster v2.0.2
+Copyright (C) 2002-2008 The WoWRoster Dev Team
+Package updated December 21, 2008
+$Id$
+
+You can view the open source project at - http://www.wowroster.net
+For corrections and/or suggestions - http://www.wowroster.net
+
+
+-------------------------
+| Installation Overview |
+-------------------------
+* Make sure your web host supports MySQL and PHP
+    o See Roster's Requirements [http://www.wowroster.net/MediaWiki/Roster:Requirements]
+    o You'll need your login info to your MySQL and a database setup that Roster can use
+
+* Download Roster and the Interface Imagepack [http://www.wowroster.net/Downloads/get=4.html]
+
+* Decompress the downloads on your local machine, then upload the expanded files to your site
+    o Most installs end up installing Roster in "www.[domain].com/roster"
+
+* Browse to the roster installation, www.[domain].com/roster/
+    o Follow on-screen instructions
+    o Roster is now installed...
+
+* Configure Roster by going to RosterCP and checking out all the settings
+    o Check out the First Upload instructions for help [http://www.wowroster.net/MediaWiki/Roster:FirstUpload]
+
+* Have members install CharacterProfiler (and optional PVPLog)
+    o Deputize people you trust with the Roster Upload/Officer password to also run GuildProfiler
+	o Profiler Add-ons can be downloaded here [http://www.wowroster.net/Downloads/c=3.html]
+
+* Have everyone upload their data with regularity or look into using UniUploader, javaUniUploader, or phpUniUploader
+    o You can also use UniAdmin [http://www.wowroster.net/MediaWiki/UniAdmin] to distribute addons and settings to UU, jUU, and phpUU
+
+
+
+-------------------------
+| Hints                 |
+-------------------------
+* Do not simply upload the zip file to your provider
+    You should unzip to your desktop then upload the contents of the archive, and make sure to keep
+    the file and directory structure intact!
+
+* Download the Interface Imagepack
+    It's easiest to unzip the files on your desktop and figure out where they go after you've done that
+
+* Make sure you get all the image packs
+    Every time Blizzard creates new icons for items, talents, spells, etc... a new image pack is released
+    For full functionality, be sure to have all current image packs installed
+    We keep a full zip archive with the latest files, and some upgrade zip archives
+
+* Configuring Roster (*ROSTERDIR*/?p=rostercp | *ROSTERDIR*/rostercp.html) - ACCESS VIA WEB!
+    Check out the First Upload instructions for help [http://www.wowroster.net/MediaWiki/Roster:FirstUpload]
+
+* Do not worry about GuildProfiler.lua
+    There's nothing you need in there, either during installation or when updating information
+    All the info you should care about is in CharacterProfiler.lua
+
+
+
+
+-------------------------
+| Installing Roster     |
+-------------------------
+Pre-install
+  Create, or have ready a MySQL database that WoWRoster can use.
+  It should already have a username and password assigned to it.
+
+
+Step 1
+  Making sure to keep the directory structure intact, move the unzipped files to a web-accessible directory.
+
+
+Step 2
+  All files and directories should be owned by your webserver's user/group
+  (Example: chown apache.apache -R *).
+  All .php files should be readable/executable
+
+  $ chmod a+rx -R *.php
+
+
+Step 3
+  If you want the installation script to automatically set up your conf.php file for you, it should be readable/writeable
+  Note: The installer will attempt to do this for you, but should an error occur, you may need to do this manually:
+
+  $ chmod 666 conf.php
+
+
+Step 4
+  Browse to www.[domain].com/roster
+
+  You should be presented with a page describing your server's settings and information.
+  Once you are sure that your server meets WoWRoster's requirements, you can click the [Start Install] button.
+
+
+Step 4-1
+  * Database Host:
+     Your MySQL server name.
+     If it resides on the same server as the web server, you should enter 'localhost'
+	 Some hosts may not have the mysql server on the same server as the web server,
+	 so you should contact your host and get the correct server location
+
+  * Database Name:
+     The name of the database you created for WoWRoster, usually 'roster'.
+
+  * Database Username:
+     The username with permission to access the database.
+     If you didn't create the database yourself, your host should have given you this information.
+
+  * Database Password:
+     The password used with the username from above.
+
+  * Databse Prefix for Roster tables:
+     Simply prefixes the name of each table that WoWRoster creates and uses.
+     The default of 'roster_' should be sufficient for most installations.
+
+  * Main Site URL:
+     Should be detected automatically by the installation script, but if not just put the domain name of your server here
+     ( ex: http://www.[domain].com )
+
+
+Step 4-2
+  * Administrator Password:
+     A password of your choosing.
+  * Administrator Password [ confirm ]:
+     Simply re-type the password to verify it.
+  * Note that the guild/user and officer/upload passwors will be set to this as well
+    You can change them later via RosterCP
+
+
+Step 5
+     After you're satisfied with the values for the above fields, click the button to proceed.
+     The installer will automatically fill your conf.php file.
+
+     If the creation of conf.php failed, the installer will give you code to paste into conf.php.
+
+     You will be notified if your passwords didn't match, and it will be reset to a default of "admin"
+     You can change this later by going to RosterCP.
+
+     This will also be the password for the Officer/Upload and Guild/User logins, change them via RosterCP
+
+     Navigate to RosterCP, this is where you can configure all aspects of WoWRoster.
+     After that, you're ready to begin using WoWRoster.
+
+     You should now have a functional installation of WoWRoster.
+     Remove the file install.php for extra security.
+
+
+
+
+-------------------------
+| Upgrading Roster      |
+-------------------------
+As always, we recommend a fresh install, in a clean folder, and a clean database.
+But for those that absolutely need to upgrade, we have worked really hard for you on the upgrade script.
+
+
+Special Instructions for lower than 2.0.0 to 2.0.x
+  There is no upgrade path from versions lower than 2.0.0
+  This is because Roster 2.0.0 gathers much more data from WoW than earlier versions and causes errors in the core files.
+
+
+General Instructions
+
+Step 1
+  BACK UP YOUR DATABASE.
+
+  This cannot be stressed enough.
+
+  You should consider using phpMyAdmin (http://www.phpmyadmin.net)
+  This can use 'Completed Inserts' that will be necessary if you need to restore the database.
+
+
+Step 2
+  Seriously, go back up your database since you skipped step 1.
+
+
+Step 3
+  Back up your conf.php file.
+  Usually we would never touch this file during an upgrade...but just in case something weird happens
+
+
+Step 4
+  Unzip the new WoWRoster version.
+  Overwrite ALL files!
+  It's best to delete everything in the roster folder EXCEPT! your conf.php file first, before copying over files
+
+
+Step 5
+  Access www.[domain].com/roster
+
+  Select the version you're upgrading from.
+  The script will perform all the necessary changes to upgrade from the version you selected to the newest version.
+
+
+Step 6
+  Navigate to RosterCP, this is where you can configure all aspects of WoWRoster.
+  Remove the file install.php for extra security.
+
+
+
+
+-------------------------
+| Re-Installing Roster  |
+-------------------------
+Perhaps there has been some weird problem that you cannot solve
+Such as database corruption, updating errors, data errors, etc...
+
+You can try re-installing Roster
+
+
+Pre re-install
+  Make sure you have install.php in your roster folder on your web server
+
+
+Step 1
+  Delete conf.php from the roster directory
+
+
+Step 2
+  Drop all `roster_` tables in the database you created for Roster
+  Note: `roster_` may be different if you changed the table prefix
+
+  You can also just drop the database you created for Roster
+  If you didn't create a new database for Roster, use the first method for removing the tables
+
+
+Step 3
+  Run install.php
+
+
+
+
+-------------------------
+| Un-Installing Roster  |
+-------------------------
+First of all, we'd like to thank you for trying our software and hope it was a good experiance for you
+Sometimes Roster doesn't work on all servers although we try our best to improve this aspect
+
+
+Step 1
+  Remove/delete the roster directory from your webserver
+
+
+Step 2
+  Drop all `roster_` tables in the database you created for Roster
+  Note: `roster_` may be different if you changed the table prefix
+
+  You can also just drop the database you created for Roster
+  If you didn't create a new database for Roster, use the first method for removing the tables
+
+
+
+--------------------------------------
+The WoWRoster Dev Team
+http://www.wowroster.net

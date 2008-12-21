@@ -1,0 +1,85 @@
+<!-- $Id$ -->
+
+<div class="vault" style="background-image:url({U_IMAGE_PATH}vaultframe_{U_FRAME_IMAGE}.png);">
+
+	<div class="tab_nav">
+		<ul id="vault_navagation">
+
+		<!-- BEGIN tabs -->
+			<li><div style="background:url({INTERFACE_URL}Interface/Icons/{tabs.ICON});" {tabs.TOOLTIP}><a rel="Tab{tabs.IDX}" class="text"></a></div></li>
+		<!-- END tabs -->
+
+		</ul>
+	</div>
+
+	<!-- BEGIN tab_data -->
+	<!-- IF tab_data.IDX neq 'Money' -->
+	<div id="Tab{tab_data.IDX}" style="display:none;">
+		<div class="vault_name_back">
+			<div class="vault_name">{tab_data.NAME}</div>
+		</div>
+		{tab_data.ITEMS}
+
+		<div id="Tab{tab_data.IDX}Log" class="log" style="display:none;">
+			<table style="width:100%">
+
+		<!-- BEGIN log -->
+			<tr>
+				<td>{tab_data.log.TYPE} <span class="blueB">({tab_data.log.TIME})</span></td>
+			</tr>
+		<!-- END log -->
+
+			</table>
+		</div>
+
+		<div class="tab_navagation">
+			<ul id="vault_tab{tab_data.IDX}_navagation">
+				<li class="selected"><a href="#" rel="Tab{tab_data.IDX}Items" class="text">{tab_data.NAME}</a></li>
+				<li><a href="#" rel="Tab{tab_data.IDX}Log" class="text">{L_LOG}</a></li>
+			</ul>
+			<script type="text/javascript">
+			<!--
+				var vault_tab{tab_data.IDX}_navagation=new tabcontent('vault_tab{tab_data.IDX}_navagation');
+				vault_tab{tab_data.IDX}_navagation.init();
+			//-->
+			</script>
+		</div>
+	</div>
+	<!-- ELSE -->
+	<div id="Tab{tab_data.IDX}Log" style="display:none;">
+		<div class="vault_name_back">
+			<div class="vault_name">{tab_data.NAME}</div>
+		</div>
+		<div class="log">
+			<table style="width:100%">
+
+		<!-- BEGIN log -->
+			<tr>
+				<td>{tab_data.log.TYPE} <span class="blueB">({tab_data.log.TIME})</span></td>
+			</tr>
+		<!-- END log -->
+
+			</table>
+		</div>
+	</div>
+	<!-- ENDIF -->
+	<!-- END tab_data -->
+
+	<!-- IF S_MONEY -->
+	<div class="vault_money"><span class="yellowB">{L_MONEY_AVAIL}:</span>
+		<span class="money">
+			{MONEY_G} <img src="{IMG_URL}coin_gold.gif" alt="g" />
+			{MONEY_S} <img src="{IMG_URL}coin_silver.gif" alt="s" />
+			{MONEY_C} <img src="{IMG_URL}coin_copper.gif" alt="c" />
+		</span>
+	</div>
+	<!-- ENDIF -->
+
+</div>
+
+<script type="text/javascript">
+<!--
+	var vault_navagation=new tabcontent('vault_navagation');
+	vault_navagation.init();
+//-->
+</script>
