@@ -133,12 +133,9 @@ class keysUpdate
 		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
 			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
 			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
-			. "`" . $roster->db->table('quests') . "` AS link, "
-			. "`" . $roster->db->table('quest_data') . "` AS data "
+			. "`" . $roster->db->table('quests') . "` AS data "
 			. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
-			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' "
-			. "AND `link`.`member_id` = '" . $member_id ."' "
-			. "AND `link`.`quest_id` = `data`.`quest_id` "
+			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
 			. "AND `stages`.`type` = 'Q' AND `data`.`quest_name` = `stages`.`value`;";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' quest stages activated';

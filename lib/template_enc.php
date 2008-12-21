@@ -128,39 +128,6 @@ class RosterTplEncode
 						$compile_blocks[] = '<?php ' . array_shift($php_blocks) . ' ?>';
 						break;
 
-					case 'TRANSLATE':
-						$params = explode( ' ', $blocks[2][$curr_tb] );
-						$key = $params[0];
-						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
-								. '{ echo $roster->locale->act[\'' . $key . '\']; }'
-							. 'else'
-								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
-						break;
-
-					case 'TRANSLATE_F':
-						$params = explode( ' ', $blocks[2][$curr_tb] );
-						$key = array_shift( $params );
-						$args = '';
-						foreach( $params as $param )
-						{
-							if( preg_match('#^(([a-z0-9\-_]+?\.)+?)(\$)?([A-Z0-9\-_]+?)$#', $param, $varref) )
-							{
-								$namespace = $varref[1];
-								$varname = $varref[4];
-								$isdefine = $varref[3];
-								$args .= ',' . RosterTplEncode::generate_block_varref($namespace, $varname, false, $isdefine);
-							}
-							else
-							{
-								$args .= ',$this->_tpldata[\'.\'][0][\'' . $param . '\']';
-							}
-						}
-						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
-								. '{ echo sprintf( $roster->locale->act[\'' . $key . '\']' . $args . '); }'
-							. 'else'
-								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
-						break;
-
 					default:
 						RosterTplEncode::compile_var_tags($blocks[0][$curr_tb]);
 						$trim_check = trim($blocks[0][$curr_tb]);
@@ -169,7 +136,7 @@ class RosterTplEncode
 				}
 			}
 		}
-		$template_php = '<?php global $roster; ?>';
+		$template_php = '';
 		for( $i = 0; $i < count($text_blocks); $i++ )
 		{
 			$trim_check_text = trim($text_blocks[$i]);
@@ -214,7 +181,7 @@ class RosterTplEncode
 		{
 			$tag_args = $match[1];
 			$loop_start = ($match[2] < 0) ? '$_' . $tag_args . '_count ' . ($match[2] - 1) : $match[2];
-			$loop_end = isset($match[4]) ? (($match[4] < 0) ? '$_' . $tag_args . '_count ' . $match[4] : ($match[4] + 1)) : '$_' . $tag_args . '_count';
+			$loop_end = ($match[4]) ? (($match[4] < 0) ? '$_' . $tag_args . '_count ' . $match[4] : ($match[4] + 1)) : '$_' . $tag_args . '_count';
 		}
 		else
 		{

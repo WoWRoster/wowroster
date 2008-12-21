@@ -29,10 +29,12 @@ class memberslist
 	var $listname = 'membersData';	// table ID for javascript
 	var $fields;					// field definitions
 	var $query;						// main query
-	var $wheres;					// where clauses
-	var $orders;					// order clauses
 
 	var $addon;						// SortMembers addon data
+
+	var $tableHeaderRow;			// Column headers
+	var $sortFields;				// Column names and sort input fields
+	var $sortoptions;				// List of 'option' fields for the sort select boxes
 
 	/**
 	 * Constructor
@@ -73,7 +75,7 @@ class memberslist
 		}
 
 		// Set the js in the roster header
-		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/alts.js"></script>';
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/sorttable.js"></script>';
 
 		// Merge in the override options from the calling file
 		if( !empty($options) )
@@ -82,9 +84,13 @@ class memberslist
 		}
 
 		// Overwrite some options if they're specified by the client
+		if( isset($_GET['style']) )
+		{
+			$this->addon['config']['nojs'] = ($_GET['style'] == 'server') ? 1 : 0;
+		}
 		if( isset($_GET['alts']) )
 		{
-			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : (($_GET['alts'] == 'close') ? 1 : 0);
+			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : ($_GET['alts'] == 'close') ? 1 : 0;
 		}
 	}
 
@@ -93,20 +99,14 @@ class memberslist
 	 *
 	 * @param string $query
 	 *	The main SQL query for this list
-	 * @param array $where
-	 *  Default WHERE clauses. These are ANDed together
-	 * @param array $group
-	 *  GROUP BY columns. Should be the ID column of the listed scope (member_id on the default memberslist)
-	 * @param array order_first
-	 *  Initial order clauses, before any order clauses supplied by the UI
-	 * @param array order_last
-	 *  Trailing order clauses, after any order clauses supplied by the UI
+	 * @param string $always_sort
+	 *	The trailing end of the sort string, after the columnwise sort.
 	 * @param array $fields
 	 *	Array with field data. See documentation.
 	 * @param string $listname
 	 *	The ID used by javascript to identify this memberstable.
 	 */
-	function prepareData( $query, $where, $group, $order_first, $order_last, $fields, $listname )
+	function prepareData( $query, $always_sort, $fields, $listname )
 	{
 		global $roster;
 
@@ -116,164 +116,111 @@ class memberslist
 		unset($fields);
 		$cols = count($this->fields);
 
-		// Pre-store server get params
-		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['s'] : '' );
-		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
-
-		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
-		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
-
-		// Extract filters form $_GET
-		$get_filter = array();
-		foreach( $this->fields as $name => $data )
-		{
-			if( isset( $_GET['filter_' . $name] ) && !empty( $_GET['filter_' . $name] ) )
-			{
-				$get_filter[$name] = $_GET['filter_' . $name];
-				$get .= '&amp;filter_' . $name . '=' . htmlentities($get_filter[$name]);
-			}
-		}
-
 		$roster->tpl->assign_vars(array(
-			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
-			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
-			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
-			'U_FILTER_FORM' => makelink($filter_post),
-
 			'S_FILTER' => false,
-			'S_HIDE_FILTER' => (bool)!$this->addon['config']['openfilter'],
+			'S_TOOLBAR' => false,
+			'S_HIDE_FILTER' => (($this->addon['config']['openfilter']) ? false : true),
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
+			'S_NOJS' => (bool)$this->addon['config']['nojs'],
 
 			'B_PAGINATION' => false,
 
 			'COLS' => $cols+1,
 			'LISTNAME' => $this->listname,
 
-			'ML_IMAGE_URL' => $this->addon['tpl_image_url'],
+			'L_SORT_FILTER' => $roster->locale->act['memberssortfilter'],
+			'L_SORT' => $roster->locale->act['memberssort'],
+			'L_COL_SHOW' => $roster->locale->act['memberscolshow'],
+			'L_FILTER' => $roster->locale->act['membersfilter'],
+			'L_GO' => 'Go',
+			'L_MA' => 'MA',
+
+			'L_CLOSE_ALL' => $roster->locale->act['closeall'],
+			'L_OPEN_ALL' => $roster->locale->act['openall'],
+			'L_CLOSE_ALTS' => $roster->locale->act['closealts'],
+			'L_OPEN_ALTS' => $roster->locale->act['openalts'],
+			'L_UNGROUP_ALTS' => $roster->locale->act['ungroupalts'],
+			'L_CLIENT_SORT' => $roster->locale->act['clientsort'],
+			'L_SERVER_SORT' => $roster->locale->act['serversort'],
 			)
 		);
 
-		// --[ Add filter SQL ]--
-		foreach( $get_filter as $field => $filter )
-		{
-			$data = $this->fields[$field];
+		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
+		$get_d = ( isset($_GET['d']) ? $_GET['d'] : '' );
+		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
 
-			if( isset( $data['filt_field'] ) )
-			{
-				$field = $data['filt_field'];
-			}
-
-			if( isset( $data['filter'] ) )
-			{
-				if( $data['filter'] !== false )
-				{
-					$where_clause = call_user_func($data['filter'], $field, $filter, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array() ) );
-				}
-			}
-			else
-			{
-				$where_clause = $this->default_filter( $field, $filter );
-			}
-
-			if( !empty( $where_clause ) )
-			{
-				$where[] = $where_clause;
-			}
-		}
-		if( !empty( $where ) )
-		{
-			$query .= ' WHERE (' . implode( ') AND (', $where ) . ')';
-		}
-
-		// --[ Add grouping SQL ]--
-		if( !empty( $group ) )
-		{
-			$query .= ' GROUP BY ' . implode( ',', $group );
-		}
-
-		// --[ Get number of rows ]--
-		if( $this->addon['config']['page_size'] )
+		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size'] )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
-			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM'));
+			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM')) . '1';
 			$num_rows = $roster->db->query_first($rowsqry);
+		}
+		// --[ Page list ]--
+		if( $this->addon['config']['nojs'] && $this->addon['config']['page_size']
+			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
+		)
+		{
+			$params = '&amp;style=' . ($this->addon['config']['nojs'] ? 'server' : 'client')
+					. '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : $this->addon['config']['group_alts']==1 ? 'close' : 'ungroup');
+
+			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 		}
 
 		// --[ Add sorting SQL ]--
-		$order = $order_first;
 		if( empty($get_s) && !empty($this->addon['config']['def_sort']) )
 		{
 		   $get_s = $this->addon['config']['def_sort'];
 		}
 
-		foreach( explode( ',', $get_s ) as $sort )
+		if( isset($this->fields[$get_s]) )
 		{
-			if( empty($sort) )
-			{
-				continue;
-			}
-
-			if( strpos( $sort, ':' ) )
-			{
-				list($field, $dir) = explode( ':', $sort );
-			}
-			else
-			{
-				$field = $sort; $dir = 'a';
-			}
-
-			$ORDER_FIELD = $this->fields[$field];
-			if( $dir == 'd' && isset( $ORDER_FIELD['order_d'] ) )
+			$ORDER_FIELD = $this->fields[$get_s];
+			if( !empty($get_d) && isset( $ORDER_FIELD['order_d'] ) )
 			{
 				foreach ( $ORDER_FIELD['order_d'] as $order_field_sql )
 				{
-					$order[] = $order_field_sql;
+					$query .= $order_field_sql . ', ';
 				}
 			}
 			elseif( isset( $ORDER_FIELD['order']) )
 			{
 				foreach ( $ORDER_FIELD['order'] as $order_field_sql )
 				{
-					$order[] = $order_field_sql;
+					$query .= $order_field_sql . ', ';
 				}
 			}
 		}
 
-		foreach( $order_last as $order_sql )
+		$query .=  $always_sort;
+
+		// --[ Add pagination SQL, if we're in server sort mode ]--
+		if( $this->addon['config']['nojs']
+			&& $this->addon['config']['page_size']
+			&& is_numeric($get_st) )
 		{
-				$order[] = $order_sql;
+			$start = $get_st * $this->addon['config']['page_size'];
+			$query .= ' LIMIT ' . $start . ',' . $this->addon['config']['page_size'];
 		}
 
-		if( !empty( $order ) )
-		{
-			$query .= ' ORDER BY ' . implode( ',', $order );
-		}
+		$this->query = $query . ';';
 
-		// --[ Add pagination SQL ]--
-		if( $get_st )
-		{
-			$query .= ' LIMIT ' . $get_st . ',' . $this->addon['config']['page_size'];
-		}
-
-		// --[ Query done, add to class vars ]--
-		$this->query = $query;
-
-		// --[ Page list ]--
-		if( $this->addon['config']['page_size']
-			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
-		)
-		{
-			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
-
-			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
-		}
+		// Print out the alt control row
+		$roster->tpl->assign_block_vars('header_cell',array(
+			'LINK' => false,
+			'TEXT' => '&nbsp;',
+			'ID' => false,
+			'DISPLAY' => ($this->addon['config']['group_alts'] >= 1) ? false : true
+			)
+		);
 
 		// header row
+		$this->sortFields = '';
+		$this->sortoptions = '<option selected="selected" value="none">&nbsp;</option>' . "\n";
 		$current_col = 1;
 		foreach ( $this->fields as $field => $DATA )
 		{
 			// If this is a force invisible field, don't do anything with it.
-			if( $DATA['display'] == 0 || $DATA['display'] == 1 )
+			if( $DATA['display'] == 0 || ($DATA['display'] == 1 && $this->addon['config']['nojs']))
 			{
 				unset($this->fields[$field]);
 				continue;
@@ -289,47 +236,49 @@ class memberslist
 				$th_text = $DATA['lang_field'];
 			}
 
-			// click a sorted field again to reverse sort it
-			// Don't add it if it is detected already
-			if( !empty( $get_s ) )
+			if( $this->addon['config']['nojs'] )
 			{
-				$sorts = explode( ',', $get_s );
-			}
-			else
-			{
-				$sorts = array();
-			}
-
-			if( false !== ($key = array_search( $field, $sorts )) || 
-				false !== ($key = array_search( $field . ':a', $sorts)) )
-			{
-				unset( $sorts[$key] );
-				array_unshift( $sorts, $field . ':d' );
-			}
-			else
-			{
-				$key = array_search( $field . ':d', $sorts );
-				if( $key !== false )
+				// click a sorted field again to reverse sort it
+				// Don't add it if it is detected already
+				if( $get_d != 'true' )
 				{
-					unset( $sorts[$key] );
+					$desc = ( $get_s == $field ) ? '&amp;d=true' : '';
 				}
-				array_unshift( $sorts, $field . ':a' );
+				else
+				{
+					$desc = '';
+				}
+
+				$roster->tpl->assign_block_vars('header_cell',array(
+					'LINK' => makelink('&amp;style=server&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field . $desc),
+					'TEXT' => $th_text,
+					'ID' => false,
+					'DISPLAY' => false
+					)
+				);
 			}
-			$newsort = implode( ',', $sorts );
-			
-			$get = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;s=' . $newsort;
-			foreach( $get_filter as $key => $filter )
+			else
 			{
-				$get .= '&amp;filter_' . $key . '=' . htmlentities($filter);
+				$roster->tpl->assign_block_vars('header_cell',array(
+					'LINK' => makelink('&amp;style=server&amp;alts=' . ($this->addon['config']['group_alts'] == 2 ? 'open' : ($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup') . '&amp;s=' . $field),
+					'TEXT' => $th_text,
+					'JS' => $DATA['js_type'],
+					'ID' => $DATA['lang_field'],
+					'DISPLAY' => ( $DATA['display'] == 1 ? true : false ),
+					'COLUMN' => $current_col
+					)
+				);
 			}
 
-			$roster->tpl->assign_block_vars('header_cell',array(
-				'LINK' => makelink($get),
+			$this->sortoptions .= '<optgroup label="' . $th_text . '">'
+				. '<option value="' . $current_col . '_asc">' . $th_text . ' ASC</option>'
+				. '<option value="' . $current_col . '_desc">' . $th_text . ' DESC</option>'
+				. '</optgroup>';
+
+			$roster->tpl->assign_block_vars('sort_field',array(
 				'TEXT' => $th_text,
-				'ID' => false,
-				'B_FILTER' => ( !isset($DATA['filter']) || $DATA['filter'] !== false ),
-				'FILTER' => ( isset($get_filter[$field]) ? htmlentities($get_filter[$field]) : '' ),
-				'NAME' => $field,
+				'DISPLAY' => $DATA['display'],
+				'COLUMN' => $current_col
 				)
 			);
 
@@ -339,7 +288,59 @@ class memberslist
 	}
 
 	/**
-	 * Returns the actual list.
+	 * Returns the sort/filter box
+	 */
+	function makeFilterBox()
+	{
+		global $roster;
+
+		if( $this->addon['config']['nojs'] )
+		{
+			return;
+		}
+
+		$roster->tpl->assign_var('S_FILTER',true);
+
+		for ($i=0; $i<4; $i++)
+		{
+			$roster->tpl->assign_block_vars('sort_option',array(
+				'ID' => $i,
+				'OPTIONS' => $this->sortoptions
+				)
+			);
+		}
+	}
+
+	/**
+	 * Returns the additional controls
+	 *
+	 * @param string $dir
+	 *		direction
+	 */
+	function makeToolBar($dir = 'horizontal')
+	{
+		global $roster;
+
+		// Pre-store server get params
+		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' );
+		$get = ( isset($_GET['d']) ? '&amp;d=' . $_GET['d'] : '' );
+
+		$style = '&amp;style=' . ($this->addon['config']['nojs'] ? 'server' : 'client');
+		$alts = '&amp;alts=' . ($this->addon['config']['group_alts']==1 ? 'show' : 'hide');
+
+		$roster->tpl->assign_vars(array(
+			'S_TOOLBAR' => $dir,
+			'U_UNGROUP_ALTS' => makelink($style . '&amp;alts=ungroup' . $get),
+			'U_OPEN_ALTS' => makelink($style . '&amp;alts=open' . $get),
+			'U_CLOSE_ALTS' => makelink($style . '&amp;alts=close' . $get),
+			'U_CLIENT_SORT' => makelink('&amp;style=client' . $alts),
+			'U_SERVER_SORT' => makelink('&amp;style=server' . $alts . $get),
+			)
+		);
+	}
+
+	/**
+	 * Returns the actual list. (but not the border)
 	 */
 	function makeMembersList( $border=false )
 	{
@@ -376,20 +377,41 @@ class memberslist
 				{
 					$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
 				}
+				elseif ( isset( $DATA['jsort'] ) )
+				{
+					$cell_value = '<div style="display:none;">' . $row[$DATA['jsort']] . '</div>' . $row[$field];
+					if (empty($row[$field]))
+					{
+						$cell_value .= '&nbsp;';
+					}
+				}
 				else
 				{
-					$cell_value = ($row[$field] != '') ? $row[$field] : '&nbsp;';
+					if($row[$field] == '')
+					{
+						$row[$field] = '&nbsp;';
+					}
+					$cell_value = '<div>' . $row[$field] . '</div>';
 				}
 
 
+				/**
+				 * IMPORTANT do not add any spaces between the td and the
+				 * $cell_value or the javascript will break
+				 * This construct means we can't hide the first column. But
+				 * that's no problem cause it's probably the name anyway which
+				 * is locked on force visible.
+				 */
 				$line[] = array(
 					'cell_value' => $cell_value,
+					'display' => $DATA['display'] == 1 ? true : false,
+					'padding' => ($current_col == 1) ? ( ($this->addon['config']['group_alts'] <= 0 || $row['main_id'] == $row['member_id']) ? false : true ) : false,
 				);
 				$current_col++;
 			}
 
 			// Cache lines for main/alt stuff
-			if( $this->addon['config']['group_alts'] < 0 )
+			if( $this->addon['config']['group_alts'] <= 0 )
 			{
 				$lookup[] = count($lines);
 				$lines[]['main'] = $line;
@@ -401,8 +423,6 @@ class memberslist
 			}
 			else
 			{
-				$lookup[] = $row['member_id'];
-				$lines[$row['member_id']]['amain'] = $line;
 				$lines[$row['main_id']]['alts'][] = $line;
 			}
 		}
@@ -419,34 +439,114 @@ class memberslist
 			$member_id = $lookup[$i];
 			$block = $lines[$member_id];
 
-			// Main without alts, or ungrouped
-			if( $this->addon['config']['group_alts'] < 0 || !isset($block['alts']) || 0 == count($block['alts']) )
+			// Group alts off
+			if( $this->addon['config']['group_alts'] <= 0 )
 			{
-				if( isset( $block['main'] ) )
-				{
-					$this->assignRow( 'members_row', $member_id, 'main altless', $block['main'] );
-				}
-				else
-				{
-					$this->assignRow( 'members_row', $member_id, 'amain', $block['amain'] );
-				}
-			}
-			// Mainless alt.
-			else if( !isset($block['main']) )
-			{
-				foreach( $block['alts'] as $id => $alt )
-				{
-					$this->assignRow( 'members_row', $member_id . '-' . $id, 'alt_mainless', $alt );
-				}
-			}
-			// Main with alts
-			else
-			{
-				$this->assignRow( 'members_row', $member_id, 'main', $block['main'] );
+				$roster->tpl->assign_block_vars('members_row',array(
+					'SIMPLE' => true,
+					'ROW_CLASS' => $roster->switch_row_class(),
+					'MA' => false,
+					'DISPLAY' => true
+					)
+				);
 
-				foreach( $block['alts'] as $alt )
+				foreach( $block['main'] as $line )
 				{
-					$this->assignRow( 'members_row.alt', $member_id, 'alt', $alt );
+					$roster->tpl->assign_block_vars('members_row.cell',array(
+						'VALUE' => $line['cell_value'],
+						'DISPLAY' => $line['display'],
+						'PADDING' => $line['padding'],
+						)
+					);
+				}
+				continue;
+			}
+
+			// Main, or no alt data
+			if( !isset($block['alts']) || 0 == count($block['alts']) )
+			{
+				$roster->tpl->assign_block_vars('members_row',array(
+					'SIMPLE' => true,
+					'ROW_CLASS' => $roster->switch_row_class(),
+					'MA' => false,
+					'DISPLAY' => false
+					)
+				);
+
+				foreach( $block['main'] as $line )
+				{
+					$roster->tpl->assign_block_vars('members_row.cell',array(
+						'VALUE' => $line['cell_value'],
+						'DISPLAY' => $line['display'],
+						'PADDING' => $line['padding'],
+						)
+					);
+				}
+				continue;
+			}
+
+			// Mainless alt.
+			if( !isset($block['main']) )
+			{
+				foreach( $block['alts'] as $rows )
+				{
+					$roster->tpl->assign_block_vars('members_row',array(
+						'SIMPLE' => true,
+						'ROW_CLASS' => $roster->switch_row_class(),
+						'MA' => true,
+						'DISPLAY' => false
+						)
+					);
+
+					foreach( $rows as $line )
+					{
+						$roster->tpl->assign_block_vars('members_row.cell',array(
+							'VALUE' => $line['cell_value'],
+							'DISPLAY' => $line['display'],
+							'PADDING' => $line['padding'],
+							)
+						);
+					}
+				}
+				continue;
+			}
+
+			// Main with alts
+			$roster->tpl->assign_block_vars('members_row',array(
+				'SIMPLE' => false,
+				'ROW_CLASS' => $roster->switch_row_class(),
+				'MEMBER_ID' => $member_id,
+				'DISPLAY' => false,
+				'OPEN' => ($this->addon['config']['group_alts'] == 2) ? true : false
+				)
+			);
+
+			foreach( $block['main'] as $line )
+			{
+				$roster->tpl->assign_block_vars('members_row.cell',array(
+					'VALUE' => $line['cell_value'],
+					'DISPLAY' => $line['display'],
+					'PADDING' => $line['padding']
+					)
+				);
+			}
+
+			foreach( $block['alts'] as $rows )
+			{
+				$roster->tpl->assign_block_vars('members_row.alt',array(
+					'ROW_CLASS' => $roster->switch_alt_row_class(),
+					'DISPLAY' => ($this->addon['config']['group_alts'] == 1) ? true : false
+					)
+				);
+
+				foreach( $rows as $line )
+				{
+					$roster->tpl->assign_block_vars('members_row.alt.cell',array(
+						'VALUE' => $line['cell_value'],
+						'DISPLAY' => $line['display'],
+						'PADDING' => $line['padding']
+						)
+					);
 				}
 			}
 		}
@@ -454,27 +554,6 @@ class memberslist
 		return $roster->tpl->fetch('memberslist');
 	}
 
-	/**
-	 * Assigns a data row to $roster->tpl
-	 */
-	function assignRow( $class, $member_id, $type, $cells )
-	{
-		global $roster;
-
-		$roster->tpl->assign_block_vars($class,array(
-			'MEMBER_ID' => $member_id,
-			'ROW_CLASS' => ( ( 0 !== strpos( $type, 'alt') )           ?
-		       				$roster->switch_row_class()        :
-						$roster->switch_alt_row_class() ),
-			'CLASS'     => $type
-		));
-		foreach( $cells as $cell )
-		{
-			$roster->tpl->assign_block_vars($class . '.cell',array(
-				'VALUE'   => $cell['cell_value']
-			));
-		}
-	}
 
 	/**
 	 * Returns the MOTD
@@ -498,49 +577,6 @@ class memberslist
 		}
 	}
 
-	function default_filter( $field, $filter )
-	{
-		if( !strncmp( $filter, '=', 1 ) )
-		{
-			return $this->buildclause( $field, '=', substr( $filter, 1 ) );
-		}
-		else if( !strncmp( $filter, '!=', 2 ) )
-		{
-			return $this->buildclause( $field, '!=', substr( $filter, 2 ) );
-		}
-		else if( !strncmp( $filter, '<=', 2 ) )
-		{
-			return $this->buildclause( $field, '<=', substr( $filter, 2 ) );
-		}
-		else if( !strncmp( $filter, '>=', 2 ) )
-		{
-			return $this->buildclause( $field, '>=', substr( $filter, 2 ) );
-		}
-		else if( !strncmp( $filter, '>', 1 ) )
-		{
-			return $this->buildclause( $field, '>', substr( $filter, 1 ) );
-		}
-		else if( !strncmp( $filter, '<', 1 ) )
-		{
-			return $this->buildclause( $field, '<', substr( $filter, 1 ) );
-		}
-		else
-		{
-			return $field . ' LIKE "%' . $filter . '%"';
-		}
-	}
-
-	function buildclause( $field, $oper, $value )
-	{
-		if( is_numeric($value) )
-		{
-			return $field . $oper . ((float)$value);
-		}
-		else
-		{
-			return $field . $oper . '"' . $value . '"';
-		}
-	}
 	/*********************************************************************
 	 function(s) to return a value from a row with some logic applied.
 	*********************************************************************/
@@ -556,7 +592,6 @@ class memberslist
 	{
 		global $roster;
 
-		$tooltip = '';
 		if( $this->addon['config']['member_tooltip'] )
 		{
 			$tooltip_h = $row['name'] . ' : ' . $row['guild_title'];
@@ -566,16 +601,28 @@ class memberslist
 			$tooltip .= $roster->locale->act['lastonline'] . ': ' . $row['last_online'] . ' in ' . $row['zone'];
 			$tooltip .= ( $this->addon['config']['member_note'] == 0 || $row['nisnull'] ? '' : "\n" . $roster->locale->act['note'] . ': ' . $row['note'] );
 
-			$tooltip = ' style="cursor:help;" ' . makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP');
-		}
+			$tooltip = '<div style="cursor:help;" ' . makeOverlib($tooltip,$tooltip_h,'',1,'',',WRAP') . '>';
 
-		if( active_addon('info') && $row['server'] )
-		{
-			return '<div style="display:none;">' . $row['name'] . '</div><div' . $tooltip . '><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
+
+			if( active_addon('info') && $row['server'] )
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $tooltip . '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
+			}
+			else
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $tooltip . $row['name'] . '</div>';
+			}
 		}
 		else
 		{
-			return '<div style="display:none;">' . $row['name'] . '</div><div' . $tooltip . '>' . $row['name'] . '</div>';
+			if ( active_addon('info') && $row['server'] )
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '">' . $row['name'] . '</a></div>';
+			}
+			else
+			{
+				return '<div style="display:none;">' . $row['name'] . '</div>' . $row['name'];
+			}
 		}
 	}
 

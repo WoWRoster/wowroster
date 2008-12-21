@@ -26,79 +26,91 @@ $mainQuery =
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'UNIX_TIMESTAMP(`members`.`update_time`) AS date_stamp '.
 	'FROM `'.$roster->db->table('memberlog').'` AS members '.
-	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
-$where[] = '`members`.`server` = "'.$roster->db->escape($roster->data['server']).'"';
-$order_last[] = '`date_stamp` DESC';
+	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
+	'WHERE `members`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
+	'ORDER BY ';
+
+$always_sort = ' `date_stamp` DESC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
-	'order'      => array( '`name` ASC' ),
+	'order'    => array( '`name` ASC' ),
 	'order_d'    => array( '`name` DESC' ),
-	'display'    => 3,
+	'js_type' => 'ts_string',
+	'display' => 3,
 );
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
-	'order'      => array( '`class` ASC' ),
+	'order'    => array( '`class` ASC' ),
 	'order_d'    => array( '`class` DESC' ),
-	'value'      => array($memberlist,'class_value'),
-	'display'    => $addon['config']['log_class'],
+	'value' => array($memberlist,'class_value'),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['log_class'],
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
-	'order_d'    => array( '`level` DESC' ),
 	'order_d'    => array( '`level` ASC' ),
-	'value'      => array($memberlist,'level_value'),
-	'display'    => $addon['config']['log_level'],
+	'value' => array($memberlist,'level_value'),
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['log_level'],
 );
 
 $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
-	'order'      => array( '`guild`.`guild_name` ASC' ),
-	'order_d'    => array( '`guild`.`guild_name` DESC' ),
-	'display'    => 2,
+	'order' => array( '`guild`.`guild_name` ASC' ),
+	'order_d' => array( '`guild`.`guild_name` DESC' ),
+	'js_type' => 'ts_string',
+	'display' => 2,
 );
 
 $FIELD['guild_title'] = array (
 	'lang_field' => 'title',
-	'order'      => array( '`guild_rank` ASC' ),
-	'order_d'    => array( '`guild_rank` DESC' ),
-	'display'    => $addon['config']['log_gtitle'],
+	'order' => array( '`guild_rank` ASC' ),
+	'order_d' => array( '`guild_rank` DESC' ),
+	'js_type' => 'ts_number',
+	'jsort' => 'guild_rank',
+	'display' => $addon['config']['log_gtitle'],
 );
 
 $FIELD['type'] = array (
 	'lang_field' => 'type',
-	'order'      => array( '`type` ASC' ),
-	'order_d'    => array( '`type` DESC' ),
-	'value'      => 'type_value',
-	'display'    => $addon['config']['log_type'],
+	'order' => array( '`type` ASC' ),
+	'order_d' => array( '`type` DESC' ),
+	'value' => 'type_value',
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['log_type'],
 );
 
 $FIELD['date'] = array (
 	'lang_field' => 'date',
-	'order'      => array( '`date_stamp` DESC' ),
-	'order_d'    => array( '`date_stamp` ASC' ),
-	'display'    => $addon['config']['log_date'],
+	'order' => array( '`date_stamp` DESC' ),
+	'order_d' => array( '`date_stamp` ASC' ),
+	'jsort' => 'date_stamp',
+	'js_type' => 'ts_date',
+	'display' => $addon['config']['log_date'],
 );
 
 $FIELD['note'] = array (
 	'lang_field' => 'note',
-	'order'      => array( 'nisnull','`note` ASC' ),
-	'order_d'    => array( 'nisnull','`note` DESC' ),
-	'value'      => 'note_value',
-	'display'    => $addon['config']['log_note'],
+	'order' => array( 'nisnull','`note` ASC' ),
+	'order_d' => array( 'nisnull','`note` DESC' ),
+	'value' => 'note_value',
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['log_note'],
 );
 
 $FIELD['officer_note'] = array (
 	'lang_field' => 'onote',
-	'order'      => array( 'onisnull','`note` ASC' ),
-	'order_d'    => array( 'onisnull','`note` DESC' ),
-	'value'      => 'note_value',
-	'display'    => $addon['config']['log_onote'],
+	'order' => array( 'onisnull','`note` ASC' ),
+	'order_d' => array( 'onisnull','`note` DESC' ),
+	'value' => 'note_value',
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['log_onote'],
 );
 
-$memberlist->prepareData($mainQuery, $where, null, null, $order_last, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output
@@ -106,6 +118,10 @@ if( $addon['config']['log_update_inst'] )
 {
 	$roster->output['before_menu'] .= '<a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
+
+$memberlist->makeFilterBox();
+
+$memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList('syellow');
 

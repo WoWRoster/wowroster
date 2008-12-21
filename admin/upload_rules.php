@@ -51,8 +51,8 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 
 		if( !empty($_POST['value']) || !empty($_POST['server']) || !empty($_POST['region']) )
 		{
-			$name = $_POST['value'];
-			$server = $_POST['server'];
+			$name = trim($_POST['value']);
+			$server = trim($_POST['server']);
 			$region = strtoupper(substr(trim($_POST['region']),0,2));
 
 			$default = ( (isset($_POST['defaultchk']) && $_POST['defaultchk'] == '1') ? '1' : '0' );
@@ -161,11 +161,21 @@ $roster->tpl->assign_vars(array(
 	'S_ENFORCE_RULES' => $roster->config['enforce_rules'],
 	'S_EXISTING_DATA' => $existing_data,
 
+	'L_DISALLOW'           => $roster->locale->act['disallow'],
+	'L_ALLOW'              => $roster->locale->act['allow'],
 	'L_ENFORCE_RULES'      => $l_enforce_rules[0],
 	'L_ENFORCE_RULES_HELP' => makeOverlib($l_enforce_rules[1],$l_enforce_rules[0],'',0,'',',WRAP'),
+	'L_DEFAULT'            => $roster->locale->act['default'],
+	'L_NAME'               => $roster->locale->act['name'],
 	'L_NAME_TIP'           => makeOverlib( $mode == 'guild' ? $roster->locale->act['guildname'] : $roster->locale->act['charname'] ),
+	'L_SERVER'             => $roster->locale->act['server'],
 	'L_SERVER_TIP'         => makeOverlib($roster->locale->act['realmname']),
+	'L_REGION'             => $roster->locale->act['region'],
 	'L_REGION_TIP'         => makeOverlib($roster->locale->act['regionname']),
+	'L_ADD'                => $roster->locale->act['add'],
+	'L_DELETE'             => $roster->locale->act['delete'],
+	'L_UPLOAD_RULES'       => $roster->locale->act['pagebar_uploadrules'],
+	'L_UPLOAD_RULES_HELP'  => $roster->locale->act['upload_rules_help'],
 
 	'MODE' => $mode,
 	)

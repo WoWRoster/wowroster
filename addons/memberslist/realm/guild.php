@@ -31,49 +31,56 @@ $mainQuery =
 	'`guild`.`guild_num_accounts`, '.
 	'`guild`.`guild_motd` '.
 
-	'FROM `'.$roster->db->table('guild').'` AS guild ';
-$where[] = '`guild`.`server` = "'.$roster->db->escape($roster->data['server']).'"';
-$order_last[] = '`guild`.`guild_name` ASC';
+	'FROM `'.$roster->db->table('guild').'` AS guild '.
+	'WHERE `guild`.`server` = "'.$roster->db->escape($roster->data['server']).'" '.
+	'ORDER BY ';
+
+$always_sort = ' `guild`.`guild_name` ASC';
 
 $FIELD['guild_name'] = array (
 	'lang_field' => 'guild',
-	'order'      => array( '`guild`.`guild_name` ASC' ),
-	'order_d'    => array( '`guild`.`guild_name` DESC' ),
-	'value'      => 'guild_value',
-	'display'    => 3,
+	'order' => array( '`guild`.`guild_name` ASC' ),
+	'order_d' => array( '`guild`.`guild_name` DESC' ),
+	'value' => 'guild_value',
+	'js_type' => 'ts_string',
+	'display' => 3,
 );
 
 $FIELD['faction'] = array (
 	'lang_field' => 'faction',
-	'order'      => array( '`guild`.`faction` ASC' ),
-	'order_d'    => array( '`guild`.`faction` DESC' ),
-	'value'      => 'faction_value',
-	'display'    => 2,
+	'order' => array( '`guild`.`faction` ASC' ),
+	'order_d' => array( '`guild`.`faction` DESC' ),
+	'value' => 'faction_value',
+	'js_type' => 'ts_string',
+	'display' => 2,
 );
 
 $FIELD['guild_num_members'] = array (
 	'lang_field' => 'members',
-	'order'      => array( '`guild`.`guild_num_members` ASC' ),
-	'order_d'    => array( '`guild`.`guild_num_members` DESC' ),
-	'display'    => 2,
+	'order' => array( '`guild`.`guild_num_members` ASC' ),
+	'order_d' => array( '`guild`.`guild_num_members` DESC' ),
+	'js_type' => 'ts_number',
+	'display' => 2,
 );
 
 $FIELD['guild_num_accounts'] = array (
 	'lang_field' => 'accounts',
-	'order'      => array( '`guild`.`guild_num_accounts` ASC' ),
-	'order_d'    => array( '`guild`.`guild_num_accounts` DESC' ),
-	'display'    => 2,
+	'order' => array( '`guild`.`guild_num_accounts` ASC' ),
+	'order_d' => array( '`guild`.`guild_num_accounts` DESC' ),
+	'js_type' => 'ts_number',
+	'display' => 2,
 );
 
 $FIELD['guild_motd'] = array (
 	'lang_field' => 'motd',
-	'order'      => array( '`guild`.`guild_motd` ASC' ),
-	'order_d'    => array( '`guild`.`guild_motd` DESC' ),
-	'value'      => 'note_value',
-	'display'    => 2,
+	'order' => array( '`guild`.`guild_motd` ASC' ),
+	'order_d' => array( '`guild`.`guild_motd` DESC' ),
+	'value' => 'note_value',
+	'js_type' => 'ts_string',
+	'display' => 2,
 );
 
-$memberlist->prepareData($mainQuery, $where, null, null, $order_last, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output
@@ -81,6 +88,10 @@ if( $addon['config']['member_update_inst'] )
 {
 	$roster->output['before_menu'] .= '<a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
 }
+
+$memberlist->makeFilterBox();
+
+$memberlist->makeToolBar('horizontal');
 
 echo $memberlist->makeMembersList('syellow');
 

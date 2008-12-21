@@ -35,14 +35,14 @@ if( version_compare($roster->config['version'], ROSTER_VERSION,'>=') )
  */
 class Upgrade
 {
-	var $versions = array('1.9.9','2.0.0','2.0.9');
+	var $versions = array('1.9.9','2.0.0','2.0.1');
 	var $index = null;
 
 	function Upgrade()
 	{
 		global $roster;
 
-		//$roster->db->error_die(false);
+		$roster->db->error_die(false);
 
 		if( isset($_POST['upgrade']) )
 		{
@@ -86,134 +86,13 @@ class Upgrade
 	//--------------------------------------------------------------
 
 	/**
-	 * Upgrades the 2.0.9.x beta versions into the 2.1.0 release
-	 */
-	function upgrade_209()
-	{
-		global $roster;
-
-		if( version_compare($roster->config['version'],'2.0.9.1879','<') )
-		{
-			// Quest Data
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('quest_data') . "`;");
-			$roster->db->query("CREATE TABLE `" . $roster->db->table('quest_data') . "` (
-				`quest_id` int(11) NOT NULL default '0',
-				`quest_name` varchar(64) NOT NULL default '',
-				`quest_level` int(11) unsigned NOT NULL default '0',
-				`quest_tag` varchar(32) NOT NULL default '',
-				`group` int(1) NOT NULL default '0',
-				`daily` int(1) NOT NULL default '0',
-				`reward_money` int(11) NOT NULL default '0',
-				`zone` varchar(32) NOT NULL default '',
-				`description` text NOT NULL,
-				`objective` text NOT NULL,
-				`locale` varchar(4) NOT NULL default '',
-				PRIMARY KEY  (`quest_id`,`locale`),
-				FULLTEXT KEY `quest_name` (`quest_name`),
-				FULLTEXT KEY `zone` (`zone`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-			// Member Quests
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('quests') . "`;");
-			$roster->db->query("CREATE TABLE `" . $roster->db->table('quests') . "` (
-				`member_id` int(11) unsigned NOT NULL default '0',
-				`quest_id` int(11) NOT NULL default '0',
-				`quest_index` int(11) NOT NULL default '0',
-				`difficulty` int(1) NOT NULL default '0',
-				`is_complete` int(1) NOT NULL default '0',
-				PRIMARY KEY  (`member_id`,`quest_id`),
-				KEY `quest_index` (`quest_id`,`quest_index`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-		}
-
-		if( version_compare($roster->config['version'],'2.0.9.1882','<') )
-		{
-			// Fix commit 1879 renprefix_ error...oops
-			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_spellbook`;");
-			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talents`;");
-			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talenttree`;");
-
-			// And we have to re-add the tables, uhg
-
-			// Rename spellbook_pet to pet_spellbook
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('pet_spellbook') . "`;");
-			$roster->db->query("CREATE TABLE `" . $roster->db->table('pet_spellbook') . "` (
-				`member_id` int( 11 ) unsigned NOT NULL default '0',
-				`pet_id` int( 11 ) unsigned NOT NULL default '0',
-				`spell_name` varchar( 64 ) NOT NULL default '',
-				`spell_texture` varchar( 64 ) NOT NULL default '',
-				`spell_rank` varchar( 64 ) NOT NULL default '',
-				`spell_tooltip` mediumtext NOT NULL ,
-				PRIMARY KEY ( `member_id` , `pet_id` , `spell_name` , `spell_rank` )
-				) ENGINE = MYISAM DEFAULT CHARSET = utf8;");
-
-			$roster->db->query("INSERT INTO `" . $roster->db->table('pet_spellbook') . "`
-				SELECT *
-				FROM `" . $roster->db->table('spellbook_pet') . "`;");
-
-			$roster->db->query("DROP TABLE `" . $roster->db->table('spellbook_pet') . "` ;");
-
-			// Pet Talents
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('pet_talents') . "`;");
-			$roster->db->query("CREATE TABLE `" . $roster->db->table('pet_talents') . "` (
-				`member_id` int(11) NOT NULL default '0',
-				`pet_id` int(11) unsigned NOT NULL default '0',
-				`name` varchar(64) NOT NULL default '',
-				`tree` varchar(64) NOT NULL default '',
-				`row` tinyint(4) NOT NULL default '0',
-				`column` tinyint(4) NOT NULL default '0',
-				`rank` tinyint(4) NOT NULL default '0',
-				`maxrank` tinyint(4) NOT NULL default '0',
-				`tooltip` mediumtext NOT NULL,
-				`icon` varchar(64) NOT NULL default '',
-				PRIMARY KEY  (`member_id`,`pet_id`,`tree`,`row`,`column`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('pet_talenttree') . "`;");
-			$roster->db->query("CREATE TABLE `" . $roster->db->table('pet_talenttree') . "` (
-				`member_id` int(11) NOT NULL default '0',
-				`pet_id` int(11) unsigned NOT NULL default '0',
-				`tree` varchar(64) NOT NULL default '',
-				`background` varchar(64) NOT NULL default '',
-				`pointsspent` tinyint(4) NOT NULL default '0',
-				PRIMARY KEY  (`member_id`,`pet_id`,`tree`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` DROP `usedtp`, DROP `loyalty`;");
-		}
-
-		if( version_compare($roster->config['version'],'2.0.9.1884','<') )
-		{
-			$roster->db->query("ALTER TABLE `" . $roster->db->table('pet_talenttree') . "` ADD `order` tinyint(4) NOT NULL default '0' AFTER `background`;");
-		}
-
-		if( version_compare($roster->config['version'],'2.0.9.1891','<') )
-		{
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('glyphs') . "`;");
-			$roster->db->query("CREATE TABLE `" . $roster->db->table('glyphs') . "` (
-				`member_id` int(11) unsigned NOT NULL default '0',
-				`glyph_order` tinyint(4) NOT NULL default '0',
-				`glyph_type` tinyint(4) NOT NULL default '0',
-				`glyph_name` varchar(96) NOT NULL default '',
-				`glyph_icon` varchar(64) NOT NULL default '',
-				`glyph_tooltip` mediumtext NOT NULL
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-		}
-
-		$this->beta_upgrade();
-
-		$this->finalize();
-	}
-
-	/**
-	 * Upgrades 2.0.1 to 2.1.0
+	 * Upgrades 2.0.1 to 2.0.2
 	 */
 	function upgrade_201()
 	{
 		global $roster;
 
-		// This will be active when the release is done
-		//$this->standard_upgrader();
+		$this->standard_upgrader();
 
 		$this->finalize();
 	}
@@ -422,6 +301,10 @@ class Upgrade
 		}
 
 		$roster->tpl->assign_vars(array(
+			'L_UPGRADE'        => $roster->locale->act['upgrade_wowroster'],
+			'L_SELECT_VERSION' => $roster->locale->act['select_version'],
+			'L_UPGRADE'        => $roster->locale->act['upgrade'],
+
 			'U_UPGRADE'        => makelink('upgrade'),
 			)
 		);

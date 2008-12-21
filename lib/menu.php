@@ -66,6 +66,7 @@ class RosterMenu
 			'S_MENU_TOP_LOCALE' => (bool)$roster->config['menu_top_locale'],
 			'S_MENU_ICON'       => $roster->config['menu_top_faction'],
 
+			'L_LANGUAGE'        => $roster->locale->act['language'],
 			'L_MENU_LABEL'      => $roster->scope,
 			'L_MENU_LABEL_NAME' => $roster->locale->act[$roster->scope],
 			)
@@ -273,6 +274,8 @@ class RosterMenu
 					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
 					'ROSTER_MENU_3RDTITLE' => ( isset($roster->data['update_time']) ? readbleDate($roster->data['update_time'])
 							. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')' : '') : '' ),
+
+					'L_LAST_UPDATE' => $roster->locale->act['lastupdate'],
 					)
 				);
 				break;
@@ -284,6 +287,8 @@ class RosterMenu
 					'ROSTER_MENU_TITLE' => $roster->data['name'],
 					'ROSTER_MENU_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
 					'ROSTER_MENU_3RDTITLE' => $roster->data['update_format'],
+
+					'L_LAST_UPDATE' => $roster->locale->act['lastupdate'],
 					)
 				);
 				break;
@@ -658,6 +663,11 @@ class RosterMenu
 		}
 
 		$roster->tpl->assign_vars(array(
+			'L_MENU_HEADER_01' => $roster->locale->act['menu_header_01'],
+			'L_MENU_HEADER_02' => $roster->locale->act['menu_header_02'],
+			'L_MENU_HEADER_03' => $roster->locale->act['menu_header_03'],
+			'L_MENU_HEADER_04' => $roster->locale->act['menu_header_04'],
+
 			'S_MENU_HEADER_01' => isset($scopes['guild']) ? true : false,
 			'S_MENU_HEADER_02' => isset($scopes['realm']) ? true : false,
 			'S_MENU_HEADER_04' => isset($scopes['util']) ? true : false,
@@ -740,6 +750,9 @@ class RosterMenu
 
 		$roster->tpl->assign_vars(array(
 			'MENU_LOGIN_FORM' => ( is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : '' ),
+
+			'L_SEARCH'        => $roster->locale->act['search'],
+			'L_SEARCH_ROSTER' => $roster->locale->act['search_roster'],
 
 			'U_SEARCH_FORM_ACTION' => makelink('search')
 			)

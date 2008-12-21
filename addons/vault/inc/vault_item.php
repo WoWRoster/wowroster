@@ -47,7 +47,6 @@ class VaultItem extends item
 		$this->item_id = $data['item_id'];
 		$this->name = $data['item_name'];
 		$this->level = $data['item_level'];
-		$this->requires_level = $data['level'];
 		$this->icon = $data['item_texture'];
 		$this->slot = $data['item_slot'];
 		$this->parent = $data['item_parent'];
@@ -95,7 +94,7 @@ class VaultItem extends item
 				 . " AND `item_name` IN $sql_in ";
 			$result = $roster->db->query($sql);
 
-			while( $data = $roster->db->fetch($result) )
+			while( $data = $roster->db->fetch( $result ) )
 			{
 				if( $data['item_parent'] == 'equip')
 				{
@@ -123,16 +122,16 @@ class VaultItem extends item
 	{
 		global $roster, $addon;
 
-		$name = $roster->db->escape($name);
+		$name = $roster->db->escape( $name );
 		$sql = " SELECT *"
 			 . " FROM `" . $roster->db->table('items',$addon['basename']) . "`"
 			 . " WHERE `item_name` LIKE '%$name%'"
 			 . " LIMIT 1";
-		$result = $roster->db->query($sql);
-		$data = $roster->db->fetch($result);
+		$result = $roster->db->query( $sql );
+		$data = $roster->db->fetch( $result );
 		if( $data )
 		{
-			return new VaultItem($data, $parse_mode);
+			return new VaultItem( $data, $parse_mode );
 		}
 		else
 		{
@@ -144,17 +143,17 @@ class VaultItem extends item
 	{
 		global $roster, $addon;
 
-		$slot = $roster->db->escape($slot);
+		$slot = $roster->db->escape( $slot );
 		$query 	= " SELECT *"
 				. " FROM `" . $roster->db->table('items',$addon['basename']) . "`"
 				. " WHERE `guild_id` = '$guild_id'"
 				. " AND `item_slot` = '$slot'";
 
-		$result = $roster->db->query($query);
-		$data = $roster->db->fetch($result);
+		$result = $roster->db->query( $query );
+		$data = $roster->db->fetch( $result );
 		if( $data )
 		{
-			return new VaultItem($data, $parse_mode);
+			return new VaultItem( $data, $parse_mode );
 		}
 		else
 		{
@@ -175,7 +174,7 @@ class VaultItem extends item
 	{
 		global $roster, $addon;
 
-		$parent = $roster->db->escape($parent);
+		$parent = $roster->db->escape( $parent );
 		$items = array();
 
 		$query  = " SELECT *"
@@ -183,9 +182,9 @@ class VaultItem extends item
 				. " WHERE `guild_id` = '$guild_id'"
 				. " AND `item_parent` = '$parent'";
 
-		$result = $roster->db->query($query);
+		$result = $roster->db->query( $query );
 
-		while( $data = $roster->db->fetch($result) )
+		while( $data = $roster->db->fetch( $result ) )
 		{
 			$item = new VaultItem( $data, $parse_mode );
 			$items[$data['item_slot']] = $item;

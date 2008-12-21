@@ -54,50 +54,50 @@ $mainQuery =
 	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'INNER JOIN `'.$roster->db->table('skills').'` AS skills ON `members`.`member_id` = `skills`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` ';
-$where[] = '`members`.`server` = "'.$roster->data['server'].'"';
-$where[] = '`skills`.`skill_name` = "'.$skill_name.'"';
-$group[] = '`members`.`member_id`';
-$order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
-$order_last[] = '`members`.`level` DESC';
-$order_last[] = '`members`.`name` ASC';
+	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
+	'WHERE `members`.`server` = "'.$roster->data['server'].'" '.
+		'AND `skills`.`skill_name` = "'.$skill_name.'" '.
+	'GROUP BY `members`.`member_id` '.
+	'ORDER BY IF(`members`.`member_id` = `alts`.`member_id`,1,0), ';
+
+$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
 
 $FIELD['name'] = array(
 	'lang_field' => 'name',
-	'filt_field' => '`members`.`name`',
-	'order'      => array( '`members`.`name` ASC' ),
+	'order'    => array( '`members`.`name` ASC' ),
 	'order_d'    => array( '`members`.`name` DESC' ),
-	'value'      => array($memberlist,'name_value'),
-	'display'    => 3,
+	'value' => array($memberlist,'name_value'),
+	'js_type' => 'ts_string',
+	'display' => 3,
 );
 
 $FIELD['class'] = array(
 	'lang_field' => 'class',
-	'filt_field' => '`members`.`class`',
-	'order'      => array( '`members`.`class` ASC' ),
+	'order'    => array( '`members`.`class` ASC' ),
 	'order_d'    => array( '`members`.`class` DESC' ),
-	'value'      => array($memberlist,'class_value'),
-	'display'    => $addon['config']['stats_class'],
+	'value' => array($memberlist,'class_value'),
+	'js_type' => 'ts_string',
+	'display' => $addon['config']['stats_class'],
 );
 
 $FIELD['level'] = array(
 	'lang_field' => 'level',
-	'filt_field' => '`members`.`level`',
-	'order'      => array( '`members`.`level` DESC' ),
 	'order_d'    => array( '`members`.`level` ASC' ),
-	'value'      => array($memberlist,'level_value'),
-	'display'    => $addon['config']['stats_level'],
+	'value' => array($memberlist,'level_value'),
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['stats_level'],
 );
 
 $FIELD['skill_level'] = array (
 	'lang_field' => 'skill_level',
-	'order'      => array( "`skill_level` DESC" ),
-	'order_d'    => array( "`skill_level` ASC" ),
-	'value'      => 'skill_value',
-	'display'    => $addon['config']['stats_str'],
+	'order' => array( "`skill_level` DESC" ),
+	'order_d' => array( "`skill_level` ASC" ),
+	'value' => 'skill_value',
+	'js_type' => 'ts_number',
+	'display' => $addon['config']['stats_str'],
 );
 
-$memberlist->prepareData($mainQuery, $where, $group, $order_first, $order_last, $FIELD, 'memberslist');
+$memberlist->prepareData($mainQuery, $always_sort, $FIELD, 'memberslist');
 
 $menu = '';
 // Start output
@@ -108,13 +108,17 @@ if ( $addon['config']['stats_motd'] == 1 )
 
 $roster->output['before_menu'] .= $menu;
 
+$memberlist->makeFilterBox();
+
+$memberlist->makeToolBar('horizontal');
+
 echo skill_dropdown();
 
 echo $memberlist->makeMembersList('syellow');
 
 function skill_dropdown()
 {
-	global $roster, $skill_name;
+	global $roster;
 
 	$query = 'SELECT DISTINCT `skill_order`, `skill_type`, `skill_name` '.
 		'FROM `'.$roster->db->table('skills').'` '.
@@ -124,7 +128,6 @@ function skill_dropdown()
 
 	$output = '<form name="skillpicker" action="'.makelink().'" method="post">'."\n";
 	$output .= '  <select name="skill" onchange="document.forms[\'skillpicker\'].submit();">'."\n";
-	$output .= '      <option value="">-------</option>'."\n";
 	$type = null;
 	while( $row = $roster->db->fetch($result) )
 	{
@@ -137,7 +140,7 @@ function skill_dropdown()
 			$output .= '    <optgroup label="'.$row['skill_type'].'">'."\n";
 			$type = $row['skill_type'];
 		}
-		$output .= '      <option value="'.$row['skill_name'].'"'.($skill_name==$row['skill_name'] ? ' selected="selected"' : '').'>'.$row['skill_name'].'</option>'."\n";
+		$output .= '      <option value="'.$row['skill_name'].'">'.$row['skill_name'].'</option>'."\n";
 	}
 	if( $type == null )
 	{
@@ -145,7 +148,7 @@ function skill_dropdown()
 	}
 	$output .= '    </optgroup>'."\n";
 	$output .= '  </select>'."\n";
-	$output .= '</form><br />'."\n";
+	$output .= '</form>'."\n";
 
 	return $output;
 }
@@ -162,12 +165,12 @@ function skill_value( $row )
 	$output = '<div class="skill_bar">'."\n";
 	if( $maxvalue == '1' )
 	{
-		$output .= '  <div style="position:absolute;"><img src="'.$addon['tpl_image_url'].'skill/bar_grey.gif" alt="" /></div>'."\n";
+		$output .= '  <div style="position:absolute;"><img src="'.$addon['image_url'].'skill/bar_grey.gif" alt="" /></div>'."\n";
 		$output .= '  <div class="text">'.$row['skill_name'].'</div>';
 	}
 	else
 	{
-		$output .= '  <div style="position:absolute;clip:rect(0px '.$barwidth.'px 15px 0px);"><img src="'.$addon['tpl_image_url'].'skill/bar.gif" alt="" /></div>'."\n";
+		$output .= '  <div style="position:absolute;clip:rect(0px '.$barwidth.'px 15px 0px);"><img src="'.$addon['image_url'].'skill/bar.gif" alt="" /></div>'."\n";
 		$output .= '  <div class="text">'.$skill_name.'<span class="text_num">'.$value.' / '.$maxvalue.'</span></div>'."\n";
 	}
 	$output .= '</div>'."\n";

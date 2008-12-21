@@ -619,27 +619,35 @@ $lang['notatwar']='Not at War';
 
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
-// 		'name'=> 'Name',  // This is the name displayed on the quests page
-// 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
+// 		'name'=> 'Name',  //This is the name displayed on the quests page
+// 		'url#'=> 'url',  //This is the URL used for the quest lookup
 
 $lang['questlinks'][] = array(
 	'name'=>'WoWHead',
-	'url'=>'http://www.wowhead.com/?quest=%1$s'
+	'url1'=>'http://www.wowhead.com/?quests&amp;filter=na=',
+	'url2'=>';minle=',
+	'url3'=>';maxle='
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Thottbot',
-	'url'=>'http://thottbot.com/q%1$s'
+	'url1'=>'http://www.thottbot.com/?f=q&amp;title=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Allakhazam',
-	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%1$s'
+	'url1'=>'http://wow.allakhazam.com/db/qlookup.html?name=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'WoW Digger',
-	'url'=>'http://wowdigger.com/quest/view/%1$s'
+	'url1'=>'http://wowdigger.com/?c=quest&amp;m=filter&amp;title=',
+	//'url2'=>'&amp;levelmin=',
+	//'url3'=>'&amp;levelmax='
 );
 
 // Items external link
@@ -677,7 +685,6 @@ $lang['tooltip_use']='Use:';
 $lang['tooltip_requires']='Requires';
 $lang['tooltip_reinforced']='Reinforced';
 $lang['tooltip_soulbound']='Soulbound';
-$lang['tooltip_accountbound']='Account Bound';
 $lang['tooltip_boe']='Binds when equipped';
 $lang['tooltip_equip']='Equip:';
 $lang['tooltip_equip_restores']='Equip: Restores';
@@ -711,8 +718,8 @@ $lang['tooltip_preg_block']='/(\d+) (Block)/';
 $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';
-$lang['tooltip_preg_meta_requires']='/Requires.*?gem?/';
-$lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gem?/';
+$lang['tooltip_preg_meta_requires']='/Requires.*?gems/';
+$lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gems/';
 $lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
@@ -726,7 +733,7 @@ $lang['tooltip_reg_weaponorbulletdps']='^\(|^Adds ';
 
 $lang['tooltip_armor_types']='Cloth|Leather|Mail|Plate';
 $lang['tooltip_weapon_types']='Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic';
-$lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used|Binds when picked up|This Item Begins a Quest|Binds to Account|Account Bound';
+$lang['tooltip_bind_types']='Soulbound|Binds when equipped|Quest Item|Binds when used|Binds when picked up|This Item Begins a Quest';
 $lang['tooltip_misc_types']='Finger|Neck|Back|Shirt|Trinket|Tabard|Head|Chest|Legs|Feet';
 $lang['tooltip_garbage']='<Shift Right Click to Socket>|<Right Click to Read>|Duration|Cooldown remaining|<Right Click to Open>';
 

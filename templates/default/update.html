@@ -7,7 +7,7 @@
 	<tr>
 		<td class="border_color sredborder">
 			<div class="header_text sredborder" style="cursor:pointer;width:100%;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
-				<img src="{THEME_PATH}/images/plus.gif" style="float:right;" alt="" id="msgboximg_data_error" /><!-- TRANSLATE update_errors -->
+				<img src="{THEME_PATH}/images/plus.gif" style="float:right;" alt="" id="msgboximg_data_error" />{L_UPDATE_ERRORS}
 			</div>
 
 			<div style="height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
@@ -21,7 +21,7 @@
 <form method="post" action="{U_MAKELINK}" name="post">
 	<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
 	<input type="hidden" name="send_file" value="error_log" />
-	<input type="submit" name="download" value="<!-- TRANSLATE save_error_log -->" />
+	<input type="submit" name="download" value="{L_SAVE_ERROR_LOG}" />
 </form>
 <br />
 <!-- ENDIF -->
@@ -29,7 +29,7 @@
 <table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
 	<tr>
 		<td class="border_color syellowborder">
-			<div class="header_text syellowborder"><!-- TRANSLATE update_log --></div>
+			<div class="header_text syellowborder">{L_UPDATE_LOG}</div>
 
 			<div style="height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
 				{RESPONSE}
@@ -42,7 +42,7 @@
 <form method="post" action="{U_MAKELINK}" name="post">
 	<input type="hidden" name="data" value="{RESPONSE_POST}" />
 	<input type="hidden" name="send_file" value="update_log" />
-	<input type="submit" name="download" value="<!-- TRANSLATE save_update_log -->" />
+	<input type="submit" name="download" value="{L_SAVE_LOG}" />
 </form>
 <br />
 
@@ -53,7 +53,7 @@
 	<table class="border_frame" cellpadding="0" cellspacing="1">
 		<tr>
 			<td class="border_color sblueborder">
-				<div class="header_text sblueborder"><!-- TRANSLATE update_page --></div>
+				<div class="header_text sblueborder">{L_UPDATE_PAGE}</div>
 
 				<table class="bodyline" cellspacing="0" cellpadding="0">
 
@@ -76,11 +76,11 @@
 	<table class="border_frame" cellpadding="0" cellspacing="1">
 		<tr>
 			<td class="border_color sgrayborder">
-				<div class="header_text sgrayborder"><!-- TRANSLATE roster_upd_pwLabel --></div>
+				<div class="header_text sgrayborder">{L_PASSWORD_REQ}</div>
 
 				<table class="bodyline" cellspacing="0" cellpadding="0">
 					<tr>
-						<td class="membersRow1" style="cursor:help;" {L_PASSWORD_TIP}><img src="{IMG_URL}blue-question-mark.gif" alt="?" /><!-- TRANSLATE password --></td>
+						<td class="membersRow1" style="cursor:help;" {L_PASSWORD_TIP}><img src="{IMG_URL}blue-question-mark.gif" alt="?" /> {L_PASSWORD}</td>
 						<td class="membersRowRight1"><input class="wowinput128" type="password" name="password" /></td>
 					</tr>
 				</table>
@@ -93,7 +93,7 @@
 	<!-- ENDIF -->
 
 	<input type="hidden" name="process" value="process" />
-	<input type="submit" value="<!-- TRANSLATE upload -->" />
+	<input type="submit" value="{L_UPDATE}" />
 </form>
 
 <!-- IF MESSAGES -->

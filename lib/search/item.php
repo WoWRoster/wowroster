@@ -50,7 +50,7 @@ class roster_itemSearch
 		require_once (ROSTER_LIB . 'item.php');
 
 		$this->open_table = '<tr><th class="membersHeader ts_string">' . $roster->locale->act['item'] . '</th>'
-						  . '<th class="membersHeader ts_string">' . $roster->locale->act['level'] . '</th>'
+						  . '<th class="membersHeader ts_string">Lv</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
 						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['character'] . '</th></tr>';
 
@@ -95,7 +95,7 @@ class roster_itemSearch
 	{
 		global $roster;
 
-		$first = $page * $limit;
+		$first = $page*$limit;
 
 		$sql = "SELECT `players`.`name`, `players`.`member_id`, `players`.`server`, `players`.`region`, `items`.*"
 			 . " FROM `" . $roster->db->table('items') . "` AS items,`" . $roster->db->table('players') . "` AS players"

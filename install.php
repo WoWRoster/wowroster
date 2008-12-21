@@ -202,10 +202,10 @@ class Template_Wrap extends RosterTemplate
 		$this->display('header');
 
 		// BETA ONLY, COMMENT THIS IN RC OR LATER!
-		if( file_exists(ROSTER_BASE . 'valid.inc') )
+		/*if( file_exists(ROSTER_BASE . 'valid.inc') )
 		{
 			include(ROSTER_BASE . 'valid.inc');
-		}
+		}*/
 		// END BETA ONLY
 
 		$this->display('body');

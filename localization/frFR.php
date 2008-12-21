@@ -619,28 +619,36 @@ $lang['notatwar']='Pas en guerre';
 
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
-// 		'name'=> 'Name',  // This is the name displayed on the quests page
-// 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
+// 		'name'=> 'Name',  //This is the name displayed on the quests page
+// 		'url#'=> 'url',  //This is the URL used for the quest lookup
 
-/*$lang['questlinks'][] = array(  // Does not allow quest id linking
+$lang['questlinks'][] = array(
 	'name'=>'Judgehype FR',
-	'url'=>'http://worldofwarcraft.judgehype.com/index.php?page=bc-result&amp;Ckey='
-);*/
+	'url1'=>'http://worldofwarcraft.judgehype.com/index.php?page=bc-result&amp;Ckey=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
+);
 
-/*$lang['questlinks'][] = array(  // In maintenance mode - not accessible yet
+$lang['questlinks'][] = array(
 	'name'=>'WoWDBU FR',
-	'url'=>'http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title='
-);*/
-
-$lang['questlinks'][] = array(
-	'name'=>'Allakhazam',
-	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%s;locale=frFR'
+	'url1'=>'http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
 );
 
 $lang['questlinks'][] = array(
+	'name'=>'Allakhazam US',
+	'url1'=>'http://wow.allakhazam.com/db/qlookup.html?name=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
+);
+
+/*$lang['questlinks'][] = array(
 	'name'=>'WoWHead',
-	'url'=>'http://fr.wowhead.com/?quest=%s'
-);
+	'url1'=>'http://www.wowhead.com/?quests&amp;filter=na=',
+	'url2'=>';minle=',
+	'url3'=>';maxle='
+);*/
 
 // Items external link
 // Add as manu item links as you need
@@ -649,8 +657,8 @@ $lang['questlinks'][] = array(
 $lang['itemlink'] = 'Liens vers les objets';
 $lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=bc-obj&w=';
 $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?locale=frFR&witem=';
-//$lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name='; // In maintenance mode - not accessible yet
-$lang['itemlinks']['WoWHead'] = 'http://fr.wowhead.com/?item=';
+$lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name='; // Still in maintenance mode - not accessible yet
+//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
 // Add as many item links as you need
@@ -658,9 +666,9 @@ $lang['itemlinks']['WoWHead'] = 'http://fr.wowhead.com/?item=';
 // use these locales for data searches
 $lang['data_search'] = 'Site de recherche de données sur WoW';
 $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
-$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?locale=frFR&q=';
+$lang['data_links']['Allakhazam'] = 'http://wow.allakhazam.com/search.html?q=';
 $lang['data_links']['WWN Data'] = 'http://wwndata.worldofwar.net/search.php?search=';
-$lang['data_links']['WoWHead'] = 'http://fr.wowhead.com/?search=';
+$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 // Google Search
 // Add as many item links as you need
@@ -677,7 +685,6 @@ $lang['tooltip_use']='Utiliser...';
 $lang['tooltip_requires']='Niveau';
 $lang['tooltip_reinforced']='renforcée';
 $lang['tooltip_soulbound']='Lié';
-$lang['tooltip_accountbound']='Account Bound';
 $lang['tooltip_boe']='Lié quand équipé';
 $lang['tooltip_equip']='Équipé...';
 $lang['tooltip_equip_restores']='Équipé.:.Rend';
@@ -726,7 +733,7 @@ $lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
 
 $lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
 $lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Arme à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|Flèche|Balle';
-$lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé|Cet objet permet de lancer une quête|Lier au compte|Account Bound';
+$lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé|Cet objet permet de lancer une quête';
 $lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse|Jambes|Pieds';
 $lang['tooltip_garbage']='Maj clic-droit pour sertir|<Right Click to Read>|Duration|Temps de recharge|<Right Click to Open>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
 

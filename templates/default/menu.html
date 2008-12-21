@@ -13,7 +13,7 @@
 						<div align="right" style="float:right;">
 							<!-- IF S_MENU_TOP_LOCALE -->
 							<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-								<!-- TRANSLATE language -->
+								{L_LANGUAGE}:
 								<select name="locale" onchange="document.locale_select.submit();">
 								<!-- BEGIN menu_locale_select -->
 									<option value="{menu_locale_select.LOCALE}"<!-- IF menu_locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_locale_select.LOCALE_NAME}</option>
@@ -45,7 +45,7 @@
 							<span style="font-size:11px;">{ROSTER_MENU_SUBTITLE}
 							<!-- IF S_MENU_3RDTITLE -->
 							<br />
-							<!-- TRANSLATE lastupdate -->: <span style="color:#0099FF;">{ROSTER_MENU_3RDTITLE}</span>
+							{L_LAST_UPDATE}: <span style="color:#0099FF;">{ROSTER_MENU_3RDTITLE}</span>
 							<!-- ENDIF --></span>
 							<!-- ENDIF -->
 						</div></td>
@@ -59,10 +59,10 @@
 						<div class="menu_container">
 							<div class="menu_header">
 								<ul>
-									<li><a href="#" class="menu_bg_01" onclick="<!-- IF S_MENU_HEADER_01 -->showHide('menu_guild');<!-- ENDIF -->return false;"><!-- TRANSLATE menu_header_01 --></a></li>
-									<li><a href="#" class="menu_bg_02" onclick="<!-- IF S_MENU_HEADER_02 -->showHide('menu_realm');<!-- ENDIF -->return false;"><!-- TRANSLATE menu_header_02 --></a></li>
-									<li><a href="{U_MENU_HEADER_03}" class="menu_bg_03"><!-- TRANSLATE menu_header_03 --></a></li>
-									<li><a href="#" class="menu_bg_04" onclick="<!-- IF S_MENU_HEADER_04 -->showHide('menu_util');<!-- ENDIF -->return false;"><!-- TRANSLATE menu_header_04 --></a></li>
+									<li><a href="#" class="menu_bg_01" onclick="<!-- IF S_MENU_HEADER_01 -->showHide('menu_guild');<!-- ENDIF -->return false;">{L_MENU_HEADER_01}</a></li>
+									<li><a href="#" class="menu_bg_02" onclick="<!-- IF S_MENU_HEADER_02 -->showHide('menu_realm');<!-- ENDIF -->return false;">{L_MENU_HEADER_02}</a></li>
+									<li><a href="{U_MENU_HEADER_03}" class="menu_bg_03">{L_MENU_HEADER_03}</a></li>
+									<li><a href="#" class="menu_bg_04" onclick="<!-- IF S_MENU_HEADER_04 -->showHide('menu_util');<!-- ENDIF -->return false;">{L_MENU_HEADER_04}</a></li>
 								</ul>
 							</div>
 
@@ -87,8 +87,8 @@
 					<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
 					<div style="float:left;">{MENU_LOGIN_FORM}</div>
 						<form id="menu_search" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post" enctype="multipart/form-data" style="margin:0;float:right;">
-							<input size="25" type="text" name="s_term" value="" class="wowinput128" />
-							<input type="submit" value="<!-- TRANSLATE search -->" />
+							<input size="25" type="text" name="search" value="" class="wowinput128" />
+							<input type="submit" value="{L_SEARCH}" />
 						</form></td>
 				</tr>
 			<!-- ENDIF -->

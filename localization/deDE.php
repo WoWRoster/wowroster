@@ -619,28 +619,36 @@ $lang['notatwar']='Nicht im Krieg';
 
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
-// 		'name'=> 'Name',  // This is the name displayed on the quests page
-// 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
+// 		'name'=> 'Name',  //This is the name displayed on the quests page
+// 		'url#'=> 'url',  //This is the URL used for the quest lookup
 
 $lang['questlinks'][] = array(
 	'name'=>'WoW-Handwerk',
-	'url'=>'http://wowhandwerk.onlinewelten.com/quest.php?id=%1$s'
+	'url1'=>'http://www.wow-handwerk.de/search.php?quicksearch=',
+	//'url2'=>'',
+	//'url3'=>'&amp;maxl=''
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Buffed DE',
-	'url'=>'http://wow.buffed.de/?q=%1$s'
+	'url1'=>'http://www.buffed.de/?f=',
+	//'url2'=>'',
+	//'url3'=>''
 );
 
 $lang['questlinks'][] = array(
 	'name'=>'Thottbot',
-	'url'=>'http://thottbot.com/q%1$s'
+	'url1'=>'http://www.thottbot.com/?f=q&amp;title=',
+	'url2'=>'&amp;obj=&amp;desc=&amp;minl=',
+	'url3'=>'&amp;maxl='
 );
 
-$lang['questlinks'][] = array(
+/*$lang['questlinks'][] = array(
 	'name'=>'WoWHead',
-	'url'=>'http://de.wowhead.com/?quest=%1$s'
-);
+	'url1'=>'http://www.wowhead.com/?quests&amp;filter=na=',
+	'url2'=>';minle=',
+	'url3'=>';maxle='
+);*/
 
 // Items external link
 // Add as many item links as you need
@@ -650,7 +658,7 @@ $lang['itemlink'] = 'Item Links';
 $lang['itemlinks']['WoW-Handwerk'] = 'http://wowhandwerk.onlinewelten.com/item.php?id=';
 $lang['itemlinks']['Buffed DE'] = 'http://www.buffed.de/?i=';
 $lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
-$lang['itemlinks']['WoWHead'] = 'http://de.wowhead.com/?item=';
+//$lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?items&amp;filter=na=';
 
 // WoW Data Site Search
 // Add as many item links as you need
@@ -660,7 +668,7 @@ $lang['data_search'] = 'WoW Daten Homepage Suche';
 $lang['data_links']['WoW-Handwerk'] = 'http://www.wow-handwerk.de/search.php?quicksearch=';
 $lang['data_links']['buffed.de'] = 'http://www.buffed.de/?f=';
 $lang['data_links']['Thottbot'] = 'http://www.thottbot.com/index.cgi?s=';
-$lang['data_links']['WoWHead'] = 'http://de.wowhead.com/?search=';
+//$lang['data_links']['WoWHead'] = 'http://www.wowhead.com/?search=';
 
 // Google Search
 // Add as many item links as you need
@@ -677,7 +685,6 @@ $lang['tooltip_use']='Benutzen.';
 $lang['tooltip_requires']='Benötigt';
 $lang['tooltip_reinforced']='Verstärkte';
 $lang['tooltip_soulbound']='Seelengebunden';
-$lang['tooltip_accountbound']='Account Bound';
 $lang['tooltip_boe']='Wird beim Anlegen gebunden';
 $lang['tooltip_equip']='Anlegen:';
 $lang['tooltip_equip_restores']='Anlegen: Stellt';
@@ -726,7 +733,7 @@ $lang['tooltip_reg_weaponorbulletdps']='^\(|^Verursacht ';
 
 $lang['tooltip_armor_types']='Stoff|Leder|Schwere Rüstung|Platte';
 $lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Schusswaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig|Kugel|Pfeil';
-$lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest|Wird beim Aufheben gebunden|Accountgebunden|Account Bound';
+$lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest|Wird beim Aufheben gebunden';
 $lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust|Beine|Füße';
 $lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>|Dauer|Verbleibende Abklingzeit|<Zum Öffnen rechtsklicken>';
 

@@ -91,18 +91,6 @@ CREATE TABLE `renprefix_gems` (
   KEY `gem_socketid` (`gem_socketid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-# --------------------------------------------------------
-### Glyphs
-
-DROP TABLE IF EXISTS `renprefix_glyphs`;
-CREATE TABLE `renprefix_glyphs` (
-  `member_id` int(11) unsigned NOT NULL default '0',
-  `glyph_order` tinyint(4) NOT NULL default '0',
-  `glyph_type` tinyint(4) NOT NULL default '0',
-  `glyph_name` varchar(96) NOT NULL default '',
-  `glyph_icon` varchar(64) NOT NULL default '',
-  `glyph_tooltip` mediumtext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Guild
@@ -262,8 +250,10 @@ CREATE TABLE `renprefix_pets` (
   `mana` int(11) NOT NULL default '0',
   `power` varchar(32) NOT NULL default '',
   `xp` varchar(32) NOT NULL default '0',
+  `usedtp` int(11) NOT NULL default '0',
   `totaltp` int(11) NOT NULL default '0',
   `type` varchar(32) NOT NULL default '',
+  `loyalty` varchar(32) NOT NULL default '',
   `icon` varchar(64) NOT NULL default '',
   `melee_power` int(11) NOT NULL default '0',
   `melee_power_c` int(11) NOT NULL default '0',
@@ -370,52 +360,6 @@ CREATE TABLE `renprefix_pets` (
   `block` float NOT NULL default '0',
   `mitigation` float NOT NULL default '0',
   PRIMARY KEY  (`pet_id`,`member_id`,`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
-### Pet Spellbook
-
-DROP TABLE IF EXISTS `renprefix_pet_spellbook`;
-CREATE TABLE `renprefix_pet_spellbook` (
-  `member_id` int(11) unsigned NOT NULL default '0',
-  `pet_id` int(11) unsigned NOT NULL default '0',
-  `spell_name` varchar(64) NOT NULL default '',
-  `spell_texture` varchar(64) NOT NULL default '',
-  `spell_rank` varchar(64) NOT NULL default '',
-  `spell_tooltip` mediumtext NOT NULL,
-  PRIMARY KEY  (`member_id`,`pet_id`,`spell_name`,`spell_rank`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
-### Pet Talents
-
-DROP TABLE IF EXISTS `renprefix_pet_talents`;
-CREATE TABLE `renprefix_pet_talents` (
-  `member_id` int(11) NOT NULL default '0',
-  `pet_id` int(11) unsigned NOT NULL default '0',
-  `name` varchar(64) NOT NULL default '',
-  `tree` varchar(64) NOT NULL default '',
-  `row` tinyint(4) NOT NULL default '0',
-  `column` tinyint(4) NOT NULL default '0',
-  `rank` tinyint(4) NOT NULL default '0',
-  `maxrank` tinyint(4) NOT NULL default '0',
-  `tooltip` mediumtext NOT NULL,
-  `icon` varchar(64) NOT NULL default '',
-  PRIMARY KEY  (`member_id`,`pet_id`,`tree`,`row`,`column`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
-### Pet Talent Tree
-
-DROP TABLE IF EXISTS `renprefix_pet_talenttree`;
-CREATE TABLE `renprefix_pet_talenttree` (
-  `member_id` int(11) NOT NULL default '0',
-  `pet_id` int(11) unsigned NOT NULL default '0',
-  `tree` varchar(64) NOT NULL default '',
-  `background` varchar(64) NOT NULL default '',
-  `order` tinyint(4) NOT NULL default '0',
-  `pointsspent` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`member_id`,`pet_id`,`tree`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
@@ -646,38 +590,21 @@ CREATE TABLE `renprefix_players` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Quest Data
-
-DROP TABLE IF EXISTS `renprefix_quest_data`;
-CREATE TABLE `renprefix_quest_data` (
-  `quest_id` int(11) NOT NULL default '0',
-  `quest_name` varchar(64) NOT NULL default '',
-  `quest_level` int(11) unsigned NOT NULL default '0',
-  `quest_tag` varchar(32) NOT NULL default '',
-  `group` int(1) NOT NULL default '0',
-  `daily` int(1) NOT NULL default '0',
-  `reward_money` int(11) NOT NULL default '0',
-  `zone` varchar(32) NOT NULL default '',
-  `description` text NOT NULL,
-  `objective` text NOT NULL,
-  `locale` varchar(4) NOT NULL default '',
-  PRIMARY KEY  (`quest_id`,`locale`),
-  FULLTEXT KEY `quest_name` (`quest_name`),
-  FULLTEXT KEY `zone` (`zone`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
 ### Quests
 
 DROP TABLE IF EXISTS `renprefix_quests`;
 CREATE TABLE `renprefix_quests` (
   `member_id` int(11) unsigned NOT NULL default '0',
-  `quest_id` int(11) NOT NULL default '0',
+  `quest_name` varchar(64) NOT NULL default '',
   `quest_index` int(11) NOT NULL default '0',
-  `difficulty` int(1) NOT NULL default '0',
+  `quest_level` int(11) unsigned NOT NULL default '0',
+  `quest_tag` varchar(32) NOT NULL default '',
   `is_complete` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`member_id`,`quest_id`),
-  KEY `quest_index` (`quest_id`,`quest_index`)
+  `zone` varchar(32) NOT NULL default '',
+  PRIMARY KEY  (`member_id`,`quest_name`),
+  KEY `quest_index` (`quest_index`,`quest_level`,`quest_tag`),
+  FULLTEXT KEY `quest_name` (`quest_name`),
+  FULLTEXT KEY `zone` (`zone`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
@@ -761,6 +688,20 @@ CREATE TABLE `renprefix_spellbook` (
   `spell_rank` varchar(64) NOT NULL default '',
   `spell_tooltip` mediumtext NOT NULL,
   PRIMARY KEY  (`member_id`,`spell_name`,`spell_rank`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
+### Spellbook Pet
+
+DROP TABLE IF EXISTS `renprefix_spellbook_pet`;
+CREATE TABLE `renprefix_spellbook_pet` (
+  `member_id` int(11) unsigned NOT NULL default '0',
+  `pet_id` int(11) unsigned NOT NULL default '0',
+  `spell_name` varchar(64) NOT NULL default '',
+  `spell_texture` varchar(64) NOT NULL default '',
+  `spell_rank` varchar(64) NOT NULL default '',
+  `spell_tooltip` mediumtext NOT NULL,
+  PRIMARY KEY  (`member_id`,`pet_id`,`spell_name`,`spell_rank`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------

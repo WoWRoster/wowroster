@@ -31,9 +31,6 @@ $roster->tpl->assign_vars(array(
 	'L_SEARCH_QUEST'    => $roster->locale->act['search_by_quest'],
 	'L_NAME'            => $roster->locale->act['name'],
 	'L_QUEST_DATA'      => $roster->locale->act['quest_data'],
-	'L_COMPLETE'        => $roster->locale->act['complete'],
-	'L_FAILED'          => $roster->locale->act['failed'],
-	'L_DAILY'           => $roster->locale->act['daily'],
 	)
 );
 
@@ -42,12 +39,13 @@ $questid = ( isset($_GET['questid']) ? $_GET['questid'] : '' );
 
 
 // The next two lines call the function selectQuery and use it to populate and return the code that lists the dropboxes for quests and for zones
-selectQuery('`' . $roster->db->table('quests') . "` AS quests LEFT JOIN `" . $roster->db->table('quest_data') . "` AS quest_data ON `quests`.`quest_id` = `quest_data`.`quest_id` LEFT JOIN `" . $roster->db->table('players') . "` AS players ON `players`.`member_id` = `quests`.`member_id` WHERE `players`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `quests`.`member_id` = `players`.`member_id`", 'DISTINCT `quest_data`.`zone`',       'zone',       $zoneid,  '&amp;zoneid');
-selectQuery('`' . $roster->db->table('quests') . "` AS quests LEFT JOIN `" . $roster->db->table('quest_data') . "` AS quest_data ON `quests`.`quest_id` = `quest_data`.`quest_id` LEFT JOIN `" . $roster->db->table('players') . "` AS players ON `players`.`member_id` = `quests`.`member_id` WHERE `players`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `quests`.`member_id` = `players`.`member_id`", 'DISTINCT `quest_data`.`quest_name`', 'quest_name', $questid, '&amp;questid');
+selectQuery('`' . $roster->db->table('quests') . '` AS quests,`' . $roster->db->table('members') . "` AS members WHERE `members`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `quests`.`member_id` = `members`.`member_id`", 'DISTINCT `quests`.`zone`',       'zone',       $zoneid,  '&amp;zoneid');
+selectQuery('`' . $roster->db->table('quests') . '` AS quests,`' . $roster->db->table('members') . "` AS members WHERE `members`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `quests`.`member_id` = `members`.`member_id`", 'DISTINCT `quests`.`quest_name`', 'quest_name', $questid, '&amp;questid');
+
 
 if( !empty($zoneid) )
 {
-	$sql = "SELECT DISTINCT `zone` FROM `" . $roster->db->table('quest_data') . "` WHERE `zone` = '$zoneid' ORDER BY `zone`;";
+	$sql = "SELECT DISTINCT `zone` FROM `" . $roster->db->table('quests') . "` WHERE `zone` = '$zoneid' ORDER BY `zone`;";
 	$zone = $roster->db->query_first($sql) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$sql);
 
 	// Set our questlink caption name
@@ -59,8 +57,8 @@ if( !empty($zoneid) )
 		)
 	);
 
-	$qquery = "SELECT *"
-			. " FROM `" . $roster->db->table('quest_data') . "`"
+	$qquery = "SELECT DISTINCT `quest_name`, `quest_level`"
+			. " FROM `" . $roster->db->table('quests') . "`"
 			. " WHERE `zone` = '" . $zoneid . "'"
 			. " ORDER BY `quest_name`;";
 
@@ -68,10 +66,10 @@ if( !empty($zoneid) )
 
 	while( $qrow = $roster->db->fetch($qresult) )
 	{
-		$query = "SELECT `q`.*, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
+		$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
 		       . " FROM `" . $roster->db->table('quests') . "` AS q, `" . $roster->db->table('players') . "` AS p"
-		       . " WHERE `p`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `q`.`quest_id` = '" . $qrow['quest_id'] . "' AND `q`.`member_id` = `p`.`member_id`"
-		       . " ORDER BY `p`.`level` DESC, `p`.`name` ASC;";
+		       . " WHERE `p`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `q`.`zone` = '" .$zoneid . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qrow['quest_name']) . "'"
+		       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
 		$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
@@ -80,31 +78,47 @@ if( !empty($zoneid) )
 		$linktip = '';
 		foreach( $roster->locale->act['questlinks'] as $link )
 		{
-			$linktip .= '<a href="' . sprintf($link['url'],$qrow['quest_id']) . '" target="_blank">' . $link['name'] . '</a><br />';
+			$linktip .= '<a href="' . $link['url1'] . urlencode(utf8_decode($qrow['quest_name'])) . '" target="_blank">' . $link['name'] . '</a><br />';
 		}
 		setTooltip($num_of_tips,$linktip);
 
 		// Set template variables
 		$roster->tpl->assign_block_vars('quests',array(
-			'ID'      => $qrow['quest_id'],
 			'NAME'    => $qrow['quest_name'],
 			'LEVEL'   => $qrow['quest_level'],
-			'TAG'     => $qrow['quest_tag'],
-			'GROUP'   => $qrow['group'],
-			'DAILY'   => $qrow['daily'],
 			'TOOLTIP' => ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"',
 			)
 		);
 
 		while( $row = $roster->db->fetch($result) )
 		{
+			$quest_tags = $tagstring = '';
+			if( $row['quest_tag'] )
+			{
+				$quest_tags[] = $row['quest_tag'];
+			}
+
+			if( $row['is_complete'] == 1 )
+			{
+				$quest_tags[] = $roster->locale->act['complete'];
+			}
+			elseif( $row['is_complete'] == -1 )
+			{
+				$quest_tags[] = $roster->locale->act['failed'];
+			}
+
+			if( is_array($quest_tags) )
+			{
+				$tagstring = ' (' . implode(', ',$quest_tags) . ')';
+			}
+
 			// Set template variables
 			$roster->tpl->assign_block_vars('quests.members',array(
 				'ROW_CLASS' => $roster->switch_row_class(),
 				'LINK'      => makelink('char-info-quests&amp;a=c:' . $row['member_id']),
 				'NAME'      => $row['name'],
 				'LEVEL'     => $row['level'],
-				'COMPLETE'  => $row['is_complete'],
+				'TAGS'      => $tagstring
 				)
 			);
 		}
@@ -114,7 +128,7 @@ if( !empty($zoneid) )
 
 if( !empty($questid) )
 {
-	$sql = "SELECT * FROM `" . $roster->db->table('quest_data') . "` WHERE `quest_name` = '" . $questid . "';";
+	$sql = "SELECT DISTINCT `quest_name`, `quest_level`, `zone` FROM `" . $roster->db->table('quests') . "` WHERE `quest_name` = '" . $questid . "' ORDER BY `quest_name`;";
 	$result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$sql);
 
 	// Set our questlink caption name
@@ -133,39 +147,54 @@ if( !empty($questid) )
 	$linktip = '';
 	foreach( $roster->locale->act['questlinks'] as $link )
 	{
-		$linktip .= '<a href="' . sprintf($link['url'],$qnrow['quest_id']) . '" target="_blank">' . $link['name'] . '</a><br />';
+		$linktip .= '<a href="' . $link['url1'] . urlencode(utf8_decode($qnrow['quest_name'])) . '" target="_blank">' . $link['name'] . '</a><br />';
 	}
 	setTooltip($num_of_tips,$linktip);
 
 	$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 	$roster->tpl->assign_block_vars('quests',array(
-		'ID'      => $qnrow['quest_id'],
 		'NAME'    => $qnrow['quest_name'],
 		'LEVEL'   => $qnrow['quest_level'],
-		'TAG'     => $qnrow['quest_tag'],
-		'GROUP'   => $qnrow['group'],
-		'DAILY'   => $qnrow['daily'],
 		'TOOLTIP' => ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"',
 		)
 	);
 
-	$query = "SELECT `q`.*, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
+	$query = "SELECT `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `q`.`quest_tag`, `q`.`is_complete`, `p`.`name`, `p`.`server`, `p`.`member_id`, `p`.`level`"
 	       . " FROM `" . $roster->db->table('quests') . "` AS q, `" . $roster->db->table('players') . "` AS p"
-	       . " WHERE `p`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `q`.`quest_id` = '" . $qnrow['quest_id'] . "' AND `q`.`member_id` = `p`.`member_id`"
-	       . " ORDER BY `p`.`level` DESC, `p`.`name` ASC;";
+	       . " WHERE `p`.`server` = '" . $roster->db->escape($roster->data['server']) . "' AND `q`.`member_id` = `p`.`member_id` AND `q`.`quest_name` = '" . addslashes($qnrow['quest_name'])  . "'"
+	       . " ORDER BY `q`.`zone`, `q`.`quest_name`, `q`.`quest_level`, `p`.`name`;";
 
 	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
 	while( $row = $roster->db->fetch($result) )
 	{
+		$quest_tags = $tagstring = '';
+		if( $row['quest_tag'] )
+		{
+			$quest_tags[] = $row['quest_tag'];
+		}
+		if( $row['is_complete'] == 1 )
+		{
+			$quest_tags[] = $roster->locale->act['complete'];
+		}
+		elseif( $row['is_complete'] == -1 )
+		{
+			$quest_tags[] = $roster->locale->act['failed'];
+		}
+
+		if( is_array($quest_tags) )
+		{
+			$tagstring = ' (' . implode(', ',$quest_tags) . ')';
+		}
+
 		// Set template variables
 		$roster->tpl->assign_block_vars('quests.members',array(
 			'ROW_CLASS' => $roster->switch_row_class(),
 			'LINK'      => makelink('char-info-quests&amp;a=c:' . $row['member_id']),
 			'NAME'      => $row['name'],
 			'LEVEL'     => $row['level'],
-			'COMPLETE'  => $row['is_complete'],
+			'TAGS'      => $tagstring
 			)
 		);
 	}
@@ -186,7 +215,7 @@ function selectQuery( $table , $fieldtoget , $field , $current , $urltorun )
 	 * table, field, current option if matching to existing data (EG: $row['state'])
 	 * and you want the drop down to be preselected on their current data, the id field from that table (EG: stateid)
 	 */
-	$sql = "SELECT $fieldtoget FROM $table ORDER BY `quest_data`.$field ASC;";
+	$sql = "SELECT $fieldtoget FROM $table ORDER BY `quests`.$field ASC;";
 
 	// execute SQL query and get result
 	$sql_result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$sql);

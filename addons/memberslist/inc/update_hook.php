@@ -251,7 +251,7 @@ class memberslistUpdate
 			$query =
 				"SELECT `members`.`member_id`, `members`.`name`".
 				" FROM `".$roster->db->table('members')."` as `members`".
-				" WHERE `members`.`name`='" . addslashes($main_name) . "'";
+				" WHERE `members`.`name`='".$main_name."'";
 
 			$result = $roster->db->query( $query );
 
