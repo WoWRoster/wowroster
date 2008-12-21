@@ -1,6 +1,6 @@
 WoWRoster Change Log
 Copyright (C) 2002-2008 The WoWRoster Dev Team
-Package updated November 15, 2008
+Package updated December 21, 2008
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
@@ -9,6 +9,18 @@ For corrections and/or suggestions - http://www.wowroster.net
 
 An HTML version of the Change Log can be found on our WiKi
 http://www.wowroster.net/MediaWiki/Roster:ChangeLog
+
+
+------------------------------------
+ v2.0.2 (December 21, 2008)
+------------------------------------
+  * Death Knight talent spec icons
+  * Support for flying icons when skill > 150
+  * Riding icon code changed, now includes flying icons
+  * Memberslist now uses members.classid for class coloring
+  * Pet info will only be saved for Hunters and Warlocks until CP is fixed 
+
+
 
 
 ------------------------------------

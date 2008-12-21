@@ -1,7 +1,9 @@
-Documents
+WoWRoster Documents
+Copyright (C) 2002-2008 The WoWRoster Dev Team
+Package updated December 21, 2008
 $Id$
 
-Check out our WiKi - http://www.wowroster.net/MediaWiki.html
+Please check out our WiKi - http://www.wowroster.net/MediaWiki.html
 
 
 

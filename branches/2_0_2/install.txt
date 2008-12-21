@@ -1,6 +1,6 @@
-WoWRoster v2.0.1
+WoWRoster v2.0.2
 Copyright (C) 2002-2008 The WoWRoster Dev Team
-Package updated November 15, 2008
+Package updated December 21, 2008
 $Id$
 
 You can view the open source project at - http://www.wowroster.net
