@@ -50,7 +50,7 @@ $query = "SELECT `s`.*, `p`.`name`, `p`.`clientLocale`, `p`.`member_id` FROM `" 
 	   . " AND `p`.`guild_id` = '" . $roster->data['guild_id'] . "'"
 	   . $showNewSkill
 	   . " AND `skill_name` IN ($inClause)"
-	   . " ORDER BY `s`.`skill_type`, `s`.`skill_name`,(mid(`skill_level` FROM 1 FOR (locate(':', `skill_level`)-1)) + 0) DESC, `p`.`name`;";
+	   . " ORDER BY `s`.`skill_type`, (mid(`skill_level` FROM 1 FOR (locate(':', `skill_level`)-1)) + 0) DESC, `s`.`skill_name`, `p`.`name`;";
 
 $result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 
