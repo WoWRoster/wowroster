@@ -3661,7 +3661,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->do_buffs($data, $memberId);
 
 		// Adding pet info
-		if( !empty($data['Pets']) && is_array($data['Pets']) )
+		// Quick fix for DK multiple pet error, we only scan the pets section for hunters and warlocks
+		if( (strtoupper($data['ClassEn']) == 'HUNTER' || strtoupper($data['ClassEn']) == 'WARLOCK') && isset($data['Pets']) && !empty($data['Pets']) && is_array($data['Pets']) )
 		{
 			$petsdata = $data['Pets'];
 			foreach( $petsdata as $pet )

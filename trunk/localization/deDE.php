@@ -320,7 +320,7 @@ $lang['secondary']='Sekundäre Fertigkeiten';
 $lang['Blacksmithing']='Schmiedekunst';
 $lang['Mining']='Bergbau';
 $lang['Herbalism']='Kräuterkunde';
-$lang['Alchemy']='Alchimie';
+$lang['Alchemy']='Alchemie';
 $lang['Leatherworking']='Lederverarbeitung';
 $lang['Jewelcrafting']='Juwelenschleifen';
 $lang['Skinning']='Kürschnerei';
@@ -337,7 +337,7 @@ $lang['backpack']='Rucksack';
 $lang['PvPRankNone']='none';
 
 // Uses preg_match() to find required level in recipe tooltip
-$lang['requires_level'] = '/Benötigte Stufe ([\d]+)/';
+$lang['requires_level'] = '/Ben�tigt Stufe ([\d]+)/';
 
 //Tradeskill-Array
 $lang['tsArray'] = array (
