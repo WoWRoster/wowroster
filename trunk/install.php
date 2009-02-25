@@ -18,7 +18,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+    exit('Direct access to install.php is not allowed. Please go to index.php to install.');
 }
 
 // Get the config file
