@@ -68,7 +68,7 @@ $mainQuery =
 
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
+	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` AND ( `proftable`.`skill_order` = 2 OR `proftable`.`skill_order` = 3 ) '.
 	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
@@ -226,7 +226,9 @@ function tradeskill_icons ( $row )
 	foreach ( $profs as $prof )
 	{
 		$r_prof = explode('|',$prof);
-		list( $curr, $max ) = isset( $r_prof[1] ) ? explode( ':', $r_prof[1] ) : array( 1, 1);
+		$value = isset( $r_prof[1] ) ? explode( ':', $r_prof[1] ) : array( 1, 1 );
+		$curr = $value[0];
+		$max = isset( $value[1] ) ? $value[1] : floor($skill_curr/75)*75;
 		$toolTip = $curr . "/" . $max;
 		$toolTiph = $r_prof[0];
 
