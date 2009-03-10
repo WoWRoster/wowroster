@@ -513,7 +513,10 @@ class RosterTplEncode
 	{
 		$filename = ereg_replace('/', '#', $this->filename[$handle]);
 		$filename = $this->cachepath . $filename . '.inc';
-		file_writer($filename, $data);
+		if(is_writeable(dirname($filename)))
+		{
+			file_writer($filename, $data);
+		}
 		return;
 	}
 }
