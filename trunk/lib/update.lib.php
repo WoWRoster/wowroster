@@ -646,7 +646,7 @@ class update
 				}
 				else
 				{
-					$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span>';
+					$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span><br />';
 				}
 			}
 		}

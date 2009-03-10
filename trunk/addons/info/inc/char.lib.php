@@ -1995,17 +1995,19 @@ class char
 
 		$repData = $this->getRepTabValues();
 
-		foreach( $repData as $findex => $faction )
+		if(is_array( $repData ))
 		{
-			$roster->tpl->assign_block_vars('rep',array(
+			foreach( $repData as $findex => $faction )
+			{
+				$roster->tpl->assign_block_vars('rep',array(
 				'ID'   => $findex,
 				'NAME' => $faction['name']
 				)
-			);
+				);
 
-			foreach( $faction['bars'] as $repbar )
-			{
-				$roster->tpl->assign_block_vars('rep.bar',array(
+				foreach( $faction['bars'] as $repbar )
+				{
+					$roster->tpl->assign_block_vars('rep.bar',array(
 					'ID'       => $repbar['barid'],
 					'NAME'     => $repbar['name'],
 					'WIDTH'    => $repbar['barwidth'],
@@ -2015,7 +2017,8 @@ class char
 					'MAXVALUE' => $repbar['maxvalue'],
 					'ATWAR'    => $repbar['atwar']
 					)
-				);
+					);
+				}
 			}
 		}
 	}
