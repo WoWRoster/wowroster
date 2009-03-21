@@ -14,7 +14,8 @@
 */
 
 /* Char Info Wrapper */
-.char-info { width: 860px; min-height: 900px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat-y center top; }
+table {width: 100%;}
+.char-info { min-height: 900px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat center top; }
 
 /* Guild Member List */
 .char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -0px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
@@ -38,7 +39,7 @@
 
 
 /* Current Char Header */
-.char-header { width: 870px; height: 170px; position: absolute; z-index: 10; left: -10px; top: -20px; }
+.char-header { width: 100%; height: 170px; position: absolute; z-index: 10; left: -10px; top: -20px; }
 
 .Alliance { background: url(../images/char_alliance.png) no-repeat left top; }
 
@@ -110,7 +111,7 @@
 
 .shader { background: url(../images/shader.png) repeat; border: 1px solid #000000; }
 
-.main-panel .tab1 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab1 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab1 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab1 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .main-panel .tab1 .container .box-label .profile { background: url(images/icons/profile.gif); }
@@ -262,7 +263,7 @@
 
 /*********** Pet Page Tab(2) ***********/
 
-.main-panel .tab2 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab2 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab2 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab2 .pet { height:80px; margin: 10px; position:relative; }
 .main-panel .tab2 .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
@@ -343,7 +344,7 @@
 
 /*********** Reputation Page Tab(3) ***********/
 
-.main-panel .tab3 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab3 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab3 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab3 .rep { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
 .main-panel .tab3 .rep-name { float: left; position: relative; line-height: 20px; }
@@ -361,12 +362,12 @@
 .main-panel .tab3 .container .box-label .steamwheedlecartel { background: url(images/icons/steamwheedlecartel.gif); }
 .main-panel .tab3 .container .box-label .other { background: url(images/icons/zother.gif); }
 
-.main-panel .tab3 .rep-bar .hated { background: url(images/rep/red.gif); }
-.main-panel .tab3 .rep-bar .neutral { background: url(images/bars/neutral.gif); }
-.main-panel .tab3 .rep-bar .friendly { background: url(images/bars/friendly.gif); }
-.main-panel .tab3 .rep-bar .honored { background: url(images/bars/honored.gif); }
-.main-panel .tab3 .rep-bar .revered { background: url(images/bars/revered.gif); }
-.main-panel .tab3 .rep-bar .exhaulted { background: url(images/bars/exhaulted.gif); }
+.main-panel .tab3 .rep-bar .Hated { background: url(images/bars/hated.gif); }
+.main-panel .tab3 .rep-bar .Neutral { background: url(images/bars/neutral.gif); }
+.main-panel .tab3 .rep-bar .Friendly { background: url(images/bars/friendly.gif); }
+.main-panel .tab3 .rep-bar .Honored { background: url(images/bars/honored.gif); }
+.main-panel .tab3 .rep-bar .Revered { background: url(images/bars/revered.gif); }
+.main-panel .tab3 .rep-bar .Exhaulted { background: url(images/bars/exhaulted.gif); }
 
 /*********** Skill Page Tab(4) ***********/
 .main-panel .tab4 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
