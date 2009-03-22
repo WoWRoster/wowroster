@@ -14,7 +14,7 @@
 */
 
 /* Char Info Wrapper */
-table {width: 100%;}
+
 .char-info { min-height: 900px; width: 960px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat center top; }
 
 /* Guild Member List */
@@ -581,7 +581,7 @@ table {width: 100%;}
 .main-panel .tab5 .container .box-label .talents { background: url(images/icons/talents.gif); }
 
 
-.main-panel .tab5 .frames { margin: auto; height: 600px; width: auto; padding-right: 4px; padding-left: 4px; }
+.main-panel .tab5 .frames { margin: auto; height: 600px; width: auto; }
 
 .main-panel .tab5 .spec { position:relative; float: left; width:235px; height:600px; margin: 3px; }
 .main-panel .tab5 .spec-name { position:absolute; width:223px; padding: 5px; left: 0px; bottom: 0px; font-size: 10px; font-weight: bold; }
