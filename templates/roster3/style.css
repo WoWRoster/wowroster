@@ -17,7 +17,10 @@ body { background:#000000; }
 a:link, a:visited { color:#CBA300;text-decoration:none;font-weight:bold; }
 a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
-.roster-wrap { font:12px arial,helvetica,sans-serif; color:#FFFFFF; padding: 15px; }
+.roster-wrap {
+	font:12px arial,helvetica,sans-serif;
+	color:#FFFFFF;
+}
 
 img, p { padding:0;margin:0;border:0; }
 
@@ -27,6 +30,8 @@ input, .input {
 	font:10px verdana,arial;
 	background-color:#202020;
 }
+/* FF3 doesn't honor the background-color, so we set a special style here */
+input[type="file"] { border:1px solid #808080;color:#808080;background-color:#FFF; }
 input[type="submit"], input[type="reset"], input[type="button"] { cursor:pointer; }
 
 select {
@@ -450,6 +455,7 @@ select {
 	font-weight:bold;
 	font-size:10px;
 }
+.menu_config_div:hover { border:2px solid #0066FF; }
 
 .menu_config_div_disabled {
 	/* The div elements used for the menu config screen */
@@ -466,6 +472,7 @@ select {
 	font-weight:bold;
 	font-size:10px;
 }
+.menu_config_div_disabled:hover { border:2px solid #FF3300; }
 
 /**
  * Row Coloring
@@ -719,15 +726,16 @@ select {
 /**
  * Class colorization
  */
-.classDruidtxt { color:#FF7C0A; }
-.classHuntertxt { color:#AAD372; }
-.classMagetxt { color:#68CCEF; }
-.classPaladintxt { color:#F48CBA; }
-.classPriesttxt { color:#ffffff; }
-.classRoguetxt { color:#FFF468; }
-.classShamantxt { color:#00DBBA; }
-.classWarlocktxt { color:#9382C9; }
-.classWarriortxt { color:#C69B6D; }
+.classDeathKnighttxt { color:#C41F3B; }
+.classDruidtxt { color:#FF7D0A; }
+.classHuntertxt { color:#ABD473; }
+.classMagetxt { color:#69CCF0; }
+.classPaladintxt { color:#F58CBA; }
+.classPriesttxt { color:#FFFFFF; }
+.classRoguetxt { color:#FFF569; }
+.classShamantxt { color:#2459FF; }
+.classWarlocktxt { color:#9482C9; }
+.classWarriortxt { color:#C79C6E; }
 
 
 /**
@@ -789,7 +797,7 @@ select {
 .overlib_border { border:1px outset #CCCCCC; }
 
 /* Sets main text style - ol_textfontclass */
-.overlib_maintext { color:#ffffff; font:10px verdana,arial,helvetica,sans-serif; white-space:normal; text-align: left; }
+.overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif;white-space:normal; }
 
 /* Sets Caption Text - ol_captionfontclass */
 .overlib_captiontext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
