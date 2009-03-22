@@ -102,13 +102,51 @@ class item
 		$this->_makeTooltipHTML();
 	}
 
-	function out( )
+	// TPL data the easy way
+	function tpl_get_icon()
+	{
+		global $roster;
+
+		return $roster->config['interface_url'] . 'Interface/Icons/' . $this->icon . '.' . $roster->config['img_suffix'];
+	}
+
+	// TPL data the easy way
+	function tpl_get_tooltip()
+	{
+		return makeOverlib($this->html_tooltip, '', '' , 2, '', ', WIDTH, 325');
+	}
+
+	// TPL data the easy way
+	function tpl_get_itemlink()
+	{
+		global $roster, $tooltips;
+
+		$lang = ( isset($this->locale) ? $this->locale : $roster->config['locale'] );
+		list($item_id) = explode(':', $this->item_id);
+
+		// Item links
+		$num_of_tips = (count($tooltips)+1);
+		$linktip = '';
+
+		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
+		{
+			$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
+		}
+		setTooltip($num_of_tips, $linktip);
+		setTooltip('itemlink', $roster->locale->wordings[$lang]['itemlink']);
+
+		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
+
+		return $linktip;
+	}
+
+	function out()
 	{
 		global $roster, $tooltips;
 
 		$lang = ( isset($this->locale) ? $this->locale : $roster->config['locale'] );
 		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->icon . '.' . $roster->config['img_suffix'];
-		$tooltip = makeOverlib($this->html_tooltip, '', '' , 2, '', ', WIDTH, 325');
+		$tooltip = makeOverlib($this->html_tooltip . '<br/><span class="red">item::out() is depreciated</span>', '', '' , 2, '', ', WIDTH, 325');
 		list($item_id) = explode(':', $this->item_id);
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
@@ -116,7 +154,6 @@ class item
 
 		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
 		{
-			//$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['item_name'])) . '" target="_blank">' . $key . '</a><br />';
 			$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
 		}
 		setTooltip($num_of_tips, $linktip);
