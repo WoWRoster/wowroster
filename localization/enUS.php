@@ -339,6 +339,16 @@ $lang['PvPRankNone']='none';
 // Uses preg_match() to find required level in recipe tooltip
 $lang['requires_level'] = '/Requires Level ([\d]+)/';
 
+// Skills to EN id array
+$lang['skill_to_id'] = array(
+	'Class Skills' => 'classskills',
+	'Professions' => 'professions',
+	'Secondary Skills' => 'secondaryskills',
+	'Weapon Skills' => 'weaponskills',
+	'Armor Proficiencies' => 'armorproficiencies',
+	'Languages' => 'languages',
+);
+
 //Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
@@ -559,6 +569,43 @@ $lang['race_to_en'] = array(
 
 );
 
+$lang['race_to_id'] = array(
+	'Human'     => 1,
+	'Orc'       => 2,
+	'Dwarf'     => 3,
+	'Night Elf' => 4,
+	'Undead'    => 5,
+	'Tauren'    => 6,
+	'Gnome'     => 7,
+	'Troll'     => 8,
+	'Blood Elf' => 10,
+	'Draenei'   => 11,
+// Space so locale files are line synced
+
+
+
+
+
+
+
+
+
+
+);
+
+$lang['id_to_race'] = array(
+	1 => 'Human',
+	2 => 'Orc',
+	3 => 'Dwarf',
+	4 => 'Night Elf',
+	5 => 'Undead',
+	6 => 'Tauren',
+	7 => 'Gnome',
+	8 => 'Troll',
+	10 => 'Blood Elf',
+	11 => 'Draenei',
+);
+
 $lang['hslist']=' Honor System Stats';
 $lang['hslist1']='Highest Lifetime Rank';
 $lang['hslist2']='Highest Lifetime HKs';
@@ -615,6 +662,17 @@ $lang['hostile']='Hostile';
 $lang['hated']='Hated';
 $lang['atwar']='At War';
 $lang['notatwar']='Not at War';
+
+// Factions to EN id
+$lang['faction_to_id'] = array(
+	'Alliance' => 'alliance',
+	'Alliance Forces' => 'allianceforces',
+	'Alliance Vanguard' => 'alliancevanguard',
+	'Other' => 'other',
+	'Outland' => 'outland',
+	'Shattrath City' => 'shattrathcity',
+	'Steamwheedle Cartel' => 'steamwheedlecartel',
+);
 
 
 // Quests page external links (on character quests page)

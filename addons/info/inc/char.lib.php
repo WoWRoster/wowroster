@@ -21,6 +21,7 @@ if( !defined('IN_ROSTER') )
 }
 
 require_once (ROSTER_LIB . 'item.php');
+require_once (ROSTER_LIB . 'equip.php');
 require_once ($addon['inc_dir'] . 'bag.php');
 require_once (ROSTER_LIB . 'quest.php');
 require_once (ROSTER_LIB . 'recipes.php');
@@ -99,23 +100,39 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
-			'S_PLAYED'    => $roster->auth->getAuthorized($addon['config']['show_played']),
-			'S_MONEY'     => $roster->auth->getAuthorized($addon['config']['show_money']),
-			'S_PET_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab2']),
-			'S_REP_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab3']),
-			'S_SKILL_TAB' => $roster->auth->getAuthorized($addon['config']['show_tab4']),
-			'S_PVP_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab5']),
+			'S_PLAYED'     => $roster->auth->getAuthorized($addon['config']['show_played']),
+			'S_MONEY'      => $roster->auth->getAuthorized($addon['config']['show_money']),
+			'S_PET_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab2']),
+			'S_REP_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab3']),
+			'S_SKILL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_tab4']),
+			'S_PVP_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab5']),
+			'S_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_talents']),
+			'S_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
+
+			'S_PETS'       => false,
+			'S_MOUNTS'     => false,
+			'S_COMPANIONS' => false,
 
 			'L_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
 			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
+			'L_PROFILE'          => $roster->locale->act['tab1'],
 			'L_HEALTH'           => $roster->locale->act['health'],
 			'L_INACTIVE'         => $roster->locale->act['inactive'],
 			'L_UNUSED_TALENTS'   => $roster->locale->act['unusedtalentpoints'],
 			'L_TIMEPLAYED'       => $roster->locale->act['timeplayed'],
 			'L_TIMELEVELPLAYED'  => $roster->locale->act['timelevelplayed'],
 			'L_LEVEL'            => $roster->locale->act['level'],
+			'L_TALENT_SPEC'      => $roster->locale->act['talent_specialization'],
 			'L_TALENTS'          => $roster->locale->act['talents'],
 			'L_TALENT_EXPORT'    => $roster->locale->act['talentexport'],
+
+			'L_PETS'       => $roster->locale->act['pets'],
+			'L_COMPANIONS' => $roster->locale->act['companions'],
+			'L_MOUNTS'     => $roster->locale->act['mounts'],
+
+			'L_PROFESSIONS' => $roster->locale->act['professions'],
+			'L_RESISTANCES' => $roster->locale->act['resistances'],
+			'L_BUFFS'       => $roster->locale->act['buffs'],
 
 			'L_QUESTLOG'  => $roster->locale->act['questlog'],
 			'L_COMPLETE'  => $roster->locale->act['complete'],
@@ -143,6 +160,7 @@ class char
 			'L_REAGENTS' => $roster->locale->act['reagents'],
 
 			'L_CHAR_POWER'       => $this->data['power'],
+			'L_CHAR_POWER_ID'    => strtolower($this->data['power']),
 			'L_CHAR_INACTIVE'    => $this->locale['inactive'],
 
 			'L_MENUSTATS' => $roster->locale->act['menustats'],
@@ -204,11 +222,11 @@ class char
 	 */
 	function fetchEquip()
 	{
-		$this->equip = item::fetchManyItems($this->data['member_id'], 'equip', 'full');
+		$this->equip = equip::fetchManyEquip($this->data['member_id'], 'full');
 	}
 
 
-	function printBuffs()
+	function show_buffs()
 	{
 		global $roster;
 
@@ -376,7 +394,7 @@ class char
 	 */
 	function show_recipes()
 	{
-		global $roster, $sort, $addon;
+		global $roster, $addon;
 
 		$roster->tpl->assign_vars(array(
 			'S_RECIPE_HIDE' => $addon['config']['recipe_disp'],
@@ -389,6 +407,9 @@ class char
 			'U_REAGENTS' => makelink('char-info-recipes&amp;s=reagents'),
 			)
 		);
+
+		// Get recipe sort mode
+		$sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 		$recipes = recipe_get_many( $this->data['member_id'],'', $sort );
 
@@ -423,11 +444,11 @@ class char
 				{
 					if( $data['difficulty'] == '4' )
 					{
-						$difficultycolor = 'FF9900';
+						$difficultycolor = 'ff9900';
 					}
 					elseif( $data['difficulty'] == '3' )
 					{
-						$difficultycolor = 'FFFF66';
+						$difficultycolor = 'ffff66';
 					}
 					elseif( $data['difficulty'] == '2' )
 					{
@@ -435,11 +456,11 @@ class char
 					}
 					elseif( $data['difficulty'] == '1' )
 					{
-						$difficultycolor = 'CCCCCC';
+						$difficultycolor = 'cccccc';
 					}
 					else
 					{
-						$difficultycolor = 'FFFF80';
+						$difficultycolor = 'ffff80';
 					}
 
 					$roster->tpl->assign_block_vars('recipe.row',array(
@@ -589,7 +610,7 @@ class char
 	/**
 	 * Build Spellbook
 	 *
-	 * @return string
+	 * @return bool
 	 */
 	function show_spellbook()
 	{
@@ -610,14 +631,14 @@ class char
 
 		if( !$result )
 		{
-			return sprintf($roster->locale->act['no_spellbook'],$this->data['name']);
+			return false;
 		}
 
 		$num_trees = $roster->db->num_rows($result);
 
 		if( $num_trees == 0 )
 		{
-			return sprintf($roster->locale->act['no_spellbook'],$this->data['name']);
+			return false;
 		}
 
 		for( $t=0; $t < $num_trees; $t++)
@@ -668,7 +689,6 @@ class char
 
 		if( $pet_rows > 0 )
 		{
-
 			$s = $p = 0;
 			while( $row = $roster->db->fetch($result,SQL_ASSOC) )
 			{
@@ -734,17 +754,77 @@ class char
 				}
 			}
 		}
-		$roster->tpl->set_filenames(array('spellbook' => $addon['basename'] . '/spellbook.html'));
-		return $roster->tpl->fetch('spellbook');
+
+		return true;
+	}
+
+
+	/**
+	 * Build Companions
+	 *
+	 * @return bool
+	 */
+	function show_companions()
+	{
+		global $roster, $addon;
+		return false;
+
+		$query = "SELECT * FROM `" . $roster->db->table('companions') . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
+		$result = $roster->db->query($query);
+
+		$mount_num = $comp_num = 0;
+		if( $roster->db->num_rows($result) > 0 )
+		{
+			while( $row = $roster->db->fetch($result,SQL_ASSOC) )
+			{
+				if( $row['icon'] == '' || !isset($row['icon']) )
+				{
+					$row['icon'] = 'inv_misc_questionmark';
+				}
+
+				if( $row['type'] == 'Mount' )
+				{
+					$roster->tpl->assign_block_vars('mounts',array(
+						'ID'        => $mount_num,
+						'NAME'      => $row['name'],
+						'ICON'      => $row['icon'],
+						'TOOLTIP' => makeOverlib($row['tooltip']),
+						)
+					);
+					$mount_num++;
+				}
+
+				if( $row['type'] == 'Critter' )
+				{
+					$roster->tpl->assign_block_vars('companions',array(
+						'ID'        => $comp_num,
+						'NAME'      => $row['name'],
+						'ICON'      => $row['icon'],
+						'TOOLTIP' => makeOverlib($row['tooltip']),
+						)
+					);
+					$comp_num++;
+				}
+			}
+
+			$roster->tpl->assign_vars(array(
+				'S_MOUNTS'     => (bool)$mount_num,
+				'S_COMPANIONS' => (bool)$comp_num,
+				)
+			);
+
+			return true;
+		}
+		return false;
 	}
 
 
 	/**
 	 * Build Pet
 	 *
-	 * @return string
+	 * @return bool
 	 */
-	function printPet()
+	function show_pets()
 	{
 		global $roster, $addon;
 
@@ -754,13 +834,16 @@ class char
 		$petNum = 0;
 		if( $roster->db->num_rows($result) > 0 )
 		{
+			$roster->tpl->assign_var('S_PETS',true);
+
 			while ($row = $roster->db->fetch($result,SQL_ASSOC))
 			{
-				$xpbarshow = true;
+				$expbar_show = true;
+				$expbar_amount = $expbar_max = '';
 
 				if( $row['level'] == ROSTER_MAXCHARLEVEL )
 				{
-					$expbar_width = '216';
+					$exp_percent = 100;
 					$expbar_text = $roster->locale->act['max_exp'];
 				}
 				else
@@ -768,18 +851,19 @@ class char
 					$xp = explode(':',$row['xp']);
 					if( isset($xp[1]) && $xp[1] != '0' && $xp[1] != '' )
 					{
-						$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 216) : 0);
 						$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
-						$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
+
+						$expbar_amount = $xp[0];
+						$expbar_max = $xp[1];
 					}
 					else
 					{
-						$xpbarshow = false;
-						$expbar_width = 0;
-						$expbar_text = '';
+						$expbarshow = false;
+						$exp_percent = 0;
 
 					}
 				}
+
 
 				// Start Warlock Pet Icon Fix
 				if( $row['type'] == $this->locale['Imp'] )
@@ -827,42 +911,42 @@ class char
 
 					'L_POWER' => $row['power'],
 
-					'S_EXP' => $xpbarshow,
-					'EXP_WIDTH' => $expbar_width,
-					'EXP_TEXT' => $expbar_text,
+					'S_EXP'      => $expbar_show,
+					'EXP_AMOUNT' => $expbar_amount,
+					'EXP_MAX'    => $expbar_max,
+					'EXP_PERC'   => $exp_percent,
 					)
 				);
 
 				// Print Resistance
-				$this->printPetResist('arcane',$row);
-				$this->printPetResist('fire',$row);
-				$this->printPetResist('nature',$row);
-				$this->printPetResist('frost',$row);
-				$this->printPetResist('shadow',$row);
+				$this->pet_resist('arcane',$row);
+				$this->pet_resist('fire',$row);
+				$this->pet_resist('nature',$row);
+				$this->pet_resist('frost',$row);
+				$this->pet_resist('shadow',$row);
 
 				// Print stats boxes
 				$roster->tpl->assign_block_vars('pet.box_stats',array());
-				$this->printPetStat('stat_str',$row);
-				$this->printPetStat('stat_agl',$row);
-				$this->printPetStat('stat_sta',$row);
-				$this->printPetStat('stat_int',$row);
-				$this->printPetStat('stat_spr',$row);
-				$this->printPetStat('stat_armor',$row);
+				$this->pet_stat('stat_str',$row);
+				$this->pet_stat('stat_agl',$row);
+				$this->pet_stat('stat_sta',$row);
+				$this->pet_stat('stat_int',$row);
+				$this->pet_stat('stat_spr',$row);
+				$this->pet_stat('stat_armor',$row);
 
 				$roster->tpl->assign_block_vars('pet.box_stats',array());
-				$this->printPetWSkill($row);
-				$this->printPetWDamage($row);
-				$this->printPetStat('melee_power',$row);
-				$this->printPetStat('melee_hit',$row);
-				$this->printPetStat('melee_crit',$row);
-				$this->printPetResilience($row);
+				$this->pet_wskill($row);
+				$this->pet_wdamage($row);
+				$this->pet_stat('melee_power',$row);
+				$this->pet_stat('melee_hit',$row);
+				$this->pet_stat('melee_crit',$row);
+				$this->pet_resilience($row);
 
 				$petNum++;
 			}
 		}
-		return $petNum;
+		return (bool)$petNum;
 	}
-
 
 
 	/**
@@ -872,7 +956,7 @@ class char
 	 * @param array $data
 	 * @return string
 	 */
-	function printPetStat( $statname , $data )
+	function pet_stat( $statname , $data )
 	{
 		global $roster;
 
@@ -927,17 +1011,17 @@ class char
 
 		if( isset($lname) )
 		{
-			$tooltipheader = $lname . ' ' . $this->printRatingLong($statname,$data);
+			$tooltipheader = $lname . ' ' . $this->rating_long($statname,$data);
 		}
 		else
 		{
-			$tooltipheader = $name . ' ' . $this->printRatingLong($statname,$data);
+			$tooltipheader = $name . ' ' . $this->rating_long($statname,$data);
 		}
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printPetStatLine($name, $this->printRatingShort($statname,$data), $line);
+		$this->pet_stat_line($name, $this->rating_short($statname,$data), $line);
 	}
 
 
@@ -947,7 +1031,7 @@ class char
 	 * @param array $data
 	 * @return string
 	 */
-	function printPetWSkill( $data )
+	function pet_wskill( $data )
 	{
 		global $roster;
 
@@ -959,7 +1043,7 @@ class char
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printPetStatLine($name, $value, $line);
+		$this->pet_stat_line($name, $value, $line);
 	}
 
 
@@ -969,7 +1053,7 @@ class char
 	 * @param array $data
 	 * @return string
 	 */
-	function printPetWDamage( $data )
+	function pet_wdamage( $data )
 	{
 		global $roster;
 
@@ -981,7 +1065,7 @@ class char
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printPetStatLine($name, $value, $line);
+		$this->pet_stat_line($name, $value, $line);
 	}
 
 
@@ -992,7 +1076,7 @@ class char
 	 * @param array $data
 	 * @return string
 	 */
-	function printPetResist( $resname , $data )
+	function pet_resist( $resname , $data )
 	{
 		global $roster;
 
@@ -1029,7 +1113,7 @@ class char
 				break;
 		}
 
-		$tooltip = '<span style="color:' . $color . ';font-size:11px;font-weight:bold;">' . $name . '</span> ' . $this->printRatingLong('res_' . $resname,$data) . '<br />'
+		$tooltip = '<span style="color:' . $color . ';font-size:11px;font-weight:bold;">' . $name . '</span> ' . $this->rating_long('res_' . $resname,$data) . '<br />'
 				 . '<span style="color:#DFB801;text-align:left;">' . $tooltip . '</span>';
 
 		$roster->tpl->assign_block_vars('pet.resist',array(
@@ -1050,7 +1134,7 @@ class char
 	 *
 	 * @return string
 	 */
-	function printPetResilience( $data )
+	function pet_resilience( $data )
 	{
 		global $roster;
 
@@ -1066,7 +1150,7 @@ class char
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printPetStatLine($name, '<strong class="white">' . $value . '</strong>', $line);
+		$this->pet_stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
 	}
 
 
@@ -1078,7 +1162,7 @@ class char
 	 * @param string $tooltip
 	 * @return string
 	 */
-	function printPetStatLine( $label , $value , $tooltip )
+	function pet_stat_line( $label , $value , $tooltip )
 	{
 		global $roster;
 
@@ -1099,7 +1183,7 @@ class char
 	 * @param string $tooltip
 	 * @return string
 	 */
-	function printStatLine( $label , $value , $tooltip )
+	function stat_line( $label , $value , $tooltip )
 	{
 		global $roster;
 
@@ -1119,7 +1203,7 @@ class char
 	 * @param array $data_or Alternative data to use
 	 * @return string
 	 */
-	function printRatingShort( $statname , $data_or=false )
+	function rating_short( $statname , $data_or=false )
 	{
 		if( $data_or == false )
 		{
@@ -1163,7 +1247,7 @@ class char
 	 * @param array $data_or Alternative data to use
 	 * @return string
 	 */
-	function printRatingLong( $statname , $data_or=false )
+	function rating_long( $statname , $data_or=false )
 	{
 		if( $data_or == false )
 		{
@@ -1206,7 +1290,7 @@ class char
 	 * @param string $side
 	 * @param bool $visible
 	 */
-	function printBox( $cat , $side , $visible=false )
+	function status_box( $cat , $side , $visible=false )
 	{
 		global $roster;
 
@@ -1219,48 +1303,48 @@ class char
 		switch( $cat )
 		{
 			case 'stats':
-				$this->printStat('stat_str');
-				$this->printStat('stat_agl');
-				$this->printStat('stat_sta');
-				$this->printStat('stat_int');
-				$this->printStat('stat_spr');
-				$this->printStat('stat_armor');
+				$this->box_stat_line('stat_str');
+				$this->box_stat_line('stat_agl');
+				$this->box_stat_line('stat_sta');
+				$this->box_stat_line('stat_int');
+				$this->box_stat_line('stat_spr');
+				$this->box_stat_line('stat_armor');
 				break;
 
 			case 'melee':
-				$this->printWDamage('melee');
-				$this->printWSpeed('melee');
-				$this->printStat('melee_power');
-				$this->printStat('melee_hit');
-				$this->printStat('melee_crit');
-				$this->printStat('melee_expertise');
+				$this->wdamage('melee');
+				$this->wspeed('melee');
+				$this->box_stat_line('melee_power');
+				$this->box_stat_line('melee_hit');
+				$this->box_stat_line('melee_crit');
+				$this->box_stat_line('melee_expertise');
 				break;
 
 			case 'ranged':
-				$this->printWSkill('ranged');
-				$this->printWDamage('ranged');
-				$this->printWSpeed('ranged');
-				$this->printStat('ranged_power');
-				$this->printStat('ranged_hit');
-				$this->printStat('ranged_crit');
+				$this->wskill('ranged');
+				$this->wdamage('ranged');
+				$this->wspeed('ranged');
+				$this->box_stat_line('ranged_power');
+				$this->box_stat_line('ranged_hit');
+				$this->box_stat_line('ranged_crit');
 				break;
 
 			case 'spell':
-				$this->printSpellDamage();
-				$this->printValue('spell_healing');
-				$this->printStat('spell_hit');
-				$this->printSpellCrit();
-				$this->printValue('spell_penetration');
-				$this->printValue('mana_regen');
+				$this->spell_damage();
+				$this->status_value('spell_healing');
+				$this->box_stat_line('spell_hit');
+				$this->spell_crit();
+				$this->status_value('spell_penetration');
+				$this->status_value('mana_regen');
 				break;
 
 			case 'defense':
-				$this->printStat('stat_armor');
-				$this->printDefense();
-				$this->printDef('dodge');
-				$this->printDef('parry');
-				$this->printDef('block');
-				$this->printResilience();
+				$this->box_stat_line('stat_armor');
+				$this->defense_rating();
+				$this->defense_line('dodge');
+				$this->defense_line('parry');
+				$this->defense_line('block');
+				$this->resilience();
 				break;
 		}
 	}
@@ -1272,7 +1356,7 @@ class char
 	 * @param string $statname
 	 * @return string
 	 */
-	function printStat( $statname )
+	function box_stat_line( $statname )
 	{
 		global $roster;
 
@@ -1353,17 +1437,17 @@ class char
 
 		if( isset($lname) )
 		{
-			$tooltipheader = $lname . ' ' . $this->printRatingLong($statname);
+			$tooltipheader = $lname . ' ' . $this->rating_long($statname);
 		}
 		else
 		{
-			$tooltipheader = $name . ' ' . $this->printRatingLong($statname);
+			$tooltipheader = $name . ' ' . $this->rating_long($statname);
 		}
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printStatLine($name, $this->printRatingShort($statname), $line);
+		$this->stat_line($name, $this->rating_short($statname), $line);
 	}
 
 
@@ -1373,7 +1457,7 @@ class char
 	 * @param string $statname
 	 * @return unknown
 	 */
-	function printValue( $statname )
+	function status_value( $statname )
 	{
 		global $roster;
 
@@ -1401,7 +1485,7 @@ class char
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printStatLine($name, '<strong class="white">' . $value . '</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
 	}
 
 
@@ -1411,7 +1495,7 @@ class char
 	 * @param string $location
 	 * @return string
 	 */
-	function printWSkill( $location )
+	function wskill( $location )
 	{
 		global $roster;
 
@@ -1446,7 +1530,7 @@ class char
 			}
 		}
 
-		$this->printStatLine($name, $value, $line);
+		$this->stat_line($name, $value, $line);
 	}
 
 
@@ -1456,7 +1540,7 @@ class char
 	 * @param string $location
 	 * @return string
 	 */
-	function printWDamage( $location )
+	function wdamage( $location )
 	{
 		global $roster;
 
@@ -1495,7 +1579,7 @@ class char
 			}
 		}
 
-		$this->printStatLine($name, $value, $line);
+		$this->stat_line($name, $value, $line);
 	}
 
 
@@ -1505,7 +1589,7 @@ class char
 	 * @param string $location
 	 * @return string
 	 */
-	function printWSpeed( $location )
+	function wspeed( $location )
 	{
 		global $roster;
 
@@ -1514,7 +1598,7 @@ class char
 			$value = '<strong class="white">' . $this->data['ranged_speed'] . '</strong>';
 			$name = $roster->locale->act['speed'];
 			$tooltipheader = $roster->locale->act['atk_speed'] . ' ' . $value;
-			$tooltip = $roster->locale->act['haste_tooltip'] . $this->printRatingLong('ranged_haste');
+			$tooltip = $roster->locale->act['haste_tooltip'] . $this->rating_long('ranged_haste');
 
 			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 				  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
@@ -1530,13 +1614,13 @@ class char
 			}
 
 			$tooltipheader = $roster->locale->act['atk_speed'] . ' ' . $value;
-			$tooltip = $roster->locale->act['haste_tooltip'] . $this->printRatingLong('melee_haste');
+			$tooltip = $roster->locale->act['haste_tooltip'] . $this->rating_long('melee_haste');
 
 			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 				  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 		}
 
-		$this->printStatLine($name, $value, $line);
+		$this->stat_line($name, $value, $line);
 	}
 
 
@@ -1545,7 +1629,7 @@ class char
 	 *
 	 * @return string
 	 */
-	function printSpellDamage()
+	function spell_damage()
 	{
 		global $roster, $addon;
 
@@ -1564,7 +1648,7 @@ class char
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printStatLine($name, $value, $line);
+		$this->stat_line($name, $value, $line);
 	}
 
 
@@ -1573,14 +1657,14 @@ class char
 	 *
 	 * @return string
 	 */
-	function printSpellCrit()
+	function spell_crit()
 	{
 		global $roster, $addon;
 
 		$name = $roster->locale->act['spell_crit_chance'];
 		$value = '<strong class="white">' . $this->data['spell_crit_chance'] . '</strong>';
 
-		$tooltipheader = $roster->locale->act['spell_crit_rating'] . ' ' . $this->printRatingLong('spell_crit');
+		$tooltipheader = $roster->locale->act['spell_crit_rating'] . ' ' . $this->rating_long('spell_crit');
 
 		$tooltip = '<div><span style="float:right;">' . sprintf('%.2f%%',$this->data['spell_crit_chance_holy']) . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-holy.gif" alt="" />' . $roster->locale->act['holy'] . '</div>';
 		$tooltip .= '<div><span style="float:right;">' . sprintf('%.2f%%',$this->data['spell_crit_chance_fire']) . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-fire.gif" alt="" />' . $roster->locale->act['fire'] . '</div>';
@@ -1592,7 +1676,7 @@ class char
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printStatLine($name, $value, $line);
+		$this->stat_line($name, $value, $line);
 	}
 
 
@@ -1601,7 +1685,7 @@ class char
 	 *
 	 * @return string
 	 */
-	function printDefense()
+	function defense_rating()
 	{
 		global $roster;
 
@@ -1624,12 +1708,12 @@ class char
 		$name = $roster->locale->act['defense'];
 		$tooltipheader = $name . ' ' . $value;
 
-		$tooltip = $roster->locale->act['defense_rating'] . $this->printRatingLong('stat_defr');
+		$tooltip = $roster->locale->act['defense_rating'] . $this->rating_long('stat_defr');
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printStatLine($name, '<strong class="white">' . $value . '</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
 	}
 
 
@@ -1640,20 +1724,20 @@ class char
 	 *
 	 * @return string
 	 */
-	function printDef( $statname )
+	function defense_line( $statname )
 	{
 		global $roster;
 
 		$name = $roster->locale->act[$statname];
 		$value = $this->data[$statname];
 
-		$tooltipheader = $name . ' ' . $this->printRatingLong('stat_' . $statname);
+		$tooltipheader = $name . ' ' . $this->rating_long('stat_' . $statname);
 		$tooltip = sprintf($roster->locale->act['def_tooltip'],$name);
 
 		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
 			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printStatLine($name, '<strong class="white">' . $value . '%</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '%</strong>', $line);
 	}
 
 
@@ -1662,7 +1746,7 @@ class char
 	 *
 	 * @return string
 	 */
-	function printResilience()
+	function resilience()
 	{
 		global $roster;
 
@@ -1674,10 +1758,10 @@ class char
 				 . '<div><span style="float:right;">' . $this->data['stat_res_ranged'] . '</span>' . $roster->locale->act['ranged'] . '</div>'
 				 . '<div><span style="float:right;">' . $this->data['stat_res_spell'] . '</span>' . $roster->locale->act['spell'] . '</div>';
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">'.$tooltipheader.'</span><br />'
-			  . '<span style="color:#DFB801;">'.$tooltip.'</span>';
+		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
+			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->printStatLine($name, '<strong class="white">'.$value.'</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
 	}
 
 
@@ -1687,7 +1771,7 @@ class char
 	 * @param string $resname
 	 * @return string
 	 */
-	function printResist( $resname )
+	function resist_value( $resname )
 	{
 		global $roster;
 
@@ -1724,7 +1808,7 @@ class char
 				break;
 		}
 
-		$tooltip = '<span style="color:' . $color . ';font-size:11px;font-weight:bold;">' . $name . '</span> ' . $this->printRatingLong('res_'.$resname) . '<br />'
+		$tooltip = '<span style="color:' . $color . ';font-size:11px;font-weight:bold;">' . $name . '</span> ' . $this->rating_long('res_'.$resname) . '<br />'
 				 . '<span style="color:#DFB801;text-align:left;">' . $tooltip . '</span>';
 
 		$roster->tpl->assign_block_vars('resist',array(
@@ -1744,7 +1828,7 @@ class char
 	 * @param string $slot
 	 * @return string
 	 */
-	function printEquip( $slot )
+	function equip_slot( $slot )
 	{
 		global $roster;
 
@@ -1776,10 +1860,9 @@ class char
 	 *
 	 * @return string
 	 */
-	function printTalents()
+	function show_talents()
 	{
 		global $roster, $addon;
-
 
 		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `order`;";
 		$trees = $roster->db->query($sqlquery);
@@ -1788,21 +1871,39 @@ class char
 
 		if( $tree_rows > 0 )
 		{
-			$treeshow = 0;
-			$treeshowp = 0;
+			// Set vars for talent specialization
+			$talent_spec = $spec_points_temp = 0;
+			$spec_points = array();
+
 			for( $j=0; $j < $tree_rows; $j++)
 			{
 				$treedata = $roster->db->fetch($trees,SQL_ASSOC);
-				if( $treedata['pointsspent'] > $treeshowp )
+
+				// does this tree have the most points?
+				if( $treedata['pointsspent'] > $spec_points_temp )
 				{
-					$treeshow = $j;
-					$treeshowp = $treedata['pointsspent'];
+/*					if( ($treedata['pointsspent'] - $spec_points_temp) < 5 )
+					{
+						$talent_spec = 0;
+						$talent_spec_name = $roster->locale->act['hybrid'];
+						$talent_spec_icon = 'hybrid';
+					}
+					else
+					{*/
+						$talent_spec = $j;
+						$talent_spec_name = $treedata['tree'];
+						$talent_spec_icon = $treedata['background'];
+//					}
+					$spec_points_temp = $treedata['pointsspent'];
 				}
+
+				// store our talent points
+				$spec_points[] = $treedata['pointsspent'];
 
 				$treelayer[$j]['name'] = $treedata['tree'];
 				$treelayer[$j]['image'] = $treedata['background'];
 				$treelayer[$j]['points'] = $treedata['pointsspent'];
-				$treelayer[$j]['talents'] = $this->talentLayer($treedata['tree']);
+				$treelayer[$j]['talents'] = $this->_talent_layer($treedata['tree']);
 			}
 
 			foreach( $treelayer as $treeindex => $tree )
@@ -1813,7 +1914,7 @@ class char
 					'ID'       => $treeindex,
 					'POINTS'   => $tree['points'],
 					'ICON'     => $tree['image'],
-					'SELECTED' => ( $treeshow == $treeindex ? true : false )
+					'SELECTED' => ( $talent_spec == $treeindex ? true : false )
 					)
 				);
 
@@ -1836,15 +1937,18 @@ class char
 				}
 			}
 
-			$roster->tpl->assign_var('U_TALENT_EXPORT', $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url);
+			$roster->tpl->assign_vars(array(
+				'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
+				'SPEC_POINTS'     => implode(' / ',$spec_points),
+				'SPEC_NAME'       => $talent_spec_name,
+				'SPEC_ICON'       => $talent_spec_icon,
+				)
+			);
 
-			$roster->tpl->set_filenames(array('talents' => $addon['basename'] . '/talents.html'));
-			return $roster->tpl->fetch('talents');
+			return true;
 		}
-		else
-		{
-			return '<span class="title_text">' . sprintf($roster->locale->act['no_talents'],$this->data['name']) . '</span>';
-		}
+
+		return false;
 	}
 
 
@@ -1854,7 +1958,7 @@ class char
 	 * @param string $treename
 	 * @return array
 	 */
-	function talentLayer( $treename )
+	function _talent_layer( $treename )
 	{
 		global $roster;
 
@@ -1866,7 +1970,7 @@ class char
 		if( $roster->db->num_rows($result) > 0 )
 		{
 			// initialize the rows and cells
-			for( $r=1; $r < 12; $r++ )  // 11 Talent Rows
+			for( $r=1; $r < 11; $r++ )
 			{
 				for( $c=1; $c < 5; $c++ )
 				{
@@ -1899,30 +2003,51 @@ class char
 	 *
 	 * @return string
 	 */
-	function printSkills()
+	function show_skills()
 	{
 		global $roster, $addon;
 
-		$skillData = $this->getSkillTabValues();
+		$skillData = $this->_skill_tab_values();
 
-		foreach( $skillData as $sindex => $skill )
+		if( count($skillData) > 0 )
 		{
-			$roster->tpl->assign_block_vars('skill',array(
-				'ID'   => $sindex,
-				'NAME' => $skill['name']
-				)
-			);
-
-			foreach( $skill['bars'] as $skillbar )
+			foreach( $skillData as $sindex => $skill )
 			{
-				$roster->tpl->assign_block_vars('skill.bar',array(
-					'NAME'     => $skillbar['name'],
-					'WIDTH'    => $skillbar['barwidth'],
-					'VALUE'    => $skillbar['value'],
-					'MAXVALUE' => $skillbar['maxvalue']
+				$roster->tpl->assign_block_vars('skill',array(
+					'ID'      => $sindex,
+					'NAME'    => $skill['name'],
+					'NAME_ID' => $this->locale['skill_to_id'][$skill['name']]
 					)
 				);
+
+				foreach( $skill['bars'] as $skillbar )
+				{
+					$roster->tpl->assign_block_vars('skill.bar',array(
+						'NAME'     => $skillbar['name'],
+						'WIDTH'    => $skillbar['barwidth'],
+						'VALUE'    => $skillbar['value'],
+						'MAXVALUE' => $skillbar['maxvalue']
+						)
+					);
+
+					if( $skill['name'] == $this->locale['professions'] )
+					{
+						$roster->tpl->assign_block_vars('professions',array(
+							'NAME'     => $skillbar['name'],
+							'WIDTH'    => $skillbar['barwidth'],
+							'VALUE'    => $skillbar['value'],
+							'MAXVALUE' => $skillbar['maxvalue'],
+							'ICON'     => $this->locale['ts_iconArray'][$skillbar['name']]
+							)
+						);
+					}
+				}
 			}
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -1933,14 +2058,14 @@ class char
 	 * @param array $skilldata
 	 * @return array
 	 */
-	function getSkillBarValues( $skilldata )
+	function _skill_bar_values( $skilldata )
 	{
 		list($level, $max) = explode( ':', $skilldata['skill_level'] );
 
 		$returnData['maxvalue'] = $max;
 		$returnData['value'] = $level;
 		$returnData['name'] = $skilldata['skill_name'];
-		$returnData['barwidth'] = ceil($level/$max*273);
+		$returnData['barwidth'] = ceil($level/$max*100);
 
 		return $returnData;
 	}
@@ -1949,9 +2074,9 @@ class char
 	/**
 	 * Build skill values
 	 *
-	 * @return array
+	 * @return mixed Array on success, false on fail
 	 */
-	function getSkillTabValues()
+	function _skill_tab_values()
 	{
 		global $roster;
 
@@ -1975,11 +2100,15 @@ class char
 					$j=0;
 					$skillInfo[$i]['name'] = $data['skill_type'];
 				}
-				$skillInfo[$i]['bars'][$j] = $this->getSkillBarValues($data);
+				$skillInfo[$i]['bars'][$j] = $this->_skill_bar_values($data);
 				$j++;
 				$data = $roster->db->fetch($result,SQL_ASSOC);
 			}
 			return $skillInfo;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -1987,39 +2116,45 @@ class char
 	/**
 	 * Build character reputation
 	 *
-	 * @return string
+	 * @return mixed Array on success, false on fail
 	 */
-	function printReputation()
+	function show_reputation()
 	{
 		global $roster, $addon;
 
-		$repData = $this->getRepTabValues();
+		$repData = $this->_rep_tab_values();
 
-		if(is_array( $repData ))
+		if( is_array($repData) )
 		{
 			foreach( $repData as $findex => $faction )
 			{
 				$roster->tpl->assign_block_vars('rep',array(
-				'ID'   => $findex,
-				'NAME' => $faction['name']
-				)
+					'ID'      => $findex,
+					'NAME'    => $faction['name'],
+					'NAME_ID' => $this->locale['faction_to_id'][$faction['name']]
+					)
 				);
 
 				foreach( $faction['bars'] as $repbar )
 				{
 					$roster->tpl->assign_block_vars('rep.bar',array(
-					'ID'       => $repbar['barid'],
-					'NAME'     => $repbar['name'],
-					'WIDTH'    => $repbar['barwidth'],
-					'IMAGE'    => $repbar['image'],
-					'STANDING' => $repbar['standing'],
-					'VALUE'    => $repbar['value'],
-					'MAXVALUE' => $repbar['maxvalue'],
-					'ATWAR'    => $repbar['atwar']
-					)
+						'ID'       => $repbar['barid'],
+						'NAME'     => $repbar['name'],
+						'WIDTH'    => $repbar['barwidth'],
+						'IMAGE'    => $repbar['image'],
+						'STANDING' => $repbar['standing'],
+						'VALUE'    => $repbar['value'],
+						'MAXVALUE' => $repbar['maxvalue'],
+						'ATWAR'    => $repbar['atwar']
+						)
 					);
 				}
 			}
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -2029,7 +2164,7 @@ class char
 	 *
 	 * @return array
 	 */
-	function getRepTabValues()
+	function _rep_tab_values()
 	{
 		global $roster;
 
@@ -2053,11 +2188,15 @@ class char
 					$j=0;
 					$repInfo[$i]['name'] = $data['faction'];
 				}
-				$repInfo[$i]['bars'][$j] = $this->getRepBarValues($data);
+				$repInfo[$i]['bars'][$j] = $this->_rep_bar_values($data);
 				$j++;
 				$data = $roster->db->fetch($result,SQL_ASSOC);
 			}
 			return $repInfo;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -2068,7 +2207,7 @@ class char
 	 * @param array $repdata
 	 * @return array
 	 */
-	function getRepBarValues( $repdata )
+	function _rep_bar_values( $repdata )
 	{
 		static $repnum = 0;
 
@@ -2078,18 +2217,18 @@ class char
 		$max = $repdata['max_rep'];
 
 		$img = array(
-			$this->locale['exalted'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['revered'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['honored'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['friendly'] => $addon['tpl_image_path'] . 'rep/green.gif',
-			$this->locale['neutral'] => $addon['tpl_image_path'] . 'rep/yellow.gif',
-			$this->locale['unfriendly'] => $addon['tpl_image_path'] . 'rep/orange.gif',
-			$this->locale['hostile'] => $addon['tpl_image_path'] . 'rep/red.gif',
-			$this->locale['hated'] => $addon['tpl_image_path'] . 'rep/red.gif'
+			$this->locale['exalted'] => 'exalted',
+			$this->locale['revered'] => 'revered',
+			$this->locale['honored'] => 'honored',
+			$this->locale['friendly'] => 'friendly',
+			$this->locale['neutral'] => 'neutral',
+			$this->locale['unfriendly'] => 'unfriendly',
+			$this->locale['hostile'] => 'hostile',
+			$this->locale['hated'] => 'hated'
 		);
 
 		$returnData['name'] = $repdata['name'];
-		$returnData['barwidth'] = ceil($level / $max * 139);
+		$returnData['barwidth'] = ceil($level / $max * 100);
 		$returnData['image'] = $img[$repdata['Standing']];
 		$returnData['barid'] = $repnum;
 		$returnData['standing'] = $repdata['Standing'];
@@ -2108,7 +2247,7 @@ class char
 	 *
 	 * @return string
 	 */
-	function printHonor()
+	function show_pvp()
 	{
 		global $roster;
 
@@ -2124,7 +2263,7 @@ class char
 		);
 	}
 
-	function _altNameHover()
+	function _alt_name_hover()
 	{
 		global $roster;
 
@@ -2178,6 +2317,54 @@ class char
 		$roster->tpl->assign_var('ALT_TOOLTIP',$alt_hover);
 	}
 
+	function _mini_members_list()
+	{
+		global $roster;
+
+		// Get the scope select data
+		$query = 'SELECT `members`.`member_id`, `members`.`name`, `members`.`class`, `members`.`classid`, `members`.`level`, `members`.`guild_title`, `members`.`guild_rank`, `players`.`race`, `players`.`raceid`, `players`.`sex`, `players`.`sexid` '
+			   . 'FROM `' . $roster->db->table('members') . '` AS members '
+			   . 'LEFT JOIN `' . $roster->db->table('players') . '` AS players ON `members`.`member_id` = `players`.`member_id` '
+			   . 'WHERE `members`.`guild_id` = "' . $this->data['guild_id'] . '" '
+			   . 'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+
+		$result = $roster->db->query($query);
+
+		if( !$result )
+		{
+			trigger_error($roster->db->error());
+			return false;
+		}
+
+		while( $data = $roster->db->fetch($result,SQL_ASSOC) )
+		{
+			$roster->tpl->assign_block_vars('mini_memberslist', array(
+				'ID'         => $data['member_id'],
+				'NAME'       => $data['name'],
+				'CLASS'      => $data['class'],
+				'CLASS_ID'   => $data['classid'],
+				'CLASS_EN'   => strtolower(str_replace(' ','',$roster->locale->wordings['enUS']['id_to_class'][$data['classid']])),
+				'LEVEL'      => $data['level'],
+				'TITLE'      => $data['guild_title'],
+				'RANK'       => $data['guild_rank'],
+				'RACE'       => $data['race'],
+				'RACE_ID'    => $data['raceid'],
+				'RACE_EN'    => ( strtolower(str_replace(' ','',$this->locale['race_to_en'][$data['race']])) ),
+				'SEX'        => $data['sex'],
+				'SEX_ID'     => $data['sexid'],
+				'U_LINK'     => ( $data['race'] != '' ? makelink('&amp;a=c:' . $data['member_id'],true) : false ),
+				'S_SELECTED' => ( $data['member_id'] == $this->data['member_id'] ? true : false )
+				)
+			);
+		}
+
+        $roster->tpl->assign_var('S_MINI_MEMBERSLIST',( $roster->db->num_rows() > 1 ? true : false ));
+
+		$roster->db->free_result($result);
+
+		return true;
+	}
+
 	/**
 	 * Main output function
 	 */
@@ -2186,47 +2373,38 @@ class char
 		global $roster, $addon;
 
 		$this->fetchEquip();
-		$this->_altNameHover();
+		$this->_alt_name_hover();
 
 		// Equipment
-		$this->printEquip('Head');
-		$this->printEquip('Neck');
-		$this->printEquip('Shoulder');
-		$this->printEquip('Back');
-		$this->printEquip('Chest');
-		$this->printEquip('Shirt');
-		$this->printEquip('Tabard');
-		$this->printEquip('Wrist');
+		$this->equip_slot('Head');
+		$this->equip_slot('Neck');
+		$this->equip_slot('Shoulder');
+		$this->equip_slot('Back');
+		$this->equip_slot('Chest');
+		$this->equip_slot('Shirt');
+		$this->equip_slot('Tabard');
+		$this->equip_slot('Wrist');
 
-		$this->printEquip('MainHand');
-		$this->printEquip('SecondaryHand');
-		$this->printEquip('Ranged');
-		$this->printEquip('Ammo');
+		$this->equip_slot('MainHand');
+		$this->equip_slot('SecondaryHand');
+		$this->equip_slot('Ranged');
+		$this->equip_slot('Ammo');
 
-		$this->printEquip('Hands');
-		$this->printEquip('Waist');
-		$this->printEquip('Legs');
-		$this->printEquip('Feet');
-		$this->printEquip('Finger0');
-		$this->printEquip('Finger1');
-		$this->printEquip('Trinket0');
-		$this->printEquip('Trinket1');
+		$this->equip_slot('Hands');
+		$this->equip_slot('Waist');
+		$this->equip_slot('Legs');
+		$this->equip_slot('Feet');
+		$this->equip_slot('Finger0');
+		$this->equip_slot('Finger1');
+		$this->equip_slot('Trinket0');
+		$this->equip_slot('Trinket1');
 
 		// Resists
-		$this->printResist('arcane');
-		$this->printResist('fire');
-		$this->printResist('nature');
-		$this->printResist('frost');
-		$this->printResist('shadow');
-
-		if( $this->data['talent_points'] )
-		{
-			$roster->tpl->assign_block_vars('info_stats',array(
-				'NAME'  => $roster->locale->act['unusedtalentpoints'],
-				'VALUE' => $this->data['talent_points']
-				)
-			);
-		}
+		$this->resist_value('arcane');
+		$this->resist_value('fire');
+		$this->resist_value('nature');
+		$this->resist_value('frost');
+		$this->resist_value('shadow');
 
 		if( $roster->auth->getAuthorized($addon['config']['show_played']) )
 		{
@@ -2246,40 +2424,51 @@ class char
 			);
 		}
 
+		if( $roster->auth->getAuthorized($addon['config']['show_talents']) && $this->data['talent_points'] )
+		{
+			$roster->tpl->assign_block_vars('info_stats',array(
+				'NAME'  => $roster->locale->act['unusedtalentpoints'],
+				'VALUE' => $this->data['talent_points']
+				)
+			);
+		}
+
 		// Code to write a "Max Exp bar" just like in SigGen
+		$expbar_amount = $expbar_max = $expbar_rest = '';
 		if( $this->data['level'] == ROSTER_MAXCHARLEVEL )
 		{
-			$expbar_width = '216';
-			$expbar_text = $roster->locale->act['max_exp'];
-			$expbar_type = 'expbar_full';
+			$exp_percent = 100;
+			$expbar_amount = $roster->locale->act['max_exp'];
+			$expbar_type = 'max';
 		}
 		elseif( $this->data['exp'] == '0' )
 		{
-			$expbar_width = 0;
-			$expbar_type = 'expbar_full';
-			$expbar_text = '';
+			$exp_percent = 0;
+			$expbar_type = 'normal';
 		}
 		else
 		{
 			$xp = explode(':',$this->data['exp']);
 			if( isset($xp) && $xp[1] != '0' && $xp[1] != '' )
 			{
-				$expbar_width = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 216) : 0);
-
 				$exp_percent = ( $xp[1] > 0 ? floor($xp[0] / $xp[1] * 100) : 0);
 
-				if( $xp[2] > 0 )
-				{
-					$expbar_text = $xp[0] . '/' . $xp[1] . ' : ' . $xp[2] . ' (' . $exp_percent . '%)';
-					$expbar_type = 'expbar_full_rested';
-				}
-				else
-				{
-					$expbar_text = $xp[0] . '/' . $xp[1] . ' (' . $exp_percent . '%)';
-					$expbar_type = 'expbar_full';
-				}
+				$expbar_amount = $xp[0];
+				$expbar_max = $xp[1];
+
+				$expbar_rest = ( $xp[2] > 0 ? $xp[2] : '' );
+				$expbar_type = ( $xp[2] > 0 ? 'rested' : 'normal' );
 			}
 		}
+
+		$roster->tpl->assign_vars(array(
+			'EXP_AMOUNT' => $expbar_amount,
+			'EXP_MAX'    => $expbar_max,
+			'EXP_REST'   => $expbar_rest,
+			'EXP_PERC'   => $exp_percent,
+			'EXP_TYPE'   => $expbar_type,
+			)
+		);
 
 		switch( $this->data['classid'] )
 		{
@@ -2302,42 +2491,28 @@ class char
 				break;
 		}
 
-		$roster->tpl->assign_vars(array(
-			'EXP_WIDTH' => $expbar_width,
-			'EXP_TYPE'  => $expbar_type,
-			'EXP_TEXT'  => $expbar_text,
-
-			'RIGHTBOX'  => $rightbox
-			)
-		);
+		$roster->tpl->assign_var('RIGHTBOX', $rightbox);
 
 		// Print stat boxes
-		$this->printBox('stats','left',true);
-		$this->printBox('melee','left');
-		$this->printBox('ranged','left');
-		$this->printBox('spell','left');
-		$this->printBox('defense','left');
-		$this->printBox('stats','right');
-		$this->printBox('melee','right',$rightbox=='melee');
-		$this->printBox('ranged','right',$rightbox=='ranged');
-		$this->printBox('spell','right',$rightbox=='spell');
-		$this->printBox('defense','right');
+		$this->status_box('stats','left',true);
+		$this->status_box('melee','left');
+		$this->status_box('ranged','left');
+		$this->status_box('spell','left');
+		$this->status_box('defense','left');
+		$this->status_box('stats','right');
+		$this->status_box('melee','right',$rightbox=='melee');
+		$this->status_box('ranged','right',$rightbox=='ranged');
+		$this->status_box('spell','right',$rightbox=='spell');
+		$this->status_box('defense','right');
 
 		// Buffs
-		$this->printBuffs();
-
-		// Pets
-		$pet_num = $this->printPet();
-		$roster->tpl->assign_var('S_PET_TAB', $pet_num);
-
-		// Reputation
-		$this->printReputation();
-
-		// Skills
-		$this->printSkills();
+		$this->show_buffs();
 
 		// PvP
-		$this->printHonor();
+		$this->show_pvp();
+
+		// Mini Memberslist
+		$this->_mini_members_list();
 
 
 		// Print tabs
@@ -2348,7 +2523,8 @@ class char
 			)
 		);
 
-		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && $pet_num )
+		// Pet Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && ($this->show_pets() || $this->show_companions()) )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab2'],
@@ -2357,8 +2533,13 @@ class char
 				)
 			);
 		}
+		else
+		{
+			$roster->tpl->assign_var('S_PET_TAB',false);
+		}
 
-		if( $roster->auth->getAuthorized($addon['config']['show_tab3']) )
+		// Reputation Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_tab3']) && $this->show_reputation() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab3'],
@@ -2367,8 +2548,13 @@ class char
 				)
 			);
 		}
+		else
+		{
+			$roster->tpl->assign_var('S_REP_TAB',false);
+		}
 
-		if( $roster->auth->getAuthorized($addon['config']['show_tab4']) )
+		// Skills Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_tab4']) && $this->show_skills() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab4'],
@@ -2377,16 +2563,41 @@ class char
 				)
 			);
 		}
+		else
+		{
+			$roster->tpl->assign_var('S_SKILL_TAB',false);
+		}
 
-		if( $roster->auth->getAuthorized($addon['config']['show_tab5']) )
+		// Talents Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_talents']) && $this->show_talents() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
-				'NAME'     => $roster->locale->act['tab5'],
+				'NAME'     => $roster->locale->act['talents'],
 				'VALUE'    => 'tab5',
 				'SELECTED' => false
 				)
 			);
 		}
+		else
+		{
+			$roster->tpl->assign_var('S_TALENT_TAB',false);
+		}
+
+		// Spell Book Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_spellbook']) && $this->show_spellbook() )
+		{
+			$roster->tpl->assign_block_vars('tabs',array(
+				'NAME'     => $roster->locale->act['spellbook'],
+				'VALUE'    => 'tab6',
+				'SELECTED' => false
+				)
+			);
+		}
+		else
+		{
+			$roster->tpl->assign_var('S_SPELL_TAB',false);
+		}
+
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));
 		return $roster->tpl->fetch('char');
 	}

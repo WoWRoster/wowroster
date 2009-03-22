@@ -339,6 +339,16 @@ $lang['PvPRankNone']='Rien';
 // Uses preg_match() to find required level in recipie tooltip
 $lang['requires_level'] = '/Niveau ([\d]+) requis/';
 
+// Skills to EN id array
+$lang['skill_to_id'] = array(
+	'Class Skills' => 'classskills',
+	'Professions' => 'professions',
+	'Secondary Skills' => 'secondaryskills',
+	'Weapon Skills' => 'weaponskills',
+	'Armor Proficiencies' => 'armorproficiencies',
+	'Languages' => 'languages',
+);
+
 //Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
@@ -559,6 +569,43 @@ $lang['race_to_en'] = array(
 	'Taurène'       => 'Tauren',
 );
 
+$lang['race_to_id'] = array(
+	'Humain'       => 1,
+	'Orc'          => 2,
+	'Nain'         => 3,
+	'Elfe de la nuit' => 4,
+	'Mort-vivant'  => 5,
+	'Tauren'       => 6,
+	'Gnome'        => 7,
+	'Troll'        => 8,
+	'Elfe de sang' => 10,
+	'Draeneï'     => 11,
+// Female variation
+	'Humaine'       => 1,
+	'Orque'         => 2,
+	'Naine'         => 3,
+//	'Elfe de la nuit' => 4,
+	'Morte-vivante' => 5,
+	'Taurène'      => 6,
+//	'Gnome'         => 7,
+	'Trollesse'     => 8,
+//	'Elfe de sang'  => 10,
+//	'Draeneï'      => 11,
+);
+
+$lang['id_to_race'] = array(
+	1 => 'Humain',
+	2 => 'Orc',
+	3 => 'Nain',
+	4 => 'Elfe de la nuit',
+	5 => 'Mort-vivant',
+	6 => 'Tauren',
+	7 => 'Gnome',
+	8 => 'Troll',
+	10 => 'Elfe de sang',
+	11 => 'Draeneï',
+);
+
 $lang['hslist']=' Statistiques du Système d\'Honneur';
 $lang['hslist1']='Membre le mieux classé';
 $lang['hslist2']='Membre ayant le plus de VH';
@@ -615,6 +662,17 @@ $lang['hostile']='Hostile';
 $lang['hated']='Haï';
 $lang['atwar']='En guerre';
 $lang['notatwar']='Pas en guerre';
+
+// Factions to EN id
+$lang['faction_to_id'] = array(
+	'Alliance' => 'alliance',
+	'Alliance Forces' => 'allianceforces',
+	'Alliance Vanguard' => 'alliancevanguard',
+	'Other' => 'other',
+	'Outland' => 'outland',
+	'Shattrath City' => 'shattrathcity',
+	'Steamwheedle Cartel' => 'steamwheedlecartel',
+);
 
 
 // Quests page external links (on character quests page)

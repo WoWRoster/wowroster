@@ -339,6 +339,16 @@ $lang['PvPRankNone']='none';
 // Uses preg_match() to find required level in recipe tooltip
 $lang['requires_level'] = '/Ben�tigt Stufe ([\d]+)/';
 
+// Skills to EN id array
+$lang['skill_to_id'] = array(
+	'Class Skills' => 'classskills',
+	'Professions' => 'professions',
+	'Secondary Skills' => 'secondaryskills',
+	'Weapon Skills' => 'weaponskills',
+	'Armor Proficiencies' => 'armorproficiencies',
+	'Languages' => 'languages',
+);
+
 //Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
@@ -559,6 +569,43 @@ $lang['race_to_en'] = array(
 //	'Tauren'   => 'Tauren',
 );
 
+$lang['race_to_id'] = array(
+	'Mensch'   => 1,
+	'Orc'      => 2,
+	'Zwerg'    => 3,
+	'Nachtelf' => 4,
+	'Untoter'  => 5,
+	'Tauren'   => 6,
+	'Gnom'     => 7,
+	'Troll'    => 8,
+	'Blutelf'  => 10,
+	'Draenei'  => 11,
+// Female variation
+//	'Mensch'   => 1,
+//	'Orc'      => 2,
+//	'Zwerg'    => 3,
+//	'Nachtelf' => 4,
+//	'Untoter'  => 5,
+//	'Tauren'   => 6,
+//	'Gnom'     => 7,
+//	'Troll'    => 8,
+//	'Blutelf'  => 10,
+//	'Draenei'  => 11,
+);
+
+$lang['id_to_race'] = array(
+	1 => 'Mensch',
+	2 => 'Orc',
+	3 => 'Zwerg',
+	4 => 'Nachtelf',
+	5 => 'Untoter',
+	6 => 'Tauren',
+	7 => 'Gnom',
+	8 => 'Troll',
+	10 => 'Blutelf',
+	11 => 'Draenei',
+);
+
 $lang['hslist']=' Ehren Statistiken';
 $lang['hslist1']='Höchster Lebenszeit Rang';
 $lang['hslist2']='Höchsten Lebenszeit ES';
@@ -615,6 +662,17 @@ $lang['hostile']='Feindselig';
 $lang['hated']='Hasserfüllt';
 $lang['atwar']='Im Krieg';
 $lang['notatwar']='Nicht im Krieg';
+
+// Factions to EN id
+$lang['faction_to_id'] = array(
+	'Alliance' => 'alliance',
+	'Alliance Forces' => 'allianceforces',
+	'Alliance Vanguard' => 'alliancevanguard',
+	'Other' => 'other',
+	'Outland' => 'outland',
+	'Shattrath City' => 'shattrathcity',
+	'Steamwheedle Cartel' => 'steamwheedlecartel',
+);
 
 
 // Quests page external links (on character quests page)
