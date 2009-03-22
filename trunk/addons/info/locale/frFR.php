@@ -32,6 +32,15 @@ $lang['char_stats'] = 'Statisques du personnage : %1$s';
 $lang['char_level_race_class'] = 'Niveau %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s de %2$s';
 $lang['talents'] = 'Talents';
+$lang['talent_specialization'] = 'Talent Specialization';
+$lang['unusedtalentpoints']='Points de talent non utilisés';
+$lang['talentexport']='Construction de l\'arbre de talents';
+$lang['hybrid']='Hybrid';
+
+$lang['pets']='Pets';
+$lang['companions']='Companions';
+$lang['mounts']='Mounts';
+$lang['unusedtrainingpoints']='Points de formation non utilisés';
 
 // Spellbook
 $lang['spellbook'] = 'Grimoire';
@@ -83,7 +92,7 @@ $lang['Trinket0']      = 'Bijou 0';
 $lang['Trinket1']      = 'Bijou 1';
 
 //tabs
-$lang['tab1']='Personnage';
+$lang['tab1']='Profile';
 $lang['tab2']='Familier';
 $lang['tab3']='Réputation';
 $lang['tab4']='Compétences';
@@ -154,6 +163,9 @@ $lang['mana_regen_tooltip']='%1$d mana regenerated every 5 seconds while not cas
 $lang['defense_rating']='Defense Rating ';
 $lang['def_tooltip']='Increases your chance to %s';
 $lang['resilience']='Résilience';
+
+$lang['buffs'] = 'Buffs';
+$lang['resistances'] = 'Resistances';
 
 $lang['res_arcane']='Résistance aux arcanes';
 $lang['res_arcane_tooltip']='Augmente la capacité à résister aux attaques, sorts et techniques de type Arcane.';

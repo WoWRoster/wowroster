@@ -32,6 +32,15 @@ $lang['char_stats'] = 'Charakterwerte für: %1$s';
 $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s der %2$s';
 $lang['talents'] = 'Talente';
+$lang['talent_specialization'] = 'Talent Specialization';
+$lang['unusedtalentpoints']='Unbenutzte Talentpunkte';
+$lang['talentexport']='Exportiere Talentbaum';
+$lang['hybrid']='Hybrid';
+
+$lang['pets']='Pets';
+$lang['companions']='Companions';
+$lang['mounts']='Mounts';
+$lang['unusedtrainingpoints']='Unbenutzte Trainingspunkte';
 
 // Spellbook
 $lang['spellbook'] = 'Zaubersprüche';
@@ -83,7 +92,7 @@ $lang['Trinket0']      = 'Schmuck 0';
 $lang['Trinket1']      = 'Schmuck 1';
 
 //tabs
-$lang['tab1']='Charakter';
+$lang['tab1']='Profile';
 $lang['tab2']='Tier';
 $lang['tab3']='Ruf';
 $lang['tab4']='Fertigk.';
@@ -154,6 +163,9 @@ $lang['mana_regen_tooltip']='Regeneriert alle 5 Sekunden %1$d Mana, wenn kein Za
 $lang['defense_rating']='Verteidigungswertung ';
 $lang['def_tooltip']='Erhöht die Chance auf %s';
 $lang['resilience']='Abhärtung';
+
+$lang['buffs'] = 'Buffs';
+$lang['resistances'] = 'Resistances';
 
 $lang['res_arcane']='Arkan Widerstand';
 $lang['res_arcane_tooltip']='Erhöht die Fähigkeit, auf Arkanschaden basierenden Angriffen, Zaubern und Fähigkeiten zu widerstehen.';

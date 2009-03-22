@@ -32,6 +32,15 @@ $lang['char_stats'] = 'Estadísticas del personaje: %1$s';
 $lang['char_level_race_class'] = 'Nivel %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s de %2$s';
 $lang['talents'] = 'Talentos';
+$lang['talent_specialization'] = 'Talent Specialization';
+$lang['unusedtalentpoints']='Puntos de talento sin usar';
+$lang['talentexport']='Exporta tus talentos';
+$lang['hybrid']='Hybrid';
+
+$lang['pets']='Pets';
+$lang['companions']='Companions';
+$lang['mounts']='Mounts';
+$lang['unusedtrainingpoints']='Puntos de entrenamiento sin usar';
 
 // Spellbook
 $lang['spellbook'] = 'Libro de hechizos';
@@ -83,7 +92,7 @@ $lang['Trinket0']      = 'Abalorio 0';
 $lang['Trinket1']      = 'Abalorio 1';
 
 //tabs
-$lang['tab1']='Personaje';
+$lang['tab1']='Profile';
 $lang['tab2']='Mascota';
 $lang['tab3']='Reputación';
 $lang['tab4']='Habilidades';
@@ -154,6 +163,9 @@ $lang['mana_regen_tooltip']='%1$d maná que regeneras cada 5 segundos cuando no 
 $lang['defense_rating']='Defensa ';
 $lang['def_tooltip']='Incrementa tu indice de defensa en %s';
 $lang['resilience']='Resistencia';
+
+$lang['buffs'] = 'Buffs';
+$lang['resistances'] = 'Resistances';
 
 $lang['res_arcane']='Resistencia a lo arcano';
 $lang['res_arcane_tooltip']='Aumenta tu facultad para resistir ataques, hechizos y facultades de arcano.';

@@ -339,6 +339,16 @@ $lang['PvPRankNone']='Ninguno';
 // Uses preg_match() to find required level in recipe tooltip
 $lang['requires_level'] = '/Necesitas ser de nivel ([\d]+)/';
 
+// Skills to EN id array
+$lang['skill_to_id'] = array(
+	'Class Skills' => 'classskills',
+	'Professions' => 'professions',
+	'Secondary Skills' => 'secondaryskills',
+	'Weapon Skills' => 'weaponskills',
+	'Armor Proficiencies' => 'armorproficiencies',
+	'Languages' => 'languages',
+);
+
 //Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
@@ -559,6 +569,43 @@ $lang['race_to_en'] = array(
 //	'Tauren'    => 'Tauren',
 );
 
+$lang['race_to_id'] = array(
+	'Humano'    => 1,
+	'Orco'      => 2,
+	'Enano'     => 3,
+	'Elfo de la noche' => 4,
+	'No-muerto' => 5,
+	'Tauren'    => 6,
+	'Gnomo'     => 7,
+	'Trol'      => 8,
+	'Elfo de sangre' => 10,
+	'Draenei'   => 11,
+// Female variation
+	'Humana'    => 1,
+	'Orca'      => 2,
+	'Enana'     => 3,
+	'Elfa de la noche' => 4,
+	'No-muerta' => 5,
+//	'Tauren'    => 6,
+//	'Gnomo'     => 7,
+//	'Trol'      => 8,
+	'Elfa de sangre' => 10,
+//	'Draenei'   => 11,
+);
+
+$lang['id_to_race'] = array(
+	1 => 'Humano',
+	2 => 'Orco',
+	3 => 'Enano',
+	4 => 'Elfo de la noche',
+	5 => 'No-muerto',
+	6 => 'Tauren',
+	7 => 'Gnomo',
+	8 => 'Trol',
+	10 => 'Elfo de sangre',
+	11 => 'Draenei',
+);
+
 $lang['hslist']=' Estadísticas de honor';
 $lang['hslist1']='Personaje con mayor rango';
 $lang['hslist2']='Mayor número de muertes con honor';
@@ -615,6 +662,17 @@ $lang['hostile']='Hostil';
 $lang['hated']='Odiado';
 $lang['atwar']='En Guerra';
 $lang['notatwar']='En Paz';
+
+// Factions to EN id
+$lang['faction_to_id'] = array(
+	'Alliance' => 'alliance',
+	'Alliance Forces' => 'allianceforces',
+	'Alliance Vanguard' => 'alliancevanguard',
+	'Other' => 'other',
+	'Outland' => 'outland',
+	'Shattrath City' => 'shattrathcity',
+	'Steamwheedle Cartel' => 'steamwheedlecartel',
+);
 
 
 // Quests page external links (on character quests page)
