@@ -108,6 +108,7 @@ class char
 			'S_PVP_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab5']),
 			'S_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_talents']),
 			'S_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
+			'S_BONUS_TAB'  => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
 
 			'S_PETS'       => false,
 			'S_MOUNTS'     => false,
@@ -115,70 +116,12 @@ class char
 
 			'L_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
 			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
-			'L_PROFILE'          => $roster->locale->act['tab1'],
-			'L_HEALTH'           => $roster->locale->act['health'],
-			'L_INACTIVE'         => $roster->locale->act['inactive'],
-			'L_UNUSED_TALENTS'   => $roster->locale->act['unusedtalentpoints'],
-			'L_TIMEPLAYED'       => $roster->locale->act['timeplayed'],
-			'L_TIMELEVELPLAYED'  => $roster->locale->act['timelevelplayed'],
-			'L_LEVEL'            => $roster->locale->act['level'],
-			'L_TALENT_SPEC'      => $roster->locale->act['talent_specialization'],
-			'L_TALENTS'          => $roster->locale->act['talents'],
-			'L_TALENT_EXPORT'    => $roster->locale->act['talentexport'],
 
-			'L_PETS'       => $roster->locale->act['pets'],
-			'L_COMPANIONS' => $roster->locale->act['companions'],
-			'L_MOUNTS'     => $roster->locale->act['mounts'],
-
-			'L_PROFESSIONS' => $roster->locale->act['professions'],
-			'L_RESISTANCES' => $roster->locale->act['resistances'],
-			'L_BUFFS'       => $roster->locale->act['buffs'],
-
-			'L_QUESTLOG'  => $roster->locale->act['questlog'],
-			'L_COMPLETE'  => $roster->locale->act['complete'],
-			'L_FAILED'    => $roster->locale->act['failed'],
-			'L_DAILY'     => $roster->locale->act['daily'],
 			'L_NO_QUESTS' => sprintf($roster->locale->act['no_quests'],$this->data['name']),
-
-			'L_SPELLBOOK' => $roster->locale->act['spellbook'],
-			'L_PREV' => $roster->locale->act['prev'],
-			'L_NEXT' => $roster->locale->act['next'],
-			'L_PAGE' => $roster->locale->act['page'],
-
-			'L_MAILBOX' => $roster->locale->act['mailbox'],
-			'L_ITEM'    => $roster->locale->act['mail_item'],
-			'L_SENDER'  => $roster->locale->act['mail_sender'],
-			'L_SUBJECT' => $roster->locale->act['mail_subject'],
-			'L_EXPIRES' => $roster->locale->act['mail_expires'],
 			'L_NO_MAIL' => sprintf($roster->locale->act['no_mail'],$this->data['name']),
-
-			'L_ITEM'     => $roster->locale->act['item'],
-			'L_NAME'     => $roster->locale->act['name'],
-			'L_DIFFICULTY' => $roster->locale->act['difficulty'],
-			'L_TYPE'     => $roster->locale->act['type'],
-			'L_LEVEL'    => $roster->locale->act['level'],
-			'L_REAGENTS' => $roster->locale->act['reagents'],
 
 			'L_CHAR_POWER'       => $this->data['power'],
 			'L_CHAR_POWER_ID'    => strtolower($this->data['power']),
-			'L_CHAR_INACTIVE'    => $this->locale['inactive'],
-
-			'L_MENUSTATS' => $roster->locale->act['menustats'],
-			'L_MELEE'     => $roster->locale->act['melee'],
-			'L_RANGED'    => $roster->locale->act['ranged'],
-			'L_SPELL'     => $roster->locale->act['spell'],
-			'L_DEFENSE'   => $roster->locale->act['defense'],
-
-			'L_FACTION'  => $roster->locale->act['faction'],
-			'L_STANDING' => $roster->locale->act['standing'],
-			'L_ATWAR'    => $roster->locale->act['atwar'],
-
-			'L_HONOR'     => $roster->locale->act['honor'],
-			'L_ARENA'     => $roster->locale->act['arena'],
-			'L_TODAY'     => $roster->locale->act['today'],
-			'L_YESTERDAY' => $roster->locale->act['yesterday'],
-			'L_LIFETIME'  => $roster->locale->act['lifetime'],
-			'L_KILLS'     => $roster->locale->act['kills'],
 
 			'HEALTH'        => $this->data['health'],
 			'POWER'         => $this->data['mana'],
@@ -2349,7 +2292,7 @@ class char
 				'RANK'       => $data['guild_rank'],
 				'RACE'       => $data['race'],
 				'RACE_ID'    => $data['raceid'],
-				'RACE_EN'    => ( strtolower(str_replace(' ','',$this->locale['race_to_en'][$data['race']])) ),
+				'RACE_EN'    => ( $data['race'] != '' ? strtolower(str_replace(' ','',$this->locale['race_to_en'][$data['race']])) : '' ),
 				'SEX'        => $data['sex'],
 				'SEX_ID'     => $data['sexid'],
 				'U_LINK'     => ( $data['race'] != '' ? makelink('&amp;a=c:' . $data['member_id'],true) : false ),
@@ -2514,6 +2457,14 @@ class char
 		// Mini Memberslist
 		$this->_mini_members_list();
 
+		// Item bonuses
+		if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
+		{
+			require_once($addon['inc_dir'] . 'charbonus.lib.php');
+			$char_bonus = new CharBonus($this);
+			$char_bonus->dumpBonus();
+			unset($char_bonus);
+		}
 
 		// Print tabs
 		$roster->tpl->assign_block_vars('tabs',array(

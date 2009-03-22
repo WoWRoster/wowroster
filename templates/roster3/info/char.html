@@ -17,8 +17,8 @@
 		<div class="spacer">
 			<div class="list">
 <!-- BEGIN mini_memberslist -->
-			<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}"><!-- ENDIF -->
 			<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->u-link<!-- ELSE -->plain<!-- ENDIF -->">
+			<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}"><!-- ENDIF -->
 				<span class="lvl">{mini_memberslist.LEVEL}</span>
 <!-- U_LINK will be FALSE if the player has no data -->
 				<span class="name">{mini_memberslist.NAME}</span>
@@ -30,8 +30,8 @@
 <!-- ENDIF -->
 					<img src="{IMG_URL}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" alt="" />
 				</span>
-			</div>
 			<!-- IF mini_memberslist.U_LINK --></a><!-- ENDIF -->
+			</div>
 <!-- END mini_memberslist -->
 			</div>
 		</div>
@@ -51,15 +51,18 @@
 <!-- tab1 -->
 		<div id="tab1" class="tab1" style="display:none;">
 			<div class="container">
-				<div class="box-label"><div class="icon profile"></div><!-- TRANSLATE tab1 -->
+				<div class="box-label">
+					<div class="icon profile"></div><!-- TRANSLATE tab1 -->
 
 					<div class="info-bonus-navigation">
 						<ul id="info_bonus_nav">
 							<li><a rel="infotoggle" class="text">Character Info</a></li>
-						<!-- IF S_PVP_TAB -->
+<!-- IF S_PVP_TAB -->
 							<li><a rel="pvptoggle" class="text">PvP</a></li>
-						<!-- ENDIF -->
-   						<li><a rel="bonustoggle" class="text">Bonuses</a></li>
+<!-- ENDIF -->
+<!-- IF S_BONUS_TAB -->
+							<li><a rel="bonustoggle" class="text">Bonuses</a></li>
+<!-- ENDIF -->
 						</ul>
 					</div>
 
@@ -75,7 +78,7 @@
 	<div class="info-box" id="infotoggle" style="display:none;">
 
 			<div class="spec shader">
-				{L_TALENT_SPECIALIZATION}
+				<!-- TRANSLATE talent_specialization -->
 				<div class="skill">
 					<div class="icon"><img src="{IMG_URL}spec/{SPEC_ICON}.jpg" alt="" /></div>
 					<div class="data">
@@ -90,7 +93,7 @@
 
 
 			<div class="professions shader">
-				{L_PROFESSIONS}
+				<!-- TRANSLATE professions -->
 <!-- BEGIN professions -->
 				<div class="skill">
 					<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{professions.ICON}.jpg" alt="" /></div>
@@ -118,7 +121,7 @@
 								<div class="icon {resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
 <!-- END resist -->
 							</div>
-							<div class="text">{L_RESISTANCES}:</div>
+							<div class="text"><!-- TRANSLATE resistances -->:</div>
 						</div>
 					</div>
 
@@ -134,7 +137,7 @@
 							</div>
 <!-- END buff -->
 						</div>
-						<div class="buff-name">{L_BUFFS}:</div>
+						<div class="buff-name"><!-- TRANSLATE buffs -->:</div>
 					</div>
 
 
@@ -142,7 +145,7 @@
 					<div class="powers shader">
 						<div class="bar">
 							<div class="power-bar health">{HEALTH}</div>
-							<div class="power-name">{L_HEALTH}:</div>
+							<div class="power-name"><!-- TRANSLATE health -->:</div>
 						</div>
 						<div class="bar">
 							<div class="power-bar {L_CHAR_POWER_ID}">{POWER}</div>
@@ -198,18 +201,18 @@
 					</script>
 
 					<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
-						<option value="statsleft" selected="selected">{L_MENUSTATS}</option>
-						<option value="meleeleft">{L_MELEE}</option>
-						<option value="rangedleft">{L_RANGED}</option>
-						<option value="spellleft">{L_SPELL}</option>
-						<option value="defenseleft">{L_DEFENSE}</option>
+						<option value="statsleft" selected="selected"><!-- TRANSLATE menustats --></option>
+						<option value="meleeleft"><!-- TRANSLATE melee --></option>
+						<option value="rangedleft"><!-- TRANSLATE ranged --></option>
+						<option value="spellleft"><!-- TRANSLATE spell --></option>
+						<option value="defenseleft"><!-- TRANSLATE defense --></option>
 					</select>
 					<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
-						<option value="statsright">{L_MENUSTATS}</option>
-						<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->>{L_MELEE}</option>
-						<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->>{L_RANGED}</option>
-						<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->>{L_SPELL}</option>
-						<option value="defenseright">{L_DEFENSE}</option>
+						<option value="statsright"><!-- TRANSLATE menustats --></option>
+						<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE melee --></option>
+						<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE ranged --></option>
+						<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE spell --></option>
+						<option value="defenseright"><!-- TRANSLATE defense --></option>
 					</select>
 
 					<div class="padding">
@@ -229,7 +232,7 @@
 				</div>
 
 
-        
+<!-- IF S_BONUS_TAB -->
 <div class="bonus-box shader" id="bonustoggle" style="display:none;">
 	<div class="bonus-container">
 <!-- BEGIN bonus -->
@@ -249,32 +252,33 @@
 		</ul>
 	</div>
 </div>
+<!-- ENDIF -->
 
 <!-- IF S_PVP_TAB -->
 <div class="bonus-box shader" id="pvptoggle" style="display:none;">
 		<div class="bonus-container">
 
-		<div class="honortext"><img src="{IMG_URL}icon_{FACTION_EN}.png" alt="" align="absmiddle" style="width:20px;height:20px;" />{L_HONOR}:<span>{HONOR_POINTS}</span>
+		<div class="honortext"><img src="{IMG_URL}icon_{FACTION_EN}.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE honor -->:<span>{HONOR_POINTS}</span>
 			
 		</div>
 
-		<div class="today">{L_TODAY}</div>
-		<div class="yesterday">{L_YESTERDAY}</div>
-		<div class="lifetime">{L_LIFETIME}</div>
+		<div class="today"><!-- TRANSLATE today --></div>
+		<div class="yesterday"><!-- TRANSLATE yesterday --></div>
+		<div class="lifetime"><!-- TRANSLATE lifetime --></div>
 
 		<div class="divider"></div>
 
-		<div class="killsline">{L_KILLS}</div>
+		<div class="killsline"><!-- TRANSLATE kills --></div>
 		<div class="killsline1">{SESSION_HK}</div>
 		<div class="killsline2">{YEST_HK}</div>
 		<div class="killsline3">{LIFE_HK}</div>
 
-		<div class="honorline">{L_HONOR}</div>
+		<div class="honorline"><!-- TRANSLATE honor --></div>
 		<div class="honorline1">{SESSION_CP}</div>
 		<div class="honorline2">{YEST_CP}</div>
 		<div class="honorline3">-</div>
 
-		<div class="arenatext"><img src="{IMG_URL}arenapointsicon.png" alt="" align="absmiddle" style="width:20px;height:20px;" />{L_ARENA}:<span>{ARENA_POINTS}</span></div>
+		<div class="arenatext"><img src="{IMG_URL}arenapointsicon.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE arena -->:<span>{ARENA_POINTS}</span></div>
 	</div>
 </div>
 <!-- ENDIF -->
@@ -304,20 +308,20 @@
 
 <!-- IF S_PETS -->
 			<div class="container">
-				<div class="box-label"><div class="icon pets"></div>{L_PETS}</div>
+				<div class="box-label"><div class="icon pets"></div><!-- TRANSLATE pets --></div>
 <!-- BEGIN pet -->
 		<div class="pet shader" >
 			<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
 			<div class="basics">
 				<div class="name">{pet.NAME}</div>
 				<div class="info">{pet.TYPE}</div>
-				<div class="info">{L_LEVEL} {pet.LEVEL}</div>
+				<div class="info"><!-- TRANSLATE level --> {pet.LEVEL}</div>
 				<div class="loyalty">{pet.LOYALTY}</div>
 			</div>
 			<div class="powers">
 				<div class="bar">
 					<div class="power-bar health">{pet.HEALTH}</div>
-					<div class="power-name">{L_HEALTH}:</div>
+					<div class="power-name"><!-- TRANSLATE health -->:</div>
 				</div>
 				<div class="bar">
 					<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
@@ -364,13 +368,13 @@
 
 <!-- IF S_MOUNTS -->
 			<div class="container">
-				<div class="box-label"><div class="icon mounts"></div>{L_MOUNTS}</div>
+				<div class="box-label"><div class="icon mounts"></div><!-- TRANSLATE mounts --></div>
 			</div>
 <!-- ENDIF -->
 
 <!-- IF S_COMPANIONS -->
 			<div class="container">
-				<div class="box-label"><div class="icon companions"></div>{L_COMPANIONS}</div>
+				<div class="box-label"><div class="icon companions"></div><!-- TRANSLATE companions --></div>
 			</div>
 <!-- ENDIF -->
 
@@ -437,9 +441,9 @@
 <!-- tab5 -->
 		<div id="tab5" class="tab5" style="display:none;">
 			<div class="container">
-				<div class="box-label"><div class="icon talents"></div>{L_TALENTS}</div>
+				<div class="box-label"><div class="icon talents"></div><!-- TRANSLATE talents --></div>
 
-				<div class="shader"><span class="label">{L_UNUSED_TALENTS}:</span> {TALENT_POINTS}</div>
+				<div class="shader"><span class="label"><!-- TRANSLATE unusedtalentpoints -->:</span> {TALENT_POINTS}</div>
 
 				<div class="frames">
 <!-- BEGIN talent_tree -->
@@ -484,7 +488,7 @@
 			<div class="container">
 				<div class="box-label">
 					<div class="icon spellbook"></div>
-					{spell_book.NAME}'s {L_SPELLBOOK}
+					{spell_book.NAME}'s <!-- TRANSLATE spellbook -->
 				</div>
 
 <!-- BEGIN tree -->
