@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '2.0.9.1885';
+	var $version = '2.0.9.1940';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -186,7 +186,7 @@ class infoInstall
 		}
 
 		// Remove the talents and spellbook icons since they are on the same page as "profile" now
-		if( version_compare('2.0.9.1937', $oldversion,'>') == true )
+		if( version_compare('2.0.9.1940', $oldversion,'>') == true )
 		{
 			$installer->remove_menu_button('cb_talents');
 			$installer->remove_menu_button('cb_spellbook');
