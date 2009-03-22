@@ -21,7 +21,6 @@ if( !defined('IN_ROSTER') )
 }
 
 require_once (ROSTER_LIB . 'item.php');
-require_once (ROSTER_LIB . 'equip.php');
 require_once ($addon['inc_dir'] . 'bag.php');
 require_once (ROSTER_LIB . 'quest.php');
 require_once (ROSTER_LIB . 'recipes.php');
@@ -118,10 +117,10 @@ class char
 			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
 
 			'L_NO_QUESTS' => sprintf($roster->locale->act['no_quests'],$this->data['name']),
-			'L_NO_MAIL' => sprintf($roster->locale->act['no_mail'],$this->data['name']),
+			'L_NO_MAIL'   => sprintf($roster->locale->act['no_mail'],$this->data['name']),
 
-			'L_CHAR_POWER'       => $this->data['power'],
-			'L_CHAR_POWER_ID'    => strtolower($this->data['power']),
+			'L_CHAR_POWER'    => $this->data['power'],
+			'L_CHAR_POWER_ID' => strtolower($this->data['power']),
 
 			'HEALTH'        => $this->data['health'],
 			'POWER'         => $this->data['mana'],
@@ -165,7 +164,7 @@ class char
 	 */
 	function fetchEquip()
 	{
-		$this->equip = equip::fetchManyEquip($this->data['member_id'], 'full');
+		$this->equip = item::fetchManyItems($this->data['member_id'], 'equip', 'full');
 	}
 
 
@@ -1778,20 +1777,24 @@ class char
 		if( isset($this->equip[$slot]) )
 		{
 			$roster->tpl->assign_block_vars('equipment',array(
-				'SLOT' => $slot,
-				'ICON' => $this->equip[$slot]->out(),
+				'SLOT'     => $slot,
+				'ICON'     => $this->equip[$slot]->tpl_get_icon(),
+				'TOOLTIP'  => $this->equip[$slot]->tpl_get_tooltip(),
+				'ITEMLINK' => $this->equip[$slot]->tpl_get_itemlink(),
+				'QTY'      => $this->equip[$slot]->quantity,
+				'S_AMMO'   => $slot == 'Ammo'
 				)
 			);
 		}
 		else
 		{
-			$output = '<div class="item" ' . makeOverlib($roster->locale->act['empty_equip'],$roster->locale->act[$slot],'',2,'',',WRAP') . ">\n"
-					. '<img src="' . $roster->config['img_url'] . 'pixel.gif" class="icon' . ( $slot == 'Ammo' ? 'small' : '' ) . '" alt="" />'
-					. "\n</div>\n";
-
 			$roster->tpl->assign_block_vars('equipment',array(
-				'SLOT' => $slot,
-				'ICON' => $output,
+				'SLOT'     => $slot,
+				'ICON'     => $roster->config['img_url'] . 'pixel.gif',
+				'TOOLTIP'  => makeOverlib($roster->locale->act['empty_equip'],$roster->locale->act[$slot],'',2,'',',WRAP'),
+				'ITEMLINK' => '',
+				'QTY'      => 0,
+				'S_AMMO'   => $slot == 'Ammo'
 				)
 			);
 		}
