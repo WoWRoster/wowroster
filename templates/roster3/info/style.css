@@ -118,6 +118,8 @@ table {width: 100%;}
 
 .main-panel .tab1 .container .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: auto; padding: 0px; height: 570px; width: 540px; position: relative; }
 
+.info-box { height: 460px; width: 350px; position: absolute; left: 95px; top: 19px; }
+
 /* Equipment Items */
 .equip .item { position:absolute; width:64px; height:64px; background: url(images/equip_button.png) no-repeat left top; left: 0px; top: 0px; z-index: 100; }
 .equip .item:hover { background: url(images/equip_button.png) no-repeat right top; }
@@ -149,7 +151,7 @@ table {width: 100%;}
 
 
 /* Specialization */
-.tab1 .spec { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; left: 95px; top: 19px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif;  }
+.tab1 .spec { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; left: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif;  }
 .tab1 .spec .skill { text-align:left; color:#FFDD00; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
 .tab1 .spec .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
 .tab1 .spec .skill .icon img { height: 30px; width: 30px; }
@@ -161,7 +163,7 @@ table {width: 100%;}
 .tab1 .spec .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
 /* Professions */
-.tab1 .professions { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; right: 95px; top: 19px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif; }
+.tab1 .professions { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; right: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif; }
 .tab1 .professions .skill { text-align:left; color:#FFDD00; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
 .tab1 .professions .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
 .tab1 .professions .skill .icon img { height: 30px; width: 30px; }
@@ -175,12 +177,12 @@ table {width: 100%;}
 
 /* Framing */
 
-.extras { cursor: default; position: absolute; height: 40px; width: 256px; left: 95px; top: 426px; padding: 5px; }
-.money { cursor: default; position: absolute; height: 40px; width: 60px; left: 373px; top: 426px; padding: 5px; }
+.extras { cursor: default; position: absolute; height: 40px; width: 256px; left: 0px; top: 407px; padding: 5px; }
+.money { cursor: default; position: absolute; height: 40px; width: 60px; right: 0px; top: 407px; padding: 5px; }
 .money div { text-align: right; font-size: 10px; line-height: 12px; }
 .money .coin { width:11px;height:10px; }
 
-.powers { cursor: default; padding: 5px; width: 338px; position: absolute; left: 95px; top: 144px; }
+.powers { cursor: default; padding: 5px; width: 338px; position: absolute; left: 0px; top: 125px; }
 .powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
 .powers .bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
 .powers .bar .power-bar { background: transparent repeat-x left center; margin: 1px; float: right; line-height: 16px; height: 16px; width: 260px; position: relative; text-align: center; border: 1px solid #000000; }
@@ -205,7 +207,7 @@ table {width: 100%;}
 
 
 /* Buff Icons */
-.buffs { position:absolute; font: bold 11px arial,helvetica,sans-serif; text-transform: uppercase; left: 95px; top: 270px; padding: 5px; height: 20px; width: 338px; }
+.buffs { position:absolute; font: bold 11px arial,helvetica,sans-serif; text-transform: uppercase; left: 0px; top: 251px; padding: 5px; height: 20px; width: 338px; }
 .buffs .bar { height: 20px; float: right; width: 264px; position: relative; overflow: hidden; }
 .buffs .buff-name { float: right; position: relative; line-height: 20px; margin-right: 4px; }
 .buffs .buff { position:relative; width:20px; height:20px; float:left; margin-left: 2px; }
@@ -215,7 +217,7 @@ table {width: 100%;}
 
 
 /* Resistances */
-.resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 95px; top: 227px; padding: 5px; }
+.resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 0px; top: 208px; padding: 5px; }
 .resist .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; height: 20px; text-transform: uppercase; }
 .resist .bar .text { float: right; line-height: 21px; }
 .resist .bar .icons { float: right; width: 220px; top: -1px; position: relative; }
@@ -251,14 +253,37 @@ table {width: 100%;}
 	float: right;
 }
 
-.main-panel .tab1 .statselect_l { position:absolute; width:170px; left: 95px; top: 310px; }
-.main-panel .tab1 .statselect_r { position:absolute; width:170px; left: 275px; top: 310px; }
+.main-panel .tab1 .statselect_l { position:absolute; width:170px; left: 0px; top: 291px; }
+.main-panel .tab1 .statselect_r { position:absolute; width:170px; right: 0px; top: 291px; }
 
-.main-panel .tab1 .padding { cursor: default; position:absolute; width:360px; height:90px; left: 95px; top: 330px; z-index: 200; }
+.main-panel .tab1 .padding { cursor: default; position:absolute; width:360px; height:90px; left: 0px; top: 311px; z-index: 200; }
 .main-panel .tab1 .padding .stats { float:left; width:158px; height:74px; padding:5px; color:#FFCC00; margin-right: 10px; }
 .main-panel .tab1 .padding .stats .statline {	padding:0; font:10px verdana, tahoma, sans-serif;}
 .main-panel .tab1 .padding .stats .statline .label { overflow:hidden; width:85px;}
 .main-panel .tab1 .padding .stats .statline .value { float:right; overflow:hidden; text-align:right; }
+
+
+.bonus-box { height: 457px; width: 348px; position: absolute; left: 95px; top: 19px; }
+.bonus-box .bonus-container { margin: 5px; overflow: auto; height: 400px; }
+.bonus-box .bonus-container .membersRow1 { background: transparent url(../images/shader.png) repeat; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; }
+.bonus-box .bonus-container .membersRow2 { background: transparent; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; }
+
+.bonus-navigation { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:344px; bottom: 0px; }
+.bonus-navigation ul { margin:0;padding:0;list-style:none; }
+.bonus-navigation li { background: transparent url(../images/shader.png) repeat; float:left; margin:0px 0px 3px 3px; cursor:pointer; border: 1px solid #06F; padding: 5px; }
+.bonus-navigation .text { display:block; text-decoration:none;font-weight:normal;color:#FFDD00; }
+.bonus-navigation .text:hover { color:#ffffff;font-weight:normal; }
+.bonus-navigation .selected { cursor:default; border-color: #FC0; }
+.bonus-navigation .selected .text { color:#ffffff; }
+
+.info-bonus-navigation { font:11px arial,helvetica,sans-serif; line-height:normal; float: right; }
+.info-bonus-navigation ul { margin:0;padding:0;list-style:none; }
+.info-bonus-navigation li { background: transparent url(../images/shader.png) repeat; float:left; margin:0px 0px 3px 3px; cursor:pointer; border: 1px solid #06F; padding: 5px; }
+.info-bonus-navigation .text { display:block; text-decoration:none;font-weight:normal;color:#FFDD00; }
+.info-bonus-navigation .text:hover { color:#ffffff;font-weight:normal; }
+.info-bonus-navigation .selected { cursor:default; border-color: #FC0; }
+.info-bonus-navigation .selected .text { color:#ffffff; }
+
 
 
 /*********** Pet Page Tab(2) ***********/
@@ -370,7 +395,7 @@ table {width: 100%;}
 .main-panel .tab3 .rep-bar .Exhaulted { background: url(images/bars/exhaulted.gif); }
 
 /*********** Skill Page Tab(4) ***********/
-.main-panel .tab4 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab4 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab4 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab4 .skill { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
 .main-panel .tab4 .skill-name { float: left; position: relative; line-height: 20px; }
@@ -550,18 +575,18 @@ table {width: 100%;}
 
 /* Talent Page */
 
-.main-panel .tab5 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab5 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab5 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab5 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .main-panel .tab5 .container .box-label .talents { background: url(images/icons/talents.gif); }
 
 
-.main-panel .tab5 .framing { margin: auto; height: 500px; width: auto; padding-right: 4px; padding-left: 4px; }
+.main-panel .tab5 .frames { margin: auto; height: 600px; width: auto; padding-right: 4px; padding-left: 4px; }
 
-.main-panel .tab5 .spec { position:relative; float: left; width:200px; height:500px; margin: 3px; }
-.main-panel .tab5 .spec-name { position:absolute; width:188px; padding: 5px; left: 0px; bottom: 0px; font-size: 10px; font-weight: bold; }
-.main-panel .tab5 .background { position:absolute;width:200px;height:500px; }
-.main-panel .tab5 .content { position:absolute;width:200px;height:470px; }
+.main-panel .tab5 .spec { position:relative; float: left; width:235px; height:600px; margin: 3px; }
+.main-panel .tab5 .spec-name { position:absolute; width:223px; padding: 5px; left: 0px; bottom: 0px; font-size: 10px; font-weight: bold; }
+.main-panel .tab5 .background { position:absolute;width:235px;height:600px; }
+.main-panel .tab5 .content { position:absolute;width:235px;height:520px; }
 .main-panel .tab5 .top_bar { position:absolute;margin-top:43px; }
 .main-panel .tab5 .bot_bar { position:absolute;margin-top:402px; }
 .main-panel .tab5 .points { text-align:right;position:absolute;margin-top:48px;margin-left:70px;width:250px; }
@@ -571,8 +596,8 @@ table {width: 100%;}
 .main-panel .tab5 .row { height:35px;margin-top:15px; }
 .main-panel .tab5 .rank_icon { position:absolute;margin-top:28px;margin-left:27px; }
 .main-panel .tab5 .rank_text { position:absolute;font-size:12px;margin-top:28px;margin-left:32px;cursor:default; }
-.main-panel .tab5 .talent-icon { height: 35px; width: 35px; }
-.main-panel .tab5 .cell { float:left;width:30px;height:30px;margin-left:15px; }
+.main-panel .tab5 .talent-icon { height: 40px; width: 40px; }
+.main-panel .tab5 .cell { float:left;width:40px;height:40px;margin-left:15px; }
 
 /* Grey out unused talents */
 /* filter:gray only works in IE so we do this to half-assed transparency for Mozilla and Opera */
@@ -581,12 +606,12 @@ table {width: 100%;}
 
 /* Spellbook Page */
 
-.main-panel .tab6 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .tab6 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab6 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab6 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .main-panel .tab6 .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
 
-.main-panel .tab6 .container .spell-tree { margin: 10px; width: 605px; background: url(../images/char_info_bg.jpg) repeat-y center top; }
+.main-panel .tab6 .container .spell-tree { margin: 10px;  background: url(../images/char_info_bg.jpg) repeat-y center top; }
 .main-panel .tab6 .container .spell-tree .tree-name { position: relative; text-transform: uppercase; font: bold 24px/40px "Times New Roman", Times, serif; color: #FFFFFF; padding: 2px; }
 .main-panel .tab6 .container .spell-tree .tree-name img { height: 40px; width: 40px; float: left;}
 .main-panel .tab6 .container .spell-tree .tree-name .id-name { height: 40px; float: left; margin-left: 5px; }
