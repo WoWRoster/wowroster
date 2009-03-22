@@ -15,7 +15,7 @@
 
 /* Char Info Wrapper */
 table {width: 100%;}
-.char-info { min-height: 900px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat center top; }
+.char-info { min-height: 900px; width: 960px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat center top; }
 
 /* Guild Member List */
 .char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -0px; background: #eaca81 url(../images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
