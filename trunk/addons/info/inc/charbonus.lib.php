@@ -84,9 +84,6 @@ class CharBonus
 		}
 		$this->_formatTooltip(); // call this to format bonus tooltip html
 		$this->printBonus();
-
-		$roster->tpl->set_filenames(array('charbonus' => $addon['basename'] . '/charbonus.html'));
-		return $roster->tpl->fetch('charbonus');
 	}
 
 

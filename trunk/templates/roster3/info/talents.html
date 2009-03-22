@@ -1,10 +1,8 @@
 <!-- $Id$ -->
 
-<!-- tab6 -->
-	<div id="tab6" class="tab6" style="display:none;">
-
-<div class="talent_panel">
-	{L_TALENTS}
+<div class="char_panel talent_panel">
+	<img class="panel_icon" src="{U_IMAGE_PATH}icon_talents.gif" alt="" />
+	<div class="panel_title">{L_TALENTS}</div>
 	<img class="top_bar" src="{U_IMAGE_PATH}talent/bar_top.gif" alt="" />
 	<img class="bot_bar" src="{U_IMAGE_PATH}talent/bar_bottom.gif" alt="" />
 
@@ -13,7 +11,7 @@
 
 <!-- BEGIN talent_tree -->
 
-	<div class="spec">
+	<div id="treetab_{talent_tree.ID}" style="display:none;">
 
 		<div class="points"><span style="color:#ffdd00">{talent_tree.L_POINTS_SPENT}:</span> {talent_tree.POINTS}</div>
 		<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent_tree.ICON}.{IMG_SUFFIX}" alt="" />
@@ -33,7 +31,7 @@
 					<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
 					<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent_tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent_tree.row.cell.RANK}</div>
 <!-- ENDIF -->
-					<img class="talent-icon <!-- IF talent_tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt=""  />
+					<img src="{INTERFACE_URL}Interface/Icons/{talent_tree.row.cell.ICON}" alt="" height="40" width="40"<!-- IF talent_tree.row.cell.RANK eq 0 --> class="icon_grey"<!-- ENDIF --> />
 				</div>
 
 <!-- ELSE -->
@@ -51,4 +49,20 @@
 
 <!-- END talent_tree -->
 
-</div></div>
+	<div class="tab_navagation" style="margin:428px 0 0 17px;">
+		<ul id="talent_nav">
+
+<!-- BEGIN talent_tree -->
+			<li<!-- IF talent_tree.SELECTED --> class="selected"<!-- ENDIF -->><a rel="treetab_{talent_tree.ID}" class="text">{talent_tree.NAME}</a></li>
+<!-- END talent_tree -->
+
+		</ul>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	var talent_nav=new tabcontent('talent_nav');
+	talent_nav.setpersist(false);
+	talent_nav.init();
+</script>

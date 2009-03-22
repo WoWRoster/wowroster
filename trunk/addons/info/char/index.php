@@ -30,11 +30,3 @@ if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
 include( $addon['inc_dir'] . 'header.php' );
 
 print $char->out();
-
-if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
-{
-	require_once($addon['inc_dir'] . 'charbonus.lib.php');
-	$char_bonus = new CharBonus($char);
-	print $char_bonus->dumpBonus();
-	unset($char_bonus);
-}
