@@ -3,24 +3,24 @@
 {MESSAGE}
 <br />
 
-<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="conf_change_pass" name="conf_change_pass" onsubmit="return confirm('{L_RESET_CONFIRM}') &amp;&amp; submitonce(this);">
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="conf_change_pass" name="conf_change_pass" onsubmit="return confirm('<!-- TRANSLATE config_reset_confirm -->') &amp;&amp; submitonce(this);">
 
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sredborder">
-			<div class="header_text sredborder">{L_CONFIG_RESET}</div>
+			<div class="header_text sredborder"><!-- TRANSLATE pagebar_configreset --></div>
 
 			<table class="bodyline" cellspacing="0" cellpadding="0">
 				<tr>
-					<td class="membersRowRight1" colspan="2"><div style="white-space:normal;">{L_RESET_HELP}</div></td>
+					<td class="membersRowRight1" colspan="2"><div style="white-space:normal;"><!-- TRANSLATE config_reset_help --></div></td>
 				</tr>
 				<tr>
-					<td class="membersRow2">{L_RESET_CONFIRM}</td>
+					<td class="membersRow2"><!-- TRANSLATE config_reset_confirm --></td>
 					<td class="membersRowRight2"><label for="doit"></label><input class="wowinput192" type="checkbox" id="doit" name="doit" value="doit" /></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="membersRowRight1" valign="bottom"><div align="center">
-						<input type="submit" value="{L_PROCEED}" /></div></td>
+							<input type="submit" value="<!-- TRANSLATE proceed -->" /></div></td>
 				</tr>
 			</table>
 

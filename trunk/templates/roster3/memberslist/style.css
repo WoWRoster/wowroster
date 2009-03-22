@@ -11,31 +11,6 @@
  * @package    MembersList
 */
 
-/* Guild Info Wrapper */
-.guild-info { width: 860px; min-height: 900px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(../images/char_info_bg.jpg) repeat-y left top; }
-
-/* Current Guild Header */
-.guild-header { width: 870px; height: 170px; position: absolute; z-index: 10; left: -10px; top: -20px; }
-
-.Alliance { background: url(../images/char_alliance.png) no-repeat left top; }
-
-.Horde { background: url(../images/char_horde.png) no-repeat left top; }
-
-.guild-header .content { color: #000000; text-align: left; padding: 45px 15px 15px 165px; }
-
-.guild-header .guild {	font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }
-.guild-header .info { font: bold normal 18px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; z-index: 11; position: relative; }
-
-.guild span { color: #FFCC00; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
-.info span { color: #FFFFFF; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
-
-
-.guild-info .guild-roster { margin-top: 180px; }
-
-/* Guild Member List */
-
-
-
 .membersRowColor1 {
 	background-color:#1F1E1D;
 }

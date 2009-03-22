@@ -4,11 +4,11 @@
 	<tr>
 		<td class="border_color sgreenborder">
 			<div class="header_text sgreenborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" />
-				{L_SEARCH_FOR}</div>
+				<!-- TRANSLATE search_for --></div>
 			<form id="search" name="search" action="{U_SEARCH_LINK}" method="post" enctype="multipart/form-data">
-				<input size="25" type="text" name="search" value="{SEARCH}" class="wowinput192" />
-				<input type="submit" value="{L_SEARCH}" />
-				<div class="header_text sgoldborder">{L_SEARCH_ONLY}</div>
+				<input size="25" type="text" name="s_term" value="{SEARCH}" class="wowinput192" />
+				<input type="submit" value="<!-- TRANSLATE search -->" />
+				<div class="header_text sgoldborder"><!-- TRANSLATE search_onlyin --></div>
 
 				<!-- BEGIN only_search -->
 				<input type="checkbox" id="c_{only_search.BASENAME}" name="s_addon[]" value="{only_search.BASENAME}" <!-- IF only_search.SELECTED --> checked="checked"<!-- ENDIF --> />
@@ -18,7 +18,7 @@
 				<!-- BEGIN advanced_search -->
 				<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{advanced_search.BASENAME}_options','{advanced_search.BASENAME}_img_options','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
 					<img src="{THEME_PATH}/images/plus.gif" style="float:right;" alt="" id="{advanced_search.BASENAME}_img_options" />
-					{L_SEARCH_ADVANCED} {advanced_search.FULLNAME}
+					<!-- TRANSLATE search_advancedoptionsfor --> {advanced_search.FULLNAME}
 				</div>
 				<div id="{advanced_search.BASENAME}_options" style="display:none;">
 					{advanced_search.SEARCH_OPTIONS}
@@ -37,14 +37,14 @@
 	<tr>
 		<td class="border_color sgreenborder">
 			<div class="header_text sgreenborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" />
-				{L_SEARCH_RESULTS}: '{SEARCH}'
+				<!-- TRANSLATE search_results -->: '{SEARCH}'
 			</div>
 
 			<!-- BEGIN addon_results -->
 			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
 				<img src="{addon_results.ICON}" style="float:left;" alt="" id="{addon_results.BASENAME}_item_img" width="16" height="16" />
 				<img src="{THEME_PATH}/images/minus.gif" style="float:right;" alt="" id="{addon_results.BASENAME}_search_img" />
-				{addon_results.FULLNAME} <small>{FIRST}-{addon_results.COUNT} / {addon_results.TOTAL} {L_RESULTS_COUNT} &lt;{addon_results.TIME}&gt;</small>
+				{addon_results.FULLNAME} <small>{FIRST}-{addon_results.COUNT} / {addon_results.TOTAL} <!-- TRANSLATE results_count --> &lt;{addon_results.TIME}&gt;</small>
 			</div>
 			<div id="{addon_results.BASENAME}">
 				<table width="100%" cellspacing="0" cellpadding="0">
@@ -58,8 +58,8 @@
 					<!-- ELSE -->
 						<td class="SearchRowCellRight">
 						<!-- IF addon_results.row.HEADER -->{addon_results.row.HEADER}<!-- ENDIF -->
-						<!-- IF addon_results.row.AUTHOR --> {L_AUTHOR} {addon_results.row.AUTHOR}<!-- ENDIF -->
-						<!-- IF addon_results.row.DATE --> {L_DATE} {addon_results.row.DATE}<!-- ENDIF --><br />
+						<!-- IF addon_results.row.AUTHOR --> <!-- TRANSLATE submited_author --> {addon_results.row.AUTHOR}<!-- ENDIF -->
+						<!-- IF addon_results.row.DATE --> <!-- TRANSLATE submited_date --> {addon_results.row.DATE}<!-- ENDIF --><br />
 						<!-- IF addon_results.row.LINK --><a href="{addon_results.row.LINK}"><strong>{addon_results.row.TITLE}</strong></a><br /><!-- ENDIF -->
 						<!-- IF addon_results.row.SHORT_TEXT --><span style="white-space:normal">{addon_results.row.SHORT_TEXT}
 								<!-- IF addon_results.row.MORE_TEXT -->{addon_results.row.MORE_TEXT} <a href="{addon_results.row.LINK}"><strong>(more)</strong></a><!-- ENDIF -->
@@ -75,14 +75,14 @@
 				</table>
 				<!-- IF addon_results.PREV or addon_results.NEXT -->
 				<div class="SearchNextPrev" align="center">
-					<!-- IF addon_results.PREV -->[<a href="{addon_results.PREV}"><strong>{L_PREV_MATCHES}: {addon_results.FULLNAME}</strong></a>]<!-- ENDIF -->
-					<!-- IF addon_results.NEXT --> [<a href="{addon_results.NEXT}"><strong>{L_NEXT_MATCHES}: {addon_results.FULLNAME}</strong></a>]<!-- ENDIF -->
+					<!-- IF addon_results.PREV -->[<a href="{addon_results.PREV}"><strong><!-- TRANSLATE search_previous_matches -->: {addon_results.FULLNAME}</strong></a>]<!-- ENDIF -->
+					<!-- IF addon_results.NEXT --> [<a href="{addon_results.NEXT}"><strong><!-- TRANSLATE search_next_matches -->: {addon_results.FULLNAME}</strong></a>]<!-- ENDIF -->
 				</div>
 				<!-- ENDIF -->
 			</div>
 			<!-- END addon_results -->
 
-			<!-- IF S_NO_RESULTS --><div class="header_text sredborder">{L_NO_MATCHES}</div><!-- ENDIF -->
+			<!-- IF S_NO_RESULTS --><div class="header_text sredborder"><!-- TRANSLATE search_nomatches --></div><!-- ENDIF -->
 		</td>
 	</tr>
 </table>
@@ -92,13 +92,13 @@
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sblueborder">
-			<div class="header_text sblueborder">{L_DID_NOT_FIND}</div>
+			<div class="header_text sblueborder"><!-- TRANSLATE search_didnotfind --></div>
 			<!-- IF S_MORE_RESULTS -->
 			<div class="SearchRowCellRight">
 				<ul style="text-align:left;">
 
 				<!-- BEGIN more_results -->
-					<li><a href="{more_results.LINK}">{more_results.FULLNAME}</a> ({more_results.COUNT} {L_RESULTS_COUNT})</li>
+				<li><a href="{more_results.LINK}">{more_results.FULLNAME}</a> ({more_results.COUNT} <!-- TRANSLATE search_results_count -->)</li>
 				<!-- END more_results -->
 
 				</ul>
@@ -107,7 +107,7 @@
 
 			<table cellspacing="0" cellpadding="0" width="100%">
 				<tr class="search-other">
-					<td valign="top" width="50%" class="SearchRowCell"><strong>{L_DATA_SEARCH}</strong>
+					<td valign="top" width="50%" class="SearchRowCell"><strong><!-- TRANSLATE data_search --></strong>
 						<div align="left">
 							<ul>
 
@@ -119,7 +119,7 @@
 						</div>
 					</td>
 
-					<td valign="top" width="50%" class="SearchRowCellRight"><strong>{L_GOOGLE_SEARCH}</strong>
+					<td valign="top" width="50%" class="SearchRowCellRight"><strong><!-- TRANSLATE google_search --></strong>
 						<div align="left">
 							<ul>
 
