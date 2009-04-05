@@ -23,7 +23,5 @@ include( $addon['inc_dir'] . 'header.php' );
 
 if( $roster->auth->getAuthorized($addon['config']['show_recipes']) )
 {
-	$char_page .= $char->show_recipes();
+	print $char->show_recipes();
 }
-
-include( $addon['inc_dir'] . 'footer.php' );

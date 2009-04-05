@@ -1,0 +1,10 @@
+var ol_width=220;
+var ol_offsetx=15;
+var ol_offsety=15;
+var ol_hauto=1;
+var ol_vauto=1;
+var ol_fgclass='overlib_fg';
+var ol_bgclass='overlib_border';
+var ol_textfontclass='overlib_maintext';
+var ol_captionfontclass='overlib_captiontext';
+var ol_closefontclass='overlib_closetext';

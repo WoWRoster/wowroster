@@ -113,12 +113,6 @@ class char
 			'S_MOUNTS'     => false,
 			'S_COMPANIONS' => false,
 
-			'L_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
-			'L_GUILD_LINE'       => sprintf($roster->locale->act['char_guildline'],$this->data['guild_title'],$this->data['guild_name']),
-
-			'L_NO_QUESTS' => sprintf($roster->locale->act['no_quests'],$this->data['name']),
-			'L_NO_MAIL'   => sprintf($roster->locale->act['no_mail'],$this->data['name']),
-
 			'L_CHAR_POWER'    => $this->data['power'],
 			'L_CHAR_POWER_ID' => strtolower($this->data['power']),
 
