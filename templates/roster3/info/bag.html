@@ -22,12 +22,17 @@
 <!-- ENDIF -->
 
 <!-- BEGIN item -->
-
-{bag.item.ICON}
-
+		<div class="item" {bag.item.TOOLTIP}{bag.item.ITEMLINK}>
+			<img src="{bag.item.ICON}" class="icon" alt="" />
+<!-- IF bag.item.QTY gt 1 -->
+			<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
+<!-- ENDIF -->
+		</div>
 <!-- END item -->
 
 	</div>
 </div>
 
 <!-- END bag -->
+
+<br style="clear:both;" />

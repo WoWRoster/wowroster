@@ -23,7 +23,5 @@ include( $addon['inc_dir'] . 'header.php' );
 
 if( $roster->auth->getAuthorized($addon['config']['show_mail']) )
 {
-	$char_page .= $char->show_mailbox();
+	print $char->show_mailbox();
 }
-
-include( $addon['inc_dir'] . 'footer.php' );

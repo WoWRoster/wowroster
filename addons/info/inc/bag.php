@@ -104,15 +104,22 @@ class bag extends item
 			if( isset($this->contents[$slot+1]) )
 			{
 				$item = $this->contents[$slot+1];
+
 				$roster->tpl->assign_block_vars('bag.item',array(
-					'ICON' => $item->out()
+					'ICON'     => $item->tpl_get_icon(),
+					'TOOLTIP'  => $item->tpl_get_tooltip(),
+					'ITEMLINK' => $item->tpl_get_itemlink(),
+					'QTY'      => $item->quantity
 					)
 				);
 			}
 			else
 			{
 				$roster->tpl->assign_block_vars('bag.item',array(
-					'ICON' => '<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>'
+					'ICON'     => $roster->config['img_url'] . 'pixel.gif',
+					'TOOLTIP'  => '',
+					'ITEMLINK' => '',
+					'QTY'      => 0
 					)
 				);
 			}

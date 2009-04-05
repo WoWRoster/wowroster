@@ -3,11 +3,7 @@
 <!-- IF S_MAIL -->
 
 <!-- IF S_MAIL_DISP gt 0 -->
-
 <!-- include info/bag.html -->
-
-<br style="clear:left;">
-
 <!-- ENDIF -->
 
 <!-- IF S_MAIL_DISP eq 0 or S_MAIL_DISP eq 2 -->
@@ -15,14 +11,14 @@
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder">{L_MAILBOX}</div>
+			<div class="header_text sgrayborder"><!-- TRANSLATE mailbox --></div>
 
 			<table cellpadding="0" cellspacing="0" class="bodyline">
 				<tr>
-					<th class="membersHeader">{L_ITEM}</th>
-					<th class="membersHeader">{L_SENDER}</th>
-					<th class="membersHeader">{L_SUBJECT}</th>
-					<th class="membersHeaderRight">{L_EXPIRES}</th>
+					<th class="membersHeader"><!-- TRANSLATE mail_item --></th>
+					<th class="membersHeader"><!-- TRANSLATE mail_sender --></th>
+					<th class="membersHeader"><!-- TRANSLATE mail_subject --></th>
+					<th class="membersHeaderRight"><!-- TRANSLATE mail_expires --></th>
 				</tr>
 
 <!-- BEGIN mail -->
@@ -44,6 +40,6 @@
 
 <!-- ELSE -->
 
-<span class="title_text">{L_NO_MAIL}</span>
+<span class="title_text"><!-- TRANSLATE_F no_mail NAME --></span>
 
 <!-- ENDIF -->

@@ -61,6 +61,5 @@ if( $roster->auth->getAuthorized($addon['config']['show_bags']) )
 }
 
 $roster->tpl->set_filenames(array('bag' => $addon['basename'] . '/bag.html'));
-$char_page .= $roster->tpl->fetch('bag');
 
-include( $addon['inc_dir'] . 'footer.php' );
+$roster->tpl->display('bag');
