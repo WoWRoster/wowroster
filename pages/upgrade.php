@@ -35,7 +35,7 @@ if( version_compare($roster->config['version'], ROSTER_VERSION,'>=') )
  */
 class Upgrade
 {
-	var $versions = array('1.9.9','2.0.0','2.0.9');
+	var $versions = array('1.9.9','2.0.0','2.0.1','2.0.2','2.0.9');
 	var $index = null;
 
 	function Upgrade()
@@ -206,14 +206,27 @@ class Upgrade
 	}
 
 	/**
-	 * Upgrades 2.0.1 to 2.1.0
+	 * Upgrades 2.0.2 to 2.1.0
+	 */
+	function upgrade_202()
+	{
+		global $roster;
+
+		// This will be active when the release is done
+		//$this->standard_upgrader();
+
+		$this->finalize();
+	}
+
+	/**
+	 * Upgrades 2.0.1 to 2.0.2
 	 */
 	function upgrade_201()
 	{
 		global $roster;
 
 		// This will be active when the release is done
-		//$this->standard_upgrader();
+		$this->standard_upgrader();
 
 		$this->finalize();
 	}

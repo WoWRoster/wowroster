@@ -28,17 +28,17 @@
 				<tr>
 					<td colspan="3" align="center" valign="top" class="header">
 						<div align="right" style="float:right;">
-							<!-- IF S_MENU_TOP_LOCALE -->
+							<!-- IF S_LOCALE_SELECT -->
 							<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
 								<!-- TRANSLATE language -->
 								<select name="locale" onchange="document.locale_select.submit();">
-								<!-- BEGIN menu_locale_select -->
-									<option value="{menu_locale_select.LOCALE}"<!-- IF menu_locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_locale_select.LOCALE_NAME}</option>
-								<!-- END menu_locale_select -->
+								<!-- BEGIN locale_select -->
+									<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+								<!-- END locale_select -->
 								</select>
 							</form>
 							<!-- ENDIF -->
-							<!-- IF S_MENU_SELECT -->
+							<!-- IF S_DATA_SELECT -->
 							<form action="{U_MAKELINK}" name="list_select" method="post" style="margin:0;">
 								{L_MENU_LABEL_NAME}:
 								<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
@@ -55,16 +55,18 @@
 							&nbsp;
 							<!-- ENDIF -->
 						</div>
-						<!-- IF S_MENU_ICON --><img src="{IMG_URL}{ROSTER_MENU_ICON}" style="float:left;" alt="" /><!-- ENDIF -->
 						<div style="white-space:nowrap;">
-							<span style="font-size:18px;">{ROSTER_MENU_TITLE}</span>
-							<!-- IF S_MENU_SUBTITLE -->
-							<span style="font-size:11px;">{ROSTER_MENU_SUBTITLE}
-							<!-- IF S_MENU_3RDTITLE -->
+							<span style="font-size:18px;">{ROSTER_TITLE}</span>
+<!-- IF ROSTER_MENU_SUBTITLE -->
+							<span style="font-size:11px;">{ROSTER_SUBTITLE}
+<!-- IF ROSTER_MENU_3RDTITLE -->
 							<br />
-							<!-- TRANSLATE lastupdate -->: <span style="color:#0099FF;">{ROSTER_MENU_3RDTITLE}</span>
-							<!-- ENDIF --></span>
-							<!-- ENDIF -->
+							{ROSTER_3RDTITLE}
+<!-- ENDIF -->
+<!-- IF LAST_UPDATED -->
+							<!-- TRANSLATE lastupdate -->: <span style="color:#0099FF;">{LAST_UPDATED}</span>
+<!-- ENDIF --></span>
+<!-- ENDIF -->
 						</div></td>
 				</tr>
 				<tr>
@@ -96,7 +98,6 @@
 						</div></td>
 			{MENU_RIGHT}
 				</tr>
-			<!-- IF S_MENU_BOTTOM -->
 				<tr>
 					<td colspan="3" class="divider_gold"><img src="{IMG_URL}pixel.gif" width="1" height="1" alt="" /></td>
 				</tr>
@@ -108,7 +109,6 @@
 							<input type="submit" value="<!-- TRANSLATE search -->" />
 						</form></td>
 				</tr>
-			<!-- ENDIF -->
 			</table>
 
 		</td>
