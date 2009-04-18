@@ -54,6 +54,8 @@ class RosterMenu
 
 	function displayMenu( )
 	{
+		global $roster;
+
 		if( defined('ROSTER_MENU_INC') )
 		{
 			$roster->tpl->set_handle('roster_menu', 'menu.html');
