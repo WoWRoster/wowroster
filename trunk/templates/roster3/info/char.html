@@ -1,40 +1,7 @@
 <!-- $Id$ -->
-<div class="char-info">
 
-	<div class="char-header {FACTION}">
-		<div class="text">
-			<div class="name" {ALT_TOOLTIP}>{NAME}<span>{NAME}</span></div>
-<!-- IF GUILD_NAME and GUILD_TITLE -->
-			<div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --><span><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></span></div>
-<!-- ENDIF -->
-			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --><span><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></span></div>
-		</div>
-	</div>
-    
-	<div class="char-list">
-		<div class="banner">
-			<div class="title">{GUILD_NAME}</div>
-		</div>
-		<div class="spacer">
-			<div class="list">
-<!-- BEGIN mini_memberslist -->
-				<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->u-link<!-- ELSE -->plain<!-- ENDIF -->">
-				<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}"><!-- ENDIF -->
-					<span class="lvl">{mini_memberslist.LEVEL}</span>
-					<span class="name">{mini_memberslist.NAME}</span>
 
-					<span class="info">
-<!-- IF mini_memberslist.RACE_ID -->
-						<img src="{IMG_URL}icons/race/{mini_memberslist.RACE_ID}-{mini_memberslist.SEX_ID}.gif" width="20" height="20" alt="" />
-<!-- ENDIF -->
-						<img src="{IMG_URL}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" alt="" />
-					</span>
-				<!-- IF mini_memberslist.U_LINK --></a><!-- ENDIF -->
-				</div>
-<!-- END mini_memberslist -->
-			</div>
-		</div>
-	</div>
+<div class="main-panel" align="left">
 
 <!-- Navagation Tabs -->
 	<div class="sections">
@@ -44,8 +11,6 @@
 <!-- END tabs -->
 		</ul>
 	</div>
-
-	<div class="main-panel" align="left">
 
 <!-- tab1 -->
 		<div id="tab1" class="tab1" style="display:none;">
@@ -494,7 +459,7 @@
 <!-- ENDIF -->
 
 	</div>
-</div>
+
 
 
 <script type="text/javascript">

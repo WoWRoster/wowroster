@@ -76,6 +76,7 @@ $roster->tpl->assign_vars(array(
 	'HEADER_LOGO'     => $roster->config['logo'],
 	'IMG_URL'         => $roster->config['img_url'],
 	// End duplication
+	'ROSTER_SCOPE'  => $roster->scope,
 
 	'PAGE_TITLE'      => $roster_title,
 	'ROSTER_HEAD'     => $roster->output['html_head'],

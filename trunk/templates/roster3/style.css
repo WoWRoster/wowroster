@@ -20,7 +20,81 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .roster-wrap {
 	font:12px arial,helvetica,sans-serif;
 	color:#FFFFFF;
+	width: 960px;
+	margin: auto;
 }
+
+
+/* New Main Navagation tabs */
+
+.top-menu { background:url(./images/menu/menu_left.png) no-repeat left top; margin:0; padding-left:10px; font-size: 18px; line-height: 20px; font-weight: bold; width: auto; }
+.top-menu .links { background:url(./images/menu/menu_right.png) no-repeat right top; height: 30px; }
+.top-nav { position:relative; font:11px arial,helvetica,sans-serif; height:30px; min-width:100px; margin: auto; }
+.top-nav a{ padding-right: 10px; padding-left: 10px; }
+.top-nav .text { display:block; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
+.top-nav .text:hover { color:#000000; }
+
+
+/* Main Roster Wrapper Header */
+
+.theme-wrap { min-height: 900px; width: 940px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top; padding: 10px; }
+
+.info-header { width: 100%; height: 170px; position: absolute; z-index: 10; left: -10px; top: -20px; padding-right: 10px; }
+
+.Realm { background: url(./images/bg_neutral.png) no-repeat left top; }
+.Alliance { background: url(./images/bg_alliance.png) no-repeat left top; }
+.Horde { background: url(./images/bg_horde.png) no-repeat left top; }
+
+.info-header .text { color: #000000; text-align: left; padding: 45px 15px 15px 165px; }
+
+.info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }
+.info-header .guild {	font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }
+.info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; z-index: 11; position: relative; }
+
+.info-header .name span { color: #FFFFFF; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
+.info-header .guild span { color: #FFCC00; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
+.info-header .info span { color: #FFFFFF; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
+
+/* Mini Guild Member List */
+.char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: -10px; top: -0px; background: #eaca81 url(./images/section_bg.jpg) repeat-y center top; border: 1px solid #9D7D1C; }
+.char-list .banner { background: url(./images/member_banner.png); position: absolute; height: 68px; width: 340px; left: -70px; top: -40px; }
+.char-list .banner .title { font: bold 16px/42px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFFFFF; text-align: center; }
+.char-list .list { margin: 25px 10px 10px; height: 600px; overflow: auto; border-bottom: 1px solid #9D7D1C; border-left: 1px solid #9D7D1C; }
+.char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold; border-top: 1px solid #9D7D1C; }
+.char-list .list .plain { background: url(./images/char_row.png) repeat-x left top; color: #333333; }
+.char-list .list .plain:hover { background: url(./images/char_row.png) repeat-x left bottom; }
+.char-list .list .u-link { cursor:pointer; background: url(./images/char_row_link.png) repeat-x left top; color: #000000; }
+.char-list .list .u-link a { color: #000000; }
+.char-list .list .u-link:hover { background: url(./images/char_row_link.png) repeat-x left bottom; }
+.char-list .list .select { cursor:pointer; background: url(./images/char_row_select.png) repeat-x left top; color: #FFFFFF; }
+.char-list .list .select a { color: #FFFFFF; }
+.char-list .list .select:hover { background: url(./images/char_row_select.png) repeat-x left bottom; }
+
+.char-list .list .lvl { float: left; width:20px; }
+.char-list .list .name { float: left; }
+.char-list .list .info { float: right; }
+
+
+
+/* Navagation tabs */
+.sections { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:344px; z-index: 20; left: 140px; top: 100px; }
+.sections ul { margin:0; padding:0; list-style:none; }
+.sections li { float:left; background:url(./images/tabs/inactive_left.gif) no-repeat left top; margin:0; padding-left:7px; cursor:pointer; margin-bottom:-7px; }
+.sections .text { display:block;background:url(./images/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
+.sections .text:hover { color:#ffffff; font-weight:normal; }
+.sections .selected { background-image:url(./images/tabs/active_left.gif); cursor:default; }
+.sections .selected .text { background-image:url(./images/tabs/active_right.gif); color:#ffffff; padding:8px 11px 10px 3px; }
+
+
+/* New Panel Navagation tabs */
+.main-panel {position: relative;}
+.main-panel .sections { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; min-width:100px; z-index: 20; left: 10px; top: -25px; }
+.main-panel .sections ul { margin:0; padding:0; list-style:none; }
+.main-panel .sections li { float:left; background:url(./images/tabs/inactive_left.png) no-repeat left top; margin:0 3px -7px 0; padding-left:7px; cursor:pointer; }
+.main-panel .sections .text { display:block; background:url(./images/tabs/inactive_right.png) no-repeat right top; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
+.main-panel .sections .text:hover { color:#000000; }
+.main-panel .sections .selected { background-image:url(./images/tabs/active_left.png); cursor:default; }
+.main-panel .sections .selected .text { background-image:url(./images/tabs/active_right.png); color:#000000; padding:8px 11px 10px 3px; }
 
 img, p { padding:0;margin:0;border:0; }
 

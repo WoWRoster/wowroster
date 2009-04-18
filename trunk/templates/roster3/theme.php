@@ -22,7 +22,6 @@ if( !defined('IN_ROSTER') )
 
 define('R_TPL_VERSION', '2.0.0.0');
 
-
 /**
  * Starts or ends fancy bodering containers
  *
