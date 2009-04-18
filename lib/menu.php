@@ -50,9 +50,15 @@ class RosterMenu
 		}
 
 		$this->makeButtonList($sections);
+	}
 
-		$roster->tpl->set_filenames(array('roster_menu' => 'menu.html'));
-		$roster->tpl->display('roster_menu');
+	function displayMenu( )
+	{
+		if( defined('ROSTER_MENU_INC') )
+		{
+			$roster->tpl->set_handle('roster_menu', 'menu.html');
+			$roster->tpl->display('roster_menu');
+		}
 	}
 
 	/**
