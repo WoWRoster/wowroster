@@ -24,6 +24,37 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 	margin: auto;
 }
 
+.char-wrap { padding: 0px 200px 0px 0px; }
+
+/* General Scope Block */
+.scope-menu { padding: 110px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
+.scope-menu .menu-scope {
+	margin:2px 0px 0px;
+	padding:0px;
+	width:100%;
+	display:block;
+}
+.scope-menu .menu-scope ul {
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	display:table;
+	width:100%;
+}
+.scope-menu .menu-scope li {
+	float:left;
+	cursor:pointer;
+	margin:3px;
+	background:#2E2D2C;
+}
+.scope-menu .menu-scope li a {
+	display:block;
+	border:2px solid #4E4D4C;
+	height:50px;
+	width:50px;
+	padding:2px;
+}
+.scope-menu .menu-scope li a:hover { border:2px solid #0066FF; }
 
 /* New Main Navagation tabs */
 
@@ -39,7 +70,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
 .theme-wrap { min-height: 900px; width: 940px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top; padding: 10px; }
 
-.info-header { width: 100%; height: 170px; position: absolute; z-index: 10; left: -10px; top: -20px; padding-right: 10px; }
+.info-header { width: 100%; height: 170px; position: absolute; left: -10px; top: -20px; padding-right: 10px; }
 
 .Realm { background: url(./images/bg_neutral.png) no-repeat left top; }
 .Alliance { background: url(./images/bg_alliance.png) no-repeat left top; }
