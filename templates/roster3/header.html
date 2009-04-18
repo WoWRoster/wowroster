@@ -25,8 +25,10 @@
 
 <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
 
-<div class="roster-wrap" align="center">
+<div class="roster-wrap">
 
+
+ 
 <!-- IF S_HEADER_LOGO -->
 <div align="center" style="margin:10px;">
 	<table class="border_frame" cellpadding="0" cellspacing="1">
@@ -36,3 +38,80 @@
 	</table>
 </div>
 <!-- ENDIF -->
+
+<!-- Navagation Tabs -->
+	<div class="top-menu">
+		<div class="links">
+			<a href="./index.php?p=guild-memberslist" class="nav"><!-- TRANSLATE menu_header_01 --></a>
+			<a href="./index.php?p=realm-memberslist-guild" class="nav"><!-- TRANSLATE menu_header_02 --></a>
+			<a href="./index.php?p=update" class="nav"><!-- TRANSLATE menu_header_03 --></a>
+			<a class="nav"><!-- TRANSLATE menu_header_04 --></a>
+		</div>
+	</div>
+	
+<div class="theme-wrap {ROSTER_SCOPE}">
+
+<!-- IF ROSTER_SCOPE eq "page" -->
+	<div class="info-header Realm">
+  	<div class="text">
+			<div class="name">Need { Page Title } Key<span>Need { Page Title } Key</span></div>
+			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
+    </div>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF ROSTER_SCOPE eq "realm" -->
+	<div class="info-header Realm">
+  	<div class="text">
+			<div class="name">Need { Realm } Key<span>Need { Realm } Key</span></div>
+			<div class="info">Guilds: Need { TOTAL GUILDS } Key<span>Guilds: Need { TOTAL GUILDS } Key</span></div>
+    </div>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF ROSTER_SCOPE eq "guild" -->
+	<div class="info-header {FACTION}">
+	  	<div class="text">
+				<div class="name">{ML_GUILD_NAME} @ {ML_REALM}<span>{ML_GUILD_NAME} @ {ML_REALM}</span></div>
+				<div class="info">{L_MEMBERS}: {NUM_MEMBERS}<span>{L_MEMBERS}: {NUM_MEMBERS}</span></div>
+    </div>
+	</div>
+<!-- ENDIF -->
+
+<!-- IF ROSTER_SCOPE eq "char" -->
+	<div class="char-list">
+		<div class="banner">
+			<div class="title">{GUILD_NAME}</div>
+		</div>
+		<div class="spacer">
+			<div class="list">
+<!-- BEGIN mini_memberslist -->
+			<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}"><!-- ENDIF -->
+			<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->u-link<!-- ELSE -->plain<!-- ENDIF -->">
+				<span class="lvl">{mini_memberslist.LEVEL}</span>
+<!-- U_LINK will be FALSE if the player has no data -->
+				<span class="name">{mini_memberslist.NAME}</span>
+
+				<span class="info">
+
+<!-- IF mini_memberslist.RACE_ID -->
+					<img src="{IMG_URL}icons/race/{mini_memberslist.RACE_ID}-{mini_memberslist.SEX_ID}.gif" width="20" height="20" alt="" />
+<!-- ENDIF -->
+					<img src="{IMG_URL}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" alt="" />
+				</span>
+			</div>
+			<!-- IF mini_memberslist.U_LINK --></a><!-- ENDIF -->
+<!-- END mini_memberslist -->
+			</div>
+		</div>
+	</div>
+
+	<div class="info-header {FACTION}">
+		<div class="text">
+			<div class="name" {ALT_TOOLTIP}>{NAME}<span>{NAME}</span></div>
+			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild">{L_GUILD_LINE}<span>{L_GUILD_LINE}</span></div><!-- ENDIF -->
+			<div class="info">{L_LEVEL_RACE_CLASS}<span>{L_LEVEL_RACE_CLASS}</span></div>
+		</div>
+	</div>
+<!-- ENDIF -->
+
