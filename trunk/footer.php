@@ -98,5 +98,5 @@ if( $roster->config['sql_window'] )
 
 $roster->tpl->assign_var('ROSTER_TOOLTIPS',getAllTooltips());
 
-$roster->tpl->set_filenames(array('roster_footer' => 'footer.html'));
+$roster->tpl->set_handle('roster_footer', 'footer.html');
 $roster->tpl->display('roster_footer');
