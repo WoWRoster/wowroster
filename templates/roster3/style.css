@@ -58,13 +58,18 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
 /* New Main Navagation tabs */
 
-.top-menu { background:url(./images/menu/menu_left.png) no-repeat left top; margin:0; padding-left:10px; font-size: 18px; line-height: 20px; font-weight: bold; width: auto; }
-.top-menu .links { background:url(./images/menu/menu_right.png) no-repeat right top; height: 30px; }
-.top-nav { position:relative; font:11px arial,helvetica,sans-serif; height:30px; min-width:100px; margin: auto; }
-.top-nav a{ padding-right: 10px; padding-left: 10px; }
-.top-nav .text { display:block; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
-.top-nav .text:hover { color:#000000; }
+.top-menu { width: auto; }
+.top-menu .links { height: 40px; }
+.top-menu .links a { display: block; height: 26px; width: 100px; float: left; padding: 7px 5px 7px 45px; color: #000; margin-right: 5px; }
 
+.button-guild { background: url(./images/menu/menu_guild.png) repeat left top; }
+.button-guild:hover { background: url(./images/menu/menu_guild.png) no-repeat left bottom; }
+.button-realm { background: url(./images/menu/menu_realm.png) repeat left top; }
+.button-realm:hover { background: url(./images/menu/menu_realm.png) no-repeat left bottom; }
+.button-upload { background: url(./images/menu/menu_upload.png) repeat left top; }
+.button-upload:hover { background: url(./images/menu/menu_upload.png) no-repeat left bottom; }
+.button-util { background: url(./images/menu/menu_utilities.png) repeat left top; }
+.button-util:hover { background: url(./images/menu/menu_utilities.png) no-repeat left bottom; }
 
 /* Main Roster Wrapper Header */
 

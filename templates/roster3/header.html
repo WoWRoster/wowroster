@@ -42,16 +42,26 @@
 <!-- Navagation Tabs -->
 	<div class="top-menu">
 		<div class="links">
-			<a href="./index.php?p=guild-memberslist" class="nav"><!-- TRANSLATE menu_header_01 --></a>
-			<a href="./index.php?p=realm-memberslist-guild" class="nav"><!-- TRANSLATE menu_header_02 --></a>
-			<a href="./index.php?p=update" class="nav"><!-- TRANSLATE menu_header_03 --></a>
-			<a class="nav"><!-- TRANSLATE menu_header_04 --></a>
+			<a href="./index.php?p=guild-memberslist" class="button-guild"><!-- TRANSLATE menu_header_01 --></a>
+			<a href="./index.php?p=realm-memberslist-guild" class="button-realm"><!-- TRANSLATE menu_header_02 --></a>
+			<a href="./index.php?p=update" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
+			<a href="./index.php?p=util" class="button-util"><!-- TRANSLATE menu_header_04 --></a>
 		</div>
 	</div>
 	
-<div class="theme-wrap {ROSTER_SCOPE}">
+<div class="theme-wrap">
 
 <!-- IF ROSTER_SCOPE eq "page" -->
+	<div class="info-header Realm">
+  	<div class="text">
+			<div class="name">Need { Page Title } Key<span>Need { Page Title } Key</span></div>
+			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
+    </div>
+	</div>
+	<div class="">
+<!-- ENDIF -->
+
+<!-- IF ROSTER_SCOPE eq "util" -->
 	<div class="info-header Realm">
   	<div class="text">
 			<div class="name">Need { Page Title } Key<span>Need { Page Title } Key</span></div>
@@ -72,7 +82,7 @@
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "guild" -->
-	<div class="info-header {FACTION}">
+	<div class="info-header Alliance">
 	  	<div class="text">
 				<div class="name">{ML_GUILD_NAME} @ {ML_REALM}<span>{ML_GUILD_NAME} @ {ML_REALM}</span></div>
 				<div class="info">{L_MEMBERS}: {NUM_MEMBERS}<span>{L_MEMBERS}: {NUM_MEMBERS}</span></div>
