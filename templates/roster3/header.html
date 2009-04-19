@@ -54,7 +54,7 @@
 <!-- IF ROSTER_SCOPE eq "page" -->
 	<div class="info-header Realm">
   	<div class="text">
-			<div class="name">Need { Page Title } Key<span>Need { Page Title } Key</span></div>
+			<div class="name">{ROSTER_MENU_TITLE}<span>{ROSTER_MENU_TITLE}</span></div>
 			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
     </div>
 	</div>
@@ -64,7 +64,7 @@
 <!-- IF ROSTER_SCOPE eq "util" -->
 	<div class="info-header Realm">
   	<div class="text">
-			<div class="name">Need { Page Title } Key<span>Need { Page Title } Key</span></div>
+			<div class="name">{ROSTER_TITLE}<span>{ROSTER_TITLE</span></div>
 			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
     </div>
 	</div>
@@ -74,18 +74,18 @@
 <!-- IF ROSTER_SCOPE eq "realm" -->
 	<div class="info-header Realm">
   	<div class="text">
-			<div class="name">Need { Realm } Key<span>Need { Realm } Key</span></div>
-			<div class="info">Guilds: Need { TOTAL GUILDS } Key<span>Guilds: Need { TOTAL GUILDS } Key</span></div>
+			<div class="name">{ROSTER_TITLE}<span>{ROSTER_TITLE}</span></div>
+			<div class="info">Guilds: {L_TOTAL_GUILDS} Key<span>Guilds: {L_TOTAL_GUILDS} Key</span></div>
     </div>
 	</div>
 	<div class="">
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "guild" -->
-	<div class="info-header Alliance">
+	<div class="info-header {FACTION}">
 	  	<div class="text">
-				<div class="name">{ML_GUILD_NAME} @ {ML_REALM}<span>{ML_GUILD_NAME} @ {ML_REALM}</span></div>
-				<div class="info">{L_MEMBERS}: {NUM_MEMBERS}<span>{L_MEMBERS}: {NUM_MEMBERS}</span></div>
+				<div class="name">{ROSTER_TITLE} {ROSTER_SUBTITLE}<span>{ROSTER_TITLE} {ROSTER_SUBTITLE}</span></div>
+				<div class="info">{L_MEMBERS}: {ROSTER_3RDTITLE}<span>{L_MEMBERS}: {ROSTER_3RDTITLE}</span></div>
     </div>
 	</div>
 	

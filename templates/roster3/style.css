@@ -78,10 +78,10 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .info-header { width: 100%; height: 170px; position: absolute; left: -10px; top: -20px; padding-right: 10px; }
 
 .Realm { background: url(./images/bg_neutral.png) no-repeat left top; }
-.Alliance { background: url(./images/bg_alliance.png) no-repeat left top; }
-.Horde { background: url(./images/bg_horde.png) no-repeat left top; }
+.alliance { background: url(./images/bg_alliance.png) no-repeat left top; }
+.horde { background: url(./images/bg_horde.png) no-repeat left top; }
 
-.info-header .text { color: #000000; text-align: left; padding: 45px 15px 15px 165px; }
+.info-header .text { color: #000000; text-align: left; padding: 45px 15px 15px 165px; width:580px;}
 
 .info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }
 .info-header .guild {	font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }

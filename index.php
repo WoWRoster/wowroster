@@ -85,12 +85,13 @@ switch( $roster->pages[0] )
 			ob_start();
 				require($file);
 			$content = ob_get_clean();
-
+			
 			if( $roster->output['show_menu'] )
 			{
 				$roster_menu = new RosterMenu;
 				$roster_menu->makeMenu($roster->output['show_menu']);
 			}
+
 
 			if( $roster->output['show_header'] )
 			{
