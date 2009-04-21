@@ -28,33 +28,40 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
 /* General Scope Block */
 .scope-menu { padding: 110px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
-.scope-menu .menu-scope {
-	margin:2px 0px 0px;
-	padding:0px;
-	width:100%;
-	display:block;
-}
-.scope-menu .menu-scope ul {
+.scope-menu .menu-scope { margin:2px 0px 0px; padding:0px; width:100%; display:block; }
+.scope-menu .menu-scope-panel { background: url(./images/shader.png) repeat; border: 1px solid #9D7D1C; max-width: 100%; position: absolute; z-index: 200; left: 0px; top: 0px; padding: 5px; }
+.scope-menu .menu-scope-panel a { width:40px; height:40px; }
+
+.scope-menu ul {
 	list-style-type:none;
 	margin:0px;
 	padding:0px;
 	display:table;
 	width:100%;
 }
-.scope-menu .menu-scope li {
+.scope-menu li {
 	float:left;
 	cursor:pointer;
 	margin:3px;
 	background:#2E2D2C;
 }
-.scope-menu .menu-scope li a {
+.scope-menu li a {
 	display:block;
 	border:2px solid #4E4D4C;
 	height:50px;
 	width:50px;
 	padding:2px;
 }
-.scope-menu .menu-scope li a:hover { border:2px solid #0066FF; }
+.scope-menu li a:hover { border:2px solid #0066FF; }
+
+.qj-button { position: absolute; top: 130px; left: 40px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
+.qj-button a {
+	display:block;
+	border:2px solid #4E4D4C;
+	height:40px;
+	width:40px;
+}
+.qj-button a:hover { border:2px solid #0066FF; }
 
 /* New Main Navagation tabs */
 
@@ -81,7 +88,8 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .alliance { background: url(./images/bg_alliance.png) no-repeat left top; }
 .horde { background: url(./images/bg_horde.png) no-repeat left top; }
 
-.info-header .text { color: #000000; text-align: left; padding: 45px 15px 15px 165px; width:580px;}
+.info-header .text { color: #000000; text-align: left; padding: 45px 15px 15px 165px; width:580px; }
+.info-header .text:hover { background: url(none); }
 
 .info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }
 .info-header .guild {	font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; z-index: 11; position: relative; }

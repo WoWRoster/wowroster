@@ -41,12 +41,12 @@
 
 <!-- Navagation Tabs -->
 	<div class="top-menu">
-		<div class="links">
-			<a href="./index.php?p=guild-memberslist" class="button-guild"><!-- TRANSLATE menu_header_01 --></a>
-			<a href="./index.php?p=realm-memberslist-guild" class="button-realm"><!-- TRANSLATE menu_header_02 --></a>
-			<a href="./index.php?p=update" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
-			<a href="./index.php?p=util" class="button-util"><!-- TRANSLATE menu_header_04 --></a>
-		</div>
+		<div class="links"><div id="top_nav">
+			<a href="{U_MENU_HEADER_03}" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
+			<a class="button-guild" href="#" onclick="showHide('menu_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
+			<a class="button-realm" href="#" onclick="showHide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
+			<a class="button-util" href="#" onclick="showHide('menu_util'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
+		</div></div>
 	</div>
 
 <div class="theme-wrap">
@@ -122,8 +122,8 @@
 	<div class="info-header {FACTION}">
 		<div class="text">
 			<div class="name" {ALT_TOOLTIP}>{NAME}<span>{NAME}</span></div>
-			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild">{L_GUILD_LINE}<span>{L_GUILD_LINE}</span></div><!-- ENDIF -->
-			<div class="info">{L_LEVEL_RACE_CLASS}<span>{L_LEVEL_RACE_CLASS}</span></div>
+			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild">{GUILD_TITLE} of {GUILD_NAME}<span>{GUILD_TITLE} of {GUILD_NAME}</span></div><!-- ENDIF -->
+			<div class="info">LVL {LEVEL} {RACE} {CLASS}<span>LVL {LEVEL} {RACE} {CLASS}</span></div>
 		</div>
 	</div>
 	
