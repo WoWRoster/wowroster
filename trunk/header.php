@@ -74,7 +74,7 @@ switch( $roster->scope )
 		$roster->tpl->assign_vars(array(
 			'ROSTER_TITLE' => $roster->data['guild_name'],
 			'ROSTER_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
-			'ROSTER_3RDTITLE' => $roster->data['guild_num_members'] . $roster->locale->act['members'],
+			'ROSTER_3RDTITLE' => $roster->data['guild_num_members'],
 			'LAST_UPDATED'    => ( isset($roster->data['update_time']) ? readbleDate($roster->data['update_time'])
 					. ( (!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')' : '') : '' ),
 			)
