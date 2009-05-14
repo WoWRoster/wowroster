@@ -34,7 +34,7 @@ class item
 	var $member_id, $item_id, $name, $level, $icon, $color;
 	var $slot, $parent, $tooltip, $quantity, $locale;
 
-	// 1=poor, 2=common, 3=uncommon, 4=rare, 5=epic, 6=legendary
+	// 1=poor, 2=common, 3=uncommon, 4=rare, 5=epic, 6=legendary, 7=heirloom
 	var $quality_id; //holds numerical value of item quality
 	var $quality; // holds string value of item quality
 
@@ -212,7 +212,7 @@ class item
 		}
 		elseif( ereg('^' . $roster->locale->wordings[$this->locale]['tooltip_accountbound'], $bindtype) )
 		{
-			$color = 'e5cc80';
+			$color = 'e6cc80';
 		}
 		else
 		{
@@ -776,6 +776,10 @@ class item
 	{
 		switch( strtolower( $color ) )
 		{
+			case 'e6cc80':
+				$this->quality_id = '7';
+				$this->quality = 'heirloom';
+				break;
 			case 'ff8800':
 				$this->quality_id = '6';
 				$this->quality = 'legendary';
@@ -1135,6 +1139,10 @@ class item
 			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance_hit'], $line) )
 			{
 				$tt['Effects']['ChanceToProc'][] = $line;
+			}
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_feral_ap'], $line) )
+			{
+				$tt['Effects']['Equip'][] = $line;
 			}
 			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_bind_types'], $line) )
 			{

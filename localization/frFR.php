@@ -772,6 +772,7 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 $lang['tooltip_preg_meta_requires']='/Nécessite.*?gemme(?:s|)/i';
 $lang['tooltip_preg_meta_requires_min']='/Nécessite au moins (\d) gemme(?:s|) (\S+)\(s\)/i';
 $lang['tooltip_preg_meta_requires_more']='/Nécessite plus de gemmes (jaune|rouge|blue\S+) que de (\S+)/i';
+$lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Fréquence de butin';
