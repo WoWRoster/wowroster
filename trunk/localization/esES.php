@@ -772,6 +772,7 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';
 $lang['tooltip_preg_meta_requires']='/Requiere.*?gemas/';
 $lang['tooltip_preg_meta_requires_min']='/Requiere al menos (\d) gema (\S+)(s)/';
 $lang['tooltip_preg_meta_requires_more']='/Requiere mas gemas (\S+) que gemas (\S+)/';
+$lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Fuente';
 $lang['tooltip_boss']='Jefe';
 $lang['tooltip_droprate']='Pos\. de aparici';
