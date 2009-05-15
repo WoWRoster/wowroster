@@ -1909,9 +1909,9 @@ class char
 		if( $roster->db->num_rows($result) > 0 )
 		{
 			// initialize the rows and cells
-			for( $r=1; $r < 11; $r++ )
+			for( $r=1; $r < ROSTER_TALENT_ROWS+1; $r++ )
 			{
-				for( $c=1; $c < 5; $c++ )
+				for( $c=1; $c < ROSTER_TALENT_COLS+1; $c++ )
 				{
 					$returndata[$r][$c]['name'] = '';
 				}
