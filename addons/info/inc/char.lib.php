@@ -702,8 +702,7 @@ class char
 	 */
 	function show_companions()
 	{
-		global $roster, $addon;
-		return false;
+		global $roster;
 
 		$query = "SELECT * FROM `" . $roster->db->table('companions') . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
 		$result = $roster->db->query($query);
