@@ -230,6 +230,11 @@
 .main-panel .tab2 .container .box-label .mounts { background: url(images/icons/mounts.gif); }
 .main-panel .tab2 .container .box-label .companions { background: url(images/icons/companions.gif); }
 
+.main-panel .tab2 .container .spell-page { margin: 10px; background: url(../images/char_info_bg.jpg) repeat-y center top; padding: 5px; border: 1px solid #333; }
+.main-panel .tab2 .container .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
+.main-panel .tab2 .container .spell-container .text { height: 40px; color: #FFCC00; white-space: normal; }
+.main-panel .tab2 .container .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
+
 /* Powers */
 .tab2 .powers { cursor: default; padding: 5px; width: 220px; position: absolute; left: 220px; top: 0px; }
 .tab2 .powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }

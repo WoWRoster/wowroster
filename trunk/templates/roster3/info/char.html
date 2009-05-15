@@ -304,12 +304,38 @@
 <!-- IF S_MOUNTS -->
 			<div class="container">
 				<div class="box-label"><div class="icon mounts"></div><!-- TRANSLATE mounts --></div>
+                <div class="spell-page">
+<!-- BEGIN mounts -->
+				<div class="spell-container shader">
+					<div class="text">
+						<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" class="icon" {mounts.TOOLTIP} alt="" />
+						<span>{mounts.NAME}</span><br />
+					</div>
+				</div>
+<!-- END mounts -->
+				<div style="clear:both;"></div>
+				</div>
 			</div>
 <!-- ENDIF -->
+
+
 
 <!-- IF S_COMPANIONS -->
 			<div class="container">
 				<div class="box-label"><div class="icon companions"></div><!-- TRANSLATE companions --></div>
+                <div class="spell-page">
+<!-- BEGIN companions -->
+				<div class="spell-container shader">
+					<div class="text">
+						<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" class="icon" {companions.TOOLTIP} alt="" />
+						<span>{companions.NAME}</span><br />
+					</div>
+				</div>
+<!-- END mounts -->
+				<div style="clear:both;"></div>
+				</div>
+                
+                
 			</div>
 <!-- ENDIF -->
 
@@ -476,7 +502,7 @@
 	addRpage('defenseright');
 
 	var char_navagation=new tabcontent('char_navagation');
-	char_navagation.setpersist(false);
+	char_navagation.setpersist(true);
 	char_navagation.init();
 
 	var bonus_nav=new tabcontent('bonus_navigation');

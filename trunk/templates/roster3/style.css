@@ -27,7 +27,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .char-wrap { padding: 0px 200px 0px 0px; }
 
 /* General Scope Block */
-.scope-menu { padding: 110px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
+.scope-menu { padding: 0px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
 .scope-menu .menu-scope { margin:2px 0px 0px; padding:0px; width:100%; display:block; }
 .scope-menu .menu-scope-panel { background: url(./images/shader.png) repeat; border: 1px solid #9D7D1C; max-width: 100%; position: absolute; z-index: 200; left: 0px; top: 0px; padding: 5px; }
 .scope-menu .menu-scope-panel a { width:40px; height:40px; }
@@ -54,7 +54,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 }
 .scope-menu li a:hover { border:2px solid #0066FF; }
 
-.qj-button { position: absolute; top: 130px; left: 40px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
+.qj-button { position: absolute; top: 0px; left: 40px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
 .qj-button a {
 	display:block;
 	border:2px solid #4E4D4C;
@@ -80,7 +80,15 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
 /* Main Roster Wrapper Header */
 
-.theme-wrap { min-height: 900px; width: 940px; margin: 30px auto auto; position: relative; border: 1px solid #9D7D1C; background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top; padding: 10px; }
+.theme-wrap {
+	min-height: 900px;
+	width: 940px;
+	margin: 30px auto auto;
+	position: relative;
+	border: 1px solid #9D7D1C;
+	background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top;
+	padding: 120px 10px 10px;
+}
 
 .info-header { width: 100%; height: 170px; position: absolute; left: -10px; top: -20px; padding-right: 10px; }
 
@@ -121,7 +129,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
 
 /* Navagation tabs */
-.sections { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:344px; z-index: 20; left: 140px; top: 100px; }
+.sections { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:100%; z-index: 20; left: 140px; top: 100px; }
 .sections ul { margin:0; padding:0; list-style:none; }
 .sections li { float:left; background:url(./images/tabs/inactive_left.gif) no-repeat left top; margin:0; padding-left:7px; cursor:pointer; margin-bottom:-7px; }
 .sections .text { display:block;background:url(./images/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
