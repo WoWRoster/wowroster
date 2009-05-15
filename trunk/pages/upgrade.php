@@ -182,11 +182,13 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` DROP `usedtp`, DROP `loyalty`;");
 		}
 
+		// Add order to pet talents table...I dont know why, since they have one tree
 		if( version_compare($roster->config['version'],'2.0.9.1884','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('pet_talenttree') . "` ADD `order` tinyint(4) NOT NULL default '0' AFTER `background`;");
 		}
 
+		// Adding glyphs
 		if( version_compare($roster->config['version'],'2.0.9.1891','<') )
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('glyphs') . "`;");
@@ -197,6 +199,24 @@ class Upgrade
 				`glyph_name` varchar(96) NOT NULL default '',
 				`glyph_icon` varchar(64) NOT NULL default '',
 				`glyph_tooltip` mediumtext NOT NULL
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		}
+
+		// Adding companions
+		if( version_compare($roster->config['version'],'2.0.9.1963','<') )
+		{
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('companions') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('companions') . "` (
+				`comp_id` int(10) NOT NULL auto_increment,
+				`member_id` varchar(10) NOT NULL,
+				`name` varchar(255) NOT NULL,
+				`type` varchar(255) NOT NULL,
+				`slot` varchar(255) NOT NULL,
+				`spellid` varchar(255) NOT NULL,
+				`icon` varchar(255) NOT NULL,
+				`creatureid` varchar(255) NOT NULL,
+				`tooltip` mediumtext NOT NULL,
+				PRIMARY KEY  (`comp_id`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
 

@@ -62,6 +62,23 @@ CREATE TABLE `renprefix_buffs` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
+### Companions
+
+DROP TABLE IF EXISTS `renprefix_companions`;
+CREATE TABLE `renprefix_companions` (
+  `comp_id` int(10) NOT NULL auto_increment,
+  `member_id` varchar(10) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `slot` varchar(255) NOT NULL,
+  `spellid` varchar(255) NOT NULL,
+  `icon` varchar(255) NOT NULL,
+  `creatureid` varchar(255) NOT NULL,
+  `tooltip` mediumtext NOT NULL,
+  PRIMARY KEY  (`comp_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
 ### Config
 
 DROP TABLE IF EXISTS `renprefix_config`;
@@ -835,19 +852,4 @@ CREATE TABLE `renprefix_webdb_cache` (
   `sockets` varchar(32) default NULL,
   `source_id` smallint(8) NOT NULL COMMENT 'source data was collected from',
   PRIMARY KEY  (`item_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-# ------------------------------------------------
-### companions
-DROP TABLE IF EXISTS `renprefix_companions`;
-CREATE TABLE `renprefix_companions` (
-  `comp_id` int(10) NOT NULL auto_increment,
-  `member_id` varchar(10) NOT NULL,
-  `comp_name` varchar(255) NOT NULL,
-  `comp_parent` varchar(255) NOT NULL,
-  `comp_slot` varchar(255) NOT NULL,
-  `comp_spellid` varchar(255) NOT NULL,
-  `comp_texture` varchar(255) NOT NULL,
-  `comp_creatureid` varchar(255) NOT NULL,
-  `comp_tooltip` mediumtext NOT NULL,
-  PRIMARY KEY  (`comp_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
