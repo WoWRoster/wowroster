@@ -704,7 +704,7 @@ class char
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `" . $roster->db->table('companions') . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
+		$query = "SELECT * FROM `" . $roster->db->table('companions') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `type` ASC , `slot` ASC;";
 		$result = $roster->db->query($query);
 
 		$mount_num = $comp_num = 0;
@@ -720,7 +720,7 @@ class char
 				if( $row['type'] == 'Mount' )
 				{
 					$roster->tpl->assign_block_vars('mounts',array(
-						'ID'        => $mount_num,
+						'ID'        => $row['slot'],
 						'NAME'      => $row['name'],
 						'ICON'      => $row['icon'],
 						'TOOLTIP' => makeOverlib($row['tooltip']),
@@ -732,7 +732,7 @@ class char
 				if( $row['type'] == 'Critter' )
 				{
 					$roster->tpl->assign_block_vars('companions',array(
-						'ID'        => $comp_num,
+						'ID'        => $row['slot'],
 						'NAME'      => $row['name'],
 						'ICON'      => $row['icon'],
 						'TOOLTIP' => makeOverlib($row['tooltip']),

@@ -203,18 +203,18 @@ class Upgrade
 		}
 
 		// Adding companions
-		if( version_compare($roster->config['version'],'2.0.9.1963','<') )
+		if( version_compare($roster->config['version'],'2.0.9.1966','<') )
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('companions') . "`;");
 			$roster->db->query("CREATE TABLE `" . $roster->db->table('companions') . "` (
-				`comp_id` int(10) NOT NULL auto_increment,
-				`member_id` varchar(10) NOT NULL,
-				`name` varchar(255) NOT NULL,
-				`type` varchar(255) NOT NULL,
-				`slot` varchar(255) NOT NULL,
-				`spellid` varchar(255) NOT NULL,
-				`icon` varchar(255) NOT NULL,
-				`creatureid` varchar(255) NOT NULL,
+				`comp_id` int(11) NOT NULL auto_increment,
+				`member_id` int(11) unsigned NOT NULL default '0',
+				`name` varchar(96) NOT NULL,
+				`type` varchar(96) NOT NULL,
+				`slot` int(11) NOT NULL,
+				`spellid` int(11) NOT NULL default '0',
+				`icon` varchar(64) NOT NULL default '',
+				`creatureid` int(11) NOT NULL default '0',
 				`tooltip` mediumtext NOT NULL,
 				PRIMARY KEY  (`comp_id`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
