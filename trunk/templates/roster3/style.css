@@ -27,7 +27,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .char-wrap { padding: 0px 200px 0px 0px; }
 
 /* General Scope Block */
-.scope-menu { padding: 0px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
+.scope-menu { padding: 120px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
 .scope-menu .menu-scope { margin:2px 0px 0px; padding:0px; width:100%; display:block; }
 .scope-menu .menu-scope-panel { background: url(./images/shader.png) repeat; border: 1px solid #9D7D1C; max-width: 100%; position: absolute; z-index: 200; left: 0px; top: 0px; padding: 5px; }
 .scope-menu .menu-scope-panel a { width:40px; height:40px; }
@@ -87,7 +87,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 	position: relative;
 	border: 1px solid #9D7D1C;
 	background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top;
-	padding: 120px 10px 10px;
+	padding: 0px 10px 10px;
 }
 
 .info-header { width: 100%; height: 170px; position: absolute; left: -10px; top: -20px; padding-right: 10px; }
