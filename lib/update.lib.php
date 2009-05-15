@@ -2181,20 +2181,23 @@ CREATE TABLE `renprefix_quest_task_data` (
 	 * @param int $memberId
 	 */
 
-      function update_companion( $memberId, $companion, $dataa )
+      function update_companion( $memberId, $data )
       {
             global $roster;
+            $querystr = "DELETE FROM `" . $roster->db->table('companions') . "` WHERE `member_id` = '".$memberId."';";
+            $result = $roster->db->query($querystr);
             
-            foreach ($dataa as $id => $data)
+            $companiondata = $data['Companions'];
+            $this->setmessage .=('<li>Updating companions: ');
+		foreach( $companiondata as $companion => $type)
+		{
+            
+            foreach ($type as $id => $cdata)
             {
 
-            if (!empty($data['Name']))
+            if (!empty($cdata['Name']))
 		{
-			$querystr = "SELECT `comp_id`
-				FROM `" . $roster->db->table('companions',$this->data['basename']) . "`
-				WHERE `member_id` = '$memberId' AND `comp_name` LIKE '" . $roster->db->escape($data['Name']) . "'";
-
-			$result = $roster->db->query($querystr);
+			
 			if( !$result )
 			{
 				$this->setError('Cannot select Companion Data',$roster->db->error());
@@ -2216,32 +2219,21 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->reset_values();
 
 			$this->add_value( 'member_id', $memberId );
-                  $this->add_value( 'comp_name', $data['Name'] );
+                  $this->add_value( 'comp_name', $cdata['Name'] );
                   $this->add_value( 'comp_parent', $companion );
                   $this->add_value( 'comp_slot', $id );
-                  $this->add_value( 'comp_spellid', $data['SpellId'] );
-                  $this->add_value( 'comp_tooltip', $data['Tooltip'] );
-                  $this->add_value( 'comp_creatureid', $data['CreatureID'] );
-			if( !empty($data['Icon']) )
+                  $this->add_value( 'comp_spellid', $cdata['SpellId'] );
+                  $this->add_value( 'comp_tooltip', $cdata['Tooltip'] );
+                  $this->add_value( 'comp_creatureid', $cdata['CreatureID'] );
+			if( !empty($cdata['Icon']) )
 			{
-				$this->add_value('comp_texture', $this->fix_icon($data['Icon']) );
+				$this->add_value('comp_texture', $cdata['Icon'] );
 			}
                   
-			if( $update )
-			{
-				$this->messages .=('<li>Updating '.$companion.' [' . $data['Name'] . ']');
-				$querystr = "UPDATE `" . $roster->db->table('companions',$this->data['basename']) . "` SET " . $this->assignstr . " WHERE `comp_id` = '$compID'";
-				//echo $querystr.'<br>';
+
+				$this->setmessage .=('.');
+				$querystr = "INSERT INTO `" . $roster->db->table('companions') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
-			}
-			else
-			{
-				$this->messages .=('<li>New '.$companion.' [' . $data['Name'] . ']');
-				$querystr = "INSERT INTO `" . $roster->db->table('companions',$this->data['basename']) . "` SET " . $this->assignstr;
-				//echo $querystr.'<br>';
-				$result = $roster->db->query($querystr);
-				//$petID = $roster->db->insert_id();
-			}
                   
 			if( !$result )
 			{
@@ -2253,7 +2245,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}	
             
             }
-
+      }
 	}
 	/**
 	 * Handles formating and insertion of glyphs
@@ -3741,16 +3733,13 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->do_reputation($data, $memberId);
 		$this->do_quests($data, $memberId);
 		$this->do_buffs($data, $memberId);
-
+            
             // adding companion phasor ...
             if( !empty( $data['Companions'] ) && is_array($data['Companions']) )
 		{
-			$companiondata = $data['Companions'];
-			foreach( $companiondata as $companion => $type)
-			{
-			//echo $companion.' - '.$type.'<br>';
-				$this->update_companion( $memberId, $companion,$type );
-			}
+			
+			$this->update_companion( $memberId, $data );
+			
 		}
 		// Adding pet info
 		// Quick fix for DK multiple pet error, we only scan the pets section for hunters and warlocks
