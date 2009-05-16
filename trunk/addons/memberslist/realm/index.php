@@ -198,7 +198,7 @@ if( $addon['config']['member_update_inst'] )
 	echo "<br />\n\n<a name=\"update\"></a>\n";
 
 	echo border('sgray','start',$roster->locale->act['update_instructions']);
-	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
+	echo '<div align="left">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
 	echo '</div>'.border('sgray','end');
 }
 
