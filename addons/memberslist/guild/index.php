@@ -125,34 +125,11 @@ $FIELD['professions'] = array (
 	'display'    => $addon['config']['member_prof'],
 );
 
-$FIELD['hearth'] = array (
-	'lang_field' => 'hearthed',
-	'order'      => array( 'hisnull', 'hearth ASC' ),
-	'order_d'    => array( 'hisnull', 'hearth DESC' ),
-	'display'    => $addon['config']['member_hearth'],
-);
-
 $FIELD['zone'] = array (
 	'lang_field' => 'lastzone',
 	'order'      => array( '`members`.`zone` ASC' ),
 	'order_d'    => array( '`members`.`zone` DESC' ),
 	'display'    => $addon['config']['member_zone'],
-);
-
-$FIELD['last_online'] = array (
-	'lang_field' => 'lastonline',
-	'order'      => array( '`members`.`last_online` DESC' ),
-	'order_d'    => array( '`members`.`last_online` ASC' ),
-	'value'      => array($memberlist,'last_online_value'),
-	'display'    => $addon['config']['member_online'],
-);
-
-$FIELD['last_update_format'] = array (
-	'lang_field' => 'lastupdate',
-	'filt_field' => '`players`.`dateupdatedutc`',
-	'order'      => array( 'luisnull','`players`.`dateupdatedutc` DESC' ),
-	'order_d'    => array( 'luisnull','`players`.`dateupdatedutc` ASC' ),
-	'display'    => $addon['config']['member_update'],
 );
 
 $FIELD['note'] = array (
