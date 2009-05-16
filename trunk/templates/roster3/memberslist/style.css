@@ -10,22 +10,19 @@
  * @link       http://www.wowroster.net
  * @package    MembersList
 */
+a:link {color:#000000;}
+a:hover {color:#000000;}
+a:active {color:#000000;}
+a:visited {color:#000000;}
 
-.membersRowColor1 {
-	background-color:#1F1E1D;
-}
+.membersRowColor1, .membersRowColor2 { color:#000000; background: url(../images/char_row_link.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
 
-.membersRowColor2 {
-	background-color:#2E2D2B;
-}
+.membersRowColor1:hover, .membersRowColor2:hover { background: url(../images/char_row_link.png) repeat-x left bottom; }
 
-.membersRowAltColor1 {
-	background-color:#1F1E3D;
-}
+.membersRowAltColor1, .membersRowAltColor2 { background: url(../images/char_row.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
 
-.membersRowAltColor2 {
-	background-color:#2E2D4B;
-}
+.membersRowAltColor1:hover, .membersRowAltColor2:hover { background: url(../images/char_row.png) repeat-x left bottom; }
+
 
 .skill_bar {
 	background-image:url(images/skill/bar_empty.gif);
@@ -44,11 +41,11 @@
 	padding-top:0px;
 	width:273px;
 	height:18px;
-	color:#FFDD00;
+	color:#000000;
 	position:absolute;
 }
 .text_num {
 	margin-left:10px;
-	color:#FFFFFF;
+	color:#000000;
 }
 

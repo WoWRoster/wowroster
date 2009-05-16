@@ -32,19 +32,8 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .scope-menu .menu-scope-panel { background: url(./images/shader.png) repeat; border: 1px solid #9D7D1C; max-width: 100%; position: absolute; z-index: 200; left: 0px; top: 0px; padding: 5px; }
 .scope-menu .menu-scope-panel a { width:40px; height:40px; }
 
-.scope-menu ul {
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	display:table;
-	width:100%;
-}
-.scope-menu li {
-	float:left;
-	cursor:pointer;
-	margin:3px;
-	background:#2E2D2C;
-}
+.scope-menu ul { list-style-type:none; margin:0px; padding:0px; width:100%; display: table; }
+.scope-menu li { float:left; margin:3px; background:#2E2D2C; display: block; }
 .scope-menu li a {
 	display:block;
 	border:2px solid #4E4D4C;
@@ -378,193 +367,7 @@ select {
 .tab_menu li.selected a:hover{ text-decoration:none;background-color:#7A7772; }
 
 
-/**
- * Roster Main Menu
- */
-
-/* Container for the main roster menu */
-.menu_container {
-	background:#1F1E1D;
-	width:528px;
-/*	padding:2px; */
-/*	border:1px solid #CBA300; */
-	color:#FFFFFF;
-}
-
-.menu_container div div {
-	font:9px verdana,arial,helvetica,sans-serif;
-	margin:0px;
-	padding:0px;
-	border-top:1px solid #CBA300;
-}
-
-/* Header Backgrounds */
-.menu_bg_01 { background:url(images/menu/menu_btn_guild.png) no-repeat left center; }
-.menu_bg_02 { background:url(images/menu/menu_btn_realm.png) no-repeat left center; }
-.menu_bg_03 { background:url(images/menu/menu_btn_update.png) no-repeat left center; }
-.menu_bg_04 { background:url(images/menu/menu_btn_utilities.png) no-repeat left center; }
-
-/* Main Header Block */
-.menu_header {
-	font:11px verdana,arial,helvetica,sans-serif;
-	margin:0px;
-	padding:0px;
-	width:100%;
-	display:block;
-}
-
-.menu_header ul {
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	display:table;
-	width:100%;
-}
-
-.menu_header li {
-	width:128px;
-	float:left;
-	cursor:pointer;
-	margin:2px;
-	background:#2E2D2C;
-}
-
-.menu_header li a {
-	text-align:left;
-	display:block;
-	border:2px solid #4E4D4C;
-	height:32px;
-	padding:2px 2px 2px 34px;
-	margin:0px;
-	color:#FFCC00;
-	text-decoration:none;
-}
-
-.menu_header li a:hover { border:2px solid #0066FF; }
-
-/* Utility Scope Block */
-.menu_utility {
-	margin:2px 0px 0px;
-	padding:0px;
-	width:100%;
-	display:block;
-}
-
-.menu_utility ul {
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	display:table;
-	width:100%;
-	border-top:1px solid #A37300;
-}
-
-.menu_utility li {
-	float:right;
-	cursor:pointer;
-	margin:3px;
-	background:#2E2D2C;
-}
-
-.menu_utility li a {
-	display:block;
-	border:2px solid #4E4D4C;
-	height:30px;
-	width:30px;
-	padding:2px;
-}
-
-.menu_utility li a:hover { border:2px solid #0066FF; }
-
-
-/* General Scope Block */
-.menu_scope {
-	margin:2px 0px 0px;
-	padding:0px;
-	width:100%;
-	display:block;
-}
-
-.menu_scope ul {
-	list-style-type:none;
-	margin:0px;
-	padding:0px;
-	display:table;
-	width:100%;
-	border-top:1px solid #A37300;
-}
-
-.menu_scope li {
-	float:left;
-	cursor:pointer;
-	margin:3px;
-	background:#2E2D2C;
-}
-
-.menu_scope li a {
-	display:block;
-	border:2px solid #4E4D4C;
-	height:30px;
-	width:30px;
-	padding:2px;
-}
-
-.menu_scope li a:hover { border:2px solid #0066FF; }
-
-
 /* Ignore the following options except in the cp */
-
-/* Container for the main roster menu */
-.main_roster_menu { font:11px arial,helvetica,sans-serif; }
-.main_roster_menu span { font:11px arial,helvetica,sans-serif;color:#ffffff; }
-
-/* List define for main menu */
-.main_roster_menu .links ul { font:11px verdana,arial,helvetica,sans-serif;margin:0;padding:0;list-style-type:none; }
-
-/* List item define for main menu */
-.main_roster_menu .links li { margin:2px 1px 2px;text-align:left;clear:left; }
-
-/* List item icon for main menu */
-.main_roster_menu .links .button img { height:32px;width:32px;margin:2px;float:left; }
-
-/* Links in menu */
-.main_roster_menu .links a {
-	display:block;
-	text-align:center;
-	width:120px;
-	min-height:35px;
-	border:solid #5D5D5D;
-	border-width:1px 0 0 1px;
-	background-color:#2E2D2B;
-	text-decoration:none;
-}
-/* Links in menu on-click */
-.main_roster_menu .links a:active { background-color:#778899; }
-
-/* Links in menu on-mouseover */
-.main_roster_menu .links a:hover { background-color:#7A7772; }
-
-.main_roster_menu .header {
-	background:#1F1E1D url(images/bgrep.gif);
-	color:#ffffff;
-	border-style:solid;
-	border-width:0 1px 0 1px;
-	border-color:#5D5D5D;
-}
-.main_roster_menu .row {
-	color:#ffffff;
-	background-color:#1F1E1D;
-	border-style:solid;
-	border-width:1px 0 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-}
-.main_roster_menu .rowright {
-	color:#ffffff;
-	background-color:#1F1E1D;
-	border-style:solid;
-	border-width:1px 1px 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-}
 
 .menu_config_div {
 	/* The div elements used for the menu config screen */
@@ -603,122 +406,44 @@ select {
 /**
  * Row Coloring
  */
-.membersHeader {
+.membersHeader, .membersHeaderRight {
 	text-align:left;
 	white-space:nowrap;
-	color:#CBA300;
+	color:#000000;
 	font:bold 11px arial,helvetica,sans-serif;
-	background-color:#2E2D2B;
-	border:solid #5D5D5D;
-	border-width:1px 0 0 1px;
+	background: url(./images/skill_title_bg.png) repeat-x left top;
 	padding:0 6px 0 6px;
-}
-.membersHeaderRight {
-	text-align:left;
-	white-space:nowrap;
-	color:#CBA300;
-	font:bold 11px arial,helvetica,sans-serif;
-	background-color:#2E2D2B;
-	border:solid #5D5D5D;
-	border-width:1px 1px 0 1px;
-	padding:0 6px 0 6px;
+	height: 20px;
+	vertical-align:middle;
 }
 
-.membersRowCell {
+.membersRowCell, .membersRowRightCell {
 	position:relative;
 	text-align:left;
-	color:#ffffff;
+	color:#000000;
 	font-size:11px;
 	font-family:arial,helvetica,sans-serif;
 	font-weight:bold;
 	white-space:nowrap;
-	border-style:solid;
-	border-width:1px 0px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
 	padding:3px 6px 3px 6px;
 }
 
-.membersRowRightCell {
-	text-align:left;
-	color:#ffffff;
-	font-size:11px;
-	font-family:arial,helvetica,sans-serif;
-	font-weight:bold;
-	white-space:nowrap;
-	border-style:solid;
-	border-width:1px 1px 0px 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-}
+.membersRow1, .membersRow2, .membersRowRight1, .membersRowRight2 { border-top: 1px solid #9D7D1C; position:relative; text-align:left; color:#000000; background: #deb760 url(./images/set_row.png) repeat-x left top; font:bold 11px arial,helvetica,sans-serif; white-space:nowrap; padding:3px 6px 3px 6px; line-height: 20px; height: 20px; }
 
-.membersRow1 {
-	position:relative;
-	text-align:left;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font:bold 11px arial,helvetica,sans-serif;
-	white-space:nowrap;
-	border-style:solid;
-	border-width:1px 0 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-}
-.membersRow2 {
-	position:relative;
-	text-align:left;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font:bold 11px arial,helvetica,sans-serif;
-	white-space:nowrap;
-	border-style:solid;
-	border-width:1px 0 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-}
+.membersRow1 a:link, .membersRow1 a:hover, .membersRow1 a:active, .membersRow1 a:visited {color:#000000;}
+.membersRowRight1 a:link, .membersRowRight1 a:hover, .membersRowRight1 a:active, .membersRowRight1 a:visited {color:#000000;}
+.membersRow2 a:link, .membersRow2 a:hover, .membersRow2 a:active, .membersRow2 a:visited {color:#000000;}
+.membersRowRight2 a:link, .membersRowRight2 a:hover, .membersRowRight2 a:active, .membersRowRight2 a:visited {color:#000000;}
+
+
 .membersRowimg { vertical-align:middle; }
-
-.membersRowRight1 {
-	text-align:left;
-	color:#ffffff;
-	background-color:#1F1E1D;
-	font:bold 11px arial,helvetica,sans-serif;
-	white-space:nowrap;
-	border-style:solid;
-	border-width:1px 1px 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-}
-.membersRowRight2 {
-	text-align:left;
-	color:#ffffff;
-	background-color:#2E2D2B;
-	font:bold 11px arial,helvetica,sans-serif;
-	white-space:nowrap;
-	border-style:solid;
-	border-width:1px 1px 0 1px;
-	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
-	padding:3px 6px 3px 6px;
-}
-
 
 /**
  * Border Styles
  */
-.border_frame {
-	background-color:#000000;
-	border-top:1px solid #c6c7cb;
-	border-right:1px solid #5f6060;
-	border-bottom:1px solid #393939;
-	border-left:1px solid #696b6e;
-	margin:auto;
-}
+.border_frame { border: 1px solid #EEDBA2; margin: auto; padding:0px; background: #deb760; color: #000; }
 
 .border_color {
-	background-color:#1F1E1D;
-	padding:1px;
-	color:#FFFFFF;
-	font-family:Arial, Helvetica, sans-serif;
-	text-align:center;
 	border-width:1px;
 	border-style:solid;
 }
@@ -744,19 +469,7 @@ select {
 }
 
 /* Header Text */
-.header_text {
-	margin-bottom:1px;
-	border-bottom-width:1px;
-	border-bottom-style:solid;
-	text-align:center;
-	background-color:#333333;
-	font-weight:bold;
-	font-size:14px;
-	white-space:nowrap;
-	overflow:hidden;
-	padding-bottom:1px;
-	background-image:url(images/bgheader.gif);
-}
+.header_text { text-align:center; white-space:nowrap; overflow:hidden; color:#000000; font:bold 14px arial,helvetica,sans-serif; background: url(./images/skill_title_bg.png) repeat-x left top; padding:10; vertical-align:middle; }
 
 /* Border Colors */
 .swhiteborder { border-color:#FFFFFF; }
