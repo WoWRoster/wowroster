@@ -15,13 +15,13 @@ a:hover {color:#000000;}
 a:active {color:#000000;}
 a:visited {color:#000000;}
 
-.membersRowColor1, .membersRowColor2 { color:#000000; background: url(../images/char_row_link.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
+.membersRowColor1, .membersRowColor2 { color:#000000; background: #deb760 url(../images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C; }
 
-.membersRowColor1:hover, .membersRowColor2:hover { background: url(../images/char_row_link.png) repeat-x left bottom; }
+.membersRowColor1:hover, .membersRowColor2:hover { background: #b9dc64 url(../images/set_row_hover.png) repeat-x left top; }
 
-.membersRowAltColor1, .membersRowAltColor2 { background: url(../images/char_row.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
+.membersRowAltColor1, .membersRowAltColor2 { background: url(../images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
 
-.membersRowAltColor1:hover, .membersRowAltColor2:hover { background: url(../images/char_row.png) repeat-x left bottom; }
+.membersRowAltColor1:hover, .membersRowAltColor2:hover { background: url(../images/set_row_hover.png) repeat-x left top; }
 
 
 .skill_bar {
