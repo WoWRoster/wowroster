@@ -171,8 +171,8 @@
 
 .bonus-box { height: 457px; width: 348px; position: absolute; left: 95px; top: 19px; }
 .bonus-box .bonus-container { margin: 5px; overflow: auto; height: 400px; }
-.bonus-box .bonus-container .membersRow1 { background: transparent url(../images/shader.png) repeat; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; }
-.bonus-box .bonus-container .membersRow2 { background: transparent; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; }
+.bonus-box .bonus-container .membersRow1 { background: transparent url(../images/shader.png) repeat; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; color: #FFF; }
+.bonus-box .bonus-container .membersRow2 { background: transparent; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; color: #FFF; }
 
 .bonus-navigation { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:344px; bottom: 0px; }
 .bonus-navigation ul { margin:0;padding:0;list-style:none; }

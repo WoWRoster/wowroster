@@ -26,6 +26,10 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 
 .char-wrap { padding: 0px 200px 0px 0px; }
 
+
+/* Login Box */
+.menu-login { position: absolute; z-index: 1000; height: 20px; width: 300px; left: 140px; top: -25px; }
+
 /* General Scope Block */
 .scope-menu { padding: 120px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
 .scope-menu .menu-scope { margin:2px 0px 0px; padding:0px; width:100%; display:block; }
@@ -159,9 +163,7 @@ select {
 /**
  * Search Rows
  */
-.SearchRowAltColor1 { background-color:#1F1E1D; }
-
-.SearchRowAltColor2 { background-color:#2E2D2B; }
+.SearchRowAltColor1, .SearchRowAltColor2 { background: #deb760 url(./images/set_row.png) repeat-x left top; }
 
 .SearchRowCell {
 	position:relative;
@@ -341,7 +343,7 @@ select {
 /**
  * Misc Defines
  */
-.bodyline { border:1px #212121 solid; }
+.bodyline { border-top: 1px solid #212121; }
 
 .lastupdated { color:#0099FF;font-size:x-small;font-style:italic; }
 
@@ -428,7 +430,7 @@ select {
 	padding:3px 6px 3px 6px;
 }
 
-.membersRow1, .membersRow2, .membersRowRight1, .membersRowRight2 { border-top: 1px solid #9D7D1C; position:relative; text-align:left; color:#000000; background: #deb760 url(./images/set_row.png) repeat-x left top; font:bold 11px arial,helvetica,sans-serif; white-space:nowrap; padding:3px 6px 3px 6px; line-height: 20px; height: 20px; }
+.membersRow1, .membersRow2, .membersRowRight1, .membersRowRight2 { border-top: 1px solid #9D7D1C; position:relative; text-align:left; color:#000000; background: #deb760 url(./images/set_row.png) repeat-x left top; font:bold 11px arial,helvetica,sans-serif; white-space:nowrap; padding:3px 6px 3px 6px; }
 
 .membersRow1 a:link, .membersRow1 a:hover, .membersRow1 a:active, .membersRow1 a:visited {color:#000000;}
 .membersRowRight1 a:link, .membersRowRight1 a:hover, .membersRowRight1 a:active, .membersRowRight1 a:visited {color:#000000;}
@@ -446,15 +448,6 @@ select {
 .border_color {
 	border-width:1px;
 	border-style:solid;
-}
-
-.divider_gold {
-	height:1px;
-	margin:0px;
-	padding:0px;
-	background-color:#D3A229;
-	border-top:1px solid #000000;
-	border-bottom:1px solid #000000;
 }
 
 .motd_setup {
