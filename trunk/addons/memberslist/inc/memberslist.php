@@ -86,6 +86,11 @@ class memberslist
 		{
 			$this->addon['config']['group_alts'] = ($_GET['alts'] == 'open') ? 2 : (($_GET['alts'] == 'close') ? 1 : 0);
 		}
+
+		if( isset($_GET['filter']) )
+		{
+			$this->addon['config']['openfilter'] = ($_GET['filter'] == 'open') ? 1 : 0;
+		}
 	}
 
 	/**
@@ -119,6 +124,7 @@ class memberslist
 		// Pre-store server get params
 		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['s'] : '' );
 		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
+		$get .= "&amp;filter=" . ($this->addon['config']['openfilter'] ? "open" : "close" );
 
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
@@ -139,9 +145,10 @@ class memberslist
 			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
 			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
 			'U_FILTER_FORM' => makelink($filter_post),
+			'U_CLOSE_FILTER' => makelink('&amp;filter=close' . $filter_post),
+			'U_OPEN_FILTER' => makelink('&amp;filter=open' . $filter_post),
 
-			'S_FILTER' => false,
-			'S_HIDE_FILTER' => (bool)!$this->addon['config']['openfilter'],
+			'S_FILTER' => $this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
 
 			'B_PAGINATION' => false,
@@ -317,7 +324,7 @@ class memberslist
 			}
 			$newsort = implode( ',', $sorts );
 			
-			$get = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;s=' . $newsort;
+			$get = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;filter=' . ($this->addon['config']['openfilter'] ? 'open' : 'close') . '&amp;s=' . $newsort;
 			foreach( $get_filter as $key => $filter )
 			{
 				$get .= '&amp;filter_' . $key . '=' . htmlentities($filter);

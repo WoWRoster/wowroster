@@ -66,7 +66,15 @@
 <!-- ENDIF -->
 		<tr>
 			<th class="membersHeader groupalt"
-				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>&nbsp;</th>
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+				<a href="<!-- IF S_FILTER -->{U_CLOSE_FILTER}<!-- ELSE -->{U_OPEN_FILTER}<!-- ENDIF -->" 
+					onclick="toggleFilter('{LISTNAME}','filterrow','foldout-filter','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
+					<img src="{THEME_PATH}/images/<!-- IF S_FILTER eq 1 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					class="foldout"
+					id="foldout-filter"
+					alt="<!-- IF S_FILTER eq 1 -->-<!-- ELSE -->+<!-- ENDIF -->" />
+				</a>
+			</th>
 <!-- BEGIN header_cell -->
 			<th class="membersHeader">
 <!-- IF header_cell.LINK -->
@@ -77,7 +85,7 @@
 			</th>
 <!-- END header_cell -->
 		</tr>
-		<tr>
+		<tr id="filterrow" <!-- IF S_FILTER eq 0 -->style="display:none"<!-- ENDIF -->>
 			<th class="membersHeader groupalt"
 				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
 				<img

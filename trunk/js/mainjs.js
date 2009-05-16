@@ -125,7 +125,7 @@ function doRpage( div )
 
 function showElem(oName)
 {
-	oName.style.display='block';
+	oName.style.display='';
 }
 
 function hideElem(oName)

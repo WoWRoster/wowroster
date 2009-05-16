@@ -114,3 +114,33 @@ function unGroupAlts( listname )
 		patchHref(getElementsByClass('internal_link', toolbar, 'a'), 'alts', 'ungroup');
 	}
 }
+
+/**
+ * Function to show/hide filter line. Based on the showHide function in mainjs, but
+ * adapated because I want to patch the URLs as well
+ */
+function toggleFilter(listname,ElementID,ImgID,ImgShow,ImgHide)
+{
+	if(document.getElementById)
+	{
+		element = document.getElementById(ElementID);
+		image = document.getElementById(ImgID);
+		toolbar = document.getElementById(listname + '-toolbar');
+		table = document.getElementById(listname);
+
+		if(image.src.indexOf(ImgHide) >= 0)
+		{
+			showElem(element);
+			image.src = ImgShow;
+			patchHref(getElementsByClass('internal_link', table, 'a'), 'filter', 'open');
+			patchHref(getElementsByClass('internal_link', toolbar, 'a'), 'filter', 'open');
+		}
+		else
+		{
+			hideElem(element);
+			image.src = ImgHide;
+			patchHref(getElementsByClass('internal_link', table, 'a'), 'filter', 'close');
+			patchHref(getElementsByClass('internal_link', toolbar, 'a'), 'filter', 'close');
+		}
+	}
+}
