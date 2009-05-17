@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    GuildBank
  * @subpackage Installer
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -34,18 +34,17 @@ class guildbankInstall
 	var $fullname = 'guildbank';
 	var $description = 'guildbank_desc';
 	var $credits = array(
-		array(
-			"name" => "vaccafoeda.hellscream@gmail.com",
-			"info" => "Original author"
-		)
+		array(	"name"=>	"vaccafoeda.hellscream@gmail.com",
+				"info"=>	"Original author")
 	);
+
 
 	/**
 	 * Install function
 	 *
 	 * @return bool
 	 */
-	function install( )
+	function install()
 	{
 		global $installer;
 
@@ -57,7 +56,7 @@ class guildbankInstall
 		$installer->add_config("'1200', 'banker_rankname', 'BankMule', 'text{50|30', 'guildbank_conf'");
 		$installer->add_config("'1300', 'banker_fieldname', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title|Player Name^name', 'guildbank_conf'");
 
-		$installer->add_menu_button('gbankbutton', 'guild');
+		$installer->add_menu_button('gbankbutton','guild');
 		return true;
 	}
 
@@ -67,16 +66,16 @@ class guildbankInstall
 	 * @param string $oldversion
 	 * @return bool
 	 */
-	function upgrade( $oldversion )
+	function upgrade($oldversion)
 	{
 		global $installer;
 
-		if( version_compare($oldversion, '1.9.9.1562', '<') )
+		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
 		{
 			$installer->add_config("'1400', 'bank_access', '0', 'access', 'guildbank_conf'");
 		}
 
-		if( version_compare($oldversion, '1.9.9.1758', '<') )
+		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
 		{
 			$installer->remove_config('1400');
 		}
@@ -89,7 +88,7 @@ class guildbankInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall( )
+	function uninstall()
 	{
 		global $installer;
 

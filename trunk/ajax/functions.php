@@ -14,16 +14,16 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage Ajax
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 $ajaxfuncs['menu_button_add'] = array(
-	'file' => ROSTER_AJAX . 'menu.php'
+	'file'=>ROSTER_AJAX . 'menu.php',
 );
 $ajaxfuncs['menu_button_del'] = array(
-	'file' => ROSTER_AJAX . 'menu.php'
+	'file'=>ROSTER_AJAX . 'menu.php',
 );

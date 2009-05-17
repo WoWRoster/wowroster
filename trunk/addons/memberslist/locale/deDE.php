@@ -112,6 +112,7 @@ $lang['admin']['honor_icon']    = 'Ehre Icon|Anzeige des Ehrenrang Icons.';
 $lang['admin']['compress_note'] = 'Kompakte Notiz|Zeige Gildennotiz als Tooltip anstelle innerhalb der Spalte.';
 
 // Settings on Members page
+$lang['admin']['member_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Mitgliederseite';
 $lang['admin']['member_motd']	= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Mitgliederseite';
 $lang['admin']['member_hslist']	= 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Mitgliederseite';
 $lang['admin']['member_pvplist']= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Mitgliederseite<br />Wenn Du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
@@ -128,6 +129,7 @@ $lang['admin']['member_note']   = 'Notiz|Setze die Sichtbarkeit der Notizspalte 
 $lang['admin']['member_onote']  = 'Offizernotiz|Setze die Sichtbarkeit der Offiziernotizspalte auf der Mitgliederseite';
 
 // Settings on Stats page
+$lang['admin']['stats_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Wertelisteseite';
 $lang['admin']['stats_motd']	= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Wertelisteseite';
 $lang['admin']['stats_hslist']  = 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Wertelisteseite';
 $lang['admin']['stats_pvplist']	= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Wertelisteseite<br />Wenn du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
@@ -148,6 +150,7 @@ $lang['admin']['stats_block']   = 'Blocken|Setze die Sichtbarkeit der Blockenspa
 $lang['admin']['stats_crit']    = 'Krit|Setze die Sichtbarkeit der Kritspalte auf der Wertelisteseite';
 
 // Settings on Honor page
+$lang['admin']['honor_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Ehrenstatistikseite';
 $lang['admin']['honor_motd']	= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Ehrenstatistikseite';
 $lang['admin']['honor_hslist']  = 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Ehrenstatistikseite';
 $lang['admin']['honor_pvplist']	= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Ehrenstatistikseite<br />Wenn du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';
@@ -163,6 +166,7 @@ $lang['admin']['honor_hp']      = 'Ehrenpunkte|Setze die Sichtbarkeit der Ehrenp
 $lang['admin']['honor_ap']      = 'Arenapunkte|Setze die Sichtbarkeit der Arenapunktespalte auf der Ehrenstatistikseite';
 
 // Settings on Members page
+$lang['admin']['log_update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Mitglieder Log Seite';
 $lang['admin']['log_motd']		= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Mitglieder Log Seite';
 $lang['admin']['log_hslist']	= 'Ehrensystem Werte|Kontrolliert die Anzeige der Ehrenpunkteliste auf der Mitglieder Log Seite';
 $lang['admin']['log_pvplist']	= 'PvP-Logger Werte|Kontrolliert die Anzeige der PvP-Log Werte auf der Mitglieder Log Seite<br />Wenn du das Hochladen des PvPLog deaktiviert hast, macht es keinen Sinn diese Anzeige zu aktivieren';

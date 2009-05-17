@@ -10,16 +10,16 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    News
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 $roster->auth->setAction('&amp;id=' . $_GET['id']);
 
-if( !$roster->auth->getAuthorized($addon['config']['comm_edit']) )
+if( ! $roster->auth->getAuthorized( $addon['config']['comm_edit'] ) )
 {
 	echo $roster->auth->getLoginForm($addon['config']['comm_edit']);
 
@@ -27,7 +27,9 @@ if( !$roster->auth->getAuthorized($addon['config']['comm_edit']) )
 }
 
 // Display comment
-$query = "SELECT * " . "FROM `" . $roster->db->table('comments', 'news') . "` news " . "WHERE `comment_id` = '" . $_GET['id'] . "';";
+$query = "SELECT * "
+		. "FROM `" . $roster->db->table('comments','news') . "` news "
+		. "WHERE `comment_id` = '" . $_GET['id'] . "';";
 
 $result = $roster->db->query($query);
 
@@ -37,22 +39,23 @@ $roster->output['body_onload'] .= 'initARC(\'editcomment\',\'radioOn\',\'radioOf
 
 // Assign template vars
 $roster->tpl->assign_vars(array(
-	'L_EDIT' => $roster->locale->act['edit'],
-	'L_NAME' => $roster->locale->act['name'],
+	'L_EDIT'         => $roster->locale->act['edit'],
+	'L_NAME'         => $roster->locale->act['name'],
 	'L_EDIT_COMMENT' => $roster->locale->act['edit_comment'],
-	'L_ENABLE_HTML' => $roster->locale->act['enable_html'],
+	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
 	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
 
-	'S_HTML_ENABLE' => false,
-	'S_COMMENT_HTML' => (bool)$comment['html'],
+	'S_HTML_ENABLE'    => false,
+	'S_COMMENT_HTML'   => (bool)$comment['html'],
 
-	'U_EDIT_FORMACTION' => makelink('util-news-comment&amp;id=' . $comment['news_id']),
-	'U_NEWS_ID' => $comment['news_id'],
-	'U_COMMENT_ID' => $comment['comment_id'],
+	'U_EDIT_FORMACTION'   => makelink('util-news-comment&amp;id=' . $comment['news_id']),
+	'U_NEWS_ID'           => $comment['news_id'],
+	'U_COMMENT_ID'        => $comment['comment_id'],
 
-	'CONTENT' => $comment['content'],
-	'AUTHOR' => $comment['author']
-));
+	'CONTENT'       => $comment['content'],
+	'AUTHOR'        => $comment['author'],
+	)
+);
 
 if( $addon['config']['comm_html'] >= 0 && $addon['config']['news_nicedit'] > 0 )
 {
@@ -62,5 +65,5 @@ if( $addon['config']['comm_html'] >= 0 && $addon['config']['news_nicedit'] > 0 )
 </script>';
 }
 
-$roster->tpl->set_handle('body', $addon['basename'] . '/comment_edit.html');
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/comment_edit.html'));
 $roster->tpl->display('body');

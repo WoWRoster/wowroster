@@ -14,17 +14,18 @@
  * @since      File available since Release 1.7.0
  * @package    WoWRoster
  * @subpackage Upgrader
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
 	exit('Detected invalid access to this file!');
 }
 
-if( version_compare($roster->config['version'], ROSTER_VERSION, '>=') )
+if( version_compare($roster->config['version'], ROSTER_VERSION,'>=') )
 {
-	roster_die($roster->locale->act['no_upgrade'], $roster->locale->act['upgrade_wowroster']);
+	roster_die($roster->locale->act['no_upgrade'],$roster->locale->act['upgrade_wowroster']);
 }
+
 
 /**
  * WoWRoster Upgrader
@@ -34,21 +35,14 @@ if( version_compare($roster->config['version'], ROSTER_VERSION, '>=') )
  */
 class Upgrade
 {
-	var $versions = array(
-		'1.9.9',
-		'2.0.0',
-		'2.0.1',
-		'2.0.2',
-		'2.0.9'
-	);
+	var $versions = array('1.9.9','2.0.0','2.0.1','2.0.2','2.0.9');
 	var $index = null;
 
-	function Upgrade( )
+	function Upgrade()
 	{
 		global $roster;
 
 		//$roster->db->error_die(false);
-
 
 		if( isset($_POST['upgrade']) )
 		{
@@ -70,7 +64,7 @@ class Upgrade
 		}
 	}
 
-	function finalize( )
+	function finalize()
 	{
 		global $roster;
 
@@ -83,7 +77,7 @@ class Upgrade
 		}
 		else
 		{
-			roster_die($roster->locale->act['upgrade_complete'], $roster->locale->act['upgrade_wowroster'], 'sgreen');
+			roster_die($roster->locale->act['upgrade_complete'],$roster->locale->act['upgrade_wowroster'],'sgreen');
 		}
 	}
 
@@ -91,15 +85,14 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
-
 	/**
 	 * Upgrades the 2.0.9.x beta versions into the 2.1.0 release
 	 */
-	function upgrade_209( )
+	function upgrade_209()
 	{
 		global $roster;
 
-		if( version_compare($roster->config['version'], '2.0.9.1879', '<') )
+		if( version_compare($roster->config['version'],'2.0.9.1879','<') )
 		{
 			// Quest Data
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('quest_data') . "`;");
@@ -133,7 +126,7 @@ class Upgrade
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
 
-		if( version_compare($roster->config['version'], '2.0.9.1882', '<') )
+		if( version_compare($roster->config['version'],'2.0.9.1882','<') )
 		{
 			// Fix commit 1879 renprefix_ error...oops
 			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_spellbook`;");
@@ -141,7 +134,6 @@ class Upgrade
 			$roster->db->query("DROP TABLE IF EXISTS `renprefix_pet_talenttree`;");
 
 			// And we have to re-add the tables, uhg
-
 
 			// Rename spellbook_pet to pet_spellbook
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('pet_spellbook') . "`;");
@@ -191,13 +183,13 @@ class Upgrade
 		}
 
 		// Add order to pet talents table...I dont know why, since they have one tree
-		if( version_compare($roster->config['version'], '2.0.9.1884', '<') )
+		if( version_compare($roster->config['version'],'2.0.9.1884','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('pet_talenttree') . "` ADD `order` tinyint(4) NOT NULL default '0' AFTER `background`;");
 		}
 
 		// Adding glyphs
-		if( version_compare($roster->config['version'], '2.0.9.1891', '<') )
+		if( version_compare($roster->config['version'],'2.0.9.1891','<') )
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('glyphs') . "`;");
 			$roster->db->query("CREATE TABLE `" . $roster->db->table('glyphs') . "` (
@@ -211,7 +203,7 @@ class Upgrade
 		}
 
 		// Adding companions
-		if( version_compare($roster->config['version'], '2.0.9.1966', '<') )
+		if( version_compare($roster->config['version'],'2.0.9.1966','<') )
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('companions') . "`;");
 			$roster->db->query("CREATE TABLE `" . $roster->db->table('companions') . "` (
@@ -228,12 +220,6 @@ class Upgrade
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
 
-		// Add a new config value, show update instructions on update page
-		if( version_compare($roster->config['version'], '2.0.9.1976', '<') )
-		{
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');");
-		}
-
 		$this->beta_upgrade();
 
 		$this->finalize();
@@ -242,13 +228,12 @@ class Upgrade
 	/**
 	 * Upgrades 2.0.2 to 2.1.0
 	 */
-	function upgrade_202( )
+	function upgrade_202()
 	{
 		global $roster;
 
 		// This will be active when the release is done
 		//$this->standard_upgrader();
-
 
 		$this->finalize();
 	}
@@ -256,7 +241,7 @@ class Upgrade
 	/**
 	 * Upgrades 2.0.1 to 2.0.2
 	 */
-	function upgrade_201( )
+	function upgrade_201()
 	{
 		global $roster;
 
@@ -269,7 +254,7 @@ class Upgrade
 	/**
 	 * Upgrades 2.0.0 to 2.0.1
 	 */
-	function upgrade_200( )
+	function upgrade_200()
 	{
 		global $roster;
 
@@ -281,65 +266,68 @@ class Upgrade
 	/**
 	 * Upgrades the 1.9.9.x beta versions into the 2.0.0 release
 	 */
-	function upgrade_199( )
+	function upgrade_199()
 	{
 		global $roster;
 
-		if( version_compare($roster->config['version'], '1.9.9.1407', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1407','<') )
 		{
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (6, 'versioncache', '', 'hidden', 'master');");
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '168', `form_type` = 'select{Do Not check^0|Once a Day^24|Once a Week^168|Once a Month^720' WHERE `id` = 1150 LIMIT 1;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `wrnet_id` int(4) NOT NULL DEFAULT '0';");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1417', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1417','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('menu') . "` CHANGE `section` `section` varchar(64) NULL DEFAULT NULL;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('menu') . "` ADD UNIQUE `section` ( `section` ) ");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1432', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1432','<') )
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('addon') . "` SET `version` = '1.9.9.1431' WHERE `basename` IN('guildbank','guildinfo','info','keys','memberslist','news','professions','pvplog','questlist');");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1438', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1438','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('mailbox') . "` DROP `item_icon`, DROP `item_name`, DROP `item_quantity`, DROP `item_tooltip`, DROP `item_color`;");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1439', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1439','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('mailbox') . "` ADD `mailbox_icon` varchar(64) NOT NULL DEFAULT '';");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1443', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1443','<') )
 		{
-			$roster->db->query("ALTER TABLE `" . $roster->db->table('players') . "` ADD `melee_expertise` int(11) NOT NULL default '0' AFTER `melee_haste_d`," . " ADD `melee_expertise_c` int(11) NOT NULL default '0' AFTER `melee_expertise`," . " ADD `melee_expertise_b` int(11) NOT NULL default '0' AFTER `melee_expertise_c`," . " ADD `melee_expertise_d` int(11) NOT NULL default '0' AFTER `melee_expertise_b`;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('players') . "` ADD `melee_expertise` int(11) NOT NULL default '0' AFTER `melee_haste_d`,"
+				. " ADD `melee_expertise_c` int(11) NOT NULL default '0' AFTER `melee_expertise`,"
+				. " ADD `melee_expertise_b` int(11) NOT NULL default '0' AFTER `melee_expertise_c`,"
+				. " ADD `melee_expertise_d` int(11) NOT NULL default '0' AFTER `melee_expertise_b`;");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1458', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1458','<') )
 		{
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1180, 'use_temp_tables', '1', 'radio{on^1|off^0', 'main_conf');");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1488', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1488','<') )
 		{
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1055, 'external_auth', 'roster', 'function{externalAuth', 'main_conf');");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1524', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1524','<') )
 		{
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1190, 'enforce_rules', '1', 'radio{on^1|off^0', 'main_conf');");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1541', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1541','<') )
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'select{Never^0|All LUA Updates^1|CP Updates^2|Guild Updates^3' WHERE `id` = 1190 LIMIT 1;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `versioncache` tinytext;");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1556', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1556','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('memberlog') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('members') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
@@ -347,29 +335,29 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` CHANGE `name` `name` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '';");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1567', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1567','<') )
 		{
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8470, 'rs_color_full', '#990000', 'color', 'rs_right');");
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8480, 'rs_color_recommended', '#0033FF', 'color', 'rs_right');");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1585', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1585','<') )
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'radio{extended^2|on^1|off^0' WHERE `id` = 1002;");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1637', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1637','<') )
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'radio{extended^2|on^1|off^0' WHERE `id` = 1001;");
 		}
 
 		/* All that remains of a bad idea... */
-		if( version_compare($roster->config['version'], '1.9.9.1708', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1708','<') )
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('blinds') . "`;");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1715', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1715','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` DROP INDEX `categoriesI`;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` DROP `categories`;");
@@ -377,19 +365,19 @@ class Upgrade
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes') . "` ADD `item_id` VARCHAR(64) NULL AFTER `recipe_id`;");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1717', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1717','<') )
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#646464' WHERE `id` = 8460;");
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (8465, 'rs_color_offline', '#646464', 'color', 'rs_right');");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1754', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1754','<') )
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '2.4.0' WHERE `id` = 1010;");
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '2.4.0' WHERE `id` = 1020;");
 		}
 
-		if( version_compare($roster->config['version'], '1.9.9.1758', '<') )
+		if( version_compare($roster->config['version'],'1.9.9.1758','<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('addon') . "` ADD `access` INT(1) NOT NULL DEFAULT '0' AFTER `active`;");
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('memberlog') . "` ADD `classid` INT(11) NOT NULL DEFAULT '0' AFTER `class`;");
@@ -401,7 +389,7 @@ class Upgrade
 		$this->finalize();
 	}
 
-	function beta_upgrade( )
+	function beta_upgrade()
 	{
 		global $roster;
 
@@ -413,11 +401,11 @@ class Upgrade
 	 * This parses the requested sql file for database upgrade
 	 * Most upgrades will use this function
 	 */
-	function standard_upgrader( )
+	function standard_upgrader()
 	{
 		global $roster;
 
-		$ver = str_replace('.', '', $this->versions[$this->index]);
+		$ver = str_replace('.','',$this->versions[$this->index]);
 
 		$db_structure_file = ROSTER_LIB . 'dbal' . DIR_SEP . 'structure' . DIR_SEP . 'upgrade_' . $ver . '.sql';
 
@@ -439,7 +427,7 @@ class Upgrade
 		}
 		else
 		{
-			roster_die('Could not obtain SQL structure/data', $roster->locale->act['upgrade_wowroster']);
+			roster_die('Could not obtain SQL structure/data',$roster->locale->act['upgrade_wowroster']);
 		}
 
 		$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `id` = '4' LIMIT 1;");
@@ -448,35 +436,41 @@ class Upgrade
 		return;
 	}
 
-	function display_form( )
+	function display_form()
 	{
 		global $roster;
 
 		$this->versions = array_reverse($this->versions);
 
-		foreach( $this->versions as $version )
+		foreach ( $this->versions as $version )
 		{
-			$selected = ($version == $roster->config['version']) ? ' selected="selected"' : '';
+			$selected = ( $version == $roster->config['version'] ) ? ' selected="selected"' : '';
 
 			$roster->tpl->assign_block_vars('version_row', array(
-				'VALUE' => str_replace('.', '', $version),
+				'VALUE'    => str_replace('.', '', $version),
 				'SELECTED' => $selected,
-				'OPTION' => 'WoWRoster ' . $version
-			));
+				'OPTION'   => 'WoWRoster ' . $version
+				)
+			);
 		}
 
-		$roster->tpl->assign_var('U_UPGRADE', makelink('upgrade'));
+		$roster->tpl->assign_vars(array(
+			'U_UPGRADE'        => makelink('upgrade'),
+			)
+		);
 
 		$roster->output['title'] = $roster->locale->act['upgrade_wowroster'];
 
-		include (ROSTER_BASE . 'header.php');
+		include(ROSTER_BASE . 'header.php');
 
-		$roster->tpl->set_handle('body', 'upgrade.html');
+		$roster->tpl->set_filenames(array('body' => 'upgrade.html'));
 		$roster->tpl->display('body');
 
-		include (ROSTER_BASE . 'footer.php');
+		include(ROSTER_BASE . 'footer.php');
 	}
 }
+
+
 
 /**
  * Removes comments from a SQL data file
@@ -484,26 +478,26 @@ class Upgrade
  * @param    string  $sql    SQL file contents
  * @return   string
  */
-function remove_remarks( $sql )
+function remove_remarks($sql)
 {
 	global $roster;
 
-	if( $sql == '' )
+	if ( $sql == '' )
 	{
-		roster_die('Could not obtain SQL structure/data', $roster->locale->act['upgrade_wowroster']);
+		roster_die('Could not obtain SQL structure/data',$roster->locale->act['upgrade_wowroster']);
 	}
 
 	$retval = '';
-	$lines = explode("\n", $sql);
+	$lines  = explode("\n", $sql);
 	unset($sql);
 
-	foreach( $lines as $line )
+	foreach ( $lines as $line )
 	{
 		// Only parse this line if there's something on it, and we're not on the last line
-		if( strlen($line) > 0 )
+		if ( strlen($line) > 0 )
 		{
 			// If '#' is the first character, strip the line
-			$retval .= (substr($line, 0, 1) != '#') ? $line . "\n" : "\n";
+			$retval .= ( substr($line, 0, 1) != '#' ) ? $line . "\n" : "\n";
 		}
 	}
 	unset($lines, $line);
@@ -518,23 +512,23 @@ function remove_remarks( $sql )
  * @param    char    $delim  End-of-statement SQL delimiter
  * @return   array
  */
-function parse_sql( $sql , $delim )
+function parse_sql($sql, $delim)
 {
 	global $roster;
 
-	if( $sql == '' )
+	if ( $sql == '' )
 	{
-		roster_die('Could not obtain SQL structure/data', $roster->locale->act['upgrade_wowroster']);
+		roster_die('Could not obtain SQL structure/data',$roster->locale->act['upgrade_wowroster']);
 	}
 
-	$retval = array();
+	$retval     = array();
 	$statements = explode($delim, $sql);
 	unset($sql);
 
 	$linecount = count($statements);
-	for( $i = 0; $i < $linecount; $i++ )
+	for ( $i = 0; $i < $linecount; $i++ )
 	{
-		if( ($i != $linecount - 1) || (strlen($statements[$i]) > 0) )
+		if ( ($i != $linecount - 1) || (strlen($statements[$i]) > 0) )
 		{
 			$statements[$i] = trim($statements[$i]);
 			$statements[$i] = str_replace("\r\n", '', $statements[$i]) . "\n";

@@ -14,17 +14,17 @@
  * @since      File available since Release 1.7.0
  * @package    WoWRoster
  * @subpackage Install
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Direct access to install.php is not allowed. Please go to index.php to install.');
+    exit('Direct access to install.php is not allowed. Please go to index.php to install.');
 }
 
 // Get the config file
 if( file_exists(ROSTER_BASE . 'conf.php') )
 {
-	include_once (ROSTER_BASE . 'conf.php');
+	include_once(ROSTER_BASE . 'conf.php');
 }
 
 /**
@@ -33,12 +33,12 @@ if( file_exists(ROSTER_BASE . 'conf.php') )
  * And since we don't want to include cmslink.lib.php, this will have to do
  * Blank should be fine
  */
-define('ROSTER_PATH', '');
+define('ROSTER_PATH','');
 
 // ---------------------------------------------------------
 // Template Wrap class
 // ---------------------------------------------------------
-if( !include_once (ROSTER_LIB . 'template.php') )
+if( !include_once(ROSTER_LIB . 'template.php') )
 {
 	die('Could not include lib/template.php - check to make sure that the file exists!');
 }
@@ -52,13 +52,12 @@ if( !include_once (ROSTER_LIB . 'template.php') )
  */
 class Template_Wrap extends RosterTemplate
 {
-	var $error_message = array(); // Array of errors      @var $error_message
-	var $install_message = array(); // Array of messages    @var $install_message
-	var $header_inc = false; // Printed header?      @var $header_inc
-	var $tail_inc = false; // Printed footer?      @var $tail_inc
+	var $error_message   = array();           // Array of errors      @var $error_message
+	var $install_message = array();           // Array of messages    @var $install_message
+	var $header_inc      = false;             // Printed header?      @var $header_inc
+	var $tail_inc        = false;             // Printed footer?      @var $tail_inc
 
-
-	function Template_Wrap( )
+	function Template_Wrap()
 	{
 		if( !is_dir(ROSTER_TPLDIR . 'install') )
 		{
@@ -68,11 +67,12 @@ class Template_Wrap extends RosterTemplate
 		$this->tpl = 'install';
 
 		$this->assign_vars(array(
-			'MSG_TITLE' => '',
-			'MSG_TEXT' => '',
-			'S_SQL' => false,
+			'MSG_TITLE'    => '',
+			'MSG_TEXT'     => '',
+			'S_SQL'        => false,
 			'U_QUERYCOUNT' => 0
-		));
+			)
+		);
 
 		//$this->_tpldata['.'][0]['REQUEST_URI'] = str_replace('&', '&amp;', substr(request_uri(),strlen(ROSTER_PATH)));
 		$this->root = ROSTER_TPLDIR . $this->tpl;
@@ -85,11 +85,12 @@ class Template_Wrap extends RosterTemplate
 		$this->install_message = array();
 
 		$this->assign_vars(array(
-			'MSG_TITLE' => ($title != '') ? $title : '&nbsp;',
-			'MSG_TEXT' => ($text != '') ? $text : '&nbsp;'
-		));
+			'MSG_TITLE' => ( $title != '' ) ? $title : '&nbsp;',
+			'MSG_TEXT'  => ( $text  != '' ) ? $text  : '&nbsp;'
+			)
+		);
 
-		if( !$this->header_inc )
+		if ( !$this->header_inc )
 		{
 			$this->page_header();
 		}
@@ -99,7 +100,7 @@ class Template_Wrap extends RosterTemplate
 
 	function message_append( $message )
 	{
-		$this->install_message[sizeof($this->install_message) + 1] = $message;
+		$this->install_message[ sizeof($this->install_message) + 1 ] = $message;
 	}
 
 	function message_out( $die = false )
@@ -112,20 +113,21 @@ class Template_Wrap extends RosterTemplate
 		if( $die )
 		{
 			$this->install_message = '';
-			$this->message_die($install_message, 'Installation ' . ((sizeof($this->install_message) == 1) ? 'Note' : 'Notes'));
+			$this->message_die($install_message, 'Installation ' . (( sizeof($this->install_message) == 1 ) ? 'Note' : 'Notes'));
 		}
 		else
 		{
 			$this->assign_vars(array(
-				'MSG_TITLE' => 'Installation ' . ((sizeof($this->install_message) == 1) ? 'Note' : 'Notes'),
-				'MSG_TEXT' => $install_message
-			));
+				'MSG_TITLE' => 'Installation ' . (( sizeof($this->install_message) == 1 ) ? 'Note' : 'Notes'),
+				'MSG_TEXT'  => $install_message
+				)
+			);
 		}
 	}
 
 	function error_append( $error )
 	{
-		$this->error_message[(sizeof($this->error_message) + 1)] = $error;
+		$this->error_message[ (sizeof($this->error_message) + 1) ] = $error;
 	}
 
 	function error_out( $die = false )
@@ -137,33 +139,35 @@ class Template_Wrap extends RosterTemplate
 
 		if( $die )
 		{
-			$this->message_die($error_message, 'Installation ' . ((sizeof($this->error_message) == 1) ? 'Error' : 'Errors'));
+			$this->message_die($error_message, 'Installation ' . (( sizeof($this->error_message) == 1 ) ? 'Error' : 'Errors'));
 		}
 		else
 		{
 			$this->assign_vars(array(
-				'MSG_TITLE' => 'Installation ' . ((sizeof($this->error_message) == 1) ? 'Error' : 'Errors'),
-				'MSG_TEXT' => $error_message
-			));
+				'MSG_TITLE' => 'Installation ' . (( sizeof($this->error_message) == 1 ) ? 'Error' : 'Errors'),
+				'MSG_TEXT'  => $error_message
+				)
+			);
 		}
 	}
 
-	function page_header( )
+	function page_header()
 	{
 		global $STEP;
 
 		$this->header_inc = true;
 
 		$this->assign_vars(array(
-			'INSTALL_STEP' => $STEP,
+			'INSTALL_STEP'  => $STEP,
 			'TEMPLATE_PATH' => 'templates/install',
-			'FORMACTION' => 'index.php'
-		));
+			'FORMACTION'    => 'index.php'
+			)
+		);
 
 		$this->set_handle('header', 'install_header.html');
 	}
 
-	function page_tail( )
+	function page_tail()
 	{
 		global $DEFAULTS, $db;
 
@@ -182,10 +186,11 @@ class Template_Wrap extends RosterTemplate
 		}
 
 		$this->assign_vars(array(
-			'S_SHOW_DEBUG' => true,
-			'U_RENDERTIME' => substr(format_microtime() - ROSTER_STARTTIME, 0, 5),
-			'ROSTER_VERSION' => $DEFAULTS['version']
-		));
+			'S_SHOW_DEBUG'   => true,
+			'U_RENDERTIME'   => substr(format_microtime() - ROSTER_STARTTIME, 0, 5),
+			'ROSTER_VERSION' => $DEFAULTS['version'],
+			)
+		);
 
 		if( is_object($db) )
 		{
@@ -199,23 +204,23 @@ class Template_Wrap extends RosterTemplate
 		// BETA ONLY, COMMENT THIS IN RC OR LATER!
 		if( file_exists(ROSTER_BASE . 'valid.inc') )
 		{
-			include (ROSTER_BASE . 'valid.inc');
+			include(ROSTER_BASE . 'valid.inc');
 		}
 		// END BETA ONLY
-
 
 		$this->display('body');
 		$this->display('footer');
 
-		exit();
+		exit;
 	}
 
-	function sql_output( $db = NULL )
+	function sql_output( $db=NULL )
 	{
 		$this->assign_vars(array(
 			'U_QUERYCOUNT' => is_object($db) ? $db->query_count : 0,
-			'S_SQL' => is_object($db) ? true : false
-		));
+			'S_SQL'        => is_object($db) ? true : false
+			)
+		);
 
 		if( is_object($db) )
 		{
@@ -226,7 +231,8 @@ class Template_Wrap extends RosterTemplate
 					$this->assign_block_vars('sql_row', array(
 						'TIME' => $query['time'],
 						'TEXT' => nl2br(htmlentities($query['query']))
-					));
+						)
+					);
 				}
 			}
 
@@ -234,7 +240,7 @@ class Template_Wrap extends RosterTemplate
 	}
 }
 
-$STEP = (isset($_POST['install_step']) ? $_POST['install_step'] : '0');
+$STEP = ( isset($_POST['install_step']) ? $_POST['install_step'] : '0' );
 
 // If Roster is already installed, don't let them install it again
 if( defined('ROSTER_INSTALLED') )
@@ -248,29 +254,29 @@ if( defined('ROSTER_INSTALLED') )
 if( (isset($_GET['mode'])) && ($_GET['mode'] == 'phpinfo') )
 {
 	phpinfo();
-	exit();
+	exit;
 }
 
 // System defaults / available database abstraction layers
 $DEFAULTS = array(
-	'version' => ROSTER_VERSION,
-	'default_lang' => 'enUS',
-	'table_prefix' => 'roster_',
-	'dbal' => 'mysql'
+	'version'        => ROSTER_VERSION,
+	'default_lang'   => 'enUS',
+	'table_prefix'   => 'roster_',
+	'dbal'           => 'mysql'
 );
 
 $REQUIRE = array(
-	'php_version' => '4.3.0',
-	'mysql_version' => '4.1.0'
+	'php_version'    => '4.3.0',
+	'mysql_version'  => '4.1.0'
 );
 
 // Database settings
 $DBALS = array(
 	'mysql' => array(
-		'label' => 'MySQL 4.1.x / 5',
-		'structure' => 'mysql',
-		'comments' => 'remove_remarks',
-		'delim' => ';',
+		'label'       => 'MySQL 4.1.x / 5',
+		'structure'   => 'mysql',
+		'comments'    => 'remove_remarks',
+		'delim'       => ';',
 		'delim_basic' => ';'
 	)
 );
@@ -278,22 +284,22 @@ $DBALS = array(
 // Set locales
 $LOCALES = array(
 	'English' => array(
-		'label' => 'English',
-		'type' => 'enUS'
-	),
-	'German' => array(
+		'label'	=> 'English',
+		'type'	=> 'enUS'
+		),
+	'German'  => array(
 		'label' => 'German',
-		'type' => 'deDE'
-	),
-	'French' => array(
+		'type'	=> 'deDE'
+		),
+	'French'  => array(
 		'label' => 'French',
-		'type' => 'frFR'
-	),
-	'Spanish' => array(
+		'type'	=> 'frFR'
+		),
+	'Spanish'  => array(
 		'label' => 'Spanish',
-		'type' => 'esES'
-	)
-);
+		'type'	=> 'esES'
+		)
+	);
 
 /**
  * Figure out what we're doing...
@@ -323,7 +329,7 @@ switch( $STEP )
 /**
  * And do it
  */
-function process_step0( )
+function process_step0()
 {
 	$tpl = new Template_Wrap();
 	$tpl->set_handle('body', 'install_step0.html');
@@ -334,7 +340,7 @@ function process_step0( )
 		if( function_exists('readgzfile') )
 		{
 			ob_start();
-			readgzfile(ROSTER_BASE . 'license.txt');
+				readgzfile(ROSTER_BASE . 'license.txt');
 			$content = ob_get_clean();
 			$tpl->assign_var('LICENSE', $content);
 		}
@@ -353,7 +359,7 @@ function process_step0( )
 	$tpl->page_tail();
 }
 
-function process_step1( )
+function process_step1()
 {
 	global $DEFAULTS, $REQUIRE;
 
@@ -432,10 +438,10 @@ function process_step1( )
 	/**
 	 * Roster versions
 	 */
-	$our_roster_version = $DEFAULTS['version'];
+	$our_roster_version   = $DEFAULTS['version'];
 	$their_roster_version = 'Unknown';
 
-	$location = str_replace('http://www.wowroster.net', '', ROSTER_UPDATECHECK);
+	$location = str_replace('http://www.wowroster.net','',ROSTER_UPDATECHECK);
 
 	$sh = @fsockopen('wowroster.net', 80, $errno, $error, 5);
 	if( !$sh )
@@ -458,20 +464,20 @@ function process_step1( )
 	@fclose($sh);
 
 	// Roster Versions
-	$our_roster_version = ((version_compare($our_roster_version, $their_roster_version, '>=')) ? '<span class="positive">' : '<span class="negative">') . $our_roster_version . '</span>';
+	$our_roster_version = (( version_compare($our_roster_version, $their_roster_version, '>=') ) ? '<span class="positive">' : '<span class="negative">') . $our_roster_version . '</span>';
 
 	// PHP Versions
-	$our_php_version = ((phpversion() >= $REQUIRE['php_version']) ? '<span class="positive">' : '<span class="negative">') . phpversion() . '</span>';
+	$our_php_version   = (( phpversion() >= $REQUIRE['php_version'] ) ? '<span class="positive">' : '<span class="negative">') . phpversion() . '</span>';
 	$their_php_version = $REQUIRE['php_version'] . ' +';
 
 	// Modules
-	$our_mysql = (extension_loaded('mysql')) ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
+	$our_mysql   = ( extension_loaded('mysql') ) ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
 	// Required?
-	$their_mysql = $REQUIRE['mysql_version'] . ' +';
+    $their_mysql = $REQUIRE['mysql_version'] . ' +';
 
-	$our_gd = (function_exists('imageTTFBBox') && function_exists('imageTTFText') && function_exists('imagecreatetruecolor')) ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
-	// Required?
-	$their_gd = 'Optional';
+    $our_gd    = ( function_exists('imageTTFBBox') && function_exists('imageTTFText') && function_exists('imagecreatetruecolor') )  ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
+    // Required?
+    $their_gd  = 'Optional';
 
 	if( (phpversion() < $REQUIRE['php_version']) || (!extension_loaded('mysql')) )
 	{
@@ -486,23 +492,24 @@ function process_step1( )
 	 * Output the page
 	 */
 	$tpl->assign_vars(array(
-		'OUR_ROSTER_VERSION' => $our_roster_version,
+		'OUR_ROSTER_VERSION'   => $our_roster_version,
 		'THEIR_ROSTER_VERSION' => $their_roster_version,
-		'OUR_PHP_VERSION' => $our_php_version,
-		'THEIR_PHP_VERSION' => $their_php_version,
-		'OUR_MYSQL' => $our_mysql,
-		'THEIR_MYSQL' => $their_mysql,
-		'CACHE_WRITE' => $cache_write,
-		'CACHE_TIP' => $cache_write_t,
-		'OUR_GD' => $our_gd,
-		'THEIR_GD' => $their_gd
-	));
+		'OUR_PHP_VERSION'      => $our_php_version,
+		'THEIR_PHP_VERSION'    => $their_php_version,
+		'OUR_MYSQL'            => $our_mysql,
+		'THEIR_MYSQL'          => $their_mysql,
+		'CACHE_WRITE'          => $cache_write,
+		'CACHE_TIP'            => $cache_write_t,
+		'OUR_GD'               => $our_gd,
+		'THEIR_GD'             => $their_gd
+		)
+	);
 
 	$tpl->page_header();
 	$tpl->page_tail();
 }
 
-function process_step2( )
+function process_step2()
 {
 	global $DEFAULTS, $DBALS, $LOCALES;
 
@@ -512,16 +519,17 @@ function process_step2( )
 	/**
 	 * Build the default language drop-down
 	 */
-	foreach( $LOCALES as $locale_type => $locale_desc )
-	{
-		if( file_exists(ROSTER_BASE . 'localization' . DIR_SEP . $locale_desc['type'] . '.php') )
-		{
-			$tpl->assign_block_vars('locale_row', array(
-				'VALUE' => $locale_desc['type'],
-				'OPTION' => $locale_type
-			));
-		}
-	}
+    foreach( $LOCALES as $locale_type => $locale_desc )
+    {
+    	if( file_exists(ROSTER_BASE . 'localization' . DIR_SEP . $locale_desc['type'] . '.php') )
+    	{
+	        $tpl->assign_block_vars('locale_row', array(
+	            'VALUE'  => $locale_desc['type'],
+	            'OPTION' => $locale_type,
+	            )
+	        );
+    	}
+    }
 
 	/**
 	 * Build the database drop-down
@@ -529,14 +537,15 @@ function process_step2( )
 	foreach( $DBALS as $db_type => $db_options )
 	{
 		$tpl->assign_block_vars('dbal_row', array(
-			'VALUE' => $db_type,
+			'VALUE'  => $db_type,
 			'OPTION' => $db_options['label']
-		));
+			)
+		);
 	}
 
-	/**
-	 * Determine server settings
-	 */
+    /**
+     * Determine server settings
+     */
 	if( !empty($_SERVER['SERVER_NAME']) || !empty($_ENV['SERVER_NAME']) )
 	{
 		$server_name = 'http://' . ((!empty($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : $_ENV['SERVER_NAME']);
@@ -556,16 +565,17 @@ function process_step2( )
 	 * Output the page
 	 */
 	$tpl->assign_vars(array(
-		'DB_HOST' => 'localhost',
+		'DB_HOST'      => 'localhost',
 		'TABLE_PREFIX' => $DEFAULTS['table_prefix'],
-		'SERVER_NAME' => $server_name
-	));
+        'SERVER_NAME'  => $server_name
+		)
+	);
 
 	$tpl->page_header();
 	$tpl->page_tail();
 }
 
-function process_step3( )
+function process_step3()
 {
 	global $DEFAULTS, $DBALS, $LOCALES, $REQUIRE;
 
@@ -575,19 +585,20 @@ function process_step3( )
 	/**
 	 * Get our posted data
 	 */
-	$db_config['dbtype'] = post_or_db('dbtype');
-	$db_config['host'] = post_or_db('dbhost');
-	$db_config['database'] = post_or_db('dbname');
-	$db_config['username'] = post_or_db('dbuser');
-	$db_config['password'] = post_or_db('dbpass');
+	$db_config['dbtype']       = post_or_db('dbtype');
+	$db_config['host']         = post_or_db('dbhost');
+	$db_config['database']     = post_or_db('dbname');
+	$db_config['username']     = post_or_db('dbuser');
+	$db_config['password']     = post_or_db('dbpass');
 	$db_config['table_prefix'] = post_or_db('table_prefix', $DEFAULTS);
-	$default_locale = post_or_db('default_lang', $DEFAULTS);
-	$server_name = post_or_db('server_name');
+    $default_locale            = post_or_db('default_lang', $DEFAULTS);
+    $server_name               = post_or_db('server_name');
 
-	$create['username'] = post_or_db('dbuser_c');
-	$create['password'] = post_or_db('dbpass_c');
+	$create['username']     = post_or_db('dbuser_c');
+	$create['password']     = post_or_db('dbpass_c');
 
-	define('ROSTER_DB_DIR', ROSTER_LIB . 'dbal' . DIR_SEP);
+
+	define('ROSTER_DB_DIR',  ROSTER_LIB . 'dbal' . DIR_SEP);
 
 	$dbal_file = ROSTER_DB_DIR . $db_config['dbtype'] . '.php';
 	if( !file_exists($dbal_file) )
@@ -598,15 +609,15 @@ function process_step3( )
 	/**
 	 * Database population
 	 */
-	include_once ($dbal_file);
+	include_once($dbal_file);
 
 	// Hey, looks like we are making the database, YAY!
 	if( $create['username'] != '' && $create['password'] != '' )
 	{
-		include_once ($dbal_file);
+		include_once($dbal_file);
 		$db = new roster_db($db_config['host'], '', $create['username'], $create['password']);
 		$db->query("CREATE DATABASE IF NOT EXISTS `" . $db_config['database'] . "`;");
-		unset($db, $create);
+		unset($db,$create);
 	}
 
 	// Try to connect
@@ -618,11 +629,12 @@ function process_step3( )
 	if( !is_resource($db->link_id) )
 	{
 		// Attempt to
-		$tpl->message_die('Failed to connect to database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />' . '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
+		$tpl->message_die('Failed to connect to database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />'
+			. '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
 	}
 
 	$db_structure_file = ROSTER_DB_DIR . 'structure' . DIR_SEP . $db_config['dbtype'] . '_structure.sql';
-	$db_data_file = ROSTER_DB_DIR . 'structure' . DIR_SEP . $db_config['dbtype'] . '_data.sql';
+	$db_data_file      = ROSTER_DB_DIR . 'structure' . DIR_SEP . $db_config['dbtype'] . '_data.sql';
 
 	$remove_remarks_function = $DBALS[$db_config['dbtype']]['comments'];
 
@@ -640,7 +652,7 @@ function process_step3( )
 			</ul>
 			Your server meets the MySQL requirements for Roster.');
 
-		if( version_compare($server_version, $REQUIRE['mysql_version'], '<') )
+		if( version_compare($server_version,$REQUIRE['mysql_version'],'<') )
 		{
 			$tpl->message_die('MySQL server version ' . $REQUIRE['mysql_version'] . ' or higher is required for Roster.<br /><br />
 				<strong>You are running:</strong>
@@ -653,7 +665,8 @@ function process_step3( )
 	}
 	else
 	{
-		$tpl->message_die('Failed to get version information for database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />' . '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
+		$tpl->message_die('Failed to get version information for database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />'
+			. '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
 	}
 
 	// Parse structure file and create database tables
@@ -712,28 +725,28 @@ function process_step3( )
 	/**
 	 * Update some config settings
 	 */
-	$db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '$default_locale' WHERE `config_name` = 'locale';");
-	$db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `config_name` = 'version';");
-	$db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '$server_name' WHERE `config_name` = 'website_address';");
+    $db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '$default_locale' WHERE `config_name` = 'locale';");
+    $db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '" . ROSTER_VERSION . "' WHERE `config_name` = 'version';");
+    $db->query("UPDATE `" . $db->table('config') . "` SET `config_value` = '$server_name' WHERE `config_name` = 'website_address';");
 
 	/**
 	 * Write the config file
 	 */
-	$config_file = "<?php\n";
+	$config_file  = "<?php\n";
 	$config_file .= "/**\n * AUTO-GENERATED CONF FILE\n * DO NOT EDIT !!!\n */\n\n";
-	$config_file .= "\$db_config['host']         = " . var_export($db_config['host'], true) . ";\n";
-	$config_file .= "\$db_config['username']     = " . var_export($db_config['username'], true) . ";\n";
-	$config_file .= "\$db_config['password']     = " . var_export($db_config['password'], true) . ";\n";
-	$config_file .= "\$db_config['database']     = " . var_export($db_config['database'], true) . ";\n";
-	$config_file .= "\$db_config['table_prefix'] = " . var_export($db_config['table_prefix'], true) . ";\n";
-	$config_file .= "\$db_config['dbtype']       = " . var_export($db_config['dbtype'], true) . ";\n";
+	$config_file .= "\$db_config['host']         = " . var_export($db_config['host'],true)         . ";\n";
+	$config_file .= "\$db_config['username']     = " . var_export($db_config['username'],true)     . ";\n";
+	$config_file .= "\$db_config['password']     = " . var_export($db_config['password'],true)     . ";\n";
+	$config_file .= "\$db_config['database']     = " . var_export($db_config['database'],true)     . ";\n";
+	$config_file .= "\$db_config['table_prefix'] = " . var_export($db_config['table_prefix'],true) . ";\n";
+	$config_file .= "\$db_config['dbtype']       = " . var_export($db_config['dbtype'],true)       . ";\n";
 
 	// Set our permissions to execute-only
 	@umask(0111);
 
 	if( !$fp = @fopen('conf.php', 'w') )
 	{
-		$error_message = 'The <strong>conf.php</strong> file couldn\'t be opened for writing.  Paste the following in to conf.php and save the file to continue:<br /><pre>' . htmlspecialchars($config_file) . '</pre>';
+		$error_message  = 'The <strong>conf.php</strong> file couldn\'t be opened for writing.  Paste the following in to conf.php and save the file to continue:<br /><pre>' . htmlspecialchars($config_file) . '</pre>';
 		$tpl->error_append($error_message);
 	}
 	else
@@ -752,7 +765,7 @@ function process_step3( )
 	$tpl->page_tail();
 }
 
-function process_step4( )
+function process_step4()
 {
 	global $DEFAULTS;
 
@@ -768,17 +781,17 @@ function process_step4( )
 	/**
 	 * Update admin account
 	 */
-	include (ROSTER_BASE . 'conf.php');
-	define('ROSTER_DB_DIR', ROSTER_LIB . 'dbal' . DIR_SEP);
+	include(ROSTER_BASE . 'conf.php');
+	define('ROSTER_DB_DIR',  ROSTER_LIB . 'dbal' . DIR_SEP);
 
 	switch( $db_config['dbtype'] )
 	{
 		case 'mysql':
-			include_once (ROSTER_DB_DIR . 'mysql.php');
+			include_once(ROSTER_DB_DIR . 'mysql.php');
 			break;
 
 		default:
-			include_once (ROSTER_DB_DIR . 'mysql.php');
+			include_once(ROSTER_DB_DIR . 'mysql.php');
 			break;
 	}
 
@@ -828,7 +841,7 @@ function process_step4( )
 
 	if( !$fp = @fopen('conf.php', 'w') )
 	{
-		$error_message = 'The <strong>conf.php</strong> file couldn\'t be opened for writing.<br />Paste the following in to conf.php and save the file to continue:<br /><pre>' . htmlspecialchars($config_file) . '</pre>';
+		$error_message  = 'The <strong>conf.php</strong> file couldn\'t be opened for writing.<br />Paste the following in to conf.php and save the file to continue:<br /><pre>' . htmlspecialchars($config_file) . '</pre>';
 		$tpl->error_append($error_message);
 	}
 	else
@@ -852,6 +865,7 @@ function process_step4( )
 	$tpl->page_tail();
 }
 
+
 // ---------------------------------------------------------
 // Functions!
 // ---------------------------------------------------------
@@ -869,9 +883,9 @@ function process_step4( )
  */
 function post_or_db( $post_field , $db_row = array() , $db_field = '' )
 {
-	if( @sizeof($db_row) > 0 )
+	if ( @sizeof($db_row) > 0 )
 	{
-		if( $db_field == '' )
+		if ( $db_field == '' )
 		{
 			$db_field = $post_field;
 		}
@@ -882,7 +896,7 @@ function post_or_db( $post_field , $db_row = array() , $db_field = '' )
 	{
 		$db_value = '';
 	}
-	return ((isset($_POST[$post_field])) || (!empty($_POST[$post_field]))) ? $_POST[$post_field] : $db_value;
+	return( (isset($_POST[$post_field])) || (!empty($_POST[$post_field])) ) ? $_POST[$post_field] : $db_value;
 }
 
 /**
@@ -891,7 +905,7 @@ function post_or_db( $post_field , $db_row = array() , $db_field = '' )
  * @param    string  $sql    SQL file contents
  * @return   string
  */
-function remove_remarks( $sql )
+function remove_remarks($sql)
 {
 	if( $sql == '' )
 	{
@@ -899,16 +913,16 @@ function remove_remarks( $sql )
 	}
 
 	$retval = '';
-	$lines = explode("\n", $sql);
+	$lines  = explode("\n", $sql);
 	unset($sql);
 
 	foreach( $lines as $line )
 	{
 		// Only parse this line if there's something on it, and we're not on the last line
-		if( strlen($line) > 0 )
+		if ( strlen($line) > 0 )
 		{
 			// If '#' is the first character, strip the line
-			$retval .= (substr($line, 0, 1) != '#') ? $line . "\n" : "\n";
+			$retval .= ( substr($line, 0, 1) != '#' ) ? $line . "\n" : "\n";
 		}
 	}
 	unset($lines, $line);
@@ -925,12 +939,12 @@ function remove_remarks( $sql )
  */
 function parse_sql( $sql , $delim )
 {
-	if( $sql == '' )
+	if ( $sql == '' )
 	{
 		die('Could not obtain SQL structure/data');
 	}
 
-	$retval = array();
+	$retval     = array();
 	$statements = explode($delim, $sql);
 	unset($sql);
 

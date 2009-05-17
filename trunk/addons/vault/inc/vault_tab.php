@@ -14,14 +14,14 @@
  * @since      File available since Release 1.03
  * @package    Vault
  * @subpackage VaultTab
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_LIB . 'item.php');
+require_once( ROSTER_LIB . 'item.php');
 
 /**
  * Vault Tab class, extends item class
@@ -49,26 +49,25 @@ class VaultTab extends VaultItem
 
 		// Select all item for this bag
 
-
 		$returnstring .= '<div class="itemcol1">' . "\n";
 
 		$icon_num = 0;
-		for( $slot = 0; $slot < $this->data['item_quantity']; $slot++ )
+		for( $slot = 0; $slot < $this->data['item_quantity'] ; $slot++ )
 		{
-			if( $icon_num != 0 && $icon_num % 7 == 0 )
+			if( $icon_num != 0 && $icon_num%7 == 0 )
 			{
-				$returnstring .= "</div>\n<div class=\"itemcol" . ($icon_num % 2 == 0 ? '1' : '2') . "\">\n";
+				$returnstring .= "</div>\n<div class=\"itemcol" . ($icon_num%2 == 0 ? '1' : '2') . "\">\n";
 			}
 
 			if( $slot < 0 )
 			{
-				$returnstring .= '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
+				$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
 			}
 			else
 			{
-				if( isset($this->contents[$slot + 1]) )
+				if( isset($this->contents[$slot+1]) )
 				{
-					$item = $this->contents[$slot + 1];
+					$item = $this->contents[$slot+1];
 
 					$returnstring .= '<div class="item" ' . $item->tpl_get_tooltip() . $item->tpl_get_itemlink() . '><img src="' . $item->tpl_get_icon() . '" class="icon" alt="" />';
 					if( $item->quantity > 1 )
@@ -80,7 +79,7 @@ class VaultTab extends VaultItem
 				}
 				else
 				{
-					$returnstring .= '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
+					$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
 				}
 			}
 			$icon_num++;
@@ -92,12 +91,12 @@ class VaultTab extends VaultItem
 	}
 }
 
-function vault_tab_get( $guild_id , $slot )
+function vault_tab_get( $guild_id, $slot )
 {
-	$item = VaultItem::fetchOneItem($guild_id, $slot);
+	$item = VaultItem::fetchOneItem( $guild_id, $slot );
 	if( $item )
 	{
-		return new VaultTab($item->data);
+		return new VaultTab( $item->data );
 	}
 	else
 	{

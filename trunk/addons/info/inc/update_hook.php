@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
  * @subpackage UpdateHook
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -27,10 +27,11 @@ if( !defined('IN_ROSTER') )
  */
 class infoUpdate
 {
-	var $messages = ''; // Update messages
-	var $data = array(); // Addon config data automatically pulled from the addon_config table
+	var $messages = '';		// Update messages
+	var $data = array();	// Addon config data automatically pulled from the addon_config table
 	var $files = array();
 	var $disp_defaults = array();
+
 
 	/**
 	 * Class instantiation
@@ -45,7 +46,7 @@ class infoUpdate
 
 		$this->data = $data;
 
-		$query = "SELECT * FROM `" . $roster->db->table('default', $this->data['basename']) . "`;";
+		$query = "SELECT * FROM `" . $roster->db->table('default',$this->data['basename']) . "`;";
 
 		$result = $roster->db->query($query);
 		$this->disp_defaults = $roster->db->fetch_all($result, SQL_ASSOC);
@@ -63,7 +64,7 @@ class infoUpdate
 	{
 		global $roster;
 
-		$query = "SELECT `member_id` FROM `" . $roster->db->table('display', $this->data['basename']) . "` WHERE `member_id` = '$member_id';";
+		$query = "SELECT `member_id` FROM `" . $roster->db->table('display',$this->data['basename']) . "` WHERE `member_id` = '$member_id';";
 
 		$result = $roster->db->query($query);
 
@@ -80,7 +81,7 @@ class infoUpdate
 		{
 			$query = $this->disp_defaults;
 			$query['member_id'] = $member_id;
-			$querystr = "INSERT INTO `" . $roster->db->table('display', $this->data['basename']) . "` " . $roster->db->build_query('INSERT', $query) . ";";
+			$querystr = "INSERT INTO `" . $roster->db->table('display',$this->data['basename']) . "` " . $roster->db->build_query('INSERT',$query) . ";";
 
 			if( !$roster->db->query($querystr) )
 			{
@@ -88,6 +89,7 @@ class infoUpdate
 				return false;
 			}
 		}
+
 
 		return true;
 	}
@@ -103,7 +105,10 @@ class infoUpdate
 	{
 		global $roster;
 
-		$query = "DELETE `" . $roster->db->table('display', $this->data['basename']) . "`" . " FROM `" . $roster->db->table('display', $this->data['basename']) . "`" . " LEFT JOIN `" . $roster->db->table('players') . "` USING (`member_id`)" . " WHERE `" . $roster->db->table('players') . "`.`member_id` IS NULL;";
+		$query = "DELETE `" . $roster->db->table('display',$this->data['basename']) . "`"
+			   . " FROM `" . $roster->db->table('display',$this->data['basename']) . "`"
+			   . " LEFT JOIN `" . $roster->db->table('players') . "` USING (`member_id`)"
+			   . " WHERE `" . $roster->db->table('players') . "`.`member_id` IS NULL;";
 
 		if( $roster->db->query($query) )
 		{
@@ -121,7 +126,7 @@ class infoUpdate
 	/**
 	 * Resets addon messages
 	 */
-	function reset_messages( )
+	function reset_messages()
 	{
 		$this->messages = '';
 	}

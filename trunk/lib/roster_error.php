@@ -14,11 +14,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage ErrorControl
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 if( !defined('E_STRICT') )
@@ -43,7 +43,7 @@ class roster_error
 	var $active = false;
 	var $error_level;
 
-	function roster_error( $error_level = E_ALL )
+	function roster_error( $error_level=E_ALL )
 	{
 		if( !$this->active )
 		{
@@ -68,14 +68,14 @@ class roster_error
 	 *
 	 * @return array Error report
 	 */
-	function stop( )
+	function stop()
 	{
 		if( $this->active )
 		{
 			// restore the previous state
 			if( !is_bool($this->old_handler) && $this->old_handler )
 			{
-				set_error_handler($this->old_handler);
+				set_error_handler($this->old_handler );
 			}
 			if( CAN_INI_SET )
 			{
@@ -96,21 +96,21 @@ class roster_error
 	 * @param int $linenum
 	 * @param mixed $vars
 	 */
-	function handler( $errno , $errmsg , $filename , $linenum , $vars = '' )
+	function handler( $errno , $errmsg , $filename , $linenum , $vars='' )
 	{
 		global $roster;
 
-		$errortype = array(
-			E_WARNING => 'Warning',
-			E_NOTICE => 'Notice',
-			E_CORE_ERROR => 'Core Error',
-			E_CORE_WARNING => 'Core Warning',
-			E_COMPILE_ERROR => 'Compile Error',
+		$errortype = array (
+			E_WARNING         => 'Warning',
+			E_NOTICE          => 'Notice',
+			E_CORE_ERROR      => 'Core Error',
+			E_CORE_WARNING    => 'Core Warning',
+			E_COMPILE_ERROR   => 'Compile Error',
 			E_COMPILE_WARNING => 'Compile Warning',
-			E_USER_ERROR => 'Roster Error',
-			E_USER_WARNING => 'Roster Warning',
-			E_USER_NOTICE => 'Roster Notice',
-			E_STRICT => 'Runtime Notice'
+			E_USER_ERROR      => 'Roster Error',
+			E_USER_WARNING    => 'Roster Warning',
+			E_USER_NOTICE     => 'Roster Notice',
+			E_STRICT          => 'Runtime Notice'
 		);
 		// NOTE: E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR and E_COMPILE_WARNING
 		// error levels will be handled as per the error_reporting settings.
@@ -118,11 +118,11 @@ class roster_error
 		{
 			if( $roster->config['debug_mode'] )
 			{
-				die_quietly($errmsg, $errortype[$errno], $filename, $linenum);
+				die_quietly($errmsg,$errortype[$errno],$filename,$linenum);
 			}
 			else
 			{
-				die_quietly("A error occured while processing this page.<br />Please report the following error to the owner of this website.<br /><br /><b>$errmsg</b>", $errortype[$errno]);
+				die_quietly("A error occured while processing this page.<br />Please report the following error to the owner of this website.<br /><br /><b>$errmsg</b>",$errortype[$errno]);
 			}
 		}
 

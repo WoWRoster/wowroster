@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    InstanceKeys
  * @subpackage Installer
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -29,24 +29,23 @@ class keysInstall
 	var $active = true;
 	var $icon = 'inv_misc_key_06';
 
-	var $version = '1.9.9.1767'; // ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
+	var $version = '1.9.9.1767';	// ALWAYS NOTE BELOW IN upgrade() WHY THE VERSION NUMBER HAS CHANGED, EVEN WHEN ONLY UPDATING KEY DEFINES
 	var $wrnet_id = '0';
 
 	var $fullname = 'keys';
 	var $description = 'keys_desc';
 	var $credits = array(
-		array(
-			"name" => "WoWRoster Dev Team",
-			"info" => "Original Author"
-		)
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original Author")
 	);
+
 
 	/**
 	 * Install Function
 	 *
 	 * @return bool
 	 */
-	function install( )
+	function install()
 	{
 		global $installer;
 
@@ -58,24 +57,24 @@ class keysInstall
 		$installer->add_config("'1020','colorcur','#ffd700','color','keys_conf'");
 		$installer->add_config("'1030','colorno','#ff0000','color','keys_conf'");
 
-		$installer->add_menu_button('keybutton', 'guild');
+		$installer->add_menu_button('keybutton','guild');
 		$installer->add_menu_pane('keypane');
-		$installer->add_menu_button('keybutton', 'keypane', 'guild-keys');
+		$installer->add_menu_button('keybutton','keypane','guild-keys');
 
-		$installer->create_table($installer->table('keycache'), "
+		$installer->create_table($installer->table('keycache'),"
 			`member_id` int(11) NOT NULL DEFAULT 0,
 			`key_name` varchar(16) NOT NULL DEFAULT '',
 			`stage` int(11) NOT NULL DEFAULT 0,
 			PRIMARY KEY (`member_id`, `key_name`, `stage`)");
 
-		$installer->create_table($installer->table('keys'), "
+		$installer->create_table($installer->table('keys'),"
 			`locale` varchar(4) NOT NULL DEFAULT 'enUS',
 			`faction` char(1) NOT NULL DEFAULT '',
 			`key_name` varchar(16) NOT NULL DEFAULT '',
 			`icon` varchar(64) NOT NULL DEFAULT 'inv_misc_questionmark',
 			PRIMARY KEY (`locale`, `faction`, `key_name`)");
 
-		$installer->create_table($installer->table('stages'), "
+		$installer->create_table($installer->table('stages'),"
 			`locale` varchar(4) NOT NULL DEFAULT 'enUS',
 			`faction` char(1) NOT NULL DEFAULT '',
 			`key_name` varchar(16) NOT NULL DEFAULT '',
@@ -87,16 +86,16 @@ class keysInstall
 			`active` int(1) NOT NULL DEFAULT 0,
 			PRIMARY KEY (`locale`, `faction`, `key_name`, `stage`)");
 
-		$installer->create_table($installer->table('category_key'), "
+		$installer->create_table($installer->table('category_key'),"
 			`category` varchar(16) NOT NULL DEFAULT '',
 			`key` varchar(16) NOT NULL DEFAULT '',
 			PRIMARY KEY (`category`, `key`)");
 
-		$installer->create_table($installer->table('category'), "
+		$installer->create_table($installer->table('category'),"
 			`category` varchar(16) NOT NULL DEFAULT '',
 			PRIMARY KEY (`category`)");
 
-		$this->loadkeys('install_');
+		$this->loadkeys( 'install_' );
 
 		return true;
 	}
@@ -107,33 +106,33 @@ class keysInstall
 	 * @param string $oldversion
 	 * @return bool
 	 */
-	function upgrade( $oldversion )
+	function upgrade($oldversion)
 	{
 		global $installer;
 
-		if( version_compare($oldversion, '1.9.9.1562', '<') )
+		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
 		{
 			$installer->add_config("'1040','keys_access','0','access','keys_conf'");
 		}
 
-		if( version_compare($oldversion, '1.9.9.1580', '<') )
+		if( version_compare( $oldversion, '1.9.9.1580', '<' ) )
 		{
-			$installer->create_table($installer->table('keycache'), "
+			$installer->create_table($installer->table('keycache'),"
 				`member_id` int(11) NOT NULL DEFAULT 0,
 				`key_name` varchar(16) NOT NULL DEFAULT '',
 				`stage` int(11) NOT NULL DEFAULT 0,
 				PRIMARY KEY (`member_id`, `key_name`, `stage`)");
 		}
 
-		if( version_compare($oldversion, '1.9.9.1596', '<') )
+		if( version_compare( $oldversion, '1.9.9.1596', '<' ) )
 		{
-			$installer->create_table($installer->table('keys'), "
+			$installer->create_table($installer->table('keys'),"
 				`faction` char(1) NOT NULL DEFAULT '',
 				`key_name` varchar(16) NOT NULL DEFAULT '',
 				`icon` varchar(64) NOT NULL DEFAULT 'inv_misc_questionmark',
 				PRIMARY KEY (`faction`, `key_name`)");
 
-			$installer->create_table($installer->table('stages'), "
+			$installer->create_table($installer->table('stages'),"
 				`faction` varchar(16) NOT NULL DEFAULT '',
 				`key_name` varchar(16) NOT NULL DEFAULT '',
 				`stage` int(11) NOT NULL DEFAULT 0,
@@ -153,8 +152,7 @@ class keysInstall
 		// 1647: Key defines only
 		// 1651: frFR key defines
 
-
-		if( version_compare($oldversion, '1.9.9.1653', '<') )
+		if( version_compare( $oldversion, '1.9.9.1653', '<' ) )
 		{
 			$installer->add_query("
 				ALTER TABLE `" . $installer->table('keys') . "`
@@ -170,28 +168,26 @@ class keysInstall
 
 		// 1667: frFR key defines
 
-
-		if( version_compare($oldversion, '1.9.9.1686', '<') )
+		if( version_compare( $oldversion, '1.9.9.1686', '<' ) )
 		{
-			$installer->create_table($installer->table('categories'), "
+			$installer->create_table($installer->table('categories'),"
 				`category` varchar(16) NOT NULL DEFAULT '',
 				`key` varchar(16) NOT NULL DEFAULT '',
 				PRIMARY KEY (`category`, `key`)");
 		}
 
-		if( version_compare($oldversion, '1.9.9.1696', '<') )
+		if( version_compare( $oldversion, '1.9.9.1696', '<' ) )
 		{
 			$installer->add_config("'200','keys_cats','rostercp-addon-keys-categories','makelink','menu'");
 		}
 
 		// 1709: enUS mount hijal
 
-
-		if( version_compare($oldversion, '1.9.9.1750', '<') )
+		if( version_compare( $oldversion, '1.9.9.1750', '<' ) )
 		{
 			$installer->add_query('RENAME TABLE `' . $installer->table('categories') . '`  TO `' . $installer->table('category_key') . '` ;');
 
-			$installer->create_table($installer->table('category'), "
+			$installer->create_table($installer->table('category'),"
 				`category` varchar(16) NOT NULL DEFAULT '',
 				PRIMARY KEY (`category`)");
 
@@ -202,26 +198,23 @@ class keysInstall
 
 		// 1751: Added keypane menu section
 
-
-		if( version_compare($oldversion, '1.9.9.1751', '<') )
+		if( version_compare( $oldversion, '1.9.9.1751', '<' ) )
 		{
 			$installer->add_menu_pane('keypane');
-			$installer->add_menu_button('keybutton', 'keypane', 'guild-keys');
+			$installer->add_menu_button('keybutton','keypane','guild-keys');
 		}
 
 		// 1758: Removed access config since roster does module level based auth
 
-
-		if( version_compare($oldversion, '1.9.9.1758', '<') )
+		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
 		{
 			$installer->remove_config('1040');
 		}
 
 		// 1767: deDE key defines
 
-
 		// Always overwrite the key definitions with the defaults on upgrade. If people want to change those they'll have to change the name.
-		$this->loadkeys('install_');
+		$this->loadkeys( 'install_' );
 		return true;
 	}
 
@@ -230,7 +223,7 @@ class keysInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall( )
+	function uninstall()
 	{
 		global $installer;
 
@@ -248,21 +241,21 @@ class keysInstall
 		return true;
 	}
 
+
+
+
 	function loadkeys( $prefix )
 	{
 		global $installer, $roster;
 
 		foreach( $roster->multilanguages as $lang )
 		{
-			$inst_keys = array(
-				'A' => array(),
-				'H' => array()
-			);
+			$inst_keys = array( 'A' => array(), 'H' => array() );
 
 			//echo ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php";
-			if( file_exists(ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php") )
+			if(file_exists( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php"))
 			{
-				include_once (ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php");
+				include_once( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $prefix . $lang . ".php");
 			}
 			else
 			{
@@ -270,9 +263,9 @@ class keysInstall
 			}
 
 			// We need the rep2level array from the normal locale file
-			if( file_exists(ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php") )
+			if(file_exists( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php") )
 			{
-				include_once (ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php");
+				include_once( ROSTER_ADDONS . $installer->addata['basename'] . "/locale/" . $lang . ".php");
 			}
 
 			foreach( $inst_keys as $faction => $keylist )
@@ -286,22 +279,22 @@ class keysInstall
 
 					foreach( $stagelist as $stage => $data )
 					{
-						if( !is_array($data) )
+						if( !is_array( $data ) )
 						{
 							$data = explode('|', $data);
 						}
 
 						if( $data[0] == 'Key' )
 						{
-							list(, $icon, $lockpicking) = $data;
+							list(,$icon,$lockpicking) = $data;
 							continue;
 						}
 
-						list($type, $value, $count, $flow, $active) = $data;
+						list( $type, $value, $count, $flow, $active ) = $data;
 
 						if( $type == 'R' && !is_numeric($count) )
 						{
-							list($standing, $count) = explode('+', $count);
+							list($standing, $count) = explode('+',$count);
 							$count += $lang['rep2level'][$standing];
 						}
 

@@ -12,13 +12,13 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
-include ($addon['inc_dir'] . 'header.php');
+include( $addon['inc_dir'] . 'header.php' );
 
 print $char->out();

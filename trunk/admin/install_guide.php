@@ -15,24 +15,26 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
- */
+*/
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 $data_present = $roster->db->query_first("SELECT `name` FROM `" . $roster->db->table('upload') . "` WHERE `default` = 1;");
 
 if( !empty($data_present) )
 {
-	$body .= messagebox($roster->locale->act['guide_already_complete'], $roster->locale->act['setup_guide'], 'sred');
+	$body .= messagebox($roster->locale->act['guide_already_complete'],$roster->locale->act['setup_guide'],'sred');
 	return;
 }
 
 $roster->output['body_onload'] .= 'initARC(\'guide\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-include (ROSTER_LIB . 'install.lib.php');
+
+include(ROSTER_LIB . 'install.lib.php');
+
 
 $roster->tpl->assign_vars(array(
 	'U_ROSTERCP' => makelink('rostercp'),
@@ -40,10 +42,13 @@ $roster->tpl->assign_vars(array(
 	'MESSAGE' => '',
 
 	'S_STEP_1' => false,
-	'S_STEP_2' => false
-));
+	'S_STEP_2' => false,
+	)
+);
 
-$STEP = (isset($_POST['guide_step']) ? $_POST['guide_step'] : '1');
+
+$STEP = ( isset($_POST['guide_step']) ? $_POST['guide_step'] : '1' );
+
 
 /**
  * Figure out what we're doing...
@@ -61,28 +66,30 @@ switch( $STEP )
 		break;
 }
 
-function guide_step1( )
+
+function guide_step1()
 {
 	global $roster;
 
 	$roster->tpl->assign_vars(array(
 		'S_STEP_1' => true,
 
-		'L_NAME_TIP' => makeOverlib($roster->locale->act['guildname']),
-		'L_SERVER_TIP' => makeOverlib($roster->locale->act['realmname']),
-		'L_REGION_TIP' => makeOverlib($roster->locale->act['regionname'])
-	));
+		'L_NAME_TIP'          => makeOverlib( $roster->locale->act['guildname'] ),
+		'L_SERVER_TIP'        => makeOverlib($roster->locale->act['realmname']),
+		'L_REGION_TIP'        => makeOverlib($roster->locale->act['regionname']),
+		)
+	);
 }
 
-function guide_step2( )
+function guide_step2()
 {
 	global $roster;
 
-	$roster->tpl->assign_var('S_STEP_2', true);
+	$roster->tpl->assign_var('S_STEP_2',true);
 
 	$name = trim(post_or_db('name'));
 	$server = trim(post_or_db('server'));
-	$region = strtoupper(substr(trim(post_or_db('region')), 0, 2));
+	$region = strtoupper(substr(trim(post_or_db('region')),0,2));
 
 	if( !empty($name) || !empty($server) || !empty($region) )
 	{
@@ -90,25 +97,28 @@ function guide_step2( )
 
 		if( !$roster->db->query($query) )
 		{
-			die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
+			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 		}
 
-		$query = "INSERT INTO `" . $roster->db->table('upload') . "`" . " (`name`,`server`,`region`,`type`,`default`)" . " VALUES ('" . $name . "','" . $server . "','" . $region . "','0','1');";
+		$query  = "INSERT INTO `" . $roster->db->table('upload') . "`"
+				. " (`name`,`server`,`region`,`type`,`default`)"
+				. " VALUES ('" . $name . "','" . $server . "','" . $region . "','0','1');";
 
 		if( !$roster->db->query($query) )
 		{
-			die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
+			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 		}
-		$roster->tpl->assign_var('MESSAGE', messagebox(sprintf($roster->locale->act['guide_complete'], makelink('rostercp-install'))));
+		$roster->tpl->assign_var('MESSAGE',messagebox( sprintf($roster->locale->act['guide_complete'],makelink('rostercp-install')) ));
 	}
 	else
 	{
-		$roster->tpl->assign_var('MESSAGE', messagebox($roster->locale->act['upload_rules_error'], '', 'sred'));
+		$roster->tpl->assign_var('MESSAGE',messagebox($roster->locale->act['upload_rules_error'],'','sred'));
 	}
 }
 
-$roster->tpl->set_handle('guide', 'admin/install_guide.html');
+$roster->tpl->set_handle('guide','admin/install_guide.html');
 $body .= $roster->tpl->fetch('guide');
+
 
 /**
  * Checks if a POST field value exists;
@@ -122,9 +132,9 @@ $body .= $roster->tpl->fetch('guide');
  */
 function post_or_db( $post_field , $db_row = array() , $db_field = '' )
 {
-	if( @sizeof($db_row) > 0 )
+	if ( @sizeof($db_row) > 0 )
 	{
-		if( $db_field == '' )
+		if ( $db_field == '' )
 		{
 			$db_field = $post_field;
 		}
@@ -135,5 +145,5 @@ function post_or_db( $post_field , $db_row = array() , $db_field = '' )
 	{
 		$db_value = '';
 	}
-	return ((isset($_POST[$post_field])) || (!empty($_POST[$post_field]))) ? $_POST[$post_field] : $db_value;
+	return( (isset($_POST[$post_field])) || (!empty($_POST[$post_field])) ) ? $_POST[$post_field] : $db_value;
 }

@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    Vault
  * @subpackage UpdateHook
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -27,12 +27,12 @@ if( !defined('IN_ROSTER') )
  */
 class vaultUpdate
 {
-	var $messages = ''; // Update messages
-	var $data = array(); // Addon config data automatically pulled from the addon_config table
+	var $messages = '';		// Update messages
+	var $data = array();	// Addon config data automatically pulled from the addon_config table
 	var $files = array();
 	var $timestamp = '';
 
-	function vaultUpdate( $data )
+	function vaultUpdate($data)
 	{
 		$this->data = $data;
 	}
@@ -53,7 +53,7 @@ class vaultUpdate
 
 		$this->messages .= '<strong>Vault:</strong><ul>';
 
-		$guildid = $update->get_guild_info($update->current_realm, $update->current_guild, $update->current_region);
+		$guildid = $update->get_guild_info($update->current_realm,$update->current_guild,$update->current_region);
 		$guildid = $guildid['guild_id'];
 
 		// Update Vault Inventory
@@ -69,10 +69,10 @@ class vaultUpdate
 			foreach( array_keys($vault) as $tab_name )
 			{
 				// Clearing out old items
-				$querystr = "DELETE FROM `" . $roster->db->table('items', $this->data['basename']) . "` WHERE `guild_id` = '$guildid' AND (`item_parent` = '$tab_name' OR `item_slot` = '$tab_name');";
+				$querystr = "DELETE FROM `" . $roster->db->table('items',$this->data['basename']) . "` WHERE `guild_id` = '$guildid' AND (`item_parent` = '$tab_name' OR `item_slot` = '$tab_name');";
 				if( !$roster->db->query($querystr) )
 				{
-					$update->setError('Vault tab ' . $tab_name . ' could not be cleared', $roster->db->error());
+					$update->setError('Vault tab ' . $tab_name . ' could not be cleared',$roster->db->error());
 					return false;
 				}
 
@@ -84,23 +84,23 @@ class vaultUpdate
 					continue;
 				}
 
-				$item = $this->make_item($tab, $guildid, 'vault', $tab_name);
+				$item = $this->make_item( $tab, $guildid, 'vault', $tab_name );
 
 				// quantity for a bag means number of slots it has
 				$item['item_quantity'] = '98';
-				$this->insert_item($item, $guild['Locale']);
+				$this->insert_item( $item,$guild['Locale'] );
 
-				if( isset($tab['Contents']) && is_array($tab['Contents']) )
+				if (isset($tab['Contents']) && is_array($tab['Contents']))
 				{
-					foreach( array_keys($tab['Contents']) as $slot_name )
+					foreach( array_keys( $tab['Contents'] ) as $slot_name )
 					{
 						$slot = $tab['Contents'][$slot_name];
 						if( is_null($slot) || !is_array($slot) || empty($slot) )
 						{
 							continue;
 						}
-						$item = $this->make_item($slot, $guildid, $tab_name, $slot_name);
-						$this->insert_item($item, $guild['Locale']);
+						$item = $this->make_item( $slot, $guildid, $tab_name, $slot_name );
+						$this->insert_item( $item,$guild['Locale'] );
 					}
 				}
 			}
@@ -110,6 +110,7 @@ class vaultUpdate
 		{
 			$this->messages .= '<li>No Items</li>';
 		}
+
 
 		// Update Vault Log
 		if( isset($guild['Vault']['Log']) )
@@ -124,10 +125,10 @@ class vaultUpdate
 			foreach( array_keys($log) as $tab_name )
 			{
 				// Clearing out old log
-				$querystr = "DELETE FROM `" . $roster->db->table('log', $this->data['basename']) . "` WHERE `guild_id` = '$guildid' AND `parent` = '$tab_name';";
+				$querystr = "DELETE FROM `" . $roster->db->table('log',$this->data['basename']) . "` WHERE `guild_id` = '$guildid' AND `parent` = '$tab_name';";
 				if( !$roster->db->query($querystr) )
 				{
-					$update->setError('Vault Log tab ' . $tab_name . ' could not be cleared', $roster->db->error());
+					$update->setError('Vault Log tab ' . $tab_name . ' could not be cleared',$roster->db->error());
 					return false;
 				}
 
@@ -139,14 +140,14 @@ class vaultUpdate
 					continue;
 				}
 
-				foreach( array_keys($tab) as $tab_number )
+				foreach( array_keys( $tab ) as $tab_number )
 				{
 					$slot = $tab[$tab_number];
 					if( is_null($slot) || !is_array($slot) || empty($slot) )
 					{
 						continue;
 					}
-					$this->insert_log($slot, $guildid, $tab_name, $tab_number);
+					$this->insert_log($slot,$guildid,$tab_name,$tab_number);
 				}
 			}
 			$this->messages .= '</li>';
@@ -155,6 +156,7 @@ class vaultUpdate
 		{
 			$this->messages .= '<li>No Log</li>';
 		}
+
 
 		// Update Vault Funds
 		if( isset($guild['Vault']['Money']) )
@@ -167,24 +169,24 @@ class vaultUpdate
 			$this->messages .= '<li>Funds</li>';
 
 			// Clearing out old funds
-			$querystr = "DELETE FROM `" . $roster->db->table('money', $this->data['basename']) . "` WHERE `guild_id` = '$guildid';";
+			$querystr = "DELETE FROM `" . $roster->db->table('money',$this->data['basename']) . "` WHERE `guild_id` = '$guildid';";
 			if( !$roster->db->query($querystr) )
 			{
-				$update->setError('Vault Funds could not be cleared', $roster->db->error());
+				$update->setError('Vault Funds could not be cleared',$roster->db->error());
 				return false;
 			}
 
 			$update->reset_values();
-			$update->add_value('guild_id', $guildid);
-			$update->add_ifvalue($money, 'Copper', 'money_c', '0');
-			$update->add_ifvalue($money, 'Silver', 'money_s', '0');
-			$update->add_ifvalue($money, 'Gold', 'money_g', '0');
+			$update->add_value( 'guild_id', $guildid );
+			$update->add_ifvalue($money, 'Copper', 'money_c', '0' );
+			$update->add_ifvalue($money, 'Silver', 'money_s', '0' );
+			$update->add_ifvalue($money, 'Gold', 'money_g', '0' );
 
-			$querystr = "INSERT INTO `" . $roster->db->table('money', $this->data['basename']) . "` SET " . $update->assignstr;
+			$querystr = "INSERT INTO `" . $roster->db->table('money',$this->data['basename']) . "` SET " . $update->assignstr;
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
-				$update->setError('Vault: Funds could not be inserted', $roster->db->error());
+				$update->setError('Vault: Funds could not be inserted',$roster->db->error());
 			}
 		}
 		else
@@ -206,7 +208,10 @@ class vaultUpdate
 	{
 		global $roster;
 
-		$query = "DELETE `" . $roster->db->table('item', $this->data['basename']) . "`" . " FROM `" . $roster->db->table('item', $this->data['basename']) . "`" . " LEFT JOIN `" . $roster->db->table('guild') . "` USING (`guild_id`)" . " WHERE `" . $roster->db->table('guild') . "`.`guild_id` IS NULL;";
+		$query = "DELETE `" . $roster->db->table('item',$this->data['basename']) . "`"
+			   . " FROM `" . $roster->db->table('item',$this->data['basename']) . "`"
+			   . " LEFT JOIN `" . $roster->db->table('guild') . "` USING (`guild_id`)"
+			   . " WHERE `" . $roster->db->table('guild') . "`.`guild_id` IS NULL;";
 
 		if( $roster->db->query($query) )
 		{
@@ -218,7 +223,10 @@ class vaultUpdate
 			return false;
 		}
 
-		$query = "DELETE `" . $roster->db->table('log', $this->data['basename']) . "`" . " FROM `" . $roster->db->table('log', $this->data['basename']) . "`" . " LEFT JOIN `" . $roster->db->table('guild') . "` USING (`guild_id`)" . " WHERE `" . $roster->db->table('guild') . "`.`guild_id` IS NULL;";
+		$query = "DELETE `" . $roster->db->table('log',$this->data['basename']) . "`"
+			   . " FROM `" . $roster->db->table('log',$this->data['basename']) . "`"
+			   . " LEFT JOIN `" . $roster->db->table('guild') . "` USING (`guild_id`)"
+			   . " WHERE `" . $roster->db->table('guild') . "`.`guild_id` IS NULL;";
 
 		if( !$roster->db->query($query) )
 		{
@@ -226,7 +234,10 @@ class vaultUpdate
 			return false;
 		}
 
-		$query = "DELETE `" . $roster->db->table('money', $this->data['basename']) . "`" . " FROM `" . $roster->db->table('money', $this->data['basename']) . "`" . " LEFT JOIN `" . $roster->db->table('guild') . "` USING (`guild_id`)" . " WHERE `" . $roster->db->table('guild') . "`.`guild_id` IS NULL;";
+		$query = "DELETE `" . $roster->db->table('money',$this->data['basename']) . "`"
+			   . " FROM `" . $roster->db->table('money',$this->data['basename']) . "`"
+			   . " LEFT JOIN `" . $roster->db->table('guild') . "` USING (`guild_id`)"
+			   . " WHERE `" . $roster->db->table('guild') . "`.`guild_id` IS NULL;";
 
 		if( !$roster->db->query($query) )
 		{
@@ -237,6 +248,7 @@ class vaultUpdate
 		return true;
 	}
 
+
 	/**
 	 * Formats item data to be inserted into the db
 	 *
@@ -246,7 +258,7 @@ class vaultUpdate
 	 * @param string $slot_name
 	 * @return array
 	 */
-	function make_item( $item_data , $guildid , $parent , $slot_name )
+	function make_item( $item_data, $guildid, $parent, $slot_name )
 	{
 		global $update;
 
@@ -255,11 +267,11 @@ class vaultUpdate
 		$item['item_name'] = $item_data['Name'];
 		$item['item_parent'] = $parent;
 		$item['item_slot'] = $slot_name;
-		$item['item_color'] = (isset($item_data['Color']) ? $item_data['Color'] : 'ffffff');
-		$item['item_id'] = (isset($item_data['Item']) ? $item_data['Item'] : '0:0:0:0:0:0:0:0');
-		$item['item_texture'] = (isset($item_data['Icon']) ? $update->fix_icon($item_data['Icon']) : 'inv_misc_questionmark');
+		$item['item_color'] = ( isset($item_data['Color']) ? $item_data['Color'] : 'ffffff' );
+		$item['item_id'] = ( isset($item_data['Item']) ? $item_data['Item'] : '0:0:0:0:0:0:0:0' );
+		$item['item_texture'] = ( isset($item_data['Icon']) ? $update->fix_icon($item_data['Icon']) : 'inv_misc_questionmark');
 
-		if( isset($item_data['Quantity']) )
+		if( isset( $item_data['Quantity'] ) )
 		{
 			$item['item_quantity'] = $item_data['Quantity'];
 		}
@@ -270,20 +282,21 @@ class vaultUpdate
 
 		if( !empty($item_data['Tooltip']) )
 		{
-			$item['item_tooltip'] = $update->tooltip($item_data['Tooltip']);
+			$item['item_tooltip'] = $update->tooltip( $item_data['Tooltip'] );
 		}
 		else
 		{
 			$item['item_tooltip'] = $item_data['Name'];
 		}
 
-		if( !empty($item_data['Gem']) )
+		if( !empty($item_data['Gem']))
 		{
 			$update->do_gems($item_data['Gem'], $item_data['Item']);
 		}
 
 		return $item;
 	}
+
 
 	/**
 	 * Inserts an item into the database
@@ -296,31 +309,32 @@ class vaultUpdate
 		global $roster, $update;
 
 		$update->reset_values();
-		$update->add_ifvalue($item, 'guild_id');
-		$update->add_ifvalue($item, 'item_name');
-		$update->add_ifvalue($item, 'item_parent');
-		$update->add_ifvalue($item, 'item_slot');
-		$update->add_ifvalue($item, 'item_color');
-		$update->add_ifvalue($item, 'item_id');
-		$update->add_ifvalue($item, 'item_texture');
-		$update->add_ifvalue($item, 'item_tooltip');
-		$update->add_value('locale', $locale);
+		$update->add_ifvalue( $item, 'guild_id' );
+		$update->add_ifvalue( $item, 'item_name' );
+		$update->add_ifvalue( $item, 'item_parent' );
+		$update->add_ifvalue( $item, 'item_slot' );
+		$update->add_ifvalue( $item, 'item_color' );
+		$update->add_ifvalue( $item, 'item_id' );
+		$update->add_ifvalue( $item, 'item_texture' );
+		$update->add_ifvalue( $item, 'item_tooltip' );
+		$update->add_value( 'locale', $locale );
 
 		$level = array();
-		if( preg_match($roster->locale->wordings[$locale]['requires_level'], $item['item_tooltip'], $level) )
+		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
 		{
-			$update->add_value('level', $level[1]);
+			$update->add_value('level',$level[1]);
 		}
 
-		$update->add_ifvalue($item, 'item_quantity');
+		$update->add_ifvalue( $item, 'item_quantity' );
 
-		$querystr = "INSERT INTO `" . $roster->db->table('items', $this->data['basename']) . "` SET " . $update->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('items',$this->data['basename']) . "` SET " . $update->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
-			$update->setError('Vault: Item [' . $item['item_name'] . '] could not be inserted', $roster->db->error());
+			$update->setError('Vault: Item [' . $item['item_name'] . '] could not be inserted',$roster->db->error());
 		}
 	}
+
 
 	/**
 	 * Formats item data to be inserted into the db
@@ -331,26 +345,26 @@ class vaultUpdate
 	 * @param string $tab_number
 	 * @return array
 	 */
-	function insert_log( $data , $guildid , $tab_name , $tab_number )
+	function insert_log( $data, $guildid, $tab_name, $tab_number )
 	{
 		global $roster, $update;
 
 		$update->reset_values();
-		$update->add_value('log_id', $tab_number);
-		$update->add_value('guild_id', $guildid);
-		$update->add_ifvalue($data, 'Name', 'member');
-		$update->add_ifvalue($data, 'Type', 'type');
-		$update->add_ifvalue($data, 'Count', 'count');
-		$update->add_ifvalue($data, 'Item', 'item_id');
-		$update->add_ifvalue($data, 'Amount', 'amount');
-		$update->add_value('parent', $tab_name);
+		$update->add_value( 'log_id', $tab_number );
+		$update->add_value( 'guild_id', $guildid );
+		$update->add_ifvalue($data,'Name','member');
+		$update->add_ifvalue($data,'Type','type');
+		$update->add_ifvalue($data,'Count','count');
+		$update->add_ifvalue($data,'Item','item_id');
+		$update->add_ifvalue($data,'Amount','amount');
+		$update->add_value( 'parent', $tab_name );
 		$this->make_time($data['Time']);
 
-		$querystr = "INSERT INTO `" . $roster->db->table('log', $this->data['basename']) . "` SET " . $update->assignstr;
+		$querystr = "INSERT INTO `" . $roster->db->table('log',$this->data['basename']) . "` SET " . $update->assignstr;
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
-			$update->setError('Vault: log data could not be inserted', $roster->db->error());
+			$update->setError('Vault: log data could not be inserted',$roster->db->error());
 		}
 	}
 
@@ -358,31 +372,31 @@ class vaultUpdate
 	{
 		global $update;
 
-		list($lastOnlineYears, $lastOnlineMonths, $lastOnlineDays, $lastOnlineHours) = explode(':', $time);
+		list($lastOnlineYears,$lastOnlineMonths,$lastOnlineDays,$lastOnlineHours) = explode(':',$time);
 
 		$timeString = '-';
-		if( $lastOnlineYears > 0 )
+		if ($lastOnlineYears > 0)
 		{
 			$timeString .= $lastOnlineYears . ' Years ';
 		}
-		if( $lastOnlineMonths > 0 )
+		if ($lastOnlineMonths > 0)
 		{
 			$timeString .= $lastOnlineMonths . ' Months ';
 		}
-		if( $lastOnlineDays > 0 )
+		if ($lastOnlineDays > 0)
 		{
 			$timeString .= $lastOnlineDays . ' Days ';
 		}
-		$timeString .= max($lastOnlineHours, 1) . ' Hours';
+		$timeString .= max($lastOnlineHours,1) . ' Hours';
 
-		$lastOnlineTime = strtotime($timeString, $this->timestamp);
-		$update->add_time('time', getDate($lastOnlineTime));
+		$lastOnlineTime = strtotime($timeString,$this->timestamp);
+		$update->add_time( 'time', getDate($lastOnlineTime) );
 	}
 
 	/**
 	 * Resets addon messages
 	 */
-	function reset_messages( )
+	function reset_messages()
 	{
 		$this->messages = '';
 	}

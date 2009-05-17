@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    GuildInfo
  * @subpackage Locale
- */
+*/
 
 $lang['guildinfo'] = 'Información de la hermandad';
 $lang['guildinfo_desc'] = 'Muestra el texto de información de la hermandad';

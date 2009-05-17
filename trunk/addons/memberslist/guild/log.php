@@ -97,9 +97,14 @@ $memberlist->prepareData($mainQuery, $where, null, null, $order_last, $FIELD, 'm
 
 $menu = '';
 // Start output
+if( $addon['config']['log_update_inst'] )
+{
+	$menu .= '            <a href="' . makelink('#update') . '"><span style="font-size:20px;">'.$roster->locale->act['update_link'].'</span></a><br /><br />';
+}
+
 if ( $addon['config']['log_motd'] == 1 )
 {
-	$menu = $memberlist->makeMotd();
+	$menu .= $memberlist->makeMotd();
 }
 
 $roster->output['before_menu'] .= $menu;
@@ -128,6 +133,17 @@ if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 
 }
 
 echo $memberlist->makeMembersList('syellow');
+
+// Print the update instructions
+if( $addon['config']['log_update_inst'] )
+{
+	echo "<br />\n\n<a name=\"update\"></a>\n";
+
+	echo border('sgray','start',$roster->locale->act['update_instructions']);
+	echo '<div align="left" style="font-size:10px;background-color:#1F1E1D;">'.sprintf($roster->locale->act['update_instruct'], $roster->config['uploadapp'], $roster->locale->act['index_text_uniloader'], $roster->config['profiler'], makelink('update'), $roster->locale->act['lualocation']);
+	echo '</div>'.border('sgray','end');
+}
+
 
 /**
  * Controls Output of a Note Column

@@ -11,7 +11,7 @@
  * @link       http://www.wowroster.net
  * @package    QuestList
  * @subpackage Locale
- */
+*/
 
 $lang['questlist'] = 'Liste des quêtes';
 $lang['questlist_desc'] = 'Recherche des membres ayant des quêtes communes';

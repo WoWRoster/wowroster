@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    GuildInfo
  * @subpackage Installer
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -34,22 +34,21 @@ class guildinfoInstall
 	var $fullname = 'guildinfo';
 	var $description = 'guildinfo_desc';
 	var $credits = array(
-		array(
-			"name" => "WoWRoster Dev Team",
-			"info" => "Original Author"
-		)
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original Author")
 	);
+
 
 	/**
 	 * Install Function
 	 *
 	 * @return bool
 	 */
-	function install( )
+	function install()
 	{
 		global $installer;
 
-		$installer->add_menu_button('ginfobutton', 'guild');
+		$installer->add_menu_button('ginfobutton','guild');
 		return true;
 	}
 
@@ -59,18 +58,18 @@ class guildinfoInstall
 	 * @param string $oldversion
 	 * @return bool
 	 */
-	function upgrade( $oldversion )
+	function upgrade($oldversion)
 	{
 		global $installer;
 
-		if( version_compare($oldversion, '1.9.9.1562', '<') )
+		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
 		{
 			$installer->add_config("'1','startpage','guildinfo_conf','display','master'");
 			$installer->add_config("'100','guildinfo_conf',NULL,'blockframe','menu'");
 			$installer->add_config("'1000', 'guildinfo_access', '0', 'access', 'guildinfo_conf'");
 		}
 
-		if( version_compare($oldversion, '1.9.9.1758', '<') )
+		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
 		{
 			$installer->remove_all_config();
 		}
@@ -83,7 +82,7 @@ class guildinfoInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall( )
+	function uninstall()
 	{
 		global $installer;
 

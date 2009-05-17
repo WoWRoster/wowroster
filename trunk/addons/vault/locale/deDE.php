@@ -13,14 +13,14 @@
  * @link       http://www.wowroster.net
  * @package    Vault
  * @subpackage Locale
- */
+*/
 
-$lang['vault'] = 'Gildentresor';
-$lang['vault_desc'] = 'Zeigt den Inhalt des Gildentresors';
-$lang['vault_menu'] = 'Gildentresor|Zeigt den Inhalt des Gildentresors';
-$lang['available_amount'] = 'Verfügbare Summe';
-$lang['vault_log'] = 'Gegenstände Log';
-$lang['vault_money_log'] = 'Geld Log';
+$lang['vault']='Gildentresor';
+$lang['vault_desc']='Zeigt den Inhalt des Gildentresors';
+$lang['vault_menu']='Gildentresor|Zeigt den Inhalt des Gildentresors';
+$lang['available_amount']='Verfügbare Summe';
+$lang['vault_log']='Gegenstände Log';
+$lang['vault_money_log']='Geld Log';
 
 $lang['vault_log_deposit'] = '%1$s <span class="greenB">zahlte / lagerte</span> %2$s';
 $lang['vault_log_withdraw'] = '%1$s <span class="redB">entnahm</span> %2$s';

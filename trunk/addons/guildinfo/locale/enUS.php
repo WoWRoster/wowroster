@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    GuildInfo
  * @subpackage Locale
- */
+*/
 
 $lang['guildinfo'] = 'Guild Info';
 $lang['guildinfo_desc'] = 'Shows Guild Info text from WoW';
