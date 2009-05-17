@@ -14,51 +14,26 @@
  * @since      File available since Release 1.7.0
  * @package    WoWRoster
  * @subpackage RosterDiag
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 //error_reporting(E_ALL);
 
-
 //!!!!!!!!!!!!!// Developer Config //!!!!!!!!!!!!!//
 // As a NON-Developer, please do not modify any content of this file, or the version check might fail!!!
 
-
 // Ignored Directories
-$ignored_dirs = array(
-	'.',
-	'..',
-	'SVN',
-	'.svn',
-	'Interface',
-	'cache'
-);
+$ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'cache');
 
 // Files to check with extension:
-$extensions = array(
-	'php',
-	'inc',
-	'css',
-	'js',
-	'tpl',
-	'htm',
-	'html',
-	'jpg',
-	'gif',
-	'png',
-	'sql',
-	'txt'
-);
+$extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
 
 // Files to ignore
-$ignored_files = array(
-	'conf.php',
-	'.htaccess'
-);
+$ignored_files = array('conf.php', '.htaccess');
 
 // Do we want to check the SubDirs ?? I think we do :)
 $subdirectories = 1;
@@ -76,83 +51,26 @@ $problemsev['nosvn'] = 2;
 $problemsev['nolocal'] = 3;
 $problemsev['unknown'] = 1;
 
-$severity[0] = array(
-	'style' => 'sgreen',
-	'color' => '#12C312',
-	'weight' => 0,
-	'severityname' => 'No Issues'
-);
-$severity[1] = array(
-	'style' => 'sgray',
-	'color' => '#AFAFAF',
-	'weight' => 0,
-	'severityname' => 'Unknown'
-);
-$severity[2] = array(
-	'style' => 'sgray',
-	'color' => '#AFAFAF',
-	'weight' => 0,
-	'severityname' => 'Not in SVN'
-);
-$severity[3] = array(
-	'style' => 'sgray',
-	'color' => '#AFAFAF',
-	'weight' => 0,
-	'severityname' => 'Not in Local'
-);
-$severity[4] = array(
-	'style' => 'sblue',
-	'color' => '#312CF8',
-	'weight' => 0,
-	'severityname' => 'Newer Files'
-);
-$severity[5] = array(
-	'style' => 'sblue',
-	'color' => '#312CF8',
-	'weight' => 1,
-	'severityname' => 'Initial'
-);
-$severity[6] = array(
-	'style' => 'spurple',
-	'color' => '#E920CF',
-	'weight' => 1,
-	'severityname' => 'Strange'
-);
-$severity[7] = array(
-	'style' => 'syellow',
-	'color' => '#F1B10E',
-	'weight' => 3,
-	'severityname' => 'Minor'
-);
-$severity[8] = array(
-	'style' => 'sorange',
-	'color' => '#EE870D',
-	'weight' => 7,
-	'severityname' => 'Major'
-);
-$severity[9] = array(
-	'style' => 'sred',
-	'color' => '#FF0000',
-	'weight' => 15,
-	'severityname' => 'Critical'
-);
+$severity[0] = array('style' => 'sgreen', 'color' => '#12C312', 'weight' => 0, 'severityname' => 'No Issues');
+$severity[1] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Unknown');
+$severity[2] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Not in SVN');
+$severity[3] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Not in Local');
+$severity[4] = array('style' => 'sblue', 'color' => '#312CF8', 'weight' => 0, 'severityname' => 'Newer Files');
+$severity[5] = array('style' => 'sblue', 'color' => '#312CF8', 'weight' => 1, 'severityname' => 'Initial');
+$severity[6] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 1, 'severityname' => 'Strange');
+$severity[7] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 3, 'severityname' => 'Minor');
+$severity[8] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 7, 'severityname' => 'Major');
+$severity[9] = array('style' => 'sred', 'color' => '#FF0000', 'weight' => 15, 'severityname' => 'Critical');
 
-$rollups[] = array(
-	'rollup' => 2,
-	'severity' => 7
-);
-$rollups[] = array(
-	'rollup' => 5,
-	'severity' => 8
-);
-$rollups[] = array(
-	'rollup' => 14,
-	'severity' => 9
-);
+
+$rollups[] = array('rollup' => 2, 'severity' => 7);
+$rollups[] = array('rollup' => 5, 'severity' => 8);
+$rollups[] = array('rollup' => 14, 'severity' => 9);
 
 $newerfilesev = 4;
 
 $totalseverity = 0;
+
 
 //!!!!!!!!!!!!!// Do NOT edit anything below //!!!!!!!!!!!!!//
 // Set some characters we will use for exploding the data streams
@@ -160,25 +78,19 @@ $explode = '*|*';
 $break = "\n";
 
 // Make an array to hold the direcory information
-$directories = array(
-	'.' => array(
-		'localfiles' => 0,
-		'remotefiles' => 0,
-		'severity' => 0
-	)
-);
+$directories = array('.' => array('localfiles' => 0, 'remotefiles' => 0, 'severity' => 0));
 
 // Make an array to hold the local and, if applicable, remote file versioning information
 $files = array();
 
 // Get the $directories and fill the array $directories
-if( $subdirectories )
+if ($subdirectories)
 {
 	GrabAllLocalDirectories('.');
 }
 
 // Get the $files / versioning info for each $directories and fill the array $files
-foreach( $directories as $directory => $filecount )
+foreach ($directories as $directory => $filecount)
 {
 	// Grab all local $files and store the information into the array $files
 	GrabLocalVersions($directory);
@@ -188,35 +100,29 @@ foreach( $directories as $directory => $filecount )
 //GrabRemoteVersions();
 
 
-foreach( $files as $directory => $filedata )
+foreach ($files as $directory => $filedata)
 {
 	$directories[$directory] = count($filedata);
 }
 
 //DisplayTheStuffTemp();
 
-
 /**
  * Grab all directories and subdirectories for directory $dir and shove them into the global array $directories
  *
  * @param string $dir
  */
-function GrabAllLocalDirectories( $dir )
+function GrabAllLocalDirectories($dir)
 {
 	global $directories;
 
-	if( $handle = @opendir($dir) )
-	{
-		while( $filename = readdir($handle) )
+	if ($handle = @opendir($dir)) {
+		while ($filename = readdir($handle))
 		{
 			$directory = $dir . '/' . $filename;
-			if( is_dir($directory) && CheckDirectory($filename) )
+			if(is_dir($directory) && CheckDirectory($filename))
 			{
-				$directories[$directory] = array(
-					'localfiles' => 0,
-					'remotefiles' => 0,
-					'severity' => 0
-				);
+				$directories[$directory] = array('localfiles' => 0, 'remotefiles' => 0, 'severity' => 0);
 				GrabAllLocalDirectories($directory);
 			}
 		}
@@ -230,15 +136,15 @@ function GrabAllLocalDirectories( $dir )
  *
  * @param string $directory
  */
-function GrabLocalVersions( $directory )
+function GrabLocalVersions($directory)
 {
 	global $directories;
 
-	if( $handle = @opendir($directory) )
+	if ($handle = @opendir($directory))
 	{
-		while( $filename = readdir($handle) )
+		while ($filename = readdir($handle))
 		{
-			if( isset($filename) && !is_dir($directory . '/' . $filename) && CheckExtension($filename) )
+			if(isset($filename) && !is_dir($directory . '/' . $filename) && CheckExtension($filename))
 			{
 				// Increase the filecounter for this directory
 				$directories[$directory]['localfiles']++;
@@ -256,12 +162,12 @@ function GrabLocalVersions( $directory )
  * @param string $filename
  * @return int
  */
-function CheckExtension( $filename )
+function CheckExtension($filename)
 {
 	global $extensions, $ignored_files;
 
 	$returnvalue = 0;
-	if( $filename == '.' || $filename == '..' || $filename == 'version_match.php' )
+	if ($filename == '.' || $filename == '..' || $filename == 'version_match.php')
 	{
 		$returnvalue = 0;
 	}
@@ -270,7 +176,8 @@ function CheckExtension( $filename )
 		// Check the extension
 		$fileextension = pathinfo($filename, PATHINFO_EXTENSION);
 
-		if( in_array($fileextension, $extensions) && !in_array($filename, $ignored_files) )
+
+		if (in_array($fileextension, $extensions) && !in_array($filename, $ignored_files))
 		{
 			$returnvalue = 1;
 		}
@@ -288,13 +195,13 @@ function CheckExtension( $filename )
  * @param string $dirname
  * @return int
  */
-function CheckDirectory( $dirname )
+function CheckDirectory($dirname)
 {
 	global $ignored_dirs;
 
 	$returnvalue = 0;
 
-	if( in_array($dirname, $ignored_dirs) )
+	if (in_array($dirname, $ignored_dirs))
 	{
 		$returnvalue = 0;
 	}
@@ -311,34 +218,31 @@ function CheckDirectory( $dirname )
  * @param string $directory
  * @param string $file
  */
-function GetFileVersionInfo( $directory , $file )
+function GetFileVersionInfo($directory, $file)
 {
 	global $files;
 
 	$filefullpath = $directory . '/' . $file;
 	// Read the first 2k of the file, which should be enough to grab the $fileheader
 	$fp = @fopen($directory . '/' . $file, 'rb');
-	if( $fp )
-	{
+	if($fp) {
 		$fileheader = fread($fp, 2048);
 		fclose($fp);
 	}
 
 	$files[$directory][$file]['local']['versionFile'] = $file;
-	if( !$files[$directory][$file]['local']['versionMD5'] = md5_file($filefullpath) )
-	{
+	if (!$files[$directory][$file]['local']['versionMD5'] = md5_file($filefullpath)) {
 		$files[$directory][$file]['local']['versionMD5'] = 0;
 	}
 	// Example of the SVN $Id string:
 	//   * $Id$
 	//         ~|Descr            |Ver |Date                |Author|~
-	if( check_if_image($file) )
+	if (check_if_image($file))
 	{
 		$files[$directory][$file]['local']['versionDesc'] = 'N/A';
 		$files[$directory][$file]['local']['versionRev'] = 'N/A';
 		$files[$directory][$file]['local']['versionAuthor'] = 'N/A';
-		if( !$files[$directory][$file]['local']['versionDate'] = filemtime($filefullpath) )
-		{
+		if (!$files[$directory][$file]['local']['versionDate'] = filemtime($filefullpath)) {
 			$files[$directory][$file]['local']['versionDate'] = 0;
 		}
 	}
@@ -346,7 +250,7 @@ function GetFileVersionInfo( $directory , $file )
 	{
 		// String to match in SVN: $Id$
 		// String to match in SVN: $Id$
-		if( (preg_match('~\s\$Id\:\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s\$~', $fileheader, $local_version) > 0) || (preg_match('~\s\$Id\:\s(.+?)\,v\s(.+?)\s(.+?)\s(.+?)\s(.+?)\sExp\s\$~', $fileheader, $local_version) > 0) )
+		if ((preg_match('~\s\$Id\:\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s\$~', $fileheader, $local_version) > 0) || (preg_match('~\s\$Id\:\s(.+?)\,v\s(.+?)\s(.+?)\s(.+?)\s(.+?)\sExp\s\$~', $fileheader, $local_version) > 0) )
 		{
 			$files[$directory][$file]['local']['versionDesc'] = $local_version[1];
 			$files[$directory][$file]['local']['versionRev'] = $local_version[2];
@@ -356,51 +260,41 @@ function GetFileVersionInfo( $directory , $file )
 			$tmpdate = explode("/", $local_version[3]);
 			$tmptime = explode(":", $local_version[4]);
 
-			//			$files[$directory][$file]['local']['versionDate'] = gmmktime($tmptime[0], $tmptime[1], $tmptime[2], $tmpdate[1], $tmpdate[2], $tmpdate[0]);
+//			$files[$directory][$file]['local']['versionDate'] = gmmktime($tmptime[0], $tmptime[1], $tmptime[2], $tmpdate[1], $tmpdate[2], $tmpdate[0]);
 			$files[$directory][$file]['local']['versionAuthor'] = $local_version[5];
-		}
-		else
-		{
+		} else {
 			// Check if we have a version entry for the Date string and also capture the brief indication of which addon this is
-			if( preg_match('~\$versions\[\'versionDate\'\]\[\'(.+?)\'\]\s\=\s\'\$Date\:\s(.+?)\s\$\'\;~', $fileheader, $local_version) == 1 )
-			{
+			if (preg_match('~\$versions\[\'versionDate\'\]\[\'(.+?)\'\]\s\=\s\'\$Date\:\s(.+?)\s\$\'\;~', $fileheader, $local_version) == 1) {
 				$files[$directory][$file]['local']['versionDesc'] = $local_version[1];
+
 
 				$tmpdatetime = explode(" ", $local_version[2]);
 				$tmpdate = explode("/", $tmpdatetime[0]);
-				if( isset($tmpdatetime[1]) )
+				if (isset($tmpdatetime[1]))
 				{
 					$tmptime = explode(":", $tmpdatetime[1]);
-					if( is_int($tmptime[0]) )
+					if (is_int($tmptime[0]))
 					{
 						$files[$directory][$file]['local']['versionDate'] = gmmktime($tmptime[0], $tmptime[1], $tmptime[2], $tmpdate[1], $tmpdate[2], $tmpdate[0]);
 					}
 				}
 
-			}
-			else
-			{
+			} else {
 				$files[$directory][$file]['local']['versionDesc'] = 0;
 				$files[$directory][$file]['local']['versionDate'] = 0;
 			}
 
 			// Check if we have a version entry for the Revision string
-			if( preg_match('~\$versions\[\'versionRev\'\]\[\'(.+?)\'\]\s\=\s\'\$Revision\:\s(.+?)\s\$\'\;~', $fileheader, $local_version) == 1 )
-			{
+			if (preg_match('~\$versions\[\'versionRev\'\]\[\'(.+?)\'\]\s\=\s\'\$Revision\:\s(.+?)\s\$\'\;~', $fileheader, $local_version) == 1)	{
 				$files[$directory][$file]['local']['versionRev'] = $local_version[2];
-			}
-			else
-			{
+			} else {
 				$files[$directory][$file]['local']['versionRev'] = 0;
 			}
 
 			// Check if we have a version entry for the Author string
-			if( preg_match('~\$versions\[\'versionAuthor\'\]\[\'(.+?)\'\]\s\=\s\'\$Author\:\s(.+?)\$\'\;~', $fileheader, $local_version) == 1 )
-			{
+			if (preg_match('~\$versions\[\'versionAuthor\'\]\[\'(.+?)\'\]\s\=\s\'\$Author\:\s(.+?)\$\'\;~', $fileheader, $local_version) == 1) {
 				$files[$directory][$file]['local']['versionAuthor'] = $local_version[2];
-			}
-			else
-			{
+			} else {
 				$files[$directory][$file]['local']['versionAuthor'] = 0;
 			}
 		}
@@ -412,7 +306,7 @@ function GetFileVersionInfo( $directory , $file )
  *
  * @return bool False on failure
  */
-function GrabRemoteVersions( )
+function GrabRemoteVersions()
 {
 	global $directories, $files, $break, $explode;
 
@@ -423,23 +317,19 @@ function GrabRemoteVersions( )
 	{
 		// Break the header into lines
 		$remoteversions = explode($break, $contents);
-		foreach( $remoteversions as $remoteversion )
+		foreach ($remoteversions as $remoteversion)
 		{
 			// Break the line into strings
 			$remoteversion = explode($explode, $remoteversion);
 
 			// Insert the file info into the $files array
-			if( isset($remoteversion[1]) )
+			if (isset($remoteversion[1]))
 			{
 				$directory = $remoteversion[0];
 				// Check if the directory existed on the local system. If not, declare the directory inside the $directories array.
-				if( !isset($directories[$directory]) )
+				if (!isset($directories[$directory]))
 				{
-					$directories[$directory] = array(
-						'localfiles' => 0,
-						'remotefiles' => 0,
-						'severity' => 0
-					);
+					$directories[$directory] = array('localfiles' => 0, 'remotefiles' => 0, 'severity' => 0);
 				}
 				$filename = $remoteversion[1];
 				$files[$directory][$filename]['remote']['versionFile'] = $filename;
@@ -461,12 +351,12 @@ function GrabRemoteVersions( )
  * Verify version info
  *
  */
-function VerifyVersions( )
+function VerifyVersions()
 {
 	global $files, $directories, $problemsev, $severity, $rollups, $totalrollup, $totalseverity, $newerfilesev;
 
 	// Process verification for all directories, Local and SVN
-	foreach( $files as $directory => $filedata )
+	foreach ($files as $directory => $filedata)
 	{
 		// Initialize the Directory severity
 		$files[$directory]['severity'] = 0;
@@ -476,7 +366,9 @@ function VerifyVersions( )
 		$nosvn = 0;
 		$nolocal = 0;
 
-		foreach( $filedata as $filename => $file )
+
+
+		foreach ($filedata as $filename => $file)
 		{
 			// Initialize the File severity
 			$files[$directory][$filename]['severity'] = 0;
@@ -489,16 +381,16 @@ function VerifyVersions( )
 			$files[$directory][$filename]['newer'] = 0;
 
 			// Check if Both Local and SVN files are present
-			if( isset($file['local']) && isset($file['remote']) )
+			if (isset($file['local']) && isset($file['remote']))
 			{
 				// Check if the local description matches the SVN description
-				if( strcmp($file['local']['versionDesc'], $file['remote']['versionDesc']) )
+				if (strcmp($file['local']['versionDesc'], $file['remote']['versionDesc']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['description']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['description']]['color'] . ';">Local Description does NOT match with SVN</span><br />';
 				}
 				// Check if the local version matches the SVN version
-				if( version_compare($file['local']['versionRev'], $file['remote']['versionRev']) < 0 )
+				if (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) < 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
 					$files[$directory][$filename]['newer'] = 1;
@@ -507,20 +399,20 @@ function VerifyVersions( )
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
 				}
-				elseif( version_compare($file['local']['versionRev'], $file['remote']['versionRev']) > 0 )
+				elseif (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) > 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['revisiongreater']]['color'] . ';">Local Version: ' . $file['local']['versionRev'] . ' is HIGHER than SVN Version: ' . $file['remote']['versionRev'] . '</span><br />';
 					$files[$directory][$filename]['rev'] = $file['local']['versionRev'] . ' > ' . $file['remote']['versionRev'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
-				elseif( version_compare($file['local']['versionRev'], $file['remote']['versionRev']) == 0 )
+				elseif (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) == 0)
 				{
 					$files[$directory][$filename]['rev'] = $file['local']['versionRev'];
 				}
 
 				// Check if the local date matches the SVN date
-				if( ($file['local']['versionDate'] < $file['remote']['versionDate']) && !check_if_image($filename) )
+				if (($file['local']['versionDate'] < $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateolder']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['dateolder']]['color'] . ';">Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is OLDER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '</span><br />';
@@ -528,7 +420,7 @@ function VerifyVersions( )
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
 				}
-				elseif( ($file['local']['versionDate'] > $file['remote']['versionDate']) && !check_if_image($filename) )
+				elseif (($file['local']['versionDate'] > $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateyounger']]['weight'];
 					$files[$directory][$filename]['newer'] = 1;
@@ -536,12 +428,12 @@ function VerifyVersions( )
 					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' > ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['diff'] = 1;
 				}
-				elseif( ($file['local']['versionDate'] == $file['remote']['versionDate']) || check_if_image($filename) )
+				elseif (($file['local']['versionDate'] == $file['remote']['versionDate']) || check_if_image($filename))
 				{
 					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']);
 				}
 				// Check if the local author matches the SVN author
-				if( strcmp($file['local']['versionAuthor'], $file['remote']['versionAuthor']) )
+				if (strcmp($file['local']['versionAuthor'], $file['remote']['versionAuthor']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['author']]['weight'];
 					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['author']]['color'] . ';">Local Author does NOT match with SVN</span><br />';
@@ -553,9 +445,9 @@ function VerifyVersions( )
 					$files[$directory][$filename]['author'] = $file['local']['versionAuthor'];
 				}
 				// Check if the local MD5 matches the SVN MD5
-				if( strcmp($file['local']['versionMD5'], $file['remote']['versionMD5']) )
+				if (strcmp($file['local']['versionMD5'], $file['remote']['versionMD5']))
 				{
-					if( check_if_image($filename) )
+					if (check_if_image($filename))
 					{
 						$files[$directory][$filename]['severity'] += $severity[$problemsev['MD5binary']]['weight'];
 						$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['MD5binary']]['color'] . ';">Local MD5 does not match with SVN</span><br />';
@@ -574,7 +466,7 @@ function VerifyVersions( )
 					$files[$directory][$filename]['md5'] = 'MD5 String Matches';
 				}
 			}
-			elseif( isset($file['local']) && !isset($file['remote']) )
+			elseif (isset($file['local']) && !isset($file['remote']))
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nosvn']]['weight'];
 				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['nosvn']]['color'] . ';">Local file does not exist in SVN</span><br />';
@@ -583,7 +475,7 @@ function VerifyVersions( )
 				$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']);
 				$files[$directory][$filename]['author'] = $file['local']['versionAuthor'];
 			}
-			elseif( !isset($file['local']) && isset($file['remote']) )
+			elseif (!isset($file['local']) && isset($file['remote']))
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nolocal']]['weight'];
 				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['nolocal']]['color'] . ';">Local file is missing compared to SVN</span><br />';
@@ -596,9 +488,9 @@ function VerifyVersions( )
 				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['unknown']]['color'] . ';">Unknown Issue</span><br />';
 			}
 			$files[$directory][$filename]['rollup'] = 0;
-			foreach( $rollups as $rollupkey => $rollup )
+			foreach ($rollups as $rollupkey => $rollup)
 			{
-				if( $files[$directory][$filename]['severity'] > $rollup['rollup'] )
+				if ($files[$directory][$filename]['severity'] > $rollup['rollup'])
 				{
 					$files[$directory][$filename]['rollup'] = $rollup['severity'];
 				}
@@ -606,63 +498,63 @@ function VerifyVersions( )
 
 			$files[$directory]['severity'] += $files[$directory][$filename]['severity'];
 
-			if( !$files[$directory][$filename]['severity'] && $files[$directory][$filename]['newer'] )
+			if (!$files[$directory][$filename]['severity'] && $files[$directory][$filename]['newer'])
 			{
 				$files[$directory][$filename]['rollup'] = $newerfilesev;
 				$files[$directory]['newer'] = 1;
 			}
 
-			if( $files[$directory][$filename]['tooltip'] == '' && !$files[$directory][$filename]['severity'] && !$files[$directory][$filename]['rogue'] && !$files[$directory][$filename]['diff'] && !$files[$directory][$filename]['newer'] )
+			if ($files[$directory][$filename]['tooltip'] == '' && !$files[$directory][$filename]['severity'] && !$files[$directory][$filename]['rogue'] && !$files[$directory][$filename]['diff'] && !$files[$directory][$filename]['newer'])
 			{
 				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[0]['color'] . ';">Local file same as SVN</span><br />';
 			}
 
-			if( $files[$directory][$filename]['rogue'] )
+			if ($files[$directory][$filename]['rogue'])
 			{
 				$files[$directory][$filename]['rollup'] = $problemsev['nosvn'];
 				$nosvn = 1;
 			}
 
-			if( $files[$directory][$filename]['missing'] )
+			if ($files[$directory][$filename]['missing'])
 			{
 				$files[$directory][$filename]['rollup'] = $problemsev['nolocal'];
 				$nolocal = 1;
 			}
 
-			if( $files[$directory][$filename]['rollup'] )
+			if ($files[$directory][$filename]['rollup'])
 			{
 				$files[$directory]['tooltip'] .= '<span style="color:' . $severity[$files[$directory][$filename]['rollup']]['color'] . ';">File: ' . $filename . ' - Severity: ' . $files[$directory][$filename]['rollup'] . '</span><br />';
 			}
 		}
 
-		if( $files[$directory]['tooltip'] == '' )
+		if ($files[$directory]['tooltip'] == '')
 		{
 			$files[$directory]['tooltip'] = '<span style="color:' . $severity[0]['color'] . ';">No File Version Issues!</span>';
 		}
 
 		$files[$directory]['rollup'] = 0;
 
-		foreach( $rollups as $rollupkey => $rollup )
+		foreach ($rollups as $rollupkey => $rollup)
 		{
-			if( $files[$directory]['severity'] > $rollup['rollup'] )
+			if ($files[$directory]['severity'] > $rollup['rollup'])
 			{
 				$files[$directory]['rollup'] = $rollup['severity'];
 			}
 		}
 
-		if( !$files[$directory]['severity'] )
+		if (!$files[$directory]['severity'])
 		{
-			if( $files[$directory]['newer'] )
+			if ($files[$directory]['newer'])
 			{
 				$files[$directory]['rollup'] = $newerfilesev;
 			}
 
-			if( $nosvn )
+			if ($nosvn)
 			{
 				$files[$directory]['rollup'] = $problemsev['nosvn'];
 			}
 
-			if( $nolocal )
+			if ($nolocal)
 			{
 				$files[$directory]['rollup'] = $problemsev['nolocal'];
 			}
@@ -673,47 +565,48 @@ function VerifyVersions( )
 
 	$totalrollup = 0;
 
-	foreach( $rollups as $rollupkey => $rollup )
+	foreach ($rollups as $rollupkey => $rollup)
 	{
-		if( $files[$directory]['severity'] > $rollup['rollup'] )
+		if ($files[$directory]['severity'] > $rollup['rollup'])
 		{
 			$totalrollup = $rollup['severity'];
 		}
 	}
 }
 
+
 /**
  * Gets the gd_info and formats the output
  *
  * @return string
  */
-function describeGDdyn( )
+function describeGDdyn()
 {
 	$rowstripe = 1;
 
 	if( function_exists('gd_info') )
 	{
-		$returnVal = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
-		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe) % 2) + 1) . "\">GD Status</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe) % 2) + 1) . "\"><span class=\"green\">On</span></td>\n\t</tr>\n";
+		$returnVal  = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
+		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">GD Status</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\"><span class=\"green\">On</span></td>\n\t</tr>\n";
 
 		$info = gd_info();
 		$keys = array_keys($info);
-		for( $i = 0; $i < count($keys); $i++ )
+		for($i=0; $i<count($keys); $i++)
 		{
-			if( is_bool($info[$keys[$i]]) )
+			if(is_bool($info[$keys[$i]]))
 			{
-				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe) % 2) + 1) . "\">" . $keys[$i] . "</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe) % 2) + 1) . "\">" . yesNo($info[$keys[$i]]) . "</td>\n\t</tr>\n";
+				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">" . $keys[$i] . "</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\">" . yesNo($info[$keys[$i]]) . "</td>\n\t</tr>\n";
 			}
 			else
 			{
-				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe) % 2) + 1) . "\">" . $keys[$i] . "</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe) % 2) + 1) . "\">" . $info[$keys[$i]] . "</td>\n\t</tr>\n";
+				$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">" . $keys[$i] . "</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\">" . $info[$keys[$i]] . "</td>\n\t</tr>\n";
 			}
 		}
 		$returnVal .= "</table>\n";
 	}
 	else
 	{
-		$returnVal = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
+		$returnVal  = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow1\">GD Status</td>\n\t\t<td class=\"membersRowRight1\"><span class=\"red\">Off</span></td>\n\t</tr>\n";
 		$returnVal .= "</table>\n";
 	}
@@ -726,12 +619,12 @@ function describeGDdyn( )
  *
  * @return string
  */
-function ConfigErrors( )
+function ConfigErrors()
 {
 	global $roster;
 
 	// Get freetype installation status
-	if( function_exists('gd_info') )
+	if ( function_exists('gd_info'))
 	{
 		$gdinfo = gd_info();
 		$FreeType = $gdinfo['FreeType Support'];
@@ -745,24 +638,24 @@ function ConfigErrors( )
 	$errors = '';
 
 	// Check GD and Freetype status in PHP config if GD Realm Status option is set
-	if( $roster->config['rs_mode'] == 1 )
+	if ($roster->config['rs_mode'] == 1)
 	{
 		if( !function_exists('gd_info') )
 		{
 			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = on) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = off) in RosterCP<br />\n";
 		}
-		if( $FreeType == 0 )
+		if ($FreeType == 0)
 		{
 			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = on) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = off) in RosterCP<br />\n";
 		}
 	}
-	if( $roster->config['motd_display_mode'] == 1 )
+	if ($roster->config['motd_display_mode'] == 1)
 	{
 		if( !function_exists('gd_info') )
 		{
 			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = off) in RosterCP<br />\n";
 		}
-		if( $FreeType == 0 )
+		if ($FreeType == 0)
 		{
 			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = off) in RosterCP<br />\n";
 		}
@@ -782,7 +675,7 @@ function ConfigErrors( )
  * @param bool $bool
  * @return formatted on/off string
  */
-function onOff( $bool )
+function onOff($bool)
 {
 	if( $bool )
 	{
@@ -800,7 +693,7 @@ function onOff( $bool )
  * @param bool $bool
  * @return formatted on/off string
  */
-function onOffRev( $bool )
+function onOffRev($bool)
 {
 	if( $bool )
 	{
@@ -818,9 +711,9 @@ function onOffRev( $bool )
  * @param bool $bool
  * @return formatted yes/no string
  */
-function yesNo( $bool )
+function yesNo($bool)
 {
-	if( $bool )
+	if($bool)
 	{
 		return '<span class="green">Yes</span>';
 	}
@@ -830,6 +723,7 @@ function yesNo( $bool )
 	}
 }
 
+
 /**
  * Writes a file from the SVN copy
  * (Not currently used)
@@ -837,51 +731,52 @@ function yesNo( $bool )
  * @param string $filename
  * @return bool
  */
-function downloadsvn( $filename )
+function downloadsvn($filename)
 {
 	$file_source = ROSTER_SVNREMOTE . '?getfile=' . $filename . '&mode=full';
 
-	$file_source = str_replace("\r\n", "\n", urlgrabber($file_source));
-	if( $file_source === false )
+	$file_source = str_replace("\r\n","\n",urlgrabber($file_source));
+	if ($file_source===false)
 	{
 		roster_die("[ERROR] Cannot Read File");
 	}
-	file_writer($filename, $file_source);
+	file_writer($filename,$file_source);
 	return true;
 }
 
-function difffile( $old , $new )
+
+function difffile($old,$new)
 {
 	// Clean up multiple line breaks
-	$old = str_replace("\r\n", "\n", $old);
-	$new = str_replace("\r\n", "\n", $new);
+	$old = str_replace("\r\n","\n",$old);
+	$new = str_replace("\r\n","\n",$new);
 
 	// Split the source text into arrays of lines
-	$t1 = explode("\n", $old);
+	$t1 = explode("\n",$old);
 	$x = array_pop($t1);
-	if( $x > '' )
+	if ($x > '')
 	{
 		$t1[] = "$x\n\\ No newline at end of file";
 	}
-	$t2 = explode("\n", $new);
+	$t2 = explode("\n",$new);
 	$x = array_pop($t2);
-	if( $x > '' )
+	if ($x>'')
 	{
 		$t2[] = "$x\n\\ No newline at end of file";
 	}
 
 	// Build a reverse-index array using the line as key and line number as value
 	// Don't store blank lines, so they won't be targets of the shortest distance search
-	foreach( $t1 as $i => $x )
+	foreach($t1 as $i=>$x)
 	{
-		if( $x > '' )
+		if ($x > '')
 		{
 			$r1[$x][] = $i;
 		}
 	}
-	foreach( $t2 as $i => $x )
+	foreach($t2 as $i=>$x)
 	{
-		if( $x > '' )
+		if ($x > '')
 		{
 			$r2[$x][] = $i;
 		}
@@ -893,10 +788,10 @@ function difffile( $old , $new )
 	$actions = array();
 
 	// Walk this loop until we reach the end of one of the lists
-	while( $a1 < count($t1) && $a2 < count($t2) )
+	while ($a1 < count($t1) && $a2 < count($t2))
 	{
 		// If we have a common element, save it and go to the next
-		if( $t1[$a1] == $t2[$a2] )
+		if ($t1[$a1]==$t2[$a2])
 		{
 			$actions[] = 4;
 			$a1++;
@@ -907,42 +802,41 @@ function difffile( $old , $new )
 		// Otherwise, find the shortest move (Manhattan-distance) from the current location
 		$best1 = count($t1);
 		$best2 = count($t2);
-		$s1 = $a1;
-		$s2 = $a2;
-		while( ($s1 + $s2 - $a1 - $a2) < ($best1 + $best2 - $a1 - $a2) )
+		$s1=$a1;
+		$s2=$a2;
+		while (($s1+$s2-$a1-$a2) < ($best1+$best2-$a1-$a2))
 		{
 			$d = -1;
 
-			if( isset($s2) && isset($t2) && isset($t2[$s2]) && isset($r1) && isset($r1[$t2[$s2]]) )
+			if(isset($s2) && isset($t2) && isset($t2[$s2]) && isset($r1) && isset($r1[$t2[$s2]]))
 			{
-				foreach( (array)@$r1[$t2[$s2]] as $n )
+				foreach((array)@$r1[$t2[$s2]] as $n)
 				{
-					if( $n >= $s1 )
+					if ($n>=$s1)
 					{
-						$d = $n;
+						$d=$n;
 						break;
 					}
 				}
 			}
-			if( $d >= $s1 && ($d + $s2 - $a1 - $a2) < ($best1 + $best2 - $a1 - $a2) )
+			if ($d>=$s1 && ($d+$s2-$a1-$a2) < ($best1+$best2-$a1-$a2))
 			{
-				$best1 = $d;
-				$best2 = $s2;
+				$best1=$d; $best2=$s2;
 			}
 			$d = -1;
 
-			if( isset($s1) && isset($t1) && isset($t1[$s1]) && isset($r2) && isset($r2[$t1[$s1]]) )
+			if(isset($s1) && isset($t1) && isset($t1[$s1]) && isset($r2) && isset($r2[$t1[$s1]]))
 			{
-				foreach( (array)@$r2[$t1[$s1]] as $n )
+				foreach ((array)@$r2[$t1[$s1]] as $n)
 				{
-					if( $n >= $s2 )
+					if ($n >= $s2)
 					{
 						$d = $n;
 						break;
 					}
 				}
 			}
-			if( $d >= $s2 && ($s1 + $d - $a1 - $a2) < ($best1 + $best2 - $a1 - $a2) )
+			if ($d>=$s2 && ($s1+$d-$a1-$a2) < ($best1+$best2-$a1-$a2))
 			{
 				$best1 = $s1;
 				$best2 = $d;
@@ -950,30 +844,29 @@ function difffile( $old , $new )
 			$s1++;
 			$s2++;
 		}
-		while( $a1 < $best1 )
+		while ($a1<$best1)
 		{
 			$actions[] = 1;
 			$a1++;
-		} // Deleted elements
-		while( $a2 < $best2 )
+		}  // Deleted elements
+		while ($a2<$best2)
 		{
 			$actions[] = 2;
 			$a2++;
-		} // Added elements
+		}  // Added elements
 	}
 
 	// We've reached the end of one list, now walk to the end of the other
-	while( $a1 < count($t1) )
+	while ($a1<count($t1))
 	{
 		$actions[] = 1;
 		$a1++;
-	} // Deleted elements
-	while( $a2 < count($t2) )
+	}  // Deleted elements
+	while ($a2<count($t2))
 	{
 		$actions[] = 2;
 		$a2++;
-	} // Added elements
-
+	}  // Added elements
 
 	// And this marks our ending point
 	$actions[] = 8;
@@ -984,33 +877,33 @@ function difffile( $old , $new )
 	$y0 = $y1 = 0;
 	$out = array();
 	$outcount = 0;
-	//	print_r($actions);
-	foreach( $actions as $act )
+//	print_r($actions);
+	foreach ($actions as $act)
 	{
-		if( $act == 1 )
+		if ($act == 1)
 		{
 			$op |= $act;
 			$x1++;
 			continue;
 		}
-		if( $act == 2 )
+		if ($act == 2)
 		{
 			$op |= $act;
 			$y1++;
 			continue;
 		}
-		if( $op > 0 )
+		if ($op > 0)
 		{
-			$xstr = ($x1 == ($x0 + 1)) ? $x1 : ($x0 + 1) . "," . $x1;
-			$ystr = ($y1 == ($y0 + 1)) ? $y1 : ($y0 + 1) . "," . $y1;
-			if( $op == 1 )
+			$xstr = ($x1 == ($x0+1)) ? $x1 : ($x0+1) . "," . $x1;
+			$ystr = ($y1 == ($y0+1)) ? $y1 : ($y0+1) . "," . $y1;
+			if ($op == 1)
 			{
 				$out[$outcount]['rownr1'] = $xstr;
 				$out[$outcount]['rownr2'] = $y1;
 				$out[$outcount]['action'] = 'Deleted';
 				$out[$outcount]['color'] = 'red';
 			}
-			elseif( $op == 3 )
+			elseif ($op == 3)
 			{
 				$out[$outcount]['rownr1'] = $xstr;
 				$out[$outcount]['rownr2'] = $ystr;
@@ -1018,29 +911,29 @@ function difffile( $old , $new )
 				$out[$outcount]['color'] = 'blue';
 			}
 			$tmpi = 0;
-			while( $x0 < $x1 )
+			while ($x0 < $x1)
 			{
 				$out[$outcount]['from'][$tmpi] = $t1[$x0];
 				$x0++;
 				$tmpi++;
-			} // Deleted elems
-			if( $op == 2 )
+			}   // Deleted elems
+			if ($op == 2)
 			{
 				$out[$outcount]['rownr1'] = $x1;
 				$out[$outcount]['rownr2'] = $ystr;
 				$out[$outcount]['action'] = 'Added';
 				$out[$outcount]['color'] = 'green';
 			}
-			elseif( $op == 3 )
+			elseif ($op == 3)
 			{
 			}
 			$tmpi = 0;
-			while( $y0 < $y1 )
+			while ($y0 < $y1)
 			{
 				$out[$outcount]['to'][$tmpi] = $t2[$y0];
 				$y0++;
 				$tmpi++;
-			} // Added elems
+			}   // Added elems
 		}
 		$x1++;
 		$x0 = $x1;
@@ -1060,9 +953,9 @@ function difffile( $old , $new )
  * @param int $startline
  * @return string
  */
-function highlight_php( $string , $startline = 1 )
+function highlight_php($string, $startline=1)
 {
-	$lines = explode("\n", $string);
+	$lines = explode("\n",$string);
 
 	$returnstring = '<div style="white-space:nowrap;overflow:auto;"><table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-style:solid;border-width:1px;border-color:white black black white">';
 
@@ -1072,9 +965,9 @@ function highlight_php( $string , $startline = 1 )
 		{
 			$line = "<?php x\n" . $line;
 
-			$linecoded = highlight_string($line, true);
+			$linecoded = highlight_string($line,true);
 
-			$linecoded = str_replace(array('<font ', '</font>', '<code>', '</code>'), array('<span ', '</span>', '', ''), $linecoded);
+			$linecoded = str_replace(array('<font ', '</font>','<code>','</code>'), array('<span ', '</span>','',''), $linecoded);
 			$linecoded = preg_replace('/color="(.*?)"/', 'style="color:\\1;"', $linecoded);
 
 			$linecoded = str_replace('&lt;?php&nbsp;x<br />', '', $linecoded);
@@ -1109,24 +1002,25 @@ function highlight_php( $string , $startline = 1 )
  * @param sting $time
  * @return sting
  */
-function check_date_time( $date , $time )
+function check_date_time($date, $time)
 {
-	if( preg_match("~([1-9][0-9][0-9][0-9]).([1-9]|0[1-9]|[1[0-9]).([1-9]|0[0-9]|1[0-9]|2[0-9])~", $date, $datepart) )
+	if (preg_match("~([1-9][0-9][0-9][0-9]).([1-9]|0[1-9]|[1[0-9]).([1-9]|0[0-9]|1[0-9]|2[0-9])~", $date, $datepart))
 	{
 		$returndate = $datepart;
 	}
 	else
 	{
-		$returndate = array(0, 1, 1, 1970);
+		$returndate = array(0,1,1,1970);
 	}
 
-	if( preg_match("~([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])~", $time, $timepart) )
+
+	if (preg_match("~([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])~", $time, $timepart))
 	{
 		$returntime = $timepart;
 	}
 	else
 	{
-		$returntime = array(0, 0, 0, 0);
+		$returntime = array(0,0,0,0);
 	}
 
 	$returnunixdate = gmmktime($returntime[1], $returntime[2], $returntime[3], $returndate[2], $returndate[3], $returndate[1]);

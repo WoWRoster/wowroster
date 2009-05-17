@@ -14,26 +14,28 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage Search
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
 	exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_BASE . 'settings.php');
+require_once(ROSTER_BASE . 'settings.php');
 
 $roster->output['title'] = $roster->locale->act['search'];
 $roster->output['body_onload'] .= "initARC('search','radioOn','radioOff','checkboxOn','checkboxOff');";
 
+
 $roster->tpl->assign_vars(array(
-	'S_NO_RESULTS' => false,
-	'S_RESULT' => false,
+	'S_NO_RESULTS'      => false,
+	'S_RESULT'          => false,
 
-	'U_SEARCH_LINK' => makelink('search'),
+	'U_SEARCH_LINK'     => makelink('search'),
 
-	'SEARCH' => ''
-));
+	'SEARCH'            => ''
+	)
+);
 
 /**
  * We need all the addon data for search
@@ -50,10 +52,10 @@ foreach( $roster->addon_data as $name => $data )
 
 	foreach( $roster->multilanguages as $lang )
 	{
-		$roster->locale->add_locale_file(ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
+		$roster->locale->add_locale_file(ROSTER_ADDONS . $data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 	}
 
-	$roster->addon_data[$name]['fullname'] = (isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname']);
+	$roster->addon_data[$name]['fullname'] = ( isset($roster->locale->act[$data['fullname']]) ? $roster->locale->act[$data['fullname']] : $data['fullname'] );
 
 	// Restore our locale array
 	$roster->locale->wordings = $localetemp;
@@ -61,11 +63,11 @@ foreach( $roster->addon_data as $name => $data )
 
 	if( file_exists($roster->addon_data[$name]['search_file']) )
 	{
-		include_once ($roster->addon_data[$name]['search_file']);
+		include_once($roster->addon_data[$name]['search_file']);
 	}
 
 	// Open the lib/search directory for roster core search files
-	$tmp_dir = @opendir(ROSTER_LIB . 'search');
+	$tmp_dir = @opendir( ROSTER_LIB . 'search' );
 
 	if( $tmp_dir )
 	{
@@ -76,10 +78,10 @@ foreach( $roster->addon_data as $name => $data )
 
 			if( strtolower($pfad_info['extension']) == strtolower('php') )
 			{
-				$name = str_replace('.' . $pfad_info['extension'], '', $file);
+				$name = str_replace('.' . $pfad_info['extension'],'',$file);
 
 				$file = ROSTER_LIB . 'search' . DIR_SEP . $file;
-				include_once ($file);
+				include_once($file);
 
 				$basename = 'roster_' . $name;
 				$roster->addon_data[$basename]['basename'] = $basename;
@@ -94,30 +96,32 @@ foreach( $roster->addon_data as $name => $data )
 	}
 }
 
+
 /**
  * Result processing
  */
 if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 {
 	// if page is set in the addon search class this will tell the results what page we are looking at
-	$page = isset($_GET['page']) ? intval($_GET['page']) : 0;
+	$page  = isset($_GET['page']) ? intval($_GET['page']) : 0;
 
 	// limit is used to set how many results are able to show with in the addon before showing previous/next pagenation
 	$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 
 	// search is what we are searching for
-	$query = (isset($_POST['s_term']) ? $_POST['s_term'] : (isset($_GET['s_term']) ? $_GET['s_term'] : ''));
+	$query = ( isset($_POST['s_term']) ? $_POST['s_term'] : ( isset($_GET['s_term']) ? $_GET['s_term'] : '' ) );
 
 	// variables that can be used in the addon search class which are being defined here
 	$url_query = urlencode($query);
 
 	$roster->tpl->assign_vars(array(
-		'SEARCH' => $query,
+		'SEARCH'   => $query,
 		'S_RESULT' => true,
-		'LIMIT' => $limit,
-		'PAGE' => $page + 1,
-		'FIRST' => ($page * $limit) + 1
-	));
+		'LIMIT'    => $limit,
+		'PAGE'     => $page+1,
+		'FIRST'    => ($page*$limit)+1
+		)
+	);
 
 	$addons = array();
 	if( isset($_POST['s_addon']) )
@@ -150,7 +154,7 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 		{
 			if( class_exists($addon['search_class']) )
 			{
-				$search = new $addon['search_class']();
+				$search = new $addon['search_class'];
 				$search->data = $addon;
 				$search->search($query, $limit, $page);
 
@@ -160,7 +164,7 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 
 					if( !empty($addon['icon']) )
 					{
-						if( strpos($addon['icon'], '.') !== false )
+						if( strpos($addon['icon'],'.') !== false )
 						{
 							$addon['icon'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/' . $addon['icon'];
 						}
@@ -174,25 +178,26 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 						$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 					}
 
-					$search_count = new $addon['search_class']();
+					$search_count = new $addon['search_class'];
 					$search_count->data = $addon;
 					$search_count->search($query, 0, 0);
 
 					$roster->tpl->assign_block_vars('addon_results', array(
 						'BASENAME' => $addon['basename'],
 						'FULLNAME' => $addon['fullname'],
-						'ICON' => $addon['icon'],
-						'COUNT' => (($page * $limit)) + $search->result_count,
-						'TIME' => round($search->time_search, 4),
+						'ICON'     => $addon['icon'],
+						'COUNT'    => (($page*$limit))+$search->result_count,
+						'TIME'     => round($search->time_search,4),
 
-						'OPEN_TABLE' => $search->open_table,
+						'OPEN_TABLE'  => $search->open_table,
 						'CLOSE_TABLE' => $search->close_table,
 
 						'TOTAL' => $search_count->result_count,
 
-						'PREV' => ($page > 0 ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page - 1)) : ''),
-						'NEXT' => ($search->result_count >= $limit ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page + 1)) : '')
-					));
+						'PREV'  => ( $page > 0 ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page-1)) : '' ),
+						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page+1)) : '' ),
+						)
+					);
 
 					foreach( $search->result as $result )
 					{
@@ -202,35 +207,36 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 						$roster->tpl->assign_block_vars('addon_results.row', array(
 							'ROW_CLASS' => $roster->switch_row_class(),
 
-							'HTML' => (isset($result['html']) && $result['html'] != '' ? $result['html'] : ''),
+							'HTML'      => ( isset($result['html']) && $result['html'] != '' ? $result['html'] : '' ),
 
-							'RESULTS_HEADER' => (isset($result['results_header']) ? $result['results_header'] : ''),
-							'RESULTS_FOOTER' => (isset($result['results_footer']) ? $result['results_footer'] : ''),
+							'RESULTS_HEADER' => ( isset($result['results_header']) ? $result['results_header'] : '' ),
+							'RESULTS_FOOTER' => ( isset($result['results_footer']) ? $result['results_footer'] : '' ),
 
-							'HEADER' => (isset($result['header']) ? $result['header'] . '<br />' : ''),
-							'AUTHOR' => (isset($result['author']) ? $result['author'] : ''),
-							'DATE' => (isset($result['date']) ? readbleDate($result['date']) : ''),
-							'LINK' => (isset($result['url']) ? $result['url'] : ''),
-							'TITLE' => (isset($result['title']) ? $result['title'] : ''),
-							'SHORT_TEXT' => (isset($result['short_text']) ? $result['short_text'] : ''),
-							'MORE_TEXT' => (isset($result['more_text']) ? $result['more_text'] : ''),
-							'FOOTER' => (isset($result['footer']) ? $result['footer'] : '')
-						));
+							'HEADER'     => ( isset($result['header']) ? $result['header'] . '<br />' : '' ),
+							'AUTHOR'     => ( isset($result['author']) ? $result['author'] : '' ),
+							'DATE'       => ( isset($result['date']) ? readbleDate($result['date']) : '' ),
+							'LINK'       => ( isset($result['url']) ? $result['url'] : '' ),
+							'TITLE'      => ( isset($result['title']) ? $result['title'] : '' ),
+							'SHORT_TEXT' => ( isset($result['short_text']) ? $result['short_text'] : '' ),
+							'MORE_TEXT'  => ( isset($result['more_text']) ? $result['more_text'] : '' ),
+							'FOOTER'     => ( isset($result['footer']) ? $result['footer'] : '' ),
+							)
+						);
 					}
 				}
-				unset($search, $search_count);
+				unset($search,$search_count);
 			}
 		}
 
 		$addon = '';
 		//this is where we want to set up item searches
 
-
 		// a loop to add all the non included addons into the did not find box which also has a counter to show the count of results
 		if( $total_search_results == 0 )
 		{
-			$roster->tpl->assign_var('S_NO_RESULTS', true);
+			$roster->tpl->assign_var('S_NO_RESULTS',true);
 		}
+
 
 		$more = false;
 		foreach( $roster->addon_data as $leftover )
@@ -243,7 +249,7 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 
 			if( class_exists($leftover['search_class']) )
 			{
-				$search = new $leftover['search_class']();
+				$search = new $leftover['search_class'];
 				$search->data = $leftover;
 				$search->search($query, 0, 0);
 				if( $search->result_count > 0 )
@@ -251,22 +257,21 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 					$more = true;
 
 					$roster->tpl->assign_block_vars('more_results', array(
-						'LINK' => makelink('search&amp;search=' . $url_query . '&amp;s_addon=' . $leftover['basename']),
+						'LINK'     => makelink('search&amp;search=' . $url_query. '&amp;s_addon=' . $leftover['basename']),
 						'FULLNAME' => $leftover['fullname'],
-						'COUNT' => $search->result_count
-					));
+						'COUNT'    => $search->result_count,
+						)
+					);
 				}
 				unset($search);
 			}
 		}
 
-		$roster->tpl->assign_var('S_MORE_RESULTS', $more);
+		$roster->tpl->assign_var('S_MORE_RESULTS',$more);
 
 		// section for predefined if addon
 
-
 		// this section we can have links like armory, ala, wowhead, thottbot etc...
-
 
 		// wow data sites
 		foreach( $roster->locale->act['data_links'] as $name => $dlink )
@@ -274,7 +279,8 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 			$roster->tpl->assign_block_vars('data_sites', array(
 				'LINK' => $dlink . $url_query,
 				'NAME' => $name
-			));
+				)
+			);
 		}
 
 		// google links
@@ -283,12 +289,13 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 			$roster->tpl->assign_block_vars('google_links', array(
 				'LINK' => $glink . $url_query,
 				'NAME' => $name
-			));
+				)
+			);
 		}
 	}
 }
 
-$s_addon = (isset($_POST['s_addon']) ? $_POST['s_addon'] : (isset($_GET['s_addon']) ? $_GET['s_addon'] : array()));
+$s_addon = ( isset($_POST['s_addon']) ? $_POST['s_addon'] : ( isset($_GET['s_addon']) ? $_GET['s_addon'] : array() ) );
 
 /**
  * Build the search form
@@ -308,25 +315,27 @@ foreach( $roster->addon_data as $addon_name => $addon_data )
 		$roster->tpl->assign_block_vars('only_search', array(
 			'BASENAME' => $addon_data['basename'],
 			'FULLNAME' => $addon_data['fullname'],
-			'S_DIVIDE' => ($i && ($i % 4 == 0) ? true : false),
-			'SELECTED' => (is_array($s_addon) ? (in_array($addon_data['basename'], $s_addon) ? true : false) : $addon_data['basename'] == $s_addon)
-		));
+			'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false ),
+			'SELECTED' => ( is_array($s_addon) ? ( in_array($addon_data['basename'],$s_addon) ? true : false ) : $addon_data['basename'] == $s_addon )
+			)
+		);
 		$i++;
 
-		$search = new $addon_data['search_class']();
+		$search = new $addon_data['search_class'];
 
 		// include advanced search options
 		// the advanced options are defined in the addon search class using $search->options = then build your forms
 		if( !empty($search->options) )
 		{
 			$roster->tpl->assign_block_vars('advanced_search', array(
-				'BASENAME' => $addon_data['basename'],
-				'FULLNAME' => $addon_data['fullname'],
-				'SEARCH_OPTIONS' => ($search->options ? $search->options : '')
-			));
+				'BASENAME'       => $addon_data['basename'],
+				'FULLNAME'       => $addon_data['fullname'],
+				'SEARCH_OPTIONS' => ( $search->options ? $search->options : '' )
+				)
+			);
 		}
 	}
 }
 
-$roster->tpl->set_handle('body', 'search.html');
+$roster->tpl->set_filenames(array('body' => 'search.html'));
 $roster->tpl->display('body');

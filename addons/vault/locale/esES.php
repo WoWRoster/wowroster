@@ -13,14 +13,14 @@
  * @link       http://www.wowroster.net
  * @package    Vault
  * @subpackage Locale
- */
+*/
 
-$lang['vault'] = 'Banco de la hermandad';
-$lang['vault_desc'] = 'Muestra el contenido del banco de la hermandad';
-$lang['vault_menu'] = 'Banco de la hermandad|Muestra el contenido del banco de la hermandad';
-$lang['available_amount'] = 'Cantidad disponible';
-$lang['vault_log'] = 'Registro del banco';
-$lang['vault_money_log'] = 'Registro del dinero';
+$lang['vault']='Banco de la hermandad';
+$lang['vault_desc']='Muestra el contenido del banco de la hermandad';
+$lang['vault_menu']='Banco de la hermandad|Muestra el contenido del banco de la hermandad';
+$lang['available_amount']='Cantidad disponible';
+$lang['vault_log']='Registro del banco';
+$lang['vault_money_log']='Registro del dinero';
 
 $lang['vault_log_deposit'] = '%1$s <span class="greenB">depositado</span> %2$s';
 $lang['vault_log_withdraw'] = '%1$s <span class="redB">retirado</span> %2$s';

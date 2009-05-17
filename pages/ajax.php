@@ -14,11 +14,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage Ajax
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 $method = (isset($roster->pages[1]) ? $roster->pages[1] : '');
@@ -26,6 +26,7 @@ $method = (isset($roster->pages[1]) ? $roster->pages[1] : '');
 $cont = (isset($_GET['cont']) ? $_GET['cont'] : '');
 
 $errmsg = $result = '';
+
 
 if( $roster->pages[1] == 'addon' )
 {
@@ -37,16 +38,16 @@ if( $roster->pages[1] == 'addon' )
 		// Include addon's locale files if they exist
 		foreach( $roster->multilanguages as $lang )
 		{
-			$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php', $lang);
+			$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php',$lang);
 		}
 
 		// Include addon's conf.php file
 		if( file_exists($addon['conf_file']) )
 		{
-			include_once ($addon['conf_file']);
+			include_once( $addon['conf_file'] );
 		}
 
-		include_once ($addon['ajax_file']);
+		include_once( $addon['ajax_file'] );
 	}
 	else
 	{
@@ -55,15 +56,15 @@ if( $roster->pages[1] == 'addon' )
 }
 else
 {
-	include (ROSTER_AJAX . 'functions.php');
+	include(ROSTER_AJAX . 'functions.php');
 }
 
 // Check if the function is valid, if so run it, else error
 if( isset($ajaxfuncs[$method]) )
 {
-	include ($ajaxfuncs[$method]['file']);
+	include($ajaxfuncs[$method]['file']);
 }
-elseif( $method == '' )
+elseif( $method == '')
 {
 	$status = 3;
 	$errmsg = 'No method passed';
@@ -81,4 +82,11 @@ $roster->output['show_footer'] = false;
 header('Content-Type: text/xml');
 
 // Output XML
-echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n" . "<response>\n" . '  <method>' . $method . "</method>\n" . '  <cont>' . $cont . "</cont>\n" . '  <result>' . $result . "</result>\n" . '  <status>' . (int)$status . "</status>\n" . '  <errmsg>' . $errmsg . "</errmsg>\n" . "</response>\n";
+echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n"
+	. "<response>\n"
+	. '  <method>' . $method . "</method>\n"
+	. '  <cont>' . $cont . "</cont>\n"
+	. '  <result>' . $result . "</result>\n"
+	. '  <status>' . (int)$status . "</status>\n"
+	. '  <errmsg>' . $errmsg . "</errmsg>\n"
+	. "</response>\n";

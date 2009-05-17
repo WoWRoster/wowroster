@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    InstanceKeys
  * @subpackage Locale
- */
+*/
 
 $lang['keys'] = 'Schlüssel';
 $lang['keys_desc'] = 'Listet die Azeroth Instanzschlüssel der Gildenmitglieder auf';
@@ -31,8 +31,8 @@ $lang['admin']['colorcur'] = 'Stand Farbe|Farbe zur Anzeige des aktuellen Stands
 $lang['admin']['colorno'] = 'Nicht Abgeschlossen Farbe|Farbe für noch nicht abgeschlossene Schritte im Quest/Teile Tooltip';
 
 // language definitions for the rogue instance keys 'fix'
-$lang['thievestools'] = 'Diebeswerkzeug';
-$lang['lockpicking'] = 'Schlossknacken';
+$lang['thievestools']='Diebeswerkzeug';
+$lang['lockpicking']='Schlossknacken';
 
 $lang['Quests'] = 'Quests';
 $lang['Parts'] = 'Teile';

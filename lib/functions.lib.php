@@ -13,15 +13,14 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 // Global variables this file uses
-
 
 // Index to generate unique toggle IDs
 $toggleboxes = 0;
@@ -40,12 +39,12 @@ function setTooltip( $var , $content )
 
 	if( !isset($tooltips[$var]) )
 	{
-		$content = str_replace("\n", '', $content);
+		$content = str_replace("\n",'',$content);
 		$content = addslashes($content);
-		$content = str_replace('</', '<\\/', $content);
-		$content = str_replace('/>', '\\/>', $content);
+		$content = str_replace('</','<\\/',$content);
+		$content = str_replace('/>','\\/>',$content);
 
-		$tooltips += array($var => $content);
+		$tooltips += array($var=>$content);
 	}
 }
 
@@ -62,9 +61,9 @@ function getAllTooltips( )
 	if( is_array($tooltips) )
 	{
 		$ret_string = "<script type=\"text/javascript\">\n<!--\n";
-		foreach( $tooltips as $var => $content )
+		foreach ($tooltips as $var => $content)
 		{
-			$ret_string .= "\tvar overlib_$var = \"" . str_replace('--', '-"+"-', $content) . "\";\n";
+			$ret_string .= "\tvar overlib_$var = \"" . str_replace('--','-"+"-',$content) . "\";\n";
 		}
 		$ret_string .= "//-->\n</script>";
 
@@ -77,11 +76,11 @@ function getAllTooltips( )
 }
 
 /**
- * Highlight certain keywords in a SQL query
- *
- * @param string $sql Query string
- * @return string Highlighted string
- */
+* Highlight certain keywords in a SQL query
+*
+* @param string $sql Query string
+* @return string Highlighted string
+*/
 function sql_highlight( $sql )
 {
 	global $roster;
@@ -90,47 +89,20 @@ function sql_highlight( $sql )
 	$sql = preg_replace('/' . $roster->db->prefix . '(\S+?)([\s\.,]|$)/', '<span class="blue">' . $roster->db->prefix . "\\1\\2</span>", $sql);
 
 	// Non-passive keywords
-	$red_keywords = array(
-		'/(INSERT INTO)/',
-		'/(UPDATE\s+)/',
-		'/(DELETE FROM\s+)/',
-		'/(CREATE TABLE)/',
-		'/(IF (NOT)? EXISTS)/',
-		'/(ALTER TABLE)/',
-		'/(CHANGE)/',
-		'/(SET)/',
-		'/(REPLACE INTO)/'
-	);
+	$red_keywords = array('/(INSERT INTO)/','/(UPDATE\s+)/','/(DELETE FROM\s+)/','/(CREATE TABLE)/','/(IF (NOT)? EXISTS)/',
+						  '/(ALTER TABLE)/', '/(CHANGE)/','/(SET)/','/(REPLACE INTO)/');
 
 	$red_replace = array_fill(0, sizeof($red_keywords), '<span class="red">\\1</span>');
-	$sql = preg_replace($red_keywords, $red_replace, $sql);
+	$sql = preg_replace( $red_keywords, $red_replace, $sql );
+
 
 	// Passive keywords
-	$green_keywords = array(
-		'/(SELECT)/',
-		'/(FROM)/',
-		'/(WHERE)/',
-		'/(LIMIT)/',
-		'/(ORDER BY)/',
-		'/(GROUP BY)/',
-		'/(\s+AND\s+)/',
-		'/(\s+OR\s+)/',
-		'/(\s+ON\s+)/',
-		'/(BETWEEN)/',
-		'/(DESC)/',
-		'/(LEFT JOIN)/',
-		'/(SHOW TABLES)/',
-		'/(LIKE)/',
-		'/(PRIMARY KEY)/',
-		'/(VALUES)/',
-		'/(TYPE)/',
-		'/(ENGINE)/',
-		'/(MyISAM)/',
-		'/(SHOW COLUMNS)/'
-	);
+	$green_keywords = array('/(SELECT)/','/(FROM)/','/(WHERE)/','/(LIMIT)/','/(ORDER BY)/','/(GROUP BY)/',
+							'/(\s+AND\s+)/','/(\s+OR\s+)/','/(\s+ON\s+)/','/(BETWEEN)/','/(DESC)/','/(LEFT JOIN)/','/(SHOW TABLES)/',
+							'/(LIKE)/','/(PRIMARY KEY)/','/(VALUES)/','/(TYPE)/','/(ENGINE)/','/(MyISAM)/','/(SHOW COLUMNS)/');
 
 	$green_replace = array_fill(0, sizeof($green_keywords), '<span class="green">\\1</span>');
-	$sql = preg_replace($green_keywords, $green_replace, $sql);
+	$sql = preg_replace( $green_keywords, $green_replace, $sql );
 
 	return $sql;
 }
@@ -144,7 +116,7 @@ function sql_highlight( $sql )
  * @param string $line Line in file to display
  * @param string $sql Any SQL text to display
  */
-function die_quietly( $text = '' , $title = 'Message' , $file = '' , $line = '' , $sql = '' )
+function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='' )
 {
 	global $roster;
 
@@ -153,7 +125,7 @@ function die_quietly( $text = '' , $title = 'Message' , $file = '' , $line = '' 
 		ajax_die($text, $title, $file, $line, $sql);
 	}
 	// die_quitely died quietly
-	if( defined('ROSTER_DIED') )
+	if(defined('ROSTER_DIED') )
 	{
 		echo "<pre>The quiet die function suffered a fatal error. Die information below\n";
 		echo "First die data:\n";
@@ -163,12 +135,12 @@ function die_quietly( $text = '' , $title = 'Message' , $file = '' , $line = '' 
 		if( !empty($roster->error->report) )
 		{
 			echo "\nPHP Notices/Warnings:\n";
-			print_r($roster->error->report);
+			print_r( $roster->error->report );
 		}
 		exit();
 	}
 
-	define('ROSTER_DIED', true);
+	define( 'ROSTER_DIED', true );
 
 	$GLOBALS['die_data'] = func_get_args();
 
@@ -176,13 +148,13 @@ function die_quietly( $text = '' , $title = 'Message' , $file = '' , $line = '' 
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
 	{
-		$roster_menu = new RosterMenu();
+		$roster_menu = new RosterMenu;
 		$roster_menu->makeMenu($roster->output['show_menu']);
 	}
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		include_once (ROSTER_BASE . 'header.php');
+		include_once(ROSTER_BASE . 'header.php');
 	}
 
 	$roster_menu->displayMenu();
@@ -192,7 +164,7 @@ function die_quietly( $text = '' , $title = 'Message' , $file = '' , $line = '' 
 		$roster->db->close_db();
 	}
 
-	echo border('sred', 'start', $title) . '<table class="bodyline" cellspacing="0" cellpadding="0">' . "\n";
+	echo border('sred','start',$title) . '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
 
 	if( !empty($text) )
 	{
@@ -204,7 +176,7 @@ function die_quietly( $text = '' , $title = 'Message' , $file = '' , $line = '' 
 	}
 	if( !empty($file) )
 	{
-		$file = str_replace(ROSTER_BASE, '', $file);
+		$file = str_replace(ROSTER_BASE,'',$file);
 
 		echo "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
 	}
@@ -216,15 +188,15 @@ function die_quietly( $text = '' , $title = 'Message' , $file = '' , $line = '' 
 	if( $roster->config['debug_mode'] == 2 )
 	{
 		echo "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">";
-		echo backtrace();
+		echo  backtrace();
 		echo "</td>\n</tr>\n";
 	}
 
-	echo "</table>\n" . border('sred', 'end');
+	echo "</table>\n" . border('sred','end');
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		include_once (ROSTER_BASE . 'footer.php');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -243,18 +215,18 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	if( $roster->pages[0] == 'ajax' )
 	{
-		ajax_die($message, $title, null, null, null);
+		ajax_die($message, $title, null, null, null );
 	}
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
 	{
-		$roster_menu = new RosterMenu();
+		$roster_menu = new RosterMenu;
 		$roster_menu->makeMenu($roster->output['show_menu']);
 	}
 
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
-		include_once (ROSTER_BASE . 'header.php');
+		include_once(ROSTER_BASE . 'header.php');
 	}
 
 	$roster_menu->displayMenu();
@@ -264,11 +236,11 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 		$roster->db->close_db();
 	}
 
-	echo messagebox('<div align="center">' . $message . '</div>', $title, $style);
+	echo messagebox('<div align="center">' . $message . '</div>',$title,$style);
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
-		include_once (ROSTER_BASE . 'footer.php');
+		include_once(ROSTER_BASE . 'footer.php');
 	}
 
 	exit();
@@ -277,7 +249,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 /**
  * Print a roster-ajax XML error message
  */
-function ajax_die( $text , $title , $file , $line , $sql )
+function ajax_die($text, $title, $file, $line, $sql)
 {
 	if( $file )
 	{
@@ -291,17 +263,25 @@ function ajax_die( $text , $title , $file , $line , $sql )
 	{
 		$text .= "\n" . 'SQL: ' . $sql;
 	}
-	echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n" . "<response>\n" . "  <method/>\n" . "  <cont/>\n" . "  <result/>\n" . "  <status>255</status>\n" . "  <errmsg>" . $text . "</errmsg>\n" . "</response>\n";
+	echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n"
+		. "<response>\n"
+		. "  <method/>\n"
+		. "  <cont/>\n"
+		. "  <result/>\n"
+		. "  <status>255</status>\n"
+		. "  <errmsg>" . $text . "</errmsg>\n"
+		. "</response>\n";
 	exit();
 }
+
 
 /**
  * Print a debug backtrace. This works in PHP4.3.x+, there is an integrated
  * function for this starting PHP5 but I prefer always having the same layout.
  */
-function backtrace( )
+function backtrace()
 {
-	if( version_compare(phpversion(), '4.3', '<') )
+	if( version_compare( phpversion(), '4.3', '<' ) )
 	{
 		return 'Unable to print backtrace: PHP version too low';
 	}
@@ -316,7 +296,7 @@ function backtrace( )
 		}
 		else
 		{
-			$output .= '<li>' . str_replace(ROSTER_BASE, '', $bt[$i]['file']) . "<ul>\n";
+			$output .= '<li>' . str_replace(ROSTER_BASE,'',$bt[$i]['file']) . "<ul>\n";
 		}
 
 		if( isset($bt[$i]['line']) )
@@ -335,15 +315,15 @@ function backtrace( )
 					$output .= '<li>Array(<ul>';
 					foreach( $bt[$i]['args'][$j] as $key => $value )
 					{
-						if( is_array($value) )
+						if( is_array( $value ) )
 						{
 							$output .= '<li>' . $key . ' => array</li>';
 						}
-						elseif( is_object($value) )
+						elseif( is_object( $value ) )
 						{
-							$output .= '<li>' . $key . ' => ' . get_class($value) . ' object</li>';
+							$output .= '<li>' . $key . ' => ' . get_class( $value ) . ' object</li>';
 						}
-						elseif( is_null($value) )
+						elseif( is_null( $value ) )
 						{
 							$output .= '<li>' . $key . ' => <i>NULL</i></li>';
 						}
@@ -388,38 +368,21 @@ function backtrace( )
  */
 function stripAllHtml( $string )
 {
-	$search = array(
-		'@<script[^>]*?>.*?</script>@si',  // Strip out javascript
-		'@<[\/\!]*?[^<>]*?>@si',  // Strip out HTML tags
-		'@([\r\n])[\s]+@',  // Strip out white space
-		'@&(quot|#34);@i',  // Replace HTML entities
-		'@&(amp|#38);@i',
-		'@&(lt|#60);@i',
-		'@&(gt|#62);@i',
-		'@&(nbsp|#160);@i',
-		'@&(iexcl|#161);@i',
-		'@&(cent|#162);@i',
-		'@&(pound|#163);@i',
-		'@&(copy|#169);@i',
-		'@&#(\d+);@e'
-	); // evaluate as php
+	$search = array ('@<script[^>]*?>.*?</script>@si', // Strip out javascript
+					'@<[\/\!]*?[^<>]*?>@si',           // Strip out HTML tags
+					'@([\r\n])[\s]+@',                 // Strip out white space
+					'@&(quot|#34);@i',                 // Replace HTML entities
+					'@&(amp|#38);@i',
+					'@&(lt|#60);@i',
+					'@&(gt|#62);@i',
+					'@&(nbsp|#160);@i',
+					'@&(iexcl|#161);@i',
+					'@&(cent|#162);@i',
+					'@&(pound|#163);@i',
+					'@&(copy|#169);@i',
+					'@&#(\d+);@e');                    // evaluate as php
 
-
-	$replace = array(
-		'',
-		'',
-		"\n",
-		'"',
-		'&',
-		'<',
-		'>',
-		' ',
-		chr(161),
-		chr(162),
-		chr(163),
-		chr(169),
-		'chr(\1)'
-	);
+	$replace = array ('','',"\n",'"','&','<','>',' ',chr(161),chr(162),chr(163),chr(169),'chr(\1)');
 
 	$string = preg_replace($search, $replace, $string);
 
@@ -440,49 +403,29 @@ function check_if_image( $imagefilename )
 	}
 	else
 	{
-		switch( $extension )
-		{
-			case 'bmp':
-				return $extension;
-			case 'cod':
-				return $extension;
-			case 'gif':
-				return $extension;
-			case 'ief':
-				return $extension;
-			case 'jpg':
-				return $extension;
-			case 'jpeg':
-				return $extension;
-			case 'jfif':
-				return $extension;
-			case 'tif':
-				return $extension;
-			case 'ras':
-				return $extension;
-			case 'ico':
-				return $extension;
-			case 'pnm':
-				return $extension;
-			case 'pbm':
-				return $extension;
-			case 'pgm':
-				return $extension;
-			case 'ppm':
-				return $extension;
-			case 'rgb':
-				return $extension;
-			case 'xwd':
-				return $extension;
-			case 'png':
-				return $extension;
-			case 'jps':
-				return $extension;
-			case 'fh':
-				return $extension;
+	  	switch( $extension )
+	  	{
+		  	case 'bmp': 	return $extension;
+		  	case 'cod': 	return $extension;
+		  	case 'gif': 	return $extension;
+		  	case 'ief': 	return $extension;
+		  	case 'jpg': 	return $extension;
+		  	case 'jpeg': 	return $extension;
+		  	case 'jfif': 	return $extension;
+		  	case 'tif': 	return $extension;
+		  	case 'ras': 	return $extension;
+		  	case 'ico': 	return $extension;
+		  	case 'pnm': 	return $extension;
+		  	case 'pbm': 	return $extension;
+		  	case 'pgm': 	return $extension;
+		  	case 'ppm': 	return $extension;
+		  	case 'rgb': 	return $extension;
+		  	case 'xwd': 	return $extension;
+		  	case 'png': 	return $extension;
+		  	case 'jps': 	return $extension;
+		  	case 'fh': 		return $extension;
 
-			default:
-				return false;
+			default: 		return false;
 		}
 	}
 }
@@ -500,7 +443,7 @@ function check_if_image( $imagefilename )
  * Default is true
  * @return string | Formatted tooltip
  */
-function colorTooltip( $tooltip , $caption_color = '' , $locale = '' , $inline_caption = 1 )
+function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=1 )
 {
 	global $roster;
 
@@ -525,15 +468,15 @@ function colorTooltip( $tooltip , $caption_color = '' , $locale = '' , $inline_c
 
 	// Color parsing time!
 	$tooltip = str_replace("\n\n", "\n", $tooltip);
-	$tooltip = str_replace('<br>', "\n", $tooltip);
-	$tooltip = str_replace('<br />', "\n", $tooltip);
-	foreach( explode("\n", $tooltip) as $line )
+	$tooltip = str_replace('<br>',"\n",$tooltip);
+	$tooltip = str_replace('<br />',"\n",$tooltip);
+	foreach (explode("\n", $tooltip) as $line )
 	{
 		$color = '';
 
 		if( !empty($line) )
 		{
-			$line = preg_replace('/\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r/i', '<span style="color:#$1;">$2</span>', $line);
+			$line = preg_replace('/\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r/i','<span style="color:#$1;">$2</span>',$line);
 
 			// Do this on the first line
 			// This is performed when $caption_color is set
@@ -546,7 +489,7 @@ function colorTooltip( $tooltip , $caption_color = '' , $locale = '' , $inline_c
 
 				if( strlen($caption_color) > 6 )
 				{
-					$color = substr($caption_color, 2, 6) . ';font-size:12px;font-weight:bold';
+					$color = substr( $caption_color, 2, 6 ) . ';font-size:12px;font-weight:bold';
 				}
 				else
 				{
@@ -598,19 +541,19 @@ function colorTooltip( $tooltip , $caption_color = '' , $locale = '' , $inline_c
 				{
 					$color = '00ff00';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'], $line) )
+				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'], $line) )
 				{
 					$color = '00ff00;font-weight:bold';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'], $line) )
+				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'], $line) )
 				{
 					$color = 'ffffff;font-weight:bold';
 				}
-				elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'] . '/i', $line) )
+				elseif( preg_match('/\([a-f0-9]\).' . $roster->locale->wordings[$locale]['tooltip_set'] . '/i',$line) )
 				{
 					$color = '666666';
 				}
-				elseif( ereg('^"', $line) )
+				elseif( ereg('^"',$line) )
 				{
 					$color = 'ffd517';
 				}
@@ -620,7 +563,8 @@ function colorTooltip( $tooltip , $caption_color = '' , $locale = '' , $inline_c
 				}
 				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_emptysocket'], $line, $matches) )
 				{
-					$line = '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-' . $roster->locale->wordings[$locale]['socket_colors_to_en'][strtolower($matches[1])] . '.' . $roster->config['img_suffix'] . '" />&nbsp;&nbsp;' . $matches[0];
+					$line = '<img src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
+						  . $roster->locale->wordings[$locale]['socket_colors_to_en'][strtolower($matches[1])] . '.' . $roster->config['img_suffix'] . '" />&nbsp;&nbsp;' . $matches[0];
 				}
 				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
 				{
@@ -643,9 +587,9 @@ function colorTooltip( $tooltip , $caption_color = '' , $locale = '' , $inline_c
 			}
 
 			// Convert tabs to a formated table
-			if( strpos($line, "\t") )
+			if( strpos($line,"\t") )
 			{
-				$line = explode("\t", $line);
+				$line = explode("\t",$line);
 				if( !empty($color) )
 				{
 					$line = '<div style="width:100%;color:#' . $color . ';"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
@@ -684,7 +628,7 @@ function colorTooltip( $tooltip , $caption_color = '' , $locale = '' , $inline_c
  * Default is true
  * @return string | Formatted tooltip
  */
-function cleanTooltip( $tooltip , $caption_color = '' , $inline_caption = 1 )
+function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 {
 	// Detect caption mode and display accordingly
 	if( $inline_caption )
@@ -696,21 +640,22 @@ function cleanTooltip( $tooltip , $caption_color = '' , $inline_caption = 1 )
 		$first_line = false;
 	}
 
+
 	// Initialize tooltip_out
 	$tooltip_out = '';
 
 	// Parsing time!
-	$tooltip = str_replace('<br>', "\n", $tooltip);
-	$tooltip = str_replace('<br />', "\n", $tooltip);
+	$tooltip = str_replace('<br>',"\n",$tooltip);
+	$tooltip = str_replace('<br />',"\n",$tooltip);
 	foreach( explode("\n", $tooltip) as $line )
 	{
 		$color = '';
 
 		if( !empty($line) )
 		{
-			$line = preg_replace('|\\>|', '&#8250;', $line);
-			$line = preg_replace('|\\<|', '&#8249;', $line);
-			$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|', '<span style="color:#$1;">$2</span>', $line);
+			$line = preg_replace('|\\>|','&#8250;', $line );
+			$line = preg_replace('|\\<|','&#8249;', $line );
+			$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
 
 			// Do this on the first line
 			// This is performed when $caption_color is set
@@ -723,7 +668,7 @@ function cleanTooltip( $tooltip , $caption_color = '' , $inline_caption = 1 )
 
 				if( strlen($caption_color) > 6 )
 				{
-					$color = substr($caption_color, 2, 6) . ';font-size:11px;font-weight:bold';
+					$color = substr( $caption_color, 2, 6 ) . ';font-size:11px;font-weight:bold';
 				}
 				else
 				{
@@ -734,9 +679,9 @@ function cleanTooltip( $tooltip , $caption_color = '' , $inline_caption = 1 )
 			}
 
 			// Convert tabs to a formated table
-			if( strpos($line, "\t") )
+			if( strpos($line,"\t") )
 			{
-				$line = explode("\t", $line);
+				$line = explode("\t",$line);
 				if( !empty($color) )
 				{
 					$line = '<div style="width:100%;color:#' . $color . ';"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
@@ -782,7 +727,7 @@ function cleanTooltip( $tooltip , $caption_color = '' , $inline_caption = 1 )
  * @param string $item_id
  * @return unknown
  */
-function makeOverlib( $tooltip , $caption = '' , $caption_color = '' , $mode = 0 , $locale = '' , $extra_parameters = '' )
+function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' )
 {
 	global $roster, $tooltips;
 
@@ -800,7 +745,7 @@ function makeOverlib( $tooltip , $caption = '' , $caption_color = '' , $mode = 0
 	{
 		if( strlen($caption_color) > 6 )
 		{
-			$caption_color = substr($caption_color, 2);
+			$caption_color = substr( $caption_color, 2 );
 		}
 	}
 
@@ -816,27 +761,27 @@ function makeOverlib( $tooltip , $caption = '' , $caption_color = '' , $mode = 0
 		$caption_mode = 0;
 	}
 
-	switch( $mode )
+	switch ($mode)
 	{
 		case 0:
-			$tooltip = colorTooltip($tooltip, $caption_color, $locale, $caption_mode);
+			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
 			break;
 
 		case 1:
-			$tooltip = cleanTooltip($tooltip, $caption_color, $caption_mode);
+			$tooltip = cleanTooltip($tooltip,$caption_color,$caption_mode);
 			break;
 
 		case 2:
 			break;
 
 		default:
-			$tooltip = colorTooltip($tooltip, $caption_color, $locale, $caption_mode);
+			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
 			break;
 	}
 
-	$num_of_tips = (count($tooltips) + 1);
+	$num_of_tips = (count($tooltips)+1);
 
-	setTooltip($num_of_tips, $tooltip);
+	setTooltip($num_of_tips,$tooltip);
 
 	return 'onmouseover="return overlib(overlib_' . $num_of_tips . $caption . $extra_parameters . ');" onmouseout="return nd();"';
 }
@@ -851,7 +796,7 @@ function makeOverlib( $tooltip , $caption = '' , $caption_color = '' , $mode = 0
  */
 function escape_array( $array )
 {
-	foreach( $array as $key => $value )
+	foreach ($array as $key=>$value)
 	{
 		if( is_array($value) )
 		{
@@ -876,7 +821,7 @@ function escape_array( $array )
  */
 function stripslash_array( $array )
 {
-	foreach( $array as $key => $value )
+	foreach ($array as $key=>$value)
 	{
 		if( is_array($value) )
 		{
@@ -898,14 +843,14 @@ function stripslash_array( $array )
  * @param string $offset Offset in hours to calcuate time returned
  * @return string formatted date string
  */
-function readbleDate( $datetime , $offset = null )
+function readbleDate( $datetime , $offset=null )
 {
 	global $roster;
 
-	$offset = (is_null($offset) ? $roster->config['localtimeoffset'] : $offset);
+	$offset = ( is_null($offset) ? $roster->config['localtimeoffset'] : $offset );
 
-	list($year, $month, $day, $hour, $minute, $second) = sscanf($datetime, "%d-%d-%d %d:%d:%d");
-	$localtime = mktime($hour + $offset, $minute, $second, $month, $day, $year, -1);
+	list($year,$month,$day,$hour,$minute,$second) = sscanf($datetime,"%d-%d-%d %d:%d:%d");
+	$localtime = mktime($hour+$offset ,$minute, $second, $month, $day, $year, -1);
 
 	return date($roster->locale->act['phptimeformat'], $localtime);
 }
@@ -918,7 +863,7 @@ function readbleDate( $datetime , $offset = null )
  */
 function get_file_ext( $filename )
 {
-	return strtolower(ltrim(strrchr($filename, '.'), '.'));
+	return strtolower(ltrim(strrchr($filename,'.'),'.'));
 }
 
 /**
@@ -950,18 +895,12 @@ function seconds_to_time( $seconds )
 	}
 
 	// convert variables into sentence structure components
-	$days = (isset($days) ? $days . 'd, ' : '');
-	$hours = (isset($hours) ? $hours . 'h, ' : '');
-	$minutes = (isset($minutes) ? $minutes . 'm, ' : '');
-	$seconds = (isset($seconds) ? $seconds . 's' : '');
+	$days = ( isset($days) ? $days . 'd, ' : '' );
+	$hours = ( isset($hours) ? $hours . 'h, ' : '' );
+	$minutes = ( isset($minutes) ? $minutes . 'm, ' : '' );
+	$seconds = ( isset($seconds) ? $seconds . 's' : '' );
 
-	return array(
-
-		'days' => $days,
-		'hours' => $hours,
-		'minutes' => $minutes,
-		'seconds' => $seconds
-	);
+	return array('days' => $days, 'hours' => $hours, 'minutes' => $minutes, 'seconds' => $seconds);
 }
 
 /**
@@ -974,9 +913,9 @@ function getaddon( $addonname )
 {
 	global $roster;
 
-	if( !isset($roster->addon_data[$addonname]) )
+	if ( !isset($roster->addon_data[$addonname]) )
 	{
-		roster_die(sprintf($roster->locale->act['addon_not_installed'], $addonname), $roster->locale->act['addon_error']);
+		roster_die(sprintf($roster->locale->act['addon_not_installed'],$addonname),$roster->locale->act['addon_error']);
 	}
 
 	$addon = $roster->addon_data[$addonname];
@@ -1089,14 +1028,14 @@ function getaddon( $addonname )
 
 	$result = $roster->db->query($query);
 
-	if( !$result )
+	if ( !$result )
 	{
-		die_quietly($roster->db->error(), $roster->locale->act['addon_error'], __FILE__, __LINE__, $query);
+		die_quietly($roster->db->error(),$roster->locale->act['addon_error'],__FILE__,__LINE__, $query );
 	}
 
 	if( $roster->db->num_rows($result) > 0 )
 	{
-		while( $row = $roster->db->fetch($result, SQL_ASSOC) )
+		while( $row = $roster->db->fetch($result,SQL_ASSOC) )
 		{
 			$addon['config'][$row['config_name']] = $row['config_value'];
 		}
@@ -1135,7 +1074,7 @@ function active_addon( $name )
  * @param  string $user_agent	| Useragent to use for connection
  * @return mixed		| False on error, contents on success
  */
-function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 )
+function urlgrabber( $url , $timeout=5 , $user_agent=false, $loopcount=0 )
 {
 	global $roster;
 
@@ -1156,7 +1095,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 
 //		trigger_error('UrlGrabber Info [CURL]: Activated', E_USER_WARNING);
 		$ch = curl_init($url);
 
-		$httpHeader = array('Accept-Language: ' . substr($roster->config['locale'], 0, 2));
+		$httpHeader = array( 'Accept-Language: ' . substr($roster->config['locale'], 0, 2) );
 		if( $roster->cache->check($cache_tag) )
 		{
 			$httpHeader[] = 'Cookie: ' . $roster->cache->get($cache_tag);
@@ -1186,7 +1125,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 
 		{
 			list($resHeader, $data) = explode("\n\n", $contents, 2);
 		}
-		$http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		curl_close($ch);
 
 		$tmp;
@@ -1195,32 +1134,32 @@ function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 
 			$roster->cache->put($tmp[1], $cache_tag);
 		}
 
-		if( $http_code == 301 || $http_code == 302 )
-		{
-			$matches = array();
-			preg_match('/Location:(.*?)\n/', $resHeader, $matches);
-			$redirect = trim(array_pop($matches));
-			if( !$redirect )
-			{
-				//couldn't process the url to redirect to
-				return $data;
-			}
+        if( $http_code == 301 || $http_code == 302 )
+        {
+            $matches = array();
+            preg_match('/Location:(.*?)\n/', $resHeader, $matches);
+            $redirect = trim(array_pop($matches));
+            if( !$redirect )
+            {
+                //couldn't process the url to redirect to
+                return $data;
+            }
 
-			return urlgrabber($redirect, $timeout, $user_agent, $loopcount);
-		}
+            return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
+        }
 		else
 		{
-			return $data;
-		}
+            return $data;
+        }
 	}
 	elseif( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
 	{
-		//		trigger_error('UrlGrabber Info [fsock]: Activated', E_USER_WARNING);
+//		trigger_error('UrlGrabber Info [fsock]: Activated', E_USER_WARNING);
 		// 0 = $url, 1 = host, 2 = port or null, 3 = page requested, 4 = pararms
 		$host = $matches[1];
 		$port = (($matches[2] == '') ? 80 : $matches[2]);
 		$page = $matches[3];
-		$page_params = (isset($matches[4]) ? $matches[4] : '');
+		$page_params = ( isset($matches[4]) ? $matches[4] : '' );
 
 		$file = fsockopen($host, $port, $errno, $errstr, $timeout);
 		if( !$file )
@@ -1230,7 +1169,11 @@ function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 
 		}
 		else
 		{
-			$header = "GET $page$page_params HTTP/1.0\r\n" . "Host: $host\r\n" . "User-Agent: $user_agent\r\n" . "Accept-Language: " . substr($roster->config['locale'], 0, 2) . "\r\n" . "Connection: Close\r\n";
+			$header = "GET $page$page_params HTTP/1.0\r\n"
+					. "Host: $host\r\n"
+					. "User-Agent: $user_agent\r\n"
+					. "Accept-Language: " . substr($roster->config['locale'], 0, 2) . "\r\n"
+					. "Connection: Close\r\n";
 			if( $roster->cache->check($cache_tag) )
 			{
 				$header .= "Cookie: " . $roster->cache->get($cache_tag) . "\r\n";
@@ -1278,7 +1221,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 
 			}
 			if( $redirect != false )
 			{
-				return urlgrabber($redirect, $timeout, $user_agent, $loopcount);
+				return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
 			}
 			else
 			{
@@ -1288,7 +1231,7 @@ function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 
 	}
 	elseif( $contents = file_get_contents($url) )
 	{
-		//		trigger_error('UrlGrabber Info [file_get_contents]: Activated', E_USER_WARNING);
+//		trigger_error('UrlGrabber Info [file_get_contents]: Activated', E_USER_WARNING);
 		return $contents;
 	}
 	else
@@ -1297,7 +1240,6 @@ function urlgrabber( $url , $timeout = 5 , $user_agent = false , $loopcount = 0 
 		return false;
 	}
 } //-END function urlgrabber()
-
 
 /**
  * Stupid function to create an REQUEST_URI for IIS 5 servers
@@ -1323,10 +1265,11 @@ function request_uri( )
 	# encode the url " %22 and <> %3C%3E
 	$REQUEST_URI = str_replace('"', '%22', $REQUEST_URI);
 	$REQUEST_URI = preg_replace('#([\x3C\x3E])#e', '"%".bin2hex(\'\\1\')', $REQUEST_URI);
-	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI) - strlen(stristr($REQUEST_URI, '&CMSSESSID')));
+	$REQUEST_URI = substr($REQUEST_URI, 0, strlen($REQUEST_URI)-strlen(stristr($REQUEST_URI, '&CMSSESSID')));
 
 	return $REQUEST_URI;
 }
+
 
 /**
  * Attempts to write a file to the file system
@@ -1336,9 +1279,9 @@ function request_uri( )
  * @param string $mode
  * @return bool
  */
-function file_writer( $filename , &$content , $mode = 'wb' )
+function file_writer( $filename , &$content , $mode='wb' )
 {
-	if( !$fp = fopen($filename, $mode) )
+	if(!$fp = fopen($filename, $mode))
 	{
 		trigger_error("Cannot open file ($filename)", E_USER_WARNING);
 		return false;
@@ -1347,7 +1290,7 @@ function file_writer( $filename , &$content , $mode = 'wb' )
 	$bytes_written = fwrite($fp, $content);
 	flock($fp, LOCK_UN);
 	fclose($fp);
-	if( $bytes_written === FALSE )
+	if($bytes_written === FALSE)
 	{
 		trigger_error("Couldn't write to file ($filename)", E_USER_WARNING);
 		return false;
@@ -1376,7 +1319,7 @@ function php_as_nobody( $file )
  * @param int $tab
  * @return string
  */
-function _aprint( $arr , $tab = 1 )
+function _aprint( $arr , $tab=1 )
 {
 	$obj = false;
 	if( is_object($arr) )
@@ -1391,15 +1334,14 @@ function _aprint( $arr , $tab = 1 )
 
 	$space = str_repeat("\t", $tab);
 	$out = " <span style=\"color:#3366FF\">" . ($obj ? $obj . ' object' : 'Array') . "(</span>\n";
-	end($arr);
-	$end = key($arr);
+	end($arr); $end = key($arr);
 
 	if( count($arr) == 0 )
 	{
 		return "<span style=\"color:#3366FF\">" . ($obj ? $obj . ' object' : 'Array') . "()</span>";
 	}
 
-	foreach( $arr as $key => $val )
+	foreach( $arr as $key=>$val )
 	{
 		if( $key == $end )
 		{
@@ -1417,7 +1359,7 @@ function _aprint( $arr , $tab = 1 )
 
 		if( is_object($val) || is_array($val) )
 		{
-			$val = _aprint($val, ($tab + 1));
+			$val = _aprint($val, ($tab+1));
 		}
 		elseif( is_bool($val) )
 		{
@@ -1465,7 +1407,7 @@ function _aprint( $arr , $tab = 1 )
  * @param string $prefix
  * @return string
  */
-function aprint( $arr , $prefix = '' , $return = false )
+function aprint( $arr , $prefix='' , $return=false )
 {
 	if( ltrim($prefix) != '' )
 	{
@@ -1496,7 +1438,7 @@ function format_microtime( )
  */
 function array_overlay( $skel , &$arr )
 {
-	foreach( $skel as $key => $val )
+	foreach ($skel as $key => $val)
 	{
 		if( !isset($arr[$key]) )
 		{
@@ -1509,7 +1451,7 @@ function array_overlay( $skel , &$arr )
 		else
 		{
 			// UnComment if you want to know if you are overwritting a variable
-		//trigger_error('Key already set: ' . $key . '->' . $arr[$key] . '<br />&nbsp;&nbsp;New value tried: ' . $skel[$key]);
+			//trigger_error('Key already set: ' . $key . '->' . $arr[$key] . '<br />&nbsp;&nbsp;New value tried: ' . $skel[$key]);
 		}
 	}
 
@@ -1546,32 +1488,32 @@ function updateCheck( $addon )
 		{
 			$cache['timestamp'] = time();
 
-			$content = urlgrabber(sprintf(ROSTER_ADDONUPDATEURL, $addon['wrnet_id']));
+			$content = urlgrabber(sprintf(ROSTER_ADDONUPDATEURL,$addon['wrnet_id']));
 
-			if( preg_match('#<version>(.+)</version>#i', $content, $info) )
+			if( preg_match('#<version>(.+)</version>#i',$content,$info) )
 			{
 				$cache['ver_latest'] = $info[1];
 			}
 
-			if( preg_match('#<info>(.+)</info>#i', $content, $info) )
+			if( preg_match('#<info>(.+)</info>#i',$content,$info) )
 			{
 				$cache['ver_info'] = $info[1];
 			}
 
-			if( preg_match_all('#<link>(.+)</link>#i', $content, $info) )
+			if( preg_match_all('#<link>(.+)</link>#i',$content,$info) )
 			{
 				$cache['ver_link'] = $info[1][2];
 			}
 
-			if( preg_match('#<updated>(.+)</updated>#i', $content, $info) )
+			if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
 			{
 				$cache['ver_date'] = $info[1];
 			}
 
-			$roster->db->query("UPDATE `" . $roster->db->table('addon') . "` SET `versioncache` = '" . serialize($cache) . "' WHERE `addon_id` = '" . $addon['addon_id'] . "' LIMIT 1;");
+			$roster->db->query ( "UPDATE `" . $roster->db->table('addon') . "` SET `versioncache` = '" . serialize($cache) . "' WHERE `addon_id` = '" . $addon['addon_id'] . "' LIMIT 1;");
 		}
 
-		if( version_compare($cache['ver_latest'], $addon['version'], '>') )
+		if( version_compare($cache['ver_latest'],$addon['version'],'>') )
 		{
 			// Save current locale array
 			// Since we add all locales for localization, we save the current locale array
@@ -1580,17 +1522,17 @@ function updateCheck( $addon )
 
 			foreach( $roster->multilanguages as $lang )
 			{
-				$roster->locale->add_locale_file(ROSTER_ADDONS . $addon['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $addon['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 			}
 
-			$name = (isset($roster->locale->act[$addon['fullname']]) ? $roster->locale->act[$addon['fullname']] : $addon['fullname']);
+			$name = ( isset($roster->locale->act[$addon['fullname']]) ? $roster->locale->act[$addon['fullname']] : $addon['fullname'] );
 
 			// Restore our locale array
 			$roster->locale->wordings = $localetemp;
 			unset($localetemp);
 
-			$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600 * $roster->config['localtimeoffset']));
-			$return = messagebox(sprintf($roster->locale->act['new_version_available'], $name, $cache['ver_latest'], $cache['ver_date'], $cache['ver_link']) . '<br />' . $cache['ver_info'], $roster->locale->act['update']);
+			$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600*$roster->config['localtimeoffset']));
+			$return = messagebox(sprintf($roster->locale->act['new_version_available'],$name,$cache['ver_latest'],$cache['ver_date'],$cache['ver_link']) . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
 		}
 	}
 	return $return;
@@ -1599,8 +1541,8 @@ function updateCheck( $addon )
 /**
  * Dummy function. For when you need a callback that doesn't do anything.
  */
-function dummy( )
-{}
+function dummy(){}
+
 
 /**
  * A nifty Pagination function, sets template variables
@@ -1613,10 +1555,9 @@ function dummy( )
  * @param bool $add_prevnext
  * @return void
  */
-function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext = true )
+function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
 {
-
-	function paginate_page( $page , $url , $first = false )
+	function paginate_page( $page , $url , $first=false )
 	{
 		global $roster;
 
@@ -1624,13 +1565,14 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 			'PAGE' => $page,
 			'URL' => $url,
 			'FIRST' => $first
-		));
+			)
+		);
 	}
 
 	global $roster;
 
-	$total_pages = ceil($num_items / $per_page);
-	$on_page = floor($start_item / $per_page);
+	$total_pages = ceil($num_items/$per_page);
+	$on_page = floor($start_item/$per_page);
 
 	if( $total_pages < 2 )
 	{
@@ -1640,16 +1582,17 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 
 	$roster->tpl->assign_vars(array(
 		'B_PAGINATION' => true,
-		'PAGINATION_PREV' => ($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page - 1) * $per_page)) : false,
-		'PAGINATION_NEXT' => ($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page + $per_page)) : false
-	));
+		'PAGINATION_PREV' => ($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false,
+		'PAGINATION_NEXT' => ($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false,
+		)
+	);
 
 	if( $total_pages > 10 )
 	{
 		$init_page_max = ($total_pages > 3) ? 3 : $total_pages;
 		for( $i = 1; $i <= $init_page_max; $i++ )
 		{
-			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i * $per_page)), ($i == 1));
+			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($i == 1));
 		}
 		if( $total_pages > 3 )
 		{
@@ -1660,12 +1603,12 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 					paginate_page(' ... ', false, true);
 				}
 				$init_page_min = ($on_page > 4) ? $on_page : 5;
-				$init_page_max = ($on_page < $total_pages - 4) ? $on_page : $total_pages - 4;
+				$init_page_max = ($on_page < $total_pages - 4 ) ? $on_page : $total_pages - 4;
 				for( $i = $init_page_min - 1; $i < $init_page_max + 2; $i++ )
 				{
-					paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i * $per_page)), ($on_page <= 5 && $i == $init_page_min - 1));
+					paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($on_page <= 5 && $i == $init_page_min-1));
 				}
-				if( $on_page < $total_pages - 4 )
+				if( $on_page < $total_pages-4 )
 				{
 					paginate_page(' ... ', false, true);
 				}
@@ -1676,15 +1619,15 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 			}
 			for( $i = $total_pages - 2; $i <= $total_pages; $i++ )
 			{
-				paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i * $per_page)));
+				paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
 			}
 		}
 	}
 	else
 	{
-		for( $i = 1; $i <= $total_pages; $i++ )
+		for ($i = 1; $i <= $total_pages; $i++)
 		{
-			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i * $per_page)));
+			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
 		}
 	}
 }

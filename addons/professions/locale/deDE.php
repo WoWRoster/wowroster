@@ -11,7 +11,7 @@
  * @link       http://www.wowroster.net
  * @package    Professions
  * @subpackage Locale
- */
+*/
 
 $lang['professions_desc'] = 'Zeigt die Berufe eines jeden Gildenmitglieds';
 

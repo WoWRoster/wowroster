@@ -1,6 +1,6 @@
 <?php
 /**
- * WoWRoster.net WoWRoster
+ * WoWRoster..net WoWRoster
  *
  * Template Encoder
  * Modified from the EQDkp Project
@@ -15,11 +15,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage Template
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -30,7 +30,6 @@ if( !defined('IN_ROSTER') )
  */
 class RosterTplEncode
 {
-
 	// The all seeing all doing compile method. Parts are inspired by or directly
 	// from Smarty
 	function compile( $code , $no_echo = false , $echo_var = '' )
@@ -40,12 +39,7 @@ class RosterTplEncode
 		// php is a no-no. There is a potential issue here in that non-php
 		// content may be removed ... however designers should use entities
 		// if they wish to display < and >
-		$match_php_tags = array(
-			'#\<\?php .*?\?\>#is',
-			'#\<\script language="php"\>.*?\<\/script\>#is',
-			'#\<\?.*?\?\>#s',
-			'#\<%.*?%\>#s'
-		);
+		$match_php_tags = array('#\<\?php .*?\?\>#is', '#\<\script language="php"\>.*?\<\/script\>#is', '#\<\?.*?\?\>#s', '#\<%.*?%\>#s');
 		$code = preg_replace($match_php_tags, '', $code);
 
 		// Pull out all block/statement level elements and seperate plain text
@@ -63,9 +57,9 @@ class RosterTplEncode
 
 		preg_match_all('#<!-- (.*?) (.*?)?[ ]?-->#s', $code, $blocks);
 		$text_blocks = preg_split('#<!-- (.*?) (.*?)?[ ]?-->#s', $code);
-		if( $text_blocks[count($text_blocks) - 1] == '' )
+		if( $text_blocks[count($text_blocks)-1] == '' )
 		{
-			unset($text_blocks[count($text_blocks) - 1]);
+			unset($text_blocks[count($text_blocks)-1]);
 		}
 		for( $i = 0; $i < count($text_blocks); $i++ )
 		{
@@ -79,7 +73,7 @@ class RosterTplEncode
 		{
 			if( isset($blocks[1][$curr_tb]) )
 			{
-				switch( $blocks[1][$curr_tb] )
+				switch ($blocks[1][$curr_tb])
 				{
 					case 'BEGIN':
 						$block_else_level[] = false;
@@ -135,18 +129,18 @@ class RosterTplEncode
 						break;
 
 					case 'TRANSLATE':
-						$params = explode(' ', $blocks[2][$curr_tb]);
+						$params = explode( ' ', $blocks[2][$curr_tb] );
 						$key = $params[0];
-
-						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) ) { echo $roster->locale->act[\'' . $key . '\']; ' . '} else { echo \'{ TRANSLATE ' . $key . ' }\'; trigger_error(\'Missing translation { ' . $key . ' }\', E_USER_NOTICE); } ?>';
+						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
+								. '{ echo $roster->locale->act[\'' . $key . '\']; }'
+							. 'else'
+								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
 						break;
 
 					case 'TRANSLATE_F':
-						$params = explode(' ', $blocks[2][$curr_tb]);
-						$key = array_shift($params);
+						$params = explode( ' ', $blocks[2][$curr_tb] );
+						$key = array_shift( $params );
 						$args = '';
-						$extra = '';
-
 						foreach( $params as $param )
 						{
 							if( preg_match('#^(([a-z0-9\-_]+?\.)+?)(\$)?([A-Z0-9\-_]+?)$#', $param, $varref) )
@@ -158,12 +152,13 @@ class RosterTplEncode
 							}
 							else
 							{
-								$args .= ',( isset($roster->locale->act[\'' . $param . '\']) ? $roster->locale->act[\'' . $param . '\'] : ( isset($this->_tpldata[\'.\'][0][\'' . $param . '\']) ? $this->_tpldata[\'.\'][0][\'' . $param . '\'] : \'{ TRANSLATE ' . $param . ' }\' ))';
+								$args .= ',$this->_tpldata[\'.\'][0][\'' . $param . '\']';
 							}
 						}
-
-						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) ) { echo sprintf( $roster->locale->act[\'' . $key . '\']' . $args . '); ' . '} else { echo \'{ TRANSLATE_F ' . $key . ' }\'; trigger_error(\'Missing translation { ' . $key . ' }\', E_USER_NOTICE); } ?>';
-
+						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
+								. '{ echo sprintf( $roster->locale->act[\'' . $key . '\']' . $args . '); }'
+							. 'else'
+								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
 						break;
 
 					default:
@@ -185,7 +180,7 @@ class RosterTplEncode
 		// PHP mode instantaneously. Rather than "burden" the parser with this
 		// we'll strip out such occurences, minimising such switching
 		$template_php = str_replace(' ?><?php ', '', $template_php);
-		return (!$no_echo) ? $template_php : "\$$echo_var .= '" . $template_php . "'";
+		return  (!$no_echo) ? $template_php : "\$$echo_var .= '" . $template_php . "'";
 	}
 
 	function compile_var_tags( &$text_blocks )
@@ -344,9 +339,9 @@ class RosterTplEncode
 					break;
 
 				case 'is':
-					$is_arg_start = ($tokens[$i - 1] == ')') ? array_pop($is_arg_stack) : $i - 1;
-					$is_arg = implode('	', array_slice($tokens, $is_arg_start, $i - $is_arg_start));
-					$new_tokens = RosterTplEncode::_parse_is_expr($is_arg, array_slice($tokens, $i + 1));
+					$is_arg_start = ($tokens[$i-1] == ')') ? array_pop($is_arg_stack) : $i-1;
+					$is_arg	   = implode('	', array_slice($tokens, $is_arg_start, $i - $is_arg_start));
+					$new_tokens   = RosterTplEncode::_parse_is_expr($is_arg, array_slice($tokens, $i+1));
 					array_splice($tokens, $is_arg_start, count($tokens), $new_tokens);
 					$i = $is_arg_start;
 
@@ -408,7 +403,7 @@ class RosterTplEncode
 	// This is from Smarty
 	function _parse_is_expr( $is_arg , $tokens )
 	{
-		$expr_end = 0;
+		$expr_end =	0;
 		$negate_expr = false;
 		if( ($first_token = array_shift($tokens)) == 'not' )
 		{
@@ -425,12 +420,12 @@ class RosterTplEncode
 				if( $tokens[$expr_end] == 'by' )
 				{
 					++$expr_end;
-					$expr_arg = $tokens[$expr_end++];
-					$expr = "!(($is_arg	/ $expr_arg) % $expr_arg)";
+					$expr_arg =	$tokens[$expr_end++];
+					$expr =	"!(($is_arg	/ $expr_arg) % $expr_arg)";
 				}
 				else
 				{
-					$expr = "!($is_arg % 2)";
+					$expr =	"!($is_arg % 2)";
 				}
 				break;
 
@@ -438,12 +433,12 @@ class RosterTplEncode
 				if( $tokens[$expr_end] == 'by' )
 				{
 					++$expr_end;
-					$expr_arg = $tokens[$expr_end++];
-					$expr = "(($is_arg / $expr_arg)	% $expr_arg)";
+					$expr_arg =	$tokens[$expr_end++];
+					$expr =	"(($is_arg / $expr_arg)	% $expr_arg)";
 				}
 				else
 				{
-					$expr = "($is_arg %	2)";
+					$expr =	"($is_arg %	2)";
 				}
 				break;
 
@@ -451,8 +446,8 @@ class RosterTplEncode
 				if( $tokens[$expr_end] == 'by' )
 				{
 					++$expr_end;
-					$expr_arg = $tokens[$expr_end++];
-					$expr = "!($is_arg % $expr_arg)";
+					$expr_arg =	$tokens[$expr_end++];
+					$expr =	"!($is_arg % $expr_arg)";
 				}
 				break;
 
@@ -461,9 +456,9 @@ class RosterTplEncode
 		}
 		if( $negate_expr )
 		{
-			$expr = "!($expr)";
+			$expr =	"!($expr)";
 		}
-		array_splice($tokens, 0, $expr_end, $expr);
+		array_splice($tokens, 0, $expr_end,	$expr);
 		return $tokens;
 	}
 
@@ -507,7 +502,7 @@ class RosterTplEncode
 		# Add the block reference for the last child.
 		$varref .= "['" . $blocks[$blockcount] . "']";
 		# Add the iterator for the last child if requried.
-		if( $include_last_iterator )
+		if ($include_last_iterator)
 		{
 			$varref .= '[$this->_' . $blocks[$blockcount] . '_i]';
 		}
@@ -518,7 +513,7 @@ class RosterTplEncode
 	{
 		$filename = ereg_replace('/', '#', $this->filename[$handle]);
 		$filename = $this->cachepath . $filename . '.inc';
-		if( is_writeable(dirname($filename)) )
+		if(is_writeable(dirname($filename)))
 		{
 			file_writer($filename, $data);
 		}

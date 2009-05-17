@@ -14,11 +14,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage CMSLink
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -44,40 +44,41 @@ else
  * You can modify the defines 'ROSTER_URL' and 'ROSTER_PATH' to suit your needs
  * and bypass the url checks if needed
  */
-$url = explode('/', 'http://' . $_SERVER['SERVER_NAME'] . (($_SERVER['SERVER_PORT'] != 80) ? ':' . $_SERVER['SERVER_PORT'] : '') . $_SERVER['PHP_SELF']);
+$url = explode('/','http://' . $_SERVER['SERVER_NAME']  . (( $_SERVER['SERVER_PORT'] != 80 ) ? ':' . $_SERVER['SERVER_PORT'] : '' ) . $_SERVER['PHP_SELF']);
 array_pop($url);
-$url = implode('/', $url) . '/';
+$url = implode('/',$url) . '/';
 
-define('ROSTER_URL', $url);
+define('ROSTER_URL',$url);
 unset($url);
+
 
 /**
  * Get the url path to roster's directory
  */
-$urlpath = explode('/', $_SERVER['PHP_SELF']);
+$urlpath = explode('/',$_SERVER['PHP_SELF']);
 array_pop($urlpath);
-$urlpath = implode('/', $urlpath) . '/';
+$urlpath = implode('/',$urlpath) . '/';
 
-define('ROSTER_PATH', $urlpath);
+define('ROSTER_PATH',$urlpath);
 unset($urlpath);
 
 /**
  * Parse any get params that might be hidden in the URL
  */
-function parse_params( )
+function parse_params()
 {
 	// --[ mod_rewrite code ]--
 	if( !isset($_GET[ROSTER_PAGE]) )
 	{
 		$uri = request_uri();
-		$page = substr($uri, strlen(ROSTER_PATH));
-		list($page) = explode('.', $page);
+		$page = substr($uri,strlen(ROSTER_PATH));
+		list($page) = explode('.',$page);
 
 		// Build the Roster page var
 		$pages = array();
-		foreach( explode('/', $page) as $get )
+		foreach( explode('/',$page) as $get )
 		{
-			if( strpos($get, '=') === false )
+			if( strpos($get,'=') === false )
 			{
 				$pages[] = $get;
 			}
@@ -97,7 +98,7 @@ function parse_params( )
 		{
 			$pages = array();
 		}
-		$_GET[ROSTER_PAGE] = implode('-', $pages);
+		$_GET[ROSTER_PAGE] = implode('-',$pages);
 	}
 }
 
@@ -112,15 +113,15 @@ function parse_params( )
  * @param bool $full
  * @return string
  */
-function makelink( $url = '' , $full = false )
+function makelink( $url='' , $full=false )
 {
 	global $roster;
 
 	// Filter out html anchor
-	if( ($pos = strpos($url, '#')) !== false )
+	if( ($pos = strpos($url,'#')) !== false )
 	{
-		$html_anchor = substr($url, $pos);
-		$url = substr($url, 0, $pos);
+		$html_anchor = substr($url,$pos);
+		$url = substr($url,0,$pos);
 	}
 	else
 	{
@@ -135,7 +136,7 @@ function makelink( $url = '' , $full = false )
 	}
 	elseif( strpos($url, '&amp;') )
 	{
-		list($page, $url) = explode('&amp;', $url, 2);
+		list($page, $url) = explode('&amp;',$url,2);
 	}
 	else
 	{
@@ -144,26 +145,25 @@ function makelink( $url = '' , $full = false )
 	}
 
 	// Add the anchor param if it isn't in yet
-	switch( $roster->atype )
+	switch($roster->atype)
 	{
-		case 'char':
-			$anchor = (isset($roster->data['member_id']) ? 'a=c:' . $roster->data['member_id'] : '');
-			break;
-		case 'guild':
-		case 'default':
-			$anchor = (isset($roster->data['guild_id']) ? 'a=g:' . $roster->data['guild_id'] : '');
-			break;
-		case 'realm':
-			$anchor = 'a=r:' . $roster->anchor;
-		default:
-			$anchor = '';
+	case 'char':
+		$anchor = ( isset($roster->data['member_id'])?'a=c:' . $roster->data['member_id']:'' );
+		break;
+	case 'guild': case 'default':
+		$anchor = ( isset($roster->data['guild_id'])?'a=g:' . $roster->data['guild_id']:'' );
+		break;
+	case 'realm':
+		$anchor = 'a=r:' . $roster->anchor;
+	default:
+		$anchor = '';
 	}
 
 	if( empty($url) || empty($anchor) )
 	{
 		$url = $anchor . $url;
 	}
-	elseif( substr($url, 0, 2) != 'a=' && FALSE == strpos($url, '&amp;a=') )
+	elseif( substr($url,0,2) != 'a=' && FALSE == strpos( $url, '&amp;a=' ) )
 	{
 		$url = $anchor . '&amp;' . $url;
 	}
@@ -211,7 +211,7 @@ function makelink( $url = '' , $full = false )
  * @param bool $full
  */
 
-function getFormAction( $url = '' , $full = false )
+function getFormAction( $url='', $full=false )
 {
 	global $roster;
 
@@ -235,7 +235,7 @@ function getFormAction( $url = '' , $full = false )
  *
  * @param string $url
  */
-function linkform( $url = '' )
+function linkform( $url='' )
 {
 	global $roster;
 
@@ -246,19 +246,19 @@ function linkform( $url = '' )
 	}
 
 	// Run makelink for the extra params
-	$url = makelink($url, false);
+	$url = makelink($url,false);
 
 	// Cut off the ? at the start
-	if( strpos($url, '?') !== false )
+	if( strpos($url,'?') !==false )
 	{
-		$url = substr($url, strpos($url, '?') + 1);
+		$url = substr($url,strpos($url,'?')+1);
 	}
 
 	$return = '';
 
-	foreach( explode('&amp;', $url) as $param )
+	foreach( explode('&amp;',$url) as $param )
 	{
-		list($name, $value) = explode('=', $param, 2);
+		list($name, $value) = explode('=',$param,2);
 		$return .= '<input type="hidden" name="' . $name . '" value="' . $value . '" />' . "\n";
 	}
 

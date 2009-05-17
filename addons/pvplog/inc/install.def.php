@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    PvPLog
  * @subpackage Installer
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -29,24 +29,23 @@ class pvplogInstall
 	var $active = true;
 	var $icon = 'inv_banner_03';
 
-	var $version = '2.0.9.1976';
+	var $version = '1.9.9.1431';
 	var $wrnet_id = '0';
 
 	var $fullname = 'pvplog';
 	var $description = 'pvplog_desc';
 	var $credits = array(
-		array(
-			"name" => "WoWRoster Dev Team",
-			"info" => "Shows data from the PvPLog addon"
-		)
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Sortable/filterable member list"),
 	);
+
 
 	/**
 	 * Install Function
 	 *
 	 * @return bool
 	 */
-	function install( )
+	function install()
 	{
 		global $installer;
 
@@ -59,7 +58,7 @@ class pvplogInstall
 		# Generic display settings
 		$installer->add_config("'1000','minPvPLogver','2.0.0','text{10|10','pvpconfig'");
 
-		$installer->create_table($installer->table('pvp2'), "
+		$installer->create_table($installer->table('pvp2'),"
 		  `member_id` int(11) unsigned NOT NULL default '0',
 		  `index` int(11) unsigned NOT NULL default '0',
 		  `date` datetime default NULL,
@@ -82,11 +81,11 @@ class pvplogInstall
 		  KEY `member_id` (`member_id`,`index`)");
 
 		# Roster menu entry
-		$installer->add_menu_button('button_pvplog', 'guild');
+		$installer->add_menu_button('button_pvplog','guild');
 
-		$installer->add_menu_button('button_pvp', 'char', 'pvp', 'inv_banner_03');
-		$installer->add_menu_button('button_bg', 'char', 'bg', 'inv_bannerpvp_03');
-		$installer->add_menu_button('button_duel', 'char', 'duel', 'inv_brd_banner');
+		$installer->add_menu_button('button_pvp','char','pvp','inv_banner_03');
+		$installer->add_menu_button('button_bg','char','bg','inv_bannerpvp_03');
+		$installer->add_menu_button('button_duel','char','duel','inv_brd_banner');
 		return true;
 	}
 
@@ -95,7 +94,7 @@ class pvplogInstall
 	 *
 	 * @return bool
 	 */
-	function upgrade( $oldversion )
+	function upgrade($oldversion)
 	{
 		// Nothing to upgrade from yet
 		return true;
@@ -106,7 +105,7 @@ class pvplogInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall( )
+	function uninstall()
 	{
 		global $installer;
 

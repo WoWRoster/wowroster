@@ -14,7 +14,7 @@
  * @since      File available since Release 1.9.9
  * @package    WoWRoster
  * @subpackage SimpleClass
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
@@ -34,12 +34,12 @@ class SimpleClass
 	var $properties = array();
 
 	/**
-	 * Set property method
+ 	 * Set property method
 	 *
 	 * @param string $propName
 	 * @param string $propValue
 	 */
-	function setProp( $propName , $propValue )
+	function setProp( $propName, $propValue )
 	{
 		if( isset($this->$propName) )
 		{
@@ -56,7 +56,7 @@ class SimpleClass
 	}
 
 	/**
-	 * Set array method
+ 	 * Set array method
 	 *
 	 * @param array $array
 	 */
@@ -72,8 +72,8 @@ class SimpleClass
 	}
 
 	/**
-	 * HasProp method
-	 * checks the object for given prop name
+ 	 * HasProp method
+ 	 * checks the object for given prop name
 	 *
 	 * @param string $propName
 	 * @return bool

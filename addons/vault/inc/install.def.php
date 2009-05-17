@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    Vault
  * @subpackage Installer
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -34,18 +34,17 @@ class vaultInstall
 	var $fullname = 'vault';
 	var $description = 'vault_desc';
 	var $credits = array(
-		array(
-			"name" => "WoWRoster Dev Team",
-			"info" => "Original Author"
-		)
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original Author")
 	);
+
 
 	/**
 	 * Install function
 	 *
 	 * @return bool
 	 */
-	function install( )
+	function install()
 	{
 		global $installer;
 
@@ -60,7 +59,7 @@ class vaultInstall
 		$installer->add_config("'1045', 'tab6', '1', 'access', 'vault_conf'");
 		$installer->add_config("'1050', 'money', '1', 'access', 'vault_conf'");
 
-		$installer->create_table($installer->table('log'), "
+		$installer->create_table($installer->table('log'),"
 			`log_id` int(11) unsigned NOT NULL default '0',
 			`guild_id` int(11) unsigned NOT NULL default '0',
 			`member` varchar(96) NOT NULL default '',
@@ -74,14 +73,14 @@ class vaultInstall
 			KEY `type` (`type`),
 			KEY `name` (`member`)");
 
-		$installer->create_table($installer->table('money'), "
+		$installer->create_table($installer->table('money'),"
 			`guild_id` int(11) unsigned NOT NULL default '0',
 			`money_c` int(11) NOT NULL default '0',
 			`money_s` int(11) NOT NULL default '0',
 			`money_g` int(11) NOT NULL default '0',
 			KEY `id` (`guild_id`)");
 
-		$installer->create_table($installer->table('items'), "
+		$installer->create_table($installer->table('items'),"
 			`guild_id` int(11) unsigned NOT NULL default '0',
 			`item_name` varchar(96) NOT NULL default '',
 			`item_parent` varchar(64) NOT NULL default '',
@@ -99,7 +98,7 @@ class vaultInstall
 			KEY `slot` (`item_slot`),
 			KEY `name` (`item_name`)");
 
-		$installer->add_menu_button('vault_menu', 'guild');
+		$installer->add_menu_button('vault_menu','guild');
 		return true;
 	}
 
@@ -109,11 +108,11 @@ class vaultInstall
 	 * @param string $oldversion
 	 * @return bool
 	 */
-	function upgrade( $oldversion )
+	function upgrade($oldversion)
 	{
 		global $installer;
 
-		if( version_compare('1.9.9.1487', $oldversion, '>') == true )
+		if( version_compare('1.9.9.1487', $oldversion,'>') == true )
 		{
 			$installer->add_config("'1','startpage','vault_conf','display','master'");
 			$installer->add_config("'100','vault_conf',NULL,'blockframe','menu'");
@@ -125,7 +124,7 @@ class vaultInstall
 			$installer->add_config("'1050', 'money', '1', 'access', 'vault_conf'");
 		}
 
-		if( version_compare('1.9.9.1492', $oldversion, '>') == true )
+		if( version_compare('1.9.9.1492', $oldversion,'>') == true )
 		{
 			$installer->add_config("'1045', 'tab6', '1', 'access', 'vault_conf'");
 		}
@@ -137,7 +136,7 @@ class vaultInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall( )
+	function uninstall()
 	{
 		global $installer;
 

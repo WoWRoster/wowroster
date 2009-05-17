@@ -10,29 +10,31 @@
  * @version    SVN: $Id: enUS.php 1126 2007-07-27 05:14:27Z Zanix $
  * @link       http://www.wowroster.net
  * @package    News
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 // Add news if any was POSTed
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
-	if( !$roster->auth->getAuthorized($addon['config']['news_add']) && !isset($_POST['id']) )
+	if( ! $roster->auth->getAuthorized( $addon['config']['news_add'] ) && !isset($_POST['id']) )
 	{
 		echo $roster->auth->getLoginForm($addon['config']['news_add']);
 
 		return; //To the addon framework
 	}
-	if( !$roster->auth->getAuthorized($addon['config']['news_edit']) && isset($_POST['id']) )
+	if( ! $roster->auth->getAuthorized( $addon['config']['news_edit'] ) && isset($_POST['id']) )
 	{
 		echo $roster->auth->getLoginForm($addon['config']['news_edit']);
 
 		return; //To the addon framework
 	}
-	if( isset($_POST['author']) && !empty($_POST['author']) && isset($_POST['title']) && !empty($_POST['title']) && isset($_POST['news']) && !empty($_POST['news']) )
+	if( isset($_POST['author']) && !empty($_POST['author'])
+		&& isset($_POST['title']) && !empty($_POST['title'])
+		&& isset($_POST['news']) && !empty($_POST['news']) )
 	{
 		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon['config']['news_html'] >= 0 )
 		{
@@ -45,7 +47,12 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 		if( isset($_POST['id']) )
 		{
-			$query = "UPDATE `" . $roster->db->table('news', 'news') . "` SET " . "`author` = '" . $_POST['author'] . "', " . "`title` = '" . $_POST['title'] . "', " . "`content` = '" . $_POST['news'] . "', " . "`html` = '" . $html . "' " . "WHERE `news_id` = '" . $_POST['id'] . "';";
+			$query = "UPDATE `" . $roster->db->table('news','news') . "` SET "
+					. "`author` = '" . $_POST['author'] . "', "
+					. "`title` = '" . $_POST['title'] . "', "
+					. "`content` = '" . $_POST['news'] . "', "
+					. "`html` = '" . $html . "' "
+					. "WHERE `news_id` = '" . $_POST['id'] . "';";
 
 			if( $roster->db->query($query) )
 			{
@@ -58,7 +65,12 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		}
 		else
 		{
-			$query = "INSERT INTO `" . $roster->db->table('news', 'news') . "` SET " . "`author` = '" . $_POST['author'] . "', " . "`title` = '" . $_POST['title'] . "', " . "`content` = '" . $_POST['news'] . "', " . "`html` = '" . $html . "', " . "`date` = NOW();";
+			$query = "INSERT INTO `" . $roster->db->table('news','news') . "` SET "
+					. "`author` = '" . $_POST['author'] . "', "
+					. "`title` = '" . $_POST['title'] . "', "
+					. "`content` = '" . $_POST['news'] . "', "
+					. "`html` = '" . $html . "', "
+					. "`date` = NOW();";
 
 			if( $roster->db->query($query) )
 			{
@@ -77,7 +89,13 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 }
 
 // Display news
-$query = "SELECT `news`.*, " . "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', " . "COUNT(`comments`.`comment_id`) comm_count " . "FROM `" . $roster->db->table('news', 'news') . "` news " . "LEFT JOIN `" . $roster->db->table('comments', 'news') . "` comments USING (`news_id`) " . "GROUP BY `news`.`news_id`" . "ORDER BY `news`.`date` DESC;";
+$query = "SELECT `news`.*, "
+		. "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', "
+		. "COUNT(`comments`.`comment_id`) comm_count "
+		. "FROM `" . $roster->db->table('news','news') . "` news "
+		. "LEFT JOIN `" . $roster->db->table('comments','news') . "` comments USING (`news_id`) "
+		. "GROUP BY `news`.`news_id`"
+		. "ORDER BY `news`.`date` DESC;";
 
 $result = $roster->db->query($query);
 
@@ -86,16 +104,18 @@ if( $roster->db->num_rows($result) == 0 )
 	echo messagebox($roster->locale->act['no_news']);
 }
 
+
 // Assign template vars
 $roster->tpl->assign_vars(array(
 	'L_POSTEDBY' => $roster->locale->act['posted_by'],
-	'L_EDIT' => $roster->locale->act['edit'],
+	'L_EDIT'     => $roster->locale->act['edit'],
 	'L_ADD_NEWS' => $roster->locale->act['add_news'],
 
-	'U_ADD_NEWS' => makelink('util-news-add'),
+	'U_ADD_NEWS'  => makelink('util-news-add'),
 
-	'S_ADD_NEWS' => $roster->auth->getAuthorized($addon['config']['news_add'])
-));
+	'S_ADD_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_add'])
+	)
+);
 
 while( $news = $roster->db->fetch($result) )
 {
@@ -109,25 +129,26 @@ while( $news = $roster->db->fetch($result) )
 	}
 
 	$roster->tpl->assign_block_vars('news_row', array(
-		'TITLE' => $news['title'],
-		'ID' => $news['news_id'],
-		'CONTENT' => $news['content'],
+		'TITLE'         => $news['title'],
+		'ID'            => $news['news_id'],
+		'CONTENT'       => $news['content'],
 		'COMMENT_COUNT' => $news['comm_count'],
-		'AUTHOR' => $news['author'],
-		'DATE' => $news['date_format'],
+		'AUTHOR'        => $news['author'],
+		'DATE'          => $news['date_format'],
 
-		'U_COMMENT' => makelink('util-news-comment&amp;id=' . $news['news_id']),
-		'U_EDIT' => makelink('util-news-edit&amp;id=' . $news['news_id']),
+		'U_COMMENT'  => makelink('util-news-comment&amp;id=' . $news['news_id']),
+		'U_EDIT'     => makelink('util-news-edit&amp;id=' . $news['news_id']),
 
-		'L_COMMENT' => ($news['comm_count'] != 1 ? sprintf($roster->locale->act['n_comments'], $news['comm_count']) : sprintf($roster->locale->act['n_comment'], $news['comm_count']))
-	));
+		'L_COMMENT' => ($news['comm_count'] != 1 ? sprintf($roster->locale->act['n_comments'],$news['comm_count']) : sprintf($roster->locale->act['n_comment'],$news['comm_count'])),
+		)
+	);
 }
 
-$roster->tpl->set_handle('head', $addon['basename'] . '/news_head.html');
+$roster->tpl->set_filenames(array('head' => $addon['basename'] . '/news_head.html'));
 $roster->tpl->display('head');
 
-$roster->tpl->set_handle('body', $addon['basename'] . '/news.html');
+$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/news.html'));
 $roster->tpl->display('body');
 
-$roster->tpl->set_handle('foot', $addon['basename'] . '/news_foot.html');
+$roster->tpl->set_filenames(array('foot' => $addon['basename'] . '/news_foot.html'));
 $roster->tpl->display('foot');

@@ -13,26 +13,27 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.6.0
  * @package    WoWRoster
- */
+*/
 
-define('IN_ROSTER', true);
+define('IN_ROSTER',true);
 
 //==========[ SETTINGS ]========================================================
-
 
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 if( isset($_GET['motd']) )
 {
-	$guildMOTD = substr(stripslashes(urldecode($_GET['motd'])), 0, 145);
+	$guildMOTD = substr(stripslashes(urldecode($_GET['motd'])),0,145);
 }
 elseif( isset($_GET['id']) )
 {
-	include ($roster_root_path . 'settings.php');
+	include( $roster_root_path . 'settings.php' );
 
 	$guild_escape = $_GET['id'];
 
-	$query = "SELECT `guild_motd` " . "FROM `" . $roster->db->table('guild') . "` " . "WHERE `guild_id` = '" . $guild_escape . "';";
+	$query = "SELECT `guild_motd` "
+		   . "FROM `" . $roster->db->table('guild') . "` "
+		   . "WHERE `guild_id` = '" . $guild_escape . "';";
 
 	$guild_motd = $roster->db->query_first($query);
 
@@ -40,26 +41,28 @@ elseif( isset($_GET['id']) )
 	{
 		$guild_motd = 'Failed to fetch guild MOTD';
 	}
-	$guildMOTD = substr(htmlspecialchars($guild_motd), 0, 145);
+	$guildMOTD = substr(htmlspecialchars($guild_motd),0,145);
 }
 else
 {
-	include ($roster_root_path . 'settings.php');
+	include( $roster_root_path . 'settings.php' );
 
 	$guildMOTD = 'Invalid Access';
 }
+
 
 // Path to font folder
 $image_path = $roster_root_path . 'img' . DIRECTORY_SEPARATOR;
 $font_path = $roster_root_path . 'fonts' . DIRECTORY_SEPARATOR;
 
-motd_img($guildMOTD, $image_path, $font_path);
+
+motd_img($guildMOTD,$image_path,$font_path);
 die();
+
 
 //==========[ IMAGE GENERATOR ]=================================================
 
-
-function motd_img( $guildMOTD , $image_path , $font_path )
+function motd_img( $guildMOTD,$image_path,$font_path )
 {
 	$guildMOTD = html_entity_decode($guildMOTD);
 
@@ -70,32 +73,32 @@ function motd_img( $guildMOTD , $image_path , $font_path )
 	$visitor = $font_path . 'VERANDA.TTF';
 
 	// Get sizes of text
-	$box = imagettfbbox(11, 0, $visitor, $guildMOTD);
+	$box = imagettfbbox( 11, 0, $visitor, $guildMOTD );
 	$text_length = $box[2] - $box[6];
 
 	// Get how many times to print center
-	$image_size = ($text_length < $maxw ? ceil($text_length / 198) : ceil($maxw / 198));
-	$final_size = 54 + ($image_size * 198);
+	$image_size = ( $text_length < $maxw ? ceil($text_length/198) : ceil($maxw/198) );
+	$final_size = 54 + ($image_size*198);
 
 	// Create new image
-	$img = imagecreatetruecolor($final_size, 38);
+	$img = imagecreatetruecolor( $final_size,38 );
 
 	// Get and combine base images, set colors
 	$img_file = imagecreatefrompng($image_path . 'gmotd.png');
 
 	// Copy image file into new image
 	// Copy Left part
-	imagecopy($img, $img_file, 0, 0, 0, 0, 38, 38);
+	imagecopy( $img, $img_file, 0, 0, 0, 0, 38, 38 );
 
 	// Copy center part however times needed
-	for( $i = 0; $i < $image_size; $i++ )
+	for( $i=0;$i<$image_size;$i++ )
 	{
-		imagecopy($img, $img_file, ($i * 198) + 38, 0, 39, 0, 198, 38);
+		imagecopy( $img, $img_file, ($i*198)+38, 0, 39, 0, 198, 38 );
 	}
 	// Copy Right part
-	imagecopy($img, $img_file, ($image_size * 198) + 38, 0, 237, 0, 17, 38);
+	imagecopy( $img, $img_file, ($image_size*198)+38, 0, 237, 0, 17, 38 );
 
-	$textcolor = imagecolorallocate($img, 255, 255, 255);
+	$textcolor = imagecolorallocate( $img, 255, 255, 255 );
 
 	if( $text_length > $maxw )
 	{
@@ -104,7 +107,7 @@ function motd_img( $guildMOTD , $image_path , $font_path )
 		while( $i > $maxw )
 		{
 			$t--;
-			$box = imagettfbbox(11, 0, $visitor, substr($guildMOTD, 0, $t));
+			$box = imagettfbbox(11, 0,$visitor,substr($guildMOTD,0,$t));
 			$i = abs($box[0]) + abs($box[2]);
 		}
 		$t = strrpos(substr($guildMOTD, 0, $t), ' ');
@@ -120,9 +123,9 @@ function motd_img( $guildMOTD , $image_path , $font_path )
 	$i = 0;
 	foreach( $output as $value )
 	{
-		$box = imagettfbbox(11, 0, $visitor, $value);
+		$box = imagettfbbox(11,0,$visitor,$value);
 		$text_length = abs($box[0]) + abs($box[2]);
-		imagettftext($img, 11, 0, round(($final_size - $text_length) / 2), 23 + ($i * 14) + $vadj, $textcolor, $visitor, $value);
+		imagettftext( $img, 11, 0, round(($final_size-$text_length)/2), 23+($i*14)+$vadj, $textcolor, $visitor, $value );
 		$i++;
 	}
 

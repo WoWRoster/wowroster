@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    GuildInfo
  * @subpackage Locale
- */
+*/
 
 $lang['guildinfo'] = 'Informations de guilde';
 $lang['guildinfo_desc'] = 'Affiche le contenu de la boîte informations de guilde du jeu';

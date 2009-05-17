@@ -12,19 +12,19 @@
  * @package    MembersList
  */
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
-if( isset($_POST['process']) && $_POST['process'] == 'process' )
+if( isset( $_POST['process'] ) && $_POST['process'] == 'process' )
 {
-	if( substr($_POST['action'], 0, 4) == 'del_' )
+	if( substr( $_POST['action'], 0, 4 ) == 'del_' )
 	{
-		$cat = substr($_POST['action'], 4, ($keypos = strpos($_POST['action'], '_', 4)) - 4);
-		$key = substr($_POST['action'], $keypos + 1);
+		$cat = substr( $_POST['action'], 4, ( $keypos = strpos( $_POST['action'], '_', 4 ) ) - 4 );
+		$key = substr( $_POST['action'], $keypos + 1 );
 
-		$query = "DELETE FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $cat . "' AND `key` = '" . $key . "';";
+		$query = "DELETE FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $cat ."' AND `key` = '" . $key . "';";
 		$roster->db->query($query);
 	}
 	elseif( $_POST['action'] == 'add' )
@@ -37,13 +37,13 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		}
 	}
 
-	if( substr($_POST['action'], 0, 7) == 'delcat_' )
+	if( substr( $_POST['action'], 0, 7 ) == 'delcat_' )
 	{
-		$cat = substr($_POST['action'], 7);
+		$cat = substr( $_POST['action'], 7 );
 
-		$query = "DELETE FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $cat . "';";
+		$query = "DELETE FROM `" . $roster->db->table('category_key', 'keys') . "` WHERE `category` = '" . $cat ."';";
 		$roster->db->query($query);
-		$query = "DELETE FROM `" . $roster->db->table('category', 'keys') . "` WHERE `category` = '" . $cat . "';";
+		$query = "DELETE FROM `" . $roster->db->table('category', 'keys') . "` WHERE `category` = '" . $cat ."';";
 		$roster->db->query($query);
 		$query = "DELETE FROM `" . $roster->db->table('menu_button') . "` WHERE `addon_id` = " . $addon['addon_id'] . " AND `title` = '" . $cat . "';";
 		$roster->db->query($query);
@@ -68,63 +68,75 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 $roster->tpl->assign_vars(array(
 	'L_CATEGORY' => $roster->locale->act['category'],
-	'L_KEY' => $roster->locale->act['key'],
-	'L_DELETE' => $roster->locale->act['delete'],
-	'L_ADD' => $roster->locale->act['add'],
+	'L_KEY'      => $roster->locale->act['key'],
+	'L_DELETE'   => $roster->locale->act['delete'],
+	'L_ADD'      => $roster->locale->act['add'],
 	'L_KEY_CATEGORIES' => $roster->locale->act['key_categories'],
 	'L_KEY_CATEGORY_ASSIGN' => $roster->locale->act['key_category_assignment']
-));
+	)
+);
 
-$query = "SELECT DISTINCT `key_name` " . "FROM `" . $roster->db->table('keys', 'keys') . "` " . "ORDER BY `key_name`;";
+$query = "SELECT DISTINCT `key_name` "
+	. "FROM `" . $roster->db->table('keys', 'keys') . "` "
+	. "ORDER BY `key_name`;";
 
 $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch($result) )
 {
-	$roster->tpl->assign_block_vars('key_select', array(
+	$roster->tpl->assign_block_vars('key_select',array(
 		'NAME' => $row['key_name'],
-		'VALUE' => $row['key_name']
-	));
+		'VALUE' => $row['key_name'],
+		)
+	);
 }
 
-$query = "SELECT `category` " . "FROM `" . $roster->db->table('category', 'keys') . "` " . "ORDER BY `category`;";
+$query = "SELECT `category` "
+	. "FROM `" . $roster->db->table('category', 'keys') . "` "
+	. "ORDER BY `category`;";
 
 $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch($result) )
 {
-	$roster->tpl->assign_block_vars('category_select', array(
+	$roster->tpl->assign_block_vars('category_select',array(
 		'ROW_CLASS' => $roster->switch_row_class(),
 		'NAME' => $row['category'],
-		'VALUE' => $row['category']
-	));
+		'VALUE' => $row['category'],
+		)
+	);
 }
 
-$query = "SELECT `category`, `key` " . "FROM `" . $roster->db->table('category_key', 'keys') . "` " . "ORDER BY `category`, `key`;";
+$query = "SELECT `category`, `key` "
+	. "FROM `" . $roster->db->table('category_key', 'keys') . "` "
+	. "ORDER BY `category`, `key`;";
 
 $result = $roster->db->query($query);
 
 while( $row = $roster->db->fetch($result) )
 {
-	$roster->tpl->assign_block_vars('category_key', array(
+	$roster->tpl->assign_block_vars('category_key',array(
 		'ROW_CLASS' => $roster->switch_row_class(),
 		'KEY' => $row['key'],
-		'CATEGORY' => $row['category']
-	));
+		'CATEGORY' => $row['category'],
+		)
+	);
 }
 
 $roster->db->free_result($result);
 
-$roster->tpl->set_handle('categories', $addon['basename'] . '/admin/categories.html');
+$roster->tpl->set_handle('categories',$addon['basename'] . '/admin/categories.html');
 
 $body .= $roster->tpl->fetch('categories');
+
+
 
 /**
  * Make our menu from the config api
  */
 // ----[ Set the tablename and create the config class ]----
-include (ROSTER_LIB . 'config.lib.php');
-$config = new roster_config($roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"');
+include(ROSTER_LIB . 'config.lib.php');
+$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
 
 // ----[ Get configuration data ]---------------------------
 $config->getConfigData();

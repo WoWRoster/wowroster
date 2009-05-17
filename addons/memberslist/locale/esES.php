@@ -112,6 +112,7 @@ $lang['admin']['honor_icon']    = 'Icono de honor|Muestra el icono con el rango 
 $lang['admin']['compress_note'] = 'Comprimir nota|Muestra la nota de la hermandad en una ventana en lugar de en una columna.';
 
 // Settings on Members page
+$lang['admin']['member_update_inst'] = 'Instrucciones de actualización|Elige si mostrar o no las instrucciones de actualización en la página de miembros.';
 $lang['admin']['member_motd']	= 'MDD de la hermandad|Muestra el mensaje del día de la hermandad encima de la lista de miembros.';
 $lang['admin']['member_hslist']	= 'Estadísticas de honor|Configura el modo de mostrar el listado de las estadísticas de honor, en la página de miembros.';
 $lang['admin']['member_pvplist']= 'Estadísticas de JcJ|Elige si mostrar o no el registro de estadísticas JcJ en la página de miembros.<br />Si tienes desactivada la subida de PvPlog, no necesitas activar esta opción';
@@ -128,6 +129,7 @@ $lang['admin']['member_note']   = 'Notas|Elige si mostrar la columna de notas de
 $lang['admin']['member_onote']  = 'Notas de oficial|Elige si mostrar la columna de notas de oficial en la página de miembros';
 
 // Settings on Stats page
+$lang['admin']['stats_update_inst'] = 'Instrucciones de actualización|Elige si mostrar o no las instrucciones de actualización en la página de estadísticas';
 $lang['admin']['stats_motd']	= 'MDD de la hermandad|Muestra el mensaje del día de la hermandad encima de la lista de estadísticas';
 $lang['admin']['stats_hslist']  = 'Estadísticas de honor|Configura el modo de mostrar el listado de las estadísticas de honor, en la página estadísticas';
 $lang['admin']['stats_pvplist']	= 'Estadísticas de JcJ|Elige si mostrar o no el registro de estadísticas JcJ en la página de estadísticas.<br />Si tienes desactivada la subida de PvPlog, no necesitas activar esta opción';
@@ -148,6 +150,7 @@ $lang['admin']['stats_block']   = 'Bloquear|Elige si mostrar la columna de proba
 $lang['admin']['stats_crit']    = 'Crítico|Elige si mostrar la columna de probabilidad de hacer un crítico en la página de estadísticas';
 
 // Settings on Honor page
+$lang['admin']['honor_update_inst'] = 'Instrucciones de actualización|Elige si mostrar o no las instrucciones de actualización en la página de honor';
 $lang['admin']['honor_motd']	= 'MDD de la hermandad|Muestra el mensaje del día de la hermandad encima de la lista de honor';
 $lang['admin']['honor_hslist']  = 'Estadísticas de honor|Configura el modo de mostrar el listado de las estadísticas de honor, en la página de honor';
 $lang['admin']['honor_pvplist']	= 'Estadísticas de JcJ|Elige si mostrar o no el registro de estadísticas JcJ en la página de honor.<br />Si tienes desactivada la subida de PvPlog, no necesitas activar esta opción';
@@ -163,6 +166,7 @@ $lang['admin']['honor_hp']      = 'Puntos de honor|Elige si mostrar la columna d
 $lang['admin']['honor_ap']      = 'Puntos de arena|Elige si mostrar la columna de puntos de arena en la página de honor';
 
 // Settings on Members page
+$lang['admin']['log_update_inst'] = 'Instrucciones de actualización|Elige si mostrar o no las instrucciones de actualización en la página de registro de miembros';
 $lang['admin']['log_motd']		= 'MDD de la hermandad|Muestra el mensaje del día de la hermandad encima de la lista de registro de miembros';
 $lang['admin']['log_hslist']	= 'Estadísticas de honor|Configura el modo de mostrar el listado de las estadísticas de honor, en la página de registro de miembros';
 $lang['admin']['log_pvplist']	= 'Estadísticas de JcJ|Elige si mostrar o no el registro de estadísticas JcJ en la página de registro de miembros.<br />Si tienes desactivada la subida de PvPlog, no necesitas activar esta opción';

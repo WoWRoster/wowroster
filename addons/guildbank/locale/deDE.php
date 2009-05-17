@@ -13,18 +13,18 @@
  * @link       http://www.wowroster.net
  * @package    GuildBank
  * @subpackage Locale
- */
+*/
 
-$lang['gbankbutton'] = 'Gildenbank|Zeigt das Inventar von Charakteren, die als Gildenbank markiert sind';
-$lang['guildbank'] = 'Gildenbank';
-$lang['guildbank_desc'] = 'Zeigt das Inventar von Charakteren, die als Gildenbank markiert sind';
-$lang['guildbank_totalmoney'] = 'Gesamt Ersparnisse';
+$lang['gbankbutton']='Gildenbank|Zeigt das Inventar von Charakteren, die als Gildenbank markiert sind';
+$lang['guildbank']='Gildenbank';
+$lang['guildbank_desc']='Zeigt das Inventar von Charakteren, die als Gildenbank markiert sind';
+$lang['guildbank_totalmoney']='Gesamt Ersparnisse';
 
 $lang['gbank_list'] = 'Komplette Auflistung';
 $lang['gbank_inv'] = 'Inventar';
 $lang['gbank_not_loaded'] = '<strong>%1$s</strong> hat noch kein Inventar hochgeladen';
-$lang['guildbankcontact'] = 'Im Besitz von (Kontakt)';
-$lang['guildbankitem'] = 'Gegenstand und Beschreibung';
+$lang['guildbankcontact']='Im Besitz von (Kontakt)';
+$lang['guildbankitem']='Gegenstand und Beschreibung';
 
 $lang['admin']['guildbank_conf'] = 'Gildenbank|Konfiguriere deine Gildenbank';
 $lang['admin']['guildbank_ver'] = "Gildenbank Anzeigeeinstellung|Gildenbank Anzeigeeinstellung:<br /><br />&quot;Tabelle&quot; ist eine einfache Ansicht die eine Liste aller Sachen der Banker anzeigt<br />&quot;Inventar&quot; zeigt eine eigene Tabelle für jeden Banker";

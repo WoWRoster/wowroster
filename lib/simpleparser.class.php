@@ -14,14 +14,14 @@
  * @since      File available since Release 1.9.9
  * @package    WoWRoster
  * @subpackage SimpleXMLParser
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {
 	exit('Detected invalid access to this file!');
 }
 
-require_once (ROSTER_LIB . 'simple.class.php');
+require_once(ROSTER_LIB . 'simple.class.php');
 
 /**
  * WoWRoster Simple Parser
@@ -42,8 +42,8 @@ class SimpleParser
 	var $datas = array();
 
 	/**
-	 * Parse method
-	 * parses XML data and converts it to a simple class object
+ 	 * Parse method
+ 	 * parses XML data and converts it to a simple class object
 	 *
 	 * @param string $data
 	 * @return object
@@ -62,7 +62,7 @@ class SimpleParser
 		if( !xml_parse($this->parser, $data) )
 		{
 			//$this->data = array;
-			$this->data = new SimpleClass();
+			$this->data = new SimpleClass;
 			$this->error_code = xml_get_error_code($this->parser);
 			$this->error_string = xml_error_string($this->error_code);
 			$this->current_line = xml_get_current_line_number($this->parser);
@@ -79,7 +79,7 @@ class SimpleParser
 	}
 
 	/**
-	 * tag_open method
+ 	 * tag_open method
 	 *
 	 * @param string $parser
 	 * @param string $tag
@@ -94,18 +94,18 @@ class SimpleParser
 	}
 
 	/**
-	 * cdata method
+ 	 * cdata method
 	 *
 	 * @param string $parser
 	 * @param string $cdata
 	 */
 	function cdata( $parser , $cdata )
 	{
-		$this->datas[count($this->datas) - 1]->setProp("_CDATA", trim($cdata));
+		$this->datas[count($this->datas)-1]->setProp("_CDATA", trim($cdata));
 	}
 
 	/**
-	 * tag_close method
+ 	 * tag_close method
 	 *
 	 * @param string $parser
 	 * @param string $tag
@@ -118,7 +118,7 @@ class SimpleParser
 
 			if( count($this->datas) > 0 )
 			{
-				$parent = &$this->datas[count($this->datas) - 1];
+				$parent = &$this->datas[count($this->datas)-1];
 				$tag = $child->_TAGNAME;
 
 				if( $parent->hasProp($tag) )

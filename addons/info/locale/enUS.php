@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
  * @subpackage Locale
- */
+*/
 
 $lang['char_info'] = 'Character Information';
 $lang['char_info_desc'] = 'Displays info about characters uploaded to Roster';
@@ -33,14 +33,14 @@ $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s of %2$s';
 $lang['talents'] = 'Talents';
 $lang['talent_specialization'] = 'Talent Specialization';
-$lang['unusedtalentpoints'] = 'Unused Talent Points';
-$lang['talentexport'] = 'Export Talent Build';
-$lang['hybrid'] = 'Hybrid';
+$lang['unusedtalentpoints']='Unused Talent Points';
+$lang['talentexport']='Export Talent Build';
+$lang['hybrid']='Hybrid';
 
-$lang['pets'] = 'Pets';
-$lang['companions'] = 'Companions';
-$lang['mounts'] = 'Mounts';
-$lang['unusedtrainingpoints'] = 'Unused Training Points';
+$lang['pets']='Pets';
+$lang['companions']='Companions';
+$lang['mounts']='Mounts';
+$lang['unusedtrainingpoints']='Unused Training Points';
 
 // Spellbook
 $lang['spellbook'] = 'Spellbook';
@@ -70,159 +70,159 @@ $lang['skilltypes'] = array(
 );
 
 // item slots, for missing items on characters
-$lang['Head'] = 'Head';
-$lang['Neck'] = 'Neck';
-$lang['Shoulder'] = 'Shoulder';
-$lang['Back'] = 'Back';
-$lang['Chest'] = 'Chest';
-$lang['Shirt'] = 'Shirt';
-$lang['Tabard'] = 'Tabard';
-$lang['Wrist'] = 'Wrist';
-$lang['MainHand'] = 'Main Hand';
+$lang['Head']          = 'Head';
+$lang['Neck']          = 'Neck';
+$lang['Shoulder']      = 'Shoulder';
+$lang['Back']          = 'Back';
+$lang['Chest']         = 'Chest';
+$lang['Shirt']         = 'Shirt';
+$lang['Tabard']        = 'Tabard';
+$lang['Wrist']         = 'Wrist';
+$lang['MainHand']      = 'Main Hand';
 $lang['SecondaryHand'] = 'Secondary Hand';
-$lang['Ranged'] = 'Ranged';
-$lang['Ammo'] = 'Ammo';
-$lang['Hands'] = 'Hands';
-$lang['Waist'] = 'Waist';
-$lang['Legs'] = 'Legs';
-$lang['Feet'] = 'Feet';
-$lang['Finger0'] = 'Finger 0';
-$lang['Finger1'] = 'Finger 1';
-$lang['Trinket0'] = 'Trinket 0';
-$lang['Trinket1'] = 'Trinket 1';
+$lang['Ranged']        = 'Ranged';
+$lang['Ammo']          = 'Ammo';
+$lang['Hands']         = 'Hands';
+$lang['Waist']         = 'Waist';
+$lang['Legs']          = 'Legs';
+$lang['Feet']          = 'Feet';
+$lang['Finger0']       = 'Finger 0';
+$lang['Finger1']       = 'Finger 1';
+$lang['Trinket0']      = 'Trinket 0';
+$lang['Trinket1']      = 'Trinket 1';
 
 //tabs
-$lang['tab1'] = 'Profile';
-$lang['tab2'] = 'Pet';
-$lang['tab3'] = 'Reputation';
-$lang['tab4'] = 'Skills';
-$lang['tab5'] = 'PvP';
+$lang['tab1']='Profile';
+$lang['tab2']='Pet';
+$lang['tab3']='Reputation';
+$lang['tab4']='Skills';
+$lang['tab5']='PvP';
 
-$lang['strength_tooltip'] = 'Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
-$lang['agility_tooltip'] = 'Increases your attack power with ranged weapons.<br />Improves your chance to score a critcal hit with all weapons.<br />Increases your armor and your chance to dodge attacks.';
-$lang['stamina_tooltip'] = 'Increases your health points.';
-$lang['intellect_tooltip'] = 'Increases your mana points and your chance to score a critical hit with spells.<br />Increases the rate at which you improve weapon skills.';
-$lang['spirit_tooltip'] = 'Increases your health and mana regeneration rates.';
-$lang['armor_tooltip'] = 'Reduces physical damage taken by %1$s%%';
+$lang['strength_tooltip']='Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
+$lang['agility_tooltip']= 'Increases your attack power with ranged weapons.<br />Improves your chance to score a critcal hit with all weapons.<br />Increases your armor and your chance to dodge attacks.';
+$lang['stamina_tooltip']= 'Increases your health points.';
+$lang['intellect_tooltip']= 'Increases your mana points and your chance to score a critical hit with spells.<br />Increases the rate at which you improve weapon skills.';
+$lang['spirit_tooltip']= 'Increases your health and mana regeneration rates.';
+$lang['armor_tooltip']= 'Reduces physical damage taken by %1$s%%';
 
-$lang['mainhand'] = 'Main Hand';
-$lang['offhand'] = 'Off Hand';
-$lang['ranged'] = 'Ranged';
-$lang['melee'] = 'Melee';
-$lang['spell'] = 'Spell';
+$lang['mainhand']='Main Hand';
+$lang['offhand']='Off Hand';
+$lang['ranged']='Ranged';
+$lang['melee']='Melee';
+$lang['spell']='Spell';
 
-$lang['weapon_skill'] = 'Skill';
-$lang['weapon_skill_tooltip'] = '<span style="float:right;color:#fff;">%1$d</span>Weapon Skill<br /><span style="float:right;color:#fff;">%2$d</span>Weapon Skill Rating';
-$lang['damage'] = 'Damage';
-$lang['damage_tooltip'] = '<span style="float:right;color:#fff;">%.2f</span>Attack speed (seconds):<br /><span style="float:right;color:#fff;">%d-%d</span>Damage:<br /><span style="float:right;color:#fff;">%.1f</span>Damage per second:<br />';
-$lang['speed'] = 'Speed';
-$lang['atk_speed'] = 'Attack Speed';
-$lang['haste_tooltip'] = 'Haste Rating ';
+$lang['weapon_skill']='Skill';
+$lang['weapon_skill_tooltip']='<span style="float:right;color:#fff;">%1$d</span>Weapon Skill<br /><span style="float:right;color:#fff;">%2$d</span>Weapon Skill Rating';
+$lang['damage']='Damage';
+$lang['damage_tooltip']='<span style="float:right;color:#fff;">%.2f</span>Attack speed (seconds):<br /><span style="float:right;color:#fff;">%d-%d</span>Damage:<br /><span style="float:right;color:#fff;">%.1f</span>Damage per second:<br />';
+$lang['speed']='Speed';
+$lang['atk_speed']='Attack Speed';
+$lang['haste_tooltip']='Haste Rating ';
 
-$lang['melee_att_power'] = 'Melee Attack Power';
-$lang['melee_att_power_tooltip'] = 'Increases damage with melee weapons by %.1f damage per second.';
-$lang['ranged_att_power'] = 'Ranged Attack Power';
-$lang['ranged_att_power_tooltip'] = 'Increases damage with ranged weapons by %.1f damage per second.';
+$lang['melee_att_power']='Melee Attack Power';
+$lang['melee_att_power_tooltip']='Increases damage with melee weapons by %.1f damage per second.';
+$lang['ranged_att_power']='Ranged Attack Power';
+$lang['ranged_att_power_tooltip']='Increases damage with ranged weapons by %.1f damage per second.';
 
-$lang['weapon_hit_rating'] = 'Hit Rating';
-$lang['weapon_hit_rating_tooltip'] = 'Increases your chance to hit an enemy.';
-$lang['weapon_expertise'] = 'Expertise';
-$lang['weapon_expertise_tooltip'] = 'Reduces chance to be dodged or parried.';
-$lang['weapon_crit_rating'] = 'Crit Rating';
-$lang['weapon_crit_rating_tooltip'] = 'Critical strike chance %.2f%%.';
+$lang['weapon_hit_rating']='Hit Rating';
+$lang['weapon_hit_rating_tooltip']='Increases your chance to hit an enemy.';
+$lang['weapon_expertise']='Expertise';
+$lang['weapon_expertise_tooltip']='Reduces chance to be dodged or parried.';
+$lang['weapon_crit_rating']='Crit Rating';
+$lang['weapon_crit_rating_tooltip']='Critical strike chance %.2f%%.';
 
-$lang['damage'] = 'Damage';
-$lang['energy'] = 'Energy';
-$lang['rage'] = 'Rage';
-$lang['power'] = 'Power';
+$lang['damage']='Damage';
+$lang['energy']='Energy';
+$lang['rage']='Rage';
+$lang['power']='Power';
 
-$lang['melee_rating'] = 'Melee Attack Rating';
-$lang['melee_rating_tooltip'] = 'Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently holding.';
-$lang['range_rating'] = 'Ranged Attack Rating';
-$lang['range_rating_tooltip'] = 'Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently weilding.';
+$lang['melee_rating']='Melee Attack Rating';
+$lang['melee_rating_tooltip']='Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently holding.';
+$lang['range_rating']='Ranged Attack Rating';
+$lang['range_rating_tooltip']='Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently weilding.';
 
-$lang['spell_damage'] = '+Damage';
-$lang['holy'] = 'Holy';
-$lang['fire'] = 'Fire';
-$lang['nature'] = 'Nature';
-$lang['frost'] = 'Frost';
-$lang['shadow'] = 'Shadow';
-$lang['arcane'] = 'Arcane';
+$lang['spell_damage']='+Damage';
+$lang['holy']='Holy';
+$lang['fire']='Fire';
+$lang['nature']='Nature';
+$lang['frost']='Frost';
+$lang['shadow']='Shadow';
+$lang['arcane']='Arcane';
 
-$lang['spell_healing'] = '+Healing';
-$lang['spell_healing_tooltip'] = 'Increases your healing by up to %d';
-$lang['spell_hit_rating'] = 'Hit Rating';
-$lang['spell_hit_rating_tooltip'] = 'Increases your chance to hit an enemy with your spells.';
-$lang['spell_crit_rating'] = 'Crit Rating';
-$lang['spell_crit_chance'] = 'Crit Chance';
-$lang['spell_penetration'] = 'Penetration';
-$lang['spell_penetration_tooltip'] = 'Reduces the target\'s resistance to your spells';
-$lang['mana_regen'] = 'Mana Regen';
-$lang['mana_regen_tooltip'] = '%1$d mana regenerated every 5 seconds while not casting<br />%2$d mana regenerated every 5 seconds while casting';
+$lang['spell_healing']='+Healing';
+$lang['spell_healing_tooltip']='Increases your healing by up to %d';
+$lang['spell_hit_rating']='Hit Rating';
+$lang['spell_hit_rating_tooltip']='Increases your chance to hit an enemy with your spells.';
+$lang['spell_crit_rating']='Crit Rating';
+$lang['spell_crit_chance']='Crit Chance';
+$lang['spell_penetration']='Penetration';
+$lang['spell_penetration_tooltip']='Reduces the target\'s resistance to your spells';
+$lang['mana_regen']='Mana Regen';
+$lang['mana_regen_tooltip']='%1$d mana regenerated every 5 seconds while not casting<br />%2$d mana regenerated every 5 seconds while casting';
 
-$lang['defense_rating'] = 'Defense Rating ';
-$lang['def_tooltip'] = 'Increases your chance to %s';
-$lang['resilience'] = 'Resilience';
+$lang['defense_rating']='Defense Rating ';
+$lang['def_tooltip']='Increases your chance to %s';
+$lang['resilience']='Resilience';
 
 $lang['buffs'] = 'Buffs';
 $lang['resistances'] = 'Resistances';
 
-$lang['res_arcane'] = 'Arcane Resistance';
-$lang['res_arcane_tooltip'] = 'Increases your ability to resist Arcane Resistance-based attacks, spells, and abilities.';
-$lang['res_fire'] = 'Fire Resistance';
-$lang['res_fire_tooltip'] = 'Increases your ability to resist Fire Resistance-based attacks, spells, and abilities.';
-$lang['res_nature'] = 'Nature Resistance';
-$lang['res_nature_tooltip'] = 'Increases your ability to resist Nature Resistance-based attacks, spells, and abilities.';
-$lang['res_frost'] = 'Frost Resistance';
-$lang['res_frost_tooltip'] = 'Increases your ability to resist Frost Resistance-based attacks, spells, and abilities.';
-$lang['res_shadow'] = 'Shadow Resistance';
-$lang['res_shadow_tooltip'] = 'Increases your ability to resist Shadow Resistance-based attacks, spells, and abilities.';
+$lang['res_arcane']='Arcane Resistance';
+$lang['res_arcane_tooltip']='Increases your ability to resist Arcane Resistance-based attacks, spells, and abilities.';
+$lang['res_fire']='Fire Resistance';
+$lang['res_fire_tooltip']='Increases your ability to resist Fire Resistance-based attacks, spells, and abilities.';
+$lang['res_nature']='Nature Resistance';
+$lang['res_nature_tooltip']='Increases your ability to resist Nature Resistance-based attacks, spells, and abilities.';
+$lang['res_frost']='Frost Resistance';
+$lang['res_frost_tooltip']='Increases your ability to resist Frost Resistance-based attacks, spells, and abilities.';
+$lang['res_shadow']='Shadow Resistance';
+$lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-based attacks, spells, and abilities.';
 
-$lang['empty_equip'] = 'No item equipped';
-$lang['pointsspent'] = 'Points Spent in %1$s Talents';
-$lang['export_url'] = 'http://www.worldofwarcraft.com/info/classes/';
-$lang['no_talents'] = 'No Talents for %1$s';
+$lang['empty_equip']='No item equipped';
+$lang['pointsspent']='Points Spent in %1$s Talents';
+$lang['export_url']='http://www.worldofwarcraft.com/info/classes/';
+$lang['no_talents']='No Talents for %1$s';
 
 // item_bonus locales //
 $lang['item_bonuses_full'] = 'Bonuses For Equipped Items';
 $lang['item_bonuses'] = 'Item Bonuses';
-$lang['item_bonuses_preg_linesplits'] = '/(and|\/|&)/';
-$lang['item_bonuses_preg_main'] = '/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
+$lang['item_bonuses_preg_linesplits']='/(and|\/|&)/';
+$lang['item_bonuses_preg_main']='/(?!\d*\s(sec|min))(-{0,1}\d*\.{0,1}\d+)/i';
 
 //
 // patterns to standardize bonus string
-$lang['item_bonuses_preg_patterns'] = array(
-	'/increases the block value of your shield by XX\.?/i',  //1
-	'/(?:increases|improves) (?:your )?(.+) by XX\.?/i',  //2
-	'/increases (Damage) and (Healing) done by magical spells and effects by up to XX\.?$/i',  //3
-	'/Increases Healing Done By Spells And Effects By Up To XX\.?/i',  //4
-	'/Increases Damage Done By Spells And Effects By Up To XX\.?/i',  //5'
-	'/(?:restores|\+)?\s?XX (mana|health) (?:per|every|regen).*$/i',  //6
-	'/increases damage done by (.+) and.*$/i',  //7
-	'/^\+?XX (Healing)(?: Spells)?\.?$/',  //8
-	'/^\+XX Spell Damage and Healing/i',  //8.5
-	'/^scope \(\+XX damage\)$/i',  //9
-	'/^\+?XX (?:shield )?block$/i',  //10
-	'/^\+XX All Stats/i',  //11
-	'/^\+XX All Resistances/i',  //12
-	'/^\+XX Spell Critical Rating/i' //13
-);
-$lang['item_bonuses_preg_replacements'] = array(
-	'+XX Shield Block',  //1
-	'+XX $1',  //2
-	'+XX Spell $1:+XX $2 Spells',  //3
-	'+XX Healing Spells',  // 4
-	'+XX Damage Spells',  // 5
-	'+XX $1 Per 5 Seconds',  //6
-	'+XX $1 Damage',  //7
-	'+XX $1 Spells',  //8
-	'+XX Spell Damage:+XX Healing Spells',  //8.5
-	'+XX Ranged Damage (Scope)',  //9
-	'+XX Shield Block',  //10
-	'+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit',  //11
-	'+XX Arcane Resistance:+XX Fire Resistance:+XX Nature Resistance:+XX Frost Resistance:+XX Shadow Resistance',  //12
-	'+XX Spell Critical Strike Rating' //13
-);
+$lang['item_bonuses_preg_patterns'] =
+	array('/increases the block value of your shield by XX\.?/i',	//1
+		'/(?:increases|improves) (?:your )?(.+) by XX\.?/i',	//2
+		'/increases (Damage) and (Healing) done by magical spells and effects by up to XX\.?$/i',	//3
+		'/Increases Healing Done By Spells And Effects By Up To XX\.?/i', //4
+		'/Increases Damage Done By Spells And Effects By Up To XX\.?/i', //5'
+		'/(?:restores|\+)?\s?XX (mana|health) (?:per|every|regen).*$/i',	//6
+		'/increases damage done by (.+) and.*$/i',	//7
+		'/^\+?XX (Healing)(?: Spells)?\.?$/',	//8
+		'/^\+XX Spell Damage and Healing/i', //8.5
+		'/^scope \(\+XX damage\)$/i',	//9
+		'/^\+?XX (?:shield )?block$/i',	//10
+		'/^\+XX All Stats/i', //11
+		'/^\+XX All Resistances/i', //12
+		'/^\+XX Spell Critical Rating/i', //13
+	);
+$lang['item_bonuses_preg_replacements'] =
+	array('+XX Shield Block',  //1
+		'+XX $1', //2
+		'+XX Spell $1:+XX $2 Spells', //3
+		'+XX Healing Spells',	// 4
+		'+XX Damage Spells', // 5
+		'+XX $1 Per 5 Seconds', //6
+		'+XX $1 Damage', //7
+		'+XX $1 Spells', //8
+		'+XX Spell Damage:+XX Healing Spells', //8.5
+		'+XX Ranged Damage (Scope)', //9
+		'+XX Shield Block', //10
+		'+XX Strength:+XX Agility:+XX Stamina:+XX Intellect:+XX Spirit', //11
+		'+XX Arcane Resistance:+XX Fire Resistance:+XX Nature Resistance:+XX Frost Resistance:+XX Shadow Resistance', //12
+		'+XX Spell Critical Strike Rating', //13
+	);
 
 /*
 $lang['item_bonuses_remap']=
@@ -264,17 +264,17 @@ $lang['item_bonuses_remap']=
 		);
 */
 $lang['item_bonuses_tabs'] = array(
-	//key				//translate this
-	'Totals' => 'Totals',
-	'Enchantment' => 'Enchants',
-	'BaseStats' => 'Base',
-	'Gems' => 'Gems',
-	'Effects' => 'Passive',
-	'Set' => 'Sets',
-	'Use' => 'Use',
-	'ChanceToProc' => 'Procs',
-	'TempEnchantment' => 'Temp Effects'
-);
+		//key				//translate this
+		'Totals' 			=> 'Totals',
+		'Enchantment' 		=> 'Enchants',
+		'BaseStats' 		=> 'Base',
+		'Gems' 				=> 'Gems',
+		'Effects' 			=> 'Passive',
+		'Set' 				=> 'Sets',
+		'Use' 				=> 'Use',
+		'ChanceToProc' 		=> 'Procs',
+		'TempEnchantment'	=> 'Temp Effects'
+		);
 
 // item_bonus end //
 $lang['inactive'] = 'Inactive';

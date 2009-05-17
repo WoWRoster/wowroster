@@ -13,18 +13,18 @@
  * @link       http://www.wowroster.net
  * @package    GuildBank
  * @subpackage Locale
- */
+*/
 
-$lang['gbankbutton'] = 'Banque de guilde|Affiche les possessions des personnages référencés comme banque de guilde';
-$lang['guildbank'] = 'Banque de guilde';
-$lang['guildbank_desc'] = 'Affiche les possessions des personnages référencés comme banque de guilde';
-$lang['guildbank_totalmoney'] = 'Total des avoirs de la Guilde';
+$lang['gbankbutton']='Banque de guilde|Affiche les possessions des personnages référencés comme banque de guilde';
+$lang['guildbank']='Banque de guilde';
+$lang['guildbank_desc']='Affiche les possessions des personnages référencés comme banque de guilde';
+$lang['guildbank_totalmoney']='Total des avoirs de la Guilde';
 
 $lang['gbank_list'] = 'Liste complète';
 $lang['gbank_inv'] = 'Inventaire';
 $lang['gbank_not_loaded'] = '<strong>%1$s</strong> n\'a pas encore téléchargé son inventaire';
-$lang['guildbankcontact'] = 'Porté par (Contact)';
-$lang['guildbankitem'] = 'Nom de l\'objet et sa description';
+$lang['guildbankcontact']='Porté par (Contact)';
+$lang['guildbankitem']='Nom de l\'objet et sa description';
 
 $lang['admin']['guildbank_conf'] = 'Banque de guilde|Paramètrage de votre banque de guilde et des personnages y étant liés';
 $lang['admin']['guildbank_ver'] = "Type d'affichage de la banque de guilde|Type d'affichage de la banque de guilde<br /><br />&quot;Table&quot; est une vue simple montrant tous les objets de chaque personnage-banque dans une seule liste<br />&quot;Inventory&quot; montre une table d'objets par personnage-banque";

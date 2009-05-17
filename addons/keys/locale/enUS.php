@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    InstanceKeys
  * @subpackage Locale
- */
+*/
 
 $lang['keys'] = 'Instance Keys';
 $lang['keys_desc'] = 'Lists Dungeon keys for guild members';
@@ -31,8 +31,8 @@ $lang['admin']['colorcur'] = 'Current Color|Color of current step in the Quests/
 $lang['admin']['colorno'] = 'Incomplete Color|Color of incomplete steps in the Quests/Parts tooltip';
 
 // language definitions for the rogue instance keys 'fix'
-$lang['thievestools'] = 'Thieves\\\' Tools';
-$lang['lockpicking'] = 'Lockpicking';
+$lang['thievestools']='Thieves\\\' Tools';
+$lang['lockpicking']='Lockpicking';
 
 $lang['Quests'] = 'Quests';
 $lang['Parts'] = 'Parts';

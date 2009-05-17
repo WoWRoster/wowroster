@@ -14,7 +14,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
- */
+*/
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
@@ -24,7 +24,7 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 $roster->output['title'] .= $roster->locale->act['pagebar_menuconf'];
 
 // --[ Translate GET data ]--
-$section = (isset($_GET['section']) ? $_GET['section'] : 'util');
+$section = (isset($_GET['section']) ? $_GET['section'] : 'util' );
 
 // --[ Write submitted menu configuration to DB if applicable ]--
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
@@ -35,12 +35,12 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 	if( !$result )
 	{
-		$save_status = messagebox('Failed to update ' . $section . ' menu configuration due to a database error. MySQL said: <br />' . $roster->db->error(), $roster->locale->act['pagebar_menuconf'], 'sred');
+		$save_status = messagebox('Failed to update ' . $section . ' menu configuration due to a database error. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['pagebar_menuconf'],'sred');
 	}
 
 	if( $roster->db->affected_rows() > 0 ) // the config row was actually changed
 	{
-		$save_status = '<span style="color:#0099FF;font-size:11px;">' . sprintf($roster->locale->act['menuconf_changes_saved'], $section) . '</span>';
+		$save_status = '<span style="color:#0099FF;font-size:11px;">' . sprintf($roster->locale->act['menuconf_changes_saved'],$section) . '</span>';
 	}
 	else
 	{
@@ -58,7 +58,7 @@ $result = $roster->db->query($query);
 
 if( !$result )
 {
-	die_quietly('Could not fetch buttons from database. MySQL said:<br />' . $roster->db->error(), $roster->locale->act['pagebar_menuconf'], __FILE__, __LINE__, $query);
+	die_quietly('Could not fetch buttons from database. MySQL said:<br />' . $roster->db->error(),$roster->locale->act['pagebar_menuconf'],__FILE__,__LINE__,$query);
 }
 
 $palet = array();
@@ -78,7 +78,7 @@ $result = $roster->db->query($query);
 
 if( !$result )
 {
-	die_quietly('Could not fetch menu configuration from database. MySQL said:<br />' . $roster->db->error(), $roster->locale->act['pagebar_menuconf'], __FILE__, __LINE__, $query);
+	die_quietly('Could not fetch menu configuration from database. MySQL said:<br />' . $roster->db->error(),$roster->locale->act['pagebar_menuconf'],__FILE__,__LINE__,$query);
 }
 
 if( $roster->db->num_rows($result) )
@@ -95,7 +95,7 @@ else
 // --[ Distribute buttons between the button list and the unused buttons panel ]--
 $arrayHeight = 0;
 $arrayButtons = array();
-foreach( explode(':', $row['config']) as $pos => $button )
+foreach( explode(':',$row['config']) as $pos=>$button )
 {
 	if( isset($palet[$button]) )
 	{
@@ -120,28 +120,32 @@ foreach( $palet as $id => $button )
 $paletHeight = 1;
 $paletWidth = count($palet);
 
+
+
 // --[ Render configuration screen. ]--
 $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/wz_dragdrop.js"></script>' . "\n";
 $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/menuconf.js"></script>' . "\n";
 
 $roster->tpl->assign_vars(array(
-	'UNUSED_PALLET' => messagebox('<div id="palet" style="width:' . (40 * $paletWidth + 5) . 'px;height:' . (40 * $paletHeight + 5) . 'px;"></div>', $roster->locale->act['menuconf_unused_buttons'], 'sblue'),
+	'UNUSED_PALLET' => messagebox('<div id="palet" style="width:' . (40*$paletWidth+5) . 'px;height:' . (40*$paletHeight+5) . 'px;"></div>',$roster->locale->act['menuconf_unused_buttons'],'sblue'),
 
 	'U_FORM_ACTION' => makelink('&amp;section=' . $section),
 
 	'DHTML_REG' => $dhtml_reg,
 
-	'SAVE_STATUS' => (isset($save_status) ? $save_status : ''),
-	'SECTION' => $section,
+	'SAVE_STATUS'  => ( isset($save_status) ? $save_status : '' ),
+	'SECTION'      => $section,
 
 	'ARRAY_WIDTH' => $arrayWidth,
 	'ARRAY_HEIGHT' => $arrayHeight,
 	'PALLET_WIDTH' => $paletWidth,
 	'PALLET_HEIGHT' => $paletHeight,
 
-	'BUTTON_GRID_WIDTH' => (40 * $arrayWidth + 5),
-	'BUTTON_GRID_HEIGHT' => (40 * $arrayHeight + 5)
-));
+	'BUTTON_GRID_WIDTH' => (40*$arrayWidth+5),
+	'BUTTON_GRID_HEIGHT' => (40*$arrayHeight+5),
+	)
+);
+
 
 // --[ Section select. ]--
 $query = "SELECT `section` FROM " . $roster->db->table('menu') . ";";
@@ -149,18 +153,20 @@ $result = $roster->db->query($query);
 
 if( !$result )
 {
-	die_quietly('Could not fetch section list from database for the selection dialog. MySQL said:<br />' . $roster->db->error(), $roster->locale->act['pagebar_menuconf'], __FILE__, __LINE__, $query);
+	die_quietly('Could not fetch section list from database for the selection dialog. MySQL said:<br />' . $roster->db->error(),$roster->locale->act['pagebar_menuconf'],__FILE__,__LINE__,$query);
 }
 
 while( $row = $roster->db->fetch($result) )
 {
-	$roster->tpl->assign_block_vars('section_select', array(
-		'SELECTED' => ($row['section'] == $section ? true : false),
-		'NAME' => $row['section']
-	));
+	$roster->tpl->assign_block_vars('section_select',array(
+		'SELECTED' => ( $row['section'] == $section ? true : false ),
+		'NAME' => $row['section'],
+		)
+	);
 }
 
 $roster->db->free_result($result);
+
 
 // --[ Main grid design ]--
 foreach( $arrayButtons as $pos => $button )
@@ -175,13 +181,13 @@ foreach( $arrayButtons as $pos => $button )
 		// Include addon's locale files if they exist
 		foreach( $roster->multilanguages as $lang )
 		{
-			$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
+			$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 		}
 	}
 
 	if( !empty($button['icon']) )
 	{
-		if( strpos($button['icon'], '.') !== false )
+		if( strpos($button['icon'],'.') !== false )
 		{
 			$button['icon'] = ROSTER_PATH . 'addons/' . $button['basename'] . '/images/' . $button['icon'];
 		}
@@ -198,16 +204,20 @@ foreach( $arrayButtons as $pos => $button )
 	$button['titkey'] = $button['title'];
 
 	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
-	if( strpos($button['title'], '|') )
+	if( strpos($button['title'],'|') )
 	{
-		list($button['title'], $button['tooltip']) = explode('|', $button['title'], 2);
+		list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
 	}
 	else
 	{
 		$button['tooltip'] = '';
 	}
 
-	$button['tooltip'] .= ($button['tooltip'] != '' ? '<br /><br />' : '') . '<span style="font-size:10px;">' . $roster->locale->act['scope'] . ': <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />' . '<span style="font-size:10px;">' . $roster->locale->act['basename'] . ': <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />' . '<span style="font-size:10px;">' . $roster->locale->act['url'] . ': <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />' . '<span style="font-size:10px;">' . $roster->locale->act['title'] . ': <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
+		. '<span style="font-size:10px;">' . $roster->locale->act['scope'] . ': <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['basename'] . ': <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['url'] . ': <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['title'] . ': <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 	if( $button['active'] == '0' )
 	{
@@ -219,14 +229,15 @@ foreach( $arrayButtons as $pos => $button )
 		$buttonclass = 'menu_config_div';
 	}
 
-	$button['tooltip'] = ' ' . makeOverlib($button['tooltip'], $button['title'], '', 2, '');
+	$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
-	$roster->tpl->assign_block_vars('button_grid', array(
-		'ID' => $button['button_id'],
-		'CLASS' => $buttonclass,
-		'ICON' => $button['icon'],
-		'TOOLTIP' => $button['tooltip']
-	));
+	$roster->tpl->assign_block_vars('button_grid',array(
+		'ID'      => $button['button_id'],
+		'CLASS'   => $buttonclass,
+		'ICON'    => $button['icon'],
+		'TOOLTIP' => $button['tooltip'],
+		)
+	);
 
 	// Restore our locale array
 	$roster->locale->wordings = $localetemp;
@@ -246,13 +257,13 @@ foreach( $palet as $id => $button )
 		// Include addon's locale files if they exist
 		foreach( $roster->multilanguages as $lang )
 		{
-			$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
+			$roster->locale->add_locale_file(ROSTER_ADDONS . $button['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
 		}
 	}
 
 	if( !empty($button['icon']) )
 	{
-		if( strpos($button['icon'], '.') !== false )
+		if( strpos($button['icon'],'.') !== false )
 		{
 			$button['icon'] = ROSTER_PATH . 'addons/' . $button['basename'] . '/images/' . $button['icon'];
 		}
@@ -269,16 +280,20 @@ foreach( $palet as $id => $button )
 	$button['titkey'] = $button['title'];
 
 	$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
-	if( strpos($button['title'], '|') )
+	if( strpos($button['title'],'|') )
 	{
-		list($button['title'], $button['tooltip']) = explode('|', $button['title'], 2);
+		list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
 	}
 	else
 	{
 		$button['tooltip'] = '';
 	}
 
-	$button['tooltip'] .= ($button['tooltip'] != '' ? '<br /><br />' : '') . '<span style="font-size:10px;">' . $roster->locale->act['scope'] . ': <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />' . '<span style="font-size:10px;">' . $roster->locale->act['basename'] . ': <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />' . '<span style="font-size:10px;">' . $roster->locale->act['url'] . ': <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />' . '<span style="font-size:10px;">' . $roster->locale->act['title'] . ': <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
+	$button['tooltip'] .= ( $button['tooltip'] != '' ? '<br /><br />' : '' )
+		. '<span style="font-size:10px;">' . $roster->locale->act['scope'] . ': <span style="color:#FF3300;">' . $button['scope'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['basename'] . ': <span style="color:#FF3300;">' . $button['basename'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['url'] . ': <span style="color:#FF3300;">' . $button['url'] . '</span></span><br />'
+		. '<span style="font-size:10px;">' . $roster->locale->act['title'] . ': <span style="color:#0099FF;">' . $button['titkey'] . '</span></span>';
 
 	if( $button['active'] == '0' )
 	{
@@ -290,21 +305,23 @@ foreach( $palet as $id => $button )
 		$buttonclass = 'menu_config_div';
 	}
 
-	$button['tooltip'] = ' ' . makeOverlib($button['tooltip'], $button['title'], '', 2, '');
+	$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',2,'');
 
-	$roster->tpl->assign_block_vars('pallet_grid', array(
-		'ID' => $button['button_id'],
-		'CLASS' => $buttonclass,
-		'ICON' => $button['icon'],
-		'TOOLTIP' => $button['tooltip']
-	));
+	$roster->tpl->assign_block_vars('pallet_grid',array(
+		'ID'      => $button['button_id'],
+		'CLASS'   => $buttonclass,
+		'ICON'    => $button['icon'],
+		'TOOLTIP' => $button['tooltip'],
+		)
+	);
 	// Restore our locale array
 	$roster->locale->wordings = $localetemp;
 	unset($localetemp);
 }
 
 // --[ Javascript defines and variable passing ]--
-$footer .= '<script type="text/javascript">
+$footer .=
+'<script type="text/javascript">
 <!--
 
 SET_DHTML(CURSOR_MOVE, TRANSPARENT, SCROLL' . $dhtml_reg . ', "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
@@ -328,25 +345,29 @@ $i = 0;
 
 foreach( $palet as $id => $button )
 {
-	$roster->tpl->assign_block_vars('script_pallet', array(
-		'ID' => $id,
-		'IDX' => $i++
-	));
+	$roster->tpl->assign_block_vars('script_pallet',array(
+		'ID'  => $id,
+		'IDX' => $i++,
+		)
+	);
 }
 
 foreach( $arrayButtons as $pos => $button )
 {
-	$roster->tpl->assign_block_vars('script_aelts', array(
-		'ID' => $button['button_id'],
-		'POS' => $pos
-	));
+	$roster->tpl->assign_block_vars('script_aelts',array(
+		'ID'  => $button['button_id'],
+		'POS' => $pos,
+		)
+	);
 }
+
 
 $roster->tpl->set_filenames(array(
 	'menu' => 'admin/menu_conf_menu.html',
 	'body' => 'admin/menu_conf.html',
-	'foot' => 'admin/menu_conf_footer.html'
-));
+	'foot' => 'admin/menu_conf_footer.html',
+	)
+);
 $menu = $roster->tpl->fetch('menu');
 $body = $roster->tpl->fetch('body');
 $footer = $roster->tpl->fetch('foot');

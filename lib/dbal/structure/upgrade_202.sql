@@ -125,8 +125,3 @@ CREATE TABLE `renprefix_quests` (
   PRIMARY KEY  (`member_id`,`quest_id`),
   KEY `quest_index` (`quest_id`,`quest_index`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
-### Config Table New Entries
-
-INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');

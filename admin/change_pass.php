@@ -14,16 +14,16 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
- */
+*/
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 $roster->output['title'] .= $roster->locale->act['pagebar_changepass'];
 
-if( array_key_exists('mode', $_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
+if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 {
 	$mode = $_POST['mode'];
 
@@ -40,32 +40,33 @@ if( array_key_exists('mode', $_POST) && $roster->auth->getAuthorized(ROSTERLOGIN
 		$realhash = $row['hash'];
 	}
 
+
 	if( $roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 	{
-		$oldpass = (isset($_POST['oldpass']) ? $_POST['oldpass'] : '');
-		$newpass = (isset($_POST['newpass']) ? $_POST['newpass'] : '');
-		$confirmpass = (isset($_POST['confirmpass']) ? $_POST['confirmpass'] : '');
+		$oldpass  = ( isset($_POST['oldpass']) ? $_POST['oldpass'] : '' );
+		$newpass = ( isset($_POST['newpass']) ? $_POST['newpass'] : '' );
+		$confirmpass = ( isset($_POST['confirmpass']) ? $_POST['confirmpass'] : '' );
 
 		$success = 0;
 		if( $mode == 'Admin' && md5($oldpass) != $realhash )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_old_error'], $roster->locale->act['roster_cp'], 'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_old_error'],$roster->locale->act['roster_cp'],'sred');
 		}
-		elseif( !array_key_exists('newpass', $_POST) || !array_key_exists('confirmpass', $_POST) )
+		elseif( !array_key_exists('newpass',$_POST) || !array_key_exists('confirmpass',$_POST) )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_submit_error'], $roster->locale->act['roster_cp'], 'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_submit_error'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( $newpass != $confirmpass )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_mismatch'], $roster->locale->act['roster_cp'], 'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_mismatch'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( $newpass === '' || $confirmpass === '' || md5($newpass) == md5('') )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_blank'], $roster->locale->act['roster_cp'], 'sred');
+			$rcp_message .= messagebox($roster->locale->act['pass_blank'],$roster->locale->act['roster_cp'],'sred');
 		}
 		elseif( md5($newpass) == $realhash )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_isold'], $roster->locale->act['roster_cp'], 'sorange');
+			$rcp_message .= messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sorange');
 		}
 		else // valid password
 		{
@@ -73,19 +74,19 @@ if( array_key_exists('mode', $_POST) && $roster->auth->getAuthorized(ROSTERLOGIN
 
 			$result = $roster->db->query($query);
 
-			if( !$result )
+			if (!$result)
 			{
-				die_quietly('There was a database error while trying to change the password. MySQL said: <br />' . $roster->db->error(), $roster->locale->act['roster_cp'], __FILE__, __LINE__, $query);
+				die_quietly('There was a database error while trying to change the password. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['roster_cp'],__FILE__,__LINE__,$query);
 			}
 
 			$success = 1;
 
-			$rcp_message .= messagebox(sprintf($roster->locale->act['pass_changed'], $mode, '<span style="font-size:11px;color:red;">' . $newpass . '</span>'), $roster->locale->act['roster_cp'], 'sgreen');
+			$rcp_message .= messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
 		}
 
 		$rcp_message .= '<br />';
 	}
 }
 
-$roster->tpl->set_handle('body', 'admin/change_pass.html');
+$roster->tpl->set_filenames(array('body' => 'admin/change_pass.html'));
 $body = $roster->tpl->fetch('body');

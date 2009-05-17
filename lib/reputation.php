@@ -14,11 +14,11 @@
  * @since      File available since Release 1.03
  * @package    WoWRoster
  * @subpackage Reputation
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -47,12 +47,12 @@ function get_reputation( $member_id )
 {
 	global $roster;
 
-	$query = "SELECT * FROM `" . $roster->db->table('reputation') . "` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
-	$result = $roster->db->query($query);
+	$query= "SELECT * FROM `" . $roster->db->table('reputation') . "` WHERE `member_id` = '$member_id' ORDER BY `faction` ASC";
+	$result = $roster->db->query( $query );
 	$reputations = array();
-	while( $data = $roster->db->fetch($result) )
+	while( $data = $roster->db->fetch( $result ) )
 	{
-		$reputation = new reputation($data);
+		$reputation = new reputation( $data );
 		$reputations[] = $reputation;
 	}
 	return $reputations;

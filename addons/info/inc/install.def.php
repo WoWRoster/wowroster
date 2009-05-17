@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
  * @subpackage Installer
- */
+*/
 
-if( !defined('IN_ROSTER') )
+if ( !defined('IN_ROSTER') )
 {
-	exit('Detected invalid access to this file!');
+    exit('Detected invalid access to this file!');
 }
 
 /**
@@ -34,18 +34,17 @@ class infoInstall
 	var $fullname = 'char_info';
 	var $description = 'char_info_desc';
 	var $credits = array(
-		array(
-			"name" => "WoWRoster Dev Team",
-			"info" => "Original Author"
-		)
+		array(	"name"=>	"WoWRoster Dev Team",
+				"info"=>	"Original Author")
 	);
+
 
 	/**
 	 * Install Function
 	 *
 	 * @return bool
 	 */
-	function install( )
+	function install()
 	{
 		global $installer, $roster;
 
@@ -71,7 +70,7 @@ class infoInstall
 		$installer->add_config("'1140', 'show_recipes', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1150', 'show_item_bonuses', '0', 'function{infoAccess', 'char_conf'");
 
-		$installer->create_table($installer->table('display'), "
+		$installer->create_table($installer->table('display'),"
 		  `member_id` int(11) NOT NULL default '0',
 		  `show_money` tinyint(1) NOT NULL default '0',
 		  `show_played` tinyint(1) NOT NULL default '0',
@@ -89,7 +88,8 @@ class infoInstall
 		  `show_item_bonuses` tinyint(1) NOT NULL default '0',
 		  PRIMARY KEY  (`member_id`)");
 
-		$installer->create_table($installer->table('default'), "
+
+		$installer->create_table($installer->table('default'),"
 		  `show_money` tinyint(1) NOT NULL default '0',
 		  `show_played` tinyint(1) NOT NULL default '0',
 		  `show_tab2` tinyint(1) NOT NULL default '0',
@@ -122,16 +122,16 @@ class infoInstall
 			'show_item_bonuses' => '0'
 		);
 
-		$installer->add_query('INSERT INTO `' . $installer->table('default') . '` ' . $roster->db->build_query('INSERT', $build_query) . ';');
+		$installer->add_query('INSERT INTO `' . $installer->table('default') . '` ' . $roster->db->build_query('INSERT',$build_query) . ';');
 
 		$installer->add_query('INSERT INTO `' . $installer->table('display') . '` SELECT `p`.`member_id` , `d` . * FROM `' . $roster->db->table('players') . '` p, `' . $installer->table('default') . '` d ');
 
-		$installer->add_menu_button('cb_character', 'char');
-		$installer->add_menu_button('cb_mailbox', 'char', 'mailbox', 'inv_letter_02');
-		$installer->add_menu_button('cb_bags', 'char', 'bags', 'inv_misc_bag_08');
-		$installer->add_menu_button('cb_bank', 'char', 'bank', 'inv_misc_bag_15');
-		$installer->add_menu_button('cb_quests', 'char', 'quests', 'achievement_quests_completed_06');
-		$installer->add_menu_button('cb_recipes', 'char', 'recipes', 'inv_scroll_02');
+		$installer->add_menu_button('cb_character','char');
+		$installer->add_menu_button('cb_mailbox','char','mailbox','inv_letter_02');
+		$installer->add_menu_button('cb_bags','char','bags','inv_misc_bag_08');
+		$installer->add_menu_button('cb_bank','char','bank','inv_misc_bag_15');
+		$installer->add_menu_button('cb_quests','char','quests','achievement_quests_completed_06');
+		$installer->add_menu_button('cb_recipes','char','recipes','inv_scroll_02');
 
 		return true;
 	}
@@ -142,13 +142,13 @@ class infoInstall
 	 * @param string $oldversion
 	 * @return bool
 	 */
-	function upgrade( $oldversion )
+	function upgrade($oldversion)
 	{
 		global $installer, $roster;
 
 		// Basicly we are re-installing this addon, since the config section has changed so much
 		// This means any version upgrade routines are not needed
-		if( version_compare('1.9.9.1745', $oldversion, '>') == true )
+		if( version_compare('1.9.9.1745', $oldversion,'>') == true )
 		{
 			$installer->remove_all_config();
 			$installer->remove_all_menu_button();
@@ -174,19 +174,19 @@ class infoInstall
 		}
 
 		// I screwed up on the table naming here
-		if( version_compare('1.9.9.1747', $oldversion, '>') == true )
+		if( version_compare('1.9.9.1747', $oldversion,'>') == true )
 		{
 			$installer->add_query('RENAME TABLE `' . $installer->table('') . '`  TO `' . $installer->table('display') . '` ;');
 		}
 
 		// Change the icon for quests
-		if( version_compare('2.0.9.1885', $oldversion, '>') == true )
+		if( version_compare('2.0.9.1885', $oldversion,'>') == true )
 		{
-			$installer->update_menu_button('cb_quests', 'char', 'quests', 'achievement_quests_completed_06');
+			$installer->update_menu_button('cb_quests','char','quests','achievement_quests_completed_06');
 		}
 
 		// Remove the talents and spellbook icons since they are on the same page as "profile" now
-		if( version_compare('2.0.9.1940', $oldversion, '>') == true )
+		if( version_compare('2.0.9.1940', $oldversion,'>') == true )
 		{
 			$installer->remove_menu_button('cb_talents');
 			$installer->remove_menu_button('cb_spellbook');
@@ -200,7 +200,7 @@ class infoInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall( )
+	function uninstall()
 	{
 		global $installer, $roster;
 
