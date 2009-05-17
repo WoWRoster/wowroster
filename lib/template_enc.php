@@ -129,18 +129,18 @@ class RosterTplEncode
 						break;
 
 					case 'TRANSLATE':
-						$params = explode( ' ', $blocks[2][$curr_tb] );
+						$params = explode(' ', $blocks[2][$curr_tb]);
 						$key = $params[0];
-						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
-								. '{ echo $roster->locale->act[\'' . $key . '\']; }'
-							. 'else'
-								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
+
+						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) ) { echo $roster->locale->act[\'' . $key . '\']; ' . '} else { echo \'{ TRANSLATE ' . $key . ' }\'; trigger_error(\'Missing translation { ' . $key . ' }\', E_USER_NOTICE); } ?>';
 						break;
 
 					case 'TRANSLATE_F':
-						$params = explode( ' ', $blocks[2][$curr_tb] );
-						$key = array_shift( $params );
+						$params = explode(' ', $blocks[2][$curr_tb]);
+						$key = array_shift($params);
 						$args = '';
+						$extra = '';
+
 						foreach( $params as $param )
 						{
 							if( preg_match('#^(([a-z0-9\-_]+?\.)+?)(\$)?([A-Z0-9\-_]+?)$#', $param, $varref) )
@@ -152,13 +152,12 @@ class RosterTplEncode
 							}
 							else
 							{
-								$args .= ',$this->_tpldata[\'.\'][0][\'' . $param . '\']';
+								$args .= ',( isset($roster->locale->act[\'' . $param . '\']) ? $roster->locale->act[\'' . $param . '\'] : ( isset($this->_tpldata[\'.\'][0][\'' . $param . '\']) ? $this->_tpldata[\'.\'][0][\'' . $param . '\'] : \'{ TRANSLATE ' . $param . ' }\' ))';
 							}
 						}
-						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) )'
-								. '{ echo sprintf( $roster->locale->act[\'' . $key . '\']' . $args . '); }'
-							. 'else'
-								. '{ echo \'TRANSLATE ' . $key . '\'; trigger_error( \'Missing translation ' . $key . '\', E_USER_NOTICE ); } ?>';
+
+						$compile_blocks[] = '<?php if( isset($roster->locale->act[\'' . $key . '\']) ) { echo sprintf( $roster->locale->act[\'' . $key . '\']' . $args . '); ' . '} else { echo \'{ TRANSLATE_F ' . $key . ' }\'; trigger_error(\'Missing translation { ' . $key . ' }\', E_USER_NOTICE); } ?>';
+
 						break;
 
 					default:
