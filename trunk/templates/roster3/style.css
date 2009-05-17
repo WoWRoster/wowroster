@@ -14,8 +14,8 @@
  */
 
 body { background:#000000; }
-a:link, a:visited { color:#CBA300;text-decoration:none;font-weight:bold; }
-a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
+a:link, a:visited { color:#009; text-decoration:none; font-weight:bold; }
+a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .roster-wrap {
 	font:12px arial,helvetica,sans-serif;
@@ -47,7 +47,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 }
 .scope-menu li a:hover { border:2px solid #0066FF; }
 
-.qj-button { position: absolute; top: 0px; left: 40px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
+.qj-button { position: absolute; top: 130px; left: 40px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
 .qj-button a {
 	display:block;
 	border:2px solid #4E4D4C;
@@ -80,7 +80,7 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 	position: relative;
 	border: 1px solid #9D7D1C;
 	background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top;
-	padding: 0px 10px 10px;
+	padding: 10px;
 }
 
 .info-header { width: 100%; height: 170px; position: absolute; left: -10px; top: -20px; padding-right: 10px; }
@@ -119,7 +119,8 @@ a:hover, a:active { color:#EABB00;text-decoration:none;font-weight:bold; }
 .char-list .list .name { float: left; }
 .char-list .list .info { float: right; }
 
-
+/* Misc Code Fixes */
+#keyslist img.icon {height:20px; width:20px;}
 
 /* Navagation tabs */
 .sections { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:100%; z-index: 20; left: 140px; top: 100px; }
