@@ -14,11 +14,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage AddonInstallLib
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -29,15 +29,16 @@ if( !defined('IN_ROSTER') )
  */
 class Install
 {
-	var $sql=array();	// install sql
-	var $errors=array();	// errors
-	var $messages=array();	// messages
-	var $tables=array();	// $table=>boolean, true to restore, false to drop on rollback.
+	var $sql = array(); // install sql
+	var $errors = array(); // errors
+	var $messages = array(); // messages
+	var $tables = array(); // $table=>boolean, true to restore, false to drop on rollback.
 	var $addata;
 
 	var $addon_id;
 
-	var $temp_tables=true;	// addon_install.php does a create temp table check
+	var $temp_tables = true; // addon_install.php does a create temp table check
+
 
 	/**
 	 * Add a query to be installed.
@@ -45,7 +46,7 @@ class Install
 	 * @param string $query
 	 *		The query to add
 	 */
-	function add_query($query)
+	function add_query( $query )
 	{
 		$this->sql[] = $query;
 	}
@@ -56,11 +57,11 @@ class Install
 	 * @param string $table
 	 *		Table name
 	 */
-	function add_backup($table)
+	function add_backup( $table )
 	{
 		global $roster;
 
-		$this->sql[] = 'CREATE' . ( $this->temp_tables ? ' TEMPORARY ' : ' ' ) . 'TABLE `backup_' . $table . '` LIKE `' . $table . '`';
+		$this->sql[] = 'CREATE' . ($this->temp_tables ? ' TEMPORARY ' : ' ') . 'TABLE `backup_' . $table . '` LIKE `' . $table . '`';
 		$this->sql[] = 'INSERT INTO `backup_' . $table . '` SELECT * FROM `' . $table . '`';
 		$this->tables[$table] = true; // Restore backup on rollback
 	}
@@ -71,7 +72,7 @@ class Install
 	 * @param string $table
 	 *		Table name
 	 */
-	function add_drop($table)
+	function add_drop( $table )
 	{
 		$this->tables[$table] = false; // Remove copy on rollback
 	}
@@ -94,7 +95,7 @@ class Install
 	 *
 	 * @param string $name
 	 */
-	function drop_table($name)
+	function drop_table( $name )
 	{
 		$this->sql[] = 'DROP TABLE IF EXISTS `' . $name . '`;';
 	}
@@ -105,7 +106,7 @@ class Install
 	 * @param string $sql
 	 *		SQL string to add to the roster_addon_config table
 	 */
-	function add_config($sql)
+	function add_config( $sql )
 	{
 		global $roster;
 
@@ -120,7 +121,7 @@ class Install
 	 * @param string $sql
 	 *		Set string
 	 */
-	function update_config($id, $sql)
+	function update_config( $id , $sql )
 	{
 		global $roster;
 
@@ -133,7 +134,7 @@ class Install
 	 * @param int $id
 	 *		Config ID to delete
 	 */
-	function remove_config($id)
+	function remove_config( $id )
 	{
 		global $roster;
 
@@ -143,7 +144,7 @@ class Install
 	/**
 	 * Removes the all the config settings for an addon
 	 */
-	function remove_all_config()
+	function remove_all_config( )
 	{
 		global $roster;
 
@@ -164,7 +165,7 @@ class Install
 	 * @param bool $active
 	 * 		Activate the icon in the menu (default - true)
 	 */
-	function add_menu_button($title, $scope='util', $url='', $icon='', $active=true)
+	function add_menu_button( $title , $scope = 'util' , $url = '' , $icon = '' , $active = true )
 	{
 		global $roster;
 
@@ -194,7 +195,7 @@ class Install
 	 * @param string $icon
 	 * 		Icon for display
 	 */
-	function update_menu_button($title, $scope='util', $url='', $icon='')
+	function update_menu_button( $title , $scope = 'util' , $url = '' , $icon = '' )
 	{
 		global $roster;
 
@@ -212,7 +213,7 @@ class Install
 	 * @param string $title
 	 *		Localization key for the button title.
 	 */
-	function remove_menu_button($title)
+	function remove_menu_button( $title )
 	{
 		global $roster;
 
@@ -222,7 +223,7 @@ class Install
 	/**
 	 * Removes the all the menu buttons for an addon
 	 */
-	function remove_all_menu_button()
+	function remove_all_menu_button( )
 	{
 		global $roster;
 
@@ -235,7 +236,7 @@ class Install
 	 * @param string $name
 	 * 		Name of the pane, this will be prefixed with the addon's basename
 	 */
-	function add_menu_pane($name)
+	function add_menu_pane( $name )
 	{
 		global $roster;
 
@@ -248,11 +249,11 @@ class Install
 	 *
 	 * @param string $name
 	 */
-	function remove_menu_pane($name)
+	function remove_menu_pane( $name )
 	{
 		global $roster;
 
-		if( !in_array($name,array('util','realm','guild','char')) )
+		if( !in_array($name, array('util', 'realm', 'guild', 'char')) )
 		{
 			$this->sql[] = "DELETE FROM `" . $roster->db->table('menu') . "` WHERE `section` = '" . $roster->db->escape($name) . "' LIMIT 1;";
 		}
@@ -270,27 +271,27 @@ class Install
 	 *		1 on failure but successful rollback
 	 *		2 on failed rollback
 	 */
-	function install()
+	function install( )
 	{
 		global $roster;
 
 		$retval = 0;
 		//$old_error_die = $roster->db->error_die(false);
-		foreach ($this->sql as $id => $query)
+		foreach( $this->sql as $id => $query )
 		{
-			if (!$roster->db->query($query))
+			if( !$roster->db->query($query) )
 			{
 				$this->seterrors('Install error in query ' . $id . '. MySQL said: <br />' . $roster->db->error() . '<br />The query was: <br />' . $query);
 				$retval = 1;
 				break;
 			}
 		}
-		if ($retval)
+		if( $retval )
 		{
-			foreach ($this->tables as $table => $backup)
+			foreach( $this->tables as $table => $backup )
 			{
 				$query = 'DROP TABLE IF EXISTS `' . $table . '`';
-				if ($result = $roster->db->query($query))
+				if( $result = $roster->db->query($query) )
 				{
 					$roster->db->free_result($result);
 				}
@@ -299,10 +300,10 @@ class Install
 					$this->seterrors('Rollback error while dropping ' . $table . '. MySQL said: ' . $roster->db->error());
 					$retval = 2;
 				}
-				if ($backup)
+				if( $backup )
 				{
 					$query = 'CREATE TABLE `' . $table . '` LIKE `backup_' . $table . '`';
-					if ($result = $roster->db->query($query))
+					if( $result = $roster->db->query($query) )
 					{
 						$roster->db->free_result($result);
 					}
@@ -313,7 +314,7 @@ class Install
 					}
 					$query = 'INSERT INTO `' . $table . '` SELECT * FROM `backup_' . $table . '`';
 
-					if ($result = $roster->db->query($query))
+					if( $result = $roster->db->query($query) )
 					{
 						$roster->db->free_result($result);
 					}
@@ -334,7 +335,7 @@ class Install
 					$query = 'DROP TABLE `backup_' . $table . '`;';
 					if( !$roster->db->query($query) )
 					{
-						$this->seterrors( 'Cleanup error while dropping temporary table backup_' . $table . '. MySQL said: ' . $roster->db->error());
+						$this->seterrors('Cleanup error while dropping temporary table backup_' . $table . '. MySQL said: ' . $roster->db->error());
 					}
 				}
 			}
@@ -349,7 +350,7 @@ class Install
 	 * @param string $table base table name
 	 * @param boolean $backup true to prepend backup (for temporary tables)
 	 */
-	function table($table, $backup=false)
+	function table( $table , $backup = false )
 	{
 		global $roster;
 
@@ -361,7 +362,7 @@ class Install
 	 *
 	 * @param string $error
 	 */
-	function seterrors($error)
+	function seterrors( $error )
 	{
 		$this->errors[] = $error;
 	}
@@ -371,9 +372,9 @@ class Install
 	 *
 	 * @return string errors
 	 */
-	function geterrors()
+	function geterrors( )
 	{
-		return implode("<br />\n",$this->errors);
+		return implode("<br />\n", $this->errors);
 	}
 
 	/**
@@ -381,7 +382,7 @@ class Install
 	 *
 	 * @param string $message
 	 */
-	function setmessages($message)
+	function setmessages( $message )
 	{
 		$this->messages[] = $message;
 	}
@@ -391,9 +392,9 @@ class Install
 	 *
 	 * @return string messages
 	 */
-	function getmessages()
+	function getmessages( )
 	{
-		return implode("<br />\n",$this->messages);
+		return implode("<br />\n", $this->messages);
 	}
 
 	/**
@@ -401,8 +402,8 @@ class Install
 	 *
 	 * @return string SQL
 	 */
-	function getsql()
+	function getsql( )
 	{
-		return implode("<br />\n",$this->sql);
+		return implode("<br />\n", $this->sql);
 	}
 }

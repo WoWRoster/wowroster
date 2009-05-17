@@ -16,16 +16,19 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
-function infoAccess($values)
+function infoAccess( $values )
 {
 	global $roster;
 
 	if( count($roster->auth->levels) == 0 )
 	{
-		$roster->auth->rosterAccess(array('name'=>'','value'=>''));
+		$roster->auth->rosterAccess(array(
+			'name' => '',
+			'value' => ''
+		));
 		$roster->auth->levels[-1] = 'Per-Char';
 		ksort($roster->auth->levels);
 	}

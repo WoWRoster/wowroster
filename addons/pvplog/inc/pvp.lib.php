@@ -13,63 +13,63 @@
  * @link       http://www.wowroster.net
  * @package    PvPLog
  * @subpackage Library
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // Multiple edits by Gaxme, 16 May 2006
 // Thanks :)
 
+
 // Set up template vars used here
 $roster->tpl->assign_vars(array(
 	'S_SHOW_LOG' => false,
-	'S_SUMMARY'  => false,
-	'S_DUEL'     => false,
-	'S_PVP'      => false,
-	'S_BG'       => false,
+	'S_SUMMARY' => false,
+	'S_DUEL' => false,
+	'S_PVP' => false,
+	'S_BG' => false,
 
-	'L_LOG'          => 'Log',
+	'L_LOG' => 'Log',
 	'L_DUEL_SUMMARY' => $roster->locale->act['duelsummary'],
-	'L_WORLD_PVP'    => $roster->locale->act['world_pvp'],
-	'L_VS_GUILDS'    => $roster->locale->act['versus_guilds'],
-	'L_VS_PLAYERS'   => $roster->locale->act['versus_players'],
+	'L_WORLD_PVP' => $roster->locale->act['world_pvp'],
+	'L_VS_GUILDS' => $roster->locale->act['versus_guilds'],
+	'L_VS_PLAYERS' => $roster->locale->act['versus_players'],
 
-	'L_TOTAL_WINS'    => $roster->locale->act['totalwins'],
-	'L_TOTAL_LOSSES'  => $roster->locale->act['totallosses'],
+	'L_TOTAL_WINS' => $roster->locale->act['totalwins'],
+	'L_TOTAL_LOSSES' => $roster->locale->act['totallosses'],
 	'L_TOTAL_OVERALL' => $roster->locale->act['totaloverall'],
-	'L_WIN_AVERAGE'   => $roster->locale->act['win_average'],
-	'L_LOSS_AVERAGE'  => $roster->locale->act['loss_average'],
+	'L_WIN_AVERAGE' => $roster->locale->act['win_average'],
+	'L_LOSS_AVERAGE' => $roster->locale->act['loss_average'],
 
-	'L_WINS'           => $roster->locale->act['wins'],
-	'L_LOSSES'         => $roster->locale->act['losses'],
-	'L_OVERALL'        => $roster->locale->act['overall'],
-	'L_BEST_ZONE'      => $roster->locale->act['best_zone'],
-	'L_WORST_ZONE'     => $roster->locale->act['worst_zone'],
-	'L_BEST_SUB_ZONE'  => $roster->locale->act['bestsub'],
+	'L_WINS' => $roster->locale->act['wins'],
+	'L_LOSSES' => $roster->locale->act['losses'],
+	'L_OVERALL' => $roster->locale->act['overall'],
+	'L_BEST_ZONE' => $roster->locale->act['best_zone'],
+	'L_WORST_ZONE' => $roster->locale->act['worst_zone'],
+	'L_BEST_SUB_ZONE' => $roster->locale->act['bestsub'],
 	'L_WORST_SUB_ZONE' => $roster->locale->act['worstsub'],
-	'L_KILLS'          => $roster->locale->act['kills'],
-	'L_KILLED_MOST'    => $roster->locale->act['killedmost'],
+	'L_KILLS' => $roster->locale->act['kills'],
+	'L_KILLED_MOST' => $roster->locale->act['killedmost'],
 	'L_KILLED_MOST_BY' => $roster->locale->act['killedmostby'],
-	'L_GUILD_KILLED_MOST'    => $roster->locale->act['gkilledmost'],
+	'L_GUILD_KILLED_MOST' => $roster->locale->act['gkilledmost'],
 	'L_GUILD_KILLED_MOST_BY' => $roster->locale->act['gkilledmostby'],
 
-	'L_WHEN'      => $roster->locale->act['when'],
-	'L_CLASS'     => $roster->locale->act['class'],
-	'L_NAME'      => $roster->locale->act['name'],
-	'L_RACE'      => $roster->locale->act['race'],
-	'L_RANK'      => $roster->locale->act['rank'],
-	'L_GUILD'     => $roster->locale->act['guild'],
-	'L_REALM'     => $roster->locale->act['realm'],
+	'L_WHEN' => $roster->locale->act['when'],
+	'L_CLASS' => $roster->locale->act['class'],
+	'L_NAME' => $roster->locale->act['name'],
+	'L_RACE' => $roster->locale->act['race'],
+	'L_RANK' => $roster->locale->act['rank'],
+	'L_GUILD' => $roster->locale->act['guild'],
+	'L_REALM' => $roster->locale->act['realm'],
 	'L_LEVELDIFF' => $roster->locale->act['leveldiff'],
-	'L_WIN'       => $roster->locale->act['win'],
-	'L_HONOR'     => $roster->locale->act['honor'],
-	'L_ZONE'      => $roster->locale->act['zone'],
-	'L_SUBZONE'   => $roster->locale->act['subzone'],
-	)
-);
+	'L_WIN' => $roster->locale->act['win'],
+	'L_HONOR' => $roster->locale->act['honor'],
+	'L_ZONE' => $roster->locale->act['zone'],
+	'L_SUBZONE' => $roster->locale->act['subzone']
+));
 
 /**
  * PvPLog Library
@@ -92,13 +92,12 @@ class pvp3
 	}
 }
 
-
 function show_pvp2( $type , $url , $sort , $start )
 {
 	global $roster;
 
 	// Get all the available data
-	$pvps = pvp_get_many3($roster->data['member_id'],$type, '', -1);
+	$pvps = pvp_get_many3($roster->data['member_id'], $type, '', -1);
 
 	if( is_array($pvps) )
 	{
@@ -107,17 +106,17 @@ function show_pvp2( $type , $url , $sort , $start )
 
 		if( $start > 0 )
 		{
-			$prev = '<a href="' . makelink($url . '&amp;start=0' . $sort_part) . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink($url.'&amp;start=' . ($start-50) . $sort_part) . '">&lt;</a> ';
+			$prev = '<a href="' . makelink($url . '&amp;start=0' . $sort_part) . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink($url . '&amp;start=' . ($start - 50) . $sort_part) . '">&lt;</a> ';
 		}
 		else
 		{
 			$prev = '';
 		}
 
-		if( ($start+50) < $max )
+		if( ($start + 50) < $max )
 		{
-			$listing = ' <small>[' . $start . ' - ' . ($start+50) . '] of ' . $max . '</small>';
-			$next = ' <a href="' . makelink($url . '&amp;start=' . ($start+50) . $sort_part) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink($url . '&amp;start=' . ($max-50) . $sort_part) . '">&gt;&gt;|</a>';
+			$listing = ' <small>[' . $start . ' - ' . ($start + 50) . '] of ' . $max . '</small>';
+			$next = ' <a href="' . makelink($url . '&amp;start=' . ($start + 50) . $sort_part) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink($url . '&amp;start=' . ($max - 50) . $sort_part) . '">&gt;&gt;|</a>';
 		}
 		else
 		{
@@ -129,27 +128,26 @@ function show_pvp2( $type , $url , $sort , $start )
 			'PREV' => $prev,
 			'NEXT' => $next,
 			'LISTING' => $listing
-			)
-		);
+		));
 
-		output_pvp_summary($pvps,$type);
+		output_pvp_summary($pvps, $type);
 
-		if( isset( $pvps[0] ) )
+		if( isset($pvps[0]) )
 		{
 			switch( $type )
 			{
 				case 'BG':
-					$roster->tpl->assign_var('S_BG', true );
+					$roster->tpl->assign_var('S_BG', true);
 					output_bglog($pvps);
 					break;
 
 				case 'Duel':
-					$roster->tpl->assign_var('S_DUEL', true );
+					$roster->tpl->assign_var('S_DUEL', true);
 					output_duellog($roster->data['member_id']);
 					break;
 
 				case 'PvP':
-					$roster->tpl->assign_var('S_PVP', true );
+					$roster->tpl->assign_var('S_PVP', true);
 					output_pvplog($pvps);
 					break;
 
@@ -159,21 +157,20 @@ function show_pvp2( $type , $url , $sort , $start )
 		}
 
 		// Get the relevant data
-		$pvps = pvp_get_many3($roster->data['member_id'],$type, $sort, $start);
+		$pvps = pvp_get_many3($roster->data['member_id'], $type, $sort, $start);
 
 		if( isset($pvps[0]) )
 		{
-			output_pvp2($pvps, $url . '&amp;start=' . $start,$type);
+			output_pvp2($pvps, $url . '&amp;start=' . $start, $type);
 		}
 	}
 }
-
 
 function pvp_get_many3( $member_id , $type , $sort , $start )
 {
 	global $roster, $addon;
 
-	$query = "SELECT *, DATE_FORMAT(date, '" . $roster->locale->act['timeformat'] . "') AS date2 FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND ";
+	$query = "SELECT *, DATE_FORMAT(date, '" . $roster->locale->act['timeformat'] . "') AS date2 FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND ";
 
 	if( $type == 'PvP' )
 	{
@@ -252,14 +249,14 @@ function pvp_get_many3( $member_id , $type , $sort , $start )
 		$query .= ' LIMIT ' . $start . ', 50';
 	}
 
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
 
 	if( $roster->db->num_rows($result) > 0 )
 	{
 		$pvps = array();
-		while( $data = $roster->db->fetch( $result ) )
+		while( $data = $roster->db->fetch($result) )
 		{
-			$pvp = new pvp3( $data );
+			$pvp = new pvp3($data);
 			$pvps[] = $pvp;
 		}
 		return $pvps;
@@ -269,7 +266,6 @@ function pvp_get_many3( $member_id , $type , $sort , $start )
 		return false;
 	}
 }
-
 
 function output_pvp_summary( $pvps , $type )
 {
@@ -312,7 +308,7 @@ function output_pvp_summary( $pvps , $type )
 	{
 		$ave_loss_level_diff = $ave_loss_level_diff / $tot_losses;
 		$ave_loss_level_diff = round($ave_loss_level_diff, 2);
-		if ($ave_loss_level_diff > 0)
+		if( $ave_loss_level_diff > 0 )
 		{
 			$ave_loss_level_diff = '+' . $ave_loss_level_diff;
 		}
@@ -325,10 +321,10 @@ function output_pvp_summary( $pvps , $type )
 	$total = $tot_wins - $tot_losses;
 	if( $total > 0 )
 	{
-		$total = '+'.$total;
+		$total = '+' . $total;
 	}
 
-	$winpercent = round( ($tot_wins / ($tot_wins + $tot_losses)), 2 ) * 100;
+	$winpercent = round(($tot_wins / ($tot_wins + $tot_losses)), 2) * 100;
 
 	switch( $type )
 	{
@@ -349,20 +345,18 @@ function output_pvp_summary( $pvps , $type )
 	}
 
 	$roster->tpl->assign_vars(array(
-		'S_SUMMARY'         => true,
+		'S_SUMMARY' => true,
 
-		'LOG_TITLE'         => $header_text,
+		'LOG_TITLE' => $header_text,
 
-		'SUM_TOTAL_WINS'    => $tot_wins,
-		'SUM_TOTAL_LOSSES'  => $tot_losses,
+		'SUM_TOTAL_WINS' => $tot_wins,
+		'SUM_TOTAL_LOSSES' => $tot_losses,
 		'SUM_TOTAL_OVERALL' => $total,
 		'SUM_TOTAL_OVERALL_PERC' => $winpercent,
-		'SUM_WIN_AVERAGE'   => $ave_win_level_diff,
-		'SUM_LOSS_AVERAGE'  => $ave_loss_level_diff
-		)
-	);
+		'SUM_WIN_AVERAGE' => $ave_win_level_diff,
+		'SUM_LOSS_AVERAGE' => $ave_loss_level_diff
+	));
 }
-
 
 /**
  * Let's limit how many DB calls we do
@@ -386,7 +380,6 @@ function calc_winloss( $a , $b )
 	}
 }
 
-
 function calc_gwinloss( $a , $b )
 {
 	if( $a['killed'] == $b['killed'] )
@@ -398,7 +391,6 @@ function calc_gwinloss( $a , $b )
 		return ($a['killed'] < $b['killed']);
 	}
 }
-
 
 function calc_pwinloss( $a , $b )
 {
@@ -412,22 +404,21 @@ function calc_pwinloss( $a , $b )
 	}
 }
 
-
 function output_bglog( $pvps )
 {
 	global $roster, $addon;
 
 	$bg_array = array(
-		'eye_of_the_storm'=>'spurple',
-		'alterac_valley'=>'sblue',
-		'arathi_basin'=>'sgreen',
-		'warsong_gulch'=>'sorange',
+		'eye_of_the_storm' => 'spurple',
+		'alterac_valley' => 'sblue',
+		'arathi_basin' => 'sgreen',
+		'warsong_gulch' => 'sorange'
 	);
 
 	foreach( $bg_array as $bgname => $bgcolor )
 	{
-		$wins=0;
-		$loss=0;
+		$wins = 0;
+		$loss = 0;
 		$pwin = $gwin = $ploss = $gloss = $subs = array();
 		foreach( $pvps as $row )
 		{
@@ -450,33 +441,54 @@ function output_bglog( $pvps )
 
 				if( !isset($subs[$esub]) )
 				{
-					$subs[$esub] = array('Wins' => 0, 'WinLoss' => 0, 'Zone' => 0, 'Loss' => 0);
+					$subs[$esub] = array(
+						'Wins' => 0,
+						'WinLoss' => 0,
+						'Zone' => 0,
+						'Loss' => 0
+					);
 				}
 
 				if( !isset($gwin[$eguild]) )
 				{
-					$gwin[$eguild] = array('killed' => 0, 'name');
+					$gwin[$eguild] = array(
+						'killed' => 0,
+						'name'
+					);
 				}
 
 				if( !isset($pwin[$ename]) )
 				{
-					$pwin[$ename] = array('killed' => 0, 'name', 'class', 'class_icon');
+					$pwin[$ename] = array(
+						'killed' => 0,
+						'name',
+						'class',
+						'class_icon'
+					);
 				}
 
 				if( !isset($gloss[$eguild]) )
 				{
-					$gloss[$eguild] = array('killed' => 0, 'name');
+					$gloss[$eguild] = array(
+						'killed' => 0,
+						'name'
+					);
 				}
 
 				if( !isset($ploss[$ename]) )
 				{
-					$ploss[$ename] = array('killed' => 0, 'name', 'class', 'class_icon');
+					$ploss[$ename] = array(
+						'killed' => 0,
+						'name',
+						'class',
+						'class_icon'
+					);
 				}
 
 				// Get Class Icon
 				foreach( $roster->multilanguages as $language )
 				{
-					$icon_name = ( isset($roster->locale->wordings[$language]['class_iconArray'][$eclass]) ? $roster->locale->wordings[$language]['class_iconArray'][$eclass] : '' );
+					$icon_name = (isset($roster->locale->wordings[$language]['class_iconArray'][$eclass]) ? $roster->locale->wordings[$language]['class_iconArray'][$eclass] : '');
 					if( strlen($icon_name) > 0 )
 					{
 						break;
@@ -554,14 +566,14 @@ function output_bglog( $pvps )
 		}
 
 		$total = $wins - $loss;
-		if ($total > 0)
+		if( $total > 0 )
 		{
 			$total = '+' . $total;
 		}
 
 		if( ($wins + $loss) != 0 )
 		{
-			$winpercent = round( ($wins / ($wins + $loss)), 2 ) * 100;
+			$winpercent = round(($wins / ($wins + $loss)), 2) * 100;
 		}
 		else
 		{
@@ -574,27 +586,27 @@ function output_bglog( $pvps )
 		usort($gloss, 'calc_gwinloss');
 		usort($ploss, 'calc_pwinloss');
 
-		$best = ( isset($subs[0]['Zone']) ? $subs[0]['Zone'] : '' );
-		$worst = ( isset($subs[sizeof($subs)-1]['Zone']) ? $subs[sizeof($subs)-1]['Zone'] : '' );
-		$bestNum = ( isset($subs[0]['WinLoss']) ? $subs[0]['WinLoss'] : '' );
-		$worstNum = ( isset($subs[sizeof($subs)-1]['WinLoss']) ? $subs[sizeof($subs)-1]['WinLoss'] : '' );
+		$best = (isset($subs[0]['Zone']) ? $subs[0]['Zone'] : '');
+		$worst = (isset($subs[sizeof($subs) - 1]['Zone']) ? $subs[sizeof($subs) - 1]['Zone'] : '');
+		$bestNum = (isset($subs[0]['WinLoss']) ? $subs[0]['WinLoss'] : '');
+		$worstNum = (isset($subs[sizeof($subs) - 1]['WinLoss']) ? $subs[sizeof($subs) - 1]['WinLoss'] : '');
 
-		$kills = ( isset($pwin[0]['killed']) ? $pwin[0]['killed'] : '' );
-		$killed = ( isset($pwin[0]['name']) ? $pwin[0]['name'] : '' );
-		$killedclass = ( isset($pwin[0]['class']) ? $pwin[0]['class'] : '' );
-		$killedclassicon = ( isset($pwin[0]['class_icon']) ? $pwin[0]['class_icon'] : '' );
+		$kills = (isset($pwin[0]['killed']) ? $pwin[0]['killed'] : '');
+		$killed = (isset($pwin[0]['name']) ? $pwin[0]['name'] : '');
+		$killedclass = (isset($pwin[0]['class']) ? $pwin[0]['class'] : '');
+		$killedclassicon = (isset($pwin[0]['class_icon']) ? $pwin[0]['class_icon'] : '');
 
-		$deaths = ( isset($ploss[0]['killed']) ? $ploss[0]['killed'] : '' );
-		$killedBy = ( isset($ploss[0]['name']) ? $ploss[0]['name'] : '' );
-		$killedByclass = ( isset($ploss[0]['class']) ? $ploss[0]['class'] : '' );
-		$killedByclassicon = ( isset($ploss[0]['class_icon']) ? $ploss[0]['class_icon'] : '' );
+		$deaths = (isset($ploss[0]['killed']) ? $ploss[0]['killed'] : '');
+		$killedBy = (isset($ploss[0]['name']) ? $ploss[0]['name'] : '');
+		$killedByclass = (isset($ploss[0]['class']) ? $ploss[0]['class'] : '');
+		$killedByclassicon = (isset($ploss[0]['class_icon']) ? $ploss[0]['class_icon'] : '');
 
-		$gkills = ( isset($gwin[0]['killed']) ? $gwin[0]['killed'] : '' );
-		$gkilled = ( isset($gwin[0]['name']) ? $gwin[0]['name'] : '' );
-		$gdeaths = ( isset($gloss[0]['killed']) ? $gloss[0]['killed'] : '' );
-		$gkilledBy = ( isset($gloss[0]['name']) ? $gloss[0]['name'] : '' );
+		$gkills = (isset($gwin[0]['killed']) ? $gwin[0]['killed'] : '');
+		$gkilled = (isset($gwin[0]['name']) ? $gwin[0]['name'] : '');
+		$gdeaths = (isset($gloss[0]['killed']) ? $gloss[0]['killed'] : '');
+		$gkilledBy = (isset($gloss[0]['name']) ? $gloss[0]['name'] : '');
 
-		$roster->tpl->assign_block_vars('bg_log_summary',array(
+		$roster->tpl->assign_block_vars('bg_log_summary', array(
 			'S_HIDE' => true,
 
 			'L_HEADER' => $roster->locale->act[$bgname],
@@ -625,11 +637,9 @@ function output_bglog( $pvps )
 			'GUILD_KILLED_MOST_KILLS' => $gkills,
 			'GUILD_KILLED_MOST_BY' => $gkilledBy,
 			'GUILD_KILLED_MOST_BY_KILLS' => $gdeaths
-			)
-		);
+		));
 	}
 }
-
 
 function output_duellog( $member_id )
 {
@@ -637,14 +647,14 @@ function output_duellog( $member_id )
 
 	$data = array();
 
-	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `enemy` = '0' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `enemy` = '0' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
 
 	$data['loss'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
-	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `enemy` = '0' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `enemy` = '0' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
 
 	$data['win'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
@@ -654,8 +664,9 @@ function output_duellog( $member_id )
 		// Get Class Icon
 		foreach( $roster->multilanguages as $language )
 		{
-			$dataset['icon_name'] = ( isset($roster->locale->wordings[$language]['class_iconArray'][$dataset['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']] : '' );
-			if( strlen($dataset['icon_name']) > 0 ) break;
+			$dataset['icon_name'] = (isset($roster->locale->wordings[$language]['class_iconArray'][$dataset['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']] : '');
+			if( strlen($dataset['icon_name']) > 0 )
+				break;
 		}
 
 		if( !empty($dataset['icon_name']) )
@@ -668,7 +679,14 @@ function output_duellog( $member_id )
 		}
 
 		// Fix table rows if they are empty
-		$check_array = array('name', 'guild', 'race', 'class', 'leveldiff', 'countn');
+		$check_array = array(
+			'name',
+			'guild',
+			'race',
+			'class',
+			'leveldiff',
+			'countn'
+		);
 
 		foreach( $check_array as $check_value )
 		{
@@ -680,11 +698,11 @@ function output_duellog( $member_id )
 	}
 
 	$roster->tpl->assign_vars(array(
-		'DUEL_K_NAME'  => $data['win']['name'],
+		'DUEL_K_NAME' => $data['win']['name'],
 		'DUEL_KB_NAME' => $data['loss']['name'],
-		'DUEL_K_CLASS'  => $data['win']['class'],
+		'DUEL_K_CLASS' => $data['win']['class'],
 		'DUEL_KB_CLASS' => $data['loss']['class'],
-		'DUEL_K_CLASS_ICON'  => $data['win']['class_icon'],
+		'DUEL_K_CLASS_ICON' => $data['win']['class_icon'],
 		'DUEL_KB_CLASS_ICON' => $data['loss']['class_icon'],
 		'DUEL_K_RACE' => $data['win']['race'],
 		'DUEL_KB_RACE' => $data['loss']['race'],
@@ -693,11 +711,9 @@ function output_duellog( $member_id )
 		'DUEL_K_GUILD' => $data['win']['guild'],
 		'DUEL_KB_GUILD' => $data['loss']['guild'],
 		'DUEL_K_DIFF' => $data['win']['leveldiff'],
-		'DUEL_KB_DIFF' => $data['loss']['leveldiff'],
-		)
-	);
+		'DUEL_KB_DIFF' => $data['loss']['leveldiff']
+	));
 }
-
 
 function output_pvplog( $pvps )
 {
@@ -720,35 +736,35 @@ function output_pvplog( $pvps )
 	}
 	if( $worldPvPWin > 0 and $worldPvPLoss > 0 )
 	{
-		$worldPvPPerc = round((100*$worldPvPWin)/($worldPvPWin + $worldPvPLoss));
+		$worldPvPPerc = round((100 * $worldPvPWin) / ($worldPvPWin + $worldPvPLoss));
 	}
 
 	// Get the world best zone
-	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM " . $roster->db->table('pvp2',$addon['basename']) . " WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
+	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM " . $roster->db->table('pvp2', $addon['basename']) . " WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
 	$wbzone = $roster->db->query_first($query);
 
 	// Get the world worst zone
-	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
+	$query = "SELECT `zone`, COUNT(`zone`) AS countz FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY `zone` ORDER BY countz DESC LIMIT 0,1";
 	$wwzone = $roster->db->query_first($query);
 
 	// Get vs guild best zone
-	$query = "SELECT guild, COUNT(guild) AS countg FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
+	$query = "SELECT guild, COUNT(guild) AS countg FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
 	$gbzone = $roster->db->query_first($query);
 
 	// Get vs guild worst zone
-	$query = "SELECT guild, COUNT(guild) AS countg FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
+	$query = "SELECT guild, COUNT(guild) AS countg FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY guild ORDER BY countg DESC LIMIT 0,1";
 	$gwzone = $roster->db->query_first($query);
 
 	// Get vs player loss stats
-	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '0' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
 
 	$data['loss'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
 
 	// Get vs player win stats
-	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2',$addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
-	$result = $roster->db->query($query) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+	$query = "SELECT name, guild, race, class, leveldiff, COUNT(name) AS countn FROM `" . $roster->db->table('pvp2', $addon['basename']) . "` WHERE `member_id` = '" . $roster->data['member_id'] . "' AND `enemy` = '1' AND `bg` = '0' AND `win` = '1' GROUP BY name ORDER BY countn DESC LIMIT 0,1";
+	$result = $roster->db->query($query) or die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
 
 	$data['win'] = $roster->db->fetch($result);
 	$roster->db->free_result($result);
@@ -758,8 +774,9 @@ function output_pvplog( $pvps )
 		// Get Class Icon
 		foreach( $roster->multilanguages as $language )
 		{
-			$dataset['icon_name'] = ( isset($roster->locale->wordings[$language]['class_iconArray'][$dataset['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']] : '' );
-			if( strlen($dataset['icon_name']) > 0 ) break;
+			$dataset['icon_name'] = (isset($roster->locale->wordings[$language]['class_iconArray'][$dataset['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$dataset['class']] : '');
+			if( strlen($dataset['icon_name']) > 0 )
+				break;
 		}
 
 		if( !empty($dataset['icon_name']) )
@@ -772,7 +789,14 @@ function output_pvplog( $pvps )
 		}
 
 		// Fix table rows if they are empty
-		$check_array = array('name', 'guild', 'race', 'class', 'leveldiff', 'countn');
+		$check_array = array(
+			'name',
+			'guild',
+			'race',
+			'class',
+			'leveldiff',
+			'countn'
+		);
 
 		foreach( $check_array as $check_value )
 		{
@@ -784,17 +808,17 @@ function output_pvplog( $pvps )
 	}
 	$roster->tpl->assign_vars(array(
 		'PVP_WORLD_PVP_PERC' => $worldPvPPerc,
-		'PVP_WORLD_BEST_ZONE' => ( $wbzone ? $wbzone : 'N/A' ),
-		'PVP_WORLD_WORST_ZONE' => ( $wwzone ? $wwzone : 'N/A' ),
+		'PVP_WORLD_BEST_ZONE' => ($wbzone ? $wbzone : 'N/A'),
+		'PVP_WORLD_WORST_ZONE' => ($wwzone ? $wwzone : 'N/A'),
 
-		'PVP_GUILD_BEST_ZONE' => ( $gbzone ? $gbzone : 'N/A' ),
-		'PVP_GUILD_WORST_ZONE' => ( $gwzone ? $gwzone : 'N/A' ),
+		'PVP_GUILD_BEST_ZONE' => ($gbzone ? $gbzone : 'N/A'),
+		'PVP_GUILD_WORST_ZONE' => ($gwzone ? $gwzone : 'N/A'),
 
-		'PVP_K_NAME'  => $data['win']['name'],
+		'PVP_K_NAME' => $data['win']['name'],
 		'PVP_KB_NAME' => $data['loss']['name'],
-		'PVP_K_CLASS'  => $data['win']['class'],
+		'PVP_K_CLASS' => $data['win']['class'],
 		'PVP_KB_CLASS' => $data['loss']['class'],
-		'PVP_K_CLASS_ICON'  => $data['win']['class_icon'],
+		'PVP_K_CLASS_ICON' => $data['win']['class_icon'],
 		'PVP_KB_CLASS_ICON' => $data['loss']['class_icon'],
 		'PVP_K_RACE' => $data['win']['race'],
 		'PVP_KB_RACE' => $data['loss']['race'],
@@ -803,11 +827,9 @@ function output_pvplog( $pvps )
 		'PVP_K_GUILD' => $data['win']['guild'],
 		'PVP_KB_GUILD' => $data['loss']['guild'],
 		'PVP_K_DIFF' => $data['win']['leveldiff'],
-		'PVP_KB_DIFF' => $data['loss']['leveldiff'],
-		)
-	);
+		'PVP_KB_DIFF' => $data['loss']['leveldiff']
+	));
 }
-
 
 function output_pvp2( $pvps , $url , $type )
 {
@@ -816,20 +838,19 @@ function output_pvp2( $pvps , $url , $type )
 	$roster->tpl->assign_vars(array(
 		'S_SHOW_LOG' => true,
 
-		'U_WHEN'      => makelink($url . '&amp;s=date'),
-		'U_CLASS'     => makelink($url . '&amp;s=class'),
-		'U_NAME'      => makelink($url . '&amp;s=name'),
-		'U_RACE'      => makelink($url . '&amp;s=race'),
-		'U_RANK'      => makelink($url . '&amp;s=rank'),
-		'U_GUILD'     => makelink($url . '&amp;s=guild'),
-		'U_REALM'     => makelink($url . '&amp;s=realm'),
+		'U_WHEN' => makelink($url . '&amp;s=date'),
+		'U_CLASS' => makelink($url . '&amp;s=class'),
+		'U_NAME' => makelink($url . '&amp;s=name'),
+		'U_RACE' => makelink($url . '&amp;s=race'),
+		'U_RANK' => makelink($url . '&amp;s=rank'),
+		'U_GUILD' => makelink($url . '&amp;s=guild'),
+		'U_REALM' => makelink($url . '&amp;s=realm'),
 		'U_LEVELDIFF' => makelink($url . '&amp;s=leveldiff'),
-		'U_WIN'       => makelink($url . '&amp;s=win'),
-		'U_HONOR'     => makelink($url . '&amp;s=honor'),
-		'U_ZONE'      => makelink($url . '&amp;s=zone'),
-		'U_SUBZONE'   => makelink($url . '&amp;s=subzone'),
-
-		)
+		'U_WIN' => makelink($url . '&amp;s=win'),
+		'U_HONOR' => makelink($url . '&amp;s=honor'),
+		'U_ZONE' => makelink($url . '&amp;s=zone'),
+		'U_SUBZONE' => makelink($url . '&amp;s=subzone')
+	)
 	);
 
 	foreach( $pvps as $row )
@@ -855,7 +876,7 @@ function output_pvp2( $pvps , $url , $type )
 		// Get Class Icon
 		foreach( $roster->multilanguages as $language )
 		{
-			$icon_name = ( isset($roster->locale->wordings[$language]['class_iconArray'][$row->data['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row->data['class']] : '' );
+			$icon_name = (isset($roster->locale->wordings[$language]['class_iconArray'][$row->data['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row->data['class']] : '');
 			if( strlen($icon_name) > 0 )
 			{
 				break;
@@ -882,12 +903,11 @@ function output_pvp2( $pvps , $url , $type )
 			'GUILD' => $row->data['guild'],
 			'REALM' => $row->data['realm'],
 			'DIFF_COLOR' => $diffcolor,
-			'DIFF' => ( $diff > 0 ? '+' : '' ) . $diff,
+			'DIFF' => ($diff > 0 ? '+' : '') . $diff,
 			'WIN' => (bool)$row->data['win'],
 			'HONOR' => $row->data['honor'],
 			'ZONE' => $row->data['zone'],
-			'SUBZONE' => $row->data['subzone'],
-			)
-		);
+			'SUBZONE' => $row->data['subzone']
+		));
 	}
 }

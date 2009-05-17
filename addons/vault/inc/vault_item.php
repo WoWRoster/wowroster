@@ -13,14 +13,14 @@
  * @link       http://www.wowroster.net
  * @package    Vault
  * @subpackage VaultItem
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
 	exit('Detected invalid access to this file!');
 }
 
-require_once(ROSTER_LIB . 'item.php');
+require_once (ROSTER_LIB . 'item.php');
 
 /**
  * Vault Item class, extends item class
@@ -30,6 +30,7 @@ require_once(ROSTER_LIB . 'item.php');
  */
 class VaultItem extends item
 {
+
 	/**
 	 * Constructor
 	 *
@@ -37,7 +38,7 @@ class VaultItem extends item
 	 * @param string $parse_mode | accepts 'full' full item parsing, 'simple' for simple item coloring only.  Defaults to auto detect
 	 *
 	 */
-	function VaultItem( $data, $parse_mode=false )
+	function VaultItem( $data , $parse_mode = false )
 	{
 		global $roster;
 
@@ -53,19 +54,19 @@ class VaultItem extends item
 		$this->parent = $data['item_parent'];
 		$this->tooltip = $data['item_tooltip'];
 		$this->color = $data['item_color'];
-		$this->locale = ( isset($data['locale']) ? $data['locale'] : $roster->config['locale'] );
+		$this->locale = (isset($data['locale']) ? $data['locale'] : $roster->config['locale']);
 		$this->quantity = $data['item_quantity'];
 		$this->_setQuality($this->color);
 		$this->_doParseTooltip();
 		$this->_makeTooltipHTML();
 	}
 
-	function _fetchArmorSet( $pieces=array(), $guild_id='' )
+	function _fetchArmorSet( $pieces = array() , $guild_id = '' )
 	{
 		global $roster, $addon;
 
 		$count = count($pieces);
-		$guild_id = ( is_numeric($guild_id) ? $guild_id : $this->member_id );
+		$guild_id = (is_numeric($guild_id) ? $guild_id : $this->member_id);
 
 		if( $count && is_array($pieces) )
 		{
@@ -75,7 +76,7 @@ class VaultItem extends item
 			$sql_in = "('";
 			foreach( $pieces as $item )
 			{
-				$sql_in .= $roster->db->escape( $item['Name'] );
+				$sql_in .= $roster->db->escape($item['Name']);
 				if( $i < $count )
 				{
 					$sql_in .= "', '";
@@ -89,15 +90,12 @@ class VaultItem extends item
 				return $roster->cache->mget($sql_in);
 			}
 
-			$sql = "SELECT `item_name`, `item_parent` FROM"
-				 . " `" . $roster->db->table('items',$addon['basename']) . "`"
-				 . " WHERE `guild_id` = '$guild_id'"
-				 . " AND `item_name` IN $sql_in ";
+			$sql = "SELECT `item_name`, `item_parent` FROM" . " `" . $roster->db->table('items', $addon['basename']) . "`" . " WHERE `guild_id` = '$guild_id'" . " AND `item_name` IN $sql_in ";
 			$result = $roster->db->query($sql);
 
 			while( $data = $roster->db->fetch($result) )
 			{
-				if( $data['item_parent'] == 'equip')
+				if( $data['item_parent'] == 'equip' )
 				{
 					$armor_set['equip'][] = $data['item_name'];
 				}
@@ -119,15 +117,12 @@ class VaultItem extends item
 	 * @param unknown_type $parse_mode
 	 * @return unknown
 	 */
-	function fetchNamedItem( $name, $parse_mode=false )
+	function fetchNamedItem( $name , $parse_mode = false )
 	{
 		global $roster, $addon;
 
 		$name = $roster->db->escape($name);
-		$sql = " SELECT *"
-			 . " FROM `" . $roster->db->table('items',$addon['basename']) . "`"
-			 . " WHERE `item_name` LIKE '%$name%'"
-			 . " LIMIT 1";
+		$sql = " SELECT *" . " FROM `" . $roster->db->table('items', $addon['basename']) . "`" . " WHERE `item_name` LIKE '%$name%'" . " LIMIT 1";
 		$result = $roster->db->query($sql);
 		$data = $roster->db->fetch($result);
 		if( $data )
@@ -140,15 +135,12 @@ class VaultItem extends item
 		}
 	}
 
-	function fetchOneItem( $guild_id, $slot, $parse_mode=false )
+	function fetchOneItem( $guild_id , $slot , $parse_mode = false )
 	{
 		global $roster, $addon;
 
 		$slot = $roster->db->escape($slot);
-		$query 	= " SELECT *"
-				. " FROM `" . $roster->db->table('items',$addon['basename']) . "`"
-				. " WHERE `guild_id` = '$guild_id'"
-				. " AND `item_slot` = '$slot'";
+		$query = " SELECT *" . " FROM `" . $roster->db->table('items', $addon['basename']) . "`" . " WHERE `guild_id` = '$guild_id'" . " AND `item_slot` = '$slot'";
 
 		$result = $roster->db->query($query);
 		$data = $roster->db->fetch($result);
@@ -171,23 +163,20 @@ class VaultItem extends item
 	 * @param string $parse_mode
 	 * @return object[]
 	 */
-	function fetchManyItems( $guild_id, $parent, $parse_mode=false )
+	function fetchManyItems( $guild_id , $parent , $parse_mode = false )
 	{
 		global $roster, $addon;
 
 		$parent = $roster->db->escape($parent);
 		$items = array();
 
-		$query  = " SELECT *"
-				. " FROM `" . $roster->db->table('items',$addon['basename']) . "`"
-				. " WHERE `guild_id` = '$guild_id'"
-				. " AND `item_parent` = '$parent'";
+		$query = " SELECT *" . " FROM `" . $roster->db->table('items', $addon['basename']) . "`" . " WHERE `guild_id` = '$guild_id'" . " AND `item_parent` = '$parent'";
 
 		$result = $roster->db->query($query);
 
 		while( $data = $roster->db->fetch($result) )
 		{
-			$item = new VaultItem( $data, $parse_mode );
+			$item = new VaultItem($data, $parse_mode);
 			$items[$data['item_slot']] = $item;
 		}
 		return $items;

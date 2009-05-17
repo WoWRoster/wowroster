@@ -14,17 +14,17 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage Ajax
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
-switch ($method)
+switch( $method )
 {
 	case 'menu_button_add':
-		if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
+		if( !$roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';
@@ -79,21 +79,21 @@ switch ($method)
 
 		$DBres = $roster->db->query($query);
 
-		if (!$DBres)
+		if( !$DBres )
 		{
 			$status = 101;
 			$errmsg = 'Failed to insert button. MySQL said: ' . $roster->db->error();
 			return;
 		}
 
-		$status=0;
-		$result  = '<id>b' . $roster->db->insert_id() . "</id>\n";
+		$status = 0;
+		$result = '<id>b' . $roster->db->insert_id() . "</id>\n";
 		$result .= '<title>' . $_POST['title'] . '</title>';
 
 		break;
 
 	case 'menu_button_del':
-		if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
+		if( !$roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 		{
 			$status = 103;
 			$errmsg = 'Not authorized';
@@ -101,7 +101,7 @@ switch ($method)
 		}
 
 		$button = $_POST['button'];
-		$button_id = (int)substr($button,1);
+		$button_id = (int)substr($button, 1);
 
 		$query = "SELECT * FROM `" . $roster->db->table('menu_button') . "` WHERE `button_id` = '" . $button_id . "';";
 		$DBres = $roster->db->query($query);
@@ -135,7 +135,7 @@ switch ($method)
 
 		$DBres = $roster->db->query($query);
 
-		if (!$DBres)
+		if( !$DBres )
 		{
 			$status = 101;
 			$errmsg = 'Failed to delete button. MySQL said: ' . "\n" . $roster->db->error() . "\n" . $query;

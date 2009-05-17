@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
-*/
+ */
 
 //---[ Text File Downloader ]-----------------------------
 if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['data']) )
@@ -26,12 +26,12 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 	// We need to stripslashes no matter what the setting of magic_quotes_gpc is
 	echo stripslashes($file);
 
-	exit;
+	exit();
 }
 
-define('IN_ROSTER',true);
+define('IN_ROSTER', true);
 
-require_once( dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php' );
+require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php');
 
 // --[ Get path info based on scope ]--
 if( !isset($roster->pages[1]) )
@@ -42,8 +42,7 @@ if( !isset($roster->pages[1]) )
 switch( $roster->pages[0] )
 {
 	case 'char':
-		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP .
-			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP . (isset($roster->pages[2]) ? $roster->pages[2] : 'index') . '.php';
 		if( !file_exists($path) )
 		{
 			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP . 'index.php';
@@ -51,8 +50,7 @@ switch( $roster->pages[0] )
 		break;
 
 	case 'guild':
-		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP .
-			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP . (isset($roster->pages[2]) ? $roster->pages[2] : 'index') . '.php';
 		if( !file_exists($path) )
 		{
 			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'guild' . DIR_SEP . 'index.php';
@@ -60,8 +58,7 @@ switch( $roster->pages[0] )
 		break;
 
 	case 'realm':
-		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'realm' . DIR_SEP .
-			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'realm' . DIR_SEP . (isset($roster->pages[2]) ? $roster->pages[2] : 'index') . '.php';
 		if( !file_exists($path) )
 		{
 			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'realm' . DIR_SEP . 'index.php';
@@ -69,8 +66,7 @@ switch( $roster->pages[0] )
 		break;
 
 	case 'util':
-		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP .
-			( isset($roster->pages[2]) ? $roster->pages[2] : 'index' ). '.php';
+		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . (isset($roster->pages[2]) ? $roster->pages[2] : 'index') . '.php';
 		if( !file_exists($path) )
 		{
 			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'index.php';
@@ -83,19 +79,18 @@ switch( $roster->pages[0] )
 		{
 			$content = '';
 			ob_start();
-				require($file);
+			require ($file);
 			$content = ob_get_clean();
-			
+
 			if( $roster->output['show_menu'] )
 			{
-				$roster_menu = new RosterMenu;
+				$roster_menu = new RosterMenu();
 				$roster_menu->makeMenu($roster->output['show_menu']);
 			}
 
-
 			if( $roster->output['show_header'] )
 			{
-				include_once(ROSTER_BASE . 'header.php');
+				include_once (ROSTER_BASE . 'header.php');
 			}
 
 			$roster_menu->displayMenu();
@@ -104,7 +99,7 @@ switch( $roster->pages[0] )
 
 			if( $roster->output['show_footer'] )
 			{
-				include_once(ROSTER_BASE . 'footer.php');
+				include_once (ROSTER_BASE . 'footer.php');
 			}
 
 			exit();
@@ -113,7 +108,7 @@ switch( $roster->pages[0] )
 		{
 			// Send a 404. Then the browser knows what's going on as well.
 			header('HTTP/1.0 404 Not Found');
-			roster_die(sprintf($roster->locale->act['module_not_exist'],ROSTER_PAGE_NAME),$roster->locale->act['roster_error']);
+			roster_die(sprintf($roster->locale->act['module_not_exist'], ROSTER_PAGE_NAME), $roster->locale->act['roster_error']);
 		}
 }
 
@@ -121,7 +116,7 @@ if( empty($roster->pages[1]) )
 {
 	// Send a 404. Then the browser knows what's going on as well.
 	header('HTTP/1.0 404 Not Found');
-	roster_die(sprintf($roster->locale->act['module_not_exist'],ROSTER_PAGE_NAME),$roster->locale->act['roster_error']);
+	roster_die(sprintf($roster->locale->act['module_not_exist'], ROSTER_PAGE_NAME), $roster->locale->act['roster_error']);
 }
 
 $addon = getaddon($roster->pages[1]);
@@ -131,12 +126,12 @@ if( !file_exists($path) )
 {
 	// Send a 404. Then the browser knows what's going on as well.
 	header('HTTP/1.0 404 Not Found');
-	roster_die(sprintf($roster->locale->act['module_not_exist'],ROSTER_PAGE_NAME),$roster->locale->act['roster_error']);
+	roster_die(sprintf($roster->locale->act['module_not_exist'], ROSTER_PAGE_NAME), $roster->locale->act['roster_error']);
 }
 
 if( !$roster->auth->getAuthorized($addon['access']) )
 {
-	roster_die(sprintf($roster->locale->act['addon_no_access'],$addon['basename']),$roster->locale->act['addon_error']);
+	roster_die(sprintf($roster->locale->act['addon_no_access'], $addon['basename']), $roster->locale->act['addon_error']);
 }
 
 if( $addon['active'] == '1' )
@@ -147,20 +142,20 @@ if( $addon['active'] == '1' )
 
 	if( file_exists($installfile) )
 	{
-		include_once($installfile);
+		include_once ($installfile);
 
 		if( class_exists($install_class) )
 		{
-			$addonstuff = new $install_class;
+			$addonstuff = new $install_class();
 
 			// -1 = overwrote newer version
 			//  0 = same version
 			//  1 = upgrade available
 
-			if( version_compare($addonstuff->version,$addon['version']) )
+
+			if( version_compare($addonstuff->version, $addon['version']) )
 			{
-				roster_die(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
-					. sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error']);
+				roster_die(sprintf($roster->locale->act['addon_upgrade_notice'], $addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">' . sprintf($roster->locale->act['installer_click_upgrade'], $addon['version'], $addonstuff->version) . '</a>', $roster->locale->act['addon_error']);
 			}
 			unset($addonstuff);
 		}
@@ -169,21 +164,20 @@ if( $addon['active'] == '1' )
 	// Include addon's locale files if they exist
 	foreach( $roster->multilanguages as $lang )
 	{
-		$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php',$lang);
+		$roster->locale->add_locale_file($addon['locale_dir'] . $lang . '.php', $lang);
 	}
 
 	// Include addon's inc/conf.php file
 	if( file_exists($addon['conf_file']) )
 	{
-		include_once($addon['conf_file']);
+		include_once ($addon['conf_file']);
 	}
 
 	// The addon will now assign its output to $content
 	$content = '';
 	ob_start();
-		require($path);
+	require ($path);
 	$content .= ob_get_clean();
-
 
 	// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
 	if( $addon['css_url'] != '' )
@@ -197,13 +191,13 @@ if( $addon['active'] == '1' )
 
 	if( $roster->output['show_menu'] )
 	{
-		$roster_menu = new RosterMenu;
+		$roster_menu = new RosterMenu();
 		$roster_menu->makeMenu($roster->output['show_menu']);
 	}
 
 	if( $roster->output['show_header'] )
 	{
-		include_once(ROSTER_BASE . 'header.php');
+		include_once (ROSTER_BASE . 'header.php');
 	}
 
 	$roster_menu->displayMenu();
@@ -212,13 +206,12 @@ if( $addon['active'] == '1' )
 
 	if( $roster->output['show_footer'] )
 	{
-		include_once(ROSTER_BASE . 'footer.php');
+		include_once (ROSTER_BASE . 'footer.php');
 	}
 }
 else
 {
-	roster_die(sprintf($roster->locale->act['addon_disabled'],$addon['basename']),$roster->locale->act['addon_error']);
+	roster_die(sprintf($roster->locale->act['addon_disabled'], $addon['basename']), $roster->locale->act['addon_error']);
 }
-
 
 $roster->db->close_db();

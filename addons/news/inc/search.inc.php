@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    News
  * @subpackage Search
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -35,26 +35,16 @@ class newsSearch
 	var $open_table;
 	var $close_table;
 	var $search_url;
-	var $data = array();    // Addon data
+	var $data = array(); // Addon data
 
-	function search( $search , $limit=10 , $page=0 )
+
+	function search( $search , $limit = 10 , $page = 0 )
 	{
 		global $roster;
 
-		$first = $page*$limit;
+		$first = $page * $limit;
 
-		$sql = "SELECT `news`.`news_id`, `news`.`author`, `news`.`title`, `news`.`content`, `news`.`html`, "
-			 . "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', "
-			 . "COUNT(`comments`.`comment_id`) comm_count "
-			 . "FROM `" . $roster->db->table('news','news') . "` news "
-			 . "LEFT JOIN `" . $roster->db->table('comments','news') . "` comments USING (`news_id`) "
-			 . "WHERE `news`.`news_id` LIKE '%$search%' "
-			 . "OR `news`.`author` LIKE '%$search%' "
-			 . "OR `news`.`date` LIKE '%$search%' "
-			 . "OR `news`.`title` LIKE '%$search%' "
-			 . "OR `news`.`content` LIKE '%$search%' "
-			 . "GROUP BY `news`.`news_id` "
-			 . ( $limit > 0 ? " LIMIT $first," . $limit : '' ) . ';';
+		$sql = "SELECT `news`.`news_id`, `news`.`author`, `news`.`title`, `news`.`content`, `news`.`html`, " . "DATE_FORMAT(  DATE_ADD(`news`.`date`, INTERVAL " . $roster->config['localtimeoffset'] . " HOUR ), '" . $roster->locale->act['timeformat'] . "' ) AS 'date_format', " . "COUNT(`comments`.`comment_id`) comm_count " . "FROM `" . $roster->db->table('news', 'news') . "` news " . "LEFT JOIN `" . $roster->db->table('comments', 'news') . "` comments USING (`news_id`) " . "WHERE `news`.`news_id` LIKE '%$search%' " . "OR `news`.`author` LIKE '%$search%' " . "OR `news`.`date` LIKE '%$search%' " . "OR `news`.`title` LIKE '%$search%' " . "OR `news`.`content` LIKE '%$search%' " . "GROUP BY `news`.`news_id` " . ($limit > 0 ? " LIMIT $first," . $limit : '') . ';';
 
 		//calculating the search time
 		$this->start_search = format_microtime();
@@ -88,7 +78,7 @@ class newsSearch
 				}
 				$content = nl2br($content);
 
-				$array = explode(' ',$content,101);
+				$array = explode(' ', $content, 101);
 				if( isset($array[100]) )
 				{
 					unset($array[100]);
@@ -98,7 +88,7 @@ class newsSearch
 				{
 					$item['more_text'] = false;
 				}
-				$item['short_text'] = implode(' ',$array);
+				$item['short_text'] = implode(' ', $array);
 
 				$item['footer'] = ($comments == 0 ? 'No' : $comments) . ' comment' . ($comments == 1 ? '' : 's');
 

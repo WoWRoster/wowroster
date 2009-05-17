@@ -14,7 +14,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 /******************************
  * Call parameters:
@@ -32,26 +32,27 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // ----[ Check log-in ]-------------------------------------
-if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
+if( !$roster->auth->getAuthorized(ROSTERLOGIN_ADMIN) )
 {
-	echo '<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
-		. $roster->auth->getLoginForm();
+	echo '<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />' . $roster->auth->getLoginForm();
 
 	return;
 }
 // ----[ End Check log-in ]---------------------------------
 
-define('IN_ROSTER_ADMIN',true);
 
-include_once(ROSTER_ADMIN . 'pages.php');
+define('IN_ROSTER_ADMIN', true);
+
+include_once (ROSTER_ADMIN . 'pages.php');
 
 $header = $menu = $pagebar = $footer = $body = $rcp_message = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
+
 
 if( $roster->config['check_updates'] && isset($roster->config['versioncache']) )
 {
@@ -71,72 +72,71 @@ if( $roster->config['check_updates'] && isset($roster->config['versioncache']) )
 
 		$content = urlgrabber(ROSTER_UPDATECHECK);
 
-		if( preg_match('#<version>(.+)</version>#i',$content,$version) )
+		if( preg_match('#<version>(.+)</version>#i', $content, $version) )
 		{
 			$cache['ver_latest'] = $version[1];
 		}
 
-		if( preg_match('#<info>(.+)</info>#i',$content,$info) )
+		if( preg_match('#<info>(.+)</info>#i', $content, $info) )
 		{
 			$cache['ver_info'] = $info[1];
 		}
 
-		if( preg_match('#<updated>(.+)</updated>#i',$content,$info) )
+		if( preg_match('#<updated>(.+)</updated>#i', $content, $info) )
 		{
 			$cache['ver_date'] = $info[1];
 		}
 
-		$roster->db->query ( "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
+		$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . serialize($cache) . "' WHERE `id` = '6' LIMIT 1;");
 
 	}
 
-	if( version_compare($cache['ver_latest'],ROSTER_VERSION,'>') )
+	if( version_compare($cache['ver_latest'], ROSTER_VERSION, '>') )
 	{
-		$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600*$roster->config['localtimeoffset']));
-		$rcp_message .= messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
+		$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600 * $roster->config['localtimeoffset']));
+		$rcp_message .= messagebox(sprintf($roster->locale->act['new_version_available'], 'WoWRoster', $cache['ver_latest'], $cache['ver_date'], 'http://www.wowroster.net') . '<br />' . $cache['ver_info'], $roster->locale->act['update']);
 	}
 }
 
 // Find out what subpage to include, and do so
-$page = (isset($roster->pages[1]) && ($roster->pages[1]!='')) ? $roster->pages[1] : 'roster';
+$page = (isset($roster->pages[1]) && ($roster->pages[1] != '')) ? $roster->pages[1] : 'roster';
 
 if( isset($config_pages[$page]['file']) )
 {
-	if (file_exists(ROSTER_ADMIN . $config_pages[$page]['file']))
+	if( file_exists(ROSTER_ADMIN . $config_pages[$page]['file']) )
 	{
-		require_once(ROSTER_ADMIN . $config_pages[$page]['file']);
+		require_once (ROSTER_ADMIN . $config_pages[$page]['file']);
 	}
 	else
 	{
-		$rcp_message .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
+		$rcp_message .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'], $page), $roster->locale->act['roster_cp'], 'sred');
 	}
 }
 else
 {
-	$rcp_message .= messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
+	$rcp_message .= messagebox($roster->locale->act['roster_cp_invalid'], $roster->locale->act['roster_cp'], 'sred');
 }
 
 // Build the pagebar from admin/pages.php
 foreach( $config_pages as $pindex => $data )
 {
-	$pagename = $roster->pages[0] . ( $page != 'roster' ? '-' . $page : '' );
+	$pagename = $roster->pages[0] . ($page != 'roster' ? '-' . $page : '');
 
 	if( !isset($data['special']) || $data['special'] != 'hidden' )
 	{
-		$roster->tpl->assign_block_vars('pagebar',array(
-			'SPECIAL' => ( isset($data['special']) ? $data['special'] : '' ),
-			'SELECTED' => ( isset($data['href']) ? ($pagename == $data['href'] ? true : false) : ''),
-			'LINK' => ( isset($data['href']) ? makelink($data['href']) : '' ),
-			'NAME' => ( isset($data['title']) ? ( isset($roster->locale->act[$data['title']]) ? $roster->locale->act[$data['title']] : $data['title'] ) : '' ),
-			)
-		);
+		$roster->tpl->assign_block_vars('pagebar', array(
+			'SPECIAL' => (isset($data['special']) ? $data['special'] : ''),
+			'SELECTED' => (isset($data['href']) ? ($pagename == $data['href'] ? true : false) : ''),
+			'LINK' => (isset($data['href']) ? makelink($data['href']) : ''),
+			'NAME' => (isset($data['title']) ? (isset($roster->locale->act[$data['title']]) ? $roster->locale->act[$data['title']] : $data['title']) : '')
+		));
 	}
 }
 
 // Refresh the addon list because we may have installed/uninstalled something
 $roster->get_addon_data();
 
-$roster->tpl->assign_var('ADDON_PAGEBAR',(bool)count($roster->addon_data));
+$roster->tpl->assign_var('ADDON_PAGEBAR', (bool)count($roster->addon_data));
 
 foreach( $roster->addon_data as $row )
 {
@@ -153,15 +153,14 @@ foreach( $roster->addon_data as $row )
 
 		foreach( $roster->multilanguages as $lang )
 		{
-			$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+			$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
 		}
 
-		$roster->tpl->assign_block_vars('addon_pagebar',array(
+		$roster->tpl->assign_block_vars('addon_pagebar', array(
 			'SELECTED' => (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? true : false),
 			'LINK' => makelink('rostercp-addon-' . $row['basename']),
-			'NAME' => ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] ),
-			)
-		);
+			'NAME' => (isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'])
+		));
 
 		// Restore our locale array
 		$roster->locale->wordings = $localetemp;
@@ -171,6 +170,7 @@ foreach( $roster->addon_data as $row )
 
 // ----[ Render the page ]----------------------------------
 
+
 // Generate a title, so the user knows where they are at in RosterCP
 $rostercp_title = $roster->locale->act['roster_cp_ab'];
 if( isset($roster->pages[1]) )
@@ -178,12 +178,11 @@ if( isset($roster->pages[1]) )
 	if( $roster->pages[1] == 'addon' )
 	{
 		$fullname = $roster->addon_data[$roster->pages[2]]['fullname'];
-		$rostercp_title .= ' -&gt; ' . ( isset($roster->locale->act[$fullname]) ? $roster->locale->act[$fullname] : $fullname );
+		$rostercp_title .= ' -&gt; ' . (isset($roster->locale->act[$fullname]) ? $roster->locale->act[$fullname] : $fullname);
 	}
 	elseif( $roster->pages[1] != '' )
 	{
-		$rostercp_title .= ( isset($config_pages[$roster->pages[1]]['title']) ?
-		( isset($roster->locale->act[$config_pages[$roster->pages[1]]['title']]) ? ' -&gt; ' . $roster->locale->act[$config_pages[$roster->pages[1]]['title']] : ' -&gt; ' . $config_pages[$roster->pages[1]]['title'] ) : '' );
+		$rostercp_title .= (isset($config_pages[$roster->pages[1]]['title']) ? (isset($roster->locale->act[$config_pages[$roster->pages[1]]['title']]) ? ' -&gt; ' . $roster->locale->act[$config_pages[$roster->pages[1]]['title']] : ' -&gt; ' . $config_pages[$roster->pages[1]]['title']) : '');
 	}
 }
 
@@ -194,9 +193,8 @@ $roster->tpl->assign_vars(array(
 	'MENU' => $menu,
 	'BODY' => $body,
 	'PAGEBAR' => $pagebar,
-	'FOOTER' => $footer,
-	)
-);
+	'FOOTER' => $footer
+));
 
-$roster->tpl->set_filenames(array('rostercp' => 'rostercp.html'));
+$roster->tpl->set_handle('rostercp', 'rostercp.html');
 $roster->tpl->display('rostercp');

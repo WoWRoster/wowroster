@@ -112,7 +112,6 @@ $lang['admin']['honor_icon']    = 'Icône d\'honneur|Affiche l\'îcone du rang d
 $lang['admin']['compress_note'] = 'Notes compressées|Afficher les notes de guilde dans un tooltip à la place d\'une colonne.';
 
 // Settings on Members page
-$lang['admin']['member_update_inst'] = 'Instructions de mise à jour|Contrôle l\'affichage des instructions de mise à jour sur la page des membres';
 $lang['admin']['member_motd']	= 'MOTD de guilde|Monte le message du jour de la guide en haut de la page des membres';
 $lang['admin']['member_hslist']	= 'Statistiques d\'honneur|Contrôle l\'affichage des statistiques d\'honneur sur la page des membres';
 $lang['admin']['member_pvplist']= 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the members page<br />If you have disabled PvPlog uploading, there is no need to have this on';
@@ -129,7 +128,6 @@ $lang['admin']['member_note']   = 'Note|Spécifie la présence de la colonne des
 $lang['admin']['member_onote']  = 'Note d\'officer|Spécifie la présence de la colonne des notes d\'officier sur la page des membres';
 
 // Settings on Stats page
-$lang['admin']['stats_update_inst'] = 'Instructions de mise à jour|Contrôle l\'affiche des instructions de mise à jour sur la page des statistiques';
 $lang['admin']['stats_motd']	= 'MOTD de guilde|Monte le message du jour de la guide en haut de la page des statistiques';
 $lang['admin']['stats_hslist']  = 'Statistiques d\'honneur|Contrôle l\'affichage des statistiques d\'honneur sur la page des statistiques';
 $lang['admin']['stats_pvplist']	= 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the stats page<br />If you have disabled PvPlog uploading, there is no need to have this on';
@@ -150,7 +148,6 @@ $lang['admin']['stats_block']   = 'Blocage|Spécifie la présence de la colonne 
 $lang['admin']['stats_crit']    = 'Critiques|Spécifie la présence de la colonne critiques sur la page des statistiques';
 
 // Settings on Honor page
-$lang['admin']['honor_update_inst'] = 'Instructions de mise à jour|Contrôle l\'affichage des instructions de mise à jour sur la page d\'honneur';
 $lang['admin']['honor_motd']	= 'MOTD de guilde|Monte le message du jour de la guide en haut de la page d\'honneur';
 $lang['admin']['honor_hslist']  = 'Statistiques d\'honneur|Contrôle l\'affichage des statistiques d\'honneur sur la page d\'honneur';
 $lang['admin']['honor_pvplist']	= 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the honor page<br />If you have disabled PvPlog uploading, there is no need to have this on';
@@ -166,7 +163,6 @@ $lang['admin']['honor_hp']      = 'Points d\'honneur|Spécifie la présence de l
 $lang['admin']['honor_ap']      = 'Points d\'arène|Spécifie la présence de la colonne des points d\'arène sur la page d\'honneur';
 
 // Settings on Members page
-$lang['admin']['log_update_inst'] = 'Instructions de mise à jour|Contrôle l\'affichage des instructions de mise à jour sur la page du journal des membres';
 $lang['admin']['log_motd']		= 'MOTD de guilde|Monte le message du jour de la guide en haut de la page du journal des membres';
 $lang['admin']['log_hslist']	= 'Statistiques d\'honneur|Contrôle l\'affichage des statistiques d\'honneur sur la page du journal des membres';
 $lang['admin']['log_pvplist']	= 'PvP-Logger Stats|Controls the display of the PvP-Logger stats on the member log page<br />If you have disabled PvPlog uploading, there is no need to have this on';

@@ -14,14 +14,12 @@
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
  * @subpackage ItemBonuses
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
-
-
 
 /**
  * Code originally from cybrey's 'Bonuses/Advanced Stats' addon
@@ -62,13 +60,10 @@ class CharBonus
 
 		$this->equip = $char->equip;
 
-		$roster->tpl->assign_vars(array(
-			'L_ITEM_BONUSES' => $roster->locale->act['item_bonuses_full'],
-			)
-		);
+		$roster->tpl->assign_var('L_ITEM_BONUSES', $roster->locale->act['item_bonuses_full']);
 	}
 
-	function dumpBonus()
+	function dumpBonus( )
 	{
 		global $roster, $addon;
 
@@ -86,9 +81,8 @@ class CharBonus
 		$this->printBonus();
 	}
 
-
 	// prints out all status based on array of catagories
-	function printBonus()
+	function printBonus( )
 	{
 		global $roster, $tooltips;
 
@@ -99,35 +93,33 @@ class CharBonus
 			{
 				$cat = $this->bonus[$catkey];
 
-				$roster->tpl->assign_block_vars('bonus',array(
-					'KEY'   => $catkey,
+				$roster->tpl->assign_block_vars('bonus', array(
+					'KEY' => $catkey,
 					'VALUE' => $catval
-					)
-				);
+				));
 
 				foreach( $cat as $key => $value )
 				{
 					$value = explode(':', $value);
-					$idx = count($tooltips)+1;
+					$idx = count($tooltips) + 1;
 					setTooltip($idx, $this->bonus_tooltip[$catkey][$key]['html']);
-					setTooltip('cap_' . $idx, str_replace(array( 'XX', 'YY' ), $value, $key));
+					setTooltip('cap_' . $idx, str_replace(array('XX', 'YY'), $value, $key));
 
-					$roster->tpl->assign_block_vars('bonus.row',array(
+					$roster->tpl->assign_block_vars('bonus.row', array(
 						'ROW_CLASS' => $roster->switch_row_class(),
 						'IDX' => $idx,
 						'VALUE' => str_replace(array('XX', 'YY'), $value, $key)
-						)
-					);
+					));
 				}
 			}
 		}
 
-//		aprint($this->bonus,'bonus');
-//		aprint($this->bonus_tooltip,'bonus HTML');
+	//		aprint($this->bonus,'bonus');
+	//		aprint($this->bonus_tooltip,'bonus HTML');
 	}
 
 	// gets all the bonus from the item and sets the tooltips
-	function getBonus()
+	function getBonus( )
 	{
 		global $roster;
 
@@ -161,9 +153,9 @@ class CharBonus
 		}
 		if( isset($this->item->attributes['Gems']) )
 		{
-			$gems[] = ( isset($this->item->attributes['Gems'][1]['Bonus']) ? $this->item->attributes['Gems'][1]['Bonus'] : 0 );
-			$gems[] = ( isset($this->item->attributes['Gems'][2]['Bonus']) ? $this->item->attributes['Gems'][2]['Bonus'] : 0 );
-			$gems[] = ( isset($this->item->attributes['Gems'][3]['Bonus']) ? $this->item->attributes['Gems'][3]['Bonus'] : 0 );
+			$gems[] = (isset($this->item->attributes['Gems'][1]['Bonus']) ? $this->item->attributes['Gems'][1]['Bonus'] : 0);
+			$gems[] = (isset($this->item->attributes['Gems'][2]['Bonus']) ? $this->item->attributes['Gems'][2]['Bonus'] : 0);
+			$gems[] = (isset($this->item->attributes['Gems'][3]['Bonus']) ? $this->item->attributes['Gems'][3]['Bonus'] : 0);
 			foreach( $gems as $bonus )
 			{
 				if( $bonus )
@@ -219,7 +211,7 @@ class CharBonus
 	 * @param bool $split_bonus
 	 * @param string $strip_string
 	 */
-	function addBonus( $bonus, $catagory, $split_bonus=false, $strip_string=false )
+	function addBonus( $bonus , $catagory , $split_bonus = false , $strip_string = false )
 	{
 		global $roster;
 
@@ -238,13 +230,13 @@ class CharBonus
 				$lines = explode($matches[1], $bonus);
 				foreach( $lines as $line )
 				{
-					$this->addBonus( trim($line), $catagory );
+					$this->addBonus(trim($line), $catagory);
 				}
 				return;
 			}
 			else
 			{
-				$this->addBonus( $bonus, $catagory );
+				$this->addBonus($bonus, $catagory);
 			}
 			return;
 		}
@@ -260,23 +252,23 @@ class CharBonus
 				case 1:
 					$modifier = $matches[0][0];
 					$bonus = $this->replaceOne($modifier, 'XX', $bonus);
-					$this->setBonus( $modifier, $bonus, $catagory );
+					$this->setBonus($modifier, $bonus, $catagory);
 					return;
 				case 2:
 					$modifier = $matches[0][0] . ':' . $matches[0][1];
 					$bonus = $this->replaceOne($matches[0][0], 'XX', $bonus);
 					$bonus = $this->replaceOne($matches[0][1], 'YY', $bonus);
-					$this->setBonus( $modifier, $bonus, $catagory );
+					$this->setBonus($modifier, $bonus, $catagory);
 					return;
 				case 3:
 				case 4:
-					$this->setBonus( '', $bonus, $catagory );
+					$this->setBonus('', $bonus, $catagory);
 					return;
 			}
 		}
 		else
 		{
-			$this->setBonus( '', $bonus, $catagory );
+			$this->setBonus('', $bonus, $catagory);
 		}
 		return;
 	}
@@ -289,7 +281,7 @@ class CharBonus
 	 * @param string $catagory | Catagory this bonus belongs
 	 * @param bool $is_standardized | true to bypass bonus standardizing
 	 */
-	function setBonus( $modifier, $string, $catagory, $is_standardized=false )
+	function setBonus( $modifier , $string , $catagory , $is_standardized = false )
 	{
 		if( !$is_standardized && $catagory != 'Use' && $catagory != 'ChanceToProc' && $catagory != 'Set' )
 		{
@@ -301,14 +293,13 @@ class CharBonus
 
 	}
 
-	function _makeTooltip( $string, $modifier, $catagory )
+	function _makeTooltip( $string , $modifier , $catagory )
 	{
 		global $roster;
 
 		if( $catagory == 'Set' )
 		{
-			$html = '<span style="color:#ffd517;font-size:13px;font-weight:bold;">'
-				  . $this->item->attributes['Set']['ArmorSet']['Name'] . '</span>';
+			$html = '<span style="color:#ffd517;font-size:13px;font-weight:bold;">' . $this->item->attributes['Set']['ArmorSet']['Name'] . '</span>';
 
 			$this->bonus['Totals'][$string] = $modifier;
 			$this->bonus[$catagory][$string] = $modifier;
@@ -382,10 +373,8 @@ class CharBonus
 		{
 			if( strpos($value, addslashes($this->item->name)) )
 			{
-				return 	/*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
-						. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-						. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
-						. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier;
+				return /*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
+						. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color . ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier;
 			}
 		}
 	}
@@ -398,15 +387,13 @@ class CharBonus
 		{
 			if( strpos(substr($value, 0, 256), addslashes($this->item->name)) ) //search the first 256 characters only
 			{
-				return 	/*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
-				  	   	. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-				  	   	. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
-				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>';
+				return /*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
+				  	   	. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color . ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>';
 			}
 		}
 	}
 
-	function _formatTooltip()
+	function _formatTooltip( )
 	{
 		foreach( $this->bonus_tooltip as $catagory => $catagory_value )
 		{
@@ -467,7 +454,7 @@ class CharBonus
 	 * @param string $catagory
 	 * @return string
 	 */
-	function standardizeBonus( $bonus, $modifier, $catagory )
+	function standardizeBonus( $bonus , $modifier , $catagory )
 	{
 		global $roster;
 		//
@@ -480,7 +467,7 @@ class CharBonus
 			//
 			// loop through the array recursing into setBonus()
 			// until 0 index then return out
-			for( $idx=(count($return)-1);;$idx-- )
+			for( $idx = (count($return) - 1);; $idx-- )
 			{
 				if( $idx != 0 )
 				{
@@ -497,13 +484,13 @@ class CharBonus
 
 	// by: Dmitry Fedotov box@neting.ru
 	// edited by ds
-	function replaceOne( $in, $out, $content )
+	function replaceOne( $in , $out , $content )
 	{
 		$pos = strpos($content, $in);
 
 		if( $pos !== false )
 		{
-			return substr($content, 0, $pos) . $out . substr($content, $pos+strlen($in));
+			return substr($content, 0, $pos) . $out . substr($content, $pos + strlen($in));
 		}
 		else
 		{

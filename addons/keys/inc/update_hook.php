@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    InstanceKeys
  * @subpackage UpdateHook
-*/
+ */
 
-if ( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -37,13 +37,14 @@ class keysUpdate
 
 	// Own locale strings, since I don't understand the hassle they go through in the usual channels
 	var $wordings = array();
+
 	/**
 	 * Constructor
 	 *
 	 * @param array $data
 	 *		Addon data object
 	 */
-	function keysUpdate($data)
+	function keysUpdate( $data )
 	{
 		global $roster;
 
@@ -55,17 +56,17 @@ class keysUpdate
 			$localefile = $this->data['locale_dir'] . $locale . '.php';
 			if( file_exists($localefile) )
 			{
-				include($localefile);
+				include ($localefile);
 			}
 			else
 			{
 				$enUSfile = $this->data['locale_dir'] . 'enUS.php';
 				if( file_exists($enUSfile) )
 				{
-					include($enUSfile);
+					include ($enUSfile);
 				}
 			}
-			$this->wordings[$locale] =& $lang;
+			$this->wordings[$locale] = & $lang;
 			unset($lang);
 		}
 	}
@@ -73,7 +74,7 @@ class keysUpdate
 	/**
 	 * Resets addon messages
 	 */
-	function reset_messages()
+	function reset_messages( )
 	{
 		/**
 		 * We display the addon name at the beginning of the output line. If
@@ -92,7 +93,7 @@ class keysUpdate
 	 * @param int $member_id
 	 *		Member ID
 	 */
-	function char($char, $member_id)
+	function char( $char , $member_id )
 	{
 		global $roster;
 
@@ -102,56 +103,22 @@ class keysUpdate
 		$this->messages .= ' - Keycache cleaned';
 
 		// Gold
-		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
-			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
-			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
-			. "`" . $roster->db->table('players') . "` AS data "
-			. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
-			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
-			. "AND `stages`.`type` = 'G' AND (`data`.`money_c` + `data`.`money_s` * 100 + `data`.`money_g` * 10000) >= `stages`.`count`;";
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) " . "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` " . "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, " . "`" . $roster->db->table('players') . "` AS data " . "WHERE `stages`.`locale` = '" . $char['Locale'] . "' " . "AND `stages`.`faction` = '" . substr($char['Faction'], 0, 1) . "' AND `data`.`member_id` = '" . $member_id . "' " . "AND `stages`.`type` = 'G' AND (`data`.`money_c` + `data`.`money_s` * 100 + `data`.`money_g` * 10000) >= `stages`.`count`;";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' gold stages activated';
 
 		// Items
-		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
-			. "SELECT '" . $member_id . "', `key_name`, `stage` "
-			. "FROM ("
-				. "SELECT `stages`.`key_name`, `stages`.`stage`, `stages`.`count` AS need_count, SUM(`data`.`item_quantity`) AS item_count "
-				. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
-				. "`" . $roster->db->table('items') . "` AS data "
-				. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
-				. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
-				. "AND (`stages`.`type` = 'In' AND `data`.`item_name` = `stages`.`value` "
-				. "OR `stages`.`type` = 'Ii' AND `data`.`item_id` LIKE CONCAT(`stages`.`value`, ':%')) "
-				. "GROUP BY `stages`.`key_name`, `stages`.`stage`, `stages`.`count` "
-			. ") AS data_query "
-			. "WHERE `item_count` >= `need_count`;";
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) " . "SELECT '" . $member_id . "', `key_name`, `stage` " . "FROM (" . "SELECT `stages`.`key_name`, `stages`.`stage`, `stages`.`count` AS need_count, SUM(`data`.`item_quantity`) AS item_count " . "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, " . "`" . $roster->db->table('items') . "` AS data " . "WHERE `stages`.`locale` = '" . $char['Locale'] . "' " . "AND `stages`.`faction` = '" . substr($char['Faction'], 0, 1) . "' AND `data`.`member_id` = '" . $member_id . "' " . "AND (`stages`.`type` = 'In' AND `data`.`item_name` = `stages`.`value` " . "OR `stages`.`type` = 'Ii' AND `data`.`item_id` LIKE CONCAT(`stages`.`value`, ':%')) " . "GROUP BY `stages`.`key_name`, `stages`.`stage`, `stages`.`count` " . ") AS data_query " . "WHERE `item_count` >= `need_count`;";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' item stages activated';
 
 		// Quests
-		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
-			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
-			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
-			. "`" . $roster->db->table('quests') . "` AS link, "
-			. "`" . $roster->db->table('quest_data') . "` AS data "
-			. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
-			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' "
-			. "AND `link`.`member_id` = '" . $member_id ."' "
-			. "AND `link`.`quest_id` = `data`.`quest_id` "
-			. "AND `stages`.`type` = 'Q' AND `data`.`quest_name` = `stages`.`value`;";
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) " . "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` " . "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, " . "`" . $roster->db->table('quests') . "` AS link, " . "`" . $roster->db->table('quest_data') . "` AS data " . "WHERE `stages`.`locale` = '" . $char['Locale'] . "' " . "AND `stages`.`faction` = '" . substr($char['Faction'], 0, 1) . "' " . "AND `link`.`member_id` = '" . $member_id . "' " . "AND `link`.`quest_id` = `data`.`quest_id` " . "AND `stages`.`type` = 'Q' AND `data`.`quest_name` = `stages`.`value`;";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' quest stages activated';
 
 		// Reputation
-		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
-			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
-			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
-			. "`" . $roster->db->table('reputation') . "` AS data "
-			. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
-			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
-			. "AND `stages`.`type` = 'R' AND `data`.`name` = `stages`.`value` "
-			. "AND `stages`.`count` <= `data`.`curr_rep` + CASE `data`.`Standing` ";
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) " . "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` " . "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, " . "`" . $roster->db->table('reputation') . "` AS data " . "WHERE `stages`.`locale` = '" . $char['Locale'] . "' " . "AND `stages`.`faction` = '" . substr($char['Faction'], 0, 1) . "' AND `data`.`member_id` = '" . $member_id . "' " . "AND `stages`.`type` = 'R' AND `data`.`name` = `stages`.`value` " . "AND `stages`.`count` <= `data`.`curr_rep` + CASE `data`.`Standing` ";
 		foreach( $this->wordings[$char['Locale']]['rep2level'] as $standing => $number )
 		{
 			$query .= "WHEN '" . $standing . "' THEN " . (int)$number . " ";
@@ -162,14 +129,7 @@ class keysUpdate
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' reputation stages activated';
 
 		// Skills
-		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) "
-			. "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` "
-			. "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, "
-			. "`" . $roster->db->table('skills') . "` AS data "
-			. "WHERE `stages`.`locale` = '" . $char['Locale'] . "' "
-			. "AND `stages`.`faction` = '" . substr($char['Faction'],0,1) . "' AND `data`.`member_id` = '" . $member_id ."' "
-			. "AND `stages`.`type` = 'S' AND `data`.`skill_name` = `stages`.`value` "
-			. "AND `stages`.`count` <= SUBSTRING_INDEX(`data`.`skill_level`,':',1);";
+		$query = "INSERT INTO `" . $roster->db->table('keycache', $this->data['basename']) . "` (`member_id`, `key_name`, `stage`) " . "SELECT '" . $member_id . "', `stages`.`key_name`, `stages`.`stage` " . "FROM `" . $roster->db->table('stages', $this->data['basename']) . "` AS stages, " . "`" . $roster->db->table('skills') . "` AS data " . "WHERE `stages`.`locale` = '" . $char['Locale'] . "' " . "AND `stages`.`faction` = '" . substr($char['Faction'], 0, 1) . "' AND `data`.`member_id` = '" . $member_id . "' " . "AND `stages`.`type` = 'S' AND `data`.`skill_name` = `stages`.`value` " . "AND `stages`.`count` <= SUBSTRING_INDEX(`data`.`skill_level`,':',1);";
 		$roster->db->query($query);
 		$this->messages .= ' - ' . $roster->db->affected_rows() . ' skill stages activated';
 

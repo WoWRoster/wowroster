@@ -11,7 +11,7 @@
  * @link       http://www.wowroster.net
  * @package    Professions
  * @subpackage Locale
-*/
+ */
 
 $lang['professions_desc'] = 'Listado con las profesiones de todos los miembros de la hermandad';
 

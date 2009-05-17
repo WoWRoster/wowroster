@@ -14,14 +14,14 @@
  * @since      File available since Release 1.7.1
  * @package    WoWRoster
  * @subpackage User
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
-define('ROSTERLOGIN_ADMIN',3);
+define('ROSTERLOGIN_ADMIN', 3);
 
 /**
  * Login and authorization
@@ -44,13 +44,13 @@ class RosterLogin
 	 * @param $script_filename
 	 * @return RosterLogin
 	 */
-	function RosterLogin( $script_filename='' )
+	function RosterLogin( $script_filename = '' )
 	{
 		$this->setAction($script_filename);
 
-		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
+		if( isset($_POST['logout']) && $_POST['logout'] == '1' )
 		{
-			setcookie( 'roster_pass','',time()-86400,'/' );
+			setcookie('roster_pass', '', time() - 86400, '/');
 			$this->allow_login = 0;
 			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
 		}
@@ -78,7 +78,7 @@ class RosterLogin
 
 		if( !$result )
 		{
-			setcookie( 'roster_pass','',time()-86400,'/' );
+			setcookie('roster_pass', '', time() - 86400, '/');
 			$this->allow_login = 0;
 			$this->message = '<span style="font-size:10px;color:red;">Failed to fetch password info</span><br />';
 			return;
@@ -86,13 +86,11 @@ class RosterLogin
 
 		while( $row = $roster->db->fetch($result) )
 		{
-			if( ( $row['hash'] == md5($pass) ) ||
-				( $row['hash'] == $pass )
-			)
+			if( ($row['hash'] == md5($pass)) || ($row['hash'] == $pass) )
 			{
-				setcookie( 'roster_pass',$row['hash'],0,'/' );
+				setcookie('roster_pass', $row['hash'], 0, '/');
 				$this->allow_login = $row['account_id'];
- 				$this->message = '<span style="font-size:10px;">Logged in ' . $row['name'] . ':</span> <form style="display:inline;" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /><input type="submit" value="Logout" /></form>';
+				$this->message = '<span style="font-size:10px;">Logged in ' . $row['name'] . ':</span> <form style="display:inline;" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /><input type="submit" value="Logout" /></form>';
 
 				$roster->db->free_result($result);
 				return;
@@ -100,7 +98,7 @@ class RosterLogin
 		}
 		$roster->db->free_result($result);
 
-		setcookie( 'roster_pass','',time()-86400,'/' );
+		setcookie('roster_pass', '', time() - 86400, '/');
 		$this->allow_login = 0;
 		$this->message = '<span style="font-size:10px;color:red;">Invalid password</span><br />';
 		return;
@@ -111,7 +109,7 @@ class RosterLogin
 		return $this->allow_login >= $access;
 	}
 
-	function getMessage()
+	function getMessage( )
 	{
 		return $this->message;
 	}
@@ -127,7 +125,7 @@ class RosterLogin
 
 			if( !$result )
 			{
-				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
+				die_quietly($roster->db->error, 'Roster Auth', __FILE__, __LINE__, $query);
 			}
 
 			if( $roster->db->num_rows($result) != 1 )
@@ -143,7 +141,7 @@ class RosterLogin
 			return '
 			<!-- Begin Password Input Box -->
 			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" onsubmit="submitonce(this);">
-			' . border('sred','start',$log_word . ' ' . $roster->locale->act['auth_req']) . '
+			' . border('sred', 'start', $log_word . ' ' . $roster->locale->act['auth_req']) . '
 				<table class="bodyline" cellspacing="0" cellpadding="0" width="100%">
 					<tr>
 						<td class="membersRowRight1">' . $roster->locale->act['password'] . ':<br />
@@ -155,7 +153,7 @@ class RosterLogin
 							' . $this->getMessage() . '</td>
 					</tr>
 				</table>
-			' . border('sred','end') . '
+			' . border('sred', 'end') . '
 			</form>
 			<!-- End Password Input Box -->';
 		}
@@ -165,7 +163,7 @@ class RosterLogin
 		}
 	}
 
-	function getMenuLoginForm()
+	function getMenuLoginForm( )
 	{
 		if( !$this->allow_login )
 		{
@@ -197,7 +195,7 @@ class RosterLogin
 
 			if( !$result )
 			{
-				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
+				die_quietly($roster->db->error, 'Roster Auth', __FILE__, __LINE__, $query);
 			}
 
 			$this->levels[0] = 'Public';

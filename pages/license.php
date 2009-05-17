@@ -13,11 +13,11 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 $roster->output['title'] = 'License';
@@ -142,4 +142,4 @@ that are not included under the main WoWRoster license</span></p>
 		</ul>
 	</li>
 </ul>
-</div>",'WoWRoster License');
+</div>", 'WoWRoster License');

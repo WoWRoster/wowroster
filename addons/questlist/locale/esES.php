@@ -11,7 +11,7 @@
  * @link       http://www.wowroster.net
  * @package    QuestList
  * @subpackage Locale
-*/
+ */
 
 $lang['questlist'] = 'Lista de misiones';
 $lang['questlist_desc'] = 'Busca a los personajes que están realizando tus mismas misiones';

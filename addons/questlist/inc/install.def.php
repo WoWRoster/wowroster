@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    QuestList
  * @subpackage Installer
-*/
+ */
 
-if ( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -35,21 +35,22 @@ class questlistInstall
 	var $fullname = 'questlist';
 	var $description = 'questlist_desc';
 	var $credits = array(
-		array(	"name"=>	"WoWRoster Dev Team",
-				"info"=>	"Original Author")
+		array(
+			"name" => "WoWRoster Dev Team",
+			"info" => "Original Author"
+		)
 	);
-
 
 	/**
 	 * Install Function
 	 *
 	 * @return bool
 	 */
-	function install()
+	function install( )
 	{
 		global $installer;
 
-		$installer->add_menu_button('questlistbutton','realm');
+		$installer->add_menu_button('questlistbutton', 'realm');
 		return true;
 	}
 
@@ -59,7 +60,7 @@ class questlistInstall
 	 * @param string $oldversion
 	 * @return bool
 	 */
-	function upgrade($oldversion)
+	function upgrade( $oldversion )
 	{
 		// Nothing to upgrade from yet
 		return true;
@@ -70,7 +71,7 @@ class questlistInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall()
+	function uninstall( )
 	{
 		global $installer;
 

@@ -16,34 +16,33 @@
  * @since      File available since Release 1.7.1
  * @package    WoWRoster
  * @subpackage Locale
-*/
+ */
 
 $lang['langname'] = 'Français';
 
 //Instructions how to upload, as seen on the mainpage
-$lang['update_link']='Cliquer ici pour les instructions de mise à jour.';
-$lang['update_instructions']='Instructions de mise à jour.';
+$lang['update_link'] = 'Cliquer ici pour les instructions de mise à jour.';
+$lang['update_instructions'] = 'Instructions de mise à jour.';
 
-$lang['lualocation']='Cliquer, naviguer et télécharger les fichiers *.lua<br />';
+$lang['lualocation'] = 'Cliquer, naviguer et télécharger les fichiers *.lua<br />';
 
-$lang['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
+$lang['filelocation'] = 'se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
-$lang['nodata']='Impossible de trouver la guilde : <b>\'%1$s\'</b> du serveur <b>\'%2$s\'</b><br />Vous devez préalablement<a href="%3$s">charger votre guilde</a> et <a href="%4$s">finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles ici</a>';
-$lang['no_default_guild']='Aucune guilde par défaut n\'a encore été indiqué. Veuillez en indiquer une ici.';
-$lang['nodefguild']='Il n\'y a actuellement aucune guilde par défaut. Vous devez préalablement <a href="%1$s">>finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles ici</a>';
-$lang['nodata_title']='Données de guilde introuvables';
+$lang['nodata'] = 'Impossible de trouver la guilde : <b>\'%1$s\'</b> du serveur <b>\'%2$s\'</b><br />Vous devez préalablement<a href="%3$s">charger votre guilde</a> et <a href="%4$s">finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles ici</a>';
+$lang['no_default_guild'] = 'Aucune guilde par défaut n\'a encore été indiqué. Veuillez en indiquer une ici.';
+$lang['nodefguild'] = 'Il n\'y a actuellement aucune guilde par défaut. Vous devez préalablement <a href="%1$s">>finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles ici</a>';
+$lang['nodata_title'] = 'Données de guilde introuvables';
 
-$lang['update_page']='Mise à jour du profil';
+$lang['update_page'] = 'Mise à jour du profil';
 
-$lang['guild_addonNotFound']='Impossible de trouver la guilde. Le greffon GuildProfiler est-il installé correctement ?';
+$lang['guild_addonNotFound'] = 'Impossible de trouver la guilde. Le greffon GuildProfiler est-il installé correctement ?';
 
-$lang['ignored']='Ignoré';
-$lang['update_disabled']='L\'accès à update.php a été désactivé';
+$lang['ignored'] = 'Ignoré';
+$lang['update_disabled'] = 'L\'accès à update.php a été désactivé';
 
-$lang['nofileUploaded']='Votre UniUploader n\'a pas téléchargé de fichier(s), ou des fichiers erronés.';
-$lang['roster_upd_pwLabel']='Mot de passe du Roster';
-$lang['roster_upd_pw_help']='(Quelques mises à jour lua peuvent demander un mot de passe)';
-
+$lang['nofileUploaded'] = 'Votre UniUploader n\'a pas téléchargé de fichier(s), ou des fichiers erronés.';
+$lang['roster_upd_pwLabel'] = 'Mot de passe du Roster';
+$lang['roster_upd_pw_help'] = '(Quelques mises à jour lua peuvent demander un mot de passe)';
 
 $lang['roster_error'] = 'Erreur lié au Roster';
 $lang['sql_queries'] = 'Requêtes SQL';
@@ -120,7 +119,7 @@ $lang['menu_totals_level'] = ' Au moins L%1$s';
 // Updating Instructions
 $lang['index_text_uniloader'] = '<b><u>Prérequis à l\'utilisation d\'UniUploader:</b></u><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=0856EACB-4362-4B0D-8EDD-AAB15C5E04F5&displaylang=en">Microsoft .NET Framework</a> installé.<br />Pour les utilisateurs d\'OS autres que Windows, utiliser JUniUploader qui vous permettra d\'effectuer les mêmes opérations que UniUploader mais en utilisant Java.';
 
-$lang['update_instruct']='
+$lang['update_instruct'] = '
 <strong>Actualisation automatique recommandée :<strong>
 <ul>
 <li>Utiliser <a href="%1$s" target="_blank">UniUploader</a><br />
@@ -137,7 +136,7 @@ $lang['update_instruct']='
 <li>%5$s.</li>
 </ol>';
 
-$lang['update_instructpvp']='
+$lang['update_instructpvp'] = '
 <strong>Statistiques PvP optionnel :</strong>
 <ol>
 <li>télécharger <a href="%1$s" target="_blank">PvPLog</a> ;</li>
@@ -146,20 +145,20 @@ $lang['update_instructpvp']='
 <li>envoyer les informations PvPLog.lua (voir étape 7 de l\'actualisation du profil).</li>
 </ol>';
 
-$lang['roster_credits']='Remerciements à <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, et <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> pour le codage du moteur primitif utilisé par ce site.<br />
+$lang['roster_credits'] = 'Remerciements à <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, et <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> pour le codage du moteur primitif utilisé par ce site.<br />
 Page officiel de WoWRoster - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
 World of Warcraft et Blizzard Entertainment sont des marques, déposées ou non, appartenant à Blizzard Entertainment Inc. aux États-Unis d\'Amérique et/ou dans les autres pays. Toutes les autres marques sont la propriété de leurs seuls ayant-droits respectifs..<br />
 <a href="%1$s">Crédits supplémentaires</a>';
 
-
 $lang['timeformat'] = '%d/%m/%Y %H:%i:%s'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
-$lang['phptimeformat'] = 'd/m/Y H:i:s';    // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
+$lang['phptimeformat'] = 'd/m/Y H:i:s'; // PHP date() Time format (example - 'M D jS, g:ia' => 'Mon Jul 23rd, 2:19pm') - http://www.php.net/manual/en/function.date.php
 
 
 /**
  * Realmstatus Localizations
  */
 $lang['rs'] = array(
+
 	'ERROR' => 'Erreur',
 	'NOSTATUS' => 'Pas de status',
 	'UNKNOWN' => 'Inconnu',
@@ -176,86 +175,85 @@ $lang['rs'] = array(
 	'FULL' => 'Plein'
 );
 
-
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
-$lang['guildless']='Sans guilde';
-$lang['util']='Utilitaires';
-$lang['char']='Personnage';
-$lang['upload']='Envoyer';
-$lang['required']='Requis';
-$lang['optional']='Optionnel';
-$lang['attack']='Attaque';
-$lang['defense']='Défense';
-$lang['class']='Classe';
-$lang['race']='Race';
-$lang['level']='Niveau';
+$lang['guildless'] = 'Sans guilde';
+$lang['util'] = 'Utilitaires';
+$lang['char'] = 'Personnage';
+$lang['upload'] = 'Envoyer';
+$lang['required'] = 'Requis';
+$lang['optional'] = 'Optionnel';
+$lang['attack'] = 'Attaque';
+$lang['defense'] = 'Défense';
+$lang['class'] = 'Classe';
+$lang['race'] = 'Race';
+$lang['level'] = 'Niveau';
 $lang['lastzone'] = 'Dernière zone';
-$lang['note']='Note';
-$lang['officer_note']='Note d\'officier';
-$lang['title']='Titre';
-$lang['name']='Nom';
-$lang['health']='Vie';
-$lang['mana']='Mana';
-$lang['gold']='Or';
-$lang['armor']='Armure';
-$lang['lastonline']='Dernière connexion';
-$lang['online']='Connexion';
-$lang['lastupdate']='Dernière mise à jour';
-$lang['currenthonor']='Rang d\'honneur actuel';
-$lang['rank']='Rang';
-$lang['sortby']='Trier par %';
-$lang['total']='Total';
-$lang['hearthed']='Pierre de foyer';
-$lang['recipes']='Recettes';
-$lang['bags']='Sacs';
-$lang['character']='Personnage';
-$lang['money']='Argent';
-$lang['bank']='Banque';
-$lang['raid']='CT Raid';
-$lang['quests']='Quêtes';
-$lang['roster']='Roster';
-$lang['alternate']='Alternatif';
-$lang['byclass']='Par classe';
-$lang['menustats']='Caractéristiques';
-$lang['menuhonor']='Honneur';
-$lang['basename']='Nom de base';
-$lang['scope']='Scope';
-$lang['tag']='Tag';
-$lang['daily']='Daily';
+$lang['note'] = 'Note';
+$lang['officer_note'] = 'Note d\'officier';
+$lang['title'] = 'Titre';
+$lang['name'] = 'Nom';
+$lang['health'] = 'Vie';
+$lang['mana'] = 'Mana';
+$lang['gold'] = 'Or';
+$lang['armor'] = 'Armure';
+$lang['lastonline'] = 'Dernière connexion';
+$lang['online'] = 'Connexion';
+$lang['lastupdate'] = 'Dernière mise à jour';
+$lang['currenthonor'] = 'Rang d\'honneur actuel';
+$lang['rank'] = 'Rang';
+$lang['sortby'] = 'Trier par %';
+$lang['total'] = 'Total';
+$lang['hearthed'] = 'Pierre de foyer';
+$lang['recipes'] = 'Recettes';
+$lang['bags'] = 'Sacs';
+$lang['character'] = 'Personnage';
+$lang['money'] = 'Argent';
+$lang['bank'] = 'Banque';
+$lang['raid'] = 'CT Raid';
+$lang['quests'] = 'Quêtes';
+$lang['roster'] = 'Roster';
+$lang['alternate'] = 'Alternatif';
+$lang['byclass'] = 'Par classe';
+$lang['menustats'] = 'Caractéristiques';
+$lang['menuhonor'] = 'Honneur';
+$lang['basename'] = 'Nom de base';
+$lang['scope'] = 'Scope';
+$lang['tag'] = 'Tag';
+$lang['daily'] = 'Daily';
 
 //start search engine
-$lang['search']='Rechercher';
-$lang['search_roster']='Rechercher sur le Roster';
-$lang['search_onlyin']='Rechercher uniquement dans ce greffon';
-$lang['search_advancedoptionsfor']='Options avancées pour';
-$lang['search_results']='Rechercher des résultats pour';
-$lang['search_results_from']='Voici les résultats de votre recherche';
-$lang['search_nomatches']='Désolé, aucun résultat ne concorde avec votre recherche';
-$lang['search_didnotfind']='Vous n\'avez pas trouvé ce que vous recherchiez ? Essayez ici !';
-$lang['search_for']='Rechercher dans le Roster';
+$lang['search'] = 'Rechercher';
+$lang['search_roster'] = 'Rechercher sur le Roster';
+$lang['search_onlyin'] = 'Rechercher uniquement dans ce greffon';
+$lang['search_advancedoptionsfor'] = 'Options avancées pour';
+$lang['search_results'] = 'Rechercher des résultats pour';
+$lang['search_results_from'] = 'Voici les résultats de votre recherche';
+$lang['search_nomatches'] = 'Désolé, aucun résultat ne concorde avec votre recherche';
+$lang['search_didnotfind'] = 'Vous n\'avez pas trouvé ce que vous recherchiez ? Essayez ici !';
+$lang['search_for'] = 'Rechercher dans le Roster';
 $lang['search_next_matches'] = 'Résultat suivant pour';
 $lang['search_previous_matches'] = 'Résultat précédent pour';
 $lang['search_results_count'] = 'Résultats';
 $lang['submited_author'] = 'Envoyé par';
 $lang['submited_date'] = 'Date de soumission';
 //end search engine
-$lang['update']='Mise à jour';
-$lang['credit']='Crédits';
-$lang['members']='Membres';
-$lang['items']='Objets';
-$lang['find']='Trouver les objets contenants';
-$lang['upprofile']='Mise à jour du profil';
-$lang['backlink']='Retour au Roster';
-$lang['gender']='Genre';
-$lang['unusedtrainingpoints']='Points de formation non utilisés';
-$lang['unusedtalentpoints']='Points de talent non utilisés';
-$lang['talentexport']='Construction de l\'arbre de talents';
-$lang['questlog']='Journal des quêtes';
-$lang['recipelist']='Liste des recettes';
-$lang['reagents']='Composants';
-$lang['item']='Objet';
-$lang['type']='Type';
-$lang['date']='Date';
+$lang['update'] = 'Mise à jour';
+$lang['credit'] = 'Crédits';
+$lang['members'] = 'Membres';
+$lang['items'] = 'Objets';
+$lang['find'] = 'Trouver les objets contenants';
+$lang['upprofile'] = 'Mise à jour du profil';
+$lang['backlink'] = 'Retour au Roster';
+$lang['gender'] = 'Genre';
+$lang['unusedtrainingpoints'] = 'Points de formation non utilisés';
+$lang['unusedtalentpoints'] = 'Points de talent non utilisés';
+$lang['talentexport'] = 'Construction de l\'arbre de talents';
+$lang['questlog'] = 'Journal des quêtes';
+$lang['recipelist'] = 'Liste des recettes';
+$lang['reagents'] = 'Composants';
+$lang['item'] = 'Objet';
+$lang['type'] = 'Type';
+$lang['date'] = 'Date';
 $lang['complete'] = 'Terminée';
 $lang['failed'] = 'Échec';
 $lang['completedsteps'] = 'Étapes terminées';
@@ -287,8 +285,8 @@ $lang['updated'] = 'Mis à jour';
 $lang['no_info'] = 'Aucune information';
 $lang['info'] = 'Info';
 $lang['url'] = 'URL';
-$lang['none']='Rien';
-$lang['kills']='Tués';
+$lang['none'] = 'Rien';
+$lang['kills'] = 'Tués';
 $lang['allow'] = 'Permis';
 $lang['disallow'] = 'Interdit';
 $lang['locale'] = 'Locale';
@@ -296,11 +294,11 @@ $lang['language'] = 'Langage';
 $lang['default'] = 'Défaut';
 $lang['proceed'] = 'Valider';
 $lang['submit'] = 'Soumettre';
-$lang['strength']='Force';
-$lang['agility']='Agilité';
-$lang['stamina']='Endurance';
-$lang['intellect']='Intelligence';
-$lang['spirit']='Esprit';
+$lang['strength'] = 'Force';
+$lang['agility'] = 'Agilité';
+$lang['stamina'] = 'Endurance';
+$lang['intellect'] = 'Intelligence';
+$lang['spirit'] = 'Esprit';
 
 $lang['rosterdiag'] = 'Diagnostic du Roster';
 $lang['difficulty'] = 'Difficulté';
@@ -315,42 +313,44 @@ $lang['search_items'] = 'Recherche d\'objets';
 $lang['search_tooltips'] = 'Recherche d\'aide';
 
 //this needs to be exact as it is the wording in the db
-$lang['professions']='Métiers';
-$lang['secondary']='Compétences secondaires';
-$lang['Blacksmithing']='Forge';
-$lang['Mining']='Minage';
-$lang['Herbalism']='Herboristerie';
-$lang['Alchemy']='Alchimie';
-$lang['Leatherworking']='Travail du cuir';
-$lang['Jewelcrafting']='Joaillerie';
-$lang['Skinning']='Dépeçage';
-$lang['Tailoring']='Couture';
-$lang['Enchanting']='Enchantement';
-$lang['Engineering']='Ingénierie';
-$lang['Inscription']='Calligraphie';
-$lang['Runeforging']='Runeforge';
-$lang['Cooking']='Cuisine';
-$lang['Fishing']='Pêche';
-$lang['First Aid']='Secourisme';
-$lang['Poisons']='Poisons';
-$lang['backpack']='Sac à dos';
-$lang['PvPRankNone']='Rien';
+$lang['professions'] = 'Métiers';
+$lang['secondary'] = 'Compétences secondaires';
+$lang['Blacksmithing'] = 'Forge';
+$lang['Mining'] = 'Minage';
+$lang['Herbalism'] = 'Herboristerie';
+$lang['Alchemy'] = 'Alchimie';
+$lang['Leatherworking'] = 'Travail du cuir';
+$lang['Jewelcrafting'] = 'Joaillerie';
+$lang['Skinning'] = 'Dépeçage';
+$lang['Tailoring'] = 'Couture';
+$lang['Enchanting'] = 'Enchantement';
+$lang['Engineering'] = 'Ingénierie';
+$lang['Inscription'] = 'Calligraphie';
+$lang['Runeforging'] = 'Runeforge';
+$lang['Cooking'] = 'Cuisine';
+$lang['Fishing'] = 'Pêche';
+$lang['First Aid'] = 'Secourisme';
+$lang['Poisons'] = 'Poisons';
+$lang['backpack'] = 'Sac à dos';
+$lang['PvPRankNone'] = 'Rien';
 
 // Uses preg_match() to find required level in recipie tooltip
 $lang['requires_level'] = '/Niveau ([\d]+) requis/';
 
 // Skills to EN id array
 $lang['skill_to_id'] = array(
+
 	'Class Skills' => 'classskills',
 	'Professions' => 'professions',
 	'Secondary Skills' => 'secondaryskills',
 	'Weapon Skills' => 'weaponskills',
 	'Armor Proficiencies' => 'armorproficiencies',
-	'Languages' => 'languages',
+	'Languages' => 'languages'
 );
 
 //Tradeskill-Array
-$lang['tsArray'] = array (
+$lang['tsArray'] = array(
+
 	$lang['Alchemy'],
 	$lang['Herbalism'],
 	$lang['Blacksmithing'],
@@ -366,98 +366,103 @@ $lang['tsArray'] = array (
 	$lang['Cooking'],
 	$lang['Fishing'],
 	$lang['First Aid'],
-	$lang['Poisons'],
+	$lang['Poisons']
 );
 
 //Tradeskill Icons-Array
-$lang['ts_iconArray'] = array (
-	$lang['Alchemy']=>'trade_alchemy',
-	$lang['Herbalism']=>'trade_herbalism',
-	$lang['Blacksmithing']=>'trade_blacksmithing',
-	$lang['Mining']=>'trade_mining',
-	$lang['Leatherworking']=>'trade_leatherworking',
-	$lang['Jewelcrafting']=>'inv_misc_gem_02',
-	$lang['Skinning']=>'inv_misc_pelt_wolf_01',
-	$lang['Tailoring']=>'trade_tailoring',
-	$lang['Enchanting']=>'trade_engraving',
-	$lang['Engineering']=>'trade_engineering',
-	$lang['Inscription']=>'inv_inscription_tradeskill01',
-	$lang['Runeforging']=>'spell_deathknight_frozenruneweapon',
-	$lang['Cooking']=>'inv_misc_food_15',
-	$lang['Fishing']=>'trade_fishing',
-	$lang['First Aid']=>'spell_holy_sealofsacrifice',
-	$lang['Poisons']=>'ability_poisons'
+$lang['ts_iconArray'] = array(
+
+	$lang['Alchemy'] => 'trade_alchemy',
+	$lang['Herbalism'] => 'trade_herbalism',
+	$lang['Blacksmithing'] => 'trade_blacksmithing',
+	$lang['Mining'] => 'trade_mining',
+	$lang['Leatherworking'] => 'trade_leatherworking',
+	$lang['Jewelcrafting'] => 'inv_misc_gem_02',
+	$lang['Skinning'] => 'inv_misc_pelt_wolf_01',
+	$lang['Tailoring'] => 'trade_tailoring',
+	$lang['Enchanting'] => 'trade_engraving',
+	$lang['Engineering'] => 'trade_engineering',
+	$lang['Inscription'] => 'inv_inscription_tradeskill01',
+	$lang['Runeforging'] => 'spell_deathknight_frozenruneweapon',
+	$lang['Cooking'] => 'inv_misc_food_15',
+	$lang['Fishing'] => 'trade_fishing',
+	$lang['First Aid'] => 'spell_holy_sealofsacrifice',
+	$lang['Poisons'] => 'ability_poisons'
 );
 
 // Riding Skill Icons-Array
 $lang['riding'] = 'Monte';
 $lang['ts_ridingIcon'] = array(
-	'Elfe de la nuit'=>'ability_mount_whitetiger',
-	'Humain'=>'ability_mount_ridinghorse',
-	'Nain'=>'ability_mount_mountainram',
-	'Gnome'=>'ability_mount_mechastrider',
-	'Mort-vivant'=>'ability_mount_undeadhorse',
-	'Troll'=>'ability_mount_raptor',
-	'Tauren'=>'ability_mount_kodo_03',
-	'Orc'=>'ability_mount_blackdirewolf',
+
+	'Elfe de la nuit' => 'ability_mount_whitetiger',
+	'Humain' => 'ability_mount_ridinghorse',
+	'Nain' => 'ability_mount_mountainram',
+	'Gnome' => 'ability_mount_mechastrider',
+	'Mort-vivant' => 'ability_mount_undeadhorse',
+	'Troll' => 'ability_mount_raptor',
+	'Tauren' => 'ability_mount_kodo_03',
+	'Orc' => 'ability_mount_blackdirewolf',
 	'Elfe de sang' => 'ability_mount_cockatricemount',
 	'Draeneï' => 'ability_mount_ridingelekk',
-	'Paladin'=>'ability_mount_dreadsteed',
-	'Démoniste'=>'ability_mount_nightmarehorse',
-	'Chevalier de la mort'=>'spell_deathknight_summondeathcharger',
-// Female variation
-//	'Elfe de la nuit'=>'ability_mount_whitetiger',
-	'Humaine'=>'ability_mount_ridinghorse',
-	'Naine'=>'ability_mount_mountainram',
-//	'Gnome'=>'ability_mount_mechastrider',
-	'Morte-vivante'=>'ability_mount_undeadhorse',
-	'Trollesse'=>'ability_mount_raptor',
-	'Taurène'=>'ability_mount_kodo_03',
-	'Orque'=>'ability_mount_blackdirewolf',
-//	'Elfe de sang' => 'ability_mount_cockatricemount',
+	'Paladin' => 'ability_mount_dreadsteed',
+	'Démoniste' => 'ability_mount_nightmarehorse',
+	'Chevalier de la mort' => 'spell_deathknight_summondeathcharger',
+	// Female variation
+	//	'Elfe de la nuit'=>'ability_mount_whitetiger',
+	'Humaine' => 'ability_mount_ridinghorse',
+	'Naine' => 'ability_mount_mountainram',
+	//	'Gnome'=>'ability_mount_mechastrider',
+	'Morte-vivante' => 'ability_mount_undeadhorse',
+	'Trollesse' => 'ability_mount_raptor',
+	'Taurène' => 'ability_mount_kodo_03',
+	'Orque' => 'ability_mount_blackdirewolf'
+)//	'Elfe de sang' => 'ability_mount_cockatricemount',
 //	'Draeneï' => 'ability_mount_ridingelekk',
 //	'Paladin'=>'ability_mount_dreadsteed',
 //	'Démoniste'=>'ability_mount_nightmarehorse',
 //	'Chevalier de la mort'=>'spell_deathknight_summondeathcharger'
-);
+;
 $lang['ts_flyingIcon'] = array(
-	'Horde'=>'ability_mount_wyvern_01',
-	'Alliance'=>'ability_mount_gryphon_01',
-	'Druide'=>'ability_druid_flightform',
-	'Chevalier de la mort'=>'ability_mount_dreadsteed',
-// Female variation
-	'Druidesse'=>'ability_druid_flightform',
-//	'Chevalier de la mort'=>'ability_mount_dreadsteed'
-);
+
+	'Horde' => 'ability_mount_wyvern_01',
+	'Alliance' => 'ability_mount_gryphon_01',
+	'Druide' => 'ability_druid_flightform',
+	'Chevalier de la mort' => 'ability_mount_dreadsteed',
+	// Female variation
+	'Druidesse' => 'ability_druid_flightform'
+)//	'Chevalier de la mort'=>'ability_mount_dreadsteed'
+;
 
 // Class Icons-Array
-$lang['class_iconArray'] = array (
-	'Chevalier de la mort'=>'deathknight_icon',
-	'Druide'=>'druid_icon',
-	'Chasseur'=>'hunter_icon',
-	'Mage'=>'mage_icon',
-	'Paladin'=>'paladin_icon',
-	'Prêtre'=>'priest_icon',
-	'Voleur'=>'rogue_icon',
-	'Chaman'=>'shaman_icon',
-	'Démoniste'=>'warlock_icon',
-	'Guerrier'=>'warrior_icon',
-// Female variation
-//	'Chevalier de la mort'=>'deathknight_icon',
-	'Druidesse'=>'druid_icon',
-	'Chasseresse'=>'hunter_icon',
-//	'Mage'=>'mage_icon',
-//	'Paladin'=>'paladin_icon',
-	'Prêtresse'=>'priest_icon',
-	'Voleuse'=>'rogue_icon',
-	'Chamane'=>'shaman_icon',
-//	'Démoniste'=>'warlock_icon',
-	'Guerrière'=>'warrior_icon',
+$lang['class_iconArray'] = array(
+
+	'Chevalier de la mort' => 'deathknight_icon',
+	'Druide' => 'druid_icon',
+	'Chasseur' => 'hunter_icon',
+	'Mage' => 'mage_icon',
+	'Paladin' => 'paladin_icon',
+	'Prêtre' => 'priest_icon',
+	'Voleur' => 'rogue_icon',
+	'Chaman' => 'shaman_icon',
+	'Démoniste' => 'warlock_icon',
+	'Guerrier' => 'warrior_icon',
+	// Female variation
+	//	'Chevalier de la mort'=>'deathknight_icon',
+	'Druidesse' => 'druid_icon',
+	'Chasseresse' => 'hunter_icon',
+	//	'Mage'=>'mage_icon',
+	//	'Paladin'=>'paladin_icon',
+	'Prêtresse' => 'priest_icon',
+	'Voleuse' => 'rogue_icon',
+	'Chamane' => 'shaman_icon',
+	//	'Démoniste'=>'warlock_icon',
+	'Guerrière' => 'warrior_icon'
 );
 
 // Class Color-Array
 $lang['class_colorArray'] = array(
-	'Chevalier de la mort'=>'C41F3B',
+
+	'Chevalier de la mort' => 'C41F3B',
 	'Druide' => 'FF7D0A',
 	'Chasseur' => 'ABD473',
 	'Mage' => '69CCF0',
@@ -467,22 +472,23 @@ $lang['class_colorArray'] = array(
 	'Chaman' => '2459FF',
 	'Démoniste' => '9482C9',
 	'Guerrier' => 'C79C6E',
-// Female variation
-//	'Chevalier de la mort'=>'C41F3B',
+	// Female variation
+	//	'Chevalier de la mort'=>'C41F3B',
 	'Druidesse' => 'FF7D0A',
 	'Chasseresse' => 'ABD473',
-//	'Mage' => '69CCF0',
-//	'Paladin' => 'F58CBA',
+	//	'Mage' => '69CCF0',
+	//	'Paladin' => 'F58CBA',
 	'Prêtresse' => 'FFFFFF',
 	'Voleuse' => 'FFF569',
 	'Chamane' => '2459FF',
-//	'Démoniste' => '9482C9',
-	'Guerrière' => 'C79C6E',
+	//	'Démoniste' => '9482C9',
+	'Guerrière' => 'C79C6E'
 );
 
 // Class To English Translation
 $lang['class_to_en'] = array(
-	'Chevalier de la mort'=>'Death Knight',
+
+	'Chevalier de la mort' => 'Death Knight',
 	'Druide' => 'Druid',
 	'Chasseur' => 'Hunter',
 	'Mage' => 'Mage',
@@ -492,46 +498,48 @@ $lang['class_to_en'] = array(
 	'Chaman' => 'Shaman',
 	'Démoniste' => 'Warlock',
 	'Guerrier' => 'Warrior',
-// Female variation
-//	'Chevalier de la mort'=>'Death Knight',
+	// Female variation
+	//	'Chevalier de la mort'=>'Death Knight',
 	'Druidesse' => 'Druid',
 	'Chasseresse' => 'Hunter',
-//	'Mage' => 'Mage',
-//	'Paladin' => 'Paladin',
+	//	'Mage' => 'Mage',
+	//	'Paladin' => 'Paladin',
 	'Prêtresse' => 'Priest',
 	'Voleuse' => 'Rogue',
 	'Chamane' => 'Shaman',
-//	'Démoniste' => 'Warlock',
-	'Guerrière' => 'Warrior',
+	//	'Démoniste' => 'Warlock',
+	'Guerrière' => 'Warrior'
 );
 
 // Class to game-internal ID
 $lang['class_to_id'] = array(
+
 	'Guerrier' => 1,
 	'Paladin' => 2,
 	'Chasseur' => 3,
 	'Voleur' => 4,
 	'Prêtre' => 5,
-	'Chevalier de la mort'=>6,
+	'Chevalier de la mort' => 6,
 	'Chaman' => 7,
 	'Mage' => 8,
 	'Démoniste' => 9,
 	'Druide' => 11,
-// Female variation
+	// Female variation
 	'Guerrière' => 1,
-//	'Paladin' => 2,
+	//	'Paladin' => 2,
 	'Chasseresse' => 3,
 	'Voleuse' => 4,
 	'Prêtresse' => 5,
-//	'Chevalier de la mort'=>6,
+	//	'Chevalier de la mort'=>6,
 	'Chamane' => 7,
-//	'Mage' => 8,
-//	'Démoniste' => 9,
-	'Druidesse' => 11,
+	//	'Mage' => 8,
+	//	'Démoniste' => 9,
+	'Druidesse' => 11
 );
 
 // Game-internal ID to class
 $lang['id_to_class'] = array(
+
 	1 => 'Guerrier',
 	2 => 'Paladin',
 	3 => 'Chasseur',
@@ -546,54 +554,57 @@ $lang['id_to_class'] = array(
 
 // Race to English Translation
 $lang['race_to_en'] = array(
+
 	'Elfe de sang' => 'Blood Elf',
-	'Draeneï'     => 'Draenei',
+	'Draeneï' => 'Draenei',
 	'Elfe de la nuit' => 'Night Elf',
-	'Nain'         => 'Dwarf',
-	'Gnome'        => 'Gnome',
-	'Humain'       => 'Human',
-	'Orc'          => 'Orc',
-	'Mort-vivant'  => 'Undead',
-	'Troll'        => 'Troll',
-	'Tauren'       => 'Tauren',
-// Female variation
-//	'Elfe de sang' => 'Blood Elf',
-//	'Draeneï'     => 'Draenei',
-//	'Elfe de la nuit' => 'Night Elf',
-	'Naine'         => 'Dwarf',
-//	'Gnome'        => 'Gnome',
-	'Humaine'       => 'Human',
-	'Orque'         => 'Orc',
+	'Nain' => 'Dwarf',
+	'Gnome' => 'Gnome',
+	'Humain' => 'Human',
+	'Orc' => 'Orc',
+	'Mort-vivant' => 'Undead',
+	'Troll' => 'Troll',
+	'Tauren' => 'Tauren',
+	// Female variation
+	//	'Elfe de sang' => 'Blood Elf',
+	//	'Draeneï'     => 'Draenei',
+	//	'Elfe de la nuit' => 'Night Elf',
+	'Naine' => 'Dwarf',
+	//	'Gnome'        => 'Gnome',
+	'Humaine' => 'Human',
+	'Orque' => 'Orc',
 	'Morte-vivante' => 'Undead',
-	'Trollesse'     => 'Troll',
-	'Taurène'       => 'Tauren',
+	'Trollesse' => 'Troll',
+	'Taurène' => 'Tauren'
 );
 
 $lang['race_to_id'] = array(
-	'Humain'       => 1,
-	'Orc'          => 2,
-	'Nain'         => 3,
+
+	'Humain' => 1,
+	'Orc' => 2,
+	'Nain' => 3,
 	'Elfe de la nuit' => 4,
-	'Mort-vivant'  => 5,
-	'Tauren'       => 6,
-	'Gnome'        => 7,
-	'Troll'        => 8,
+	'Mort-vivant' => 5,
+	'Tauren' => 6,
+	'Gnome' => 7,
+	'Troll' => 8,
 	'Elfe de sang' => 10,
-	'Draeneï'     => 11,
-// Female variation
-	'Humaine'       => 1,
-	'Orque'         => 2,
-	'Naine'         => 3,
-//	'Elfe de la nuit' => 4,
+	'Draeneï' => 11,
+	// Female variation
+	'Humaine' => 1,
+	'Orque' => 2,
+	'Naine' => 3,
+	//	'Elfe de la nuit' => 4,
 	'Morte-vivante' => 5,
-	'Taurène'      => 6,
-//	'Gnome'         => 7,
-	'Trollesse'     => 8,
-//	'Elfe de sang'  => 10,
+	'Taurène' => 6,
+	//	'Gnome'         => 7,
+	'Trollesse' => 8
+)//	'Elfe de sang'  => 10,
 //	'Draeneï'      => 11,
-);
+;
 
 $lang['id_to_race'] = array(
+
 	1 => 'Humain',
 	2 => 'Orc',
 	3 => 'Nain',
@@ -603,82 +614,83 @@ $lang['id_to_race'] = array(
 	7 => 'Gnome',
 	8 => 'Troll',
 	10 => 'Elfe de sang',
-	11 => 'Draeneï',
+	11 => 'Draeneï'
 );
 
-$lang['hslist']=' Statistiques du Système d\'Honneur';
-$lang['hslist1']='Membre le mieux classé';
-$lang['hslist2']='Membre ayant le plus de VH';
-$lang['hslist3']='Le plus de Points d\'honneur';
-$lang['hslist4']='Le plus de Points d\'arène';
+$lang['hslist'] = ' Statistiques du Système d\'Honneur';
+$lang['hslist1'] = 'Membre le mieux classé';
+$lang['hslist2'] = 'Membre ayant le plus de VH';
+$lang['hslist3'] = 'Le plus de Points d\'honneur';
+$lang['hslist4'] = 'Le plus de Points d\'arène';
 
-$lang['Death Knight']='Chevalier de la mort';
-$lang['Druid']='Druide';
-$lang['Hunter']='Chasseur';
-$lang['Mage']='Mage';
-$lang['Paladin']='Paladin';
-$lang['Priest']='Prêtre';
-$lang['Rogue']='Voleur';
-$lang['Shaman']='Chaman';
-$lang['Warlock']='Démoniste';
-$lang['Warrior']='Guerrier';
+$lang['Death Knight'] = 'Chevalier de la mort';
+$lang['Druid'] = 'Druide';
+$lang['Hunter'] = 'Chasseur';
+$lang['Mage'] = 'Mage';
+$lang['Paladin'] = 'Paladin';
+$lang['Priest'] = 'Prêtre';
+$lang['Rogue'] = 'Voleur';
+$lang['Shaman'] = 'Chaman';
+$lang['Warlock'] = 'Démoniste';
+$lang['Warrior'] = 'Guerrier';
 
-$lang['today']='Aujourd\'hui';
-$lang['todayhk']='VH du jour';
-$lang['todaycp']='CP du jour';
-$lang['yesterday']='Hier';
-$lang['yesthk']='VH d\'hier';
-$lang['yestcp']='CP d\'hier';
-$lang['thisweek']='Cette semaine';
-$lang['lastweek']='Semaine dernière';
+$lang['today'] = 'Aujourd\'hui';
+$lang['todayhk'] = 'VH du jour';
+$lang['todaycp'] = 'CP du jour';
+$lang['yesterday'] = 'Hier';
+$lang['yesthk'] = 'VH d\'hier';
+$lang['yestcp'] = 'CP d\'hier';
+$lang['thisweek'] = 'Cette semaine';
+$lang['lastweek'] = 'Semaine dernière';
 $lang['lifetime'] = 'À vie';
-$lang['lifehk']='VH à vie';
-$lang['honorkills']='Vict. Honorables';
-$lang['dishonorkills']='Vict. Déshonorantes';
-$lang['honor']='Honneur';
-$lang['standing']='Position';
-$lang['highestrank']='Plus haut niveau';
-$lang['arena']='Arène';
+$lang['lifehk'] = 'VH à vie';
+$lang['honorkills'] = 'Vict. Honorables';
+$lang['dishonorkills'] = 'Vict. Déshonorantes';
+$lang['honor'] = 'Honneur';
+$lang['standing'] = 'Position';
+$lang['highestrank'] = 'Plus haut niveau';
+$lang['arena'] = 'Arène';
 
-$lang['when']='Quand';
-$lang['guild']='Guilde';
-$lang['result']='Résultat';
-$lang['zone']='Zone';
-$lang['subzone']='Sous-zone';
-$lang['yes']='Oui';
-$lang['no']='Non';
-$lang['win']='Victoire';
-$lang['loss']='Défaite';
-$lang['unknown']='Inconnu';
+$lang['when'] = 'Quand';
+$lang['guild'] = 'Guilde';
+$lang['result'] = 'Résultat';
+$lang['zone'] = 'Zone';
+$lang['subzone'] = 'Sous-zone';
+$lang['yes'] = 'Oui';
+$lang['no'] = 'Non';
+$lang['win'] = 'Victoire';
+$lang['loss'] = 'Défaite';
+$lang['unknown'] = 'Inconnu';
 
 //strings for Rep-tab
-$lang['exalted']='Exalté';
-$lang['revered']='Révéré';
-$lang['honored']='Honoré';
-$lang['friendly']='Amical';
-$lang['neutral']='Neutre';
-$lang['unfriendly']='Inamical';
-$lang['hostile']='Hostile';
-$lang['hated']='Haï';
-$lang['atwar']='En guerre';
-$lang['notatwar']='Pas en guerre';
+$lang['exalted'] = 'Exalté';
+$lang['revered'] = 'Révéré';
+$lang['honored'] = 'Honoré';
+$lang['friendly'] = 'Amical';
+$lang['neutral'] = 'Neutre';
+$lang['unfriendly'] = 'Inamical';
+$lang['hostile'] = 'Hostile';
+$lang['hated'] = 'Haï';
+$lang['atwar'] = 'En guerre';
+$lang['notatwar'] = 'Pas en guerre';
 
 // Factions to EN id
 $lang['faction_to_id'] = array(
+
 	'Alliance' => 'alliance',
 	'Alliance Forces' => 'allianceforces',
 	'Alliance Vanguard' => 'alliancevanguard',
 	'Other' => 'other',
 	'Outland' => 'outland',
 	'Shattrath City' => 'shattrathcity',
-	'Steamwheedle Cartel' => 'steamwheedlecartel',
+	'Steamwheedle Cartel' => 'steamwheedlecartel'
 );
-
 
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
 // 		'name'=> 'Name',  // This is the name displayed on the quests page
 // 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
+
 
 /*$lang['questlinks'][] = array(  // Does not allow quest id linking
 	'name'=>'Judgehype FR',
@@ -691,13 +703,15 @@ $lang['faction_to_id'] = array(
 );*/
 
 $lang['questlinks'][] = array(
-	'name'=>'Allakhazam',
-	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%s;locale=frFR'
+
+	'name' => 'Allakhazam',
+	'url' => 'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%s;locale=frFR'
 );
 
 $lang['questlinks'][] = array(
-	'name'=>'WoWHead',
-	'url'=>'http://fr.wowhead.com/?quest=%s'
+
+	'name' => 'WoWHead',
+	'url' => 'http://fr.wowhead.com/?quest=%s'
 );
 
 // Items external link
@@ -731,63 +745,64 @@ $lang['google_links']['Google Images'] = 'http://images.google.com/images?q=';
 $lang['google_links']['Google News'] = 'http://news.google.com/news?q=';
 
 // Definition for item tooltip coloring
-$lang['tooltip_use']='Utiliser...';
-$lang['tooltip_requires']='Niveau';
-$lang['tooltip_reinforced']='renforcée';
-$lang['tooltip_soulbound']='Lié';
-$lang['tooltip_accountbound']='Account Bound';
-$lang['tooltip_boe']='Lié quand équipé';
-$lang['tooltip_equip']='Équipé...';
-$lang['tooltip_equip_restores']='Équipé.:.Rend';
-$lang['tooltip_equip_when']='Équipé : Lorsque';
-$lang['tooltip_chance']='Chance';
-$lang['tooltip_enchant']='Enchantement';
-$lang['tooltip_random_enchant']='Enchantement aléatoire';
-$lang['tooltip_set']='Ensemble...|Complet...|Set...';
-$lang['tooltip_rank']='Rang';
-$lang['tooltip_next_rank']='Prochain rang';
-$lang['tooltip_spell_damage']='les dégâts et les soins produits par les sorts et effets magiques';
-$lang['tooltip_school_damage']='les dégâts infligés par les sorts et effets';
-$lang['tooltip_healing_power']='les soins prodigués par les sorts et effets';
-$lang['tooltip_reinforced_armor']='Armure renforcée';
-$lang['tooltip_damage_reduction']='Réduit les points de dégâts';
+$lang['tooltip_use'] = 'Utiliser...';
+$lang['tooltip_requires'] = 'Niveau';
+$lang['tooltip_reinforced'] = 'renforcée';
+$lang['tooltip_soulbound'] = 'Lié';
+$lang['tooltip_accountbound'] = 'Account Bound';
+$lang['tooltip_boe'] = 'Lié quand équipé';
+$lang['tooltip_equip'] = 'Équipé...';
+$lang['tooltip_equip_restores'] = 'Équipé.:.Rend';
+$lang['tooltip_equip_when'] = 'Équipé : Lorsque';
+$lang['tooltip_chance'] = 'Chance';
+$lang['tooltip_enchant'] = 'Enchantement';
+$lang['tooltip_random_enchant'] = 'Enchantement aléatoire';
+$lang['tooltip_set'] = 'Ensemble...|Complet...|Set...';
+$lang['tooltip_rank'] = 'Rang';
+$lang['tooltip_next_rank'] = 'Prochain rang';
+$lang['tooltip_spell_damage'] = 'les dégâts et les soins produits par les sorts et effets magiques';
+$lang['tooltip_school_damage'] = 'les dégâts infligés par les sorts et effets';
+$lang['tooltip_healing_power'] = 'les soins prodigués par les sorts et effets';
+$lang['tooltip_reinforced_armor'] = 'Armure renforcée';
+$lang['tooltip_damage_reduction'] = 'Réduit les points de dégâts';
 //--Tooltip Parsing -- Translated by Kalia
-$lang['tooltip_durability']='Durabilité';
-$lang['tooltip_unique']='Unique';
-$lang['tooltip_speed']='Vitesse';
-$lang['tooltip_poisoneffect']='^Chaque coup a';
+$lang['tooltip_durability'] = 'Durabilité';
+$lang['tooltip_unique'] = 'Unique';
+$lang['tooltip_speed'] = 'Vitesse';
+$lang['tooltip_poisoneffect'] = '^Chaque coup a';
 
-$lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
-$lang['tooltip_preg_durability']='/Durabilité(|:) (\d+) \/ (\d+)/';
-$lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.
-$lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
-$lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)/';
-$lang['tooltip_preg_classes']='/^(Classes.:.)(.+)$/'; // text for class restricted items
-$lang['tooltip_preg_races']='/^(Races.:.)(.+)$/'; // text for race restricted items
-$lang['tooltip_preg_charges']='/(\d+) Charges/i'; // text for items with charges
-$lang['tooltip_preg_block']='/(Bloquer).+?(\d+)/i';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge(?!\()|jaune(?!\()|bleue(?!\()|Méta(?=-))(?:-châsse)?/'; // text shown if the item has empty sockets.
-$lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
-$lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
-$lang['tooltip_preg_meta_requires']='/Nécessite.*?gemme(?:s|)/i';
-$lang['tooltip_preg_meta_requires_min']='/Nécessite au moins (\d) gemme(?:s|) (\S+)\(s\)/i';
-$lang['tooltip_preg_meta_requires_more']='/Nécessite plus de gemmes (jaune|rouge|blue\S+) que de (\S+)/i';
-$lang['tooltip_feral_ap']='Increases attack power by';
-$lang['tooltip_source']='Source';
-$lang['tooltip_boss']='Boss';
-$lang['tooltip_droprate']='Fréquence de butin';
+$lang['tooltip_preg_armor'] = '/Armure.+ (\d+)/';
+$lang['tooltip_preg_durability'] = '/Durabilité(|:) (\d+) \/ (\d+)/';
+$lang['tooltip_preg_madeby'] = '/\<Artisan.+ (.+)\>/'; // this is the text that shows who crafted the item.
+$lang['tooltip_preg_bags'] = '/Conteneur (\d+) emplacements/'; // text for bags, ie '16 slot bag'
+$lang['tooltip_preg_socketbonus'] = '/Bonus de sertissage : (.+)/';
+$lang['tooltip_preg_classes'] = '/^(Classes.:.)(.+)$/'; // text for class restricted items
+$lang['tooltip_preg_races'] = '/^(Races.:.)(.+)$/'; // text for race restricted items
+$lang['tooltip_preg_charges'] = '/(\d+) Charges/i'; // text for items with charges
+$lang['tooltip_preg_block'] = '/(Bloquer).+?(\d+)/i'; // text for shield blocking values
+$lang['tooltip_preg_emptysocket'] = '/(?:Châsse )?(rouge(?!\()|jaune(?!\()|bleue(?!\()|Méta(?=-))(?:-châsse)?/'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_reinforcedarmor'] = '/(Renforcé \(\+\d Armure\))/';
+$lang['tooltip_preg_tempenchants'] = '/(.+\s\(\d+\s(min|sec)\))\n/';
+$lang['tooltip_preg_meta_requires'] = '/Nécessite.*?gemme(?:s|)/i';
+$lang['tooltip_preg_meta_requires_min'] = '/Nécessite au moins (\d) gemme(?:s|) (\S+)\(s\)/i';
+$lang['tooltip_preg_meta_requires_more'] = '/Nécessite plus de gemmes (jaune|rouge|blue\S+) que de (\S+)/i';
+$lang['tooltip_feral_ap'] = 'Increases attack power by';
+$lang['tooltip_source'] = 'Source';
+$lang['tooltip_boss'] = 'Boss';
+$lang['tooltip_droprate'] = 'Fréquence de butin';
 
-$lang['tooltip_chance_hit']='Chances quand vous touchez...'; // needs to find 'chance on|to hit:'
-$lang['tooltip_reg_requires']='Niveau|requis|Requiert'; // À une main
-$lang['tooltip_reg_onlyworksinside']='Ne fonctionne qu\'à l\'intérieur du Donjon de la Tempête';
-$lang['tooltip_reg_conjureditems']='Objet invoqué';
-$lang['tooltip_reg_weaponorbulletdps']='^\(|^Ajoute ';
+$lang['tooltip_chance_hit'] = 'Chances quand vous touchez...'; // needs to find 'chance on|to hit:'
+$lang['tooltip_reg_requires'] = 'Niveau|requis|Requiert'; // À une main
+$lang['tooltip_reg_onlyworksinside'] = 'Ne fonctionne qu\'à l\'intérieur du Donjon de la Tempête';
+$lang['tooltip_reg_conjureditems'] = 'Objet invoqué';
+$lang['tooltip_reg_weaponorbulletdps'] = '^\(|^Ajoute ';
 
-$lang['tooltip_armor_types']='Tissu|Cuir|Mailles|Plaques';  // the types of armor
-$lang['tooltip_weapon_types']='Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Arme à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|Flèche|Balle';
-$lang['tooltip_bind_types']='Lié|Lié quand équipé|Objet de quête|Lié quand utilisé|Cet objet permet de lancer une quête|Lier au compte|Account Bound';
-$lang['tooltip_misc_types']='Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse|Jambes|Pieds';
-$lang['tooltip_garbage']='Maj clic-droit pour sertir|<Right Click to Read>|Duration|Temps de recharge|<Right Click to Open>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
+$lang['tooltip_armor_types'] = 'Tissu|Cuir|Mailles|Plaques'; // the types of armor
+$lang['tooltip_weapon_types'] = 'Hache|Arc|Arbaléte|Dague|Canne à pêche|Arme de pugilat|Arme à feu|À une main|Masse|Main droite|Arme d\'hast|Bâton|Epée|Armes de jet|Baguette|Tenu\(e\) en main gauche|Flèche|Balle';
+$lang['tooltip_bind_types'] = 'Lié|Lié quand équipé|Objet de quête|Lié quand utilisé|Cet objet permet de lancer une quête|Lier au compte|Account Bound';
+$lang['tooltip_misc_types'] = 'Doigt|Cou|Dos|Chemise|Bijou|Tabard|Tête|Torse|Jambes|Pieds';
+$lang['tooltip_garbage'] = 'Maj clic-droit pour sertir|<Right Click to Read>|Duration|Temps de recharge|<Right Click to Open>'; // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
+
 
 //CP v2.1.1+ Gems info
 //uses preg_match() to find the type and color of the gem
@@ -798,6 +813,7 @@ $lang['gem_preg_prismatic'] = '/Correspond à une châsse rouge, jaune ou bleue\
 
 //Gem color Array
 $lang['gem_colors'] = array(
+
 	'red' => 'rouge',
 	'blue' => 'bleue',
 	'yellow' => 'jaune',
@@ -806,9 +822,10 @@ $lang['gem_colors'] = array(
 	'purple' => 'pourpre',
 	'prismatic' => 'prismatique',
 	'meta' => 'méta'
-	);
+);
 
 $lang['gem_colors_to_en'] = array(
+
 	'red' => 'rouge',
 	'blue' => 'bleu',
 	'yellow' => 'jaune',
@@ -817,50 +834,50 @@ $lang['gem_colors_to_en'] = array(
 	'purple' => 'violette',
 	'prismatic' => 'prismatic',
 	'meta' => 'meta'
-	);
+);
 
 $lang['socket_colors_to_en'] = array(
+
 	'rouge' => 'red',
 	'bleue' => 'blue',
 	'jaune' => 'yellow',
 	'méta' => 'meta'
-	);
+);
 // -- end tooltip parsing
 
 
-
 // Warlock pet names for icon displaying
-$lang['Imp']='Diablotin';
-$lang['Voidwalker']='Marcheur du Vide';
-$lang['Succubus']='Succube';
-$lang['Felhunter']='Chasseur corrompu';
-$lang['Infernal']='Infernal';
-$lang['Felguard']='Gangregarde';
+$lang['Imp'] = 'Diablotin';
+$lang['Voidwalker'] = 'Marcheur du Vide';
+$lang['Succubus'] = 'Succube';
+$lang['Felhunter'] = 'Chasseur corrompu';
+$lang['Infernal'] = 'Infernal';
+$lang['Felguard'] = 'Gangregarde';
 
 // Max experiance for exp bar on char page
-$lang['max_exp']='XP maximum';
+$lang['max_exp'] = 'XP maximum';
 
 // Error messages
-$lang['CPver_err']='La version du CharacterProfiler utilisée pour récupérer les données pour ce personnage est plus ancienne que la version minimum autorisée.<br />Veuillez vous assurez que vous fonctionnez avec au moins la version v%1$s, que vous vous êtes connecté sur ce personnage et avez sauvé les données en utilisant cette version.';
-$lang['GPver_err']='La version du GuildProfiler utilisée pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />SVP assurez vous que vous fonctionnez avec la v%1$s';
+$lang['CPver_err'] = 'La version du CharacterProfiler utilisée pour récupérer les données pour ce personnage est plus ancienne que la version minimum autorisée.<br />Veuillez vous assurez que vous fonctionnez avec au moins la version v%1$s, que vous vous êtes connecté sur ce personnage et avez sauvé les données en utilisant cette version.';
+$lang['GPver_err'] = 'La version du GuildProfiler utilisée pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />SVP assurez vous que vous fonctionnez avec la v%1$s';
 
 // Menu titles
-$lang['menu_upprofile']='Mise à jour du profil|Mettez à jour votre profil sur ce site';
-$lang['menu_search']='Recherche|Rechercher des objets et des recettes dans la base de donnée';
-$lang['menu_roster_cp']='Configuration Roster|Panneau de configuration du Roster';
-$lang['menu_credits']='Crédits|Les artisans du projet WoW Roster';
-$lang['menupanel_util']  = 'Utilitaires';
+$lang['menu_upprofile'] = 'Mise à jour du profil|Mettez à jour votre profil sur ce site';
+$lang['menu_search'] = 'Recherche|Rechercher des objets et des recettes dans la base de donnée';
+$lang['menu_roster_cp'] = 'Configuration Roster|Panneau de configuration du Roster';
+$lang['menu_credits'] = 'Crédits|Les artisans du projet WoW Roster';
+$lang['menupanel_util'] = 'Utilitaires';
 $lang['menupanel_realm'] = 'Royaume';
 $lang['menupanel_guild'] = 'Guilde';
-$lang['menupanel_char']  = 'Personnage';
+$lang['menupanel_char'] = 'Personnage';
 
-$lang['menuconf_sectionselect']='Zone de sélection';
-$lang['menuconf_changes_saved']='Changements sur %1$s enregistré';
-$lang['menuconf_no_changes_saved']='Aucun changement enregistré';
-$lang['menuconf_add_button']='Ajouter un bouton';
-$lang['menuconf_drag_delete']='Déplacer ici pour supprimer';
-$lang['menuconf_addon_inactive']='Greffon inactif';
-$lang['menuconf_unused_buttons']='Boutons non utilisés';
+$lang['menuconf_sectionselect'] = 'Zone de sélection';
+$lang['menuconf_changes_saved'] = 'Changements sur %1$s enregistré';
+$lang['menuconf_no_changes_saved'] = 'Aucun changement enregistré';
+$lang['menuconf_add_button'] = 'Ajouter un bouton';
+$lang['menuconf_drag_delete'] = 'Déplacer ici pour supprimer';
+$lang['menuconf_addon_inactive'] = 'Greffon inactif';
+$lang['menuconf_unused_buttons'] = 'Boutons non utilisés';
 
 $lang['installer_install_0'] = 'L\'installation de [%1$s] a réussi';
 $lang['installer_install_1'] = 'L\'installation de [%1$s] a échoué mais le retour à l\'état précédent a réussi';
@@ -983,6 +1000,7 @@ $lang['confirm_config_reset'] = 'Ceci va remettre le formulaire dans l\'état o�
 //   Assign description text and tooltip for $roster->config['sqldebug']
 //   $lang['admin']['sqldebug'] = "Desc|Tooltip";
 
+
 // Each string is separated by a pipe ( | )
 // The first part is the short description, the next part is the tooltip
 // Use <br /> to make new lines!
@@ -1020,9 +1038,9 @@ $lang['admin']['img_url'] = "Répertoire des images du roster|Répertoire où le
 $lang['admin']['timezone'] = "Fuseau horaire|Affiché après les dates et heures afin de savoir à quel fuseau horaire l'heure fait référence";
 $lang['admin']['localtimeoffset'] = "Décalage horaire|Le décalage horaire par rapport à l'heure UTC/GMT<br />Les heures sur le roster seront affichées avec ce décalage";
 $lang['admin']['use_update_triggers'] = 'Déclenchement de mise à jour de greffon|Déclencher automatiquement la mise à jour de greffon est nécessaire pour ceux qui ont besoin de fonctionner lors d\'une mise à jour d\'un profil.<br />Quelques greffons ont besoin de ce paramètre activé pour fonctionner correctement.';
-$lang['admin']['check_updates'] = "Vérifier les mises à jour|Permettre au site de vérifier si une nouvelle version du roster (ou des greffons possédant cette fonctionalité) est disponible et si vous avez la dernière version d\'installée";
+$lang['admin']['check_updates'] = "Vérifier les mises à jour|Permettre au site de vérifier si une nouvelle version du roster (ou des greffons possédant cette fonctionalité) est disponible et si vous avez la dernière version d\\'installée";
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
-$lang['admin']['local_cache']= "Système de cache de fichiers|Utiliser un système de cache de fichiers sur le serveur pour améliorer les performances.";
+$lang['admin']['local_cache'] = "Système de cache de fichiers|Utiliser un système de cache de fichiers sur le serveur pour améliorer les performances.";
 $lang['admin']['use_temp_tables'] = "Utiliser des tables temporaires|Désactiver ce paramètre si votre hôte ne permet pas de créer des tables de base de données temporaires (le privilège CREATE TEMPORARY TABLE).<br/>Laisser activé ce paramètre est recommandé pour les performances.";
 $lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />- Never: Never enforce rules<br />- All LUA Updates: Enforce rules on all lua updates<br />- CP Updates: Enforce rules on any CP.lua update<br />- Guild Updates: Enforce rules only on guild updates<br /><br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
@@ -1103,6 +1121,7 @@ $lang['admin']['rs_color_recommended'] = "Couleur Recommandé|Couleur pour un se
 
 // update_access
 $lang['admin']['authenticated_user'] = "Accès à Update.php|Contrôle l'accès à update.php<br /><br />Passer ce paramètre à off désactive l'accès à TOUT LE MONDE";
+$lang['admin']['update_inst'] = 'Instructions de mise à jour|Controls the display of the Update Instructions on the update page';
 $lang['admin']['gp_user_level'] = "Niveau d'accès aux données de guilde|Niveau requis pour mettre à jour les données fournies par GuildProfiler";
 $lang['admin']['cp_user_level'] = "Niveau d'accès aux données des personnages|Niveau requis pour mettre à jour les données fournies par CharacterProfiler";
 $lang['admin']['lua_user_level'] = "Niveau d'accès aux données des autres LUA|Niveau requis pour mettre à jour les données fournies par d'autres sources de données (LUA).<br />Ceci est valable pour TOUTES SOURCES AUTRES pouvant être envoyées au roster.";
@@ -1112,6 +1131,6 @@ $lang['admin']['per_character_display'] = 'Affichage par personnage';
 
 //Overlib for Allow/Disallow rules
 $lang['guildname'] = 'Nom de la guilde';
-$lang['realmname']  = 'Nom du royaume';
+$lang['realmname'] = 'Nom du royaume';
 $lang['regionname'] = 'Région (i.e. EU)';
 $lang['charname'] = 'Nom du personnage';

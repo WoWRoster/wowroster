@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    WoWRoster
  * @subpackage XMLParser
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -86,11 +86,11 @@ class XmlParser
 
 	function EndElementHandler( $parser , $tag )
 	{
-		$this->data = & $this->datas[count($this->datas)-1];
+		$this->data = & $this->datas[count($this->datas) - 1];
 		array_pop($this->datas);
 	}
 
-	function getParsedData()
+	function getParsedData( )
 	{
 		return $this->data;
 	}
