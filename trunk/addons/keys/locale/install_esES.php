@@ -56,7 +56,7 @@ The key is the last stage of the chain. If this stage is active (its condition i
 All single quotes should be slashed for DB insert
 
 The 'Key' entry, recommended to be last (though place doesn't really matter) names the icon and the lockpicking skill. If a lock is unpickable, leave the field empty
-*/
+ */
 
 // ALLIANCE KEYS
 $inst_keys['A'] = array(
@@ -158,27 +158,27 @@ $inst_keys['A'] = array(
 	'HCH' => array(
 		'R|Bastión del Honor|9000||1',
 		'In|Llave de Forjallamas|1||1',
-		'Key|inv_misc_key_13|',
+		'Key|inv_misc_key_13|'
 	),
 	'AuchH' => array(
 		'R|Bajo Arrabal|9000||1',
 		'In|Llave Auchenai|1||1',
-		'Key|inv_misc_key_11|',
+		'Key|inv_misc_key_11|'
 	),
 	'CoilH' => array(
 		'R|Expedición Cenarion|9000||1',
 		'In|Llave de depósito|1||1',
-		'Key|inv_misc_key_13|',
+		'Key|inv_misc_key_13|'
 	),
 	'KoTH' => array(
 		'R|Vigilantes del Tiempo|9000||1',
 		'In|Llave del tiempo|1||1',
-		'Key|inv_misc_key_04|',
+		'Key|inv_misc_key_04|'
 	),
 	'TempestH' => array(
 		'R|Los Sha\\\'tar|9000||1',
 		'In|Llave forjada de distorsión|1||1',
-		'Key|inv_misc_key_09|',
+		'Key|inv_misc_key_09|'
 	),
 	'Karazhan' => array(
 		'Q|Alteraciones arcanas|1|()|1',
@@ -234,7 +234,6 @@ $inst_keys['A'] = array(
 		'Key|inv_potion_101|'
 	)
 );
-
 
 // HORDE KEYS
 $inst_keys['H'] = array(
@@ -335,27 +334,27 @@ $inst_keys['H'] = array(
 	'HCH' => array(
 		'R|Thrallmar|9000||1',
 		'In|Llave de Forjallamas|1||1',
-		'Key|inv_misc_key_13|',
+		'Key|inv_misc_key_13|'
 	),
 	'AuchH' => array(
 		'R|Bajo Arrabal|9000||1',
 		'In|Llave Auchenai|1||1',
-		'Key|inv_misc_key_11|',
+		'Key|inv_misc_key_11|'
 	),
 	'CoilH' => array(
 		'R|Expedición Cenarion|9000||1',
 		'In|Llave de depósito|1||1',
-		'Key|inv_misc_key_13|',
+		'Key|inv_misc_key_13|'
 	),
 	'KoTH' => array(
 		'R|Vigilantes del Tiempo|9000||1',
 		'In|Llave del tiempo|1||1',
-		'Key|inv_misc_key_04|',
+		'Key|inv_misc_key_04|'
 	),
 	'TempestH' => array(
 		'R|Los Sha\\\'tar|9000||1',
 		'In|Llave forjada de distorsión|1||1',
-		'Key|inv_misc_key_09|',
+		'Key|inv_misc_key_09|'
 	),
 	'Karazhan' => array(
 		'Q|Alteraciones arcanas|1|()|1',

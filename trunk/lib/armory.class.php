@@ -14,7 +14,7 @@
  * @since      File available since Release 1.9.9
  * @package    WoWRoster
  * @subpackage Armory
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -34,7 +34,7 @@ if( !defined('IN_ROSTER') )
 class RosterArmory
 {
 	var $xml;
-	var $xml_timeout = 8;  // seconds to pass for timeout
+	var $xml_timeout = 8; // seconds to pass for timeout
 	var $user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1';
 	var $region;
 	var $debug_url = false;
@@ -70,13 +70,13 @@ class RosterArmory
 	 *
 	 * @return RosterArmory
 	 */
-	function RosterArmory( $region=false )
+	function RosterArmory( $region = false )
 	{
-		$this->region = ( $region !== false ? strtoupper($region) : 'US' );
+		$this->region = ($region !== false ? strtoupper($region) : 'US');
 	}
 
 	/**
- 	 * General armory fetch class
+	 * General armory fetch class
 	 * Returns XML, HTML or an array of the parsed XML page
 	 *
 	 * @param int $type
@@ -87,12 +87,12 @@ class RosterArmory
 	 * @param string $fetch_type
 	 * @return array
 	 */
-	function fetchArmory( $type = false, $character = false, $guild = false, $realm = false, $item_id = false,$fetch_type = 'array' )
+	function fetchArmory( $type = false , $character = false , $guild = false , $realm = false , $item_id = false , $fetch_type = 'array' )
 	{
 		global $roster;
 
-		$url = $this->_makeUrl( $type, false, $item_id, $character, $realm, $guild );
-		if ( $fetch_type == 'html')
+		$url = $this->_makeUrl($type, false, $item_id, $character, $realm, $guild);
+		if( $fetch_type == 'html' )
 		{
 			$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		}
@@ -126,7 +126,7 @@ class RosterArmory
 	}
 
 	/**
- 	 * Fetches $item_id Tooltip from the Armory
+	 * Fetches $item_id Tooltip from the Armory
 	 * Accepts optional $character if used $realm is also required
 	 * Returns Array of the parsed XML page
 	 *
@@ -137,9 +137,9 @@ class RosterArmory
 	 * @param string $fetch_type
 	 * @return array
 	 */
-	function fetchItemTooltip( $item_id, $locale, $character=false, $realm=false, $fetch_type='array' )
+	function fetchItemTooltip( $item_id , $locale , $character = false , $realm = false , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 0, $character, false, $realm, $item_id, $fetch_type );
+		return $this->fetchArmory(0, $character, false, $realm, $item_id, $fetch_type);
 	}
 
 	/**
@@ -150,16 +150,17 @@ class RosterArmory
 	 * @param string $item_id
 	 * @return string
 	 */
-	function fetchItemTooltipXML( $item_id, $locale, $character=false, $realm=false )
+	function fetchItemTooltipXML( $item_id , $locale , $character = false , $realm = false )
 	{
-		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, 'xml' );
+		return $this->fetchItemTooltip($item_id, $locale, $character, $realm, 'xml');
 	}
 
-	function fetchItemTooltipHTML( $item_id, $locale, $character=false, $realm=false )
+	function fetchItemTooltipHTML( $item_id , $locale , $character = false , $realm = false )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
-		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, 'html' );
+		return $this->fetchItemTooltip($item_id, $locale, $character, $realm, 'html');
 	}
+
 	/**
 	 * Fetches $item_id General Information from the Armory
 	 * Returns Array of the parsed XML page
@@ -169,9 +170,9 @@ class RosterArmory
 	 * @param string $fetch_type
 	 * @return string
 	 */
-	function fetchItemInfo( $item_id, $locale, $fetch_type='array' )
+	function fetchItemInfo( $item_id , $locale , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 1, false, false, false, $item_id, $fetch_type );
+		return $this->fetchArmory(1, false, false, false, $item_id, $fetch_type);
 	}
 
 	/**
@@ -182,7 +183,7 @@ class RosterArmory
 	 * @param string $locale
 	 * @return string
 	 */
-	function fetchItemInfoXML( $item_id, $locale )
+	function fetchItemInfoXML( $item_id , $locale )
 	{
 		return $this->fetchItemInfo($item_id, $locale, 'xml');
 	}
@@ -195,7 +196,7 @@ class RosterArmory
 	 * @param string $locale
 	 * @return string
 	 */
-	function fetchItemInfoHTML( $item_id, $locale )
+	function fetchItemInfoHTML( $item_id , $locale )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchItemInfo($item_id, $locale, 'html');
@@ -213,9 +214,9 @@ class RosterArmory
 	 * @param string $fetch_type
 	 * @return array
 	 */
-	function fetchCharacter( $character, $locale, $realm, $fetch_type='array' )
+	function fetchCharacter( $character , $locale , $realm , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 2, $character, $guild, $realm, false, $fetch_type );
+		return $this->fetchArmory(2, $character, $guild, $realm, false, $fetch_type);
 	}
 
 	/**
@@ -230,7 +231,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | xml string
 	 */
-	function fetchCharacterXML( $character, $locale, $realm )
+	function fetchCharacterXML( $character , $locale , $realm )
 	{
 		return $this->fetchCharacter($character, $locale, $realm, 'xml');
 	}
@@ -247,7 +248,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | html string
 	 */
-	function fetchCharacterHTML( $character, $locale, $realm )
+	function fetchCharacterHTML( $character , $locale , $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchCharacter($character, $locale, $realm, 'html');
@@ -264,9 +265,9 @@ class RosterArmory
 	 * @param string $fetch_type
 	 * @return array
 	 */
-	function fetchGuild( $guild, $locale, $realm, $fetch_type='array' )
+	function fetchGuild( $guild , $locale , $realm , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 3, false, $guild, $realm, false, $fetch_type );
+		return $this->fetchArmory(3, false, $guild, $realm, false, $fetch_type);
 	}
 
 	/**
@@ -280,7 +281,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | xml string
 	 */
-	function fetchGuildSimpleClass( $guild, $locale, $realm )
+	function fetchGuildSimpleClass( $guild , $locale , $realm )
 	{
 		return $this->fetchGuild($guild, $locale, $realm, 'simpleClass');
 	}
@@ -296,7 +297,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | xml string
 	 */
-	function fetchGuildXML( $guild, $locale, $realm )
+	function fetchGuildXML( $guild , $locale , $realm )
 	{
 		return $this->fetchGuild($guild, $locale, $realm, 'xml');
 	}
@@ -312,7 +313,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | html string
 	 */
-	function fetchGuildHTML( $guild, $locale, $realm )
+	function fetchGuildHTML( $guild , $locale , $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchGuild($guild, $locale, $realm, 'html');
@@ -328,9 +329,9 @@ class RosterArmory
 	 * @param bool $fetch_type
 	 * @return array
 	 */
-	function fetchCharacterTalents( $character, $locale, $realm, $fetch_type='array' )
+	function fetchCharacterTalents( $character , $locale , $realm , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 4, $character, $guild, $realm, false, $fetch_type );
+		return $this->fetchArmory(4, $character, $guild, $realm, false, $fetch_type);
 	}
 
 	/**
@@ -343,7 +344,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | xml string
 	 */
-	function fetchCharacterTalentsXML( $character, $locale, $realm )
+	function fetchCharacterTalentsXML( $character , $locale , $realm )
 	{
 		return $this->fetchCharacterTalents($character, $locale, $realm, 'xml');
 	}
@@ -358,7 +359,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | html string
 	 */
-	function fetchCharacterTalentsHTML( $character, $locale, $realm )
+	function fetchCharacterTalentsHTML( $character , $locale , $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchCharacterTalents($character, $locale, $realm, 'html');
@@ -375,9 +376,9 @@ class RosterArmory
 	 * @param string $fetch_type
 	 * @return array
 	 */
-	function fetchCharacterSkills( $character, $locale, $realm, $fetch_type='array' )
+	function fetchCharacterSkills( $character , $locale , $realm , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 5, $character, $guild, $realm, false, $fetch_type );
+		return $this->fetchArmory(5, $character, $guild, $realm, false, $fetch_type);
 	}
 
 	/**
@@ -391,7 +392,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | xml string
 	 */
-	function fetchCharacterSkillsXML( $character, $locale, $realm )
+	function fetchCharacterSkillsXML( $character , $locale , $realm )
 	{
 		return $this->fetchCharacterSkills($character, $locale, $realm, 'xml');
 	}
@@ -407,7 +408,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | html string
 	 */
-	function fetchCharacterSkillsHTML( $character, $locale, $realm )
+	function fetchCharacterSkillsHTML( $character , $locale , $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchCharacterSkills($character, $locale, $realm, 'html');
@@ -424,9 +425,9 @@ class RosterArmory
 	 * @param bool $fetch_type
 	 * @return array
 	 */
-	function fetchCharacterReputation( $character, $locale, $realm, $fetch_type='array' )
+	function fetchCharacterReputation( $character , $locale , $realm , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 6, $character, $guild, $realm, false, $fetch_type );
+		return $this->fetchArmory(6, $character, $guild, $realm, false, $fetch_type);
 	}
 
 	/**
@@ -440,7 +441,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | xml string
 	 */
-	function fetchCharacterReputationXML( $character, $locale, $realm )
+	function fetchCharacterReputationXML( $character , $locale , $realm )
 	{
 		return $this->fetchCharacterReputation($character, $locale, $realm, 'xml');
 	}
@@ -456,7 +457,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | html string
 	 */
-	function fetchCharacterReputationHTML( $character, $locale, $realm )
+	function fetchCharacterReputationHTML( $character , $locale , $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchCharacterReputation($character, $locale, $realm, 'html');
@@ -473,9 +474,9 @@ class RosterArmory
 	 * @param bool $fetch_type
 	 * @return array
 	 */
-	function fetchCharacterArenaTeams( $character, $locale, $realm, $fetch_type='array' )
+	function fetchCharacterArenaTeams( $character , $locale , $realm , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 7, $character, $guild, $realm, false, $fetch_type );
+		return $this->fetchArmory(7, $character, $guild, $realm, false, $fetch_type);
 	}
 
 	/**
@@ -489,7 +490,7 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | xml string
 	 */
-	function fetchCharacterArenaTeamsXML( $character, $locale, $realm )
+	function fetchCharacterArenaTeamsXML( $character , $locale , $realm )
 	{
 		return $this->fetchCharacterArenaTeams($character, $locale, $realm, 'xml');
 	}
@@ -505,15 +506,15 @@ class RosterArmory
 	 * @param string $realm
 	 * @return string | html string
 	 */
-	function fetchCharacterArenaTeamsHTML( $character, $locale, $realm )
+	function fetchCharacterArenaTeamsHTML( $character , $locale , $realm )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchCharacterArenaTeams($character, $locale, $realm, 'html');
 	}
 
-	function fetchStrings( $locale, $fetch_type='array' )
+	function fetchStrings( $locale , $fetch_type = 'array' )
 	{
-		return $this->fetchArmory( 8, false, false, false, false, $fetch_type );
+		return $this->fetchArmory(8, false, false, false, false, $fetch_type);
 	}
 
 	/**
@@ -580,7 +581,7 @@ class RosterArmory
 
 	/**
 	 * Private function to build the armory URL
-	  *
+	 *
 	 * @param string $mode	| string or int of data to request
 	 * @param string $locale | required
 	 * @param string $id |
@@ -588,7 +589,7 @@ class RosterArmory
 	 * @param string $realm |
 	 * @param string $guild |
 	 */
-	function _makeUrl( $mode, $locale, $id=false, $char=false, $realm=false, $guild=false )
+	function _makeUrl( $mode , $locale , $id = false , $char = false , $realm = false , $guild = false )
 	{
 		if( $this->region == 'US' )
 		{
@@ -689,9 +690,10 @@ class RosterArmory
 	 * @param string $user_agent
 	 * @return bool
 	 */
-	function _requestXml( $url, $timeout=false, $user_agent=false )
+	function _requestXml( $url , $timeout = false , $user_agent = false )
 	{
 		$this->xml = ''; // clear xml if any
+
 
 		if( $timeout === false )
 		{
@@ -724,7 +726,7 @@ class RosterArmory
 	{
 		if( !is_object($this->xmlParser) )
 		{
-			require_once(ROSTER_LIB . 'xmlparse.class.php');
+			require_once (ROSTER_LIB . 'xmlparse.class.php');
 			$this->xmlParser = new XmlParser();
 		}
 	}
@@ -739,7 +741,7 @@ class RosterArmory
 	{
 		if( !is_object($this->simpleParser) )
 		{
-			require_once(ROSTER_LIB . 'simpleparser.class.php');
+			require_once (ROSTER_LIB . 'simpleparser.class.php');
 			$this->simpleParser = new simpleParser();
 		}
 	}

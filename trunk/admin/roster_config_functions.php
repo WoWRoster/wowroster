@@ -14,11 +14,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -77,11 +77,11 @@ function pageNames( )
 			// Include addon's locale files if they exist
 			foreach( $roster->multilanguages as $lang )
 			{
-				$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
 			}
 		}
 
-		list($title) = explode('|',isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title']);
+		list($title) = explode('|', isset($roster->locale->act[$row['title']]) ? $roster->locale->act[$row['title']] : $row['title']);
 
 		$title = $roster->locale->act[$row['scope']] . ' - ' . $title;
 
@@ -120,7 +120,7 @@ function fontFiles( $values )
 	if( count($arrFiles) == 0 )
 	{
 		// Open the directory
-		$tmp_dir = @opendir( ROSTER_BASE . 'fonts' );
+		$tmp_dir = @opendir(ROSTER_BASE . 'fonts');
 
 		if( !empty($tmp_dir) )
 		{
@@ -131,7 +131,7 @@ function fontFiles( $values )
 
 				if( strtolower($pfad_info['extension']) == strtolower('ttf') )
 				{
-					$name = str_replace('.' . $pfad_info['extension'],'',$file);
+					$name = str_replace('.' . $pfad_info['extension'], '', $file);
 					$arrFiles += array($file => $name);
 				}
 			}
@@ -145,7 +145,7 @@ function fontFiles( $values )
 
 	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
 	$select_one = 1;
-	foreach( $arrFiles as $file=>$name )
+	foreach( $arrFiles as $file => $name )
 	{
 		if( $file == $values['value'] && $select_one )
 		{
@@ -174,7 +174,7 @@ function templateList( $values )
 	if( count($arrFiles) == 0 )
 	{
 		// Open the directory
-		$tmp_dir = @opendir( ROSTER_TPLDIR );
+		$tmp_dir = @opendir(ROSTER_TPLDIR);
 
 		if( !empty($tmp_dir) )
 		{
@@ -242,10 +242,10 @@ function externalAuth( $values )
 			// Include addon's locale files if they exist
 			foreach( $roster->multilanguages as $lang )
 			{
-				$roster->locale->add_locale_file(ROSTER_ADDONS . $addon_data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $addon_data['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
 			}
 
-			list($title) = explode('|',isset($roster->locale->act[$addon_data['fullname']]) ? $roster->locale->act[$addon_data['fullname']] : $addon_data['fullname']);
+			list($title) = explode('|', isset($roster->locale->act[$addon_data['fullname']]) ? $roster->locale->act[$addon_data['fullname']] : $addon_data['fullname']);
 
 			if( $addon_data['basename'] == $roster->config['external_auth'] && $select_one )
 			{
@@ -254,7 +254,7 @@ function externalAuth( $values )
 			}
 			else
 			{
-				$input_field .= '  <option value="' . $addon_data['basename'] . '">' . $title . '</option>' ."\n";
+				$input_field .= '  <option value="' . $addon_data['basename'] . '">' . $title . '</option>' . "\n";
 			}
 		}
 	}

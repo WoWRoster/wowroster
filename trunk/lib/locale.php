@@ -14,11 +14,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage Locale
-*/
+ */
 
-if ( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -49,17 +49,17 @@ class roster_locale
 	 */
 	var $act;
 
-	function roster_locale()
+	function roster_locale( )
 	{
 		global $roster;
 
-		include(ROSTER_LOCALE_DIR . 'languages.php');
+		include (ROSTER_LOCALE_DIR . 'languages.php');
 
 		$this->creditspage = $creditspage;
 
 		foreach( $roster->multilanguages as $language )
 		{
-			$this->add_locale_file(ROSTER_LOCALE_DIR . $language . '.php',$language);
+			$this->add_locale_file(ROSTER_LOCALE_DIR . $language . '.php', $language);
 		}
 
 		if( isset($_SESSION['locale']) && $_SESSION['locale'] != '' )
@@ -69,7 +69,7 @@ class roster_locale
 
 		$this->curlocale = $roster->config['locale'];
 
-		$this->act =& $this->wordings[$this->curlocale];
+		$this->act = & $this->wordings[$this->curlocale];
 	}
 
 	/**
@@ -82,19 +82,19 @@ class roster_locale
 	{
 		if( file_exists($localefile) )
 		{
-			include($localefile);
+			include ($localefile);
 		}
 		else
 		{
-			$enUSfile = str_replace($locale . '.php','enUS.php',$localefile);
+			$enUSfile = str_replace($locale . '.php', 'enUS.php', $localefile);
 			if( file_exists($enUSfile) )
 			{
-				include($enUSfile);
+				include ($enUSfile);
 			}
 			else
 			{
 				// Do nothing for now. Nothing wrong with an addon not having any of its own localization
-				//die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
+			//die_quietly('Could not include locale file [' . $localefile . ']','Locale Inclusion Error',__FILE__,__LINE__);
 			}
 		}
 
@@ -124,7 +124,7 @@ class roster_locale
 	 * @param string $locale | Locale to search key
 	 * @return string
 	 */
-	function get_string( $key , $addon='' , $locale='' )
+	function get_string( $key , $addon = '' , $locale = '' )
 	{
 		if( $locale == '' )
 		{
@@ -138,14 +138,14 @@ class roster_locale
 
 			if( file_exists($localefile) )
 			{
-				include($localefile);
+				include ($localefile);
 			}
 			else
 			{
-				$enUSfile = str_replace($locale . '.php','enUS.php',$localefile);
+				$enUSfile = str_replace($locale . '.php', 'enUS.php', $localefile);
 				if( file_exists($enUSfile) )
 				{
-					include($enUSfile);
+					include ($enUSfile);
 				}
 			}
 		}
@@ -154,7 +154,7 @@ class roster_locale
 		{
 			$array_key = key($key);
 			$sub_key = array_pop($key);
-			if( isset($lang[$array_key][$sub_key]))
+			if( isset($lang[$array_key][$sub_key]) )
 			{
 				return $lang[$array_key][$sub_key];
 			}

@@ -13,18 +13,18 @@
  * @link       http://www.wowroster.net
  * @package    GuildBank
  * @subpackage Locale
-*/
+ */
 
-$lang['gbankbutton']='Banco de la hermandad|Muestra el inventario de los personajes marcados como banco de la hermandad';
-$lang['guildbank']='Banco de la hermandad';
-$lang['guildbank_desc']='Muestra el inventario de los personajes marcados como banco de la hermandad';
-$lang['guildbank_totalmoney']='Fondos del banco';
+$lang['gbankbutton'] = 'Banco de la hermandad|Muestra el inventario de los personajes marcados como banco de la hermandad';
+$lang['guildbank'] = 'Banco de la hermandad';
+$lang['guildbank_desc'] = 'Muestra el inventario de los personajes marcados como banco de la hermandad';
+$lang['guildbank_totalmoney'] = 'Fondos del banco';
 
 $lang['gbank_list'] = 'Listado completo';
 $lang['gbank_inv'] = 'Inventario';
 $lang['gbank_not_loaded'] = '<strong>%1$s</strong> no ha subido un inventario todavía';
-$lang['guildbankcontact']='Mantenido por (Contacto)';
-$lang['guildbankitem']='Nombre del objeto y descripción';
+$lang['guildbankcontact'] = 'Mantenido por (Contacto)';
+$lang['guildbankitem'] = 'Nombre del objeto y descripción';
 
 $lang['admin']['guildbank_conf'] = 'Banco de la hermandad|Elige como mostrar el banco y los personajes';
 $lang['admin']['guildbank_ver'] = "Banco de la hermandad|Banco de la hermandad<br><br>&quot;Tabla&quot; muestra todos los objetos de todos los jugadores banco en una única lista<br>&quot;Inventario&quot; muestra una tabla por cada uno de los jugadores banco";

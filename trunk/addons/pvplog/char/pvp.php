@@ -12,19 +12,19 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    PvPLog
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
-include_once($addon['inc_dir'] . 'pvp.lib.php');
+include_once ($addon['inc_dir'] . 'pvp.lib.php');
 
-$roster->output['title'] = sprintf($roster->locale->act['pvplog'],$roster->data['name']);
+$roster->output['title'] = sprintf($roster->locale->act['pvplog'], $roster->data['name']);
 
 // Check for start for pvp log data
-$start = (isset($_GET['start']) ? ( $_GET['start'] > 0 ? $_GET['start'] : 0 ) : 0);
+$start = (isset($_GET['start']) ? ($_GET['start'] > 0 ? $_GET['start'] : 0) : 0);
 
 // Get pvp table/recipe sort mode
 $sort = (isset($_GET['s']) ? $_GET['s'] : '');

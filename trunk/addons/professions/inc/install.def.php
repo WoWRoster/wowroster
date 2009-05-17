@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    Professions
  * @subpackage Installer
-*/
+ */
 
-if ( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -35,17 +35,18 @@ class professionsInstall
 	var $fullname = 'professions';
 	var $description = 'professions_desc';
 	var $credits = array(
-		array(	"name"=>	"vgjunkie",
-				"info"=>	"Original Author")
+		array(
+			"name" => "vgjunkie",
+			"info" => "Original Author"
+		)
 	);
-
 
 	/**
 	 * Install Function
 	 *
 	 * @return bool
 	 */
-	function install()
+	function install( )
 	{
 		global $installer;
 
@@ -56,7 +57,7 @@ class professionsInstall
 		$installer->add_config("'1010','show_new_skills','0','radio{No^0|Yes^1','professions_conf'");
 		$installer->add_config("'1020','collapse_list','0','radio{Show^0|Hide^1','professions_conf'");
 
-		$installer->add_menu_button('professions_menu','guild','','trade_blacksmithing');
+		$installer->add_menu_button('professions_menu', 'guild', '', 'trade_blacksmithing');
 		return true;
 	}
 
@@ -66,16 +67,16 @@ class professionsInstall
 	 * @param string $oldversion
 	 * @return bool
 	 */
-	function upgrade($oldversion)
+	function upgrade( $oldversion )
 	{
 		global $installer;
 
-		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
+		if( version_compare($oldversion, '1.9.9.1562', '<') )
 		{
 			$installer->add_config("'1030','professions_access','0','access','professions_conf'");
 		}
 
-		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
+		if( version_compare($oldversion, '1.9.9.1758', '<') )
 		{
 			$installer->remove_config('1030');
 		}
@@ -88,7 +89,7 @@ class professionsInstall
 	 *
 	 * @return bool
 	 */
-	function uninstall()
+	function uninstall( )
 	{
 		global $installer;
 

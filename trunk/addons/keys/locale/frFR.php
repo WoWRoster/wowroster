@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    InstanceKeys
  * @subpackage Locale
-*/
+ */
 
 $lang['keys'] = 'Clefs';
 $lang['keys_desc'] = 'Liste les clefs de donjon que possèdent les membres de la guilde';
@@ -31,8 +31,8 @@ $lang['admin']['colorcur'] = 'Couleur étape en cours|Couleur pour l\'étape en 
 $lang['admin']['colorno'] = 'Couleur étape à venir|Couleur pour les étapes à venir apparaissant dans l\'infobulle de suivi des étapes pour l\'acquisition de la clef (quêtes ou parties)';
 
 // language definitions for the rogue instance keys 'fix'
-$lang['thievestools']='Outils de Voleur';
-$lang['lockpicking']='Crochetage';
+$lang['thievestools'] = 'Outils de Voleur';
+$lang['lockpicking'] = 'Crochetage';
 
 $lang['Quests'] = 'Quêtes';
 $lang['Parts'] = 'Parties';

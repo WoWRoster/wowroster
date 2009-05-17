@@ -14,15 +14,15 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
-include( ROSTER_LIB . 'update.lib.php' );
-$update = new update;
+include (ROSTER_LIB . 'update.lib.php');
+$update = new update();
 
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
@@ -33,17 +33,14 @@ $roster->output['body_onload'] .= "initARC('delete','radioOn','radioOff','checkb
 $roster->scope = 'guild';
 $roster->get_scope_data();
 
-
 $roster->tpl->assign_vars(array(
-	'U_ACTION'   => makelink('&amp;start=' . $start),
+	'U_ACTION' => makelink('&amp;start=' . $start),
 	'U_GUILD_ID' => $roster->data['guild_id'],
 
-	'S_DATA'           => false,
-	'S_RESPONSE'       => false,
-	'S_RESPONSE_ERROR' => false,
-	)
-);
-
+	'S_DATA' => false,
+	'S_RESPONSE' => false,
+	'S_RESPONSE_ERROR' => false
+));
 
 /**
  * Process a new line
@@ -51,12 +48,12 @@ $roster->tpl->assign_vars(array(
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 	// We have a response
-	$roster->tpl->assign_var('S_RESPONSE',true);
+	$roster->tpl->assign_var('S_RESPONSE', true);
 
-	if( substr($_POST['action'],0,9) == 'delguild_' )
+	if( substr($_POST['action'], 0, 9) == 'delguild_' )
 	{
-		$sel_guild = substr($_POST['action'],9);
-		$update->deleteGuild( $sel_guild, time() );
+		$sel_guild = substr($_POST['action'], 9);
+		$update->deleteGuild($sel_guild, time());
 
 		$roster->scope = 'none';
 		$roster->anchor = '';
@@ -71,18 +68,18 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		$member_ids = implode(',', $member_ids);
 
 		$update->setMessage('<li>Deleting members "' . $member_ids . '".</li>');
-		$update->deleteMembers( $member_ids );
+		$update->deleteMembers($member_ids);
 	}
-	elseif( substr($_POST['action'],0,4) == 'del_' )
+	elseif( substr($_POST['action'], 0, 4) == 'del_' )
 	{
-		$member_id = substr($_POST['action'],4);
+		$member_id = substr($_POST['action'], 4);
 
 		$update->setMessage('<li>Deleting member "' . $member_id . '".</li>');
-		$update->deleteMembers( $member_id );
+		$update->deleteMembers($member_id);
 	}
 	elseif( $_POST['action'] == 'clean' )
 	{
-		$update->enforceRules( time() );
+		$update->enforceRules(time());
 	}
 
 	$messages = $update->getMessages();
@@ -93,37 +90,31 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	{
 		// We have errors
 		$roster->tpl->assign_vars(array(
-			'S_RESPONSE_ERROR'   => true,
-			'RESPONSE_ERROR'     => $errors,
-			'RESPONSE_ERROR_LOG' => htmlspecialchars(stripAllHtml($errors)),
-			)
-		);
+			'S_RESPONSE_ERROR' => true,
+			'RESPONSE_ERROR' => $errors,
+			'RESPONSE_ERROR_LOG' => htmlspecialchars(stripAllHtml($errors))
+		));
 	}
 
 	$roster->tpl->assign_vars(array(
-		'RESPONSE'      => $messages,
-		'RESPONSE_POST' => htmlspecialchars(stripAllHtml($messages)),
-		)
-	);
+		'RESPONSE' => $messages,
+		'RESPONSE_POST' => htmlspecialchars(stripAllHtml($messages))
+	));
 }
-
 
 /**
  * Actual list
  */
-$query = "SELECT "
-	. " COUNT( `member_id` )"
-	. " FROM `" . $roster->db->table('members') . "`"
-	. " WHERE `guild_id` = " . ( isset($roster->data['guild_id']) ? $roster->data['guild_id'] : 0 ) . ";";
+$query = "SELECT " . " COUNT( `member_id` )" . " FROM `" . $roster->db->table('members') . "`" . " WHERE `guild_id` = " . (isset($roster->data['guild_id']) ? $roster->data['guild_id'] : 0) . ";";
 
 $num_members = $roster->db->query_first($query);
 
 if( $num_members > 0 )
 {
-	$roster->tpl->assign_var('S_DATA',true);
+	$roster->tpl->assign_var('S_DATA', true);
 
 	// Draw the header line
-	if ($start > 0)
+	if( $start > 0 )
 	{
 		$prev = '<a href="' . makelink('&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ($start - 30)) . '">&lt;</a> ';
 	}
@@ -132,10 +123,10 @@ if( $num_members > 0 )
 		$prev = '';
 	}
 
-	if (($start+30) < $num_members)
+	if( ($start + 30) < $num_members )
 	{
-		$listing = ' <small>[' . $start . ' - ' . ($start+30) . '] of ' . $num_members . '</small>';
-		$next = ' <a href="' . makelink('&amp;start=' . ($start+30)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ( floor( $num_members / 30) * 30 )) . '">&gt;&gt;|</a>';
+		$listing = ' <small>[' . $start . ' - ' . ($start + 30) . '] of ' . $num_members . '</small>';
+		$next = ' <a href="' . makelink('&amp;start=' . ($start + 30)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . (floor($num_members / 30) * 30)) . '">&gt;&gt;|</a>';
 	}
 	else
 	{
@@ -144,19 +135,14 @@ if( $num_members > 0 )
 	}
 
 	$roster->tpl->assign_vars(array(
-		'PREV'    => $prev,
-		'NEXT'    => $next,
+		'PREV' => $prev,
+		'NEXT' => $next,
 		'LISTING' => $listing
-		)
-	);
+	));
 
-	$i=0;
+	$i = 0;
 
-	$query = "SELECT `member_id`, `name`, `server`, `region`, `class`, `level`"
-		. " FROM `" . $roster->db->table('members') . "`"
-		. " WHERE `guild_id` = " . $roster->data['guild_id']
-		. " ORDER BY `name` ASC"
-		. " LIMIT " . ($start > 0 ? $start : 0) . ", 30;";
+	$query = "SELECT `member_id`, `name`, `server`, `region`, `class`, `level`" . " FROM `" . $roster->db->table('members') . "`" . " WHERE `guild_id` = " . $roster->data['guild_id'] . " ORDER BY `name` ASC" . " LIMIT " . ($start > 0 ? $start : 0) . ", 30;";
 
 	$result = $roster->db->query($query);
 
@@ -164,14 +150,13 @@ if( $num_members > 0 )
 	{
 		$roster->tpl->assign_block_vars('data_list', array(
 			'ROW_CLASS' => $roster->switch_row_class(),
-			'ID'        => $row['member_id'],
-			'NAME'      => $row['name'],
-			'SERVER'    => $row['server'],
-			'REGION'    => $row['region'],
-			'CLASS'     => $row['class'],
-			'LEVEL'     => $row['level'],
-			)
-		);
+			'ID' => $row['member_id'],
+			'NAME' => $row['name'],
+			'SERVER' => $row['server'],
+			'REGION' => $row['region'],
+			'CLASS' => $row['class'],
+			'LEVEL' => $row['level']
+		));
 
 		$i++;
 	}
@@ -179,5 +164,5 @@ if( $num_members > 0 )
 	$roster->db->free_result($result);
 }
 
-$roster->tpl->set_filenames(array('body' => 'admin/data_manager.html'));
+$roster->tpl->set_handle('body', 'admin/data_manager.html');
 $body = $roster->tpl->fetch('body');

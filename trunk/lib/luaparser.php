@@ -14,11 +14,11 @@
  * @since      File available since Release 1.03
  * @package    WoWRoster
  * @subpackage Lua
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -35,7 +35,7 @@ class lua
 	var $handle;
 	var $line;
 
-	function lua()
+	function lua( )
 	{
 		if( !function_exists('gzopen') )
 		{
@@ -44,21 +44,21 @@ class lua
 		}
 	}
 
-	function __openfile($mode)
+	function __openfile( $mode )
 	{
 		switch( $this->type )
 		{
 			case 'gz':
-				$this->handle = gzopen($this->file_location,$mode);
+				$this->handle = gzopen($this->file_location, $mode);
 				break;
 
 			case 'file':
-				$this->handle = fopen($this->file_location,$mode);
+				$this->handle = fopen($this->file_location, $mode);
 				break;
 		}
 	}
 
-	function __getline()
+	function __getline( )
 	{
 		switch( $this->type )
 		{
@@ -72,7 +72,7 @@ class lua
 		}
 	}
 
-	function __endoffile()
+	function __endoffile( )
 	{
 		switch( $this->type )
 		{
@@ -86,7 +86,7 @@ class lua
 		}
 	}
 
-	function __closefile()
+	function __closefile( )
 	{
 		switch( $this->type )
 		{
@@ -150,11 +150,11 @@ class lua
 	 * @param string	$file_location
 	 * @return array	Lua file converted to PHP array
 	 */
-	function luatophp( $file_location, $blinds )
+	function luatophp( $file_location , $blinds )
 	{
 		if( $this->setfile($file_location) )
 		{
-			return $this->tophp( $blinds );
+			return $this->tophp($blinds);
 		}
 		else
 		{
@@ -173,7 +173,7 @@ class lua
 	{
 		if( $this->file_location != '' )
 		{
-			$stack = array( array( '',  array() ) );
+			$stack = array(array('', array()));
 			$stack_pos = 0;
 			$path = '/';
 			$this->__openfile('r');
@@ -203,12 +203,12 @@ class lua
 				else
 				{
 					// Check if the key is given
-					if( strpos($this->line,'=') )
+					if( strpos($this->line, '=') )
 					{
-						list($name, $value) = explode( '=', $this->line, 2 );
+						list($name, $value) = explode('=', $this->line, 2);
 						$name = trim($name);
-						$value = trim($value,', ');
-						if($name[0]=='[')
+						$value = trim($value, ', ');
+						if( $name[0] == '[' )
 						{
 							$name = trim($name, '[]"');
 						}
@@ -229,15 +229,15 @@ class lua
 						}
 						else
 						{
-							$name = max(array_keys($stack[$stack_pos][1]))+1;
+							$name = max(array_keys($stack[$stack_pos][1])) + 1;
 						}
-						if( strpos($this->line,'-- [') )
+						if( strpos($this->line, '-- [') )
 						{
-							$value = explode('-- [',$value);
+							$value = explode('-- [', $value);
 							array_pop($value);
-							$value = implode('-- [',$value);
+							$value = implode('-- [', $value);
 						}
-						$value = trim($value,', ');
+						$value = trim($value, ', ');
 					}
 					if( isset($value) && $value == '{' )
 					{
@@ -247,9 +247,9 @@ class lua
 					}
 					else
 					{
-						if( isset($value[0]) && $value[0]=='"' )
+						if( isset($value[0]) && $value[0] == '"' )
 						{
-							$value = substr($value,1,-1);
+							$value = substr($value, 1, -1);
 						}
 						elseif( $value == 'true' )
 						{
@@ -269,7 +269,7 @@ class lua
 			}
 
 			$this->__closefile();
-			return($stack[0][1]);
+			return ($stack[0][1]);
 		}
 		else
 		{
@@ -293,7 +293,7 @@ class lua
 	 * @return string The lua result
 	 * bool	False on error
 	 */
-	function phptolua( $phparray , $indent='' , $top=false )
+	function phptolua( $phparray , $indent = '' , $top = false )
 	{
 		if( $indent == '' )
 		{
@@ -330,7 +330,7 @@ class lua
 			}
 			elseif( is_string($value) )
 			{
-				$out .= '"' . addcslashes($value,"\n\"\\") . '"';
+				$out .= '"' . addcslashes($value, "\n\"\\") . '"';
 			}
 			elseif( is_numeric($value) )
 			{

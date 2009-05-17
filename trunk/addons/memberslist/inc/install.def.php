@@ -28,7 +28,7 @@ class memberslistInstall
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '2.0.9.1883';
+	var $version = '2.0.9.1976';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
@@ -79,7 +79,6 @@ class memberslistInstall
 		$installer->add_config("1120,'page_size','0','text{4|30','display'");
 
 		# Per page settings: Memberlist
-		$installer->add_config("2000,'member_update_inst','1','radio{Off^0|On^1','members'");
 		$installer->add_config("2010,'member_motd','1','radio{Off^0|On^1','members'");
 		$installer->add_config("2020,'member_hslist','1','radio{Off^0|On^1','members'");
 		$installer->add_config("2030,'member_pvplist','1','radio{Off^0|On^1','members'");
@@ -96,7 +95,6 @@ class memberslistInstall
 		$installer->add_config("2140,'member_onote','0','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','members'");
 
 		# Per page settings: Statslist
-		$installer->add_config("3000,'stats_update_inst','0','radio{Off^0|On^1','stats'");
 		$installer->add_config("3010,'stats_motd','0','radio{Off^0|On^1','stats'");
 		$installer->add_config("3020,'stats_hslist','0','radio{Off^0|On^1','stats'");
 		$installer->add_config("3030,'stats_pvplist','0','radio{Off^0|On^1','stats'");
@@ -117,7 +115,6 @@ class memberslistInstall
 		$installer->add_config("3180,'stats_crit','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','stats'");
 
 		# Per page settings: Honorlist
-		$installer->add_config("4000,'honor_update_inst','0','radio{Off^0|On^1','honor'");
 		$installer->add_config("4010,'honor_motd','0','radio{Off^0|On^1','honor'");
 		$installer->add_config("4020,'honor_hslist','1','radio{Off^0|On^1','honor'");
 		$installer->add_config("4030,'honor_pvplist','1','radio{Off^0|On^1','honor'");
@@ -133,7 +130,6 @@ class memberslistInstall
 		$installer->add_config("4130,'honor_ap','2','radio{Force Hidden^0|Default Hidden^1|Default Shown^2|Force Shown^3','honor'");
 
 		# Per page settings: Member Log
-		$installer->add_config("5000,'log_update_inst','0','radio{Off^0|On^1','log'");
 		$installer->add_config("5010,'log_motd','0','radio{Off^0|On^1','log'");
 		$installer->add_config("5020,'log_hslist','0','radio{Off^0|On^1','log'");
 		$installer->add_config("5030,'log_pvplist','0','radio{Off^0|On^1','log'");
@@ -257,6 +253,15 @@ class memberslistInstall
 			$installer->add_menu_button('memberslist_Honor','realm','honorlist','inv_jewelry_necklace_37',false);
 			$installer->add_menu_button('memberslist_Log','realm','log','inv_misc_symbolofkings_01',false);
 			$installer->add_menu_button('memberslist_Skills','realm','skilllist','inv_scroll_12',false);
+		}
+
+		// Remove the update instructions since they are being moved to the update page
+		if( version_compare('2.0.9.1976', $oldversion, '>') == true )
+		{
+			$installer->add_query("DELETE FROM `" . $installer->table('config_guild') . "` WHERE `id` = '2000';");
+			$installer->add_query("DELETE FROM `" . $installer->table('config_guild') . "` WHERE `id` = '3000';");
+			$installer->add_query("DELETE FROM `" . $installer->table('config_guild') . "` WHERE `id` = '4000';");
+			$installer->add_query("DELETE FROM `" . $installer->table('config_guild') . "` WHERE `id` = '5000';");
 		}
 
 		return true;

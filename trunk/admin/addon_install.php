@@ -14,34 +14,32 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 $roster->output['title'] .= $roster->locale->act['pagebar_addoninst'];
 
+include (ROSTER_ADMIN . 'roster_config_functions.php');
 
-include(ROSTER_ADMIN . 'roster_config_functions.php');
+include (ROSTER_LIB . 'install.lib.php');
+$installer = new Install();
 
-include(ROSTER_LIB . 'install.lib.php');
-$installer = new Install;
+$op = (isset($_POST['op']) ? $_POST['op'] : '');
 
-
-$op = ( isset($_POST['op']) ? $_POST['op'] : '' );
-
-$id = ( isset($_POST['id']) ? $_POST['id'] : '' );
+$id = (isset($_POST['id']) ? $_POST['id'] : '');
 
 switch( $op )
 {
 	case 'deactivate':
-		processActive($id,0);
+		processActive($id, 0);
 		break;
 
 	case 'activate':
-		processActive($id,1);
+		processActive($id, 1);
 		break;
 
 	case 'process':
@@ -62,17 +60,16 @@ switch( $op )
 // This is here to refresh the addon list
 $roster->get_addon_data();
 
-$l_default_page = explode('|',$roster->locale->act['admin']['default_page']);
+$l_default_page = explode('|', $roster->locale->act['admin']['default_page']);
 
 $roster->tpl->assign_vars(array(
 	'S_ADDON_LIST' => false,
 
 	'L_DEFAULT_PAGE' => $l_default_page[0],
-	'L_DEFAULT_PAGE_HELP' => makeOverlib($l_default_page[1],$l_default_page[0],'',0,'',',WRAP'),
+	'L_DEFAULT_PAGE_HELP' => makeOverlib($l_default_page[1], $l_default_page[0], '', 0, '', ',WRAP'),
 
-	'S_DEFAULT_SELECT' => pageNames(),
-	)
-);
+	'S_DEFAULT_SELECT' => pageNames()
+));
 
 $addons = getAddonList();
 
@@ -81,19 +78,18 @@ if( !empty($addons) )
 	$roster->tpl->assign_vars(array(
 		'S_ADDON_LIST' => true,
 
-		'L_TIP_STATUS_ACTIVE' => makeOverlib($roster->locale->act['installer_turn_off'],$roster->locale->act['installer_activated']),
-		'L_TIP_STATUS_INACTIVE' => makeOverlib($roster->locale->act['installer_turn_on'],$roster->locale->act['installer_deactivated']),
-		'L_TIP_INSTALL_OLD' => makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']),
-		'L_TIP_INSTALL' => makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']),
-		'L_TIP_UNINSTALL' => makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']),
-		)
-	);
+		'L_TIP_STATUS_ACTIVE' => makeOverlib($roster->locale->act['installer_turn_off'], $roster->locale->act['installer_activated']),
+		'L_TIP_STATUS_INACTIVE' => makeOverlib($roster->locale->act['installer_turn_on'], $roster->locale->act['installer_deactivated']),
+		'L_TIP_INSTALL_OLD' => makeOverlib($roster->locale->act['installer_replace_files'], $roster->locale->act['installer_overwrite']),
+		'L_TIP_INSTALL' => makeOverlib($roster->locale->act['installer_click_uninstall'], $roster->locale->act['installer_installed']),
+		'L_TIP_UNINSTALL' => makeOverlib($roster->locale->act['installer_click_install'], $roster->locale->act['installer_not_installed'])
+	));
 
 	foreach( $addons as $addon )
 	{
 		if( !empty($addon['icon']) )
 		{
-			if( strpos($addon['icon'],'.') !== false )
+			if( strpos($addon['icon'], '.') !== false )
 			{
 				$addon['icon'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/' . $addon['icon'];
 			}
@@ -108,21 +104,23 @@ if( !empty($addons) )
 		}
 
 		$roster->tpl->assign_block_vars('addon_list', array(
-			'ROW_CLASS'   => $roster->switch_row_class(),
-			'ID'          => ( isset($addon['id']) ? $addon['id'] : '' ),
-			'ICON'        => $addon['icon'],
-			'FULLNAME'    => $addon['fullname'],
-			'BASENAME'    => $addon['basename'],
-			'VERSION'     => $addon['version'],
-			'OLD_VERSION' => ( isset($addon['oldversion']) ? $addon['oldversion'] : '' ),
+			'ROW_CLASS' => $roster->switch_row_class(),
+			'ID' => (isset($addon['id']) ? $addon['id'] : ''),
+			'ICON' => $addon['icon'],
+			'FULLNAME' => $addon['fullname'],
+			'BASENAME' => $addon['basename'],
+			'VERSION' => $addon['version'],
+			'OLD_VERSION' => (isset($addon['oldversion']) ? $addon['oldversion'] : ''),
 			'DESCRIPTION' => $addon['description'],
-			'AUTHOR'      => $addon['author'],
-			'ACTIVE'      => ( isset($addon['active']) ? $addon['active'] : '' ),
-			'INSTALL'     => $addon['install'],
-			'L_TIP_UPGRADE' => ( isset($addon['active']) ? makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'],$addon['oldversion'],$addon['version']),$roster->locale->act['installer_upgrade_avail']) : '' ),
-			'ACCESS'      => ( isset($addon['access']) ? $roster->auth->rosterAccess(array('name' => 'access', 'value' => $addon['access'])) : false )
-			)
-		);
+			'AUTHOR' => $addon['author'],
+			'ACTIVE' => (isset($addon['active']) ? $addon['active'] : ''),
+			'INSTALL' => $addon['install'],
+			'L_TIP_UPGRADE' => (isset($addon['active']) ? makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'], $addon['oldversion'], $addon['version']), $roster->locale->act['installer_upgrade_avail']) : ''),
+			'ACCESS' => (isset($addon['access']) ? $roster->auth->rosterAccess(array(
+				'name' => 'access',
+				'value' => $addon['access']
+			)) : false)
+		));
 	}
 }
 else
@@ -137,26 +135,24 @@ $sqlstringout = $installer->getsql();
 // print the error messages
 if( !empty($errorstringout) )
 {
-	$rcp_message .= messagebox($errorstringout,$roster->locale->act['installer_error'],'sred') . '<br />';
+	$rcp_message .= messagebox($errorstringout, $roster->locale->act['installer_error'], 'sred') . '<br />';
 }
 
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$rcp_message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow') . '<br />';
+	$rcp_message .= messagebox($messagestringout, $roster->locale->act['installer_log'], 'syellow') . '<br />';
 }
 
-$roster->tpl->set_filenames(array('body' => 'admin/addon_install.html'));
+$roster->tpl->set_handle('body', 'admin/addon_install.html');
 $body = $roster->tpl->fetch('body');
-
-
 
 /**
  * Gets the list of currently installed roster addons
  *
  * @return array
  */
-function getAddonList()
+function getAddonList( )
 {
 	global $roster, $installer;
 
@@ -186,17 +182,17 @@ function getAddonList()
 
 			if( file_exists($installfile) )
 			{
-				include_once($installfile);
+				include_once ($installfile);
 
 				if( !class_exists($install_class) )
 				{
-					$installer->seterrors(sprintf($roster->locale->act['installer_no_class'],$addon));
+					$installer->seterrors(sprintf($roster->locale->act['installer_no_class'], $addon));
 					continue;
 				}
 
-				$addonstuff = new $install_class;
+				$addonstuff = new $install_class();
 
-				if( array_key_exists($addon,$roster->addon_data) )
+				if( array_key_exists($addon, $roster->addon_data) )
 				{
 					$output[$addon]['id'] = $roster->addon_data[$addon]['addon_id'];
 					$output[$addon]['active'] = $roster->addon_data[$addon]['active'];
@@ -206,7 +202,7 @@ function getAddonList()
 					// -1 = overwrote newer version
 					//  0 = same version
 					//  1 = upgrade available
-					$output[$addon]['install'] = version_compare($addonstuff->version,$roster->addon_data[$addon]['version']);
+					$output[$addon]['install'] = version_compare($addonstuff->version, $roster->addon_data[$addon]['version']);
 
 				}
 				else
@@ -221,15 +217,15 @@ function getAddonList()
 
 				foreach( $roster->multilanguages as $lang )
 				{
-					$roster->locale->add_locale_file(ROSTER_ADDONS . $addon . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+					$roster->locale->add_locale_file(ROSTER_ADDONS . $addon . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
 				}
 
 				$output[$addon]['basename'] = $addon;
-				$output[$addon]['fullname'] = ( isset($roster->locale->act[$addonstuff->fullname]) ? $roster->locale->act[$addonstuff->fullname] : $addonstuff->fullname );
+				$output[$addon]['fullname'] = (isset($roster->locale->act[$addonstuff->fullname]) ? $roster->locale->act[$addonstuff->fullname] : $addonstuff->fullname);
 				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
 				$output[$addon]['version'] = $addonstuff->version;
 				$output[$addon]['icon'] = $addonstuff->icon;
-				$output[$addon]['description'] = ( isset($roster->locale->act[$addonstuff->description]) ? $roster->locale->act[$addonstuff->description] : $addonstuff->description );
+				$output[$addon]['description'] = (isset($roster->locale->act[$addonstuff->description]) ? $roster->locale->act[$addonstuff->description] : $addonstuff->description);
 
 				unset($addonstuff);
 
@@ -241,7 +237,6 @@ function getAddonList()
 	}
 	return $output;
 }
-
 
 /**
  * Sets addon active/inactive
@@ -261,17 +256,16 @@ function processActive( $id , $mode )
 	}
 	else
 	{
-		$mode = ( $mode ? $roster->locale->act['installer_activated'] : $roster->locale->act['installer_deactivated'] );
+		$mode = ($mode ? $roster->locale->act['installer_activated'] : $roster->locale->act['installer_deactivated']);
 		$installer->setmessages('Addon ' . $mode);
 	}
 }
-
 
 /**
  * Addon installer/upgrader/uninstaller
  *
  */
-function processAddon()
+function processAddon( )
 {
 	global $roster, $installer;
 
@@ -279,7 +273,7 @@ function processAddon()
 
 	if( preg_match('/[^a-zA-Z0-9_]/', $addon_name) )
 	{
-		$installer->seterrors($roster->locale->act['invalid_char_module'],$roster->locale->act['installer_error']);
+		$installer->seterrors($roster->locale->act['invalid_char_module'], $roster->locale->act['installer_error']);
 		return;
 	}
 
@@ -296,6 +290,7 @@ function processAddon()
 	}
 	//$roster->db->error_die($old_error_die);
 
+
 	// Include addon install definitions
 	$addonDir = ROSTER_ADDONS . $addon_name . DIR_SEP;
 	$addon_install_file = $addonDir . 'inc' . DIR_SEP . 'install.def.php';
@@ -303,11 +298,11 @@ function processAddon()
 
 	if( !file_exists($addon_install_file) )
 	{
-		$installer->seterrors(sprintf($roster->locale->act['installer_no_installdef'],$addon_name),$roster->locale->act['installer_error']);
+		$installer->seterrors(sprintf($roster->locale->act['installer_no_installdef'], $addon_name), $roster->locale->act['installer_error']);
 		return;
 	}
 
-	require($addon_install_file);
+	require ($addon_install_file);
 
 	$addon = new $install_class();
 	$addata = escape_array((array)$addon);
@@ -315,7 +310,7 @@ function processAddon()
 
 	if( $addata['basename'] == '' )
 	{
-		$installer->seterrors($roster->locale->act['installer_no_empty'],$roster->locale->act['installer_error']);
+		$installer->seterrors($roster->locale->act['installer_no_empty'], $roster->locale->act['installer_error']);
 		return;
 	}
 
@@ -324,7 +319,7 @@ function processAddon()
 	$result = $roster->db->query($query);
 	if( !$result )
 	{
-		$installer->seterrors(sprintf($roster->locale->act['installer_fetch_failed'],$addata['basename']) . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error']);
+		$installer->seterrors(sprintf($roster->locale->act['installer_fetch_failed'], $addata['basename']) . '.<br />MySQL said: ' . $roster->db->error(), $roster->locale->act['installer_error']);
 		return;
 	}
 	$previous = $roster->db->fetch($result);
@@ -335,7 +330,6 @@ function processAddon()
 
 	$success = false;
 
-
 	// Save current locale array
 	// Since we add all locales for localization, we save the current locale array
 	// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
@@ -343,7 +337,7 @@ function processAddon()
 
 	foreach( $roster->multilanguages as $lang )
 	{
-		$roster->locale->add_locale_file(ROSTER_ADDONS . $addata['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+		$roster->locale->add_locale_file(ROSTER_ADDONS . $addata['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php', $lang);
 	}
 
 	// Collect data for this install type
@@ -352,14 +346,14 @@ function processAddon()
 		case 'install':
 			if( $previous )
 			{
-				$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'], $installer->addata['basename'], $previous['fullname']));
 				break;
 			}
 			$query = 'INSERT INTO `' . $roster->db->table('addon') . '` VALUES (NULL,"' . $installer->addata['basename'] . '","' . $installer->addata['version'] . '","' . (int)$installer->addata['active'] . '",0,"' . $installer->addata['fullname'] . '","' . $installer->addata['description'] . '","' . $roster->db->escape(serialize($installer->addata['credits'])) . '","' . $installer->addata['icon'] . '","' . $installer->addata['wrnet_id'] . '",NULL);';
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
-				$installer->seterrors('DB error while creating new addon record. <br /> MySQL said:' . $roster->db->error(),$roster->locale->act['installer_error']);
+				$installer->seterrors('DB error while creating new addon record. <br /> MySQL said:' . $roster->db->error(), $roster->locale->act['installer_error']);
 				break;
 			}
 			$installer->addata['addon_id'] = $roster->db->insert_id();
@@ -384,7 +378,7 @@ function processAddon()
 		case 'upgrade':
 			if( !$previous )
 			{
-				$installer->seterrors(sprintf($roster->locale->act['installer_no_upgrade'],$installer->addata['basename']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_no_upgrade'], $installer->addata['basename']));
 				break;
 			}
 			/* Carry Over from AP branch
@@ -399,7 +393,7 @@ function processAddon()
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
-				$installer->seterrors('DB error while updating the addon record. <br /> MySQL said:' . $roster->db->error(),$roster->locale->act['installer_error']);
+				$installer->seterrors('DB error while updating the addon record. <br /> MySQL said:' . $roster->db->error(), $roster->locale->act['installer_error']);
 				break;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
@@ -413,19 +407,19 @@ function processAddon()
 		case 'uninstall':
 			if( !$previous )
 			{
-				$installer->seterrors(sprintf($roster->locale->act['installer_no_uninstall'],$installer->addata['basename']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_no_uninstall'], $installer->addata['basename']));
 				break;
 			}
 			if( $previous['basename'] != $installer->addata['basename'] )
 			{
-				$installer->seterrors(sprintf($roster->locale->act['installer_not_uninstallable'],$installer->addata['basename'],$previous['fullname']));
+				$installer->seterrors(sprintf($roster->locale->act['installer_not_uninstallable'], $installer->addata['basename'], $previous['fullname']));
 				break;
 			}
 			$query = 'DELETE FROM `' . $roster->db->table('addon') . '` WHERE `addon_id`=' . $previous['addon_id'] . ';';
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
-				$installer->seterrors('DB error while deleting the addon record. <br /> MySQL said:' . $roster->db->error(),$roster->locale->act['installer_error']);
+				$installer->seterrors('DB error while deleting the addon record. <br /> MySQL said:' . $roster->db->error(), $roster->locale->act['installer_error']);
 				break;
 			}
 			$installer->addata['addon_id'] = $previous['addon_id'];
@@ -454,7 +448,7 @@ function processAddon()
 	else
 	{
 		$success = $installer->install();
-		$installer->setmessages(sprintf($roster->locale->act['installer_' . $_POST['type'] . '_' . $success],$installer->addata['basename']));
+		$installer->setmessages(sprintf($roster->locale->act['installer_' . $_POST['type'] . '_' . $success], $installer->addata['basename']));
 	}
 
 	// Restore our locale array
@@ -463,7 +457,6 @@ function processAddon()
 
 	return true;
 }
-
 
 /**
  * Addon purge
@@ -481,18 +474,18 @@ function purge( $dbname )
 	$tables = $roster->db->query($query);
 	if( !$tables )
 	{
-		$installer->seterrors('Error while getting table names for ' . $dbname . '. MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+		$installer->seterrors('Error while getting table names for ' . $dbname . '. MySQL said: ' . $roster->db->error(), $roster->locale->act['installer_error'], __FILE__, __LINE__, $query);
 		return false;
 	}
 	if( $roster->db->num_rows($tables) )
 	{
-		while ($row = $roster->db->fetch($tables))
+		while( $row = $roster->db->fetch($tables) )
 		{
 			$query = 'DROP TABLE `' . $row[0] . '`;';
 			$dropped = $roster->db->query($query);
 			if( !$dropped )
 			{
-				$installer->seterrors('Error while dropping ' . $row[0] . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+				$installer->seterrors('Error while dropping ' . $row[0] . '.<br />MySQL said: ' . $roster->db->error(), $roster->locale->act['installer_error'], __FILE__, __LINE__, $query);
 				return false;
 			}
 		}
@@ -506,29 +499,29 @@ function purge( $dbname )
 	{
 		// Delete menu entries
 		$query = 'DELETE FROM `' . $roster->db->table('menu_button') . '` WHERE `addon_id` = "' . $addon_id . '";';
-		$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+		$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(), $roster->locale->act['installer_error'], __FILE__, __LINE__, $query);
 		// Delete addon config entries
 		$query = 'DELETE FROM `' . $roster->db->table('addon_config') . '` WHERE `addon_id` = "' . $addon_id . '";';
-		$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+		$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(), $roster->locale->act['installer_error'], __FILE__, __LINE__, $query);
 	}
 
 	// Delete addon table entry
 	$query = 'DELETE FROM `' . $roster->db->table('addon') . '` WHERE `basename` = "' . $dbname . '"';
-	$roster->db->query($query) or $installer->seterrors('Error while deleting addon table entry for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+	$roster->db->query($query) or $installer->seterrors('Error while deleting addon table entry for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(), $roster->locale->act['installer_error'], __FILE__, __LINE__, $query);
 
 	return true;
 }
 
-function processPage()
+function processPage( )
 {
 	global $roster;
 
-	$default = ( $_POST['config_default_page'] );
+	$default = ($_POST['config_default_page']);
 	$query = "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '$default' WHERE `id` = '1050';";
 
 	if( !$roster->db->query($query) )
 	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+		die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
 	}
 	else
 	{
@@ -537,17 +530,16 @@ function processPage()
 	}
 }
 
-
-function processAccess()
+function processAccess( )
 {
 	global $roster;
 
-	$access = ( $_POST['config_access'] );
-	$id = ( $_POST['id'] );
+	$access = ($_POST['config_access']);
+	$id = ($_POST['id']);
 	$query = "UPDATE `" . $roster->db->table('addon') . "` SET `access` = '$access' WHERE `addon_id` = '$id';";
 
 	if( !$roster->db->query($query) )
 	{
-		die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
+		die_quietly($roster->db->error(), 'Database Error', __FILE__, __LINE__, $query);
 	}
 }

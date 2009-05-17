@@ -11,11 +11,11 @@
  * @link       http://www.wowroster.net
  * @package    PvPLog
  * @subpackage UpdateHook
-*/
+ */
 
-if ( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -27,10 +27,9 @@ if ( !defined('IN_ROSTER') )
  */
 class pvplogUpdate
 {
-	var $messages = '';		// Update messages
-	var $data = array();	// Addon config data automatically pulled from the addon_config table
+	var $messages = ''; // Update messages
+	var $data = array(); // Addon config data automatically pulled from the addon_config table
 	var $files = array();
-
 
 	/**
 	 * Class instantiation
@@ -57,21 +56,21 @@ class pvplogUpdate
 		$pvpdata = $update->uploadData['pvplog'];
 		$this->reset_messages();
 
-		foreach ($pvpdata['PurgeLogData'] as $realm_name => $realm)
+		foreach( $pvpdata['PurgeLogData'] as $realm_name => $realm )
 		{
-			foreach ($realm as $char_name => $char)
+			foreach( $realm as $char_name => $char )
 			{
 				$query = "SELECT `guild_id`, `region` FROM `" . $roster->db->table('players') . "` WHERE `name` = '" . addslashes($char_name) . "' AND `server` = '" . addslashes($realm_name) . "';";
-				$result = $roster->db->query( $query );
-				if ($roster->db->num_rows($result) > 0)
+				$result = $roster->db->query($query);
+				if( $roster->db->num_rows($result) > 0 )
 				{
-					$row = $roster->db->fetch( $result );
+					$row = $roster->db->fetch($result);
 					$guild_id = $row['guild_id'];
 					$region = $row['region'];
 					$battles = $char['battles'];
 					if( version_compare($char['version'], $this->data['config']['minPvPLogver'], '>=') )
 					{
-						$this->messages .= '<strong>' . sprintf($roster->locale->act['upload_data'],'PvPLog',$char_name,$realm_name,$region) . "</strong>\n";
+						$this->messages .= '<strong>' . sprintf($roster->locale->act['upload_data'], 'PvPLog', $char_name, $realm_name, $region) . "</strong>\n";
 
 						$this->messages .= "<ul>\n";
 						$this->update_pvp($guild_id, $char_name, $battles);
@@ -79,7 +78,7 @@ class pvplogUpdate
 					}
 					else // PvPLog version not high enough
 					{
-						$this->messages .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'PvPLog',$char_name,$char['version']) . "</span><br />\n";
+						$this->messages .= '<span class="red">' . sprintf($roster->locale->act['not_updating'], 'PvPLog', $char_name, $char['version']) . "</span><br />\n";
 						$this->messages .= sprintf($roster->locale->act['PvPLogver_err'], $this->data['config']['minPvPLogver']) . "\n";
 					}
 				}
@@ -98,10 +97,7 @@ class pvplogUpdate
 	{
 		global $roster;
 
-		$query = "DELETE `" . $roster->db->table('pvp2',$this->data['basename']) . "`"
-			   . " FROM `" . $roster->db->table('pvp2',$this->data['basename']) . "`"
-			   . " LEFT JOIN `" . $roster->db->table('members') . "` USING (`member_id`)"
-			   . " WHERE `" . $roster->db->table('members') . "`.`member_id` IS NULL;";
+		$query = "DELETE `" . $roster->db->table('pvp2', $this->data['basename']) . "`" . " FROM `" . $roster->db->table('pvp2', $this->data['basename']) . "`" . " LEFT JOIN `" . $roster->db->table('members') . "` USING (`member_id`)" . " WHERE `" . $roster->db->table('members') . "`.`member_id` IS NULL;";
 
 		if( $roster->db->query($query) )
 		{
@@ -127,7 +123,7 @@ class pvplogUpdate
 	{
 		global $roster, $update;
 
-		$name_escape = $roster->db->escape( $name );
+		$name_escape = $roster->db->escape($name);
 
 		$querystr = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE `name` = '$name_escape' AND `guild_id` = '$guildId';";
 		$result = $roster->db->query($querystr);
@@ -137,9 +133,9 @@ class pvplogUpdate
 			return;
 		}
 
-		$memberInfo = $roster->db->fetch( $result );
+		$memberInfo = $roster->db->fetch($result);
 		$roster->db->free_result($result);
-		if ($memberInfo)
+		if( $memberInfo )
 		{
 			$memberId = $memberInfo['member_id'];
 		}
@@ -151,16 +147,16 @@ class pvplogUpdate
 		// process pvp
 		$this->messages .= '<li>Updating PvP data</li>';
 		// loop through each index fought
-		foreach( array_keys($data) as $index)
+		foreach( array_keys($data) as $index )
 		{
 			$playerInfo = $data[$index];
 			$playerName = $playerInfo['name'];
 			$playerDate = date('Y-m-d G:i:s', strtotime($playerInfo['date']));
-			$playerRealm = ( isset($playerInfo['realm']) ? $playerInfo['realm'] : '' );
-			$playerRace = ( isset($playerInfo['race']) ? $playerInfo['race'] : '' );
+			$playerRealm = (isset($playerInfo['realm']) ? $playerInfo['realm'] : '');
+			$playerRace = (isset($playerInfo['race']) ? $playerInfo['race'] : '');
 
 			// skip if entry already there
-			$querystr = "SELECT `guild` FROM `" . $roster->db->table('pvp2',$this->data['basename']) . "` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '" . $roster->db->escape( $playerName ) . "' AND `date` = '" . $roster->db->escape( $playerDate ) . "'" . ( !empty($playerRealm) ? " AND `realm` = '" . $roster->db->escape( $playerRealm ) . "';" : ';' );
+			$querystr = "SELECT `guild` FROM `" . $roster->db->table('pvp2', $this->data['basename']) . "` WHERE `index` = '$index' AND `member_id` = '$memberId' AND `name` = '" . $roster->db->escape($playerName) . "' AND `date` = '" . $roster->db->escape($playerDate) . "'" . (!empty($playerRealm) ? " AND `realm` = '" . $roster->db->escape($playerRealm) . "';" : ';');
 
 			$result = $roster->db->query($querystr);
 			if( !$result )
@@ -169,9 +165,9 @@ class pvplogUpdate
 				return;
 			}
 
-			$memberInfo = $roster->db->fetch( $result );
+			$memberInfo = $roster->db->fetch($result);
 			$roster->db->free_result($result);
-			if (!$memberInfo)
+			if( !$memberInfo )
 			{
 				$this->messages .= '<li>Adding PvPLog data for [' . $playerInfo['name'] . ']</li>';
 
@@ -193,7 +189,7 @@ class pvplogUpdate
 				$update->add_value('rank', $playerInfo['rank']);
 				$update->add_value('honor', $playerInfo['honor']);
 
-				$querystr = "INSERT INTO `" . $roster->db->table('pvp2',$this->data['basename']) . "` SET " . $update->assignstr . ';';
+				$querystr = "INSERT INTO `" . $roster->db->table('pvp2', $this->data['basename']) . "` SET " . $update->assignstr . ';';
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
@@ -204,38 +200,36 @@ class pvplogUpdate
 
 		// now calculate ratio
 		$wins = 0;
-		$querystr = "SELECT COUNT(`win`) AS wins FROM `" . $roster->db->table('pvp2',$this->data['basename']) . "` WHERE `win` = '1' AND `member_id` = '$memberId' GROUP BY `win`;";
+		$querystr = "SELECT COUNT(`win`) AS wins FROM `" . $roster->db->table('pvp2', $this->data['basename']) . "` WHERE `win` = '1' AND `member_id` = '$memberId' GROUP BY `win`;";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
 			$this->messages .= 'PvPLog cannot select wins';
 			return;
 		}
-		$memberInfo = $roster->db->fetch( $result );
+		$memberInfo = $roster->db->fetch($result);
 		$roster->db->free_result($result);
-		if ($memberInfo)
+		if( $memberInfo )
 			$wins = $memberInfo['wins'];
 		$this->messages .= '<li>Wins: ' . $wins . '</li>';
 
-
 		$losses = 0;
-		$querystr = "SELECT COUNT(`win`) AS losses FROM `" . $roster->db->table('pvp2',$this->data['basename']) . "` WHERE `win` = '0' AND `member_id` = '$memberId' GROUP BY `win`;";
+		$querystr = "SELECT COUNT(`win`) AS losses FROM `" . $roster->db->table('pvp2', $this->data['basename']) . "` WHERE `win` = '0' AND `member_id` = '$memberId' GROUP BY `win`;";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
 			$this->messages .= 'PvPLog cannot select losses';
 			return;
 		}
-		$memberInfo = $roster->db->fetch( $result );
+		$memberInfo = $roster->db->fetch($result);
 		$roster->db->free_result($result);
-		if ($memberInfo)
+		if( $memberInfo )
 			$losses = $memberInfo['losses'];
 		$this->messages .= '<li>Losses: ' . $losses . '</li>';
 
-
-		if ($losses == 0 || $wins == 0)
+		if( $losses == 0 || $wins == 0 )
 		{
-			if ($losses == 0 && $wins == 0)
+			if( $losses == 0 && $wins == 0 )
 			{
 				$ratio = 0;
 			}
@@ -250,7 +244,7 @@ class pvplogUpdate
 			$ratio = $wins / $losses;
 		}
 
-		$querystr = "UPDATE `" . $roster->db->table('players') . "` SET `pvp_ratio` = ".$ratio." WHERE `member_id` = '$memberId';";
+		$querystr = "UPDATE `" . $roster->db->table('players') . "` SET `pvp_ratio` = " . $ratio . " WHERE `member_id` = '$memberId';";
 		$result = $roster->db->query($querystr);
 		if( !$result )
 		{
@@ -271,14 +265,14 @@ class pvplogUpdate
 		global $update;
 
 		$date_str = strtotime($date);
-		$p2newdate = date('Y-m-d H:i:s',$date_str);
+		$p2newdate = date('Y-m-d H:i:s', $date_str);
 		$update->add_value($row_name, $p2newdate);
 	}
 
 	/**
 	 * Resets addon messages
 	 */
-	function reset_messages()
+	function reset_messages( )
 	{
 		$this->messages = '';
 	}

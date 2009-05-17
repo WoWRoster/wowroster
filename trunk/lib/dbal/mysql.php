@@ -14,16 +14,16 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage MySQL
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
-define('SQL_ASSOC',MYSQL_ASSOC);
-define('SQL_NUM',MYSQL_NUM);
-define('SQL_BOTH',MYSQL_BOTH);
+define('SQL_ASSOC', MYSQL_ASSOC);
+define('SQL_NUM', MYSQL_NUM);
+define('SQL_BOTH', MYSQL_BOTH);
 
 /**
  * SQL_DB class, MySQL version
@@ -34,19 +34,20 @@ define('SQL_BOTH',MYSQL_BOTH);
  */
 class roster_db
 {
-	var $link_id     = 0;                   // Connection link ID       @var link_id
-	var $query_id    = 0;                   // Query ID                 @var query_id
-	var $record      = array();             // Record                   @var record
-	var $record_set  = array();             // Record set               @var record_set
-	var $query_count = 0;                   // Query count              @var query_count
-	var $queries     = array();             // Queries                  @var queries
-	var $error_die   = true;                // Die on errors?           @var error_die
-	var $log_level   = 0;                   // Log SQL transactions     @var log_level
+	var $link_id = 0; // Connection link ID       @var link_id
+	var $query_id = 0; // Query ID                 @var query_id
+	var $record = array(); // Record                   @var record
+	var $record_set = array(); // Record set               @var record_set
+	var $query_count = 0; // Query count              @var query_count
+	var $queries = array(); // Queries                  @var queries
+	var $error_die = true; // Die on errors?           @var error_die
+	var $log_level = 0; // Log SQL transactions     @var log_level
 
-	var $prefix      = '';
-	var $dbname      = '';
 
-	var $querytime   = 0;
+	var $prefix = '';
+	var $dbname = '';
+
+	var $querytime = 0;
 	var $file;
 	var $line;
 
@@ -60,7 +61,7 @@ class roster_db
 		$this->_backtrace();
 
 		$this->queries[$this->file][$this->query_count]['query'] = $query;
-		$this->queries[$this->file][$this->query_count]['time'] = round((format_microtime()-$this->querytime), 4);
+		$this->queries[$this->file][$this->query_count]['time'] = round((format_microtime() - $this->querytime), 4);
 		$this->queries[$this->file][$this->query_count]['line'] = $this->line;
 
 		// Error message in case of failed query
@@ -72,7 +73,7 @@ class roster_db
 		if( $this->log_level == 2 )
 		{
 			// Only SELECT queries can be DESCRIBEd. If this isn't a SELECT query, this will properly extract the SELECT part of an INSERT ... SELECT or CREATE TABLE ... SELECT statement, which may be interesting to get describe info for.
-			if( ($pos = strpos( $query, "SELECT" )) === false )
+			if( ($pos = strpos($query, "SELECT")) === false )
 			{
 				return;
 			}
@@ -80,8 +81,10 @@ class roster_db
 			$result = mysql_query("DESCRIBE " . substr($query, $pos));
 			if( $result )
 			{
-				while( $this->queries[$this->file][$this->query_count]['describe'][] = mysql_fetch_assoc( $result ) ) {};
-				mysql_free_result( $result );
+				while( $this->queries[$this->file][$this->query_count]['describe'][] = mysql_fetch_assoc($result) )
+				{}
+				;
+				mysql_free_result($result);
 			}
 		}
 	}
@@ -89,16 +92,16 @@ class roster_db
 	/**
 	 * Backtrace the query, to get the calling file name
 	 */
-	function _backtrace()
+	function _backtrace( )
 	{
 		$this->file = 'unknown';
 		$this->line = 0;
-		if( version_compare(phpversion(), '4.3.0','>=') )
+		if( version_compare(phpversion(), '4.3.0', '>=') )
 		{
 			$tmp = debug_backtrace();
-			for ($i=0; $i<count($tmp); ++$i)
+			for( $i = 0; $i < count($tmp); ++$i )
 			{
-				if (!preg_match('#[\\\/]{1}lib[\\\/]{1}dbal[\\\/]{1}[a-z_]+.php$#', $tmp[$i]['file']))
+				if( !preg_match('#[\\\/]{1}lib[\\\/]{1}dbal[\\\/]{1}[a-z_]+.php$#', $tmp[$i]['file']) )
 				{
 					$this->file = $tmp[$i]['file'];
 					$this->line = $tmp[$i]['line'];
@@ -120,7 +123,7 @@ class roster_db
 	 * @param $prefix Database prefix
 	 * @return mixed Link ID / false
 	 */
-	function roster_db( $dbhost, $dbname, $dbuser, $dbpass, $prefix='' )
+	function roster_db( $dbhost , $dbname , $dbuser , $dbpass , $prefix = '' )
 	{
 		$this->prefix = $prefix;
 		$this->dbname = $dbname;
@@ -177,7 +180,7 @@ class roster_db
 	 *
 	 * @return string last SQL error
 	 */
-	function error()
+	function error( )
 	{
 		$result = @mysql_errno($this->link_id) . ': ' . mysql_error($this->link_id);
 		return $result;
@@ -188,7 +191,7 @@ class roster_db
 	 *
 	 * @return string last SQL errno
 	 */
-	function errno()
+	function errno( )
 	{
 		$result = @mysql_errno($this->link_id);
 		return $result;
@@ -197,7 +200,7 @@ class roster_db
 	/**
 	 * Get connection error
 	 */
-	function connect_error()
+	function connect_error( )
 	{
 		return @mysql_errno() . ': ' . mysql_error();
 	}
@@ -214,6 +217,7 @@ class roster_db
 		unset($this->query_id);
 
 		//$query = preg_replace('/;.*$/', '', $query);
+
 
 		$this->querytime = format_microtime();
 
@@ -259,7 +263,7 @@ class roster_db
 		$record = $this->fetch($this->query_id);
 		$this->free_result($this->query_id);
 
-		return $record?$record[0]:false;
+		return $record ? $record[0] : false;
 	}
 
 	/**
@@ -294,7 +298,7 @@ class roster_db
 				}
 				else
 				{
-					$values[] = ( is_bool($value) ) ? intval($value) : $value;
+					$values[] = (is_bool($value)) ? intval($value) : $value;
 				}
 			}
 
@@ -314,7 +318,7 @@ class roster_db
 				}
 				else
 				{
-					$values[] = ( is_bool($value) ) ? "`$field` = " . intval($value) : "`$field` = $value";
+					$values[] = (is_bool($value)) ? "`$field` = " . intval($value) : "`$field` = $value";
 				}
 			}
 
@@ -331,7 +335,7 @@ class roster_db
 	 * @param $result_type SQL_ASSOC SQL_NUM or SQL_BOTH
 	 * @return mixed Record / false
 	 */
-	function fetch( $query_id = 0, $result_type = SQL_BOTH)
+	function fetch( $query_id = 0 , $result_type = SQL_BOTH )
 	{
 		if( !$query_id )
 		{
@@ -356,7 +360,7 @@ class roster_db
 	 * @param $result_type SQL_ASSOC, SQL_NUM, or SQL_BOTH
 	 * @return mixed Record Set / false
 	 */
-	function fetch_all( $query_id = 0, $result_type = SQL_BOTH )
+	function fetch_all( $query_id = 0 , $result_type = SQL_BOTH )
 	{
 		if( !$query_id )
 		{
@@ -387,7 +391,7 @@ class roster_db
 	 * @param $field The name or offset of the field being retrieved
 	 * @return mixed Record / false
 	 */
-	function result( $query_id = 0, $row = 0, $field = '' )
+	function result( $query_id = 0 , $row = 0 , $field = '' )
 	{
 		if( !$query_id )
 		{
@@ -436,7 +440,7 @@ class roster_db
 	 */
 	function affected_rows( )
 	{
-		return ( $this->link_id ) ? @mysql_affected_rows($this->link_id) : false;
+		return ($this->link_id) ? @mysql_affected_rows($this->link_id) : false;
 	}
 
 	/**
@@ -493,13 +497,13 @@ class roster_db
 	 */
 	function escape( $string )
 	{
-		if( version_compare( phpversion(), '4.3.0', '>' ) )
+		if( version_compare(phpversion(), '4.3.0', '>') )
 		{
-			return mysql_real_escape_string( $string );
+			return mysql_real_escape_string($string);
 		}
 		else
 		{
-			return mysql_escape_string( $string );
+			return mysql_escape_string($string);
 		}
 	}
 
@@ -532,7 +536,7 @@ class roster_db
 	 * @param string $addon the name of the addon, empty for a base roster table
 	 * @return string tablename as fit for MySQL queries
 	 */
-	function table($table, $addon='')
+	function table( $table , $addon = '' )
 	{
 		if( $addon )
 		{
@@ -548,7 +552,7 @@ class roster_db
 	 * Retrieves mysql server information
 	 * @return string mysql server info
 	 */
-	function server_info()
+	function server_info( )
 	{
 		if( is_resource($this->link_id) )
 		{
@@ -564,7 +568,7 @@ class roster_db
 	 * Retrieves mysql client information
 	 * @return string mysql client info
 	 */
-	function client_info()
+	function client_info( )
 	{
 		return mysql_get_client_info();
 	}

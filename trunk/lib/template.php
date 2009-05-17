@@ -15,11 +15,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage Template
-*/
+ */
 
-if ( !defined('IN_ROSTER') )
+if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -45,7 +45,7 @@ class RosterTemplate
 	// this will hash handle names to the compiled/uncompiled code for that handle.
 	var $compiled_code = array();
 
-	function RosterTemplate()
+	function RosterTemplate( )
 	{
 		global $roster;
 
@@ -62,7 +62,7 @@ class RosterTemplate
 		{
 			$this->tpl = 'default';
 		}
-		$this->_tpldata['.'][0]['REQUEST_URI'] = str_replace('&', '&amp;', substr(request_uri(),strlen(ROSTER_PATH)));
+		$this->_tpldata['.'][0]['REQUEST_URI'] = str_replace('&', '&amp;', substr(request_uri(), strlen(ROSTER_PATH)));
 		$this->root = ROSTER_TPLDIR . $this->tpl;
 		$roster->config['theme_path'] = ROSTER_PATH . 'templates/' . $this->tpl;
 	}
@@ -105,9 +105,9 @@ class RosterTemplate
 	// Methods for loading and evaluating the templates
 	function display( $handle , $include_once = true )
 	{
-		if ($filename = $this->_tpl_load($handle))
+		if( $filename = $this->_tpl_load($handle) )
 		{
-			($include_once) ? include_once($filename) : include($filename);
+			($include_once) ? include_once ($filename) : include ($filename);
 		}
 		else
 		{
@@ -121,16 +121,16 @@ class RosterTemplate
 	{
 		$output = '';
 
-		if ($filename = $this->_tpl_load($handle))
+		if( $filename = $this->_tpl_load($handle) )
 		{
 			ob_start();
-				($include_once) ? include_once($filename) : include($filename);
+			($include_once) ? include_once ($filename) : include ($filename);
 			$output = ob_get_clean();
 		}
 		else
 		{
 			ob_start();
-				eval(' ?>' . $this->compiled_code[$handle] . '<?php ');
+			eval(' ?>' . $this->compiled_code[$handle] . '<?php ');
 			$output = ob_get_clean();
 		}
 		return $output;
@@ -153,22 +153,22 @@ class RosterTemplate
 	function _tpl_load( &$handle )
 	{
 		// If we don't have a file assigned to this handle, die.
-		if (!isset($this->files[$handle]))
+		if( !isset($this->files[$handle]) )
 		{
 			trigger_error("template->_tpl_load(): No file specified for handle $handle", E_USER_ERROR);
 		}
 
-		if (!file_exists($this->files[$handle]))
+		if( !file_exists($this->files[$handle]) )
 		{
 			//trigger_error('template->_tpl_load(): '.($this->files[$handle]).' does not exist', E_USER_NOTICE);
 			$this->files[$handle] = ROSTER_TPLDIR . 'default/' . $this->filename[$handle];
 			$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'templates/default';
 			$this->cachepath = ROSTER_CACHEDIR . 'tpl_default_';
 			$pos = strpos($this->filename[$handle], '/');
-			if( !file_exists($this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS . substr($this->filename[$handle],0,$pos) . '/templates') )
+			if( !file_exists($this->files[$handle]) && $pos !== false && is_dir(ROSTER_ADDONS . substr($this->filename[$handle], 0, $pos) . '/templates') )
 			{
-				$this->files[$handle] = ROSTER_ADDONS . substr($this->filename[$handle],0,$pos) . '/templates/' . substr($this->filename[$handle],$pos+1);
-				$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'addons/' . substr($this->filename[$handle],0,$pos);
+				$this->files[$handle] = ROSTER_ADDONS . substr($this->filename[$handle], 0, $pos) . '/templates/' . substr($this->filename[$handle], $pos + 1);
+				$this->_tpldata['.'][0]['THEME_PATH'] = ROSTER_PATH . 'addons/' . substr($this->filename[$handle], 0, $pos);
 			}
 		}
 		else
@@ -198,7 +198,7 @@ class RosterTemplate
 		{
 			trigger_error("template->_tpl_load_file(): File " . $this->files[$handle] . " does not exist or is empty", E_USER_ERROR);
 		}
-		require_once(ROSTER_LIB . 'template_enc.php');
+		require_once (ROSTER_LIB . 'template_enc.php');
 		$this->compiled_code[$handle] = RosterTplEncode::compile(trim(fread($fp, filesize($this->files[$handle]))));
 		fclose($fp);
 		// Actually compile the code now.
@@ -275,7 +275,7 @@ class RosterTemplate
 		{
 			if( $filename )
 			{
-				include_once($filename);
+				include_once ($filename);
 				return;
 			}
 			eval(' ?>' . $this->compiled_code[$handle] . '<?php ');

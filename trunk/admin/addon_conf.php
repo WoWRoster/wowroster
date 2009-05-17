@@ -14,16 +14,16 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 if( !isset($roster->pages[2]) )
 {
-	$body .= messagebox($roster->locale->act['specify_addon'],$roster->locale->act['addon_error'],'sred');
+	$body .= messagebox($roster->locale->act['specify_addon'], $roster->locale->act['addon_error'], 'sred');
 	return;
 }
 
@@ -39,20 +39,20 @@ if( $addon['active'] = '1' )
 
 	if( file_exists($installfile) )
 	{
-		include_once($installfile);
+		include_once ($installfile);
 
 		if( class_exists($install_class) )
 		{
-			$addonstuff = new $install_class;
+			$addonstuff = new $install_class();
 
 			// -1 = overwrote newer version
 			//  0 = same version
 			//  1 = upgrade available
 
-			if( version_compare($addonstuff->version,$addon['version']) )
+
+			if( version_compare($addonstuff->version, $addon['version']) )
 			{
-				$body = messagebox(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
-					  . sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error'],'sred');
+				$body = messagebox(sprintf($roster->locale->act['addon_upgrade_notice'], $addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">' . sprintf($roster->locale->act['installer_click_upgrade'], $addon['version'], $addonstuff->version) . '</a>', $roster->locale->act['addon_error'], 'sred');
 				return;
 			}
 			unset($addonstuff);
@@ -71,13 +71,13 @@ if( $addon['active'] = '1' )
 	// Include addon's locale files if they exist
 	foreach( $roster->multilanguages as $langvalue )
 	{
-		$roster->locale->add_locale_file($addon['locale_dir'] . $langvalue . '.php',$langvalue);
+		$roster->locale->add_locale_file($addon['locale_dir'] . $langvalue . '.php', $langvalue);
 	}
 
 	// Include addon's conf.php file
 	if( file_exists($addon['conf_file']) )
 	{
-		include_once( $addon['conf_file'] );
+		include_once ($addon['conf_file']);
 	}
 
 	// Check to see if the index file exists
@@ -85,14 +85,14 @@ if( $addon['active'] = '1' )
 	{
 		// The addon will now assign its output to $body
 		ob_start();
-			include_once( $addon['active_file'] );
+		include_once ($addon['active_file']);
 		$body .= ob_get_clean();
 	}
 	elseif( $addon['config'] != '' )
 	{
 		if( file_exists($addon['admin_dir'] . 'config.func.php') )
 		{
-			include($addon['admin_dir'] . 'config.func.php');
+			include ($addon['admin_dir'] . 'config.func.php');
 			if( function_exists('topBox') )
 			{
 				$body .= topBox();
@@ -104,8 +104,8 @@ if( $addon['active'] = '1' )
 		}
 
 		// ----[ Set the tablename and create the config class ]----
-		include(ROSTER_LIB . 'config.lib.php');
-		$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
+		include (ROSTER_LIB . 'config.lib.php');
+		$config = new roster_config($roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"');
 
 		// ----[ Get configuration data ]---------------------------
 		$config->getConfigData();
@@ -118,22 +118,16 @@ if( $addon['active'] = '1' )
 
 		$config->buildConfigPage();
 
-		$body .= $config->form_start
-			   . $save_message
-			   . $config->formpages
-			   . $config->submit_button
-			   . $config->form_end
-			   . $config->nonformpages
-			   . $config->jscript;
+		$body .= $config->form_start . $save_message . $config->formpages . $config->submit_button . $config->form_end . $config->nonformpages . $config->jscript;
 	}
 	else
 	{
-		$body .=  messagebox(sprintf($roster->locale->act['addon_no_config'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
+		$body .= messagebox(sprintf($roster->locale->act['addon_no_config'], $addon['basename']), $roster->locale->act['addon_error'], 'sred');
 	}
 }
 else
 {
-	$body .=  messagebox(sprintf($roster->locale->act['addon_disabled'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
+	$body .= messagebox(sprintf($roster->locale->act['addon_disabled'], $addon['basename']), $roster->locale->act['addon_error'], 'sred');
 }
 
 // Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines

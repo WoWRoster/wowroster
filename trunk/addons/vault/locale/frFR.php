@@ -13,14 +13,14 @@
  * @link       http://www.wowroster.net
  * @package    Vault
  * @subpackage Locale
-*/
+ */
 
-$lang['vault']='Coffre de guilde';
-$lang['vault_desc']='Affiche le contenu du coffre de guilde';
-$lang['vault_menu']='Coffre de guilde|Affiche le contenu du coffre de guilde';
-$lang['available_amount']='Montant disponible';
-$lang['vault_log']='Traceur';
-$lang['vault_money_log']="Traceur monétaire";
+$lang['vault'] = 'Coffre de guilde';
+$lang['vault_desc'] = 'Affiche le contenu du coffre de guilde';
+$lang['vault_menu'] = 'Coffre de guilde|Affiche le contenu du coffre de guilde';
+$lang['available_amount'] = 'Montant disponible';
+$lang['vault_log'] = 'Traceur';
+$lang['vault_money_log'] = "Traceur monétaire";
 
 $lang['vault_log_deposit'] = '%1$s <span class="greenB">a déposé</span> %2$s';
 $lang['vault_log_withdraw'] = '%1$s <span class="redB">a retiré</span> %2$s';

@@ -17,11 +17,10 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 define('R_TPL_VERSION', '2.0.0.0');
-
 
 /**
  * Starts or ends fancy bodering containers
@@ -32,10 +31,10 @@ define('R_TPL_VERSION', '2.0.0.0');
  * @param string $hwidth Set a fixed width for the box
  * @return string
  */
-function border( $style , $mode , $header_text='' , $width='' )
+function border( $style , $mode , $header_text = '' , $width = '' )
 {
 	$backg_css = $style . 'border';
-	if( substr($style,0,1) == 's' )
+	if( substr($style, 0, 1) == 's' )
 	{
 		$style = 'simple';
 	}
@@ -51,7 +50,7 @@ function border( $style , $mode , $header_text='' , $width='' )
 	}
 
 	// Dynamic Bordering
-	$start = '<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_color ' . $backg_css . '">' . $header_text;
+	$start = '<table class="border_frame" cellpadding="0" cellspacing="1"' . ($width != '' ? ' style="width:' . $width . ';"' : '') . '><tr><td class="border_color ' . $backg_css . '">' . $header_text;
 
 	$end = "\n</td></tr></table>\n";
 
@@ -76,12 +75,9 @@ function border( $style , $mode , $header_text='' , $width='' )
  * @param string $width | Set a fixed width
  * @return string $html | The HTML for the messagebox
  */
-function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
+function messagebox( $message , $title = 'Message' , $style = 'sgray' , $width = '' )
 {
-	return
-		border($style, 'start', $title, $width)
-			. $message
-			. border($style, 'end');
+	return border($style, 'start', $title, $width) . $message . border($style, 'end');
 }
 
 /**
@@ -94,14 +90,9 @@ function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
  * @param string $height | Initial height with unit
  * @return string $html | The HTML for the messagebox
  */
-function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px' , $height='300px' )
+function scrollbox( $message , $title = 'Message' , $style = 'sgray' , $width = '550px' , $height = '300px' )
 {
-	return
-		border($style,'start',$title, $width)
-			. '<div style="height:' . $height . ';width:100%;overflow:auto;">'
-			. $message
-			. '</div>'
-			. border($style,'end');
+	return border($style, 'start', $title, $width) . '<div style="height:' . $height . ';width:100%;overflow:auto;">' . $message . '</div>' . border($style, 'end');
 }
 
 /**
@@ -114,21 +105,15 @@ function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px
  * @param string $width | Initial width with unit
  * @return string $html | The HTML for the messagebox
  */
-function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=false , $width='550px' )
+function messageboxtoggle( $message , $title = 'Message' , $style = 'sgray' , $open = false , $width = '550px' )
 {
 	global $toggleboxes, $roster;
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">"
-		   . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">" . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open) ? 'minus' : 'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
-	return
-		border($style, 'start', $title, $width)
-			. '<div style="display:' . (($open)?'inline':'none') . ';" id="msgbox_' . $toggleboxes . '">'
-			. $message
-			. '</div>'
-			. border($style, 'end');
+	return border($style, 'start', $title, $width) . '<div style="display:' . (($open) ? 'inline' : 'none') . ';" id="msgbox_' . $toggleboxes . '">' . $message . '</div>' . border($style, 'end');
 }
 
 /**
@@ -141,19 +126,13 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
  * @param string $height | Initial height with unit
  * @return string $html | The HTML for the messagebox
  */
-function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=false , $width='550px' , $height='300px' )
+function scrollboxtoggle( $message , $title = 'Message' , $style = 'sgray' , $open = false , $width = '550px' , $height = '300px' )
 {
 	global $toggleboxes, $roster;
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">"
-		   . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">" . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open) ? 'minus' : 'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
-	return
-		border($style,'start',$title, $width)
-			. '<div style="height:' . $height . ';width:100%;overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'
-			. $message
-			. '</div>'
-			. border($style,'end');
+	return border($style, 'start', $title, $width) . '<div style="height:' . $height . ';width:100%;overflow:auto;display:' . (($open) ? 'inline' : 'none') . ';" id="msgbox_' . $toggleboxes . '">' . $message . '</div>' . border($style, 'end');
 }
