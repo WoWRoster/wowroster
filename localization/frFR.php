@@ -1020,7 +1020,7 @@ $lang['admin']['img_url'] = "Répertoire des images du roster|Répertoire où le
 $lang['admin']['timezone'] = "Fuseau horaire|Affiché après les dates et heures afin de savoir à quel fuseau horaire l'heure fait référence";
 $lang['admin']['localtimeoffset'] = "Décalage horaire|Le décalage horaire par rapport à l'heure UTC/GMT<br />Les heures sur le roster seront affichées avec ce décalage";
 $lang['admin']['use_update_triggers'] = 'Déclenchement de mise à jour de greffon|Déclencher automatiquement la mise à jour de greffon est nécessaire pour ceux qui ont besoin de fonctionner lors d\'une mise à jour d\'un profil.<br />Quelques greffons ont besoin de ce paramètre activé pour fonctionner correctement.';
-$lang['admin']['check_updates'] = "Vérifier les mises à jour|Permettre au site de vérifier si une nouvelle version du roster (ou des greffons possédant cette fonctionalité) est disponible et si vous avez la dernière version d\'installée";
+$lang['admin']['check_updates'] = "Vérifier les mises à jour|Permettre au site de vérifier si une nouvelle version du roster (ou des greffons possédant cette fonctionalité) est disponible et si vous avez la dernière version d\\'installée";
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Système de cache de fichiers|Utiliser un système de cache de fichiers sur le serveur pour améliorer les performances.";
 $lang['admin']['use_temp_tables'] = "Utiliser des tables temporaires|Désactiver ce paramètre si votre hôte ne permet pas de créer des tables de base de données temporaires (le privilège CREATE TEMPORARY TABLE).<br/>Laisser activé ce paramètre est recommandé pour les performances.";
@@ -1103,6 +1103,7 @@ $lang['admin']['rs_color_recommended'] = "Couleur Recommandé|Couleur pour un se
 
 // update_access
 $lang['admin']['authenticated_user'] = "Accès à Update.php|Contrôle l'accès à update.php<br /><br />Passer ce paramètre à off désactive l'accès à TOUT LE MONDE";
+$lang['admin']['update_inst'] = 'Instructions de mise à jour|Controls the display of the Update Instructions on the update page';
 $lang['admin']['gp_user_level'] = "Niveau d'accès aux données de guilde|Niveau requis pour mettre à jour les données fournies par GuildProfiler";
 $lang['admin']['cp_user_level'] = "Niveau d'accès aux données des personnages|Niveau requis pour mettre à jour les données fournies par CharacterProfiler";
 $lang['admin']['lua_user_level'] = "Niveau d'accès aux données des autres LUA|Niveau requis pour mettre à jour les données fournies par d'autres sources de données (LUA).<br />Ceci est valable pour TOUTES SOURCES AUTRES pouvant être envoyées au roster.";

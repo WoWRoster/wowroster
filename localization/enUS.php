@@ -1103,6 +1103,7 @@ $lang['admin']['rs_color_recommended'] = "Recommended Color|Color for recommende
 
 // update_access
 $lang['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
+$lang['admin']['update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the update page';
 $lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process GuildProfiler Data";
 $lang['admin']['cp_user_level'] = "Character Data Level|Level required to process CharacterProfiler Data";
 $lang['admin']['lua_user_level'] = "Other LUA Data Level|Level required to process other LUA files' Data<br />This is for EVERY other lua file that can be uploaded to Roster";
