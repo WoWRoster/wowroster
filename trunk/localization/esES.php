@@ -1103,6 +1103,7 @@ $lang['admin']['rs_color_recommended'] = "Recomendado Color|Color para reinos re
 
 // update_access
 $lang['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a update.php<br /><br />Poniendo esta opción en off desactivas el acceso para todo el mundo.";
+$lang['admin']['update_inst'] = 'Instrucciones de actualización|Controls the display of the Update Instructions on the update page';
 $lang['admin']['gp_user_level'] = "Nivel de hermandad|Elige el nivel requerido para poder subir datos con GuildProfiler";
 $lang['admin']['cp_user_level'] = "Nivel de personaje|Elige el nivel requerido para poder subir datos con CharacterProfiler";
 $lang['admin']['lua_user_level'] = "Nivel de otros LUA|Elige el nivel requerido para poder subir datos con otros addons<br />Esto es para TODOS los tipos de archivos LUA que quieras subir al Roster.";
