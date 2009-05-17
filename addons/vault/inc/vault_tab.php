@@ -69,7 +69,14 @@ class VaultTab extends VaultItem
 				if( isset($this->contents[$slot + 1]) )
 				{
 					$item = $this->contents[$slot + 1];
-					$returnstring .= $item->out();
+
+					$returnstring .= '<div class="item" ' . $item->tpl_get_tooltip() . $item->tpl_get_itemlink() . '><img src="' . $item->tpl_get_icon() . '" class="icon" alt="" />';
+					if( $item->quantity > 1 )
+					{
+						$returnstring .= '<b>' . $item->quantity . '</b><span>' . $item->quantity . '</span>';
+					}
+
+					$returnstring .= '</div>';
 				}
 				else
 				{
