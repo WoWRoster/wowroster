@@ -13,9 +13,9 @@
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.7.2
  * @package    WoWRoster
-*/
+ */
 
-define('IN_ROSTER',true);
+define('IN_ROSTER', true);
 
 /**
  * Set the relative URL here. Use slashes, not backslashes. Use slash in front
@@ -27,7 +27,7 @@ $roster_rel = '';
 $_GET[ROSTER_PAGE] = 'dummy';
 
 // Environment
-include('.'.$roster_rel.'/settings.php');
+include ('.' . $roster_rel . '/settings.php');
 
 // Get the char from the query string. To keep the link as short as
 // possible, we don't use member= or anything like that
@@ -39,10 +39,10 @@ if( is_numeric($char) )
 }
 elseif( strpos($char, '@') !== false )
 {
-	list($name, $realm) = explode('@',$char);
-	if( strpos($realm,'-') !== false )
+	list($name, $realm) = explode('@', $char);
+	if( strpos($realm, '-') !== false )
 	{
-		list($region, $realm) = explode('-',$realm);
+		list($region, $realm) = explode('-', $realm);
 		$where = ' `name` = "' . $name . '" AND `server` = "' . $realm . '" AND `region` = "' . strtoupper($region) . '"';
 	}
 	else
@@ -56,7 +56,6 @@ else
 	$where = ' `name` = "' . $name . '"';
 }
 
-
 // Check if there's a character with this name
 $query = "SELECT `member_id` FROM `" . $roster->db->table('members') . "` WHERE $where;";
 
@@ -64,17 +63,17 @@ $result = $roster->db->query($query);
 
 if( !$result )
 {
-	die_quietly($roster->db->error(),'Roster Autopointer',__FILE__,__LINE__,$query);
+	die_quietly($roster->db->error(), 'Roster Autopointer', __FILE__, __LINE__, $query);
 }
 
 if( $row = $roster->db->fetch($result) )
 {
 	$roster->db->free_result($result);
-	header('Location: ' . str_replace('&amp;','&',makelink('char-info&amp;a=c:' . $row['member_id'],true)));
+	header('Location: ' . str_replace('&amp;', '&', makelink('char-info&amp;a=c:' . $row['member_id'], true)));
 	exit();
 }
 
-
 // There's no char with that name? Redirect to guild page.
+
 
 header('Location: ' . ROSTER_URL . $roster_rel);

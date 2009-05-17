@@ -14,11 +14,11 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterClass
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -49,7 +49,7 @@ class roster
 	var $atype;
 	var $anchor;
 	var $scope;
-	var $data = false; // scope data
+	var $data = false;		// scope data
 	var $addon_data;
 
 	/**
@@ -57,7 +57,8 @@ class roster
 	 *
 	 * @var roster_error
 	 */
-	var $error; // Error handler class
+	var $error;				// Error handler class
+
 
 	/**
 	 * Roster Cache Class Object
@@ -76,7 +77,11 @@ class roster
 	var $output = array(
 		'http_header' => true,
 		'show_header' => true,
-		'show_menu'   => array('util'=>0,'realm'=>0,'guild'=>0),
+		'show_menu'   => array(
+			'util'  => 0,
+			'realm' => 0,
+			'guild' => 0
+		),
 		'show_footer' => true,
 
 		// used on rostercp pages
@@ -102,36 +107,37 @@ class roster
 	 *
 	 * @var RosterTemplate
 	 */
-	var $tpl;								// Template object
-	var $row_class         = 2;				// For row striping in templates
-	var $alt_row_class     = 2;				// For row striping in templates
+	var $tpl;				// Template object
+	var $row_class = 2;		// For row striping in templates
+	var $alt_row_class = 2;	// For row striping in templates
+
 
 	/**
 	 * Load the DBAL
 	 */
-	function load_dbal()
+	function load_dbal( )
 	{
 		global $db_config;
 
 		switch( $db_config['dbtype'] )
 		{
 			case 'mysql':
-				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
+				include_once (ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
 
 			case 'external':
-				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'external.php');
+				include_once (ROSTER_LIB . 'dbal' . DIR_SEP . 'external.php');
 				break;
 
 			default:
-				include_once(ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
+				include_once (ROSTER_LIB . 'dbal' . DIR_SEP . 'mysql.php');
 				break;
 		}
 
 		$this->db = new roster_db($db_config['host'], $db_config['database'], $db_config['username'], $db_config['password'], $db_config['table_prefix']);
 		$this->db->log_level();
 
-		if ( !$this->db->link_id )
+		if( !$this->db->link_id )
 		{
 			die(__FILE__ . ': line[' . __LINE__ . ']<br />Could not connect to database "' . $db_config['database'] . '"<br />MySQL said:<br />' . $this->db->connect_error());
 		}
@@ -140,7 +146,7 @@ class roster
 	/**
 	 * Load the config
 	 */
-	function load_config()
+	function load_config( )
 	{
 		$query = "SELECT `config_name`, `config_value` FROM `" . $this->db->table('config') . "` ORDER BY `id` ASC;";
 		$results = $this->db->query($query);
@@ -176,8 +182,8 @@ class roster
 			}
 		}
 
-		// BETA ONLY, COMMENT THIS IN RC OR LATER!
-		// if these equal 0, force these on
+// BETA ONLY, COMMENT THIS IN RC OR LATER!
+// if these equal 0, force these on
 		if( $this->config['debug_mode'] == 0 )
 		{
 			$this->config['debug_mode'] = 1;
@@ -186,7 +192,7 @@ class roster
 		{
 			$this->config['sql_window'] = 1;
 		}
-		// END BETA ONLY
+// END BETA ONLY
 
 		$this->db->log_level($this->config['sql_window']);
 	}
@@ -194,7 +200,7 @@ class roster
 	/**
 	 * Figure out the page to load, and put it in $this->pages and ROSTER_PAGE_NAME
 	 */
-	function get_page_name()
+	function get_page_name( )
 	{
 		// cmslink function to resolve SEO linking etc.
 		parse_params();
@@ -211,10 +217,10 @@ class roster
 		else
 		{
 			// --[ Insert directly into GET request ]--
-			list($page, $gets) = explode('&amp;',$this->conf['default_page'],2);
-			foreach( explode('&amp;',$gets) as $get )
+			list($page, $gets) = explode('&amp;', $this->conf['default_page'], 2);
+			foreach( explode('&amp;', $gets) as $get )
 			{
-				list($key, $value) = explode('=',$get,2);
+				list($key, $value) = explode('=', $get, 2);
 				$_GET[$key] = $value;
 			}
 		}
@@ -226,10 +232,10 @@ class roster
 		// --[ We only accept certain characters in our page ]--
 		if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
 		{
-			roster_die($this->locale->act['invalid_char_module'],$this->locale->act['roster_error']);
+			roster_die($this->locale->act['invalid_char_module'], $this->locale->act['roster_error']);
 		}
 
-		if( in_array( $this->pages[0], array('util','realm','guild','char') ) )
+		if( in_array($this->pages[0], array('util', 'realm', 'guild', 'char')) )
 		{
 			$this->scope = $this->pages[0];
 		}
@@ -242,10 +248,10 @@ class roster
 	/**
 	 * Get the data for the current scope and assign it to $this->data
 	 */
-	function get_scope_data()
+	function get_scope_data( )
 	{
 		// --[ Resolve the anchor ]--
-		$this->anchor = isset($_GET['a'])?$_GET['a']:'';
+		$this->anchor = isset($_GET['a']) ? $_GET['a'] : '';
 
 		if( empty($this->anchor) )
 		{
@@ -256,21 +262,27 @@ class roster
 			list($this->atype, $this->anchor) = explode(':', $this->anchor);
 			switch( $this->atype )
 			{
-			case 'r': case 'realm':
-				$this->atype = 'realm';
-				break;
-			case 'g': case 'guild':
-				$this->atype = 'guild';
-				break;
-			case 'c': case 'char':
-				$this->atype = 'char';
-				break;
-			default:
-				$this->atype = 'none';
-				break;
+				case 'r':
+				case 'realm':
+					$this->atype = 'realm';
+					break;
+
+				case 'g':
+				case 'guild':
+					$this->atype = 'guild';
+					break;
+
+				case 'c':
+				case 'char':
+					$this->atype = 'char';
+					break;
+
+				default:
+					$this->atype = 'none';
+					break;
 			}
 		}
-		elseif( strpos( $this->anchor, '@' ) === FALSE )
+		elseif( strpos($this->anchor, '@') === FALSE )
 		{
 			$this->atype = 'realm';
 		}
@@ -281,12 +293,13 @@ class roster
 			$this->atype = $this->scope;
 		}
 
-		if( $this->atype == 'none' && in_array($this->scope, array('guild','realm')) )
+		if( $this->atype == 'none' && in_array($this->scope, array('guild', 'realm')) )
 		{
 			// No anchor at all, but for realm/guild we have a default
-			$defquery =  "SELECT `name`, `server`, `region`"
+			$defquery = "SELECT `name`, `server`, `region`"
 				. " FROM `" . $this->db->table('upload') . "`"
-				. " WHERE `default` = '1' LIMIT 1;";
+				. " WHERE `default` = '1'"
+				. " LIMIT 1;";
 
 			$this->db->query($defquery);
 
@@ -294,9 +307,9 @@ class roster
 
 			if( $data )
 			{
-				$name = $this->db->escape( $data['name'] );
-				$realm = $this->db->escape( $data['server'] );
-				$region = $this->db->escape( $data['region'] );
+				$name = $this->db->escape($data['name']);
+				$realm = $this->db->escape($data['server']);
+				$region = $this->db->escape($data['region']);
 
 				$this->atype = 'default';
 				$this->anchor = $name . '@' . $region . '-' . $realm;
@@ -306,7 +319,7 @@ class roster
 				$this->atype = 'none';
 				$this->anchor = '';
 
-				roster_die( sprintf($this->locale->act['nodefguild'], makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
+				roster_die(sprintf($this->locale->act['nodefguild'], makelink('rostercp-upload')), $this->locale->act['nodata_title']);
 			}
 		}
 
@@ -321,18 +334,18 @@ class roster
 				}
 				elseif( strpos($this->anchor, '@') !== false )
 				{
-					list($name, $realm) = explode('@',$this->anchor);
-					if( strpos($realm,'-') !== false )
+					list($name, $realm) = explode('@', $this->anchor);
+					if( strpos($realm, '-') !== false )
 					{
-						list($region, $realm) = explode('-',$realm,2);
-						$where  = ' `players`.`name` = "' . $name . '" '
-								. 'AND `players`.`server` = "' . $realm . '" '
-								. 'AND `players`.`region` = "' . strtoupper($region) . '" ';
+						list($region, $realm) = explode('-', $realm, 2);
+						$where = ' `players`.`name` = "' . $name . '" '
+							. 'AND `players`.`server` = "' . $realm . '" '
+							. 'AND `players`.`region` = "' . strtoupper($region) . '" ';
 					}
 					else
 					{
-						$where  = ' `players`.`name` = "' . $name . '" '
-								. 'AND `players`.`server` = "' . $realm . '" ';
+						$where = ' `players`.`name` = "' . $name . '" '
+							. 'AND `players`.`server` = "' . $realm . '" ';
 					}
 				}
 				else
@@ -342,24 +355,23 @@ class roster
 				}
 
 				// Get the data
-				$query  = 'SELECT guild.*, members.*, players.*, '
-						. 'DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL '
-						. $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
-						. 'FROM `' . $this->db->table('players') . '` players '
-						. 'LEFT JOIN `' . $this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
-						. 'LEFT JOIN `' . $this->db->table('guild') . '` guild ON `players`.`guild_id` = `guild`.`guild_id` '
-						. 'WHERE ' . $where . ";";
+				$query = 'SELECT guild.*, members.*, players.*, '
+						. 'DATE_FORMAT( DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ' . $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
+					. 'FROM `' . $this->db->table('players') . '` players '
+					. 'LEFT JOIN `' . $this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
+					. 'LEFT JOIN `' . $this->db->table('guild') . '` guild ON `players`.`guild_id` = `guild`.`guild_id` '
+					. 'WHERE ' . $where . ";";
 
 				$result = $this->db->query($query);
 
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database error',__FILE__,__LINE__,$query);
+					die_quietly($this->db->error(), 'Database error', __FILE__, __LINE__, $query);
 				}
 
-				if(!( $this->data = $this->db->fetch($result)) )
+				if( !($this->data = $this->db->fetch($result)) )
 				{
-					roster_die('The member ' . $this->anchor . ' is not in the database',$this->locale->act['roster_error']);
+					roster_die('The member ' . $this->anchor . ' is not in the database', $this->locale->act['roster_error']);
 				}
 
 				$this->db->free_result($result);
@@ -369,10 +381,11 @@ class roster
 				break;
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
-			case 'guild': case 'default':
-				if( in_array( $this->scope, array( 'char' ) ) )
+			case 'guild':
+			case 'default':
+				if( in_array($this->scope, array('char')) )
 				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.', 'WoWRoster');
 				}
 				// Parse the attribute
 				if( is_numeric($this->anchor) )
@@ -382,17 +395,17 @@ class roster
 				elseif( strpos($this->anchor, '@') !== false )
 				{
 					list($name, $realm) = explode('@', $this->anchor);
-					if( strpos($realm,'-') !== false )
+					if( strpos($realm, '-') !== false )
 					{
-						list($region, $realm) = explode('-',$realm,2);
-						$where  = ' `guild_name` = "' . $name . '" '
-								. 'AND `server` = "' . $realm . '" '
-								. 'AND `region` = "' . strtoupper($region) . '" ';
+						list($region, $realm) = explode('-', $realm, 2);
+						$where = ' `guild_name` = "' . $name . '" '
+							. 'AND `server` = "' . $realm . '" '
+							. 'AND `region` = "' . strtoupper($region) . '" ';
 					}
 					else
 					{
-						$where  = ' `guild_name` = "' . $name . '" '
-								. 'AND `server` = "' . $realm . '" ';
+						$where = ' `guild_name` = "' . $name . '" '
+							. 'AND `server` = "' . $realm . '" ';
 					}
 				}
 				else
@@ -402,20 +415,20 @@ class roster
 				}
 
 				// Get the data
-				$query  = 'SELECT guild.* '
-						. "FROM `" . $this->db->table('guild') . "` guild "
-						. "WHERE " . $where . ";";
+				$query = 'SELECT guild.* '
+					. "FROM `" . $this->db->table('guild') . "` guild "
+					. "WHERE " . $where . ";";
 
 				$result = $this->db->query($query);
 
 				if( !$result )
 				{
-					die_quietly($this->db->error(),'Database Error',__FILE__ . '<br />Function: ' . __FUNCTION__,__LINE__,$query);
+					die_quietly($this->db->error(), 'Database Error', __FILE__ . '<br />Function: ' . __FUNCTION__, __LINE__, $query);
 				}
 
-				if(!( $this->data = $this->db->fetch($result)) )
+				if( !($this->data = $this->db->fetch($result)) )
 				{
-					roster_die( sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
+					roster_die(sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title']);
 				}
 
 				$this->db->free_result($result);
@@ -424,15 +437,15 @@ class roster
 				break;
 
 			case 'realm':
-				if( in_array( $this->scope, array( 'char', 'guild' ) ) )
+				if( in_array($this->scope, array('char', 'guild')) )
 				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.', 'WoWRoster');
 				}
-				if( strpos($this->anchor,'-') !== false )
+				if( strpos($this->anchor, '-') !== false )
 				{
-					list($region, $realm) = explode('-',$this->anchor,2);
-					$where  = ' `server` = "' . $realm . '" '
-							. 'AND `region` = "' . strtoupper($region) . '"';
+					list($region, $realm) = explode('-', $this->anchor, 2);
+					$where = ' `server` = "' . $realm . '" '
+						. 'AND `region` = "' . strtoupper($region) . '"';
 				}
 				else
 				{
@@ -441,9 +454,9 @@ class roster
 				}
 
 				// Check if there's data for this realm
-				$query  = "SELECT DISTINCT `server`, `region`"
-						. " FROM `" . $this->db->table('guild') . "`"
-						. " WHERE $where"
+				$query = "SELECT DISTINCT `server`, `region`"
+					. " FROM `" . $this->db->table('guild') . "`"
+					. " WHERE $where"
 						. " UNION SELECT DISTINCT `server`, `region`"
 						. " FROM `" . $this->db->table('players') . "`"
 						. " WHERE $where"
@@ -456,18 +469,18 @@ class roster
 					die_quietly($this->db->error(), 'Database Error', __FILE__ . '<br />Function: ' . __FUNCTION__, __LINE__, $query);
 				}
 
-				if(!( $this->data = $this->db->fetch($result,SQL_ASSOC)) )
+				if( !($this->data = $this->db->fetch($result, SQL_ASSOC)) )
 				{
-					roster_die( sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp-upload') ), $this->locale->act['nodata_title'] );
+					roster_die(sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title']);
 				}
 
 				$this->anchor = $this->data['region'] . '-' . $this->data['server'];
 
 				break;
 			default:
-				if( in_array( $this->scope, array( 'char', 'guild', 'realm' ) ) )
+				if( in_array($this->scope, array('char', 'guild', 'realm')) )
 				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.','WoWRoster');
+					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.', 'WoWRoster');
 				}
 				// no anchor passed, and we didn't load defaults so we're in util or page scope. No data needed.
 				$this->data = array();
@@ -486,12 +499,12 @@ class roster
 	 * Fetch all addon data. We need to cache the active status for addon_active()
 	 * and fetching everything isn't much slower and saves extra fetches later on.
 	 */
-	function get_addon_data()
+	function get_addon_data( )
 	{
 		$query = "SELECT * FROM `" . $this->db->table('addon') . "` ORDER BY `basename`;";
 		$result = $this->db->query($query);
 		$this->addon_data = array();
-		while( $row = $this->db->fetch($result,SQL_ASSOC) )
+		while( $row = $this->db->fetch($result, SQL_ASSOC) )
 		{
 			$this->addon_data[$row['basename']] = $row;
 		}
@@ -505,7 +518,7 @@ class roster
 	 */
 	function switch_row_class( $set_new = true )
 	{
-		$row_class = ( $this->row_class == 1 ) ? 2 : 1;
+		$row_class = ($this->row_class == 1) ? 2 : 1;
 
 		if( $set_new )
 		{
@@ -523,7 +536,7 @@ class roster
 	 */
 	function switch_alt_row_class( $set_new = true )
 	{
-		$row_class = ( $this->alt_row_class == 1 ) ? 2 : 1;
+		$row_class = ($this->alt_row_class == 1) ? 2 : 1;
 
 		if( $set_new )
 		{
