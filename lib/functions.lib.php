@@ -146,18 +146,17 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 
 	$roster->output['title'] = $title;
 
-	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
-	{
-		$roster_menu = new RosterMenu;
-		$roster_menu->makeMenu($roster->output['show_menu']);
-	}
-
 	if( !defined('ROSTER_HEADER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'header.php');
 	}
 
-	$roster_menu->displayMenu();
+	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
+	{
+		$roster_menu = new RosterMenu;
+		$roster_menu->makeMenu($roster->output['show_menu']);
+		$roster_menu->displayMenu();
+	}
 
 	if( is_object($roster->db) )
 	{
