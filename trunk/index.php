@@ -86,18 +86,17 @@ switch( $roster->pages[0] )
 				require ($file);
 			$content = ob_get_clean();
 
-			if( $roster->output['show_menu'] )
-			{
-				$roster_menu = new RosterMenu();
-				$roster_menu->makeMenu($roster->output['show_menu']);
-			}
-
 			if( $roster->output['show_header'] )
 			{
 				include_once (ROSTER_BASE . 'header.php');
 			}
 
-			$roster_menu->displayMenu();
+			if( $roster->output['show_menu'] )
+			{
+				$roster_menu = new RosterMenu();
+				$roster_menu->makeMenu($roster->output['show_menu']);
+				$roster_menu->displayMenu();
+			}
 
 			echo $content;
 
@@ -195,18 +194,17 @@ if( $addon['active'] == '1' )
 		$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $addon['tpl_css_url'] . '" />' . "\n";
 	}
 
-	if( $roster->output['show_menu'] )
-	{
-		$roster_menu = new RosterMenu();
-		$roster_menu->makeMenu($roster->output['show_menu']);
-	}
-
 	if( $roster->output['show_header'] )
 	{
 		include_once (ROSTER_BASE . 'header.php');
 	}
 
-	$roster_menu->displayMenu();
+	if( $roster->output['show_menu'] )
+	{
+		$roster_menu = new RosterMenu();
+		$roster_menu->makeMenu($roster->output['show_menu']);
+		$roster_menu->displayMenu();
+	}
 
 	echo $content;
 
