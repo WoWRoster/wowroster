@@ -126,6 +126,18 @@ CREATE TABLE `renprefix_quests` (
   KEY `quest_index` (`quest_id`,`quest_index`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
+# --------------------------------------------------------
+### config for dual talents....
+
+ALTER TABLE `renprefix_talents` ADD `spec` TINYINT( 2 ) NOT NULL ;
+
+ALTER TABLE `renprefix_talents` ADD INDEX ( `spec` ) ;
+
+ALTER TABLE `renprefix_talenttree` ADD `spec` TINYINT( 2 ) NOT NULL ;
+ALTER TABLE `renprefix_talenttree` DROP PRIMARY KEY ,
+ADD PRIMARY KEY ( `member_id` , `tree` , `spec` ) 
+
 # --------------------------------------------------------
 ### Config Table New Entries
 

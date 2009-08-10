@@ -2342,7 +2342,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->setError('Talent Trees could not be deleted',$roster->db->error());
 			return;
 		}
-
+            // some updates for dual spec
+            $data_talent_spec =1; // defalt to talent set 1 unless other whise set ...
+            
+            
 		// Update Talents
 		foreach( array_keys($talentData) as $talent_tree )
 		{
@@ -2370,6 +2373,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->add_value('member_id', $memberId);
 					$this->add_value('name', $talent_skill);
 					$this->add_value('tree', $talent_tree);
+					$this->add_value('spec', $data_talent_spec);
 
 					if( !empty($data_talent_skill['Tooltip']) )
 					{
@@ -2410,6 +2414,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->add_value('background', $this->fix_icon($tree_background));
 			$this->add_value('pointsspent', $tree_pointsspent);
 			$this->add_value('order', $tree_order);
+			$this->add_value('spec', $data_talent_spec);
 
 			$querystr = "INSERT INTO `" . $roster->db->table('talenttree') . "` SET " . $this->assignstr;
 			$result = $roster->db->query($querystr);
@@ -2421,6 +2426,124 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->setMessage($messages . '</li>');
 	}
 
+/**
+	 * Handles formating and insertion of talent data
+	 *
+	 * @param array $data
+	 * @param int $memberId
+	 */
+	function do_talents_dual( $data , $memberId )
+	{
+		global $roster;
+
+		if( isset($data['DualTalents']) && !empty($data['DualTalents']) && is_array($data['DualTalents']))
+		{
+			$talentData = $data['DualTalents'];
+		}
+		else
+		{
+			$this->setMessage('<li>No Talents Data</li>');
+			return;
+		}
+
+		$messages = '<li>Updating DualTalents';
+            $data_talent_spec == 2; // defalt to talent set 1 unless other whise set ...
+		// first delete the stale data
+		$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `spec` = '$data_talent_spec'";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Talents could not be deleted',$roster->db->error());
+			return;
+		}
+
+		// then process Talents
+		$querystr = "DELETE FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '$memberId' AND `spec` = '$data_talent_spec'";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Talent Trees could not be deleted',$roster->db->error());
+			return;
+		}
+            // some updates for dual spec            
+            
+		// Update Talents
+		foreach( array_keys($talentData) as $talent_tree )
+		{
+			$messages .= " : $talent_tree";
+
+			$data_talent_tree = $talentData[$talent_tree];
+			foreach( array_keys($data_talent_tree) as $talent_skill )
+			{
+				$data_talent_skill = $data_talent_tree[$talent_skill];
+				if( $talent_skill == 'Order' )
+				{
+					$tree_order = $data_talent_skill;
+				}
+				elseif( $talent_skill == 'PointsSpent' )
+				{
+					$tree_pointsspent = $data_talent_skill;
+				}
+				elseif( $talent_skill == 'Background' )
+				{
+					$tree_background = $data_talent_skill;
+				}
+				else
+				{
+					$this->reset_values();
+					$this->add_value('member_id', $memberId);
+					$this->add_value('name', $talent_skill);
+					$this->add_value('tree', $talent_tree);
+					$this->add_value('spec', $data_talent_spec);
+
+					if( !empty($data_talent_skill['Tooltip']) )
+					{
+						$this->add_value('tooltip', $this->tooltip($data_talent_skill['Tooltip']));
+					}
+					else
+					{
+						$this->add_value('tooltip', $talent_skill);
+					}
+
+					if( !empty($data_talent_skill['Icon']) )
+					{
+						$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']));
+					}
+
+					$location = explode(':', $data_talent_skill['Location']);
+					$rank = explode(':', $data_talent_skill['Rank']);
+
+					$this->add_value('row', $location[0]);
+					$this->add_value('column', $location[1]);
+					$this->add_value('rank', $rank[0]);
+					$this->add_value('maxrank', $rank[1]);
+
+					unset($location,$rank);
+
+					$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
+					$result = $roster->db->query($querystr);
+					if( !$result )
+					{
+						$this->setError('Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
+					}
+				}
+			}
+
+			$this->reset_values();
+			$this->add_value('member_id', $memberId);
+			$this->add_value('tree', $talent_tree);
+			$this->add_value('background', $this->fix_icon($tree_background));
+			$this->add_value('pointsspent', $tree_pointsspent);
+			$this->add_value('order', $tree_order);
+			$this->add_value('spec', $data_talent_spec);
+
+			$querystr = "INSERT INTO `" . $roster->db->table('talenttree') . "` SET " . $this->assignstr;
+			$result = $roster->db->query($querystr);
+			if( !$result )
+			{
+				$this->setError('Dual Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
+			}
+		}
+		$this->setMessage($messages . '</li>');
+	}
 
 	/**
 	 * Handles formating and insertion of pet talent data
@@ -3726,6 +3849,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->do_spellbook($data, $memberId);
 		$this->do_glyphs($data, $memberId);
 		$this->do_talents($data, $memberId);
+		$this->do_talents_dual( $data , $memberId );
 		$this->do_reputation($data, $memberId);
 		$this->do_quests($data, $memberId);
 		$this->do_buffs($data, $memberId);
