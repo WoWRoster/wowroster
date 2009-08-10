@@ -1803,7 +1803,13 @@ class char
 	{
 		global $roster, $addon;
 
-		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `order`;";
+      $spec = array('1' => 'Active Spec', '2' => 'Secondary');
+      $ss['1'] = 'Primary';
+      $ss['2'] = 'Secondary';
+      //for($s=0;$s<3;$s++)
+      foreach ($spec as $id => $name) 
+      {			
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' and `spec` = '" . $id . "' ORDER BY `order`, `spec`;";
 		$trees = $roster->db->query($sqlquery);
 
 		$tree_rows = $roster->db->num_rows($trees);
@@ -1842,12 +1848,18 @@ class char
 				$treelayer[$j]['name'] = $treedata['tree'];
 				$treelayer[$j]['image'] = $treedata['background'];
 				$treelayer[$j]['points'] = $treedata['pointsspent'];
-				$treelayer[$j]['talents'] = $this->_talent_layer($treedata['tree']);
+				$treelayer[$j]['talents'] = $this->_talent_layer($treedata['tree'],$id);
 			}
+			$roster->tpl->assign_block_vars('talent',array(
+					
+					'NAME'     => $name.' ('.$talent_spec_name.') ',
+					'ID'       => $id
+					)
+				);
 
 			foreach( $treelayer as $treeindex => $tree )
 			{
-				$roster->tpl->assign_block_vars('talent_tree',array(
+				$roster->tpl->assign_block_vars('talent.talent_tree',array(
 					'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'],$tree['name']),
 					'NAME'     => $tree['name'],
 					'ID'       => $treeindex,
@@ -1859,11 +1871,11 @@ class char
 
 				foreach( $tree['talents'] as $row )
 				{
-					$roster->tpl->assign_block_vars('talent_tree.row',array());
+					$roster->tpl->assign_block_vars('talent.talent_tree.row',array());
 
 					foreach( $row as $cell )
 					{
-						$roster->tpl->assign_block_vars('talent_tree.row.cell',array(
+						$roster->tpl->assign_block_vars('talent.talent_tree.row.cell',array(
 							'NAME'    => $cell['name'],
 							'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
 							'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
@@ -1876,18 +1888,22 @@ class char
 				}
 			}
 
-			$roster->tpl->assign_vars(array(
+			$roster->tpl->assign_block_vars('specs',array(
 				'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
 				'SPEC_POINTS'     => implode(' / ',$spec_points),
 				'SPEC_NAME'       => $talent_spec_name,
 				'SPEC_ICON'       => $talent_spec_icon,
+				'SPEC_TYPE'       => $name,
 				)
 			);
 
-			return true;
+		//	;//return true;
 		}
 
-		return false;
+	//	return false;
+		
+	}
+	return true;
 	}
 
 
@@ -1897,11 +1913,11 @@ class char
 	 * @param string $treename
 	 * @return array
 	 */
-	function _talent_layer( $treename )
+	function _talent_layer( $treename,$id )
 	{
 		global $roster;
 
-		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `tree` = '" . $treename . "' ORDER BY `row` ASC , `column` ASC";
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `tree` = '" . $treename . "' AND `spec` = '".$id."' ORDER BY `row` ASC , `column` ASC";
 
 		$result = $roster->db->query($sqlquery);
 
@@ -2514,18 +2530,16 @@ class char
 		{
 			$roster->tpl->assign_var('S_SKILL_TAB',false);
 		}
-
-		// Talents Tab
-		if( $roster->auth->getAuthorized($addon['config']['show_talents']) && $this->show_talents() )
+            if( $this->show_talents() )
 		{
-			$roster->tpl->assign_block_vars('tabs',array(
+		$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['talents'],
 				'VALUE'    => 'tab5',
 				'SELECTED' => false
 				)
 			);
-		}
-		else
+			}
+	     else
 		{
 			$roster->tpl->assign_var('S_TALENT_TAB',false);
 		}

@@ -23,7 +23,7 @@ include( $addon['inc_dir'] . 'header.php' );
 
 if( $roster->auth->getAuthorized($addon['config']['show_talents']) )
 {
-	$char_page .= $char->printTalents();
+	$char_page .= $char->show_talents();
 }
 
 include( $addon['inc_dir'] . 'footer.php' );

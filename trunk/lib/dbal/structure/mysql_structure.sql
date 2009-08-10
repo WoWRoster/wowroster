@@ -797,6 +797,7 @@ CREATE TABLE `renprefix_spellbooktree` (
 DROP TABLE IF EXISTS `renprefix_talents`;
 CREATE TABLE `renprefix_talents` (
   `member_id` int(11) NOT NULL default '0',
+  `spec` tinyint(2) NOT NULL,
   `name` varchar(64) NOT NULL default '',
   `tree` varchar(64) NOT NULL default '',
   `row` tinyint(4) NOT NULL default '0',
@@ -805,7 +806,8 @@ CREATE TABLE `renprefix_talents` (
   `maxrank` tinyint(4) NOT NULL default '0',
   `tooltip` mediumtext NOT NULL,
   `texture` varchar(64) NOT NULL default '',
-  PRIMARY KEY  (`member_id`,`tree`,`row`,`column`)
+  PRIMARY KEY  (`spec`,`tree`,`row`,`column`),
+  KEY `spec` (`spec`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
@@ -814,11 +816,12 @@ CREATE TABLE `renprefix_talents` (
 DROP TABLE IF EXISTS `renprefix_talenttree`;
 CREATE TABLE `renprefix_talenttree` (
   `member_id` int(11) NOT NULL default '0',
+  `spec` tinyint(2) NOT NULL,
   `tree` varchar(64) NOT NULL default '',
   `background` varchar(64) NOT NULL default '',
   `order` tinyint(4) NOT NULL default '0',
   `pointsspent` tinyint(4) NOT NULL default '0',
-  PRIMARY KEY  (`member_id`,`tree`)
+  PRIMARY KEY  (`member_id`,`tree`,`spec`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
