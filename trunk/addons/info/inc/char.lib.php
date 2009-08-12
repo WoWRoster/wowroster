@@ -35,7 +35,7 @@ class char
 {
 	var $data;
 	var $equip;
-	var $talent_build_url;
+	var $talent_build_url = array();
 	var $locale;
 
 	/**
@@ -1803,107 +1803,111 @@ class char
 	{
 		global $roster, $addon;
 
-      $spec = array('1' => 'Active Spec', '2' => 'Secondary');
-      $ss['1'] = 'Primary';
-      $ss['2'] = 'Secondary';
-      //for($s=0;$s<3;$s++)
-      foreach ($spec as $id => $name) 
-      {			
-		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' and `spec` = '" . $id . "' ORDER BY `order`, `spec`;";
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `build`, `order`;";
 		$trees = $roster->db->query($sqlquery);
 
 		$tree_rows = $roster->db->num_rows($trees);
 
 		if( $tree_rows > 0 )
 		{
-			// Set vars for talent specialization
-			$talent_spec = $spec_points_temp = 0;
-			$spec_points = array();
+			// Talent data and build spec data
+			$talentdata = $specdata = array();
 
+			// Temp var for talent spec detection
+			$spec_points_temp = array();
+
+			// Loop each mysql row and build arrays
 			for( $j=0; $j < $tree_rows; $j++)
 			{
-				$treedata = $roster->db->fetch($trees,SQL_ASSOC);
+				$treedata = $roster->db->fetch($trees, SQL_ASSOC);
 
-				// does this tree have the most points?
-				if( $treedata['pointsspent'] > $spec_points_temp )
+				// Get the order and the build numbers
+				$build = $treedata['build'];
+				$order = $treedata['order'];
+
+				// Checking for build spec
+				if( !isset($spec_points_temp[$build]) || $treedata['pointsspent'] > $spec_points_temp[$build] )
 				{
-/*					if( ($treedata['pointsspent'] - $spec_points_temp) < 5 )
+/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$build]) < 5 )
 					{
-						$talent_spec = 0;
-						$talent_spec_name = $roster->locale->act['hybrid'];
-						$talent_spec_icon = 'hybrid';
+						$specdata[$build]['spec'] = 0;
+						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
+						$specdata[$build]['icon'] = 'hybrid';
 					}
 					else
 					{*/
-						$talent_spec = $j;
-						$talent_spec_name = $treedata['tree'];
-						$talent_spec_icon = $treedata['background'];
+						$specdata[$build]['spec'] = $treedata['order'];
+						$specdata[$build]['name'] = $treedata['tree'];
+						$specdata[$build]['icon'] = $treedata['background'];
 //					}
+					// Store highest tree points to temp var
 					$spec_points_temp = $treedata['pointsspent'];
 				}
 
-				// store our talent points
-				$spec_points[] = $treedata['pointsspent'];
+				// Store our talent points for later use
+				$specdata[$build]['points'][$order] = $treedata['pointsspent'];
 
-				$treelayer[$j]['name'] = $treedata['tree'];
-				$treelayer[$j]['image'] = $treedata['background'];
-				$treelayer[$j]['points'] = $treedata['pointsspent'];
-				$treelayer[$j]['talents'] = $this->_talent_layer($treedata['tree'],$id);
+				// Set talent tree data
+				$talentdata[$build][$order]['name'] = $treedata['tree'];
+				$talentdata[$build][$order]['image'] = $treedata['background'];
+				$talentdata[$build][$order]['points'] = $treedata['pointsspent'];
+				$talentdata[$build][$order]['talents'] = $this->_talent_layer($treedata['tree'], $build);
 			}
-			$roster->tpl->assign_block_vars('talent',array(
-					
-					'NAME'     => $name.' ('.$talent_spec_name.') ',
-					'ID'       => $id
-					)
-				);
 
-			foreach( $treelayer as $treeindex => $tree )
+			// Build tpl vars and blocks
+			foreach( $talentdata as $build => $builddata )
 			{
-				$roster->tpl->assign_block_vars('talent.talent_tree',array(
-					'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'],$tree['name']),
-					'NAME'     => $tree['name'],
-					'ID'       => $treeindex,
-					'POINTS'   => $tree['points'],
-					'ICON'     => $tree['image'],
-					'SELECTED' => ( $talent_spec == $treeindex ? true : false )
+				$roster->tpl->assign_block_vars('talent', array(
+					'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $this->talent_build_url[$build]),
+					'ID'            => $build,
+					'NAME'          => $specdata[$build]['name'],
+					'TYPE'          => $roster->locale->act['talent_build_' . $build],
+					'BUILD'         => implode(' / ',$specdata[$build]['points']),
+					'ICON'          => $specdata[$build]['icon']
 					)
 				);
 
-				foreach( $tree['talents'] as $row )
+				// Loop trees in build
+				foreach( $builddata as $treeindex => $tree )
 				{
-					$roster->tpl->assign_block_vars('talent.talent_tree.row',array());
+					$roster->tpl->assign_block_vars('talent.tree', array(
+						'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $tree['name']),
+						'NAME'     => $tree['name'],
+						'ID'       => $treeindex,
+						'POINTS'   => $tree['points'],
+						'ICON'     => $tree['image'],
+						'SELECTED' => ( $specdata[$build]['spec'] == $treeindex ? true : false )
+						)
+					);
 
-					foreach( $row as $cell )
+					// Loop rows in tree
+					foreach( $tree['talents'] as $row )
 					{
-						$roster->tpl->assign_block_vars('talent.talent_tree.row.cell',array(
-							'NAME'    => $cell['name'],
-							'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
-							'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
-							'MAX'     => ( isset($cell['rank']) ? $cell['maxrank'] : 0 ),
-							'TOOLTIP' => ( isset($cell['tooltip']) ? $cell['tooltip'] : '' ),
-							'ICON'    => ( isset($cell['image']) ? $cell['image'] : '' )
-							)
-						);
+						// Assign a blank block so cell works
+						$roster->tpl->assign_block_vars('talent.tree.row', array());
+
+						// Loop cells in row
+						foreach( $row as $cell )
+						{
+							$roster->tpl->assign_block_vars('talent.tree.row.cell', array(
+								'NAME'    => $cell['name'],
+								'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
+								'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
+								'MAX'     => ( isset($cell['rank']) ? $cell['maxrank'] : 0 ),
+								'TOOLTIP' => ( isset($cell['tooltip']) ? $cell['tooltip'] : '' ),
+								'ICON'    => ( isset($cell['image']) ? $cell['image'] : '' )
+								)
+							);
+						}
 					}
 				}
 			}
 
-			$roster->tpl->assign_block_vars('specs',array(
-				'U_TALENT_EXPORT' => $roster->locale->act['export_url'] . strtolower($this->data['classEn']) . '/talents.html?' . $this->talent_build_url,
-				'SPEC_POINTS'     => implode(' / ',$spec_points),
-				'SPEC_NAME'       => $talent_spec_name,
-				'SPEC_ICON'       => $talent_spec_icon,
-				'SPEC_TYPE'       => $name,
-				)
-			);
 
-		//	;//return true;
+			return true;
 		}
 
-	//	return false;
-		
-	}
-	return true;
+		return false;
 	}
 
 
@@ -1913,11 +1917,11 @@ class char
 	 * @param string $treename
 	 * @return array
 	 */
-	function _talent_layer( $treename,$id )
+	function _talent_layer( $treename , $build )
 	{
 		global $roster;
 
-		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `tree` = '" . $treename . "' AND `spec` = '".$id."' ORDER BY `row` ASC , `column` ASC";
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `build` = '" . $build . "' AND `tree` = '" . $treename . "' ORDER BY `row` ASC , `column` ASC";
 
 		$result = $roster->db->query($sqlquery);
 
@@ -1925,28 +1929,35 @@ class char
 		if( $roster->db->num_rows($result) > 0 )
 		{
 			// initialize the rows and cells
-			for( $r=1; $r < ROSTER_TALENT_ROWS+1; $r++ )
+			for( $r=1; $r < ROSTER_TALENT_ROWS + 1; $r++ )
 			{
-				for( $c=1; $c < ROSTER_TALENT_COLS+1; $c++ )
+				for( $c=1; $c < ROSTER_TALENT_COLS + 1; $c++ )
 				{
 					$returndata[$r][$c]['name'] = '';
 				}
 			}
 
-			while( $talentdata = $roster->db->fetch($result,SQL_ASSOC) )
+			while( $talentdata = $roster->db->fetch($result, SQL_ASSOC) )
 			{
 				$r = $talentdata['row'];
 				$c = $talentdata['column'];
 
-				$this->talent_build_url .= $talentdata['rank'];
+				if( isset($this->talent_build_url[$build]) )
+				{
+					$this->talent_build_url[$build] .= $talentdata['rank'];
+				}
+				else
+				{
+					$this->talent_build_url[$build] = $talentdata['rank'];
+				}
 
 				$returndata[$r][$c]['name'] = $talentdata['name'];
 				$returndata[$r][$c]['rank'] = $talentdata['rank'];
 				$returndata[$r][$c]['maxrank'] = $talentdata['maxrank'];
 				$returndata[$r][$c]['row'] = $r;
 				$returndata[$r][$c]['column'] = $c;
-				$returndata[$r][$c]['image'] = $talentdata['texture'].'.'.$roster->config['img_suffix'];
-				$returndata[$r][$c]['tooltip'] = makeOverlib($talentdata['tooltip'],'','',0,$this->data['clientLocale']);
+				$returndata[$r][$c]['image'] = $talentdata['texture'] . '.' . $roster->config['img_suffix'];
+				$returndata[$r][$c]['tooltip'] = makeOverlib($talentdata['tooltip'], '', '', 0, $this->data['clientLocale']);
 			}
 		}
 		return $returndata;
@@ -2530,16 +2541,18 @@ class char
 		{
 			$roster->tpl->assign_var('S_SKILL_TAB',false);
 		}
-            if( $this->show_talents() )
+
+		// Talents Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_talents']) && $this->show_talents() )
 		{
-		$roster->tpl->assign_block_vars('tabs',array(
+			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['talents'],
 				'VALUE'    => 'tab5',
 				'SELECTED' => false
 				)
 			);
-			}
-	     else
+		}
+		else
 		{
 			$roster->tpl->assign_var('S_TALENT_TAB',false);
 		}

@@ -128,15 +128,17 @@ CREATE TABLE `renprefix_quests` (
 
 
 # --------------------------------------------------------
-### config for dual talents....
+### Update Talents
 
-ALTER TABLE `renprefix_talents` ADD `spec` TINYINT( 2 ) NOT NULL ;
+ALTER TABLE `renprefix_talents`
+  ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`build`,`tree`,`row`,`column`);
 
-ALTER TABLE `renprefix_talents` ADD INDEX ( `spec` ) ;
-
-ALTER TABLE `renprefix_talenttree` ADD `spec` TINYINT( 2 ) NOT NULL ;
-ALTER TABLE `renprefix_talenttree` DROP PRIMARY KEY ,
-ADD PRIMARY KEY ( `member_id` , `tree` , `spec` ) 
+ALTER TABLE `renprefix_talenttree`
+  ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`build`,`tree`);
 
 # --------------------------------------------------------
 ### Config Table New Entries

@@ -69,6 +69,10 @@ $lang['skilltypes'] = array(
 	6 => 'Sprachen',
 );
 
+// Talent Builds
+$lang['talent_build_0'] = 'Active';
+$lang['talent_build_1'] = 'Inaktiv';
+
 // item slots, for missing items on characters
 $lang['Head']          = 'Kopf';
 $lang['Neck']          = 'Nacken';
@@ -180,7 +184,7 @@ $lang['res_shadow_tooltip']='Erhöht die Fähigkeit, auf Schattenschaden basiere
 
 $lang['empty_equip']='Kein Gegenstand angelegt';
 $lang['pointsspent']='Punkte verteilt in %1$s Talents';
-$lang['export_url']='http://www.wow-europe.com/de/info/basics/talents/';
+$lang['export_url']='http://eu.wowarmory.com/talent-calc.xml?locale=de_de&amp;cid=%1$s&amp;tal=%2$s';
 $lang['no_talents']='Keine Talente für %1$s';
 
 // item_bonus locales //

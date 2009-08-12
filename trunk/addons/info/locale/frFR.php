@@ -69,6 +69,10 @@ $lang['skilltypes'] = array(
 	6 => 'Langues'
 );
 
+// Talent Builds
+$lang['talent_build_0'] = 'Active';
+$lang['talent_build_1'] = 'Inactif';
+
 // item slots, for missing items on characters
 $lang['Head']          = 'Tête';
 $lang['Neck']          = 'Cou';
@@ -180,7 +184,7 @@ $lang['res_shadow_tooltip']='Augmente la capacité à résister aux attaques, so
 
 $lang['empty_equip']='Aucun équipement';
 $lang['pointsspent']='Points utilisés dans %1$s Talents';
-$lang['export_url']='http://www.wow-europe.com/fr/info/basics/talents/';
+$lang['export_url']='http://eu.wowarmory.com/talent-calc.xml?locale=fr_fr&amp;cid=%1$s&amp;tal=%2$s';
 $lang['no_talents']='Aucun talent pour %1$s';
 
 // item_bonus locales //
