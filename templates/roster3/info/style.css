@@ -58,15 +58,19 @@
 
 /* Specialization */
 .tab1 .spec { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; left: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif;  }
-.tab1 .spec .skill { text-align:left; color:#FFDD00; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
+.tab1 .spec .skill { text-align:left; color:#999; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
 .tab1 .spec .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
 .tab1 .spec .skill .icon img { height: 30px; width: 30px; }
+
 .tab1 .spec .skill .data { margin-left: 35px; }
-.tab1 .spec .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
-.tab1 .spec .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
-.tab1 .spec .skill-bar:hover { border: 1px solid #FFFFFF; }
-.tab1 .spec .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
-.tab1 .spec .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.tab1 .spec .skill .data .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
+.tab1 .spec .skill .data .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
+.tab1 .spec .skill .data .skill-bar:hover { border: 1px solid #FFFFFF; }
+.tab1 .spec .skill .data .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.tab1 .spec .skill .data .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+
+.tab1 .spec .Active { color: #FFDD00; }
+.tab1 .spec .Active .data .skill-bar { border: 1px solid #FFDD00; }
 
 /* Professions */
 .tab1 .professions { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; right: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif; }
