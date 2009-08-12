@@ -59,7 +59,7 @@ class RosterMenu
 	/**
 	 * Builds either of the side panes.
 	 *
-	 * @param kind of pane to build
+	 * @param string kind of (a) pane to build...lol
 	 */
 	function makePane( $side )
 	{

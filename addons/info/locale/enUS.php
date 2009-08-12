@@ -69,6 +69,10 @@ $lang['skilltypes'] = array(
 	6 => 'Languages'
 );
 
+// Talent Builds
+$lang['talent_build_0'] = 'Active';
+$lang['talent_build_1'] = 'Inactive';
+
 // item slots, for missing items on characters
 $lang['Head']          = 'Head';
 $lang['Neck']          = 'Neck';
@@ -180,7 +184,7 @@ $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-
 
 $lang['empty_equip']='No item equipped';
 $lang['pointsspent']='Points Spent in %1$s Talents';
-$lang['export_url']='http://www.worldofwarcraft.com/info/classes/';
+$lang['export_url']='http://www.wowarmory.com/talent-calc.xml?cid=%1$s&amp;tal=%2$s';
 $lang['no_talents']='No Talents for %1$s';
 
 // item_bonus locales //

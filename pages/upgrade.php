@@ -234,6 +234,20 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');");
 		}
 
+		// Dual Talent Builds
+		if( version_compare($roster->config['version'], '2.0.9.1987', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('talents') . "`
+				ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+				DROP PRIMARY KEY,
+				ADD PRIMARY KEY (`member_id`,`build`,`tree`,`row`,`column`);");
+
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('talenttree') . "`
+				ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+				DROP PRIMARY KEY,
+				ADD PRIMARY KEY (`member_id`,`build`,`tree`);");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();
