@@ -248,6 +248,23 @@ class Upgrade
 				ADD PRIMARY KEY (`member_id`,`build`,`tree`);");
 		}
 
+		// Dual Talent Builds - glyphs and spellbook
+		if( version_compare($roster->config['version'], '2.0.9.1989', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('glyphs') . "`
+				ADD `glyph_build` tinyint(2) NOT NULL default '0' AFTER `member_id`;");
+
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('spellbook') . "`
+				ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+				DROP PRIMARY KEY,
+				ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_name`,`spell_rank`);");
+
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('spellbooktree') . "`
+				ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+				DROP PRIMARY KEY,
+				ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

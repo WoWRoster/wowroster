@@ -34,7 +34,6 @@ $lang['char_guildline'] = '%1$s der %2$s';
 $lang['talents'] = 'Talente';
 $lang['talent_specialization'] = 'Talent Specialization';
 $lang['unusedtalentpoints']='Unbenutzte Talentpunkte';
-$lang['talentexport']='Exportiere Talentbaum';
 $lang['hybrid']='Hybrid';
 
 $lang['pets']='Pets';
@@ -68,10 +67,6 @@ $lang['skilltypes'] = array(
 	5 => 'Rüstungssachverstand',
 	6 => 'Sprachen',
 );
-
-// Talent Builds
-$lang['talent_build_0'] = 'Active';
-$lang['talent_build_1'] = 'Inaktiv';
 
 // item slots, for missing items on characters
 $lang['Head']          = 'Kopf';
