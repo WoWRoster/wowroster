@@ -266,7 +266,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 			echo '<div style="display:none;" id="' . $directory_id . 'TableShow">';
 			echo border($severity[$files[$directory]['rollup']]['style'], 'start', $headertext_min);
 
-			echo '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">';
+			echo '<table width="100%" cellpadding="0" cellspacing="0">';
 			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';
 			echo '</tr>';
 			$row = 0;

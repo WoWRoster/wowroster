@@ -586,7 +586,7 @@ function describeGDdyn()
 
 	if( function_exists('gd_info') )
 	{
-		$returnVal  = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
+		$returnVal  = '<table cellspacing="0" width="100%">' . "\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow" . (((++$rowstripe)%2)+1) . "\">GD Status</td>\n\t\t<td class=\"membersRowRight" . ((($rowstripe)%2)+1) . "\"><span class=\"green\">On</span></td>\n\t</tr>\n";
 
 		$info = gd_info();
@@ -606,7 +606,7 @@ function describeGDdyn()
 	}
 	else
 	{
-		$returnVal  = '<table class="bodyline" cellspacing="0" width="100%">' . "\n";
+		$returnVal  = '<table cellspacing="0" width="100%">' . "\n";
 		$returnVal .= "\t<tr>\n\t\t<td class=\"membersRow1\">GD Status</td>\n\t\t<td class=\"membersRowRight1\"><span class=\"red\">Off</span></td>\n\t</tr>\n";
 		$returnVal .= "</table>\n";
 	}

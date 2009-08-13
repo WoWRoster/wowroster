@@ -163,7 +163,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		$roster->db->close_db();
 	}
 
-	echo border('sred','start',$title) . '<table class="bodyline" cellspacing="0" cellpadding="0">'."\n";
+	echo border('sred','start',$title) . '<table cellspacing="0" cellpadding="0">'."\n";
 
 	if( !empty($text) )
 	{
