@@ -314,6 +314,10 @@ $lang['search_names'] = 'Search Names';
 $lang['search_items'] = 'Search Items';
 $lang['search_tooltips'] = 'Search Tooltips';
 
+// Talent Builds
+$lang['talent_build_0'] = 'Active';
+$lang['talent_build_1'] = 'Inactive';
+
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Professions';
 $lang['secondary']='Secondary Skills';

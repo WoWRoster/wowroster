@@ -26,6 +26,7 @@ CREATE TABLE `renprefix_companions` (
 DROP TABLE IF EXISTS `renprefix_glyphs`;
 CREATE TABLE `renprefix_glyphs` (
   `member_id` int(11) unsigned NOT NULL default '0',
+  `glyph_build` tinyint(2) NOT NULL default '0',
   `glyph_order` tinyint(4) NOT NULL default '0',
   `glyph_type` tinyint(4) NOT NULL default '0',
   `glyph_name` varchar(96) NOT NULL default '',
@@ -126,6 +127,18 @@ CREATE TABLE `renprefix_quests` (
   KEY `quest_index` (`quest_id`,`quest_index`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+# --------------------------------------------------------
+### Update Spellbook
+
+ALTER TABLE `renprefix_spellbook`
+  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_name`,`spell_rank`);
+
+ALTER TABLE `renprefix_spellbooktree`
+  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);
 
 # --------------------------------------------------------
 ### Update Talents
@@ -134,6 +147,7 @@ ALTER TABLE `renprefix_talents`
   ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
   DROP PRIMARY KEY,
   ADD PRIMARY KEY (`member_id`,`build`,`tree`,`row`,`column`);
+
 
 ALTER TABLE `renprefix_talenttree`
   ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,

@@ -314,6 +314,10 @@ $lang['search_names'] = 'Nach Namen suchen';
 $lang['search_items'] = 'Nach Gegenständen suchen';
 $lang['search_tooltips'] = 'Suche im Tooltip';
 
+// Talent Builds
+$lang['talent_build_0'] = 'Active';
+$lang['talent_build_1'] = 'Inaktiv';
+
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Berufe';
 $lang['secondary']='Sekundäre Fertigkeiten';

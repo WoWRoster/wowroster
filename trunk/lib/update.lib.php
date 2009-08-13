@@ -446,8 +446,8 @@ class update
 							$guildId = $roster->db->query_first($query);
 						}
 
-						$time = $roster->db->query_first("SELECT `dateupdatedutc` FROM `" . $roster->db->table('players')
-							  . "` WHERE '" . $char_name . "' LIKE `name`"
+						$time = $roster->db->query_first("SELECT `dateupdatedutc` FROM `" . $roster->db->table('players') . "`"
+							  . " WHERE '" . $char_name . "' LIKE `name`"
 							  . " AND '" . $realm_escape . "' LIKE `server`"
 							  . " AND '" . $region . "' LIKE `region`;");
 
@@ -2010,32 +2010,46 @@ CREATE TABLE `renprefix_quest_task_data` (
 	{
 		global $roster;
 
-		if(isset($data['SpellBook']))
+		$spellBuildData = array();
+
+		if( isset($data['SpellBook']) && !empty($data['SpellBook']) && is_array($data['SpellBook']) )
 		{
-			$spellbook = $data['SpellBook'];
+			$spellBuildData[0] = $data['SpellBook'];
+		}
+		else
+		{
+			$this->setMessage('<li>No Spellbook Data</li>');
+			return;
 		}
 
-		if( !empty($spellbook) && is_array($spellbook) )
+		// Check for dual talent build
+		if( ( isset($data['DualSpec']) && !empty($data['DualSpec']) && is_array($data['DualSpec']) )
+			&& ( isset($data['DualSpec']['SpellBook']) && !empty($data['DualSpec']['SpellBook']) && is_array($data['DualSpec']['SpellBook']) ) )
 		{
-			$messages = '<li>Updating Spellbook';
+			$spellBuildData[1] = $data['DualSpec']['SpellBook'];
+		}
 
-			// first delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '$memberId'";
+		$messages = '<li>Updating Spellbook';
+
+		// then process spellbook
+		foreach( $spellBuildData as $build => $spellbook )
+		{
+			// Delete the stale data
+			$querystr = "DELETE FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` = '$memberId' AND `spell_build` = " . $build . ";";
 			if( !$roster->db->query($querystr) )
 			{
-				$this->setError('Spells could not be deleted',$roster->db->error());
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Spells could not be deleted',$roster->db->error());
 				return;
 			}
 
 			// then process Spellbook Tree
-			$querystr = "DELETE FROM `" . $roster->db->table('spellbooktree') . "` WHERE `member_id` = '$memberId'";
+			$querystr = "DELETE FROM `" . $roster->db->table('spellbooktree') . "` WHERE `member_id` = '$memberId' AND `spell_build` = " . $build . ";";
 			if( !$roster->db->query($querystr) )
 			{
-				$this->setError('Spell Trees could not be deleted',$roster->db->error());
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Spell Trees could not be deleted',$roster->db->error());
 				return;
 			}
 
-			// then process spellbook
 			foreach( array_keys($spellbook) as $spell_type )
 			{
 				$messages .= " : $spell_type";
@@ -2053,6 +2067,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 							$this->reset_values();
 							$this->add_value('member_id', $memberId);
+							$this->add_value('spell_build', $build);
 							$this->add_value('spell_type', $spell_type);
 							$this->add_value('spell_name', $spell_name);
 
@@ -2078,13 +2093,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 							$result = $roster->db->query($querystr);
 							if( !$result )
 							{
-								$this->setError('Spell [' . $spell_name . '] could not be inserted',$roster->db->error());
+								$this->setError($roster->locale->act['talent_build_' . $build] . ' Spell [' . $spell_name . '] could not be inserted',$roster->db->error());
 							}
 						}
 					}
 				}
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
+				$this->add_value('spell_build', $build);
 				$this->add_value('spell_type', $spell_type);
 				$this->add_value('spell_texture', $this->fix_icon($data_spell_type['Icon']));
 
@@ -2092,15 +2108,11 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
-					$this->setError('Spell Tree [' . $spell_type . '] could not be inserted',$roster->db->error());
+					$this->setError($roster->locale->act['talent_build_' . $build] . ' Spell Tree [' . $spell_type . '] could not be inserted',$roster->db->error());
 				}
 			}
-			$this->setMessage($messages . '</li>');
 		}
-		else
-		{
-			$this->setMessage('<li>No Spellbook Data</li>');
-		}
+		$this->setMessage($messages . '</li>');
 	}
 
 
@@ -2251,9 +2263,11 @@ CREATE TABLE `renprefix_quest_task_data` (
 	{
 		global $roster;
 
+		$glyphBuildData = array();
+
 		if( isset($data['Glyphs']) && !empty($data['Glyphs']) && is_array($data['Glyphs']) )
 		{
-			$glyphData = $data['Glyphs'];
+			$glyphBuildData[0] = $data['Glyphs'];
 		}
 		else
 		{
@@ -2261,44 +2275,56 @@ CREATE TABLE `renprefix_quest_task_data` (
 			return false;
 		}
 
-		$messages = '<li>Updating Glyphs ';
-
-		//first delete the stale data
-		$querystr = "DELETE FROM `" . $roster->db->table('glyphs') . "` WHERE `member_id` = '$memberId';";
-
-		if( !$roster->db->query($querystr) )
+		// Check for dual talent build
+		if( ( isset($data['DualSpec']) && !empty($data['DualSpec']) && is_array($data['DualSpec']) )
+			&& ( isset($data['DualSpec']['Glyphs']) && !empty($data['DualSpec']['Glyphs']) && is_array($data['DualSpec']['Glyphs']) ) )
 		{
-			$this->setError('Glyphs could not be deleted',$roster->db->error());
-			return;
+			$glyphBuildData[1] = $data['DualSpec']['Glyphs'];
 		}
 
-		foreach( array_keys($glyphData) as $glyphOrder )
+		$messages = '<li>Updating Glyphs ';
+
+		foreach( $glyphBuildData as $build => $glyphData )
 		{
-			$glyph = $glyphData[$glyphOrder];
+			// Delete the stale data
+			$querystr = "DELETE FROM `" . $roster->db->table('glyphs') . "` WHERE `member_id` = '$memberId' AND `glyph_build` = " . $build . ";";
 
-			$this->reset_values();
-			$this->add_value('member_id', $memberId);
-			$this->add_ifvalue($glyph,'Name','glyph_name');
-			$this->add_ifvalue($glyph,'Type','glyph_type');
-			if( isset($glyph['Icon']) )
+			if( !$roster->db->query($querystr) )
 			{
-				$this->add_value('glyph_icon', $this->fix_icon($glyph['Icon']));
-			}
-			if( isset($glyph['Tooltip']) )
-			{
-				$this->add_value('glyph_tooltip', $this->tooltip($glyph['Tooltip']));
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Glyphs could not be deleted',$roster->db->error());
+				return;
 			}
 
-			$this->add_value('glyph_order', $glyphOrder);
-
-			$messages .= '.';
-
-			$querystr = "INSERT INTO `" . $roster->db->table('glyphs') . "` SET " . $this->assignstr . ";";
-
-			$result = $roster->db->query($querystr);
-			if( !$result )
+			foreach( array_keys($glyphData) as $glyphOrder )
 			{
-				$this->setError('Glyph [' . $skill_name . '] could not be inserted',$roster->db->error());
+				$glyph = $glyphData[$glyphOrder];
+
+				$this->reset_values();
+				$this->add_value('member_id', $memberId);
+				$this->add_ifvalue($glyph, 'Name', 'glyph_name');
+				$this->add_ifvalue($glyph, 'Type', 'glyph_type');
+				$this->add_value('glyph_build', $build);
+
+				if( isset($glyph['Icon']) )
+				{
+					$this->add_value('glyph_icon', $this->fix_icon($glyph['Icon']));
+				}
+				if( isset($glyph['Tooltip']) )
+				{
+					$this->add_value('glyph_tooltip', $this->tooltip($glyph['Tooltip']));
+				}
+
+				$this->add_value('glyph_order', $glyphOrder);
+
+				$messages .= '.';
+
+				$querystr = "INSERT INTO `" . $roster->db->table('glyphs') . "` SET " . $this->assignstr . ";";
+
+				$result = $roster->db->query($querystr);
+				if( !$result )
+				{
+					$this->setError($roster->locale->act['talent_build_' . $build] . ' Glyph [' . $glyph['glyph_name'] . '] could not be inserted', $roster->db->error());
+				}
 			}
 		}
 		$this->setMessage($messages . '</li>');
@@ -2337,25 +2363,24 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		$messages = '<li>Updating Talents';
 
-		// first delete the stale data
-		$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId'";
-		if( !$roster->db->query($querystr) )
-		{
-			$this->setError('Talents could not be deleted',$roster->db->error());
-			return;
-		}
-
-		// then process Talents
-		$querystr = "DELETE FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '$memberId'";
-		if( !$roster->db->query($querystr) )
-		{
-			$this->setError('Talent Trees could not be deleted',$roster->db->error());
-			return;
-		}
-
 		// Update Talents
 		foreach( $talentBuildData as $build => $talentData )
 		{
+			// first delete the stale data
+			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
+			if( !$roster->db->query($querystr) )
+			{
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talents could not be deleted',$roster->db->error());
+				return;
+			}
+
+			$querystr = "DELETE FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
+			if( !$roster->db->query($querystr) )
+			{
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Trees could not be deleted',$roster->db->error());
+				return;
+			}
+
 			foreach( array_keys($talentData) as $talent_tree )
 			{
 				$messages .= " : $build-$talent_tree";
@@ -2412,7 +2437,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						$result = $roster->db->query($querystr);
 						if( !$result )
 						{
-							$this->setError('Talent [' . $build . '-' . $talent_skill . '] could not be inserted',$roster->db->error());
+							$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
 						}
 					}
 				}
@@ -2429,7 +2454,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
-					$this->setError('Talent Tree [' . $build . '-' . $talent_tree . '] could not be inserted',$roster->db->error());
+					$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
 				}
 			}
 		}
