@@ -130,7 +130,9 @@ $roster->tpl->assign_vars(array(
 	'L_MENU_LABEL'      => $roster->scope,
 	'L_MENU_LABEL_NAME' => $roster->locale->act[$roster->scope],
 
-	'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false
+	'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
+
+	'U_MENU_UPDATE_LUA' => makelink('update')
 ));
 
 // Make a listing of our current locales
