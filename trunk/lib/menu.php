@@ -427,8 +427,6 @@ class RosterMenu
 			'S_MENU_HEADER_01' => isset($scopes['guild']) ? true : false,
 			'S_MENU_HEADER_02' => isset($scopes['realm']) ? true : false,
 			'S_MENU_HEADER_04' => isset($scopes['util']) ? true : false,
-
-			'U_MENU_HEADER_03' => makelink('update'),
 			)
 		);
 
