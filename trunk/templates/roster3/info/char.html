@@ -111,19 +111,16 @@
 					<!-- Advanced Stats -->
 						<div class="powers shader">
 							<div class="bar">
-								<div class="power-bar health">{HEALTH}</div>
-								<div class="power-name"><!-- TRANSLATE health -->:</div>
+								<div class="power-bar health"><!-- TRANSLATE health -->: {HEALTH}</div>
 							</div>
 							<div class="bar">
-								<div class="power-bar {L_CHAR_POWER_ID}">{POWER}</div>
-								<div class="power-name">{L_CHAR_POWER}:</div>
+								<div class="power-bar {L_CHAR_POWER_ID}">{L_CHAR_POWER}: {POWER}</div>
 							</div>
 							<div class="bar">
 								<div class="xp-bar {EXP_TYPE}">
 									<div class="fill {EXP_TYPE}" style="width: {EXP_PERC}%;"></div>
-									<div class="text">{EXP_AMOUNT} / {EXP_MAX} <!-- IF EXP_REST -->: {EXP_REST} <!-- ENDIF -->({EXP_PERC}%)</div>
+									<div class="text">XP: {EXP_AMOUNT} / {EXP_MAX} <!-- IF EXP_REST -->: {EXP_REST} <!-- ENDIF -->({EXP_PERC}%)</div>
 								</div>
-								<div class="xp-name">EXP:</div>
 							</div>
 						</div>
 
