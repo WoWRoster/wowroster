@@ -27,8 +27,6 @@
 
 <div class="roster-wrap">
 
-
- 
 <!-- IF S_HEADER_LOGO -->
 <div align="center" style="margin:10px;">
 	<table class="border_frame" cellpadding="0" cellspacing="1">
@@ -39,15 +37,24 @@
 </div>
 <!-- ENDIF -->
 
+{ROSTER_TOP}
+
 <!-- Navagation Tabs -->
-	<div class="top-menu">
-		<div class="links"><div id="top_nav">
+<div class="top-menu">
+	<div class="links">
+		<div id="top_nav">
 			<a href="{U_MENU_UPDATE_LUA}" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
 			<a class="button-guild" href="#" onclick="showHide('menu_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
 			<a class="button-realm" href="#" onclick="showHide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
 			<a class="button-util" href="#" onclick="showHide('menu_util'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
-		</div></div>
+		</div>
 	</div>
+</div>
+
+<!-- Log-in form -->
+<div class="menu-login">
+	{MENU_LOGIN_FORM}
+</div>
 
 <div class="theme-wrap">
 
@@ -58,7 +65,7 @@
 			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
 		</div>
 	</div>
-	<div class="">
+	<div class="util-page-wrap">
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "util" -->
@@ -68,7 +75,7 @@
 			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
 		</div>
 	</div>
-	<div class="">
+	<div class="util-wrap">
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "realm" -->
@@ -78,7 +85,7 @@
 			<div class="info">Guilds: {L_TOTAL_GUILDS} Key<span>Guilds: {L_TOTAL_GUILDS} Key</span></div>
 		</div>
 	</div>
-	<div class="">
+	<div class="realm-wrap">
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "guild" -->
@@ -88,7 +95,7 @@
 			<div class="info"><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}<span><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}</span></div>
 		</div>
 	</div>
-	<div class="">
+	<div class="guild-wrap">
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "char" -->
@@ -126,7 +133,6 @@
 			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --><span><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></span></div>
 		</div>
 	</div>
-	
 	<div class="char-wrap">
 <!-- ENDIF -->
 

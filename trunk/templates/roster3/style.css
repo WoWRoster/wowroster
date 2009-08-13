@@ -24,16 +24,17 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 	margin: auto;
 }
 
-.char-wrap { padding: 0px 200px 0px 0px; }
+.char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap { padding: 100px 0 0 0; position: relative; }
+.char-wrap { padding-right: 200px; }
 
 
 /* Login Box */
-.menu-login { position: absolute; z-index: 1000; height: 20px; width: 300px; left: 140px; top: -25px; }
+.menu-login { margin:5px 0 0 130px; width: 300px; }
 
 /* General Scope Block */
-.scope-menu { padding: 120px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
+.scope-menu { padding: 10px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
 .scope-menu .menu-scope { margin:2px 0px 0px; padding:0px; width:100%; display:block; }
-.scope-menu .menu-scope-panel { background: url(./images/shader.png) repeat; border: 1px solid #9D7D1C; max-width: 100%; position: absolute; z-index: 200; left: 0px; top: 0px; padding: 5px; }
+.scope-menu .menu-scope-panel { background: url(./images/shader.png) repeat; border: 1px solid #9D7D1C; max-width: 100%; position: absolute; z-index: 200; left: 0; top: 30px; padding: 5px; }
 .scope-menu .menu-scope-panel a { width:40px; height:40px; }
 
 .scope-menu ul { list-style-type:none; margin:0px; padding:0px; width:100%; display: table; }
@@ -47,7 +48,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 }
 .scope-menu li a:hover { border:2px solid #0066FF; }
 
-.qj-button { position: absolute; top: 130px; left: 40px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
+.qj-button { position: absolute; top: 0px; left: 35px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
 .qj-button a {
 	display:block;
 	border:2px solid #4E4D4C;
@@ -76,14 +77,14 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .theme-wrap {
 	min-height: 900px;
 	width: 940px;
-	margin: 30px auto auto;
+	margin: 20px auto auto;
 	position: relative;
 	border: 1px solid #9D7D1C;
 	background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top;
 	padding: 10px;
 }
 
-.info-header { width: 100%; height: 170px; position: absolute; left: -10px; top: -20px; padding-right: 10px; }
+.info-header { width: 100%; height: 125px; position: absolute; left: -10px; top: -20px; padding-right: 10px; padding-bottom: 45px; }
 
 .Realm { background: url(./images/bg_neutral.png) no-repeat left top; }
 .alliance { background: url(./images/bg_alliance.png) no-repeat left top; }
@@ -123,24 +124,20 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 #keyslist img.icon {height:20px; width:20px;}
 
 /* Navagation tabs */
-.sections { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:100%; z-index: 20; left: 140px; top: 100px; }
+.sections { font:11px arial,helvetica,sans-serif; width:100%; }
 .sections ul { margin:0; padding:0; list-style:none; }
-.sections li { float:left; background:url(./images/tabs/inactive_left.gif) no-repeat left top; margin:0; padding-left:7px; cursor:pointer; margin-bottom:-7px; }
-.sections .text { display:block;background:url(./images/tabs/inactive_right.gif) no-repeat right top;padding:10px 11px 8px 3px;text-decoration:none;font-weight:normal;color:#FFDD00; }
-.sections .text:hover { color:#ffffff; font-weight:normal; }
-.sections .selected { background-image:url(./images/tabs/active_left.gif); cursor:default; }
-.sections .selected .text { background-image:url(./images/tabs/active_right.gif); color:#ffffff; padding:8px 11px 10px 3px; }
+.sections li { float:left; background:url(./images/tabs/inactive_left.png) no-repeat left top; margin:0 3px -7px 0; padding-left:7px; cursor:pointer; }
+.sections .text { display:block; background:url(./images/tabs/inactive_right.png) no-repeat right top; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
+.sections .text:hover { color:#000000; }
+.sections .selected { background-image:url(./images/tabs/active_left.png); cursor:default; }
+.sections .selected .text { background-image:url(./images/tabs/active_right.png); color:#000000; padding:8px 11px 10px 3px; }
 
+.roster-panel { clear: left; }
 
-/* New Panel Navagation tabs */
-.main-panel {position: relative;}
-.main-panel .sections { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; min-width:100px; z-index: 20; left: 10px; top: -25px; }
-.main-panel .sections ul { margin:0; padding:0; list-style:none; }
-.main-panel .sections li { float:left; background:url(./images/tabs/inactive_left.png) no-repeat left top; margin:0 3px -7px 0; padding-left:7px; cursor:pointer; }
-.main-panel .sections .text { display:block; background:url(./images/tabs/inactive_right.png) no-repeat right top; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
-.main-panel .sections .text:hover { color:#000000; }
-.main-panel .sections .selected { background-image:url(./images/tabs/active_left.png); cursor:default; }
-.main-panel .sections .selected .text { background-image:url(./images/tabs/active_right.png); color:#000000; padding:8px 11px 10px 3px; }
+.roster-panel .container { padding: 0 0 20px; background: #eaca81 url(./images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.roster-panel .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(./images/skill_title_bg.png) repeat-x left top; position: relative; }
+.roster-panel .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+
 
 img, p { padding:0;margin:0;border:0; }
 
@@ -414,7 +411,7 @@ select {
 	white-space:nowrap;
 	color:#000000;
 	font:bold 11px arial,helvetica,sans-serif;
-	background: url(./images/skill_title_bg.png) repeat-x left top;
+	background: url(./images/skill_bg.png) repeat-x center top;
 	padding:0 6px 0 6px;
 	height: 20px;
 	vertical-align:middle;
@@ -463,7 +460,16 @@ select {
 }
 
 /* Header Text */
-.header_text { text-align:center; white-space:nowrap; overflow:hidden; color:#000000; font:bold 14px arial,helvetica,sans-serif; background: url(./images/skill_title_bg.png) repeat-x left top; padding:10; vertical-align:middle; }
+.header_text {
+	text-align:center;
+	white-space:nowrap;
+	overflow:hidden;
+	color:#000000;
+	font:bold 16px arial,helvetica,sans-serif;
+	background: url(./images/skill_title_bg.png) repeat-x left bottom;
+	padding:10;
+	vertical-align:middle;
+}
 
 /* Border Colors */
 .swhiteborder { border-color:#FFFFFF; }
