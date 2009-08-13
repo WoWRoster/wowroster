@@ -93,13 +93,13 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnurl = parse_url(ROSTER_SVNREMOTE);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">SVN Image</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">SVN Image</th></tr>';
 				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'" alt="Local Image" /></td><td class="membersRowRight1"><img src="'.$svnurl.$filename.'" alt="SVN Image" /></td></tr>';
 				$diffcheck .= '</table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0" class="bodyline"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">SVN File</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">SVN File</th></tr>';
 				$difffiles = difffile($filelocalsource, $filesvnsource);
 				$row_color=2;
 				foreach ($difffiles as $difference)
@@ -163,7 +163,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		print '<table border="0" cellspacing="6"><tr><td valign="top" align="right">'."\n";
 
 		print border('syellow','start','MD5 Information for file: '.$filename)."\n";
-		print '<table width="100%" cellspacing="0" border="0" class="bodyline">';
+		print '<table width="100%" cellspacing="0" border="0">';
 		print '<tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">'.$md5remote."</td></tr>\n";
 		print '<tr><td class="membersRow2">Local:</td><td class="membersRowRight2">'.$md5local."</td></tr>\n";
 		print "</table>\n";
@@ -172,7 +172,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		print '</td><td>&nbsp;</td><td valign="top" align="left">';
 
 		print border('sblue','start','Back Link');
-		print '<table width="100%" cellspacing="0" border="0" class="bodyline">';
+		print '<table width="100%" cellspacing="0" border="0">';
 		print '<tr><td class="membersRowRight2"><form method="post" action="'.makelink().'">';
 		print '<input type="hidden" name="filename" value="'.$filename.'" />';
 		print '<input type="hidden" name="downloadsvn" value="savefile" />';
@@ -222,7 +222,7 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 // Display basic server info
 $rowstripe = 0;
 echo messageboxtoggle('
-<table width="100%" class="bodyline" cellspacing="0">
+<table width="100%" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">OS</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.php_uname('s').'</td>
@@ -239,7 +239,7 @@ echo messageboxtoggle('
 <br />
 '.
 messageboxtoggle('
-<table width="100%" class="bodyline" cellspacing="0">
+<table width="100%" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">PHP Version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.PHP_VERSION.'</td>
@@ -288,7 +288,7 @@ echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
 // Display conf.php info
 
 echo messageboxtoggle('
-<table width="100%" class="bodyline" cellspacing="0">
+<table width="100%" cellspacing="0">
 	<tr>
 		<th colspan="2" class="membersHeaderRight"><i><a href="'.makelink('rosterdiag&amp;printconf=1').'" target="_blank">Show Entire $roster->config array</a></i></th>
 	</tr>
@@ -341,7 +341,7 @@ echo "</td><td valign=\"top\">\n";
 
 
 // Display MySQL Tables
-$sql_tables = '<table width="100%" class="bodyline" cellspacing="0">'."\n";
+$sql_tables = '<table width="100%" cellspacing="0">'."\n";
 
 $result = $roster->db->query("SHOW TABLES;");
 if( !$result )
@@ -446,7 +446,7 @@ if( GrabRemoteVersions() !== false )
 			echo border($severity[$files[$directory]['rollup']]['style'],'start',$headertext_min);
 
 
-			echo '<table width="100%" cellpadding="0" cellspacing="0" class="bodyline">';
+			echo '<table width="100%" cellpadding="0" cellspacing="0">';
 			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';
 			echo '</tr>';
 			$row=0;

@@ -144,7 +144,7 @@ class RosterLogin
 			<!-- Begin Password Input Box -->
 			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" onsubmit="submitonce(this);">
 			' . border('sred','start',$log_word . ' ' . $roster->locale->act['auth_req']) . '
-				<table class="bodyline" cellspacing="0" cellpadding="0" width="100%">
+				<table cellspacing="0" cellpadding="0" width="100%">
 					<tr>
 						<td class="membersRowRight1">' . $roster->locale->act['password'] . ':<br />
 							<input name="password" class="wowinput192" type="password" size="30" maxlength="30" /></td>
