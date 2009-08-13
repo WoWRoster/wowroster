@@ -284,13 +284,18 @@ elseif( $roster->scope == 'char' )
 		}
 	}
 }
+// BETA ONLY, COMMENT THIS IN RC OR LATER!
+if( file_exists(ROSTER_BASE . 'valid.inc') )
+{
+	$v_content = '';
+	ob_start();
+		require (ROSTER_BASE . 'valid.inc');
+	$v_content = ob_get_clean();
+
+	$roster->tpl->assign_var('ROSTER_TOP', $v_content);
+}
+// END BETA ONLY
 
 $roster->tpl->set_handle('roster_header', 'header.html');
 $roster->tpl->display('roster_header');
 
-// BETA ONLY, COMMENT THIS IN RC OR LATER!
-if( file_exists(ROSTER_BASE . 'valid.inc') )
-{
-	include (ROSTER_BASE . 'valid.inc');
-}
-// END BETA ONLY

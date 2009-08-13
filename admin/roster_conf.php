@@ -46,5 +46,5 @@ $body .= $config->form_start
 	   . $config->formpages
 	   . $config->submit_button
 	   . $config->form_end
-	   . $config->nonformpages
-	   . $config->jscript;
+	   . $config->nonformpages;
+$footer .= $config->jscript;

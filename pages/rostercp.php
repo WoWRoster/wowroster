@@ -38,9 +38,7 @@ if( !defined('IN_ROSTER') )
 // ----[ Check log-in ]-------------------------------------
 if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
-	echo '<span class="title_text">' . $roster->locale->act['roster_config'] . '</span><br />'
-		. $roster->auth->getLoginForm();
-
+	echo $roster->auth->getLoginForm();
 	return;
 }
 // ----[ End Check log-in ]---------------------------------
@@ -49,7 +47,7 @@ define('IN_ROSTER_ADMIN',true);
 
 include_once(ROSTER_ADMIN . 'pages.php');
 
-$header = $menu = $pagebar = $footer = $body = $rcp_message = '';
+$header = $menu = $footer = $body = $rcp_message = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
 
@@ -188,12 +186,11 @@ if( isset($roster->pages[1]) )
 }
 
 $roster->tpl->assign_vars(array(
-	'ROSTERCP_TITLE' => $rostercp_title,
+	'ROSTERCP_TITLE'  => $rostercp_title,
 	'ROSTERCP_MESSAGE' => $rcp_message,
 	'HEADER' => $header,
 	'MENU' => $menu,
 	'BODY' => $body,
-	'PAGEBAR' => $pagebar,
 	'FOOTER' => $footer,
 	)
 );

@@ -265,6 +265,12 @@ class Upgrade
 				ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);");
 		}
 
+		// Config Update
+		if( version_compare($roster->config['version'], '2.0.9.1992', '<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;");
+		}
+
 		$this->beta_upgrade();
 
 		$this->finalize();

@@ -155,6 +155,7 @@ ALTER TABLE `renprefix_talenttree`
   ADD PRIMARY KEY (`member_id`,`build`,`tree`);
 
 # --------------------------------------------------------
-### Config Table New Entries
+### Config Table Updates
 
+UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;
 INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');

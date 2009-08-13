@@ -123,8 +123,8 @@ if( $addon['active'] = '1' )
 			   . $config->formpages
 			   . $config->submit_button
 			   . $config->form_end
-			   . $config->nonformpages
-			   . $config->jscript;
+			   . $config->nonformpages;
+		$footer .= $config->jscript;
 	}
 	else
 	{

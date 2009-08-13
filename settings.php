@@ -290,6 +290,7 @@ $roster->tpl->assign_vars(array(
 	'T_BORDER_BLUE'   => border('sblue', 'start'),
 	'T_BORDER_END'    => border('sgray', 'end'),
 
+	'ROSTER_TOP'         => '',
 	'PAGE_TITLE'         => '',
 	'ROSTER_HEAD'        => '',
 	'ROSTER_BODY'        => '',
