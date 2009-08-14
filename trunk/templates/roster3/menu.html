@@ -25,10 +25,11 @@
 <!-- END menu_button_section -->
 </div>
 
-<!-- IF ROSTER_MENU_BEFORE -->{ROSTER_MENU_BEFORE}<!-- ENDIF -->
 
 
-<div style="display:none; height:0;">
+
+
+<div style="display:none;">
 
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
@@ -84,40 +85,8 @@
 				</tr>
 				<tr>
 			{MENU_LEFT}
-					<td valign="top" class="row">
-						<div class="menu_container">
-							<div class="menu_header">
-								<ul >
-									<li><a href="#" class="menu_bg_01" onclick="<!-- IF S_MENU_HEADER_01 -->showHide('menu_guild');<!-- ENDIF -->return false;"><!-- TRANSLATE menu_header_01 --></a></li>
-									<li><a href="#" class="menu_bg_02" onclick="<!-- IF S_MENU_HEADER_02 -->showHide('menu_realm');<!-- ENDIF -->return false;"><!-- TRANSLATE menu_header_02 --></a></li>
-									<li><a href="{U_MENU_UPDATE_LUA}" class="menu_bg_03"><!-- TRANSLATE menu_header_03 --></a></li>
-									<li><a href="#" class="menu_bg_04" onclick="<!-- IF S_MENU_HEADER_04 -->showHide('menu_util');<!-- ENDIF -->return false;"><!-- TRANSLATE menu_header_04 --></a></li>
-								</ul>
-							</div>
 
-							<!-- BEGIN menu_button_section -->
-							<div class="menu_{menu_button_section.CLASS}" id="menu_{menu_button_section.ID}"<!-- IF menu_button_section.OPEN --> style="display:none"<!-- ENDIF -->>
-								<div align="{menu_button_section.ALIGN}">{menu_button_section.LABEL}</div>
-								<ul>
-								<!-- BEGIN menu_buttons -->
-									<li{menu_button_section.menu_buttons.TOOLTIP} style="background-image:url({menu_button_section.menu_buttons.ICON}); background-position:center; background-repeat: no-repeat;"><a href="{menu_button_section.menu_buttons.U_LINK}"></a></li>
-								<!-- END menu_buttons -->
-								</ul>
-							</div>
-							<!-- END menu_button_section -->
-						</div></td>
 			{MENU_RIGHT}
-				</tr>
-				<tr>
-					<td colspan="3" class="divider_gold"><img src="{IMG_URL}pixel.gif" width="1" height="1" alt="" /></td>
-				</tr>
-				<tr>
-					<td colspan="3" align="center" valign="top" class="header" style="padding:0px;">
-					<div style="float:left;">{MENU_LOGIN_FORM}</div>
-						<form id="menu_search" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post" enctype="multipart/form-data" style="margin:0;float:right;">
-							<input size="25" type="text" name="s_term" value="" class="wowinput128" />
-							<input type="submit" value="<!-- TRANSLATE search -->" />
-						</form></td>
 				</tr>
 			</table>
 

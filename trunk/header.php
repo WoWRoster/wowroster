@@ -121,7 +121,6 @@ $roster->tpl->assign_vars(array(
 	'ROSTER_BODY'   => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
 	'ROSTER_ONLOAD' => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
 
-	'ROSTER_MENU_BEFORE'   => $roster->output['before_menu'],
 	'MENU_LOGIN_FORM'      => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
 	'U_SEARCH_FORM_ACTION' => makelink('search'),
 

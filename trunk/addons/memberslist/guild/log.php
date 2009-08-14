@@ -103,7 +103,7 @@ if ( $addon['config']['log_motd'] == 1 )
 
 if( $addon['config']['log_hslist'] == 1 || $addon['config']['log_pvplist'] == 1 )
 {
-	echo "<table>\n  <tr>\n";
+	echo "<table style=\"width:100%\">\n  <tr>\n";
 
 	if ( $addon['config']['log_hslist'] == 1 )
 	{
