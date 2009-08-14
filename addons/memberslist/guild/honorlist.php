@@ -160,7 +160,7 @@ if ( $addon['config']['honor_motd'] == 1 )
 
 if( $addon['config']['honor_hslist'] == 1 || $addon['config']['honor_pvplist'] == 1 )
 {
-	echo "<table>\n  <tr>\n";
+	echo "<table style=\"width:100%\">\n  <tr>\n";
 
 	if ( $addon['config']['honor_hslist'] == 1 )
 	{

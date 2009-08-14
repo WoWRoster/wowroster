@@ -158,7 +158,7 @@ if ( $addon['config']['member_motd'] == 1 )
 
 if( $addon['config']['member_hslist'] == 1 || $addon['config']['member_pvplist'] == 1 )
 {
-	echo "<table>\n  <tr>\n";
+	echo "<table style=\"width:100%\">\n  <tr>\n";
 
 	if ( $addon['config']['member_hslist'] == 1 )
 	{

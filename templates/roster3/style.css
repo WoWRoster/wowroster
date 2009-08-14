@@ -29,7 +29,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 
 /* Login Box */
-.menu-login { margin:5px 0 0 130px; width: 300px; }
+.menu-login { margin: 5px 0 0 130px; width: 300px; }
 
 /* General Scope Block */
 .scope-menu { padding: 10px 10px 10px 130px; margin-bottom: 30px; position: relative; z-index: 100; }
@@ -216,54 +216,13 @@ select {
 /**
  * Custom Text Input Boxes
  */
-.wowinput {
-	border:0;
-	vertical-align:middle;
-	width:246px;
-	height:16px;
-	padding-top:3px;
-	padding-left:5px;
-	padding-right:5px;
-	background:transparent url(images/searchbox.png) no-repeat;
-}
-.wowinput192 {
-	border:0;
-	vertical-align:middle;
-	width:182px;
-	height:16px;
-	padding:3px 5px 0 5px;
-	background:transparent url(images/searchbox192.png) no-repeat;
-}
-.wowinput128 {
-	border:0;
-	vertical-align:middle;
-	width:118px;
-	height:16px;
-	padding:3px 5px 0 5px;
-	background:transparent url(images/searchbox128.png) no-repeat;
-}
-.wowinput64 {
-	border:0;
-	vertical-align:middle;
-	width:54px;
-	height:16px;
-	padding:3px 5px 0 5px;
-	background:transparent url(images/searchbox64.png) no-repeat;
-}
 .colorinput {
-	border:0;
 	vertical-align:middle;
-	width:54px;
+	width:58px;
 	height:16px;
-	padding:3px 5px 0 5px;
+	padding:2px 3px 0;
 	font-weight:bold;
-	background:transparent url(images/color/input_img.png) no-repeat;
 }
-* html .wowinput,
-* html .wowinput192,
-* html .wowinput128,
-* html .wowinput64,
-* html .colorinput { background-attachment:fixed; }
 
 .title_text { font:bold 16px arial,helvetica,sans-serif; }
 .headline_1 { font:bold 14px arial,helvetica,sans-serif;color:#ffffff;padding:5px 0 5px 0;margin:0; }

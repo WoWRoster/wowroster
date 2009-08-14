@@ -149,8 +149,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		'PAGE_TITLE'         => '',
 		'ROSTER_HEAD'        => '',
 		'ROSTER_BODY'        => '',
-		'ROSTER_ONLOAD'      => '',
-		'ROSTER_MENU_BEFORE' => ''
+		'ROSTER_ONLOAD'      => ''
 	));
 
 	include_once (ROSTER_BASE . 'header.php');

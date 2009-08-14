@@ -147,7 +147,7 @@ class RosterLogin
 				<table cellspacing="0" cellpadding="0" width="100%">
 					<tr>
 						<td class="membersRowRight1">' . $roster->locale->act['password'] . ':<br />
-							<input name="password" class="wowinput192" type="password" size="30" maxlength="30" /></td>
+							<input name="password" type="password" size="30" maxlength="30" /></td>
 					</tr>
 					<tr>
 						<td class="membersRowRight2" valign="bottom">
@@ -171,7 +171,7 @@ class RosterLogin
 		{
 			return '
 			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" onsubmit="submitonce(this);" style="margin:0;">
-				Log in: <input name="password" class="wowinput128" type="password" size="30" maxlength="30" />
+				Log in: <input name="password" type="password" size="30" maxlength="30" />
 				<input type="submit" value="Go" /> ' . $this->getMessage() . '
 			</form>';
 		}

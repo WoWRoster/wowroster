@@ -99,14 +99,11 @@ $FIELD['skill_level'] = array (
 
 $memberlist->prepareData($mainQuery, $where, $group, $order_first, $order_last, $FIELD, 'memberslist');
 
-$menu = '';
 // Start output
 if ( $addon['config']['stats_motd'] == 1 )
 {
-	$menu .= $memberlist->makeMotd();
+	echo $memberlist->makeMotd();
 }
-
-$roster->output['before_menu'] .= $menu;
 
 echo skill_dropdown();
 

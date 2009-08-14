@@ -14,7 +14,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage ConfigAPI
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -79,9 +79,7 @@ class roster_config
 	{
 		global $roster;
 
-		$menu = '<!-- Begin Config Menu -->' . "\n"
-			  . border('sgray','start',$roster->locale->act['roster_config_menu']) . "\n"
-			  . '<div style="width:145px;">' . "\n"
+		$menu = '<div style="width:145px;">' . "\n"
 			  . '  <ul id="' . $this->prefix . 'tabs" class="tab_menu">' . "\n";
 
 		if (is_array($this->db_values['menu']))
@@ -127,8 +125,9 @@ class roster_config
 			}
 		}
 
-		$menu .= "  </ul>\n</div>\n" . border('sgray','end') . '<!-- End Config Menu -->';
-		return $menu;
+		$menu .= "</ul></div>\n";
+
+		return messagebox($menu, $roster->locale->act['roster_config_menu'], 'sgray', '100%');
 	}
 
 	/**
@@ -157,8 +156,8 @@ class roster_config
 					break;
 
 				case 'pageframe':
-					$page .= border('sblue','start',$header_text) . "\n";
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n";
+					$page .= border('sblue','start',$header_text,'100%') . "\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
 					$page .= border('sblue','end') . "\n";
@@ -167,12 +166,12 @@ class roster_config
 
 				case 'pagehide':
 					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$page .= border('sblue','end');
 					$page .= '</div>' . "\n";
 					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
@@ -181,8 +180,8 @@ class roster_config
 					break;
 
 				case 'blockframe':
-					$page .= border('sblue','start',$header_text) . "\n";
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n";
+					$page .= border('sblue','start',$header_text,'100%') . "\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
 					$page .= border('sblue','end') . "\n";
@@ -191,12 +190,12 @@ class roster_config
 
 				case 'blockhide':
 					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$page .= border('sblue','end');
 					$page .= '</div>' . "\n";
 					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
-					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
@@ -231,7 +230,7 @@ class roster_config
 	{
 		global $roster;
 
-		$html = '<table><tr><td align="center">';
+		$html = '<table style="width:100%;"><tr><td align="center" valign="top">';
 		$i = 0;
 
 		foreach($this->db_values[$page] as $values)
@@ -254,8 +253,8 @@ class roster_config
 					break;
 
 				case 'pageframe':
-					$html .= border('sblue','start',$header_text) . "\n";
-					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n";
+					$html .= border('sblue','start',$header_text,'100%') . "\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
 					$html .= border('sblue','end');
@@ -263,12 +262,12 @@ class roster_config
 
 				case 'pagehide':
 					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$html .= border('sblue','end');
 					$html .= '</div>' . "\n";
 					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
-					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
 					$html .= border('sblue','end');
@@ -276,8 +275,8 @@ class roster_config
 					break;
 
 				case 'blockframe':
-					$html .= border('sblue','start',$header_text) . "\n";
-					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n";
+					$html .= border('sblue','start',$header_text,'100%') . "\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= "</table>\n";
 					$html .= border('sblue','end') . "\n";
@@ -285,11 +284,11 @@ class roster_config
 
 				case 'blockhide':
 					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$html .= border('sblue','end');
 					$html .= '</div>' . "\n";
 					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
-					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>");
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
 					$html .= '<table cellspacing="0" cellpadding="0" width="100%">' . "\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= '</table>' . "\n";
@@ -306,11 +305,11 @@ class roster_config
 			}
 			if ((++$i) % $columns)
 			{
-				$html .= '</td><td>';
+				$html .= '</td><td align="center" valign="top">';
 			}
 			else
 			{
-				$html .= '</td></tr><tr><td>';
+				$html .= '</td></tr><tr><td align="center" valign="top">';
 			}
 		}
 		$html .= '</td></tr></table>';
@@ -344,24 +343,7 @@ class roster_config
 				case 'text':
 					$length = explode('|',$input_type[1]);
 
-					if( $length[1] < 20 )
-					{
-						$text_class = '64';
-					}
-					elseif( $length[1] < 30 )
-					{
-						$text_class = '128';
-					}
-					elseif( $length[1] < 40 )
-					{
-						$text_class = '192';
-					}
-					else
-					{
-						$text_class = '';
-					}
-
-					$input_field = '<input class="wowinput' . $text_class . '" name="' . $this->prefix . $values['name'] . '" type="text" value="' . htmlentities($values['value']) . '" size="' . $length[1] . '" maxlength="' . $length[0] . '" />';
+					$input_field = '<input name="' . $this->prefix . $values['name'] . '" type="text" value="' . htmlentities($values['value']) . '" size="' . $length[1] . '" maxlength="' . $length[0] . '" />';
 					break;
 
 				case 'radio':
@@ -369,7 +351,7 @@ class roster_config
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
-						$input_field .= '<input type="radio" id="rad_' . $this->prefix . $this->radio_num . '" name="' . $this->prefix . $values['name'] . '" value="' . $vals[1] . '" ' . ( $values['value'] == $vals[1] ? 'checked="checked"' : '' ) . ' /><label for="rad_' . $this->prefix . $this->radio_num . '" class="' . ( $values['value'] == $vals[1] ? 'blue' : 'white' ) . '">' . $vals[0] . "</label>\n";
+						$input_field .= '<input type="radio" id="rad_' . $this->prefix . $this->radio_num . '" name="' . $this->prefix . $values['name'] . '" value="' . $vals[1] . '" ' . ( $values['value'] == $vals[1] ? 'checked="checked"' : '' ) . ' /><label for="rad_' . $this->prefix . $this->radio_num . '"' . ( $values['value'] == $vals[1] ? ' class="selected"' : '' ) . '>' . $vals[0] . "</label>\n";
 						$this->radio_num++;
 					}
 					break;
