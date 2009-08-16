@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
  * @subpackage CharacterLib
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -1826,22 +1826,31 @@ class char
 				$order = $treedata['order'];
 
 				// Checking for build spec
-				if( !isset($spec_points_temp[$build]) || $treedata['pointsspent'] > $spec_points_temp[$build] )
+				
+				// Sets initial value if it doesnt exist
+				if( !isset($spec_points_temp[$build]) )
+				{
+					$spec_points_temp[$build] = $treedata['pointsspent'];
+					$specdata[$build]['order'] = $treedata['order'];
+					$specdata[$build]['name'] = $treedata['tree'];
+					$specdata[$build]['icon'] = $treedata['background'];
+				}
+				elseif( $treedata['pointsspent'] > $spec_points_temp[$build] )
 				{
 /*					if( abs($treedata['pointsspent'] - $spec_points_temp[$build]) < 5 )
 					{
-						$specdata[$build]['spec'] = 0;
+						$specdata[$build]['order'] = 0;
 						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
 						$specdata[$build]['icon'] = 'hybrid';
 					}
 					else
 					{*/
-						$specdata[$build]['spec'] = $treedata['order'];
+						$specdata[$build]['order'] = $treedata['order'];
 						$specdata[$build]['name'] = $treedata['tree'];
 						$specdata[$build]['icon'] = $treedata['background'];
 //					}
 					// Store highest tree points to temp var
-					$spec_points_temp = $treedata['pointsspent'];
+					$spec_points_temp[$build] = $treedata['pointsspent'];
 				}
 
 				// Store our talent points for later use
@@ -1876,7 +1885,7 @@ class char
 						'ID'       => $treeindex,
 						'POINTS'   => $tree['points'],
 						'ICON'     => $tree['image'],
-						'SELECTED' => ( $specdata[$build]['spec'] == $treeindex ? true : false )
+						'SELECTED' => ( $specdata[$build]['order'] == $treeindex ? true : false )
 						)
 					);
 
