@@ -289,6 +289,7 @@ $lang['admin']['show_tab3'] = "Reputación|Elige si mostrar las reputaciones.<br
 $lang['admin']['show_tab4'] = "Habilidades|Elige si mostrar las habilidades.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_tab5'] = "JcJ|Elige si mostrar los datos de JcJ.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_talents'] = "Talentos|Elige si mostrar los talentos.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Libro de hechizos|Elige si mostrar el libro de hechizos.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_mail'] = "Correo|Elige si mostrar el correo.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_bags'] = "Bolsas|Elige si mostrar las bolsas-<br /><br />La configuración es global y afectará a todos los personajes";
@@ -299,6 +300,10 @@ $lang['admin']['show_bg'] = "Información de campos de batalla|Elige si mostrar 
 $lang['admin']['show_pvp'] = "Información de JcJ|Elige si mostrar la información de JcJ.<br />Requiere subir la información del addon PvPLog.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_duels'] = "Información de duelos|Elige si mostrar la información sobre duelos.<br />Requiere subir la información del addon PvPLog.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_item_bonuses'] = "Bonificaciones de objetos|Elige si mostrar las bonificaciones de los objetos.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_pet_talents'] = "Pet Talents|Controls the display of Pet Talents<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_pet_spells'] = "Pet Spells|Controls the display of Pet Spells<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_companions'] = "Companions|Controls the display of Companions<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_mounts'] = "Mounts|Controls the display of Mounts<br /><br />Setting is global and overrides per-user setting";
 
 $lang['admin']['char_pref'] = 'Mostrar preferencias|Controla que mostrar en la página de personajes para cada personaje';
 

@@ -289,6 +289,7 @@ $lang['admin']['show_tab3'] = "Ruf|Kontrolliert die Rufanzeige<br /><br />Einste
 $lang['admin']['show_tab4'] = "Zaubersprüche|Kontrolliert die Anzeuge der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_tab5'] = "PvP|Kontrolliert die Anzeige des PvP<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_talents'] = "Talente|Anzeige der Talente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Zaubersprüche|Anzeige des Zauberbuchs<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_mail'] = "Postfach|Anzeige des Postfaches<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_bags'] = "Taschen|Anzeige der Taschen<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
@@ -299,6 +300,10 @@ $lang['admin']['show_bg'] = "Schlachtfeld PvPLog Daten|Anzeige der Schlachtfeld-
 $lang['admin']['show_pvp'] = "PvPLog Daten|Anzeige der PvPLog Daten<br />Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_duels'] = "Duell PvPLog Daten|Anzeige der Duell PvPLog Data<br />Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_item_bonuses'] = "Gegenstands Boni|Anzeige der Boni durch angelegte Gegenstände<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_pet_talents'] = "Pet Talents|Controls the display of Pet Talents<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_pet_spells'] = "Pet Spells|Controls the display of Pet Spells<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_companions'] = "Companions|Controls the display of Companions<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_mounts'] = "Mounts|Controls the display of Mounts<br /><br />Setting is global and overrides per-user setting";
 
 $lang['admin']['char_pref'] = 'Anzeige Vorlieben|Kontrolliert, was auf den Charakterseiten pro Charakter angezeigt wird';
 

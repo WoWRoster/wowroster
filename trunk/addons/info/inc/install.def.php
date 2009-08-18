@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'inv_misc_grouplooking';
 
-	var $version = '2.0.9.1940';
+	var $version = '2.0.9.1998';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -62,6 +62,7 @@ class infoInstall
 		$installer->add_config("'1060', 'show_tab4', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1070', 'show_tab5', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1080', 'show_talents', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1085', 'show_glyphs', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1090', 'show_spellbook', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1100', 'show_mail', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1110', 'show_bags', '0', 'function{infoAccess', 'char_conf'");
@@ -69,6 +70,10 @@ class infoInstall
 		$installer->add_config("'1130', 'show_quests', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1140', 'show_recipes', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1150', 'show_item_bonuses', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1160', 'show_pet_talents', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1170', 'show_pet_spells', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1180', 'show_companions', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1190', 'show_mounts', '0', 'function{infoAccess', 'char_conf'");
 
 		$installer->create_table($installer->table('display'),"
 		  `member_id` int(11) NOT NULL default '0',
@@ -79,6 +84,7 @@ class infoInstall
 		  `show_tab4` tinyint(1) NOT NULL default '0',
 		  `show_tab5` tinyint(1) NOT NULL default '0',
 		  `show_talents` tinyint(1) NOT NULL default '0',
+		  `show_glyphs` tinyint(1) NOT NULL default '0',
 		  `show_spellbook` tinyint(1) NOT NULL default '0',
 		  `show_mail` tinyint(1) NOT NULL default '0',
 		  `show_bags` tinyint(1) NOT NULL default '0',
@@ -86,6 +92,10 @@ class infoInstall
 		  `show_quests` tinyint(1) NOT NULL default '0',
 		  `show_recipes` tinyint(1) NOT NULL default '0',
 		  `show_item_bonuses` tinyint(1) NOT NULL default '0',
+		  `show_pet_talents` tinyint(1) NOT NULL default '0',
+		  `show_pet_spells` tinyint(1) NOT NULL default '0',
+		  `show_companions` tinyint(1) NOT NULL default '0',
+		  `show_mounts` tinyint(1) NOT NULL default '0',
 		  PRIMARY KEY  (`member_id`)");
 
 
@@ -97,13 +107,18 @@ class infoInstall
 		  `show_tab4` tinyint(1) NOT NULL default '0',
 		  `show_tab5` tinyint(1) NOT NULL default '0',
 		  `show_talents` tinyint(1) NOT NULL default '0',
+		  `show_glyphs` tinyint(1) NOT NULL default '0',
 		  `show_spellbook` tinyint(1) NOT NULL default '0',
 		  `show_mail` tinyint(1) NOT NULL default '0',
 		  `show_bags` tinyint(1) NOT NULL default '0',
 		  `show_bank` tinyint(1) NOT NULL default '0',
 		  `show_quests` tinyint(1) NOT NULL default '0',
 		  `show_recipes` tinyint(1) NOT NULL default '0',
-		  `show_item_bonuses` tinyint(1) NOT NULL default '0'");
+		  `show_item_bonuses` tinyint(1) NOT NULL default '0',
+		  `show_pet_talents` tinyint(1) NOT NULL default '0',
+		  `show_pet_spells` tinyint(1) NOT NULL default '0',
+		  `show_companions` tinyint(1) NOT NULL default '0',
+		  `show_mounts` tinyint(1) NOT NULL default '0'");
 
 		$build_query = array(
 			'show_money' => '0',
@@ -113,16 +128,21 @@ class infoInstall
 			'show_tab4' => '0',
 			'show_tab5' => '0',
 			'show_talents' => '0',
+			'show_glyphs' => '0',
 			'show_spellbook' => '0',
 			'show_mail' => '0',
 			'show_bags' => '0',
 			'show_bank' => '0',
 			'show_quests' => '0',
 			'show_recipes' => '0',
-			'show_item_bonuses' => '0'
+			'show_item_bonuses' => '0',
+			'show_pet_talents' => '0',
+			'show_pet_spells' => '0',
+			'show_companions' => '0',
+			'show_mounts' => '0'
 		);
 
-		$installer->add_query('INSERT INTO `' . $installer->table('default') . '` ' . $roster->db->build_query('INSERT',$build_query) . ';');
+		$installer->add_query('INSERT INTO `' . $installer->table('default') . '` ' . $roster->db->build_query('INSERT', $build_query) . ';');
 
 		$installer->add_query('INSERT INTO `' . $installer->table('display') . '` SELECT `p`.`member_id` , `d` . * FROM `' . $roster->db->table('players') . '` p, `' . $installer->table('default') . '` d ');
 
@@ -190,6 +210,30 @@ class infoInstall
 		{
 			$installer->remove_menu_button('cb_talents');
 			$installer->remove_menu_button('cb_spellbook');
+		}
+
+		// Add in glpyh, companion, mount, and pet talent/spell control
+		if( version_compare('2.0.9.1998', $oldversion,'>') == true )
+		{
+			$installer->add_config("'1085', 'show_glyphs', '0', 'function{infoAccess', 'char_conf'");
+			$installer->add_config("'1160', 'show_pet_talents', '0', 'function{infoAccess', 'char_conf'");
+			$installer->add_config("'1170', 'show_pet_spells', '0', 'function{infoAccess', 'char_conf'");
+			$installer->add_config("'1180', 'show_companions', '0', 'function{infoAccess', 'char_conf'");
+			$installer->add_config("'1190', 'show_mounts', '0', 'function{infoAccess', 'char_conf'");
+
+			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
+				ADD `show_glyphs` tinyint(1) NOT NULL default '0' AFTER `show_talents`,
+				ADD `show_pet_talents` tinyint(1) NOT NULL default '0',
+				ADD `show_pet_spells` tinyint(1) NOT NULL default '0',
+				ADD `show_companions` tinyint(1) NOT NULL default '0',
+				ADD `show_mounts` tinyint(1) NOT NULL default '0'");
+
+			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
+				ADD `show_glyphs` tinyint(1) NOT NULL default '0' AFTER `show_talents`,
+				ADD `show_pet_talents` tinyint(1) NOT NULL default '0',
+				ADD `show_pet_spells` tinyint(1) NOT NULL default '0',
+				ADD `show_companions` tinyint(1) NOT NULL default '0',
+				ADD `show_mounts` tinyint(1) NOT NULL default '0'");
 		}
 
 		return true;

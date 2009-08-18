@@ -65,13 +65,18 @@ class char
 			'show_tab4',
 			'show_tab5',
 			'show_talents',
+			'show_glyphs',
 			'show_spellbook',
 			'show_mail',
 			'show_bags',
 			'show_bank',
 			'show_quests',
 			'show_recipes',
-			'show_item_bonuses'
+			'show_item_bonuses',
+			'show_pet_talents',
+			'show_pet_spells',
+			'show_companions',
+			'show_mounts'
 		);
 
 		foreach( $disp_array as $setting )
@@ -99,19 +104,22 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
-			'S_PLAYED'     => $roster->auth->getAuthorized($addon['config']['show_played']),
-			'S_MONEY'      => $roster->auth->getAuthorized($addon['config']['show_money']),
-			'S_PET_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab2']),
-			'S_REP_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab3']),
-			'S_SKILL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_tab4']),
-			'S_PVP_TAB'    => $roster->auth->getAuthorized($addon['config']['show_tab5']),
-			'S_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_talents']),
-			'S_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
-			'S_BONUS_TAB'  => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
+			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
+			'S_MONEY'       => $roster->auth->getAuthorized($addon['config']['show_money']),
+			'S_PET_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab2']),
+			'S_REP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab3']),
+			'S_SKILL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab4']),
+			'S_PVP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab5']),
+			'S_TALENT_TAB'  => $roster->auth->getAuthorized($addon['config']['show_talents']),
+			'S_GLYPH_TAB'   => $roster->auth->getAuthorized($addon['config']['show_glyphs']),
+			'S_SPELL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
+			'S_BONUS_TAB'   => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
+			'S_PET_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_pet_talents']),
+			'S_PET_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_pet_spells']),
 
-			'S_PETS'       => false,
-			'S_MOUNTS'     => false,
-			'S_COMPANIONS' => false,
+			'S_PETS'        => false,
+			'S_MOUNTS'      => false,
+			'S_COMPANIONS'  => false,
 
 			'L_CHAR_POWER'    => $this->data['power'],
 			'L_CHAR_POWER_ID' => strtolower($this->data['power']),
@@ -702,7 +710,7 @@ class char
 	 */
 	function show_companions()
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$query = "SELECT * FROM `" . $roster->db->table('companions') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `type` ASC , `slot` ASC;";
 		$result = $roster->db->query($query);
@@ -717,7 +725,7 @@ class char
 					$row['icon'] = 'inv_misc_questionmark';
 				}
 
-				if( $row['type'] == 'Mount' )
+				if( $roster->auth->getAuthorized($addon['config']['show_mounts']) && $row['type'] == 'Mount' )
 				{
 					$roster->tpl->assign_block_vars('mounts',array(
 						'ID'        => $row['slot'],
@@ -729,7 +737,7 @@ class char
 					$mount_num++;
 				}
 
-				if( $row['type'] == 'Critter' )
+				if( $roster->auth->getAuthorized($addon['config']['show_companions']) && $row['type'] == 'Critter' )
 				{
 					$roster->tpl->assign_block_vars('companions',array(
 						'ID'        => $row['slot'],
@@ -751,6 +759,517 @@ class char
 			return true;
 		}
 		return false;
+	}
+
+
+	/**
+	 * Build Talents
+	 *
+	 * @return string
+	 */
+	function show_talents()
+	{
+		global $roster, $addon;
+
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `build`, `order`;";
+		$trees = $roster->db->query($sqlquery);
+
+		$tree_rows = $roster->db->num_rows($trees);
+
+		if( $tree_rows > 0 )
+		{
+			// Talent data and build spec data
+			$talentdata = $specdata = array();
+
+			// Temp var for talent spec detection
+			$spec_points_temp = array();
+
+			// Loop each mysql row and build arrays
+			for( $j=0; $j < $tree_rows; $j++)
+			{
+				$treedata = $roster->db->fetch($trees, SQL_ASSOC);
+
+				// Get the order and the build numbers
+				$build = $treedata['build'];
+				$order = $treedata['order'];
+
+				// Checking for build spec
+
+				// Sets initial value if it doesnt exist
+				if( !isset($spec_points_temp[$build]) )
+				{
+					$spec_points_temp[$build] = $treedata['pointsspent'];
+					$specdata[$build]['order'] = $treedata['order'];
+					$specdata[$build]['name'] = $treedata['tree'];
+					$specdata[$build]['icon'] = $treedata['background'];
+				}
+				elseif( $treedata['pointsspent'] > $spec_points_temp[$build] )
+				{
+/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$build]) < 5 )
+					{
+						$specdata[$build]['order'] = 0;
+						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
+						$specdata[$build]['icon'] = 'hybrid';
+					}
+					else
+					{*/
+						$specdata[$build]['order'] = $treedata['order'];
+						$specdata[$build]['name'] = $treedata['tree'];
+						$specdata[$build]['icon'] = $treedata['background'];
+//					}
+					// Store highest tree points to temp var
+					$spec_points_temp[$build] = $treedata['pointsspent'];
+				}
+
+				// Store our talent points for later use
+				$specdata[$build]['points'][$order] = $treedata['pointsspent'];
+
+				// Set talent tree data
+				$talentdata[$build][$order]['name'] = $treedata['tree'];
+				$talentdata[$build][$order]['image'] = $treedata['background'];
+				$talentdata[$build][$order]['points'] = $treedata['pointsspent'];
+				$talentdata[$build][$order]['talents'] = $this->_talent_layer($treedata['tree'], $build);
+			}
+
+			// Build tpl vars and blocks
+			foreach( $talentdata as $build => $builddata )
+			{
+				$roster->tpl->assign_block_vars('talent', array(
+					'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $this->talent_build_url[$build]),
+					'ID'            => $build,
+					'NAME'          => $specdata[$build]['name'],
+					'TYPE'          => $roster->locale->act['talent_build_' . $build],
+					'BUILD'         => implode(' / ',$specdata[$build]['points']),
+					'ICON'          => $specdata[$build]['icon']
+					)
+				);
+
+				// Loop trees in build
+				foreach( $builddata as $treeindex => $tree )
+				{
+					$roster->tpl->assign_block_vars('talent.tree', array(
+						'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $tree['name']),
+						'NAME'     => $tree['name'],
+						'ID'       => $treeindex,
+						'POINTS'   => $tree['points'],
+						'ICON'     => $tree['image'],
+						'SELECTED' => ( $specdata[$build]['order'] == $treeindex ? true : false )
+						)
+					);
+
+					// Loop rows in tree
+					foreach( $tree['talents'] as $row )
+					{
+						// Assign a blank block so cell works
+						$roster->tpl->assign_block_vars('talent.tree.row', array());
+
+						// Loop cells in row
+						foreach( $row as $cell )
+						{
+							$roster->tpl->assign_block_vars('talent.tree.row.cell', array(
+								'NAME'    => $cell['name'],
+								'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
+								'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
+								'MAX'     => ( isset($cell['rank']) ? $cell['maxrank'] : 0 ),
+								'TOOLTIP' => ( isset($cell['tooltip']) ? $cell['tooltip'] : '' ),
+								'ICON'    => ( isset($cell['image']) ? $cell['image'] : '' )
+								)
+							);
+						}
+					}
+				}
+			}
+
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Build a talent tree
+	 *
+	 * @param string $treename
+	 * @return array
+	 */
+	function _talent_layer( $treename , $build )
+	{
+		global $roster;
+
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `build` = '" . $build . "' AND `tree` = '" . $treename . "' ORDER BY `row` ASC , `column` ASC";
+
+		$result = $roster->db->query($sqlquery);
+
+		$returndata = array();
+		if( $roster->db->num_rows($result) > 0 )
+		{
+			// initialize the rows and cells
+			for( $r=1; $r < ROSTER_TALENT_ROWS + 1; $r++ )
+			{
+				for( $c=1; $c < ROSTER_TALENT_COLS + 1; $c++ )
+				{
+					$returndata[$r][$c]['name'] = '';
+				}
+			}
+
+			while( $talentdata = $roster->db->fetch($result, SQL_ASSOC) )
+			{
+				$r = $talentdata['row'];
+				$c = $talentdata['column'];
+
+				if( isset($this->talent_build_url[$build]) )
+				{
+					$this->talent_build_url[$build] .= $talentdata['rank'];
+				}
+				else
+				{
+					$this->talent_build_url[$build] = $talentdata['rank'];
+				}
+
+				$returndata[$r][$c]['name'] = $talentdata['name'];
+				$returndata[$r][$c]['rank'] = $talentdata['rank'];
+				$returndata[$r][$c]['maxrank'] = $talentdata['maxrank'];
+				$returndata[$r][$c]['row'] = $r;
+				$returndata[$r][$c]['column'] = $c;
+				$returndata[$r][$c]['image'] = $talentdata['texture'] . '.' . $roster->config['img_suffix'];
+				$returndata[$r][$c]['tooltip'] = makeOverlib($talentdata['tooltip'], '', '', 0, $this->data['clientLocale']);
+			}
+		}
+		return $returndata;
+	}
+
+
+	/**
+	 * Build Gyphs
+	 *
+	 * @return bool
+	 */
+	function show_glyphs()
+	{
+		global $roster, $addon;
+
+		$query = "SELECT * FROM `" . $roster->db->table('glyphs') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `glyph_build`, `glyph_order`;";
+
+		$result = $roster->db->query($query);
+
+		if( !$result )
+		{
+			return false;
+		}
+
+		$num_glyphs = $roster->db->num_rows($result);
+
+		if( $num_glyphs == 0 )
+		{
+			return false;
+		}
+
+		for( $t=0; $t < $num_glyphs; $t++)
+		{
+			$row = $roster->db->fetch($result,SQL_ASSOC);
+
+			$glyph_build = $row['glyph_build'];
+			$glyph_type = $row['glyph_type'];
+			$glyph_data[$glyph_build][$glyph_type]['order'] = $row['glyph_order'];
+			$glyph_data[$glyph_build][$glyph_type]['name'] = $row['glyph_name'];
+			$glyph_data[$glyph_build][$glyph_type]['icon'] = $row['glyph_icon'];
+			$glyph_data[$glyph_build][$glyph_type]['tooltip'] = makeOverlib($row['glyph_tooltip'],'','',2,'',',WRAP,RIGHT');
+		}
+
+		$roster->db->free_result($result);
+
+		foreach( $glyph_data as $build => $glyph_type )
+		{
+			$roster->tpl->assign_block_vars('glyphs',array(
+				'ID' => $build,
+				)
+			);
+			foreach( $glyph_type as $type => $glyph )
+			{
+				if( $glyph['name'] != '' )
+				{
+					$roster->tpl->assign_block_vars('glyphs.glyph',array(
+						'TYPE'    => $type,
+						'NAME'    => $glyph['name'],
+						'ORDER'   => $glyph['order'],
+						'ID'      => strtolower(str_replace(' ','',$glyph['name'])),
+						'ICON'    => $glyph['icon'],
+						'TOOLTIP' => $glyph['tooltip'],
+						)
+					);
+				}
+			}
+		}
+
+		return true;
+	}
+
+
+	/**
+	 * Build character skills
+	 *
+	 * @return string
+	 */
+	function show_skills()
+	{
+		global $roster, $addon;
+
+		$skillData = $this->_skill_tab_values();
+
+		if( count($skillData) > 0 )
+		{
+			foreach( $skillData as $sindex => $skill )
+			{
+				$roster->tpl->assign_block_vars('skill',array(
+					'ID'      => $sindex,
+					'NAME'    => $skill['name'],
+					'NAME_ID' => $this->locale['skill_to_id'][$skill['name']]
+					)
+				);
+
+				foreach( $skill['bars'] as $skillbar )
+				{
+					$roster->tpl->assign_block_vars('skill.bar',array(
+						'NAME'     => $skillbar['name'],
+						'WIDTH'    => $skillbar['barwidth'],
+						'VALUE'    => $skillbar['value'],
+						'MAXVALUE' => $skillbar['maxvalue']
+						)
+					);
+
+					if( $skill['name'] == $this->locale['professions'] )
+					{
+						$roster->tpl->assign_block_vars('professions',array(
+							'NAME'     => $skillbar['name'],
+							'WIDTH'    => $skillbar['barwidth'],
+							'VALUE'    => $skillbar['value'],
+							'MAXVALUE' => $skillbar['maxvalue'],
+							'ICON'     => $this->locale['ts_iconArray'][$skillbar['name']]
+							)
+						);
+					}
+				}
+			}
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * Build a skill bars data
+	 *
+	 * @param array $skilldata
+	 * @return array
+	 */
+	function _skill_bar_values( $skilldata )
+	{
+		list($level, $max) = explode( ':', $skilldata['skill_level'] );
+
+		$returnData['maxvalue'] = $max;
+		$returnData['value'] = $level;
+		$returnData['name'] = $skilldata['skill_name'];
+		$returnData['barwidth'] = ceil($level/$max*100);
+
+		return $returnData;
+	}
+
+
+	/**
+	 * Build skill values
+	 *
+	 * @return mixed Array on success, false on fail
+	 */
+	function _skill_tab_values()
+	{
+		global $roster;
+
+		$query = "SELECT * FROM `".$roster->db->table('skills')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `skill_order` ASC, `skill_name` ASC;";
+		$result = $roster->db->query( $query );
+
+		$skill_rows = $roster->db->num_rows($result);
+
+		$i=0;
+		$j=0;
+		if ( $skill_rows > 0 )
+		{
+			$data = $roster->db->fetch($result,SQL_ASSOC);
+			$skillInfo[$i]['name'] = $data['skill_type'];
+
+			for( $r=0; $r < $skill_rows; $r++ )
+			{
+				if( $skillInfo[$i]['name'] != $data['skill_type'] )
+				{
+					$i++;
+					$j=0;
+					$skillInfo[$i]['name'] = $data['skill_type'];
+				}
+				$skillInfo[$i]['bars'][$j] = $this->_skill_bar_values($data);
+				$j++;
+				$data = $roster->db->fetch($result,SQL_ASSOC);
+			}
+			return $skillInfo;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * Build character reputation
+	 *
+	 * @return mixed Array on success, false on fail
+	 */
+	function show_reputation()
+	{
+		global $roster, $addon;
+
+		$repData = $this->_rep_tab_values();
+
+		if( is_array($repData) )
+		{
+			foreach( $repData as $findex => $faction )
+			{
+				$roster->tpl->assign_block_vars('rep',array(
+					'ID'      => $findex,
+					'NAME'    => $faction['name'],
+					'NAME_ID' => $this->locale['faction_to_id'][$faction['name']]
+					)
+				);
+
+				foreach( $faction['bars'] as $repbar )
+				{
+					$roster->tpl->assign_block_vars('rep.bar',array(
+						'ID'       => $repbar['barid'],
+						'NAME'     => $repbar['name'],
+						'WIDTH'    => $repbar['barwidth'],
+						'IMAGE'    => $repbar['image'],
+						'STANDING' => $repbar['standing'],
+						'VALUE'    => $repbar['value'],
+						'MAXVALUE' => $repbar['maxvalue'],
+						'ATWAR'    => $repbar['atwar']
+						)
+					);
+				}
+			}
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * Build a reputation bars data
+	 *
+	 * @return array
+	 */
+	function _rep_tab_values()
+	{
+		global $roster;
+
+		$query= "SELECT * FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `faction` ASC, `name` ASC;";
+		$result = $roster->db->query( $query );
+
+		$rep_rows = $roster->db->num_rows($result);
+
+		$i=0;
+		$j=0;
+		if ( $rep_rows > 0 )
+		{
+			$data = $roster->db->fetch($result,SQL_ASSOC);
+			$repInfo[$i]['name'] = $data['faction'];
+
+			for( $r=0; $r < $rep_rows; $r++ )
+			{
+				if( $repInfo[$i]['name'] != $data['faction'] )
+				{
+					$i++;
+					$j=0;
+					$repInfo[$i]['name'] = $data['faction'];
+				}
+				$repInfo[$i]['bars'][$j] = $this->_rep_bar_values($data);
+				$j++;
+				$data = $roster->db->fetch($result,SQL_ASSOC);
+			}
+			return $repInfo;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+
+	/**
+	 * Build reputation values
+	 *
+	 * @param array $repdata
+	 * @return array
+	 */
+	function _rep_bar_values( $repdata )
+	{
+		static $repnum = 0;
+
+		global $roster, $addon;
+
+		$level = $repdata['curr_rep'];
+		$max = $repdata['max_rep'];
+
+		$img = array(
+			$this->locale['exalted'] => 'exalted',
+			$this->locale['revered'] => 'revered',
+			$this->locale['honored'] => 'honored',
+			$this->locale['friendly'] => 'friendly',
+			$this->locale['neutral'] => 'neutral',
+			$this->locale['unfriendly'] => 'unfriendly',
+			$this->locale['hostile'] => 'hostile',
+			$this->locale['hated'] => 'hated'
+		);
+
+		$returnData['name'] = $repdata['name'];
+		$returnData['barwidth'] = ceil($level / $max * 100);
+		$returnData['image'] = $img[$repdata['Standing']];
+		$returnData['barid'] = $repnum;
+		$returnData['standing'] = $repdata['Standing'];
+		$returnData['value'] = $level;
+		$returnData['maxvalue'] = $max;
+		$returnData['atwar'] = $repdata['AtWar'];
+
+		$repnum++;
+
+		return $returnData;
+	}
+
+
+	/**
+	 * Build pvp stats
+	 *
+	 * @return string
+	 */
+	function show_pvp()
+	{
+		global $roster;
+
+		$roster->tpl->assign_vars(array(
+			'HONOR_POINTS' => $this->data['honorpoints'],
+			'ARENA_POINTS' => $this->data['arenapoints'],
+			'SESSION_HK'   => $this->data['sessionHK'],
+			'YEST_HK'      => $this->data['yesterdayHK'],
+			'LIFE_HK'      => $this->data['lifetimeHK'],
+			'SESSION_CP'   => $this->data['sessionCP'],
+			'YEST_CP'      => $this->data['yesterdayContribution']
+			)
+		);
 	}
 
 
@@ -1793,451 +2312,6 @@ class char
 		}
 	}
 
-
-	/**
-	 * Build Talents
-	 *
-	 * @return string
-	 */
-	function show_talents()
-	{
-		global $roster, $addon;
-
-		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `build`, `order`;";
-		$trees = $roster->db->query($sqlquery);
-
-		$tree_rows = $roster->db->num_rows($trees);
-
-		if( $tree_rows > 0 )
-		{
-			// Talent data and build spec data
-			$talentdata = $specdata = array();
-
-			// Temp var for talent spec detection
-			$spec_points_temp = array();
-
-			// Loop each mysql row and build arrays
-			for( $j=0; $j < $tree_rows; $j++)
-			{
-				$treedata = $roster->db->fetch($trees, SQL_ASSOC);
-
-				// Get the order and the build numbers
-				$build = $treedata['build'];
-				$order = $treedata['order'];
-
-				// Checking for build spec
-				
-				// Sets initial value if it doesnt exist
-				if( !isset($spec_points_temp[$build]) )
-				{
-					$spec_points_temp[$build] = $treedata['pointsspent'];
-					$specdata[$build]['order'] = $treedata['order'];
-					$specdata[$build]['name'] = $treedata['tree'];
-					$specdata[$build]['icon'] = $treedata['background'];
-				}
-				elseif( $treedata['pointsspent'] > $spec_points_temp[$build] )
-				{
-/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$build]) < 5 )
-					{
-						$specdata[$build]['order'] = 0;
-						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
-						$specdata[$build]['icon'] = 'hybrid';
-					}
-					else
-					{*/
-						$specdata[$build]['order'] = $treedata['order'];
-						$specdata[$build]['name'] = $treedata['tree'];
-						$specdata[$build]['icon'] = $treedata['background'];
-//					}
-					// Store highest tree points to temp var
-					$spec_points_temp[$build] = $treedata['pointsspent'];
-				}
-
-				// Store our talent points for later use
-				$specdata[$build]['points'][$order] = $treedata['pointsspent'];
-
-				// Set talent tree data
-				$talentdata[$build][$order]['name'] = $treedata['tree'];
-				$talentdata[$build][$order]['image'] = $treedata['background'];
-				$talentdata[$build][$order]['points'] = $treedata['pointsspent'];
-				$talentdata[$build][$order]['talents'] = $this->_talent_layer($treedata['tree'], $build);
-			}
-
-			// Build tpl vars and blocks
-			foreach( $talentdata as $build => $builddata )
-			{
-				$roster->tpl->assign_block_vars('talent', array(
-					'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $this->talent_build_url[$build]),
-					'ID'            => $build,
-					'NAME'          => $specdata[$build]['name'],
-					'TYPE'          => $roster->locale->act['talent_build_' . $build],
-					'BUILD'         => implode(' / ',$specdata[$build]['points']),
-					'ICON'          => $specdata[$build]['icon']
-					)
-				);
-
-				// Loop trees in build
-				foreach( $builddata as $treeindex => $tree )
-				{
-					$roster->tpl->assign_block_vars('talent.tree', array(
-						'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $tree['name']),
-						'NAME'     => $tree['name'],
-						'ID'       => $treeindex,
-						'POINTS'   => $tree['points'],
-						'ICON'     => $tree['image'],
-						'SELECTED' => ( $specdata[$build]['order'] == $treeindex ? true : false )
-						)
-					);
-
-					// Loop rows in tree
-					foreach( $tree['talents'] as $row )
-					{
-						// Assign a blank block so cell works
-						$roster->tpl->assign_block_vars('talent.tree.row', array());
-
-						// Loop cells in row
-						foreach( $row as $cell )
-						{
-							$roster->tpl->assign_block_vars('talent.tree.row.cell', array(
-								'NAME'    => $cell['name'],
-								'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
-								'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
-								'MAX'     => ( isset($cell['rank']) ? $cell['maxrank'] : 0 ),
-								'TOOLTIP' => ( isset($cell['tooltip']) ? $cell['tooltip'] : '' ),
-								'ICON'    => ( isset($cell['image']) ? $cell['image'] : '' )
-								)
-							);
-						}
-					}
-				}
-			}
-
-
-			return true;
-		}
-
-		return false;
-	}
-
-
-	/**
-	 * Build a talent tree
-	 *
-	 * @param string $treename
-	 * @return array
-	 */
-	function _talent_layer( $treename , $build )
-	{
-		global $roster;
-
-		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' AND `build` = '" . $build . "' AND `tree` = '" . $treename . "' ORDER BY `row` ASC , `column` ASC";
-
-		$result = $roster->db->query($sqlquery);
-
-		$returndata = array();
-		if( $roster->db->num_rows($result) > 0 )
-		{
-			// initialize the rows and cells
-			for( $r=1; $r < ROSTER_TALENT_ROWS + 1; $r++ )
-			{
-				for( $c=1; $c < ROSTER_TALENT_COLS + 1; $c++ )
-				{
-					$returndata[$r][$c]['name'] = '';
-				}
-			}
-
-			while( $talentdata = $roster->db->fetch($result, SQL_ASSOC) )
-			{
-				$r = $talentdata['row'];
-				$c = $talentdata['column'];
-
-				if( isset($this->talent_build_url[$build]) )
-				{
-					$this->talent_build_url[$build] .= $talentdata['rank'];
-				}
-				else
-				{
-					$this->talent_build_url[$build] = $talentdata['rank'];
-				}
-
-				$returndata[$r][$c]['name'] = $talentdata['name'];
-				$returndata[$r][$c]['rank'] = $talentdata['rank'];
-				$returndata[$r][$c]['maxrank'] = $talentdata['maxrank'];
-				$returndata[$r][$c]['row'] = $r;
-				$returndata[$r][$c]['column'] = $c;
-				$returndata[$r][$c]['image'] = $talentdata['texture'] . '.' . $roster->config['img_suffix'];
-				$returndata[$r][$c]['tooltip'] = makeOverlib($talentdata['tooltip'], '', '', 0, $this->data['clientLocale']);
-			}
-		}
-		return $returndata;
-	}
-
-
-	/**
-	 * Build character skills
-	 *
-	 * @return string
-	 */
-	function show_skills()
-	{
-		global $roster, $addon;
-
-		$skillData = $this->_skill_tab_values();
-
-		if( count($skillData) > 0 )
-		{
-			foreach( $skillData as $sindex => $skill )
-			{
-				$roster->tpl->assign_block_vars('skill',array(
-					'ID'      => $sindex,
-					'NAME'    => $skill['name'],
-					'NAME_ID' => $this->locale['skill_to_id'][$skill['name']]
-					)
-				);
-
-				foreach( $skill['bars'] as $skillbar )
-				{
-					$roster->tpl->assign_block_vars('skill.bar',array(
-						'NAME'     => $skillbar['name'],
-						'WIDTH'    => $skillbar['barwidth'],
-						'VALUE'    => $skillbar['value'],
-						'MAXVALUE' => $skillbar['maxvalue']
-						)
-					);
-
-					if( $skill['name'] == $this->locale['professions'] )
-					{
-						$roster->tpl->assign_block_vars('professions',array(
-							'NAME'     => $skillbar['name'],
-							'WIDTH'    => $skillbar['barwidth'],
-							'VALUE'    => $skillbar['value'],
-							'MAXVALUE' => $skillbar['maxvalue'],
-							'ICON'     => $this->locale['ts_iconArray'][$skillbar['name']]
-							)
-						);
-					}
-				}
-			}
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-
-	/**
-	 * Build a skill bars data
-	 *
-	 * @param array $skilldata
-	 * @return array
-	 */
-	function _skill_bar_values( $skilldata )
-	{
-		list($level, $max) = explode( ':', $skilldata['skill_level'] );
-
-		$returnData['maxvalue'] = $max;
-		$returnData['value'] = $level;
-		$returnData['name'] = $skilldata['skill_name'];
-		$returnData['barwidth'] = ceil($level/$max*100);
-
-		return $returnData;
-	}
-
-
-	/**
-	 * Build skill values
-	 *
-	 * @return mixed Array on success, false on fail
-	 */
-	function _skill_tab_values()
-	{
-		global $roster;
-
-		$query = "SELECT * FROM `".$roster->db->table('skills')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `skill_order` ASC, `skill_name` ASC;";
-		$result = $roster->db->query( $query );
-
-		$skill_rows = $roster->db->num_rows($result);
-
-		$i=0;
-		$j=0;
-		if ( $skill_rows > 0 )
-		{
-			$data = $roster->db->fetch($result,SQL_ASSOC);
-			$skillInfo[$i]['name'] = $data['skill_type'];
-
-			for( $r=0; $r < $skill_rows; $r++ )
-			{
-				if( $skillInfo[$i]['name'] != $data['skill_type'] )
-				{
-					$i++;
-					$j=0;
-					$skillInfo[$i]['name'] = $data['skill_type'];
-				}
-				$skillInfo[$i]['bars'][$j] = $this->_skill_bar_values($data);
-				$j++;
-				$data = $roster->db->fetch($result,SQL_ASSOC);
-			}
-			return $skillInfo;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-
-	/**
-	 * Build character reputation
-	 *
-	 * @return mixed Array on success, false on fail
-	 */
-	function show_reputation()
-	{
-		global $roster, $addon;
-
-		$repData = $this->_rep_tab_values();
-
-		if( is_array($repData) )
-		{
-			foreach( $repData as $findex => $faction )
-			{
-				$roster->tpl->assign_block_vars('rep',array(
-					'ID'      => $findex,
-					'NAME'    => $faction['name'],
-					'NAME_ID' => $this->locale['faction_to_id'][$faction['name']]
-					)
-				);
-
-				foreach( $faction['bars'] as $repbar )
-				{
-					$roster->tpl->assign_block_vars('rep.bar',array(
-						'ID'       => $repbar['barid'],
-						'NAME'     => $repbar['name'],
-						'WIDTH'    => $repbar['barwidth'],
-						'IMAGE'    => $repbar['image'],
-						'STANDING' => $repbar['standing'],
-						'VALUE'    => $repbar['value'],
-						'MAXVALUE' => $repbar['maxvalue'],
-						'ATWAR'    => $repbar['atwar']
-						)
-					);
-				}
-			}
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-
-	/**
-	 * Build a reputation bars data
-	 *
-	 * @return array
-	 */
-	function _rep_tab_values()
-	{
-		global $roster;
-
-		$query= "SELECT * FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `faction` ASC, `name` ASC;";
-		$result = $roster->db->query( $query );
-
-		$rep_rows = $roster->db->num_rows($result);
-
-		$i=0;
-		$j=0;
-		if ( $rep_rows > 0 )
-		{
-			$data = $roster->db->fetch($result,SQL_ASSOC);
-			$repInfo[$i]['name'] = $data['faction'];
-
-			for( $r=0; $r < $rep_rows; $r++ )
-			{
-				if( $repInfo[$i]['name'] != $data['faction'] )
-				{
-					$i++;
-					$j=0;
-					$repInfo[$i]['name'] = $data['faction'];
-				}
-				$repInfo[$i]['bars'][$j] = $this->_rep_bar_values($data);
-				$j++;
-				$data = $roster->db->fetch($result,SQL_ASSOC);
-			}
-			return $repInfo;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-
-	/**
-	 * Build reputation values
-	 *
-	 * @param array $repdata
-	 * @return array
-	 */
-	function _rep_bar_values( $repdata )
-	{
-		static $repnum = 0;
-
-		global $roster, $addon;
-
-		$level = $repdata['curr_rep'];
-		$max = $repdata['max_rep'];
-
-		$img = array(
-			$this->locale['exalted'] => 'exalted',
-			$this->locale['revered'] => 'revered',
-			$this->locale['honored'] => 'honored',
-			$this->locale['friendly'] => 'friendly',
-			$this->locale['neutral'] => 'neutral',
-			$this->locale['unfriendly'] => 'unfriendly',
-			$this->locale['hostile'] => 'hostile',
-			$this->locale['hated'] => 'hated'
-		);
-
-		$returnData['name'] = $repdata['name'];
-		$returnData['barwidth'] = ceil($level / $max * 100);
-		$returnData['image'] = $img[$repdata['Standing']];
-		$returnData['barid'] = $repnum;
-		$returnData['standing'] = $repdata['Standing'];
-		$returnData['value'] = $level;
-		$returnData['maxvalue'] = $max;
-		$returnData['atwar'] = $repdata['AtWar'];
-
-		$repnum++;
-
-		return $returnData;
-	}
-
-
-	/**
-	 * Build pvp stats
-	 *
-	 * @return string
-	 */
-	function show_pvp()
-	{
-		global $roster;
-
-		$roster->tpl->assign_vars(array(
-			'HONOR_POINTS' => $this->data['honorpoints'],
-			'ARENA_POINTS' => $this->data['arenapoints'],
-			'SESSION_HK'   => $this->data['sessionHK'],
-			'YEST_HK'      => $this->data['yesterdayHK'],
-			'LIFE_HK'      => $this->data['lifetimeHK'],
-			'SESSION_CP'   => $this->data['sessionCP'],
-			'YEST_CP'      => $this->data['yesterdayContribution']
-			)
-		);
-	}
-
 	function _alt_name_hover()
 	{
 		global $roster;
@@ -2564,6 +2638,12 @@ class char
 		else
 		{
 			$roster->tpl->assign_var('S_TALENT_TAB',false);
+		}
+
+		// Glyphs Tab
+		if( !$roster->auth->getAuthorized($addon['config']['show_glyphs']) || !$this->show_glyphs() )
+		{
+			$roster->tpl->assign_var('S_GLYPH_TAB',false);
 		}
 
 		// Spell Book Tab

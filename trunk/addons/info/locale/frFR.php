@@ -289,6 +289,7 @@ $lang['admin']['show_tab3'] = "Réputation|Affichage des réputations<br /><br /
 $lang['admin']['show_tab4'] = "Compétences|Affichage des compétences<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_tab5'] = "JcJ|Affichage du JcJ<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_talents'] = "Talents|Affichage des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Grimoire|Affichage du grimoire<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_mail'] = "Courrier|Affichage du courrier<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_bags'] = "Sacs|Affichage des sacs<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
@@ -299,6 +300,10 @@ $lang['admin']['show_bg'] = "Champs de bataille|Affichage des données de champs
 $lang['admin']['show_pvp'] = "Joueur contre joueur|Affichage des données joueur contre joueur<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_duels'] = "Duel|Affichage des données de duel<br />Nécessite le téléchargement des données PvPLog<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_item_bonuses'] = "Bonus d'équipement|Affichage des bonus d'équipement<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_pet_talents'] = "Pet Talents|Controls the display of Pet Talents<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_pet_spells'] = "Pet Spells|Controls the display of Pet Spells<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_companions'] = "Companions|Controls the display of Companions<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_mounts'] = "Mounts|Controls the display of Mounts<br /><br />Setting is global and overrides per-user setting";
 
 $lang['admin']['char_pref'] = 'Préférences d\'affichage|Définir ce qui est affiché sur la page de personnage pour chacun d\'eux';
 

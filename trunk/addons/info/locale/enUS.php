@@ -289,6 +289,7 @@ $lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br 
 $lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_mail'] = "Mail|Controls the display of Mail<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_bags'] = "Bags|Controls the display of Bags<br /><br />Setting is global and overrides per-user setting";
@@ -299,6 +300,10 @@ $lang['admin']['show_bg'] = "Battleground PvPLog Data|Controls the display of Ba
 $lang['admin']['show_pvp'] = "PvPLog Data|Controls the display of PvPLog Data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_duels'] = "Duel PvPLog Data|Controls the display of Duel PvPLog Data<br />Requires upload of PvPLog addon data<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_item_bonuses'] = "Item Bonuses|Controls the display of Item Bonuses<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_pet_talents'] = "Pet Talents|Controls the display of Pet Talents<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_pet_spells'] = "Pet Spells|Controls the display of Pet Spells<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_companions'] = "Companions|Controls the display of Companions<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_mounts'] = "Mounts|Controls the display of Mounts<br /><br />Setting is global and overrides per-user setting";
 
 $lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';
 
