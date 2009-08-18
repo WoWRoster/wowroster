@@ -667,6 +667,10 @@ class RosterArmory
 			case 'search':
 				$mode = 'search.xml?searchQuery=' . urlencode($id) . '&searchType=items';
 				break;
+			case 10:	
+			case 'talents':
+				$mode = 'talent-tree.xml?cid=' . urlencode($id) . '&loc=' . $locale . '';
+				break;
 		}
 
 		$url = $base_url . $mode;
@@ -743,4 +747,100 @@ class RosterArmory
 			$this->simpleParser = new simpleParser();
 		}
 	}
+	
+	function _parseData ( $array = array() ) {
+        $this->datas = array();
+        $this->_makeSimpleClass( $array );
+        //$this->_debug( 3, true, 'Parsed XML data', 'OK' );
+        return $this->datas[0];
+       // $this->_debug( 3, '', 'Parsed XML data', 'OK' );
+    }
+
+    function _makeSimpleClass ( $array = array() ) {
+
+        $tags = array_keys( $array );
+        foreach ( $array as $tag => $content ) {
+            foreach ( $content as $leave ) {
+                $this->_initClass( $tag, $leave['attribs'] );
+                $this->datas[count($this->datas)-1]->setProp("_CDATA", $leave['data']);
+                if ( array_keys($leave['child']) ) {
+                    $this->_makeSimpleClass( $leave['child'] );
+                }
+                $this->_finalClass( $tag );
+            }
+        }
+       // $this->_debug( 3, '', 'Made simple class', 'OK' );
+    }
+
+    /**
+     * helper function initialise a simpleClass Object
+     *
+     * @param string $class
+     * @param string $tree
+     * @return string
+     */
+    function _initClass( $tag, $attribs = array() ) {
+        $node = new SimpleClass();
+        $node->setArray($attribs);
+        $node->setProp("_TAGNAME", $tag);
+        $this->datas[] = $node;
+        //$this->_debug( 3, '', 'Initialized simple class', 'OK' );
+    }
+
+
+    /**
+     * helper function finalize a simpleClass Object
+     *
+     * @param string $class
+     * @param string $tree
+     * @return string
+     */
+    function _finalClass( $tag, $val = array() ) {
+        if (count($this->datas) > 1) {
+            $child = array_pop($this->datas);
+
+            if (count($this->datas) > 0) {
+                $parent = &$this->datas[count($this->datas)-1];
+                $tag = $child->_TAGNAME;
+
+                if ($parent->hasProp($tag)) {
+                    if (is_array($parent->$tag)) {
+                        //Add to children array
+                        $array = &$parent->$tag;
+                        $array[] = $child;
+                    } else {
+                        //Convert node to an array
+                        $children = array();
+                        $children[] = $parent->$tag;
+                        $children[] = $child;
+                        $parent->$tag = $children;
+                    }
+                } else {
+                    $parent->setProp($tag, $child);
+                }
+            }
+        }
+        //$this->_debug( 3, '', 'Finalized simple class', 'OK' );
+    }
+    
+    function setProp($propName, $propValue) {
+		$propName = $propValue;
+		if (!in_array($propName, $properties)) {
+			$properties[] = $propName;
+		}
+  } 
+  
+	function setArray($array) {
+		if (is_array($array)) {
+			foreach ($array as $key => $value) {
+				$this->setProp($key, $value);
+			}
+		}
+	}
+	
+	function hasProp($propName) {
+		return in_array($propName, $this->properties);
+	}
+	
+	
 }
