@@ -2723,18 +2723,6 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$messages = '<li>';
 
 		$messages .= 'Character Data..';
-		$querystr = "DELETE FROM `" . $roster->db->table('members') . "` WHERE `member_id` IN ($inClause)";
-		if( !$roster->db->query($querystr) )
-		{
-			$this->setError('Member Data could not be deleted',$roster->db->error());
-		}
-
-		$querystr = "DELETE FROM `" . $roster->db->table('players') . "` WHERE `member_id` IN ($inClause)";
-		if( !$roster->db->query($querystr) )
-		{
-			$this->setError('Player Data could not be deleted',$roster->db->error());
-		}
-
 
 		$messages .= 'Skills..';
 		$querystr = "DELETE FROM `" . $roster->db->table('skills') . "` WHERE `member_id` IN ($inClause)";
@@ -2744,11 +2732,11 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 
 
-		$messages .= 'Items..';
+		$messages .= 'Inventory..';
 		$querystr = "DELETE FROM `" . $roster->db->table('items') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
-			$this->setError('Items Data could not be deleted',$roster->db->error());
+			$this->setError('Inventory Data could not be deleted',$roster->db->error());
 		}
 
 
@@ -2782,6 +2770,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 
 
+		$messages .= 'Glyphs..';
+		$querystr = "DELETE FROM `" . $roster->db->table('glyphs') . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Talent Tree Data could not be deleted',$roster->db->error());
+		}
+
+
 		$messages .= 'Spellbook..';
 		$querystr = "DELETE FROM `" . $roster->db->table('spellbook') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
@@ -2803,7 +2799,13 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->setError('Pet Data could not be deleted',$roster->db->error());
 		}
 
-		$messages .= 'Pet Spellbooks..';
+		$querystr = "DELETE FROM `" . $roster->db->table('companions') . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Companion Data could not be deleted',$roster->db->error());
+		}
+
+		$messages .= 'Pet Spells..';
 		$querystr = "DELETE FROM `" . $roster->db->table('pet_spellbook') . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )
 		{
@@ -2838,6 +2840,22 @@ CREATE TABLE `renprefix_quest_task_data` (
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Mail Data could not be deleted',$roster->db->error());
+		}
+
+
+		$messages .= 'Membership..';
+		$querystr = "DELETE FROM `" . $roster->db->table('members') . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Member Data could not be deleted',$roster->db->error());
+		}
+
+
+		$messages .= 'Final Character Cleanup..';
+		$querystr = "DELETE FROM `" . $roster->db->table('players') . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Player Data could not be deleted',$roster->db->error());
 		}
 
 		$this->deleteEmptyGuilds();

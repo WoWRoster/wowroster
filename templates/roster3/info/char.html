@@ -1,6 +1,24 @@
 <!-- $Id$ -->
 
 
+<!-- Adric, new tpl variables for svn 1998
+
+
+User access controls, just like S_PET_TAB, S_REP_TAB, S_SKILL_TAB, etc
+These are false if the user is not authorized to view this data
+This data will not even be present in the tpl data if the user cannot view
+so its a good idea to have these around where this data appears
+
+S_GLYPH_TAB         -> Access control for Glyphs display
+S_PET_TALENT_TAB    -> Access control for Pet Talent display
+S_PET_SPELL_TAB     -> Access control for Pet Spellbook display
+
+New tpl loop
+glyphs
+
+-->
+
+
 <!-- Navagation Tabs -->
 <div class="sections">
 	<ul id="char_navagation">
