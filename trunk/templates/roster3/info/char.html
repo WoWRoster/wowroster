@@ -15,6 +15,16 @@ S_PET_SPELL_TAB     -> Access control for Pet Spellbook display
 
 New tpl loop
 glyphs
+	.ID - talent spec # (0 | 1)
+	.NAME - spec name
+	.ICON - talent background name, also used for icons
+	glyph
+		.TYPE - glyph type (1 = major | 2 = minor)
+		.NAME - glyph name
+		.ORDER - glyph order (0-6)
+		.ID - glyph name lowercase, spaces converted to _
+		.ICON - icon
+		.TOOLTIP - overlib constructed tooltip
 
 -->
 

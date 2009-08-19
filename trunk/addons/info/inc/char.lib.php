@@ -978,12 +978,67 @@ class char
 			$glyph_data[$glyph_build][$glyph_type]['tooltip'] = makeOverlib($row['glyph_tooltip'],'','',2,'',',WRAP,RIGHT');
 		}
 
+
+		// Figure out build names
+		$sqlquery = "SELECT `build`, `tree`, `background`, `pointsspent`"
+			. " FROM `" . $roster->db->table('talenttree') . "`"
+			. " WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `build`, `order`;";
+		$trees = $roster->db->query($sqlquery);
+
+		$tree_rows = $roster->db->num_rows($trees);
+
+		if( $tree_rows > 0 )
+		{
+			// Talent data and build spec data
+			$specdata = array();
+
+			// Temp var for talent spec detection
+			$spec_points_temp = array();
+
+			// Loop each mysql row and build arrays
+			for( $j=0; $j < $tree_rows; $j++)
+			{
+				$treedata = $roster->db->fetch($trees, SQL_ASSOC);
+
+				// Get the order and the build numbers
+				$talent_build = $treedata['build'];
+
+				// Checking for build spec
+
+				// Sets initial value if it doesnt exist
+				if( !isset($spec_points_temp[$build]) )
+				{
+					$spec_points_temp[$build] = $treedata['pointsspent'];
+					$specdata[$build]['name'] = $treedata['tree'];
+					$specdata[$build]['icon'] = $treedata['background'];
+				}
+				elseif( $treedata['pointsspent'] > $spec_points_temp[$build] )
+				{
+/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$build]) < 5 )
+					{
+						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
+						$specdata[$build]['icon'] = 'hybrid';
+					}
+					else
+					{*/
+						$specdata[$build]['name'] = $treedata['tree'];
+						$specdata[$build]['icon'] = $treedata['background'];
+//					}
+					// Store highest tree points to temp var
+					$spec_points_temp[$build] = $treedata['pointsspent'];
+				}
+			}
+		}
+
 		$roster->db->free_result($result);
+
 
 		foreach( $glyph_data as $build => $glyph_type )
 		{
 			$roster->tpl->assign_block_vars('glyphs',array(
-				'ID' => $build,
+				'ID'   => $build,
+				'NAME' => $specdata[$build]['name'],
+				'ICON' => $specdata[$build]['icon'],
 				)
 			);
 			foreach( $glyph_type as $type => $glyph )
