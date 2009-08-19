@@ -61,7 +61,7 @@ foreach( $roster->addon_data as $name => $data )
 	$roster->locale->wordings = $localetemp;
 	unset($localetemp);
 
-	if( file_exists($roster->addon_data[$name]['search_file']) )
+	if( $roster->auth->getAuthorized($roster->addon_data[$name]['access']) && file_exists($roster->addon_data[$name]['search_file']) )
 	{
 		include_once($roster->addon_data[$name]['search_file']);
 	}
