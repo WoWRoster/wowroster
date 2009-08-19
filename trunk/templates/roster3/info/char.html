@@ -1,6 +1,5 @@
 <!-- $Id$ -->
 
-
 <!-- Adric, new tpl variables for svn 1998
 
 
@@ -27,7 +26,6 @@ glyphs
 		.TOOLTIP - overlib constructed tooltip
 
 -->
-
 
 <!-- Navagation Tabs -->
 <div class="sections">
@@ -474,8 +472,27 @@ glyphs
 						</div>
 <!-- END tree -->
 					</div>
-				</div>		
+              	</div>	
 <!-- END talent -->
+
+   
+<!-- IF S_GLYPH_TAB -->
+
+<!-- BEGIN glyphs -->
+	<div>
+	<!-- BEGIN glyph -->
+    	<div>
+        {glyphs.glyph.ORDER}
+	    {glyphs.glyph.TYPE}
+    	{glyphs.glyph.NAME}
+        {glyphs.glyph.ICON}
+        </div>
+	<!-- END glyph -->
+    </div>
+<!-- END glyphs -->
+
+<!-- ENDIF -->               
+                    
 
 			</div>
 		</div>
