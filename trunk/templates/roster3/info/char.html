@@ -479,16 +479,20 @@ glyphs
 <!-- IF S_GLYPH_TAB -->
 
 <!-- BEGIN glyphs -->
-	<div>
-	<!-- BEGIN glyph -->
-    	<div>
-        {glyphs.glyph.ORDER}
-	    {glyphs.glyph.TYPE}
-    	{glyphs.glyph.NAME}
-        {glyphs.glyph.ICON}
-        </div>
-	<!-- END glyph -->
-    </div>
+				<div style="clear:both;">
+					{glyphs.ID} -
+					{glyphs.NAME} -
+					{glyphs.ICON}
+<!-- BEGIN glyph -->
+					<div {glyphs.glyph.TOOLTIP}>
+						{glyphs.glyph.ID} -
+						{glyphs.glyph.ORDER} -
+						{glyphs.glyph.TYPE} -
+						{glyphs.glyph.NAME} -
+						{glyphs.glyph.ICON}
+					</div>
+<!-- END glyph -->
+				</div>
 <!-- END glyphs -->
 
 <!-- ENDIF -->               

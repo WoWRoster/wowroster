@@ -971,11 +971,11 @@ class char
 			$row = $roster->db->fetch($result,SQL_ASSOC);
 
 			$glyph_build = $row['glyph_build'];
-			$glyph_type = $row['glyph_type'];
-			$glyph_data[$glyph_build][$glyph_type]['order'] = $row['glyph_order'];
-			$glyph_data[$glyph_build][$glyph_type]['name'] = $row['glyph_name'];
-			$glyph_data[$glyph_build][$glyph_type]['icon'] = $row['glyph_icon'];
-			$glyph_data[$glyph_build][$glyph_type]['tooltip'] = makeOverlib($row['glyph_tooltip'],'','',2,'',',WRAP,RIGHT');
+			$glyph_order = $row['glyph_order'];
+			$glyph_data[$glyph_build][$glyph_order]['type'] = $row['glyph_type'];
+			$glyph_data[$glyph_build][$glyph_order]['name'] = $row['glyph_name'];
+			$glyph_data[$glyph_build][$glyph_order]['icon'] = $row['glyph_icon'];
+			$glyph_data[$glyph_build][$glyph_order]['tooltip'] = makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']);
 		}
 
 
@@ -1006,26 +1006,26 @@ class char
 				// Checking for build spec
 
 				// Sets initial value if it doesnt exist
-				if( !isset($spec_points_temp[$build]) )
+				if( !isset($spec_points_temp[$talent_build]) )
 				{
-					$spec_points_temp[$build] = $treedata['pointsspent'];
-					$specdata[$build]['name'] = $treedata['tree'];
-					$specdata[$build]['icon'] = $treedata['background'];
+					$spec_points_temp[$talent_build] = $treedata['pointsspent'];
+					$specdata[$talent_build]['name'] = $treedata['tree'];
+					$specdata[$talent_build]['icon'] = $treedata['background'];
 				}
-				elseif( $treedata['pointsspent'] > $spec_points_temp[$build] )
+				elseif( $treedata['pointsspent'] > $spec_points_temp[$talent_build] )
 				{
-/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$build]) < 5 )
+/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$talent_build]) < 5 )
 					{
-						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
-						$specdata[$build]['icon'] = 'hybrid';
+						$specdata[$talent_build]['name'] = $roster->locale->act['hybrid'];
+						$specdata[$talent_build]['icon'] = 'hybrid';
 					}
 					else
 					{*/
-						$specdata[$build]['name'] = $treedata['tree'];
-						$specdata[$build]['icon'] = $treedata['background'];
+						$specdata[$talent_build]['name'] = $treedata['tree'];
+						$specdata[$talent_build]['icon'] = $treedata['background'];
 //					}
 					// Store highest tree points to temp var
-					$spec_points_temp[$build] = $treedata['pointsspent'];
+					$spec_points_temp[$talent_build] = $treedata['pointsspent'];
 				}
 			}
 		}
@@ -1033,7 +1033,7 @@ class char
 		$roster->db->free_result($result);
 
 
-		foreach( $glyph_data as $build => $glyph_type )
+		foreach( $glyph_data as $build => $glyph_order )
 		{
 			$roster->tpl->assign_block_vars('glyphs',array(
 				'ID'   => $build,
@@ -1041,14 +1041,14 @@ class char
 				'ICON' => $specdata[$build]['icon'],
 				)
 			);
-			foreach( $glyph_type as $type => $glyph )
+			foreach( $glyph_order as $order => $glyph )
 			{
 				if( $glyph['name'] != '' )
 				{
 					$roster->tpl->assign_block_vars('glyphs.glyph',array(
-						'TYPE'    => $type,
+						'TYPE'    => $glyph['type'],
 						'NAME'    => $glyph['name'],
-						'ORDER'   => $glyph['order'],
+						'ORDER'   => $order,
 						'ID'      => strtolower(str_replace(' ','',$glyph['name'])),
 						'ICON'    => $glyph['icon'],
 						'TOOLTIP' => $glyph['tooltip'],
