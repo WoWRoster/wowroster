@@ -517,6 +517,16 @@
 .main-panel .tab5 .talent-icon { height: 40px; width: 40px; }
 .main-panel .tab5 .cell { float:left;width:40px;height:40px;margin-left:15px; }
 
+.main-panel .tab5 .glyph-pane { height: 140px; clear: both; padding: 20px; }
+.main-panel .tab5 .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; position:relative; clear: left; }
+.main-panel .tab5 .glyph-1 img { float: left; background: url(images/glyphs/glyph_bg_major.png); height: 30px; width: 30px; padding: 5px; }
+.main-panel .tab5 .glyph-1 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px; }
+
+.main-panel .tab5 .glyph-2 { float: right; height: 40px; width: 300px; margin: 2px; clear: right; }
+.main-panel .tab5 .glyph-2 img { float: left; background: url(images/glyphs/glyph_bg_minor.png); height: 30px; width: 30px; padding: 5px; }
+.main-panel .tab5 .glyph-2 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px;  }
+
+
 /* Grey out unused talents */
 /* filter:gray only works in IE so we do this to half-assed transparency for Mozilla and Opera */
 .main-panel .tab5 .icon_grey { filter:gray;opacity:0.5; }
