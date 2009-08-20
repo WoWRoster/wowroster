@@ -479,17 +479,19 @@ glyphs
 <!-- IF S_GLYPH_TAB -->
 
 <!-- BEGIN glyphs -->
-				<div style="clear:both;">
-					{glyphs.ID} -
+				<div class="glyph-pane" style="clear:both;">
+					<div>{glyphs.ID} -
 					{glyphs.NAME} -
 					{glyphs.ICON}
+                    </div>
 <!-- BEGIN glyph -->
-					<div {glyphs.glyph.TOOLTIP}>
-						{glyphs.glyph.ID} -
-						{glyphs.glyph.ORDER} -
-						{glyphs.glyph.TYPE} -
-						{glyphs.glyph.NAME} -
-						{glyphs.glyph.ICON}
+					<div {glyphs.glyph.TOOLTIP} class="glyph-{glyphs.glyph.TYPE}">
+						<img src="img/Interface/Spellbook/{glyphs.glyph.ICON}.png" />
+                        <div class="text">
+                        	{glyphs.glyph.NAME} -
+                        	{glyphs.glyph.ORDER} -
+							{glyphs.glyph.TYPE}
+                        </div>
 					</div>
 <!-- END glyph -->
 				</div>
