@@ -26,9 +26,9 @@ if ( !defined('IN_ROSTER') )
 class infoInstall
 {
 	var $active = true;
-	var $icon = 'inv_misc_grouplooking';
+	var $icon = 'spell_holy_divinespirit';
 
-	var $version = '2.0.9.1998';
+	var $version = '2.0.9.2006';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -146,7 +146,7 @@ class infoInstall
 
 		$installer->add_query('INSERT INTO `' . $installer->table('display') . '` SELECT `p`.`member_id` , `d` . * FROM `' . $roster->db->table('players') . '` p, `' . $installer->table('default') . '` d ');
 
-		$installer->add_menu_button('cb_character','char');
+		$installer->add_menu_button('cb_character','char','','spell_holy_divinespirit');
 		$installer->add_menu_button('cb_mailbox','char','mailbox','inv_letter_02');
 		$installer->add_menu_button('cb_bags','char','bags','inv_misc_bag_08');
 		$installer->add_menu_button('cb_bank','char','bank','inv_misc_bag_15');
@@ -234,6 +234,12 @@ class infoInstall
 				ADD `show_pet_spells` tinyint(1) NOT NULL default '0',
 				ADD `show_companions` tinyint(1) NOT NULL default '0',
 				ADD `show_mounts` tinyint(1) NOT NULL default '0'");
+		}
+
+		// Change the profile icon
+		if( version_compare('2.0.9.2006', $oldversion,'>') == true )
+		{
+			$installer->update_menu_button('cb_character', 'char', '', 'spell_holy_divinespirit');
 		}
 
 		return true;

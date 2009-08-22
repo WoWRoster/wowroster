@@ -972,12 +972,11 @@ class char
 
 			$glyph_build = $row['glyph_build'];
 			$glyph_order = $row['glyph_order'];
-			$glyph_data[$glyph_build][$glyph_order]['type'] = $row['glyph_type'];
 			$glyph_data[$glyph_build][$glyph_order]['name'] = $row['glyph_name'];
+			$glyph_data[$glyph_build][$glyph_order]['type'] = $row['glyph_type'];
 			$glyph_data[$glyph_build][$glyph_order]['icon'] = $row['glyph_icon'];
 			$glyph_data[$glyph_build][$glyph_order]['tooltip'] = makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']);
 		}
-
 
 		// Figure out build names
 		$sqlquery = "SELECT `build`, `tree`, `background`, `pointsspent`"
@@ -1041,6 +1040,7 @@ class char
 				'ICON' => $specdata[$build]['icon'],
 				)
 			);
+
 			foreach( $glyph_order as $order => $glyph )
 			{
 				if( $glyph['name'] != '' )
