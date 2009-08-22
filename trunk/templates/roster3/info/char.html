@@ -421,20 +421,23 @@ glyphs
 
 
 
-<!-- IF S_TALENT_TAB -->
+<!-- IF S_TALENT_TAB or S_GLYPH_TAB -->
 
 <!-- tab5 -->
 		<div id="tab5" class="tab5" style="display:none;">
 	
 			<div class="container">
-				<div class="box-label"><div class="icon talents"></div><!-- TRANSLATE talents --></div>
+				<div class="box-label">
+					<div class="icon talents"></div><!-- TRANSLATE talents -->
+				</div>
 				<div class="info-bonus-navigation">
 					<ul id="talentbuild_nav">
 <!-- BEGIN talent -->
-						<li><a rel="TS{talent.ID}" class="text">{talent.NAME}</a></li>
+						<li><a rel="TS{talent.ID}"<!-- IF S_GLYPH_TAB --> rev="GL{talent.ID}"<!-- ENDIF --> class="text">{talent.NAME}</a></li>
 <!-- END talent -->
 					</ul>
 				</div>
+<!-- IF S_TALENT_TAB -->
 <!-- BEGIN talent -->
 				<div id="TS{talent.ID}" style="display:none;">
 					<div class="points_unused shader">
@@ -472,43 +475,33 @@ glyphs
 						</div>
 <!-- END tree -->
 					</div>
-              	</div>	
+              	</div>
+
+<!-- END talent -->
+<!-- ENDIF -->
 
 
-   
 <!-- IF S_GLYPH_TAB -->
 
 <!-- BEGIN glyphs -->
-<!-- IF talent.ID == glyphs.ID -->
-				<div class="glyph-pane" style="clear:both;">
-					<div>{glyphs.ID} -
-					{glyphs.NAME} -
-					{glyphs.ICON}
-                    </div>
+				<div id="GL{glyphs.ID}" class="glyph-pane" style="clear:both;display:none;">
+					<div>{glyphs.NAME}</div>
 <!-- BEGIN glyph -->
-					
+
                     <div {glyphs.glyph.TOOLTIP} class="glyph-{glyphs.glyph.TYPE}">
-						<img src="img/Interface/Spellbook/{glyphs.glyph.ICON}.png" />
-                        <div class="text">
-                        	{glyphs.glyph.NAME} -
-                        	{glyphs.glyph.ORDER} -
-							{glyphs.glyph.TYPE}
-                        </div>
+						<img src="{INTERFACE_URL}Interface/Spellbook/{glyphs.glyph.ICON}.png" />
+                        <div class="text">{glyphs.glyph.NAME}</div>
 					</div>
-                
+
 <!-- END glyph -->
 				</div>
-<!-- ENDIF -->    
 <!-- END glyphs -->
 
-<!-- ENDIF -->               
-                    
-<!-- END talent -->
+<!-- ENDIF -->
 
 			</div>
 		</div>
 <!-- ENDIF -->
-
 
 
 <!-- IF S_SPELL_TAB -->
