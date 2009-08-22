@@ -473,19 +473,21 @@ glyphs
 <!-- END tree -->
 					</div>
               	</div>	
-<!-- END talent -->
+
 
    
 <!-- IF S_GLYPH_TAB -->
 
 <!-- BEGIN glyphs -->
+<!-- IF talent.ID == glyphs.ID -->
 				<div class="glyph-pane" style="clear:both;">
 					<div>{glyphs.ID} -
 					{glyphs.NAME} -
 					{glyphs.ICON}
                     </div>
 <!-- BEGIN glyph -->
-					<div {glyphs.glyph.TOOLTIP} class="glyph-{glyphs.glyph.TYPE}">
+					
+                    <div {glyphs.glyph.TOOLTIP} class="glyph-{glyphs.glyph.TYPE}">
 						<img src="img/Interface/Spellbook/{glyphs.glyph.ICON}.png" />
                         <div class="text">
                         	{glyphs.glyph.NAME} -
@@ -493,12 +495,15 @@ glyphs
 							{glyphs.glyph.TYPE}
                         </div>
 					</div>
+                
 <!-- END glyph -->
 				</div>
+<!-- ENDIF -->    
 <!-- END glyphs -->
 
 <!-- ENDIF -->               
                     
+<!-- END talent -->
 
 			</div>
 		</div>
