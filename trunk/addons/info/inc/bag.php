@@ -14,7 +14,7 @@
  * @since      File available since Release 1.03
  * @package    CharacterInfo
  * @subpackage Bag
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -27,7 +27,7 @@ require_once( ROSTER_LIB . 'item.php');
  * Character Bag class, extends item class
  *
  * @package    CharacterInfo
- * @subpackage Item
+ * @subpackage Bag
  */
 class bag extends item
 {
@@ -40,6 +40,7 @@ class bag extends item
 		if( $this->data['item_quantity'] < count($this->contents) )
 		{
 			$this->data['item_quantity'] = count($this->contents);
+
 			if( $this->data['item_quantity'] % 2 )
 			{
 				$this->data['item_quantity']++;
@@ -98,7 +99,7 @@ class bag extends item
 			)
 		);
 
-		// Select all item for this bag
+		// Select all items for this bag
 		for( $slot = 0; $slot < $this->data['item_quantity'] ; $slot++ )
 		{
 			if( isset($this->contents[$slot+1]) )

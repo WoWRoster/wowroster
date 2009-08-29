@@ -356,7 +356,7 @@ class roster
 
 				// Get the data
 				$query = 'SELECT guild.*, members.*, players.*, '
-						. 'DATE_FORMAT( DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ' . $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
+					. 'DATE_FORMAT( DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ' . $this->config['localtimeoffset'] . ' HOUR ), "' . $this->locale->act['timeformat'] . '" ) AS "update_format" '
 					. 'FROM `' . $this->db->table('players') . '` players '
 					. 'LEFT JOIN `' . $this->db->table('members') . '` members ON `players`.`member_id` = `members`.`member_id` '
 					. 'LEFT JOIN `' . $this->db->table('guild') . '` guild ON `players`.`guild_id` = `guild`.`guild_id` '
@@ -377,7 +377,7 @@ class roster
 				$this->db->free_result($result);
 
 				$this->anchor = $this->data['member_id'];
-
+				include(ROSTER_LIB . 'scope' . DIR_SEP . 'char.php');
 				break;
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
@@ -434,6 +434,7 @@ class roster
 				$this->db->free_result($result);
 
 				$this->anchor = $this->data['guild_id'];
+				include(ROSTER_LIB . 'scope' . DIR_SEP . 'guild.php');
 				break;
 
 			case 'realm':
@@ -475,8 +476,9 @@ class roster
 				}
 
 				$this->anchor = $this->data['region'] . '-' . $this->data['server'];
-
+				include(ROSTER_LIB . 'scope' . DIR_SEP . 'realm.php');
 				break;
+
 			default:
 				if( in_array($this->scope, array('char', 'guild', 'realm')) )
 				{
@@ -484,6 +486,7 @@ class roster
 				}
 				// no anchor passed, and we didn't load defaults so we're in util or page scope. No data needed.
 				$this->data = array();
+				include(ROSTER_LIB . 'scope' . DIR_SEP . 'util.php');
 		}
 
 		// Set menu array

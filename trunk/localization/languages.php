@@ -19,10 +19,14 @@
 // Add locales via a function call
 // This prevents one locale from overwritting the others
 $roster->multilanguages = array();
-$roster->multilanguages[] = 'deDE';
-$roster->multilanguages[] = 'enUS';
-$roster->multilanguages[] = 'esES';
-$roster->multilanguages[] = 'frFR';
+$roster->multilanguages[] = 'deDE'; // German
+$roster->multilanguages[] = 'enUS'; // US English
+$roster->multilanguages[] = 'esES'; // Spanish
+$roster->multilanguages[] = 'frFR'; // French
+$roster->multilanguages[] = 'koKR'; // Korean
+$roster->multilanguages[] = 'ruRU'; // Russian
+$roster->multilanguages[] = 'zhCN'; // Chineese
+$roster->multilanguages[] = 'zhTW'; // Taiwaneese
 
 
 

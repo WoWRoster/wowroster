@@ -12,7 +12,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    GuildBank
-*/
+ */
 
 # guildbank.php -- display items held by a guild's banker characters.
 # Copyright 2005 vaccafoeda.hellscream@gmail.com
