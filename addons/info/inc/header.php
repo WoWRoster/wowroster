@@ -12,7 +12,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    CharacterInfo
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {

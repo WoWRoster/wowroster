@@ -147,16 +147,16 @@ function makelink( $url='' , $full=false )
 	// Add the anchor param if it isn't in yet
 	switch($roster->atype)
 	{
-	case 'char':
-		$anchor = ( isset($roster->data['member_id'])?'a=c:' . $roster->data['member_id']:'' );
-		break;
-	case 'guild': case 'default':
-		$anchor = ( isset($roster->data['guild_id'])?'a=g:' . $roster->data['guild_id']:'' );
-		break;
-	case 'realm':
-		$anchor = 'a=r:' . $roster->anchor;
-	default:
-		$anchor = '';
+		case 'char':
+			$anchor = ( isset($roster->data['member_id'])?'a=c:' . $roster->data['member_id']:'' );
+			break;
+		case 'guild': case 'default':
+			$anchor = ( isset($roster->data['guild_id'])?'a=g:' . $roster->data['guild_id']:'' );
+			break;
+		case 'realm':
+			$anchor = 'a=r:' . $roster->anchor;
+		default:
+			$anchor = '';
 	}
 
 	if( empty($url) || empty($anchor) )

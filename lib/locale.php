@@ -32,6 +32,7 @@ class roster_locale
 	/**
 	 * Array of all localized strings
 	 * $roster->locale->wordings[LANG][STRING]
+	 * Example:
 	 * $roster->locale->wordings['enUS']['menu_text']
 	 *
 	 * @var array
@@ -73,7 +74,7 @@ class roster_locale
 	}
 
 	/**
-	 * Adds locale strings to global $wordings array
+	 * Adds locale strings to $wordings array
 	 *
 	 * @param string $localefile | Full path to locale file
 	 * @param string $locale | Locale to add to (IE: enUS)

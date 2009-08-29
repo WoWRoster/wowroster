@@ -1,0 +1,94 @@
+<!-- $Id: guildbank.html 1993 2009-08-13 05:52:42Z zanix $ -->
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sorangeborder">
+			<div class="header_text sorangeborder">{L_GUILDBANK}</div>
+
+		<table cellpadding="3" cellspacing="0" class="menubar" width="100%">
+			<tr>
+				<td class="membersHeader"><a href="{U_FULL}">{L_LIST}</a></td>
+				<td class="membersHeaderRight"><a href="{U_INV}">{L_INV}</a></td>
+			</tr>
+		</table>
+
+		</td>
+	</tr>
+</table>
+
+<br />
+-
+<!-- BEGIN bankers -->
+<a href="{bankers.LINK}">{bankers.NAME}</a> -
+<!-- END bankers -->
+
+<!-- IF S_MONEY -->
+<br /><br />
+{L_TOTAL_MONEY}
+<div class="money">
+	<!-- IF MONEY_G --> {MONEY_G}<img src="{IMG_URL}coin_gold.gif" alt="g" /><!-- ENDIF -->
+	<!-- IF MONEY_S --> {MONEY_S}<img src="{IMG_URL}coin_silver.gif" alt="s" /><!-- ENDIF -->
+	<!-- IF MONEY_C --> {MONEY_C}<img src="{IMG_URL}coin_copper.gif" alt="c" /><!-- ENDIF -->
+</div>
+<!-- ENDIF -->
+
+<br />
+
+<!-- BEGIN bank -->
+<a id="c_{bank.ID}"></a>
+
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgrayborder">
+			<div class="header_text sgrayborder"><!-- IF S_INFO_ADDON --><a href="{bank.LINK}">{bank.NAME}</a><!-- ELSE -->{bank.NAME}<!-- ENDIF -->
+				<!-- IF bank.NOTE --> <small>({bank.NOTE})</small><!-- ENDIF --></div>
+
+			<table cellspacing="0" cellpadding="0" width="100%">
+				<!-- IF S_MONEY -->
+				<tr>
+					<td colspan="{S_COLUMNS}" class="membersRowRight2">
+						<div style="float:right;">
+							<!-- IF bank.MONEY_G --> {bank.MONEY_G}<img src="{IMG_URL}coin_gold.gif" alt="g" /><!-- ENDIF -->
+							<!-- IF bank.MONEY_S --> {bank.MONEY_S}<img src="{IMG_URL}coin_silver.gif" alt="s" /><!-- ENDIF -->
+							<!-- IF bank.MONEY_C --> {bank.MONEY_C}<img src="{IMG_URL}coin_copper.gif" alt="c" /><!-- ENDIF -->
+						</div>
+						<small>{L_LAST_UPDATED}: {bank.UPDATED}</small>
+					</td>
+				</tr>
+				<!-- ENDIF -->
+
+				<!-- IF bank.S_ITEMS -->
+				<tr>
+				    <td class="membersRowRight1">
+				    	<table width="100%" cellspacing="0" cellpadding="2">
+				    		<tr>
+
+				    		<!-- BEGIN items -->
+								<td valign="top" align="center"<!-- IF S_MODE eq '1' --> class="membersRow{bank.items.ROW_CLASS}"<!-- ENDIF -->>
+								{bank.items.ITEM}</td>
+								<!-- IF S_MODE eq '1' -->
+								<td valign="top" class="membersRow<!-- IF bank.items.COUNT eq S_COLUMNS -->Right<!-- ENDIF -->{bank.items.ROW_CLASS} overlib_maintext" style="width:220px;">
+									{bank.items.ITEM_TOOLTIP}</td>
+								<!-- ENDIF -->
+							<!-- IF bank.items.COUNT eq S_COLUMNS -->
+							</tr>
+							<tr>
+							<!-- ENDIF -->
+				    		<!-- END items -->
+
+				    		</tr>
+			    		</table>
+			    	</td>
+			    </tr>
+				<!-- ELSE -->
+				<tr>
+				    <td class="membersRowRight1">{bank.L_NO_INFO}</td>
+				</tr>
+				<!-- ENDIF -->
+			</table>
+		</td>
+	</tr>
+</table>
+
+<br />
+<!-- END bank -->

@@ -205,7 +205,7 @@ if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || 
 		{
 			foreach( $simpleParser->data->channel->item as $value )
 			{
-				if( str_replace(' ', '', $value->title->_CDATA) == str_replace(' ', '', $realmname) )
+				if( str_replace(' ', '', $value->title->_CDATA) == str_replace(' ', '', utf8_encode($realmname)) )
 				{
 					$err = 0;
 					switch( strtoupper($value->category[0]->_CDATA) )
@@ -224,6 +224,7 @@ if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || 
 					switch( strtoupper($value->category[2]->_CDATA) )
 					{
 						case 'RPPVP':
+						case 'RP-PVP':
 							$realmData['servertype'] = 'RPPVP';
 							break;
 
