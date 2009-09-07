@@ -39,17 +39,7 @@
 
 {ROSTER_TOP}
 
-<!-- Navagation Tabs -->
-<div class="top-menu">
-	<div class="links">
-		<div id="top_nav">
-			<a href="{U_MENU_UPDATE_LUA}" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
-			<a class="button-guild" href="#" onclick="showHide('menu_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
-			<a class="button-realm" href="#" onclick="showHide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
-			<a class="button-util" href="#" onclick="showHide('menu_util'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
-		</div>
-	</div>
-</div>
+
 
 <!-- Log-in form -->
 <div class="menu-login">
@@ -100,9 +90,7 @@
 
 <!-- IF ROSTER_SCOPE eq "char" -->
 	<div class="char-list">
-		<div class="banner">
-			<div class="title">{GUILD_NAME}</div>
-		</div>
+		<div class="title"><!-- TRANSLATE members --><span><!-- TRANSLATE members --></span></div>
 		<div class="spacer">
 			<div class="list">
 <!-- BEGIN mini_memberslist -->
@@ -136,3 +124,14 @@
 	<div class="char-wrap">
 <!-- ENDIF -->
 
+<!-- Navagation Tabs -->
+<div class="top-menu">
+	<div class="links">
+		<div id="top_nav">
+			<a href="{U_MENU_UPDATE_LUA}" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
+			<a class="button-guild" href="#" onclick="showHide('menu_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
+			<a class="button-realm" href="#" onclick="showHide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
+			<a class="button-util" href="#" onclick="showHide('menu_util'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
+		</div>
+	</div>
+</div>
