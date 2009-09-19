@@ -125,6 +125,30 @@ class RosterArmory
 		}
 	}
 
+	function fetchArmoryachive( $url, $character = false, $guild = false, $realm = false, $item_id = false,$fetch_type = 'array' )
+	{
+		global $roster;
+
+		
+			//$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
+		    $this->xml = urlgrabber($url, '10', 'Opera/9.22 (X11; Linux i686; U; en)');
+		    //echo $this->xml;
+            
+            	
+				// parse and return array
+				$this->_initXmlParser();
+				$this->xmlParser->Parse($this->xml);
+				$data = $this->xmlParser->getParsedData();
+			
+			return $data;
+	
+	}
+
+
+
+
+
+
 	/**
  	 * Fetches $item_id Tooltip from the Armory
 	 * Accepts optional $character if used $realm is also required

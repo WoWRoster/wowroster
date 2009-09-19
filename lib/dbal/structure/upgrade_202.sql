@@ -23,13 +23,17 @@ CREATE TABLE `renprefix_companions` (
 # --------------------------------------------------------
 ### Currency
 
-DROP TABLE IF EXISTS `roster_currency`;
-CREATE TABLE `roster_currency` (
+DROP TABLE IF EXISTS `renprefix_currency`;
+CREATE TABLE `renprefix_currency` (
   `member_id` int(10) unsigned NOT NULL default '0',
-  `currency_category` varchar(32) NOT NULL default '',
+  `order` tinyint(1) NOT NULL default '0',
+  `catagory` varchar(50) NOT NULL,
   `name` varchar(32) NOT NULL default '',
   `type` tinyint(3) unsigned NOT NULL default '0',
   `count` int(8) unsigned NOT NULL default '0',
+  `icon` varchar(255) NOT NULL,
+  `tooltip` mediumint(9) NOT NULL,
+  `watched` varchar(10) NOT NULL,
   PRIMARY KEY  (`member_id`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
