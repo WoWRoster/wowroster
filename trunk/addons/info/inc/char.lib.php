@@ -2610,12 +2610,88 @@ class char
 		{
 			$roster->tpl->assign_var('S_SPELL_TAB',false);
 		}
+		// Skills Tab
+            $this->show_currency();
+
+			$roster->tpl->assign_block_vars('tabs',array(
+				'NAME'     => 'Currency',//$roster->locale->act['tab4'],
+				'VALUE'    => 'tab7',
+				'SELECTED' => false
+				)
+			);
+
 
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));
 		return $roster->tpl->fetch('char');
 	}
-}
 
+function show_currency()
+	{
+	global $roster;
+		$query = "SELECT * FROM `".$roster->db->table('currency')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `order` ASC, `name` ASC;";
+		$result = $roster->db->query( $query );
+            
+            $name = '';
+            while($row = $roster->db->fetch($result))
+            {
+            
+            
+            if ($name != $row['catagory'])
+            {
+            $roster->tpl->assign_block_vars('currency',array(
+                        'C_NAME'  => $row['catagory'],
+                        'C_ORDER' => 'currency_'.$row['order']
+                        )
+                  );
+                  $name = $row['catagory'];
+            }
+            
+            
+            $roster->tpl->assign_block_vars('currency.items',array(
+                        'C_NAME'  => $row['name'],
+                        'C_ICON' => $row['icon'],
+                        'C_TOOLTIP' => $row['tooltip'],
+                        'C_COUNT' => $row['count']
+                        )
+                  );
+            /*
+            if ($row['catagory'] == 'Dungeon and Raid')
+            {
+                  $roster->tpl->assign_block_vars('currency_dnr',array(
+                        'C_NAME'  => $row['name'],
+                        'C_ICON' => $row['icon'],
+                        'C_TOOLTIP' => $row['tooltip'],
+                        'C_COUNT' => $row['count']
+                        )
+                  );
+            }
+            if ($row['catagory'] == 'Player vs. Player')
+            {
+                  $roster->tpl->assign_block_vars('currency_pvp',array(
+                        'C_NAME'  => $row['name'],
+                        'C_ICON' => $row['icon'],
+                        'C_TOOLTIP' => $row['tooltip'],
+                        'C_COUNT' => $row['count']
+                        )
+                  );
+            }
+            
+            if ($row['catagory'] == 'Miscellaneous')
+            {
+                  $roster->tpl->assign_block_vars('currency_misc',array(
+                        'C_NAME'  => $row['name'],
+                        'C_ICON' => $row['icon'],
+                        'C_TOOLTIP' => $row['tooltip'],
+                        'C_COUNT' => $row['count']
+                        )
+                  );
+            }
+            */
+		}
+	}
+
+
+}
 
 /**
  * Gets one characters data using a member id

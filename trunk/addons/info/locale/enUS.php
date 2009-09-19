@@ -97,6 +97,10 @@ $lang['tab3']='Reputation';
 $lang['tab4']='Skills';
 $lang['tab5']='PvP';
 
+$lang['currency_1'] = 'Dungeon and Raid';
+$lang['currency_2'] = 'Player vs. Player';
+$lang['currency_3'] = 'Miscellaneous';
+
 $lang['strength_tooltip']='Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
 $lang['agility_tooltip']= 'Increases your attack power with ranged weapons.<br />Improves your chance to score a critcal hit with all weapons.<br />Increases your armor and your chance to dodge attacks.';
 $lang['stamina_tooltip']= 'Increases your health points.';
