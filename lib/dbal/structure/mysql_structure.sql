@@ -92,6 +92,19 @@ CREATE TABLE `renprefix_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
+### Currency
+
+DROP TABLE IF EXISTS `roster_currency`;
+CREATE TABLE `roster_currency` (
+  `member_id` int(10) unsigned NOT NULL default '0',
+  `currency_category` varchar(32) NOT NULL default '',
+  `name` varchar(32) NOT NULL default '',
+  `type` tinyint(3) unsigned NOT NULL default '0',
+  `count` int(8) unsigned NOT NULL default '0',
+  PRIMARY KEY  (`member_id`,`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
 ### Gems
 
 DROP TABLE IF EXISTS `renprefix_gems`;

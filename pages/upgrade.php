@@ -271,8 +271,22 @@ class Upgrade
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;");
 		}
 
-		$this->beta_upgrade();
+		// Adding Currency
+		if( version_compare($roster->config['version'], '2.0.9.2012', '<') )
+		{
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('currency') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('currency') . "` (
+				`member_id` int(10) unsigned NOT NULL default '0',
+				`currency_category` varchar(32) NOT NULL default '',
+				`name` varchar(32) NOT NULL default '',
+				`type` tinyint(3) unsigned NOT NULL default '0',
+				`count` int(8) unsigned NOT NULL default '0',
+				PRIMARY KEY  (`member_id`,`name`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		}
 
+		// Standard Beta Update
+		$this->beta_upgrade();
 		$this->finalize();
 	}
 
@@ -285,8 +299,6 @@ class Upgrade
 
 		// This will be active when the release is done
 		//$this->standard_upgrader();
-
-
 		$this->finalize();
 	}
 
@@ -295,11 +307,7 @@ class Upgrade
 	 */
 	function upgrade_201( )
 	{
-		global $roster;
-
-		// This will be active when the release is done
 		$this->standard_upgrader();
-
 		$this->finalize();
 	}
 
@@ -308,10 +316,7 @@ class Upgrade
 	 */
 	function upgrade_200( )
 	{
-		global $roster;
-
 		$this->standard_upgrader();
-
 		$this->finalize();
 	}
 

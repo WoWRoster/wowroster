@@ -1935,6 +1935,85 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 	}
 
+	/**
+	 * Handles formating and insertion of currency data
+	 *
+	 * @param array $data
+	 * @param int $memberId
+	 */
+	function do_currency( $data , $memberId )
+	{
+		global $roster;
+
+		if( isset($data['Currency']) )
+		{
+			$currencyData = $data['Currency'];
+		}
+
+		if( !empty($currencyData) && is_array($currencyData) )
+		{
+			$messages = '<li>Updating Currency ';
+
+			//first delete the stale data
+			$querystr = "DELETE FROM `" . $roster->db->table('currency') . "` WHERE `member_id` = '$memberId';";
+
+			if( !$roster->db->query($querystr) )
+			{
+				$this->setError('Currency could not be deleted', $roster->db->error());
+				return;
+			}
+
+			foreach( array_keys($currencyData) as $categories ) // eg. 'Miscellaneous, Player vs. Player, Dungeon and Raid
+			{
+				$category = $currencyData[$categories];
+
+				//if ($category_name != $count)
+				//{
+				foreach( array_keys($category) as $currency ) // eg. Arena Points, Badge of Justice, Emblem of Valor
+				{
+					$this->reset_values();
+					if( !empty($memberId) )
+					{
+						$this->add_value('member_id', $memberId);
+					}
+					if( !empty($categories) )
+					{
+						$this->add_value('currency_category', $categories);
+					}
+					if( !empty($currency) )
+					{
+						$this->add_value('name', $currency);
+					}
+					if( !empty($currencyData[$categories][$currency]['Count']) )
+					{
+						$this->add_value('count', $currencyData[$categories][$currency]['Count']);
+					}
+
+					if( !empty($currencyData[$categories][$currency]['Type']) )
+					{
+						$this->add_value('type', $currencyData[$categories][$currency]['Type']);
+					}
+
+					$messages .= '.';
+
+					$querystr = "INSERT INTO `" . $roster->db->table('currency') . "` SET " . $this->assignstr . ';';
+
+					$result = $roster->db->query($querystr);
+					if( !$result )
+					{
+						$this->setError('Currency for ' . $currency . ' could not be inserted', $roster->db->error());
+					}
+				}
+				//}
+			}
+			$this->setMessage($messages . '</li>');
+		}
+		else
+		{
+			$this->setMessage('<li>No Currency Data</li>');
+		}
+	}
+
 
 	/**
 	 * Handles formating and insertion of skills data
@@ -2832,6 +2911,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Reputation Data could not be deleted',$roster->db->error());
+		}
+
+
+		$messages .= 'Currency..';
+		$querystr = "DELETE FROM `" . $roster->db->table('currency') . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Currency Data could not be deleted',$roster->db->error());
 		}
 
 
@@ -3785,6 +3872,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->do_glyphs($data, $memberId);
 		$this->do_talents($data, $memberId);
 		$this->do_reputation($data, $memberId);
+		$this->do_currency($data, $memberId);
 		$this->do_quests($data, $memberId);
 		$this->do_buffs($data, $memberId);
 		$this->do_companions($data, $memberId);
