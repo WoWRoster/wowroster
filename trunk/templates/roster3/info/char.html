@@ -539,13 +539,13 @@ currency =>
 -->
 
 <div id="tab7" class="tab7" style="display:none;">
-<!-- BEGIN currency -->	
+<!-- BEGIN currency -->
 	<div class="container">
 		<div class="box-label"><div class="icon {currency.ID}"></div>{currency.CATEGORY}</div>
 		<div class="skill">
-<!-- BEGIN item -->						
-			<div class="currency-container">
-				<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" alt="" width = "25" height="25" /></div>
+<!-- BEGIN item -->
+			<div class="currency-container" {currency.item.TOOLTIP}>
+				<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" width="25" height="25" alt="" /></div>
 				<div class="text">
 					<span>{currency.item.NAME} - {currency.item.COUNT}</span>
 				</div>
@@ -553,7 +553,7 @@ currency =>
 <!-- END item -->
 		</div>
 	</div>
-<!-- END currency -->	
+<!-- END currency -->
 </div>
 <!-- ENDIF -->
 
