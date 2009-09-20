@@ -1073,12 +1073,12 @@ class char
 			$row = $roster->db->fetch($result, SQL_ASSOC);
 
 			$category = $row['category'];
-			$currency_name = $row['category'];
+			$currency_name = $row['name'];
 			$currency_data[$category][$currency_name]['order'] = $row['order'];
 			$currency_data[$category][$currency_name]['count'] = $row['count'];
 			$currency_data[$category][$currency_name]['type'] = $row['type'];
 			$currency_data[$category][$currency_name]['icon'] = $row['icon'];
-			$currency_data[$category][$currency_name]['tooltip'] = makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']);
+			$currency_data[$category][$currency_name]['tooltip'] = makeOverlib($row['tooltip'], '', '', 0, $this->data['clientLocale']);
 		}
 
 		$roster->db->free_result($result);
@@ -1094,8 +1094,9 @@ class char
 			foreach( $currency as $name => $data )
 			{
 				$roster->tpl->assign_block_vars('currency.item',array(
-					'ID'      => strtolower(str_replace(' ','',$data['name'])),
+					'ID'      => strtolower(str_replace(' ','',$name)),
 					'NAME'    => $name,
+					'COUNT'   => $data['count'],
 					'TYPE'    => $data['type'],
 					'ORDER'   => $data['order'],
 					'ICON'    => $data['icon'],
