@@ -272,16 +272,20 @@ class Upgrade
 		}
 
 		// Adding Currency
-		if( version_compare($roster->config['version'], '2.0.9.2012', '<') )
+		if( version_compare($roster->config['version'], '2.0.9.2014', '<') )
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('currency') . "`;");
 			$roster->db->query("CREATE TABLE `" . $roster->db->table('currency') . "` (
-				`member_id` int(10) unsigned NOT NULL default '0',
-				`currency_category` varchar(32) NOT NULL default '',
-				`name` varchar(32) NOT NULL default '',
-				`type` tinyint(3) unsigned NOT NULL default '0',
-				`count` int(8) unsigned NOT NULL default '0',
-				PRIMARY KEY  (`member_id`,`name`)
+				`member_id` int(11) unsigned NOT NULL default '0',
+				`order` tinyint(4) NOT NULL default '0',
+				`category` varchar(96) NOT NULL,
+				`name` varchar(96) NOT NULL default '',
+				`type` tinyint(4) unsigned NOT NULL default '0',
+				`count` tinyint(4) unsigned NOT NULL default '0',
+				`icon` varchar(64) NOT NULL,
+				`tooltip` mediumtext NOT NULL,
+				`watched` varchar(10) NOT NULL,
+				PRIMARY KEY  (`member_id`,`category`,`name`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
 

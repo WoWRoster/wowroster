@@ -45,6 +45,9 @@ $lang['unusedtrainingpoints']='Points de formation non utilisés';
 $lang['spellbook'] = 'Grimoire';
 $lang['no_spellbook'] = 'Pas de grimoire pour %1$s';
 
+// Currency
+$lang['currency'] = 'Currency';
+
 // Mailbox
 $lang['mailbox'] = 'Boîte aux lettres';
 $lang['maildateutc'] = 'Messages Capturés';
@@ -288,6 +291,7 @@ $lang['admin']['show_tab2'] = "Familiers|Affichage des familiers<br /><br />Le p
 $lang['admin']['show_tab3'] = "Réputation|Affichage des réputations<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_tab4'] = "Compétences|Affichage des compétences<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_tab5'] = "JcJ|Affichage du JcJ<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talents|Affichage des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Grimoire|Affichage du grimoire<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";

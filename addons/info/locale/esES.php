@@ -45,6 +45,9 @@ $lang['unusedtrainingpoints']='Puntos de entrenamiento sin usar';
 $lang['spellbook'] = 'Libro de hechizos';
 $lang['no_spellbook'] = 'No hay libro de hechizos para %1$s';
 
+// Currency
+$lang['currency'] = 'Currency';
+
 // Mailbox
 $lang['mailbox'] = 'Buzón';
 $lang['maildateutc'] = 'Fecha del correo';
@@ -288,6 +291,7 @@ $lang['admin']['show_tab2'] = "Mascotas|Elige si mostrar las mascotas<br /><br /
 $lang['admin']['show_tab3'] = "Reputación|Elige si mostrar las reputaciones.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_tab4'] = "Habilidades|Elige si mostrar las habilidades.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_tab5'] = "JcJ|Elige si mostrar los datos de JcJ.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talentos|Elige si mostrar los talentos.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Libro de hechizos|Elige si mostrar el libro de hechizos.<br /><br />La configuración es global y afectará a todos los personajes";

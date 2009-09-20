@@ -1120,4 +1120,3 @@ $lang['guildname'] = 'Guild name';
 $lang['realmname']  = 'Realm name';
 $lang['regionname'] = 'Region (i.e. US)';
 $lang['charname'] = 'Character name';
-

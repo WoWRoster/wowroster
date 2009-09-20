@@ -240,6 +240,14 @@ require_once (ROSTER_LIB . 'menu.php');
 $roster->get_page_name();
 
 /**
+ * Load scope data classes
+ */
+include(ROSTER_LIB . 'scope' . DIR_SEP . 'util.php');
+include(ROSTER_LIB . 'scope' . DIR_SEP . 'realm.php');
+include(ROSTER_LIB . 'scope' . DIR_SEP . 'guild.php');
+include(ROSTER_LIB . 'scope' . DIR_SEP . 'char.php');
+
+/**
  * Run the scope algorithm to load the data and figure out the data to load
  */
 $roster->get_scope_data();

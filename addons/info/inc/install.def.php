@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'spell_holy_divinespirit';
 
-	var $version = '2.0.9.2006';
+	var $version = '2.0.9.2014';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -61,7 +61,7 @@ class infoInstall
 		$installer->add_config("'1050', 'show_tab3', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1060', 'show_tab4', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1070', 'show_tab5', '0', 'function{infoAccess', 'char_conf'");
-		$installer->add_config("'1075', 'show_tab7', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1075', 'show_currency', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1080', 'show_talents', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1085', 'show_glyphs', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1090', 'show_spellbook', '0', 'function{infoAccess', 'char_conf'");
@@ -84,7 +84,7 @@ class infoInstall
 		  `show_tab3` tinyint(1) NOT NULL default '0',
 		  `show_tab4` tinyint(1) NOT NULL default '0',
 		  `show_tab5` tinyint(1) NOT NULL default '0',
-		  `show_tab7` tinyint(1) NOT NULL default '0',
+		  `show_currency` tinyint(1) NOT NULL default '0',
 		  `show_talents` tinyint(1) NOT NULL default '0',
 		  `show_glyphs` tinyint(1) NOT NULL default '0',
 		  `show_spellbook` tinyint(1) NOT NULL default '0',
@@ -108,7 +108,7 @@ class infoInstall
 		  `show_tab3` tinyint(1) NOT NULL default '0',
 		  `show_tab4` tinyint(1) NOT NULL default '0',
 		  `show_tab5` tinyint(1) NOT NULL default '0',
-		  `show_tab7` tinyint(1) NOT NULL default '0',
+		  `show_currency` tinyint(1) NOT NULL default '0',
 		  `show_talents` tinyint(1) NOT NULL default '0',
 		  `show_glyphs` tinyint(1) NOT NULL default '0',
 		  `show_spellbook` tinyint(1) NOT NULL default '0',
@@ -130,7 +130,7 @@ class infoInstall
 			'show_tab3' => '0',
 			'show_tab4' => '0',
 			'show_tab5' => '0',
-			'show_tab7' => '0',
+			'show_currency' => '0',
 			'show_talents' => '0',
 			'show_glyphs' => '0',
 			'show_spellbook' => '0',
@@ -245,16 +245,15 @@ class infoInstall
 		{
 			$installer->update_menu_button('cb_character', 'char', '', 'spell_holy_divinespirit');
 		}
-		if( version_compare('2.0.9.2011', $oldversion,'>') == true )
+
+		// Adding currency tab
+		if( version_compare('2.0.9.2014', $oldversion,'>') == true )
 		{
-			$installer->add_config("'1075', 'show_tab7', '0', 'function{infoAccess', 'char_conf'");
-		
-
+			$installer->add_config("'1075', 'show_currency', '0', 'function{infoAccess', 'char_conf'");
 			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
-				ADD `show_tab7` tinyint(1) NOT NULL default '0' AFTER `show_talents`");
-
+				ADD `show_currency` tinyint(1) NOT NULL default '0' AFTER `show_tab5`");
 			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
-				ADD `show_tab7` tinyint(1) NOT NULL default '0' AFTER `show_talents`");
+				ADD `show_currency` tinyint(1) NOT NULL default '0' AFTER `show_tab5`");
 		}
 
 		return true;

@@ -45,6 +45,9 @@ $lang['unusedtrainingpoints']='Unbenutzte Trainingspunkte';
 $lang['spellbook'] = 'Zaubersprüche';
 $lang['no_spellbook'] = 'Keine Zaubersprüche für %1$s';
 
+// Currency
+$lang['currency'] = 'Currency';
+
 // Mailbox
 $lang['mailbox'] = 'Postfach';
 $lang['maildateutc'] = 'Briefdatum';
@@ -288,6 +291,7 @@ $lang['admin']['show_tab2'] = "Begleiter|Kontrolliere die Begleiteranzeige<br />
 $lang['admin']['show_tab3'] = "Ruf|Kontrolliert die Rufanzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_tab4'] = "Zaubersprüche|Kontrolliert die Anzeuge der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_tab5'] = "PvP|Kontrolliert die Anzeige des PvP<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talente|Anzeige der Talente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Zaubersprüche|Anzeige des Zauberbuchs<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";

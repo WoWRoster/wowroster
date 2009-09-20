@@ -45,6 +45,9 @@ $lang['unusedtrainingpoints']='Unused Training Points';
 $lang['spellbook'] = 'Spellbook';
 $lang['no_spellbook'] = 'No Spellbook for %1$s';
 
+// Currency
+$lang['currency'] = 'Currency';
+
 // Mailbox
 $lang['mailbox'] = 'Mailbox';
 $lang['maildateutc'] = 'Mail Captured';
@@ -96,10 +99,6 @@ $lang['tab2']='Pet';
 $lang['tab3']='Reputation';
 $lang['tab4']='Skills';
 $lang['tab5']='PvP';
-
-$lang['currency_1'] = 'Dungeon and Raid';
-$lang['currency_2'] = 'Player vs. Player';
-$lang['currency_3'] = 'Miscellaneous';
 
 $lang['strength_tooltip']='Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
 $lang['agility_tooltip']= 'Increases your attack power with ranged weapons.<br />Improves your chance to score a critcal hit with all weapons.<br />Increases your armor and your chance to dodge attacks.';
@@ -292,6 +291,7 @@ $lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Sett
 $lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_spellbook'] = "Spellbook|Controls the display of the Spellbook<br /><br />Setting is global and overrides per-user setting";
