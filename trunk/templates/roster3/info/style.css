@@ -496,7 +496,6 @@
 .main-panel .tab5 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .main-panel .tab5 .container .box-label .talents { background: url(images/icons/talents.gif); }
 
-
 .main-panel .tab5 .frames { margin: auto; height: 600px; width: auto; }
 
 .main-panel .tab5 .spec { position:relative; float: left; width:235px; height:600px; margin: 3px; }
@@ -549,24 +548,17 @@
 .main-panel .tab6 .container .spell-tree .spell-page .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
 .main-panel .tab6 .container .spell-tree .spell-page .spell-container .text .rank { color: #CCCCCC; font-size: 10px; }
 
+
+/* Currency Page */
+
 .main-panel .tab7 .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .tab7 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .tab7 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .main-panel .tab7 .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
 
-
-.main-panel .tab7 .container .spell-container { cursor: default; text-align:left; color:#000000; background: url(../images/currency_bg.png); margin: 2px 20px 0px; height: 35px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
-.main-panel .tab7 .container .spell-container .icon { height: 25px; width: 25px; float: left; margin-right: 5px; padding-top: 5px;}
-.main-panel .tab7 .container .spell-container .text { text-align: center; margin-top: 10px;}
-
-.main-panel .tab7 .curr { cursor: default; text-align:left; color:#000000; background: url(../images/currency_bg.png); margin: 2px 20px 0px; height: 35px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
-.main-panel .tab7 .icon {  left: 10px; top: 7px; }
-.main-panel .tab7.curr-name { padding-left: 40px; float: left; position: relative; line-height: 35px; }
-.main-panel .tab7 .rep-bar { height: 16px; width: 200px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
-.main-panel .tab7 .rep-bar:hover { border: 1px solid #FFFFFF; }
-.main-panel .tab7 .rep-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
-.main-panel .tab7 .rep-bar .text { width:200px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
-.main-panel .tab7 .rep-standing { width: 110px; float: right; position: relative; line-height: 20px; text-align: center; }
+.main-panel .tab7 .container .currency-container { cursor: default; text-align:left; color:#000000; background: url(../images/currency_bg.png); margin: 2px 20px 0px; height: 35px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
+.main-panel .tab7 .container .currency-container .icon { height: 25px; width: 25px; float: left; margin-right: 5px; padding-top: 5px;}
+.main-panel .tab7 .container .currency-container .text { text-align: center; margin-top: 10px;}
 
 
 /**

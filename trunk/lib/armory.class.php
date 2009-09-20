@@ -75,6 +75,7 @@ class RosterArmory
 		$this->region = ( $region !== false ? strtoupper($region) : 'US' );
 	}
 
+
 	/**
  	 * General armory fetch class
 	 * Returns XML, HTML or an array of the parsed XML page
@@ -129,24 +130,17 @@ class RosterArmory
 	{
 		global $roster;
 
-		
-			//$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
-		    $this->xml = urlgrabber($url, '10', 'Opera/9.22 (X11; Linux i686; U; en)');
-		    //echo $this->xml;
-            
-            	
-				// parse and return array
-				$this->_initXmlParser();
-				$this->xmlParser->Parse($this->xml);
-				$data = $this->xmlParser->getParsedData();
-			
-			return $data;
-	
+		//$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
+		$this->xml = urlgrabber($url, '10', 'Opera/9.22 (X11; Linux i686; U; en)');
+		//echo $this->xml;
+
+		// parse and return array
+		$this->_initXmlParser();
+		$this->xmlParser->Parse($this->xml);
+		$data = $this->xmlParser->getParsedData();
+
+		return $data;
 	}
-
-
-
-
 
 
 	/**
@@ -179,11 +173,21 @@ class RosterArmory
 		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, 'xml' );
 	}
 
+	/**
+	 * Fetches $item_id Tooltip from the Armory
+	 * Accepts optional $character if used $realm is also required
+	 * Returns HTML string
+	 *
+	 * @param string $item_id
+	 * @return string
+	 */
 	function fetchItemTooltipHTML( $item_id, $locale, $character=false, $realm=false )
 	{
 		$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		return $this->fetchItemTooltip( $item_id, $locale, $character, $realm, 'html' );
 	}
+
+
 	/**
 	 * Fetches $item_id General Information from the Armory
 	 * Returns Array of the parsed XML page

@@ -11,331 +11,331 @@
 
 <div class="main-panel" align="left">
 <!-- tab1 -->
-		<div id="tab1" class="tab1" style="display:none;">
-			<div class="container">
-				<div class="box-label">
-					<div class="icon profile"></div><!-- TRANSLATE tab1 -->
+	<div id="tab1" class="tab1" style="display:none;">
+		<div class="container">
+			<div class="box-label">
+				<div class="icon profile"></div><!-- TRANSLATE tab1 -->
 
-					<div class="info-bonus-navigation">
-						<ul id="info_bonus_nav">
-							<li><a rel="infotoggle" class="text">Character Info</a></li>
+				<div class="info-bonus-navigation">
+					<ul id="info_bonus_nav">
+						<li><a rel="infotoggle" class="text">Character Info</a></li>
 <!-- IF S_PVP_TAB -->
-							<li><a rel="pvptoggle" class="text">PvP</a></li>
+						<li><a rel="pvptoggle" class="text">PvP</a></li>
 <!-- ENDIF -->
 <!-- IF S_BONUS_TAB -->
-							<li><a rel="bonustoggle" class="text">Bonuses</a></li>
+						<li><a rel="bonustoggle" class="text">Bonuses</a></li>
 <!-- ENDIF -->
-						</ul>
-					</div>
-
+					</ul>
 				</div>
 
-				<div class="equip-bg">
-					<div class="equip">
+			</div>
+
+			<div class="equip-bg">
+				<div class="equip">
 <!-- BEGIN equipment -->
-						<div class="equip_{equipment.SLOT}">
-							<img src="{equipment.ICON}" class="icon<!-- IF equipment.S_AMMO -->small<!-- ENDIF -->" alt="" />
-							<div class="item" {equipment.TOOLTIP}{equipment.ITEMLINK}>
+					<div class="equip_{equipment.SLOT}">
+						<img src="{equipment.ICON}" class="icon<!-- IF equipment.S_AMMO -->small<!-- ENDIF -->" alt="" />
+						<div class="item" {equipment.TOOLTIP}{equipment.ITEMLINK}>
 <!-- IF equipment.QTY gt 1 -->
-								<b>{equipment.QTY}</b>
-								<span>{equipment.QTY}</span>
+							<b>{equipment.QTY}</b>
+							<span>{equipment.QTY}</span>
 <!-- ENDIF -->
-							</div>
 						</div>
-<!-- END equipment -->
 					</div>
-					<div class="info-box" id="infotoggle" style="display:none;">
-						<div class="spec shader">
-							<!-- TRANSLATE talent_specialization -->
+<!-- END equipment -->
+				</div>
+				<div class="info-box" id="infotoggle" style="display:none;">
+					<div class="spec shader">
+						<!-- TRANSLATE talent_specialization -->
 <!-- BEGIN talent -->
-							<div class="skill {talent.TYPE}">							
-								<div class="icon"><img src="{IMG_URL}spec/{talent.ICON}.jpg" alt="" /></div>
-								<div class="data">
-                                	<div class="skill-name">{talent.NAME}</div>
-									<div class="skill-bar">
-										<div class="text">{talent.BUILD}</div>
-									</div>
+						<div class="skill {talent.TYPE}">							
+							<div class="icon"><img src="{IMG_URL}spec/{talent.ICON}.jpg" alt="" /></div>
+							<div class="data">
+								<div class="skill-name">{talent.NAME}</div>
+								<div class="skill-bar">
+									<div class="text">{talent.BUILD}</div>
 								</div>
 							</div>
+						</div>
 <!-- END talent -->
-						</div>
+					</div>
 
-						<div class="professions shader">
-							<!-- TRANSLATE professions -->
+					<div class="professions shader">
+						<!-- TRANSLATE professions -->
 <!-- BEGIN professions -->
-							<div class="skill">
-								<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{professions.ICON}.{IMG_SUFFIX}" alt="" /></div>
-								<div class="data">
-									<div class="skill-name">{professions.NAME}</div>
-									<div class="skill-bar">
+						<div class="skill">
+							<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{professions.ICON}.{IMG_SUFFIX}" alt="" /></div>
+							<div class="data">
+								<div class="skill-name">{professions.NAME}</div>
+								<div class="skill-bar">
 <!-- IF professions.MAXVALUE eq 1 -->
-										<div class="fill" style="width: 100%;"></div>
+									<div class="fill" style="width: 100%;"></div>
 <!-- ELSE -->
-										<div class="fill" style="width: {professions.WIDTH}%;"></div>
-										<div class="text">{professions.VALUE} / {professions.MAXVALUE}</div>
+									<div class="fill" style="width: {professions.WIDTH}%;"></div>
+									<div class="text">{professions.VALUE} / {professions.MAXVALUE}</div>
 <!-- ENDIF -->
-									</div>
 								</div>
 							</div>
+						</div>
 <!-- END professions -->
-						</div>
+					</div>
 
-					<!-- Resist Icons -->
-						<div class="resist shader">
-							<div class="bar">
-								<div class="icons">
+				<!-- Resist Icons -->
+					<div class="resist shader">
+						<div class="bar">
+							<div class="icons">
 <!-- BEGIN resist -->
-									<div class="icon {resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
+								<div class="icon {resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
 <!-- END resist -->
-								</div>
-								<div class="text"><!-- TRANSLATE resistances -->:</div>
 							</div>
+							<div class="text"><!-- TRANSLATE resistances -->:</div>
 						</div>
+					</div>
 
-					<!-- Buff Icons -->
-						<div class="buffs shader">
-							<div class="bar">
+				<!-- Buff Icons -->
+					<div class="buffs shader">
+						<div class="bar">
 <!-- BEGIN buff -->
-								<div class="buff">
-									<img class="icon" src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" {buff.TOOLTIP} alt="" />
+							<div class="buff">
+								<img class="icon" src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" {buff.TOOLTIP} alt="" />
 <!-- IF buff.COUNT -->
-									<b>{buff.COUNT}</b><span>{buff.COUNT}</span>
+								<b>{buff.COUNT}</b><span>{buff.COUNT}</span>
 <!-- ENDIF -->
-								</div>
+							</div>
 <!-- END buff -->
-							</div>
-							<div class="buff-name"><!-- TRANSLATE buffs -->:</div>
 						</div>
+						<div class="buff-name"><!-- TRANSLATE buffs -->:</div>
+					</div>
 
-					<!-- Advanced Stats -->
-						<div class="powers shader">
-							<div class="bar">
-								<div class="power-bar health"><!-- TRANSLATE health -->: {HEALTH}</div>
-							</div>
-							<div class="bar">
-								<div class="power-bar {L_CHAR_POWER_ID}">{L_CHAR_POWER}: {POWER}</div>
-							</div>
-							<div class="bar">
-								<div class="xp-bar {EXP_TYPE}">
-									<div class="fill {EXP_TYPE}" style="width: {EXP_PERC}%;"></div>
-									<div class="text">XP: {EXP_AMOUNT} / {EXP_MAX} <!-- IF EXP_REST -->: {EXP_REST} <!-- ENDIF -->({EXP_PERC}%)</div>
-								</div>
+				<!-- Advanced Stats -->
+					<div class="powers shader">
+						<div class="bar">
+							<div class="power-bar health"><!-- TRANSLATE health -->: {HEALTH}</div>
+						</div>
+						<div class="bar">
+							<div class="power-bar {L_CHAR_POWER_ID}">{L_CHAR_POWER}: {POWER}</div>
+						</div>
+						<div class="bar">
+							<div class="xp-bar {EXP_TYPE}">
+								<div class="fill {EXP_TYPE}" style="width: {EXP_PERC}%;"></div>
+								<div class="text">XP: {EXP_AMOUNT} / {EXP_MAX} <!-- IF EXP_REST -->: {EXP_REST} <!-- ENDIF -->({EXP_PERC}%)</div>
 							</div>
 						</div>
+					</div>
 
 
-						<div class="extras shader">
+					<div class="extras shader">
 
-							<div class="info_desc">
+						<div class="info_desc">
 <!-- BEGIN info_stats -->
-								{info_stats.NAME}<br />
+							{info_stats.NAME}<br />
 <!-- END info_stats -->
-							</div>
-
-							<div class="info_values">
-<!-- BEGIN info_stats -->
-								{info_stats.VALUE}<br />
-<!-- END info_stats -->
-							</div>
-
 						</div>
+
+						<div class="info_values">
+<!-- BEGIN info_stats -->
+							{info_stats.VALUE}<br />
+<!-- END info_stats -->
+						</div>
+
+					</div>
 
 <!-- IF S_MONEY -->
-						<div class="money shader">
-							<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
-							<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
-							<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
-						</div>
-<!-- ENDIF -->
-						<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
-							<option value="statsleft" selected="selected"><!-- TRANSLATE menustats --></option>
-							<option value="meleeleft"><!-- TRANSLATE melee --></option>
-							<option value="rangedleft"><!-- TRANSLATE ranged --></option>
-							<option value="spellleft"><!-- TRANSLATE spell --></option>
-							<option value="defenseleft"><!-- TRANSLATE defense --></option>
-						</select>
-						<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
-							<option value="statsright"><!-- TRANSLATE menustats --></option>
-							<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE melee --></option>
-							<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE ranged --></option>
-							<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE spell --></option>
-							<option value="defenseright"><!-- TRANSLATE defense --></option>
-						</select>
-
-						<div class="padding">
-<!-- BEGIN box_stats -->
-							<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
-<!-- BEGIN statline -->
-								<div class="statline" {box_stats.statline.TOOLTIP}>
-									<span class="value">{box_stats.statline.VALUE}</span>
-									<span class="label">{box_stats.statline.NAME}:</span>
-								</div>
-<!-- END statline -->
-							</div>
-<!-- END box_stats -->
-						</div>
-
-
+					<div class="money shader">
+						<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
+						<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
+						<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
 					</div>
+<!-- ENDIF -->
+					<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
+						<option value="statsleft" selected="selected"><!-- TRANSLATE menustats --></option>
+						<option value="meleeleft"><!-- TRANSLATE melee --></option>
+						<option value="rangedleft"><!-- TRANSLATE ranged --></option>
+						<option value="spellleft"><!-- TRANSLATE spell --></option>
+						<option value="defenseleft"><!-- TRANSLATE defense --></option>
+					</select>
+					<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
+						<option value="statsright"><!-- TRANSLATE menustats --></option>
+						<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE melee --></option>
+						<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE ranged --></option>
+						<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE spell --></option>
+						<option value="defenseright"><!-- TRANSLATE defense --></option>
+					</select>
+
+					<div class="padding">
+<!-- BEGIN box_stats -->
+						<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
+<!-- BEGIN statline -->
+							<div class="statline" {box_stats.statline.TOOLTIP}>
+								<span class="value">{box_stats.statline.VALUE}</span>
+								<span class="label">{box_stats.statline.NAME}:</span>
+							</div>
+<!-- END statline -->
+						</div>
+<!-- END box_stats -->
+					</div>
+
+
+				</div>
 
 
 <!-- IF S_BONUS_TAB -->
-					<div class="bonus-box shader" id="bonustoggle" style="display:none;">
-						<div class="bonus-container">
+				<div class="bonus-box shader" id="bonustoggle" style="display:none;">
+					<div class="bonus-container">
 <!-- BEGIN bonus -->
-							<div id="{bonus.KEY}" style="display:none;">
+						<div id="{bonus.KEY}" style="display:none;">
 <!-- BEGIN row -->
-								<div class="membersRow{bonus.row.ROW_CLASS}" style="white-space:normal;cursor:pointer;" onmouseover="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,HAUTO);" onmouseout="return nd();" onclick="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,STICKY,OFFSETX,-5,OFFSETY,-5,HAUTO);">{bonus.row.VALUE}</div>
+							<div class="membersRow{bonus.row.ROW_CLASS}" style="white-space:normal;cursor:pointer;" onmouseover="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,HAUTO);" onmouseout="return nd();" onclick="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,STICKY,OFFSETX,-5,OFFSETY,-5,HAUTO);">{bonus.row.VALUE}</div>
 <!-- END row -->
-							</div>
-<!-- END bonus -->
 						</div>
-
-						<div class="bonus-navigation">
-							<ul id="bonus_navigation">
-<!-- BEGIN bonus -->
-								<li><a rel="{bonus.KEY}" class="text">{bonus.VALUE}</a></li>
 <!-- END bonus -->
-							</ul>
-						</div>
 					</div>
+
+					<div class="bonus-navigation">
+						<ul id="bonus_navigation">
+<!-- BEGIN bonus -->
+							<li><a rel="{bonus.KEY}" class="text">{bonus.VALUE}</a></li>
+<!-- END bonus -->
+						</ul>
+					</div>
+				</div>
 <!-- ENDIF -->
 
 <!-- IF S_PVP_TAB -->
-					<div class="bonus-box shader" id="pvptoggle" style="display:none;">
-						<div class="bonus-container">
+				<div class="bonus-box shader" id="pvptoggle" style="display:none;">
+					<div class="bonus-container">
 
-							<div class="honortext">
-								<img src="{IMG_URL}icon_{FACTION_EN}.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE honor -->:<span>{HONOR_POINTS}</span>
-							</div>
-
-							<div class="today"><!-- TRANSLATE today --></div>
-							<div class="yesterday"><!-- TRANSLATE yesterday --></div>
-							<div class="lifetime"><!-- TRANSLATE lifetime --></div>
-
-							<div class="divider"></div>
-
-							<div class="killsline"><!-- TRANSLATE kills --></div>
-							<div class="killsline1">{SESSION_HK}</div>
-							<div class="killsline2">{YEST_HK}</div>
-							<div class="killsline3">{LIFE_HK}</div>
-
-							<div class="honorline"><!-- TRANSLATE honor --></div>
-							<div class="honorline1">{SESSION_CP}</div>
-							<div class="honorline2">{YEST_CP}</div>
-							<div class="honorline3">-</div>
-
-							<div class="arenatext"><img src="{IMG_URL}arenapointsicon.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE arena -->:<span>{ARENA_POINTS}</span></div>
+						<div class="honortext">
+							<img src="{IMG_URL}icon_{FACTION_EN}.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE honor -->:<span>{HONOR_POINTS}</span>
 						</div>
+
+						<div class="today"><!-- TRANSLATE today --></div>
+						<div class="yesterday"><!-- TRANSLATE yesterday --></div>
+						<div class="lifetime"><!-- TRANSLATE lifetime --></div>
+
+						<div class="divider"></div>
+
+						<div class="killsline"><!-- TRANSLATE kills --></div>
+						<div class="killsline1">{SESSION_HK}</div>
+						<div class="killsline2">{YEST_HK}</div>
+						<div class="killsline3">{LIFE_HK}</div>
+
+						<div class="honorline"><!-- TRANSLATE honor --></div>
+						<div class="honorline1">{SESSION_CP}</div>
+						<div class="honorline2">{YEST_CP}</div>
+						<div class="honorline3">-</div>
+
+						<div class="arenatext"><img src="{IMG_URL}arenapointsicon.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE arena -->:<span>{ARENA_POINTS}</span></div>
 					</div>
-<!-- ENDIF -->
 				</div>
+<!-- ENDIF -->
 			</div>
 		</div>
+	</div>
 
 
 <!-- IF S_PET_TAB -->
 
 <!-- tab2 -->
-		<div id="tab2" class="tab2" style="display:none;">
+	<div id="tab2" class="tab2" style="display:none;">
 
 <!-- IF S_PETS -->
-			<div class="container">
-				<div class="box-label"><div class="icon pets"></div><!-- TRANSLATE pets --></div>
+		<div class="container">
+			<div class="box-label"><div class="icon pets"></div><!-- TRANSLATE pets --></div>
 <!-- BEGIN pet -->
-				<div class="pet shader" >
-					<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
-					<div class="basics">
-						<div class="name">{pet.NAME}</div>
-						<div class="info"><!-- TRANSLATE level --> {pet.LEVEL} {pet.TYPE}</div>
+			<div class="pet shader" >
+				<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
+				<div class="basics">
+					<div class="name">{pet.NAME}</div>
+					<div class="info"><!-- TRANSLATE level --> {pet.LEVEL} {pet.TYPE}</div>
+				</div>
+				<div class="powers">
+					<div class="bar">
+						<div class="power-bar health">{pet.HEALTH}</div>
+						<div class="power-name"><!-- TRANSLATE health -->:</div>
 					</div>
-					<div class="powers">
-						<div class="bar">
-							<div class="power-bar health">{pet.HEALTH}</div>
-							<div class="power-name"><!-- TRANSLATE health -->:</div>
-						</div>
-						<div class="bar">
-							<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
-							<div class="power-name">{pet.L_POWER}:</div>
-						</div>
+					<div class="bar">
+						<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
+						<div class="power-name">{pet.L_POWER}:</div>
+					</div>
 <!-- IF pet.S_EXP -->
-						<div class="bar">
-							<div class="power-bar xp-bar">
-								<div class="fill" style="width: {pet.EXP_PERC}%;"></div>
-								<div class="text">{EXP_AMOUNT} / {EXP_MAX} ({EXP_PERC}%)</div>
-							</div>
-							<div class="power-name">EXP:</div>
+					<div class="bar">
+						<div class="power-bar xp-bar">
+							<div class="fill" style="width: {pet.EXP_PERC}%;"></div>
+							<div class="text">{EXP_AMOUNT} / {EXP_MAX} ({EXP_PERC}%)</div>
 						</div>
-<!-- ENDIF -->
+						<div class="power-name">EXP:</div>
 					</div>
-
-					<div class="resist">
-<!-- BEGIN resist -->
-						<div class="icon {pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
-<!-- END resist -->
-					</div>
-
-					<div class="padding">
-<!-- BEGIN box_stats -->
-						<div class="stats">
-<!-- BEGIN statline -->
-							<div class="statline" {pet.box_stats.statline.TOOLTIP}>
-								<span class="value">{pet.box_stats.statline.VALUE}</span>
-								<span class="label">{pet.box_stats.statline.NAME}:</span>
-							</div>
-<!-- END statline -->
-						</div>
-<!-- END box_stats -->
-					</div>
-
-<!-- IF pet.TOTAL_TP -->
-					<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
 <!-- ENDIF -->
 				</div>
 
-<!-- END pet -->
+				<div class="resist">
+<!-- BEGIN resist -->
+					<div class="icon {pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
+<!-- END resist -->
+				</div>
+
+				<div class="padding">
+<!-- BEGIN box_stats -->
+					<div class="stats">
+<!-- BEGIN statline -->
+						<div class="statline" {pet.box_stats.statline.TOOLTIP}>
+							<span class="value">{pet.box_stats.statline.VALUE}</span>
+							<span class="label">{pet.box_stats.statline.NAME}:</span>
+						</div>
+<!-- END statline -->
+					</div>
+<!-- END box_stats -->
+				</div>
+
+<!-- IF pet.TOTAL_TP -->
+				<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
+<!-- ENDIF -->
 			</div>
+
+<!-- END pet -->
+		</div>
 <!-- ENDIF -->
 
 <!-- IF S_MOUNTS -->
-			<div class="container">
-				<div class="box-label"><div class="icon mounts"></div><!-- TRANSLATE mounts --></div>
-                <div class="spell-page">
+		<div class="container">
+			<div class="box-label"><div class="icon mounts"></div><!-- TRANSLATE mounts --></div>
+			<div class="spell-page">
 <!-- BEGIN mounts -->
-				<div class="spell-container shader">
-					<div class="text">
-						<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" class="icon" {mounts.TOOLTIP} alt="" />
-						<span>{mounts.NAME}</span><br />
-					</div>
-				</div>
-<!-- END mounts -->
-				<div style="clear:both;"></div>
+			<div class="spell-container shader">
+				<div class="text">
+					<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" class="icon" {mounts.TOOLTIP} alt="" />
+					<span>{mounts.NAME}</span><br />
 				</div>
 			</div>
+<!-- END mounts -->
+			<div style="clear:both;"></div>
+			</div>
+		</div>
 <!-- ENDIF -->
 
 
 
 <!-- IF S_COMPANIONS -->
-			<div class="container">
-				<div class="box-label"><div class="icon companions"></div><!-- TRANSLATE companions --></div>
-                <div class="spell-page">
+		<div class="container">
+			<div class="box-label"><div class="icon companions"></div><!-- TRANSLATE companions --></div>
+			<div class="spell-page">
 <!-- BEGIN companions -->
-				<div class="spell-container shader">
-					<div class="text">
-						<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" class="icon" {companions.TOOLTIP} alt="" />
-						<span>{companions.NAME}</span><br />
-					</div>
+			<div class="spell-container shader">
+				<div class="text">
+					<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" class="icon" {companions.TOOLTIP} alt="" />
+					<span>{companions.NAME}</span><br />
 				</div>
-<!-- END mounts -->
-				<div style="clear:both;"></div>
-				</div>
-                
-                
 			</div>
+<!-- END mounts -->
+			<div style="clear:both;"></div>
+			</div>
+			
+			
+		</div>
 <!-- ENDIF -->
 
-		</div>
+	</div>
 <!-- ENDIF -->
 
 
@@ -343,26 +343,26 @@
 <!-- IF S_REP_TAB -->
 
 <!-- tab3 -->
-		<div id="tab3" class="tab3" style="display:none;">
+	<div id="tab3" class="tab3" style="display:none;">
 <!-- BEGIN rep -->
-			<div class="container">
-				<div class="box-label">
-					<div class="icon {rep.NAME_ID}"></div>
-					{rep.NAME}
-				</div>
-<!-- BEGIN bar -->
-				<div class="rep">
-					<div class="rep-name">{rep.bar.NAME}</div>
-					<div class="rep-standing">{rep.bar.STANDING}</div>
-					<div class="rep-bar">
-						<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>
-						<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
-					</div>
-				</div>
-<!-- END bar -->
+		<div class="container">
+			<div class="box-label">
+				<div class="icon {rep.NAME_ID}"></div>
+				{rep.NAME}
 			</div>
-<!-- END rep -->
+<!-- BEGIN bar -->
+			<div class="rep">
+				<div class="rep-name">{rep.bar.NAME}</div>
+				<div class="rep-standing">{rep.bar.STANDING}</div>
+				<div class="rep-bar">
+					<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>
+					<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+				</div>
+			</div>
+<!-- END bar -->
 		</div>
+<!-- END rep -->
+	</div>
 <!-- ENDIF -->
 
 
@@ -370,26 +370,26 @@
 <!-- IF S_SKILL_TAB -->
 
 <!-- tab4 -->
-		<div id="tab4" class="tab4" style="display:none;">
+	<div id="tab4" class="tab4" style="display:none;">
 <!-- BEGIN skill -->
-			<div class="container">
-				<div class="box-label"><div class="icon {skill.NAME_ID}"></div>{skill.NAME}</div>
+		<div class="container">
+			<div class="box-label"><div class="icon {skill.NAME_ID}"></div>{skill.NAME}</div>
 <!-- BEGIN bar -->
-				<div class="skill">
-					<div class="skill-name">{skill.bar.NAME}</div>
-					<div class="skill-bar">
+			<div class="skill">
+				<div class="skill-name">{skill.bar.NAME}</div>
+				<div class="skill-bar">
 <!-- IF skill.bar.MAXVALUE eq 1 -->
-						<div class="fill" style="width: 100%;"></div>
+					<div class="fill" style="width: 100%;"></div>
 <!-- ELSE -->
-						<div class="fill" style="width: {skill.bar.WIDTH}%;"></div>
-						<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
+					<div class="fill" style="width: {skill.bar.WIDTH}%;"></div>
+					<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
 <!-- ENDIF -->
-					</div>
 				</div>
-<!-- END bar -->
 			</div>
-<!-- END skill -->
+<!-- END bar -->
 		</div>
+<!-- END skill -->
+	</div>
 <!-- ENDIF -->
 
 
@@ -397,58 +397,58 @@
 <!-- IF S_TALENT_TAB or S_GLYPH_TAB -->
 
 <!-- tab5 -->
-		<div id="tab5" class="tab5" style="display:none;">
-	
-			<div class="container">
-				<div class="box-label">
-					<div class="icon talents"></div><!-- TRANSLATE talents -->
-				</div>
-				<div class="info-bonus-navigation">
-					<ul id="talentbuild_nav">
+	<div id="tab5" class="tab5" style="display:none;">
+
+		<div class="container">
+			<div class="box-label">
+				<div class="icon talents"></div><!-- TRANSLATE talents -->
+			</div>
+			<div class="info-bonus-navigation">
+				<ul id="talentbuild_nav">
 <!-- BEGIN talent -->
-						<li><a rel="TS{talent.ID}"<!-- IF S_GLYPH_TAB --> rev="GL{talent.ID}"<!-- ENDIF --> class="text">{talent.NAME}</a></li>
+					<li><a rel="TS{talent.ID}"<!-- IF S_GLYPH_TAB --> rev="GL{talent.ID}"<!-- ENDIF --> class="text">{talent.NAME}</a></li>
 <!-- END talent -->
-					</ul>
-				</div>
+				</ul>
+			</div>
 <!-- IF S_TALENT_TAB -->
 <!-- BEGIN talent -->
-				<div id="TS{talent.ID}" style="display:none;">
-					<div class="points_unused shader">
-						<span class="export"><a href="{talent.TALENT_EXPORT}" target="_blank"><!-- TRANSLATE talentexport --></a></span>
-						<span class="label"><!-- TRANSLATE unusedtalentpoints -->:</span> {TALENT_POINTS}
-					</div>
+			<div id="TS{talent.ID}" style="display:none;">
+				<div class="points_unused shader">
+					<span class="export"><a href="{talent.TALENT_EXPORT}" target="_blank"><!-- TRANSLATE talentexport --></a></span>
+					<span class="label"><!-- TRANSLATE unusedtalentpoints -->:</span> {TALENT_POINTS}
+				</div>
 
-					<div class="frames">
+				<div class="frames">
 <!-- BEGIN tree -->
-						<div class="spec">
-							<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent.tree.ICON}.{IMG_SUFFIX}" alt="" />
-							<div class="content">
+					<div class="spec">
+						<img class="background" src="{INTERFACE_URL}Interface/TalentFrame/{talent.tree.ICON}.{IMG_SUFFIX}" alt="" />
+						<div class="content">
 <!-- BEGIN row -->
-								<div class="row">
+							<div class="row">
 <!-- BEGIN cell -->
 
 <!-- IF talent.tree.row.cell.NAME -->
-									<div class="cell" {talent.tree.row.cell.TOOLTIP}>
+								<div class="cell" {talent.tree.row.cell.TOOLTIP}>
 <!-- IF talent.tree.row.cell.RANK -->
-										<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
-										<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent.tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent.tree.row.cell.RANK}</div>
+									<img class="rank_icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
+									<div class="rank_text" style="font-weight:bold;color:#<!-- IF talent.tree.row.cell.MAX -->ffdd00<!-- ELSE -->00dd00<!-- ENDIF -->;">{talent.tree.row.cell.RANK}</div>
 <!-- ENDIF -->
-										<img class="talent-icon <!-- IF talent.tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent.tree.row.cell.ICON}" alt=""  />
-									</div>
+									<img class="talent-icon <!-- IF talent.tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent.tree.row.cell.ICON}" alt=""  />
+								</div>
 <!-- ELSE -->
-									<div class="cell">&nbsp;</div>
+								<div class="cell">&nbsp;</div>
 <!-- ENDIF -->
 
 <!-- END cell -->
-								</div>
+							</div>
 <!-- END row -->
 
-							</div>
-							<div class="spec-name shader"><span class="name">{talent.tree.NAME}</span> : {talent.tree.POINTS}</div>
 						</div>
-<!-- END tree -->
+						<div class="spec-name shader"><span class="name">{talent.tree.NAME}</span> : {talent.tree.POINTS}</div>
 					</div>
-              	</div>
+<!-- END tree -->
+				</div>
+			</div>
 
 <!-- END talent -->
 <!-- ENDIF -->
@@ -457,94 +457,109 @@
 <!-- IF S_GLYPH_TAB -->
 
 <!-- BEGIN glyphs -->
-				<div id="GL{glyphs.ID}" class="glyph-pane" style="clear:both;display:none;">
-					<div>{glyphs.NAME}</div>
+			<div id="GL{glyphs.ID}" class="glyph-pane" style="clear:both;display:none;">
+				<div>{glyphs.NAME}</div>
 <!-- BEGIN glyph -->
 
-                    <div {glyphs.glyph.TOOLTIP} class="glyph-{glyphs.glyph.TYPE}">
-						<img src="{INTERFACE_URL}Interface/Spellbook/{glyphs.glyph.ICON}.png" />
-                        <div class="text">{glyphs.glyph.NAME}</div>
-					</div>
+				<div {glyphs.glyph.TOOLTIP} class="glyph-{glyphs.glyph.TYPE}">
+					<img src="{INTERFACE_URL}Interface/Spellbook/{glyphs.glyph.ICON}.png" />
+					<div class="text">{glyphs.glyph.NAME}</div>
+				</div>
 
 <!-- END glyph -->
-				</div>
+			</div>
 <!-- END glyphs -->
 
 <!-- ENDIF -->
 
-			</div>
 		</div>
+	</div>
 <!-- ENDIF -->
+
 
 <!-- IF S_SPELL_TAB -->
-		<div id="tab6" class="tab6" style="display:none;">
+	<div id="tab6" class="tab6" style="display:none;">
 
 <!-- BEGIN spell_book -->
-			<div class="container">
-				<div class="box-label">
-					<div class="icon spellbook"></div>
-					{spell_book.NAME}'s <!-- TRANSLATE spellbook -->
-				</div>
+		<div class="container">
+			<div class="box-label">
+				<div class="icon spellbook"></div>
+				{spell_book.NAME}'s <!-- TRANSLATE spellbook -->
+			</div>
 
 <!-- BEGIN tree -->
-				<div class="spell-tree shader">
-					<div class="tree-name"><img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" class="icon" alt="" />
-						<div class="id-name">
-							<!-- IF spell_book.tree.ID eq "0" -->
-								General
-							<!-- ELSE -->
-								{spell_book.tree.ID}
-							<!-- ENDIF -->
-						</div>
-					</div>
-					<div class="spell-page">
-<!-- BEGIN page -->
-<!-- BEGIN spell -->
-						<div class="spell-container shader">
-							<div class="text">
-								<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" class="icon" {spell_book.tree.page.spell.TOOLTIP} alt="" />
-								<span>{spell_book.tree.page.spell.NAME}</span><br />
-								<!-- IF spell_book.tree.page.spell.RANK --><span class="rank">{spell_book.tree.page.spell.RANK}</span><!-- ENDIF -->
-							</div>
-						</div>
-<!-- END spell -->
-<!-- END page -->
-						<div style="clear:both;"></div>
+			<div class="spell-tree shader">
+				<div class="tree-name"><img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" class="icon" alt="" />
+					<div class="id-name">
+						<!-- IF spell_book.tree.ID eq "0" -->
+							General
+						<!-- ELSE -->
+							{spell_book.tree.ID}
+						<!-- ENDIF -->
 					</div>
 				</div>
-<!-- END tree -->
+				<div class="spell-page">
+<!-- BEGIN page -->
+<!-- BEGIN spell -->
+					<div class="spell-container shader">
+						<div class="text">
+							<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" class="icon" {spell_book.tree.page.spell.TOOLTIP} alt="" />
+							<span>{spell_book.tree.page.spell.NAME}</span><br />
+							<!-- IF spell_book.tree.page.spell.RANK --><span class="rank">{spell_book.tree.page.spell.RANK}</span><!-- ENDIF -->
+						</div>
+					</div>
+<!-- END spell -->
+<!-- END page -->
+					<div style="clear:both;"></div>
+				</div>
 			</div>
-<!-- END spell_book -->
+<!-- END tree -->
 		</div>
+<!-- END spell_book -->
+	</div>
 <!-- ENDIF -->
 
 
 
+<!-- IF S_CURRENCY_TAB -->
 
-	<div id="tab7" class="tab7" style="display:none;">
+<!--
+Available variables for currency
 
-				<!-- BEGIN currency -->	
-				<div class="container">
-				<div class="box-label"><div class="icon {skill.NAME_ID}"></div>{currency.C_NAME}</div>
-					<div class="skill">
-					<!-- BEGIN items -->						
-						<div class="spell-container">
-							<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{currency.items.C_ICON}.{IMG_SUFFIX}" alt="" width = "25" height="25"/></div>
-							<div class="text">
-							<span>{currency.items.C_NAME} - {currency.items.C_COUNT}</span>
-							</div>
-						</div>
-					<!-- END items -->
-					</div>
+currency =>
+	ID   -> lowercase category name
+	NAME -> category name
+	item =>
+		ID      -> lowercase item name
+		NAME    -> name of currency item
+		TYPE    -> currency type, dont know what this is, it's a number
+		ORDER   -> order
+		ICON    -> icon image
+		TOOLTIP -> tooltip string
+-->
+
+<div id="tab7" class="tab7" style="display:none;">
+<!-- BEGIN currency -->	
+	<div class="container">
+		<div class="box-label"><div class="icon {currency.ID}"></div>{currency.CATEGORY}</div>
+		<div class="skill">
+<!-- BEGIN item -->						
+			<div class="currency-container">
+				<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" alt="" width = "25" height="25" /></div>
+				<div class="text">
+					<span>{currency.item.NAME} - {currency.item.COUNT}</span>
 				</div>
-				<!-- END currency -->	
-				
-				</div>
+			</div>
+<!-- END item -->
+		</div>
 	</div>
-	
-	
+<!-- END currency -->	
+</div>
+<!-- ENDIF -->
 
-	</div>
+
+
+</div>
 
 
 

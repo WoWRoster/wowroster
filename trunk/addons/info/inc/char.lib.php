@@ -51,39 +51,25 @@ class char
 		$this->data = $data;
 		$this->locale = $roster->locale->wordings[$this->data['clientLocale']];
 
+		// Get display column names
+		$query = 'SELECT * FROM `' . $roster->db->table('default',$addon['basename']) . '`;';
+
+		$result = $roster->db->query($query);
+		$disp_defaults = $roster->db->fetch_all($result, SQL_ASSOC);
+		$disp_defaults = $disp_defaults[0];
+
+
+		// Get permission data for this member id
 		$querystr = "SELECT * FROM `" . $roster->db->table('display',$addon['basename']) . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
 
 		$result = $roster->db->query($querystr);
+		$row = $roster->db->fetch($result, SQL_ASSOC);
 
-		$row = $roster->db->fetch($result,SQL_ASSOC);
-
-		$disp_array = array(
-			'show_money',
-			'show_played',
-			'show_tab2',
-			'show_tab3',
-			'show_tab4',
-			'show_tab5',
-			'show_talents',
-			'show_glyphs',
-			'show_spellbook',
-			'show_mail',
-			'show_bags',
-			'show_bank',
-			'show_quests',
-			'show_recipes',
-			'show_item_bonuses',
-			'show_pet_talents',
-			'show_pet_spells',
-			'show_companions',
-			'show_mounts'
-		);
-
-		foreach( $disp_array as $setting )
+		foreach( $disp_defaults as $name => $value )
 		{
-			if( $addon['config'][$setting] == -1 )
+			if( $addon['config'][$name] == -1 )
 			{
-				$addon['config'][$setting] = $row[$setting];
+				$addon['config'][$name] = $value;
 			}
 		}
 
@@ -104,16 +90,17 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
-			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
-			'S_MONEY'       => $roster->auth->getAuthorized($addon['config']['show_money']),
-			'S_PET_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab2']),
-			'S_REP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab3']),
-			'S_SKILL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab4']),
-			'S_PVP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab5']),
-			'S_TALENT_TAB'  => $roster->auth->getAuthorized($addon['config']['show_talents']),
-			'S_GLYPH_TAB'   => $roster->auth->getAuthorized($addon['config']['show_glyphs']),
-			'S_SPELL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
-			'S_BONUS_TAB'   => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
+			'S_PLAYED'         => $roster->auth->getAuthorized($addon['config']['show_played']),
+			'S_MONEY'          => $roster->auth->getAuthorized($addon['config']['show_money']),
+			'S_PET_TAB'        => $roster->auth->getAuthorized($addon['config']['show_tab2']),
+			'S_REP_TAB'        => $roster->auth->getAuthorized($addon['config']['show_tab3']),
+			'S_SKILL_TAB'      => $roster->auth->getAuthorized($addon['config']['show_tab4']),
+			'S_PVP_TAB'        => $roster->auth->getAuthorized($addon['config']['show_tab5']),
+			'S_TALENT_TAB'     => $roster->auth->getAuthorized($addon['config']['show_talents']),
+			'S_GLYPH_TAB'      => $roster->auth->getAuthorized($addon['config']['show_glyphs']),
+			'S_SPELL_TAB'      => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
+			'S_CURRENCY_TAB'   => $roster->auth->getAuthorized($addon['config']['show_currency']),
+			'S_BONUS_TAB'      => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
 			'S_PET_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_pet_talents']),
 			'S_PET_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_pet_spells']),
 
@@ -1055,6 +1042,66 @@ class char
 						)
 					);
 				}
+			}
+		}
+
+		return true;
+	}
+
+
+	function show_currency()
+	{
+		global $roster;
+
+		$query = "SELECT * FROM `" . $roster->db->table('currency') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `category` ASC, `order` ASC;";
+		$result = $roster->db->query($query);
+
+		if( !$result )
+		{
+			return false;
+		}
+
+		$num_currency = $roster->db->num_rows($result);
+
+		if( $num_currency == 0 )
+		{
+			return false;
+		}
+
+		for( $t=0; $t < $num_currency; $t++)
+		{
+			$row = $roster->db->fetch($result, SQL_ASSOC);
+
+			$category = $row['category'];
+			$currency_name = $row['category'];
+			$currency_data[$category][$currency_name]['order'] = $row['order'];
+			$currency_data[$category][$currency_name]['count'] = $row['count'];
+			$currency_data[$category][$currency_name]['type'] = $row['type'];
+			$currency_data[$category][$currency_name]['icon'] = $row['icon'];
+			$currency_data[$category][$currency_name]['tooltip'] = makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']);
+		}
+
+		$roster->db->free_result($result);
+
+		foreach( $currency_data as $category => $currency )
+		{
+			$roster->tpl->assign_block_vars('currency',array(
+				'ID'       => strtolower(str_replace(' ','',$category)),
+				'CATEGORY' => $category,
+				)
+			);
+
+			foreach( $currency as $name => $data )
+			{
+				$roster->tpl->assign_block_vars('currency.item',array(
+					'ID'      => strtolower(str_replace(' ','',$data['name'])),
+					'NAME'    => $name,
+					'TYPE'    => $data['type'],
+					'ORDER'   => $data['order'],
+					'ICON'    => $data['icon'],
+					'TOOLTIP' => $data['tooltip'],
+					)
+				);
 			}
 		}
 
@@ -2610,86 +2657,26 @@ class char
 		{
 			$roster->tpl->assign_var('S_SPELL_TAB',false);
 		}
-		// Skills Tab
-            $this->show_currency();
 
+		// Currency Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_currency']) && $this->show_currency() )
+		{
 			$roster->tpl->assign_block_vars('tabs',array(
-				'NAME'     => 'Currency',//$roster->locale->act['tab4'],
+				'NAME'     => $roster->locale->act['currency'],
 				'VALUE'    => 'tab7',
 				'SELECTED' => false
 				)
 			);
+		}
+		else
+		{
+			$roster->tpl->assign_var('S_CURRENCY_TAB',false);
+		}
 
 
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));
 		return $roster->tpl->fetch('char');
 	}
-
-function show_currency()
-	{
-	global $roster;
-		$query = "SELECT * FROM `".$roster->db->table('currency')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `order` ASC, `name` ASC;";
-		$result = $roster->db->query( $query );
-            
-            $name = '';
-            while($row = $roster->db->fetch($result))
-            {
-            
-            
-            if ($name != $row['catagory'])
-            {
-            $roster->tpl->assign_block_vars('currency',array(
-                        'C_NAME'  => $row['catagory'],
-                        'C_ORDER' => 'currency_'.$row['order']
-                        )
-                  );
-                  $name = $row['catagory'];
-            }
-            
-            
-            $roster->tpl->assign_block_vars('currency.items',array(
-                        'C_NAME'  => $row['name'],
-                        'C_ICON' => $row['icon'],
-                        'C_TOOLTIP' => $row['tooltip'],
-                        'C_COUNT' => $row['count']
-                        )
-                  );
-            /*
-            if ($row['catagory'] == 'Dungeon and Raid')
-            {
-                  $roster->tpl->assign_block_vars('currency_dnr',array(
-                        'C_NAME'  => $row['name'],
-                        'C_ICON' => $row['icon'],
-                        'C_TOOLTIP' => $row['tooltip'],
-                        'C_COUNT' => $row['count']
-                        )
-                  );
-            }
-            if ($row['catagory'] == 'Player vs. Player')
-            {
-                  $roster->tpl->assign_block_vars('currency_pvp',array(
-                        'C_NAME'  => $row['name'],
-                        'C_ICON' => $row['icon'],
-                        'C_TOOLTIP' => $row['tooltip'],
-                        'C_COUNT' => $row['count']
-                        )
-                  );
-            }
-            
-            if ($row['catagory'] == 'Miscellaneous')
-            {
-                  $roster->tpl->assign_block_vars('currency_misc',array(
-                        'C_NAME'  => $row['name'],
-                        'C_ICON' => $row['icon'],
-                        'C_TOOLTIP' => $row['tooltip'],
-                        'C_COUNT' => $row['count']
-                        )
-                  );
-            }
-            */
-		}
-	}
-
 
 }
 

@@ -96,16 +96,16 @@ CREATE TABLE `renprefix_config` (
 
 DROP TABLE IF EXISTS `renprefix_currency`;
 CREATE TABLE `renprefix_currency` (
-  `member_id` int(10) unsigned NOT NULL default '0',
-  `order` tinyint(1) NOT NULL default '0',
-  `catagory` varchar(50) NOT NULL,
-  `name` varchar(32) NOT NULL default '',
-  `type` tinyint(3) unsigned NOT NULL default '0',
-  `count` int(8) unsigned NOT NULL default '0',
-  `icon` varchar(255) NOT NULL,
-  `tooltip` mediumint(9) NOT NULL,
+  `member_id` int(11) unsigned NOT NULL default '0',
+  `order` tinyint(4) NOT NULL default '0',
+  `category` varchar(96) NOT NULL,
+  `name` varchar(96) NOT NULL default '',
+  `type` tinyint(4) unsigned NOT NULL default '0',
+  `count` tinyint(4) unsigned NOT NULL default '0',
+  `icon` varchar(64) NOT NULL,
+  `tooltip` mediumtext NOT NULL,
   `watched` varchar(10) NOT NULL,
-  PRIMARY KEY  (`member_id`,`name`)
+  PRIMARY KEY  (`member_id`,`category`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------

@@ -1945,67 +1945,60 @@ CREATE TABLE `renprefix_quest_task_data` (
 	{
 		global $roster;
 
-		if( isset($data['Currency']) )
+		if( !empty($data['Currency']) && is_array($data['Currency']) )
 		{
-		
-		$querystr = "DELETE FROM `" . $roster->db->table('currency') . "` WHERE `member_id` = '$memberId';";
+			$currencyData = $data['Currency'];
+
+			$messages = '<li>Updating Currency ';
+
+			// delete the stale data
+			$querystr = "DELETE FROM `" . $roster->db->table('currency') . "` WHERE `member_id` = '$memberId';";
 
 			if( !$roster->db->query($querystr) )
 			{
-				$this->setError('Reputation could not be deleted',$roster->db->error());
+				$this->setError('Currency could not be deleted', $roster->db->error());
 				return;
 			}
-			
-			$currency = $data['Currency'];
-		
 
-            $messages = '<li>Updating Currency';
-			
-            //$this->reset_values();
-            $o = 0;
-            foreach ($currency as $type => $info)
-            {
-            $o++;
-                  foreach ($info as $inf => $in)
-                  {
-                        //echo ''.$type.' - '.$in['Type'].'- '.$in['Name'].'- '.$in['Tooltip'].'- '.$in['Count'].' (*)<br>';
-                  $this->reset_values();                   
-                  $this->add_value( 'member_id', $memberId );
-			$this->add_value( 'order', $o );
-                  $this->add_value( 'type', $in['Type'] );
-                  $this->add_value( 'catagory', $type );
-                  $this->add_value( 'name', addslashes($in['Name']) );
-                  //$this->add_value( '', $id );
-                  $this->add_value( 'count', $in['Count'] );
-                  if( !empty($in['Tooltip']) )
+			$order = 0;
+			foreach( array_keys($currencyData) as $category ) // eg. 'Miscellaneous, Player vs. Player, Dungeon and Raid
 			{
-                  $this->add_value( 'tooltip', $in['Tooltip'] );
-                  }
-                  //$this->add_value( '', $data['CreatureID'] );
-			if( !empty($in['Icon']) )
-			{
-				$this->add_value('icon', $this->fix_icon($in['Icon']) );
-			}
-			$messages .= '.';
+				$categoryData = $currencyData[$category];
 
-				$querystr = "INSERT INTO `" . $roster->db->table('currency') . "` SET " . $this->assignstr;
-				$result = $roster->db->query($querystr);
-                  
-			if( !$result )
-			{
-				$this->setError('Cannot update Currency Data',$roster->db->error());
-				return;
+				foreach( array_keys($categoryData) as $currency ) // eg. Arena Points, Badge of Justice, Emblem of Valor
+				{
+					$itemData = $categoryData[$currency];
+					$this->reset_values();
+
+					$this->add_value('member_id', $memberId);
+					$this->add_value('order', $order);
+					$this->add_value('category', $category);
+					$this->add_ifvalue($itemData, 'Name', 'name');
+					$this->add_ifvalue($itemData, 'Count', 'count');
+					$this->add_ifvalue($itemData, 'Type', 'type');
+
+					if( !empty($itemData['Tooltip']) )
+					{
+						$this->add_value('tooltip', $this->tooltip($itemData['Tooltip']));
+					}
+					if( !empty($itemData['Icon']) )
+					{
+						$this->add_value('icon', $this->fix_icon($itemData['Icon']));
+					}
+
+					$messages .= '.';
+
+					$querystr = "INSERT INTO `" . $roster->db->table('currency') . "` SET " . $this->assignstr . ';';
+
+					$result = $roster->db->query($querystr);
+					if( !$result )
+					{
+						$this->setError('Currency for ' . $currency . ' could not be inserted', $roster->db->error());
+					}
+					$order++;
+				}
 			}
-			
-                  }
-                  
-            }
-            
-            
-		$this->setMessage($messages . '</li>');
-			
-           
-      
+			$this->setMessage($messages . '</li>');
 		}
 		else
 		{

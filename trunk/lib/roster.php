@@ -377,7 +377,12 @@ class roster
 				$this->db->free_result($result);
 
 				$this->anchor = $this->data['member_id'];
-				include(ROSTER_LIB . 'scope' . DIR_SEP . 'char.php');
+
+				// Scope specific functions
+				$scope_class = new CharScope;
+				$scope_class->alt_name_hover();
+				$scope_class->mini_members_list();
+				
 				break;
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
@@ -434,7 +439,10 @@ class roster
 				$this->db->free_result($result);
 
 				$this->anchor = $this->data['guild_id'];
-				include(ROSTER_LIB . 'scope' . DIR_SEP . 'guild.php');
+
+				// Scope specific functions
+				$scope_class = new GuildScope;
+
 				break;
 
 			case 'realm':
@@ -476,7 +484,10 @@ class roster
 				}
 
 				$this->anchor = $this->data['region'] . '-' . $this->data['server'];
-				include(ROSTER_LIB . 'scope' . DIR_SEP . 'realm.php');
+
+				// Scope specific functions
+				$scope_class = new RealmScope;
+
 				break;
 
 			default:
@@ -486,7 +497,11 @@ class roster
 				}
 				// no anchor passed, and we didn't load defaults so we're in util or page scope. No data needed.
 				$this->data = array();
-				include(ROSTER_LIB . 'scope' . DIR_SEP . 'util.php');
+
+				// Scope specific functions
+				$scope_class = new UtilScope;
+
+				break;
 		}
 
 		// Set menu array
