@@ -28,6 +28,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap { padding: 100px 0 0 0; position: relative; }
 .char-wrap { padding-right: 210px; }
 
+.menu-select { position: absolute; top: 30px; right: 10px; }
 
 /* Login Box */
 .menu-login { margin: 5px 0 0 130px; width: 300px; }

@@ -40,12 +40,6 @@
 {ROSTER_TOP}
 
 
-
-<!-- Log-in form -->
-<div class="menu-login">
-	{MENU_LOGIN_FORM}
-</div>
-
 <div class="theme-wrap">
 
 <!-- IF ROSTER_SCOPE eq "page" -->
@@ -53,6 +47,20 @@
 		<div class="text">
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
 			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
+		</div>
+        <div class="menu-select">
+		<!-- IF S_LOCALE_SELECT -->
+			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
+				<!-- TRANSLATE language -->
+				<select name="locale" onchange="document.locale_select.submit();">
+				<!-- BEGIN locale_select -->
+					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+				<!-- END locale_select -->
+				</select>
+			</form>
+		<!-- ENDIF -->
+        <br />
+        {MENU_LOGIN_FORM}
 		</div>
 	</div>
 	<div class="util-page-wrap">
@@ -64,6 +72,20 @@
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
 			<div class="info">Need { Page Info } Key<span>Need { Page Info } Key</span></div>
 		</div>
+        <div class="menu-select">
+		<!-- IF S_LOCALE_SELECT -->
+			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
+				<!-- TRANSLATE language -->
+				<select name="locale" onchange="document.locale_select.submit();">
+				<!-- BEGIN locale_select -->
+					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+				<!-- END locale_select -->
+				</select>
+			</form>
+		<!-- ENDIF -->
+        <br />
+        {MENU_LOGIN_FORM}
+		</div>
 	</div>
 	<div class="util-wrap">
 <!-- ENDIF -->
@@ -74,6 +96,20 @@
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
 			<div class="info">Guilds: {L_TOTAL_GUILDS} Key<span>Guilds: {L_TOTAL_GUILDS} Key</span></div>
 		</div>
+        <div class="menu-select">
+		<!-- IF S_LOCALE_SELECT -->
+			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
+				<!-- TRANSLATE language -->
+				<select name="locale" onchange="document.locale_select.submit();">
+				<!-- BEGIN locale_select -->
+					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+				<!-- END locale_select -->
+				</select>
+			</form>
+		<!-- ENDIF -->
+        <br />
+        {MENU_LOGIN_FORM}
+		</div>
 	</div>
 	<div class="realm-wrap">
 <!-- ENDIF -->
@@ -83,6 +119,20 @@
 	  	<div class="text">
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
 			<div class="info"><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}<span><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}</span></div>
+		</div>
+        <div class="menu-select">
+		<!-- IF S_LOCALE_SELECT -->
+			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
+				<!-- TRANSLATE language -->
+				<select name="locale" onchange="document.locale_select.submit();">
+				<!-- BEGIN locale_select -->
+					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+				<!-- END locale_select -->
+				</select>
+			</form>
+		<!-- ENDIF -->
+        <br />
+        {MENU_LOGIN_FORM}
 		</div>
 	</div>
 	<div class="guild-wrap">
@@ -119,6 +169,20 @@
 			<div class="name" {ALT_TOOLTIP}>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
 			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --><span><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></span></div><!-- ENDIF -->
 			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --><span><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></span></div>
+		</div>
+        <div class="menu-select">
+		<!-- IF S_LOCALE_SELECT -->
+			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
+				<!-- TRANSLATE language -->
+				<select name="locale" onchange="document.locale_select.submit();">
+				<!-- BEGIN locale_select -->
+					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+				<!-- END locale_select -->
+				</select>
+			</form>
+		<!-- ENDIF -->
+        <br />
+        {MENU_LOGIN_FORM}
 		</div>
 	</div>
 	<div class="char-wrap">
