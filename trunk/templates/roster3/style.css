@@ -17,13 +17,7 @@ body { background:#000000; }
 a:link, a:visited { color:#009; text-decoration:none; font-weight:bold; }
 a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
-.roster-wrap {
-	font:12px arial,helvetica,sans-serif;
-	color:#FFFFFF;
-	width: 960px;
-	margin: auto;
-	position: relative;
-}
+.roster-wrap { font:12px arial,helvetica,sans-serif; color:#FFFFFF; width: 960px; margin: auto; position: relative; padding-top: 1px; }
 
 .char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap { padding: 100px 0 0 0; position: relative; }
 .char-wrap { padding-right: 210px; }
@@ -121,6 +115,19 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .char-list .list .lvl { float: left; width:20px; }
 .char-list .list .name { float: left; }
 .char-list .list .info { float: right; }
+
+/* Container Styles */
+.container { padding: 0px 0px 20px; background: #eaca81 url(./images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.container .inner { margin-right: 20px; margin-left: 20px; }
+.container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(./images/skill_title_bg.png) repeat-x left top; position: relative; }
+.container .box-label .icon { height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.container .box-label .icon img{ height: 33px; width: 32px;}
+.container .box-label .icon .mask { background: url(./images/icon_mask.png) no-repeat left top; height: 33px; width: 32px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+
+.container .item { float: left; margin: 2px; }
+.container .item img{ height: 40px; width: 40px;}
+.container .item .mask { background: url(./images/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+.container .item .mask:hover { background: url(./images/item_mask.png) no-repeat left bottom; }
 
 /* Misc Code Fixes */
 #keyslist img.icon {height:20px; width:20px;}
