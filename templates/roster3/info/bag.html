@@ -1,38 +1,26 @@
 <!-- $Id$ -->
 
 <!-- BEGIN bag -->
-
-<!-- IF bag.SLOT eq 'Bank Bag0' -->
-
-<div class="bankbag" style="background-image:url({U_IMAGE_PATH}bags/bank_frame.png);">
-	<div class="bankcont_name">{bag.NAME}</div>
-	<div class="holder">
-
-<!-- ELSE -->
-
-<div class="bag" style="height:{bag.OFFSET}px;background-image:url({U_IMAGE_PATH}bags/{bag.TYPE}_top_{bag.STYLE}.png);">
-	<div class="{bag.TYPE}_name">{bag.NAME}</div>
-	<img src="{INTERFACE_URL}Interface/Icons/{bag.ICON}.{IMG_SUFFIX}" class="bagicon" alt="" />
-	<img src="{U_IMAGE_PATH}bags/{bag.TYPE}_mask.png" class="bagmask" alt=""{bag.TOOLTIP}{bag.LINKTIP} />
-	<div class="bottom" style="margin-top:{bag.OFFSET}px;background-image:url({U_IMAGE_PATH}bags/{bag.TYPE}_bot.png);"></div>
-	<div class="holder{bag.STYLE}">
-		<div class="bagspacer{bag.STYLE}">&nbsp;</div>
-		<div class="bagspacer{bag.STYLE}">&nbsp;</div>
-
-<!-- ENDIF -->
-
+	<div class="container">
+		<div class="box-label">
+			<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{bag.ICON}.{IMG_SUFFIX}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>
+			{bag.NAME}
+		</div>
+        <div class="inner">
 <!-- BEGIN item -->
-		<div class="item" {bag.item.TOOLTIP}{bag.item.ITEMLINK}>
-			<img src="{bag.item.ICON}" class="icon" alt="" />
+		<div class="item">
+			<img src="{bag.item.ICON}" />
+            <div class="mask" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
 <!-- IF bag.item.QTY gt 1 -->
 			<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
 <!-- ENDIF -->
 		</div>
 <!-- END item -->
-
+			<div style="clear:both;"></div>
+        </div>
 	</div>
-</div>
-
 <!-- END bag -->
+
+
 
 <br style="clear:both;" />
