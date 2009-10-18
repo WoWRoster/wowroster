@@ -148,7 +148,7 @@ class memberslistUpdate
 
 		// --[ Fetch full member data ]--
 		$query =
-			"SELECT `alt`.*, `member`.`name` ".
+			"SELECT `alt`.*, `member`.`name`, `member`.`server` ".
 			"FROM `".$roster->db->table('members')."` member ".
 				"LEFT JOIN `".$roster->db->table('alts',$this->data['basename'])."` alt ".
 					"ON `alt`.`member_id` = `member`.`member_id` ".
@@ -173,6 +173,7 @@ class memberslistUpdate
 			{
 				$roster->db->free_result( $result );
 				$member_name = $row['name'];
+				$member_server = $row['server'];
 			}
 		}
 		else
@@ -247,11 +248,13 @@ class memberslistUpdate
 		}
 		else {
 			$this->messages .= " - <span style='color:green;'>Alt of $main_name</span>\n";
+
 			// --[ Get the main's member ID ]--
 			$query =
 				"SELECT `members`.`member_id`, `members`.`name`".
 				" FROM `".$roster->db->table('members')."` as `members`".
-				" WHERE `members`.`name`='" . addslashes($main_name) . "'";
+				" WHERE `members`.`name`='" . addslashes($main_name) . "'".
+				" AND `members`.`server`='" . addslashes($member_server) . "'";
 
 			$result = $roster->db->query( $query );
 
