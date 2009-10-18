@@ -19,7 +19,7 @@ if ( !defined('IN_ROSTER') )
 
 // Recreate a data structure containing what out hooks need to update relations. This is a partial structure, and will need changed for use by any other addon.
 // Fetch guilds
-$query = "SELECT `guild_id`, `guild_name` AS `Name` FROM `" . $roster->db->table('guild') . "` as guild";
+$query = "SELECT `guild_id`, `server` AS `Server`, `guild_name` AS `Name` FROM `" . $roster->db->table('guild') . "` as guild";
 $result = $roster->db->query( $query );
 
 while( $row = $roster->db->fetch($result, SQL_ASSOC))
@@ -54,7 +54,8 @@ $messages = "<ul>\n";
 // Loop over guilds
 foreach( $data as $guild )
 {
-	$messages .= '<li>Updating relations for characters in "' . $guild['Name'] . '"' . "\n<ul>\n";
+	// Append the message to show Guild Name as well as Realm/Server Name (for multiple realm based rosters)
+	$messages .= '<li>Updating relations for characters in "' . $guild['Name'] . '" @ "' . $guild['Server'] . '"' . "\n<ul>\n";
 	// We need to do the guild_pre to load the guild-specific rules
 	$memberslist->guild_pre($guild);
 

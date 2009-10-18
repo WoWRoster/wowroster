@@ -28,7 +28,7 @@ class memberslistInstall
 	var $active = true;
 	var $icon = 'inv_letter_06';
 
-	var $version = '2.0.9.1980';
+	var $version = '2.0.9.2019';
 	var $wrnet_id = '0';
 
 	var $fullname = 'memberslist';
