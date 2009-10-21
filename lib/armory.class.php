@@ -125,11 +125,45 @@ class RosterArmory
 			return false;
 		}
 	}
+	// extended function to acomadate achivements 
+	function fetchArmorya( $type, $character, $guild = false, $realm, $item_id,$fetch_type = 'array' )
+	{
+		global $roster;
+
+		$url = $this->_makeUrl( $type, false, $item_id, $character, $realm, $guild );
+		echo $url.'<br>';
+		if ( $fetch_type == 'html')
+		{
+			$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
+		}
+		if( $this->_requestXml($url) )
+		{
+			$f = "";
+
+				$ch = curl_init();
+				$timeout = 30; // set to zero for no timeout
+				$useragent="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1";
+				curl_setopt ($ch, CURLOPT_URL, $url);
+				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+				curl_setopt ($ch, CURLOPT_USERAGENT, $useragent);
+				$f = curl_exec($ch);
+				curl_close($ch);			
+			$xml = simplexml_load_string($f, 'SimpleXMLElement', LIBXML_NOCDATA);
+			
+			return $xml;
+		}
+		else
+		{
+			trigger_error('RosterArmory:: Failed to fetch ' . $url);
+			return false;
+		}
+	}
 
 	function fetchArmoryachive( $url, $character = false, $guild = false, $realm = false, $item_id = false,$fetch_type = 'array' )
 	{
 		global $roster;
-
+/*
 		//$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
 		$this->xml = urlgrabber($url, '10', 'Opera/9.22 (X11; Linux i686; U; en)');
 		//echo $this->xml;
@@ -140,6 +174,9 @@ class RosterArmory
 		$data = $this->xmlParser->getParsedData();
 
 		return $data;
+		*/
+		
+		return $this->fetchArmorya( $url, $character, false, $realm, $item_id, $fetch_type );
 	}
 
 
@@ -698,6 +735,19 @@ class RosterArmory
 			case 10:	
 			case 'talents':
 				$mode = 'talent-tree.xml?cid=' . urlencode($id) . '&loc=' . $locale . '';
+				break;
+				
+			// these next 2 modes are for achivements because there is no page identifer for the summary page but one for the other pages
+			// case 11 is for the summary page
+			case 11:	
+			case 'achivements':
+				$mode = 'character-achievements.xml?cn=' . urlencode($char) . '&r=' . urlencode($realm) . '';
+				break;
+			// case 12 is for sup menu items ie quests and world events for a example...
+			// id is used for the page number
+			case 12:	
+			case 'achivements':
+				$mode = 'character-achievements.xml?cn=' . urlencode($char) . '&r=' . urlencode($realm) . '&c=' . urlencode($id) . '';
 				break;
 		}
 
