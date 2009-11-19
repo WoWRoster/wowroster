@@ -46,6 +46,11 @@ $config_pages['dataman'] = array(
 	'title'=>	'pagebar_dataman',
 	'file'=>	'data_manager.php',
 	);
+$config_pages['talentman'] = array(
+	'href'=>	$roster->pages[0].'-talentman',
+	'title'=>	'pagebar_talentman',
+	'file'=>	'talent_manager.php',
+	);
 $config_pages['install'] = array(
 	'href'=>	$roster->pages[0].'-install',
 	'title'=>	'pagebar_addoninst',
