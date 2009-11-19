@@ -769,23 +769,21 @@ class char
 	 */
 	 function build_talenttree_data($class)
 	 {
-	 global $roster, $addon;
-	 $sql = "SELECT * FROM `".$roster->db->table('talenttree_data')."` where `class_id` = '" .$class. "' ORDER BY `order` ASC";
+            global $roster, $addon;
+            $sql = "SELECT * FROM `".$roster->db->table('talenttree_data')."` where `class_id` = '" .$class. "' ORDER BY `order` ASC";
+	     
             $t = array();
 		$results = $roster->db->query($sql);
 		$is = '';
 		$ii = '';
-		//echo $roster->db->num_rows($results).'<br>';
+
 		if( $results && $roster->db->num_rows($results) > 0 )
 		{
 			while($row = $roster->db->fetch($results))
 			{
 
-				
-				//$d = $row['comp_parent'];
                         $is++;
                         $ii++;
-				//$this->cfg[$d][$e]['menue'] = $ii;
 				$t[$row['tree']]['name'] = $row['tree'];
 				$t[$row['tree']]['background'] = $row['background'];
 				$t[$row['tree']]['icon'] = $row['icon'];
@@ -799,34 +797,26 @@ class char
 	 
 	 function build_talent_data($class)
 	 {
-	 global $roster, $addon;
-	 $sql = "SELECT * FROM `".$roster->db->table('talents_data')."` where `class_id` = '" .$class. "' ORDER BY `tree_order` ASC , `row` ASC , `column`ASC ";
+	     global $roster, $addon;
+	     
+           $sql = "SELECT * FROM `".$roster->db->table('talents_data')."` where `class_id` = '" .$class. "' ORDER BY `tree_order` ASC , `row` ASC , `column`ASC ";
             $t = array();
 		$results = $roster->db->query($sql);
+		
 		$is = '';
 		$ii = '';
-		//echo $roster->db->num_rows($results).'<br>';
 		if( $results && $roster->db->num_rows($results) > 0 )
 		{
 			while($row = $roster->db->fetch($results))
 			{
 
-				
-				//$d = $row['comp_parent'];
                         $is++;
                         $ii++;
-				//$this->cfg[$d][$e]['menue'] = $ii;
-				/*
-				$t[$row['tree']][$row['column']][$row['row']]['name'] = $row['name'];
-				$t[$row['tree']][$row['column']][$row['row']]['id'] = $row['talent_id'];
-				$t[$row['tree']][$row['column']][$row['row']]['tooltip'][$row['rank']] = $row['tooltip'];
-                        $t[$row['tree']][$row['column']][$row['row']]['icon'] = $row['texture'];
-                        */
                         $t[$row['tree']][$row['row']][$row['column']]['name'] = $row['name'];
 				$t[$row['tree']][$row['row']][$row['column']]['id'] = $row['talent_id'];
 				$t[$row['tree']][$row['row']][$row['column']]['tooltip'][$row['rank']] = $row['tooltip'];
                         $t[$row['tree']][$row['row']][$row['column']]['icon'] = $row['texture'];
-                        //*/
+
                   }
             }
             return $t;
@@ -836,7 +826,7 @@ class char
 	function _talent_layer2( $build)
 	{
 		global $roster;
-           // echo $build.'<br>';
+
 		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $this->data['classid'] . "' ";
 
 		$result = $roster->db->query($sqlquery);
@@ -847,7 +837,6 @@ class char
 			   $treed[$row['tree']]['order'] = $row['order'];
 			}
             $talentinfo = $this->build_talent_data($this->data['classid']);
-            //aprint($talentinfo);
 		$returndata = array();
 			// initialize the rows and cells
 
@@ -869,6 +858,7 @@ class char
                         $returndata[$ti]['icon'] = $treed[$ti]['icon'];
 		            $returndata[$ti]['background'] = $treed[$ti]['background'];
 		            $returndata[$ti]['order'] = $treed[$ti]['order'];
+		            
                         foreach ($talentdata as $c => $cdata)
                         {
                   
@@ -918,14 +908,12 @@ class char
 		$sqlquery = "SELECT * FROM `" . $roster->db->table('talent_builds') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `build` ASC;";
 		$trees = $roster->db->query($sqlquery);
 
-      while($t = $roster->db->fetch($trees,SQL_ASSOC))
-      {
-            $talents[$t['build']] = $t['tree'];
-      }
+            while($t = $roster->db->fetch($trees,SQL_ASSOC))
+            {
+                  $talents[$t['build']] = $t['tree'];
+            }
 
 		$tree_rows = $roster->db->num_rows($trees);
-
-            //$talents = array(0=>$this->data['talent_build1'],1=>$this->data['talent_build2']);
             $trees = $this->build_talenttree_data($this->data['classid']);
 
             // Talent data and build spec data
