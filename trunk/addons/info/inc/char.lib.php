@@ -51,25 +51,39 @@ class char
 		$this->data = $data;
 		$this->locale = $roster->locale->wordings[$this->data['clientLocale']];
 
-		// Get display column names
-		$query = 'SELECT * FROM `' . $roster->db->table('default',$addon['basename']) . '`;';
-
-		$result = $roster->db->query($query);
-		$disp_defaults = $roster->db->fetch_all($result, SQL_ASSOC);
-		$disp_defaults = $disp_defaults[0];
-
-
-		// Get permission data for this member id
 		$querystr = "SELECT * FROM `" . $roster->db->table('display',$addon['basename']) . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
 
 		$result = $roster->db->query($querystr);
-		$row = $roster->db->fetch($result, SQL_ASSOC);
 
-		foreach( $disp_defaults as $name => $value )
+		$row = $roster->db->fetch($result,SQL_ASSOC);
+
+		$disp_array = array(
+			'show_money',
+			'show_played',
+			'show_tab2',
+			'show_tab3',
+			'show_tab4',
+			'show_tab5',
+			'show_talents',
+			'show_glyphs',
+			'show_spellbook',
+			'show_mail',
+			'show_bags',
+			'show_bank',
+			'show_quests',
+			'show_recipes',
+			'show_item_bonuses',
+			'show_pet_talents',
+			'show_pet_spells',
+			'show_companions',
+			'show_mounts'
+		);
+
+		foreach( $disp_array as $setting )
 		{
-			if( $addon['config'][$name] == -1 )
+			if( $addon['config'][$setting] == -1 )
 			{
-				$addon['config'][$name] = $value;
+				$addon['config'][$setting] = $row[$setting];
 			}
 		}
 
@@ -90,17 +104,16 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
-			'S_PLAYED'         => $roster->auth->getAuthorized($addon['config']['show_played']),
-			'S_MONEY'          => $roster->auth->getAuthorized($addon['config']['show_money']),
-			'S_PET_TAB'        => $roster->auth->getAuthorized($addon['config']['show_tab2']),
-			'S_REP_TAB'        => $roster->auth->getAuthorized($addon['config']['show_tab3']),
-			'S_SKILL_TAB'      => $roster->auth->getAuthorized($addon['config']['show_tab4']),
-			'S_PVP_TAB'        => $roster->auth->getAuthorized($addon['config']['show_tab5']),
-			'S_TALENT_TAB'     => $roster->auth->getAuthorized($addon['config']['show_talents']),
-			'S_GLYPH_TAB'      => $roster->auth->getAuthorized($addon['config']['show_glyphs']),
-			'S_SPELL_TAB'      => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
-			'S_CURRENCY_TAB'   => $roster->auth->getAuthorized($addon['config']['show_currency']),
-			'S_BONUS_TAB'      => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
+			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
+			'S_MONEY'       => $roster->auth->getAuthorized($addon['config']['show_money']),
+			'S_PET_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab2']),
+			'S_REP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab3']),
+			'S_SKILL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab4']),
+			'S_PVP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab5']),
+			'S_TALENT_TAB'  => $roster->auth->getAuthorized($addon['config']['show_talents']),
+			'S_GLYPH_TAB'   => $roster->auth->getAuthorized($addon['config']['show_glyphs']),
+			'S_SPELL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_spellbook']),
+			'S_BONUS_TAB'   => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
 			'S_PET_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_pet_talents']),
 			'S_PET_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_pet_spells']),
 
@@ -754,124 +767,275 @@ class char
 	 *
 	 * @return string
 	 */
+	 function build_talenttree_data($class)
+	 {
+	 global $roster, $addon;
+	 $sql = "SELECT * FROM `".$roster->db->table('talenttree_data')."` where `class_id` = '" .$class. "' ORDER BY `order` ASC";
+            $t = array();
+		$results = $roster->db->query($sql);
+		$is = '';
+		$ii = '';
+		//echo $roster->db->num_rows($results).'<br>';
+		if( $results && $roster->db->num_rows($results) > 0 )
+		{
+			while($row = $roster->db->fetch($results))
+			{
+
+				
+				//$d = $row['comp_parent'];
+                        $is++;
+                        $ii++;
+				//$this->cfg[$d][$e]['menue'] = $ii;
+				$t[$row['tree']]['name'] = $row['tree'];
+				$t[$row['tree']]['background'] = $row['background'];
+				$t[$row['tree']]['icon'] = $row['icon'];
+                        $t[$row['tree']]['order'] = $row['order'];
+                        
+                  }
+            }
+            return $t;
+            
+	 }
+	 
+	 function build_talent_data($class)
+	 {
+	 global $roster, $addon;
+	 $sql = "SELECT * FROM `".$roster->db->table('talents_data')."` where `class_id` = '" .$class. "' ORDER BY `tree_order` ASC , `row` ASC , `column`ASC ";
+            $t = array();
+		$results = $roster->db->query($sql);
+		$is = '';
+		$ii = '';
+		//echo $roster->db->num_rows($results).'<br>';
+		if( $results && $roster->db->num_rows($results) > 0 )
+		{
+			while($row = $roster->db->fetch($results))
+			{
+
+				
+				//$d = $row['comp_parent'];
+                        $is++;
+                        $ii++;
+				//$this->cfg[$d][$e]['menue'] = $ii;
+				/*
+				$t[$row['tree']][$row['column']][$row['row']]['name'] = $row['name'];
+				$t[$row['tree']][$row['column']][$row['row']]['id'] = $row['talent_id'];
+				$t[$row['tree']][$row['column']][$row['row']]['tooltip'][$row['rank']] = $row['tooltip'];
+                        $t[$row['tree']][$row['column']][$row['row']]['icon'] = $row['texture'];
+                        */
+                        $t[$row['tree']][$row['row']][$row['column']]['name'] = $row['name'];
+				$t[$row['tree']][$row['row']][$row['column']]['id'] = $row['talent_id'];
+				$t[$row['tree']][$row['row']][$row['column']]['tooltip'][$row['rank']] = $row['tooltip'];
+                        $t[$row['tree']][$row['row']][$row['column']]['icon'] = $row['texture'];
+                        //*/
+                  }
+            }
+            return $t;
+            
+	 }
+	 
+	function _talent_layer2( $build)
+	{
+		global $roster;
+           // echo $build.'<br>';
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $this->data['classid'] . "' ";
+
+		$result = $roster->db->query($sqlquery);
+            while($row = $roster->db->fetch($result))
+			{
+			   $treed[$row['tree']]['background'] = $row['background'];
+			   $treed[$row['tree']]['icon'] = $row['icon'];
+			   $treed[$row['tree']]['order'] = $row['order'];
+			}
+            $talentinfo = $this->build_talent_data($this->data['classid']);
+            //aprint($talentinfo);
+		$returndata = array();
+			// initialize the rows and cells
+
+		$talentArray = preg_split('//', $build, -1, PREG_SPLIT_NO_EMPTY);
+                                    $i = 0;
+                                    $t = 0;
+                                    $n = '';
+                                    $spent = 0;
+                  foreach ($talentinfo as $ti => $talentdata)     
+                  {
+                  for( $r=1; $r < ROSTER_TALENT_ROWS + 1; $r++ )
+			{
+				for( $c=1; $c < ROSTER_TALENT_COLS + 1; $c++ )
+				{
+					$returndata[$ti][$r][$c]['name'] = '';
+				}
+			}
+                  $spent = '';
+                        $returndata[$ti]['icon'] = $treed[$ti]['icon'];
+		            $returndata[$ti]['background'] = $treed[$ti]['background'];
+		            $returndata[$ti]['order'] = $treed[$ti]['order'];
+                        foreach ($talentdata as $c => $cdata)
+                        {
+                  
+                              foreach ($cdata as $r => $rdata)
+                              {                                  
+                                    $returndata[$ti][$c][$r]['name'] = $rdata['name'];
+                                    $returndata[$ti][$c][$r]['rank'] = $talentArray[$i];
+                                    $returndata[$ti][$c][$r]['maxrank'] = $i;
+                                    $returndata[$ti][$c][$r]['row'] = $r;
+                                    $returndata[$ti][$c][$r]['column'] = $c;
+                                    $returndata[$ti][$c][$r]['image'] = $rdata['icon'] . '.' . $roster->config['img_suffix'];
+                                    if (count($rdata['tooltip']) > 1 && $talentArray[$i] != 0)
+                                    {
+                                          $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'].' '.$talentArray[$i].'<br>'.$rdata['tooltip'][$talentArray[$i]], $rdata['name'], '', 0, $this->data['clientLocale']);
+                                    }
+                                    elseif (count($rdata['tooltip']) == 1  && $talentArray[$i] != 0)
+                                    {
+                                          $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($rdata['tooltip'][1], $rdata['name'], '', 0, $this->data['clientLocale']);
+                                    }
+                                    elseif ($talentArray[$i] == 0)
+                                    {
+                                          
+                                          $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'].' 0<br>'.$rdata['tooltip'][1], $rdata['name'], '', 0, $this->data['clientLocale']);
+                                    }
+			                  $spent = ($spent + $talentArray[$i]);
+                                       if ($rdata['name'] != $n)
+                                    {
+                                    $i++;
+                                    
+                                    }
+                                    $n=$rdata['name'];
+		                }
+		            }
+		            $returndata[$ti]['spent'] = $spent;
+		            
+		            $t++;
+		      }
+		      
+
+		return $returndata;
+	} 
+	 
 	function show_talents()
 	{
 		global $roster, $addon;
 
-		$sqlquery = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `build`, `order`;";
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talent_builds') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `build` ASC;";
 		$trees = $roster->db->query($sqlquery);
+
+      while($t = $roster->db->fetch($trees,SQL_ASSOC))
+      {
+            $talents[$t['build']] = $t['tree'];
+      }
 
 		$tree_rows = $roster->db->num_rows($trees);
 
-		if( $tree_rows > 0 )
-		{
-			// Talent data and build spec data
+            //$talents = array(0=>$this->data['talent_build1'],1=>$this->data['talent_build2']);
+            $trees = $this->build_talenttree_data($this->data['classid']);
+
+            // Talent data and build spec data
 			$talentdata = $specdata = array();
 
 			// Temp var for talent spec detection
 			$spec_points_temp = array();
-
-			// Loop each mysql row and build arrays
-			for( $j=0; $j < $tree_rows; $j++)
-			{
-				$treedata = $roster->db->fetch($trees, SQL_ASSOC);
-
-				// Get the order and the build numbers
-				$build = $treedata['build'];
-				$order = $treedata['order'];
-
-				// Checking for build spec
-
-				// Sets initial value if it doesnt exist
-				if( !isset($spec_points_temp[$build]) )
+		//aprint($talents);	
+            foreach( $talents as $build => $builddata )
+		{
+                  $spc = $build;
+                  $ts = $this->_talent_layer2( $builddata );
+                  
+                  foreach ($ts as $tree => $data )
+                  {
+                     
+                  $order = $data['order']; 
+                  if( !isset($spec_points_temp[$build]) )
 				{
-					$spec_points_temp[$build] = $treedata['pointsspent'];
-					$specdata[$build]['order'] = $treedata['order'];
-					$specdata[$build]['name'] = $treedata['tree'];
-					$specdata[$build]['icon'] = $treedata['background'];
+					$spec_points_temp[$build] = $data['spent'];
+					$specdata[$build]['order'] = $build;
+					$specdata[$build]['name'] = $tree;
+					$specdata[$build]['icon'] = $data['background'];
 				}
-				elseif( $treedata['pointsspent'] > $spec_points_temp[$build] )
+				elseif( $data['spent'] > $spec_points_temp[$build] )
 				{
-/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$build]) < 5 )
+					if( abs($data['spent'] - $spec_points_temp[$build]) < 5 )
 					{
 						$specdata[$build]['order'] = 0;
 						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
 						$specdata[$build]['icon'] = 'hybrid';
 					}
 					else
-					{*/
-						$specdata[$build]['order'] = $treedata['order'];
-						$specdata[$build]['name'] = $treedata['tree'];
-						$specdata[$build]['icon'] = $treedata['background'];
-//					}
+					{
+						$specdata[$build]['order'] = $data['order'];
+						$specdata[$build]['name'] = $tree;
+						$specdata[$build]['icon'] = $data['background'];
+					}
 					// Store highest tree points to temp var
-					$spec_points_temp[$build] = $treedata['pointsspent'];
+					$spec_points_temp[$build] = $data['spent'];
 				}
 
 				// Store our talent points for later use
-				$specdata[$build]['points'][$order] = $treedata['pointsspent'];
+				$specdata[$build]['points'][$order] = $data['spent'];
 
 				// Set talent tree data
-				$talentdata[$build][$order]['name'] = $treedata['tree'];
-				$talentdata[$build][$order]['image'] = $treedata['background'];
-				$talentdata[$build][$order]['points'] = $treedata['pointsspent'];
-				$talentdata[$build][$order]['talents'] = $this->_talent_layer($treedata['tree'], $build);
+				$talentdata[$build][$order]['name'] = $tree;
+				$talentdata[$build][$order]['image'] = $data['background'];
+				$talentdata[$build][$order]['points'] = $data['spent'];
+                        $talentdata[$build][$order]['talents'] = $data;
 			}
-
-			// Build tpl vars and blocks
-			foreach( $talentdata as $build => $builddata )
-			{
+			//aprint($talentdata);
+            
+            
 				$roster->tpl->assign_block_vars('talent', array(
-					'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $this->talent_build_url[$build]),
+					'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
 					'ID'            => $build,
 					'NAME'          => $specdata[$build]['name'],
-					'TYPE'          => $roster->locale->act['talent_build_' . $build],
+					'TYPE'          => $roster->locale->act['talent_build_' . $build . ''],
 					'BUILD'         => implode(' / ',$specdata[$build]['points']),
-					'ICON'          => $specdata[$build]['icon']
+					'ICON'          => $specdata[$build]['icon'],
+					'SELECTED' => ( $build == 0 ? true : false )
 					)
 				);
-
+			foreach( $talentdata as $build => $builddata )
+			{
+                        if ($spc == $build)
+                        {
 				// Loop trees in build
-				foreach( $builddata as $treeindex => $tree )
-				{
-					$roster->tpl->assign_block_vars('talent.tree', array(
-						'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $tree['name']),
-						'NAME'     => $tree['name'],
-						'ID'       => $treeindex,
-						'POINTS'   => $tree['points'],
-						'ICON'     => $tree['image'],
-						'SELECTED' => ( $specdata[$build]['order'] == $treeindex ? true : false )
-						)
-					);
+                              foreach( $builddata as $treeindex => $tree )
+	                        {
+                                    $roster->tpl->assign_block_vars('talent.tree', array(
+						      'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $tree['name']),
+						      'NAME'     => $tree['name'],
+						      'ID'       => $treeindex,
+						      'POINTS'   => $tree['points'],
+						      'ICON'     => $tree['image'],
+						      'SELECTED' => ( $spc == $build ? true : false )
+						      )
+                                    );
 
-					// Loop rows in tree
-					foreach( $tree['talents'] as $row )
-					{
+                                    // Loop rows in tree
+                                    foreach( $tree['talents'] as $row )
+                                    {
+                                    if (is_array($row))
+                                    {
 						// Assign a blank block so cell works
-						$roster->tpl->assign_block_vars('talent.tree.row', array());
+						      $roster->tpl->assign_block_vars('talent.tree.row', array());
 
 						// Loop cells in row
-						foreach( $row as $cell )
-						{
-							$roster->tpl->assign_block_vars('talent.tree.row.cell', array(
-								'NAME'    => $cell['name'],
-								'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
-								'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
-								'MAX'     => ( isset($cell['rank']) ? $cell['maxrank'] : 0 ),
-								'TOOLTIP' => ( isset($cell['tooltip']) ? $cell['tooltip'] : '' ),
-								'ICON'    => ( isset($cell['image']) ? $cell['image'] : '' )
-								)
-							);
-						}
-					}
+						      foreach( $row as $cell )
+						      {
+							     $roster->tpl->assign_block_vars('talent.tree.row.cell', array(
+								    'NAME'    => $cell['name'],
+								    'RANK'    => ( isset($cell['rank']) ? $cell['rank'] : 0 ),
+								    'MAXRANK' => ( isset($cell['maxrank']) ? $cell['maxrank'] : 0 ),
+								    'MAX'     => ( isset($cell['rank']) ? $cell['maxrank'] : 0 ),
+								    'TOOLTIP' => ( isset($cell['tooltip']) ? $cell['tooltip'] : '' ),
+								    'ICON'    => ( isset($cell['image']) ? $cell['image'] : '' )
+								    )
+						           );
+						      }
+                                    }
+                                    }
+                              }
 				}
-			}
-
-
-			return true;
-		}
-
-		return false;
+                  }
+            }
+      return true;
+  
 	}
 
 
@@ -959,11 +1123,12 @@ class char
 
 			$glyph_build = $row['glyph_build'];
 			$glyph_order = $row['glyph_order'];
-			$glyph_data[$glyph_build][$glyph_order]['name'] = $row['glyph_name'];
 			$glyph_data[$glyph_build][$glyph_order]['type'] = $row['glyph_type'];
+			$glyph_data[$glyph_build][$glyph_order]['name'] = $row['glyph_name'];
 			$glyph_data[$glyph_build][$glyph_order]['icon'] = $row['glyph_icon'];
 			$glyph_data[$glyph_build][$glyph_order]['tooltip'] = makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']);
 		}
+
 
 		// Figure out build names
 		$sqlquery = "SELECT `build`, `tree`, `background`, `pointsspent`"
@@ -1027,7 +1192,6 @@ class char
 				'ICON' => $specdata[$build]['icon'],
 				)
 			);
-
 			foreach( $glyph_order as $order => $glyph )
 			{
 				if( $glyph['name'] != '' )
@@ -1042,67 +1206,6 @@ class char
 						)
 					);
 				}
-			}
-		}
-
-		return true;
-	}
-
-
-	function show_currency()
-	{
-		global $roster;
-
-		$query = "SELECT * FROM `" . $roster->db->table('currency') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `category` ASC, `order` ASC;";
-		$result = $roster->db->query($query);
-
-		if( !$result )
-		{
-			return false;
-		}
-
-		$num_currency = $roster->db->num_rows($result);
-
-		if( $num_currency == 0 )
-		{
-			return false;
-		}
-
-		for( $t=0; $t < $num_currency; $t++)
-		{
-			$row = $roster->db->fetch($result, SQL_ASSOC);
-
-			$category = $row['category'];
-			$currency_name = $row['name'];
-			$currency_data[$category][$currency_name]['order'] = $row['order'];
-			$currency_data[$category][$currency_name]['count'] = $row['count'];
-			$currency_data[$category][$currency_name]['type'] = $row['type'];
-			$currency_data[$category][$currency_name]['icon'] = $row['icon'];
-			$currency_data[$category][$currency_name]['tooltip'] = makeOverlib($row['tooltip'], '', '', 0, $this->data['clientLocale']);
-		}
-
-		$roster->db->free_result($result);
-
-		foreach( $currency_data as $category => $currency )
-		{
-			$roster->tpl->assign_block_vars('currency',array(
-				'ID'       => strtolower(str_replace(' ','',$category)),
-				'CATEGORY' => $category,
-				)
-			);
-
-			foreach( $currency as $name => $data )
-			{
-				$roster->tpl->assign_block_vars('currency.item',array(
-					'ID'      => strtolower(str_replace(' ','',$name)),
-					'NAME'    => $name,
-					'COUNT'   => $data['count'],
-					'TYPE'    => $data['type'],
-					'ORDER'   => $data['order'],
-					'ICON'    => $data['icon'],
-					'TOOLTIP' => $data['tooltip'],
-					)
-				);
 			}
 		}
 
@@ -2415,6 +2518,107 @@ class char
 		}
 	}
 
+	function _alt_name_hover()
+	{
+		global $roster;
+
+		$alt_hover = '';
+		if( active_addon('memberslist') )
+		{
+			$sql = "SELECT `main_id` FROM `"
+				 . $roster->db->table('alts', 'memberslist')
+				 . "` WHERE `member_id` = " . $this->data['member_id'] . ";";
+
+			$main_id = $roster->db->query_first($sql);
+			if( $main_id != 0 )
+			{
+				// we know the main, get alt info
+				$sql = "SELECT `m`.`name`, `m`.`level`, `m`.`class`, `a`.* FROM `"
+					 . $roster->db->table('alts', 'memberslist') . "` AS a, `"
+					 . $roster->db->table('players') . "` AS m "
+					 . " WHERE `a`.`member_id` = `m`.`member_id` "
+					 . " AND `a`.`main_id` = $main_id;";
+
+				$qry = $roster->db->query($sql);
+				$alts = $roster->db->fetch_all($qry, SQL_ASSOC);
+
+				if( isset($alts[1]) )
+				{
+					$html = $caption = '';
+
+					foreach( $alts as $alt )
+					{
+						if( $alt['main_id'] == $alt['member_id'] )
+						{
+							$caption = '<a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
+								     . $alt['name'] . ' (' . $roster->locale->act['level']
+								     . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a>';
+						}
+						else
+						{
+							$html .= '<a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
+								   . $alt['name'] . ' (' . $roster->locale->act['level']
+								   . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a><br />';
+						}
+					}
+					setTooltip('alt_html', $html);
+					setTooltip('alt_cap', $caption);
+					$alt_hover = 'style="cursor:pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);" '
+									 . 'onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-5,OFFSETY,-5,NOCLOSE);" '
+									 . 'onmouseout="return nd();"';
+				}
+			}
+		}
+		$roster->tpl->assign_var('ALT_TOOLTIP',$alt_hover);
+	}
+
+	function _mini_members_list()
+	{
+		global $roster;
+
+		// Get the scope select data
+		$query = 'SELECT `members`.`member_id`, `members`.`name`, `members`.`class`, `members`.`classid`, `members`.`level`, `members`.`guild_title`, `members`.`guild_rank`, `players`.`race`, `players`.`raceid`, `players`.`sex`, `players`.`sexid` '
+			   . 'FROM `' . $roster->db->table('members') . '` AS members '
+			   . 'LEFT JOIN `' . $roster->db->table('players') . '` AS players ON `members`.`member_id` = `players`.`member_id` '
+			   . 'WHERE `members`.`guild_id` = "' . $this->data['guild_id'] . '" '
+			   . 'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
+
+		$result = $roster->db->query($query);
+
+		if( !$result )
+		{
+			trigger_error($roster->db->error());
+			return false;
+		}
+
+		while( $data = $roster->db->fetch($result,SQL_ASSOC) )
+		{
+			$roster->tpl->assign_block_vars('mini_memberslist', array(
+				'ID'         => $data['member_id'],
+				'NAME'       => $data['name'],
+				'CLASS'      => $data['class'],
+				'CLASS_ID'   => $data['classid'],
+				'CLASS_EN'   => strtolower(str_replace(' ','',$roster->locale->wordings['enUS']['id_to_class'][$data['classid']])),
+				'LEVEL'      => $data['level'],
+				'TITLE'      => $data['guild_title'],
+				'RANK'       => $data['guild_rank'],
+				'RACE'       => $data['race'],
+				'RACE_ID'    => $data['raceid'],
+				'RACE_EN'    => ( $data['race'] != '' ? strtolower(str_replace(' ','',$this->locale['race_to_en'][$data['race']])) : '' ),
+				'SEX'        => $data['sex'],
+				'SEX_ID'     => $data['sexid'],
+				'U_LINK'     => ( $data['race'] != '' ? makelink('&amp;a=c:' . $data['member_id'],true) : false ),
+				'S_SELECTED' => ( $data['member_id'] == $this->data['member_id'] ? true : false )
+				)
+			);
+		}
+
+        $roster->tpl->assign_var('S_MINI_MEMBERSLIST',( $roster->db->num_rows() > 1 ? true : false ));
+
+		$roster->db->free_result($result);
+
+		return true;
+	}
 
 	/**
 	 * Main output function
@@ -2424,6 +2628,7 @@ class char
 		global $roster, $addon;
 
 		$this->fetchEquip();
+		$this->_alt_name_hover();
 
 		// Equipment
 		$this->equip_slot('Head');
@@ -2561,6 +2766,9 @@ class char
 		// PvP
 		$this->show_pvp();
 
+		// Mini Memberslist
+		$this->_mini_members_list();
+
 		// Item bonuses
 		if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
 		{
@@ -2659,27 +2867,11 @@ class char
 			$roster->tpl->assign_var('S_SPELL_TAB',false);
 		}
 
-		// Currency Tab
-		if( $roster->auth->getAuthorized($addon['config']['show_currency']) && $this->show_currency() )
-		{
-			$roster->tpl->assign_block_vars('tabs',array(
-				'NAME'     => $roster->locale->act['currency'],
-				'VALUE'    => 'tab7',
-				'SELECTED' => false
-				)
-			);
-		}
-		else
-		{
-			$roster->tpl->assign_var('S_CURRENCY_TAB',false);
-		}
-
-
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));
 		return $roster->tpl->fetch('char');
 	}
-
 }
+
 
 /**
  * Gets one characters data using a member id

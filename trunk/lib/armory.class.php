@@ -131,7 +131,7 @@ class RosterArmory
 		global $roster;
 
 		$url = $this->_makeUrl( $type, false, $item_id, $character, $realm, $guild );
-		echo $url.'<br>';
+		//echo $url.'<br>';
 		if ( $fetch_type == 'html')
 		{
 			$this->setUserAgent('Opera/9.22 (X11; Linux i686; U; en)');
