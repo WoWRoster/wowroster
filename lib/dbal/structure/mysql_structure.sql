@@ -875,3 +875,50 @@ CREATE TABLE `renprefix_webdb_cache` (
   `source_id` smallint(8) NOT NULL COMMENT 'source data was collected from',
   PRIMARY KEY  (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `renprefix_talents_data`;
+CREATE TABLE IF NOT EXISTS `renprefix_talents_data` (
+  `talent_id` int(11) NOT NULL default '0',
+  `talent_num` int(11) NOT NULL default '0',
+  `tree_order` int(11) NOT NULL default '0',
+  `class_id` int(11) NOT NULL default '0',
+  `name` varchar(64) NOT NULL default '',
+  `tree` varchar(64) NOT NULL default '',
+  `row` tinyint(4) NOT NULL default '0',
+  `column` tinyint(4) NOT NULL default '0',
+  `rank` tinyint(4) NOT NULL default '0',
+  `tooltip` mediumtext NOT NULL,
+  `texture` varchar(64) NOT NULL default '',
+  PRIMARY KEY  (`rank`,`tree`,`row`,`column`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+#-- --------------------------------------------------------
+
+#--
+#-- Table structure for table `roster_talenttree_data`
+#--
+DROP TABLE IF EXISTS `renprefix_talenttree_data`;
+CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
+  `class_id` int(11) NOT NULL default '0',
+  `build` tinyint(2) NOT NULL default '0',
+  `tree` varchar(64) NOT NULL default '',
+  `tree_num` varchar(64) NOT NULL default '',
+  `background` varchar(64) NOT NULL default '',
+  `order` tinyint(4) NOT NULL default '0',
+  `icon` varchar(64) NOT NULL default '',
+  PRIMARY KEY  (`class_id`,`build`,`tree`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+#-- --------------------------------------------------------
+
+#--
+#-#- Table structure for table `roster_talent_builds`
+#--
+DROP TABLE IF EXISTS `renprefix_talent_builds`;
+CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
+  `member_id` int(11) NOT NULL default '0',
+  `build` tinyint(2) NOT NULL default '0',
+  `tree` varchar(200) NOT NULL default '',
+  PRIMARY KEY  (`member_id`,`build`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

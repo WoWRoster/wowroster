@@ -51,6 +51,7 @@ class update
 	var $current_realm = '';
 	var $current_guild = '';
 	var $current_member = '';
+	var $talent_build_urls = array();
 
 	/**
 	 * Collect info on what files are used
@@ -2451,18 +2452,27 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Trees could not be deleted',$roster->db->error());
 				return;
 			}
+			$querystr = "DELETE FROM `" . $roster->db->table('talent_builds') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
+			if( !$roster->db->query($querystr) )
+			{
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Trees could not be deleted',$roster->db->error());
+				return;
+			}
 
 			foreach( array_keys($talentData) as $talent_tree )
 			{
 				$messages .= " : $build-$talent_tree";
 
 				$data_talent_tree = $talentData[$talent_tree];
-				foreach( array_keys($data_talent_tree) as $talent_skill )
+                        foreach( array_keys($data_talent_tree) as $talent_skill )
 				{
+				
+				
 					$data_talent_skill = $data_talent_tree[$talent_skill];
 					if( $talent_skill == 'Order' )
 					{
 						$tree_order = $data_talent_skill;
+						$to = $data_talent_skill;
 					}
 					elseif( $talent_skill == 'PointsSpent' )
 					{
@@ -2496,7 +2506,6 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 						$location = explode(':', $data_talent_skill['Location']);
 						$rank = explode(':', $data_talent_skill['Rank']);
-
 						$this->add_value('row', $location[0]);
 						$this->add_value('column', $location[1]);
 						$this->add_value('rank', $rank[0]);
@@ -2528,11 +2537,78 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
 				}
 			}
+		$this->_talent_layer_url( $memberId, $build);		
+		$this->reset_values();
+		
+		foreach ($this->talent_build_urls as $build => $num)
+            {
+                  $this->add_value('build', $build);
+                  foreach ($num as $m => $buil)
+                  {
+                        $this->add_value('member_id', $m);
+                        $this->add_value('tree', $buil);
+                  }
+                  $querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
+                  $result = $roster->db->query($querystr);
+                  if( !$result )
+                  {
+                        $this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
+                  }
+		}
+		$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
+			if( !$roster->db->query($querystr) )
+			{
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talents could not be deleted',$roster->db->error());
+				return;
+			}
+		
 		}
 		$this->setMessage($messages . '</li>');
+		
 	}
 
+      function _talent_layer_url( $memberId , $build )
+	{
+		global $roster;
 
+            $sqlquery2 = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $memberId . "' AND `build` = '" . $build . "' ORDER BY `order` ASC";
+            $result2 = $roster->db->query($sqlquery2);
+      while($t = $roster->db->fetch($result2,SQL_ASSOC))
+      {
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $memberId . "' AND `build` = '" . $build . "' AND `tree` = '" . $t['tree'] . "' ORDER BY `row` ASC , `column` ASC";
+		$result = $roster->db->query($sqlquery);
+
+		$returndata = array();
+		if( $roster->db->num_rows($result) > 0 )
+		{
+			// initialize the rows and cells
+			for( $r=1; $r < ROSTER_TALENT_ROWS + 1; $r++ )
+			{
+				for( $c=1; $c < ROSTER_TALENT_COLS + 1; $c++ )
+				{
+					$returndata[$r][$c]['name'] = '';
+				}
+			}
+
+			while( $talentdata = $roster->db->fetch($result, SQL_ASSOC) )
+			{
+				$r = $talentdata['row'];
+				$c = $talentdata['column'];
+
+				if( isset($this->talent_build_urls[$build]) )
+				{
+					$this->talent_build_urls[$build][$memberId] .= $talentdata['rank'];
+				}
+				else
+				{
+					$this->talent_build_urls[$build][$memberId] = $talentdata['rank'];
+				}
+			}
+		}
+		}
+		return true;
+	}
+	
 	/**
 	 * Handles formating and insertion of pet talent data
 	 *
