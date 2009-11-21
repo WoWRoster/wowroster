@@ -296,7 +296,11 @@
 <!-- END pet -->
 		</div>
 <!-- ENDIF -->
-
+</div>
+<!-- ENDIF -->
+<!-- tab5 -->
+<!-- IF S_COMPAN_TAB -->
+	<div id="show_companions" class="tab2" style="display:none;">
 <!-- IF S_MOUNTS -->
 		<div class="container">
 			<div class="box-label"><div class="icon mounts"></div><!-- TRANSLATE mounts --></div>
@@ -313,8 +317,6 @@
 			</div>
 		</div>
 <!-- ENDIF -->
-
-
 
 <!-- IF S_COMPANIONS -->
 		<div class="container">
@@ -522,21 +524,6 @@
 
 
 <!-- IF S_CURRENCY_TAB -->
-
-<!--
-Available variables for currency
-
-currency =>
-	ID   -> lowercase category name
-	NAME -> category name
-	item =>
-		ID      -> lowercase item name
-		NAME    -> name of currency item
-		TYPE    -> currency type, dont know what this is, it's a number
-		ORDER   -> order
-		ICON    -> icon image
-		TOOLTIP -> tooltip string
--->
 
 <div id="tab7" class="tab7" style="display:none;">
 <!-- BEGIN currency -->
