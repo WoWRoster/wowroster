@@ -64,6 +64,7 @@ class char
 			'show_tab3',
 			'show_tab4',
 			'show_tab5',
+			'show_currency',
 			'show_talents',
 			'show_glyphs',
 			'show_spellbook',
@@ -107,7 +108,7 @@ class char
 			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
 			'S_MONEY'       => $roster->auth->getAuthorized($addon['config']['show_money']),
 			'S_PET_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab2']),
-			'S_COMPAN_TAB'  => $roster->auth->getAuthorized($addon['config']['show_show_companions']),
+			'S_COMPAN_TAB'  => $roster->auth->getAuthorized($addon['config']['show_companions']),
 			'S_REP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab3']),
 			'S_SKILL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab4']),
 			'S_PVP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab5']),
@@ -117,6 +118,7 @@ class char
 			'S_BONUS_TAB'   => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
 			'S_PET_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_pet_talents']),
 			'S_PET_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_pet_spells']),
+			'S_CURRENCY_TAB'     => $roster->auth->getAuthorized($addon['config']['show_currency']),
 
 			'S_PETS'        => false,
 			'S_MOUNTS'      => false,
@@ -703,7 +705,65 @@ class char
 		return true;
 	}
 
+     function show_currency()
+	{
+		global $roster;
 
+		$query = "SELECT * FROM `" . $roster->db->table('currency') . "` WHERE `member_id` = '" . $this->data['member_id'] . "' ORDER BY `category` ASC, `order` ASC;";
+		$result = $roster->db->query($query);
+
+		if( !$result )
+		{
+			return false;
+		}
+
+		$num_currency = $roster->db->num_rows($result);
+
+		if( $num_currency == 0 )
+		{
+			return false;
+		}
+
+		for( $t=0; $t < $num_currency; $t++)
+		{
+			$row = $roster->db->fetch($result, SQL_ASSOC);
+
+			$category = $row['category'];
+			$currency_name = $row['name'];
+			$currency_data[$category][$currency_name]['order'] = $row['order'];
+			$currency_data[$category][$currency_name]['count'] = $row['count'];
+			$currency_data[$category][$currency_name]['type'] = $row['type'];
+			$currency_data[$category][$currency_name]['icon'] = $row['icon'];
+			$currency_data[$category][$currency_name]['tooltip'] = makeOverlib($row['tooltip'], '', '', 0, $this->data['clientLocale']);
+		}
+
+		$roster->db->free_result($result);
+
+		foreach( $currency_data as $category => $currency )
+		{
+			$roster->tpl->assign_block_vars('currency',array(
+				'ID'       => strtolower(str_replace(' ','',$category)),
+				'CATEGORY' => $category,
+				)
+			);
+
+			foreach( $currency as $name => $data )
+			{
+				$roster->tpl->assign_block_vars('currency.item',array(
+					'ID'      => strtolower(str_replace(' ','',$name)),
+					'NAME'    => $name,
+					'COUNT'   => $data['count'],
+					'TYPE'    => $data['type'],
+					'ORDER'   => $data['order'],
+					'ICON'    => $data['icon'],
+					'TOOLTIP' => $data['tooltip'],
+					)
+				);
+			}
+		}
+
+		return true;
+	}
 	/**
 	 * Build Companions
 	 *
@@ -2776,7 +2836,7 @@ class char
 		);
 
 		// Pet Tab
-		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && $this->show_pets() OR $this->show_companions() )
+		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && $this->show_pets() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab2'],
@@ -2795,8 +2855,8 @@ class char
             if( $roster->auth->getAuthorized($addon['config']['show_companions']) && $this->show_companions() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
-				'NAME'     => $roster->locale->act['companion'],
-				'VALUE'    => 'companions',
+				'NAME'     => $roster->locale->act['companions'],
+				'VALUE'    => 'show_companions',
 				'SELECTED' => false
 				)
 			);
@@ -2872,6 +2932,21 @@ class char
 		else
 		{
 			$roster->tpl->assign_var('S_SPELL_TAB',false);
+		}
+		
+		// Currency Tab
+		if( $roster->auth->getAuthorized($addon['config']['show_currency']) && $this->show_currency() )
+		{
+			$roster->tpl->assign_block_vars('tabs',array(
+				'NAME'     => $roster->locale->act['currency'],
+				'VALUE'    => 'tab7',
+				'SELECTED' => false
+				)
+			);
+		}
+		else
+		{
+			$roster->tpl->assign_var('S_CURRENCY_TAB',false);
 		}
 
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/char.html'));

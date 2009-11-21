@@ -61,6 +61,7 @@ class infoInstall
 		$installer->add_config("'1050', 'show_tab3', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1060', 'show_tab4', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1070', 'show_tab5', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1070', 'show_companions', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1075', 'show_currency', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1080', 'show_talents', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1085', 'show_glyphs', '0', 'function{infoAccess', 'char_conf'");
