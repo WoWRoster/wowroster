@@ -107,6 +107,7 @@ class char
 			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
 			'S_MONEY'       => $roster->auth->getAuthorized($addon['config']['show_money']),
 			'S_PET_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab2']),
+			'S_COMPAN_TAB'  => $roster->auth->getAuthorized($addon['config']['show_show_companions']),
 			'S_REP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab3']),
 			'S_SKILL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_tab4']),
 			'S_PVP_TAB'     => $roster->auth->getAuthorized($addon['config']['show_tab5']),
@@ -2775,7 +2776,7 @@ class char
 		);
 
 		// Pet Tab
-		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && ($this->show_pets() || $this->show_companions()) )
+		if( $roster->auth->getAuthorized($addon['config']['show_tab2']) && $this->show_pets() OR $this->show_companions() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['tab2'],
@@ -2788,7 +2789,25 @@ class char
 		{
 			$roster->tpl->assign_var('S_PET_TAB',false);
 		}
-
+		//companion tab
+		
+	//	'S_COMPAN_TAB'  => $roster->auth->getAuthorized($addon['config']['show_critter']),
+            if( $roster->auth->getAuthorized($addon['config']['show_companions']) && $this->show_companions() )
+		{
+			$roster->tpl->assign_block_vars('tabs',array(
+				'NAME'     => $roster->locale->act['companion'],
+				'VALUE'    => 'companions',
+				'SELECTED' => false
+				)
+			);
+		}
+		else
+		{
+			$roster->tpl->assign_var('S_COMPAN_TAB',false);
+		}
+		
+		
+		
 		// Reputation Tab
 		if( $roster->auth->getAuthorized($addon['config']['show_tab3']) && $this->show_reputation() )
 		{
