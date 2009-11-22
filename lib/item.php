@@ -607,7 +607,7 @@ class item
 
 	function _getItemLevel()
 	{
-		$html = '<span style="color:#ffd800;">' . $this->attributes['ArmorClass']['Line'] . '</span><br />';
+		$html = '<span style="color:#ffd800;">' . $this->attributes['ItemLevel']['Line'] . '</span><br />';
 		return $html;
 	}
 
