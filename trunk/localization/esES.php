@@ -672,10 +672,12 @@ $lang['faction_to_id'] = array(
 	'Alliance' => 'alliance',
 	'Alliance Forces' => 'allianceforces',
 	'Alliance Vanguard' => 'alliancevanguard',
+	'Classic' => 'classic',
 	'Other' => 'other',
 	'Outland' => 'outland',
 	'Shattrath City' => 'shattrathcity',
 	'Steamwheedle Cartel' => 'steamwheedlecartel',
+	'The Burning Crusade' => 'theburningcrusade',
 );
 
 
