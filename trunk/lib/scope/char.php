@@ -103,7 +103,7 @@ class CharScope
 				'NAME'       => $data['name'],
 				'CLASS'      => $data['class'],
 				'CLASS_ID'   => $data['classid'],
-				'CLASS_EN'   => strtolower(str_replace(' ','',$roster->locale->wordings['enUS']['id_to_class'][$data['classid']])),
+				'CLASS_EN'   => isset($roster->locale->wordings['enUS']['id_to_class'][$data['classid']]) ? strtolower(str_replace(' ','',$roster->locale->wordings['enUS']['id_to_class'][$data['classid']])) : '',
 				'GUILD_NAME' => $roster->data['guild_name'],
 				'LEVEL'      => $data['level'],
 				'TITLE'      => $data['guild_title'],
