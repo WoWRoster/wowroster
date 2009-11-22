@@ -776,6 +776,7 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';
 $lang['tooltip_preg_meta_requires']='/Requires.*?gem?/';
 $lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gem?/';
 $lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
+$lang['tooltip_preg_item_level']='/Item Level (\d)/';
 $lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
