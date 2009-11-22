@@ -94,11 +94,10 @@ $lang['Trinket0']      = 'Abalorio 0';
 $lang['Trinket1']      = 'Abalorio 1';
 
 //tabs
-$lang['tab1']='Profile';
-$lang['tab2']='Mascota';
-$lang['tab3']='Reputación';
-$lang['tab4']='Habilidades';
-$lang['tab5']='JcJ';
+$lang['profile']='Profile';
+$lang['reputation']='Reputación';
+$lang['skills']='Habilidades';
+$lang['pvp']='JcJ';
 
 $lang['strength_tooltip']='Aumenta tu poder de ataque con armas cuerpo a cuerpo.<br />Aumenta la cantidad de daño que puedes bloquear con un escudo.';
 $lang['agility_tooltip']= 'Aumenta tu poder de ataque con armas a distancia.<br />Aumenta las probabilidades de asestar un impacto crítico con todas las armas.<br />Aumenta tu armadura y las probabilidades de esquivar los golpes.';
@@ -287,10 +286,10 @@ $lang['admin']['recipe_disp'] = "Mostrar recetas|Elige si mostrar el listado de 
 $lang['admin']['mail_disp'] = "Mostrar correo|Controla como mostrar el correo<br /><br />&quot;Table&quot; Muestra el correo en una tabla<br />&quot;Bag&quot; Muestra cada correo como una bolsa de objetos<br />&quot;Both&quot; Muestra de ambos modos";
 $lang['admin']['show_money'] = "Dinero|Elige si mostrar el dinero.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_played'] = "Tiempo jugado|Controla como mostrar el Tiempo jugado y el Tiempo jugado este nivel<br /><br />La configuración es global y afectará a todos los personajes";
-$lang['admin']['show_tab2'] = "Mascotas|Elige si mostrar las mascotas<br /><br />La configuración es global y afectará a todos los personajes";
-$lang['admin']['show_tab3'] = "Reputación|Elige si mostrar las reputaciones.<br /><br />La configuración es global y afectará a todos los personajes";
-$lang['admin']['show_tab4'] = "Habilidades|Elige si mostrar las habilidades.<br /><br />La configuración es global y afectará a todos los personajes";
-$lang['admin']['show_tab5'] = "JcJ|Elige si mostrar los datos de JcJ.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_pets'] = "Mascotas|Elige si mostrar las mascotas<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_reputation'] = "Reputación|Elige si mostrar las reputaciones.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_skills'] = "Habilidades|Elige si mostrar las habilidades.<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_honor'] = "JcJ|Elige si mostrar los datos de JcJ.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talentos|Elige si mostrar los talentos.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";

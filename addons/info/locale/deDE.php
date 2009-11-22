@@ -94,11 +94,10 @@ $lang['Trinket0']      = 'Schmuck 0';
 $lang['Trinket1']      = 'Schmuck 1';
 
 //tabs
-$lang['tab1']='Profile';
-$lang['tab2']='Tier';
-$lang['tab3']='Ruf';
-$lang['tab4']='Fertigk.';
-$lang['tab5']='PvP';
+$lang['profile']='Profile';
+$lang['reputation']='Ruf';
+$lang['skills']='Fertigk.';
+$lang['pvp']='PvP';
 
 $lang['strength_tooltip']='Erhöht deine Angriffskraft mit Nahkampfwaffen.<br />Erhöht die Menge an Schaden, die mit einem Schild geblockt werden kann.';
 $lang['agility_tooltip']= 'Erhöht deine Angriffskraft mit Fernkampfwaffen.<br />Verbessert deine Chance auf einen kritischen Treffer mit allen Waffen.<br />Erhöht deine Rüstung und deine Chance Angriffen auszuweichen.';
@@ -287,10 +286,10 @@ $lang['admin']['recipe_disp'] = "Rezeptanzeige|Kontrolliere wie die Rezepteliste
 $lang['admin']['mail_disp'] = "Post Anzeige|Einstellen ob Post angezeigt werden soll<br /><br />&quot;Tabelle&quot; Zeigt die Post tabellarisch an<br />&quot;Tasche&quot; Zeigt jede Post wie eine Tasche mit Items<br />&quot;Beides&quot; Zeigt die Post tabellarisch und als Tasche";
 $lang['admin']['show_money'] = "Gold|Anzeige des Goldes im Rucksack<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_played'] = "Zeit gespielt|Einstellen der Anzeige der Gesamtenspielzeit und der Spielzeit auf dem Level<br /><br />Diese Einstellung ist Global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_tab2'] = "Begleiter|Kontrolliere die Begleiteranzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_tab3'] = "Ruf|Kontrolliert die Rufanzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_tab4'] = "Zaubersprüche|Kontrolliert die Anzeuge der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_tab5'] = "PvP|Kontrolliert die Anzeige des PvP<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_pets'] = "Begleiter|Kontrolliere die Begleiteranzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_reputation'] = "Ruf|Kontrolliert die Rufanzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_skills'] = "Zaubersprüche|Kontrolliert die Anzeuge der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_honor'] = "PvP|Kontrolliert die Anzeige des PvP<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talente|Anzeige der Talente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";

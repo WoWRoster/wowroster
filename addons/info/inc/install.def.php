@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'spell_holy_divinespirit';
 
-	var $version = '2.0.9.2014';
+	var $version = '2.0.9.2035';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -57,11 +57,10 @@ class infoInstall
 		$installer->add_config("'1010', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
 		$installer->add_config("'1020', 'show_money', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1030', 'show_played', '0', 'function{infoAccess', 'char_conf'");
-		$installer->add_config("'1040', 'show_tab2', '0', 'function{infoAccess', 'char_conf'");
-		$installer->add_config("'1050', 'show_tab3', '0', 'function{infoAccess', 'char_conf'");
-		$installer->add_config("'1060', 'show_tab4', '0', 'function{infoAccess', 'char_conf'");
-		$installer->add_config("'1070', 'show_tab5', '0', 'function{infoAccess', 'char_conf'");
-		$installer->add_config("'1070', 'show_companions', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1040', 'show_pets', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1050', 'show_reputation', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1060', 'show_skills', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1070', 'show_honor', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1075', 'show_currency', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1080', 'show_talents', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1085', 'show_glyphs', '0', 'function{infoAccess', 'char_conf'");
@@ -81,10 +80,10 @@ class infoInstall
 		  `member_id` int(11) NOT NULL default '0',
 		  `show_money` tinyint(1) NOT NULL default '0',
 		  `show_played` tinyint(1) NOT NULL default '0',
-		  `show_tab2` tinyint(1) NOT NULL default '0',
-		  `show_tab3` tinyint(1) NOT NULL default '0',
-		  `show_tab4` tinyint(1) NOT NULL default '0',
-		  `show_tab5` tinyint(1) NOT NULL default '0',
+		  `show_pets` tinyint(1) NOT NULL default '0',
+		  `show_reputation` tinyint(1) NOT NULL default '0',
+		  `show_skills` tinyint(1) NOT NULL default '0',
+		  `show_honor` tinyint(1) NOT NULL default '0',
 		  `show_currency` tinyint(1) NOT NULL default '0',
 		  `show_talents` tinyint(1) NOT NULL default '0',
 		  `show_glyphs` tinyint(1) NOT NULL default '0',
@@ -105,10 +104,10 @@ class infoInstall
 		$installer->create_table($installer->table('default'),"
 		  `show_money` tinyint(1) NOT NULL default '0',
 		  `show_played` tinyint(1) NOT NULL default '0',
-		  `show_tab2` tinyint(1) NOT NULL default '0',
-		  `show_tab3` tinyint(1) NOT NULL default '0',
-		  `show_tab4` tinyint(1) NOT NULL default '0',
-		  `show_tab5` tinyint(1) NOT NULL default '0',
+		  `show_pets` tinyint(1) NOT NULL default '0',
+		  `show_reputation` tinyint(1) NOT NULL default '0',
+		  `show_skills` tinyint(1) NOT NULL default '0',
+		  `show_honor` tinyint(1) NOT NULL default '0',
 		  `show_currency` tinyint(1) NOT NULL default '0',
 		  `show_talents` tinyint(1) NOT NULL default '0',
 		  `show_glyphs` tinyint(1) NOT NULL default '0',
@@ -127,10 +126,10 @@ class infoInstall
 		$build_query = array(
 			'show_money' => '0',
 			'show_played' => '0',
-			'show_tab2' => '0',
-			'show_tab3' => '0',
-			'show_tab4' => '0',
-			'show_tab5' => '0',
+			'show_pets' => '0',
+			'show_reputation' => '0',
+			'show_skills' => '0',
+			'show_honor' => '0',
 			'show_currency' => '0',
 			'show_talents' => '0',
 			'show_glyphs' => '0',
@@ -151,12 +150,13 @@ class infoInstall
 
 		$installer->add_query('INSERT INTO `' . $installer->table('display') . '` SELECT `p`.`member_id` , `d` . * FROM `' . $roster->db->table('players') . '` p, `' . $installer->table('default') . '` d ');
 
-		$installer->add_menu_button('cb_character','char','','spell_holy_divinespirit');
-		$installer->add_menu_button('cb_mailbox','char','mailbox','inv_letter_02');
-		$installer->add_menu_button('cb_bags','char','bags','inv_misc_bag_08');
-		$installer->add_menu_button('cb_bank','char','bank','inv_misc_bag_15');
-		$installer->add_menu_button('cb_quests','char','quests','achievement_quests_completed_06');
-		$installer->add_menu_button('cb_recipes','char','recipes','inv_scroll_02');
+		$installer->add_menu_button('cb_character', 'char', '', 'spell_holy_divinespirit');
+		$installer->add_menu_button('cb_mailbox', 'char', 'mailbox', 'inv_letter_02');
+		$installer->add_menu_button('cb_inventory', 'char', 'inventory', 'inv_misc_bag_14');
+		$installer->add_menu_button('cb_bags', 'char', 'bags', 'inv_misc_bag_08', false);
+		$installer->add_menu_button('cb_bank', 'char', 'bank', 'inv_misc_bag_15', false);
+		$installer->add_menu_button('cb_quests', 'char', 'quests', 'achievement_quests_completed_06');
+		$installer->add_menu_button('cb_recipes', 'char', 'recipes', 'inv_scroll_02');
 
 		return true;
 	}
@@ -255,6 +255,29 @@ class infoInstall
 				ADD `show_currency` tinyint(1) NOT NULL default '0' AFTER `show_tab5`");
 			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
 				ADD `show_currency` tinyint(1) NOT NULL default '0' AFTER `show_tab5`");
+		}
+
+		// Renaming config
+		if( version_compare('2.0.9.2035', $oldversion,'>') == true )
+		{
+			$installer->update_config('1040', "`config_name` = 'show_pets'");
+			$installer->update_config('1050', "`config_name` = 'show_reputation'");
+			$installer->update_config('1060', "`config_name` = 'show_skills'");
+			$installer->update_config('1070', "`config_name` = 'show_honor'");
+
+			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
+				CHANGE `show_tab2` `show_pets` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab3` `show_reputation` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab4` `show_skills` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab5` `show_honor` tinyint(1) NOT NULL default '0'");
+
+			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
+				CHANGE `show_tab2` `show_pets` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab3` `show_reputation` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab4` `show_skills` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab5` `show_honor` tinyint(1) NOT NULL default '0'");
+
+			$installer->add_menu_button('cb_inventory', 'char', 'inventory', 'inv_misc_bag_14');
 		}
 
 		return true;

@@ -14,17 +14,15 @@
  */
 
 
-/*********** Character Page Tab(1) ***********/
+/*********** Profile Page ***********/
 .shader { background: url(../images/shader.png) repeat; border: 1px solid #000000; }
 
 .main-panel { clear: left; position: relative; }
-
-.main-panel .tab1 .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab1 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab1 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .tab1 .container .box-label .profile { background: url(images/icons/profile.gif); }
-
-.main-panel .tab1 .container .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: auto; padding: 0px; height: 570px; width: 540px; position: relative; }
+.main-panel .profile .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .profile .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .profile .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.main-panel .profile .container .box-label .profile { background: url(images/icons/profile.gif); }
+.main-panel .profile .container .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: auto; padding: 0px; height: 570px; width: 540px; position: relative; }
 
 .info-box { height: 460px; width: 350px; position: absolute; left: 95px; top: 19px; }
 
@@ -57,38 +55,35 @@
 .equip_Ranged { position:absolute; cursor:pointer; left: 306px; top: 500px; }
 .equip_Ammo { position:absolute; cursor:pointer; left: 374px; top: 500px; visibility: hidden; }
 
-
 /* Specialization */
-.tab1 .spec { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; left: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif;  }
-.tab1 .spec .skill { text-align:left; color:#999; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
-.tab1 .spec .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
-.tab1 .spec .skill .icon img { height: 30px; width: 30px; }
+.profile .spec { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; left: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif;  }
+.profile .spec .skill { text-align:left; color:#999; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
+.profile .spec .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
+.profile .spec .skill .icon img { height: 30px; width: 30px; }
 
-.tab1 .spec .skill .data { margin-left: 35px; }
-.tab1 .spec .skill .data .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
-.tab1 .spec .skill .data .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
-.tab1 .spec .skill .data .skill-bar:hover { border: 1px solid #FFFFFF; }
-.tab1 .spec .skill .data .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
-.tab1 .spec .skill .data .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.profile .spec .skill .data { margin-left: 35px; }
+.profile .spec .skill .data .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
+.profile .spec .skill .data .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
+.profile .spec .skill .data .skill-bar:hover { border: 1px solid #FFFFFF; }
+.profile .spec .skill .data .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.profile .spec .skill .data .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
-.tab1 .spec .Active { color: #FFDD00; }
-.tab1 .spec .Active .data .skill-bar { border: 1px solid #FFDD00; }
+.profile .spec .Active { color: #FFDD00; }
+.profile .spec .Active .data .skill-bar { border: 1px solid #FFDD00; }
 
 /* Professions */
-.tab1 .professions { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; right: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif; }
-.tab1 .professions .skill { text-align:left; color:#FFDD00; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
-.tab1 .professions .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
-.tab1 .professions .skill .icon img { height: 30px; width: 30px; }
-.tab1 .professions .skill .data { margin-left: 35px; }
-.tab1 .professions .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
-.tab1 .professions .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
-.tab1 .professions .skill-bar:hover { border: 1px solid #FFFFFF; }
-.tab1 .professions .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
-.tab1 .professions .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
-
+.profile .professions { cursor: default; padding: 5px; width: 160px; height: 102px; position: absolute; right: 0px; top: 0px; color:#FFFFFF; text-transform: uppercase; font: bold 10px Geneva, Arial, Helvetica, sans-serif; }
+.profile .professions .skill { text-align:left; color:#FFDD00; font: bold 10px Geneva, Arial, Helvetica, sans-serif; text-transform: uppercase; margin-top: 10px; position: relative; }
+.profile .professions .skill .icon { height: 30px; width: 30px; top: 0px; left: 0px; position: absolute; }
+.profile .professions .skill .icon img { height: 30px; width: 30px; }
+.profile .professions .skill .data { margin-left: 35px; }
+.profile .professions .skill-name { position: relative; height: 10px; text-align: left; padding-bottom: 1px; }
+.profile .professions .skill-bar { height: 16px; border: 1px solid #000000; margin: 1px; position: relative; background: #333333; }
+.profile .professions .skill-bar:hover { border: 1px solid #FFFFFF; }
+.profile .professions .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.profile .professions .skill-bar .text { width:100%; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
 /* Framing */
-
 .extras { cursor: default; position: absolute; height: 40px; width: 256px; left: 0px; top: 407px; padding: 5px; }
 .money { cursor: default; position: absolute; height: 40px; width: 60px; right: 0px; top: 407px; padding: 5px; }
 .money div { text-align: right; font-size: 10px; line-height: 12px; }
@@ -117,7 +112,6 @@
 .powers .bar .xp-bar .max { background: url(images/bars/xp-rested.gif); }
 .powers .bar .max:hover { border-color: #8F00FF; }
 
-
 /* Buff Icons */
 .buffs { position:absolute; font: bold 11px arial,helvetica,sans-serif; text-transform: uppercase; left: 0px; top: 251px; padding: 5px; height: 20px; width: 338px; }
 .buffs .bar { height: 20px; float: right; width: 264px; position: relative; overflow: hidden; }
@@ -127,37 +121,35 @@
 .buffs .buff b { position:absolute;bottom:-3px;right:0px;color:#000;font-weight:bold;font-size:10px; }
 .buffs .buff .icon { width:20px;height:20px; }
 
-
 /* Resistances */
 .resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 0px; top: 208px; padding: 5px; }
 .resist .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; height: 20px; text-transform: uppercase; }
 .resist .bar .text { float: right; line-height: 21px; }
 .resist .bar .icons { float: right; width: 220px; top: -1px; position: relative; }
-.main-panel .tab1 .resist b { color:black; text-align:center; font-size:12px; font-weight:bold; position:absolute; right:-1px; text-align:center; top:6px; width:20px; }
-.main-panel .tab1 .resist span { color:white; font-size:12px !important; font-weight:bold; position:absolute; right:0px; text-align:center; top:5px; width:20px; }
 
-.main-panel .tab1 .resist .icon { width:20px; height:20px; cursor:default; float: left; position: relative; margin-left: 10px; border: 1px solid #000000; }
-.main-panel .tab1 .resist .arcane { background-image:url(images/resist/arcane.gif); }
-.main-panel .tab1 .resist .arcane:hover { border: 1px solid #FFFFFF; }
-.main-panel .tab1 .resist .fire { background-image:url(images/resist/fire.gif); }
-.main-panel .tab1 .resist .fire:hover { border: 1px solid #FF0000; }
-.main-panel .tab1 .resist .nature { background-image:url(images/resist/nature.gif);  }
-.main-panel .tab1 .resist .nature:hover { border: 1px solid #008000; }
-.main-panel .tab1 .resist .frost { background-image:url(images/resist/frost.gif); }
-.main-panel .tab1 .resist .frost:hover { border: 1px solid #0000FF; }
-.main-panel .tab1 .resist .shadow { background-image:url(images/resist/shadow.gif); }
-.main-panel .tab1 .resist .shadow:hover { border: 1px solid #4B0082; }
-
+.main-panel .profile .resist b { color:black; text-align:center; font-size:12px; font-weight:bold; position:absolute; right:-1px; text-align:center; top:6px; width:20px; }
+.main-panel .profile .resist span { color:white; font-size:12px !important; font-weight:bold; position:absolute; right:0px; text-align:center; top:5px; width:20px; }
+.main-panel .profile .resist .icon { width:20px; height:20px; cursor:default; float: left; position: relative; margin-left: 10px; border: 1px solid #000000; }
+.main-panel .profile .resist .arcane { background-image:url(images/resist/arcane.gif); }
+.main-panel .profile .resist .arcane:hover { border: 1px solid #FFFFFF; }
+.main-panel .profile .resist .fire { background-image:url(images/resist/fire.gif); }
+.main-panel .profile .resist .fire:hover { border: 1px solid #FF0000; }
+.main-panel .profile .resist .nature { background-image:url(images/resist/nature.gif);  }
+.main-panel .profile .resist .nature:hover { border: 1px solid #008000; }
+.main-panel .profile .resist .frost { background-image:url(images/resist/frost.gif); }
+.main-panel .profile .resist .frost:hover { border: 1px solid #0000FF; }
+.main-panel .profile .resist .shadow { background-image:url(images/resist/shadow.gif); }
+.main-panel .profile .resist .shadow:hover { border: 1px solid #4B0082; }
 
 /* Placement of health, mana, timeplayed, etc...*/
-.main-panel .tab1 .info_desc {
+.main-panel .profile .info_desc {
 	font-size:10px;
 	line-height:12px;
 	color:#ffdd00;
 	float: left;
 }
 /* Placement of values of health, mana, timeplayed, etc...*/
-.main-panel .tab1 .info_values {
+.main-panel .profile .info_values {
 	font-size:9px;
 	line-height:12px;
 	text-align:right;
@@ -165,15 +157,14 @@
 	float: right;
 }
 
-.main-panel .tab1 .statselect_l { position:absolute; width:170px; left: 0px; top: 291px; }
-.main-panel .tab1 .statselect_r { position:absolute; width:170px; right: 0px; top: 291px; }
+.main-panel .profile .statselect_l { position:absolute; width:170px; left: 0px; top: 291px; }
+.main-panel .profile .statselect_r { position:absolute; width:170px; right: 0px; top: 291px; }
 
-.main-panel .tab1 .padding { cursor: default; position:absolute; width:360px; height:90px; left: 0px; top: 311px; z-index: 200; }
-.main-panel .tab1 .padding .stats { float:left; width:158px; height:74px; padding:5px; color:#FFCC00; margin-right: 10px; }
-.main-panel .tab1 .padding .stats .statline {	padding:0; font:10px verdana, tahoma, sans-serif;}
-.main-panel .tab1 .padding .stats .statline .label { overflow:hidden; width:85px;}
-.main-panel .tab1 .padding .stats .statline .value { float:right; overflow:hidden; text-align:right; }
-
+.main-panel .profile .padding { cursor: default; position:absolute; width:360px; height:90px; left: 0px; top: 311px; z-index: 200; }
+.main-panel .profile .padding .stats { float:left; width:158px; height:74px; padding:5px; color:#FFCC00; margin-right: 10px; }
+.main-panel .profile .padding .stats .statline {	padding:0; font:10px verdana, tahoma, sans-serif;}
+.main-panel .profile .padding .stats .statline .label { overflow:hidden; width:85px;}
+.main-panel .profile .padding .stats .statline .value { float:right; overflow:hidden; text-align:right; }
 
 .bonus-box { height: 457px; width: 348px; position: absolute; left: 95px; top: 19px; }
 .bonus-box .bonus-container { margin: 5px; overflow: auto; height: 400px; }
@@ -197,373 +188,206 @@
 .info-bonus-navigation .selected .text { color:#ffffff; }
 
 
+/*********** Pet Page ***********/
+.main-panel .pets .container { padding: 0px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .pets .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .pets .pet { height:80px; margin: 10px; position:relative; }
+.main-panel .pets .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
+.main-panel .pets .pet .basics { height: 64px; width: 200px; position:absolute; left: 75px; top: 6px; }
+.main-panel .pets .pet .basics .name { font: bold 18px/20px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFCC00; }
 
-/*********** Pet Page Tab(2) ***********/
-
-.main-panel .tab2 .container { padding: 0px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab2 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab2 .pet { height:80px; margin: 10px; position:relative; }
-.main-panel .tab2 .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
-.main-panel .tab2 .pet .basics { height: 64px; width: 200px; position:absolute; left: 75px; top: 6px; }
-.main-panel .tab2 .pet .basics .name { font: bold 18px/20px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFCC00; }
-
-
-.main-panel .tab2 .pet .padding { top: 1px; right: 1px; position: absolute; }
-.main-panel .tab2 .pet .padding .stats {
+.main-panel .pets .pet .padding { top: 1px; right: 1px; position: absolute; }
+.main-panel .pets .pet .padding .stats {
 	float:left;
 	width:109px;
 	height:74px;
 	padding:3px 2px 1px 4px;
 	color:#DFB801;
 }
-.main-panel .tab2 .pet .padding .stats .statline {
+.main-panel .pets .pet .padding .stats .statline {
 	padding:0;
 	font:10px verdana, tahoma, sans-serif;
 	font-weight:bold;
 }
-.main-panel .tab2 .pet .padding .stats .statline .label {
+.main-panel .pets .pet .padding .stats .statline .label {
 	overflow:hidden;
 	width:85px;
 }
-.main-panel .tab2 .pet .padding .stats .statline .value {
+.main-panel .pets .pet .padding .stats .statline .value {
 	float:right;
 	overflow:hidden;
 	text-align:right;
 }
 
-.main-panel .tab2 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .tab2 .container .box-label .pets { background: url(images/icons/pets.gif); }
-.main-panel .tab2 .container .box-label .mounts { background: url(images/icons/mounts.gif); }
-.main-panel .tab2 .container .box-label .companions { background: url(images/icons/companions.gif); }
+.main-panel .pets .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.main-panel .pets .container .box-label .pets { background: url(images/icons/pets.gif); }
+.main-panel .pets .container .box-label .mounts { background: url(images/icons/mounts.gif); }
+.main-panel .pets .container .box-label .companions { background: url(images/icons/companions.gif); }
 
-.main-panel .tab2 .container .spell-page { margin: 10px; background: url(../images/char_info_bg.jpg) repeat-y center top; padding: 5px; border: 1px solid #333; }
-.main-panel .tab2 .container .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
-.main-panel .tab2 .container .spell-container .text { height: 40px; color: #FFCC00; white-space: normal; }
-.main-panel .tab2 .container .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
+.main-panel .pets .container .spell-page { margin: 10px; background: url(../images/char_info_bg.jpg) repeat-y center top; padding: 5px; border: 1px solid #333; }
+.main-panel .pets .container .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
+.main-panel .pets .container .spell-container .text { height: 40px; color: #FFCC00; white-space: normal; }
+.main-panel .pets .container .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
 
 /* Powers */
-.tab2 .powers { cursor: default; padding: 5px; width: 220px; position: absolute; left: 220px; top: 0px; }
-.tab2 .powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
-.tab2 .powers .bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
-.tab2 .powers .bar .power-bar { background: transparent repeat-x left center; margin: 1px; float: right; line-height: 16px; height: 16px; width: 130px; position: relative; text-align: center; border: 1px solid #000000; }
-.tab2 .powers .bar .health { background: url(images/bars/bar-life.gif); }
-.tab2 .powers .bar .health:hover { border-color: #7EFF00; }
-.tab2 .powers .bar .Mana { background: url(images/bars/bar-mana.gif); }
-.tab2 .powers .bar .Mana:hover { border-color: #00A8FF; }
-.tab2 .powers .bar .Rage { background: url(images/bars/bar-rage.gif); }
-.tab2 .powers .bar .Rage:hover { border-color: #FF0000; }
-.tab2 .powers .bar .Focus { background: url(images/bars/bar-energy.gif); }
-.tab2 .powers .bar .Focus:hover { border-color: #000000; }
-.tab2 .powers .bar .Energy { background: url(images/bars/bar-energy.gif); }
-.tab2 .powers .bar .Energy:hover { border-color: #000000; }
+.pets .powers { cursor: default; padding: 5px; width: 220px; position: absolute; left: 220px; top: 0px; }
+.pets .powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
+.pets .powers .bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
+.pets .powers .bar .power-bar { background: transparent repeat-x left center; margin: 1px; float: right; line-height: 16px; height: 16px; width: 130px; position: relative; text-align: center; border: 1px solid #000000; }
+.pets .powers .bar .health { background: url(images/bars/bar-life.gif); }
+.pets .powers .bar .health:hover { border-color: #7EFF00; }
+.pets .powers .bar .Mana { background: url(images/bars/bar-mana.gif); }
+.pets .powers .bar .Mana:hover { border-color: #00A8FF; }
+.pets .powers .bar .Rage { background: url(images/bars/bar-rage.gif); }
+.pets .powers .bar .Rage:hover { border-color: #FF0000; }
+.pets .powers .bar .Focus { background: url(images/bars/bar-energy.gif); }
+.pets .powers .bar .Focus:hover { border-color: #000000; }
+.pets .powers .bar .Energy { background: url(images/bars/bar-energy.gif); }
+.pets .powers .bar .Energy:hover { border-color: #000000; }
 
-.tab2 .powers .bar .xp-bar .fill { background: url(images/bars/xp-rested.gif); }
-.tab2 .powers .bar .xp-bar .text { width:130px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
-.tab2 .powers .bar .xp-bar:hover { border-color: #8F00FF; }
+.pets .powers .bar .xp-bar .fill { background: url(images/bars/xp-rested.gif); }
+.pets .powers .bar .xp-bar .text { width:130px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.pets .powers .bar .xp-bar:hover { border-color: #8F00FF; }
 
 /* Resistances */
-.main-panel .tab2 .resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 70px; top: 45px; padding: 0px; }
-.main-panel .tab2 .resist .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; height: 20px; text-transform: uppercase; }
-.main-panel .tab2 .resist .bar .text { float: right; line-height: 21px; }
-.main-panel .tab2 .resist .bar .icons { float: right; width: 220px; top: -1px; position: relative; }
-.main-panel .tab2 .resist b { color:black; text-align:center; font-size:12px; font-weight:bold; position:absolute; right:-1px; text-align:center; top:6px; width:20px; }
-.main-panel .tab2 .resist span { color:white; font-size:12px !important; font-weight:bold; position:absolute; right:0px; text-align:center; top:5px; width:20px; }
+.main-panel .pets .resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 70px; top: 45px; padding: 0px; }
+.main-panel .pets .resist .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; height: 20px; text-transform: uppercase; }
+.main-panel .pets .resist .bar .text { float: right; line-height: 21px; }
+.main-panel .pets .resist .bar .icons { float: right; width: 220px; top: -1px; position: relative; }
+.main-panel .pets .resist b { color:black; text-align:center; font-size:12px; font-weight:bold; position:absolute; right:-1px; text-align:center; top:6px; width:20px; }
+.main-panel .pets .resist span { color:white; font-size:12px !important; font-weight:bold; position:absolute; right:0px; text-align:center; top:5px; width:20px; }
 
-.main-panel .tab2 .resist .icon { width:20px; height:20px; cursor:default; float: left; position: relative; margin-left: 2px; border: 1px solid #000000; }
-.main-panel .tab2 .resist .arcane { background-image:url(images/resist/arcane.gif); }
-.main-panel .tab2 .resist .arcane:hover { border: 1px solid #FFFFFF; }
-.main-panel .tab2 .resist .fire { background-image:url(images/resist/fire.gif); }
-.main-panel .tab2 .resist .fire:hover { border: 1px solid #FF0000; }
-.main-panel .tab2 .resist .nature { background-image:url(images/resist/nature.gif);  }
-.main-panel .tab2 .resist .nature:hover { border: 1px solid #008000; }
-.main-panel .tab2 .resist .frost { background-image:url(images/resist/frost.gif); }
-.main-panel .tab2 .resist .frost:hover { border: 1px solid #0000FF; }
-.main-panel .tab2 .resist .shadow { background-image:url(images/resist/shadow.gif); }
-.main-panel .tab2 .resist .shadow:hover { border: 1px solid #4B0082; }
-
-
-
-/*********** Reputation Page Tab(3) ***********/
-
-.main-panel .tab3 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab3 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab3 .rep { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
-.main-panel .tab3 .rep-name { float: left; position: relative; line-height: 20px; }
-.main-panel .tab3 .rep-bar { height: 16px; width: 200px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
-.main-panel .tab3 .rep-bar:hover { border: 1px solid #FFFFFF; }
-.main-panel .tab3 .rep-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
-.main-panel .tab3 .rep-bar .text { width:200px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
-.main-panel .tab3 .rep-standing { width: 110px; float: right; position: relative; line-height: 20px; text-align: center; }
-
-.main-panel .tab3 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .tab3 .container .box-label .alliance { background: url(images/icons/alliance.gif); }
-.main-panel .tab3 .container .box-label .allianceforces { background: url(images/icons/allianceforces.gif); }
-.main-panel .tab3 .container .box-label .outland { background: url(images/icons/outland.gif); }
-.main-panel .tab3 .container .box-label .shattrathcity { background: url(images/icons/shattrathcity.gif); }
-.main-panel .tab3 .container .box-label .steamwheedlecartel { background: url(images/icons/steamwheedlecartel.gif); }
-.main-panel .tab3 .container .box-label .other { background: url(images/icons/zother.gif); }
-
-.main-panel .tab3 .rep-bar .Hated { background: url(images/bars/hated.gif); }
-.main-panel .tab3 .rep-bar .Neutral { background: url(images/bars/neutral.gif); }
-.main-panel .tab3 .rep-bar .Friendly { background: url(images/bars/friendly.gif); }
-.main-panel .tab3 .rep-bar .Honored { background: url(images/bars/honored.gif); }
-.main-panel .tab3 .rep-bar .Revered { background: url(images/bars/revered.gif); }
-.main-panel .tab3 .rep-bar .Exhaulted { background: url(images/bars/exhaulted.gif); }
-
-/*********** Skill Page Tab(4) ***********/
-.main-panel .tab4 .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab4 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab4 .skill { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
-.main-panel .tab4 .skill-name { float: left; position: relative; line-height: 20px; }
-.main-panel .tab4 .skill-bar { height: 16px; width: 273px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
-.main-panel .tab4 .skill-bar:hover { border: 1px solid #FFFFFF; }
-.main-panel .tab4 .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
-.main-panel .tab4 .skill-bar .text { width:273px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
-
-.main-panel .tab4 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .tab4 .container .box-label .classskills { background: url(images/icons/classskills.gif); }
-.main-panel .tab4 .container .box-label .professions { background: url(images/icons/professions.gif); }
-.main-panel .tab4 .container .box-label .secondaryskills { background: url(images/icons/secondaryskills.gif); }
-.main-panel .tab4 .container .box-label .weaponskills { background: url(images/icons/weaponskills.gif); }
-.main-panel .tab4 .container .box-label .armorproficiencies { background: url(images/icons/armorproficiencies.gif); }
-.main-panel .tab4 .container .box-label .languages { background: url(images/icons/languages.gif); }
-
-/*********** PvP Page Tab(5) ***********/
-
-/* Background image for pvp tab */
-.char_panel .tab5 .background {
-	position:absolute;
-	width:337px;
-	height:393px;
-	margin:32px 0pt 0pt 7px;
-	background:url(images/pvpframe.gif) no-repeat;
-}
-.char_panel .tab5 .honortext {
-	position:absolute;
-	margin:34px 0 0 6px;
-	text-align:center;
-	width:337px;
-	color:#ffffff;
-	font-size:14px;
-	font-weight:bold;
-}
-.char_panel .tab5 .honortext span {
-	margin-left:20px;
-	color:#FFCC00;
-}
-.char_panel .tab5 .honortext img {
-	margin-left:10px;
-	vertical-align:middle;
-}
-.char_panel .tab5 .arenatext {
-	position:absolute;
-	margin:129px 0 0 6px;
-	text-align:center;
-	width:337px;
-	color:#ffffff;
-	font-size:14px;
-	font-weight:bold;
-}
-.char_panel .tab5 .arenatext span {
-	margin-left:20px;
-	color:#FFCC00;
-}
-.char_panel .tab5 .arenatext img {
-	margin:0 0 0 10px;
-	height:20px;
-	width:23px;
-	vertical-align:middle;
-}
-.char_panel .tab5 .today {
-	position:absolute;
-	margin:57px 0 0 100px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .yesterday {
-	position:absolute;
-	margin:57px 0 0 160px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .lifetime {
-	position:absolute;
-	margin:57px 0 0 215px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	text-align:right;
-	width:120px;
-	overflow:hidden;
-}
-.char_panel .tab5 .divider {
-	position:absolute;
-	margin:74px 0 0 50px;
-	border:1px outset #333333;
-	width:280px;
-	height:0;
-}
-.char_panel .tab5 .killsline {
-	position:absolute;
-	margin-top:80px;
-	text-align:right;
-	width:76px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .killsline1 {
-	position:absolute;
-	margin:80px 0 0 75px;
-	text-align:right;
-	width:60px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .killsline2 {
-	position:absolute;
-	margin:80px 0 0 135px;
-	text-align:right;
-	width:80px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .killsline3 {
-	position:absolute;
-	margin:80px 0 0 215px;
-	text-align:right;
-	width:100px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .honorline {
-	position:absolute;
-	margin-top:100px;
-	text-align:right;
-	width:76px;
-	font-size:13px;
-	color:#999;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .honorline1 {
-	position:absolute;
-	margin:100px 0 0 75px;
-	text-align:right;
-	width:60px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .honorline2 {
-	position:absolute;
-	margin:100px 0 0 135px;
-	text-align:right;
-	width:80px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
-.char_panel .tab5 .honorline3 {
-	position:absolute;
-	margin:100px 0 0 255px;
-	text-align:right;
-	width:50px;
-	font-size:13px;
-	color:#FFF;
-	font-weight:bold;
-	overflow:hidden;
-}
+.main-panel .pets .resist .icon { width:20px; height:20px; cursor:default; float: left; position: relative; margin-left: 2px; border: 1px solid #000000; }
+.main-panel .pets .resist .arcane { background-image:url(images/resist/arcane.gif); }
+.main-panel .pets .resist .arcane:hover { border: 1px solid #FFFFFF; }
+.main-panel .pets .resist .fire { background-image:url(images/resist/fire.gif); }
+.main-panel .pets .resist .fire:hover { border: 1px solid #FF0000; }
+.main-panel .pets .resist .nature { background-image:url(images/resist/nature.gif);  }
+.main-panel .pets .resist .nature:hover { border: 1px solid #008000; }
+.main-panel .pets .resist .frost { background-image:url(images/resist/frost.gif); }
+.main-panel .pets .resist .frost:hover { border: 1px solid #0000FF; }
+.main-panel .pets .resist .shadow { background-image:url(images/resist/shadow.gif); }
+.main-panel .pets .resist .shadow:hover { border: 1px solid #4B0082; }
 
 
-/* Talent Page */
+/*********** Reputation Page ***********/
+.main-panel .reputation .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .reputation .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .reputation .rep { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
+.main-panel .reputation .rep-name { float: left; position: relative; line-height: 20px; }
+.main-panel .reputation .rep-bar { height: 16px; width: 200px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
+.main-panel .reputation .rep-bar:hover { border: 1px solid #FFFFFF; }
+.main-panel .reputation .rep-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.main-panel .reputation .rep-bar .text { width:200px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.main-panel .reputation .rep-standing { width: 110px; float: right; position: relative; line-height: 20px; text-align: center; }
 
-.main-panel .tab5 .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab5 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab5 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .tab5 .container .box-label .talents { background: url(images/icons/talents.gif); }
+.main-panel .reputation .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.main-panel .reputation .container .box-label .alliance { background: url(images/icons/alliance.gif); }
+.main-panel .reputation .container .box-label .allianceforces { background: url(images/icons/allianceforces.gif); }
+.main-panel .reputation .container .box-label .outland { background: url(images/icons/outland.gif); }
+.main-panel .reputation .container .box-label .shattrathcity { background: url(images/icons/shattrathcity.gif); }
+.main-panel .reputation .container .box-label .steamwheedlecartel { background: url(images/icons/steamwheedlecartel.gif); }
+.main-panel .reputation .container .box-label .other { background: url(images/icons/zother.gif); }
 
-.main-panel .tab5 .frames { margin: auto; height: 600px; width: auto; }
+.main-panel .reputation .rep-bar .Hated { background: url(images/bars/hated.gif); }
+.main-panel .reputation .rep-bar .Neutral { background: url(images/bars/neutral.gif); }
+.main-panel .reputation .rep-bar .Friendly { background: url(images/bars/friendly.gif); }
+.main-panel .reputation .rep-bar .Honored { background: url(images/bars/honored.gif); }
+.main-panel .reputation .rep-bar .Revered { background: url(images/bars/revered.gif); }
+.main-panel .reputation .rep-bar .Exhaulted { background: url(images/bars/exhaulted.gif); }
 
-.main-panel .tab5 .spec { position:relative; float: left; width:235px; height:600px; margin: 3px; }
-.main-panel .tab5 .spec-name { position:absolute; width:223px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; }
-.main-panel .tab5 .spec-name .name { color:#ffdd00; }
-.main-panel .tab5 .tbackground { position:absolute;width:235px;height:600px; }
-.main-panel .tab5 .content { position:absolute;width:235px;height:520px; }
-.main-panel .tab5 .top_bar { position:absolute;margin-top:43px; }
-.main-panel .tab5 .bot_bar { position:absolute;margin-top:402px; }
-.main-panel .tab5 .points { text-align:right;position:absolute;margin-top:48px;margin-left:70px;width:250px; }
-.main-panel .tab5 .link { text-align:left;position:absolute;margin-top:411px;margin-left:25px;width:145px; }
-.main-panel .tab5 .points_unused {  }
-.main-panel .tab5 .points_unused .label { color:#ffdd00; }
-.main-panel .tab5 .points_unused .export { float: right; color:#ffdd00; }
-.main-panel .tab5 .row { height:35px;margin-top:15px; }
-.main-panel .tab5 .rank_icon { position:absolute;margin-top:28px;margin-left:27px; }
-.main-panel .tab5 .rank_text { position:absolute;font-size:12px;margin-top:28px;margin-left:32px;cursor:default; }
-.main-panel .tab5 .talent-icon { height: 40px; width: 40px; }
-.main-panel .tab5 .cell { float:left;width:40px;height:40px;margin-left:15px; }
 
-.main-panel .tab5 .glyph-pane { height: 140px; clear: both; padding: 20px; }
-.main-panel .tab5 .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; position:relative; clear: left; }
-.main-panel .tab5 .glyph-1 img { float: left; background: url(images/glyphs/glyph_bg_major.png); height: 30px; width: 30px; padding: 5px; }
-.main-panel .tab5 .glyph-1 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px; }
+/*********** Skill Page ***********/
+.main-panel .skills .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .skills .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .skills .skill { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
+.main-panel .skills .skill-name { float: left; position: relative; line-height: 20px; }
+.main-panel .skills .skill-bar { height: 16px; width: 273px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
+.main-panel .skills .skill-bar:hover { border: 1px solid #FFFFFF; }
+.main-panel .skills .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.main-panel .skills .skill-bar .text { width:273px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
-.main-panel .tab5 .glyph-2 { float: right; height: 40px; width: 300px; margin: 2px; clear: right; }
-.main-panel .tab5 .glyph-2 img { float: left; background: url(images/glyphs/glyph_bg_minor.png); height: 30px; width: 30px; padding: 5px; }
-.main-panel .tab5 .glyph-2 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px;  }
+.main-panel .skills .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.main-panel .skills .container .box-label .classskills { background: url(images/icons/classskills.gif); }
+.main-panel .skills .container .box-label .professions { background: url(images/icons/professions.gif); }
+.main-panel .skills .container .box-label .secondaryskills { background: url(images/icons/secondaryskills.gif); }
+.main-panel .skills .container .box-label .weaponskills { background: url(images/icons/weaponskills.gif); }
+.main-panel .skills .container .box-label .armorproficiencies { background: url(images/icons/armorproficiencies.gif); }
+.main-panel .skills .container .box-label .languages { background: url(images/icons/languages.gif); }
 
+
+/*********** Talent Page ***********/
+.main-panel .talents .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .talents .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .talents .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.main-panel .talents .container .box-label .talents { background: url(images/icons/talents.gif); }
+
+.main-panel .talents .frames { margin: auto; height: 600px; width: auto; }
+
+.main-panel .talents .spec { position:relative; float: left; width:235px; height:600px; margin: 3px; }
+.main-panel .talents .spec-name { position:absolute; width:223px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; }
+.main-panel .talents .spec-name .name { color:#ffdd00; }
+.main-panel .talents .tbackground { position:absolute;width:235px;height:600px; }
+.main-panel .talents .content { position:absolute;width:235px;height:520px; }
+.main-panel .talents .top_bar { position:absolute;margin-top:43px; }
+.main-panel .talents .bot_bar { position:absolute;margin-top:402px; }
+.main-panel .talents .points { text-align:right;position:absolute;margin-top:48px;margin-left:70px;width:250px; }
+.main-panel .talents .link { text-align:left;position:absolute;margin-top:411px;margin-left:25px;width:145px; }
+.main-panel .talents .points_unused {  }
+.main-panel .talents .points_unused .label { color:#ffdd00; }
+.main-panel .talents .points_unused .export { float: right; color:#ffdd00; }
+.main-panel .talents .row { height:35px;margin-top:15px; }
+.main-panel .talents .rank_icon { position:absolute;margin-top:28px;margin-left:27px; }
+.main-panel .talents .rank_text { position:absolute;font-size:12px;margin-top:28px;margin-left:32px;cursor:default; }
+.main-panel .talents .talent-icon { height: 40px; width: 40px; }
+.main-panel .talents .cell { float:left;width:40px;height:40px;margin-left:15px; }
+
+.main-panel .talents .glyph-pane { height: 140px; clear: both; padding: 20px; }
+.main-panel .talents .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; position:relative; clear: left; }
+.main-panel .talents .glyph-1 img { float: left; background: url(images/glyphs/glyph_bg_major.png); height: 30px; width: 30px; padding: 5px; }
+.main-panel .talents .glyph-1 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px; }
+
+.main-panel .talents .glyph-2 { float: right; height: 40px; width: 300px; margin: 2px; clear: right; }
+.main-panel .talents .glyph-2 img { float: left; background: url(images/glyphs/glyph_bg_minor.png); height: 30px; width: 30px; padding: 5px; }
+.main-panel .talents .glyph-2 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px;  }
 
 /* Grey out unused talents */
 /* filter:gray only works in IE so we do this to half-assed transparency for Mozilla and Opera */
-.main-panel .tab5 .icon_grey { filter:gray;opacity:0.5; }
+.main-panel .talents .icon_grey { filter:gray;opacity:0.5; }
 
 
-/* Spellbook Page */
+/***********  Spellbook Page ***********/
+.main-panel .spellbook .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .spellbook .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .spellbook .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.main-panel .spellbook .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
 
-.main-panel .tab6 .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab6 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab6 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .tab6 .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
-
-.main-panel .tab6 .container .spell-tree { margin: 10px;  background: url(../images/char_info_bg.jpg) repeat-y center top; }
-.main-panel .tab6 .container .spell-tree .tree-name { position: relative; text-transform: uppercase; font: bold 24px/40px "Times New Roman", Times, serif; color: #FFFFFF; padding: 2px; }
-.main-panel .tab6 .container .spell-tree .tree-name img { height: 40px; width: 40px; float: left;}
-.main-panel .tab6 .container .spell-tree .tree-name .id-name { height: 40px; float: left; margin-left: 5px; }
-.main-panel .tab6 .container .spell-tree .spell-page { padding: 5px; clear: both; }
-.main-panel .tab6 .container .spell-tree .spell-page .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
-.main-panel .tab6 .container .spell-tree .spell-page .spell-container .text { height: 40px; color: #FFCC00; white-space: normal; }
-.main-panel .tab6 .container .spell-tree .spell-page .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
-.main-panel .tab6 .container .spell-tree .spell-page .spell-container .text .rank { color: #CCCCCC; font-size: 10px; }
+.main-panel .spellbook .container .spell-tree { margin: 10px;  background: url(../images/char_info_bg.jpg) repeat-y center top; }
+.main-panel .spellbook .container .spell-tree .tree-name { position: relative; text-transform: uppercase; font: bold 24px/40px "Times New Roman", Times, serif; color: #FFFFFF; padding: 2px; }
+.main-panel .spellbook .container .spell-tree .tree-name img { height: 40px; width: 40px; float: left;}
+.main-panel .spellbook .container .spell-tree .tree-name .id-name { height: 40px; float: left; margin-left: 5px; }
+.main-panel .spellbook .container .spell-tree .spell-page { padding: 5px; clear: both; }
+.main-panel .spellbook .container .spell-tree .spell-page .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
+.main-panel .spellbook .container .spell-tree .spell-page .spell-container .text { height: 40px; color: #FFCC00; white-space: normal; }
+.main-panel .spellbook .container .spell-tree .spell-page .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
+.main-panel .spellbook .container .spell-tree .spell-page .spell-container .text .rank { color: #CCCCCC; font-size: 10px; }
 
 
-/* Currency Page */
+/***********  Currency Page ***********/
+.main-panel .currency .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .currency .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .currency .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+.main-panel .currency .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
 
-.main-panel .tab7 .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .tab7 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .tab7 .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .tab7 .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
+.main-panel .currency .container .currency-container { cursor: default; text-align:left; color:#000000; background: url(../images/currency_bg.png); margin: 2px 20px 0px; height: 35px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
+.main-panel .currency .container .currency-container .icon { height: 25px; width: 25px; float: left; margin-right: 5px; padding-top: 5px;}
+.main-panel .currency .container .currency-container .text { text-align: center; margin-top: 10px;}
 
-.main-panel .tab7 .container .currency-container { cursor: default; text-align:left; color:#000000; background: url(../images/currency_bg.png); margin: 2px 20px 0px; height: 35px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
-.main-panel .tab7 .container .currency-container .icon { height: 25px; width: 25px; float: left; margin-right: 5px; padding-top: 5px;}
-.main-panel .tab7 .container .currency-container .text { text-align: center; margin-top: 10px;}
 
 
 /**
- * Character Page styles
-**/
+ * Quests
+ **/
 .questtype {
 	float:left;
 	height:12px;
