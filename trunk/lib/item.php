@@ -1133,7 +1133,7 @@ class item
 				//Requires
 				$tt['Attributes']['Requires'][] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_preg_item_level'], $line) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_level'], $line, $matches) )
 			{
 				//Item Level
 				$tt['Attributes']['ItemLevel']['Line'] = $matches[0];
