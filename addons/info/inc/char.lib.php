@@ -51,40 +51,24 @@ class char
 		$this->data = $data;
 		$this->locale = $roster->locale->wordings[$this->data['clientLocale']];
 
+		// Get display column names
+		$query = 'SELECT * FROM `' . $roster->db->table('default',$addon['basename']) . '`;';
+
+		$result = $roster->db->query($query);
+		$disp_defaults = $roster->db->fetch_all($result, SQL_ASSOC);
+		$disp_defaults = $disp_defaults[0];
+
+		// Get permission data for this member id
 		$querystr = "SELECT * FROM `" . $roster->db->table('display',$addon['basename']) . "` WHERE `member_id` = '" . $this->data['member_id'] . "';";
 
 		$result = $roster->db->query($querystr);
+		$row = $roster->db->fetch($result, SQL_ASSOC);
 
-		$row = $roster->db->fetch($result,SQL_ASSOC);
-
-		$disp_array = array(
-			'show_money',
-			'show_played',
-			'show_tab2',
-			'show_tab3',
-			'show_tab4',
-			'show_tab5',
-			'show_currency',
-			'show_talents',
-			'show_glyphs',
-			'show_spellbook',
-			'show_mail',
-			'show_bags',
-			'show_bank',
-			'show_quests',
-			'show_recipes',
-			'show_item_bonuses',
-			'show_pet_talents',
-			'show_pet_spells',
-			'show_companions',
-			'show_mounts'
-		);
-
-		foreach( $disp_array as $setting )
+		foreach( $disp_defaults as $name => $value )
 		{
-			if( $addon['config'][$setting] == -1 )
+			if( $addon['config'][$name] == -1 )
 			{
-				$addon['config'][$setting] = $row[$setting];
+				$addon['config'][$name] = $value;
 			}
 		}
 
@@ -118,7 +102,7 @@ class char
 			'S_BONUS_TAB'   => $roster->auth->getAuthorized($addon['config']['show_item_bonuses']),
 			'S_PET_TALENT_TAB' => $roster->auth->getAuthorized($addon['config']['show_pet_talents']),
 			'S_PET_SPELL_TAB'  => $roster->auth->getAuthorized($addon['config']['show_pet_spells']),
-			'S_CURRENCY_TAB'     => $roster->auth->getAuthorized($addon['config']['show_currency']),
+			'S_CURRENCY_TAB'   => $roster->auth->getAuthorized($addon['config']['show_currency']),
 
 			'S_PETS'        => false,
 			'S_MOUNTS'      => false,
@@ -2567,108 +2551,6 @@ class char
 		}
 	}
 
-	function _alt_name_hover()
-	{
-		global $roster;
-
-		$alt_hover = '';
-		if( active_addon('memberslist') )
-		{
-			$sql = "SELECT `main_id` FROM `"
-				 . $roster->db->table('alts', 'memberslist')
-				 . "` WHERE `member_id` = " . $this->data['member_id'] . ";";
-
-			$main_id = $roster->db->query_first($sql);
-			if( $main_id != 0 )
-			{
-				// we know the main, get alt info
-				$sql = "SELECT `m`.`name`, `m`.`level`, `m`.`class`, `a`.* FROM `"
-					 . $roster->db->table('alts', 'memberslist') . "` AS a, `"
-					 . $roster->db->table('players') . "` AS m "
-					 . " WHERE `a`.`member_id` = `m`.`member_id` "
-					 . " AND `a`.`main_id` = $main_id;";
-
-				$qry = $roster->db->query($sql);
-				$alts = $roster->db->fetch_all($qry, SQL_ASSOC);
-
-				if( isset($alts[1]) )
-				{
-					$html = $caption = '';
-
-					foreach( $alts as $alt )
-					{
-						if( $alt['main_id'] == $alt['member_id'] )
-						{
-							$caption = '<a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
-								     . $alt['name'] . ' (' . $roster->locale->act['level']
-								     . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a>';
-						}
-						else
-						{
-							$html .= '<a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
-								   . $alt['name'] . ' (' . $roster->locale->act['level']
-								   . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a><br />';
-						}
-					}
-					setTooltip('alt_html', $html);
-					setTooltip('alt_cap', $caption);
-					$alt_hover = 'style="cursor:pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);" '
-									 . 'onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-5,OFFSETY,-5,NOCLOSE);" '
-									 . 'onmouseout="return nd();"';
-				}
-			}
-		}
-		$roster->tpl->assign_var('ALT_TOOLTIP',$alt_hover);
-	}
-
-	function _mini_members_list()
-	{
-		global $roster;
-
-		// Get the scope select data
-		$query = 'SELECT `members`.`member_id`, `members`.`name`, `members`.`class`, `members`.`classid`, `members`.`level`, `members`.`guild_title`, `members`.`guild_rank`, `players`.`race`, `players`.`raceid`, `players`.`sex`, `players`.`sexid` '
-			   . 'FROM `' . $roster->db->table('members') . '` AS members '
-			   . 'LEFT JOIN `' . $roster->db->table('players') . '` AS players ON `members`.`member_id` = `players`.`member_id` '
-			   . 'WHERE `members`.`guild_id` = "' . $this->data['guild_id'] . '" '
-			   . 'ORDER BY `members`.`level` DESC, `members`.`name` ASC';
-
-		$result = $roster->db->query($query);
-
-		if( !$result )
-		{
-			trigger_error($roster->db->error());
-			return false;
-		}
-
-		while( $data = $roster->db->fetch($result,SQL_ASSOC) )
-		{
-			$roster->tpl->assign_block_vars('mini_memberslist', array(
-				'ID'         => $data['member_id'],
-				'NAME'       => $data['name'],
-				'CLASS'      => $data['class'],
-				'CLASS_ID'   => $data['classid'],
-				'CLASS_EN'   => strtolower(str_replace(' ','',$roster->locale->wordings['enUS']['id_to_class'][$data['classid']])),
-				'LEVEL'      => $data['level'],
-				'TITLE'      => $data['guild_title'],
-				'RANK'       => $data['guild_rank'],
-				'RACE'       => $data['race'],
-				'RACE_ID'    => $data['raceid'],
-				'RACE_EN'    => ( $data['race'] != '' ? strtolower(str_replace(' ','',$this->locale['race_to_en'][$data['race']])) : '' ),
-				'SEX'        => $data['sex'],
-				'SEX_ID'     => $data['sexid'],
-				'U_LINK'     => ( $data['race'] != '' ? makelink('&amp;a=c:' . $data['member_id'],true) : false ),
-				'S_SELECTED' => ( $data['member_id'] == $this->data['member_id'] ? true : false )
-				)
-			);
-		}
-
-        $roster->tpl->assign_var('S_MINI_MEMBERSLIST',( $roster->db->num_rows() > 1 ? true : false ));
-
-		$roster->db->free_result($result);
-
-		return true;
-	}
-
 	/**
 	 * Main output function
 	 */
@@ -2677,7 +2559,6 @@ class char
 		global $roster, $addon;
 
 		$this->fetchEquip();
-		$this->_alt_name_hover();
 
 		// Equipment
 		$this->equip_slot('Head');
@@ -2815,9 +2696,6 @@ class char
 		// PvP
 		$this->show_pvp();
 
-		// Mini Memberslist
-		$this->_mini_members_list();
-
 		// Item bonuses
 		if( $roster->auth->getAuthorized($addon['config']['show_item_bonuses']) )
 		{
@@ -2849,14 +2727,13 @@ class char
 		{
 			$roster->tpl->assign_var('S_PET_TAB',false);
 		}
-		//companion tab
-		
-	//	'S_COMPAN_TAB'  => $roster->auth->getAuthorized($addon['config']['show_critter']),
-            if( $roster->auth->getAuthorized($addon['config']['show_companions']) && $this->show_companions() )
+
+		// Companion tab
+		if( $roster->auth->getAuthorized($addon['config']['show_companions']) && $this->show_companions() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['companions'],
-				'VALUE'    => 'show_companions',
+				'VALUE'    => 'companions',
 				'SELECTED' => false
 				)
 			);
@@ -2865,9 +2742,7 @@ class char
 		{
 			$roster->tpl->assign_var('S_COMPAN_TAB',false);
 		}
-		
-		
-		
+
 		// Reputation Tab
 		if( $roster->auth->getAuthorized($addon['config']['show_tab3']) && $this->show_reputation() )
 		{
