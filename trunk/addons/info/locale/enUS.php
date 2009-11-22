@@ -94,11 +94,10 @@ $lang['Trinket0']      = 'Trinket 0';
 $lang['Trinket1']      = 'Trinket 1';
 
 //tabs
-$lang['tab1']='Profile';
-$lang['tab2']='Pet';
-$lang['tab3']='Reputation';
-$lang['tab4']='Skills';
-$lang['tab5']='PvP';
+$lang['profile']='Profile';
+$lang['reputation']='Reputation';
+$lang['skills']='Skills';
+$lang['pvp']='PvP';
 
 $lang['strength_tooltip']='Increases your attack power with melee Weapons.<br />Increases the amount of damage you can block with a shield.';
 $lang['agility_tooltip']= 'Increases your attack power with ranged weapons.<br />Improves your chance to score a critcal hit with all weapons.<br />Increases your armor and your chance to dodge attacks.';
@@ -287,10 +286,10 @@ $lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists di
 $lang['admin']['mail_disp'] = "Mail Display|Controls how the mail is displayed<br /><br />&quot;Table&quot; Shows the mail in a table view<br />&quot;Bag&quot; Shows each mail as a bag of items<br />&quot;Both&quot; Shows both";
 $lang['admin']['show_money'] = "Money|Controls the display of Money<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_played'] = "Time Played|Controls the display of Time Played and Time Level Played<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab2'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab3'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab4'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab5'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_pets'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_reputation'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_skills'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_honor'] = "PvP|Controls the display of PvP<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talents|Controls the display of Talents<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";

@@ -94,11 +94,10 @@ $lang['Trinket0']      = 'Bijou 0';
 $lang['Trinket1']      = 'Bijou 1';
 
 //tabs
-$lang['tab1']='Profile';
-$lang['tab2']='Familier';
-$lang['tab3']='Réputation';
-$lang['tab4']='Compétences';
-$lang['tab5']='JcJ';
+$lang['profile']='Profile';
+$lang['reputation']='Réputation';
+$lang['skills']='Compétences';
+$lang['pvp']='JcJ';
 
 $lang['strength_tooltip']='Augmente la puissance d\'attaque avec arme de mêlée.<br />Augmente le nombre de points de dégâts bloqués par le bouclier.';
 $lang['agility_tooltip']= 'Augmente votre puissance d\'attaque avec arme de jet.<br />Améliore vos chances de réaliser une attaque critique avec toutes les armes.<br />Augmente votre armure et votre chance d\'esquiver les attaques.';
@@ -287,10 +286,10 @@ $lang['admin']['recipe_disp'] = "Affichage des recettes|Contrôle la façon dont
 $lang['admin']['mail_disp'] = "Mail Display|Controls how the mail is displayed<br /><br />&quot;Table&quot; Shows the mail in a table view<br />&quot;Bag&quot; Shows each mail as a bag of items<br />&quot;Both&quot; Shows both";
 $lang['admin']['show_money'] = "Argent|Affichage de l'argent<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_played'] = "Time Played|Controls the display of Time Played and Time Level Played<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_tab2'] = "Familiers|Affichage des familiers<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_tab3'] = "Réputation|Affichage des réputations<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_tab4'] = "Compétences|Affichage des compétences<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
-$lang['admin']['show_tab5'] = "JcJ|Affichage du JcJ<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_pets'] = "Familiers|Affichage des familiers<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_reputation'] = "Réputation|Affichage des réputations<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_skills'] = "Compétences|Affichage des compétences<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
+$lang['admin']['show_honor'] = "JcJ|Affichage du JcJ<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_talents'] = "Talents|Affichage des talents<br /><br />Le paramêtre est global et écrase le paramêtre par personnage";
 $lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";

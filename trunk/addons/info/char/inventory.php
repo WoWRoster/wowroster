@@ -138,3 +138,7 @@ if( $roster->auth->getAuthorized($addon['config']['show_bank']) )
 		$bag7->out();
 	}
 }
+
+$roster->tpl->set_filenames(array('inventory' => $addon['basename'] . '/inventory.html'));
+
+$roster->tpl->display('inventory');

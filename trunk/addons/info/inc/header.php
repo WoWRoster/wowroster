@@ -25,6 +25,6 @@ require_once ($addon['inc_dir'] . 'char.lib.php');
 // Get Character Info
 $char = new char($roster->data);
 
-$roster->output['title'] = sprintf($roster->locale->act['char_stats'],$char->get('name'));
+$roster->output['title'] = sprintf($roster->locale->act['char_stats'], $char->get('name'));
 
 $roster->tpl->assign_var('U_IMAGE_PATH', $addon['tpl_image_path']);
