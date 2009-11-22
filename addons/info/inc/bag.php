@@ -117,7 +117,7 @@ class bag extends item
 			else
 			{
 				$roster->tpl->assign_block_vars('bag.item',array(
-					'ICON'     => $roster->config['img_url'] . 'pixel.gif',
+					'ICON'     => '',
 					'TOOLTIP'  => '',
 					'ITEMLINK' => '',
 					'QTY'      => 0
