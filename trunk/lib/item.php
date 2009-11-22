@@ -605,6 +605,12 @@ class item
 		return $html;
 	}
 
+	function _getItemLevel()
+	{
+		$html = '<span style="color:#ffd800;">' . $this->attributes['ArmorClass']['Line'] . '</span><br />';
+		return $html;
+	}
+
 	function _getBoss()
 	{
 		$tmp = explode ( ':', $this->attributes['Boss'] );
@@ -740,6 +746,10 @@ class item
 			if( isset($this->attributes['ItemNote']) )
 			{
 				$html_tt .= $this->_getItemNote();
+			}
+			if( isset($this->attributes['ItemLevel']) )
+			{
+				$html_tt .= $this->_getItemLevel();
 			}
 			if( isset($this->attributes['Source']) )
 			{
@@ -1122,6 +1132,12 @@ class item
 			{
 				//Requires
 				$tt['Attributes']['Requires'][] = $line;
+			}
+			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_preg_item_level'], $line) )
+			{
+				//Item Level
+				$tt['Attributes']['ItemLevel']['Line'] = $matches[0];
+				$tt['Attributes']['ItemLevel']['Level'] = $matches[1];
 			}
 			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'], $line) )
 			{
