@@ -721,6 +721,10 @@ class item
 			{
 				$html_tt .= $this->_getRequired();
 			}
+			if( isset($this->attributes['ItemLevel']) )
+			{
+				$html_tt .= $this->_getItemLevel();
+			}
 			if( isset($this->effects) )
 			{
 				$html_tt .= $this->_getPassiveBonus();
@@ -746,10 +750,6 @@ class item
 			if( isset($this->attributes['ItemNote']) )
 			{
 				$html_tt .= $this->_getItemNote();
-			}
-			if( isset($this->attributes['ItemLevel']) )
-			{
-				$html_tt .= $this->_getItemLevel();
 			}
 			if( isset($this->attributes['Source']) )
 			{
