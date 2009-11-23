@@ -2525,7 +2525,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
 				$this->add_value('tree', $talent_tree);
-				$this->add_value('background', $this->fix_icon($tree_background));
+				$this->add_value('background', strtolower($this->fix_icon($tree_background)));
 				$this->add_value('pointsspent', $tree_pointsspent);
 				$this->add_value('order', $tree_order);
 				$this->add_value('build', $build);
