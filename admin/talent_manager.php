@@ -149,7 +149,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
             $bob->add_value('tree', $treedata->name);
             $bob->add_value('order', $treedata->order);
             $bob->add_value('class_id', $i);
-            $bob->add_value('background', $treedata->bgImage);
+            $bob->add_value('background', strtolower($treedata->bgImage));
             $bob->add_value('icon', $treedata->icon);
             $bob->add_value('tree_num', $treenum);
 		
