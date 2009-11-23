@@ -2774,7 +2774,7 @@ class char
 		}
 
 		// Reputation Tab
-		if( $roster->auth->getAuthorized($addon['config']['show_rep']) && $this->show_reputation() )
+		if( $roster->auth->getAuthorized($addon['config']['show_reputation']) && $this->show_reputation() )
 		{
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['reputation'],
