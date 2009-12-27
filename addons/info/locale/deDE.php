@@ -27,6 +27,7 @@ $lang['cb_bags'] = 'Taschen|Zeigt den Inhalt der Taschen dieses Charakters';
 $lang['cb_bank'] = 'Bank|Zeigt den Inhalt der Bank dieses Charakters';
 $lang['cb_quests'] = 'Quests|Eine Liste der Quests, die dieser Charakter momentan hat';
 $lang['cb_recipes'] = 'Rezepte|Zeigt die Gegenstände, die dieser Charakter herstellen kann';
+$lang['cb_inventory'] = 'Inventory|Shows the current inventory of the players bank and bags';
 
 $lang['char_stats'] = 'Charakterwerte für: %1$s';
 $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';

@@ -24,7 +24,7 @@ include( $addon['inc_dir'] . 'header.php' );
 
 
 $char->fetchEquip();
-
+/*
 // Equipment
 $char->equip_slot('Head');
 $char->equip_slot('Neck');
@@ -48,7 +48,7 @@ $char->equip_slot('Finger0');
 $char->equip_slot('Finger1');
 $char->equip_slot('Trinket0');
 $char->equip_slot('Trinket1');
-
+*/
 if( $roster->auth->getAuthorized($addon['config']['show_bags']) )
 {
 	$bag0 = bag_get( $char->get('member_id'), 'Bag0' );
