@@ -126,6 +126,7 @@ class char
 			'GUILD_NAME'    => $this->data['guild_name'],
 			'FACTION_EN'    => strtolower($roster->data['factionEn']),
 			'FACTION'       => $roster->data['faction'],
+			'CHAR_LEVEL_RACE_CLASS' => sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']),
 
 			'MONEY_G' => $this->data['money_g'],
 			'MONEY_S' => $this->data['money_s'],
