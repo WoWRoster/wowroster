@@ -26,6 +26,11 @@ if( !defined('E_STRICT') )
 	define('E_STRICT', 2048);
 }
 
+if( !defined('E_DEPRECATED') )
+{
+	define('E_DEPRECATED', 8192);
+}
+
 /**
  * Roster Error Handler
  *
@@ -110,7 +115,8 @@ class roster_error
 			E_USER_ERROR      => 'Roster Error',
 			E_USER_WARNING    => 'Roster Warning',
 			E_USER_NOTICE     => 'Roster Notice',
-			E_STRICT          => 'Runtime Notice'
+			E_STRICT          => 'Runtime Notice',
+			E_DEPRECATED      => 'Core Warning, Depreciated'
 		);
 		// NOTE: E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR and E_COMPILE_WARNING
 		// error levels will be handled as per the error_reporting settings.
