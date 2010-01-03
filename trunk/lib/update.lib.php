@@ -1864,7 +1864,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		global $roster;
 
 		// Not working yet
-		return;
+		//return;
 
 		if( isset($data['Reputation']) )
 		{
@@ -1885,7 +1885,123 @@ CREATE TABLE `renprefix_quest_task_data` (
 			}
 
 			$count = $repData['Count'];
+                  //aprint($repData);
+                  $key = '';
+                  foreach ($repData as $cat => $factions)
+                  {
+                        if ($cat != 'Count')
+				{
+                              //echo '<br><hr><br>'.$cat.'<br>';
+                              
+                              foreach ($factions as $faction => $data)
+                              {
+                                    if ($faction != 'AtWar' & $faction != 'Standing' & $faction != 'Value' & $faction != 'Description' )
+                                    {
+                                          //echo '--'.$faction.'<br>';
+                                          
+                                          //aprint($data);
+                                          
+                                          if (is_array($data))
+                                          {
+                                                $sub_x = $faction;
+                                                foreach ($data as $name => $v)
+                                                {
+                                                      if ($name != 'AtWar' & $name != 'Standing' & $name != 'Value' & $name != 'Description' )
+                                                      {
+                                                            //aprint($v);
+                                                            //echo '++++'.$name.'<br>';
+                                                            //echo $factions[$faction][$data][$name]['Value'].'<br>';
+                                                            $this->reset_values();
+                                                            if( !empty($memberId) )
+						                        {
+							                       $this->add_value('member_id', $memberId );
+						                        }
+						                        if( !empty($cat) )
+						                        {
+							                       $this->add_value('faction', $cat );
+						                        }
+						                        if( !empty($faction) )
+						                        {
+							                       $this->add_value('parent', $faction );
+						                        }
+						                        if( !empty($name) )
+						                        {
+							                       $this->add_value('name', $name );
+						                        }
+						                        
+						                        if( !empty($v['Value']) )
+						                        {
+							                       list($level, $max) = explode(':',$v['Value']);
+							                       $this->add_value('curr_rep', $level );
+							                       $this->add_value('max_rep', $max );
+						                        }
+                                                            
+						                        $this->add_ifvalue( $v, 'AtWar' );
+						                        $this->add_ifvalue( $v, 'Standing' );
 
+						                        $messages .= '.';
+
+						                        $querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr . ";";
+						                        //echo $querystr.'<br><hr><br>';
+						                        $result = $roster->db->query($querystr);
+						                        if( !$result )
+						                        {
+							                       $this->setError('Reputation for ' . $name . ' could not be inserted',$roster->db->error());
+						                        }
+                                                            if (isset($v['Value']))
+                                                            {
+                                                                  $key = $faction;
+                                                            }      
+                                                      }
+                                                      
+                                                }
+                                                
+                                          }
+                                          
+                                          $this->reset_values();
+                                          if( !empty($memberId) )
+						      {
+							      $this->add_value('member_id', $memberId );
+						      }
+						      if( !empty($cat) )
+						      {
+							      $this->add_value('faction', $cat );
+						      }
+						      if( !empty($key) )
+						      {
+							      $this->add_value('parent', $key );
+						      }
+						      if( !empty($faction) )
+						      {
+							      $this->add_value('name', $faction );
+						      }
+						                        
+						      if( !empty($data['Value']) )
+						      {
+							      list($level, $max) = explode(':',$data['Value']);
+							      $this->add_value('curr_rep', $level );
+							      $this->add_value('max_rep', $max );
+						      }
+                                                            
+						      $this->add_ifvalue( $data, 'AtWar' );
+						      $this->add_ifvalue( $data, 'Standing' );
+
+						      $messages .= '.';
+
+						      $querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr . ";";
+						      //echo '--'.$querystr.'<br><hr><br>';
+						      
+						      $result = $roster->db->query($querystr);
+						      if( !$result )
+						      {
+							     $this->setError('Reputation for ' . $faction . ' could not be inserted',$roster->db->error());
+						      }
+						      $key = '';						      
+                                    }
+                              }
+                        }
+                  }
+                  /*
 			foreach( array_keys( $repData ) as $factions )
 			{
 				$faction_name = $repData[$factions];
@@ -1912,6 +2028,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 							$this->add_value('curr_rep', $level );
 							$this->add_value('max_rep', $max );
 						}
+						if ()
+						{
+						
+						}
 
 						$this->add_ifvalue( $repData[$factions][$faction], 'AtWar' );
 						$this->add_ifvalue( $repData[$factions][$faction], 'Standing' );
@@ -1927,7 +2047,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						}
 					}
 				}
-			}
+			}*/
 			$this->setMessage($messages . '</li>');
 		}
 		else
@@ -2542,18 +2662,23 @@ CREATE TABLE `renprefix_quest_task_data` (
 		
 		foreach ($this->talent_build_urls as $build => $num)
             {
-                  $this->add_value('build', $build);
+                  
                   foreach ($num as $m => $buil)
                   {
+                        $this->reset_values();
+                        $this->add_value('build', $build);
                         $this->add_value('member_id', $m);
                         $this->add_value('tree', $buil);
+                        $querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
+                        $result = $roster->db->query($querystr);
+                        
+                        if( !$result )
+                        {
+                              $this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
+                        }
+                  
                   }
-                  $querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
-                  $result = $roster->db->query($querystr);
-                  if( !$result )
-                  {
-                        $this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
-                  }
+                  
 		}
 		$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
 			if( !$roster->db->query($querystr) )
