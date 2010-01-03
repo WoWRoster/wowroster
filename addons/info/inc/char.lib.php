@@ -1402,30 +1402,74 @@ class char
 
 		$repData = $this->_rep_tab_values();
 
+            //aprint($repData);            
+            
 		if( is_array($repData) )
 		{
 			foreach( $repData as $findex => $faction )
 			{
+			  // echo $findex.'<br>';
+			   //aprint($faction);
 				$roster->tpl->assign_block_vars('rep',array(
 					'ID'      => $findex,
-					'NAME'    => $faction['name'],
-					'NAME_ID' => $this->locale['faction_to_id'][$faction['name']]
+					'NAME'    => $findex,
+					'NAME_ID' => $this->locale['faction_to_id'][$findex]
 					)
 				);
 
-				foreach( $faction['bars'] as $repbar )
+				foreach( $faction as $rep => $bar )
 				{
+				  //echo $rep.' - '.$bar .'<br>';
+				 
+                              if (isset($bar['value']))
+                              {
 					$roster->tpl->assign_block_vars('rep.bar',array(
-						'ID'       => $repbar['barid'],
-						'NAME'     => $repbar['name'],
-						'WIDTH'    => $repbar['barwidth'],
-						'IMAGE'    => $repbar['image'],
-						'STANDING' => $repbar['standing'],
-						'VALUE'    => $repbar['value'],
-						'MAXVALUE' => $repbar['maxvalue'],
-						'ATWAR'    => $repbar['atwar']
+						'ID'       => $bar['barid'],
+						'NAME'     => $rep,
+						'WIDTH'    => $bar['barwidth'],
+						'IMAGE'    => $bar['image'],
+						'STANDING' => $bar['standing'],
+						'VALUE'    => $bar['value'],
+						'MAXVALUE' => $bar['maxvalue'],
+						'ATWAR'    => $bar['atwar']
 						)
 					);
+					}
+					else
+					{
+					 $roster->tpl->assign_block_vars('rep.bar.rep2',array(
+					       'ID'      => $rep,
+					       'NAME'    => $rep,
+					       'NAME_ID' => $this->locale['faction_to_id'][$rep]
+					       )
+				        );
+					}
+					if (isset($bar['sub']))
+					{
+                                    foreach($bar as $fact => $sta)
+                                    {
+                                          if ($fact != 'sub')
+                                          {
+                                                //echo $fact.'<br>';
+                                                $roster->tpl->assign_block_vars('rep.bar.rep2.bar2',array(
+						                  'ID'       => $sta['barid'],
+						                  'NAME'     => $fact,
+						                  'WIDTH'    => $sta['barwidth'],
+						                  'IMAGE'    => $sta['image'],
+						                  'STANDING' => $sta['standing'],
+						                  'VALUE'    => $sta['value'],
+						                  'MAXVALUE' => $sta['maxvalue'],
+						                  'ATWAR'    => $sta['atwar']
+						                  )
+					                   );
+                                          }
+                                    } 
+					}
+					/*
+					foreach()
+					{
+					
+					}*/
 				}
 			}
 			return true;
@@ -1446,19 +1490,57 @@ class char
 	{
 		global $roster;
 
-		$query= "SELECT * FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `faction` ASC, `name` ASC;";
+		$query= "SELECT * FROM `".$roster->db->table('reputation')."` WHERE `member_id` = '".$this->data['member_id']."' ORDER BY `faction` ASC, `parent` ASC, `name` ASC;";
 		$result = $roster->db->query( $query );
 
 		$rep_rows = $roster->db->num_rows($result);
 
 		$i=0;
 		$j=0;
+		$k=0;
+		$l=0;
+		$p = '';
 		if ( $rep_rows > 0 )
 		{
 			$repInfo = array();
-			$data = $roster->db->fetch($result,SQL_ASSOC);
-			$repInfo[$i]['name'] = $data['faction'];
+			
+			$factions='';
+			$sub_faction='';
+			$name='';
+            	while($data = $roster->db->fetch($result,SQL_ASSOC))
+            	
+            	{
+			//$repInfo[$data['faction']] =$i; // ]['name'] = $data['faction'];
 
+				if( $data['name'] != $data['parent'] && $data['parent']=='')
+				{
+					$i++;
+					$j=0;
+					$l++;
+					$factions = $data['faction'];
+					$repInfo[$factions][$data['name']] = $i++;
+					$repInfo[$factions][$data['name']] = $this->_rep_bar_values($data);
+					
+				}
+				if (isset($data['parent']) && $data['parent']!= $data['name'])
+				{
+                              $p=$data['name'];
+                              $repInfo[$factions][$data['parent']]['sub'] = 'Y';
+                              $repInfo[$factions][$data['parent']][$data['name']] = $this->_rep_bar_values($data);
+                              $k++;
+				}
+				else
+				{
+				  $p='';
+				}
+				
+			
+			$j++;
+			
+                  }
+
+
+                  /*
 			for( $r=0; $r < $rep_rows; $r++ )
 			{
 				if( $repInfo[$i]['name'] != $data['faction'] )
@@ -1468,10 +1550,23 @@ class char
 					$repInfo[$i]['name'] = $data['faction'];
 				}
 				$repInfo[$i]['bars'][$j] = $this->_rep_bar_values($data);
-				$j++;
-				$data = $roster->db->fetch($result,SQL_ASSOC);
-			}
-			return $repInfo;
+				if ($data['parent'] == $data['name'])
+				{
+                              $repInfo[$i]['bars'][$j]['sub'][$k]['name'] = $data['name'];
+                              $p=$data['name'];
+                        }
+                        if ($data['parent']==$p)
+                        {
+                              $repInfo[$i]['bars'][$j]['sub'][$k] = $this->_rep_bar_values($data);
+                              $k++;
+				}
+				
+			
+			$j++;
+			$data = $roster->db->fetch($result,SQL_ASSOC);
+                  }
+                  */
+                  return $repInfo;
 		}
 		else
 		{
