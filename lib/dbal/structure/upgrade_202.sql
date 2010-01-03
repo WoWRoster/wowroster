@@ -194,6 +194,12 @@ CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
+
+ALTER TABLE `renprefix_reputation`
+  ADD `parent` varchar(32) NULL default '' AFTER `faction`,
+;
+  
+  
 # --------------------------------------------------------
 ### Update Spellbook
 
