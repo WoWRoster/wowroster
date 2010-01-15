@@ -1885,22 +1885,16 @@ CREATE TABLE `renprefix_quest_task_data` (
 			}
 
 			$count = $repData['Count'];
-                  //aprint($repData);
                   $key = '';
                   foreach ($repData as $cat => $factions)
                   {
                         if ($cat != 'Count')
 				{
-                              //echo '<br><hr><br>'.$cat.'<br>';
                               
                               foreach ($factions as $faction => $data)
                               {
                                     if ($faction != 'AtWar' & $faction != 'Standing' & $faction != 'Value' & $faction != 'Description' )
                                     {
-                                          //echo '--'.$faction.'<br>';
-                                          
-                                          //aprint($data);
-                                          
                                           if (is_array($data))
                                           {
                                                 $sub_x = $faction;
@@ -1908,9 +1902,7 @@ CREATE TABLE `renprefix_quest_task_data` (
                                                 {
                                                       if ($name != 'AtWar' & $name != 'Standing' & $name != 'Value' & $name != 'Description' )
                                                       {
-                                                            //aprint($v);
-                                                            //echo '++++'.$name.'<br>';
-                                                            //echo $factions[$faction][$data][$name]['Value'].'<br>';
+
                                                             $this->reset_values();
                                                             if( !empty($memberId) )
 						                        {
@@ -1942,7 +1934,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						                        $messages .= '.';
 
 						                        $querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr . ";";
-						                        //echo $querystr.'<br><hr><br>';
+
 						                        $result = $roster->db->query($querystr);
 						                        if( !$result )
 						                        {
@@ -1988,9 +1980,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 						      $messages .= '.';
 
-						      $querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr . ";";
-						      //echo '--'.$querystr.'<br><hr><br>';
-						      
+						      $querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr . ";";  
 						      $result = $roster->db->query($querystr);
 						      if( !$result )
 						      {
@@ -2001,53 +1991,6 @@ CREATE TABLE `renprefix_quest_task_data` (
                               }
                         }
                   }
-                  /*
-			foreach( array_keys( $repData ) as $factions )
-			{
-				$faction_name = $repData[$factions];
-				if ($faction_name != $count)
-				{
-					foreach( array_keys( $faction_name ) as $faction )
-					{
-						$this->reset_values();
-						if( !empty($memberId) )
-						{
-							$this->add_value('member_id', $memberId );
-						}
-						if( !empty($factions) )
-						{
-							$this->add_value('faction', $factions );
-						}
-						if( !empty($faction) )
-						{
-							$this->add_value('name', $faction );
-						}
-						if( !empty($repData[$factions][$faction]['Value']) )
-						{
-							list($level, $max) = explode(':',$repData[$factions][$faction]['Value']);
-							$this->add_value('curr_rep', $level );
-							$this->add_value('max_rep', $max );
-						}
-						if ()
-						{
-						
-						}
-
-						$this->add_ifvalue( $repData[$factions][$faction], 'AtWar' );
-						$this->add_ifvalue( $repData[$factions][$faction], 'Standing' );
-
-						$messages .= '.';
-
-						$querystr = "INSERT INTO `" . $roster->db->table('reputation') . "` SET " . $this->assignstr . ";";
-
-						$result = $roster->db->query($querystr);
-						if( !$result )
-						{
-							$this->setError('Reputation for ' . $faction . ' could not be inserted',$roster->db->error());
-						}
-					}
-				}
-			}*/
 			$this->setMessage($messages . '</li>');
 		}
 		else
@@ -2558,7 +2501,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		// Update Talents
 		foreach( $talentBuildData as $build => $talentData )
 		{
-		    echo 'build '.$build.'<br>';
+		    //echo 'build '.$build.'<br>';
 			// first delete the stale data
 			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
 			if( !$roster->db->query($querystr) )
@@ -2671,7 +2614,7 @@ CREATE TABLE `renprefix_quest_task_data` (
                         $this->add_value('member_id', $memberId);
                         $this->add_value('tree', $build_url);
                         $querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
-                        echo $querystr.'<br>';
+                        //echo $querystr.'<br>';
                         $result = $roster->db->query($querystr);
                         
                         if( !$result )
@@ -2737,7 +2680,7 @@ CREATE TABLE `renprefix_quest_task_data` (
                   }
                    
             }
-            echo '<br>';
+            //echo '<br>';
             return $returndataa;
 		//return true;
 	}
