@@ -187,6 +187,24 @@
 .info-bonus-navigation .selected { cursor:default; border-color: #FC0; }
 .info-bonus-navigation .selected .text { color:#ffffff; }
 
+.bonus-box .bonus-container .honortext {	position:absolute;	margin:25px 0 0 6px;	text-align:center;	width:337px;	color:#ffffff;	font-size:14px;	font-weight:bold;}
+.bonus-box .bonus-container .honortext span {	margin-left:20px;	color:#FFCC00;}
+.bonus-box .bonus-container .honortext img {	margin-left:10px;	vertical-align:middle;}
+.bonus-box .bonus-container .arenatext {	position:absolute;	margin:129px 0 0 6px;	text-align:center;	width:337px;	color:#ffffff;	font-size:14px;	font-weight:bold;}
+.bonus-box .bonus-container .arenatext span {	margin-left:20px;	color:#FFCC00;}
+.bonus-box .bonus-container .arenatext img {	margin:0 0 0 10px;	height:20px;	width:23px;	vertical-align:middle;}
+.bonus-box .bonus-container .today {	position:absolute;	margin:57px 0 0 100px;	font-size:13px;	color:#999;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .yesterday {	position:absolute;	margin:57px 0 0 165px;	font-size:13px;	color:#999;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .lifetime {	position:absolute;	margin:57px 0 0 215px;	font-size:13px;	color:#999;	font-weight:bold;	text-align:right;	width:120px;	overflow:hidden;}
+.bonus-box .bonus-container .divider {	position:absolute;	margin:74px 0 0 0px;	border:2px outset #333333;	width:340px;	height:0;}
+.bonus-box .bonus-container .killsline {	position:absolute;	margin-top:80px;	text-align:right;	width:76px;	font-size:13px;	color:#999;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .killsline1 {	position:absolute;	margin:80px 0 0 70px;	text-align:right;	width:60px;	font-size:13px;	color:#FFF;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .killsline2 {	position:absolute;	margin:80px 0 0 130px;	text-align:right;	width:80px;	font-size:13px;	color:#FFF;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .killsline3 {	position:absolute;	margin:80px 0 0 210px;	text-align:right;	width:100px;	font-size:13px;	color:#FFF;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .honorline {	position:absolute;	margin-top:100px;	text-align:right;	width:76px;	font-size:13px;	color:#999;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .honorline1 {	position:absolute;	margin:100px 0 0 70px;	text-align:right;	width:60px;	font-size:13px;	color:#FFF;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .honorline2 {	position:absolute;	margin:100px 0 0 130px;	text-align:right;	width:80px;	font-size:13px;	color:#FFF;	font-weight:bold;	overflow:hidden;}
+.bonus-box .bonus-container .honorline3 {	position:absolute;	margin:100px 0 0 250px;	text-align:right;	width:50px;	font-size:13px;	color:#FFF;	font-weight:bold;	overflow:hidden;}
 
 /*********** Companion Page ***********/
 .main-panel .companions .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
@@ -292,9 +310,9 @@
 .main-panel .reputation .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .reputation .rep { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
 
-.main-panel .reputation .container2 { padding: 0px 0px 15px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; margin-left: auto 5%; }
-.main-panel .reputation .container .box-label2 {  height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; margin: auto 10%;}
-.main-panel .reputation .rep2 { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; margin: auto 10%;}
+.main-panel .reputation .container2 { padding: 0px 0px 0px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; margin-left: 50px; }
+.main-panel .reputation .container .box-label2 {  height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin: 2px 20px 0px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .reputation .rep2 { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
 
 
 .main-panel .reputation .rep-name { float: left; position: relative; line-height: 20px; }
