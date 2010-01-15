@@ -49,6 +49,7 @@ $roster->tpl->assign_vars(array(
 
 	'L_UPLOAD_APP' => $roster->config['uploadapp'],
 	'L_PROFILER' => $roster->config['profiler'],
+	'PAGE_INFO' => $roster->locale->act['update_page'],
 
 	'L_PASSWORD_TIP' => makeOverlib($roster->locale->act['roster_upd_pw_help'], $roster->locale->act['password'], '', 2, '', ',WRAP,RIGHT'),
 
