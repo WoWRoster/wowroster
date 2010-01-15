@@ -189,22 +189,20 @@
 
 
 /*********** Companion Page ***********/
-.main-panel .companions .container { padding: 0px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .companions .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .companions .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .companions .pet { height:80px; margin: 10px; position:relative; }
-.main-panel .companions .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
-.main-panel .companions .pet .basics { height: 64px; width: 200px; position:absolute; left: 75px; top: 6px; }
-.main-panel .companions .pet .basics .name { font: bold 18px/20px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFCC00; }
 
 .main-panel .companions .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .main-panel .companions .container .box-label .pets { background: url(images/icons/pets.gif); }
 .main-panel .companions .container .box-label .mounts { background: url(images/icons/mounts.gif); }
 .main-panel .companions .container .box-label .companions { background: url(images/icons/companions.gif); }
 
-.main-panel .companions .container .spell-page { margin: 10px; background: url(../images/char_info_bg.jpg) repeat-y center top; padding: 5px; border: 1px solid #333; }
-.main-panel .companions .container .spell-container { height: 40px; width: 31%; float: left; padding: 2px; margin-right: 5px; margin-bottom: 5px;}
-.main-panel .companions .container .spell-container .text { height: 40px; color: #FFCC00; white-space: normal; }
-.main-panel .companions .container .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
+.main-panel .companions .container .inner { margin-right: 20px; margin-left: 20px; }
+
+.main-panel .companions .container .item { float: left; margin: 2px; }
+.main-panel .companions .container .item img{ height: 40px; width: 40px;}
+.main-panel .companions .container .item .mask { background: url(../images/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+.main-panel .companions .container .item .mask:hover { background: url(../images/item_mask.png) no-repeat left bottom; }
 
 
 /*********** Pet Page ***********/
