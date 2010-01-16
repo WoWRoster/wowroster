@@ -193,10 +193,9 @@ CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
   PRIMARY KEY  (`member_id`,`build`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-
-
 ALTER TABLE `renprefix_reputation`
-  ADD `parent` varchar(32) NULL default '' AFTER `faction`,
+  ADD `parent` varchar(32) NULL AFTER `faction`,
+
 ;
   
   
