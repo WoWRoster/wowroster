@@ -760,7 +760,7 @@ DROP TABLE IF EXISTS `renprefix_reputation`;
 CREATE TABLE `renprefix_reputation` (
   `member_id` int(10) unsigned NOT NULL default '0',
   `faction` varchar(32) NOT NULL default '',
-  `parent` varchar(32) NOT NULL default '',
+  `parent` varchar(32) default NULL,
   `name` varchar(32) NOT NULL default '',
   `curr_rep` int(8) default NULL,
   `max_rep` int(8) default NULL,
