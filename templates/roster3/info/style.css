@@ -309,9 +309,10 @@
 .main-panel .reputation .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .reputation .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 .main-panel .reputation .rep { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
+.main-panel .reputation .reps { cursor: default; text-align:left; color:#000000; background: url(images/rep_box.jpg) repeat center top; margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 12px Geneva, Arial, Helvetica, sans-serif;position: relative; }
 
 .main-panel .reputation .container2 { padding: 0px 0px 0px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; margin-left: 25px; }
-.main-panel .reputation .container .box-label2 {  height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin: 2px 20px 0px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .reputation .container .box-label2 {  height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin: 2px 20px 0px; margin-bottom: 5px; background: url(../images/rep_box_dark.jpg) repeat-x left top; position: relative; }
 .main-panel .reputation .rep2 { cursor: default; text-align:left; color:#000000; background: url(../images/skill_bg.png); margin: 2px 20px 0px; height: 20px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
 
 .main-panel .reputation .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
