@@ -464,7 +464,6 @@
 	font:bold 12px verdana,arial,sans-serif;
 	color:#EABB00;
 }
-<<<<<<< .mine
 .quest_link a {
 	text-align:center;
 	padding-left:3px;
@@ -476,9 +475,6 @@
 	background: #eaca81 url(../images/wrap_bg.jpg) repeat center top;
 	text-decoration:none;
 }
-=======
-.quest_link a { text-align:center; padding-left:3px; padding-right:3px; margin-left:2px; margin-right:2px; border:solid #5D5D5D; border-width:1px 0 0 1px; text-decoration:none; background: #eaca81 url(../images/wrap_bg.jpg) repeat center top; }
->>>>>>> .r2066
 /* Links in menu on-click */
 .quest_link a:active { background-color:#778899; color:#EABB00;}
 
