@@ -90,6 +90,7 @@ class bag extends item
 		$roster->tpl->assign_block_vars('bag',array(
 			'NAME' => $this->data['item_name'],
 			'SLOT' => $this->data['item_slot'],
+			'QUALITY' => $this->data->quality,
 			'TYPE' => $bag_type,
 			'STYLE' => $bag_style,
 			'OFFSET' => $offset,
@@ -110,6 +111,7 @@ class bag extends item
 					'ICON'     => $item->tpl_get_icon(),
 					'TOOLTIP'  => $item->tpl_get_tooltip(),
 					'ITEMLINK' => $item->tpl_get_itemlink(),
+					'QUALITY'  => $item->data->quality,
 					'QTY'      => $item->quantity
 					)
 				);
@@ -120,6 +122,7 @@ class bag extends item
 					'ICON'     => '',
 					'TOOLTIP'  => '',
 					'ITEMLINK' => '',
+					'QUALITY'  => 'none',
 					'QTY'      => 0
 					)
 				);

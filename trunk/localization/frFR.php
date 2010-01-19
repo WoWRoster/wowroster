@@ -678,6 +678,8 @@ $lang['faction_to_id'] = array(
 	'Shattrath City' => 'shattrathcity',
 	'Steamwheedle Cartel' => 'steamwheedlecartel',
 	'The Burning Crusade' => 'theburningcrusade',
+	'Wrath of the Lich King' => 'wrathofthelitchking',
+	'Sholazar Basin' => 'sholazarbasin',
 );
 
 

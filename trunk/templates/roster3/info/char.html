@@ -311,7 +311,7 @@
 <!-- BEGIN mounts -->
 				<div class="item">
 					<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" />
-                    <div class="mask" {mounts.TOOLTIP}></div>
+					<div class="mask" {mounts.TOOLTIP}></div>
 				</div>
 <!-- END mounts -->
 			<div style="clear:both;"></div>
@@ -326,7 +326,7 @@
 <!-- BEGIN companions -->
 				<div class="item">
 					<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" />
-                    <div class="mask" {companions.TOOLTIP}></div>
+					<div class="mask" {companions.TOOLTIP}></div>
 				</div>
 <!-- END mounts -->
 			<div style="clear:both;"></div>
@@ -344,7 +344,7 @@
 <!-- IF S_REP_TAB -->
 
 <!-- reputation -->
-	<div id=reputation class="reputation" style="display:none;">
+	<div id="reputation" class="reputation" style="display:none;">
 <!-- BEGIN rep -->
 		<div class="container">
 			<div class="box-label">
@@ -364,26 +364,24 @@
 			
 			
 <!-- BEGIN rep2 -->
-		<div class="reps">
-			<div class="rep-name">{rep.bar.rep2.NAME}</div>
-		</div>
-        <div class="container2">
-<!-- BEGIN bar2 -->
-			<div class="rep2">
-				<div class="rep-name">{rep.bar.rep2.bar2.NAME}</div>
-				<div class="rep-standing">{rep.bar.rep2.bar2.STANDING}</div>
-				<div class="rep-bar">
-					<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width: {rep.bar.rep2.bar2.WIDTH}%;"></div>
-					<div class="text">{rep.bar.rep2.bar2.VALUE} / {rep.bar.rep2.bar2.MAXVALUE}</div>
-				</div>
+			<div class="reps">
+				<div class="rep-name">{rep.bar.rep2.NAME}</div>
 			</div>
+			<div class="container2">
+<!-- BEGIN bar2 -->
+				<div class="rep2">
+					<div class="rep-name">{rep.bar.rep2.bar2.NAME}</div>
+					<div class="rep-standing">{rep.bar.rep2.bar2.STANDING}</div>
+					<div class="rep-bar">
+						<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width: {rep.bar.rep2.bar2.WIDTH}%;"></div>
+						<div class="text">{rep.bar.rep2.bar2.VALUE} / {rep.bar.rep2.bar2.MAXVALUE}</div>
+					</div>
+				</div>
 <!-- END bar2 -->
-		</div>
+			</div>
 <!-- END rep2 -->
 
-
 <!-- END bar -->
-
 
 		</div>
 <!-- END rep -->
@@ -546,24 +544,7 @@
 <!-- ENDIF -->
 
 
-
 <!-- IF S_CURRENCY_TAB -->
-
-<!--
-Available variables for currency
-
-currency =>
-	ID   -> lowercase category name
-	NAME -> category name
-	item =>
-		ID      -> lowercase item name
-		NAME    -> name of currency item
-		TYPE    -> currency type, dont know what this is, it's a number
-		ORDER   -> order
-		ICON    -> icon image
-		TOOLTIP -> tooltip string
--->
-
 <div id="currency" class="currency" style="display:none;">
 <!-- BEGIN currency -->
 	<div class="container">
