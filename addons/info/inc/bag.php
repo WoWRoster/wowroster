@@ -111,7 +111,7 @@ class bag extends item
 					'ICON'     => $item->tpl_get_icon(),
 					'TOOLTIP'  => $item->tpl_get_tooltip(),
 					'ITEMLINK' => $item->tpl_get_itemlink(),
-					'QUALITY'  => $item->data->quality,
+					'QUALITY'  => $item->quality,
 					'QTY'      => $item->quantity
 					)
 				);
