@@ -81,7 +81,7 @@ class bag extends item
 			'TYPE'    => $bag_type,
 			'STYLE'   => $bag_style,
 			'OFFSET'  => $offset,
-			'ICON'    => $item->tpl_get_icon(),
+			'ICON'    => $this->tpl_get_icon(),
 			'TOOLTIP' => $this->tpl_get_tooltip(),
 			'LINKTIP' => $this->tpl_get_itemlink(),
 			)
