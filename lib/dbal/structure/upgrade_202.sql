@@ -144,9 +144,27 @@ CREATE TABLE `renprefix_quests` (
   KEY `quest_index` (`quest_id`,`quest_index`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-#--
-#-- Table structure for table `roster_talents_data`
-#--
+# --------------------------------------------------------
+### Reputation
+
+ALTER TABLE `renprefix_reputation` ADD `parent` varchar(32) NULL AFTER `faction`;
+
+# --------------------------------------------------------
+### Spellbook
+
+ALTER TABLE `renprefix_spellbook`
+  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_name`,`spell_rank`);
+
+ALTER TABLE `renprefix_spellbooktree`
+  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);
+
+# --------------------------------------------------------
+### Talents Data
+
 DROP TABLE IF EXISTS `renprefix_talents_data`;
 CREATE TABLE IF NOT EXISTS `renprefix_talents_data` (
   `talent_id` int(11) NOT NULL default '0',
@@ -163,11 +181,9 @@ CREATE TABLE IF NOT EXISTS `renprefix_talents_data` (
   PRIMARY KEY  (`rank`,`tree`,`row`,`column`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-#-- --------------------------------------------------------
+# --------------------------------------------------------
+### Talent Tree Data
 
-#--
-#-- Table structure for table `roster_talenttree_data`
-#--
 DROP TABLE IF EXISTS `renprefix_talenttree_data`;
 CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
   `class_id` int(11) NOT NULL default '0',
@@ -180,11 +196,9 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
   PRIMARY KEY  (`class_id`,`build`,`tree`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-#-- --------------------------------------------------------
+# --------------------------------------------------------
+### Talent Builds
 
-#--
-#-#- Table structure for table `roster_talent_builds`
-#--
 DROP TABLE IF EXISTS `renprefix_talent_builds`;
 CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
   `member_id` int(11) NOT NULL default '0',
@@ -192,25 +206,6 @@ CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
   `tree` varchar(200) NOT NULL default '',
   PRIMARY KEY  (`member_id`,`build`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-ALTER TABLE `renprefix_reputation`
-  ADD `parent` varchar(32) NULL AFTER `faction`,
-
-;
-  
-  
-# --------------------------------------------------------
-### Update Spellbook
-
-ALTER TABLE `renprefix_spellbook`
-  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
-  DROP PRIMARY KEY,
-  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_name`,`spell_rank`);
-
-ALTER TABLE `renprefix_spellbooktree`
-  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
-  DROP PRIMARY KEY,
-  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);
 
 # --------------------------------------------------------
 ### Update Talents
@@ -220,6 +215,8 @@ ALTER TABLE `renprefix_talents`
   DROP PRIMARY KEY,
   ADD PRIMARY KEY (`member_id`,`build`,`tree`,`row`,`column`);
 
+# --------------------------------------------------------
+### Talent Tree
 
 ALTER TABLE `renprefix_talenttree`
   ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,

@@ -289,46 +289,51 @@ class Upgrade
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
 		
-		// adding new talent structure ulminia was busy....
+		// Adding new talent structure ulminia was busy....
 		if( version_compare($roster->config['version'], '2.0.9.2020', '<') )
 		{
-				
-				
-                  $roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talents_data') . "`;");				
-                  $roster->db->query("CREATE TABLE  `" . $roster->db->table('talents_data') . "` (
-                        `talent_id` int(11) NOT NULL default '0',
-                        `talent_num` int(11) NOT NULL default '0',
-                        `tree_order` int(11) NOT NULL default '0',
-                        `class_id` int(11) NOT NULL default '0',
-                        `name` varchar(64) NOT NULL default '',
-                        `tree` varchar(64) NOT NULL default '',
-                        `row` tinyint(4) NOT NULL default '0',
-                        `column` tinyint(4) NOT NULL default '0',
-                        `rank` tinyint(4) NOT NULL default '0',
-                        `tooltip` mediumtext NOT NULL,
-                        `texture` varchar(64) NOT NULL default '',
-                        PRIMARY KEY  (`rank`,`tree`,`row`,`column`)
-                        ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talents_data') . "`;");
+			$roster->db->query("CREATE TABLE  `" . $roster->db->table('talents_data') . "` (
+				`talent_id` int(11) NOT NULL default '0',
+				`talent_num` int(11) NOT NULL default '0',
+				`tree_order` int(11) NOT NULL default '0',
+				`class_id` int(11) NOT NULL default '0',
+				`name` varchar(64) NOT NULL default '',
+				`tree` varchar(64) NOT NULL default '',
+				`row` tinyint(4) NOT NULL default '0',
+				`column` tinyint(4) NOT NULL default '0',
+				`rank` tinyint(4) NOT NULL default '0',
+				`tooltip` mediumtext NOT NULL,
+				`texture` varchar(64) NOT NULL default '',
+				PRIMARY KEY  (`rank`,`tree`,`row`,`column`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
-                  $roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talenttree_data') . "`;");
-                  $roster->db->query("CREATE TABLE `" . $roster->db->table('talenttree_data') . "` (
-                        `class_id` int(11) NOT NULL default '0',
-                        `build` tinyint(2) NOT NULL default '0',
-                        `tree` varchar(64) NOT NULL default '',
-                        `tree_num` varchar(64) NOT NULL default '',
-                        `background` varchar(64) NOT NULL default '',
-                        `order` tinyint(4) NOT NULL default '0',
-                        `icon` varchar(64) NOT NULL default '',
-                        PRIMARY KEY  (`class_id`,`build`,`tree`)
-                        ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talenttree_data') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('talenttree_data') . "` (
+				`class_id` int(11) NOT NULL default '0',
+				`build` tinyint(2) NOT NULL default '0',
+				`tree` varchar(64) NOT NULL default '',
+				`tree_num` varchar(64) NOT NULL default '',
+				`background` varchar(64) NOT NULL default '',
+				`order` tinyint(4) NOT NULL default '0',
+				`icon` varchar(64) NOT NULL default '',
+				PRIMARY KEY  (`class_id`,`build`,`tree`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
-                  $roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talent_builds') . "`;");
-                  $roster->db->query("CREATE TABLE `" . $roster->db->table('talent_builds') . "` (
-                        `member_id` int(11) NOT NULL default '0',
-                        `build` tinyint(2) NOT NULL default '0',
-                        `tree` varchar(200) NOT NULL default '',
-                        PRIMARY KEY  (`member_id`,`build`)
-                        ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talent_builds') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('talent_builds') . "` (
+				`member_id` int(11) NOT NULL default '0',
+				`build` tinyint(2) NOT NULL default '0',
+				`tree` varchar(200) NOT NULL default '',
+				PRIMARY KEY  (`member_id`,`build`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		}
+
+		// Add parent category to reputation
+		if( version_compare($roster->config['version'], '2.0.9.2057', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('reputation') . "`
+				ADD `parent` varchar(32) default NULL AFTER `faction`;");
 		}
 
 		// Standard Beta Update

@@ -1402,14 +1402,15 @@ class char
 
 		$repData = $this->_rep_tab_values();
 
-            //aprint($repData);            
-            
+//		aprint($repData);            
+
 		if( is_array($repData) )
 		{
 			foreach( $repData as $findex => $faction )
 			{
-			  // echo $findex.'<br>';
-			   //aprint($faction);
+//				echo $findex.'<br>';
+//				aprint($faction);
+
 				$roster->tpl->assign_block_vars('rep',array(
 					'ID'      => $findex,
 					'NAME'    => $findex,
@@ -1419,57 +1420,57 @@ class char
 
 				foreach( $faction as $rep => $bar )
 				{
-				  //echo $rep.' - '.$bar .'<br>';
-				 
-                              if (isset($bar['value']))
-                              {
-					$roster->tpl->assign_block_vars('rep.bar',array(
-						'ID'       => $bar['barid'],
-						'NAME'     => $rep,
-						'WIDTH'    => $bar['barwidth'],
-						'IMAGE'    => $bar['image'],
-						'STANDING' => $bar['standing'],
-						'VALUE'    => $bar['value'],
-						'MAXVALUE' => $bar['maxvalue'],
-						'ATWAR'    => $bar['atwar']
-						)
-					);
+//					echo $rep.' - '.$bar .'<br>';
+
+					if (isset($bar['value']))
+					{
+						$roster->tpl->assign_block_vars('rep.bar',array(
+							'ID'       => $bar['barid'],
+							'NAME'     => $rep,
+							'WIDTH'    => $bar['barwidth'],
+							'IMAGE'    => $bar['image'],
+							'STANDING' => $bar['standing'],
+							'VALUE'    => $bar['value'],
+							'MAXVALUE' => $bar['maxvalue'],
+							'ATWAR'    => $bar['atwar']
+							)
+						);
 					}
 					else
 					{
 					 $roster->tpl->assign_block_vars('rep.bar.rep2',array(
-					       'ID'      => $rep,
-					       'NAME'    => $rep,
-					       'NAME_ID' => $this->locale['faction_to_id'][$rep]
-					       )
-				        );
+						'ID'      => $rep,
+						'NAME'    => $rep,
+						'NAME_ID' => $this->locale['faction_to_id'][$rep]
+						)
+					);
 					}
 					if (isset($bar['sub']))
 					{
-                                    foreach($bar as $fact => $sta)
-                                    {
-                                          if ($fact != 'sub')
-                                          {
-                                                //echo $fact.'<br>';
-                                                $roster->tpl->assign_block_vars('rep.bar.rep2.bar2',array(
-						                  'ID'       => $sta['barid'],
-						                  'NAME'     => $fact,
-						                  'WIDTH'    => $sta['barwidth'],
-						                  'IMAGE'    => $sta['image'],
-						                  'STANDING' => $sta['standing'],
-						                  'VALUE'    => $sta['value'],
-						                  'MAXVALUE' => $sta['maxvalue'],
-						                  'ATWAR'    => $sta['atwar']
-						                  )
-					                   );
-                                          }
-                                    } 
+						foreach($bar as $fact => $sta)
+						{
+							if ($fact != 'sub')
+							{
+//								echo $fact.'<br>';
+								$roster->tpl->assign_block_vars('rep.bar.rep2.bar2',array(
+									'ID'       => $sta['barid'],
+									'NAME'     => $fact,
+									'WIDTH'    => $sta['barwidth'],
+									'IMAGE'    => $sta['image'],
+									'STANDING' => $sta['standing'],
+									'VALUE'    => $sta['value'],
+									'MAXVALUE' => $sta['maxvalue'],
+									'ATWAR'    => $sta['atwar']
+									)
+								);
+							}
+						}
 					}
-					/*
+/*
 					foreach()
 					{
-					
-					}*/
+					}
+*/
 				}
 			}
 			return true;
@@ -1500,6 +1501,7 @@ class char
 		$k=0;
 		$l=0;
 		$p = '';
+
 		if ( $rep_rows > 0 )
 		{
 			$repInfo = array();
@@ -1507,10 +1509,10 @@ class char
 			$factions='';
 			$sub_faction='';
 			$name='';
-            	while($data = $roster->db->fetch($result,SQL_ASSOC))
-            	
-            	{
-			//$repInfo[$data['faction']] =$i; // ]['name'] = $data['faction'];
+
+			while($data = $roster->db->fetch($result,SQL_ASSOC))
+			{
+				//$repInfo[$data['faction']] =$i; // ]['name'] = $data['faction'];
 
 				if( $data['name'] != $data['parent'] && $data['parent']=='')
 				{
@@ -1524,23 +1526,20 @@ class char
 				}
 				if (isset($data['parent']) && $data['parent']!= $data['name'])
 				{
-                              $p=$data['name'];
-                              $repInfo[$factions][$data['parent']]['sub'] = 'Y';
-                              $repInfo[$factions][$data['parent']][$data['name']] = $this->_rep_bar_values($data);
-                              $k++;
+					$p=$data['name'];
+					$repInfo[$factions][$data['parent']]['sub'] = 'Y';
+					$repInfo[$factions][$data['parent']][$data['name']] = $this->_rep_bar_values($data);
+					$k++;
 				}
 				else
 				{
-				  $p='';
+					$p='';
 				}
-				
-			
-			$j++;
-			
-                  }
 
+				$j++;
+			}
 
-                  /*
+/*
 			for( $r=0; $r < $rep_rows; $r++ )
 			{
 				if( $repInfo[$i]['name'] != $data['faction'] )
@@ -1552,21 +1551,20 @@ class char
 				$repInfo[$i]['bars'][$j] = $this->_rep_bar_values($data);
 				if ($data['parent'] == $data['name'])
 				{
-                              $repInfo[$i]['bars'][$j]['sub'][$k]['name'] = $data['name'];
-                              $p=$data['name'];
-                        }
-                        if ($data['parent']==$p)
-                        {
-                              $repInfo[$i]['bars'][$j]['sub'][$k] = $this->_rep_bar_values($data);
-                              $k++;
+					$repInfo[$i]['bars'][$j]['sub'][$k]['name'] = $data['name'];
+					$p=$data['name'];
 				}
-				
-			
-			$j++;
-			$data = $roster->db->fetch($result,SQL_ASSOC);
-                  }
-                  */
-                  return $repInfo;
+				if ($data['parent']==$p)
+				{
+					$repInfo[$i]['bars'][$j]['sub'][$k] = $this->_rep_bar_values($data);
+					$k++;
+				}
+
+				$j++;
+				$data = $roster->db->fetch($result,SQL_ASSOC);
+			}
+*/
+			return $repInfo;
 		}
 		else
 		{
@@ -2658,6 +2656,7 @@ class char
 				'ICON'     => $this->equip[$slot]->tpl_get_icon(),
 				'TOOLTIP'  => $this->equip[$slot]->tpl_get_tooltip(),
 				'ITEMLINK' => $this->equip[$slot]->tpl_get_itemlink(),
+				'QUALITY'  => $this->equip[$slot]->quality,
 				'QTY'      => $this->equip[$slot]->quantity,
 				'S_AMMO'   => $slot == 'Ammo'
 				)
@@ -2670,6 +2669,7 @@ class char
 				'ICON'     => $roster->config['img_url'] . 'pixel.gif',
 				'TOOLTIP'  => makeOverlib($roster->locale->act['empty_equip'],$roster->locale->act[$slot],'',2,'',',WRAP'),
 				'ITEMLINK' => '',
+				'QUALITY'  => 'none',
 				'QTY'      => 0,
 				'S_AMMO'   => $slot == 'Ammo'
 				)
