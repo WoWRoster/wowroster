@@ -122,6 +122,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .container .box-label .icon { height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .container .box-label .icon img{ height: 33px; width: 32px;}
 .container .box-label .icon .mask { background: url(./images/icon_mask.png) no-repeat left top; height: 33px; width: 32px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+.container .box-label .profile { background: url(./info/images/icons/profile.gif) no-repeat left top; }
 
 .container .inner { margin-right: 20px; margin-left: 20px; }
 
