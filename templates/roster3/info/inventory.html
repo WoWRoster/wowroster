@@ -1,5 +1,28 @@
 <!-- $Id$ -->
 
+
+
+	<div class="container">
+		<div class="box-label">
+			<div class="icon"><img src="{bag.ICON}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>
+			<!-- TRANSLATE equiped_gear -->
+		</div>
+        <div class="inner">
+<!-- BEGIN equipment -->
+		<div class="item">
+            <!-- IF equipment.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{equipment.ICON}" /><!-- ENDIF -->
+            <div class="mask {equipment.QUALITY}" {equipment.TOOLTIP}{equipment.ITEMLINK}></div>
+<!-- IF equipment.QTY gt 1 -->
+					<b>{equipment.QTY}</b>
+					<span>{equipment.QTY}</span>
+<!-- ENDIF -->
+				</div>
+<!-- END equipment -->
+			<div style="clear:both;"></div>
+        </div>
+	</div>
+
+
 <!-- BEGIN bag -->
 	<div class="container">
 		<div class="box-label">
