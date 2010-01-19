@@ -181,6 +181,7 @@ $lang['rs'] = array(
 $lang['guildless']='Gildenlos';
 $lang['util']='Einstellungen';
 $lang['char']='Charakter';
+$lang['equipment']='Equipment';
 $lang['upload']='Upload';
 $lang['required']='Benötigt';
 $lang['optional']='Optional';
