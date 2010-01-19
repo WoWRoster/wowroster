@@ -13,11 +13,16 @@
 		<div class="menu-frame">
 			<div class="section-title">{menu_button_section.LABEL}</div>
 	<!-- ENDIF -->
-		<ul>
+		<div class="frame">
 		<!-- BEGIN menu_buttons -->
-			<li style="background-image:url({menu_button_section.menu_buttons.ICON}); background-position:center; background-repeat: no-repeat;"><a {menu_button_section.menu_buttons.TOOLTIP} href="{menu_button_section.menu_buttons.U_LINK}"></a></li>
+        	<div class="button">
+				<img src="{menu_button_section.menu_buttons.ICON}" />
+    	        <a href="{menu_button_section.menu_buttons.U_LINK}" {menu_button_section.menu_buttons.TOOLTIP}>
+        	    	<div class="mask"></div>
+            	</a>
+            </div>
 		<!-- END menu_buttons -->
-		</ul>
+		</div>
 	<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
 		</div>
 	<!-- ENDIF -->

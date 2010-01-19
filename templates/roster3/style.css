@@ -16,13 +16,6 @@
 body { background:#000000; }
 a:link, a:visited { color:#009; text-decoration:none; font-weight:bold; }
 a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
-.roster_footer{ 
-   position: absolute;
-   padding: 10px 15px 10px 0px;
-bottom: 0px; 
-   text-align: center;
-} 
-
 
 .roster-wrap { font:12px arial,helvetica,sans-serif; color:#FFFFFF; width: 960px; margin: auto; position: relative; padding-top: 1px; }
 
@@ -36,20 +29,24 @@ bottom: 0px;
 
 /* General Scope Block */
 .scope-menu { padding: 40px 10px 10px 0px; position: relative; z-index: 100; }
-.scope-menu .menu-scope { margin:2px 0px 0px; padding:0px; width:100%; display:block; }
-.scope-menu .menu-scope-panel { background: url(./images/shader.png) repeat; border: 1px solid #9D7D1C; max-width: 100%; position: absolute; z-index: 200; left: 0; top: 40px; padding: 5px; }
-.scope-menu .menu-scope-panel a { width:40px; height:40px; }
+.scope-menu .menu-scope { margin:2px 0px 0px; padding:0px; width:100%; }
 
-.scope-menu ul { list-style-type:none; margin:0px; padding:0px; width:100%; display: table; }
-.scope-menu li { float:left; margin:3px; background:#2E2D2C; display: block; }
-.scope-menu li a {
-	display:block;
-	border:2px solid #4E4D4C;
-	height:50px;
-	width:50px;
-	padding:2px;
-}
-.scope-menu li a:hover { border:2px solid #0066FF; }
+.scope-menu .menu-scope .frame { margin:0px; padding:0px; width:100%; display: table; position: relative; }
+.scope-menu .menu-scope .frame .button { float:left; margin:3px; position: relative; }
+.scope-menu .menu-scope .frame .button img { height: 50px; width: 50px; }
+.scope-menu .menu-scope .frame .button a { display: block; }
+.scope-menu .menu-scope .frame .button .mask { background: url(./images/mask/menu_50x50_mask.png) no-repeat left top; height:50px; width:50px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.scope-menu .menu-scope .frame .button .mask:hover { background: url(./images/mask/menu_50x50_mask.png) no-repeat right top; }
+
+.scope-menu .menu-scope-panel { background: url(images/wrap_bg.jpg) repeat-y center top; border: 2px solid #5E4A11; max-width: 100%; position: absolute; z-index: 200; left: 0; top: 40px; padding: 0px 0px 5px; }
+.menu-frame .section-title { padding: 3px; font: bold 12px Georgia, "Times New Roman", Times, serif; color: #000; background: url(images/th_bg.png) repeat-x left top; }
+
+.scope-menu .menu-scope-panel .frame { margin:5px; width:100%; position: relative; }
+.scope-menu .menu-scope-panel .frame .button { float:left; margin:3px; position: relative; }
+.scope-menu .menu-scope-panel .frame .button img { height: 40px; width: 40px; }
+.scope-menu .menu-scope-panel .frame .button a { display: block; }
+.scope-menu .menu-scope-panel .frame .button .mask { background: url(./images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.scope-menu .menu-scope-panel .frame .button .mask:hover { background: url(./images/mask/menu_40x40_mask.png) no-repeat right top; }
 
 .qj-button { position: absolute; top: -100px; left: 0px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
 .qj-button a {
