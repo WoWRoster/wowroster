@@ -74,29 +74,16 @@ class bag extends item
 			$offset += 53;
 		}
 
-		// Item links
-		list($item_id) = explode(':', $this->item_id);
-		$num_of_tips = (count($tooltips)+1);
-		$linktip = '';
-		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
-		{
-			$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
-		}
-		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$roster->locale->wordings[$lang]['itemlink']);
-
-		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
-
 		$roster->tpl->assign_block_vars('bag',array(
-			'NAME' => $this->data['item_name'],
-			'SLOT' => $this->data['item_slot'],
-			'QUALITY' => $this->data->quality,
-			'TYPE' => $bag_type,
-			'STYLE' => $bag_style,
-			'OFFSET' => $offset,
-			'ICON' => $this->data['item_texture'],
-			'TOOLTIP' => makeOverlib($this->data['item_tooltip'],'',$this->data['item_color'],0,$lang),
-			'LINKTIP' => $linktip,
+			'NAME'    => $this->data['item_name'],
+			'SLOT'    => $this->data['item_slot'],
+			'QUALITY' => $this->quality,
+			'TYPE'    => $bag_type,
+			'STYLE'   => $bag_style,
+			'OFFSET'  => $offset,
+			'ICON'    => $item->tpl_get_icon(),
+			'TOOLTIP' => $this->tpl_get_tooltip(),
+			'LINKTIP' => $this->tpl_get_itemlink(),
 			)
 		);
 
