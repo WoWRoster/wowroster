@@ -181,6 +181,7 @@ $lang['rs'] = array(
 $lang['guildless']='Guildless'; //Need to translate
 $lang['util']='Utilidades';
 $lang['char']='Personaje';
+$lang['equipment']='Equipment';
 $lang['upload']='Enviar';
 $lang['required']='Requerido';
 $lang['optional']='Opcional';

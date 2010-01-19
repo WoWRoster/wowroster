@@ -181,6 +181,7 @@ $lang['rs'] = array(
 $lang['guildless']='Sans guilde';
 $lang['util']='Utilitaires';
 $lang['char']='Personnage';
+$lang['equipment']='Equipment';
 $lang['upload']='Envoyer';
 $lang['required']='Requis';
 $lang['optional']='Optionnel';
