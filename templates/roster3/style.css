@@ -132,8 +132,25 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 /* Container Style Qualities */
 
+.container .item .none { background: url(./images/mask/item_poor.png) no-repeat left top; }
+.container .item .none:hover { background: url(./images/mask/item_poor.png) no-repeat left bottom; }
+.container .item .poor { background: url(./images/mask/item_poor.png) no-repeat left top; }
+.container .item .poor:hover { background: url(./images/mask/item_poor.png) no-repeat left bottom; }
+.container .item .common { background: url(./images/mask/item_common.png) no-repeat left top; }
+.container .item .common:hover { background: url(./images/mask/item_common.png) no-repeat left bottom; }
+.container .item .uncommon { background: url(./images/mask/item_uncommon.png) no-repeat left top; }
+.container .item .uncommon:hover { background: url(./images/mask/item_uncommon.png) no-repeat left bottom; }
+.container .item .rare { background: url(./images/mask/item_rare.png) no-repeat left top; }
+.container .item .rare:hover { background: url(./images/mask/item_rare.png) no-repeat left bottom; }
 .container .item .epic { background: url(./images/mask/item_epic.png) no-repeat left top; }
 .container .item .epic:hover { background: url(./images/mask/item_epic.png) no-repeat left bottom; }
+.container .item .legendary { background: url(./images/mask/item_legendary.png) no-repeat left top; }
+.container .item .legendary:hover { background: url(./images/mask/item_legendary.png) no-repeat left bottom; }
+.container .item .artifact { background: url(./images/mask/item_artifact.png) no-repeat left top; }
+.container .item .artifact:hover { background: url(./images/mask/item_artifact.png) no-repeat left bottom; }
+.container .item .heirloom { background: url(./images/mask/item_artifact.png) no-repeat left top; }
+.container .item .heirloom:hover { background: url(./images/mask/item_artifact.png) no-repeat left bottom; }
+
 
 
 /* Misc Code Fixes */
