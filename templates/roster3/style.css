@@ -16,6 +16,13 @@
 body { background:#000000; }
 a:link, a:visited { color:#009; text-decoration:none; font-weight:bold; }
 a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
+.roster_footer{ 
+   position: absolute;
+   padding: 10px 15px 10px 0px;
+bottom: 0px; 
+   text-align: center;
+} 
+
 
 .roster-wrap { font:12px arial,helvetica,sans-serif; color:#FFFFFF; width: 960px; margin: auto; position: relative; padding-top: 1px; }
 
