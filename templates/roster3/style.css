@@ -130,6 +130,12 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .container .item .mask { background: url(./images/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 500; left: 0px; top: 0px; }
 .container .item .mask:hover { background: url(./images/item_mask.png) no-repeat left bottom; }
 
+/* Container Style Qualities */
+
+.container .item .epic { background: url(./images/mask/item_epic.png) no-repeat left top; }
+.container .item .epic:hover { background: url(./images/mask/item_epic.png) no-repeat left bottom; }
+
+
 /* Misc Code Fixes */
 #keyslist img.icon {height:20px; width:20px;}
 
