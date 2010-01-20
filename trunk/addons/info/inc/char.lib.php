@@ -73,16 +73,6 @@ class char
 			}
 		}
 
-		// Create a character based icon
-		if( $this->data['raceEn'] == '' || $this->data['sexid'] == '' )
-		{
-			$this->data['char_icon'] = 'unknown';
-		}
-		else
-		{
-			$this->data['char_icon'] = strtolower($this->data['raceEn']) . '-' . ($this->data['sexid'] == '0' ? 'male' : 'female');
-		}
-
 		/**
 		 * Assigning everything this file may need to the template
 		 * The only tpl vars not here are ones that need to be generated in their respective methods
@@ -115,21 +105,10 @@ class char
 			'HEALTH'        => $this->data['health'],
 			'POWER'         => $this->data['mana'],
 			'TALENT_POINTS' => $this->data['talent_points'],
-			'CHAR_ICON'     => $this->data['char_icon'],
-			'NAME'          => $this->data['name'],
-			'ID'            => $this->data['member_id'],
-			'LOCALE'        => $this->data['clientLocale'],
-			'LEVEL'         => $this->data['level'],
-			'RACE'          => $this->data['race'],
-			'CLASS'         => $this->data['class'],
-			'GUILD_TITLE'   => $this->data['guild_title'],
-			'GUILD_NAME'    => $this->data['guild_name'],
-			'FACTION_EN'    => strtolower($roster->data['factionEn']),
-			'FACTION'       => $roster->data['faction'],
 
 			'MONEY_G' => $this->data['money_g'],
 			'MONEY_S' => $this->data['money_s'],
-			'MONEY_C' => $this->data['money_c'],
+			'MONEY_C' => $this->data['money_c']
 			)
 		);
 	}
