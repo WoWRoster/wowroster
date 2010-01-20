@@ -54,37 +54,37 @@ if( $roster->auth->getAuthorized($addon['config']['show_bags']) )
 	$bag0 = bag_get( $char->get('member_id'), 'Bag0' );
 	if( !is_null( $bag0 ) )
 	{
-		$bag0->out();
+		$bag0->out(true);
 	}
 
 	$bag1 = bag_get( $char->get('member_id'), 'Bag1' );
 	if( !is_null( $bag1 ) )
 	{
-		$bag1->out();
+		$bag1->out(true);
 	}
 
 	$bag2 = bag_get( $char->get('member_id'), 'Bag2' );
 	if( !is_null( $bag2 ) )
 	{
-		$bag2->out();
+		$bag2->out(true);
 	}
 
 	$bag3 = bag_get( $char->get('member_id'), 'Bag3' );
 	if( !is_null( $bag3 ) )
 	{
-		$bag3->out();
+		$bag3->out(true);
 	}
 
 	$bag4 = bag_get( $char->get('member_id'), 'Bag4' );
 	if( !is_null( $bag4 ) )
 	{
-		$bag4->out();
+		$bag4->out(true);
 	}
 
 	$bag5 = bag_get( $char->get('member_id'), 'Bag5' );
 	if( !is_null( $bag5 ) )
 	{
-		$bag5->out();
+		$bag5->out(true);
 	}
 }
 
@@ -93,49 +93,49 @@ if( $roster->auth->getAuthorized($addon['config']['show_bank']) )
 	$bag0 = bag_get( $char->get('member_id'), 'Bank Bag0' );
 	if( !is_null( $bag0 ) )
 	{
-		$bag0->out();
+		$bag0->out(true);
 	}
 
 	$bag1 = bag_get( $char->get('member_id'), 'Bank Bag1' );
 	if( !is_null( $bag1 ) )
 	{
-		$bag1->out();
+		$bag1->out(true);
 	}
 
 	$bag2 = bag_get( $char->get('member_id'), 'Bank Bag2' );
 	if( !is_null( $bag2 ) )
 	{
-		$bag2->out();
+		$bag2->out(true);
 	}
 
 	$bag3 = bag_get( $char->get('member_id'), 'Bank Bag3' );
 	if( !is_null( $bag3 ) )
 	{
-		$bag3->out();
+		$bag3->out(true);
 	}
 
 	$bag4 = bag_get( $char->get('member_id'), 'Bank Bag4' );
 	if( !is_null( $bag4 ) )
 	{
-		$bag4->out();
+		$bag4->out(true);
 	}
 
 	$bag5 = bag_get( $char->get('member_id'), 'Bank Bag5' );
 	if( !is_null( $bag5 ) )
 	{
-		$bag5->out();
+		$bag5->out(true);
 	}
 
 	$bag6 = bag_get( $char->get('member_id'), 'Bank Bag6' );
 	if( !is_null( $bag6 ) )
 	{
-		$bag6->out();
+		$bag6->out(true);
 	}
 
 	$bag7 = bag_get( $char->get('member_id'), 'Bank Bag7' );
 	if( !is_null( $bag7 ) )
 	{
-		$bag7->out();
+		$bag7->out(true);
 	}
 }
 
