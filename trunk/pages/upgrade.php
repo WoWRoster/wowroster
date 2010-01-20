@@ -336,6 +336,13 @@ class Upgrade
 				ADD `parent` varchar(32) default NULL AFTER `faction`;");
 		}
 
+		// Add class_id to primary key for talent data
+		if( version_compare($roster->config['version'], '2.0.9.2078', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('talents_data') . "`
+				ADD PRIMARY KEY (`rank`,`tree`,`row`,`column`,`class_id`);");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

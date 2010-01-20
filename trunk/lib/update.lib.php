@@ -2637,7 +2637,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 	function _talent_layer_url( $memberId , $build )
 	{
 		global $roster;
-		echo 'Talentlayerurl '.$memberId.' - '.$build.'<br>';
+//		echo 'Talentlayerurl '.$memberId.' - '.$build.'<br>';
 
 		$sqlquery2 = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $memberId . "' AND `build` = '" . $build . "' ORDER BY `order` ASC";
 		$result2 = $roster->db->query($sqlquery2);
