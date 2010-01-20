@@ -599,6 +599,15 @@ class char
 					$s = 0;
 					++$p;
 				}
+
+				// Prepare tooltip for rank insertion
+				$tooltip = str_replace("\n\n", "\n", $tooltip);
+				$tooltip = str_replace('<br>',"\n",$tooltip);
+				$tooltip = str_replace('<br />',"\n",$tooltip);
+				$tooltip = explode("\n", $tooltip);
+				$tooltip[0] .= "\t" . $row2['spell_rank'];
+				$tooltip = implode("\n", $tooltip);
+
 				$spell_name = $row2['spell_name'];
 				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['num'] = $s;
 				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['icon'] = $row2['spell_texture'];
