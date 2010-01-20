@@ -380,6 +380,7 @@ class roster
 
 				// Scope specific functions
 				$scope_class = new CharScope;
+				$scope_class->set_tpl($this->data);
 				$scope_class->alt_name_hover();
 				$scope_class->mini_members_list();
 				

@@ -22,6 +22,40 @@ if( !defined('IN_ROSTER') )
 
 class CharScope
 {
+	function set_tpl( $data )
+	{
+		global $roster;
+
+		// Create a character based icon
+		if( $data['raceEn'] == '' || $data['sexid'] == '' )
+		{
+			$data['char_icon'] = 'unknown';
+		}
+		else
+		{
+			$data['char_icon'] = strtolower($data['raceEn']) . '-' . ($data['sexid'] == '0' ? 'male' : 'female');
+		}
+
+		/**
+		 * Assigning everything this file may need to the template
+		 * The only tpl vars not here are ones that need to be generated in their respective methods
+		 */
+		$roster->tpl->assign_vars(array(
+			'CHAR_ICON'     => $data['char_icon'],
+			'NAME'          => $data['name'],
+			'ID'            => $data['member_id'],
+			'LOCALE'        => $data['clientLocale'],
+			'LEVEL'         => $data['level'],
+			'RACE'          => $data['race'],
+			'CLASS'         => $data['class'],
+			'GUILD_TITLE'   => $data['guild_title'],
+			'GUILD_NAME'    => $data['guild_name'],
+			'FACTION_EN'    => strtolower($roster->data['factionEn']),
+			'FACTION'       => $roster->data['faction']
+			)
+		);
+	}
+
 	function alt_name_hover()
 	{
 		global $roster;
