@@ -532,41 +532,40 @@
 
 <!-- IF S_SPELL_TAB -->
 <!-- spellbook -->
-	<div id="spellbook" class="spellbook" style="display:none;">
-
+<div id="spellbook" class="container spellbook" style="display:none;">
 <!-- BEGIN spell_book -->
-		<div class="container">
-			<div class="box-label">
-				<div class="icon spellbook"></div>
-				{spell_book.NAME}'s <!-- TRANSLATE spellbook -->
-			</div>
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{spell_book.NAME}'s <!-- TRANSLATE spellbook --></div>
 
 <!-- BEGIN tree -->
-			<div class="spell-tree shader">
-				<div class="tree-name"><img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" class="icon" alt="" />
-					<div class="id-name">
-						{spell_book.tree.ID}
-					</div>
-				</div>
-				<div class="spell-page">
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title">
+							<!-- IF spell_book.tree.ID eq "0" -->
+								General
+							<!-- ELSE -->
+								{spell_book.tree.ID}
+							<!-- ENDIF -->
+						</div>
 <!-- BEGIN page -->
 <!-- BEGIN spell -->
-					<div class="spell-container shader">
-						<div class="text">
-							<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" class="icon" {spell_book.tree.page.spell.TOOLTIP} alt="" />
-							<span>{spell_book.tree.page.spell.NAME}</span><br />
-							<!-- IF spell_book.tree.page.spell.RANK --><span class="rank">{spell_book.tree.page.spell.RANK}</span><!-- ENDIF -->
+						<div class="item">
+							<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" />
+							<div class="mask" {spell_book.tree.page.spell.TOOLTIP}></div>
 						</div>
-					</div>
 <!-- END spell -->
 <!-- END page -->
-					<div style="clear:both;"></div>
+						<div style="clear:both;"></div>
+					</div>
 				</div>
-			</div>
 <!-- END tree -->
+			</div>
 		</div>
-<!-- END spell_book -->
 	</div>
+<!-- END spell_book -->
+</div>
 <!-- ENDIF -->
 
 

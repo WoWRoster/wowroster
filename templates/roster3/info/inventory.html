@@ -1,47 +1,54 @@
 <!-- $Id$ -->
 
+<div class="container">
 
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE equipment --></div>
 
-	<div class="container">
-		<div class="box-label">
-			<div class="icon profile"></div>
-			<!-- TRANSLATE equipment -->
-		</div>
-        <div class="inner">
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
 <!-- BEGIN equipment -->
-		<div class="item">
-            <!-- IF equipment.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{equipment.ICON}" /><!-- ENDIF -->
-            <div class="mask {equipment.QUALITY}" {equipment.TOOLTIP}{equipment.ITEMLINK}></div>
+						<div class="item">
+            				<!-- IF equipment.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{equipment.ICON}" /><!-- ENDIF -->
+            				<div class="mask {equipment.QUALITY}" {equipment.TOOLTIP}{equipment.ITEMLINK}></div>
 <!-- IF equipment.QTY gt 1 -->
-					<b>{equipment.QTY}</b>
-					<span>{equipment.QTY}</span>
+							<b>{equipment.QTY}</b>
+							<span>{equipment.QTY}</span>
 <!-- ENDIF -->
-				</div>
+						</div>
 <!-- END equipment -->
-			<div style="clear:both;"></div>
-        </div>
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 
-
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">Backpack Inventory</div>
 <!-- BEGIN bag -->
-	<div class="container">
-		<div class="box-label">
-			<div class="icon"><img src="{bag.ICON}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>
-			{bag.NAME}
-		</div>
-        <div class="inner">
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title"><div class="icon"><img src="{bag.ICON}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>{bag.NAME}</div>
 <!-- BEGIN item -->
-		<div class="item">
-			<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bag.item.ICON}" /><!-- ENDIF -->
-            <div class="mask {bag.item.QUALITY}" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
+						<div class="item">
+							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bag.item.ICON}" /><!-- ENDIF -->
+            				<div class="mask {bag.item.QUALITY}" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
 <!-- IF bag.item.QTY gt 1 -->
-			<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
+							<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
 <!-- ENDIF -->
-		</div>
+						</div>
 <!-- END item -->
-			<div style="clear:both;"></div>
-        </div>
-	</div>
+						<div style="clear:both;"></div>
+					</div>
+				</div>
 <!-- END bag -->
-
+			</div>
+		</div>
+	</div>
+    
 <br style="clear:both;" />
