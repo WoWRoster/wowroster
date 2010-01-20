@@ -26,10 +26,11 @@
 		</div>
 	</div>
 
+<!-- IF S_BAG -->
 	<div class="tier-1-a">
         <div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title">Backpack Inventory</div>
+				<div class="tier-1-title">Backpacks</div>
 <!-- BEGIN bag -->
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
@@ -50,5 +51,61 @@
 			</div>
 		</div>
 	</div>
+<!-- ENDIF -->
     
+<!-- IF S_KEY -->    
+    <div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">Keyring</div>
+<!-- BEGIN key -->
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title"><div class="icon"><img src="{key.ICON}" /><div class="mask" {key.TOOLTIP}{key.LINKTIP}></div></div>{key.NAME}</div>
+<!-- BEGIN item -->
+						<div class="item">
+							<!-- IF key.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{key.item.ICON}" /><!-- ENDIF -->
+            				<div class="mask {key.item.QUALITY}" {bag.item.TOOLTIP}{key.item.ITEMLINK}></div>
+<!-- IF key.item.QTY gt 1 -->
+							<b>{key.item.QTY}</b><span>{key.item.QTY}</span>
+<!-- ENDIF -->
+						</div>
+<!-- END item -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- END key -->
+			</div>
+		</div>
+	</div>
+<!-- ENDIF -->
+
+
+<!-- IF S_BANK -->
+    <div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">Bank</div>
+<!-- BEGIN bank -->
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title"><div class="icon"><img src="{bank.ICON}" /><div class="mask" {bank.TOOLTIP}{bank.LINKTIP}></div></div>{bank.NAME}</div>
+<!-- BEGIN item -->
+						<div class="item">
+							<!-- IF bank.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bank.item.ICON}" /><!-- ENDIF -->
+            				<div class="mask {bank.item.QUALITY}" {bank.item.TOOLTIP}{bank.item.ITEMLINK}></div>
+<!-- IF key.item.QTY gt 1 -->
+							<b>{bank.item.QTY}</b><span>{bank.item.QTY}</span>
+<!-- ENDIF -->
+						</div>
+<!-- END item -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- END bank -->
+			</div>
+		</div>
+	</div>
+<!-- ENDIF -->
+</div>
 <br style="clear:both;" />

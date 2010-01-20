@@ -356,18 +356,14 @@
 .main-panel .skills .skill-bar .text { width:273px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
 /*********** Talent Page ***********/
-.main-panel .talents .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .talents .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .talents .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .talents .container .box-label .talents { background: url(images/icons/talents.gif); }
 
-.main-panel .talents .frames { margin: auto; height: 600px; width: auto; }
+.main-panel .talents .frames { margin: auto; height: 586px; width: auto; }
 
-.main-panel .talents .spec { position:relative; float: left; width:235px; height:600px; margin: 3px; }
-.main-panel .talents .spec-name { position:absolute; width:223px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; }
+.main-panel .talents .spec { position:relative; float: left; width:210px; height:580px; margin: 3px; }
+.main-panel .talents .spec-name { position:absolute; width:200px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; }
 .main-panel .talents .spec-name .name { color:#ffdd00; }
-.main-panel .talents .tbackground { position:absolute;width:235px;height:600px; }
-.main-panel .talents .content { position:absolute;width:235px;height:520px; }
+.main-panel .talents .tbackground { position:absolute;width:210px;height:580px; }
+.main-panel .talents .content { position:absolute;width:210px;height:520px; }
 .main-panel .talents .top_bar { position:absolute;margin-top:43px; }
 .main-panel .talents .bot_bar { position:absolute;margin-top:402px; }
 .main-panel .talents .points { text-align:right;position:absolute;margin-top:48px;margin-left:70px;width:250px; }
@@ -375,13 +371,12 @@
 .main-panel .talents .points_unused {  }
 .main-panel .talents .points_unused .label { color:#ffdd00; }
 .main-panel .talents .points_unused .export { float: right; color:#ffdd00; }
-.main-panel .talents .row { height:35px;margin-top:15px; }
+.main-panel .talents .row { height:35px;margin-top:14px; }
 .main-panel .talents .rank_icon { position:absolute;margin-top:28px;margin-left:27px; }
 .main-panel .talents .rank_text { position:absolute;font-size:12px;margin-top:28px;margin-left:32px;cursor:default; }
-.main-panel .talents .talent-icon { height: 40px; width: 40px; }
-.main-panel .talents .cell { float:left;width:40px;height:40px;margin-left:15px; }
+.main-panel .talents .talent-icon { height: 35px; width: 35px; }
+.main-panel .talents .cell { float:left;width:35px;height:35px;margin-left:14px; }
 
-.main-panel .talents .glyph-pane { height: 140px; clear: both; padding: 20px; }
 .main-panel .talents .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; position:relative; clear: left; }
 .main-panel .talents .glyph-1 img { float: left; background: url(images/glyphs/glyph_bg_major.png); height: 30px; width: 30px; padding: 5px; }
 .main-panel .talents .glyph-1 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px; }
@@ -409,14 +404,9 @@
 
 
 /***********  Currency Page ***********/
-.main-panel .currency .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .currency .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .currency .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .currency .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
-
-.main-panel .currency .container .currency-container { cursor: default; text-align:left; color:#000000; background: url(../images/currency_bg.png); margin: 2px 20px 0px; height: 35px; border: 2px solid #CCA324; padding-left: 8px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
-.main-panel .currency .container .currency-container .icon { height: 25px; width: 25px; float: left; margin-right: 5px; padding-top: 5px;}
-.main-panel .currency .container .currency-container .text { text-align: center; margin-top: 10px;}
+.main-panel .currency .icon { height: 24px; width: 24px; float: left; margin-right: 5px; }
+.main-panel .currency .icon img { height: 24px; width: 24px; }
+.main-panel .currency .text { text-align: left; color: #000; font-size: 14px; line-height: 24px; }
 
 
 
