@@ -601,7 +601,7 @@ class char
 				}
 
 				// Prepare tooltip for rank insertion
-				$tooltip = str_replace("\n\n", "\n", $tooltip);
+				$tooltip = str_replace("\n\n", "\n", $row2['spell_tooltip']);
 				$tooltip = str_replace('<br>',"\n",$tooltip);
 				$tooltip = str_replace('<br />',"\n",$tooltip);
 				$tooltip = explode("\n", $tooltip);
@@ -612,7 +612,7 @@ class char
 				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['num'] = $s;
 				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['icon'] = $row2['spell_texture'];
 				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['rank'] = $row2['spell_rank'];
-				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['tooltip'] = makeOverlib($row2['spell_tooltip'],'','',0,$this->data['clientLocale'],',RIGHT');
+				$spellbook[$this->data['name']][$spell_type]['spells'][$p][$spell_name]['tooltip'] = makeOverlib($tooltip,'','',0,$this->data['clientLocale'],',RIGHT');
 				++$s;
 			}
 			$roster->db->free_result($result2);
