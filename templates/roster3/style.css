@@ -101,6 +101,23 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .info-header .guild span { color: #FFCC00; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
 .info-header .info span { color: #FFFFFF; display: block; position: absolute; z-index: 12; left: -1px; top: -2px; }
 
+
+
+/* Common Styles */
+
+.tier-1-a { background:url('./images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; margin: 20px 20px 0px; }
+.tier-1-b { background:url('./images/tier/tier_1_b.gif') left top repeat-x; border:1px solid #ffffd6 }
+.tier-1-c { background:url('./images/tier/tier_1_c.jpg') left top no-repeat; padding:7px 7px 6px }
+.tier-1-title { font-size:22px !important; color:#ab4a30; font-family:Georgia,"Times New Roman",Times,serif ; font-weight: normal !important; text-decoration:none; display:block; position:relative}
+
+.tier-2-a { background:url('./images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
+.tier-2-b { background:url('./images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px 7px }
+.tier-2-title { font-size:18px !important; color:#1e92c8; font-family:Georgia,"Times New Roman",Times,serif ; font-weight: normal; padding:0; margin-bottom: 5px; }
+
+.tier-3-a { background:url(./images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
+.tier-3-b { background:url(./images/tier/tier_3_b.jpg) no-repeat left top; padding:2px 2px 2px 7px }
+
+
 /* Mini Guild Member List */
 .char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: 0px; top: 100px; background: #eaca81 url(./images/section_bg.jpg) repeat-y center top; border-top: 1px solid #9D7D1C; border-right: 1px none #9D7D1C; border-bottom: 1px solid #9D7D1C; border-left: 1px solid #9D7D1C; }
 .char-list .title { font: bold 18px/normal Georgia, "Times New Roman", Times, serif; text-transform: capitalize; color: #000000; text-align: left; margin-top: 11px; margin-left: 9px; position: relative; }

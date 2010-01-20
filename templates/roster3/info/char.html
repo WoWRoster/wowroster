@@ -303,40 +303,51 @@
 
 
 <!-- IF S_COMPAN_TAB -->
-	<div id="companions" class="companions" style="display:none;">
+<div id="companions" class="container companions" style="display:none;">
 <!-- IF S_MOUNTS -->
-		<div class="container">
-			<div class="box-label"><div class="icon mounts"></div><!-- TRANSLATE mounts --></div>
-			<div class="inner">
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE mounts --></div>
+				
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
 <!-- BEGIN mounts -->
-				<div class="item">
-					<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" />
-					<div class="mask" {mounts.TOOLTIP}></div>
-				</div>
+						<div class="item">
+							<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" />
+							<div class="mask" {mounts.TOOLTIP}></div>
+						</div>
 <!-- END mounts -->
-			<div style="clear:both;"></div>
+						<div style="clear:both;"></div>
+					</div>
+				</div>
 			</div>
 		</div>
+	</div>
 <!-- ENDIF -->
 
 <!-- IF S_COMPANIONS -->
-		<div class="container">
-			<div class="box-label"><div class="icon companions"></div><!-- TRANSLATE companions --></div>
-			<div class="inner">
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE companions --></div>
+				
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
 <!-- BEGIN companions -->
-				<div class="item">
-					<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" />
-					<div class="mask" {companions.TOOLTIP}></div>
-				</div>
+						<div class="item">
+							<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" />
+							<div class="mask" {companions.TOOLTIP}></div>
+						</div>
 <!-- END mounts -->
-			<div style="clear:both;"></div>
+						<div style="clear:both;"></div>
+					</div>
+				</div>
 			</div>
-			
-			
 		</div>
-<!-- ENDIF -->
-
 	</div>
+<!-- ENDIF -->
+</div>
 <!-- ENDIF -->
 
 
@@ -344,48 +355,56 @@
 <!-- IF S_REP_TAB -->
 
 <!-- reputation -->
-	<div id="reputation" class="reputation" style="display:none;">
+<div id="reputation" class="container reputation" style="display:none;">
 <!-- BEGIN rep -->
-		<div class="container">
-			<div class="box-label">
-				<div class="icon {rep.NAME_ID}"></div>
-				{rep.NAME}
-			</div>
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{rep.NAME}</div>
+				
+                    
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
 <!-- BEGIN bar -->
-			<div class="rep">
-				<div class="rep-name">{rep.bar.NAME}</div>
-				<div class="rep-standing">{rep.bar.STANDING}</div>
-				<div class="rep-bar">
-					<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>
-					<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
-				</div>
-			</div>
-			
-			
-			
+						<div class="tier-3-a"><div class="tier-3-b">
+                        <div class="rep">
+							<div class="rep-name">{rep.bar.NAME}</div>
+							<div class="rep-standing">{rep.bar.STANDING}</div>
+							<div class="rep-bar">
+								<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>
+								<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+							</div>
+						</div>
+                        </div></div>			
 <!-- BEGIN rep2 -->
-			<div class="reps">
-				<div class="rep-name">{rep.bar.rep2.NAME}</div>
-			</div>
-			<div class="container2">
+					</div>
+            	</div>
+                <div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title">{rep.bar.rep2.NAME}</div>
 <!-- BEGIN bar2 -->
-				<div class="rep2">
-					<div class="rep-name">{rep.bar.rep2.bar2.NAME}</div>
-					<div class="rep-standing">{rep.bar.rep2.bar2.STANDING}</div>
-					<div class="rep-bar">
-						<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width: {rep.bar.rep2.bar2.WIDTH}%;"></div>
-						<div class="text">{rep.bar.rep2.bar2.VALUE} / {rep.bar.rep2.bar2.MAXVALUE}</div>
+						<div class="tier-3-a"><div class="tier-3-b">
+                        <div class="rep">
+							<div class="rep-name">{rep.bar.rep2.bar2.NAME}</div>
+							<div class="rep-standing">{rep.bar.rep2.bar2.STANDING}</div>
+							<div class="rep-bar">
+								<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width: {rep.bar.rep2.bar2.WIDTH}%;"></div>
+								<div class="text">{rep.bar.rep2.bar2.VALUE} / {rep.bar.rep2.bar2.MAXVALUE}</div>
+							</div>
+						</div>
+                        </div></div>
+<!-- END bar2 -->
+					
+<!-- END rep2 -->
+					
+<!-- END bar -->	
 					</div>
 				</div>
-<!-- END bar2 -->
 			</div>
-<!-- END rep2 -->
-
-<!-- END bar -->
-
 		</div>
-<!-- END rep -->
 	</div>
+<!-- END rep -->
+</div>
 <!-- ENDIF -->
 
 
@@ -393,26 +412,37 @@
 <!-- IF S_SKILL_TAB -->
 
 <!-- skills -->
-	<div id="skills" class="skills" style="display:none;">
+<div id="skills" class="container skills" style="display:none;">
 <!-- BEGIN skill -->
-		<div class="container">
-			<div class="box-label"><div class="icon {skill.NAME_ID}"></div>{skill.NAME}</div>
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{skill.NAME}</div>
+
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
 <!-- BEGIN bar -->
-			<div class="skill">
-				<div class="skill-name">{skill.bar.NAME}</div>
-				<div class="skill-bar">
+						<div class="tier-3-a"><div class="tier-3-b">
+						<div class="skill">
+							<div class="skill-name">{skill.bar.NAME}</div>
+							<div class="skill-bar">
 <!-- IF skill.bar.MAXVALUE eq 1 -->
-					<div class="fill" style="width: 100%;"></div>
+								<div class="fill" style="width: 100%;"></div>
 <!-- ELSE -->
-					<div class="fill" style="width: {skill.bar.WIDTH}%;"></div>
-					<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
+								<div class="fill" style="width: {skill.bar.WIDTH}%;"></div>
+								<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
 <!-- ENDIF -->
+							</div>
+						</div>
+                        </div></div>
+<!-- END bar -->
+					</div>
 				</div>
 			</div>
-<!-- END bar -->
 		</div>
-<!-- END skill -->
 	</div>
+<!-- END skill -->
+</div>
 <!-- ENDIF -->
 
 
