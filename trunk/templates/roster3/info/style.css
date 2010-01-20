@@ -396,10 +396,6 @@
 
 
 /***********  Spellbook Page ***********/
-.main-panel .spellbook .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .spellbook .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .spellbook .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .spellbook .container .box-label .spellbook { background: url(images/icons/spellbook.gif); }
 
 .main-panel .spellbook .container .spell-tree { margin: 10px;  background: url(../images/char_info_bg.jpg) repeat-y center top; }
 .main-panel .spellbook .container .spell-tree .tree-name { position: relative; text-transform: uppercase; font: bold 24px/40px "Times New Roman", Times, serif; color: #FFFFFF; padding: 2px; }
