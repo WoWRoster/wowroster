@@ -52,7 +52,7 @@ class bag extends item
 		}
 	}
 
-	function out( )
+	function out( $send_type = false )
 	{
 		global $roster, $addon, $tooltips;
 
@@ -74,7 +74,10 @@ class bag extends item
 			$offset += 53;
 		}
 
-		$roster->tpl->assign_block_vars('bag',array(
+		// If send type is true, the tpl array is set with the bag type
+		$send_type = ( $send_type ? $bag_type : 'bag');
+
+		$roster->tpl->assign_block_vars($send_type,array(
 			'NAME'    => $this->data['item_name'],
 			'SLOT'    => $this->data['item_slot'],
 			'QUALITY' => $this->quality,
@@ -94,7 +97,7 @@ class bag extends item
 			{
 				$item = $this->contents[$slot+1];
 
-				$roster->tpl->assign_block_vars('bag.item',array(
+				$roster->tpl->assign_block_vars($send_type . '.item',array(
 					'ICON'     => $item->tpl_get_icon(),
 					'TOOLTIP'  => $item->tpl_get_tooltip(),
 					'ITEMLINK' => $item->tpl_get_itemlink(),
@@ -105,7 +108,7 @@ class bag extends item
 			}
 			else
 			{
-				$roster->tpl->assign_block_vars('bag.item',array(
+				$roster->tpl->assign_block_vars($send_type . '.item',array(
 					'ICON'     => '',
 					'TOOLTIP'  => '',
 					'ITEMLINK' => '',
