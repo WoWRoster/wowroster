@@ -23,16 +23,13 @@
 .shader { background: url(../images/shader.png) repeat; border: 1px solid #000000; }
 
 .main-panel { clear: left; position: relative; }
-.main-panel .profile .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .profile .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
-.main-panel .profile .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.main-panel .profile .container .box-label .profile { background: url(images/icons/profile.gif); }
-.main-panel .profile .container .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: auto; padding: 0px; height: 570px; width: 540px; position: relative; }
+
+.main-panel .profile .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: 10px auto; padding: 0px; height: 570px; width: 540px; position: relative; }
 
 .info-box { height: 460px; width: 350px; position: absolute; left: 95px; top: 19px; }
 
 /* Equipment Items */
-.equip .item { position:absolute; width:64px; height:64px; left: -2px; top: -2px; z-index: 100; }
+.equip .item { position:absolute; width:64px; height:64px; left: -3px; top: -3px; z-index: 100; }
 
 .equip .none { background: url(images/equip_button.png) no-repeat left top; }
 .equip .poor { background: url(images/equip_poor.png no-repeat left top); }
@@ -201,7 +198,7 @@
 .bonus-navigation .selected { cursor:default; border-color: #FC0; }
 .bonus-navigation .selected .text { color:#ffffff; }
 
-.info-bonus-navigation { font:11px arial,helvetica,sans-serif; line-height:normal; position: absolute; top: 0px; right: 0px; padding: 8px; }
+.info-bonus-navigation { font:11px arial,helvetica,sans-serif; line-height:normal; position: relative; float: right; }
 .info-bonus-navigation ul { margin:0;padding:0;list-style:none; }
 .info-bonus-navigation li { background: transparent url(../images/shader.png) repeat; float:left; margin:0px 0px 3px 3px; cursor:pointer; border: 1px solid #06F; padding: 5px; }
 .info-bonus-navigation .text { display:block; text-decoration:none;font-weight:normal;color:#FFDD00; }
