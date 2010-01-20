@@ -124,6 +124,10 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 	{
 		ajax_die($text, $title, $file, $line, $sql);
 	}
+
+	// Set scope to util
+	$roster->scope = 'util';
+
 	// die_quitely died quietly
 	if(defined('ROSTER_DIED') )
 	{
@@ -216,6 +220,9 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 	{
 		ajax_die($message, $title, null, null, null );
 	}
+
+	// Set scope to util
+	$roster->scope = 'util';
 
 	if( !defined('ROSTER_MENU_INC') && is_array($roster->config) )
 	{
