@@ -142,43 +142,12 @@ class item
 
 	function out()
 	{
-		global $roster, $tooltips;
-
-		$lang = ( isset($this->locale) ? $this->locale : $roster->config['locale'] );
-		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->icon . '.' . $roster->config['img_suffix'];
-		$tooltip = makeOverlib($this->html_tooltip . '<br/><span class="red">item::out()</span> is depreciated', '', '' , 2, '', ', WIDTH, 325');
-		list($item_id) = explode(':', $this->item_id);
-		// Item links
-		$num_of_tips = (count($tooltips)+1);
-		$linktip = '';
-
-		foreach( $roster->locale->wordings[$lang]['itemlinks'] as $key => $ilink )
-		{
-			$linktip .= '<a href="' . $ilink . $item_id . '" target="_blank">' . $key . '</a><br />';
-		}
-		setTooltip($num_of_tips, $linktip);
-		setTooltip('itemlink', $roster->locale->wordings[$lang]['itemlink']);
-
-		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
-
-		$output = '<div class="item" ' . $tooltip . $linktip . '>';
-
-		if( $this->slot == 'Ammo' )
-		{
-			$output .= '<img src="' . $path . '" class="iconsmall" alt="" />' . "\n";
-		}
-		else
-		{
-			$output .= '<img src="' . $path . '" class="icon" alt="" />' . "\n";
-		}
-
-		if( ($this->quantity > 1) )
-		{
-			$output .= '<b>' . $this->quantity . '</b>';
-			$output .= '<span>' . $this->quantity . '</span>';
-		}
-		$output .= '</div>';
-
+		$output = '<div class="item">
+	<img src="' . $this->tpl_get_icon() . '" alt="" />
+	<div class="mask ' . $this->quality . '" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '></div>
+	<b>' . $this->quantity . '</b><span>' . $this->quantity . '</span>
+</div>
+';
 		return $output;
 	}
 
