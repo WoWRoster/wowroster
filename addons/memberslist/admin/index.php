@@ -128,8 +128,7 @@ foreach( $config as $id => $conf_obj )
 	$config[$id]->buildConfigPage();
 }
 
-$body .= $config['master']->form_start
-	. $save_message;
+$body .= $config['master']->form_start . $save_message;
 foreach( $config as $id => $conf_obj )
 {
 	$body .= $config[$id]->formpages;
