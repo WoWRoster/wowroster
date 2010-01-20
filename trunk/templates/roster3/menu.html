@@ -30,73 +30,10 @@
 <!-- END menu_button_section -->
 </div>
 
-
-
-
-
 <div style="display:none;">
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color syellowborder">
+{MENU_LEFT}
 
-			<table cellspacing="0" cellpadding="4" border="0" class="main_roster_menu">
-				<tr>
-					<td colspan="3" align="center" valign="top" class="header">
-						<div align="right" style="float:right;">
-							<!-- IF S_LOCALE_SELECT -->
-							<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-								<!-- TRANSLATE language -->
-								<select name="locale" onchange="document.locale_select.submit();">
-								<!-- BEGIN locale_select -->
-									<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-								<!-- END locale_select -->
-								</select>
-							</form>
-							<!-- ENDIF -->
-							<!-- IF S_DATA_SELECT -->
-							<form action="{U_MAKELINK}" name="list_select" method="post" style="margin:0;">
-								{L_MENU_LABEL_NAME}:
-								<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
-									<!-- BEGIN menu_select_group -->
-									<optgroup label="{menu_select_group.U_VALUE}">
-										<!-- BEGIN menu_select_row -->
-										<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
-										<!-- END menu_select_row -->
-									</optgroup>
-									<!-- END menu_select_group -->
-								</select>
-							</form>
-							<!-- ELSE -->
-							&nbsp;
-							<!-- ENDIF -->
-						</div>
-						<div style="white-space:nowrap;">
-							<span style="font-size:18px;">{ROSTER_TITLE}</span>
-<!-- IF ROSTER_SUBTITLE -->
-							<span style="font-size:11px;">{ROSTER_SUBTITLE}
-<!-- IF ROSTER_3RDTITLE -->
-							<br />
-							{ROSTER_3RDTITLE}
-<!-- ENDIF -->
-<!-- IF LAST_UPDATED -->
-							<!-- TRANSLATE lastupdate -->: <span style="color:#0099FF;">{LAST_UPDATED}</span>
-<!-- ENDIF --></span>
-<!-- ENDIF -->
-						</div></td>
-				</tr>
-				<tr>
-					<td colspan="3" class="divider_gold"><img src="{IMG_URL}pixel.gif" width="1" height="1" alt="" /></td>
-				</tr>
-				<tr>
-			{MENU_LEFT}
-
-			{MENU_RIGHT}
-				</tr>
-			</table>
-
-		</td>
-	</tr>
-</table>
+{MENU_RIGHT}
 
 </div>

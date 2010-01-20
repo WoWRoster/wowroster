@@ -27,7 +27,16 @@ $roster->output['title'] = $roster->locale->act['rosterdiag'];
 // Include the library for RosterDiag
 include_once(ROSTER_LIB.'rosterdiag.lib.php');
 
-echo '<span class="title_text">' . $roster->locale->act['rosterdiag'] . '</span>';
+echo '<div class="roster-panel"> 
+	<div class="container">
+		<div class="box-label">
+			<div class="icon">
+				<img src="' . $roster->config['interface_url'] . 'Interface/Icons/inv_misc_gear_02.' . $roster->config['img_suffix'] . '" alt="" />
+				<div class="mask"></div>
+			</div>
+			' . $roster->locale->act['rosterdiag'] . '
+		</div>
+';
 
 // Loging in as Admin to allow up- / downgrades && Downloads
 
@@ -36,7 +45,7 @@ if( isset($_GET['printconf']) && $_GET['printconf'] == 1 )
 {
 	echo '<div align="left">';
 	aprint($roster->config);
-	echo '</div>';
+	echo '</div></div></div>';
 
 	return;
 }
@@ -160,7 +169,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 			}
 		}
 
-		print '<table border="0" cellspacing="6"><tr><td valign="top" align="right">'."\n";
+		print '<table width="100%" border="0" cellspacing="6"><tr><td valign="top" align="right">'."\n";
 
 		print border('syellow','start','MD5 Information for file: '.$filename)."\n";
 		print '<table width="100%" cellspacing="0" border="0">';
@@ -217,11 +226,11 @@ echo ConfigErrors();
 echo "<br />\n";
 
 // Table display fix
-echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
+echo "<table width=\"100%\" border=\"0\" cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display basic server info
 $rowstripe = 0;
-echo messageboxtoggle('
+echo messagebox('
 <table width="100%" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">OS</td>
@@ -235,10 +244,10 @@ echo messageboxtoggle('
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">MySQL Version</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.$roster->db->server_info().'</td>
 	</tr>
-</table>','Basic Server Info','syellow',false,'350px').'
+</table>','Basic Server Info','syellow','350px').'
 <br />
 '.
-messageboxtoggle('
+messagebox('
 <table width="100%" cellspacing="0">
 	<tr>
 		<td class="membersRow'.((($rowstripe=0)%2)+1).'">PHP Version</td>
@@ -268,7 +277,7 @@ messageboxtoggle('
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">upload_max_filesize</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.ini_get('upload_max_filesize').'</td>
 	</tr>
-</table>','PHP Settings','syellow',false,'350px');
+</table>','PHP Settings','syellow','350px');
 
 
 
@@ -278,16 +287,16 @@ echo "</td><td valign=\"top\">\n";
 
 
 // Display GD info
-echo messageboxtoggle(describeGDdyn(),'GD Support','sgreen',false,'350px');
+echo messagebox(describeGDdyn(),'GD Support','sgreen','350px');
 
 
 // Table display fix
 echo "</td></tr></table>\n";
-echo "<table cellspacing=\"6\"><tr><td valign=\"top\">\n";
+echo "<table width=\"100%\" border=\"0\" cellspacing=\"6\"><tr><td valign=\"top\">\n";
 
 // Display conf.php info
 
-echo messageboxtoggle('
+echo messagebox('
 <table width="100%" cellspacing="0">
 	<tr>
 		<th colspan="2" class="membersHeaderRight"><i><a href="'.makelink('rosterdiag&amp;printconf=1').'" target="_blank">Show Entire $roster->config array</a></i></th>
@@ -332,7 +341,7 @@ echo messageboxtoggle('
 		<td class="membersRow'.(((++$rowstripe)%2)+1).'">rs_mode</td>
 		<td class="membersRowRight'.((($rowstripe)%2)+1).'">'.onOff($roster->config['rs_mode']).'</td>
 	</tr>
-</table>','Config Values','sblue',false,'350px')."
+</table>','Config Values','sblue','350px')."
 <br />\n";
 
 
@@ -359,7 +368,7 @@ else
 	$roster->db->free_result($result);
 }
 $sql_tables .= "</table>\n";
-echo messageboxtoggle($sql_tables,'List of Tables','',false,'350px');
+echo scrollbox($sql_tables, 'List of Tables', '', '350px', '231px');
 
 
 // Table display fix
@@ -571,4 +580,5 @@ else
 	echo '<div class="membersRowRight1"><div align="center">Cannot access Roster site for file integrity checking<br />Please press the button to perform a remote File Verion Check';
 	echo '<br /><br /><input type="submit" value="Check files Remotely"></div></div>';
 	echo border('sblue','end');
+	echo '</div></div>';
 }
