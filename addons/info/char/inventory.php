@@ -157,7 +157,7 @@ if( $roster->auth->getAuthorized($addon['config']['show_bank']) )
 }
 
 $roster->tpl->assign_vars(array(
-	'S_BAG' => $s_bag,
+	'S_BAG' => $s_bags,
 	'S_KEY' => $s_key,
 	'S_BANK' => $s_bank
 	)
