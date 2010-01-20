@@ -382,6 +382,7 @@ class roster
 				$scope_class = new CharScope;
 				$scope_class->alt_name_hover();
 				$scope_class->mini_members_list();
+				$this->tpl->assign_var('CHAR_LEVEL_RACE_CLASS', sprintf($roster->locale->act['char_level_race_class'],$this->data['level'],$this->data['race'],$this->data['class']));
 				
 				break;
 
