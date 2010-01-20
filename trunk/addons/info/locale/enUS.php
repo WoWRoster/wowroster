@@ -30,8 +30,6 @@ $lang['cb_recipes'] = 'Recipes|Shows what items this character can make';
 $lang['cb_inventory'] = 'Inventory|Shows the current inventory of the players bank and bags';
 
 $lang['char_stats'] = 'Character Stats for: %1$s';
-$lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
-$lang['char_guildline'] = '%1$s of %2$s';
 $lang['talents'] = 'Talents';
 $lang['talent_specialization'] = 'Talent Specialization';
 $lang['unusedtalentpoints']='Unused Talent Points';

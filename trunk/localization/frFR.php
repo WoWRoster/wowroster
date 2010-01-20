@@ -319,6 +319,10 @@ $lang['search_tooltips'] = 'Recherche d\'aide';
 $lang['talent_build_0'] = 'Active';
 $lang['talent_build_1'] = 'Inactif';
 
+// Char Scope
+$lang['char_level_race_class'] = 'Niveau %1$s %2$s %3$s';
+$lang['char_guildline'] = '%1$s de %2$s';
+
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Métiers';
 $lang['secondary']='Compétences secondaires';

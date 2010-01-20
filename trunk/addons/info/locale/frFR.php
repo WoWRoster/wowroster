@@ -30,8 +30,6 @@ $lang['cb_recipes'] = 'Recettes|Affichage des objets que le personnage sait conf
 $lang['cb_inventory'] = 'Inventory|Shows the current inventory of the players bank and bags';
 
 $lang['char_stats'] = 'Statisques du personnage : %1$s';
-$lang['char_level_race_class'] = 'Niveau %1$s %2$s %3$s';
-$lang['char_guildline'] = '%1$s de %2$s';
 $lang['talents'] = 'Talents';
 $lang['talent_specialization'] = 'Talent Specialization';
 $lang['unusedtalentpoints']='Points de talent non utilisés';
