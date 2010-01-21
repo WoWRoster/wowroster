@@ -51,6 +51,9 @@ $creditspage['devs'] = array(
 					"info"=>	"WoWRoster Dev<br />Interface Specialist"),
 			array(	"name"=>	"Anaxent",
 					"info"=>	"WoWRoster Dev<br />WoWRosterDF Author (DragonflyCMS Port)"),
+			array(	"name"=>	"Ulminia",
+					"info"=>	"WoWRoster De<br />Backend code update"),
+					
 			array(	"name"=>	"DS",
 					"info"=>	"WoWRoster Dev"),
 			array(	"name"=>	"mathos",
