@@ -1,53 +1,39 @@
 <!-- $Id$ -->
 
-<span class="title_text">{L_PROFESSIONS}</span
-<br />
-<br />
+<div class="container">
+
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{L_PROFESSIONS}</div>
 
 <!-- BEGIN profession -->
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder">
-				<div style="cursor:pointer;width:450px;" onclick="showHide('table_{profession.ID}','img_{profession.ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
-					<img style="float:left;width:17px;height:17px;" src="{INTERFACE_URL}Interface/Icons/{profession.ICON}.{IMG_SUFFIX}" alt="" />
-					<img style="float:right;" id="img_{profession.ID}" src="{THEME_PATH}/images/<!-- IF S_HIDE -->plus<!-- ELSE -->minus<!-- ENDIF -->.gif" alt="" />
-					{profession.NAME}
-				</div>
-			</div>
-
-			<table border="0" cellpadding="0" cellspacing="0" id="table_{profession.ID}" style="width:100%;<!-- IF S_HIDE -->display:none;<!-- ENDIF -->">
-				<tr>
-					<th class="membersHeader">{L_LEVEL}</th>
-					<th class="membersHeaderRight" width="150">{L_NAME}</th>
-				</tr>
-
-				<!-- BEGIN skills -->
-				<tr>
-					<td class="membersRow{profession.skills.ROW_CLASS}">
-						<div class="levelbarParent" style="width:250px;">
-							<div class="levelbarChild">{profession.skills.LEVEL}/{profession.skills.MAX}</div>
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('table_{profession.ID}','img_{profession.ID}','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
+                        	<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{profession.ICON}.{IMG_SUFFIX}" /><div class="mask" {bank.TOOLTIP}{bank.LINKTIP}></div></div>
+                            {profession.NAME}
+                            <img style="float:right;" id="img_{profession.ID}" src="{THEME_PATH}/images/button_<!-- IF S_HIDE -->open<!-- ELSE -->close<!-- ENDIF -->.png" alt="" />
+                        </div>
+                            
+                        <div id="table_{profession.ID}">
+<!-- BEGIN skills -->
+						<div class="tier-3-a"><div class="tier-3-b">
+						<div class="skill">
+							<div class="skill-name"><!-- IF S_INFO_ADDON --><a href="{profession.skills.LINK}">{profession.skills.NAME}</a><!-- ELSE -->{profession.skills.NAME}<!-- ENDIF --></div>
+							<div class="skill-bar">
+								<div class="fill" style="width: {profession.skills.PERCENT}%;"></div>
+								<div class="text">{profession.skills.LEVEL} / {profession.skills.MAX}</div>
+							</div>
 						</div>
-						<table class="expOutline" cellpadding="0" cellspacing="0" style="width:100%;">
-							<tr>
-								<td style="background-image:url('{IMG_URL}expbar-var2.gif');width:{profession.skills.PERCENT}%;">
-									<img src="{IMG_URL}pixel.gif" style="height:14px;width:1px;" alt="" />
-								</td>
-								<td style="width:{profession.skills.REMAIN}%;"></td>
-							</tr>
-						</table>
-					</td>
-					<td class="membersRowRight{profession.skills.ROW_CLASS}">
-						<!-- IF S_INFO_ADDON --><a href="{profession.skills.LINK}">{profession.skills.NAME}</a><!-- ELSE -->{profession.skills.NAME}<!-- ENDIF -->
-					</td>
-				</tr>
-				<!-- END skills -->
-
-			</table>
-
-		</td>
-	</tr>
-</table>
-
-<br />
+                        </div></div>
+<!-- END skills -->
+						</div>
+					</div>
+				</div>
 <!-- END profession -->
+
+			</div>
+		</div>
+	</div>
+</div>

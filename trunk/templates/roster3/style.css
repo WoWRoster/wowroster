@@ -120,6 +120,13 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-a { background:url(./images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
 .tier-3-b { background:url(./images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
 
+.tier-3-b .skill { cursor: default; text-align:left; color:#000000; height: 20px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
+.tier-3-b .skill-name { float: left; position: relative; line-height: 20px; }
+.tier-3-b .skill-bar { height: 16px; width: 400px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
+.tier-3-b .skill-bar:hover { border: 1px solid #FFFFFF; }
+.tier-3-b .skill-bar .fill{ background: #006666 url(./images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.tier-3-b .skill-bar .text { width:400px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+
 .tier-4-a { background:url(./images/tier/tier_4_a.jpg) no-repeat right top; height: 30px; }
 .tier-4-b { background:url(./images/tier/tier_4_b.jpg) no-repeat left top; height: 30px; padding: 3px }
 
