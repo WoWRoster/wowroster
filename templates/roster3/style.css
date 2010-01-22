@@ -120,6 +120,9 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-a { background:url(./images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
 .tier-3-b { background:url(./images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
 
+.tier-3-b .buttons { height: 16px; float: right; padding: 1px; }
+.tier-3-b .buttons a { font: 10px/16px Georgia, "Times New Roman", Times, serif; background: #C60; height: 16px; border: 1px solid #000; margin: 1px; }
+
 .tier-3-b .skill { cursor: default; text-align:left; color:#000000; height: 20px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
 .tier-3-b .skill-name { float: left; position: relative; line-height: 20px; }
 .tier-3-b .skill-bar { height: 16px; width: 400px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
@@ -130,6 +133,15 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-4-a { background:url(./images/tier/tier_4_a.jpg) no-repeat right top; height: 30px; }
 .tier-4-b { background:url(./images/tier/tier_4_b.jpg) no-repeat left top; height: 30px; padding: 3px }
 
+.tier-5-a { background:url(./images/tier/tier_5_a.jpg) no-repeat right top; height: 30px; }
+.tier-5-b { background:url(./images/tier/tier_5_b.jpg) no-repeat left top; height: 30px; padding: 3px }
+
+.tier-3-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
+.tier-3-b .text div { float: left; height: 24px; }
+.tier-5-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
+.tier-5-b .text div { float: left; height: 24px; }
+.tier-5-b .icon .item { width: 24px; height: 24px; margin: 0px; padding: 0px; }
+.tier-5-b .icon .item img.icon { width: 24px; height: 24px; margin: 0px; padding: 0px; }
 
 
 /* Mini Guild Member List */
