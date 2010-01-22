@@ -1,41 +1,51 @@
 <!-- $Id$ -->
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder"><!-- TRANSLATE questlog --> <!-- IF S_QUESTS gt 0 -->({S_QUESTS}/{S_MAXQUESTS})<!-- ENDIF --></div>
 
-			<table cellpadding="0" cellspacing="0">
+<div class="container">
 
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE questlog --> <!-- IF S_QUESTS gt 0 --> ({S_QUESTS}/{S_MAXQUESTS})<!-- ENDIF --></div>
+
+<!-- IF S_QUESTS gt 0 -->
 <!-- BEGIN zone -->
-
-				<tr>
-					<th colspan="2" class="membersHeaderRight">{zone.NAME}</th>
-				</tr>
-
+				<div class="tier-2-a">
+                	<div class="tier-2-b">
+                    	<div class="tier-2-title">{zone.NAME}</div>
 <!-- BEGIN quest -->
+						<div class="tier-3-a">
+	                		<div class="tier-3-b">
 
-				<tr>
-					<td class="membersRow1"><span class="{zone.quest.COLOR}">[{zone.quest.LEVEL}] {zone.quest.NAME}</span>
-						<!-- IF zone.quest.DAILY -->(<!-- TRANSLATE daily -->)<!-- ENDIF -->
-						<!-- IF zone.quest.TAG neq '' or zone.quest.COMPLETE neq 0 -->
-						({zone.quest.TAG}<!-- IF zone.quest.GROUP gt 0 -->, {zone.quest.GROUP}<!-- ENDIF --><!-- IF zone.quest.COMPLETE eq 1 --><span class="green"><!-- TRANSLATE complete --></span><!-- ELSEIF zone.quest.COMPLETE eq -1 --><span class="red"><!-- TRANSLATE failed --></span><!-- ENDIF -->)
-						<!-- ENDIF --></td>
-					<td class="membersRowRight1 quest_link"><!-- BEGIN links --><a href="{zone.quest.links.LINK}" target="_blank">{zone.quest.links.NAME}</a><!-- BEGINELSE -->&nbsp;<!-- END links --></td>
-				</tr>
-
+								<div class="skill">
+	                            	<div class="skill-name">
+	                                	<span class="{zone.quest.COLOR}">[{zone.quest.LEVEL}] {zone.quest.NAME}</span>
+										<!-- IF zone.quest.DAILY -->(<!-- TRANSLATE daily -->)<!-- ENDIF -->
+										<!-- IF zone.quest.TAG neq '' or zone.quest.COMPLETE neq 0 -->
+	                                    	({zone.quest.TAG}<!-- IF zone.quest.GROUP gt 0 -->, {zone.quest.GROUP}<!-- ENDIF --><!-- IF zone.quest.COMPLETE eq 1 --><span class="green"><!-- TRANSLATE complete --></span><!-- ELSEIF zone.quest.COMPLETE eq -1 --><span class="red"><!-- TRANSLATE failed --></span><!-- ENDIF -->)
+										<!-- ENDIF -->
+	                        		</div>
+									<div class="buttons">
+                            			<!-- BEGIN links --><a href="{zone.quest.links.LINK}" target="_blank">{zone.quest.links.NAME}</a><!-- BEGINELSE -->&nbsp;<!-- END links -->
+                                	</div>
+                            	</div>
+                            
+                			</div>
+						</div>
 <!-- END quest -->
-
-<!-- BEGINELSE -->
-
-				<tr>
-					<th class="membersHeaderRight"><!-- TRANSLATE_F no_quests NAME --></th>
-				</tr>
-
+					</div>
+            	</div>
 <!-- END zone -->
+<!-- ELSE -->
+				<div class="tier-2-a">
+                	<div class="tier-2-b">
+                    	<div class="tier-2-title"><!-- TRANSLATE_F no_quests NAME --></div>
+                    </div>
+                </div>
+<!-- ENDIF -->
+					
 
-			</table>
-
-		</td>
-	</tr>
-</table>
+            </div>
+        </div>
+    </div>
+</div>
