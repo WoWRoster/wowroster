@@ -9,20 +9,25 @@
 				<div class="tier-1-title">{TRANSLATE vault}</div>
 
 <!-- BEGIN vault -->
+
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 						<div class="tier-2-title"><div class="icon"><img src="{vault.ICON}" /><div class="mask"></div></div>{vault.NAME}</div>
+<!-- BEGIN column -->
+	<div style="width:60px; float:left;">
 <!-- BEGIN item -->
                         
 							<div class="item">
-							<!-- IF vault.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{vault.item.ICON}" /><!-- ENDIF -->
-            				<div class="mask {vault.item.QUALITY}" {vault.item.TOOLTIP}{vault.item.ITEMLINK}></div>
-<!-- IF vault.item.QTY gt 1 -->
-							<b>{vault.item.QTY}</b><span>{vault.item.QTY}</span>
+							<!-- IF vault.column.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{vault.column.item.ICON}" /><!-- ENDIF -->
+            				<div class="mask {vault.column.item.QUALITY}" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}></div>
+<!-- IF vault.column.item.QTY gt 1 -->
+							<b>{vault.column.item.QTY}</b><span>{vault.column.item.QTY}</span>
 <!-- ENDIF -->
 						</div>
 
 <!-- END item -->
+	</div>
+<!-- END column -->
 						<div style="clear:both;"></div>
 					</div>
 				</div>
