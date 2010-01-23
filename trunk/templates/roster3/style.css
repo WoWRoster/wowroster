@@ -110,15 +110,19 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-1-c { background:url('./images/tier/tier_1_c.jpg') left top no-repeat; padding:7px 7px 6px }
 .tier-1-title { color:#733120; text-decoration:none; display:block; position:relative; font: normal 22px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 
+
 .tier-2-a { background:url('./images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .tier-2-b { background:url('./images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px }
 .tier-2-title { color:#1e92c8; padding:0; margin-bottom: 5px; font: normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-2-title .icon { height: 22px; width: 22px; float: left; margin-right: 5px; left: -2px; top: -2px; position: relative; }
 .tier-2-title .icon img { height: 22px; width: 22px; }
-.tier-2-title .icon .mask { background: url(./images/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+.tier-2-title .icon .mask { background: url(./images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 
 .tier-3-a { background:url(./images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
 .tier-3-b { background:url(./images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
+
+.tier-3-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 20px; height: 20px; }
+.tier-3-b .text div { float: left; height: 24px; }
 
 .tier-3-b .buttons { height: 16px; float: right; padding: 1px; }
 .tier-3-b .buttons a { font: 10px/16px Georgia, "Times New Roman", Times, serif; background: #C60; height: 16px; border: 1px solid #000; margin: 1px; }
@@ -130,22 +134,25 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-b .skill-bar .fill{ background: #006666 url(./images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
 .tier-3-b .skill-bar .text { width:400px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
+
 .tier-4-a { background:url(./images/tier/tier_4_a.jpg) no-repeat right top; height: 24px; }
 .tier-4-b { background:url(./images/tier/tier_4_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
 
+
 .tier-5-a { background:url(./images/tier/tier_5_a.jpg) no-repeat right top; height: 30px; }
 .tier-5-b { background:url(./images/tier/tier_5_b.jpg) no-repeat left top; height: 30px; padding: 3px }
-
-.tier-6-a { background:url(./images/tier/tier_6_a.jpg) no-repeat right top; height: 30px; }
-.tier-6-b { background:url(./images/tier/tier_6_b.jpg) no-repeat left top; height: 30px; padding: 3px }
-
-.tier-3-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 20px; height: 20px; }
-.tier-3-b .text div { float: left; height: 24px; }
 
 .tier-5-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
 .tier-5-b .text div { float: left; height: 24px; }
 .tier-5-b .icon .item { width: 24px; height: 24px; margin: 0px; padding: 0px; }
 .tier-5-b .icon .item img.icon { width: 24px; height: 24px; margin: 0px; padding: 0px; }
+
+
+.tier-6-a { background:url(./images/tier/tier_6_a.jpg) no-repeat right top; height: 30px; }
+.tier-6-b { background:url(./images/tier/tier_6_b.jpg) no-repeat left top; height: 30px; padding: 3px }
+
+.tier-6-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
+.tier-6-b .text div { float: left; height: 24px; }
 
 
 /* Mini Guild Member List */
@@ -179,33 +186,66 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .container .item { float: left; margin: 3px; }
 .container .item img{ height: 40px; width: 40px;}
-.container .item .mask { background: url(./images/mask/item_poor.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 500; left: 0px; top: 0px; }
-.container .item .mask:hover { background: url(./images/mask/item_poor.png) no-repeat left bottom; }
+.container .item .mask { background: url(./images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.container .item .mask:hover { background: url(./images/mask/item_mask.png) no-repeat left bottom; }
 
-/* Container Style Qualities */
+/* Container Medium Item Qualities */
+.container .tier-2-b .item { float: left; margin: 3px; }
+.container .tier-2-b .item img{ height: 40px; width: 40px;}
+.container .tier-2-b .item .mask { height: 40px; width: 40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 
-.container .item .none { background: url(./images/mask/item_poor.png) no-repeat left top; }
-.container .item .none:hover { background: url(./images/mask/item_poor.png) no-repeat left bottom; }
-.container .item .poor { background: url(./images/mask/item_poor.png) no-repeat left top; }
-.container .item .poor:hover { background: url(./images/mask/item_poor.png) no-repeat left bottom; }
-.container .item .common { background: url(./images/mask/item_common.png) no-repeat left top; }
-.container .item .common:hover { background: url(./images/mask/item_common.png) no-repeat left bottom; }
-.container .item .uncommon { background: url(./images/mask/item_uncommon.png) no-repeat left top; }
-.container .item .uncommon:hover { background: url(./images/mask/item_uncommon.png) no-repeat left bottom; }
-.container .item .rare { background: url(./images/mask/item_rare.png) no-repeat left top; }
-.container .item .rare:hover { background: url(./images/mask/item_rare.png) no-repeat left bottom; }
-.container .item .epic { background: url(./images/mask/item_epic.png) no-repeat left top; }
-.container .item .epic:hover { background: url(./images/mask/item_epic.png) no-repeat left bottom; }
-.container .item .legendary { background: url(./images/mask/item_legendary.png) no-repeat left top; }
-.container .item .legendary:hover { background: url(./images/mask/item_legendary.png) no-repeat left bottom; }
-.container .item .artifact { background: url(./images/mask/item_artifact.png) no-repeat left top; }
-.container .item .artifact:hover { background: url(./images/mask/item_artifact.png) no-repeat left bottom; }
-.container .item .heirloom { background: url(./images/mask/item_artifact.png) no-repeat left top; }
-.container .item .heirloom:hover { background: url(./images/mask/item_artifact.png) no-repeat left bottom; }
+.container .tier-2-b .item .none { background: url(./images/mask/medium/item_poor.png) no-repeat left top; }
+.container .tier-2-b .item .none:hover { background: url(./images/mask/medium/item_poor.png) no-repeat left bottom; }
+.container .tier-2-b .item .poor { background: url(./images/mask/medium/item_poor.png) no-repeat left top; }
+.container .tier-2-b .item .poor:hover { background: url(./images/mask/medium/item_poor.png) no-repeat left bottom; }
+.container .tier-2-b .item .common { background: url(./images/mask/medium/item_common.png) no-repeat left top; }
+.container .tier-2-b .item .common:hover { background: url(./images/mask/medium/item_common.png) no-repeat left bottom; }
+.container .tier-2-b .item .uncommon { background: url(./images/mask/medium/item_uncommon.png) no-repeat left top; }
+.container .tier-2-b .item .uncommon:hover { background: url(./images/mask/medium/item_uncommon.png) no-repeat left bottom; }
+.container .tier-2-b .item .rare { background: url(./images/mask/medium/item_rare.png) no-repeat left top; }
+.container .tier-2-b .item .rare:hover { background: url(./images/mask/medium/item_rare.png) no-repeat left bottom; }
+.container .tier-2-b .item .epic { background: url(./images/mask/medium/item_epic.png) no-repeat left top; }
+.container .tier-2-b .item .epic:hover { background: url(./images/mask/medium/item_epic.png) no-repeat left bottom; }
+.container .tier-2-b .item .legendary { background: url(./images/mask/medium/item_legendary.png) no-repeat left top; }
+.container .tier-2-b .item .legendary:hover { background: url(./images/mask/medium/item_legendary.png) no-repeat left bottom; }
+.container .tier-2-b .item .artifact { background: url(./images/mask/medium/item_artifact.png) no-repeat left top; }
+.container .tier-2-b .item .artifact:hover { background: url(./images/mask/medium/item_artifact.png) no-repeat left bottom; }
+.container .tier-2-b .item .heirloom { background: url(./images/mask/medium/item_artifact.png) no-repeat left top; }
+.container .tier-2-b .item .heirloom:hover { background: url(./images/mask/medium/item_artifact.png) no-repeat left bottom; }
 
+/* Container Small Item Qualities */
 
+.container .tier-5-b .item, .container .tier-6-b .item { width: 24px; height: 24px; margin: 0px; padding: 0px; }
+.container .tier-5-b .item img, .container .tier-6-b .item img { width: 24px; height: 24px; margin: 0px; padding: 0px; }
+.container .tier-5-b .item .mask, .container .tier-6-b .item .mask { height: 24px; width: 24px; position: absolute; z-index: 100; left: 0px; top: 0px;}
+
+.container .tier-5-b .item .none, .container .tier-6-b .item .none { background: url(./images/mask/small/item_poor.png) no-repeat left top; }
+.container .tier-5-b .item .none:hover, .container .tier-6-b .item .none:hover { background: url(./images/mask/small/item_poor.png) no-repeat left bottom; }
+.container .tier-5-b .item .poor, .container .tier-6-b .item .poor { background: url(./images/mask/small/item_poor.png) no-repeat left top; }
+.container .tier-5-b .item .poor:hover,.container .tier-6-b .item .poor:hover  { background: url(./images/mask/small/item_poor.png) no-repeat left bottom; }
+.container .tier-5-b .item .common, .container .tier-6-b .item .common { background: url(./images/mask/small/item_common.png) no-repeat left top; }
+.container .tier-5-b .item .common:hover, .container .tier-6-b .item .common:hover { background: url(./images/mask/small/item_common.png) no-repeat left bottom; }
+.container .tier-5-b .item .uncommon, .container .tier-6-b .item .uncommon { background: url(./images/mask/small/item_uncommon.png) no-repeat left top; }
+.container .tier-5-b .item .uncommon:hover, .container .tier-6-b .item .uncommon:hover { background: url(./images/mask/small/item_uncommon.png) no-repeat left bottom; }
+.container .tier-5-b .item .rare, .container .tier-6-b .item .rare { background: url(./images/mask/small/item_rare.png) no-repeat left top; }
+.container .tier-5-b .item .rare:hover, .container .tier-6-b .item .rare:hover { background: url(./images/mask/small/item_rare.png) no-repeat left bottom; }
+.container .tier-5-b .item .epic, .container .tier-6-b .item .epic { background: url(./images/mask/small/item_epic.png) no-repeat left top; }
+.container .tier-5-b .item .epic:hover, .container .tier-6-b .item .epic:hover { background: url(./images/mask/small/item_epic.png) no-repeat left bottom; }
+.container .tier-5-b .item .legendary, .container .tier-6-b .item .legendary { background: url(./images/mask/small/item_legendary.png) no-repeat left top; }
+.container .tier-5-b .item .legendary:hover, .container .tier-6-b .item .legendary:hover { background: url(./images/mask/small/item_legendary.png) no-repeat left bottom; }
+.container .tier-5-b .item .artifact, .container .tier-6-b .item .artifact { background: url(./images/mask/small/item_artifact.png) no-repeat left top; }
+.container .tier-5-b .item .artifact:hover, .container .tier-6-b .item .artifact:hover { background: url(./images/mask/small/item_artifact.png) no-repeat left bottom; }
+.container .tier-5-b .item .heirloom, .container .tier-6-b .item .heirloom { background: url(./images/mask/small/item_artifact.png) no-repeat left top; }
+.container .tier-5-b .item .heirloom:hover, .container .tier-6-b .item .heirloom:hover { background: url(./images/mask/small/item_artifact.png) no-repeat left bottom; }
 
 /* Misc Code Fixes */
+.item { position:relative;width:40px;height:40px;cursor:pointer; }
+.item span { position:absolute; bottom:0; right:3px; color:#fff; font-weight:bold; font-size:12px; z-index: 125; }
+.item b { position:absolute; bottom:-1px; right:2px; color:#000; font-weight:bold; font-size:12px; z-index: 120; }
+.item .icon { float:left;width:40px;height:40px;padding:1px 0 0 0; }
+.item .iconsmall { float:left;width:30px;height:30px;padding:1px 0 0 0; }
+
+
 #keyslist img.icon {height:20px; width:20px;}
 
 /* Navagation tabs */
@@ -571,11 +611,6 @@ select {
  * END Bag Styles
  */
 
-.item { position:relative;width:40px;height:40px;cursor:pointer; }
-.item span { position:absolute;bottom:0;right:3px;color:#fff;font-weight:bold;font-size:12px; }
-.item b { position:absolute;bottom:-1px;right:2px;color:#000;font-weight:bold;font-size:12px; }
-.item .icon { float:left;width:40px;height:40px;padding:1px 0 0 0; }
-.item .iconsmall { float:left;width:30px;height:30px;padding:1px 0 0 0; }
 
 /**
  * Class colorization
