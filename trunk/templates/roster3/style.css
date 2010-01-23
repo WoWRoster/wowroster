@@ -110,18 +110,23 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-1-c { background:url('./images/tier/tier_1_c.jpg') left top no-repeat; padding:7px 7px 6px }
 .tier-1-title { color:#733120; text-decoration:none; display:block; position:relative; font: normal 22px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 
+.tier-1-title .links { float: right; margin-top: 1px; }
+.tier-1-title .icon { height: 22px; width: 22px; float: left; margin-left: 5px; position: relative; }
+.tier-1-title .icon img { height: 22px; width: 22px; }
+.tier-1-title .icon .mask { background: url(./images/mask/icon_mask_1.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+
 
 .tier-2-a { background:url('./images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .tier-2-b { background:url('./images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px }
 .tier-2-title { color:#1e92c8; padding:0; margin-bottom: 5px; font: normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-2-title .icon { height: 22px; width: 22px; float: left; margin-right: 5px; left: -2px; top: -2px; position: relative; }
 .tier-2-title .icon img { height: 22px; width: 22px; }
-.tier-2-title .icon .mask { background: url(./images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.tier-2-title .icon .mask { background: url(./images/mask/icon_mask_2.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 
 .tier-3-a { background:url(./images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
-.tier-3-b { background:url(./images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
+.tier-3-b { background:url(images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
 
-.tier-3-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 20px; height: 20px; }
+.tier-3-b .text { text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
 .tier-3-b .text div { float: left; height: 24px; }
 
 .tier-3-b .buttons { height: 16px; float: right; padding: 1px; }
@@ -134,9 +139,32 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-b .skill-bar .fill{ background: #006666 url(./images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
 .tier-3-b .skill-bar .text { width:400px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
+.tier-3-a .white { background:url(images/tier/color/tier_3_b_white.jpg) no-repeat left top; }
+.tier-3-a .red { background:url(images/tier/color/tier_3_b_red.jpg) no-repeat left top; }
+.tier-3-a .orange { background:url(images/tier/color/tier_3_b_orange.jpg) no-repeat left top; }
+.tier-3-a .yellow { background:url(images/tier/color/tier_3_b_yellow.jpg) no-repeat left top; }
+.tier-3-a .green { background:url(images/tier/color/tier_3_b_green.jpg) no-repeat left top; }
+.tier-3-a .blue { background:url(images/tier/color/tier_3_b_blue.jpg) no-repeat left top; }
+.tier-3-a .purple { background:url(images/tier/color/tier_3_b_purple.jpg) no-repeat left top; }
+.tier-3-a .grey { background:url(images/tier/color/tier_3_b_grey.jpg) no-repeat left top; }
+.tier-3-a .brown { background:url(images/tier/color/tier_3_b_brown.jpg) no-repeat left top; }
+
+.white { color:#ffffff; }
+.yellow { color:#ffd200; }
+.green { color:#7eff00; }
+.grey { color:#808080; }
+.red { color:#ff0000; }
+.orange { color:#ff9900; }
+.purple { color:#8000ff; }
+.blue { color:#0068ff; }
+.gold { color:#ffcc00; }
+.brown { color:#593300; }
 
 .tier-4-a { background:url(./images/tier/tier_4_a.jpg) no-repeat right top; height: 24px; }
 .tier-4-b { background:url(./images/tier/tier_4_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
+
+.tier-4-b .text { text-align: left; color: #000; font-size: 12px; line-height: 20px; height: 20px; }
+.tier-4-b .text div { float: left; height: 20px; }
 
 
 .tier-5-a { background:url(./images/tier/tier_5_a.jpg) no-repeat right top; height: 30px; }
