@@ -15,11 +15,11 @@
                     	<div class="tier-2-title">{zone.NAME}</div>
 <!-- BEGIN quest -->
 						<div class="tier-3-a">
-	                		<div class="tier-3-b">
+	                		<div class="tier-3-b {zone.quest.COLOR}">
 
 								<div class="skill">
 	                            	<div class="skill-name">
-	                                	<span class="{zone.quest.COLOR}">[{zone.quest.LEVEL}] {zone.quest.NAME}</span>
+	                                	<span class="">[{zone.quest.LEVEL}] {zone.quest.NAME}</span>
 										<!-- IF zone.quest.DAILY -->(<!-- TRANSLATE daily -->)<!-- ENDIF -->
 										<!-- IF zone.quest.TAG neq '' or zone.quest.COMPLETE neq 0 -->
 	                                    	({zone.quest.TAG}<!-- IF zone.quest.GROUP gt 0 -->, {zone.quest.GROUP}<!-- ENDIF --><!-- IF zone.quest.COMPLETE eq 1 --><span class="green"><!-- TRANSLATE complete --></span><!-- ELSEIF zone.quest.COMPLETE eq -1 --><span class="red"><!-- TRANSLATE failed --></span><!-- ENDIF -->)
