@@ -93,7 +93,7 @@ INSERT INTO `renprefix_config` VALUES (4400, 'menu_bottom_pane', '1', 'radio{on^
 # --------------------------------------------------------
 ### Display Settings
 
-INSERT INTO `renprefix_config` VALUES (5000, 'theme', 'roster3', 'function{templateList', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5000, 'theme', 'default', 'function{templateList', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5030, 'motd_display_mode', '1', 'radio{Image^1|Text^0', 'display_conf');
