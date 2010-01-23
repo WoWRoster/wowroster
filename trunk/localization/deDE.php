@@ -263,6 +263,7 @@ $lang['completedsteps'] = 'Abgeschlossene Stufe';
 $lang['currentstep'] = 'Aktuelle Stufe';
 $lang['uncompletedsteps'] = 'Nicht Abgeschlosse Stufe';
 $lang['key'] = 'Schlüssel';
+$lang['keyring'] = 'Keyring';
 $lang['timeplayed'] = 'Zeit gespielt';
 $lang['timelevelplayed'] = 'Zeit gespielt Level'; // muss so kurz sein wegen der Anzeige
 $lang['Addon'] = 'Addons';

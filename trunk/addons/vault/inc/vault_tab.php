@@ -48,6 +48,7 @@ class VaultTab extends VaultItem
 		$roster->tpl->assign_block_vars('vault',array(
 			'NAME'    => $this->data['item_name'],
 			'SLOT'    => $this->data['item_slot'],
+			'LINK'    => makelink('#' . $this->data['item_slot']),
 			'ICON'    => $this->tpl_get_icon(),
 			'TOOLTIP' => $this->tpl_get_tooltip()
 			)

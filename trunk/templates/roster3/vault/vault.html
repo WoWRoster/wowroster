@@ -6,7 +6,7 @@
 	<div class="tier-1-a">
         <div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title">{TRANSLATE vault}
+				<div class="tier-1-title"><!-- TRANSLATE vault -->
       	          	<div class="links">
 						<!-- BEGIN vault -->
 						<a href="{vault.LINK}">
@@ -17,24 +17,24 @@
                 </div>
 
 <!-- BEGIN vault -->
-<a name="{vault.ID}"></a>
+<a name="{vault.SLOT}"></a>
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 						<div class="tier-2-title"><div class="icon"><img src="{vault.ICON}" /><div class="mask"></div></div>{vault.NAME}</div>
 <!-- BEGIN column -->
-	<div style="width:48px; float:left;">
+						<div class="vault-column">
 <!-- BEGIN item -->
                         
 							<div class="item">
-							<!-- IF vault.column.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{vault.column.item.ICON}" /><!-- ENDIF -->
-            				<div class="mask {vault.column.item.QUALITY}" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}></div>
+								<!-- IF vault.column.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{vault.column.item.ICON}" /><!-- ENDIF -->
+								<div class="mask {vault.column.item.QUALITY}" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}></div>
 <!-- IF vault.column.item.QTY gt 1 -->
-							<b>{vault.column.item.QTY}</b><span>{vault.column.item.QTY}</span>
+								<b>{vault.column.item.QTY}</b><span>{vault.column.item.QTY}</span>
 <!-- ENDIF -->
-						</div>
+							</div>
 
 <!-- END item -->
-	</div>
+						</div>
 <!-- END column -->
 						<div style="clear:both;"></div>
 					</div>

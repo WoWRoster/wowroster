@@ -766,6 +766,7 @@ CREATE TABLE `renprefix_reputation` (
   `max_rep` int(8) default NULL,
   `AtWar` int(11) NOT NULL default '0',
   `Standing` varchar(32) default '',
+  `Description` mediumtext NULL,
   PRIMARY KEY  (`member_id`,`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

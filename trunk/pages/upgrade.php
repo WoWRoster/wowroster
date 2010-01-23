@@ -343,6 +343,13 @@ class Upgrade
 				ADD PRIMARY KEY (`rank`,`tree`,`row`,`column`,`class_id`);");
 		}
 
+		// Add description reputation
+		if( version_compare($roster->config['version'], '2.0.9.2107', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('reputation') . "`
+				ADD `Description` mediumtext NULL AFTER `Standing`;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

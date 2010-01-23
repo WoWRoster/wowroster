@@ -147,7 +147,9 @@ CREATE TABLE `renprefix_quests` (
 # --------------------------------------------------------
 ### Reputation
 
-ALTER TABLE `renprefix_reputation` ADD `parent` varchar(32) NULL AFTER `faction`;
+ALTER TABLE `renprefix_reputation`
+ADD `parent` varchar(32) NULL AFTER `faction`,
+ADD `Description` mediumtext NULL AFTER `Standing`;
 
 # --------------------------------------------------------
 ### Spellbook
