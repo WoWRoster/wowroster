@@ -30,10 +30,55 @@ if( !defined('IN_ROSTER') )
 class recipe
 {
 	var $data;
+	var $quality_id;
+	var $quality;
 
 	function recipe( $data )
 	{
 		$this->data = $data;
+	}
+
+	/**
+	 * Sets the $quality and $quality_id property
+	 * Takes the color of the item
+	 *
+	 * @param string $color | color of item
+	 */
+	function _setQuality( $color )
+	{
+		switch( strtolower( $color ) )
+		{
+			case 'e6cc80':
+				$this->quality_id = '7';
+				$this->quality = 'heirloom';
+				break;
+			case 'ff8800':
+				$this->quality_id = '6';
+				$this->quality = 'legendary';
+				break;
+			case 'a335ee':
+				$this->quality_id = '5';
+				$this->quality = 'epic';
+				break;
+			case '0070dd':
+				$this->quality_id = '4';
+				$this->quality = 'rare';
+				break;
+			case '1eff00':
+				$this->quality_id = '3';
+				$this->quality = 'uncommon';
+				break;
+			case 'ffffff':
+				$this->quality_id = '2';
+				$this->quality = 'common';
+				break;
+			case '9d9d9d':
+				$this->quality_id = '1';
+				$this->quality = 'poor';
+				break;
+			default:
+				break;
+		}
 	}
 
 	function out()
@@ -64,12 +109,13 @@ class recipe
 		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
 		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
+		$this->_setQuality($this->data['item_color']);
 
-		$returnstring = '<div class="item" ' . $tooltip . $linktip . '>';
+		$returnstring = '<div class="item">
+	<img src="' . $path . '" alt="" />
+	<div class="mask ' . $this->quality . '" ' . $tooltip . '' . $linktip . '></div>
+</div>';
 
-		$returnstring .= '<img src="' . $path . '" class="icon" alt="" />' . "\n";
-
-		$returnstring .= '</div>';
 		return $returnstring;
 	}
 }
