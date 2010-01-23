@@ -21,6 +21,7 @@
 				<div class="info-bonus-navigation">
 					<ul id="info_bonus_nav">
 						<li><a rel="infotoggle" class="text">Character Info</a></li>
+                    	<li><a rel="modeltoggle" class="text">Model Viewer</a></li>
 <!-- IF S_PVP_TAB -->
 						<li><a rel="pvptoggle" class="text">PvP</a></li>
 <!-- ENDIF -->
@@ -50,6 +51,11 @@
 					</div>
 <!-- END equipment -->
 				</div>
+                
+				<div class="model-box" id="modeltoggle" style="display:none;">
+                	<iframe src="{MODEL_URL}" scrolling="no" height="443" width="321" frameborder="0"></iframe>
+				</div>
+                     
 				<div class="info-box" id="infotoggle" style="display:none;">
 					<div class="spec shader">
 						<!-- TRANSLATE talent_specialization -->
