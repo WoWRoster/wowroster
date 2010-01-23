@@ -54,13 +54,22 @@ class VaultTab extends VaultItem
 		);
 
 		// Select all items for this bag
+		$icon_num = $col_num = 0;
 		for( $slot = 0; $slot < $this->data['item_quantity'] ; $slot++ )
 		{
+			if( $icon_num == 0 || $icon_num % 7 == 0 )
+			{
+				$roster->tpl->assign_block_vars('vault.column',array(
+					'ID' => $col_num++,
+					)
+				);
+			}
+
 			if( isset($this->contents[$slot+1]) )
 			{
 				$item = $this->contents[$slot+1];
 
-				$roster->tpl->assign_block_vars('vault.item',array(
+				$roster->tpl->assign_block_vars('vault.column.item',array(
 					'ICON'     => $item->tpl_get_icon(),
 					'TOOLTIP'  => $item->tpl_get_tooltip(),
 					'ITEMLINK' => $item->tpl_get_itemlink(),
@@ -71,7 +80,7 @@ class VaultTab extends VaultItem
 			}
 			else
 			{
-				$roster->tpl->assign_block_vars('vault.item',array(
+				$roster->tpl->assign_block_vars('vault.column.item',array(
 					'ICON'     => '',
 					'TOOLTIP'  => '',
 					'ITEMLINK' => '',
@@ -80,6 +89,7 @@ class VaultTab extends VaultItem
 					)
 				);
 			}
+			$icon_num++;
 		}
 	}
 }
