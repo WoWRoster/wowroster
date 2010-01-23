@@ -45,49 +45,42 @@ class VaultTab extends VaultItem
 
 		$lang = $this->data['locale'];
 
-		$returnstring = '<div id="' . $this->data['item_slot'] . 'Items" class="vaulttab" style="display:none;">';
+		$roster->tpl->assign_block_vars('vault',array(
+			'NAME'    => $this->data['item_name'],
+			'SLOT'    => $this->data['item_slot'],
+			'ICON'    => $this->tpl_get_icon(),
+			'TOOLTIP' => $this->tpl_get_tooltip()
+			)
+		);
 
-		// Select all item for this bag
-
-		$returnstring .= '<div class="itemcol1">' . "\n";
-
-		$icon_num = 0;
+		// Select all items for this bag
 		for( $slot = 0; $slot < $this->data['item_quantity'] ; $slot++ )
 		{
-			if( $icon_num != 0 && $icon_num%7 == 0 )
+			if( isset($this->contents[$slot+1]) )
 			{
-				$returnstring .= "</div>\n<div class=\"itemcol" . ($icon_num%2 == 0 ? '1' : '2') . "\">\n";
-			}
+				$item = $this->contents[$slot+1];
 
-			if( $slot < 0 )
-			{
-				$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
+				$roster->tpl->assign_block_vars('vault.item',array(
+					'ICON'     => $item->tpl_get_icon(),
+					'TOOLTIP'  => $item->tpl_get_tooltip(),
+					'ITEMLINK' => $item->tpl_get_itemlink(),
+					'QUALITY'  => $item->quality,
+					'QTY'      => $item->quantity
+					)
+				);
 			}
 			else
 			{
-				if( isset($this->contents[$slot+1]) )
-				{
-					$item = $this->contents[$slot+1];
-
-					$returnstring .= '<div class="item" ' . $item->tpl_get_tooltip() . $item->tpl_get_itemlink() . '><img src="' . $item->tpl_get_icon() . '" class="icon" alt="" />';
-					if( $item->quantity > 1 )
-					{
-						$returnstring .= '<b>' . $item->quantity . '</b><span>' . $item->quantity . '</span>';
-					}
-
-					$returnstring .= '</div>';
-				}
-				else
-				{
-					$returnstring .=  '			<div class="item"><img src="' . $roster->config['img_url'] . 'pixel.gif" class="noicon" alt="" /></div>' . "\n";
-				}
+				$roster->tpl->assign_block_vars('vault.item',array(
+					'ICON'     => '',
+					'TOOLTIP'  => '',
+					'ITEMLINK' => '',
+					'QUALITY'  => 'none',
+					'QTY'      => 0
+					)
+				);
 			}
-			$icon_num++;
 		}
-
-		$returnstring .= "</div>\n</div>\n";
-
-		return $returnstring;
 	}
 }
 
