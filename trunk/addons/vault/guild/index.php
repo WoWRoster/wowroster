@@ -48,19 +48,7 @@ for( $t=1;$t<=$tab_count;$t++ )
 		$tab_data['tab' . $t] = vault_tab_get($roster->data['guild_id'], 'Tab' . $t);
 		if( !is_null( $tab_data['tab' . $t] ) )
 		{
-			$roster->tpl->assign_block_vars('tabs',array(
-				'IDX'     => $t,
-				'ICON'    => $tab_data['tab' . $t]->data['item_texture'] . '.' . $roster->config['img_suffix'],
-				'TOOLTIP' => makeOverlib($tab_data['tab' . $t]->data['item_name'],'','',0,'',',RIGHT')
-				)
-			);
-
-			$roster->tpl->assign_block_vars('tab_data',array(
-				'IDX' => $t,
-				'NAME' => $tab_data['tab' . $t]->data['item_name'],
-				'ITEMS' => $tab_data['tab' . $t]->out()
-				)
-			);
+			$tab_data['tab' . $t]->out()
 
 			vault_log('Tab' . $t);
 		}
@@ -72,26 +60,25 @@ if( $roster->auth->getAuthorized($addon['config']['money']) )
 {
 	vault_money();
 
-	$roster->tpl->assign_block_vars('tabs',array(
-		'IDX'     => 'MoneyLog',
-		'ICON'    => 'inv_misc_coin_01.' . $roster->config['img_suffix'],
-		'TOOLTIP' => makeOverlib($roster->locale->act['vault_money_log'],'','',0,'',',RIGHT'),
-		)
-	);
-
-	$roster->tpl->assign_block_vars('tab_data',array(
-		'IDX' => 'Money',
-		'NAME' => $roster->locale->act['vault_money_log']
+	$roster->tpl->assign_block_vars('vault',array(
+		'NAME'    => $roster->locale->act['vault_money_log'],
+		'SLOT'    => 'MoneyLog',
+		'ICON'    => $roster->config['interface_url'] . 'Interface/Icons/inv_misc_coin_01.' . $roster->config['img_suffix'],
+		'TOOLTIP' => makeOverlib($roster->locale->act['vault_money_log'], '', '', 0,'',',RIGHT')
 		)
 	);
 
 	vault_log('Money');
 }
 
-
-
 $roster->tpl->set_handle('body', $addon['basename'] . '/vault.html');
 $roster->tpl->display('body');
+
+
+
+
+
+
 
 
 function itemidname( $item_id )
@@ -160,7 +147,10 @@ function vault_log( $parent )
 {
 	global $roster, $addon, $armory;
 
-	$sqlstring = "SELECT * FROM `" . $roster->db->table('log',$addon['basename']) . "` WHERE `parent` = '" . $parent . "' AND `guild_id` = '" . $roster->data['guild_id'] . "' ORDER BY `log_id` DESC;";
+	$sqlstring = "SELECT * FROM `" . $roster->db->table('log',$addon['basename']) . "` "
+		. "WHERE `parent` = '" . $parent . "' "
+			. "AND `guild_id` = '" . $roster->data['guild_id'] . "' "
+		. "ORDER BY `log_id` DESC;";
 
 	$result = $roster->db->query($sqlstring);
 
@@ -192,7 +182,7 @@ function vault_log( $parent )
 			//aprint($armory->fetchItemInfo($row['item_id'],$roster->config['locale']));
 		}
 
-		$roster->tpl->assign_block_vars('tab_data.log',array(
+		$roster->tpl->assign_block_vars('vault.log',array(
 			'TYPE' => sprintf($roster->locale->act['vault_log_' . $row['type']],$row['member'],$money_item),
 			'TIME' => readbleDate($row['time'])
 			)
