@@ -7,12 +7,6 @@
 <title>WoWRoster{PAGE_TITLE}</title>
 <base href="{ROSTER_URL}" />
 <link rel="stylesheet" type="text/css" href="{THEME_PATH}/style.css" />
-
-<link href="../../../styles/css/common.css" rel="stylesheet" type="text/css" />
-<link href="../../../styles/css/images.css" rel="stylesheet" type="text/css" />
-<link href="../../../styles/css/links.css" rel="stylesheet" type="text/css" />
-<link href="../../../styles/css/extras.css" rel="stylesheet" type="text/css" />
-
 <script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
 /**
@@ -26,37 +20,22 @@
 <script type="text/javascript" src="{ROSTER_PATH}js/overlib_hideform.js"></script>
 {ROSTER_HEAD}
 </head>
-
+ 
 <body{ROSTER_BODY}<!-- IF ROSTER_ONLOAD --> onload="{ROSTER_ONLOAD}"<!-- ENDIF -->>
 
 <div id="overDiv" style="position:absolute;visibility:hidden;z-index:1000;"></div>
 
-
-	<div style="visibility: hidden; position: absolute"><a href="http://www.milonic.com/">JavaScript Menu Courtesy of Milonic.com</a></div>
-	
-    <div class="site-header">
-		<div class="site-menu">
-    		<div class="menu">
-  				<script type="text/javascript" src="../../../styles/menu/milonic_src.js"></script>	
-				<script type="text/javascript" src="../../../styles/menu/mmenudom.js"></script>
-				<script type="text/javascript" src="../../../styles/menu/menu_data.js"></script>
-  				<script type="text/javascript" src="../../../styles/menu/modules/preloadmenuimages.js"></script>
-  			</div>
-        </div>
-    	<div class="site-logo"></div>
-        <div class="site-event"></div>
-    </div>
-    
-	
-		
-	<div class="page">
-    	<div class="p-top"></div>
-        <div class="p-middle">
-        	<div class="background">
-            	<div class="p-roster"></div>
-
-
 <div class="roster-wrap">
+
+<!-- IF S_HEADER_LOGO -->
+<div align="center" style="margin:10px;">
+	<table class="border_frame" cellpadding="0" cellspacing="1">
+		<tr>
+			<td class="border_color sgoldborder"><a href="{WEBSITE_ADDRESS}"><img src="{HEADER_LOGO}" alt="" style="border:0;" /></a></td>
+		</tr>
+	</table>
+</div>
+<!-- ENDIF -->
 
 {ROSTER_TOP}
 
