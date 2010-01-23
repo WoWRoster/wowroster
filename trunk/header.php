@@ -223,6 +223,7 @@ elseif( $roster->scope == 'guild' )
 	$roster->db->free_result($result);
 
 	$roster->tpl->assign_var('S_DATA_SELECT', ($guilds > 1 ? true : false));
+	$roster->tpl->assign_var('TOTAL_GUILDS', $guilds);
 
 	if( count($menu_select) > 0 )
 	{
