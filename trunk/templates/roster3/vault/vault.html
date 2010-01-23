@@ -6,10 +6,18 @@
 	<div class="tier-1-a">
         <div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title">{TRANSLATE vault}</div>
+				<div class="tier-1-title">{TRANSLATE vault}
+      	          	<div class="links">
+						<!-- BEGIN vault -->
+						<a href="{vault.LINK}">
+                    		<div class="icon"><img src="{vault.ICON}" /><div class="mask" {vault.TOOLTIP}></div></div>
+                    	</a>
+						<!-- END vault -->
+					</div>                
+                </div>
 
 <!-- BEGIN vault -->
-
+<a name="{vault.ID}"></a>
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 						<div class="tier-2-title"><div class="icon"><img src="{vault.ICON}" /><div class="mask"></div></div>{vault.NAME}</div>

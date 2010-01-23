@@ -30,11 +30,20 @@
 	<div class="tier-1-a">
         <div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title">Backpacks</div>
+				<div class="tier-1-title">Backpacks
+                	<div class="links">
+						<!-- BEGIN bag -->
+						<a href="{bag.LINK}">
+                    		<div class="icon"><img src="{bag.ICON}" /><div class="mask"></div></div>
+                    	</a>
+						<!-- END bag -->
+					</div> 
+                </div>
 <!-- BEGIN bag -->
+<a name="{bag.ID}"></a>
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
-						<div class="tier-2-title"><div class="icon"><img src="{bag.ICON}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>{bag.NAME}</div>
+						<div class="tier-2-title"><div class="icon"><img src="" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>{bag.NAME}</div>
 <!-- BEGIN item -->
 						<div class="item">
 							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bag.item.ICON}" /><!-- ENDIF -->
@@ -85,8 +94,17 @@
     <div class="tier-1-a">
         <div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title">Bank</div>
+				<div class="tier-1-title">Bank
+                   	<div class="links">
+						<!-- BEGIN bank -->
+						<a href="{bank.LINK}">
+                    		<div class="icon"><img src="{bank.ICON}" /><div class="mask"></div></div>
+                    	</a>
+						<!-- END bank -->
+					</div> 
+				</div>
 <!-- BEGIN bank -->
+<a name="{bank.ID}"></a>
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 						<div class="tier-2-title"><div class="icon"><img src="{bank.ICON}" /><div class="mask" {bank.TOOLTIP}{bank.LINKTIP}></div></div>{bank.NAME}</div>
