@@ -369,25 +369,28 @@ class char
 				);
 				foreach( $recipe as $name => $data )
 				{
-					if( $data['difficulty'] == '4' )
+					switch( $data['difficulty'] )
 					{
-						$difficultycolor = 'ff9900';
-					}
-					elseif( $data['difficulty'] == '3' )
-					{
-						$difficultycolor = 'ffff66';
-					}
-					elseif( $data['difficulty'] == '2' )
-					{
-						$difficultycolor = '339900';
-					}
-					elseif( $data['difficulty'] == '1' )
-					{
-						$difficultycolor = 'cccccc';
-					}
-					else
-					{
-						$difficultycolor = 'ffff80';
+						case 5:
+							$difficultycolor = 'red';
+							break;
+
+						case 4:
+							$difficultycolor = 'orange';
+							break;
+
+						case 3:
+							$difficultycolor = 'yellow';
+							break;
+
+						case 2:
+							$difficultycolor = 'green';
+							break;
+
+						case 1:
+						default:
+							$difficultycolor = 'grey';
+							break;
 					}
 
 					$roster->tpl->assign_block_vars('recipe.row',array(
