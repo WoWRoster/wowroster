@@ -73,12 +73,28 @@ class char
 			}
 		}
 
+		switch( $data['region'] )
+		{
+			case 'US':
+				$model_url = 'http://www.wowarmory.com/character-model-embed.xml?r=' . $this->data['server'] . '&cn=' . $this->data['name'] . '&rhtml=true';
+				break;
+
+			case 'EU':
+				$model_url = 'http://eu.wowarmory.com/character-model-embed.xml?r=' . $this->data['server'] . '&cn=' . $this->data['name'] . '&rhtml=true';
+				break;
+
+			default:
+				$model_url = '';
+		}
+
 		/**
 		 * Assigning everything this file may need to the template
 		 * The only tpl vars not here are ones that need to be generated in their respective methods
 		 */
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
+
+			'MODEL_URL'     => $model_url != '' ? $model_url : false,
 
 			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
 			'S_MONEY'       => $roster->auth->getAuthorized($addon['config']['show_money']),
