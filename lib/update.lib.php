@@ -1971,6 +1971,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 							$this->add_ifvalue( $data, 'AtWar' );
 							$this->add_ifvalue( $data, 'Standing' );
+							$this->add_ifvalue( $data, 'Description' );
 
 							$messages .= '.';
 

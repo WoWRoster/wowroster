@@ -263,6 +263,7 @@ $lang['completedsteps'] = 'Étapes terminées';
 $lang['currentstep'] = 'Étapes actuelles';
 $lang['uncompletedsteps'] = 'Étapes incomplètes';
 $lang['key'] = 'Clef';
+$lang['keyring'] = 'Keyring';
 $lang['timeplayed'] = 'Temps joué';
 $lang['timelevelplayed'] = 'Temps joué à ce niveau';
 $lang['Addon'] = 'Greffons :';

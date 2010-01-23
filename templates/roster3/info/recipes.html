@@ -28,33 +28,33 @@
                             <img style="float:right;" id="img_{recipe.ID}" src="{THEME_PATH}/images/button_<!-- IF S_HIDE -->open<!-- ELSE -->close<!-- ENDIF -->.png" alt="" />
                         </div>
                             
-                        <div id="recipe_{recipe.ID}" style="width:100%;<!-- IF S_RECIPE_HIDE -->display:none;<!-- ENDIF -->" >
+                        <div id="recipe_{recipe.ID}" style="width:100%;<!-- IF S_RECIPE_HIDE -->display:none;<!-- ENDIF -->">
 
-						<div class="tier-3-a">
-            				<div class="tier-3-b">
-								<div class="text">
-									<div style="width: 279px;"><a href="{U_NAME}"><!-- TRANSLATE name --></a></div>
-			                        <div style="width: 0px; text-align: center; visibility: hidden;"><a href="{U_DIFFICULTY}"><!-- TRANSLATE difficulty --></a></div>
-			                        <div style="width: 160px;"><a href="{U_TYPE}"><!-- TRANSLATE type --></a></div>
-			                        <div style="width: 50px; text-align: center;"><a href="{U_LEVEL}"><!-- TRANSLATE level --></a></div>
-			                        <div style="width: 100px;"><a href="{U_REAGENTS}"><!-- TRANSLATE reagents --></a></div>
+							<div class="tier-3-a">
+								<div class="tier-3-b">
+									<div class="text">
+										<div style="width: 279px;"><a href="{U_NAME}"><!-- TRANSLATE name --></a></div>
+										<div style="width: 0px; text-align: center; visibility: hidden;"><a href="{U_DIFFICULTY}"><!-- TRANSLATE difficulty --></a></div>
+										<div style="width: 160px;"><a href="{U_TYPE}"><!-- TRANSLATE type --></a></div>
+										<div style="width: 50px; text-align: center;"><a href="{U_LEVEL}"><!-- TRANSLATE level --></a></div>
+										<div style="width: 100px;"><a href="{U_REAGENTS}"><!-- TRANSLATE reagents --></a></div>
+									</div>
 								</div>
-			            	</div>
-						</div>
+							</div>
 
 <!-- BEGIN row -->
-			<div class="tier-6-a">
-            	<div class="tier-6-b {recipe.row.DIFFICULTY_COLOR}">
-					<div class="icon">{recipe.row.ICON}</div>
-					<div class="text">
-						<div style="width: 260px;">&nbsp;{recipe.row.NAME}</div>
-                        <div style="color:#{recipe.row.DIFFICULTY_COLOR}; width: 0px; text-align: center; visibility: hidden;">&nbsp;{recipe.row.L_DIFFICULTY}</div>
-                        <div style="width: 160px;">{recipe.row.TYPE}</div>
-                        <div style="width: 50px; text-align: center;">{recipe.row.LEVEL}</div>
-                        <div style="width: 100px;">{recipe.row.reagents.DATA}</div>
-					</div>
-            	</div>
-			</div>
+							<div class="tier-6-a">
+								<div class="tier-6-b {recipe.row.DIFFICULTY_COLOR}">
+									<div class="icon">{recipe.row.ICON}</div>
+									<div class="text">
+										<div style="width: 260px;">&nbsp;{recipe.row.NAME}</div>
+										<div style="color:#{recipe.row.DIFFICULTY_COLOR}; width: 0px; text-align: center; visibility: hidden;">&nbsp;{recipe.row.L_DIFFICULTY}</div>
+										<div style="width: 160px;">{recipe.row.TYPE}</div>
+										<div style="width: 50px; text-align: center;">{recipe.row.LEVEL}</div>
+										<div style="width: 100px;">{recipe.row.reagents.DATA}</div>
+									</div>
+								</div>
+							</div>
 <!-- END row -->
 						</div>
 					</div>

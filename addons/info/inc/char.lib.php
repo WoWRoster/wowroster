@@ -402,7 +402,6 @@ class char
 						'DIFFICULTY_COLOR' => $difficultycolor,
 						'TYPE'         => $data['recipe_type'],
 						'LEVEL'        => $data['level'],
-						'REAGENTS'     => str_replace('<br>','&nbsp;<br />&nbsp;',$data['reagents']),
 						'ICON'         => $data['item'],
 						)
 					);
@@ -1457,26 +1456,23 @@ class char
 						{
 							if ($fact != 'sub')
 							{
-//								echo $fact.'<br>';
+//								echo $fact . '<br/>';
 								$roster->tpl->assign_block_vars('rep.bar.rep2.bar2',array(
-									'ID'       => $sta['barid'],
-									'NAME'     => $fact,
-									'WIDTH'    => $sta['barwidth'],
-									'IMAGE'    => $sta['image'],
-									'STANDING' => $sta['standing'],
-									'VALUE'    => $sta['value'],
-									'MAXVALUE' => $sta['maxvalue'],
-									'ATWAR'    => $sta['atwar']
+									'ID'          => $sta['barid'],
+									'NAME'        => $fact,
+									'WIDTH'       => $sta['barwidth'],
+									'IMAGE'       => $sta['image'],
+									'STANDING'    => $sta['standing'],
+									'DESCRIPTION' => $sta['description'],
+									'TOOLTIP'     => makeOverlib($this->html_tooltip, $fact, '' , 2, '', ', WIDTH, 325'),
+									'VALUE'       => $sta['value'],
+									'MAXVALUE'    => $sta['maxvalue'],
+									'ATWAR'       => $sta['atwar']
 									)
 								);
 							}
 						}
 					}
-/*
-					foreach()
-					{
-					}
-*/
 				}
 			}
 			return true;
@@ -1489,7 +1485,7 @@ class char
 
 
 	/**
-	 * Build a reputation bars data
+	 * Build reputation bars data
 	 *
 	 * @return array
 	 */
@@ -1544,7 +1540,6 @@ class char
 
 				$j++;
 			}
-
 /*
 			for( $r=0; $r < $rep_rows; $r++ )
 			{
@@ -1610,6 +1605,7 @@ class char
 		$returnData['image'] = $img[$repdata['Standing']];
 		$returnData['barid'] = $repnum;
 		$returnData['standing'] = $repdata['Standing'];
+		$returnData['description'] = $repdata['Description'];
 		$returnData['value'] = $level;
 		$returnData['maxvalue'] = $max;
 		$returnData['atwar'] = $repdata['AtWar'];

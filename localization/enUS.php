@@ -263,6 +263,7 @@ $lang['completedsteps'] = 'Completed Steps';
 $lang['currentstep'] = 'Current Step';
 $lang['uncompletedsteps'] = 'Uncompleted Steps';
 $lang['key'] = 'Key';
+$lang['keyring'] = 'Keyring';
 $lang['timeplayed'] = 'Time Played';
 $lang['timelevelplayed'] = 'Time Level Played';
 $lang['Addon'] = 'Addons';
