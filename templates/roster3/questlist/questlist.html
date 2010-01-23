@@ -1,10 +1,48 @@
 <!-- $Id$ -->
 
 
+<div class="container">
+
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{L_QUEST_LIST}</div>
+
+
+<!-- IF S_SHOW -->
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title">{ZONE_NAME}</div>
+<!-- BEGIN quests -->
+						<div class="tier-3-a"><div class="tier-3-b">
+							<div class="text">
+                            <!-- IF quests.TAG --><span style="float:right;">{quests.TAG}<!-- IF quests.GROUP -->, {quests.GROUP}<!-- ENDIF --></span><!-- ENDIF -->
+							<a href="#"{quests.TOOLTIP}>[{quests.LEVEL}] {quests.NAME}</a><!-- IF quests.DAILY --> ({L_DAILY})<!-- ENDIF -->
+                            </div>
+						</div></div>
+			<!-- BEGIN members -->
+						<div class="tier-4-a"><div class="tier-4-b">
+							<!-- IF quests.members.COMPLETE neq 0 --><span style="float:right;"><!-- IF quests.members.COMPLETE eq 1 --><span class="green">{L_COMPLETE}</span><!-- ELSEIF quests.members.COMPLETE eq -1 --><span class="red">{L_FAILED}</span><!-- ENDIF --></span><!-- ENDIF -->
+							&lt;{quests.members.LEVEL}&gt; <!-- IF S_INFO_ADDON --><a href="{quests.members.LINK}">{quests.members.NAME}</a><!-- ELSE -->{quests.members.NAME}<!-- ENDIF -->
+						</div></div>
+			<!-- END members -->
+
+<!-- END quests -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- ENDIF -->
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <table class="border_frame" cellpadding="0" cellspacing="1" style="width:60%;">
 	<tr>
 		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder">{L_QUEST_LIST}</div>
+			<div class="header_text sgrayborder"></div>
 
 			{L_QUEST_LIST_HELP}
 			<br /><br />
@@ -37,32 +75,4 @@
 	</tr>
 </table>
 
-<!-- IF S_SHOW -->
-<br />
 
-<table class="border_frame" cellpadding="0" cellspacing="1" style="width:300px;">
-	<tr>
-		<td class="border_color syellowborder">
-			<div class="header_text syellowborder">{ZONE_NAME}</div>
-
-			<table cellpadding="0" cellspacing="0" width="100%">
-<!-- BEGIN quests -->
-				<tr>
-					<th class="membersHeaderRight"><!-- IF quests.TAG --><span style="float:right;">{quests.TAG}<!-- IF quests.GROUP -->, {quests.GROUP}<!-- ENDIF --></span><!-- ENDIF -->
-						<a href="#"{quests.TOOLTIP}>[{quests.LEVEL}] {quests.NAME}</a><!-- IF quests.DAILY --> ({L_DAILY})<!-- ENDIF --></th>
-				</tr>
-
-			<!-- BEGIN members -->
-				<tr>
-					<td class="membersRowRight1"><!-- IF quests.members.COMPLETE neq 0 --><span style="float:right;"><!-- IF quests.members.COMPLETE eq 1 --><span class="green">{L_COMPLETE}</span><!-- ELSEIF quests.members.COMPLETE eq -1 --><span class="red">{L_FAILED}</span><!-- ENDIF --></span><!-- ENDIF -->
-						&lt;{quests.members.LEVEL}&gt; <!-- IF S_INFO_ADDON --><a href="{quests.members.LINK}">{quests.members.NAME}</a><!-- ELSE -->{quests.members.NAME}<!-- ENDIF --></td>
-				</tr>
-			<!-- END members -->
-
-<!-- END quests -->
-			</table>
-
-		</td>
-	</tr>
-</table>
-<!-- ENDIF -->

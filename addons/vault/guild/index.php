@@ -48,7 +48,7 @@ for( $t=1;$t<=$tab_count;$t++ )
 		$tab_data['tab' . $t] = vault_tab_get($roster->data['guild_id'], 'Tab' . $t);
 		if( !is_null( $tab_data['tab' . $t] ) )
 		{
-			$tab_data['tab' . $t]->out()
+			$tab_data['tab' . $t]->out();
 
 			vault_log('Tab' . $t);
 		}
