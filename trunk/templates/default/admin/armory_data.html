@@ -1,13 +1,10 @@
 <!-- $Id$ -->
 
-
-
 <!-- IF S_RESPONSE -->
-
 <table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
 	<tr>
 		<td class="border_color sredborder">
-				{RESPONSE}
+			{RESPONSE}
 		</td>
 	</tr>
 </table>
@@ -20,24 +17,21 @@
 <table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
 	<tr>
 		<td class="border_color syellowborder" colspan="2">
-			<div class="header_text syellowborder"><!-- TRANSLATE classes --></div>
+			<div class="header_text syellowborder"><!-- TRANSLATE adata_update_talents --></div>
 		</td>
 	</tr>
-		<!-- BEGIN classes --> 
-	<form action="{classes.UPDATELINK}" method="post" id="update">
+<!-- BEGIN classes --> 
 	<tr>
 		<td class="membersRow2">
-				
-			
-			<input type="hidden" name="class_id" value="{classes.ID}" />
-			<input type="hidden" name="process" value="process" />
-			{classes.NAME} ({classes.ID})
+			{classes.NAME}
 		</td>
 		<td class="membersRow2">
-			<button type="submit" class="input"><!-- TRANSLATE update --></button>
+			<form action="{classes.UPDATELINK}" method="post" id="update">
+				<input type="hidden" name="class_id" value="{classes.ID}" />
+				<input type="hidden" name="process" value="process" />
+				<button type="submit" class="input"><!-- TRANSLATE update --></button>
+			</form>
 		</td>
 	</tr>
-	</form>
-				<!-- END classes -->
+<!-- END classes -->
 </table>
-

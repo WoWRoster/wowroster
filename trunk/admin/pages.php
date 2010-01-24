@@ -46,10 +46,10 @@ $config_pages['dataman'] = array(
 	'title'=>	'pagebar_dataman',
 	'file'=>	'data_manager.php',
 	);
-$config_pages['talentman'] = array(
-	'href'=>	$roster->pages[0].'-talentman',
-	'title'=>	'pagebar_talentman',
-	'file'=>	'talent_manager.php',
+$config_pages['armory_data'] = array(
+	'href'=>	$roster->pages[0].'-armory_data',
+	'title'=>	'pagebar_armory_data',
+	'file'=>	'armory_data.php',
 	);
 $config_pages['install'] = array(
 	'href'=>	$roster->pages[0].'-install',

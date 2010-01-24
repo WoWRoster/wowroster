@@ -927,8 +927,13 @@ $lang['install'] = 'Instalar';
 $lang['setup_guide'] = 'Guía después de instalar';
 $lang['default_data'] = 'Datos predeterminados';
 $lang['default_data_help'] = 'Elige tu hermandad permitida predeterminada aquí<br />Muchos addons requieren de una hermandad predeterminada para funcionar perfectamente<br />Puedes añadir mas hermandades permitidas en RosterCP-&gt;Normas de subir<br /><br />Si esto es una instalación de una persona que no pertenece a la hermandad:<br />Entre en hermandades-F para ver los nombres de la hermandad<br />Reemplaza F con tu facción (A-Alianza, H-Horda)<br />Introduce tu reino y región<br />Elige las normas de subir personajes en RosterCP-&gt;Normas de subir';
-$lang['guide_complete'] = 'Se ha terminado la configuración después de instalar<br /><br />Recuerda <a href="%1$s">instalar addons</a> para el Roster';
+$lang['guide_complete'] = 'Se ha terminado la configuración después de instalar';
+$lang['guide_next'] = 'Remember To';
+$lang['guide_next_text'] = '<ul><li><a href="%1$s" target="_blank">Install Roster AddOns</a></li><li><a href="%2$s" target="_blank">Set Upload Rules</a></li><li><a href="%3$s" target="_blank">Update Data from the Armory</a></li></ul>';
 $lang['guide_already_complete'] = 'La guía de después de instalar acaba de completarse<br />No podrás verla de nuevo';
+
+// Armory Data
+$lang['adata_update_talents'] = 'Talents';
 
 // Password Stuff
 $lang['password'] = 'Contraseña';
@@ -975,7 +980,7 @@ $lang['pagebar_function'] = 'Funciones';
 $lang['pagebar_rosterconf'] = 'Configuración de Roster';
 $lang['pagebar_uploadrules'] = 'Exclusiones';
 $lang['pagebar_dataman'] = 'Control de datos';
-$lang['pagebar_talentman'] = 'Armory Data';
+$lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Cambiar contraseña';
 $lang['pagebar_addoninst'] = 'Instalar addons';
 $lang['pagebar_update'] = 'Subir perfil';
