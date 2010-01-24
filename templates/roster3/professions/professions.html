@@ -5,9 +5,18 @@
 	<div class="tier-1-a">
         <div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title">{L_PROFESSIONS}</div>
+				<div class="tier-1-title">{L_PROFESSIONS}
+      	          	<div class="links">
+						<!-- BEGIN profession -->
+						<a href="{MAKELINK}#{profession.ID}">
+                    		<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{profession.ICON}.{IMG_SUFFIX}" /><div class="mask" {profession.TOOLTIP}></div></div>
+                    	</a>
+						<!-- END profession -->
+					</div>                
+                </div>
 
 <!-- BEGIN profession -->
+<a name="{profession.ID}"></a>
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('table_{profession.ID}','img_{profession.ID}','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
