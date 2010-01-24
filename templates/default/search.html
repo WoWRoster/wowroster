@@ -1,10 +1,17 @@
 <!-- $Id$ -->
 
+<div class="container">
+
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE search_for --></div>
+
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgreenborder">
 			<div class="header_text sgreenborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" />
-				<!-- TRANSLATE search_for --></div>
+				</div>
 			<form id="search" name="search" action="{U_SEARCH_LINK}" method="post" enctype="multipart/form-data">
 				<input size="25" type="text" name="s_term" value="{SEARCH}" />
 				<input type="submit" value="<!-- TRANSLATE search -->" />
@@ -31,32 +38,31 @@
 </table>
 
 <!-- IF S_RESULT -->
-<br />
-
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgreenborder">
-			<div class="header_text sgreenborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" />
-				<!-- TRANSLATE search_results -->: '{SEARCH}'
-			</div>
-
+				<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title"><!-- TRANSLATE search_results -->: '{SEARCH}'</div>
 			<!-- BEGIN addon_results -->
-			<div class="header_text sgoldborder" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
-				<img src="{addon_results.ICON}" style="float:left;" alt="" id="{addon_results.BASENAME}_item_img" width="16" height="16" />
-				<img src="{THEME_PATH}/images/minus.gif" style="float:right;" alt="" id="{addon_results.BASENAME}_search_img" />
-				{addon_results.FULLNAME} <small>{FIRST}-{addon_results.COUNT} / {addon_results.TOTAL} <!-- TRANSLATE results_count --> &lt;{addon_results.TIME}&gt;</small>
-			</div>
-			<div id="{addon_results.BASENAME}">
-				<table width="100%" cellspacing="0" cellpadding="0">
-				{addon_results.OPEN_TABLE}
-
-					<!-- BEGIN row -->
-					{addon_results.row.RESULTS_HEADER}
-					<tr class="SearchRowAltColor{addon_results.row.ROW_CLASS}">
+							<div class="tier-3-a"><div class="tier-3-b">
+                            	<div class="tier-3-text" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
+                                	{addon_results.FULLNAME} : {FIRST}-{addon_results.COUNT} / {addon_results.TOTAL} <!-- TRANSLATE results_count -->
+                                	<img src="{THEME_PATH}/images/minus.gif" style="float:right;" alt="" id="{addon_results.BASENAME}_search_img" />
+                                </div>
+                            </div></div>
+						<div id="{addon_results.BASENAME}">
+                            <div class="tier-4-a"><div class="tier-4-b">
+                            	<div class="tier-4-text">
+								<table width="100%" cellspacing="0" cellpadding="0">{addon_results.OPEN_TABLE}</table>
+                                </div>
+                            </div></div>
+							<!-- BEGIN row -->
+                            <div class="tier-6-a"><div class="tier-6-b">
+                            	<div class="tier-6-text">
+								<table width="100%" cellspacing="0" cellpadding="0">
+                                					<tr class="">
 					<!-- IF addon_results.row.HTML -->
 						{addon_results.row.HTML}
 					<!-- ELSE -->
-						<td class="SearchRowCellRight">
+						<td class="">
 						<!-- IF addon_results.row.HEADER -->{addon_results.row.HEADER}<!-- ENDIF -->
 						<!-- IF addon_results.row.AUTHOR --> <!-- TRANSLATE submited_author --> {addon_results.row.AUTHOR}<!-- ENDIF -->
 						<!-- IF addon_results.row.DATE --> <!-- TRANSLATE submited_date --> {addon_results.row.DATE}<!-- ENDIF --><br />
@@ -68,8 +74,23 @@
 						</td>
 					<!-- ENDIF -->
 					</tr>
+
+                                </table>
+                                </div>
+                            </div></div>
+                            
+                            
+							<!-- END row -->                        
+
+
+			
+				
+				
+
+					
+					{addon_results.row.RESULTS_HEADER}
 					{addon_results.row.RESULTS_FOOTER}
-					<!-- END row -->
+
 
 				{addon_results.CLOSE_TABLE}
 				</table>
@@ -79,13 +100,11 @@
 					<!-- IF addon_results.NEXT --> [<a href="{addon_results.NEXT}"><strong><!-- TRANSLATE search_next_matches -->: {addon_results.FULLNAME}</strong></a>]<!-- ENDIF -->
 				</div>
 				<!-- ENDIF -->
-			</div>
+
 			<!-- END addon_results -->
 
 			<!-- IF S_NO_RESULTS --><div class="header_text sredborder"><!-- TRANSLATE search_nomatches --></div><!-- ENDIF -->
-		</td>
-	</tr>
-</table>
+</div></div></div></div>
 
 <br />
 
@@ -135,5 +154,11 @@
 		</td>
 	</tr>
 </table>
+
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <!-- ENDIF -->
