@@ -38,8 +38,6 @@ if( $roster->db->num_rows($result) == 0 )
 	echo messagebox($roster->locale->act['no_news']);
 }
 
-$roster->output['body_onload'] .= 'initARC(\'editnews\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 $news = $roster->db->fetch($result);
 
 // Assign template vars

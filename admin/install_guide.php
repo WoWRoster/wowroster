@@ -31,8 +31,6 @@ if( !empty($data_present) )
 	return;
 }
 
-$roster->output['body_onload'] .= 'initARC(\'guide\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 
 include(ROSTER_LIB . 'install.lib.php');
 

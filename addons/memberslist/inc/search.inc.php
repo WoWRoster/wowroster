@@ -42,7 +42,7 @@ class memberslistSearch
 	{
 		global $roster;
 
-		$this->open_table = '<tr><th class="membersHeader ts_string">Lv</th>'
+		$this->open_table = '<tr><th class="membersHeader ts_string">' . $roster->locale->act['level'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['class'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
 						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['title'] . '</th></tr>';
@@ -58,7 +58,7 @@ class memberslistSearch
 			 . " FROM `" . $roster->db->table('members') . "`"
 			 . " WHERE (`member_id` LIKE '%$search%'"
 				. " OR `name` LIKE '%" . ucfirst($search) . "%'"
-				. " OR `name` LIKE '%" . $search . "%'"
+				. " OR `name` LIKE '%$search%'"
 				. " OR `server` LIKE '%$search%'"
 				. " OR `region` LIKE '%$search%'"
 				. " OR `guild_id` LIKE '%$search%'"
@@ -89,8 +89,6 @@ class memberslistSearch
 			{
 				list($member_id, $name, $server, $region, $guild_id, $class, $level, $note, $guild_rank, $guild_title, $zone, $last_online) = $roster->db->fetch($result);
 
-				$item['title'] = $name;
-				$item['date'] = $last_online;
 				$item['html'] = '<td class="SearchRowCell">' . $level . '</td><td class="SearchRowCell">' . $class . '</td><td class="SearchRowCell"><a href="' . makelink("char-info&amp;a=c:$member_id") . '"><strong>' . $name . '</strong></a></td><td class="SearchRowCellRight">' . $guild_title . '</td>';
 				$this->add_result($item);
 				unset($item);

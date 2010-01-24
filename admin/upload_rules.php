@@ -23,8 +23,6 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 
 $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
 
-$roster->output['body_onload'] .= 'initARC(\'allow\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 $mode = (isset($roster->pages[2]) && $roster->pages[2] == 'char')?'char':'guild';
 
 // Process a new line

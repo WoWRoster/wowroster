@@ -52,7 +52,7 @@ class questlistSearch
 		$this->search_url  = ( $this->zone != '' ? '&amp;zone=' . htmlentities($this->zone) : '' );
 		$this->search_url .= ( $this->levelid != '' ? '&amp;levelid=' . $this->levelid : '' );
 
-		$this->open_table = '<tr><th class="membersHeader ts_string">Lv</th>'
+		$this->open_table = '<tr><th class="membersHeader ts_string">' . $roster->locale->act['level'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
 						  . '<th class="membersHeader ts_string">' . $roster->locale->act['tag'] . '</th>'
 						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['zone'] . '</th></tr>';
@@ -124,7 +124,6 @@ class questlistSearch
 					$quest_tag .= ", $group";
 				}
 
-				$item['title'] = $quest_name;
 				$item['html'] = '<td class="SearchRowCell">' . $quest_level.'</td>'
 							  . '<td class="SearchRowCell"><a href="' . makelink('realm-questlist&amp;a=r:' . $region . '-' . urlencode($server) . '&amp;questid=' . urlencode($quest_name)) . '">' . $quest_name . '</a></td>'
 							  . '<td class="SearchRowCell">' . $quest_tag . '</td>'

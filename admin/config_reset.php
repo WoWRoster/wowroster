@@ -23,8 +23,6 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 
 $roster->output['title'] .= $roster->locale->act['pagebar_configreset'];
 
-$roster->output['body_onload'] .= "initARC('conf_change_pass','radioOn','radioOff','checkboxOn','checkboxOff');";
-
 $roster->tpl->assign_vars(array(
 	'MESSAGE' => '',
 	)
