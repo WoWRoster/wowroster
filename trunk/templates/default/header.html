@@ -139,30 +139,46 @@
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "char" -->
-	<div class="char-list">
-		<div class="title"><!-- TRANSLATE members --><span><!-- TRANSLATE members --></span></div>
-		<div class="spacer">
-			<div class="list">
-<!-- BEGIN mini_memberslist -->
-			<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}"><!-- ENDIF -->
-			<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->u-link<!-- ELSE -->plain<!-- ENDIF -->">
-				<span class="lvl">{mini_memberslist.LEVEL}</span>
-<!-- U_LINK will be FALSE if the player has no data -->
-				<span class="name">{mini_memberslist.NAME}</span>
+<div class="char-list" id="mini_guild" style="display: none;">
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title" style="cursor:pointer;" onclick="showHide('mini_guild'); return false;"><!-- TRANSLATE members -->
+                	<div class="toggle">
+                    	<img src="{THEME_PATH}/images/button_close.png"/>
+                    </div>
+                </div>
 
-				<span class="info">
+         		<div class="tier-2-a">
+                	<div class="tier-2-b">
+
+            			<div class="list">
+<!-- BEGIN mini_memberslist -->
+						<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}">
+							<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->c{mini_memberslist.CLASS_ID}<!-- ELSE -->c{mini_memberslist.CLASS_ID}<!-- ENDIF -->">
+								<span class="lvl">{mini_memberslist.LEVEL}</span>
+<!-- U_LINK will be FALSE if the player has no data -->
+								<span class="name">{mini_memberslist.NAME}</span>
+
+								<span class="info">
 
 <!-- IF mini_memberslist.RACE_ID -->
-					<img src="{IMG_URL}icons/race/{mini_memberslist.RACE_ID}-{mini_memberslist.SEX_ID}.gif" width="20" height="20" alt="" />
+									<img src="{IMG_URL}icons/race/{mini_memberslist.RACE_ID}-{mini_memberslist.SEX_ID}.gif" width="20" height="20" alt="" />
 <!-- ENDIF -->
-					<img src="{IMG_URL}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" alt="" />
-				</span>
-			</div>
-			<!-- IF mini_memberslist.U_LINK --></a><!-- ENDIF -->
+									<img src="{IMG_URL}icons/class/{mini_memberslist.CLASS_ID}.gif" width="20" height="20" alt="" />
+								</span>
+							</div>
+						</a><!-- ENDIF -->
 <!-- END mini_memberslist -->
+						</div>
+                        
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
+
 
 	<div class="info-header {FACTION}">
 		<div class="text"{ALT_TOOLTIP}>
@@ -192,10 +208,19 @@
 <div class="top-menu">
 	<div class="links">
 		<div id="top_nav">
+        <!-- BEGIN menu_button_section -->
+			<!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
+			<a class="button-char" style="cursor:pointer;" onclick="showHide('menu_char'); hide('menu_guild'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE char info--></a>
+            <!-- ENDIF -->
+        <!-- END menu_button_section -->    
+    	<!-- IF ROSTER_SCOPE eq "char" -->
+            <a class="button-members" style="cursor:pointer;" onclick="showHide('mini_guild'); hide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE guild-->  <!-- TRANSLATE members--></a>
+        <!-- ENDIF -->
+        	<a class="button-guild" style="cursor:pointer;" onclick="showHide('menu_guild'); hide('mini_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
+			<a class="button-realm" style="cursor:pointer;" onclick="showHide('menu_realm'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
 			<a href="{U_MENU_UPDATE_LUA}" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
-			<a class="button-guild" href="#" onclick="showHide('menu_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
-			<a class="button-realm" href="#" onclick="showHide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
-			<a class="button-util" href="#" onclick="showHide('menu_util'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
+			<a class="button-util" style="cursor:pointer;" onclick="showHide('menu_util'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
+
 		</div>
 	</div>
 </div>

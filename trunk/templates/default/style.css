@@ -20,7 +20,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .roster-wrap { font:12px arial,helvetica,sans-serif; color:#FFFFFF; width: 960px; margin: auto; position: relative; padding-top: 1px; }
 
 .char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap { padding: 100px 0 0 0; position: relative; }
-.char-wrap { padding-right: 210px; }
+.char-wrap {  }
 
 .menu-select { position: absolute; top: 30px; right: 10px; }
 
@@ -48,21 +48,19 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .scope-menu .menu-scope-panel .frame .button .mask { background: url(./images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 .scope-menu .menu-scope-panel .frame .button .mask:hover { background: url(./images/mask/menu_40x40_mask.png) no-repeat right top; }
 
-.qj-button { position: absolute; top: -100px; left: 0px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
-.qj-button a {
-	display:block;
-	border:2px solid #4E4D4C;
-	height:40px;
-	width:40px;
-}
-.qj-button a:hover { border:2px solid #0066FF; }
+.qj-button { position: absolute; top: -8px; left: 154px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
+.qj-button a { display: block; height: 26px; width: 100px; padding: 4px 5px 10px 45px; }
 
 /* New Main Navagation tabs */
 
-.top-menu { width: auto; position: absolute; z-index: 200; top: 94px; left: 120px; }
+.top-menu { width: auto; position: absolute; z-index: 200; top: 92px; right: 10px; }
 .top-menu .links { height: 40px; }
 .top-menu .links a { display: block; height: 26px; width: 100px; float: left; padding: 4px 5px 10px 45px; color: #000; margin-right: 5px; font: bold 12px/normal Arial, Helvetica, sans-serif; }
 
+.button-char { background: url(./images/menu/menu_char.png) no-repeat left top; }
+.button-char:hover { background: url(./images/menu/menu_char.png) no-repeat left bottom; }
+.button-members { background: url(./images/menu/mini_guild.png) no-repeat left top; }
+.button-members:hover { background: url(./images/menu/mini_guild.png) no-repeat left bottom; }
 .button-guild { background: url(./images/menu/menu_guild.png) no-repeat left top; }
 .button-guild:hover { background: url(./images/menu/menu_guild.png) no-repeat left bottom; }
 .button-realm { background: url(./images/menu/menu_realm.png) no-repeat left top; }
@@ -115,10 +113,13 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-1-title .icon img { height: 22px; width: 22px; }
 .tier-1-title .icon .mask { background: url(./images/mask/icon_mask_1.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 
+.tier-1-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
+.tier-1-title .toggle img { height: 22px; width: 22px; }
+
 
 .tier-2-a { background:url('./images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .tier-2-b { background:url('./images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px }
-.tier-2-title { color:#1e92c8; padding:0; margin-bottom: 5px; font: normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
+.tier-2-title { color:#135E82; padding:0; margin-bottom: 5px; font: normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-2-title .icon { height: 22px; width: 22px; float: left; margin-right: 5px; left: -2px; top: -2px; position: relative; }
 .tier-2-title .icon img { height: 22px; width: 22px; }
 .tier-2-title .icon .mask { background: url(./images/mask/icon_mask_2.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
@@ -186,23 +187,46 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 
 /* Mini Guild Member List */
-.char-list { cursor:default; width: 200px; position: absolute; z-index: 30; right: 0px; top: 100px; background: #eaca81 url(./images/section_bg.jpg) repeat-y center top; border-top: 1px solid #9D7D1C; border-right: 1px none #9D7D1C; border-bottom: 1px solid #9D7D1C; border-left: 1px solid #9D7D1C; }
-.char-list .title { font: bold 18px/normal Georgia, "Times New Roman", Times, serif; text-transform: capitalize; color: #000000; text-align: left; margin-top: 11px; margin-left: 9px; position: relative; }
-.char-list .title span { color: #FFFFFF; display: block; position: absolute; z-index: 12; left: -1px; top: -1px; }
-.char-list .list { margin: 2px 8px 8px; height: 600px; overflow: auto; border: 1px solid #9D7D1C; }
-.char-list .list .member { line-height: 20px; height: 20px; padding: 3px; font-weight: bold;  }
+.char-list { cursor:default; width: 270px; position: absolute; z-index: 300; right: 0px; top: 102px; }
+.char-list .tier-1-a { margin: 0px; }
+.char-list .list { max-height: 600px; overflow: auto; border: 1px solid #9D7D1C; }
+.char-list .list .member { line-height: 20px; height: 20px; padding: 2px; font-weight: bold; clear: both; }
 .char-list .list .plain { background: url(./images/char_row.png) repeat-x left top; color: #333333; }
 .char-list .list .plain:hover { background: url(./images/char_row.png) repeat-x left bottom; }
 .char-list .list .u-link { cursor:pointer; background: url(./images/char_row_link.png) repeat-x left top; color: #000000; }
 .char-list .list .u-link a { color: #000000; }
 .char-list .list .u-link:hover { background: url(./images/char_row_link.png) repeat-x left bottom; }
-.char-list .list .select { cursor:pointer; background: url(./images/char_row_select.png) repeat-x left top; color: #FFFFFF; }
+.char-list .list .select { cursor:pointer; background: url(./images/char_row_select.png) repeat-x left top; color: #FFFFFF;}
 .char-list .list .select a { color: #FFFFFF; }
 .char-list .list .select:hover { background: url(./images/char_row_select.png) repeat-x left bottom; }
+
+.char-list .list .c1 { background: url(./images/miniguild/warrior.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c2 { background: url(./images/miniguild/paladin.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c3 { background: url(./images/miniguild/hunter.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c4 { background: url(./images/miniguild/rogue.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c5 { background: url(./images/miniguild/priest.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c6 { background: url(./images/miniguild/deathknight.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c7 { background: url(./images/miniguild/shaman.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c8 { background: url(./images/miniguild/mage.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c9 { background: url(./images/miniguild/warlock.jpg) repeat-x left top; color: #FFFFFF; }
+.char-list .list .c11 { background: url(./images/miniguild/druid.jpg) repeat-x left top; color: #FFFFFF; }
+
+.char-list .list .c1:hover { background: url(./images/miniguild/warrior.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c2:hover { background: url(./images/miniguild/paladin.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c3:hover { background: url(./images/miniguild/hunter.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c4:hover { background: url(./images/miniguild/rogue.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c5:hover { background: url(./images/miniguild/priest.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c6:hover { background: url(./images/miniguild/deathknight.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c7:hover { background: url(./images/miniguild/shaman.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c8:hover { background: url(./images/miniguild/mage.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c9:hover { background: url(./images/miniguild/warlock.jpg) repeat-x left bottom; color: #FFFFFF; }
+.char-list .list .c11:hover { background: url(./images/miniguild/druid.jpg) repeat-x left bottom; color: #FFFFFF; }
 
 .char-list .list .lvl { float: left; width:20px; }
 .char-list .list .name { float: left; }
 .char-list .list .info { float: right; }
+.char-list .list .info img { float: left; margin: 0px 0px 0px 2px; padding: 0px; height: 20px; width: 20px; }
+
 
 /* Container Styles */
 .container { padding: 0px 0px 20px; background: #eaca81 url(./images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
