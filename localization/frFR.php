@@ -927,8 +927,13 @@ $lang['install'] = 'Installation';
 $lang['setup_guide'] = 'Guide de post-installation';
 $lang['default_data'] = 'Données par défaut';
 $lang['default_data_help'] = 'Indiquez ici votre guilde autorisé par défaut.<br />Une guilde par défaut est nécessaire pour que plusieurs greffons fonctionnent correctement.<br />Vous pouvez ajouter plusieurs guildes autorisés dans RosterCP-&gt;Règles de mise à jour.<br /><br />Si cette installation de Roster n\'est pas liée à une guilde :<br />indiquez Guildless-F comme nom de guilde en remplaçant F par l\'initiale de votre faction (A-Alliance ou H-Horde), <br />indiquez votre royaume et région par défaut.<br />Indiquez les règles de mise à jour dans RosterCP-&gt;Règles de mise à jour';
-$lang['guide_complete'] = 'Le processus de post-installation est complet.<br /><br />Souvenez-vous d\'<a href="%1$s">installer des greffons</a> pour Roster';
+$lang['guide_complete'] = 'Le processus de post-installation est complet.';
+$lang['guide_next'] = 'Remember To';
+$lang['guide_next_text'] = '<ul><li><a href="%1$s" target="_blank">Install Roster AddOns</a></li><li><a href="%2$s" target="_blank">Set Upload Rules</a></li><li><a href="%3$s" target="_blank">Update Data from the Armory</a></li></ul>';
 $lang['guide_already_complete'] = 'Le processus de post-installation a déjà été effectué.<br />Vous ne pouvez pas l\'éxecuter une nouvelle fois.';
+
+// Armory Data
+$lang['adata_update_talents'] = 'Talents';
 
 // Password Stuff
 $lang['password'] = 'Mot de passe';
@@ -975,7 +980,7 @@ $lang['pagebar_function'] = 'Fonctions';
 $lang['pagebar_rosterconf'] = 'Configuration principale';
 $lang['pagebar_uploadrules'] = 'Règles de mise à jour';
 $lang['pagebar_dataman'] = 'Gestion des données';
-$lang['pagebar_talentman'] = 'Armory Data';
+$lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Changer le mot de passe';
 $lang['pagebar_addoninst'] = 'Gestion des greffons';
 $lang['pagebar_update'] = 'Mise à jour';

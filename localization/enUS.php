@@ -927,8 +927,13 @@ $lang['install'] = 'Install';
 $lang['setup_guide'] = 'After Install Guide';
 $lang['default_data'] = 'Default Data';
 $lang['default_data_help'] = 'Set your default allowed guild here<br />A default guild is needed for many addons to function properly<br />You can add more allowed guilds in RosterCP-&gt;Upload Rules<br /><br />If this is a non-guilded Roster install:<br />Enter Guildless-F for guild name<br />Replace F with your Faction (A-Alliance, H-Horde)<br />Enter your realm and region<br />Set Upload Rules for characters in RosterCP-&gt;Upload Rules';
-$lang['guide_complete'] = 'The after install setup is complete<br /><br />Remember to <a href="%1$s">install addons</a> for Roster';
+$lang['guide_complete'] = 'The after install setup is complete';
+$lang['guide_next'] = 'Remember To';
+$lang['guide_next_text'] = '<ul><li><a href="%1$s" target="_blank">Install Roster AddOns</a></li><li><a href="%2$s" target="_blank">Set Upload Rules</a></li><li><a href="%3$s" target="_blank">Update Data from the Armory</a></li></ul>';
 $lang['guide_already_complete'] = 'The after install guide setup has already been completed<br />You cannot run it again';
+
+// Armory Data
+$lang['adata_update_talents'] = 'Talents';
 
 // Password Stuff
 $lang['password'] = 'Password';
@@ -975,7 +980,7 @@ $lang['pagebar_function'] = 'Function';
 $lang['pagebar_rosterconf'] = 'Configure Main Roster';
 $lang['pagebar_uploadrules'] = 'Upload Rules';
 $lang['pagebar_dataman'] = 'Data Manager';
-$lang['pagebar_talentman'] = 'Armory Data';
+$lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Change Password';
 $lang['pagebar_addoninst'] = 'Addon Management';
 $lang['pagebar_update'] = 'Upload Profile';

@@ -27,6 +27,7 @@ $data_present = $roster->db->query_first("SELECT `name` FROM `" . $roster->db->t
 if( !empty($data_present) )
 {
 	$body .= messagebox($roster->locale->act['guide_already_complete'],$roster->locale->act['setup_guide'],'sred');
+	$body .= messagebox( sprintf($roster->locale->act['guide_next_text'],makelink('rostercp-install'),makelink('rostercp-upload'),makelink('rostercp-armory_data')), $roster->locale->act['guide_next'] );
 	return;
 }
 
@@ -74,7 +75,7 @@ function guide_step1()
 	$roster->tpl->assign_vars(array(
 		'S_STEP_1' => true,
 
-		'L_NAME_TIP'          => makeOverlib( $roster->locale->act['guildname'] ),
+		'L_NAME_TIP'          => makeOverlib($roster->locale->act['guildname']),
 		'L_SERVER_TIP'        => makeOverlib($roster->locale->act['realmname']),
 		'L_REGION_TIP'        => makeOverlib($roster->locale->act['regionname']),
 		)
@@ -108,7 +109,10 @@ function guide_step2()
 		{
 			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 		}
-		$roster->tpl->assign_var('MESSAGE',messagebox( sprintf($roster->locale->act['guide_complete'],makelink('rostercp-install')) ));
+		$roster->tpl->assign_var('MESSAGE',
+			messagebox($roster->locale->act['guide_complete']) .
+			messagebox( sprintf($roster->locale->act['guide_next_text'],makelink('rostercp-install'),makelink('rostercp-upload'),makelink('rostercp-armory_data')), $roster->locale->act['guide_next'] )
+		);
 	}
 	else
 	{
