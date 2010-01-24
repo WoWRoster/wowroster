@@ -24,8 +24,6 @@ if( ! $roster->auth->getAuthorized( $addon['config']['news_add'] ) )
 	return; //To the addon framework
 }
 
-$roster->output['body_onload'] .= 'initARC(\'addnews\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 // Assign template vars
 $roster->tpl->assign_vars(array(
 	'L_ADD_NEWS'     => $roster->locale->act['add_news'],

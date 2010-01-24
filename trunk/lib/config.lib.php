@@ -55,9 +55,6 @@ class roster_config
 		// Color Picker JS
 		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
 
-		// ARC Radio/Checkboxes
-		$roster->output['body_onload'] .= 'initARC(\'' . $prefix . 'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 		$this->tablename = $tablename;
 		$this->where = $where;
 		$this->prefix = $prefix;

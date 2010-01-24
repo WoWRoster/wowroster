@@ -27,7 +27,6 @@ $update = new update;
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 $roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
-$roster->output['body_onload'] .= "initARC('delete','radioOn','radioOff','checkboxOn','checkboxOff');";
 
 // Change scope to guild, and rerun detection to load default
 $roster->scope = 'guild';

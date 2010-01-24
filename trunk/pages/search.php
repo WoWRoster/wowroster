@@ -24,7 +24,6 @@ if( !defined('IN_ROSTER') )
 require_once(ROSTER_BASE . 'settings.php');
 
 $roster->output['title'] = $roster->locale->act['search'];
-$roster->output['body_onload'] .= "initARC('search','radioOn','radioOff','checkboxOn','checkboxOff');";
 
 
 $roster->tpl->assign_vars(array(

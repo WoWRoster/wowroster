@@ -35,8 +35,6 @@ $result = $roster->db->query($query);
 
 $comment = $roster->db->fetch($result);
 
-$roster->output['body_onload'] .= 'initARC(\'editcomment\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 // Assign template vars
 $roster->tpl->assign_vars(array(
 	'L_EDIT'         => $roster->locale->act['edit'],

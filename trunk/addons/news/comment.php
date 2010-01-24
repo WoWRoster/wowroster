@@ -206,7 +206,6 @@ if( ! $roster->auth->getAuthorized( $addon['config']['comm_add'] ) )
 }
 else
 {
-	$roster->output['body_onload'] .= 'initARC(\'addcomment\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 	$roster->tpl->set_filenames(array('foot' => $addon['basename'] . '/comment_add.html'));
 	$roster->tpl->display('foot');
 }
