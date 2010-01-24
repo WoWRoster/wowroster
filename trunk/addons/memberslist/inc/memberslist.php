@@ -62,6 +62,15 @@ class memberslist
 			$this->addon = getaddon($basename);
 		}
 
+		// Set the js in the roster header
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/alts.js"></script>';
+
+		// Merge in the override options from the calling file
+		if( !empty($options) )
+		{
+			$this->addon['config'] = array_merge($this->addon['config'], $options);
+		}
+
 		// Select the template to use, so other addons can make their own memberslist templates
 		if( isset($this->addon['config']['template']) )
 		{
@@ -70,15 +79,6 @@ class memberslist
 		else
 		{
 			$roster->tpl->set_handle('memberslist', $basename . '/memberslist.html');
-		}
-
-		// Set the js in the roster header
-		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/alts.js"></script>';
-
-		// Merge in the override options from the calling file
-		if( !empty($options) )
-		{
-			$this->addon['config'] = array_merge($this->addon['config'], $options);
 		}
 
 		// Overwrite some options if they're specified by the client
