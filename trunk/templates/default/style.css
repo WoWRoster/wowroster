@@ -153,7 +153,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-4-a { background:url(./images/tier/tier_4_a.jpg) no-repeat right top; height: 24px; }
 .tier-4-b { background:url(./images/tier/tier_4_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
 
-.tier-4-b .text { text-align: left; color: #000; font-size: 12px; line-height: 24px; height: 24px; }
+.tier-4-b .text { text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
 .tier-4-b .text div { float: left; height: 20px; }
 
 .tier-4-b  .ts_string { text-align: left; line-height: 20px; }
