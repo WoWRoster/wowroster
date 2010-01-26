@@ -278,7 +278,7 @@ class RosterArmory
 	 * @param string $fetch_type
 	 * @return array
 	 */
-	function fetchCharacter( $character, $locale, $realm, $fetch_type='array' )
+	function fetchCharacter( $character, $guild, $locale, $realm, $fetch_type='array' )
 	{
 		return $this->fetchArmory( 2, $character, $guild, $realm, false, $fetch_type );
 	}
