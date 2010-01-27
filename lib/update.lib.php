@@ -951,19 +951,23 @@ class update
 		$this->add_ifvalue($item, 'item_color');
 		$this->add_ifvalue($item, 'item_id');
 		$this->add_ifvalue($item, 'item_texture');
+		$this->add_ifvalue($item, 'item_quantity');
 		$this->add_ifvalue($item, 'item_tooltip');
+		$this->add_ifvalue($item, 'item_level');
 		$this->add_ifvalue($item, 'item_type');
 		$this->add_ifvalue($item, 'item_subtype');
 		$this->add_ifvalue($item, 'item_rarity');
 		$this->add_value('locale', $locale);
 
 		$level = array();
-		if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
+		if( isset($item_data['reqLevel']) && !is_null($item_data['reqLevel']) )
 		{
-			$this->add_value('level',$level[1]);
+			$this->add_value('level', $item_data['reqLevel']);
 		}
-
-		$this->add_ifvalue($item, 'item_quantity');
+		else if( preg_match($roster->locale->wordings[$locale]['requires_level'],$item['item_tooltip'],$level))
+		{
+			$this->add_value('level', $level[1]);
+		}
 
 		$querystr = "INSERT INTO `" . $roster->db->table('items') . "` SET " . $this->assignstr . ";";
 		$result = $roster->db->query($querystr);
@@ -1272,18 +1276,12 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$item['item_color'] = ( isset($item_data['Color']) ? $item_data['Color'] : 'ffffff' );
 		$item['item_id'] = ( isset($item_data['Item']) ? $item_data['Item'] : '0:0:0:0:0:0:0:0' );
 		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark' );
+		$item['item_quantity'] = ( isset($item_data['Quantity']) ? $item_data['Quantity'] : 1 );
+		$item['level'] = ( isset($item_data['reqLevel']) ? $item_data['reqLevel'] : null );
+		$item['item_level'] = ( isset($item_data['iLevel']) ? $item_data['iLevel'] : '' );
 		$item['item_type'] = ( isset($item_data['Type']) ? $item_data['Type'] : '' );
 		$item['item_subtype'] = ( isset($item_data['SubType']) ? $item_data['SubType'] : '' );
 		$item['item_rarity'] = ( isset($item_data['Rarity']) ? $item_data['Rarity'] : '' );
-
-		if( isset($item_data['Quantity']) )
-		{
-			$item['item_quantity'] = $item_data['Quantity'];
-		}
-		else
-		{
-			$item['item_quantity'] = 1;
-		}
 
 		if( !empty($item_data['Tooltip']) )
 		{
