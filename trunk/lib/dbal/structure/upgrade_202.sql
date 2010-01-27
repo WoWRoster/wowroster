@@ -230,3 +230,13 @@ ALTER TABLE `renprefix_talenttree`
 
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;
 INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
+
+# --------------------------------------------------------
+### Item type/subtype/rarity
+
+ALTER TABLE `renprefix_items`
+  ADD `item_type` varchar(64) default NULL AFTER `item_level`,
+  ADD `item_subtype` varchar(64) default NULL AFTER `item_type`,
+  ADD `item_rarity` int(4) default NULL AFTER `item_subtype`;
+ 
+
