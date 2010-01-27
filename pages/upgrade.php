@@ -350,6 +350,15 @@ class Upgrade
 				ADD `Description` mediumtext NULL AFTER `Standing`;");
 		}
 
+		// Add item type/subtype
+		if( version_compare($roster->config['version'], '2.0.9.2123', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('items') . "`
+				ADD `item_type` varchar(64) default NULL AFTER `item_level`,
+				ADD `item_subtype` varchar(64) default NULL AFTER `item_type`,
+				ADD `item_rarity` int(4) default NULL AFTER `item_subtype`;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

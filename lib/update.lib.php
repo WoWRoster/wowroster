@@ -952,6 +952,9 @@ class update
 		$this->add_ifvalue($item, 'item_id');
 		$this->add_ifvalue($item, 'item_texture');
 		$this->add_ifvalue($item, 'item_tooltip');
+		$this->add_ifvalue($item, 'item_type');
+		$this->add_ifvalue($item, 'item_subtype');
+		$this->add_ifvalue($item, 'item_rarity');
 		$this->add_value('locale', $locale);
 
 		$level = array();
@@ -1269,6 +1272,9 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$item['item_color'] = ( isset($item_data['Color']) ? $item_data['Color'] : 'ffffff' );
 		$item['item_id'] = ( isset($item_data['Item']) ? $item_data['Item'] : '0:0:0:0:0:0:0:0' );
 		$item['item_texture'] = ( isset($item_data['Icon']) ? $this->fix_icon($item_data['Icon']) : 'inv_misc_questionmark' );
+		$item['item_type'] = ( isset($item_data['Type']) ? $item_data['Type'] : '' );
+		$item['item_subtype'] = ( isset($item_data['SubType']) ? $item_data['SubType'] : '' );
+		$item['item_rarity'] = ( isset($item_data['Rarity']) ? $item_data['Rarity'] : '' );
 
 		if( isset($item_data['Quantity']) )
 		{
