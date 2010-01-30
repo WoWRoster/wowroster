@@ -1435,6 +1435,8 @@ class char
 							'WIDTH'    => $bar['barwidth'],
 							'IMAGE'    => $bar['image'],
 							'STANDING' => $bar['standing'],
+							'DESCRIPTION' => $bar['description'],
+							'TOOLTIP'     => makeOverlib($bar['description'], $rep, '' , 2, '', ', WIDTH, 325'),
 							'VALUE'    => $bar['value'],
 							'MAXVALUE' => $bar['maxvalue'],
 							'ATWAR'    => $bar['atwar']
@@ -1443,12 +1445,12 @@ class char
 					}
 					else
 					{
-					 $roster->tpl->assign_block_vars('rep.bar.rep2',array(
-						'ID'      => $rep,
-						'NAME'    => $rep,
-						'NAME_ID' => $this->locale['faction_to_id'][$rep]
-						)
-					);
+						$roster->tpl->assign_block_vars('rep.bar.rep2',array(
+							'ID'      => $rep,
+							'NAME'    => $rep,
+							'NAME_ID' => $this->locale['faction_to_id'][$rep]
+							)
+						);
 					}
 					if (isset($bar['sub']))
 					{
@@ -1464,7 +1466,7 @@ class char
 									'IMAGE'       => $sta['image'],
 									'STANDING'    => $sta['standing'],
 									'DESCRIPTION' => $sta['description'],
-									'TOOLTIP'     => makeOverlib($this->html_tooltip, $fact, '' , 2, '', ', WIDTH, 325'),
+									'TOOLTIP'     => makeOverlib($sta['description'], $fact, '' , 2, '', ', WIDTH, 325'),
 									'VALUE'       => $sta['value'],
 									'MAXVALUE'    => $sta['maxvalue'],
 									'ATWAR'       => $sta['atwar']

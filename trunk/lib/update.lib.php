@@ -1930,6 +1930,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 										$this->add_ifvalue( $v, 'AtWar' );
 										$this->add_ifvalue( $v, 'Standing' );
+										$this->add_ifvalue( $v, 'Description' );
 
 										$messages .= '.';
 
