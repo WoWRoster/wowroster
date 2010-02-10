@@ -7,7 +7,10 @@
 <title>WoWRoster{PAGE_TITLE}</title>
 <base href="{ROSTER_URL}" />
 <link rel="stylesheet" type="text/css" href="{THEME_PATH}/style.css" />
-<script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/jquery.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/script.js"></script>
+
+
 <script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
 /**
  * Tab Content script v2.0- &copy; Dynamic Drive DHTML code library (www.dynamicdrive.com)
@@ -15,6 +18,10 @@
  * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
  **/
 </script>
+
+
+<script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
+
 <script type="text/javascript" src="{THEME_PATH}/theme.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/overlib.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/overlib_hideform.js"></script>
@@ -180,47 +187,44 @@
 </div>
 
 
-	<div class="info-header {FACTION}">
-		<div class="text"{ALT_TOOLTIP}>
-			<div class="name" {ALT_TOOLTIP}>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
-			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --><span><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></span></div><!-- ENDIF -->
-			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --><span><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></span></div>
-		</div>
-        <div class="menu-select">
-		<!-- IF S_LOCALE_SELECT -->
-			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-				<!-- TRANSLATE language -->
-				<select name="locale" onchange="document.locale_select.submit();">
-				<!-- BEGIN locale_select -->
-					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-				<!-- END locale_select -->
-				</select>
-			</form>
-		<!-- ENDIF -->
-        <br />
-        {MENU_LOGIN_FORM}
-		</div>
+<div class="info-header {FACTION}">
+	<div class="text">
+		<div class="name" {ALT_TOOLTIP}>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
+		<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --><span><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></span></div><!-- ENDIF -->
+		<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --><span><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></span></div>
 	</div>
-	<div class="char-wrap">
+       <div class="menu-select">
+	<!-- IF S_LOCALE_SELECT -->
+		<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
+			<!-- TRANSLATE language -->
+			<select name="locale" onchange="document.locale_select.submit();">
+			<!-- BEGIN locale_select -->
+				<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+			<!-- END locale_select -->
+			</select>
+		</form>
+	<!-- ENDIF -->
+       <br />
+       {MENU_LOGIN_FORM}
+	</div>
+</div>
+<div class="char-wrap">
 <!-- ENDIF -->
 
 <!-- Navagation Tabs -->
 <div class="top-menu">
 	<div class="links">
 		<div id="top_nav">
-        <!-- BEGIN menu_button_section -->
-			<!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
-			<a class="button-char" style="cursor:pointer;" onclick="showHide('menu_char'); hide('menu_guild'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE char info--></a>
-            <!-- ENDIF -->
-        <!-- END menu_button_section -->    
-    	<!-- IF ROSTER_SCOPE eq "char" -->
-            <a class="button-members" style="cursor:pointer;" onclick="showHide('mini_guild'); hide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE guild-->  <!-- TRANSLATE members--></a>
-        <!-- ENDIF -->
-        	<a class="button-guild" style="cursor:pointer;" onclick="showHide('menu_guild'); hide('mini_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
-			<a class="button-realm" style="cursor:pointer;" onclick="showHide('menu_realm'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
-			<a href="{U_MENU_UPDATE_LUA}" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
-			<a class="button-util" style="cursor:pointer;" onclick="showHide('menu_util'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
-
+		<!-- IF ROSTER_SCOPE neq 'char' -->
+			<a class="button-char" href="#menu_char">{NAME}</a>
+		<!-- ENDIF -->
+		<!-- IF ROSTER_SCOPE eq "char" -->
+			<a class="button-members" href="#mini_guild"><!-- TRANSLATE members --></a>
+		<!-- ENDIF -->
+			<a class="button-guild" href="#menu_guild"><!-- TRANSLATE guild --></a>
+			<a class="button-realm" href="#menu_realm"><!-- TRANSLATE realm --></a>
+			<a class="button-upload" href="{U_MENU_UPDATE_LUA}"><!-- TRANSLATE menu_header_03 --></a>
+			<a class="button-util" href="#menu_util"><!-- TRANSLATE menu_header_04 --></a>
 		</div>
 	</div>
 </div>

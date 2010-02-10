@@ -1,13 +1,7 @@
 <!-- $Id$ -->
 
-<div class="scope-menu">
+<div id="menu-buttons" class="scope-menu">
 <!-- BEGIN menu_button_section -->
-	<!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
-	<div class="qj-button">
-		<a class="button-char" style="cursor:pointer;"  onclick="showHide('menu_char'); hide('menu_guild'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE char info--></a>
-	</div>
-	<!-- ENDIF -->
-
 	<div class="menu-scope<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->-panel" id="menu_{menu_button_section.ID}" style="display:none<!-- ENDIF -->">
 	<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
 		<div class="menu-frame">

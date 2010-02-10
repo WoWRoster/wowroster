@@ -383,7 +383,7 @@ class roster
 				$scope_class->set_tpl($this->data);
 				$scope_class->alt_name_hover();
 				$scope_class->mini_members_list();
-				
+
 				break;
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
@@ -443,6 +443,7 @@ class roster
 
 				// Scope specific functions
 				$scope_class = new GuildScope;
+				$scope_class->set_tpl($this->data);
 
 				break;
 
