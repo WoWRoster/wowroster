@@ -257,6 +257,10 @@ function writeValue()
 	}
 	document.getElementById('arrayput').value = value;
 
+	// Reset buttons since default is to disable on form submit
+	$('input[type=submit]').attr('disabled', false);
+	$('input[type=reset]').attr('disabled', false);
+
 	return true;
 }
 
