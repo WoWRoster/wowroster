@@ -121,10 +121,6 @@
 .powers .bar .rage:hover { border-color: #FF0000; }
 .powers .bar .energy { background: url(images/bars/bar-energy.gif); }
 .powers .bar .energy:hover { border-color: #000000; }
-.powers .bar .runes { background: url(images/bars/bar-runes.gif); }
-.powers .bar .runes:hover { border-color: #00A8FF; }
-.powers .bar .runicpower { background: url(images/bars/bar-runicpower.gif); }
-.powers .bar .runicpower:hover { border-color: #00A8FF; }
 .powers .bar .xp-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
 .powers .bar .xp-bar { margin: 1px; line-height: 16px; height: 16px; width: 334px; position: relative; text-align: center; border: 1px solid #000000; background: #333333; }
 .powers .bar .xp-bar .fill { background: transparent url(images/bars/xp-normal.gif) repeat-x left center; position: absolute; height: 16px; left: 0px; top: 0px; }

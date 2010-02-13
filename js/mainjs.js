@@ -11,7 +11,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
- */
+*/
 
 function submitonce(theform)
 {

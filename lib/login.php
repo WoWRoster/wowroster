@@ -142,7 +142,7 @@ class RosterLogin
 
 			return '
 			<!-- Begin Password Input Box -->
-			<form action="' . $this->action . '" method="post" enctype="multipart/form-data">
+			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" onsubmit="submitonce(this);">
 			' . border('sred','start',$log_word . ' ' . $roster->locale->act['auth_req']) . '
 				<table cellspacing="0" cellpadding="0" width="100%">
 					<tr>
@@ -170,7 +170,7 @@ class RosterLogin
 		if( !$this->allow_login )
 		{
 			return '
-			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" style="margin:0;">
+			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" onsubmit="submitonce(this);" style="margin:0;">
 				Log in: <input name="password" type="password" size="30" maxlength="30" />
 				<input type="submit" value="Go" /> ' . $this->getMessage() . '
 			</form>';
