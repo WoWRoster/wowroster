@@ -214,7 +214,7 @@ class RosterMenu
 		}
 
 		$text = sprintf($roster->locale->act['menu_totals'], $num_non_alts, $num_alts) . ($level>0 ? sprintf($roster->locale->act['menu_totals_level'], $level) : '');
-		$output = '';
+		$output = '	<td valign="top" align="left" class="row">';
 
 		if( $style == 'bar' )
 		{
@@ -272,7 +272,7 @@ class RosterMenu
 	{
 		global $roster;
 
-		$realmStatus = '';
+		$realmStatus = '    <td valign="top" class="row">' . "\n";
 
 		if( isset($roster->data['server']) )
 		{
@@ -393,6 +393,7 @@ class RosterMenu
 		$roster->db->free_result($result);
 
 		$page = array();
+		$scopes = array();
 		$arrayButtons = array();
 
 		foreach( $sections as $name => $visible )
@@ -412,36 +413,26 @@ class RosterMenu
 				if( isset($palet[$button]) )
 				{
 					$arrayButtons[$name][$pos] = $palet[$button];
+					$scopes[$name] = true;
 				}
 			}
 		}
 
 		$roster->tpl->assign_vars(array(
-			'S_MENU_HEADER_GUILD' => isset($sections['guild']),
-			'S_MENU_HEADER_REALM' => isset($sections['realm']),
-			'S_MENU_HEADER_CHAR'  => isset($sections['char']),
-			'S_MENU_HEADER_UTIL'  => isset($sections['util']),
+			'S_MENU_HEADER_01' => isset($scopes['guild']) ? true : false,
+			'S_MENU_HEADER_02' => isset($scopes['realm']) ? true : false,
+			'S_MENU_HEADER_04' => isset($scopes['util']) ? true : false,
 			)
 		);
 
 		foreach( $arrayButtons as $id => $page )
 		{
-			switch($id)
-			{
-				case 'char';
-					$panel_label = $roster->data['name'] . ' ' . $roster->data['guild_name'];
-					break;
-
-				default:
-					$panel_label = ( isset($roster->locale->act['menupanel_' . $id]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $id]) : '' );
-					break;
-			}
-
 			$roster->tpl->assign_block_vars('menu_button_section', array(
 				'CLASS' => ( $id == 'util' ? 'utility' : 'scope' ),
 				'ID' => $id,
 				'OPEN' => !$sections[$id],
-				'LABEL' => $panel_label
+				'ALIGN' => ( $id == 'util' ? 'right' : 'left' ),
+				'LABEL' => ( isset($roster->locale->act['menupanel_' . $id]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $id]) : '' )
 				)
 			);
 

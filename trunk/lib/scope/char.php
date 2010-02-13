@@ -43,7 +43,6 @@ class CharScope
 		$roster->tpl->assign_vars(array(
 			'CHAR_ICON'     => $data['char_icon'],
 			'NAME'          => $data['name'],
-			'SERVER'        => $data['server'],
 			'ID'            => $data['member_id'],
 			'LOCALE'        => $data['clientLocale'],
 			'LEVEL'         => $data['level'],
