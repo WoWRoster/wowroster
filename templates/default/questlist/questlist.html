@@ -1,6 +1,5 @@
 <!-- $Id$ -->
 
-
 <div class="container">
 
 	<div class="tier-1-a">
@@ -8,6 +7,38 @@
 			<div class="tier-1-c">
 				<div class="tier-1-title">{L_QUEST_LIST}</div>
 
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						{L_QUEST_LIST_HELP}<br /><br />
+                    <form action="{U_MAKELINK}" method="get">
+                        <div class="tier-3-a"><div class="tier-3-b">
+							<div class="text">
+                            <strong>{L_SEARCH_QUEST}</strong>
+                            <select name="zoneid" onchange="window.location.href=this.options[this.selectedIndex].value" style="float:right; height: 20px;">
+								<option value="">----------</option>
+							<!-- BEGIN zone_list -->
+								<option value="{zone_list.VALUE}"<!-- IF zone_list.SELECTED --> selected="selected"<!-- ENDIF -->>{zone_list.NAME}</option>
+							<!-- END zone_list -->
+							</select>
+                            </div>
+                        </div></div>
+                        
+                        <br />
+                        
+                        <div class="tier-3-a"><div class="tier-3-b">
+							<div class="text">
+                            <strong>{L_SEARCH_ZONE}</strong>
+                            <select name="questid" onchange="window.location.href=this.options[this.selectedIndex].value" style="float:right; height: 20px;">
+								<option value="">----------</option>
+							<!-- BEGIN quest_name_list -->
+								<option value="{quest_name_list.VALUE}"<!-- IF quest_name_list.SELECTED --> selected="selected"<!-- ENDIF -->>{quest_name_list.NAME}</option>
+							<!-- END quest_name_list -->
+							</select>
+                            </div>
+                        </div></div>
+					</form>
+					</div>
+                </div>
 
 <!-- IF S_SHOW -->
           		<div class="tier-2-a">
@@ -39,42 +70,3 @@
 		</div>
 	</div>
 </div>
-
-
-<table class="border_frame" cellpadding="0" cellspacing="1" style="width:60%;">
-	<tr>
-		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder"></div>
-
-			{L_QUEST_LIST_HELP}
-			<br /><br />
-			<form action="{U_MAKELINK}" method="get">
-				<strong>{L_SEARCH_ZONE}</strong>
-				<br />
-				<select name="zoneid" onchange="window.location.href=this.options[this.selectedIndex].value">
-					<option value="">----------</option>
-
-			<!-- BEGIN zone_list -->
-					<option value="{zone_list.VALUE}"<!-- IF zone_list.SELECTED --> selected="selected"<!-- ENDIF -->>{zone_list.NAME}</option>
-			<!-- END zone_list -->
-
-				</select>
-				<br /><br />
-				<strong>{L_SEARCH_QUEST}</strong>
-				<br />
-				<select name="questid" onchange="window.location.href=this.options[this.selectedIndex].value">
-					<option value="">----------</option>
-
-			<!-- BEGIN quest_name_list -->
-					<option value="{quest_name_list.VALUE}"<!-- IF quest_name_list.SELECTED --> selected="selected"<!-- ENDIF -->>{quest_name_list.NAME}</option>
-			<!-- END quest_name_list -->
-
-				</select>
-			</form>
-			<br />
-
-		</td>
-	</tr>
-</table>
-
-
