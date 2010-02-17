@@ -118,11 +118,13 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 
 .tier-2-a { background:url('./images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
-.tier-2-b { background:url('./images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px; font: 12px Georgia, "Times New Roman", Times, serif; color: #000; }
+.tier-2-b { background:url('./images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px; }
 .tier-2-title { color:#135E82; display:block; padding:0; margin-bottom: 5px; font: normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-2-title .icon { height: 22px; width: 22px; float: left; margin-right: 5px; left: -2px; top: -2px; position: relative; }
 .tier-2-title .icon img { height: 22px; width: 22px; }
 .tier-2-title .icon .mask { background: url(./images/mask/icon_mask_2.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.tier-2-b .info-text { font: 12px Georgia, "Times New Roman", Times, serif; text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
+
 
 .tier-3-a { background:url(./images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
 .tier-3-b { background:url(images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
