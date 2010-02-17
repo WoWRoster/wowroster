@@ -4,20 +4,22 @@
 .achievement-0 { background:url('../images/achievement_locked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .achievement-1 { background:url('../images/achievement_unlocked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .achievement-2 { border:1px solid #fff; padding:7px 7px 6px; } 
-.icon { color:#135E82; float: left; margin-right: 10px; }
-.icon .icon { height: 44px; width: 44px; float: left; position: relative; }
-.icon .icon img { height: 44px; width: 44px; }
-.icon .icon .mask-0 { background: url('../images/icon_mask.png') no-repeat left top; height: 44px; width: 44px; position: absolute; z-index: 500; left: 0px; top: 0px; }
-.icon .icon .mask-1 { background: url('../images/icon_mask.png') no-repeat right top; height: 44px; width: 44px; position: absolute; z-index: 500; left: 0px; top: 0px; }
-.shield-0 { background: url(../images/shield.png) no-repeat left top; float: right; height: 44px; width: 40px; margin-left: 10px; }
-.shield-0 .points { font:22px/40px Georgia; color:#CCC; text-align: center; }
-.shield-1 { background: url(../images/shield.png) no-repeat right top; float: right; height: 44px; width: 40px; margin-left: 10px; }
-.shield-1 .points { font:22px/40px Georgia; color:white; text-align: center; }
 
-.info { font: 14px Georgia, "Times New Roman", Times, serif; color: #000; text-align: center; }
-.info .name { font-size: 18px; font-weight: bold; color: #361701; margin-bottom: 5px; }
-.info .desc { font-size: 12px; color: #000; }
-.info .date { font-size: 12px; font-weight: bold; color: #030; }
+.achievement-icon { color:#135E82; float: left; margin-right: 10px; }
+.achievement-icon .icon { height: 44px; width: 44px; float: left; position: relative; }
+.achievement-icon .icon img { height: 44px; width: 44px; }
+.achievement-icon .icon .mask-0 { background: url('../images/icon_mask.png') no-repeat left top; height: 44px; width: 44px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+.achievement-icon .icon .mask-1 { background: url('../images/icon_mask.png') no-repeat right top; height: 44px; width: 44px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+
+.achievement-shield-0 { background: url(../images/shield.png) no-repeat left top; float: right; height: 44px; width: 40px; margin-left: 10px; }
+.achievement-shield-0 .points { font:22px/40px Georgia; color:#CCC; text-align: center; }
+.achievement-shield-1 { background: url(../images/shield.png) no-repeat right top; float: right; height: 44px; width: 40px; margin-left: 10px; }
+.achievement-shield-1 .points { font:22px/40px Georgia; color:white; text-align: center; }
+
+.achievement-info { font: 14px Georgia, "Times New Roman", Times, serif; color: #000; text-align: center; }
+.achievement-info .name { font-size: 18px; font-weight: bold; color: #361701; margin-bottom: 5px; }
+.achievement-info .desc { font-size: 12px; color: #000; }
+.achievement-info .date { font-size: 12px; font-weight: bold; color: #030; }
 
 /* achievements */
 /*...........................................................*/
