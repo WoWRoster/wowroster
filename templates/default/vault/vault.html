@@ -8,19 +8,29 @@
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE vault -->
       	          	<div class="links">
-						<!-- BEGIN vault -->
-						<a href="{MAKELINK}{vault.ID}">
+                        <!-- BEGIN vault -->
+						<a href="{vault.LINK}">
                     		<div class="icon"><img src="{vault.ICON}" /><div class="mask" {vault.TOOLTIP}></div></div>
                     	</a>
 						<!-- END vault -->
-					</div>                
+					</div>
                 </div>
 
 <!-- BEGIN vault -->
-<a name="{vault.SLOT}"></a>
+<a name="#{vault.SLOT}"></a>
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
-						<div class="tier-2-title"><div class="icon"><img src="{vault.ICON}" /><div class="mask"></div></div>{vault.NAME}</div>
+						<div class="tier-2-title"><div class="icon"><img src="{vault.ICON}" /><div class="mask"></div></div>{vault.NAME}
+                        <!-- IF vault.SLOT eq 'MoneyLog' -->
+                        	<div class="title-money">
+								{MONEY_G} <img src="{IMG_URL}coin_gold.gif" alt="g" />
+								{MONEY_S} <img src="{IMG_URL}coin_silver.gif" alt="s" />
+								{MONEY_C} <img src="{IMG_URL}coin_copper.gif" alt="c" />
+							</div>
+                        <!-- ENDIF -->
+                        </div>
+<!-- IF vault.SLOT neq 'MoneyLog' -->
+	<div class="vault-grid">
 <!-- BEGIN column -->
 						<div class="vault-column">
 <!-- BEGIN item -->
@@ -36,6 +46,16 @@
 <!-- END item -->
 						</div>
 <!-- END column -->
+	</div>
+<!-- ELSE -->
+		make the money log work...
+		<!-- BEGIN log -->
+			<div>
+            	{vault.log.TYPE} <span class="blueB">({vault.log.TIME})</span>
+			</div>
+		<!-- END log -->
+
+<!-- ENDIF -->
 						<div style="clear:both;"></div>
 					</div>
 				</div>
