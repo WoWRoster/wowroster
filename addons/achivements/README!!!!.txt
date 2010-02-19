@@ -1,1 +1,0 @@
-for this addon to work you need the new armory class in the roster lib folder included in the armoryclass.rar file!!

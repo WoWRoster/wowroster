@@ -27,7 +27,7 @@
             $roster->output['html_head'] = '
             <link href="'.$addon['url_path'] . 'css/achievements.css" rel="stylesheet" type="text/css" />';
       
-            //$roster->output['body_onload'] .= 'initARC(\'rp_menu\',\'rp_menu2\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
+            $roster->output['body_onload'] .= 'initARC(\'rp_menu\',\'rp_menu2\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
             $first_tab = ' class="selected"';
                  // $menu .= '<li class="selected">';
@@ -75,10 +75,7 @@
                                     )
                               );
 						$status[$catagory]= array();
-                  $e++;
-                  //if ($catee == $catagory)
-                 //{
-            
+						$e++;
                         $roster->tpl->assign_block_vars('body',array(
                                           'ID' => $catagory,
                                           'NAME' => $achv,
@@ -91,7 +88,21 @@
                         {
 
                         $sxx++;
-                        
+                        if ($achva == $achv)
+							{
+								$idd = 's'.$catagory;
+							}
+							else
+							{
+								$idd = 's'.$dat['menue'];
+							}
+                              $roster->tpl->assign_block_vars('sub'.$catagory.'',array(
+                                    'ID' => $idd,
+                                    'NAME' => $achva,
+                                    'SELECTED' => (isset($sxx) && $sxx == 1 ? true : false)
+                                    )
+                              );
+							  
                               $roster->tpl->assign_block_vars('body.menue2',array(
                                     'ID' => 's'.$dat['menue'],
                                     'NAME' => $achva,
