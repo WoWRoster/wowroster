@@ -2,17 +2,16 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Displays Raid Progresion info
+ * Displays Achievement info
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
-
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: index2.php 477 2009-11-13 07:03:44Z Ulminia $
  * @link       http://ulminia.zenutech.com
- * @package    Raid Progresion
-*/
+ * @package    Achievements
+ */
 define("USE_CURL", TRUE);
 
 
@@ -205,7 +204,7 @@ echo '~~-  '.$pages['96'][$g].'~~~<br><hr><br>';
                         echo 'maxQuantity '.$temp2['@attributes']['maxQuantity'].'-<br>';
                   }
             }
-            echo 'Achivement Criteria <BR>';
+            echo 'Achievement Criteria <br />';
             foreach($achievement->achievement as $achievemen)
             {
             $date = '';
@@ -321,7 +320,7 @@ echo '~~-  '.$pages['96'][$g].'~~~<br><hr><br>';
                   }
                   
             }
-            echo '<span style="color:red;">Achivement Criteria </span><BR>';
+            echo '<span style="color:red;">Achievement Criteria </span><br />';
             foreach($achiev->achievement as $achievemen)
             {
             $date = '';
