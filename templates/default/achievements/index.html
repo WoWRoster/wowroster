@@ -5,20 +5,28 @@
 			<tr>
 				<td class="border_color sgrayborder">
 					<div class="header_text sgrayborder">Catagories</div>
+<div class="achievements">
+<div class="achv_lnav">
+<div class="achv_bdr"><img src="{THEME_PATH}/achievements/images/achv_lnav_top.jpg"></div>
+<div class="category-root">
 
-					<div>
-						<ul id="rp_menu" class="tab_menu">
+					<div id="rp_menu">
+						
 <!-- BEGIN menue -->
-							<li<!-- IF menue.SELECTED --> class="selected"<!-- ENDIF -->><a href="#" rel="{menue.ID}">{menue.NAME}</a></li>
+							<div <!-- IF menue.SELECTED --> class="selected"<!-- ENDIF -->><a href="#" rel="{menue.ID}">{menue.NAME}</a></div>
 <!-- END menue -->
-						</ul>
+						
 					</div>
+					</div>
+					</div>
+					</div>
+					
 				</td>
 			</tr>
 		</table>
 	</div>
 
-	<div style="float: right; width: 750px;">
+	<div style="float: right; width: 720px;">
 
 <!-- BEGIN body2 -->
 		<div id="00">
@@ -32,11 +40,11 @@
 								</td>
 							</tr>
 							<tr>
-								<td valign="top" background="{body2.IMG_PATH}/images/">
+								<td valign="top" background="{THEME_PATH}/achievements/images/">
 
 									<div class="achievements">
 										<div class="achieve_rcol">
-											<div><img src="{body2.IMG_PATH}/images/achv_rcol_top.jpg" /></div>
+											<div><img src="{THEME_PATH}/achievements/images/achv_rcol_top.jpg" /></div>
 											<div class="achievements-container">
 												<div id="achievements-content">
 													<div class="summary">
@@ -55,7 +63,7 @@
 															<div class="summary_progress">
 																<div>{body2.92.NAME}: </div>
 																<div>
-																	<div class="prog_bar blue">
+																	<div class="prog_bar staticTip blue">
 																		<div class="progress_int">
 																			<div class="progress_fill" style="width:{body2.92.WIDTH}%"></div>
 																			<div class="prog_int_text">{body2.92.STANDING}</div>
@@ -171,7 +179,7 @@
 
 <!-- BEGIN lst5-->
 														<div class="s_achievement" >
-															<div class="s_ach_stat">{body2.lst5.POINTS}<img src="{body2.IMG_PATH}/images/tiny_shield.gif" />
+															<div class="s_ach_stat">{body2.lst5.POINTS}<img src="{THEME_PATH}/achievements/images/tiny_shield.gif" />
 																	{body2.lst5.DATE}
 															</div>
 															<span>{body2.lst5.NAME}</span><span class="achv_desc">{body2.lst5.DESC}</span>
@@ -181,7 +189,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="achv_r_btm"><img src="{body2.IMG_PATH}/images/achv_rcol_btm.jpg" /></div>
+											<div class="achv_r_btm"><img src="{THEME_PATH}/achievements/images/achv_rcol_btm.jpg" /></div>
 
 										</div>
 										<br clear="all" />
