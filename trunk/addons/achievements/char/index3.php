@@ -2,17 +2,16 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Displays Raid Progresion info
+ * Displays Achievement info
  *
  * LICENSE: Licensed under the Creative Commons
  *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
-
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id: index3.php 490 2009-12-22 15:26:36Z Ulminia $
  * @link       http://ulminia.zenutech.com
- * @package    Raid Progresion
-*/
+ * @package    Achievements
+ */
 define("USE_CURL", TRUE);
 
 
@@ -197,7 +196,7 @@ foreach ($pages as $cat => $title)
                               
                         }
                         
-                        //--echo 'Achivement Criteria <BR>';
+                        //--echo 'Achievement Criteria <br />';
                         
                         foreach($achievement->achievement as $achievemen)
                         {
@@ -346,7 +345,7 @@ foreach ($pages as $cat => $title)
                               
                               }
                         
-                        //--echo 'Achivement Criteria <BR>';
+                        //--echo 'Achievement Criteria <br />';
                         
                               foreach($achiev->achievement as $achievemen)
                               {

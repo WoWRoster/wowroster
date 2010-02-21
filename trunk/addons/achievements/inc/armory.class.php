@@ -125,7 +125,7 @@ class RosterArmory
 			return false;
 		}
 	}
-	// extended function to acomadate achivements 
+	// extended function to acomadate achievements 
 	function fetchArmorya( $type, $character, $guild = false, $realm, $item_id,$fetch_type = 'array' )
 	{
 		global $roster;
@@ -737,16 +737,16 @@ class RosterArmory
 				$mode = 'talent-tree.xml?cid=' . urlencode($id) . '&loc=' . $locale . '';
 				break;
 				
-			// these next 2 modes are for achivements because there is no page identifer for the summary page but one for the other pages
+			// these next 2 modes are for achievements because there is no page identifer for the summary page but one for the other pages
 			// case 11 is for the summary page
 			case 11:	
-			case 'achivements':
+			case 'achievements':
 				$mode = 'character-achievements.xml?cn=' . urlencode($char) . '&r=' . urlencode($realm) . '';
 				break;
 			// case 12 is for sup menu items ie quests and world events for a example...
 			// id is used for the page number
 			case 12:	
-			case 'achivements':
+			case 'achievements':
 				$mode = 'character-achievements.xml?cn=' . urlencode($char) . '&r=' . urlencode($realm) . '&c=' . urlencode($id) . '';
 				break;
 		}
