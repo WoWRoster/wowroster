@@ -174,90 +174,183 @@ class achievementsUpdate
 
 		foreach($achi as $sub_cat => $data)
 		{
-			if (isset($this->pages[$data['ParentId']]['0']))
+			//echo $sub_cat.'-'.$data.'--<br>';
+			if ($sub_cat == '-1')
 			{
-				$main = $data['ParentId'];
-			}
-			else
-			{
-				$main = $data['id'];
-			}
-
-//			echo $sub_cat . ' (' . $this->pages[$main][0] . ')<br/>';
-
-			foreach($data as $achiev => $infos)
-			{
-//				echo '++' . $sub_cat . ' - ' . $achiev . '<br/>';
-
-				if ($achiev != 'id' && $achiev != 'ParentId')//is_array($achiev))
+				foreach($data as $cat => $achie)
 				{
-					$achv_points        = '';  //$infos['Points'];
-					$achv_icon          = '';  //$infos['Icon'];
-					$achv_title         = '';  //$infos['Name'];
-					$achv_disc          = '';  //$infos['Description'];
-					$achv_date          = '';  //$infos['Dcomplete'];
-					$achv_id            = '';  //$infos['Id'];
-					$achv_reward_title  = '';  //$infos['Rewardtext'];
-
-					$achv_points        = $infos['Points'];
-					$achv_icon          = $infos['Icon'];
-					$achv_title         = $infos['Name'];
-					$achv_disc          = $infos['Description'];
-
-					if (isset($infos['Dcomplete']))
+					//echo '-'.$cat.',<br>';
+					foreach($achie as $info => $in)
 					{
-						$achv_date = $infos['Dcomplete'];
-					}
-					else
-					{
-						$achv_date = '';
-					}
-
-					$achv_id = $infos['Id'];
-					$achv_reward_title = $infos['Rewardtext'];
-
-					if ($infos['completed'])
-					{
-						$achiv_complete = '1';
-					}
-					else
-					{
-						$achiv_complete = '0';
-					}
-
-					$this->achnum++;
-
-					if ($achv_title != '' && $achv_disc != '')
-					{
-						$build_query = array(
-							'member_id'         => $memberid,
-							'guild_id'          => $roster->data['guild_id'],
-							'achv_cat'          => $main,
-							'achv_cat_title'    => addslashes($this->pages[$main][0]),
-							'achv_cat_sub'      => addslashes($sub_cat),
-							'achv_cat_sub2'     => $this->order,
-							'achv_id'           => $achv_id,
-							'achv_points'       => $achv_points,
-							'achv_icon'         => addslashes($achv_icon),
-							'achv_title'        => addslashes($achv_title),
-							'achv_reward_title' => addslashes($achv_reward_title),
-							'achv_disc'         => addslashes($achv_disc),
-							'achv_date'         => addslashes($achv_date),
-							'achv_complete'     => $achiv_complete
-						);
-
-						$sql = 'INSERT INTO `' . $roster->db->table('data', $this->data['basename']) . '` ' . $roster->db->build_query('INSERT', $build_query) . ';';
-
-//						echo $sql . '<br/><hr/><br/>';
-
-						$result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
-						if( !$roster->db->query($sql) )
+						//echo '--'.$info.'-'.$in['Name'].'<br>';
+						
+						if ($info != 'id' && $info != 'ParentId')//is_array($achiev))
 						{
-							$update->setError('Achievements not updated for member id: ' . $memberid,$roster->db->error());
-							return false;
+							$achv_points        = '';  //$infos['Points'];
+							$achv_icon          = '';  //$infos['Icon'];
+							$achv_title         = '';  //$infos['Name'];
+							$achv_disc          = '';  //$infos['Description'];
+							$achv_date          = '';  //$infos['Dcomplete'];
+							$achv_id            = '';  //$infos['Id'];
+							$achv_reward_title  = '';  //$infos['Rewardtext'];
+
+							$achv_points        = $in['Points'];
+							$achv_icon          = $in['Icon'];
+							$achv_title         = $in['Name'];
+							$achv_disc          = $in['Description'];
+
+							if (isset($in['Dcomplete']))
+							{
+								$achv_date = $in['Dcomplete'];
+							}
+							else
+							{
+								$achv_date = '';
+							}
+
+							$achv_id = $in['Id'];
+							$achv_reward_title = $in['Rewardtext'];
+
+							if ($in['completed'])
+							{
+								$achiv_complete = '1';
+							}
+							else
+							{
+								$achiv_complete = '0';
+							}
+
+							$this->achnum++;
+
+							if ($achv_title != '' && $achv_disc != '')
+							{
+								$build_query = array(
+									'member_id'         => $memberid,
+									'guild_id'          => $roster->data['guild_id'],
+									'achv_cat'          => $achie['id'],//addslashes($cat),
+									'achv_cat_title'    => addslashes($cat),
+									'achv_cat_sub'      => addslashes($cat),
+									'achv_cat_sub2'     => $this->order,
+									'achv_id'           => $achv_id,
+									'achv_points'       => $achv_points,
+									'achv_icon'         => addslashes($achv_icon),
+									'achv_title'        => addslashes($achv_title),
+									'achv_reward_title' => addslashes($achv_reward_title),
+									'achv_disc'         => addslashes($achv_disc),
+									'achv_date'         => addslashes($achv_date),
+									'achv_complete'     => $achiv_complete
+								);
+
+								$sql = 'INSERT INTO `' . $roster->db->table('data', $this->data['basename']) . '` ' . $roster->db->build_query('INSERT', $build_query) . ';';
+
+//								echo $sql . '<br/><hr/><br/>';
+
+								$result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
+								if( !$result )
+								{
+									$update->setError('Achievements not updated for member id: ' . $memberid,$roster->db->error());
+									return false;
+								}
+							}
+							$this->order++;
 						}
 					}
-					$this->order++;
+				
+				}
+			}
+			
+			
+			if ($sub_cat != '-1')
+			{
+			//echo $sub_cat.'<br>';
+				if (isset($this->pages[$sub_cat]['0']))
+				{
+					$main = $this->pages[$sub_cat]['0'];
+				}
+				else
+				{
+					$main = $data['id'];
+				}
+
+				//echo $sub_cat . ' (' . $main . ')<br/>';
+
+				foreach($data as $achiev => $infos)
+				{
+					//echo '++' . $sub_cat . ' - ' . $achiev . '<br/>';
+
+					foreach($infos as $info => $in)
+					{
+						if ($info != 'id' && $info != 'ParentId')//is_array($achiev))
+						{
+							$achv_points        = '';  //$infos['Points'];
+							$achv_icon          = '';  //$infos['Icon'];
+							$achv_title         = '';  //$infos['Name'];
+							$achv_disc          = '';  //$infos['Description'];
+							$achv_date          = '';  //$infos['Dcomplete'];
+							$achv_id            = '';  //$infos['Id'];
+							$achv_reward_title  = '';  //$infos['Rewardtext'];
+
+							$achv_points        = $in['Points'];
+							$achv_icon          = $in['Icon'];
+							$achv_title         = $in['Name'];
+							$achv_disc          = $in['Description'];
+
+							if (isset($in['Dcomplete']))
+							{
+								$achv_date = $in['Dcomplete'];
+							}
+							else
+							{
+								$achv_date = '';
+							}
+
+							$achv_id = $in['Id'];
+							$achv_reward_title = $in['Rewardtext'];
+
+							if ($in['completed'])
+							{
+								$achiv_complete = '1';
+							}
+							else
+							{
+								$achiv_complete = '0';
+							}
+
+							$this->achnum++;
+
+							if ($achv_title != '' && $achv_disc != '')
+							{
+								$build_query = array(
+								'member_id'         => $memberid,
+								'guild_id'          => $roster->data['guild_id'],
+								'achv_cat'          => $sub_cat,
+								'achv_cat_title'    => addslashes($main),
+								'achv_cat_sub'      => addslashes($achiev),
+								'achv_cat_sub2'     => $this->order,
+								'achv_id'           => $achv_id,
+								'achv_points'       => $achv_points,
+								'achv_icon'         => addslashes($achv_icon),
+								'achv_title'        => addslashes($achv_title),
+								'achv_reward_title' => addslashes($achv_reward_title),
+								'achv_disc'         => addslashes($achv_disc),
+								'achv_date'         => addslashes($achv_date),
+								'achv_complete'     => $achiv_complete
+								);
+
+								$sql = 'INSERT INTO `' . $roster->db->table('data', $this->data['basename']) . '` ' . $roster->db->build_query('INSERT', $build_query) . ';';
+
+//								echo $sql . '<br/><hr/><br/>';
+
+								$result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
+								if( !$result )
+								{
+									$update->setError('Achievements not updated for member id: ' . $memberid,$roster->db->error());
+									return false;
+								}
+							}
+							$this->order++;
+						}
+					}
 				}
 			}
 		}

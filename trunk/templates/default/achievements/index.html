@@ -1,13 +1,10 @@
 <div class="container">
 
 	<div style="float: left;">
-		<table class="border_frame" cellpadding="0" cellspacing="1">
-			<tr>
-				<td class="border_color sgrayborder">
-					<div class="header_text sgrayborder">Catagories</div>
+
 <div class="achievements">
 <div class="achv_lnav">
-<div class="achv_bdr"><img src="{THEME_PATH}/achievements/images/achv_lnav_top.jpg"></div>
+<div class="achv_bdr"><img src="{THEME_PATH}/achievements/images/achv_lnav_top.jpg"></a></div>
 <div class="category-root">
 
 					<div id="rp_menu">
@@ -20,10 +17,7 @@
 					</div>
 					</div>
 					</div>
-					
-				</td>
-			</tr>
-		</table>
+
 	</div>
 
 	<div style="float: right; width: 720px;">
@@ -44,7 +38,7 @@
 
 									<div class="achievements">
 										<div class="achieve_rcol">
-											<div><img src="{THEME_PATH}/achievements/images/achv_rcol_top.jpg" /></div>
+											<div><img src="{THEME_PATH}/achievements/images/achv_rcol_top.jpg" /></a></div>
 											<div class="achievements-container">
 												<div id="achievements-content">
 													<div class="summary">
@@ -180,7 +174,7 @@
 <!-- BEGIN lst5-->
 														<div class="s_achievement" >
 															<div class="s_ach_stat">{body2.lst5.POINTS}<img src="{THEME_PATH}/achievements/images/tiny_shield.gif" />
-																	{body2.lst5.DATE}
+																	{body2.lst5.DATE}</a>
 															</div>
 															<span>{body2.lst5.NAME}</span><span class="achv_desc">{body2.lst5.DESC}</span>
 														</div>
@@ -189,7 +183,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="achv_r_btm"><img src="{THEME_PATH}/achievements/images/achv_rcol_btm.jpg" /></div>
+											<div class="achv_r_btm"><img src="{THEME_PATH}/achievements/images/achv_rcol_btm.jpg" /></a></div>
 
 										</div>
 										<br clear="all" />
@@ -207,46 +201,58 @@
 <!-- BEGIN body -->
 		<div id="{body.ID}" style="display:none;">
 
-			<div class="sections" style="height: 55px;">
-				<ul id="rp_menu{body.MEN}">
+		<div class="achievements">
+			<div class="achieve_rcol">
+				<div><img src="{THEME_PATH}/achievements/images/achv_rcol_top.jpg" /></a></div>
+				<div class="achievements-container">
+					<div id="achievements-content">
+												
+						<div class="sections" style="height: 75px;">
+							<ul id="rp_menu{body.MEN}">
 <!-- BEGIN menue2 -->
-					<li<!-- IF body.menue2.SELECTED --> class="selected"<!-- ENDIF -->><a rel="{body.menue2.ID}" class="text">{body.menue2.NAME}</a></li>
+								<li<!-- IF body.menue2.SELECTED --> class="selected"<!-- ENDIF -->><a rel="{body.menue2.ID}" class="text">{body.menue2.NAME}</a></li>
 <!-- END menue2 -->
-				</ul>
-			</div>
+							</ul>
+						</div>
 
-			<div class="tier-1-a">
-				<div class="tier-1-b">
-					<div class="tier-1-c">
-						<div class="tier-1-title">{body.NAME}</div>
+						<div class="tier-1-a">
+							<div class="tier-1-b">
+								<div class="tier-1-c">
+									<div class="tier-1-title">{body.NAME}</div>
 <!-- BEGIN info -->
-						<div id="{body.info.ID}" style="display:none">
+									<div id="{body.info.ID}" style="display:none">
 <!-- BEGIN achv -->
-							<div class="achievement-{body.info.achv.STATUS}">
-								<div class="achievement-2">
-									<div class="achievement-icon">
-										<div class="icon"><img src="{body.info.achv.ICON}" /><div class="mask-{body.info.achv.STATUS}"></div></div>
-									</div>
-									<div class="achievement-shield-{body.info.achv.STATUS}">
-										<div class="points">{body.info.achv.POINTS}</div>
-									</div>
-									<div class="achievement-info">
-										<div class="name">{body.info.achv.NAME}</div>
-										<div class="desc">{body.info.achv.DESC}</div>
+										<div class="achievement-{body.info.achv.STATUS}">
+											<div class="achievement-2">
+												<div class="achievement-icon">
+													<div class="icon"><img src="{body.info.achv.ICON}" /><div class="mask-{body.info.achv.STATUS}"></div></div>
+												</div>
+												<div class="achievement-shield-{body.info.achv.STATUS}">
+													<div class="points">{body.info.achv.POINTS}</div>
+												</div>
+												<div class="achievement-info">
+													<div class="name">{body.info.achv.NAME}</div>
+													<div class="desc">{body.info.achv.DESC}</div>
 <!-- IF body.info.achv.DATE -->
-										<div class="date">{body.info.achv.DATE}</div>
+													<div class="date">{body.info.achv.DATE}</div>
 <!-- ENDIF -->
+												</div>
+												<div style="height: 0px; clear: both;"></div>
+											</div>
+										</div>
+<!-- END achv -->
 									</div>
-									<div style="height: 0px; clear: both;"></div>
+<!-- END info -->
 								</div>
 							</div>
-<!-- END achv -->
 						</div>
-<!-- END info -->
 					</div>
 				</div>
+				<div class="achv_r_btm"><img src="{THEME_PATH}/achievements/images/achv_rcol_btm.jpg" /></a></div>
+
 			</div>
 
+		</div>
 		</div>
 	<!-- END body -->
 	</div>

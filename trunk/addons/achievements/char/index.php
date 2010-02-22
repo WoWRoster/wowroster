@@ -21,7 +21,7 @@ $data2 = $fachv->getConfigDatamod2($roster->data['member_id']);
 
 //echo '<pre>';
 //print_r($data2);
-
+//aprint($data);
 $first_tab = ' class="selected"';
 //$menu .= '<li class="selected">';
 $imgext = $roster->config['img_suffix'];
