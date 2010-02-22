@@ -15,7 +15,7 @@ class achv
 
 		$sql = "SELECT * FROM `" . $roster->db->table('data',$addon['basename']) . "` "
 			. "WHERE `member_id` = '" . $member_id . "' "
-			. "ORDER BY `achv_cat` ASC, `achv_date` DESC ,`achv_cat_sub2` DESC;";
+			. "ORDER BY `achv_cat` ASC, `achv_date` DESC ,`achv_cat_sub` DESC;";
 
 		$this->cfg = '';
 
