@@ -1400,17 +1400,26 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$recipe['recipe_id'] = isset($recipe_data['RecipeID']) ? $recipe_data['RecipeID'] : '';
 
 		$recipe['reagents'] = array();
-		foreach( $recipe_data['Reagents'] as $reagent )
+		foreach( $recipe_data['Reagents'] as $d => $reagent )
 		{
-			$recipe['reagents'][] = $reagent['Name'] . ' [x' . $reagent['Count'] . ']';
+		//aprint($reagent);
+			if(isset($reagent['Quantity']))
+			{
+			    $count = $reagent['Quantity'];
+			}
+			else
+			{
+			    $count = '1';
+			}
+			$recipe['reagents'][] = $reagent['Name'] . ' [x' . $count . ']';
 		}
 		$recipe['reagents'] = implode('<br>',$recipe['reagents']);
 
-		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
+		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Result']['Icon']);
 
-		if( !empty($recipe_data['Tooltip']) )
+		if( !empty($recipe_data['Result']['Tooltip']) )
 		{
-			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
+			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Result']['Tooltip'] );
 		}
 		else
 		{
