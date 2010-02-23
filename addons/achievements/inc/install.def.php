@@ -30,7 +30,7 @@ class achievementsInstall
 	var $active = true;
 	var $icon = 'achievement_general';
 
-	var $version = '1.0.493';
+	var $version = '1.0.2141';
 	
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';
@@ -70,47 +70,11 @@ class achievementsInstall
 			  `achv_title` varchar(255) NOT NULL default '',
 			  `achv_reward_title` varchar(255) default NULL,
 			  `achv_disc` text NOT NULL,
-			  `achv_date` varchar(50) default NULL,
+			  `achv_date` date default NULL,
 			  `achv_criteria` text NOT NULL,
 			  `achv_progress` varchar(25) NOT NULL,
 			  `achv_progress_width` varchar(50) NOT NULL,
 			  `achv_complete` varchar(255) NOT NULL default '',
-			  PRIMARY KEY  (`id`)"); 
-
-		$installer->create_table($installer->table('summary'),"
-			  `id` int(11) NOT NULL auto_increment,
-			  `member_id` int(11) NOT NULL,
-			  `guild_id` int(11) NOT NULL,
-			  `total` varchar(255) NOT NULL default '',
-			  `general` varchar(10) NOT NULL default '',
-			  `quests` varchar(10) NOT NULL default '',
-			  `exploration` varchar(10) NOT NULL default '',
-			  `pvp` varchar(10) NOT NULL default '',
-			  `dn_raids` varchar(10) NOT NULL default '',
-			  `prof` varchar(10) NOT NULL default '',
-			  `rep` varchar(10) NOT NULL default '',
-			  `world_events` varchar(10) NOT NULL default '',
-			  `feats` varchar(10) NOT NULL default '',
-			  `title_1` varchar(255) NOT NULL default '',
-			  `disc_1` varchar(255) NOT NULL default '',
-			  `date_1` varchar(12) NOT NULL default '',
-			  `points_1` varchar(10) NOT NULL default '',
-			  `title_2` varchar(255) NOT NULL default '',
-			  `disc_2` varchar(255) NOT NULL default '',
-			  `date_2` varchar(12) NOT NULL default '',
-			  `points_2` varchar(10) NOT NULL default '',
-			  `title_3` varchar(255) NOT NULL default '',
-			  `disc_3` varchar(255) NOT NULL default '',
-			  `date_3` varchar(12) NOT NULL default '',
-			  `points_3` varchar(10) NOT NULL default '',
-			  `title_4` varchar(255) NOT NULL default '',
-			  `disc_4` varchar(255) NOT NULL default '',
-			  `date_4` varchar(12) NOT NULL default '',
-			  `points_4` varchar(10) NOT NULL default '',
-			  `title_5` varchar(255) NOT NULL default '',
-			  `disc_5` varchar(255) NOT NULL default '',
-			  `date_5` varchar(12) NOT NULL default '',
-			  `points_5` varchar(10) NOT NULL default '',
 			  PRIMARY KEY  (`id`)"); 
 
 		return true;
@@ -125,6 +89,17 @@ class achievementsInstall
 	function upgrade($oldversion, $version)
 	{
 		global $installer, $addon;
+		
+	// Change the icon for quests
+		if( version_compare('1.0.2141', $oldversion,'>') == true )
+		{
+		
+			//ALTER TABLE `roster_addons_achievements_summary` CHANGE `date_1` `date_1` DATE NOT NULL 
+			
+			$installer->add_query("ALTER TABLE `" . $installer->table('data') . "` CHANGE `achv_date` `achv_date` DATE NOT NULL,");
+		
+			$installer->update_menu_button('cb_quests','char','quests','achievement_quests_completed_06');
+		}
 	}
 
 	/**
@@ -139,7 +114,6 @@ class achievementsInstall
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
 		$installer->drop_table( $installer->table('data') );
-		$installer->drop_table( $installer->table('summary') );
 
 		return true;
 	}

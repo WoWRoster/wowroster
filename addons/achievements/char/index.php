@@ -235,6 +235,18 @@ foreach($status as $cat => $datx)
 		)
 	);
 }
+foreach($data2 as $ach => $inf)
+{
+	$roster->tpl->assign_block_vars('body2.lst5',array(
+		'NAME'		=> $inf['title'],
+		'POINTS'    => $inf['points'],
+		'DESC' 		=> $inf['disc'],
+		'DATE' 		=> $inf['date'],
+		)
+	);
+
+}
+
 
 $roster->tpl->set_handle('body', $addon['basename'] . '/index.html');
 $roster->tpl->display('body');
