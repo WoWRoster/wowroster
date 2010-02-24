@@ -9,9 +9,51 @@
 
 					<div id="rp_menu">
 						
-<!-- BEGIN menue -->
-							<div <!-- IF menue.SELECTED --> class="selected"<!-- ENDIF -->><a href="#" rel="{menue.ID}">{menue.NAME}</a></div>
-<!-- END menue -->
+						<div class="selected"><a href="#" rel="00">Summary</a></div>
+						<div><a href="#" rel="92">General</a></div>
+						<div><a  rel="sub95" onclick="show('95'); return false;">Player vs. Player</a></div>
+							<div id="sub95" style="display:none;">
+							<!-- BEGIN sub95 -->
+									<div><a href="#" rel="{sub95.ID}">--{sub95.NAME}</a></div>
+							<!-- END sub95 -->
+							</div>
+						<div><a href="#" rel="96">Quests</a></div>
+							<div id="sub96" style="display:none;">
+						<!-- BEGIN sub96 -->
+								<div><a href="#" rel="{sub96.ID}">{sub96.NAME}</a></div>
+						<!-- END sub96 -->
+							</div>
+						<div><a href="#" rel="97">Exploration</a></div>
+							<div id="sub97" style="display:none;">
+						<!-- BEGIN sub97 -->
+							<div><a href="#" rel="{sub97.ID}">{sub97.NAME}</a></div>
+						<!-- END sub97 -->
+						</div>
+						<div><a href="#" rel="155">World Events</a></div>
+							<div id="sub155" style="display:none;">
+						<!-- BEGIN sub155 -->
+							<div><a href="#" rel="{sub155.ID}">{sub155.NAME}</a></div>
+						<!-- END sub155 -->
+						</div>
+							<div><a href="#" rel="168">Dungeons &amp; Raids</a></div>
+								<div id="sub168" style="display:none;">
+						<!-- BEGIN sub168 -->
+							<div><a href="#" rel="{sub168.ID}">{sub168.NAME}</a></div>
+						<!-- END sub168 -->
+						</div>
+							<div><a href="#" rel="169">Professions</a></div>
+								<div id="sub169" style="display:none;">
+						<!-- BEGIN sub169 -->
+							<div><a href="#" rel="{sub169.ID}">{sub169.NAME}</a></div>
+						<!-- END sub169 -->
+						</div>
+							<div><a href="#" rel="201">Reputation</a></div>
+								<div id="sub201" style="display:none;">
+						<!-- BEGIN sub201-->
+							<div><a href="#" rel="{sub201.ID}">{sub201.NAME}</a></div>
+							<!-- END sub201 -->
+							</div>
+						<div><a href="#" rel="81">Feats of Strength</a></div>
 						
 					</div>
 					</div>
