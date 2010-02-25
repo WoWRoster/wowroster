@@ -18,10 +18,8 @@ $fachv = new achv;
 
 $data = $fachv->getConfigDatamod($roster->data['member_id']);
 $data2 = $fachv->getConfigDatamod2($roster->data['member_id']);
+$roster->output['body_onload'] .= 'initARC(\'rp_menu\',\'rp_menu1\',\'rp_menu2\',\'rp_menu3\',\'rp_menu4\',\'rp_menu5\',\'rp_menu6\',\'rp_menu7\',\'rp_menu8\',\'rp_menu9\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
-//echo '<pre>';
-//print_r($data2);
-//aprint($data);
 $first_tab = ' class="selected"';
 //$menu .= '<li class="selected">';
 $imgext = $roster->config['img_suffix'];
@@ -69,7 +67,7 @@ foreach($data as $catagory => $cid)
 		$e++;
 
 		$roster->tpl->assign_block_vars('body',array(
-			'ID'   => $catagory,
+			'ID'   => 'mm'.$catagory,
 			'NAME' => $achv,
 			'MEN'  => $e,
 			)
@@ -83,20 +81,21 @@ foreach($data as $catagory => $cid)
 
 			if ($achva == $achv)
 			{
-				$idd = 's' . $catagory;
+				$idd = $catagory;
 			}
 			else
 			{
 				$idd = 's' . $dat['menue'];
 			}
-
+			if ($achva != $achv)
+			{
 			$roster->tpl->assign_block_vars('sub'.$catagory.'',array(
 				'ID'       => $idd,
 				'NAME'     => $achva,
-				'SELECTED' => (isset($sxx) && $sxx == 1 ? true : false)
+				//'SELECTED' => (isset($sxx) && $sxx == 1 ? true : false)
 				)
 			);
-
+			}
 			$roster->tpl->assign_block_vars('body.menue2',array(
 				'ID'       => 's' . $dat['menue'],
 				'NAME'     => $achva,
@@ -105,7 +104,7 @@ foreach($data as $catagory => $cid)
 			);
 
 			$roster->tpl->assign_block_vars('body.info',array(
-				'ID'   => 's' . $dat['menue'],
+				'ID'   => $idd,
 				'NAME' => $achva
 				)
 			);
@@ -246,7 +245,9 @@ foreach($data2 as $ach => $inf)
 	);
 
 }
-
-
+$roster->tpl->assign_vars(array(
+	'SHOWHIDE'	=> "hide('mm81'); hide('sub81'); show('m81'); hide('mm92'); hide('sub92'); show('m92'); hide('mm95'); hide('sub95'); show('m95'); hide('mm96'); hide('sub96'); show('m96'); hide('mm97'); hide('sub97'); show('m97'); hide('mm155'); hide('sub155'); show('m155'); hide('mm168'); hide('sub168'); show('m168'); hide('mm169'); hide('sub169'); show('m169'); hide('mm201'); hide('sub201'); show('m201'); hide('mm00'); hide('sub00'); show('m00');"
+	)
+);
 $roster->tpl->set_handle('body', $addon['basename'] . '/index.html');
 $roster->tpl->display('body');

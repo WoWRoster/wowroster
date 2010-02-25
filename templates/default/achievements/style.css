@@ -49,6 +49,8 @@
 .achv_lnav .cat_list { padding:0; margin:0; padding-left:8px; }
 .achv_lnav .nav-subcat { display:none }
 .achv_lnav .selected .nav-subcat { display:block }
+.cat_list { background:url(images/achv_sel_sub_btm.jpg) bottom right no-repeat; padding:5px 0 7px 0; }
+.nav-subcat { background:url(images/achv_sel_sub.jpg) right repeat-y;  }
 
 
 
