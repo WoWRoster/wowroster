@@ -2,79 +2,125 @@
 
 	<div style="float: left;">
 
-<div class="achievements">
-<div class="achv_lnav">
-<div class="achv_bdr"><img src="{THEME_PATH}/achievements/images/achv_lnav_top.jpg"></a></div>
-<div class="category-root">
+		<div class="achievements">
+			<div class="achv_lnav">
+				<div class="achv_bdr"><img src="{THEME_PATH}/achievements/images/achv_lnav_top.jpg"></a></div>
+					<div class="category-root">
 
-					<div id="rp_menu">
+						<div id="m00" class="selected" style="display:block">
+							<a href="#" rel="sub00" onclick="{SHOWHIDE} showHide('sub00'); showHide('m00'); showHide('mm00');return false;">Summary</a></div>
+							<div id="sub00" style="display:none;">
+								<div id="rp_menu9">
+									<div><a href="#" rel="00" onclick="return false;">Summary</a></div>
+								</div>
+							</div>
 						
-						<div class="selected"><a href="#" rel="00">Summary</a></div>
-						<div><a href="#" rel="92">General</a></div>
-						<div><a  rel="sub95" onclick="show('95'); return false;">Player vs. Player</a></div>
+						<div id="m92" style="display:block">
+							<a href="#"  rel="sub92" onclick="{SHOWHIDE} showHide('sub92'); showHide('m92'); showHide('mm92'); hide('00');return false;">General</a></div>
+							<div id="sub92" style="display:none;">
+								<div id="rp_menu">
+									<div><a href="#" rel="92" onclick="return false;">General</a></div>
+								</div>
+							</div>
+							
+						<div id="m95" style="display:block">
+							<a href="#"  rel="sub95" onclick="{SHOWHIDE} showHide('sub95'); showHide('m95'); showHide('mm95'); hide('00');return false;">Player vs. Player</a></div>
 							<div id="sub95" style="display:none;">
+								<div id="rp_menu1">
+									<div ><a href="#" rel="95" onclick="return false;">Player vs. Player</a></div>
 							<!-- BEGIN sub95 -->
-									<div><a href="#" rel="{sub95.ID}">--{sub95.NAME}</a></div>
+										<div ><a href="#" rel="{sub95.ID}" >--{sub95.NAME}</a></div>
 							<!-- END sub95 -->
+								</div>
 							</div>
-						<div><a href="#" rel="96">Quests</a></div>
+							
+						<div id="m96" style="display:block">
+							<a href="#" rel="sub96" onclick="{SHOWHIDE} showHide('sub96'); showHide('m96'); showHide('mm96'); hide('00');return false;">Quests</a></div>
 							<div id="sub96" style="display:none;">
-						<!-- BEGIN sub96 -->
-								<div><a href="#" rel="{sub96.ID}">{sub96.NAME}</a></div>
-						<!-- END sub96 -->
+								<div id="rp_menu2">
+									<div><a href="#" rel="96" onclick="return false;">Quests</a></div>
+							<!-- BEGIN sub96 -->
+										<div><a href="#" rel="{sub96.ID}" >--{sub96.NAME}</a></div>
+							<!-- END sub96 -->
+								</div>
 							</div>
-						<div><a href="#" rel="97">Exploration</a></div>
+							
+						<div id="m97" style="display:block">
+							<a  href="#" rel="sub97" onclick="{SHOWHIDE} showHide('sub97'); showHide('m97'); showHide('mm97'); hide('00');return false;">Exploration</a></div>
 							<div id="sub97" style="display:none;">
-						<!-- BEGIN sub97 -->
-							<div><a href="#" rel="{sub97.ID}">{sub97.NAME}</a></div>
-						<!-- END sub97 -->
-						</div>
-						<div><a href="#" rel="155">World Events</a></div>
-							<div id="sub155" style="display:none;">
-						<!-- BEGIN sub155 -->
-							<div><a href="#" rel="{sub155.ID}">{sub155.NAME}</a></div>
-						<!-- END sub155 -->
-						</div>
-							<div><a href="#" rel="168">Dungeons &amp; Raids</a></div>
-								<div id="sub168" style="display:none;">
-						<!-- BEGIN sub168 -->
-							<div><a href="#" rel="{sub168.ID}">{sub168.NAME}</a></div>
-						<!-- END sub168 -->
-						</div>
-							<div><a href="#" rel="169">Professions</a></div>
-								<div id="sub169" style="display:none;">
-						<!-- BEGIN sub169 -->
-							<div><a href="#" rel="{sub169.ID}">{sub169.NAME}</a></div>
-						<!-- END sub169 -->
-						</div>
-							<div><a href="#" rel="201">Reputation</a></div>
-								<div id="sub201" style="display:none;">
-						<!-- BEGIN sub201-->
-							<div><a href="#" rel="{sub201.ID}">{sub201.NAME}</a></div>
-							<!-- END sub201 -->
+								<div id="rp_menu3">
+									<div><a href="#" rel="97" onclick="return false;">Exploration</a></div>
+							<!-- BEGIN sub97 -->
+										<div><a href="#" rel="{sub97.ID}" >--{sub97.NAME}</a></div>
+							<!-- END sub97 -->
+								</div>
 							</div>
-						<div><a href="#" rel="81">Feats of Strength</a></div>
+							
+						<div id="m155" style="display:block">
+							<a href="#" rel="sub155" onclick="{SHOWHIDE} showHide('sub155'); showHide('m155'); showHide('mm155'); hide('00');return false;">World Events</a></div>
+							<div id="sub155" style="display:none;">
+								<div id="rp_menu4">
+									<div><a href="#" rel="155" onclick="return false;">World Events</a></div>
+							<!-- BEGIN sub155 -->
+										<div><a href="#" rel="{sub155.ID}" >--{sub155.NAME}</a></div>
+							<!-- END sub155 -->
+								</div>
+							</div>
+							
+						<div id="m168" style="display:block">
+							<a href="#" rel="sub168" onclick="{SHOWHIDE} showHide('sub168'); showHide('m168'); showHide('mm168'); hide('00');return false;">Dungeons &amp; Raids</a></div>
+							<div id="sub168" style="display:none;">
+								<div id="rp_menu5">
+									<div><a href="#" rel="168" onclick="return false;">Dungeons &amp; Raids</a></div>
+							<!-- BEGIN sub168 -->
+										<div><a href="#" rel="{sub168.ID}" >--{sub168.NAME}</a></div>
+							<!-- END sub168 -->
+								</div>
+							</div>
+							
+						<div id="m169" style="display:block">
+							<a href="#" rel="sub169" onclick="{SHOWHIDE} showHide('sub169'); showHide('m169'); showHide('mm169'); hide('00');return false;">Professions</a></div>
+							<div id="sub169" style="display:none;">
+								<div id="rp_menu6">
+									<div><a href="#" rel="169" onclick="return false;">Professions</a></div>
+							<!-- BEGIN sub169 -->
+										<div><a href="#" rel="{sub169.ID}" >--{sub169.NAME}</a></div>
+							<!-- END sub169 -->
+								</div>
+							</div>
+							
+						<div id="m201" style="display:block">
+							<a href="#" rel="sub201" onclick="{SHOWHIDE} showHide('sub201'); showHide('m201'); showHide('mm201'); hide('00');return false;">Reputation</a></div>
+							<div id="sub201" style="display:none;">
+								<div id="rp_menu7">
+									<div><a href="#" rel="201" onclick="return false;">Reputation</a></div>
+							<!-- BEGIN sub201 -->
+										<div><a href="#" rel="{sub201.ID}" >--{sub201.NAME}</a></div>
+							<!-- END sub201 -->
+								</div>
+							</div>
+						<div id="m81" style="display:block">
+							<a href="#" rel="sub81" onclick="{SHOWHIDE} showHide('sub81'); showHide('m81'); showHide('mm81'); hide('00');return false;">Feats of Strength</a></div>
+							<div id="sub81" style="display:none;">
+								<div id="rp_menu8">
+									<div><a href="#" rel="81" onclick="return false;">Feats of Strength</a></div>
+								</div>
+							</div>
 						
 					</div>
 					</div>
 					</div>
 					</div>
 
-	</div>
 
 	<div style="float: right; width: 720px;">
 
 <!-- BEGIN body2 -->
-		<div id="00">
-			<table width="20px">
+		<div id="00" style="display:block">
+			<table width="5px">
 				<tr>
-					<td valign="top" class="border_color sgreenborder">
-						<table class="border_frame" cellpadding="0" cellspacing="1">
-							<tr>
-								<td class="border_color sgreenborder" >
-									<div class="header_text">{body2.NAME}</div>
-								</td>
-							</tr>
+					<td valign="top" >
+						<table cellpadding="0" cellspacing="1">
 							<tr>
 								<td valign="top" background="{THEME_PATH}/achievements/images/">
 
@@ -83,7 +129,7 @@
 											<div><img src="{THEME_PATH}/achievements/images/achv_rcol_top.jpg" /></a></div>
 											<div class="achievements-container">
 												<div id="achievements-content">
-													<div class="summary">
+													<div class="summary" STYLE="color: black">
 														<div>
 															<div class="prog_bar ">
 																<div class="progress_cap"></div>
@@ -239,9 +285,10 @@
 		</div>
 <!-- END body2 -->
 
-
 <!-- BEGIN body -->
-		<div id="{body.ID}" style="display:none;">
+<div id="{body.ID}" style="display:none">
+<!-- BEGIN info -->
+	<div id="{body.info.ID}" style="display:none">
 
 		<div class="achievements">
 			<div class="achieve_rcol">
@@ -249,20 +296,13 @@
 				<div class="achievements-container">
 					<div id="achievements-content">
 												
-						<div class="sections" style="height: 75px;">
-							<ul id="rp_menu{body.MEN}">
-<!-- BEGIN menue2 -->
-								<li<!-- IF body.menue2.SELECTED --> class="selected"<!-- ENDIF -->><a rel="{body.menue2.ID}" class="text">{body.menue2.NAME}</a></li>
-<!-- END menue2 -->
-							</ul>
-						</div>
+
 
 						<div class="tier-1-a">
 							<div class="tier-1-b">
 								<div class="tier-1-c">
-									<div class="tier-1-title">{body.NAME}</div>
-<!-- BEGIN info -->
-									<div id="{body.info.ID}" style="display:none">
+									<div class="tier-1-title">{body.info.NAME}</div>
+
 <!-- BEGIN achv -->
 										<div class="achievement-{body.info.achv.STATUS}">
 											<div class="achievement-2">
@@ -283,8 +323,8 @@
 											</div>
 										</div>
 <!-- END achv -->
-									</div>
-<!-- END info -->
+									
+
 								</div>
 							</div>
 						</div>
@@ -296,6 +336,8 @@
 
 		</div>
 		</div>
+		<!-- END info -->
+	</div>
 	<!-- END body -->
 	</div>
 
