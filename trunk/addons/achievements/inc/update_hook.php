@@ -57,7 +57,7 @@ class achievementsUpdate
 			'8' => 'Isle of Conquest',
 			),
 		'168' => Array(
-			'0' => 'Dungeons &amp; Raids',
+			'0' => 'Dungeons & Raids',
 			'1' => 'Classic',
 			'2' => 'The Burning Crusade',
 			'3' => 'Lich King Dungeon',
