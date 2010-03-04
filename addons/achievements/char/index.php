@@ -58,7 +58,7 @@ foreach($data as $catagory => $cid)
 		$roster->tpl->assign_block_vars('menue',array(
 			'ID'       => $catagory,
 			'LINK'     => makelink('&amp;cat=' . $catagory),
-			'NAME'     => htmlspecialchars($roster->locale->act[$achv]),
+			'NAME'     => $achv,
 			'SELECTED' => (isset($sx) && $sx == 0 ? true : false)
 			)
 		);
