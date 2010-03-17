@@ -68,7 +68,7 @@ foreach($data as $catagory => $cid)
 
 		$roster->tpl->assign_block_vars('body',array(
 			'ID'   => 'mm'.$catagory,
-			'NAME' => $achv,
+			'NAME' => stripslashes($achv),
 			'MEN'  => $e,
 			)
 		);
@@ -91,7 +91,7 @@ foreach($data as $catagory => $cid)
 			{
 			$roster->tpl->assign_block_vars('sub'.$catagory.'',array(
 				'ID'       => $idd,
-				'NAME'     => $achva,
+				'NAME'     => stripslashes($achva),
 				//'SELECTED' => (isset($sxx) && $sxx == 1 ? true : false)
 				)
 			);
@@ -105,7 +105,7 @@ foreach($data as $catagory => $cid)
 
 			$roster->tpl->assign_block_vars('body.info',array(
 				'ID'   => $idd,
-				'NAME' => $achva
+				'NAME' => stripslashes($achva)
 				)
 			);
 
@@ -237,9 +237,9 @@ foreach($status as $cat => $datx)
 foreach($data2 as $ach => $inf)
 {
 	$roster->tpl->assign_block_vars('body2.lst5',array(
-		'NAME'		=> $inf['title'],
+		'NAME'		=> stripslashes($inf['title']),
 		'POINTS'    => $inf['points'],
-		'DESC' 		=> $inf['disc'],
+		'DESC' 		=> stripslashes($inf['disc']),
 		'DATE' 		=> $inf['date'],
 		)
 	);
