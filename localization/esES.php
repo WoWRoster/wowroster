@@ -243,6 +243,7 @@ $lang['submited_date'] = 'Fecha de publicación';
 $lang['update']='Actualizar';
 $lang['credit']='Créditos';
 $lang['members']='Miembros';
+$lang['member_profiles']='Member Profiles';
 $lang['items']='Objetos';
 $lang['find']='Encontrar objeto que contenga';
 $lang['upprofile']='Envío Datos';
