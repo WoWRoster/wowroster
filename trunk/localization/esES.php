@@ -690,6 +690,9 @@ $lang['faction_to_id'] = array(
 );
 
 
+
+
+
 // Quests page external links (on character quests page)
 // $lang['questlinks'][][] = array(
 // 		'name'=> 'Name',  // This is the name displayed on the quests page

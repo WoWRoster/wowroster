@@ -222,7 +222,7 @@ $lang['menuhonor']='Ehre';
 $lang['basename']='Basisname';
 $lang['scope']='Bereich';
 $lang['tag']='Tag';
-$lang['daily']='Daily';
+$lang['daily']='Täglich';
 
 //start search engine
 $lang['search']='Suche';
@@ -243,7 +243,7 @@ $lang['submited_date'] = 'Am';
 $lang['update']='Update';
 $lang['credit']='Credits';
 $lang['members']='Mitglieder';
-$lang['member_profiles']='Member Profiles';
+$lang['member_profiles']='Mitglieder Profile';
 $lang['items']='Gegenstände';
 $lang['find']='Suche nach';
 $lang['upprofile']='Profil Updaten';
@@ -264,7 +264,7 @@ $lang['completedsteps'] = 'Abgeschlossene Stufe';
 $lang['currentstep'] = 'Aktuelle Stufe';
 $lang['uncompletedsteps'] = 'Nicht Abgeschlosse Stufe';
 $lang['key'] = 'Schlüssel';
-$lang['keyring'] = 'Keyring';
+$lang['keyring'] = 'Schlüsselring';
 $lang['timeplayed'] = 'Zeit gespielt';
 $lang['timelevelplayed'] = 'Zeit gespielt Level'; // muss so kurz sein wegen der Anzeige
 $lang['Addon'] = 'Addons';
@@ -294,7 +294,7 @@ $lang['none']='Keine';
 $lang['kills']='Kills';
 $lang['allow'] = 'Erlauben';
 $lang['disallow'] = 'Verbieten';
-$lang['locale'] = 'Locale';
+$lang['locale'] = 'Ort';
 $lang['language'] = 'Sprache';
 $lang['default'] = 'Standart';
 $lang['proceed'] = 'weiter';
@@ -318,7 +318,7 @@ $lang['search_items'] = 'Nach Gegenständen suchen';
 $lang['search_tooltips'] = 'Suche im Tooltip';
 
 // Talent Builds
-$lang['talent_build_0'] = 'Active';
+$lang['talent_build_0'] = 'Aktiv';
 $lang['talent_build_1'] = 'Inaktiv';
 
 // Char Scope
@@ -433,7 +433,7 @@ $lang['ts_ridingIcon'] = array(
 );
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
-	'Alliance'=>'ability_mount_gryphon_01',
+	'Allianz'=>'ability_mount_gryphon_01',
 	'Druide'=>'ability_druid_flightform',
 	'Todesritter'=>'ability_mount_dreadsteed',
 // Female variation
@@ -535,7 +535,7 @@ $lang['class_to_id'] = array(
 	'Schurkin' => 4,
 	'Priesterin' => 5,
 //	'Todesritter'=>6,
-	'Shamanin' => 7,
+	'Schamanin' => 7,
 	'Magierin' => 8,
 	'Hexenmeisterin' => 9,
 	'Druidin' => 11,
@@ -676,17 +676,20 @@ $lang['notatwar']='Nicht im Krieg';
 
 // Factions to EN id
 $lang['faction_to_id'] = array(
-	'Alliance' => 'alliance',
-	'Alliance Forces' => 'allianceforces',
-	'Alliance Vanguard' => 'alliancevanguard',
+	'Allianz' => 'alliance',
+	'Streitkräfte der Allianz' => 'allianceforces',
+	'Vorposten der Allianz' => 'alliancevanguard',
 	'Classic' => 'classic',
 	'Other' => 'other',
 	'Outland' => 'outland',
-	'Shattrath City' => 'shattrathcity',
-	'Steamwheedle Cartel' => 'steamwheedlecartel',
+	'Shattrath' => 'shattrathcity',
+	'Dampfdruckkartell' => 'steamwheedlecartel',
 	'The Burning Crusade' => 'theburningcrusade',
 	'Wrath of the Lich King' => 'wrathofthelitchking',
-	'Sholazar Basin' => 'sholazarbasin',
+	'Sholazarbecken' => 'sholazarbasin',
+	'Expedition der Horde' => 'horde',
+	'Horde' => 'horde',
+	'Streitkräfte der Horde' => 'horde',
 );
 
 
@@ -750,7 +753,7 @@ $lang['tooltip_use']='Benutzen.';
 $lang['tooltip_requires']='Benötigt';
 $lang['tooltip_reinforced']='Verstärkte';
 $lang['tooltip_soulbound']='Seelengebunden';
-$lang['tooltip_accountbound']='Account Bound';
+$lang['tooltip_accountbound']='Accountgebunden';
 $lang['tooltip_boe']='Wird beim Anlegen gebunden';
 $lang['tooltip_equip']='Anlegen:';
 $lang['tooltip_equip_restores']='Anlegen: Stellt';
@@ -787,8 +790,8 @@ $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
 $lang['tooltip_preg_meta_requires']='/Benötigt.*?Edelstein?/';
 $lang['tooltip_preg_meta_requires_min']='/Benötigt mindestens (\d) Edelstein.*?der Kategorie (\S+)/';
 $lang['tooltip_preg_meta_requires_more']='/Benötigt mehr Edelsteine der Kategorie (\S+) als Edelsteine der Kategorie (\S+)/';
-$lang['tooltip_preg_item_level']='/Item Level (\d+)/';
-$lang['tooltip_feral_ap']='Increases attack power by';
+$lang['tooltip_preg_item_level']='/Gegenstandsstufe (\d+)/';
+$lang['tooltip_feral_ap']='Erhöht die Angriffskraft um';
 $lang['tooltip_source']='Quelle';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Droprate';
@@ -801,7 +804,7 @@ $lang['tooltip_reg_weaponorbulletdps']='^\(|^Verursacht ';
 
 $lang['tooltip_armor_types']='Stoff|Leder|Schwere Rüstung|Platte';
 $lang['tooltip_weapon_types']='Axt|Bogen|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Schusswaffe|Streitkolben|Waffenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|In Schildhand geführt|Einhändig|Kugel|Pfeil';
-$lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest|Wird beim Aufheben gebunden|Accountgebunden|Account Bound';
+$lang['tooltip_bind_types']='Seelengebunden|Wird beim Anlegen gebunden|Questgegenstand|Wird bei Benutzung gebunden|Dieser Gegenstand startet eine Quest|Wird beim Aufheben gebunden|Accountgebunden';
 $lang['tooltip_misc_types']='Finger|Hals|Rücken|Hemd|Schmuck|Wappenrock|Kopf|Brust|Beine|Füße';
 $lang['tooltip_garbage']='<Zum Sockeln Shift-Rechtsklick>|<Zum Lesen rechtsklicken>|Dauer|Verbleibende Abklingzeit|<Zum Öffnen rechtsklicken>';
 
@@ -929,12 +932,12 @@ $lang['setup_guide'] = 'Nach Installationsanleitung';
 $lang['default_data'] = 'Standard Daten';
 $lang['default_data_help'] = 'Hier die standardmäßig zugelassene Gilde einstellen<br />Eine Standardgilde wird von vielen Addons benötigt um korrekt zu funktionieren<br />Weitere Gilden können in RosterCP-&gt;Upload Regeln zugelassen werden<br /><br />Falls dies eine Gildenlose Roster Installation ist:<br />Guildless-F als Gildenname angeben<br />F mit der eigenen Fraktion ersetzen (A=Allianz, H=Horde)<br />Realm und Region eingeben<br />Upload Regeln für Charaktere einstellen unter RosterCP-&gt;Upload Regeln';
 $lang['guide_complete'] = 'Das Nach Installationssetup ist komplett';
-$lang['guide_next'] = 'Remember To';
-$lang['guide_next_text'] = '<ul><li><a href="%1$s" target="_blank">Install Roster AddOns</a></li><li><a href="%2$s" target="_blank">Set Upload Rules</a></li><li><a href="%3$s" target="_blank">Update Data from the Armory</a></li></ul>';
-$lang['guide_already_complete'] = 'Der Nach Installationsassistent wurde bereits beended<br />Er kann nicht nochmal ausgeführt werden';
+$lang['guide_next'] = 'Denke daran,';
+$lang['guide_next_text'] = '<ul><li><a href="%1$s" target="_blank">Installiere Roster AddOns</a></li><li><a href="%2$s" target="_blank">Upload Regeln einstellen</a></li><li><a href="%3$s" target="_blank">Aktualisiere Daten vom Arsenal</a></li></ul>';
+$lang['guide_already_complete'] = 'Der Installationsassistent wurde bereits beendet<br />Er kann nicht nochmal ausgeführt werden';
 
 // Armory Data
-$lang['adata_update_talents'] = 'Talents';
+$lang['adata_update_talents'] = 'Talente';
 
 // Password Stuff
 $lang['password'] = 'Passwort';
@@ -957,7 +960,7 @@ $lang['upload_rules_error'] = 'Du kannst beim Hinzufügen einer Regel kein Feld 
 $lang['upload_rules_help'] = 'Die Regeln sind in zwei Blöcke unterteilt.<br />Für jeden hochgeladene Gilde/Charakter wird zuerst der oberste Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Verbieten\' Regeln, wird er abgewiesen.<br />Anschließend wird der zweite Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Erlauben\' Regeln, wird er akzeptiert.<br />Wenn er mit keiner Regel übereinstimmt, wird er abgewiesen.';
 
 // Data Manager
-$lang['clean'] = 'Einträge den auf Regeln basierent säubern';
+$lang['clean'] = 'Einträge auf den Regeln basierent säubern';
 $lang['select_guild'] = 'Gilde auswählen';
 $lang['delete_checked'] = 'Markierte löschen';
 $lang['delete_guild'] = 'Gilde löschen';
@@ -968,7 +971,7 @@ $lang['config_is_reset'] = 'Konfiguration wurde zurückgesetzt. Bitte vergiss ni
 $lang['config_reset_confirm'] = 'Dies ist unumkehrbar. Willst du wirklich fortfahren?';
 $lang['config_reset_help'] = 'Dies wird deine Roster Konfiguration komplett zurücksetzen.<br />
 Alle Daten in den Roster Konfigurationstabellen werden dauerhaft gelöscht und die Standardwerte werde gespeichert.<br />
-Gildendaten, Charakterdaten, Addon Konfigurationen, Addondaten, Menu-Buttons und Upload-Regeln bleiben erhalten.<br />
+Gildendaten, Charakterdaten, Addon Konfigurationen, Addondaten, Menü-Buttons und Upload-Regeln bleiben erhalten.<br />
 Das Gilden-, Offizier und das Admin-Passwort werden ebenfalls erhalten bleiben.<br />
 <br />
 Um fortzufahren gibt dein Admin-Passwort unten ein und klicke auf \'weiter\'.';
@@ -981,7 +984,7 @@ $lang['pagebar_function'] = 'Aufgaben';
 $lang['pagebar_rosterconf'] = 'Konfiguriere Roster';
 $lang['pagebar_uploadrules'] = 'Upload Regeln';
 $lang['pagebar_dataman'] = 'Daten Manager';
-$lang['pagebar_armory_data'] = 'Armory Daten';
+$lang['pagebar_armory_data'] = 'Arsenal Daten';
 $lang['pagebar_changepass'] = 'Passwort ändern';
 $lang['pagebar_addoninst'] = 'Verwalte Addons';
 $lang['pagebar_update'] = 'Upload Profil';
@@ -1013,7 +1016,7 @@ $lang['confirm_config_reset'] = 'Dies wird das Formular in den Zustand zurückse
 
 
 // Main Menu words
-$lang['admin']['main_conf'] = 'Haupteinstellungen|Roster\'s wichtigste Einstellungen<br />Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
+$lang['admin']['main_conf'] = 'Haupteinstellungen|Roster Haupteinstellungen<br />Enthält Roster URL, Bilder URL und andere grundlegende Einstellungen...';
 $lang['admin']['defaults_conf'] = 'Standarteinstellungen|Setz die Einstellung auf Standart';
 $lang['admin']['index_conf'] = 'Indexseite|Einstellen, was auf der Startseite angezeigt werden soll';
 $lang['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen, welche Elemente im Menü angezeigt werden sollen';
@@ -1058,7 +1061,7 @@ $lang['admin']['alt_location'] = "Twink Suchfeld|In welchem Feld soll der Twink-
 $lang['admin']['menu_conf_left'] = "Linker Ausschnitt|";
 $lang['admin']['menu_conf_right'] = "Rechter Ausschnitt|";
 
-$lang['admin']['menu_top_pane'] = "Oberer Ausschnitt|Kontrolliert die Anzeige des oberen Asschnitts des Hauptmenüs<br />Dieser Bereich beinhaltet Gildennamen, Server, Letzte Aktualisierung, usw...";
+$lang['admin']['menu_top_pane'] = "Oberer Ausschnitt|Kontrolliert die Anzeige des oberen Ausschnitts des Hauptmenüs<br />Dieser Bereich beinhaltet Gildennamen, Server, Letzte Aktualisierung, usw...";
 $lang['admin']['menu_top_faction'] = "Fraktionssymbol|Kontrolliert die Anzeige der Fraktionssymbols im oberen Ausschnitt des Hauptmenüs";
 $lang['admin']['menu_top_locale'] = "Sprachauswahl|Kontrolliert die Anzeige der Sprachauswahl im oberen Ausschnitt des Hauptmenüs";
 
@@ -1125,7 +1128,7 @@ $lang['admin']['rs_color_recommended'] = "Empfohlene Farbe|Farbe für empfohlene
 
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";
-$lang['admin']['update_inst'] = 'Aktualisierungsanleitung|Controls the display of the Update Instructions on the update page';
+$lang['admin']['update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Update Seite';
 $lang['admin']['gp_user_level'] = "Gildendaten-Level|Level benötigt um GuildProfiler Daten zu verarbeiten";
 $lang['admin']['cp_user_level'] = "Charakterdata-Level|Level benötigt um CharacterProfiler Daten zu verarbeiten";
 $lang['admin']['lua_user_level'] = "Andere LUA Daten Level|Level benötigt um andere LUA-Dateien zu verarbeiten<br />Dies gilt für JEDE andere LUA-Datei, die in den Roster hochgeladen werden kann";
