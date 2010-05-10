@@ -27,7 +27,7 @@ if [ ! -f index.php ]
 then
 	if [ "`ls`" != 'install.sh' ]
 	then
-		echo 'Please put this script in an otherwise empty directory in which to install roster'
+		echo 'Please put this script in an empty directory in which to install roster'
 		exit 1
 	fi
 
@@ -38,7 +38,7 @@ then
 		wget=yes
 		echo 'Installation using wget is possible'
 	else
-		echo 'Installation using wget is not possible'
+		echo 'Installation using wget is NOT possible because you do not have wget or tar installed'
 	fi
 
 	if [ -n "`which svn`" ]
@@ -46,7 +46,7 @@ then
 		svn=yes
 	        echo 'Installation from SVN is possible'
 	else
-		echo 'Installation from SVN is not possible'
+		echo 'Installation from SVN is NOT possible because you do not have subversion client installed'
 	fi
 
 	while :
@@ -61,7 +61,7 @@ then
 
 	if [ $mode == 'svn' ]
 	then
-		svn checkout 'http://svn.wowroster.net/roster/trunk'
+		svn checkout 'http://wowroster.googlecode.com/svn/trunk'
 		rm -f 'trunk/install.sh'
 		mv trunk/* trunk/.htaccess trunk/.svn .
 		rm -rf trunk
@@ -86,7 +86,7 @@ fi
 # Test for index.php again, to see if download failed
 if [ ! -f index.php ]
 then
-	echo "Download failed: index.php still doesn't exist"
+	echo "Download failed: index.php does not exist"
 	exit 1
 fi
 
@@ -104,11 +104,11 @@ then
 	echo "PHP version could not be checked: Command line php not available"
 elif php -r 'exit((int)!version_compare(phpversion(),"4.3.0","<"));'
 then
-	echo "php version too low: `php -r 'echo phpversion()'` where 4.3.0 or higher is required."
+	echo "php version is too low: `php -r 'echo phpversion()'` php version 4.3.0 or higher is required."
 fi
 
 # Get the mysql connect data
-echo 'Attemptying to connect to the database with default data.'
+echo 'Attempting to connect to the database with default data.'
 db_host=localhost
 db_user=root
 db_pass=
@@ -131,7 +131,7 @@ do
 			break
 		else
 			mysql_version=`echo 'select version();' | $MYSQL --skip-column-names`
-			echo "Your mysql version too low. Your mysql version is ${mysql_version}. Mysql 4.1.0"
+			echo "Your MySQL version is too low. Your mysql version is ${mysql_version}. MySQL v4.1.0"
 			echo "or higher is required."
 			exit 1
 		fi
@@ -139,7 +139,7 @@ do
 
 	echo '--------------------'
 
-	echo 'Only mysql databases are supported at this time.'
+	echo 'Only MySQL databases are supported at this time.'
 	read -p "Database host [${db_host}]? " answer
 	if [ $answer ]
 	then
@@ -217,7 +217,7 @@ echo 'The database has been imported.'
 # Locale setting
 while :
 do
-	read -p "Please enter your prefered language code: " lang
+	read -p "Please enter your prefered language code (enUS, deDE, frFR, esES): " lang
 	if [ ! $lang ]
 	then
 		continue
@@ -244,7 +244,7 @@ do
 	then
 		break
 	fi
-	echo 'Your passwords did not match. Please retry'
+	echo 'Your passwords do not match. Please try again'
 done
 
 $MYSQL << !
