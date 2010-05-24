@@ -214,7 +214,7 @@ class RosterMenu
 		}
 
 		$text = sprintf($roster->locale->act['menu_totals'], $num_non_alts, $num_alts) . ($level>0 ? sprintf($roster->locale->act['menu_totals_level'], $level) : '');
-		$output = '	<td valign="top" align="left" class="row">';
+		$output = '';
 
 		if( $style == 'bar' )
 		{
@@ -258,7 +258,7 @@ class RosterMenu
 			}
 			$output .= '</ul>';
 		}
-		$output .= "<br />$text</td>\n";
+		$output .= "<br />$text\n";
 
 		return $output;
 	}
@@ -272,7 +272,7 @@ class RosterMenu
 	{
 		global $roster;
 
-		$realmStatus = '    <td valign="top" class="row">' . "\n";
+		$realmStatus = "\n";
 
 		if( isset($roster->data['server']) )
 		{
@@ -322,7 +322,7 @@ class RosterMenu
 			$realmStatus .= '&nbsp;';
 		}
 
-		$realmStatus .= "    </td>\n";
+		$realmStatus .= "\n";
 
 		return $realmStatus;
 	}
