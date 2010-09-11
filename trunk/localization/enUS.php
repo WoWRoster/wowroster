@@ -774,6 +774,22 @@ $lang['tooltip_durability']='Durability';
 $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Speed';
 $lang['tooltip_poisoneffect']='^Each strike has';
+// php 5.3 changes
+$lang['tooltip_preg_soulbound']='/Soulbound/';
+$lang['tooltip_preg_dps']='/(\d+) damage per second/';
+$lang['tooltip_preg_item_equip']='/Equip: (.+)/';
+$lang['tooltip_preg_item_set']='/Set: (.+)/';
+$lang['tooltip_preg_use']='/Use: (.+)/';
+$lang['tooltip_preg_chance']='/Chance (.+)/';
+$lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
+$lang['tooltip_garbage1']='/\<Shift Right Click to Socket\>/';
+$lang['tooltip_garbage2']='/\<Right Click to Read\>/';
+$lang['tooltip_garbage3']='/Duration (.+)/';
+$lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
+$lang['tooltip_garbage5']='/\<Right Click to Open\>/';
+//^(Red|Yellow|Blue|Meta)
+$lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/'; 
+$lang['tooltip_preg_speed']='/Speed/';
 
 $lang['tooltip_preg_armor']='/^(\d+) Armor/';
 $lang['tooltip_preg_durability']='/Durability(|:) (\d+) \/ (\d+)/';
@@ -791,6 +807,7 @@ $lang['tooltip_preg_meta_requires']='/Requires.*?gem?/';
 $lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gem?/';
 $lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
 $lang['tooltip_preg_item_level']='/Item Level (\d+)/';
+
 $lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
