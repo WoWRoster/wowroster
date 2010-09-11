@@ -506,52 +506,52 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 			}
 			else
 			{
-				if( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'], $line) )
+				if( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_use'] . "\b/i", $line) )
 				{
 					$color = '00ff00';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_requires'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_requires'] . "\b/i", $line) )
 				{
 					$color = 'ff0000';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reinforced'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_reinforced'] . "\b/i", $line) )
 				{
 					$color = '00ff00';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_equip'] . "\b/i", $line) )
 				{
 					$color = '00ff00';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_chance'] . "\b/i", $line) )
 				{
 					$color = '00ff00';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_enchant'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_enchant'] . "\b/i", $line) )
 				{
 					$color = '00ff00';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_random_enchant'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_random_enchant'] . "\b/i", $line) )
 				{
 					$line = htmlspecialchars($line);
 					$color = '00ff00';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_accountbound'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_accountbound'] . "\b/i", $line) )
 				{
 					$color = 'e5cc80';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_soulbound'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_soulbound'] . "\b/i", $line) )
 				{
 					$color = '00bbff';
 				}
-				elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_set'] . "\b/i", $line) )
 				{
 					$color = '00ff00';
 				}
-				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_rank'], $line) )
+				elseif(preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_rank'] . "\b/i", $line) )
 				{
 					$color = '00ff00;font-weight:bold';
 				}
-				elseif(ereg('^' . $roster->locale->wordings[$locale]['tooltip_next_rank'], $line) )
+				elseif(preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_next_rank'] . "\b/i", $line) )
 				{
 					$color = 'ffffff;font-weight:bold';
 				}
@@ -559,11 +559,11 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 				{
 					$color = '666666';
 				}
-				elseif( ereg('^"',$line) )
+				elseif( preg_match('/"/',$line) )
 				{
 					$color = 'ffd517';
 				}
-				elseif( ereg($roster->locale->wordings[$locale]['tooltip_garbage'], $line) )
+				elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_garbage'] . "\b/i", $line) )
 				{
 					$line = '';
 				}
@@ -1254,7 +1254,7 @@ function urlgrabber( $url , $timeout=5 , $user_agent=false, $loopcount=0 )
  */
 function request_uri( )
 {
-	if( ereg('IIS', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']) )
+	if( preg_match('/\bIIS\b/i', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']) )
 	{
 		$REQUEST_URI = $_SERVER['SCRIPT_NAME'];
 		if( isset($_SERVER['QUERY_STRING']) )

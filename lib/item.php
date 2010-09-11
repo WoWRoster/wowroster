@@ -65,7 +65,7 @@ class item
 	var $html_tooltip;
 
 	// item debugging. debug level 0, 1, 2
-	var $DEBUG; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
+	var $DEBUG = 1; // 0 (never show debug), 1 (show debug on parse error), 2 (always show debug)
 	var $DEBUG_junk = '';
 
 	/**
@@ -175,11 +175,11 @@ class item
 
 		$bindtype = $this->attributes['BindType'];
 
-		if( ereg('^' . $roster->locale->wordings[$this->locale]['tooltip_soulbound'], $bindtype) )
+		if( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_soulbound'], $bindtype) )
 		{
 			$color = '00bbff';
 		}
-		elseif( ereg('^' . $roster->locale->wordings[$this->locale]['tooltip_accountbound'], $bindtype) )
+		elseif( preg_match( "/\b" . $roster->locale->wordings[$this->locale]['tooltip_accountbound'], $bindtype) )
 		{
 			$color = 'e6cc80';
 		}
@@ -1092,12 +1092,12 @@ class item
 			{
 				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_use'], $line) )
+			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_use'], $line) )
 			{
 				//Use:
 				$tt['Effects']['Use'][] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_requires'], $line) )
+			elseif( preg_match( "/" . $roster->locale->wordings[$locale]['tooltip_reg_requires'] . "/i", $line) )
 			{
 				//Requires
 				$tt['Attributes']['Requires'][] = $line;
@@ -1108,9 +1108,9 @@ class item
 				$tt['Attributes']['ItemLevel']['Line'] = $matches[0];
 				$tt['Attributes']['ItemLevel']['Level'] = $matches[1];
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_equip'], $line) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_equip'], $line) )
 			{
-				if( eregi($roster->locale->wordings[$locale]['tooltip_chance'], $line) )
+				if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_chance'], $line) )
 				{
 					//Chance
 					$tt['Effects']['ChanceToProc'][] = $line;
@@ -1121,20 +1121,20 @@ class item
 					$tt['Effects']['Equip'][] = $line;
 				}
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_chance_hit'], $line) )
+			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_chance_hit'], $line) )
 			{
 				$tt['Effects']['ChanceToProc'][] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_feral_ap'], $line) )
+			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_feral_ap'] . "\b/i", $line) )
 			{
 				$tt['Effects']['Equip'][] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_bind_types'], $line) )
+			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_bind_types'] . "\b/i", $line) )
 			{
 				//soulbound, bop, quest item etc
 				$tt['Attributes']['BindType'] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_set'], $line) )
+			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_set'], $line) )
 			{
 				//set piece bonus
 				$tt['Attributes']['Set']['SetBonus'][] = $line;
@@ -1165,11 +1165,11 @@ class item
 			{
 				$tt['Attributes']['Set']['InactiveSet'][] = $line;
 			}
-			elseif( ereg('^"',$line) )
+			elseif( preg_match('/"/',$line) )
 			{
 				$tt['Attributes']['ItemNote'] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_unique'], $line ) )
+			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_unique'] . "\b/i", $line ) )
 			{
 				$tt['Attributes']['Unique'] = $line;
 			}
@@ -1183,26 +1183,27 @@ class item
 			{
 				$line = explode("\t",$line);
 
-				if( ereg($roster->locale->wordings[$locale]['tooltip_armor_types'], $line[1] ) )
+				if(preg_match("/" . $roster->locale->wordings[$locale]['tooltip_armor_types'] . "/", $line[1] ) )
 				{
 					$tt['Attributes']['ArmorType'] = $line[1];
 					$tt['Attributes']['ArmorSlot'] = $line[0];
 					$this->isArmor = true;
 				}
-				elseif( ereg($roster->locale->wordings[$locale]['tooltip_weapon_types'], $line[1] ) )
+				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_weapon_types'], $line[1] ) )
 				{
 					$tt['Attributes']['WeaponType'] = $line[1];
 					$tt['Attributes']['WeaponSlot'] = $line[0];
 					$this->isWeapon = true;
 				}
-				elseif( ereg($roster->locale->wordings[$locale]['tooltip_speed'], $line[1]) )
+				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_speed'], $line[1]) )
 				{
 					$tt['Attributes']['WeaponSpeed'] = $line[1];
 					$tt['Attributes']['WeaponDamage'] = $line[0];
 					$this->isWeapon = true;
 				}
 			}
-			elseif( !$this->isArmor && ereg($roster->locale->wordings[$locale]['tooltip_reg_weaponorbulletdps'], $line) )
+
+			elseif( !$this->isArmor && preg_match("/\b" . $roster->locale->wordings[$locale]['tooltip_reg_weaponorbulletdps'] . "\b/i", $line) )
 			{
 				$tt['Attributes']['WeaponDPS'] = $line;
 				$this->isWeapon = true;
@@ -1218,15 +1219,15 @@ class item
 				$this->isSetPiece = true;
 				$setpiece = 1;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_source'], $line ) )
+			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_source'] . "\b/i", $line ) )
 			{
 				$tt['Attributes']['Source'] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_boss'], $line ) )
+			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_boss'] . "\b/i", $line ) )
 			{
 				$tt['Attributes']['Boss'] = $line;
 			}
-			elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_droprate'], $line ) )
+			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_droprate'] . "\b/i", $line ) )
 			{
 				$tt['Attributes']['DropRate'] = $line;
 			}
@@ -1252,17 +1253,22 @@ class item
 				//
 				// pass 2
 				// check for less common strings here. this will only get called if pass1 has failed to match anything on the current line
-				if( $line !== '' && $line !== ' ' && !ereg( $roster->locale->wordings[$locale]['tooltip_garbage'], $line ) )
+				if( $line !== '' && $line !== ' ' && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage1'], $line )
+                                  && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage2'], $line )
+                                 && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage3'], $line )
+                                  && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage4'], $line )
+                                   && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage5'], $line )
+                                   && !preg_match($roster->locale->wordings[$locale]['tooltip_preg_dps'], $line))
 				{
 					//
 					// check to match more simpler items
 					// also could have fell through the line split in pass1
-					if( ereg( $roster->locale->wordings[$locale]['tooltip_weapon_types'], $line ) )
+                                        if( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_weapon_types'], $line ) )
 					{
 						$tt['Attributes']['WeaponSlot'] = $line;
 						$this->isWeapon = true;
 					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_misc_types'], $line) )
+					elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_misc_types'] . "\b/i", $line) )
 					{
 						$tt['Attributes']['ArmorSlot'] = $line;
 						$this->isArmor = true;
@@ -1298,19 +1304,19 @@ class item
 					}
 					//
 					//check if item is a poison
-					elseif( ereg( $roster->locale->wordings[$locale]['tooltip_poisoneffect'], $line ) )
+					elseif( ereg( $roster->locale->wordings[$locale]['tooltip_poisoneffect'] . "\b/i", $line ) )
 					{
 						$tt['Poison']['Effect'][] = $line;
 						$this->isPoison = true;
 					}
 					//
 					//is this needed?
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_armor_types'], $line) )
+					elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_armor_types'] . "\b/i", $line) )
 					{
 						$tt['Attributes']['ArmorSlot'] = $line;
 						$this->isArmor = true;
 					}
-					elseif( ereg('^' . $roster->locale->wordings[$locale]['tooltip_reg_onlyworksinside'], $line) )
+					elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_reg_onlyworksinside'] . "\b/i", $line) )
 					{
 						$tt['Attributes']['Restrictions'][] = $line;
 					}
