@@ -177,7 +177,7 @@ class RosterTemplate
 			$this->cachepath = ROSTER_CACHEDIR . 'tpl_' . $this->tpl . '_';
 		}
 
-		$filename = ereg_replace('/', '#', $this->filename[$handle]);
+		$filename = preg_replace('/\//', '#', $this->filename[$handle]);
 		$filename = $this->cachepath . $filename . '.inc';
 
 		// Don't recompile page if the original template is older then the compiled cache

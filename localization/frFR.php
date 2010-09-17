@@ -775,6 +775,24 @@ $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Vitesse';
 $lang['tooltip_poisoneffect']='^Chaque coup a';
 
+// php 5.3 changes
+$lang['tooltip_preg_soulbound']='/Soulbound/';
+$lang['tooltip_preg_dps']='/(\d+) damage per second/';
+$lang['tooltip_preg_item_equip']='/Equip: (.+)/';
+$lang['tooltip_preg_item_set']='/Set: (.+)/';
+$lang['tooltip_preg_use']='/Use: (.+)/';
+$lang['tooltip_preg_chance']='/Chance (.+)/';
+$lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
+$lang['tooltip_garbage1']='/\<Shift Right Click to Socket\>/';
+$lang['tooltip_garbage2']='/\<Right Click to Read\>/';
+$lang['tooltip_garbage3']='/Duration (.+)/';
+$lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
+$lang['tooltip_garbage5']='/\<Right Click to Open\>/';
+//^(Red|Yellow|Blue|Meta)
+$lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
+$lang['tooltip_preg_speed']='/Speed/';
+
+
 $lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
 $lang['tooltip_preg_durability']='/Durabilité(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.
