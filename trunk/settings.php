@@ -54,11 +54,12 @@ unset($HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS);
  * Set magic quotes runtime off
  * Checking for function existance for php6
  */
+ /*
 if( function_exists('set_magic_quotes_runtime') )
 {
 	set_magic_quotes_runtime(0);
 }
-
+   */
 /**
  * Begin Roster Timing
  */
@@ -69,7 +70,7 @@ unset($sec);
 /**
  * Can we use ini_set
  */
-define('CAN_INI_SET', !ereg('ini_set', ini_get('disable_functions')));
+define('CAN_INI_SET', !preg_match('/ini_set/', ini_get('disable_functions')));
 
 define('WIN', strtoupper(substr(PHP_OS, 0, 3)) == 'WIN');
 

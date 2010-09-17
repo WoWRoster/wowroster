@@ -1038,7 +1038,7 @@ class char
 			$roster->tpl->assign_block_vars('talent', array(
 				'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
 				'ID'    => $build,
-				'NAME'  => $specdata[$build]['name'],
+				'NAME'  => $specdata[''.$build.'']['name'],
 				'TYPE'  => $roster->locale->act['talent_build_' . $build . ''],
 				'BUILD' => implode(' / ', $specdata[$build]['points']),
 				'ICON'  => $specdata[$build]['icon'],
