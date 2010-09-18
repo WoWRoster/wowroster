@@ -120,6 +120,23 @@ class recipe
 	}
 }
 
+function recipe_get_regents( $member_id )
+{
+	global $roster;
+
+	$query = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` ORDER BY `reagent_id` desc;";
+
+	$result = $roster->db->query($query);
+	$regents = array();
+	while( $data = $roster->db->fetch($result) )
+	{
+		$regent = new recipe($data);
+		$regents[] = $regent;
+	}
+	return $regents;
+}
+
+
 function recipe_get_many( $member_id , $search , $sort )
 {
 	global $roster;

@@ -164,6 +164,26 @@ ALTER TABLE `renprefix_spellbooktree`
   DROP PRIMARY KEY,
   ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);
 
+#---------------------------------------------------------
+### recipe regent data 
+DROP TABLE IF EXISTS `renprefix_recipes_reagents`;
+CREATE TABLE IF NOT EXISTS `renprefix_recipes_reagents` (
+  `member_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `reagent_name` varchar(96) NOT NULL DEFAULT '',
+  `reagent_color` varchar(16) NOT NULL DEFAULT '',
+  `reagent_id` varchar(64) NOT NULL DEFAULT '',
+  `reagent_texture` varchar(64) NOT NULL DEFAULT '',
+  `reagent_count` int(11) DEFAULT NULL,
+  `reagent_tooltip` mediumtext NOT NULL,
+  `level` int(11) DEFAULT NULL,
+  `reagent_level` int(11) DEFAULT NULL,
+  `reagent_type` varchar(64) DEFAULT NULL,
+  `reagent_subtype` varchar(64) DEFAULT NULL,
+  `reagent_rarity` int(4) NOT NULL DEFAULT '-1',
+  `locale` varchar(4) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 # --------------------------------------------------------
 ### Talents Data
 
