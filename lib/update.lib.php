@@ -668,11 +668,13 @@ class update
 		{
 			return "No files accepted!";
 		}
+                $accdir = '<i>*WOWDIR*</i>\WTF\Account\<i>*ACCOUNT_NAME*</i>\SavedVariables\ ';
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
-						 . "\t" . '<td class="membersRow1" style="cursor:help;" ' . makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
-						 . "\t" . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
+						 . '<td class="membersRow1" style="cursor:help;" ' . makeOverlib($accdir . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
+
+                                                 . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
 						 . "</tr>\n";
 		}
 		return $filefields;
@@ -933,6 +935,66 @@ class update
 	}
 
 
+        	/**
+	 * Inserts an reagent into the database
+	 *
+	 * @param string $item
+	 * @return bool
+	 */
+        function insert_reagent( $memberId,$reagents,$locale )
+	{
+		global $roster;
+                //echo'<pre>';
+                //print_r($reagents);
+
+                foreach ($reagents as $ind => $reagent)
+                {
+                        //echo'<pre>';
+                	//print_r($reagent);
+                   //echo $reagent['Name'];
+		$this->reset_values();
+		$this->add_value('member_id', $memberId);
+
+                $id = explode(':', $reagent['Item']);
+         	$this->add_value('reagent_name', $reagent['Name']);
+                $this->add_value('reagent_count', $reagent['Count']);
+                $this->add_value('reagent_color', $reagent['Color']);
+                $this->add_value('reagent_tooltip', $reagent['Tooltip']);
+                $this->add_value('reagent_texture', $reagent['Icon']);
+                $this->add_value('reagent_id', $id[0]);
+
+                $this->add_value('locale', $locale);
+
+	       /*	$level = array();
+		if( isset($reagent_data['reqLevel']) && !is_null($reagent_data['reqLevel']) )
+		{
+			$this->add_value('level', $reagent_data['reqLevel']);
+		}
+		else if( preg_match($roster->locale->wordings[$locale]['requires_level'],$reagent['item_tooltip'],$level))
+		{
+			$this->add_value('level', $level[1]);
+		}
+                 */
+		// gotta see of the reagent is in the db allready....
+
+                $querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = ".$id[0].";";
+		$resulta = $roster->db->query($querystra);
+                $num = $roster->db->num_rows($resulta);
+		if( $num == 0 )
+		{
+                	$querystr = "INSERT INTO `" . $roster->db->table('recipes_reagents') . "` SET " . $this->assignstr . ";";
+			$result = $roster->db->query($querystr);
+			if( !$result )
+			{
+				$this->setError('Item [' . $reagent['item_name'] . '] could not be inserted',$roster->db->error());
+	       		}
+                }
+
+                }
+	}
+
+
+
 	/**
 	 * Inserts an item into the database
 	 *
@@ -942,7 +1004,8 @@ class update
 	function insert_item( $item,$locale )
 	{
 		global $roster;
-
+               // echo '<pre>';
+                //print_r($item);
 		$this->reset_values();
 		$this->add_ifvalue($item, 'member_id');
 		$this->add_ifvalue($item, 'item_name');
@@ -959,6 +1022,7 @@ class update
 		$this->add_ifvalue($item, 'item_rarity');
 		$this->add_value('locale', $locale);
 
+        /*
 		$level = array();
 		if( isset($item_data['reqLevel']) && !is_null($item_data['reqLevel']) )
 		{
@@ -968,7 +1032,7 @@ class update
 		{
 			$this->add_value('level', $level[1]);
 		}
-
+                 */
 		$querystr = "INSERT INTO `" . $roster->db->table('items') . "` SET " . $this->assignstr . ";";
 		$result = $roster->db->query($querystr);
 		if( !$result )
@@ -1320,11 +1384,11 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$colors = array();
 				$line = preg_replace('/\|c[a-f0-9]{8}(.+?)\|r/i','$1',$line); // CP error? strip out color
 				// -- start the parsing
-				if( eregi($roster->locale->wordings[$this->locale]['tooltip_boss'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_source'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_droprate'], $line) )
+				if( preg_match('/'.$roster->locale->wordings[$this->locale]['tooltip_boss'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_source'] . '|' . $roster->locale->wordings[$this->locale]['tooltip_droprate'].'/', $line) )
 				{
 					continue;
 				}
-				elseif( eregi('\%|\+|'.$roster->locale->wordings[$this->locale]['tooltip_chance'], $line) )  // if the line has a + or % or the word Chance assume it's bonus line.
+				elseif( preg_match('/%|\+|'.$roster->locale->wordings[$this->locale]['tooltip_chance'].'/', $line) )  // if the line has a + or % or the word Chance assume it's bonus line.
 				{
 					$gem_bonus = $line;
 				}
@@ -1399,10 +1463,13 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$recipe['item_id'] = isset($recipe_data['Item']) ? $recipe_data['Item'] : '';
 		$recipe['recipe_id'] = isset($recipe_data['RecipeID']) ? $recipe_data['RecipeID'] : '';
 
-		$recipe['reagents'] = array();
-		foreach( $recipe_data['Reagents'] as $d => $reagent )
+		$recipe['reagent'] = $recipe_data['Reagents'];//array();
+                $recipe['reagents'] = array();
+
+                foreach( $recipe_data['Reagents'] as $d => $reagent )
 		{
 		//aprint($reagent);
+                	$id = explode(':', $reagent['Item']);
 			if(isset($reagent['Quantity']))
 			{
 			    $count = $reagent['Quantity'];
@@ -1411,15 +1478,16 @@ CREATE TABLE `renprefix_quest_task_data` (
 			{
 			    $count = '1';
 			}
-			$recipe['reagents'][] = $reagent['Name'] . ' [x' . $count . ']';
+			$recipe['reagents'][] = $id[0] . ':' . $count;
 		}
-		$recipe['reagents'] = implode('<br>',$recipe['reagents']);
+		$recipe['reagents'] = implode('|',$recipe['reagents']);
 
-		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Result']['Icon']);
+//		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Result']['Icon']);
+                $recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
 
-		if( !empty($recipe_data['Result']['Tooltip']) )
+		if( !empty($recipe_data['Tooltip']) )
 		{
-			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Result']['Tooltip'] );
+			$recipe['recipe_tooltip'] = $this->tooltip( $recipe_data['Tooltip'] );
 		}
 		else
 		{
@@ -1572,9 +1640,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 			// Delete the stale data
 			$querystr = "DELETE FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '$memberId';";
+                        $querystra = "DELETE FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Professions could not be deleted',$roster->error());
+				return;
+			}if( !$roster->db->query($querystra) )
+			{
+				$this->setError('Professions reagents could not be deleted',$roster->error());
 				return;
 			}
 			// Then process Professions
@@ -1595,6 +1668,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						}
 						$recipe = $this->make_recipe($recipeDetails, $memberId, $skill_name, $recipe_type, $recipe_name);
 						$this->insert_recipe($recipe,$data['Locale']);
+                                                $this->insert_reagent($memberId,$recipe['reagent'],$data['Locale']);
 					}
 				}
 			}

@@ -339,7 +339,20 @@ class char
 		$sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 		$recipes = recipe_get_many( $this->data['member_id'],'', $sort );
-
+                $reagents = recipe_get_regents( $this->data['member_id']);
+                $reagent_arr = array();
+                foreach( $reagents as $objects)
+			{
+                        	//aprint($data);
+				$skil = $objects->data['reagent_id'];
+				$reagent_arr[$skil]['item_color'] = $objects->data['reagent_color'];
+				$reagent_arr[$skil]['item_texture'] = $objects->data['reagent_texture'];
+				$reagent_arr[$skil]['item_id'] = $objects->data['reagent_id'];
+                                $reagent_arr[$skil]['item_name'] = $objects->data['reagent_name'];
+                        	$reagent_arr[$skil]['tooltip'] = $objects->data['reagent_tooltip'];
+			       //	$reagent_arr[$skill]['item'] = $objects->out();
+			}
+                //aprint($reagent_arr);
 		if( isset($recipes[0]) )
 		{
 			$recipe_arr = array();
@@ -357,7 +370,8 @@ class char
 				$recipe_arr[$skill][$recipe]['recipe_id'] = $object->data['recipe_id'];
 				$recipe_arr[$skill][$recipe]['item'] = $object->out();
 			}
-
+                        //echo '<pre>';
+                        //print_r($recipe_arr);
 			foreach( $recipe_arr as $skill_name => $recipe )
 			{
 				$roster->tpl->assign_block_vars('recipe',array(
@@ -406,11 +420,22 @@ class char
 						)
 					);
 
-					$reagents = explode('<br>',$data['reagents']);
+					$reagents = explode('|',$data['reagents']);
+
+
 					foreach( $reagents as $reagent )
 					{
+                                        	$dtr = explode(':',$reagent);
+
 						$roster->tpl->assign_block_vars('recipe.row.reagents',array(
-							'DATA' => $reagent,
+							'DATA' 		=> $reagent,
+                                                        'ID' 		=> $reagent_arr[''.$dtr[0].'']['item_id'],
+							'NAME' 		=> $reagent_arr[''.$dtr[0].'']['item_name'],
+							'COUNT' 	=> $dtr[1],
+							'ICON' 		=> $reagent_arr[''.$dtr[0].'']['item_texture'],
+							'TOOLTIP' 	=> makeOverlib($reagent_arr[''.$dtr[0].'']['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
+
+                                   //                     'Tooltip'	=> makeOverlib($tooltip,'','',0,$this->data['clientLocale'],',RIGHT'),
 							)
 						);
 					}
