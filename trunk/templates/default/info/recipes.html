@@ -8,7 +8,7 @@
 	<div class="tier-1-a">
         <div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title"><!-- TRANSLATE recipies -->
+				<div class="tier-1-title"><!-- TRANSLATE recipes -->
       	          	<div class="links">
 						<!-- BEGIN recipe -->
 						<a href="{recipe.LINK}">
@@ -25,7 +25,7 @@
 						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('recipe_{recipe.ID}','img_{recipe.ID}','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
                         	<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{recipe.ICON}.{IMG_SUFFIX}" /><div class="mask"></div></div>
                             {recipe.NAME}
-                            <img style="float:right;" id="img_{recipe.ID}" src="{THEME_PATH}/images/button_<!-- IF S_HIDE -->open<!-- ELSE -->close<!-- ENDIF -->.png" alt="" />
+                            <img style="float:right;" id="img_{recipe.ID}" src="{THEME_PATH}/images/button_<!-- IF S_RECIPE_HIDE -->open<!-- ELSE -->close<!-- ENDIF -->.png" alt="" />
                         </div>
                             
                         <div id="recipe_{recipe.ID}" style="width:100%;<!-- IF S_RECIPE_HIDE -->display:none;<!-- ENDIF -->">

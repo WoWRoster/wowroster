@@ -608,7 +608,7 @@ class memberslist
 					if( strlen($icon_name) > 0 ) break;
 				}
 
-				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.jpg" alt="" />';
+				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.png" alt="" />';
 			}
 
 			// Don't proceed for characters without data
