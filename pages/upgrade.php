@@ -359,6 +359,27 @@ class Upgrade
 				ADD `item_rarity` int(4) default NULL AFTER `item_subtype`;");
 		}
 
+		// Add recipe reagents table
+		if( version_compare($roster->config['version'], '2.0.9.2159', '<') )
+		{
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('recipes_reagents') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('recipes_reagents') . "` (
+				`member_id` int(11) unsigned NOT NULL DEFAULT '0',
+				`reagent_name` varchar(96) NOT NULL DEFAULT '',
+				`reagent_color` varchar(16) NOT NULL DEFAULT '',
+				`reagent_id` varchar(64) NOT NULL DEFAULT '',
+				`reagent_texture` varchar(64) NOT NULL DEFAULT '',
+				`reagent_count` int(11) DEFAULT NULL,
+				`reagent_tooltip` mediumtext NOT NULL,
+				`level` int(11) DEFAULT NULL,
+				`reagent_level` int(11) DEFAULT NULL,
+				`reagent_type` varchar(64) DEFAULT NULL,
+				`reagent_subtype` varchar(64) DEFAULT NULL,
+				`reagent_rarity` int(4) NOT NULL DEFAULT '-1',
+				`locale` varchar(4) DEFAULT NULL
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
