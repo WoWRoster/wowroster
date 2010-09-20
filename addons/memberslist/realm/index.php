@@ -69,10 +69,10 @@ $mainQuery =
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` AND ( `proftable`.`skill_order` = 2 OR `proftable`.`skill_order` = 3 ) '.
-	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
+	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` AND `talenttable`.`build` = 0'.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
-$where[] = '`members`.`server` = "'.$roster->db->escape($roster->data['server']).'"';
+$where[] = '`members`.`server` = "'.$roster->db->escape($roster->data['server']).'" AND `talenttable`.`build` = "0" ';
 $group[] = '`members`.`member_id`';
 $order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
 $order_last[] = '`members`.`level` DESC';
@@ -230,7 +230,7 @@ function tradeskill_icons ( $row )
 				// Standard faction flying mount
 				else
 				{
-					$icon = $roster->locale->wordings[$lang]['ts_flyingIcon'][$row['faction']];
+					$icon = $roster->locale->wordings[$lang]['ts_flyingIcon'][$row['factionEn']];
 				}
 			}
 			// Riding
