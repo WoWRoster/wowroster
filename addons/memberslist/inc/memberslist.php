@@ -496,7 +496,19 @@ class memberslist
 		{
 			if( $roster->config['motd_display_mode'] )
 			{
-				return '<img src="' . ROSTER_URL . 'motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: ' . htmlspecialchars($roster->data['guild_motd']) . '" /><br /><br />';
+				//return '<img src="' . ROSTER_URL . 'motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: ' . htmlspecialchars($roster->data['guild_motd']) . '" /><br /><br />';
+                                echo '
+      <div class="guild-stats-container">
+		<div class="filtertitle" style="float: left; position: relative;">Motd</div>
+
+		<div class="filtercontainer">
+			<div class="bankcontentsfiltercontainer" style="width: 100%;">
+				<div class="bankcontentsfilter">
+					' . htmlspecialchars($roster->data['guild_motd']) . '
+				</div>
+			</div>
+	</div>
+</div>';
 			}
 			else
 			{

@@ -331,7 +331,7 @@ class item
 				$html .= '<img width="10px" height="10px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 					   . $gem['Icon'] . '.' . $roster->config['img_suffix'] . '" />'
 					   . '<span style="color:#ffffff;">&nbsp;&nbsp;' . $gem['Bonus'] . '</span><br />';
-				if( $this->hasMetaGem && ereg('inv_misc_gem_diamond', $gem['Icon']) )
+				if( $this->hasMetaGem && preg_match('/inv_misc_gem_diamond/', $gem['Icon']) )
 				{
 					foreach ( $this->attributes['MetaRequires'] as $requirement )
 					{
@@ -1304,7 +1304,7 @@ class item
 					}
 					//
 					//check if item is a poison
-					elseif( ereg( $roster->locale->wordings[$locale]['tooltip_poisoneffect'] . "\b/i", $line ) )
+					elseif( ereg preg_match( '/'.$roster->locale->wordings[$locale]['tooltip_poisoneffect'] . "/", $line ) )
 					{
 						$tt['Poison']['Effect'][] = $line;
 						$this->isPoison = true;
