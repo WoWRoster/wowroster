@@ -876,3 +876,11 @@ select {
 	height:/**/20px;
 }
 .colorCodeDiv { width:50px;height:20px;float:left; }
+
+
+.bottomshadow { background: url(./images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0px auto; }
+.bankcontentsfilter{height:40px; background: url('./images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px;}
+.filtercontainer {background-image: url(./images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd;}
+.guild-stats-container {padding:20px 20px 10px}
+.filtertitle {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 4px 0 5px 10px;}
+.filtercrest { background: url(./images/guildbank_crest.gif) bottom center no-repeat; height: 34px!important; width: 100%; margin: 0px auto;}
