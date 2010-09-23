@@ -1304,7 +1304,7 @@ class item
 					}
 					//
 					//check if item is a poison
-					elseif( ereg preg_match( '/'.$roster->locale->wordings[$locale]['tooltip_poisoneffect'] . "/", $line ) )
+					elseif( preg_match( '/'.$roster->locale->wordings[$locale]['tooltip_poisoneffect'] . "/", $line ) )
 					{
 						$tt['Poison']['Effect'][] = $line;
 						$this->isPoison = true;
