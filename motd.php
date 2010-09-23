@@ -63,7 +63,7 @@ function motd_img( $guildMOTD , $image_path , $font_path )
 {
 	$guildMOTD = html_entity_decode($guildMOTD);
 
-	$maxw = 550;
+	$maxw = 750;
 	$vadj = 0;
 
 	// Set ttf font

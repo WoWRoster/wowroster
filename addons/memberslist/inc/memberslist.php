@@ -497,8 +497,20 @@ class memberslist
 			if( $roster->config['motd_display_mode'] )
 			{
 				//return '<img src="' . ROSTER_URL . 'motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: ' . htmlspecialchars($roster->data['guild_motd']) . '" /><br /><br />';
-                                echo '
-      <div class="guild-stats-container">
+				return '
+	<div class="guild-stats-container">
+		<div class="filtercontainer">
+			<div class="bankcontentsfiltercontainer" style="width: 100%;text-align:center;">
+				<img src="' . ROSTER_URL . 'motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: ' . htmlspecialchars($roster->data['guild_motd']) . '" />
+			</div>
+		</div>
+	</div>';
+			}
+			else
+			{
+				//return '<table class="border_frame" cellpadding="0" cellspacing="1" ><tr><td class="border_colour sgoldborder motd_setup">' . htmlspecialchars($roster->data['guild_motd']) . '</td></tr></table><br /><br />';
+				return '
+	<div class="guild-stats-container">
 		<div class="filtertitle" style="float: left; position: relative;">Motd</div>
 
 		<div class="filtercontainer">
@@ -507,12 +519,8 @@ class memberslist
 					' . htmlspecialchars($roster->data['guild_motd']) . '
 				</div>
 			</div>
-	</div>
-</div>';
-			}
-			else
-			{
-				return '<table class="border_frame" cellpadding="0" cellspacing="1" ><tr><td class="border_colour sgoldborder motd_setup">' . htmlspecialchars($roster->data['guild_motd']) . '</td></tr></table><br /><br />';
+		</div>
+	</div>';
 			}
 		}
 	}
