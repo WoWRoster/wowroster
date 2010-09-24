@@ -420,7 +420,7 @@ class roster_db
 
 		if( $query_id )
 		{
-			$result = @mysql_num_rows($query_id);
+			$result = mysql_num_rows($query_id);
 			return $result;
 		}
 		else

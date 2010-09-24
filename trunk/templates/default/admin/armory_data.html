@@ -16,16 +16,19 @@
 
 <table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
 	<tr>
-		<td class="border_color syellowborder" colspan="2">
+		<td class="border_color syellowborder" colspan="3">
 			<div class="header_text syellowborder"><!-- TRANSLATE adata_update_talents --></div>
 		</td>
 	</tr>
 <!-- BEGIN classes --> 
 	<tr>
-		<td class="membersRow2">
+		<td class="membersRow{classes.ROW}">
 			{classes.NAME}
 		</td>
-		<td class="membersRow2">
+		<td class="membersRow{classes.ROW}">
+			{classes.ROWS}
+		</td>
+		<td class="membersRow{classes.ROW}">
 			<form action="{classes.UPDATELINK}" method="post" id="update">
 				<input type="hidden" name="class_id" value="{classes.ID}" />
 				<input type="hidden" name="process" value="process" />

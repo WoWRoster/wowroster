@@ -39,20 +39,20 @@ if( eregi('uniuploader', $_SERVER['HTTP_USER_AGENT']) )
 
 // Set template vars
 $roster->tpl->assign_vars(array(
-	'S_DATA' => false,
-	'S_RESPONSE' => false,
+	'S_DATA' 	=> false,
+	'S_RESPONSE' 	=> false,
 	'S_RESPONSE_ERROR' => false,
-	'S_PASS' => true,
+	'S_PASS' 	=> true,
 
-	'U_UPDATE' => makelink('update'),
-	'S_UPDATE_INS' => (bool)$roster->config['update_inst'],
-
-	'L_UPLOAD_APP' => $roster->config['uploadapp'],
-	'L_PROFILER' => $roster->config['profiler'],
+	'U_UPDATE' 	=> makelink('update'),
+	'S_UPDATE_INS' 	=> (bool)$roster->config['update_inst'],
+	'PAGE_INFO'	=> $roster->locale->act['pagebar_update'],
+	'L_UPLOAD_APP' 	=> $roster->config['uploadapp'],
+	'L_PROFILER' 	=> $roster->config['profiler'],
 
 	'L_PASSWORD_TIP' => makeOverlib($roster->locale->act['roster_upd_pw_help'], $roster->locale->act['password'], '', 2, '', ',WRAP,RIGHT'),
 
-	'MESSAGES' => ''
+	'MESSAGES' 	=> ''
 ));
 
 // Fetch addon data

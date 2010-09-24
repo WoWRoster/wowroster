@@ -70,7 +70,7 @@ $mainQuery =
 	'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` AND ( `proftable`.`skill_order` = 2 OR `proftable`.`skill_order` = 3 ) '.
 	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` AND `talenttable`.`build` = 0 '.
-	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id`  AND `talenttable`.`build` = 0 '.
+	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` AND `talenttable`.`build` = 0 '.
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
 $where[] = '`members`.`server` = "'.$roster->db->escape($roster->data['server']).'" ';
 $group[] = '`members`.`member_id`';
