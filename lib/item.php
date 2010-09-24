@@ -1454,6 +1454,7 @@ class item
 	{
 		global $roster;
 
+                $armor_set = array();
 		$count = count($pieces);
 		$member_id = ( is_numeric($member_id) ? $member_id : $this->member_id );
 

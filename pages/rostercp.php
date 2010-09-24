@@ -191,6 +191,7 @@ $roster->tpl->assign_vars(array(
 	'HEADER' => $header,
 	'MENU' => $menu,
 	'BODY' => $body,
+        'PAGE_INFO' => 'Roster Controle Pannel',
 	'FOOTER' => $footer,
 	)
 );

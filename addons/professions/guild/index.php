@@ -99,6 +99,10 @@ if( $roster->db->num_rows($result) )
 			{
 				$levelpct = 1;
 			}
+                        if ($levelpct >= 100)
+                        {
+                        	$levelpct = '100';
+                        }
 
 			$roster->tpl->assign_block_vars('profession.skills',array(
 				'ROW_CLASS' => $roster->switch_row_class(),

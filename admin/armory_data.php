@@ -165,10 +165,18 @@ $roster->output['title'] .= 'Armory Data';
 
 foreach ($roster->locale->act['class_to_id'] as $class => $num)
 {
+	$querystra = $classr = $resulta = 0;
+        $querystra = "SELECT * FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '".$num."'";
+	$resulta = $roster->db->query($querystra);
+        $classr = $roster->db->num_rows($resulta);
+        $i = 0;
+
 	$roster->tpl->assign_block_vars('classes',array(
 		'NAME'       => $class,
 		'ID'         => $roster->locale->act['class_to_id'][$class],
 		'UPDATELINK' => makelink('&amp;class=' . $roster->locale->act['class_to_id'][$class]),
+                'ROWS'	     => $classr,
+                'ROW'	     => (($i%2)+1),
 		)
 	);
 }
