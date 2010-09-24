@@ -40,6 +40,11 @@ if( $roster->output['http_header'] && !headers_sent() )
 switch( $roster->scope )
 {
 	case 'util':
+        $roster->tpl->assign_vars(array(
+        	'PAGE_INFO' =>  ''
+                )
+
+        );
 	case 'page':
 		$roster_title = ' [ ' . $roster->config['default_name'] . ' ] '
 			. (isset($roster->output['title']) ? $roster->output['title'] : '');
@@ -115,7 +120,7 @@ $roster->tpl->assign_vars(array(
 	'IMG_URL'         => $roster->config['img_url'],
 	// End duplication
 	'ROSTER_SCOPE'    => $roster->scope,
-
+	//'PAGE_INFO' 	=> '',
 	'PAGE_TITLE'    => $roster_title,
 	'ROSTER_HEAD'   => $roster->output['html_head'],
 	'ROSTER_BODY'   => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
