@@ -32,7 +32,7 @@ require_once (ROSTER_LIB . 'update.lib.php');
 $update = new update();
 
 // See if UU is requesting this page
-if( eregi('uniuploader', $_SERVER['HTTP_USER_AGENT']) )
+if( preg_match('/uniuploader/', $_SERVER['HTTP_USER_AGENT']) )
 {
 	$update->textmode = true;
 }
