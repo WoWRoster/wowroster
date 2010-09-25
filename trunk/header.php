@@ -236,7 +236,7 @@ elseif( $roster->scope == 'guild' )
 	$roster->db->free_result($result);
 
 	$roster->tpl->assign_vars(array(
-		'S_DATA_SELECT' => ($guilds > 1 ? true : false)
+		'S_DATA_SELECT' => ($guilds > 1 ? true : false),
 		'TOTAL_GUILDS' =>  $roster->db->num_rows( $result )
 		)
 	);
