@@ -40,11 +40,10 @@ if( $roster->output['http_header'] && !headers_sent() )
 switch( $roster->scope )
 {
 	case 'util':
-        $roster->tpl->assign_vars(array(
-        	'PAGE_INFO' =>  ''
-                )
-
-        );
+		$roster->tpl->assign_vars(array(
+			'PAGE_INFO' =>  ''
+			)
+		);
 	case 'page':
 		$roster_title = ' [ ' . $roster->config['default_name'] . ' ] '
 			. (isset($roster->output['title']) ? $roster->output['title'] : '');
@@ -185,18 +184,15 @@ if( $roster->scope == 'realm' )
 
 	$roster->tpl->assign_var('S_DATA_SELECT', ($realms > 1 ? true : false));
 
-        // num guilds bs...
-        $queryng = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id`"
+	// num guilds bs...
+	$queryng = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id`"
 		. " FROM `" . $roster->db->table('guild') . "`"
 		. " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
 
 	$resultng = $roster->db->query($queryng);
 
-        $roster->tpl->assign_vars(array(
-        	'TOTAL_GUILDS' =>  mysql_num_rows( $resultng )
-                )
+	$roster->tpl->assign_var('TOTAL_GUILDS', mysql_num_rows($resultng));
 
-        );
 	if( $realms > 1 )
 	{
 		foreach( $menu_select as $region => $realmsArray )
@@ -239,12 +235,11 @@ elseif( $roster->scope == 'guild' )
 
 	$roster->db->free_result($result);
 
-	$roster->tpl->assign_var('S_DATA_SELECT', ($guilds > 1 ? true : false));
 	$roster->tpl->assign_vars(array(
-        	'TOTAL_GUILDS' => $roster->db->num_rows( $result )
-                )
-
-        );
+		'S_DATA_SELECT' => ($guilds > 1 ? true : false)
+		'TOTAL_GUILDS' =>  $roster->db->num_rows( $result )
+		)
+	);
 
 	if( count($menu_select) > 0 )
 	{
