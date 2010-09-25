@@ -32,13 +32,12 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 $roster->tpl->assign_vars(array(
-
-	'PAGE_INFO'	=> 'Roster Controle Pannel',
-        )
-        );
+	'PAGE_INFO' => $roster->locale->act['roster_cp'],
+	)
+);
 // ----[ Check log-in ]-------------------------------------
 if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 {
@@ -195,7 +194,7 @@ $roster->tpl->assign_vars(array(
 	'HEADER' => $header,
 	'MENU' => $menu,
 	'BODY' => $body,
-        'PAGE_INFO' => 'Roster Controle Pannel',
+	'PAGE_INFO' => $roster->locale->act['roster_cp'],
 	'FOOTER' => $footer,
 	)
 );
