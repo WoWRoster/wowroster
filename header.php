@@ -174,15 +174,14 @@ if( $roster->scope == 'realm' )
 	}
 
 	$realms = 0;
-	while( $data = $roster->db->fetch($result, SQL_NUM) )
+	while( $data = $roster->db->fetch($result) )
 	{
 		$menu_select[$data[1]][] = $data[0];
 		$realms++;
 	}
-
 	$roster->db->free_result($result);
 
-	$roster->tpl->assign_var('S_DATA_SELECT', ($realms > 1 ? true : false));
+	$roster->tpl->assign_var('S_MENU_SELECT', ($realms > 1 ? true : false));
 
 	// num guilds bs...
 	$queryng = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id`"
@@ -193,7 +192,7 @@ if( $roster->scope == 'realm' )
 
 	$roster->tpl->assign_var('TOTAL_GUILDS', $roster->db->num_rows($resultng));
 
-	if( $realms > 1 )
+	if( $realms >= 1 )
 	{
 		foreach( $menu_select as $region => $realmsArray )
 		{

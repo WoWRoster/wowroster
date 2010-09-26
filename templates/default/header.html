@@ -59,6 +59,7 @@
 				</select>
 			</form>
 		<!-- ENDIF -->
+		
         <br />
         {MENU_LOGIN_FORM}
 		</div>
@@ -107,6 +108,23 @@
 				</select>
 			</form>
 		<!-- ENDIF -->
+				<!-- IF S_MENU_SELECT -->
+							<form action="{U_MAKELINK}" name="list_select" method="post" style="margin:0;">
+								{L_MENU_LABEL_NAME}:
+								<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
+									<!-- BEGIN menu_select_group -->
+									<optgroup label="{menu_select_group.U_VALUE}">
+										<!-- BEGIN menu_select_row -->
+										<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
+										<!-- END menu_select_row -->
+									</optgroup>
+									<!-- END menu_select_group -->
+								</select>
+							</form>
+							<!-- ELSE -->
+							&nbsp;
+							<!-- ENDIF -->
+							
         <br />
         {MENU_LOGIN_FORM}
 		</div>

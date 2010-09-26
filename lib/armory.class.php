@@ -21,6 +21,63 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+
+
+// ---------------- EDIT THE BELOW SETTINGS ----------------
+
+    // SERVER AND GUILD SETTINGS
+    $config['server_name'] = 'Zangarmarsh';                                                // Name of the WoW Realm
+    $config['guild_name'] = 'Honors Asylum';                                    // Name of your Guild
+//    $config['server_name'] = 'Marécage de Zangar';                                    // Name of the WoW Realm
+//    $config['guild_name'] = 'Lenwë Linwëlin';                                        // Name of your Guild
+    // THESE WILL BE STORED AS HTML ENTITIES FOR EASE OF DISPLAYING
+
+    // SETTINGS FOR THE GENERAL WEBSITE
+    $config['live_system'] = true;                                                    // 'TRUE' = Download XML & Cache; 'FALSE' = Cache Only
+    $config['base_filename'] = 'roster.test.php';                                        // Base script file name
+    $config['base_url'] = 'http://localhost/wowroster/';                            // Base URL
+    $config['url_prefix_armory'] = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
+//    $config['url_prefix_armory'] = 'http://eu.wowarmory.com/';                        // URL for the EUROPEAN armory
+    $config['url_prefix_char']=$config['url_prefix_armory'].'character-sheet.xml?';    // Use for Char links
+    // NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
+    $config['DIR_cache'] = 'cache/';                                                // Directory where the XML cache files are stored
+    // NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
+    $config['days_to_cache'] = 3;                                                    // How many days to keep cached files for
+    $config['DIR_sql'] = 'cache/';                                                    // Directory where the SQL files are stored
+
+    // LOADING BAR
+    $config['loading_bar'] = 100;                                                    // How many characters in the loading bar
+    $config['loading_bar_mask'] = "=";                                                // The loading bar symbol
+
+    // OUTPUT DISPLAY SETTING
+    // WARNING: TURNING ALL OF THESE SETTINGS ON WILL TAKE A LOOONG TIME TO PROCESS AND WILL CONSUME A FAIR AMOUNT OF SERVER RESOURCES
+    // WARNING: I ONLY HAVE OVER 150 MEMBERS IN MY GUILD, WITH ALL THESE SETTINGS ON IT CAN TAKE UPTO AN HOUR TO PROCESS AND LOAD.
+    $config['show_xml_source'] = true;                                                // 'TRUE' = Show XML Source; 'FALSE' = Hide XML Source
+    $config['show_sql_import_structure'] = true;                                    // 'TRUE' = Show SQL Import Structure; 'FALSE' = Hide SQL Import Structure
+    $config['show_sql_import_data'] = true;                                            // 'TRUE' = Show SQL Import Data; 'FALSE' = Hide SQL Import Data
+    $config['show_html_data_table'] = true;                                            // 'TRUE' = Show HTML Data Table; 'FALSE' = Hide HTML Data Table
+    $config['show_html_data_sort'] = false;                                            // 'TRUE' = Show HTML Data Table with sort functionality and only limited fields; 'FALSE' = Show HTML Data Table with every field
+
+    // SETTINGS FOR SQL STATEMENT GENERATION
+    $config['sql_database'] = 'wotf_character';                                    // SQL Database Name
+    $config['sql_table'] = 'guild_characters_test';                                    // SQL Table Name
+
+    // XML PARSING SETTINGS
+//    $config['min_char_level'] = 75;                                                     // Limits display parsing of Characters beyond a certain level. NOTE: Use '0' to process all characters. NOTE: Requires "$config['chars_to_process'] = -1;"
+//    $config['min_char_rank'] = 1;                                                    // Limits display to Guild Rank NOTE: Requires "$config['chars_to_process'] = -1;"
+    $config['equipable_items_number'] = 18;                                            // How many equipable items on a character. !! DO NOT EDIT THIS !!
+
+    // DEBUG SETTINGS
+    $config['chars_to_process'] = 1;                                                // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
+    $config['use_char_selction_list'] = false;                                        // Select this option to only process characters names found in the "$config['char_selction_list']" array.
+    $config['char_selction_list'] = array( "Ulminia" );            // A list of characters to process, excluding all others. NOTE: Requires "$config['chars_to_process'] = -1;"
+
+// ---------------- EDIT THE ABOVE SETTINGS ----------------
+
+
+
+
+
 /**
  * WoWRoster Armory Class
  *
@@ -74,6 +131,199 @@ class RosterArmory
 	{
 		$this->region = ( $region !== false ? strtoupper($region) : 'US' );
 	}
+
+// testing a new way to cache and pull xml data .......
+ // DEFINE THE ARMORY VARIABLES
+ const BROWSER="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.2) Gecko/20070319 Firefox/2.0.0.3";
+ public $query;
+ public $server;
+ public $guild;
+ public $guildie;
+ public $page;
+
+// CONSTRUCTOR FOR THE ARMORY OBJECT
+public function __construct ( $query, $server, $guild, $guildie, $page ) {
+    $this->query = $query;
+    $this->server = $server;
+    $this->guild = $guild;
+    $this->guildie = $guildie;
+    $this->page = $page;
+ } // end of __construct()
+
+
+ public function pull_xmln($guildie = false, $guild = false, $server = false, $query = false) {
+    global $config,$roster;
+
+    // change the first part of the $url to the armory link that you need
+    if( $query === 'roster' ){
+        $filename_type = 'guild-info';
+        $url = $config['url_prefix_armory'].$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode(  $guild ) );
+    } elseif( $query === 'character' ){
+        $filename_type = 'character-sheet';
+        $url = $config['url_prefix_armory'].$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
+    } elseif( $query === 'achievement' ){
+        $filename_type = 'character-achievements';
+        $url = $config['url_prefix_armory'].$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
+    }
+    //alert($url);
+    if ( $config['live_system'] ) {
+        $ch = curl_init();
+        curl_setopt ($ch, CURLOPT_URL, $url);
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        curl_setopt ($ch, CURLOPT_USERAGENT,  self::BROWSER);
+        $url_string = curl_exec($ch);
+        curl_close($ch);
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML LIVE FEED:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a><P>';
+    } else {
+        if( $this->query === 'roster' ){
+            echo '<b>NOTE: USING XML CACHE ONLY!!!</b><P>';
+        }
+    }
+    //alert($url_string);
+    // change the first part of the $url to the armory link that you need
+    if( $query === 'roster' ){
+
+    	$guild_cache_filename = $filename_type.'-'.$guild; // BUILD THE Guild XML CACHE FILENAME
+        if ( $config['live_system'] ) {
+            $this->cacheXMLfile($guild_cache_filename, $url_string);                    // CACHE THE GUILD XML STREAM
+        }
+        $latestGuildXMLfile = $this->getXMLfile('guild-info');                    // GET THE LATEST CACHE GUILD XML FILE
+        $url = $config['base_url'].$config['DIR_cache'].$latestGuildXMLfile['filename'];
+        $url_filesize = $latestGuildXMLfile['filesize'];
+        //echo "<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." <br /><br /><br /><br />";
+    } elseif( $query === 'character' ) {
+        $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
+        if ( $config['live_system'] ) {
+            $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
+        }
+        $latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
+        $url = $config['base_url'].$config['DIR_cache'].$latestCharacterXMLfile['filename'];
+        $url_filesize = $latestCharacterXMLfile['filesize'];
+        //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
+    } elseif( $query === 'achievement' ) {
+        $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
+        if ( $config['live_system'] ) {
+            $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
+        }
+        $latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
+        $url = $config['base_url'].$config['DIR_cache'].$latestCharacterXMLfile['filename'];
+        $url_filesize = $latestCharacterXMLfile['filesize'];
+        //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
+    }
+
+    //
+    if ( $url_filesize > 0 ) {
+        $url_string = simplexml_load_file($url) or die ("ERROR: Unable to load XML file! URL: ".$url);
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML CACHE:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a> - '.$this->fileSizeInfo($url_filesize).' read...<P>';
+    } else {
+        $url_string = "";
+    }
+
+    return $url_string;
+
+
+ } // end of pull_xml()
+ function printLoadTime() {
+    global $config;
+    $m_time = explode(" ",microtime());
+    $m_time = $m_time[0] + $m_time[1];
+    $endtime = $m_time;
+    $totaltime = ($endtime - $config['starttime']);
+    return (string)round($totaltime,$config['round']);
+}
+
+
+
+//------------------------------------------------------------------
+// Convert seconds to '0h 0m 0s'
+ function sec2hms ($sec, $padHours = false) {
+    $hms = "";
+    $hours = intval(intval($sec) / 3600);
+    $hms .= ($padHours)
+          ? str_pad($hours, 2, "0", STR_PAD_LEFT). ':'
+          : $hours. ':';
+    $minutes = intval(($sec / 60) % 60);
+    $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT). ':';
+    $seconds = intval($sec % 60);
+    $hms .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
+    return $hms;
+ }
+
+
+
+//------------------------------------------------------------------
+// Convert bytes to '0TB 0GB 0MB 0MB 0kb'
+function fileSizeInfo($size){
+    $i=0;
+    $iec = array("b", "kb", "mb", "gb", "tb", "pb", "eb", "zb", "yb");
+    while (($size/1024)>1) {
+        $size=$size/1024;
+        $i++;
+    }
+    return substr($size,0,strpos($size,'.')+4).$iec[$i];
+}
+
+
+
+//------------------------------------------------------------------
+// Get the latest cached XML file from the cache directory
+function getXMLfile( $XMLtype ) {
+    global $config;
+
+    // GET LATEST XML FILE
+    $new_file_size = 0;
+    $new_file_time = 0;
+    $new_file_name = "";
+    $old_file_date = time() - ($config['days_to_cache'] * 24 * 60 * 60);
+    $dir = opendir ("./".$config['DIR_cache']);
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>-> CHECKING XML CACHE [";
+    $filecount = count(glob("./".$config['DIR_cache']."*.xml"));
+    $filecount_current=0;
+    $loading_bar_list = array();
+    for( $i=1; $i<$config['loading_bar']; $i++ ) { $loading_bar_list[] = round($filecount/$i); }
+    while (false !== ($file = readdir($dir))) {
+        if (strpos($file, $XMLtype ) === false ) {
+        } else {
+            $file_size = filesize($config['DIR_cache'].$file);
+            $file_time = filemtime($config['DIR_cache'].$file);
+            if ( $file_size > 614 ) { // 614 BYTES 503 ERROR DOCUMENT // 651 BYTES CHAR ERROR PAGE
+                //echo "COMPARE -> '".$new_file_name."' '".$file."' <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$new_file_size."<=".$file_size." | ".$new_file_time."<".$file_time." |";
+                if ( $file_time >= $new_file_time ) { // CHECK IF ITS A NEWER FILE
+                    //echo " [newer file]";
+                    $new_file_size = $file_size;
+                    $new_file_time = $file_time;
+                    $new_file_name = $file;
+                }
+                //echo "<br />";
+            }
+            // REMOVE FILES OLDER THAN THE SPECIFIED TIME
+            if( $file_time < $old_file_date ) {
+                unlink($config['DIR_cache'].$file); //alert($config['DIR_cache'].$file);
+            }
+        }
+        if (in_array($filecount_current,$loading_bar_list))    echo $config['loading_bar_mask'];
+        $filecount_current++;
+    }
+    echo "] - DONE</b><P>";
+    return array( "filename" => $new_file_name, "filesize" => $new_file_size, "filetime" => $new_file_time );
+}
+
+
+
+
+//------------------------------------------------------------------
+// Save XML Stream to the cache directory
+function cacheXMLfile($filename, $XMLstream) {
+    global $config;
+
+    $XML_filename = $config['DIR_cache'].$filename.'-'.date('Y.m.d-H.i.s').'.xml';
+    $handle = fopen($XML_filename, "wb");
+    $numbytes = fwrite($handle, $XMLstream);
+    fclose($handle);
+    $url_filesize_obj = $this->fileSizeInfo($numbytes);
+    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>LIVE XML FEED CACHED TO XML FILE:</b> ./'.$XML_filename.' - '.$this->fileSizeInfo($numbytes).' written...<P>';
+}
 
 
 	/**
@@ -140,15 +390,15 @@ class RosterArmory
 		{
 			$f = "";
 
-				$ch = curl_init();
-				$timeout = 30; // set to zero for no timeout
-				$useragent="Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.1) Gecko/20061204 Firefox/2.0.0.1";
-				curl_setopt ($ch, CURLOPT_URL, $url);
-				curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-				curl_setopt ($ch, CURLOPT_USERAGENT, $useragent);
-				$f = curl_exec($ch);
-				curl_close($ch);			
+                                 $ch = curl_init();
+        			curl_setopt ($ch, CURLOPT_URL, $url);
+        			curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+        			curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        			curl_setopt ($ch, CURLOPT_USERAGENT,  self::BROWSER);
+        			$f = curl_exec($ch);
+        			curl_close($ch);
+				//$f = curl_exec($ch);
+				//curl_close($ch);
 			$xml = simplexml_load_string($f, 'SimpleXMLElement', LIBXML_NOCDATA);
 			
 			return $xml;
