@@ -191,7 +191,7 @@ if( $roster->scope == 'realm' )
 
 	$resultng = $roster->db->query($queryng);
 
-	$roster->tpl->assign_var('TOTAL_GUILDS', mysql_num_rows($resultng));
+	$roster->tpl->assign_var('TOTAL_GUILDS', $roster->db->num_rows($resultng));
 
 	if( $realms > 1 )
 	{
@@ -237,7 +237,7 @@ elseif( $roster->scope == 'guild' )
 
 	$roster->tpl->assign_vars(array(
 		'S_DATA_SELECT' => ($guilds > 1 ? true : false),
-		'TOTAL_GUILDS' =>  $roster->db->num_rows( $result )
+		'TOTAL_GUILDS' =>  $guilds
 		)
 	);
 
