@@ -26,14 +26,14 @@ if( !defined('IN_ROSTER') )
 // ---------------- EDIT THE BELOW SETTINGS ----------------
 
     // SERVER AND GUILD SETTINGS
-    $config['server_name'] = 'Zangarmarsh';                                                // Name of the WoW Realm
-    $config['guild_name'] = 'Honors Asylum';                                    // Name of your Guild
+    //   var $server_name'] = 'Zangarmarsh';                                                // Name of the WoW Realm
+    //    var $guild_name'] = 'Honors Asylum';                                    // Name of your Guild
 //    $config['server_name'] = 'Marécage de Zangar';                                    // Name of the WoW Realm
 //    $config['guild_name'] = 'Lenwë Linwëlin';                                        // Name of your Guild
     // THESE WILL BE STORED AS HTML ENTITIES FOR EASE OF DISPLAYING
 
     // SETTINGS FOR THE GENERAL WEBSITE
-    $config['live_system'] = true;                                                    // 'TRUE' = Download XML & Cache; 'FALSE' = Cache Only
+  //  $this->live_system = true;                                                    // 'TRUE' = Download XML & Cache; 'FALSE' = Cache Only
     $config['base_filename'] = 'roster.test.php';                                        // Base script file name
     $config['base_url'] = 'http://localhost/wowroster/';                            // Base URL
     $config['url_prefix_armory'] = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
@@ -70,7 +70,7 @@ if( !defined('IN_ROSTER') )
     // DEBUG SETTINGS
     $config['chars_to_process'] = 1;                                                // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
     $config['use_char_selction_list'] = false;                                        // Select this option to only process characters names found in the "$config['char_selction_list']" array.
-    $config['char_selction_list'] = array( "Ulminia" );            // A list of characters to process, excluding all others. NOTE: Requires "$config['chars_to_process'] = -1;"
+    $config['char_selction_list'] = array( "" );            // A list of characters to process, excluding all others. NOTE: Requires "$config['chars_to_process'] = -1;"
 
 // ---------------- EDIT THE ABOVE SETTINGS ----------------
 
@@ -107,6 +107,54 @@ class RosterArmory
 	var $characterArenaTeams = 7;
 	var $strings = 8;
 	var $search = 9;
+        var $debugmessages = array();
+    	var $errormessages = array();
+        var $live_system = true;
+        var $query;
+        var $server;
+        var $guild;
+        var $guildie;
+        var $page;
+        
+        var $base_filename = 'roster.test.php';                                        // Base script file name
+        var $base_url = 'http://localhost/wowroster/';                            // Base URL
+        var $url_prefix_armory = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
+//      var $url_prefix_armory = 'http://eu.wowarmory.com/';                        // URL for the EUROPEAN armory
+        var $url_prefix_char= 'http://www.wowarmory.com/character-sheet.xml?';    // Use for Char links
+        var $url_prefix_itemtooltip= 'http://www.wowarmory.com/item-tooltip.xml?i=';    // Use for Char links
+    // NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
+        var $DIR_cache = 'cache/';                                                // Directory where the XML cache files are stored
+    // NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
+        var $days_to_cache = 3;                                                    // How many days to keep cached files for
+        var $DIR_sql = 'cache/';                                                    // Directory where the SQL files are stored
+
+    // LOADING BAR
+        var $loading_bar = 100;                                                    // How many characters in the loading bar
+        var $loading_bar_mask = "=";                                                // The loading bar symbol
+
+    // OUTPUT DISPLAY SETTING
+    // WARNING: TURNING ALL OF THESE SETTINGS ON WILL TAKE A LOOONG TIME TO PROCESS AND WILL CONSUME A FAIR AMOUNT OF SERVER RESOURCES
+    // WARNING: I ONLY HAVE OVER 150 MEMBERS IN MY GUILD, WITH ALL THESE SETTINGS ON IT CAN TAKE UPTO AN HOUR TO PROCESS AND LOAD.
+        var $show_xml_source = true;                                                // 'TRUE' = Show XML Source; 'FALSE' = Hide XML Source
+        var $show_sql_import_structure = true;                                    // 'TRUE' = Show SQL Import Structure; 'FALSE' = Hide SQL Import Structure
+        var $show_sql_import_data = true;                                            // 'TRUE' = Show SQL Import Data; 'FALSE' = Hide SQL Import Data
+        var $show_html_data_table = true;                                            // 'TRUE' = Show HTML Data Table; 'FALSE' = Hide HTML Data Table
+        var $show_html_data_sort = false;                                            // 'TRUE' = Show HTML Data Table with sort functionality and only limited fields; 'FALSE' = Show HTML Data Table with every field
+
+    // SETTINGS FOR SQL STATEMENT GENERATION
+        var $sql_database = 'wotf_character';                                    // SQL Database Name
+        var $sql_table = 'guild_characters_test';                                    // SQL Table Name
+
+    // XML PARSING SETTINGS
+//        var $min_char_level = 75;                                                     // Limits display parsing of Characters beyond a certain level. NOTE: Use '0' to process all characters. NOTE: Requires "$config['chars_to_process'] = -1;"
+//        var $min_char_rank = 1;                                                    // Limits display to Guild Rank NOTE: Requires "$config['chars_to_process'] = -1;"
+        var $equipable_items_number = 18;                                            // How many equipable items on a character. !! DO NOT EDIT THIS !!
+
+    // DEBUG SETTINGS
+        var $chars_to_process = 1;                                                // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
+        var $use_char_selction_list = false;                                        // Select this option to only process characters names found in the "$config['char_selction_list']" array.
+        var $char_selction_list = array( "" );
+    
 
 	/**
 	 * xmlParsing object
@@ -135,11 +183,7 @@ class RosterArmory
 // testing a new way to cache and pull xml data .......
  // DEFINE THE ARMORY VARIABLES
  const BROWSER="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.2) Gecko/20070319 Firefox/2.0.0.3";
- public $query;
- public $server;
- public $guild;
- public $guildie;
- public $page;
+
 
 // CONSTRUCTOR FOR THE ARMORY OBJECT
 public function __construct ( $query, $server, $guild, $guildie, $page ) {
@@ -153,28 +197,34 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
 
  public function pull_xmln($guildie = false, $guild = false, $server = false, $query = false) {
     global $config,$roster;
-
+//echo $guildie.' - '.$guild  .' - '.$server.' - '.$query.'<br>';
     // change the first part of the $url to the armory link that you need
     if( $query === 'roster' ){
         $filename_type = 'guild-info';
-        $url = $config['url_prefix_armory'].$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode(  $guild ) );
+        $url = $this->url_prefix_armory.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode(  $guild ) );
     } elseif( $query === 'character' ){
         $filename_type = 'character-sheet';
-        $url = $config['url_prefix_armory'].$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
+        $url = $this->url_prefix_armory.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
     } elseif( $query === 'achievement' ){
         $filename_type = 'character-achievements';
-        $url = $config['url_prefix_armory'].$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
+        $url = $this->url_prefix_armory.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
+    }
+    //$url_prefix_itemtooltip
+    elseif( $query === 'itemtooltip' ){
+        $filename_type = 'character-item';
+        //$url = $base_url.'item-tooltip.xml?i='.$item->id.'&n=' . urlencode($this->memberName) . '&r=' . urlencode($this->server);
+        $url = $this->url_prefix_itemtooltip.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
     }
     //alert($url);
-    if ( $config['live_system'] ) {
+    if ( $this->live_system ) {
         $ch = curl_init();
         curl_setopt ($ch, CURLOPT_URL, $url);
         curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, 15);
-        curl_setopt ($ch, CURLOPT_USERAGENT,  self::BROWSER);
+        curl_setopt ($ch, CURLOPT_USERAGENT,  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.2) Gecko/20070319 Firefox/2.0.0.3");
         $url_string = curl_exec($ch);
         curl_close($ch);
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML LIVE FEED:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a><P>';
+        //echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML LIVE FEED:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a><P><br>';
     } else {
         if( $this->query === 'roster' ){
             echo '<b>NOTE: USING XML CACHE ONLY!!!</b><P>';
@@ -185,7 +235,7 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
     if( $query === 'roster' ){
 
     	$guild_cache_filename = $filename_type.'-'.$guild; // BUILD THE Guild XML CACHE FILENAME
-        if ( $config['live_system'] ) {
+        if ( $this->live_system ) {
             $this->cacheXMLfile($guild_cache_filename, $url_string);                    // CACHE THE GUILD XML STREAM
         }
         $latestGuildXMLfile = $this->getXMLfile('guild-info');                    // GET THE LATEST CACHE GUILD XML FILE
@@ -194,28 +244,44 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
         //echo "<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." <br /><br /><br /><br />";
     } elseif( $query === 'character' ) {
         $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
-        if ( $config['live_system'] ) {
+       // echo  $char_cache_filename.'<br>';
+        if ( $this->live_system ) {
+            $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
+        }
+        $latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
+        $url = $this->base_url.$this->DIR_cache.$latestCharacterXMLfile['filename'];
+        $url_filesize = $latestCharacterXMLfile['filesize'];
+        //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
+    } elseif( $query === 'achievement' ) {
+        $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
+        if ( $this->live_system ) {
             $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
         }
         $latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
         $url = $config['base_url'].$config['DIR_cache'].$latestCharacterXMLfile['filename'];
         $url_filesize = $latestCharacterXMLfile['filesize'];
         //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
-    } elseif( $query === 'achievement' ) {
+    } elseif( $query === 'itemtooltip' ) {             //$url_prefix_itemtooltip
         $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
-        if ( $config['live_system'] ) {
+        if ( $this->live_system ) {
             $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
         }
-        $latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
-        $url = $config['base_url'].$config['DIR_cache'].$latestCharacterXMLfile['filename'];
-        $url_filesize = $latestCharacterXMLfile['filesize'];
+        $latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
+        $url = $this->base_url.$this->DIR_cache.$latestCharacteriXMLfile['filename'];
+        $url_filesize = $latestCharacteriXMLfile['filesize'];
         //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
     }
 
     //
     if ( $url_filesize > 0 ) {
         $url_string = simplexml_load_file($url) or die ("ERROR: Unable to load XML file! URL: ".$url);
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML CACHE:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a> - '.$this->fileSizeInfo($url_filesize).' read...<P>';
+        if ($query === 'itemtooltip')
+        {
+       // aprint($latestCharacteriXMLfile);
+        unlink($config['DIR_cache'].$latestCharacteriXMLfile['filename']); //alert($config['DIR_cache'].$file);
+        
+        }
+        //echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML CACHE:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a> - '.$this->fileSizeInfo($url_filesize).' read...<P>';
     } else {
         $url_string = "";
     }
@@ -275,18 +341,18 @@ function getXMLfile( $XMLtype ) {
     $new_file_size = 0;
     $new_file_time = 0;
     $new_file_name = "";
-    $old_file_date = time() - ($config['days_to_cache'] * 24 * 60 * 60);
-    $dir = opendir ("./".$config['DIR_cache']);
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>-> CHECKING XML CACHE [";
+    $old_file_date = time() - ($this->days_to_cache * 24 * 60 * 60);
+    $dir = opendir ("./".$this->DIR_cache);
+   // echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>-> CHECKING XML CACHE [";
     $filecount = count(glob("./".$config['DIR_cache']."*.xml"));
     $filecount_current=0;
     $loading_bar_list = array();
-    for( $i=1; $i<$config['loading_bar']; $i++ ) { $loading_bar_list[] = round($filecount/$i); }
+    for( $i=1; $i<$this->loading_bar; $i++ ) { $loading_bar_list[] = round($filecount/$i); }
     while (false !== ($file = readdir($dir))) {
         if (strpos($file, $XMLtype ) === false ) {
         } else {
-            $file_size = filesize($config['DIR_cache'].$file);
-            $file_time = filemtime($config['DIR_cache'].$file);
+            $file_size = filesize($this->DIR_cache.$file);
+            $file_time = filemtime($this->DIR_cache.$file);
             if ( $file_size > 614 ) { // 614 BYTES 503 ERROR DOCUMENT // 651 BYTES CHAR ERROR PAGE
                 //echo "COMPARE -> '".$new_file_name."' '".$file."' <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$new_file_size."<=".$file_size." | ".$new_file_time."<".$file_time." |";
                 if ( $file_time >= $new_file_time ) { // CHECK IF ITS A NEWER FILE
@@ -299,13 +365,13 @@ function getXMLfile( $XMLtype ) {
             }
             // REMOVE FILES OLDER THAN THE SPECIFIED TIME
             if( $file_time < $old_file_date ) {
-                unlink($config['DIR_cache'].$file); //alert($config['DIR_cache'].$file);
+                unlink($this->DIR_cache.$file); //alert($config['DIR_cache'].$file);
             }
         }
-        if (in_array($filecount_current,$loading_bar_list))    echo $config['loading_bar_mask'];
+        if (in_array($filecount_current,$loading_bar_list))    //echo $this->loading_bar_mask;
         $filecount_current++;
     }
-    echo "] - DONE</b><P>";
+   // echo "] - DONE</b><P>";
     return array( "filename" => $new_file_name, "filesize" => $new_file_size, "filetime" => $new_file_time );
 }
 
@@ -317,12 +383,12 @@ function getXMLfile( $XMLtype ) {
 function cacheXMLfile($filename, $XMLstream) {
     global $config;
 
-    $XML_filename = $config['DIR_cache'].$filename.'-'.date('Y.m.d-H.i.s').'.xml';
+    $XML_filename = $this->DIR_cache.$filename.'-'.date('Y.m.d-H.i.s').'.xml';
     $handle = fopen($XML_filename, "wb");
     $numbytes = fwrite($handle, $XMLstream);
     fclose($handle);
     $url_filesize_obj = $this->fileSizeInfo($numbytes);
-    echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>LIVE XML FEED CACHED TO XML FILE:</b> ./'.$XML_filename.' - '.$this->fileSizeInfo($numbytes).' written...<P>';
+   // echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>LIVE XML FEED CACHED TO XML FILE:</b> ./'.$XML_filename.' - '.$this->fileSizeInfo($numbytes).' written...<P>';
 }
 
 
@@ -1169,6 +1235,144 @@ function cacheXMLfile($filename, $XMLstream) {
 	function hasProp($propName) {
 		return in_array($propName, $this->properties);
 	}
+
+  function _debug( $level = 0, $ret = false, $info = false, $status = false ) {
+        global $roster, $addon;
+
+        if ( $level > $addon['config']['armorysync_debuglevel'] ) {
+            return;
+        }
+        $timestamp = round((format_microtime() - ARMORYSYNC_STARTTIME), 4);
+		if( version_compare(phpversion(), '4.3.0','>=') ) {
+			$tmp = debug_backtrace();
+			$trace = $tmp[1];
+        }
+        $array = array(
+            'time' => $timestamp,
+            'file' => isset($trace['file']) ? str_replace($addon['dir'], '', $trace['file']) : 'armorysync.class.php',
+            'line' => isset($trace['line']) ? $trace['line'] : '',
+            'function' => isset($trace['function']) ? $trace['function'] : '',
+            'class' => isset($trace['class']) ? $trace['class'] : '',
+            //'object' => isset($trace['object']) ? $trace['object'] : '',
+            //'type' => isset($trace['type']) ? $trace['class'] : '',
+            'args' => ( $addon['config']['armorysync_debugdata'] != 0 && isset($trace['args']) && !is_object($trace['args']) ) ? $trace['args'] : '',
+            'ret' => ( $addon['config']['armorysync_debugdata'] != 0 && isset($ret) && !is_object($ret)) ? $ret : '',
+            'info' => isset($info) ? $info : '',
+            'status' => isset($status) ? $status : '',
+                                        );
+        if ( !($level > $addon['config']['armorysync_debuglevel']) ) {
+			$this->debugmessages[] = $array;
+		}
+		if ( $level == 0 ) {
+			$this->errormessages[] = $array;
+		}
+    }
+    function _showFooter() {
+        global $roster, $addon;
+
+        //aprint($this->debugmessages[0]['ret']);
+
+        $roster->tpl->assign_vars( array (
+            'IMAGE_PATH' => $addon['image_path'],
+            'ARMORYSYNC_VERSION' => $addon['version']. ' by Ulminia',
+            'ARMORYSYNC_CREDITS' => $roster->locale->act['armorysync_credits'],
+            'ERROR' => count( $this->errormessages ) > 0,
+            'DEBUG' => $addon['config']['armorysync_debuglevel'],
+            'DEBUG_DATA' => $addon['config']['armorysync_debugdata'],
+            'D_START_BORDER' => border( 'sblue', 'start', 'ArmorySync Debugging '. ( $addon['config']['armorysync_debugdata'] ? 'Infos & Data' : 'Infos'), '100%' ),
+            'E_START_BORDER' => border( 'sred', 'start', 'ArmorySync Error '. ( $addon['config']['armorysync_debugdata'] ? 'Infos & Data' : 'Infos'), '100%' ),
+            'RUNTIME' => round((format_microtime() - ARMORYSYNC_STARTTIME), 4),
+            'S_SQL_WIN' => $addon['config']['armorysync_sqldebug'],
+            ));
+
+        $this->_debug( 3, null, 'Printed footer', 'OK');
+
+		if ($roster->switch_row_class(false) != 1 ) {
+			$roster->switch_row_class();
+		}
+
+        foreach ( $this->errormessages as $message ) {
+            $roster->tpl->assign_block_vars('e_row', array(
+                'FILE' => $message['file'],
+                'LINE' => $message['line'],
+                'TIME' => $message['time'],
+                'CLASS' => $message['class'],
+                'FUNC' => $message['function'],
+                'INFO' => $message['info'],
+                'STATUS' => $message['status'],
+                'ARGS' => aprint($message['args'], '', 1),
+                'RET'  => aprint($message['ret'], '' , 1),
+                'ROW_CLASS1' => $addon['config']['armorysync_debugdata'] ? 1 : $roster->switch_row_class(),
+                'ROW_CLASS2' => 1,
+                'ROW_CLASS3' => 1,
+                ));
+        }
+
+        $roster->tpl->assign_var( 'E_STOP_BORDER', border( 'sred', 'end', '', '' ) );
+
+		if ($roster->switch_row_class(false) != 1 ) {
+			$roster->switch_row_class();
+		}
+
+        foreach ( $this->debugmessages as $message ) {
+            $roster->tpl->assign_block_vars('d_row', array(
+                'FILE' => $message['file'],
+                'LINE' => $message['line'],
+                'TIME' => $message['time'],
+                'CLASS' => $message['class'],
+                'FUNC' => $message['function'],
+                'INFO' => $message['info'],
+                'STATUS' => $message['status'],
+                'ARGS' => aprint($message['args'], '', 1),
+                'RET'  => aprint($message['ret'], '' , 1),
+                'ROW_CLASS1' => $addon['config']['armorysync_debugdata'] ? 1 : $roster->switch_row_class(),
+                'ROW_CLASS2' => 1,
+                'ROW_CLASS3' => 1,
+                ));
+        }
+
+        $roster->tpl->assign_var( 'D_STOP_BORDER', border( 'sblue', 'end', '', '' ) );
+
+        if( $addon['config']['armorysync_sqldebug'] )
+        {
+            if( count($roster->db->queries) > 0 )
+            {
+                foreach( $roster->db->queries as $file => $queries )
+                {
+                    if (!preg_match('#[\\\/]{1}addons[\\\/]{1}armorysync[\\\/]{1}inc[\\\/]{1}[a-z_.]+.php$#', $file)) {
+                        continue;
+                    }
+                    $roster->tpl->assign_block_vars('sql_debug', array(
+                        'FILE' => substr($file, strlen(ROSTER_BASE)),
+                        )
+                    );
+                    foreach( $queries as $query )
+                    {
+                        $roster->tpl->assign_block_vars('sql_debug.row', array(
+                            'ROW_CLASS' => $roster->switch_row_class(),
+                            'LINE'      => $query['line'],
+                            'TIME'      => $query['time'],
+                            'QUERY'     => nl2br(htmlentities($query['query'])),
+                            )
+                        );
+                    }
+                }
+
+                $roster->tpl->assign_vars(array(
+                    'SQL_DEBUG_B_S' => border('sgreen','start',$roster->locale->act['sql_queries']),
+                    'SQL_DEBUG_B_E' => border('sgreen','end'),
+                    )
+                );
+            }
+        }
+
+        $roster->tpl->set_filenames( array (
+                'footer' => $addon['basename'] . '/footer.html',
+                ));
+        $roster->tpl->display('footer');
+    }
+
+
 	
 	
 }
