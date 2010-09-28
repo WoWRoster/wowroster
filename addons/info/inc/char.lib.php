@@ -953,18 +953,20 @@ class char
 
 			foreach( $talentdata as $c => $cdata )
 			{
+                        	$maxrank = 0;
 				foreach( $cdata as $r => $rdata )
 				{
+                                       //	aprint($rdata);
 					$returndata[$ti][$c][$r]['name'] = $rdata['name'];
 					$returndata[$ti][$c][$r]['rank'] = $talentArray[$i];
-					$returndata[$ti][$c][$r]['maxrank'] = $i;
+					$returndata[$ti][$c][$r]['maxrank'] = count($rdata['tooltip']);
 					$returndata[$ti][$c][$r]['row'] = $r;
 					$returndata[$ti][$c][$r]['column'] = $c;
 					$returndata[$ti][$c][$r]['image'] = $rdata['icon'] . '.' . $roster->config['img_suffix'];
 
 					if( count($rdata['tooltip']) > 1 && $talentArray[$i] != 0 )
 					{
-						$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'] . ' ' . $talentArray[$i] . '<br />' . $rdata['tooltip'][$talentArray[$i]], $rdata['name'], '', 0, $this->data['clientLocale']);
+						$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'] . ' ' . $talentArray[$i] . ' / ' . count($rdata['tooltip']) . '<br />' . $rdata['tooltip'][$talentArray[$i]], $rdata['name'], '', 0, $this->data['clientLocale']);
 					}
 					elseif( count($rdata['tooltip']) == 1 && $talentArray[$i] != 0 )
 					{
@@ -1099,11 +1101,25 @@ class char
 								// Loop cells in row
 								foreach( $row as $cell )
 								{
+                                                               // aprint($cell);
+                                                                $maxc = '';
+                                                                if (isset($cell['maxrank']))
+                                                                {
+                                                                	if ($cell['maxrank'] > $cell['rank'])
+                                                                        {
+                                                                		$maxc = '00dd00';
+                                                                	}
+                                                                	else
+                                                                	{
+                                                                		$maxc = 'ffdd00';
+                                                                        }
+                                                                }
 									$roster->tpl->assign_block_vars('talent.tree.row.cell', array(
 										'NAME' => $cell['name'],
 										'RANK' => (isset($cell['rank']) ? $cell['rank'] : 0),
 										'MAXRANK' => (isset($cell['maxrank']) ? $cell['maxrank'] : 0),
 										'MAX' => (isset($cell['rank']) ? $cell['maxrank'] : 0),
+                                                                                'MAXC' => $maxc,
 										'TOOLTIP' => (isset($cell['tooltip']) ? $cell['tooltip'] : ''),
 										'ICON' => (isset($cell['image']) ? $cell['image'] : '')
 										)
