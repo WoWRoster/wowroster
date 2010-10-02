@@ -179,7 +179,7 @@ class item
 		{
 			$color = '00bbff';
 		}
-		elseif( preg_match( "/\b" . $roster->locale->wordings[$this->locale]['tooltip_accountbound'], $bindtype) )
+		elseif( preg_match( "/\b" . $roster->locale->wordings[$this->locale]['tooltip_accountbound']."/", $bindtype) )
 		{
 			$color = 'e6cc80';
 		}
@@ -1320,7 +1320,7 @@ class item
 					{
 						$tt['Attributes']['Restrictions'][] = $line;
 					}
-					elseif( eregi('^' . $roster->locale->wordings[$locale]['tooltip_reg_conjureditems'], $line) )
+					elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_reg_conjureditems']."/", $line) )
 					{
 						$tt['Attributes']['Conjured'][] = $line;
 					}

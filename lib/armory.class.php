@@ -122,11 +122,13 @@ class RosterArmory
 //      var $url_prefix_armory = 'http://eu.wowarmory.com/';                        // URL for the EUROPEAN armory
         var $url_prefix_char= 'http://www.wowarmory.com/character-sheet.xml?';    // Use for Char links
         var $url_prefix_itemtooltip= 'http://www.wowarmory.com/item-tooltip.xml?i=';    // Use for Char links
+        var $url_prefix_talents = 'http://www.wowarmory.com/character-talents.xml?';         // used for talent links
+        var $url_prefix_rep = 'http://www.wowarmory.com/character-reputation.xml?';         // used for talent links
     // NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
-        var $DIR_cache = 'cache/';                                                // Directory where the XML cache files are stored
+        var $DIR_cache = 'cache/as/';                                                // Directory where the XML cache files are stored
     // NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
         var $days_to_cache = 3;                                                    // How many days to keep cached files for
-        var $DIR_sql = 'cache/';                                                    // Directory where the SQL files are stored
+        var $DIR_sql = 'cache/as/';                                                    // Directory where the SQL files are stored
 
     // LOADING BAR
         var $loading_bar = 100;                                                    // How many characters in the loading bar
@@ -186,13 +188,14 @@ class RosterArmory
 
 
 // CONSTRUCTOR FOR THE ARMORY OBJECT
+/*
 public function __construct ( $query, $server, $guild, $guildie, $page ) {
     $this->query = $query;
     $this->server = $server;
     $this->guild = $guild;
     $this->guildie = $guildie;
     $this->page = $page;
- } // end of __construct()
+ }*/ // end of __construct()
 
 
  public function pull_xmln($guildie = false, $guild = false, $server = false, $query = false) {
@@ -214,7 +217,19 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
         $filename_type = 'character-item';
         //$url = $base_url.'item-tooltip.xml?i='.$item->id.'&n=' . urlencode($this->memberName) . '&r=' . urlencode($this->server);
         $url = $this->url_prefix_itemtooltip.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
+        //echo $url.'<br>';
     }
+    
+    elseif( $query === 'talents' ){
+        $filename_type = 'character-talents';
+        $url = $this->url_prefix_talents.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
+    }
+    elseif( $query === 'rep' ){
+        $filename_type = 'character-rep';
+        $url = $this->url_prefix_rep.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
+    }
+    
+    
     //alert($url);
     if ( $this->live_system ) {
         $ch = curl_init();
@@ -239,7 +254,7 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
             $this->cacheXMLfile($guild_cache_filename, $url_string);                    // CACHE THE GUILD XML STREAM
         }
         $latestGuildXMLfile = $this->getXMLfile('guild-info');                    // GET THE LATEST CACHE GUILD XML FILE
-        $url = $config['base_url'].$config['DIR_cache'].$latestGuildXMLfile['filename'];
+        $url = $config['base_url'].$this->DIR_cache.$latestGuildXMLfile['filename'];
         $url_filesize = $latestGuildXMLfile['filesize'];
         //echo "<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." <br /><br /><br /><br />";
     } elseif( $query === 'character' ) {
@@ -264,6 +279,27 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
     } elseif( $query === 'itemtooltip' ) {             //$url_prefix_itemtooltip
         $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
         if ( $this->live_system ) {
+        //    $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
+        }
+        $latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
+        $url = $this->base_url.$this->DIR_cache.$latestCharacteriXMLfile['filename'];
+        $url_filesize = $latestCharacteriXMLfile['filesize'];
+        //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
+        
+        
+    } elseif( $query === 'talents' ) {             //$url_prefix_itemtooltip
+        $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
+        if ( $this->live_system ) {
+            $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
+        }
+        $latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
+        $url = $this->base_url.$this->DIR_cache.$latestCharacteriXMLfile['filename'];
+        $url_filesize = $latestCharacteriXMLfile['filesize'];
+        //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
+    }
+     elseif( $query === 'rep' ) {             //$url_prefix_itemtooltip
+        $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
+        if ( $this->live_system ) {
             $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
         }
         $latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
@@ -278,7 +314,7 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
         if ($query === 'itemtooltip')
         {
        // aprint($latestCharacteriXMLfile);
-        unlink($config['DIR_cache'].$latestCharacteriXMLfile['filename']); //alert($config['DIR_cache'].$file);
+        //unlink($config['DIR_cache'].$latestCharacteriXMLfile['filename']); //alert($config['DIR_cache'].$file);
         
         }
         //echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML CACHE:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a> - '.$this->fileSizeInfo($url_filesize).' read...<P>';
@@ -344,7 +380,7 @@ function getXMLfile( $XMLtype ) {
     $old_file_date = time() - ($this->days_to_cache * 24 * 60 * 60);
     $dir = opendir ("./".$this->DIR_cache);
    // echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>-> CHECKING XML CACHE [";
-    $filecount = count(glob("./".$config['DIR_cache']."*.xml"));
+    $filecount = count(glob("./".$this->DIR_cache."*.xml"));
     $filecount_current=0;
     $loading_bar_list = array();
     for( $i=1; $i<$this->loading_bar; $i++ ) { $loading_bar_list[] = round($filecount/$i); }
