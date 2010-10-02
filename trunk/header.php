@@ -36,7 +36,7 @@ if( $roster->output['http_header'] && !headers_sent() )
 	@header('Pragma: no-cache');
 	@header('Content-type: text/html; charset=utf-8');
 }
-
+//aprint($roster->data);
 switch( $roster->scope )
 {
 	case 'util':
