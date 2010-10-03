@@ -1401,7 +1401,7 @@ class char
 
 		$query = "SELECT * FROM `" . $roster->db->table('skills') . "`"
 			. " WHERE `member_id` = '" . $this->data['member_id'] . "'"
-			. " ORDER BY `skill_order` ASC, `skill_name` ASC;";
+			. " ORDER BY `skill_type`, `skill_order` ASC, `skill_name` ASC;";
 
 		$result = $roster->db->query( $query );
 
@@ -1427,7 +1427,7 @@ class char
 				$skillInfo[$i]['bars'][$j] = $this->_skill_bar_values($data);
 				$j++;
 				$data = $roster->db->fetch($result,SQL_ASSOC);
-			}
+			}    
 			return $skillInfo;
 		}
 		else
