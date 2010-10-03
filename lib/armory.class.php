@@ -21,43 +21,6 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-
-
-// ---------------- EDIT THE BELOW SETTINGS ----------------
-
-    // SERVER AND GUILD SETTINGS
-    //   var $server_name'] = 'Zangarmarsh';                                                // Name of the WoW Realm
-    //    var $guild_name'] = 'Honors Asylum';                                    // Name of your Guild
-//    $config['server_name'] = 'Marécage de Zangar';                                    // Name of the WoW Realm
-//    $config['guild_name'] = 'Lenwë Linwëlin';                                        // Name of your Guild
-    // THESE WILL BE STORED AS HTML ENTITIES FOR EASE OF DISPLAYING
-
-    // SETTINGS FOR THE GENERAL WEBSITE
-  //  $this->live_system = true;                                                    // 'TRUE' = Download XML & Cache; 'FALSE' = Cache Only
-    $config['base_filename'] = 'roster.test.php';                                        // Base script file name
-    $config['base_url'] = 'http://localhost/wowroster/';                            // Base URL
-    $config['url_prefix_armory'] = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
-//    $config['url_prefix_armory'] = 'http://eu.wowarmory.com/';                        // URL for the EUROPEAN armory
-    $config['url_prefix_char']=$config['url_prefix_armory'].'character-sheet.xml?';    // Use for Char links
-    // NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
-    $config['DIR_cache'] = 'cache/';                                                // Directory where the XML cache files are stored
-    // NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
-    $config['days_to_cache'] = 3;                                                    // How many days to keep cached files for
-    $config['DIR_sql'] = 'cache/';                                                    // Directory where the SQL files are stored
-
-    // LOADING BAR
-    $config['loading_bar'] = 100;                                                    // How many characters in the loading bar
-    $config['loading_bar_mask'] = "=";                                                // The loading bar symbol
-
-    // OUTPUT DISPLAY SETTING
-    // WARNING: TURNING ALL OF THESE SETTINGS ON WILL TAKE A LOOONG TIME TO PROCESS AND WILL CONSUME A FAIR AMOUNT OF SERVER RESOURCES
-    // WARNING: I ONLY HAVE OVER 150 MEMBERS IN MY GUILD, WITH ALL THESE SETTINGS ON IT CAN TAKE UPTO AN HOUR TO PROCESS AND LOAD.
-    $config['show_xml_source'] = true;                                                // 'TRUE' = Show XML Source; 'FALSE' = Hide XML Source
-    $config['show_sql_import_structure'] = true;                                    // 'TRUE' = Show SQL Import Structure; 'FALSE' = Hide SQL Import Structure
-    $config['show_sql_import_data'] = true;                                            // 'TRUE' = Show SQL Import Data; 'FALSE' = Hide SQL Import Data
-    $config['show_html_data_table'] = true;                                            // 'TRUE' = Show HTML Data Table; 'FALSE' = Hide HTML Data Table
-    $config['show_html_data_sort'] = false;                                            // 'TRUE' = Show HTML Data Table with sort functionality and only limited fields; 'FALSE' = Show HTML Data Table with every field
-
     // SETTINGS FOR SQL STATEMENT GENERATION
     $config['sql_database'] = 'wotf_character';                                    // SQL Database Name
     $config['sql_table'] = 'guild_characters_test';                                    // SQL Table Name
@@ -117,13 +80,13 @@ class RosterArmory
         var $page;
         
         var $base_filename = 'roster.test.php';                                        // Base script file name
-        var $base_url = 'http://localhost/wowroster/';                            // Base URL
-        var $url_prefix_armory = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
+        var $base_url = $roster->config['website_address'];                            // Base URL
+        var $url_prefix_armory          = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
 //      var $url_prefix_armory = 'http://eu.wowarmory.com/';                        // URL for the EUROPEAN armory
-        var $url_prefix_char= 'http://www.wowarmory.com/character-sheet.xml?';    // Use for Char links
-        var $url_prefix_itemtooltip= 'http://www.wowarmory.com/item-tooltip.xml?i=';    // Use for Char links
-        var $url_prefix_talents = 'http://www.wowarmory.com/character-talents.xml?';         // used for talent links
-        var $url_prefix_rep = 'http://www.wowarmory.com/character-reputation.xml?';         // used for talent links
+        var $url_prefix_char            = $url_prefix_armory.'character-sheet.xml?';    // Use for Char links
+        var $url_prefix_itemtooltip     = $url_prefix_armory.'item-tooltip.xml?i=';    // Use for Char links
+        var $url_prefix_talents         = $url_prefix_armory.'character-talents.xml?';         // used for talent links
+        var $url_prefix_rep             = $url_prefix_armory.'character-reputation.xml?';         // used for talent links
     // NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
         var $DIR_cache = 'cache/as/';                                                // Directory where the XML cache files are stored
     // NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
@@ -254,7 +217,7 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
             $this->cacheXMLfile($guild_cache_filename, $url_string);                    // CACHE THE GUILD XML STREAM
         }
         $latestGuildXMLfile = $this->getXMLfile('guild-info');                    // GET THE LATEST CACHE GUILD XML FILE
-        $url = $config['base_url'].$this->DIR_cache.$latestGuildXMLfile['filename'];
+        $url = $this->base_url.$this->DIR_cache.$latestGuildXMLfile['filename'];
         $url_filesize = $latestGuildXMLfile['filesize'];
         //echo "<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." <br /><br /><br /><br />";
     } elseif( $query === 'character' ) {
@@ -273,7 +236,7 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
             $this->cacheXMLfile($char_cache_filename, $url_string);            // CACHE THE CHARACTER XML STREAM
         }
         $latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);        // GET THE LATEST CACHE GUILD XML FILE
-        $url = $config['base_url'].$config['DIR_cache'].$latestCharacterXMLfile['filename'];
+        $url = $this->base_url.$this->DIR_cache.$latestCharacterXMLfile['filename'];
         $url_filesize = $latestCharacterXMLfile['filesize'];
         //echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
     } elseif( $query === 'itemtooltip' ) {             //$url_prefix_itemtooltip
