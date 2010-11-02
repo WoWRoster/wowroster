@@ -73,18 +73,9 @@ class char
 			}
 		}
 
-		switch( $data['region'] )
+		if( isset($roster->data['armoryurl']) && $roster->data['armoryurl'] != '' )
 		{
-			case 'US':
-				$model_url = 'http://www.wowarmory.com/character-model-embed.xml?r=' . $this->data['server'] . '&cn=' . $this->data['name'] . '&rhtml=true';
-				break;
-
-			case 'EU':
-				$model_url = 'http://eu.wowarmory.com/character-model-embed.xml?r=' . $this->data['server'] . '&cn=' . $this->data['name'] . '&rhtml=true';
-				break;
-
-			default:
-				$model_url = '';
+			$model_url = $roster->data['armoryurl'] . '/character-model-embed.xml?r=' . $this->data['server'] . '&cn=' . $this->data['name'] . '&rhtml=true';
 		}
 
 		/**
@@ -977,8 +968,7 @@ class char
 					}
 					elseif( $talentArray[$i] == 0 )
 					{
-
-						$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'] . ' 0<br />' . $rdata['tooltip'][1], $rdata['name'], '', 0, $this->data['clientLocale']);
+						$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($rdata['tooltip'][1], $rdata['name'], '', 0, $this->data['clientLocale']);
 					}
 					$spent = ($spent + $talentArray[$i]);
 					if( $rdata['name'] != $n )
@@ -1069,8 +1059,8 @@ class char
 			$roster->tpl->assign_block_vars('talent', array(
 				'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
 				'ID'    => $build,
-				'NAME'  => $specdata[''.$build.'']['name'],
-				'TYPE'  => $roster->locale->act['talent_build_' . $build . ''],
+				'NAME'  => $specdata[$build]['name'],
+				'TYPE'  => $roster->locale->act['talent_build_' . $build],
 				'BUILD' => implode(' / ', $specdata[$build]['points']),
 				'ICON'  => $specdata[$build]['icon'],
 				'SELECTED' => ($build == 0 ? true : false)

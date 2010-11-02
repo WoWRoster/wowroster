@@ -505,6 +505,24 @@ class roster
 				break;
 		}
 
+		// Figure out the armory url based on region
+		if( isset($this->data['region']) )
+		{
+			switch( $this->data['region'] )
+			{
+				case 'US':
+					$this->data['armoryurl'] = 'http://www.wowarmory.com';
+					break;
+
+				case 'EU':
+					$this->data['armoryurl'] = 'http://eu.wowarmory.com';
+					break;
+
+				default:
+					$this->data['armoryurl'] = '';
+			}
+		}
+
 		// Set menu array
 		if( isset($this->data['member_id']) )
 		{
