@@ -70,56 +70,57 @@ class RosterArmory
 	var $characterArenaTeams = 7;
 	var $strings = 8;
 	var $search = 9;
-        var $debugmessages = array();
-    	var $errormessages = array();
-        var $live_system = true;
-        var $query;
-        var $server;
-        var $guild;
-        var $guildie;
-        var $page;
-        
-        var $base_filename = 'roster.test.php';                                        // Base script file name
-        var $base_url = $roster->config['website_address'];                            // Base URL
-        var $url_prefix_armory          = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
-//      var $url_prefix_armory = 'http://eu.wowarmory.com/';                        // URL for the EUROPEAN armory
-        var $url_prefix_char            = $url_prefix_armory.'character-sheet.xml?';    // Use for Char links
-        var $url_prefix_itemtooltip     = $url_prefix_armory.'item-tooltip.xml?i=';    // Use for Char links
-        var $url_prefix_talents         = $url_prefix_armory.'character-talents.xml?';         // used for talent links
-        var $url_prefix_rep             = $url_prefix_armory.'character-reputation.xml?';         // used for talent links
-    // NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
-        var $DIR_cache = 'cache/as/';                                                // Directory where the XML cache files are stored
-    // NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
-        var $days_to_cache = 3;                                                    // How many days to keep cached files for
-        var $DIR_sql = 'cache/as/';                                                    // Directory where the SQL files are stored
+	var $debugmessages = array();
+	var $errormessages = array();
+	var $live_system = true;
+	var $query;
+	var $server;
+	var $guild;
+	var $guildie;
+	var $page;
 
-    // LOADING BAR
-        var $loading_bar = 100;                                                    // How many characters in the loading bar
-        var $loading_bar_mask = "=";                                                // The loading bar symbol
+	var $base_filename              = 'roster.test.php';            // Base script file name
+	var $base_url                   = '';                           // Base URL
+	var $url_prefix_armory          = 'http://www.wowarmory.com';   // URL for the AMERICAN armory
+	var $url_prefix_char            = 'character-sheet.xml?';       // Use for Char links
+	var $url_prefix_itemtooltip     = 'item-tooltip.xml?i=';        // Use for Char links
+	var $url_prefix_talents         = 'character-talents.xml?';     // used for talent links
+	var $url_prefix_rep             = 'character-reputation.xml?';  // used for talent links
 
-    // OUTPUT DISPLAY SETTING
-    // WARNING: TURNING ALL OF THESE SETTINGS ON WILL TAKE A LOOONG TIME TO PROCESS AND WILL CONSUME A FAIR AMOUNT OF SERVER RESOURCES
-    // WARNING: I ONLY HAVE OVER 150 MEMBERS IN MY GUILD, WITH ALL THESE SETTINGS ON IT CAN TAKE UPTO AN HOUR TO PROCESS AND LOAD.
-        var $show_xml_source = true;                                                // 'TRUE' = Show XML Source; 'FALSE' = Hide XML Source
-        var $show_sql_import_structure = true;                                    // 'TRUE' = Show SQL Import Structure; 'FALSE' = Hide SQL Import Structure
-        var $show_sql_import_data = true;                                            // 'TRUE' = Show SQL Import Data; 'FALSE' = Hide SQL Import Data
-        var $show_html_data_table = true;                                            // 'TRUE' = Show HTML Data Table; 'FALSE' = Hide HTML Data Table
-        var $show_html_data_sort = false;                                            // 'TRUE' = Show HTML Data Table with sort functionality and only limited fields; 'FALSE' = Show HTML Data Table with every field
+	// NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
+	var $DIR_cache = 'cache/as/';                           // Directory where the XML cache files are stored
+	// NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
 
-    // SETTINGS FOR SQL STATEMENT GENERATION
-        var $sql_database = 'wotf_character';                                    // SQL Database Name
-        var $sql_table = 'guild_characters_test';                                    // SQL Table Name
+	var $days_to_cache = 3;                                 // How many days to keep cached files for
+	var $DIR_sql = 'cache/as/';                             // Directory where the SQL files are stored
 
-    // XML PARSING SETTINGS
-//        var $min_char_level = 75;                                                     // Limits display parsing of Characters beyond a certain level. NOTE: Use '0' to process all characters. NOTE: Requires "$config['chars_to_process'] = -1;"
-//        var $min_char_rank = 1;                                                    // Limits display to Guild Rank NOTE: Requires "$config['chars_to_process'] = -1;"
-        var $equipable_items_number = 18;                                            // How many equipable items on a character. !! DO NOT EDIT THIS !!
+	// LOADING BAR
+	var $loading_bar = 100;                                 // How many characters in the loading bar
+	var $loading_bar_mask = "=";                            // The loading bar symbol
 
-    // DEBUG SETTINGS
-        var $chars_to_process = 1;                                                // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
-        var $use_char_selction_list = false;                                        // Select this option to only process characters names found in the "$config['char_selction_list']" array.
-        var $char_selction_list = array( "" );
-    
+	// OUTPUT DISPLAY SETTING
+	// WARNING: TURNING ALL OF THESE SETTINGS ON WILL TAKE A LOOONG TIME TO PROCESS AND WILL CONSUME A FAIR AMOUNT OF SERVER RESOURCES
+	// WARNING: I ONLY HAVE OVER 150 MEMBERS IN MY GUILD, WITH ALL THESE SETTINGS ON IT CAN TAKE UPTO AN HOUR TO PROCESS AND LOAD.
+	var $show_xml_source = true;                            // 'TRUE' = Show XML Source; 'FALSE' = Hide XML Source
+	var $show_sql_import_structure = true;                  // 'TRUE' = Show SQL Import Structure; 'FALSE' = Hide SQL Import Structure
+	var $show_sql_import_data = true;                       // 'TRUE' = Show SQL Import Data; 'FALSE' = Hide SQL Import Data
+	var $show_html_data_table = true;                       // 'TRUE' = Show HTML Data Table; 'FALSE' = Hide HTML Data Table
+	var $show_html_data_sort = false;                       // 'TRUE' = Show HTML Data Table with sort functionality and only limited fields; 'FALSE' = Show HTML Data Table with every field
+
+	// SETTINGS FOR SQL STATEMENT GENERATION
+	var $sql_database = 'wotf_character';                   // SQL Database Name
+	var $sql_table = 'guild_characters_test';               // SQL Table Name
+
+	// XML PARSING SETTINGS
+//	var $min_char_level = 75;                               // Limits display parsing of Characters beyond a certain level. NOTE: Use '0' to process all characters. NOTE: Requires "$config['chars_to_process'] = -1;"
+//	var $min_char_rank = 1;                                 // Limits display to Guild Rank NOTE: Requires "$config['chars_to_process'] = -1;"
+	var $equipable_items_number = 18;                       // How many equipable items on a character. !! DO NOT EDIT THIS !!
+
+	// DEBUG SETTINGS
+	var $chars_to_process = 1;                              // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
+	var $use_char_selction_list = false;                    // Select this option to only process characters names found in the "$config['char_selction_list']" array.
+	var $char_selction_list = array( "" );
+
 
 	/**
 	 * xmlParsing object
@@ -142,6 +143,15 @@ class RosterArmory
 	 */
 	function RosterArmory( $region=false )
 	{
+		global $roster;
+
+		$this->base_url                   = $roster->config['website_address'];
+		$this->url_prefix_armory          = isset($roster->data['armoryurl']) ? $roster->data['armoryurl'] : $this->url_prefix_armory;
+		$this->url_prefix_char            = $this->url_prefix_armory . $this->url_prefix_char;
+		$this->url_prefix_itemtooltip     = $this->url_prefix_armory . $this->url_prefix_itemtooltip;
+		$this->url_prefix_talents         = $this->url_prefix_armory . $this->url_prefix_talents;
+		$this->url_prefix_rep             = $this->url_prefix_armory . $this->url_prefix_rep;
+
 		$this->region = ( $region !== false ? strtoupper($region) : 'US' );
 	}
 
