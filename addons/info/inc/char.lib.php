@@ -17,7 +17,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 require_once (ROSTER_LIB . 'item.php');
@@ -339,20 +339,21 @@ class char
 		$sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
 		$recipes = recipe_get_many( $this->data['member_id'],'', $sort );
-                $reagents = recipe_get_regents( $this->data['member_id']);
-                $reagent_arr = array();
-                foreach( $reagents as $objects)
-			{
-                        	//aprint($data);
-				$skil = $objects->data['reagent_id'];
-				$reagent_arr[$skil]['item_color'] = $objects->data['reagent_color'];
-				$reagent_arr[$skil]['item_texture'] = $objects->data['reagent_texture'];
-				$reagent_arr[$skil]['item_id'] = $objects->data['reagent_id'];
-                                $reagent_arr[$skil]['item_name'] = $objects->data['reagent_name'];
-                        	$reagent_arr[$skil]['tooltip'] = $objects->data['reagent_tooltip'];
-			       //	$reagent_arr[$skill]['item'] = $objects->out();
-			}
-                //aprint($reagent_arr);
+		$reagents = recipe_get_regents( $this->data['member_id']);
+		$reagent_arr = array();
+		foreach( $reagents as $objects)
+		{
+//			aprint($data);
+			$skil = $objects->data['reagent_id'];
+			$reagent_arr[$skil]['item_color'] = $objects->data['reagent_color'];
+			$reagent_arr[$skil]['item_texture'] = $objects->data['reagent_texture'];
+			$reagent_arr[$skil]['item_id'] = $objects->data['reagent_id'];
+			$reagent_arr[$skil]['item_name'] = $objects->data['reagent_name'];
+			$reagent_arr[$skil]['tooltip'] = $objects->data['reagent_tooltip'];
+//			$reagent_arr[$skill]['item'] = $objects->out();
+		}
+
+//		aprint($reagent_arr);
 		if( isset($recipes[0]) )
 		{
 			$recipe_arr = array();
@@ -370,8 +371,10 @@ class char
 				$recipe_arr[$skill][$recipe]['recipe_id'] = $object->data['recipe_id'];
 				$recipe_arr[$skill][$recipe]['item'] = $object->out();
 			}
-                        //echo '<pre>';
-                        //print_r($recipe_arr);
+
+//			echo '<pre>';
+//			print_r($recipe_arr);
+
 			foreach( $recipe_arr as $skill_name => $recipe )
 			{
 				$roster->tpl->assign_block_vars('recipe',array(
@@ -429,13 +432,13 @@ class char
 
 						$roster->tpl->assign_block_vars('recipe.row.reagents',array(
 							'DATA' 		=> $reagent,
-                                                        'ID' 		=> $reagent_arr[''.$dtr[0].'']['item_id'],
+							'ID' 		=> $reagent_arr[''.$dtr[0].'']['item_id'],
 							'NAME' 		=> $reagent_arr[''.$dtr[0].'']['item_name'],
 							'COUNT' 	=> $dtr[1],
 							'ICON' 		=> $reagent_arr[''.$dtr[0].'']['item_texture'],
 							'TOOLTIP' 	=> makeOverlib($reagent_arr[''.$dtr[0].'']['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
 
-                                   //                     'Tooltip'	=> makeOverlib($tooltip,'','',0,$this->data['clientLocale'],',RIGHT'),
+//							'Tooltip'	=> makeOverlib($tooltip,'','',0,$this->data['clientLocale'],',RIGHT'),
 							)
 						);
 					}
@@ -953,10 +956,10 @@ class char
 
 			foreach( $talentdata as $c => $cdata )
 			{
-                        	$maxrank = 0;
+				$maxrank = 0;
 				foreach( $cdata as $r => $rdata )
 				{
-                                       //	aprint($rdata);
+//					aprint($rdata);
 					$returndata[$ti][$c][$r]['name'] = $rdata['name'];
 					$returndata[$ti][$c][$r]['rank'] = $talentArray[$i];
 					$returndata[$ti][$c][$r]['maxrank'] = count($rdata['tooltip']);
@@ -1017,7 +1020,8 @@ class char
 
 		// Temp var for talent spec detection
 		$spec_points_temp = array();
-		//aprint($talents);
+//		aprint($talents);
+
 		foreach( $talents as $build => $builddata )
 		{
 			$spc = $build;
@@ -1060,7 +1064,7 @@ class char
 				$talentdata[$build][$order]['points'] = $data['spent'];
 				$talentdata[$build][$order]['talents'] = $data;
 			}
-			//aprint($talentdata);
+//			aprint($talentdata);
 
 			$roster->tpl->assign_block_vars('talent', array(
 				'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
@@ -1101,25 +1105,25 @@ class char
 								// Loop cells in row
 								foreach( $row as $cell )
 								{
-                                                               // aprint($cell);
-                                                                $maxc = '';
-                                                                if (isset($cell['maxrank']))
-                                                                {
-                                                                	if ($cell['maxrank'] > $cell['rank'])
-                                                                        {
-                                                                		$maxc = '00dd00';
-                                                                	}
-                                                                	else
-                                                                	{
-                                                                		$maxc = 'ffdd00';
-                                                                        }
-                                                                }
+//									aprint($cell);
+									$maxc = '';
+									if (isset($cell['maxrank']))
+									{
+										if ($cell['maxrank'] > $cell['rank'])
+										{
+											$maxc = '00dd00';
+										}
+										else
+										{
+											$maxc = 'ffdd00';
+										}
+									}
 									$roster->tpl->assign_block_vars('talent.tree.row.cell', array(
 										'NAME' => $cell['name'],
 										'RANK' => (isset($cell['rank']) ? $cell['rank'] : 0),
 										'MAXRANK' => (isset($cell['maxrank']) ? $cell['maxrank'] : 0),
 										'MAX' => (isset($cell['rank']) ? $cell['maxrank'] : 0),
-                                                                                'MAXC' => $maxc,
+										'MAXC' => $maxc,
 										'TOOLTIP' => (isset($cell['tooltip']) ? $cell['tooltip'] : ''),
 										'ICON' => (isset($cell['image']) ? $cell['image'] : '')
 										)
@@ -1269,7 +1273,10 @@ class char
 				}
 				elseif( $treedata['pointsspent'] > $spec_points_temp[$talent_build] )
 				{
-/*					if( abs($treedata['pointsspent'] - $spec_points_temp[$talent_build]) < 5 )
+/*					NOT FUNCTIONAL
+					NOT NEEDED PAST WOW 4.0.1
+					Tries to figure out if this is a hybrid spec
+					if( abs($treedata['pointsspent'] - $spec_points_temp[$talent_build]) < 5 )
 					{
 						$specdata[$talent_build]['name'] = $roster->locale->act['hybrid'];
 						$specdata[$talent_build]['icon'] = 'hybrid';
@@ -1583,7 +1590,7 @@ class char
 
 				$j++;
 			}
-/*
+/*			WHAT IS/WAS THIS FOR?
 			for( $r=0; $r < $rep_rows; $r++ )
 			{
 				if( $repInfo[$i]['name'] != $data['faction'] )
