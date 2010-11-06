@@ -77,7 +77,7 @@ define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/rss/downloads.php?id=%
 define('ROSTER_MAXCHARLEVEL', '80');
 define('ROSTER_MAXSKILLLEVEL', '450');
 define('ROSTER_MAXQUESTS', '25');
-define('ROSTER_TALENT_ROWS', '11');
+define('ROSTER_TALENT_ROWS', '7');
 define('ROSTER_TALENT_COLS', '4');
 
 define('ROSTER_CLASS_WARRIOR', 1);
