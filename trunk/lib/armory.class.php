@@ -70,6 +70,30 @@ class RosterArmory
 	var $characterArenaTeams = 7;
 	var $strings = 8;
 	var $search = 9;
+<<<<<<< .mine
+        var $debugmessages = array();
+    	var $errormessages = array();
+        var $live_system = true;
+        var $query;
+        var $server;
+        var $guild;
+        var $guildie;
+        var $page;
+        
+        var $base_filename = 'roster.test.php';                                        // Base script file name
+        var $base_url = '';//$roster->config['website_address'];                            // Base URL
+        var $url_prefix_armory          = 'http://www.wowarmory.com/';                        // URL for the AMERICAN armory
+//      var $url_prefix_armory = 'http://eu.wowarmory.com/';                        // URL for the EUROPEAN armory
+        var $url_prefix_char            = 'http://www.wowarmory.com/character-sheet.xml?';    // Use for Char links
+        var $url_prefix_itemtooltip     = 'http://www.wowarmory.com/item-tooltip.xml?i=';    // Use for Char links
+        var $url_prefix_talents         = 'http://www.wowarmory.com/character-talents.xml?';         // used for talent links
+        var $url_prefix_rep             = 'http://www.wowarmory.com/character-reputation.xml?';         // used for talent links
+    // NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
+        var $DIR_cache = 'cache/as/';                                                // Directory where the XML cache files are stored
+    // NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
+        var $days_to_cache = 3;                                                    // How many days to keep cached files for
+        var $DIR_sql = 'cache/as/';                                                    // Directory where the SQL files are stored
+=======
 	var $debugmessages = array();
 	var $errormessages = array();
 	var $live_system = true;
@@ -78,6 +102,7 @@ class RosterArmory
 	var $guild;
 	var $guildie;
 	var $page;
+>>>>>>> .r2175
 
 	var $base_filename              = 'roster.test.php';            // Base script file name
 	var $base_url                   = '';                           // Base URL
