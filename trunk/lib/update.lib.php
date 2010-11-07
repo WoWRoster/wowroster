@@ -62,6 +62,7 @@ class update
 
 		// Add roster-used tables
 		$this->files[] = 'characterprofiler';
+                $this->files[] = 'wowroster';
 
 		if( !$roster->config['use_update_triggers'] )
 		{
@@ -218,7 +219,7 @@ class update
 		$output = $roster->locale->act['processing_files'] . "<br />\n";
 
 		$gotfiles = array_keys($this->uploadData);
-		if( in_array('characterprofiler',$gotfiles) )
+		if( in_array('characterprofiler',$gotfiles) or in_array('wowroster',$gotfiles) )
 		{
 
 			if( $roster->auth->getAuthorized($roster->config['gp_user_level']) )
@@ -235,7 +236,7 @@ class update
 			if( $roster->auth->getAuthorized($roster->config['cp_user_level']) )
 			{
 				$output .= $this->processMyProfile();
-				$output .= "<br />\n";
+				$output .= "<br />profile detected<br />\n";
 
 				if( $roster->config['enforce_rules'] == '2' )
 				{
@@ -339,9 +340,17 @@ class update
 	{
 		global $roster;
 
-		$output = '';
+		$output = 'test';
+                echo 'test<br>';
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
-
+                if ($this->uploadData['characterprofiler']['myProfile'])
+                {
+                        $myProfile = $this->uploadData['characterprofiler']['myProfile'];
+                }
+                elseif ($this->uploadData['wowroster']['cpProfile'])
+                {
+                        $myProfile = $this->uploadData['wowroster']['cpProfile'];
+                }
 		$this->resetMessages();
 
 		foreach( $myProfile as $realm_name => $realm )
