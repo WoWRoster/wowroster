@@ -2640,6 +2640,9 @@ CREATE TABLE `renprefix_quest_task_data` (
 					}
 					else
 					{
+                                        
+                                                if ($talent_skill != "Unlocked" AND $talent_skill !=  "Desc")
+                                                {
 						$this->reset_values();
 						$this->add_value('member_id', $memberId);
 						$this->add_value('name', $talent_skill);
@@ -2662,8 +2665,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 						$location = explode(':', $data_talent_skill['Location']);
 						$rank = explode(':', $data_talent_skill['Rank']);
-						$this->add_value('row', $location[0]);
-						$this->add_value('column', $location[1]);
+						$this->add_value('row', ($location[0]+1));
+						$this->add_value('column', ($location[1]+1));
 						$this->add_value('rank', $rank[0]);
 						$this->add_value('maxrank', $rank[1]);
 
@@ -2675,6 +2678,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						{
 							$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
 						}
+                                                }
 					}
 				}
 
@@ -2718,7 +2722,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 /*
 				}
 			}
-*/
+*/ 
 			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
 
 			if( !$roster->db->query($querystr) )
@@ -2726,7 +2730,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talents could not be deleted',$roster->db->error());
 				return;
 			}
-		
+		           
 		}
 		$this->setMessage($messages . '</li>');
 		

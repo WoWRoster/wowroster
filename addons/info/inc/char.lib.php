@@ -924,8 +924,6 @@ class char
 		}
 		$talentinfo = $this->build_talent_data($this->data['classid']);
 		$returndata = array();
-
-		// initialize the rows and cells
 		$talentArray = preg_split('//', $build, -1, PREG_SPLIT_NO_EMPTY);
 		$i = 0;
 		$t = 0;
@@ -957,19 +955,19 @@ class char
 					$returndata[$ti][$c][$r]['row'] = $r;
 					$returndata[$ti][$c][$r]['column'] = $c;
 					$returndata[$ti][$c][$r]['image'] = $rdata['icon'] . '.' . $roster->config['img_suffix'];
-
-					if( count($rdata['tooltip']) > 1 && $talentArray[$i] != 0 )
-					{
-						$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'] . ' ' . $talentArray[$i] . ' / ' . count($rdata['tooltip']) . '<br />' . $rdata['tooltip'][$talentArray[$i]], $rdata['name'], '', 0, $this->data['clientLocale']);
-					}
-					elseif( count($rdata['tooltip']) == 1 && $talentArray[$i] != 0 )
-					{
-						$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($rdata['tooltip'][1], $rdata['name'], '', 0, $this->data['clientLocale']);
-					}
-					elseif( $talentArray[$i] == 0 )
-					{
-						$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($rdata['tooltip'][1], $rdata['name'], '', 0, $this->data['clientLocale']);
-					}
+                                        $rank = '';
+                                        if ($talentArray[$i]==0)
+                                        {
+                                                $rannk = 1;                                        
+                                        }
+                                        else
+                                        {
+                                                $rannk = $talentArray[$i];
+                                        }
+                                        $tooltipp = $rdata['tooltip'][$rannk];
+                                        $returndata[$ti][$c][$r]['ttip'] = $tooltipp;
+                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'] . ' ' . $talentArray[$i] . ' / ' . count($rdata['tooltip']) . '<br />' . $tooltipp.'', $rdata['name'], '', 0, $this->data['clientLocale']);
+					
 					$spent = ($spent + $talentArray[$i]);
 					if( $rdata['name'] != $n )
 					{
@@ -1010,13 +1008,11 @@ class char
 
 		// Temp var for talent spec detection
 		$spec_points_temp = array();
-//		aprint($talents);
 
 		foreach( $talents as $build => $builddata )
 		{
 			$spc = $build;
 			$ts = $this->_talent_layer2($builddata);
-
 			foreach( $ts as $tree => $data )
 			{
 				$order = $data['order'];
@@ -1066,7 +1062,7 @@ class char
 				'SELECTED' => ($build == 0 ? true : false)
 				)
 			);
-
+                        //aprint($talentdata);
 			foreach( $talentdata as $build => $builddata )
 			{
 				if( $spc == $build )
