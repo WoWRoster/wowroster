@@ -48,7 +48,7 @@ class bob
 
 		// str_replace added to get rid of non breaking spaces in cp.lua tooltips
 		$row_data = str_replace(chr(194) . chr(160), ' ', $row_data);
-		$row_data = stripslashes($row_data);
+	       //	$row_data = stripslashes($row_data);
 		$row_data = $roster->db->escape($row_data);
 
 		$this->assignstr .= " `$row_name` = '$row_data'";
@@ -87,6 +87,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 
 	$d = $armory->_parseData($armory->fetchArmory( '10', $character = false, $guild = false, $realm = false, $i,$fetch_type = 'array' ));
+       // aprint($d);
 	$count = '0';
 	foreach ($d->talentTrees->tree as $a => $treedata)
 	{
@@ -105,7 +106,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 				$bob->add_value('class_id', $i);
 				$bob->add_value('name', $talents->name);
 				$bob->add_value('tree', $treedata->name);
-				$bob->add_value('tooltip', $talents->rank->description);
+				$bob->add_value('tooltip', addslashes($talents->rank->description));
 				$bob->add_value('texture', $talents->icon);            
 				$bob->add_value('row', ($talents->tier+1));
 				$bob->add_value('column', ($talents->column+1));
@@ -125,7 +126,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 					$bob->add_value('class_id', $i);
 					$bob->add_value('name', $talents->name);
 					$bob->add_value('tree', $treedata->name);
-					$bob->add_value('tooltip', $ranks->description);
+					$bob->add_value('tooltip', addslashes($ranks->description));
 					$bob->add_value('texture', $talents->icon);
 					$bob->add_value('row', ($talents->tier+1));
 					$bob->add_value('column', ($talents->column+1));
