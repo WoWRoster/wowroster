@@ -43,6 +43,7 @@ class CharScope
 		$roster->tpl->assign_vars(array(
 			'CHAR_ICON'     => $data['char_icon'],
 			'NAME'          => $data['name'],
+			'SERVER'        => $data['server'],
 			'ID'            => $data['member_id'],
 			'LOCALE'        => $data['clientLocale'],
 			'LEVEL'         => $data['level'],
@@ -51,8 +52,7 @@ class CharScope
 			'GUILD_TITLE'   => $data['guild_title'],
 			'GUILD_NAME'    => $data['guild_name'],
 			'FACTION_EN'    => strtolower($roster->data['factionEn']),
-			'FACTION'       => $roster->data['faction'],
-			'L_CHAR_BUTTON' => $data['name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server']
+			'FACTION'       => $roster->data['faction']
 			)
 		);
 	}
