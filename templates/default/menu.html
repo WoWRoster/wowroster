@@ -6,26 +6,26 @@
 		<div id="top_nav">
 <!-- BEGIN menu_button_section -->
 <!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
-			<a class="button-char" style="cursor:pointer;" onclick="showHide('menu_char'); hide('menu_guild'); hide('menu_realm'); hide('menu_util'); return false;">{L_CHAR_BUTTON}</a>
+			<a class="button-char" href="#menu_char">{menu_button_section.LABEL}</a>
 <!-- ENDIF -->
 <!-- END menu_button_section -->
 <!-- IF ROSTER_SCOPE eq "char" -->
-			<a class="button-members" style="cursor:pointer;" onclick="showHide('mini_guild'); hide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE member_profiles --></a>
+			<a class="button-members" href="#mini_guild"><!-- TRANSLATE member_profiles --></a>
 <!-- ENDIF -->
-			<a class="button-guild" style="cursor:pointer;" onclick="showHide('menu_guild'); hide('mini_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
-			<a class="button-realm" style="cursor:pointer;" onclick="showHide('menu_realm'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
+			<a class="button-guild" href="#menu_guild"><!-- TRANSLATE guild --></a>
+			<a class="button-realm" href="#menu_realm"><!-- TRANSLATE realm --></a>
 			<a class="button-upload" href="{U_MENU_UPDATE_LUA}"><!-- TRANSLATE menu_header_03 --></a>
-			<a class="button-util" style="cursor:pointer;" onclick="showHide('menu_util'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
+			<a class="button-util" href="#menu_util"><!-- TRANSLATE menu_header_04 --></a>
 		</div>
 	</div>
 </div>
 
-<div class="scope-menu">
+<div id="menu-buttons" class="scope-menu">
 <!-- BEGIN menu_button_section -->
 	<div class="menu-scope<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->-panel" id="menu_{menu_button_section.ID}" style="display:none<!-- ENDIF -->">
 	<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
 		<div class="menu-frame">
-			<div class="section-title"><!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->{L_CHAR_BUTTON}<!-- ELSE -->{menu_button_section.LABEL}<!-- ENDIF --></div>
+			<div class="section-title">{menu_button_section.LABEL}</div>
 	<!-- ENDIF -->
 		<div class="frame">
 		<!-- BEGIN menu_buttons -->

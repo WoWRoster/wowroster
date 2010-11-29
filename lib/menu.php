@@ -393,7 +393,6 @@ class RosterMenu
 		$roster->db->free_result($result);
 
 		$page = array();
-		$scopes = array();
 		$arrayButtons = array();
 
 		foreach( $sections as $name => $visible )
@@ -413,24 +412,27 @@ class RosterMenu
 				if( isset($palet[$button]) )
 				{
 					$arrayButtons[$name][$pos] = $palet[$button];
-					$scopes[$name] = true;
 				}
 			}
 		}
 
-		$roster->tpl->assign_vars(array(
-			'S_MENU_HEADER_01' => isset($scopes['guild']) ? true : false,
-			'S_MENU_HEADER_02' => isset($scopes['realm']) ? true : false,
-			'S_MENU_HEADER_04' => isset($scopes['util']) ? true : false,
-			)
-		);
-
 		foreach( $arrayButtons as $id => $page )
 		{
+			switch( $id )
+			{
+				case 'char':
+					$panel_label = $roster->data['name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server'];
+					break;
+
+				default:
+					$panel_label = (isset($roster->locale->act['menupanel_' . $id]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $id]) : '');
+					break;
+			}
+
 			$roster->tpl->assign_block_vars('menu_button_section', array(
 				'ID' => $id,
 				'OPEN' => !$sections[$id],
-				'LABEL' => ( isset($roster->locale->act['menupanel_' . $id]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $id]) : '' )
+				'LABEL' => $panel_label
 				)
 			);
 

@@ -958,7 +958,7 @@ class char
                                         $rank = '';
                                         if ($talentArray[$i]==0)
                                         {
-                                                $rannk = 1;                                        
+                                                $rannk = 1;
                                         }
                                         else
                                         {
@@ -967,7 +967,7 @@ class char
                                         $tooltipp = $rdata['tooltip'][$rannk];
                                         $returndata[$ti][$c][$r]['ttip'] = $tooltipp;
                                         $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'] . ' ' . $talentArray[$i] . ' / ' . count($rdata['tooltip']) . '<br />' . $tooltipp.'', $rdata['name'], '', 0, $this->data['clientLocale']);
-					
+
 					$spent = ($spent + $talentArray[$i]);
 					if( $rdata['name'] != $n )
 					{
@@ -1192,7 +1192,7 @@ class char
 
 		$query = "SELECT * FROM `" . $roster->db->table('glyphs') . "`"
 			. " WHERE `member_id` = '" . $this->data['member_id'] . "'"
-			. " ORDER BY `glyph_build`, `glyph_order`;";
+			. " ORDER BY `glyph_build`, `glyph_type`, `glyph_order`;";
 
 		$result = $roster->db->query($query);
 
@@ -1259,19 +1259,9 @@ class char
 				}
 				elseif( $treedata['pointsspent'] > $spec_points_temp[$talent_build] )
 				{
-/*					NOT FUNCTIONAL
-					NOT NEEDED PAST WOW 4.0.1
-					Tries to figure out if this is a hybrid spec
-					if( abs($treedata['pointsspent'] - $spec_points_temp[$talent_build]) < 5 )
-					{
-						$specdata[$talent_build]['name'] = $roster->locale->act['hybrid'];
-						$specdata[$talent_build]['icon'] = 'hybrid';
-					}
-					else
-					{*/
-						$specdata[$talent_build]['name'] = $treedata['tree'];
-						$specdata[$talent_build]['icon'] = $treedata['background'];
-//					}
+					$specdata[$talent_build]['name'] = $treedata['tree'];
+					$specdata[$talent_build]['icon'] = $treedata['background'];
+
 					// Store highest tree points to temp var
 					$spec_points_temp[$talent_build] = $treedata['pointsspent'];
 				}
@@ -1420,7 +1410,7 @@ class char
 				$skillInfo[$i]['bars'][$j] = $this->_skill_bar_values($data);
 				$j++;
 				$data = $roster->db->fetch($result,SQL_ASSOC);
-			}    
+			}
 			return $skillInfo;
 		}
 		else
@@ -1441,7 +1431,7 @@ class char
 
 		$repData = $this->_rep_tab_values();
 
-//		aprint($repData);            
+//		aprint($repData);
 
 		if( is_array($repData) )
 		{
@@ -1543,7 +1533,7 @@ class char
 		if ( $rep_rows > 0 )
 		{
 			$repInfo = array();
-			
+
 			$factions='';
 			$sub_faction='';
 			$name='';
@@ -1560,7 +1550,7 @@ class char
 					$factions = $data['faction'];
 					$repInfo[$factions][$data['name']] = $i++;
 					$repInfo[$factions][$data['name']] = $this->_rep_bar_values($data);
-					
+
 				}
 				if (isset($data['parent']) && $data['parent']!= $data['name'])
 				{
