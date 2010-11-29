@@ -11,7 +11,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
-*/
+ */
 
 /**
  * Pick function. This is called if a button is picked up.
@@ -256,6 +256,10 @@ function writeValue()
 		value += aElts[i].div.id;
 	}
 	document.getElementById('arrayput').value = value;
+
+	//Reset buttons since default is to disable on form submit
+	$('input[type=submit]').attr('disabled', false);
+	$('input[type=reset]').attr('disabled', false);
 
 	return true;
 }
