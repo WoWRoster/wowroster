@@ -931,7 +931,10 @@ class update
 	 */
 	function fix_icon( $icon_name )
 	{
-		$icon_name = str_replace('Interface\\\\Icons\\\\','',$icon_name);
+        	$path_parts = pathinfo($icon_name);
+		$icon_name = $path_parts['filename');
+
+		//$icon_name = str_replace('Interface\\\\Icons\\\\','',$icon_name);
 		return strtolower(str_replace(' ','_',$icon_name));
 	}
 
@@ -2698,7 +2701,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
 				$this->add_value('tree', $talent_tree);
-				$this->add_value('background', strtolower($this->fix_icon($tree_background)));
+                                //$path_parts = pathinfo($tree_background);
+				$this->add_value('background', $this->fixicon($tree_background));
 				$this->add_value('pointsspent', $tree_pointsspent);
 				$this->add_value('order', $tree_order);
 				$this->add_value('build', $build);
