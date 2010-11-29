@@ -18,7 +18,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -36,8 +36,8 @@ class RosterMenu
 		define('ROSTER_MENU_INC',true);
 
 		$roster->tpl->assign_vars(array(
-			'MENU_LEFT'     => $this->makePane('menu_left'),
-			'MENU_RIGHT'    => $this->makePane('menu_right'),
+			'MENU_LEFT'     => /*$this->makePane('menu_left')*/'',
+			'MENU_RIGHT'    => /*$this->makePane('menu_right')*/'',
 			'S_MENU_BOTTOM' => false
 			)
 		);

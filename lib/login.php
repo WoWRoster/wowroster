@@ -171,8 +171,8 @@ class RosterLogin
 		{
 			return '
 			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" onsubmit="submitonce(this);" style="margin:0;">
-				Log in: <input name="password" type="password" size="30" maxlength="30" />
-				<input type="submit" value="Go" /> ' . $this->getMessage() . '
+				Log in: <input name="password" type="password" size="14" maxlength="30" />
+				<input type="submit" value="Go" /><br />' . $this->getMessage() . '
 			</form>';
 		}
 		else
