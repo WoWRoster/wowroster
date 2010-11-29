@@ -179,12 +179,12 @@ if( isset($roster->pages[1]) )
 	if( $roster->pages[1] == 'addon' )
 	{
 		$fullname = $roster->addon_data[$roster->pages[2]]['fullname'];
-		$rostercp_title .= ' -&gt; ' . ( isset($roster->locale->act[$fullname]) ? $roster->locale->act[$fullname] : $fullname );
+		$rostercp_title = ( isset($roster->locale->act[$fullname]) ? $roster->locale->act[$fullname] : $fullname );
 	}
 	elseif( $roster->pages[1] != '' )
 	{
-		$rostercp_title .= ( isset($config_pages[$roster->pages[1]]['title']) ?
-		( isset($roster->locale->act[$config_pages[$roster->pages[1]]['title']]) ? ' -&gt; ' . $roster->locale->act[$config_pages[$roster->pages[1]]['title']] : ' -&gt; ' . $config_pages[$roster->pages[1]]['title'] ) : '' );
+		$rostercp_title = ( isset($config_pages[$roster->pages[1]]['title']) ?
+		( isset($roster->locale->act[$config_pages[$roster->pages[1]]['title']]) ? $roster->locale->act[$config_pages[$roster->pages[1]]['title']] : $config_pages[$roster->pages[1]]['title'] ) : '' );
 	}
 }
 

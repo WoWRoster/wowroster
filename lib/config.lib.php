@@ -18,7 +18,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -124,7 +124,7 @@ class roster_config
 
 		$menu .= "</ul></div>\n";
 
-		return messagebox($menu, $roster->locale->act['roster_config_menu'], 'sgray', '100%');
+		return messagebox($menu, $roster->locale->act['menuconf_section'], 'sgray', '100%');
 	}
 
 	/**
@@ -527,7 +527,7 @@ class roster_config
 				$this->db_values[$setitem][$arrayitem]['value'] = $row['config_value'];
 				$this->db_values[$setitem][$arrayitem]['form_type'] = $row['form_type'];
 
-				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#0099FF;">' . $row['config_name'] . '</span></span>';
+				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#FF9900;">' . $row['config_name'] . '</span></span>';
 
 				// Get description and tooltip
 				if( isset($roster->locale->act['admin'][$row['config_name']]) )

@@ -892,6 +892,7 @@ $lang['menupanel_guild'] = 'Gilde';
 $lang['menupanel_char']  = 'Charakter';
 
 $lang['menuconf_sectionselect']='Wähle Auswahl';
+$lang['menuconf_section']='Section';
 $lang['menuconf_changes_saved']='Veränderungen von %1$s gespeichert';
 $lang['menuconf_no_changes_saved']='Keine Veränderungen gespeichert';
 $lang['menuconf_add_button']='Button hinzufügen';
@@ -921,6 +922,12 @@ $lang['installer_deactivated'] = 'Deaktiviert';
 $lang['installer_installed'] = 'Installiert';
 $lang['installer_upgrade_avail'] = 'Upgrade verfügbar';
 $lang['installer_not_installed'] = 'Nicht installiert';
+$lang['installer_install'] = 'Install';
+$lang['installer_uninstall'] = 'Uninstall';
+$lang['installer_activate'] = 'Activate';
+$lang['installer_deactivate'] = 'Deactivate';
+$lang['installer_upgrade'] = 'Upgrade';
+$lang['installer_purge'] = 'Purge';
 
 $lang['installer_turn_off'] = 'Klicken zum Deaktivieren';
 $lang['installer_turn_on'] = 'Klicken zum Aktivieren';

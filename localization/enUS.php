@@ -891,6 +891,7 @@ $lang['menupanel_guild'] = 'Guild';
 $lang['menupanel_char']  = 'Character';
 
 $lang['menuconf_sectionselect']='Select Panel';
+$lang['menuconf_section']='Section';
 $lang['menuconf_changes_saved']='Changes to %1$s saved';
 $lang['menuconf_no_changes_saved']='No changes saved';
 $lang['menuconf_add_button']='Add button';
@@ -920,6 +921,12 @@ $lang['installer_deactivated'] = 'Deactivated';
 $lang['installer_installed'] = 'Installed';
 $lang['installer_upgrade_avail'] = 'Upgrade Available';
 $lang['installer_not_installed'] = 'Not Installed';
+$lang['installer_install'] = 'Install';
+$lang['installer_uninstall'] = 'Uninstall';
+$lang['installer_activate'] = 'Activate';
+$lang['installer_deactivate'] = 'Deactivate';
+$lang['installer_upgrade'] = 'Upgrade';
+$lang['installer_purge'] = 'Purge';
 
 $lang['installer_turn_off'] = 'Click to Deactivate';
 $lang['installer_turn_on'] = 'Click to Activate';
@@ -991,7 +998,7 @@ All data in the Roster configuration table will be permanently removed, and the 
 Guild data, Character data, Addon config, Addon data, menu buttons, and upload rules will be saved.<br />
 The guild, officer, and admin passwords will also be saved.<br />
 <br />
-To continue, enter your admin password below and click on \'Proceed\'.';
+To continue, check the box and click on \'Proceed\'.';
 
 /******************************
  * Roster Admin Strings

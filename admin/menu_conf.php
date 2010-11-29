@@ -127,8 +127,6 @@ $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER
 $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/menuconf.js"></script>' . "\n";
 
 $roster->tpl->assign_vars(array(
-	'UNUSED_PALLET' => messagebox('<div id="palet" style="width:' . (40*$paletWidth+5) . 'px;height:' . (40*$paletHeight+5) . 'px;"></div>',$roster->locale->act['menuconf_unused_buttons'],'sblue'),
-
 	'U_FORM_ACTION' => makelink('&amp;section=' . $section),
 
 	'DHTML_REG' => $dhtml_reg,
@@ -143,6 +141,9 @@ $roster->tpl->assign_vars(array(
 
 	'BUTTON_GRID_WIDTH' => (40*$arrayWidth+5),
 	'BUTTON_GRID_HEIGHT' => (40*$arrayHeight+5),
+
+	'UN_BUTTON_GRID_WIDTH' => (40*$paletWidth+5),
+	'UN_BUTTON_GRID_HEIGHT' => (40*$paletHeight+5),
 	)
 );
 
@@ -221,12 +222,12 @@ foreach( $arrayButtons as $pos => $button )
 
 	if( $button['active'] == '0' )
 	{
-		$buttonclass = 'menu_config_div_disabled';
+		$buttonclass = 'legendary';
 		$button['tooltip'] .= '<br /><span style="font-size:10px;">' . $roster->locale->act['info'] . ': <span style="color:#FF3300;">' . $roster->locale->act['menuconf_addon_inactive'] . '</span></span>';
 	}
 	else
 	{
-		$buttonclass = 'menu_config_div';
+		$buttonclass = 'common';
 	}
 
 	$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',2,'');
@@ -297,12 +298,12 @@ foreach( $palet as $id => $button )
 
 	if( $button['active'] == '0' )
 	{
-		$buttonclass = 'menu_config_div_disabled';
+		$buttonclass = 'legendary';
 		$button['tooltip'] .= '<br /><span style="font-size:10px;">' . $roster->locale->act['info'] . ': <span style="color:#FF3300;">' . $roster->locale->act['menuconf_addon_inactive'] . '</span></span>';
 	}
 	else
 	{
-		$buttonclass = 'menu_config_div';
+		$buttonclass = 'common';
 	}
 
 	$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',2,'');
