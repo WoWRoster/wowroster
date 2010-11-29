@@ -10,7 +10,7 @@
 <script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
 /**
- * Tab Content script v2.0- &copy; Dynamic Drive DHTML code library (www.dynamicdrive.com)
+ * Tab Content script v2.0- Dynamic Drive DHTML code library (www.dynamicdrive.com)
  * This notice MUST stay intact for legal use
  * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
  **/
@@ -61,7 +61,7 @@
 		<!-- ENDIF -->
 
 			<br />
-{MENU_LOGIN_FORM}
+{LOGIN_FORM}
 		</div>
 	</div>
 	<div class="util-page-wrap">
@@ -85,7 +85,7 @@
 			</form>
 		<!-- ENDIF -->
 			<br />
-{MENU_LOGIN_FORM}
+{LOGIN_FORM}
 		</div>
 	</div>
 	<div class="util-wrap">
@@ -127,7 +127,7 @@
 		<!-- ENDIF -->
 
 			<br />
-{MENU_LOGIN_FORM}
+{LOGIN_FORM}
 		</div>
 	</div>
 	<div class="realm-wrap">
@@ -170,7 +170,7 @@
 			<br />
 
 			<br />
-{MENU_LOGIN_FORM}
+{LOGIN_FORM}
 		</div>
 	</div>
 	<div class="guild-wrap">
@@ -193,7 +193,7 @@
 							<div class="list">
 <!-- BEGIN mini_memberslist -->
 							<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}">
-								<div class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->c{mini_memberslist.CLASS_ID}<!-- ELSE -->c{mini_memberslist.CLASS_ID}<!-- ENDIF -->">
+								<div id="mem_{mini_memberslist.ID}" class="member <!-- IF mini_memberslist.S_SELECTED -->select<!-- ELSEIF mini_memberslist.U_LINK -->c{mini_memberslist.CLASS_ID}<!-- ELSE -->c{mini_memberslist.CLASS_ID}<!-- ENDIF -->">
 									<span class="lvl">{mini_memberslist.LEVEL}</span>
 <!-- U_LINK will be FALSE if the player has no data -->
 									<span class="name">{mini_memberslist.NAME}</span>
@@ -235,28 +235,8 @@
 			</form>
 		<!-- ENDIF -->
 			<br />
-{MENU_LOGIN_FORM}
+{LOGIN_FORM}
 		</div>
 	</div>
 	<div class="char-wrap">
 <!-- ENDIF -->
-
-<!-- Navagation Tabs -->
-	<div class="top-menu">
-		<div class="links">
-			<div id="top_nav">
-<!-- BEGIN menu_button_section -->
-<!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
-				<a class="button-char" style="cursor:pointer;" onclick="showHide('menu_char'); hide('menu_guild'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE char info--></a>
-<!-- ENDIF -->
-<!-- END menu_button_section -->    
-<!-- IF ROSTER_SCOPE eq "char" -->
-				<a class="button-members" style="cursor:pointer;" onclick="showHide('mini_guild'); hide('menu_realm'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE member_profiles --></a>
-<!-- ENDIF -->
-				<a class="button-guild" style="cursor:pointer;" onclick="showHide('menu_guild'); hide('mini_guild'); hide('menu_char'); hide('menu_realm'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_01 --></a>
-				<a class="button-realm" style="cursor:pointer;" onclick="showHide('menu_realm'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_util'); return false;"><!-- TRANSLATE menu_header_02 --></a>
-				<a href="{U_MENU_UPDATE_LUA}" class="button-upload"><!-- TRANSLATE menu_header_03 --></a>
-				<a class="button-util" style="cursor:pointer;" onclick="showHide('menu_util'); hide('mini_guild'); hide('menu_char'); hide('menu_guild'); hide('menu_realm'); return false;"><!-- TRANSLATE menu_header_04 --></a>
-			</div>
-		</div>
-	</div>

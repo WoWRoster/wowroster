@@ -76,7 +76,6 @@ function swapShow(ElementID,ElementID2)
 }
 
 
-
 var lpages = new Array();
 
 function addLpage( name )
