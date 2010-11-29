@@ -124,7 +124,7 @@ $roster->tpl->assign_vars(array(
 	'ROSTER_BODY'   => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
 	'ROSTER_ONLOAD' => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
 
-	'MENU_LOGIN_FORM'      => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
+	'LOGIN_FORM'           => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
 	'U_SEARCH_FORM_ACTION' => makelink('search'),
 
 	'S_LOCALE_SELECT'   => (bool)$roster->config['menu_top_locale'],

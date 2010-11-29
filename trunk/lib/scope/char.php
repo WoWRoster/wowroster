@@ -51,7 +51,8 @@ class CharScope
 			'GUILD_TITLE'   => $data['guild_title'],
 			'GUILD_NAME'    => $data['guild_name'],
 			'FACTION_EN'    => strtolower($roster->data['factionEn']),
-			'FACTION'       => $roster->data['faction']
+			'FACTION'       => $roster->data['faction'],
+			'L_CHAR_BUTTON' => $data['name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server']
 			)
 		);
 	}

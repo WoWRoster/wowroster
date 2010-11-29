@@ -428,10 +428,8 @@ class RosterMenu
 		foreach( $arrayButtons as $id => $page )
 		{
 			$roster->tpl->assign_block_vars('menu_button_section', array(
-				'CLASS' => ( $id == 'util' ? 'utility' : 'scope' ),
 				'ID' => $id,
 				'OPEN' => !$sections[$id],
-				'ALIGN' => ( $id == 'util' ? 'right' : 'left' ),
 				'LABEL' => ( isset($roster->locale->act['menupanel_' . $id]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $id]) : '' )
 				)
 			);
