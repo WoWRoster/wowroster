@@ -339,9 +339,14 @@ class update
 	function processMyProfile()
 	{
 		global $roster;
-
-		$output = 'test';
-                echo 'test<br>';
+		/*
+                
+                Rule #1 deny everything
+                rule #2 if it breaks zanix did it
+                Rule #3 this works for both new and old cp's lol
+                
+                
+                */
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
                 if ($this->uploadData['characterprofiler']['myProfile'])
                 {
@@ -504,8 +509,16 @@ class update
 	{
 		global $roster;
 
-		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
-
+		$myProfile = $this->uploadData['characterprofiler']['myProfile'] = '';
+                if ($this->uploadData['characterprofiler']['myProfile'])
+                {
+                        $myProfile = $this->uploadData['characterprofiler']['myProfile'];
+                }
+                elseif ($this->uploadData['wowroster']['cpProfile'])
+                {
+                        $myProfile = $this->uploadData['wowroster']['cpProfile'];
+                }
+                
 		$output = '';
 		$this->resetMessages();
 
