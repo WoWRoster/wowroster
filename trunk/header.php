@@ -61,7 +61,7 @@ switch( $roster->scope )
 
 		$roster->tpl->assign_vars(array(
 			'ROSTER_TITLE'    => $roster->data['region'] . '-' . $roster->data['server'],
-			'ROSTER_SUBTITLE' => isset($roster->config['default_desc']) && $roster->config['default_desc'] != '' ? $roster->config['default_desc'] : false,
+			'ROSTER_SUBTITLE' => isset($roster->config['default_desc']) && $roster->config['default_desc'] != '' ? '<br />' . $roster->config['default_desc'] : false,
 			'ROSTER_3RDTITLE' => false,
 			'LAST_UPDATED'    => false
 		));
