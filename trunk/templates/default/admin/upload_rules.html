@@ -1,31 +1,34 @@
 <!-- $Id$ -->
 
-<form action="{U_MAKELINK}" method="post" id="enforce">
-	<input type="hidden" name="action" value="enforce" />
-	<input type="hidden" name="process" value="process" />
-	<span {L_ENFORCE_RULES_HELP}>{L_ENFORCE_RULES}</span>
-	<select name="enforce">
-		<option value="0"<!-- IF S_ENFORCE_RULES eq '0' --> selected="selected"<!-- ENDIF -->>Never</option>
-		<option value="1"<!-- IF S_ENFORCE_RULES eq '1' --> selected="selected"<!-- ENDIF -->>All LUA Updates</option>
-		<option value="2"<!-- IF S_ENFORCE_RULES eq '2' --> selected="selected"<!-- ENDIF -->>CP Updates</option>
-		<option value="3"<!-- IF S_ENFORCE_RULES eq '3' --> selected="selected"<!-- ENDIF -->>Guild Updates</option>
-	</select>
-	<input type="submit" value="Go" />
-</form>
+<div class="tier-3-a">
+	<div class="tier-3-b">
+		<div class="text">
+			<span {L_ENFORCE_RULES_HELP}>{L_ENFORCE_RULES}</span>
+			<form action="{U_MAKELINK}" method="post" id="enforce" style="display:inline;">
+				<input type="hidden" name="action" value="enforce" />
+				<input type="hidden" name="process" value="process" />
+				<select name="enforce">
+					<option value="0"<!-- IF S_ENFORCE_RULES eq '0' --> selected="selected"<!-- ENDIF -->>Never</option>
+					<option value="1"<!-- IF S_ENFORCE_RULES eq '1' --> selected="selected"<!-- ENDIF -->>All LUA Updates</option>
+					<option value="2"<!-- IF S_ENFORCE_RULES eq '2' --> selected="selected"<!-- ENDIF -->>CP Updates</option>
+					<option value="3"<!-- IF S_ENFORCE_RULES eq '3' --> selected="selected"<!-- ENDIF -->>Guild Updates</option>
+				</select>
+				<input type="submit" value="Go" />
+			</form>
+		</div>
+	</div>
+</div>
 
-<br />
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title"><!-- TRANSLATE disallow --></div>
 
-<form action="{U_MAKELINK}" method="post" id="deny">
-	<input type="hidden" id="denyhide" name="action" value="" />
-	<input type="hidden" name="process" value="process" />
-	<input type="hidden" name="block" value="disallow" />
+		<form action="{U_MAKELINK}" method="post" id="deny">
+			<input type="hidden" id="denyhide" name="action" value="" />
+			<input type="hidden" name="process" value="process" />
+			<input type="hidden" name="block" value="disallow" />
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sredborder">
-			<div class="header_text sredborder"><!-- TRANSLATE disallow --></div>
-
-			<table cellspacing="0">
+			<table class="border_frame" cellpadding="0" cellspacing="1" style="width:100%;">
 				<thead>
 					<tr>
 						<th class="membersHeader" {L_NAME_TIP}><!-- TRANSLATE name --></th>
@@ -54,25 +57,22 @@
 				</tbody>
 			</table>
 
-		</td>
-	</tr>
-</table>
+		</form>
 
-</form>
+	</div>
+</div>
 
-<br />
 
-<form action="{U_MAKELINK}" method="post" id="allow">
-	<input type="hidden" id="allowhide" name="action" value="" />
-	<input type="hidden" name="process" value="process" />
-	<input type="hidden" name="block" value="allow" />
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title"><!-- TRANSLATE allow --></div>
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgreenborder">
-			<div class="header_text sgreenborder"><!-- TRANSLATE allow --></div>
+		<form action="{U_MAKELINK}" method="post" id="allow">
+			<input type="hidden" id="allowhide" name="action" value="" />
+			<input type="hidden" name="process" value="process" />
+			<input type="hidden" name="block" value="allow" />
 
-			<table cellspacing="0">
+			<table class="border_frame" cellpadding="0" cellspacing="1" style="width:100%;">
 				<thead>
 					<tr><!-- IF MODE eq 'guild' -->
 						<th class="membersHeader"><!-- TRANSLATE default --></th><!-- ENDIF -->
@@ -108,19 +108,16 @@
 				</tbody>
 			</table>
 
-		</td>
-	</tr>
-</table>
+		</form>
+	</div>
+</div>
 
-</form>
 
-<br />
-
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder"><img src="{IMG_URL}blue-question-mark.gif" alt="?" style="float:right;" /><!-- TRANSLATE pagebar_uploadrules --></div>
-			<!-- TRANSLATE upload_rules_help -->
-		</td>
-	</tr>
-</table>
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title"><!-- TRANSLATE pagebar_uploadrules --></div>
+		<div class="info-text-h">
+<!-- TRANSLATE upload_rules_help -->
+		</div>
+	</div>
+</div>

@@ -25,21 +25,33 @@
 <div class="roster-panel">
 	<div class="container">
 
-		<div class="box-label">
-			<div class="icon">
-				<img src="{INTERFACE_URL}Interface/Icons/inv_misc_gear_02.{IMG_SUFFIX}" alt="" />
-				<div class="mask"></div>
+		<div class="tier-1-a">
+			<div class="tier-1-b">
+				<div class="tier-1-c">
+					<div class="tier-1-title">
+						<div class="icon">
+							<img src="{INTERFACE_URL}Interface/Icons/inv_misc_gear_02.{IMG_SUFFIX}" alt="" />
+							<div class="mask"></div>
+						</div>
+						{ROSTERCP_TITLE}
+					</div>
+
+					<table style="width:100%;">
+						<tr>
+<!-- IF MENU neq '' -->
+							<td style="width:15%;" valign="top" align="center">
+{MENU}
+							</td>
+<!-- ENDIF -->
+							<td style="width:85%;" valign="top" align="center">
+{BODY}
+							</td>
+						</tr>
+					</table>
+
+				</div>
 			</div>
-			{ROSTERCP_TITLE}
 		</div>
-
-		<table style="width:100%;">
-			<tr>
-<!-- IF MENU neq '' -->				<td style="width:15%;" valign="top" align="center">{MENU}</td><!-- ENDIF -->
-				<td style="width:85%;" valign="top" align="center">{BODY}</td>
-			</tr>
-		</table>
-
 	</div>
 </div>
 

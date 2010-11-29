@@ -47,11 +47,20 @@
 <br />
 <!-- ENDIF -->
 
-<form action="{U_ACTION}" method="post" id="clean">
-	<input type="hidden" name="action" value="clean" />
-	<input type="hidden" name="process" value="process" />
-	<button type="submit" class="input"><!-- TRANSLATE clean --></button>
-</form>
+<div class="tier-3-a">
+	<div class="tier-3-b">
+		<div class="text">
+			<span><!-- TRANSLATE clean --></span>
+
+			<form action="{U_ACTION}" method="post" id="clean" style="display:inline;">
+				<input type="hidden" name="action" value="clean" />
+				<input type="hidden" name="process" value="process" />
+				<input type="submit" value="Go" />
+			</form>
+		</div>
+	</div>
+</div>
+
 <br />
 
 <form action="{U_ACTION}" method="post" id="delete">
