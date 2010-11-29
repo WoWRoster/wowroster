@@ -14,7 +14,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage LuaUpdate
-*/
+ */
 
 if ( !defined('IN_ROSTER') )
 {
@@ -62,7 +62,7 @@ class update
 
 		// Add roster-used tables
 		$this->files[] = 'characterprofiler';
-                $this->files[] = 'wowroster';
+		$this->files[] = 'wowroster';
 
 		if( !$roster->config['use_update_triggers'] )
 		{
@@ -339,23 +339,21 @@ class update
 	function processMyProfile()
 	{
 		global $roster;
-		/*
-                
-                Rule #1 deny everything
-                rule #2 if it breaks zanix did it
-                Rule #3 this works for both new and old cp's lol
-                
-                
-                */
+		/**
+		 * Rule #1 deny everything
+		 * Rule #2 if it breaks zanix did it
+		 * Rule #3 this works for both new and old cp's lol
+		 */
+
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
-                if ($this->uploadData['characterprofiler']['myProfile'])
-                {
-                        $myProfile = $this->uploadData['characterprofiler']['myProfile'];
-                }
-                elseif ($this->uploadData['wowroster']['cpProfile'])
-                {
-                        $myProfile = $this->uploadData['wowroster']['cpProfile'];
-                }
+		if ($this->uploadData['characterprofiler']['myProfile'])
+		{
+			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
+		}
+		elseif ($this->uploadData['wowroster']['cpProfile'])
+		{
+			$myProfile = $this->uploadData['wowroster']['cpProfile'];
+		}
 		$this->resetMessages();
 
 		foreach( $myProfile as $realm_name => $realm )
@@ -510,15 +508,15 @@ class update
 		global $roster;
 
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'] = '';
-                if ($this->uploadData['characterprofiler']['myProfile'])
-                {
-                        $myProfile = $this->uploadData['characterprofiler']['myProfile'];
-                }
-                elseif ($this->uploadData['wowroster']['cpProfile'])
-                {
-                        $myProfile = $this->uploadData['wowroster']['cpProfile'];
-                }
-                
+		if ($this->uploadData['characterprofiler']['myProfile'])
+		{
+			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
+		}
+		elseif ($this->uploadData['wowroster']['cpProfile'])
+		{
+			$myProfile = $this->uploadData['wowroster']['cpProfile'];
+		}
+
 		$output = '';
 		$this->resetMessages();
 
@@ -690,13 +688,14 @@ class update
 		{
 			return "No files accepted!";
 		}
-                $accdir = '<i>*WOWDIR*</i>\WTF\Account\<i>*ACCOUNT_NAME*</i>\SavedVariables\ ';
+
+		$accdir = '<i>*WOWDIR*</i>\WTF\Account\<i>*ACCOUNT_NAME*</i>\SavedVariables\ ';
+
 		foreach ($this->files as $file)
 		{
 			$filefields .= "<tr>\n"
 						 . '<td class="membersRow1" style="cursor:help;" ' . makeOverlib($accdir . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
-
-                                                 . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
+						 . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
 						 . "</tr>\n";
 		}
 		return $filefields;
@@ -931,10 +930,7 @@ class update
 	 */
 	function fix_icon( $icon_name )
 	{
-        	$path_parts = pathinfo($icon_name);
-		$icon_name = $path_parts['filename');
-
-		//$icon_name = str_replace('Interface\\\\Icons\\\\','',$icon_name);
+		$icon_name = basename($icon_name);
 		return strtolower(str_replace(' ','_',$icon_name));
 	}
 
@@ -960,62 +956,63 @@ class update
 	}
 
 
-        	/**
+	/**
 	 * Inserts an reagent into the database
 	 *
 	 * @param string $item
 	 * @return bool
 	 */
-        function insert_reagent( $memberId,$reagents,$locale )
+	function insert_reagent( $memberId,$reagents,$locale )
 	{
 		global $roster;
-                //echo'<pre>';
-                //print_r($reagents);
+		//echo'<pre>';
+		//print_r($reagents);
 
-                foreach ($reagents as $ind => $reagent)
-                {
-                        //echo'<pre>';
-                	//print_r($reagent);
-                   //echo $reagent['Name'];
-		$this->reset_values();
-		$this->add_value('member_id', $memberId);
-
-                $id = explode(':', $reagent['Item']);
-         	$this->add_value('reagent_name', $reagent['Name']);
-                $this->add_value('reagent_count', $reagent['Count']);
-                $this->add_value('reagent_color', $reagent['Color']);
-                $this->add_value('reagent_tooltip', $reagent['Tooltip']);
-                $this->add_value('reagent_texture', $reagent['Icon']);
-                $this->add_value('reagent_id', $id[0]);
-
-                $this->add_value('locale', $locale);
-
-	       /*	$level = array();
-		if( isset($reagent_data['reqLevel']) && !is_null($reagent_data['reqLevel']) )
+		foreach ($reagents as $ind => $reagent)
 		{
-			$this->add_value('level', $reagent_data['reqLevel']);
-		}
-		else if( preg_match($roster->locale->wordings[$locale]['requires_level'],$reagent['item_tooltip'],$level))
-		{
-			$this->add_value('level', $level[1]);
-		}
-                 */
-		// gotta see of the reagent is in the db allready....
+			//echo'<pre>';
+			//print_r($reagent);
+			//echo $reagent['Name'];
+			$this->reset_values();
+			$this->add_value('member_id', $memberId);
 
-                $querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = ".$id[0].";";
-		$resulta = $roster->db->query($querystra);
-                $num = $roster->db->num_rows($resulta);
-		if( $num == 0 )
-		{
-                	$querystr = "INSERT INTO `" . $roster->db->table('recipes_reagents') . "` SET " . $this->assignstr . ";";
-			$result = $roster->db->query($querystr);
-			if( !$result )
+			$id = explode(':', $reagent['Item']);
+			$this->add_value('reagent_name', $reagent['Name']);
+			$this->add_value('reagent_count', $reagent['Count']);
+			$this->add_value('reagent_color', $reagent['Color']);
+			$this->add_value('reagent_tooltip', $reagent['Tooltip']);
+			$this->add_value('reagent_texture', $reagent['Icon']);
+			$this->add_value('reagent_id', $id[0]);
+
+			$this->add_value('locale', $locale);
+
+/*			$level = array();
+			if( isset($reagent_data['reqLevel']) && !is_null($reagent_data['reqLevel']) )
 			{
-				$this->setError('Item [' . $reagent['item_name'] . '] could not be inserted',$roster->db->error());
-	       		}
-                }
+				$this->add_value('level', $reagent_data['reqLevel']);
+			}
+			else if( preg_match($roster->locale->wordings[$locale]['requires_level'],$reagent['item_tooltip'],$level))
+			{
+				$this->add_value('level', $level[1]);
+			}
+*/
+			// gotta see of the reagent is in the db allready....
 
-                }
+			$querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = ".$id[0].";";
+			$resulta = $roster->db->query($querystra);
+			$num = $roster->db->num_rows($resulta);
+
+			if( $num == 0 )
+			{
+				$querystr = "INSERT INTO `" . $roster->db->table('recipes_reagents') . "` SET " . $this->assignstr . ";";
+				$result = $roster->db->query($querystr);
+				if( !$result )
+				{
+					$this->setError('Item [' . $reagent['item_name'] . '] could not be inserted',$roster->db->error());
+				}
+			}
+
+		}
 	}
 
 
@@ -1029,8 +1026,9 @@ class update
 	function insert_item( $item,$locale )
 	{
 		global $roster;
-               // echo '<pre>';
-                //print_r($item);
+		// echo '<pre>';
+		//print_r($item);
+
 		$this->reset_values();
 		$this->add_ifvalue($item, 'member_id');
 		$this->add_ifvalue($item, 'item_name');
@@ -1047,7 +1045,7 @@ class update
 		$this->add_ifvalue($item, 'item_rarity');
 		$this->add_value('locale', $locale);
 
-        /*
+/*
 		$level = array();
 		if( isset($item_data['reqLevel']) && !is_null($item_data['reqLevel']) )
 		{
@@ -1057,7 +1055,7 @@ class update
 		{
 			$this->add_value('level', $level[1]);
 		}
-                 */
+ */
 		$querystr = "INSERT INTO `" . $roster->db->table('items') . "` SET " . $this->assignstr . ";";
 		$result = $roster->db->query($querystr);
 		if( !$result )
@@ -1489,26 +1487,26 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$recipe['recipe_id'] = isset($recipe_data['RecipeID']) ? $recipe_data['RecipeID'] : '';
 
 		$recipe['reagent'] = $recipe_data['Reagents'];//array();
-                $recipe['reagents'] = array();
+		$recipe['reagents'] = array();
 
-                foreach( $recipe_data['Reagents'] as $d => $reagent )
+		foreach( $recipe_data['Reagents'] as $d => $reagent )
 		{
-		//aprint($reagent);
-                	$id = explode(':', $reagent['Item']);
+			//aprint($reagent);
+			$id = explode(':', $reagent['Item']);
 			if(isset($reagent['Quantity']))
 			{
-			    $count = $reagent['Quantity'];
+				$count = $reagent['Quantity'];
 			}
 			else
 			{
-			    $count = '1';
+				$count = '1';
 			}
 			$recipe['reagents'][] = $id[0] . ':' . $count;
 		}
 		$recipe['reagents'] = implode('|',$recipe['reagents']);
 
 //		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Result']['Icon']);
-                $recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
+		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
 
 		if( !empty($recipe_data['Tooltip']) )
 		{
@@ -1665,7 +1663,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 			// Delete the stale data
 			$querystr = "DELETE FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '$memberId';";
-                        $querystra = "DELETE FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `member_id` = '$memberId';";
+			$querystra = "DELETE FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Professions could not be deleted',$roster->error());
@@ -1693,7 +1691,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						}
 						$recipe = $this->make_recipe($recipeDetails, $memberId, $skill_name, $recipe_type, $recipe_name);
 						$this->insert_recipe($recipe,$data['Locale']);
-                                                $this->insert_reagent($memberId,$recipe['reagent'],$data['Locale']);
+						$this->insert_reagent($memberId,$recipe['reagent'],$data['Locale']);
 					}
 				}
 			}
@@ -2656,52 +2654,50 @@ CREATE TABLE `renprefix_quest_task_data` (
 					}
 					else
 					{
-                                        
-                                                if ($talent_skill != "Unlocked" AND $talent_skill !=  "Desc")
-                                                {
-						$this->reset_values();
-						$this->add_value('member_id', $memberId);
-						$this->add_value('name', $talent_skill);
-						$this->add_value('tree', $talent_tree);
-						$this->add_value('build', $build);
-
-						if( !empty($data_talent_skill['Tooltip']) )
+						if ($talent_skill != "Unlocked" AND $talent_skill !=  "Desc")
 						{
-							$this->add_value('tooltip', $this->tooltip($data_talent_skill['Tooltip']));
-						}
-						else
-						{
-							$this->add_value('tooltip', $talent_skill);
-						}
+							$this->reset_values();
+							$this->add_value('member_id', $memberId);
+							$this->add_value('name', $talent_skill);
+							$this->add_value('tree', $talent_tree);
+							$this->add_value('build', $build);
 
-						if( !empty($data_talent_skill['Icon']) )
-						{
-							$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']));
+							if( !empty($data_talent_skill['Tooltip']) )
+							{
+								$this->add_value('tooltip', $this->tooltip($data_talent_skill['Tooltip']));
+							}
+							else
+							{
+								$this->add_value('tooltip', $talent_skill);
+							}
+
+							if( !empty($data_talent_skill['Icon']) )
+							{
+								$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']));
+							}
+
+							$location = explode(':', $data_talent_skill['Location']);
+							$rank = explode(':', $data_talent_skill['Rank']);
+							$this->add_value('row', ($location[0]+1));
+							$this->add_value('column', ($location[1]+1));
+							$this->add_value('rank', $rank[0]);
+							$this->add_value('maxrank', $rank[1]);
+
+							unset($location,$rank);
+
+							$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
+							$result = $roster->db->query($querystr);
+							if( !$result )
+							{
+								$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
+							}
 						}
-
-						$location = explode(':', $data_talent_skill['Location']);
-						$rank = explode(':', $data_talent_skill['Rank']);
-						$this->add_value('row', ($location[0]+1));
-						$this->add_value('column', ($location[1]+1));
-						$this->add_value('rank', $rank[0]);
-						$this->add_value('maxrank', $rank[1]);
-
-						unset($location,$rank);
-
-						$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
-						$result = $roster->db->query($querystr);
-						if( !$result )
-						{
-							$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
-						}
-                                                }
 					}
 				}
 
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
 				$this->add_value('tree', $talent_tree);
-                                //$path_parts = pathinfo($tree_background);
 				$this->add_value('background', $this->fixicon($tree_background));
 				$this->add_value('pointsspent', $tree_pointsspent);
 				$this->add_value('order', $tree_order);
@@ -2729,7 +2725,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->add_value('member_id', $memberId);
 					$this->add_value('tree', $build_url);
 					$querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
-//					echo $querystr.'<br>';
+//					echo $querystr.'<br />';
 					$result = $roster->db->query($querystr);
 
 					if( !$result )
@@ -2747,10 +2743,9 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talents could not be deleted',$roster->db->error());
 				return;
 			}
-		           
+
 		}
 		$this->setMessage($messages . '</li>');
-		
 	}
 
 	function _talent_layer_url( $memberId , $build )
