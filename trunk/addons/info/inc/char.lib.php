@@ -1025,18 +1025,10 @@ class char
 				}
 				elseif( $data['spent'] > $spec_points_temp[$build] )
 				{
-					if( abs($data['spent'] - $spec_points_temp[$build]) < 5 )
-					{
-						$specdata[$build]['order'] = 0;
-						$specdata[$build]['name'] = $roster->locale->act['hybrid'];
-						$specdata[$build]['icon'] = 'hybrid';
-					}
-					else
-					{
-						$specdata[$build]['order'] = $data['order'];
-						$specdata[$build]['name'] = $tree;
-						$specdata[$build]['icon'] = $data['background'];
-					}
+					$specdata[$build]['order'] = $data['order'];
+					$specdata[$build]['name'] = $tree;
+					$specdata[$build]['icon'] = $data['background'];
+
 					// Store highest tree points to temp var
 					$spec_points_temp[$build] = $data['spent'];
 				}
