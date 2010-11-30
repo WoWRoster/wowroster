@@ -340,9 +340,10 @@ class update
 	{
 		global $roster;
 		/**
-		 * Rule #1 deny everything
-		 * Rule #2 if it breaks zanix did it
-		 * Rule #3 this works for both new and old cp's lol
+		 * Rule #1 Deny everything
+		 * Rule #2 If it breaks Zanix did it
+		 * Rule #3 This works for both new and old CPs lol
+		 * Rule #4 If Zanix yells at you, you deserve it
 		 */
 
 		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
@@ -2698,7 +2699,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
 				$this->add_value('tree', $talent_tree);
-				$this->add_value('background', $this->fixicon($tree_background));
+				$this->add_value('background', $this->fix_icon($tree_background));
 				$this->add_value('pointsspent', $tree_pointsspent);
 				$this->add_value('order', $tree_order);
 				$this->add_value('build', $build);
@@ -2711,7 +2712,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				}
 			}
 
-			$build_url = $this->_talent_layer_url( $memberId, $build);		
+			$build_url = $this->_talent_layer_url( $memberId, $build);
 			$this->reset_values();
 
 /*
@@ -2735,7 +2736,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 /*
 				}
 			}
-*/ 
+*/
 			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
 
 			if( !$roster->db->query($querystr) )

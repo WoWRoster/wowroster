@@ -1184,7 +1184,7 @@ class char
 
 		$query = "SELECT * FROM `" . $roster->db->table('glyphs') . "`"
 			. " WHERE `member_id` = '" . $this->data['member_id'] . "'"
-			. " ORDER BY `glyph_build`, `glyph_type`, `glyph_order`;";
+			. " ORDER BY `glyph_build`, `glyph_order`;";
 
 		$result = $roster->db->query($query);
 

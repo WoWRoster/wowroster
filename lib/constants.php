@@ -104,5 +104,6 @@ define('ROSTER_RACE_TROLL', 8);
 define('ROSTER_RACE_BLOODELF', 10);
 define('ROSTER_RACE_DRAENEI', 11);
 
-define('ROSTER_SEX_MALE', 0);
-define('ROSTER_SEX_FEMALE', 1);
+define('ROSTER_SEX_UNKNOWN', 1);
+define('ROSTER_SEX_MALE', 2);
+define('ROSTER_SEX_FEMALE', 3);
