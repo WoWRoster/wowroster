@@ -915,10 +915,8 @@ CREATE TABLE IF NOT EXISTS `renprefix_talents_data` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #-- --------------------------------------------------------
+### Talent Tree Data Table
 
-#--
-#-- Table structure for table `roster_talenttree_data`
-#--
 DROP TABLE IF EXISTS `renprefix_talenttree_data`;
 CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
   `class_id` int(11) NOT NULL default '0',
@@ -932,10 +930,8 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 #-- --------------------------------------------------------
+### Talent Builds
 
-#--
-#-#- Table structure for table `roster_talent_builds`
-#--
 DROP TABLE IF EXISTS `renprefix_talent_builds`;
 CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
   `member_id` int(11) NOT NULL default '0',
@@ -944,10 +940,8 @@ CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
   PRIMARY KEY  (`member_id`,`build`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 #-- --------------------------------------------------------
+### Talent Tree Arrows
 
-#--
-#-#- Table structure for table `roster_talenttree_arrows`
-#--
 DROP TABLE IF EXISTS `renprefix_talent_builds`;
 CREATE TABLE IF NOT EXISTS `renprefix_talenttree_arrows` (
   `tree` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
@@ -957,5 +951,4 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_arrows` (
   `opt3` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `opt4` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`tree`,`arrowid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

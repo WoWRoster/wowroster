@@ -168,7 +168,7 @@ INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_roster_cp', 'util', 'ros
 
 
 # --------------------------------------------------------
-### Dumping data for table `roster_talenttree_arrows`
+### Talent Tree Arrows
 
 INSERT INTO `renprefix_talenttree_arrows` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3`, `opt4`) VALUES
 ('hunterbeastmastery', 1, 'vArrow', 'disabledArrow', NULL, NULL),
@@ -257,5 +257,3 @@ INSERT INTO `renprefix_talenttree_arrows` (`tree`, `arrowid`, `opt1`, `opt2`, `o
 ('warriorprotection', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
 ('warriorprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
 ('warriorprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL);
-
-

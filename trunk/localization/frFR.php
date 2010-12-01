@@ -16,7 +16,7 @@
  * @since      File available since Release 1.7.1
  * @package    WoWRoster
  * @subpackage Locale
-*/
+ */
 
 $lang['langname'] = 'Français';
 
@@ -979,6 +979,11 @@ $lang['pass_changed'] = '&quot;%1$s&quot; le mot de passe a été modifié. Votr
 $lang['auth_req'] = 'Autorisation requise';
 
 // Upload Rules
+$lang['enforce_rules'] = 'Enforce Upload Rules';
+$lang['enforce_rules_never'] = 'Never';
+$lang['enforce_rules_all'] = 'All LUA Updates';
+$lang['enforce_rules_cp'] = 'CP Updates Only';
+$lang['enforce_rules_gp'] = 'Guild Updates Only';
 $lang['upload_rules_error'] = 'Vous ne pouvez pas laisser un des champs vide quand vous ajoutez une règle.';
 $lang['upload_rules_help'] = 'Les règles sont séparées en deux blocs.<br />Pour chaque guilde/personnage envoyé, le premier bloc est pris en compte en premier.<br />Si le couple nom@serveur correspond à l\'une des règles de rejet, celui-ci sera rejeté.<br />Ensuite le second bloc est vérifié.<br />Si le couple nom@serveur correspond à l\'une des règles d\'acceptation, celui-ci sera accepté.<br />Si aucune règle n\'est vérifiée, celui-ci est alors rejeté.';
 

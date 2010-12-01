@@ -16,7 +16,7 @@
  * @since      File available since Release 1.5.0
  * @package    WoWRoster
  * @subpackage Locale
-*/
+ */
 
 $lang['langname'] = 'German';
 
@@ -979,6 +979,11 @@ $lang['pass_changed'] = '&quot;%1$s&quot; Passwort geändert. Dein neues Passwor
 $lang['auth_req'] = 'Anmeldung erforderlich';
 
 // Upload Rules
+$lang['enforce_rules'] = 'Upload Regeln erzwingen';
+$lang['enforce_rules_never'] = 'Never';
+$lang['enforce_rules_all'] = 'All LUA Updates';
+$lang['enforce_rules_cp'] = 'CP Updates Only';
+$lang['enforce_rules_gp'] = 'Guild Updates Only';
 $lang['upload_rules_error'] = 'Du kannst beim Hinzufügen einer Regel kein Feld leer lassen';
 $lang['upload_rules_help'] = 'Die Regeln sind in zwei Blöcke unterteilt.<br />Für jeden hochgeladene Gilde/Charakter wird zuerst der oberste Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Verbieten\' Regeln, wird er abgewiesen.<br />Anschließend wird der zweite Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Erlauben\' Regeln, wird er akzeptiert.<br />Wenn er mit keiner Regel übereinstimmt, wird er abgewiesen.';
 

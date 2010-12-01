@@ -165,7 +165,7 @@ ALTER TABLE `renprefix_spellbooktree`
   ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);
 
 #---------------------------------------------------------
-### recipe regent data 
+### Recipe Regent Data 
 DROP TABLE IF EXISTS `renprefix_recipes_reagents`;
 CREATE TABLE IF NOT EXISTS `renprefix_recipes_reagents` (
   `member_id` int(11) unsigned NOT NULL DEFAULT '0',
@@ -260,7 +260,7 @@ ALTER TABLE `renprefix_items`
   ADD `item_rarity` int(4) default NULL AFTER `item_subtype`;
 
 # --------------------------------------------------------
-### talent arrows oh so pritty
+### Talent Tree Arrows oh so pritty
 
 DROP TABLE IF EXISTS `renprefix_talenttree_arrows`;
 CREATE TABLE IF NOT EXISTS `renprefix_talenttree_arrows` (
@@ -272,10 +272,6 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_arrows` (
   `opt4` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`tree`,`arrowid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `renprefix_talenttree_arrows`
---
 
 INSERT INTO `roster_talenttree_arrows` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3`, `opt4`) VALUES
 ('hunterbeastmastery', 1, 'vArrow', 'disabledArrow', NULL, NULL),
@@ -364,4 +360,3 @@ INSERT INTO `roster_talenttree_arrows` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3
 ('warriorprotection', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
 ('warriorprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
 ('warriorprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL);
-

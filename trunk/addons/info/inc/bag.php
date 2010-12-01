@@ -80,7 +80,7 @@ class bag extends item
 		$roster->tpl->assign_block_vars($send_type,array(
 			'NAME'    => $this->data['item_name'],
 			'SLOT'    => $this->data['item_slot'],
-            'SLOTL'   => str_replace(" ", "",$this->data['item_slot']),
+			'SLOTL'   => str_replace(" ", "",$this->data['item_slot']),
 			'LINK'    => makelink('#' . str_replace(" ", "",$this->data['item_slot'])),
 			'QUALITY' => $this->quality,
 			'TYPE'    => $bag_type,

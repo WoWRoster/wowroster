@@ -20,7 +20,7 @@ $(function() {
 	$('.radioset').buttonset();
 	$('.checkset').buttonset();
 
-	$('input[type=text], input[type=password], input[type=file]').addClass('ui-widget');
+	$('input[type=text], input[type=password], input[type=file], select').addClass('ui-widget');
 
 	// Keep forms from submitting more than once
 	$('input[type=submit]').attr('disabled', false);

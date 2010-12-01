@@ -16,7 +16,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 include( $addon['inc_dir'] . 'header.php' );
@@ -71,6 +71,8 @@ if( $roster->auth->getAuthorized($addon['config']['show_bank']) )
 		$bag7->out();
 	}
 }
+
+$roster->tpl->assign_var('L_BAG_TITLE', $roster->locale->act['bank']);
 
 $roster->tpl->set_filenames(array('bag' => $addon['basename'] . '/bag.html'));
 

@@ -1,7 +1,7 @@
 <!-- $Id$ -->
 <form method="post" action="{U_UPGRADE}">
-<div class="scope-menu">
-</div>
+<input type="hidden" name="upgrade" value="1" />
+<div class="scope-menu"></div>
 <table class="border_frame" cellpadding="0" cellspacing="1">
 	<tr>
 		<td class="border_color sgrayborder">
@@ -14,13 +14,14 @@
 				<tr>
 					<td class="membersRowRight1" align="center"><br />
 						<select name="version" class="select">
-						<!-- BEGIN version_row -->
+<!-- BEGIN version_row -->
 							<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
 						<!-- END version_row -->
-						</select><br /><br /></td>
+</select><br /><br /></td>
 				</tr>
 				<tr>
-					<td class="membersRowRight2"><div align="center"><input type="submit" name="upgrade" value="<!-- TRANSLATE upgrade -->" class="submit" /></div></td>
+					<td class="membersRowRight2"><div align="center">
+						<input type="submit" value="<!-- TRANSLATE upgrade -->" /></div></td>
 				</tr>
 			</table>
 
