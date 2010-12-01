@@ -236,7 +236,6 @@ class update
 			if( $roster->auth->getAuthorized($roster->config['cp_user_level']) )
 			{
 				$output .= $this->processMyProfile();
-				$output .= "<br />profile detected<br />\n";
 
 				if( $roster->config['enforce_rules'] == '2' )
 				{
@@ -341,20 +340,25 @@ class update
 		global $roster;
 		/**
 		 * Rule #1 Deny everything
-		 * Rule #2 If it breaks Zanix did it
+		 * Rule #2 If it breaks, Zanix did it
 		 * Rule #3 This works for both new and old CPs lol
 		 * Rule #4 If Zanix yells at you, you deserve it
 		 */
 
-		$myProfile = $this->uploadData['characterprofiler']['myProfile'];
-		if ($this->uploadData['characterprofiler']['myProfile'])
+		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
 		{
 			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
 		}
-		elseif ($this->uploadData['wowroster']['cpProfile'])
+		elseif ( isset($this->uploadData['wowroster']['cpProfile']) )
 		{
 			$myProfile = $this->uploadData['wowroster']['cpProfile'];
 		}
+		else
+		{
+			return;
+		}
+
+		$output = '';
 		$this->resetMessages();
 
 		foreach( $myProfile as $realm_name => $realm )
@@ -508,14 +512,17 @@ class update
 	{
 		global $roster;
 
-		$myProfile = $this->uploadData['characterprofiler']['myProfile'] = '';
-		if ($this->uploadData['characterprofiler']['myProfile'])
+		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
 		{
 			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
 		}
-		elseif ($this->uploadData['wowroster']['cpProfile'])
+		elseif ( isset($this->uploadData['wowroster']['cpProfile']) )
 		{
 			$myProfile = $this->uploadData['wowroster']['cpProfile'];
+		}
+		else
+		{
+			return;
 		}
 
 		$output = '';
@@ -680,26 +687,27 @@ class update
 	 *
 	 * @return string $filefields | The HTML, without border
 	 */
-	function makeFileFields()
+	function makeFileFields($blockname='file_fields')
 	{
 		global $roster;
 
-		$filefields = '';
 		if( !is_array($this->files) || (count($this->files) == 0) ) // Just in case
 		{
-			return "No files accepted!";
+			$roster->tpl->assign_block_vars($blockname, array(
+				'TOOLTIP' => '',
+				'FILE' => 'No files accepted!'
+			));
 		}
 
-		$accdir = '<i>*WOWDIR*</i>\WTF\Account\<i>*ACCOUNT_NAME*</i>\SavedVariables\ ';
+		$account_dir = '<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\';
 
-		foreach ($this->files as $file)
+		foreach( $this->files as $file )
 		{
-			$filefields .= "<tr>\n"
-						 . '<td class="membersRow1" style="cursor:help;" ' . makeOverlib($accdir . $file . '.lua',$file . '.lua Location','',2,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="?" />' . $file . ".lua</td>\n"
-						 . '<td class="membersRowRight1"><input type="file" accept="' . $file . '.lua" name="' . $file . '" /></td>' . "\n"
-						 . "</tr>\n";
+			$roster->tpl->assign_block_vars($blockname, array(
+				'TOOLTIP' => makeOverlib($account_dir . $file . '.lua', $file . '.lua Location', '', 2, '', ',WRAP'),
+				'FILE' => $file
+			));
 		}
-		return $filefields;
 	}
 
 	/**
@@ -3199,6 +3207,12 @@ CREATE TABLE `renprefix_quest_task_data` (
 		if( !$roster->db->query($querystr) )
 		{
 			$this->setError('Player Data could not be deleted',$roster->db->error());
+		}
+
+		$querystr = "DELETE FROM `" . $roster->db->table('buffs') . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Player Buff Data could not be deleted',$roster->db->error());
 		}
 
 		$this->deleteEmptyGuilds();

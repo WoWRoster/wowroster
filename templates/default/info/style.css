@@ -384,17 +384,17 @@
 
 .main-panel .talents .cell { float:left;width:40px;height:40px;margin-left:16px; top: 0px;}
 
-.main-panel .talents .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; position:relative; clear: left; }
-.main-panel .talents .glyph-1 img { float: left; background: url(images/glyphs/glyph_bg_prime.png); height: 30px; width: 30px; padding: 5px; }
-.main-panel .talents .glyph-1 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px; }
+.main-panel .talents .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; clear: right; }
+.main-panel .talents .glyph-1 img { float: left; background: url(images/glyphs/glyph_bg_major.png); height: 30px; width: 30px; padding: 5px; }
+.main-panel .talents .glyph-1 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px;  }
 
 .main-panel .talents .glyph-2 { float: left; height: 40px; width: 300px; margin: 2px; clear: right; }
-.main-panel .talents .glyph-2 img { float: left; background: url(images/glyphs/glyph_bg_major.png); height: 30px; width: 30px; padding: 5px; }
+.main-panel .talents .glyph-2 img { float: left; background: url(images/glyphs/glyph_bg_minor.png); height: 30px; width: 30px; padding: 5px; }
 .main-panel .talents .glyph-2 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px;  }
 
-.main-panel .talents .glyph-3 { float: left; height: 40px; width: 300px; margin: 2px; clear: right; }
-.main-panel .talents .glyph-3 img { float: left; background: url(images/glyphs/glyph_bg_minor.png); height: 30px; width: 30px; padding: 5px; }
-.main-panel .talents .glyph-3 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px;  }
+.main-panel .talents .glyph-3 { float: left; height: 40px; width: 300px; margin: 2px; position:relative; clear: left; }
+.main-panel .talents .glyph-3 img { float: left; background: url(images/glyphs/glyph_bg_prime.png); height: 30px; width: 30px; padding: 5px; }
+.main-panel .talents .glyph-3 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px; }
 
 /* Grey out unused talents */
 /* filter:gray only works in IE so we do this to half-assed transparency for Mozilla and Opera */

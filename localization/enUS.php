@@ -92,6 +92,7 @@ $lang['guild_realm_ignored'] = 'Guild: %1$s @ Realm: %2$s Not Scanned';
 $lang['update_members'] = 'Updating Members';
 $lang['update_errors'] = 'Update Errors';
 $lang['update_log'] = 'Update Log';
+$lang['select_files'] = 'Select Files';
 $lang['save_error_log'] = 'Save Error Log';
 $lang['save_update_log'] = 'Save Update Log';
 
@@ -108,10 +109,6 @@ $lang['no_upgrade'] = 'You have already upgraded Roster<br />Or you have a newer
 $lang['upgrade_complete'] = 'Your WoWRoster installation has been successfully upgraded';
 
 // Menu buttons
-$lang['menu_header_01'] = 'Guild Information';
-$lang['menu_header_02'] = 'Realm Information';
-$lang['menu_header_03'] = 'Update Profile';
-$lang['menu_header_04'] = 'Utilities';
 $lang['menu_header_scope_panel'] = '%s Panel';
 
 $lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
@@ -653,6 +650,7 @@ $lang['arena']='Arena';
 
 $lang['when']='When';
 $lang['guild']='Guild';
+$lang['guilds']='Guilds';
 $lang['result']='Result';
 $lang['zone']='Zone';
 $lang['subzone']='Subzone';

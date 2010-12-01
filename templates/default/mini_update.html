@@ -1,0 +1,41 @@
+<!-- $Id: $ -->
+
+<div class="mini-list" id="mini_update" style="width:470px;display:none;">
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title mini-list-click"><!-- TRANSLATE update_page -->
+					<div class="toggle">
+						<img src="{THEME_PATH}/images/button_close.png" alt="" />
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title"><!-- TRANSLATE select_files --></div>
+
+						<form action="{U_MENU_UPDATE_LUA}" enctype="multipart/form-data" method="post">
+							<input type="hidden" name="process" value="process" />
+
+<!-- BEGIN mini_file_fields -->
+							<div class="tier-3-a">
+								<div class="tier-3-b">
+									<div class="text">
+										<img style="cursor:help;" {mini_file_fields.TOOLTIP} src="{IMG_URL}blue-question-mark.gif" alt="?" />{mini_file_fields.FILE}.lua
+										<div style="float:right;">
+											<input type="file" accept="{mini_file_fields.FILE}.lua" name="{mini_file_fields.FILE}" />
+										</div>
+									</div>
+								</div>
+							</div>
+<!-- END mini_file_fields -->
+
+							<input type="submit" value="<!-- TRANSLATE upload -->" />
+							<a class="input" href="{U_MENU_UPDATE_LUA}"><!-- TRANSLATE update_instructions --></a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

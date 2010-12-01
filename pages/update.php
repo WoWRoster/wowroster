@@ -103,13 +103,7 @@ if( (isset($_POST['process']) && $_POST['process'] == 'process') || $update->tex
 else
 {
 	// No data uploaded, so return upload form
-	foreach( $update->files as $file )
-	{
-		$roster->tpl->assign_block_vars('file_fields', array(
-			'TOOLTIP' => makeOverlib('<i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables\\\\' . $file . '.lua', $file . '.lua Location', '', 2, '', ',WRAP'),
-			'FILE' => $file
-		));
-	}
+	$update->makeFileFields();
 
 	if( $roster->auth->getAuthorized($roster->config['gp_user_level']) && $roster->auth->getAuthorized($roster->config['cp_user_level']) && $roster->auth->getAuthorized($roster->config['lua_user_level']) )
 	{

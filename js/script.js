@@ -14,6 +14,13 @@
  */
 
 $(function() {
+	// Apply jQuery UI button styles on EVERYTHING
+	$('button, input:submit, input:reset, .input').button();
+
+	$('.radioset').buttonset();
+	$('.checkset').buttonset();
+
+	$('input[type=text], input[type=password], input[type=file]').addClass('ui-widget');
 
 	// Keep forms from submitting more than once
 	$('input[type=submit]').attr('disabled', false);
@@ -23,14 +30,10 @@ $(function() {
 		$('input[type=reset]', this).attr('disabled', 'disabled');
 	});
 
-	$('button[type=submit]').click(function(){
-		
-	});
-
 	// Main menu buttons and panels
 	$('#top_nav > a').click(function(){
 		var menu_div = $(this).attr('href');
-		
+
 		if($(this).hasClass('active') == false)
 		{
 			$('#menu-buttons > div.menu-scope-panel').fadeOut();
@@ -45,6 +48,11 @@ $(function() {
 		}
 
 		return false;
+	});
+
+	$('.mini-list-click').click(function(){
+		$('.mini-list').fadeOut();
+		$('#top_nav > a').removeClass('active');
 	});
 
 });
