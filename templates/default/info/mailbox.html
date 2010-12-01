@@ -1,45 +1,78 @@
 <!-- $Id$ -->
 
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE mailbox --></div>
+
 <!-- IF S_MAIL -->
 
 <!-- IF S_MAIL_DISP gt 0 -->
-<!-- include info/bag.html -->
+
+<!-- BEGIN bag -->
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title"><div class="icon"><img src="{bag.ICON}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>{bag.NAME}</div>
+<!-- BEGIN item -->
+						<div class="item">
+							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bag.item.ICON}" /><!-- ENDIF -->
+							<div class="mask {bag.item.QUALITY}" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
+<!-- IF bag.item.QTY gt 1 -->
+							<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
+<!-- ENDIF -->
+						</div>
+<!-- END item -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- END bag -->
+
 <!-- ENDIF -->
 
 <!-- IF S_MAIL_DISP eq 0 or S_MAIL_DISP eq 2 -->
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgrayborder">
-			<div class="header_text sgrayborder"><!-- TRANSLATE mailbox --></div>
 
-			<table cellspacing="0">
-				<tr>
-					<th class="membersHeader"><!-- TRANSLATE mail_item --></th>
-					<th class="membersHeader"><!-- TRANSLATE mail_sender --></th>
-					<th class="membersHeader"><!-- TRANSLATE mail_subject --></th>
-					<th class="membersHeaderRight"><!-- TRANSLATE mail_expires --></th>
-				</tr>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title"><!-- TRANSLATE mailbox --></div>
+
+						<table class="border_frame" cellpadding="0" cellspacing="1">
+							<tr>
+								<th class="membersHeader"><!-- TRANSLATE mail_item --></th>
+								<th class="membersHeader"><!-- TRANSLATE mail_sender --></th>
+								<th class="membersHeader"><!-- TRANSLATE mail_subject --></th>
+								<th class="membersHeaderRight"><!-- TRANSLATE mail_expires --></th>
+							</tr>
 
 <!-- BEGIN mail -->
-				<tr>
-					<td class="membersRow{mail.ROW_CLASS}"><img src="{INTERFACE_URL}Interface/Icons/{mail.ITEM_ICON}.{IMG_SUFFIX}" alt=""{mail.TOOLTIP} /></td>
-					<td class="membersRow{mail.ROW_CLASS}">{mail.SENDER}</td>
-					<td class="membersRow{mail.ROW_CLASS}">{mail.SUBJECT}</td>
-					<td class="membersRowRight{mail.ROW_CLASS}">{mail.EXPIRES}</td>
-				</tr>
+							<tr>
+								<td class="membersRow{mail.ROW_CLASS}"><img src="{INTERFACE_URL}Interface/Icons/{mail.ITEM_ICON}.{IMG_SUFFIX}" alt=""{mail.TOOLTIP} /></td>
+								<td class="membersRow{mail.ROW_CLASS}">{mail.SENDER}</td>
+								<td class="membersRow{mail.ROW_CLASS}">{mail.SUBJECT}</td>
+								<td class="membersRowRight{mail.ROW_CLASS}">{mail.EXPIRES}</td>
+							</tr>
 <!-- END mail -->
 
-			</table>
+						</table>
 
-		</td>
-	</tr>
-</table>
+					</div>
+				</div>
 
 <!-- ENDIF -->
 
 <!-- ELSE -->
 
-<span class="title_text"><!-- TRANSLATE_F no_mail NAME --></span>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title"><!-- TRANSLATE_F no_mail NAME --></div>
+					</div>
+				</div>
 
 <!-- ENDIF -->
+
+			</div>
+		</div>
+	</div>
+</div>

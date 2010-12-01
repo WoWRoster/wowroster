@@ -16,7 +16,7 @@
  * @since      File available since Release 1.5.0
  * @package    WoWRoster
  * @subpackage Locale
-*/
+ */
 
 $lang['langname'] = 'English';
 
@@ -978,6 +978,11 @@ $lang['pass_changed'] = '&quot;%1$s&quot; password changed. Your new password is
 $lang['auth_req'] = 'Authorization Required';
 
 // Upload Rules
+$lang['enforce_rules'] = 'Enforce Upload Rules';
+$lang['enforce_rules_never'] = 'Never';
+$lang['enforce_rules_all'] = 'All LUA Updates';
+$lang['enforce_rules_cp'] = 'CP Updates Only';
+$lang['enforce_rules_gp'] = 'Guild Updates Only';
 $lang['upload_rules_error'] = 'You cannot leave one of the fields empty when adding a rule';
 $lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked. If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked. If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.<br /><br />Remember to set a default guild here as well.';
 

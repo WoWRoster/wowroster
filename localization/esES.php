@@ -16,7 +16,7 @@
  * @since      File available since Release 1.7.3
  * @package    WoWRoster
  * @subpackage Locale
-*/
+ */
 
 $lang['langname'] = 'Español';
 
@@ -979,6 +979,11 @@ $lang['pass_changed'] = '&quot;%1$s&quot; contraseña cambiada. Tu nueva contras
 $lang['auth_req'] = 'Introduce contraseña';
 
 // Upload Rules
+$lang['enforce_rules'] = 'Forzar exclusiones';
+$lang['enforce_rules_never'] = 'Never';
+$lang['enforce_rules_all'] = 'All LUA Updates';
+$lang['enforce_rules_cp'] = 'CP Updates Only';
+$lang['enforce_rules_gp'] = 'Guild Updates Only';
 $lang['upload_rules_error'] = 'No puedes dejar ningún campo vacío cuando añades una hermandad/personaje';
 $lang['upload_rules_help'] = 'En este apartado puedes configurar las hermandades/personajes excluidos y permitidos.<br />Cada vez que se sube una hermandad/personaje, se comprueba el bloque de arriba.<br />Si el nombre@servidor concuerda con los \'no permitidos\', directamente se rechaza.<br />Después se comprueba el segundo bloque.<br />Si el nombre@servidor concuerda con los \'permitidos\', entonces los datos se graban en la base de datos.<br />Si no concuerda con ningún bloque, los datos se descartan.';
 

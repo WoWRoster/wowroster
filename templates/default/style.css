@@ -15,7 +15,7 @@
 
 @import url('jquery-ui.css');
 
-body { background:#000000; font-size:10px; }
+body { background:#000000; font-size:62.5%; }
 a:link, a:visited { color:#FFF; text-decoration:none; font-weight:bold; }
 a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
@@ -656,6 +656,9 @@ a.input:link,
 a.input:visited,
 a.input:active { color:#4C3000; }
 a.input:hover { color:#0074c7; }
+
+input.ui-button,
+.ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
 
 
 .bottomshadow { background: url(./images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }

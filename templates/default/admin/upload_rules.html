@@ -3,15 +3,15 @@
 <div class="tier-3-a">
 	<div class="tier-3-b">
 		<div class="text">
-			<span {L_ENFORCE_RULES_HELP}>{L_ENFORCE_RULES}</span>
+			<span {L_ENFORCE_RULES_HELP}><!-- TRANSLATE enforce_rules --></span>
 			<form action="{U_MAKELINK}" method="post" id="enforce" style="display:inline;">
 				<input type="hidden" name="action" value="enforce" />
 				<input type="hidden" name="process" value="process" />
 				<select name="enforce">
-					<option value="0"<!-- IF S_ENFORCE_RULES eq '0' --> selected="selected"<!-- ENDIF -->>Never</option>
-					<option value="1"<!-- IF S_ENFORCE_RULES eq '1' --> selected="selected"<!-- ENDIF -->>All LUA Updates</option>
-					<option value="2"<!-- IF S_ENFORCE_RULES eq '2' --> selected="selected"<!-- ENDIF -->>CP Updates</option>
-					<option value="3"<!-- IF S_ENFORCE_RULES eq '3' --> selected="selected"<!-- ENDIF -->>Guild Updates</option>
+					<option value="0"<!-- IF S_ENFORCE_RULES eq '0' --> selected="selected"<!-- ENDIF -->><!-- TRANSLATE enforce_rules_never --></option>
+					<option value="1"<!-- IF S_ENFORCE_RULES eq '1' --> selected="selected"<!-- ENDIF -->><!-- TRANSLATE enforce_rules_all --></option>
+					<option value="2"<!-- IF S_ENFORCE_RULES eq '2' --> selected="selected"<!-- ENDIF -->><!-- TRANSLATE enforce_rules_cp --></option>
+					<option value="3"<!-- IF S_ENFORCE_RULES eq '3' --> selected="selected"<!-- ENDIF -->><!-- TRANSLATE enforce_rules_gp --></option>
 				</select>
 				<input type="submit" value="Go" />
 			</form>
@@ -93,18 +93,18 @@
 					</tr>
 				</tfoot>
 				<tbody>
-				<!-- BEGIN allow_list -->
+<!-- BEGIN allow_list -->
 					<tr>
 						<!-- IF MODE eq 'guild' -->
-						<td class="membersRow1" style="text-align:center;"><!-- IF allow_list.DEFAULT --><img src="{THEME_PATH}/images/check_on.png" alt="" />
-							<!-- ELSE --><button type="submit" class="button_hide" onclick="setvalue('allowhide','default_{allow_list.ID}');"><img src="{THEME_PATH}/images/check_off.png" alt="" /></button><!-- ENDIF --></td>
+						<td class="membersRow1" style="text-align:center;"><!-- IF allow_list.DEFAULT --><button disabled="disabled"><span class="ui-icon ui-icon-check"></span></button>
+							<!-- ELSE --><button type="submit" class="button_hide" onclick="setvalue('allowhide','default_{allow_list.ID}');"><span class="ui-icon ui-icon-radio-off"></span></button><!-- ENDIF --></td>
 						<!-- ENDIF -->
 						<td class="membersRow1">{allow_list.NAME}</td>
 						<td class="membersRow1">{allow_list.SERVER}</td>
 						<td class="membersRow1">{allow_list.REGION}</td>
 						<td class="membersRowRight1"><button type="submit" class="input" onclick="setvalue('allowhide','del_{allow_list.ID}');"><!-- TRANSLATE delete --></button></td>
 					</tr>
-				<!-- END allow_list -->
+<!-- END allow_list -->
 				</tbody>
 			</table>
 

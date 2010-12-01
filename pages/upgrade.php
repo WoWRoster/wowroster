@@ -49,7 +49,6 @@ class Upgrade
 
 		//$roster->db->error_die(false);
 
-
 		if( isset($_POST['upgrade']) )
 		{
 			// Find out what version we're upgrading from
@@ -288,7 +287,7 @@ class Upgrade
 				PRIMARY KEY  (`member_id`,`category`,`name`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
-		
+
 		// Adding new talent structure ulminia was busy....
 		if( version_compare($roster->config['version'], '2.0.9.2020', '<') )
 		{
@@ -379,9 +378,8 @@ class Upgrade
 				`locale` varchar(4) DEFAULT NULL
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
-                
-                
-                // Add talent arrows
+
+		// Add talent arrows
 		if( version_compare($roster->config['version'], '2.0.9.2194', '<') )
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talenttree_arrows') . "`;");
@@ -393,8 +391,9 @@ class Upgrade
 				`opt3` varchar(100) COLLATE utf8_bin DEFAULT NULL,
 				`opt4` varchar(100) COLLATE utf8_bin DEFAULT NULL,
 				PRIMARY KEY (`tree`,`arrowid`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
-                        $roster->db->query("INSERT INTO `" . $roster->db->table('talenttree_arrows') . "` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3`, `opt4`) VALUES
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8");
+			$roster->db->query("INSERT INTO `" . $roster->db->table('talenttree_arrows')
+				. "` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3`, `opt4`) VALUES
 				('hunterbeastmastery', 1, 'vArrow', 'disabledArrow', NULL, NULL),
 				('hunterbeastmastery', 2, 'vArrow', 'disabledArrow', NULL, NULL),
 				('hunterbeastmastery', 3, 'vArrow', 'disabledArrow', NULL, NULL),
@@ -482,9 +481,6 @@ class Upgrade
 				('warriorprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
 				('warriorprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL);");
 		}
-                
-                
-                
 
 		// Standard Beta Update
 		$this->beta_upgrade();
