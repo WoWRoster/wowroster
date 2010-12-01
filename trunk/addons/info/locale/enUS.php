@@ -94,6 +94,7 @@ $lang['Trinket1']      = 'Trinket 1';
 
 //tabs
 $lang['profile']='Profile';
+$lang['model_viewer']='Model Viewer';
 $lang['reputation']='Reputation';
 $lang['skills']='Skills';
 $lang['pvp']='PvP';
@@ -285,6 +286,7 @@ $lang['admin']['recipe_disp'] = "Recipe Display|Controls how the recipe lists di
 $lang['admin']['mail_disp'] = "Mail Display|Controls how the mail is displayed<br /><br />&quot;Table&quot; Shows the mail in a table view<br />&quot;Bag&quot; Shows each mail as a bag of items<br />&quot;Both&quot; Shows both";
 $lang['admin']['show_money'] = "Money|Controls the display of Money<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_played'] = "Time Played|Controls the display of Time Played and Time Level Played<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_model'] = "Model Viewer|Controls the display of Blizzard's Model Viewer<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_pets'] = "Pets|Controls the display of Pets<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_reputation'] = "Reputation|Controls the display of Reputation<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_skills'] = "Skills|Controls the display of Skills<br /><br />Setting is global and overrides per-user setting";

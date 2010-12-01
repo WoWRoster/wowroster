@@ -28,7 +28,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'spell_holy_divinespirit';
 
-	var $version = '2.0.9.2035';
+	var $version = '2.0.9.2196';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -57,6 +57,7 @@ class infoInstall
 		$installer->add_config("'1010', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
 		$installer->add_config("'1020', 'show_money', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1030', 'show_played', '0', 'function{infoAccess', 'char_conf'");
+		$installer->add_config("'1035', 'show_model', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1040', 'show_pets', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1050', 'show_reputation', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1060', 'show_skills', '0', 'function{infoAccess', 'char_conf'");
@@ -80,6 +81,7 @@ class infoInstall
 		  `member_id` int(11) NOT NULL default '0',
 		  `show_money` tinyint(1) NOT NULL default '0',
 		  `show_played` tinyint(1) NOT NULL default '0',
+		  `show_model` tinyint(1) NOT NULL default '0',
 		  `show_pets` tinyint(1) NOT NULL default '0',
 		  `show_reputation` tinyint(1) NOT NULL default '0',
 		  `show_skills` tinyint(1) NOT NULL default '0',
@@ -104,6 +106,7 @@ class infoInstall
 		$installer->create_table($installer->table('default'),"
 		  `show_money` tinyint(1) NOT NULL default '0',
 		  `show_played` tinyint(1) NOT NULL default '0',
+		  `show_model` tinyint(1) NOT NULL default '0',
 		  `show_pets` tinyint(1) NOT NULL default '0',
 		  `show_reputation` tinyint(1) NOT NULL default '0',
 		  `show_skills` tinyint(1) NOT NULL default '0',
@@ -126,6 +129,7 @@ class infoInstall
 		$build_query = array(
 			'show_money' => '0',
 			'show_played' => '0',
+			'show_model' => '0',
 			'show_pets' => '0',
 			'show_reputation' => '0',
 			'show_skills' => '0',
@@ -278,6 +282,13 @@ class infoInstall
 				CHANGE `show_tab5` `show_honor` tinyint(1) NOT NULL default '0'");
 
 			$installer->add_menu_button('cb_inventory', 'char', 'inventory', 'inv_misc_bag_14');
+		}
+
+		// Model Viewer tab
+		if( version_compare('2.0.9.2196', $oldversion,'>') == true )
+		{
+			$installer->add_config("'1035', 'show_model', '0', 'function{infoAccess', 'char_conf'");
+		
 		}
 
 		return true;
