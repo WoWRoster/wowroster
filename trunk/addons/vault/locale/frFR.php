@@ -22,12 +22,12 @@ $lang['available_amount']='Montant disponible';
 $lang['vault_log']='Traceur';
 $lang['vault_money_log']="Traceur monétaire";
 
-$lang['vault_log_deposit'] = '%1$s <span class="greenB">a déposé</span> %2$s';
-$lang['vault_log_withdraw'] = '%1$s <span class="redB">a retiré</span> %2$s';
-$lang['vault_log_move'] = '%1$s <span class="purpleB">a déplacé</span> %2$s';
-$lang['vault_log_repair'] = '%1$s <span class="redB">a dépense</span> %2$s en réparation';
-$lang['vault_log_withdrawForTab'] = '%1$s <span class="redB">à retiré</span> %2$s pour acheter un onglet de la banque de guilde.';
-$lang['vault_log_buyTab'] = '%1$s <span class="greenB">a acheté un onglet de la banque de guilde pour</span> %2$s.';
+$lang['vault_log_deposit'] = '%1$s <span class="deposit">a déposé</span> %2$s';
+$lang['vault_log_withdraw'] = '%1$s <span class="withdraw">a retiré</span> %2$s';
+$lang['vault_log_move'] = '%1$s <span class="move">a déplacé</span> %2$s';
+$lang['vault_log_repair'] = '%1$s <span class="repair">a dépense</span> %2$s en réparation';
+$lang['vault_log_withdrawForTab'] = '%1$s <span class="withdrawtab">à retiré</span> %2$s pour acheter un onglet de la banque de guilde.';
+$lang['vault_log_buyTab'] = '%1$s <span class="purchasetab">a acheté un onglet de la banque de guilde pour</span> %2$s.';
 
 $lang['admin']['vault_conf'] = 'Coffre de guilde|Spécifier les paramètres et l\'affichage du coffre de guilde';
 $lang['admin']['tab1'] = 'Accès onglet 1|Contrôler qui peut voir les objets dans l\'onglet 1';

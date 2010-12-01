@@ -16,7 +16,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 require_once ($addon['inc_dir'] . 'vault_item.php');
@@ -63,6 +63,7 @@ if( $roster->auth->getAuthorized($addon['config']['money']) )
 	$roster->tpl->assign_block_vars('vault',array(
 		'NAME'    => $roster->locale->act['vault_money_log'],
 		'SLOT'    => 'MoneyLog',
+		'LINK'    => makelink('#MoneyLog'),
 		'ICON'    => $roster->config['interface_url'] . 'Interface/Icons/inv_misc_coin_01.' . $roster->config['img_suffix'],
 		'TOOLTIP' => makeOverlib($roster->locale->act['vault_money_log'], '', '', 0,'',',RIGHT')
 		)
@@ -73,11 +74,6 @@ if( $roster->auth->getAuthorized($addon['config']['money']) )
 
 $roster->tpl->set_handle('body', $addon['basename'] . '/vault.html');
 $roster->tpl->display('body');
-
-
-
-
-
 
 
 
@@ -160,20 +156,31 @@ function vault_log( $parent )
 		{
 			$db_money = $row['amount'];
 
-			$mail_money['c'] = $db_money % 100;
+			$money_item = '';
+
+			$log_money['c'] = $db_money % 100;
 			$db_money = floor( $db_money / 100 );
-			$money_item = $mail_money['c'] . '<img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" />';
+			if( $log_money['c'] > 0 )
+			{
+				$money_item = $log_money['c'] . '<img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" />';
+			}
 
 			if( !empty($db_money) )
 			{
-				$mail_money['s'] = $db_money % 100;
+				$log_money['s'] = $db_money % 100;
 				$db_money = floor( $db_money / 100 );
-				$money_item = $mail_money['s'] . '<img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> ' . $money_item;
+				if( $log_money['s'] > 0 )
+				{
+					$money_item = $log_money['s'] . '<img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> ' . $money_item;
+				}
 			}
 			if( !empty($db_money) )
 			{
-				$mail_money['g'] = $db_money;
-				$money_item = $mail_money['g'] . '<img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> ' . $money_item;
+				$log_money['g'] = $db_money;
+				if( $log_money['g'] > 0 )
+				{
+					$money_item = $log_money['g'] . '<img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> ' . $money_item;
+				}
 			}
 		}
 		elseif( $row['item_id'] != '' )

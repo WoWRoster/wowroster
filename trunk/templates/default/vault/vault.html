@@ -4,56 +4,62 @@
 <div class="container">
 
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE vault -->
-      	          	<div class="links">
-                        <!-- BEGIN vault -->
+					<div class="links">
+<!-- BEGIN vault -->
 						<a href="{vault.LINK}">
-                    		<div class="icon"><img src="{vault.ICON}" /><div class="mask" {vault.TOOLTIP}></div></div>
-                    	</a>
-						<!-- END vault -->
+							<div class="icon"><img src="{vault.ICON}" /><div class="mask" {vault.TOOLTIP}></div></div>
+						</a>
+<!-- END vault -->
 					</div>
-                </div>
+				</div>
 
 <!-- BEGIN vault -->
-<a name="#{vault.SLOT}"></a>
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
-						<div class="tier-2-title"><div class="icon"><img src="{vault.ICON}" /><div class="mask"></div></div>{vault.NAME}
-                        <!-- IF vault.SLOT eq 'MoneyLog' -->
-                        	<div class="title-money">
-								{MONEY_G} <img src="{IMG_URL}coin_gold.gif" alt="g" />
-								{MONEY_S} <img src="{IMG_URL}coin_silver.gif" alt="s" />
-								{MONEY_C} <img src="{IMG_URL}coin_copper.gif" alt="c" />
+				<a name="{vault.SLOT}"></a>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">
+							<div class="icon"><img src="{vault.ICON}" />
+								<div class="mask"></div>
+							</div>{vault.NAME}
+<!-- IF vault.SLOT eq 'MoneyLog' -->
+							<div class="title-money">
+								<!-- IF MONEY_G gt 0 -->{MONEY_G} <img src="{IMG_URL}coin_gold.gif" alt="g" /><!-- ENDIF -->
+								<!-- IF MONEY_S gt 0 -->{MONEY_S} <img src="{IMG_URL}coin_silver.gif" alt="s" /><!-- ENDIF -->
+								<!-- IF MONEY_C gt 0 -->{MONEY_C} <img src="{IMG_URL}coin_copper.gif" alt="c" /><!-- ENDIF -->
 							</div>
-                        <!-- ENDIF -->
-                        </div>
-<!-- IF vault.SLOT neq 'MoneyLog' -->
-	<div class="vault-grid">
-<!-- BEGIN column -->
-						<div class="vault-column">
-<!-- BEGIN item -->
-                        
-							<div class="item">
-								<!-- IF vault.column.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{vault.column.item.ICON}" /><!-- ENDIF -->
-								<div class="mask {vault.column.item.QUALITY}" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}></div>
-<!-- IF vault.column.item.QTY gt 1 -->
-								<b>{vault.column.item.QTY}</b><span>{vault.column.item.QTY}</span>
 <!-- ENDIF -->
-							</div>
+						</div>
+<!-- IF vault.SLOT neq 'MoneyLog' -->
+						<div class="vault-grid">
+<!-- BEGIN column -->
+							<div class="vault-column">
+<!-- BEGIN item -->
+								<div class="item">
+									<!-- IF vault.column.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{vault.column.item.ICON}" alt="" /><!-- ENDIF -->
+									<div class="mask {vault.column.item.QUALITY}" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}></div>
+<!-- IF vault.column.item.QTY gt 1 -->
+									<b>{vault.column.item.QTY}</b><span>{vault.column.item.QTY}</span>
+<!-- ENDIF -->
+								</div>
 
 <!-- END item -->
-						</div>
+							</div>
 <!-- END column -->
-	</div>
+						</div>
 <!-- ELSE -->
-		make the money log work...
-		<!-- BEGIN log -->
-			<div>
-            	{vault.log.TYPE} <span class="blueB">({vault.log.TIME})</span>
-			</div>
-		<!-- END log -->
+<!-- BEGIN log -->
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="text">
+									<span style="float:right;">{vault.log.TIME}</span>
+									{vault.log.TYPE}
+								</div>
+							</div>
+						</div>
+<!-- END log -->
 
 <!-- ENDIF -->
 						<div style="clear:both;"></div>

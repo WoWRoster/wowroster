@@ -22,12 +22,12 @@ $lang['available_amount']='Verfügbare Summe';
 $lang['vault_log']='Gegenstände Log';
 $lang['vault_money_log']='Geld Log';
 
-$lang['vault_log_deposit'] = '%1$s <span class="greenB">zahlte / lagerte</span> %2$s';
-$lang['vault_log_withdraw'] = '%1$s <span class="redB">entnahm</span> %2$s';
-$lang['vault_log_move'] = '%1$s <span class="purpleB">verschob</span> %2$s';
-$lang['vault_log_repair'] = '%1$s hat  %2$s für Reperaturen <span class="redB">ausgegeben</span>';
-$lang['vault_log_withdrawForTab'] = '%1$s <span class="redB">entnahm</span> %2$s für ein neues Bankfach';
-$lang['vault_log_buyTab'] = '%1$s <span class="greenB">kaufte</span> %2$s Fach.';
+$lang['vault_log_deposit'] = '%1$s <span class="deposit">zahlte / lagerte</span> %2$s';
+$lang['vault_log_withdraw'] = '%1$s <span class="withdraw">entnahm</span> %2$s';
+$lang['vault_log_move'] = '%1$s <span class="move">verschob</span> %2$s';
+$lang['vault_log_repair'] = '%1$s hat  %2$s für Reperaturen <span class="repair">ausgegeben</span>';
+$lang['vault_log_withdrawForTab'] = '%1$s <span class="withdrawtab">entnahm</span> %2$s für ein neues Bankfach';
+$lang['vault_log_buyTab'] = '%1$s <span class="purchasetab">kaufte</span> %2$s Fach.';
 
 $lang['admin']['vault_conf'] = 'Gildentresor|Konfiguration der Anzeige';
 $lang['admin']['tab1'] = 'Fach 1 Zugriff|Regelt den Zugriff auf Fach 1';

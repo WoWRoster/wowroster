@@ -14,11 +14,11 @@
  * @since      File available since Release 1.03
  * @package    Vault
  * @subpackage VaultTab
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 require_once( ROSTER_LIB . 'item.php');
