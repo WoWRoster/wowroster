@@ -13,7 +13,7 @@
  * @link       http://www.wowroster.net
  * @package    Vault
  * @subpackage VaultItem
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
