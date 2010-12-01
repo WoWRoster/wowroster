@@ -1,135 +1,123 @@
 <!-- $Id$ -->
 
+<div class="tier-1-a">
+	<div class="tier-1-b">
+		<div class="tier-1-c">
+			<div class="tier-1-title"><!-- TRANSLATE update_page --></div>
+
 <!-- IF S_RESPONSE -->
 <!-- IF S_RESPONSE_ERROR -->
+			<div class="tier-2-a">
+				<div class="tier-2-b">
+					<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
+						<div style="float:right;">
+							<form method="post" action="{U_MAKELINK}" name="post">
+								<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
+								<input type="hidden" name="send_file" value="error_log" />
+								<input type="submit" name="download" value="<!-- TRANSLATE save_error_log -->" />
+							</form>
+						</div>
+						<!-- TRANSLATE update_errors -->
+						<div class="toggle">
+							<img id="msgboximg_data_error" src="{THEME_PATH}/images/button_close.png" alt="" />
+						</div>
+					</div>
 
-<table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
-	<tr>
-		<td class="border_color sredborder">
-			<div class="header_text sredborder" style="cursor:pointer;width:100%;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif');">
-				<img src="{THEME_PATH}/images/plus.gif" style="float:right;" alt="" id="msgboximg_data_error" /><!-- TRANSLATE update_errors -->
+					<div class="border_color sredborder" style="background:black;height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
+						{RESPONSE_ERROR}
+					</div>
+				</div>
 			</div>
-
-			<div style="height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
-				{RESPONSE_ERROR}
-			</div>
-
-		</td>
-	</tr>
-</table>
-
-<form method="post" action="{U_MAKELINK}" name="post">
-	<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
-	<input type="hidden" name="send_file" value="error_log" />
-	<input type="submit" name="download" value="<!-- TRANSLATE save_error_log -->" />
-</form>
-<br />
 <!-- ENDIF -->
 
-<table class="border_frame" cellpadding="0" cellspacing="1" style="width:550px;">
-	<tr>
-		<td class="border_color syellowborder">
-			<div class="header_text syellowborder"><!-- TRANSLATE update_log --></div>
+			<div class="tier-2-a">
+				<div class="tier-2-b">
+					<div class="tier-2-title">
+						<div style="float:right;">
+							<form method="post" action="{U_MAKELINK}" name="post">
+								<input type="hidden" name="data" value="{RESPONSE_POST}" />
+								<input type="hidden" name="send_file" value="update_log" />
+								<input type="submit" name="download" value="<!-- TRANSLATE save_update_log -->" />
+							</form>
+						</div>
+						<!-- TRANSLATE update_log -->
+					</div>
 
-			<div style="height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
-				{RESPONSE}
+					<div class="border_color syellowborder"  style="background:black;height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
+						{RESPONSE}
+					</div>
+
+				</div>
 			</div>
-
-		</td>
-	</tr>
-</table>
-
-<form method="post" action="{U_MAKELINK}" name="post">
-	<input type="hidden" name="data" value="{RESPONSE_POST}" />
-	<input type="hidden" name="send_file" value="update_log" />
-	<input type="submit" name="download" value="<!-- TRANSLATE save_update_log -->" />
-</form>
-<br />
 
 <!-- ELSE -->
 
-<form action="{U_MAKELINK}" enctype="multipart/form-data" method="post">
-
-	<table class="border_frame" cellpadding="0" cellspacing="1">
-		<tr>
-			<td class="border_color sblueborder">
-				<div class="header_text sblueborder"><!-- TRANSLATE update_page --></div>
-
-				<table cellspacing="0" cellpadding="0">
-
-				<!-- BEGIN file_fields -->
-					<tr>
-						<td class="membersRow1" style="cursor:help;"{file_fields.TOOLTIP}><img src="{IMG_URL}blue-question-mark.gif" alt="?" />{file_fields.FILE}.lua</td>
-						<td class="membersRowRight1"><input type="file" accept="{file_fields.FILE}.lua" name="{file_fields.FILE}" /></td>
-					</tr>
-				<!-- END file_fields -->
-
-				</table>
-
-			</td>
-		</tr>
-	</table>
-
-	<br />
-
-	<!-- IF S_PASS -->
-	<table class="border_frame" cellpadding="0" cellspacing="1">
-		<tr>
-			<td class="border_color sgrayborder">
-				<div class="header_text sgrayborder"><!-- TRANSLATE roster_upd_pwLabel --></div>
-
-				<table cellspacing="0" cellpadding="0">
-					<tr>
-						<td class="membersRow1" style="cursor:help;" {L_PASSWORD_TIP}><img src="{IMG_URL}blue-question-mark.gif" alt="?" /><!-- TRANSLATE password --></td>
-						<td class="membersRowRight1"><input type="password" name="password" /></td>
-					</tr>
-				</table>
-
-			</td>
-		</tr>
-	</table>
-
-	<br />
-	<!-- ENDIF -->
-	<table class="border_frame" cellpadding="0" cellspacing="1">
-		<tr>
-			<td >
+			<form action="{U_MAKELINK}" enctype="multipart/form-data" method="post">
 				<input type="hidden" name="process" value="process" />
-				<input type="submit" value="<!-- TRANSLATE upload -->" />
-			</td>
-		</tr>
-	</table>
-</form>
-<br />
-<br />
+
+				<div class="tier-2-a" style="margin:4px auto 0;width:455px;">
+					<div class="tier-2-b">
+						<div class="tier-2-title">
+							<div style="float:right;"><input type="submit" value="<!-- TRANSLATE upload -->" /></div>
+							<!-- TRANSLATE select_files -->
+						</div>
+
+<!-- BEGIN file_fields -->
+						<div class="tier-3-a" style="width:440px;">
+							<div class="tier-3-b">
+								<div class="text">
+									<img style="cursor:help;" {file_fields.TOOLTIP} src="{IMG_URL}blue-question-mark.gif" alt="?" />{file_fields.FILE}.lua
+									<div style="float:right;">
+										<input type="file" accept="{file_fields.FILE}.lua" name="{file_fields.FILE}" />
+									</div>
+								</div>
+							</div>
+						</div>
+<!-- END file_fields -->
+
+<!-- IF S_PASS -->
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="text">
+									<img style="cursor:help;" {L_PASSWORD_TIP} src="{IMG_URL}blue-question-mark.gif" alt="?" /><!-- TRANSLATE roster_upd_pwLabel -->
+									<div style="float:right;"><input type="password" name="password" /></div>
+								</div>
+							</div>
+						</div>
+<!-- ENDIF -->
+
+					</div>
+				</div>
+
 <!-- IF MESSAGES -->
-<br />
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sredborder">
-			<div class="header_text sredborder">Messages</div>
+			<div class="tier-2-a" style="margin:4px auto 0;width;550px;">
+				<div class="tier-2-b">
+					<div class="tier-2-title">Messages</div>
 
-			{MESSAGES}
-
-		</td>
-	</tr>
-</table>
-<br />
-
+						<div class="info-text-h border_color sredborder" style="background:black;">
+{MESSAGES}
+						</div>
+				</div>
+			</div>
 <!-- ENDIF -->
 
 <!-- IF S_UPDATE_INS -->
-	<table class="border_frame" cellpadding="0" cellspacing="1">
-		<tr>
-			<td class="border_color sgrayborder">
-				<div class="header_text sgrayborder"><!-- TRANSLATE update_instructions --></div>
+				<div class="tier-2-a" style="margin:4px auto 0;">
+					<div class="tier-2-b">
+						<div class="tier-2-title"><!-- TRANSLATE update_instructions --></div>
 
+						<div class="info-text-h">
 <!-- TRANSLATE_F update_instruct L_UPLOAD_APP index_text_uniloader L_PROFILER U_UPDATE lualocation -->
-
-			</td>
-		</tr>
-	</table>
+						</div>
+					</div>
+				</div>
 <!-- ENDIF -->
 
+			</form>
+
 <!-- ENDIF -->
+
+		</div>
+	</div>
+</div>

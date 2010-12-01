@@ -345,12 +345,14 @@ class roster_config
 
 				case 'radio':
 					$options = explode('|',$input_type[1]);
+					$input_field .= '<div class="radioset">';
 					foreach( $options as $value )
 					{
 						$vals = explode('^',$value);
 						$input_field .= '<input type="radio" id="rad_' . $this->prefix . $this->radio_num . '" name="' . $this->prefix . $values['name'] . '" value="' . $vals[1] . '" ' . ( $values['value'] == $vals[1] ? 'checked="checked"' : '' ) . ' /><label for="rad_' . $this->prefix . $this->radio_num . '"' . ( $values['value'] == $vals[1] ? ' class="selected"' : '' ) . '>' . $vals[0] . "</label>\n";
 						$this->radio_num++;
 					}
+					$input_field .= '</div>';
 					break;
 
 				case 'select':

@@ -52,7 +52,7 @@ class RosterLogin
 		{
 			setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->allow_login = 0;
-			$this->message = '<span style="font-size:10px;color:red;">Logged out</span><br />';
+			$this->message = 'Logged out';
 		}
 		elseif( isset($_POST['password']) && $_POST['password'] != '' )
 		{
@@ -80,7 +80,7 @@ class RosterLogin
 		{
 			setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->allow_login = 0;
-			$this->message = '<span style="font-size:10px;color:red;">Failed to fetch password info</span><br />';
+			$this->message = 'Failed to fetch password info';
 			return;
 		}
 
@@ -92,7 +92,7 @@ class RosterLogin
 			{
 				setcookie( 'roster_pass',$row['hash'],0,'/' );
 				$this->allow_login = $row['account_id'];
- 				$this->message = '<span style="font-size:10px;">Logged in ' . $row['name'] . ':</span> <form style="display:inline;" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /><input type="submit" value="Logout" /></form>';
+ 				$this->message = 'Logged in ' . $row['name'] . ': <form style="display:inline;" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /><input type="submit" value="Logout" /></form>';
 
 				$roster->db->free_result($result);
 				return;
@@ -102,7 +102,7 @@ class RosterLogin
 
 		setcookie( 'roster_pass','',time()-86400,'/' );
 		$this->allow_login = 0;
-		$this->message = '<span style="font-size:10px;color:red;">Invalid password</span><br />';
+		$this->message = 'Invalid password';
 		return;
 	}
 
@@ -143,19 +143,24 @@ class RosterLogin
 			return '
 			<!-- Begin Password Input Box -->
 			<form action="' . $this->action . '" method="post" enctype="multipart/form-data">
-			' . border('sred','start',$log_word . ' ' . $roster->locale->act['auth_req']) . '
-				<table cellspacing="0" cellpadding="0" width="100%">
-					<tr>
-						<td class="membersRowRight1">' . $roster->locale->act['password'] . ':<br />
-							<input name="password" type="password" size="30" maxlength="30" /></td>
-					</tr>
-					<tr>
-						<td class="membersRowRight2" valign="bottom">
+				<div class="tier-2-a login-box">
+					<div class="tier-2-b">
+						<div class="tier-2-title">
 							<div style="float:right;"><input type="submit" value="Go" /></div>
-							' . $this->getMessage() . '</td>
-					</tr>
-				</table>
-			' . border('sred','end') . '
+							' . $roster->locale->act['auth_req'] . '
+						</div>
+
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="text">
+									' . $log_word . ' ' . $roster->locale->act['password'] . '
+									<div style="float:right;"><input name="password" type="password" size="30" maxlength="30" /></div>
+								</div>
+							</div>
+						</div>
+						' . ( $this->getMessage() ? '<div class="message">' . $this->getMessage() . '</div>' : '') . '
+					</div>
+				</div>
 			</form>
 			<!-- End Password Input Box -->';
 		}
@@ -172,7 +177,7 @@ class RosterLogin
 			return '
 			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" style="margin:0;">
 				Log in: <input name="password" type="password" size="14" maxlength="30" />
-				<input type="submit" value="Go" /><br />' . $this->getMessage() . '
+				<input type="submit" value="Go" /><div class="message">' . $this->getMessage() . '</div>
 			</form>';
 		}
 		else

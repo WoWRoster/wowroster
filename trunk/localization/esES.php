@@ -92,6 +92,7 @@ $lang['guild_realm_ignored'] = 'Hermandad: %1$s @ Reino: %2$s No escaneado';
 $lang['update_members'] = 'Actualizando miembros';
 $lang['update_errors'] = 'Errores al actualizar';
 $lang['update_log'] = 'Registro de actualización';
+$lang['select_files'] = 'Select Files';
 $lang['save_error_log'] = 'Registro de errores';
 $lang['save_update_log'] = 'Registro de actualizaciones';
 
@@ -108,10 +109,6 @@ $lang['no_upgrade'] = 'Acabas de mejorar tu Roster<br />O tienes una nueva versi
 $lang['upgrade_complete'] = 'La instalación de WoWRoster se ha completado satisfactoriamente';
 
 // Menu buttons
-$lang['menu_header_01'] = 'Datos de la hermandad';
-$lang['menu_header_02'] = 'Información del reino';
-$lang['menu_header_03'] = 'Actualizar Perfil';
-$lang['menu_header_04'] = 'Utilidades';
 $lang['menu_header_scope_panel'] = 'Panel de %s';
 
 $lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
@@ -653,6 +650,7 @@ $lang['arena']='Arena';
 
 $lang['when']='Fecha';
 $lang['guild']='Hermandad';
+$lang['guilds']='Hermandades';
 $lang['result']='Resultado';
 $lang['zone']='Zona';
 $lang['subzone']='Subzona';

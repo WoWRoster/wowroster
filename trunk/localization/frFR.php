@@ -92,6 +92,7 @@ $lang['guild_realm_ignored'] = 'Guilde : %1$s @ Royaume : %2$s non traitée';
 $lang['update_members'] = 'Mise à jour des membres de la guilde';
 $lang['update_errors'] = 'Erreur de mise à jour';
 $lang['update_log'] = 'Journal des mises à jour';
+$lang['select_files'] = 'Select Files';
 $lang['save_error_log'] = 'Sauver le journal des erreurs';
 $lang['save_update_log'] = 'Sauver le journal des mises à jour';
 
@@ -108,10 +109,6 @@ $lang['no_upgrade'] = 'Vous avez déjà mis à jour le Roster.<br />Ou vous avez
 $lang['upgrade_complete'] = 'Le Roster a été mis à jour';
 
 // Menu buttons
-$lang['menu_header_01'] = 'Guildes';
-$lang['menu_header_02'] = 'Royaumes';
-$lang['menu_header_03'] = 'Mise à jour';
-$lang['menu_header_04'] = 'Utilitaires';
 $lang['menu_header_scope_panel'] = 'Panneau de contrôle : %s';
 
 $lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
@@ -653,6 +650,7 @@ $lang['arena']='Arène';
 
 $lang['when']='Quand';
 $lang['guild']='Guilde';
+$lang['guilds']='Guildes';
 $lang['result']='Résultat';
 $lang['zone']='Zone';
 $lang['subzone']='Sous-zone';

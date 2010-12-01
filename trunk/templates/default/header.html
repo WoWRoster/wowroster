@@ -8,6 +8,7 @@
 <base href="{ROSTER_URL}" />
 <link rel="stylesheet" type="text/css" href="{THEME_PATH}/style.css" />
 <script type="text/javascript" src="{ROSTER_PATH}js/jquery.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/jquery-ui.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/script.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
 /**
@@ -41,93 +42,69 @@
 
 {ROSTER_TOP}
 
-
 <div class="theme-wrap">
 
-<!-- IF ROSTER_SCOPE eq "page" -->
+<!-- INCLUDE mini_update.html -->
+
+<!-- IF ROSTER_SCOPE eq "page" or ROSTER_SCOPE eq "util" -->
 	<div class="info-header Realm">
 		<div class="text">
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
 			<!-- IF PAGE_INFO --><div class="info">{PAGE_INFO}<span>{PAGE_INFO}</span></div><!-- ENDIF -->
 		</div>
 		<div class="menu-select">
-		<!-- IF S_LOCALE_SELECT -->
+<!-- IF S_LOCALE_SELECT -->
 			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
 				<!-- TRANSLATE language -->
 				<select name="locale" onchange="document.locale_select.submit();">
-				<!-- BEGIN locale_select -->
+<!-- BEGIN locale_select -->
 					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-				<!-- END locale_select -->
+<!-- END locale_select -->
 				</select>
 			</form>
-		<!-- ENDIF -->
-
+<!-- ENDIF -->
 			<br />
 {LOGIN_FORM}
 		</div>
 	</div>
-	<div class="util-page-wrap">
+	<div class="util<!-- IF ROSTER_SCOPE eq "page" -->-page<!-- ENDIF -->-wrap">
 <!-- ENDIF -->
 
-<!-- IF ROSTER_SCOPE eq "util" -->
-	<div class="info-header Realm">
-		<div class="text">
-			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
-			<!-- IF PAGE_INFO --><div class="info">{PAGE_INFO}<span>{PAGE_INFO}</span></div><!-- ENDIF -->
-		</div>
-		<div class="menu-select">
-		<!-- IF S_LOCALE_SELECT -->
-			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-				<!-- TRANSLATE language -->
-				<select name="locale" onchange="document.locale_select.submit();">
-				<!-- BEGIN locale_select -->
-					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-				<!-- END locale_select -->
-				</select>
-			</form>
-		<!-- ENDIF -->
-			<br />
-{LOGIN_FORM}
-		</div>
-	</div>
-	<div class="util-wrap">
-<!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "realm" -->
 	<div class="info-header Realm">
 		<div class="text">
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
-			<div class="info">Guilds: {TOTAL_GUILDS}<span>Guilds: {TOTAL_GUILDS}</span></div>
+			<div class="info"><!-- TRANSLATE guilds -->: {TOTAL_GUILDS}<span>Guilds: {TOTAL_GUILDS}</span></div>
 		</div>
 		<div class="menu-select">
 		<!-- IF S_LOCALE_SELECT -->
 			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
 				<!-- TRANSLATE language -->
 				<select name="locale" onchange="document.locale_select.submit();">
-				<!-- BEGIN locale_select -->
+<!-- BEGIN locale_select -->
 					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-				<!-- END locale_select -->
+<!-- END locale_select -->
 				</select>
 			</form>
-		<!-- ENDIF -->
-				
-		<!-- IF S_MENU_SELECT -->
+<!-- ENDIF -->
+
+<!-- IF S_MENU_SELECT -->
 			<form action="{U_MAKELINK}" name="list_select" method="post" style="margin:0;">
 				{L_MENU_LABEL_NAME}:
 				<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
-					<!-- BEGIN menu_select_group -->
+<!-- BEGIN menu_select_group -->
 						<optgroup label="{menu_select_group.U_VALUE}">
-							<!-- BEGIN menu_select_row -->
+<!-- BEGIN menu_select_row -->
 							<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
-							<!-- END menu_select_row -->
+<!-- END menu_select_row -->
 							</optgroup>
-					<!-- END menu_select_group -->
+<!-- END menu_select_group -->
 				</select>
 			</form>
-		<!-- ELSE -->
+<!-- ELSE -->
 		&nbsp;
-		<!-- ENDIF -->
-
+<!-- ENDIF -->
 			<br />
 {LOGIN_FORM}
 		</div>
@@ -142,35 +119,33 @@
 			<div class="info"><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}<span><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}</span></div>
 		</div>
 		<div class="menu-select">
-		<!-- IF S_LOCALE_SELECT -->
+<!-- IF S_LOCALE_SELECT -->
 			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
 				<!-- TRANSLATE language -->
 				<select name="locale" onchange="document.locale_select.submit();">
-				<!-- BEGIN locale_select -->
+<!-- BEGIN locale_select -->
 					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-				<!-- END locale_select -->
+<!-- END locale_select -->
 				</select>
 			</form>
-		<!-- ENDIF -->
+<!-- ENDIF -->
 
-		<!-- IF S_DATA_SELECT -->
+<!-- IF S_DATA_SELECT -->
 			<form action="{U_MAKELINK}" name="list_select" method="post" style="margin:0;">
 				{L_MENU_LABEL_NAME}:
 				<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
-					<!-- BEGIN menu_select_group -->
+<!-- BEGIN menu_select_group -->
 						<optgroup label="{menu_select_group.U_VALUE}">
-							<!-- BEGIN menu_select_row -->
+<!-- BEGIN menu_select_row -->
 							<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
-							<!-- END menu_select_row -->
+<!-- END menu_select_row -->
 							</optgroup>
-					<!-- END menu_select_group -->
+<!-- END menu_select_group -->
 				</select>
 			</form>
-		<!-- ELSE -->
+<!-- ELSE -->
 		&nbsp;
-		<!-- ENDIF -->
-			<br />
-
+<!-- ENDIF -->
 			<br />
 {LOGIN_FORM}
 		</div>
@@ -179,19 +154,18 @@
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "char" -->
-	<div class="char-list" id="mini_guild" style="display: none;">
+	<div class="mini-list" id="mini_guild" style="display:none;">
 		<div class="tier-1-a">
 			<div class="tier-1-b">
 				<div class="tier-1-c">
-					<div class="tier-1-title" style="cursor:pointer;" onclick="showHide('mini_guild'); return false;"><!-- TRANSLATE member_profiles -->
+					<div class="tier-1-title mini-list-click"><!-- TRANSLATE member_profiles -->
 						<div class="toggle">
-							<img src="{THEME_PATH}/images/button_close.png"/>
+							<img src="{THEME_PATH}/images/button_close.png" alt="" />
 						</div>
 					</div>
 
 					<div class="tier-2-a">
 						<div class="tier-2-b">
-
 							<div class="list">
 <!-- BEGIN mini_memberslist -->
 							<!-- IF mini_memberslist.U_LINK --><a href="{mini_memberslist.U_LINK}">
@@ -218,7 +192,6 @@
 		</div>
 	</div>
 
-
 	<div class="info-header {FACTION}">
 		<div class="text"{ALT_TOOLTIP}>
 			<div class="name" {ALT_TOOLTIP}>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
@@ -226,16 +199,16 @@
 			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --><span><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></span></div>
 		</div>
 		<div class="menu-select">
-		<!-- IF S_LOCALE_SELECT -->
+<!-- IF S_LOCALE_SELECT -->
 			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
 				<!-- TRANSLATE language -->
 				<select name="locale" onchange="document.locale_select.submit();">
-				<!-- BEGIN locale_select -->
+<!-- BEGIN locale_select -->
 					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-				<!-- END locale_select -->
+<!-- END locale_select -->
 				</select>
 			</form>
-		<!-- ENDIF -->
+<!-- ENDIF -->
 			<br />
 {LOGIN_FORM}
 		</div>
