@@ -379,6 +379,112 @@ class Upgrade
 				`locale` varchar(4) DEFAULT NULL
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
+                
+                
+                // Add talent arrows
+		if( version_compare($roster->config['version'], '2.0.9.2194', '<') )
+		{
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('talenttree_arrows') . "`;");
+			$roster->db->query("CREATE TABLE `" . $roster->db->table('talenttree_arrows') . "` (
+				`tree` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+				`arrowid` int(2) NOT NULL DEFAULT '0',
+				`opt1` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+				`opt2` varchar(100) COLLATE utf8_bin DEFAULT '',
+				`opt3` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+				`opt4` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+				PRIMARY KEY (`tree`,`arrowid`)
+				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin");
+                        $roster->db->query("INSERT INTO `" . $roster->db->table('talenttree_arrows') . "` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3`, `opt4`) VALUES
+				('hunterbeastmastery', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('hunterbeastmastery', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('hunterbeastmastery', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('hunterbeastmastery', 4, 'vArrow', 'disabledArrow', NULL, NULL),
+				('huntermarksmanship', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('huntermarksmanship', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('huntermarksmanship', 3, 'hArrow', 'arrowRight', 'disabledArrow', 'plain'),
+				('huntermarksmanship', 4, 'vArrow', 'disabledArrow', NULL, NULL),
+				('huntersurvival', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('huntersurvival', 2, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('huntersurvival', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('magefrost', 4, 'vArrow', 'disabledArrow', NULL, NULL),
+				('magefrost', 3, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('magefrost', 2, 'hArrow', 'arrowLeft', 'disabledArrow', 'disabledArrowL'),
+				('magefrost', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('magefire', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('magefire', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('magearcane', 5, 'vArrow', 'disabledArrow', NULL, NULL),
+				('magearcane', 4, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('magearcane', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('magearcane', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('magearcane', 1, 'hArrow', 'arrowLeft', 'disabledArrow', 'disabledArrowL'),
+				('druidrestoration', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidrestoration', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidrestoration', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidferalcombat', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidferalcombat', 2, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('druidferalcombat', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('druidbalance', 5, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidbalance', 4, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidbalance', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidbalance', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('druidbalance', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('deathknightunholy', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('deathknightunholy', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('deathknightunholy', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('deathknightfrost', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('deathknightblood', 1, 'hArrow', 'arrowLeft', 'disabledArrow', 'disabledArrowL'),
+				('paladinholy', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('paladinholy', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('paladinprotection', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('paladinprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('paladinprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('paladinprotection', 4, 'vArrow', 'disabledArrow', NULL, NULL),
+				('paladincombat', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestdiscipline', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('priestdiscipline', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestdiscipline', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestholy', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestholy', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestholy', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestholy', 4, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('priestholy', 5, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestshadow', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestshadow', 2, 'hArrow', 'arrowRigh', 'disabledArrow', NULL),
+				('priestshadow', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('priestshadow', 4, 'vArrow', 'disabledArrow', NULL, NULL),
+				('rogueassassination', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('rogueassassination', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('roguecombat', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('roguesubtlety', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('roguesubtlety', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('shamanelementalcombat', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('shamanelementalcombat', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('shamanelementalcombat', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('shamanenhancement', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('shamanrestoration', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('shamanrestoration', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warlockcurses', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('warlockcurses', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warlocksummoning', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('warlocksummoning', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warlocksummoning', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warlockdestruction', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warlockdestruction', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warlockdestruction', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warriorarms', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warriorarms', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warriorarms', 3, 'hArrow', 'arrowRight', 'plain', 'disabledArrow'),
+				('warriorarms', 4, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warriorfury', 1, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warriorfury', 2, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('warriorfury', 3, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warriorprotection', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
+				('warriorprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
+				('warriorprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL);");
+		}
+                
+                
+                
 
 		// Standard Beta Update
 		$this->beta_upgrade();

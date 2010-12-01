@@ -31,7 +31,7 @@ if( !defined('IN_ROSTER') )
     $config['equipable_items_number'] = 18;                                            // How many equipable items on a character. !! DO NOT EDIT THIS !!
 
     // DEBUG SETTINGS
-    $config['chars_to_process'] = 1;                                                // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
+    $config['chars_to_process'] = -1;                                                // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
     $config['use_char_selction_list'] = false;                                        // Select this option to only process characters names found in the "$config['char_selction_list']" array.
     $config['char_selction_list'] = array( "" );            // A list of characters to process, excluding all others. NOTE: Requires "$config['chars_to_process'] = -1;"
 
@@ -73,6 +73,7 @@ class RosterArmory
 
         var $debugmessages = array();
     	var $errormessages = array();
+        var $logmessages = array();
         var $live_system = true;
         var $query;
         var $server;
@@ -85,7 +86,7 @@ class RosterArmory
 
 	var $base_filename              = 'roster.test.php';            // Base script file name
 	var $base_url                   = '';                           // Base URL
-	var $url_prefix_armory          = 'http://www.wowarmory.com';   // URL for the AMERICAN armory
+	var $url_prefix_armory          = 'http://www.wowarmory.com/';   // URL for the AMERICAN armory
 	var $url_prefix_char            = 'character-sheet.xml?';       // Use for Char links
 	var $url_prefix_itemtooltip     = 'item-tooltip.xml?i=';        // Use for Char links
 	var $url_prefix_talents         = 'character-talents.xml?';     // used for talent links
@@ -140,6 +141,22 @@ class RosterArmory
 	 */
 	var $simpleParser;
 
+
+	function setMessage($message)
+	{
+		$this->messages[] = $message;
+	}
+
+
+	/**
+	 * Returns all messages
+	 *
+	 * @return string
+	 */
+	function getMessages()
+	{
+		return implode("\n",$this->messages) . "\n";
+	}
 	/**
 	 * Constructor
 	 *
@@ -149,7 +166,7 @@ class RosterArmory
 	{
 		global $roster;
 
-		$this->base_url                   = $roster->config['website_address'];
+		$this->base_url                   = $roster->config['website_address'].'/'; // gotta have a trailing slash here..... allways....
 		$this->url_prefix_armory          = isset($roster->data['armoryurl']) ? $roster->data['armoryurl'] : $this->url_prefix_armory;
 		$this->url_prefix_char            = $this->url_prefix_armory . $this->url_prefix_char;
 		$this->url_prefix_itemtooltip     = $this->url_prefix_armory . $this->url_prefix_itemtooltip;
@@ -181,13 +198,13 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
     // change the first part of the $url to the armory link that you need
     if( $query === 'roster' ){
         $filename_type = 'guild-info';
-        $url = $this->url_prefix_armory.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode(  $guild ) );
+        $url = $this->url_prefix_armory.'/'.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&gn=' . urlencode( utf8_encode(  $guild ) );
     } elseif( $query === 'character' ){
         $filename_type = 'character-sheet';
-        $url = $this->url_prefix_armory.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
+        $url = $this->url_prefix_armory.'/'.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&cn=' . urlencode( utf8_encode($guildie));
     } elseif( $query === 'achievement' ){
         $filename_type = 'character-achievements';
-        $url = $this->url_prefix_armory.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&n=' . urlencode( utf8_encode($guildie));
+        $url = $this->url_prefix_armory.'/'.$filename_type.'.xml?r=' . urlencode( utf8_encode( $server ) ) . '&cn=' . urlencode( utf8_encode($guildie));
     }
     //$url_prefix_itemtooltip
     elseif( $query === 'itemtooltip' ){
@@ -216,10 +233,10 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
         curl_setopt ($ch, CURLOPT_USERAGENT,  "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.2) Gecko/20070319 Firefox/2.0.0.3");
         $url_string = curl_exec($ch);
         curl_close($ch);
-        //echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML LIVE FEED:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a><P><br>';
+        $this->setMessage('-> <b>'.strtoupper($filename_type).'.XML LIVE FEED:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a>');
     } else {
         if( $this->query === 'roster' ){
-            echo '<b>NOTE: USING XML CACHE ONLY!!!</b><P>';
+           $this->setMessage('<b>NOTE: USING XML CACHE ONLY!!!</b><P>');
         }
     }
     //alert($url_string);
@@ -233,7 +250,7 @@ public function __construct ( $query, $server, $guild, $guildie, $page ) {
         $latestGuildXMLfile = $this->getXMLfile('guild-info');                    // GET THE LATEST CACHE GUILD XML FILE
         $url = $this->base_url.$this->DIR_cache.$latestGuildXMLfile['filename'];
         $url_filesize = $latestGuildXMLfile['filesize'];
-        //echo "<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." <br /><br /><br /><br />";
+       $this->setMessage("<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." ");
     } elseif( $query === 'character' ) {
         $char_cache_filename = $filename_type.'-'.$guildie;        // BUILD THE CHRACTER XML CACHE FILENAME
        // echo  $char_cache_filename.'<br>';
@@ -344,20 +361,20 @@ function fileSizeInfo($size){
 }
 
 
-
+//$this->setMessage(
 //------------------------------------------------------------------
 // Get the latest cached XML file from the cache directory
 function getXMLfile( $XMLtype ) {
     global $config;
-
+	$caschmsg = '';
     // GET LATEST XML FILE
     $new_file_size = 0;
     $new_file_time = 0;
     $new_file_name = "";
     $old_file_date = time() - ($this->days_to_cache * 24 * 60 * 60);
-    $dir = opendir ("./".$this->DIR_cache);
-   // echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>-> CHECKING XML CACHE [";
-    $filecount = count(glob("./".$this->DIR_cache."*.xml"));
+    $dir = opendir ($this->DIR_cache);
+    $caschmsg .= "<b>-> CHECKING XML CACHE [";
+    $filecount = count(glob($this->DIR_cache."*.xml"));
     $filecount_current=0;
     $loading_bar_list = array();
     for( $i=1; $i<$this->loading_bar; $i++ ) { $loading_bar_list[] = round($filecount/$i); }
@@ -367,14 +384,14 @@ function getXMLfile( $XMLtype ) {
             $file_size = filesize($this->DIR_cache.$file);
             $file_time = filemtime($this->DIR_cache.$file);
             if ( $file_size > 614 ) { // 614 BYTES 503 ERROR DOCUMENT // 651 BYTES CHAR ERROR PAGE
-                //echo "COMPARE -> '".$new_file_name."' '".$file."' <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$new_file_size."<=".$file_size." | ".$new_file_time."<".$file_time." |";
+                $caschmsg .= "COMPARE -> '".$new_file_name."' '".$file."' <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$new_file_size."<=".$file_size." | ".$new_file_time."<".$file_time." |";
                 if ( $file_time >= $new_file_time ) { // CHECK IF ITS A NEWER FILE
-                    //echo " [newer file]";
+                    echo " [newer file]";
                     $new_file_size = $file_size;
                     $new_file_time = $file_time;
                     $new_file_name = $file;
                 }
-                //echo "<br />";
+                $caschmsg .= "<br />";
             }
             // REMOVE FILES OLDER THAN THE SPECIFIED TIME
             if( $file_time < $old_file_date ) {
@@ -384,7 +401,8 @@ function getXMLfile( $XMLtype ) {
         if (in_array($filecount_current,$loading_bar_list))    //echo $this->loading_bar_mask;
         $filecount_current++;
     }
-   // echo "] - DONE</b><P>";
+    $caschmsg .= "] - DONE</b><P>";
+    $this->setMessage(''.$caschmsg.'');
     return array( "filename" => $new_file_name, "filesize" => $new_file_size, "filetime" => $new_file_time );
 }
 
