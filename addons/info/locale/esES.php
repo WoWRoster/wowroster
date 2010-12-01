@@ -94,6 +94,7 @@ $lang['Trinket1']      = 'Abalorio 1';
 
 //tabs
 $lang['profile']='Profile';
+$lang['model_viewer']='Model Viewer';
 $lang['reputation']='Reputación';
 $lang['skills']='Habilidades';
 $lang['pvp']='JcJ';
@@ -285,6 +286,7 @@ $lang['admin']['recipe_disp'] = "Mostrar recetas|Elige si mostrar el listado de 
 $lang['admin']['mail_disp'] = "Mostrar correo|Controla como mostrar el correo<br /><br />&quot;Table&quot; Muestra el correo en una tabla<br />&quot;Bag&quot; Muestra cada correo como una bolsa de objetos<br />&quot;Both&quot; Muestra de ambos modos";
 $lang['admin']['show_money'] = "Dinero|Elige si mostrar el dinero.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_played'] = "Tiempo jugado|Controla como mostrar el Tiempo jugado y el Tiempo jugado este nivel<br /><br />La configuración es global y afectará a todos los personajes";
+$lang['admin']['show_model'] = "Model Viewer|Controls the display of Blizzard's Model Viewer<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_pets'] = "Mascotas|Elige si mostrar las mascotas<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_reputation'] = "Reputación|Elige si mostrar las reputaciones.<br /><br />La configuración es global y afectará a todos los personajes";
 $lang['admin']['show_skills'] = "Habilidades|Elige si mostrar las habilidades.<br /><br />La configuración es global y afectará a todos los personajes";

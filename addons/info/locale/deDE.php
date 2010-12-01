@@ -94,6 +94,7 @@ $lang['Trinket1']      = 'Schmuck 1';
 
 //tabs
 $lang['profile']='Profile';
+$lang['model_viewer']='Model Viewer';
 $lang['reputation']='Ruf';
 $lang['skills']='Fertigk.';
 $lang['pvp']='PvP';
@@ -285,6 +286,7 @@ $lang['admin']['recipe_disp'] = "Rezeptanzeige|Kontrolliere wie die Rezepteliste
 $lang['admin']['mail_disp'] = "Post Anzeige|Einstellen ob Post angezeigt werden soll<br /><br />&quot;Tabelle&quot; Zeigt die Post tabellarisch an<br />&quot;Tasche&quot; Zeigt jede Post wie eine Tasche mit Items<br />&quot;Beides&quot; Zeigt die Post tabellarisch und als Tasche";
 $lang['admin']['show_money'] = "Gold|Anzeige des Goldes im Rucksack<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_played'] = "Zeit gespielt|Einstellen der Anzeige der Gesamtenspielzeit und der Spielzeit auf dem Level<br /><br />Diese Einstellung ist Global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_model'] = "Model Viewer|Controls the display of Blizzard's Model Viewer<br /><br />Setting is global and overrides per-user setting";
 $lang['admin']['show_pets'] = "Begleiter|Kontrolliere die Begleiteranzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_reputation'] = "Ruf|Kontrolliert die Rufanzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_skills'] = "Zaubersprüche|Kontrolliert die Anzeuge der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";

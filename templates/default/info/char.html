@@ -14,28 +14,29 @@
 <div id="profile" class="container profile" style="display:none;">
 
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE profile -->
 
-				<div class="info-bonus-navigation">
-					<ul id="info_bonus_nav">
-						<li><a rel="infotoggle" class="text">Character Info</a></li>
-                    	<li><a rel="modeltoggle" class="text">Model Viewer</a></li>
+					<div class="info-bonus-navigation">
+						<ul id="info_bonus_nav">
+							<li><a rel="infotoggle" class="text"><!-- TRANSLATE profile --></a></li>
+<!-- IF S_MODEL_TAB -->
+							<li><a rel="modeltoggle" class="text"><!-- TRANSLATE model_viewer --></a></li>
+<!-- ENDIF -->
 <!-- IF S_PVP_TAB -->
-						<li><a rel="pvptoggle" class="text">PvP</a></li>
+							<li><a rel="pvptoggle" class="text"><!-- TRANSLATE pvp --></a></li>
 <!-- ENDIF -->
 <!-- IF S_BONUS_TAB -->
-						<li><a rel="bonustoggle" class="text">Bonuses</a></li>
+							<li><a rel="bonustoggle" class="text"><!-- TRANSLATE item_bonuses --></a></li>
 <!-- ENDIF -->
-					</ul>
+						</ul>
+					</div>
+
 				</div>
-				
-                </div>
 
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
-
+	<div class="tier-2-a">
+		<div class="tier-2-b">
 
 			<div class="equip-bg">
 				<div class="equip">
@@ -51,11 +52,13 @@
 					</div>
 <!-- END equipment -->
 				</div>
-                
+
+<!-- IF S_MODEL_TAB -->
 				<div class="model-box" id="modeltoggle" style="display:none;">
-                	<iframe src="{MODEL_URL}" scrolling="no" height="443" width="321" frameborder="0"></iframe>
+					<iframe src="{MODEL_URL}" scrolling="no" height="443" width="321" frameborder="0"></iframe>
 				</div>
-                     
+<!-- ENDIF -->
+
 				<div class="info-box" id="infotoggle" style="display:none;">
 					<div class="spec shader">
 						<!-- TRANSLATE talent_specialization -->
