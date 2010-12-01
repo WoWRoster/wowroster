@@ -876,6 +876,43 @@ class char
 		return $t;
 
 	}
+        
+        
+        
+        /**
+	 * Build Talentarrows
+	 *
+	 * @return string
+	 */
+	function build_talenttree_arrows( $tree )
+	{
+		global $roster, $addon;
+		$sql = "SELECT * FROM `" . $roster->db->table('talenttree_arrows') . "`"
+			. " WHERE `tree` = '" . $tree . "'"
+			. " ORDER BY `tree` ASC,`arrowid` ASC;";
+
+		$t = array();
+		$results = $roster->db->query($sql);
+		$is = '';
+		$ii = '';
+
+		if( $results && $roster->db->num_rows($results) > 0 )
+		{
+			while( $row = $roster->db->fetch($results, SQL_ASSOC) )
+			{
+				$is++;
+				$ii++;
+                                $t[$row['arrowid']]['tree'] = $tree;
+				$t[$row['arrowid']]['id'] = $row['arrowid'];
+				$t[$row['arrowid']]['opt1'] = $row['opt1'];
+				$t[$row['arrowid']]['opt2'] = $row['opt2'];
+				$t[$row['arrowid']]['opt3'] = $row['opt3'];
+                                $t[$row['arrowid']]['opt4'] = $row['opt4'];
+			}
+		}
+		return $t;
+
+	}
 
 	function build_talent_data( $class )
 	{
@@ -1071,7 +1108,20 @@ class char
 							'SELECTED' => ($spc == $build ? true : false)
 							)
 						);
-
+						$arrows = $this->build_talenttree_arrows( $tree['image'] );
+                                                foreach($arrows as $arr => $arrid)
+                                                {
+                                                	//echo ''.$arrid['id'].'<br>';
+                                                 	$roster->tpl->assign_block_vars('talent.tree.arrows', array(
+								'TREE' => $tree['image'],
+								'ID' => $arrid['id'],
+								'OPT1' => $arrid['opt1'],
+								'OPT2' => $arrid['opt2'],
+								'OPT3' => $arrid['opt3'],
+								'OPT4' => $arrid['opt4']
+								)
+							);
+                                                }
 						// Loop rows in tree
 						foreach( $tree['talents'] as $row )
 						{

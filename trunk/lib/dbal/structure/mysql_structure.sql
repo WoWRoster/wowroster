@@ -943,3 +943,19 @@ CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
   `tree` varchar(200) NOT NULL default '',
   PRIMARY KEY  (`member_id`,`build`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+#-- --------------------------------------------------------
+
+#--
+#-#- Table structure for table `roster_talenttree_arrows`
+#--
+DROP TABLE IF EXISTS `renprefix_talent_builds`;
+CREATE TABLE IF NOT EXISTS `renprefix_talenttree_arrows` (
+  `tree` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `arrowid` int(2) NOT NULL DEFAULT '0',
+  `opt1` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `opt2` varchar(100) COLLATE utf8_bin DEFAULT '',
+  `opt3` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `opt4` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`tree`,`arrowid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
