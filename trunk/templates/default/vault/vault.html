@@ -6,7 +6,7 @@
 	<div class="tier-1-a">
 		<div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title"><!-- TRANSLATE vault -->
+				<div class="tier-1-title"><!-- TRANSLATE vault --> (Logs Broken, need tabs)
 					<div class="links">
 <!-- BEGIN vault -->
 						<a href="{vault.LINK}">
@@ -26,9 +26,15 @@
 							</div>{vault.NAME}
 <!-- IF vault.SLOT eq 'MoneyLog' -->
 							<div class="title-money">
-								<!-- IF MONEY_G gt 0 -->{MONEY_G} <img src="{IMG_URL}coin_gold.gif" alt="g" /><!-- ENDIF -->
-								<!-- IF MONEY_S gt 0 -->{MONEY_S} <img src="{IMG_URL}coin_silver.gif" alt="s" /><!-- ENDIF -->
-								<!-- IF MONEY_C gt 0 -->{MONEY_C} <img src="{IMG_URL}coin_copper.gif" alt="c" /><!-- ENDIF -->
+<!-- IF MONEY_G gt 0 -->
+								{MONEY_G}<img src="{IMG_URL}coin_gold.gif" alt="g" />
+<!-- ENDIF -->
+<!-- IF MONEY_S gt 0 -->
+								{MONEY_S}<img src="{IMG_URL}coin_silver.gif" alt="s" />
+<!-- ENDIF -->
+<!-- IF MONEY_C gt 0 -->
+								{MONEY_C}<img src="{IMG_URL}coin_copper.gif" alt="c" />
+<!-- ENDIF -->
 							</div>
 <!-- ENDIF -->
 						</div>
@@ -49,9 +55,9 @@
 							</div>
 <!-- END column -->
 						</div>
-<!-- ELSE -->
+<!-- ENDIF -->
 <!-- BEGIN log -->
-						<div class="tier-3-a">
+						<div class="tier-3-a"<!-- IF vault.SLOT neq 'MoneyLog' --> style="display:none;"<!-- ENDIF -->>
 							<div class="tier-3-b">
 								<div class="text">
 									<span style="float:right;">{vault.log.TIME}</span>
@@ -60,8 +66,6 @@
 							</div>
 						</div>
 <!-- END log -->
-
-<!-- ENDIF -->
 						<div style="clear:both;"></div>
 					</div>
 				</div>
