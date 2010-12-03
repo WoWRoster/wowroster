@@ -49,8 +49,6 @@ class RosterMenu
 
 		if( defined('ROSTER_MENU_INC') )
 		{
-			$roster->tpl->set_handle('roster_menu', 'menu.html');
-			$roster->tpl->display('roster_menu');
 
 			// Create the mini update pop-up
 			// Include update lib
@@ -64,6 +62,9 @@ class RosterMenu
 			$mini_update->makeFileFields('mini_file_fields');
 
 			unset($mini_update);
+
+			$roster->tpl->set_handle('roster_menu', 'menu.html');
+			$roster->tpl->display('roster_menu');
 		}
 	}
 

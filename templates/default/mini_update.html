@@ -4,35 +4,39 @@
 	<div class="tier-1-a">
 		<div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title mini-list-click"><!-- TRANSLATE update_page -->
+				<div class="tier-1-title mini-list-click">
 					<div class="toggle">
 						<img src="{THEME_PATH}/images/button_close.png" alt="" />
 					</div>
+					<!-- TRANSLATE update_page -->
 				</div>
 
 				<div class="tier-2-a">
 					<div class="tier-2-b">
-						<div class="tier-2-title"><!-- TRANSLATE select_files --></div>
 
 						<form action="{U_MENU_UPDATE_LUA}" enctype="multipart/form-data" method="post">
 							<input type="hidden" name="process" value="process" />
+
+							<div class="tier-2-title">
+								<div class="right">
+									<input type="submit" value="<!-- TRANSLATE upload -->" />
+									<a class="input" href="{U_MENU_UPDATE_LUA}"><!-- TRANSLATE update_instructions --></a>
+								</div>
+								<!-- TRANSLATE select_files -->
+							</div>
 
 <!-- BEGIN mini_file_fields -->
 							<div class="tier-3-a">
 								<div class="tier-3-b">
 									<div class="text" style="margin-left">
-										<span class="ui-icon ui-icon-help" style="cursor:help;" {mini_file_fields.TOOLTIP}></span>{mini_file_fields.FILE}.lua
 										<div style="float:right;">
 											<input type="file" accept="{mini_file_fields.FILE}.lua" name="{mini_file_fields.FILE}" />
 										</div>
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {mini_file_fields.TOOLTIP}></span>{mini_file_fields.FILE}.lua
 									</div>
 								</div>
 							</div>
 <!-- END mini_file_fields -->
-
-							<input type="submit" value="<!-- TRANSLATE upload -->" />
-							<a class="input" href="{U_MENU_UPDATE_LUA}"><!-- TRANSLATE update_instructions --></a>
-
 						</form>
 					</div>
 				</div>
