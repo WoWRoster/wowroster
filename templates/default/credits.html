@@ -1,154 +1,124 @@
 <!-- $Id$ -->
 
-<div style="font-size:12px;">
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE credit --></div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="info-text-h">
 {L_TOP_CREDITS}
-</div>
+						</div>
+					</div>
+				</div>
 
-
-<table cellspacing="10"><tr><td valign="top" width="50%">
-
-
-<table class="border_frame" cellpadding="0" cellspacing="1" width="100%">
-	<tr>
-		<td class="border_color sgreenborder">
-			<div class="header_text sgreenborder">{L_ACTIVE_DEV}</div>
-
-			<table width="100%" cellspacing="0">
-				<tr>
-					<th class="membersHeader"><!-- TRANSLATE name --></th>
-					<th class="membersHeaderRight"><!-- TRANSLATE info --></th>
-				</tr>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_ACTIVE_DEV}</div>
 
 <!-- BEGIN active_dev -->
-				<tr>
-					<td class="membersRow{active_dev.ROW_CLASS}">{active_dev.NAME}</td>
-					<td class="membersRowRight{active_dev.ROW_CLASS}">{active_dev.INFO}</td>
-				</tr>
+						<div class="tier-3-a">
+							<div class="tier-3-b green">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{active_dev.NAME}</div>
+									<div>{active_dev.INFO}</div>
+								</div>
+							</div>
+						</div>
 <!-- END active_dev -->
 
-			</table>
+					</div>
+				</div>
 
-		</td>
-	</tr>
-</table>
-
-<br />
-
-<table class="border_frame" cellpadding="0" cellspacing="1" width="100%">
-	<tr>
-		<td class="border_color spurpleborder">
-			<div class="header_text spurpleborder">{L_3RD_PARTY}</div>
-
-			<table width="100%" cellspacing="0">
-				<tr>
-					<th class="membersHeader"><!-- TRANSLATE name --></th>
-					<th class="membersHeaderRight"><!-- TRANSLATE info --></th>
-				</tr>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_3RD_PARTY}</div>
 
 <!-- BEGIN 3rd_party -->
-				<tr>
-					<td class="membersRow{3rd_party.ROW_CLASS}">{3rd_party.NAME}</td>
-					<td class="membersRowRight{3rd_party.ROW_CLASS}">{3rd_party.INFO}</td>
-				</tr>
+						<div class="tier-3-a">
+							<div class="tier-3-b yellow">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{3rd_party.NAME}</div>
+									<div>{3rd_party.INFO}</div>
+								</div>
+							</div>
+						</div>
 <!-- END 3rd_party -->
 
-			</table>
+					</div>
+				</div>
 
-		</td>
-	</tr>
-</table>
-
-
-</td><td valign="top" width="50%">
-
-
-<table class="border_frame" cellpadding="0" cellspacing="1" width="100%">
-	<tr>
-		<td class="border_color sredborder">
-			<div class="header_text sredborder">{L_INACTIVE_DEV}</div>
-
-			<table width="100%" cellspacing="0">
-				<tr>
-					<th class="membersHeader"><!-- TRANSLATE name --></th>
-					<th class="membersHeaderRight"><!-- TRANSLATE info --></th>
-				</tr>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_INACTIVE_DEV}</div>
 
 <!-- BEGIN inactive_dev -->
-				<tr>
-					<td class="membersRow{inactive_dev.ROW_CLASS}">{inactive_dev.NAME}</td>
-					<td class="membersRowRight{inactive_dev.ROW_CLASS}">{inactive_dev.INFO}</td>
-				</tr>
+						<div class="tier-3-a">
+							<div class="tier-3-b red">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{inactive_dev.NAME}</div>
+									<div>{inactive_dev.INFO}</div>
+								</div>
+							</div>
+						</div>
 <!-- END inactive_dev -->
 
-			</table>
+					</div>
+				</div>
 
-		</td>
-	</tr>
-</table>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_LIBRARY}</div>
 
-<br />
+<!-- BEGIN library -->
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{library.NAME}</div>
+									<div>{library.INFO}</div>
+								</div>
+							</div>
+						</div>
+<!-- END library -->
 
-<table class="border_frame" cellpadding="0" cellspacing="1" width="100%">
-	<tr>
-		<td class="border_color sorangeborder">
-			<div class="header_text sorangeborder">{L_JS_LIB}</div>
-
-			<table width="100%" cellspacing="0">
-				<tr>
-					<th class="membersHeader"><!-- TRANSLATE name --></th>
-					<th class="membersHeaderRight"><!-- TRANSLATE info --></th>
-				</tr>
-
-<!-- BEGIN js_lib -->
-				<tr>
-					<td class="membersRow{js_lib.ROW_CLASS}">{js_lib.NAME}</td>
-					<td class="membersRowRight{js_lib.ROW_CLASS}">{js_lib.INFO}</td>
-				</tr>
-<!-- END js_lib -->
-
-			</table>
-
-		</td>
-	</tr>
-</table>
-
-
-</td></tr></table>
+					</div>
+				</div>
 
 <!-- IF S_ADDON_CREDITS -->
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sblueborder">
-			<div class="header_text sblueborder">{L_ROSTER_ADDONS}</div>
-
-			<table width="100%" cellspacing="0">
-				<tr>
-					<th class="membersHeader"><!-- TRANSLATE name --></th>
-					<th class="membersHeader">{L_VERSION}</th>
-					<th class="membersHeaderRight"><!-- TRANSLATE info --></th>
-				</tr>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_ROSTER_ADDONS}</div>
 
 <!-- BEGIN addon_row -->
-				<tr>
-					<td class="membersRow{addon_row.ROW_CLASS}">{addon_row.NAME}</td>
-					<td class="membersRow{addon_row.ROW_CLASS}">{addon_row.VERSION}</td>
-					<td class="membersRow{addon_row.ROW_CLASS}">
-					<!-- BEGIN addon_credit_row -->
-						<div>{addon_row.addon_credit_row.NAME} - {addon_row.addon_credit_row.INFO}</div>
-					<!-- END addon_credit_row -->
-					</td>
-				</tr>
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{addon_row.NAME}</div>
+									<div class="skill-name" style="width:100px;">v{addon_row.VERSION}</div>
+									<div>
+<!-- BEGIN addon_credit_row -->
+									{addon_row.addon_credit_row.NAME} - {addon_row.addon_credit_row.INFO}
+<!-- END addon_credit_row -->
+									</div>
+								</div>
+							</div>
+						</div>
 <!-- END addon_row -->
 
-			</table>
-
-		</td>
-	</tr>
-</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 <!-- ENDIF -->
 
-<br />
-
-<div style="font-size:12px;">
+	<div class="tier-2-a">
+		<div class="tier-2-b">
 {L_BOTTOM_CREDITS}
+		</div>
+	</div>
+
 </div>

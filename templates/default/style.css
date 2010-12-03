@@ -3,9 +3,6 @@
  *
  * Main CSS file
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
- *
  * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
@@ -40,8 +37,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .scope-menu .menu-scope .frame .button { float:left; margin:3px; position: relative; }
 .scope-menu .menu-scope .frame .button img { height: 50px; width: 50px; }
 .scope-menu .menu-scope .frame .button a { display: block; }
-.scope-menu .menu-scope .frame .button .mask { background: url(./images/mask/menu_50x50_mask.png) no-repeat left top; height:50px; width:50px; position: absolute; z-index: 100; left: 0px; top: 0px; }
-.scope-menu .menu-scope .frame .button .mask:hover { background: url(./images/mask/menu_50x50_mask.png) no-repeat right top; }
+.scope-menu .menu-scope .frame .button .mask { background: url(images/mask/menu_50x50_mask.png) no-repeat left top; height:50px; width:50px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.scope-menu .menu-scope .frame .button .mask:hover { background: url(images/mask/menu_50x50_mask.png) no-repeat right top; }
 
 .scope-menu .menu-scope-panel { background: url(images/wrap_bg.jpg) repeat-y center top; border: 2px solid #5E4A11; max-width: 100%; position: absolute; z-index: 200; left: 0; top: 40px; padding: 0px 0px 5px; }
 .menu-frame .section-title { padding: 3px; font: bold 12px Georgia, "Times New Roman", Times, serif; color: #000; background: url(images/th_bg.png) repeat-x left top; }
@@ -50,11 +47,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .scope-menu .menu-scope-panel .frame .button { float:left; margin:3px; position: relative; }
 .scope-menu .menu-scope-panel .frame .button img { height: 40px; width: 40px; }
 .scope-menu .menu-scope-panel .frame .button a { display: block; }
-.scope-menu .menu-scope-panel .frame .button .mask { background: url(./images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
-.scope-menu .menu-scope-panel .frame .button .mask:hover { background: url(./images/mask/menu_40x40_mask.png) no-repeat right top; }
-
-.qj-button { position: absolute; top: -8px; left: 154px; background: url(images/menu/quick_jump.jpg) no-repeat center center; }
-.qj-button a { display: block; height: 26px; width: 100px; padding: 4px 5px 10px 45px; }
+.scope-menu .menu-scope-panel .frame .button .mask { background: url(images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.scope-menu .menu-scope-panel .frame .button .mask:hover { background: url(images/mask/menu_40x40_mask.png) no-repeat right top; }
 
 /* New Main Navagation tabs */
 
@@ -62,18 +56,18 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .top-menu .links { height: 40px; }
 .top-menu .links a { display: block; height: 26px; width: 100px; float: left; padding: 4px 5px 10px 45px; color: #000; margin-right: 5px; font: bold 12px/normal Arial, Helvetica, sans-serif; }
 
-.button-char { background: url(./images/menu/menu_char.png) no-repeat left top; }
-.button-char:hover { background: url(./images/menu/menu_char.png) no-repeat left bottom; }
-.button-members { background: url(./images/menu/mini_guild.png) no-repeat left top; }
-.button-members:hover { background: url(./images/menu/mini_guild.png) no-repeat left bottom; }
-.button-guild { background: url(./images/menu/menu_guild.png) no-repeat left top; }
-.button-guild:hover { background: url(./images/menu/menu_guild.png) no-repeat left bottom; }
-.button-realm { background: url(./images/menu/menu_realm.png) no-repeat left top; }
-.button-realm:hover { background: url(./images/menu/menu_realm.png) no-repeat left bottom; }
-.button-upload { background: url(./images/menu/menu_upload.png) no-repeat left top; }
-.button-upload:hover { background: url(./images/menu/menu_upload.png) no-repeat left bottom; }
-.button-util { background: url(./images/menu/menu_utilities.png) no-repeat left top; }
-.button-util:hover { background: url(./images/menu/menu_utilities.png) no-repeat left bottom; }
+.button-char { background: url(images/menu/menu_char.png) no-repeat left top; }
+.button-char:hover { background: url(images/menu/menu_char.png) no-repeat left bottom; }
+.button-members { background: url(images/menu/mini_guild.png) no-repeat left top; }
+.button-members:hover { background: url(images/menu/mini_guild.png) no-repeat left bottom; }
+.button-guild { background: url(images/menu/menu_guild.png) no-repeat left top; }
+.button-guild:hover { background: url(images/menu/menu_guild.png) no-repeat left bottom; }
+.button-realm { background: url(images/menu/menu_realm.png) no-repeat left top; }
+.button-realm:hover { background: url(images/menu/menu_realm.png) no-repeat left bottom; }
+.button-upload { background: url(images/menu/menu_upload.png) no-repeat left top; }
+.button-upload:hover { background: url(images/menu/menu_upload.png) no-repeat left bottom; }
+.button-util { background: url(images/menu/menu_utilities.png) no-repeat left top; }
+.button-util:hover { background: url(images/menu/menu_utilities.png) no-repeat left bottom; }
 
 /* Main Roster Wrapper Header */
 
@@ -83,15 +77,15 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 	margin: 20px auto auto;
 	position: relative;
 	border: 1px solid #9D7D1C;
-	background: #e7cb79 url(./images/wrap_bg.jpg) repeat center top;
+	background: #e7cb79 url(images/wrap_bg.jpg) repeat center top;
 	padding: 10px;
 }
 
 .info-header { width: 100%; height: 125px; position: absolute; left: -10px; top: -20px; padding-right: 10px; padding-bottom: 45px; z-index: 50; }
 
-.Realm { background: url(./images/bg_neutral.png) no-repeat left top; }
-.alliance { background: url(./images/bg_alliance.png) no-repeat left top; }
-.horde { background: url(./images/bg_horde.png) no-repeat left top; }
+.Realm { background: url(images/bg_neutral.png) no-repeat left top; }
+.alliance { background: url(images/bg_alliance.png) no-repeat left top; }
+.horde { background: url(images/bg_horde.png) no-repeat left top; }
 
 .info-header .text { color: #000000; text-align: left; padding: 45px 15px 15px 165px; width:580px; }
 .info-header .text:hover { background: url(none); }
@@ -108,28 +102,30 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 /* Common Styles */
 
-.tier-1-a { background:url('./images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; margin: 20px 20px 0px; }
-.tier-1-b { background:url('./images/tier/tier_1_b.gif') left top repeat-x; border:1px solid #ffffd6 }
-.tier-1-c { background:url('./images/tier/tier_1_c.jpg') left top no-repeat; padding:7px 7px 6px }
+.tier-1-a { background:url('images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; margin: 20px 20px 0px; }
+.tier-1-b { background:url('images/tier/tier_1_b.gif') left top repeat-x; border:1px solid #ffffd6 }
+.tier-1-c { background:url('images/tier/tier_1_c.jpg') left top no-repeat; padding:7px 7px 6px }
 
 .tier-1-title { color:#491F14; text-decoration:none; display:block; position:relative; font: normal 22px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-1-title .links { float: right; margin-top: 1px; }
 .tier-1-title .icon { height: 22px; width: 22px; float: left; margin-left: 5px; position: relative; }
 .tier-1-title .icon img { height: 22px; width: 22px; }
-.tier-1-title .icon .mask { background: url(./images/mask/icon_mask_1.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.tier-1-title .icon .mask { background: url(images/mask/icon_mask_1.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 
+.tier-1-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-1-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-1-title .toggle img { height: 22px; width: 22px; }
 
 
-.tier-2-a { background:url('./images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
-.tier-2-b { background:url('./images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px; }
+.tier-2-a { background:url('images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
+.tier-2-b { background:url('images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px; }
 
 .tier-2-title { color:#135E82; display:block; text-align:left; padding:0; margin-bottom: 5px; font: bolder normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-2-title .icon { height: 22px; width: 22px; float: left; margin-right: 5px; left: -2px; top: -2px; position: relative; }
 .tier-2-title .icon img { height: 22px; width: 22px; }
-.tier-2-title .icon .mask { background: url(./images/mask/icon_mask_2.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.tier-2-title .icon .mask { background: url(images/mask/icon_mask_2.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 
+.tier-2-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-2-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-2-title .toggle img { height: 22px; width: 22px; }
 
@@ -137,12 +133,13 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-2-b .info-text-h { font: 12px Georgia, "Times New Roman", Times, serif; text-align: left; color: #000; font-size: 14px; line-height: 20px; }
 
 
-.tier-3-a { background:url(./images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
+.tier-3-a { background:url(images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; }
 .tier-3-b { background:url(images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
 
 .tier-3-b .text { text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
 .tier-3-b .text div { float: left; height: 20px; }
 
+.tier-3-b .right { height: 16px; float: right; margin-left: 5px; position: relative; }
 .tier-3-b .buttons { height: 16px; float: right; padding: 1px; }
 .tier-3-b .buttons a { font: 10px/16px Georgia, "Times New Roman", Times, serif; background: #C60; height: 16px; border: 1px solid #000; margin: 1px; }
 
@@ -150,7 +147,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-b .skill-name { float: left; position: relative; line-height: 20px; }
 .tier-3-b .skill-bar { height: 16px; width: 400px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
 .tier-3-b .skill-bar:hover { border: 1px solid #FFFFFF; }
-.tier-3-b .skill-bar .fill{ background: #006666 url(./images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.tier-3-b .skill-bar .fill{ background: #006666 url(images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
 .tier-3-b .skill-bar .text { width:400px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
 .tier-3-a .white { background:url(images/tier/color/tier_3_b_white.jpg) no-repeat left top; }
@@ -164,8 +161,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-a .brown { background:url(images/tier/color/tier_3_b_brown.jpg) no-repeat left top; }
 
 
-.tier-4-a { background:url(./images/tier/tier_4_a.jpg) no-repeat right top; height: 24px; }
-.tier-4-b { background:url(./images/tier/tier_4_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
+.tier-4-a { background:url(images/tier/tier_4_a.jpg) no-repeat right top; height: 24px; }
+.tier-4-b { background:url(images/tier/tier_4_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
 
 .tier-4-b .text { text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
 .tier-4-b .text div { float: left; height: 20px; }
@@ -173,8 +170,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-4-b  .ts_string { text-align: left; line-height: 20px; }
 
 
-.tier-5-a { background:url(./images/tier/tier_5_a.jpg) no-repeat right top; height: 30px; }
-.tier-5-b { background:url(./images/tier/tier_5_b.jpg) no-repeat left top; height: 30px; padding: 3px }
+.tier-5-a { background:url(images/tier/tier_5_a.jpg) no-repeat right top; height: 30px; }
+.tier-5-b { background:url(images/tier/tier_5_b.jpg) no-repeat left top; height: 30px; padding: 3px }
 
 .tier-5-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
 .tier-5-b .text div { float: left; height: 24px; }
@@ -182,8 +179,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-5-b .icon .item img.icon { width: 24px; height: 24px; margin: 0px; padding: 0px; }
 
 
-.tier-6-a { background:url(./images/tier/tier_6_a.jpg) no-repeat right top; height: 30px; }
-.tier-6-b { background:url(./images/tier/tier_6_b.jpg) no-repeat left top; height: 30px; padding: 3px }
+.tier-6-a { background:url(images/tier/tier_6_a.jpg) no-repeat right top; height: 30px; }
+.tier-6-b { background:url(images/tier/tier_6_b.jpg) no-repeat left top; height: 30px; padding: 3px }
 
 .tier-6-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
 .tier-6-b .text div { float: left; height: 24px; }
@@ -206,36 +203,36 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .mini-list .tier-1-a { margin: 0px; }
 .mini-list .list { max-height: 600px; overflow: auto; border: 1px solid #9D7D1C; }
 .mini-list .list .member { line-height: 20px; height: 20px; padding: 2px; font-weight: bold; clear: both; }
-.mini-list .list .plain { background: url(./images/char_row.png) repeat-x left top; color: #333333; }
-.mini-list .list .plain:hover { background: url(./images/char_row.png) repeat-x left bottom; }
-.mini-list .list .u-link { cursor:pointer; background: url(./images/char_row_link.png) repeat-x left top; color: #000000; }
+.mini-list .list .plain { background: url(images/char_row.png) repeat-x left top; color: #333333; }
+.mini-list .list .plain:hover { background: url(images/char_row.png) repeat-x left bottom; }
+.mini-list .list .u-link { cursor:pointer; background: url(images/char_row_link.png) repeat-x left top; color: #000000; }
 .mini-list .list .u-link a { color: #000000; }
-.mini-list .list .u-link:hover { background: url(./images/char_row_link.png) repeat-x left bottom; }
-.mini-list .list .select { cursor:pointer; background: url(./images/char_row_select.png) repeat-x left top; color: #FFFFFF;}
+.mini-list .list .u-link:hover { background: url(images/char_row_link.png) repeat-x left bottom; }
+.mini-list .list .select { cursor:pointer; background: url(images/char_row_select.png) repeat-x left top; color: #FFFFFF;}
 .mini-list .list .select a { color: #FFFFFF; }
-.mini-list .list .select:hover { background: url(./images/char_row_select.png) repeat-x left bottom; }
+.mini-list .list .select:hover { background: url(images/char_row_select.png) repeat-x left bottom; }
 
-.mini-list .list .c1 { background: url(./images/miniguild/warrior.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c2 { background: url(./images/miniguild/paladin.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c3 { background: url(./images/miniguild/hunter.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c4 { background: url(./images/miniguild/rogue.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c5 { background: url(./images/miniguild/priest.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c6 { background: url(./images/miniguild/deathknight.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c7 { background: url(./images/miniguild/shaman.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c8 { background: url(./images/miniguild/mage.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c9 { background: url(./images/miniguild/warlock.jpg) repeat-x left top; color: #FFFFFF; }
-.mini-list .list .c11 { background: url(./images/miniguild/druid.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c1 { background: url(images/miniguild/warrior.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c2 { background: url(images/miniguild/paladin.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c3 { background: url(images/miniguild/hunter.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c4 { background: url(images/miniguild/rogue.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c5 { background: url(images/miniguild/priest.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c6 { background: url(images/miniguild/deathknight.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c7 { background: url(images/miniguild/shaman.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c8 { background: url(images/miniguild/mage.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c9 { background: url(images/miniguild/warlock.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c11 { background: url(images/miniguild/druid.jpg) repeat-x left top; color: #FFFFFF; }
 
-.mini-list .list .c1:hover { background: url(./images/miniguild/warrior.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c2:hover { background: url(./images/miniguild/paladin.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c3:hover { background: url(./images/miniguild/hunter.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c4:hover { background: url(./images/miniguild/rogue.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c5:hover { background: url(./images/miniguild/priest.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c6:hover { background: url(./images/miniguild/deathknight.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c7:hover { background: url(./images/miniguild/shaman.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c8:hover { background: url(./images/miniguild/mage.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c9:hover { background: url(./images/miniguild/warlock.jpg) repeat-x left bottom; color: #FFFFFF; }
-.mini-list .list .c11:hover { background: url(./images/miniguild/druid.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c1:hover { background: url(images/miniguild/warrior.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c2:hover { background: url(images/miniguild/paladin.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c3:hover { background: url(images/miniguild/hunter.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c4:hover { background: url(images/miniguild/rogue.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c5:hover { background: url(images/miniguild/priest.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c6:hover { background: url(images/miniguild/deathknight.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c7:hover { background: url(images/miniguild/shaman.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c8:hover { background: url(images/miniguild/mage.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c9:hover { background: url(images/miniguild/warlock.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c11:hover { background: url(images/miniguild/druid.jpg) repeat-x left bottom; color: #FFFFFF; }
 
 .mini-list .list .lvl { float: left; width:20px; }
 .mini-list .list .name { float: left; }
@@ -244,43 +241,43 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 
 /* Container Styles */
-.container { padding: 0px 0px 20px; background: #eaca81 url(./images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(./images/skill_title_bg.png) repeat-x left top; position: relative; }
+.container { padding: 0px 0px 20px; background: #eaca81 url(images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(images/skill_title_bg.png) repeat-x left top; position: relative; }
 .container .box-label .icon { height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 .container .box-label .icon img{ height: 33px; width: 32px;}
-.container .box-label .icon .mask { background: url(./images/icon_mask.png) no-repeat left top; height: 33px; width: 32px; position: absolute; z-index: 500; left: 0px; top: 0px; }
-.container .box-label .profile { background: url(./info/images/icons/profile.gif) no-repeat left top; }
+.container .box-label .icon .mask { background: url(images/icon_mask.png) no-repeat left top; height: 33px; width: 32px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+.container .box-label .profile { background: url(info/images/icons/profile.gif) no-repeat left top; }
 
 .container .inner { margin-right: 20px; margin-left: 20px; }
 
 .container .item { float: left; margin: 3px; }
 .container .item img{ height: 40px; width: 40px;}
-.container .item .mask { background: url(./images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
-.container .item .mask:hover { background: url(./images/mask/item_mask.png) no-repeat left bottom; }
+.container .item .mask { background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.container .item .mask:hover { background: url(images/mask/item_mask.png) no-repeat left bottom; }
 
 /* Container Medium Item Qualities */
 .container .tier-2-b .item { float: left; margin: 3px; }
 .container .tier-2-b .item img{ height: 40px; width: 40px;}
 .container .tier-2-b .item .mask { height: 40px; width: 40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 
-.container .tier-2-b .item .none { background: url(./images/mask/medium/item_poor.png) no-repeat left top; }
-.container .tier-2-b .item .none:hover { background: url(./images/mask/medium/item_poor.png) no-repeat left bottom; }
-.container .tier-2-b .item .poor { background: url(./images/mask/medium/item_poor.png) no-repeat left top; }
-.container .tier-2-b .item .poor:hover { background: url(./images/mask/medium/item_poor.png) no-repeat left bottom; }
-.container .tier-2-b .item .common { background: url(./images/mask/medium/item_common.png) no-repeat left top; }
-.container .tier-2-b .item .common:hover { background: url(./images/mask/medium/item_common.png) no-repeat left bottom; }
-.container .tier-2-b .item .uncommon { background: url(./images/mask/medium/item_uncommon.png) no-repeat left top; }
-.container .tier-2-b .item .uncommon:hover { background: url(./images/mask/medium/item_uncommon.png) no-repeat left bottom; }
-.container .tier-2-b .item .rare { background: url(./images/mask/medium/item_rare.png) no-repeat left top; }
-.container .tier-2-b .item .rare:hover { background: url(./images/mask/medium/item_rare.png) no-repeat left bottom; }
-.container .tier-2-b .item .epic { background: url(./images/mask/medium/item_epic.png) no-repeat left top; }
-.container .tier-2-b .item .epic:hover { background: url(./images/mask/medium/item_epic.png) no-repeat left bottom; }
-.container .tier-2-b .item .legendary { background: url(./images/mask/medium/item_legendary.png) no-repeat left top; }
-.container .tier-2-b .item .legendary:hover { background: url(./images/mask/medium/item_legendary.png) no-repeat left bottom; }
-.container .tier-2-b .item .artifact { background: url(./images/mask/medium/item_artifact.png) no-repeat left top; }
-.container .tier-2-b .item .artifact:hover { background: url(./images/mask/medium/item_artifact.png) no-repeat left bottom; }
-.container .tier-2-b .item .heirloom { background: url(./images/mask/medium/item_artifact.png) no-repeat left top; }
-.container .tier-2-b .item .heirloom:hover { background: url(./images/mask/medium/item_artifact.png) no-repeat left bottom; }
+.container .tier-2-b .item .none { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
+.container .tier-2-b .item .none:hover { background: url(images/mask/medium/item_poor.png) no-repeat left bottom; }
+.container .tier-2-b .item .poor { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
+.container .tier-2-b .item .poor:hover { background: url(images/mask/medium/item_poor.png) no-repeat left bottom; }
+.container .tier-2-b .item .common { background: url(images/mask/medium/item_common.png) no-repeat left top; }
+.container .tier-2-b .item .common:hover { background: url(images/mask/medium/item_common.png) no-repeat left bottom; }
+.container .tier-2-b .item .uncommon { background: url(images/mask/medium/item_uncommon.png) no-repeat left top; }
+.container .tier-2-b .item .uncommon:hover { background: url(images/mask/medium/item_uncommon.png) no-repeat left bottom; }
+.container .tier-2-b .item .rare { background: url(images/mask/medium/item_rare.png) no-repeat left top; }
+.container .tier-2-b .item .rare:hover { background: url(images/mask/medium/item_rare.png) no-repeat left bottom; }
+.container .tier-2-b .item .epic { background: url(images/mask/medium/item_epic.png) no-repeat left top; }
+.container .tier-2-b .item .epic:hover { background: url(images/mask/medium/item_epic.png) no-repeat left bottom; }
+.container .tier-2-b .item .legendary { background: url(images/mask/medium/item_legendary.png) no-repeat left top; }
+.container .tier-2-b .item .legendary:hover { background: url(images/mask/medium/item_legendary.png) no-repeat left bottom; }
+.container .tier-2-b .item .artifact { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
+.container .tier-2-b .item .artifact:hover { background: url(images/mask/medium/item_artifact.png) no-repeat left bottom; }
+.container .tier-2-b .item .heirloom { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
+.container .tier-2-b .item .heirloom:hover { background: url(images/mask/medium/item_artifact.png) no-repeat left bottom; }
 
 /* Container Small Item Qualities */
 
@@ -288,24 +285,24 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .container .tier-5-b .item img, .container .tier-6-b .item img { width: 24px; height: 24px; margin: 0px; padding: 0px; }
 .container .tier-5-b .item .mask, .container .tier-6-b .item .mask { height: 24px; width: 24px; position: absolute; z-index: 100; left: 0px; top: 0px;}
 
-.container .tier-5-b .item .none, .container .tier-6-b .item .none { background: url(./images/mask/small/item_poor.png) no-repeat left top; }
-.container .tier-5-b .item .none:hover, .container .tier-6-b .item .none:hover { background: url(./images/mask/small/item_poor.png) no-repeat left bottom; }
-.container .tier-5-b .item .poor, .container .tier-6-b .item .poor { background: url(./images/mask/small/item_poor.png) no-repeat left top; }
-.container .tier-5-b .item .poor:hover,.container .tier-6-b .item .poor:hover  { background: url(./images/mask/small/item_poor.png) no-repeat left bottom; }
-.container .tier-5-b .item .common, .container .tier-6-b .item .common { background: url(./images/mask/small/item_common.png) no-repeat left top; }
-.container .tier-5-b .item .common:hover, .container .tier-6-b .item .common:hover { background: url(./images/mask/small/item_common.png) no-repeat left bottom; }
-.container .tier-5-b .item .uncommon, .container .tier-6-b .item .uncommon { background: url(./images/mask/small/item_uncommon.png) no-repeat left top; }
-.container .tier-5-b .item .uncommon:hover, .container .tier-6-b .item .uncommon:hover { background: url(./images/mask/small/item_uncommon.png) no-repeat left bottom; }
-.container .tier-5-b .item .rare, .container .tier-6-b .item .rare { background: url(./images/mask/small/item_rare.png) no-repeat left top; }
-.container .tier-5-b .item .rare:hover, .container .tier-6-b .item .rare:hover { background: url(./images/mask/small/item_rare.png) no-repeat left bottom; }
-.container .tier-5-b .item .epic, .container .tier-6-b .item .epic { background: url(./images/mask/small/item_epic.png) no-repeat left top; }
-.container .tier-5-b .item .epic:hover, .container .tier-6-b .item .epic:hover { background: url(./images/mask/small/item_epic.png) no-repeat left bottom; }
-.container .tier-5-b .item .legendary, .container .tier-6-b .item .legendary { background: url(./images/mask/small/item_legendary.png) no-repeat left top; }
-.container .tier-5-b .item .legendary:hover, .container .tier-6-b .item .legendary:hover { background: url(./images/mask/small/item_legendary.png) no-repeat left bottom; }
-.container .tier-5-b .item .artifact, .container .tier-6-b .item .artifact { background: url(./images/mask/small/item_artifact.png) no-repeat left top; }
-.container .tier-5-b .item .artifact:hover, .container .tier-6-b .item .artifact:hover { background: url(./images/mask/small/item_artifact.png) no-repeat left bottom; }
-.container .tier-5-b .item .heirloom, .container .tier-6-b .item .heirloom { background: url(./images/mask/small/item_artifact.png) no-repeat left top; }
-.container .tier-5-b .item .heirloom:hover, .container .tier-6-b .item .heirloom:hover { background: url(./images/mask/small/item_artifact.png) no-repeat left bottom; }
+.container .tier-5-b .item .none, .container .tier-6-b .item .none { background: url(images/mask/small/item_poor.png) no-repeat left top; }
+.container .tier-5-b .item .none:hover, .container .tier-6-b .item .none:hover { background: url(images/mask/small/item_poor.png) no-repeat left bottom; }
+.container .tier-5-b .item .poor, .container .tier-6-b .item .poor { background: url(images/mask/small/item_poor.png) no-repeat left top; }
+.container .tier-5-b .item .poor:hover,.container .tier-6-b .item .poor:hover  { background: url(images/mask/small/item_poor.png) no-repeat left bottom; }
+.container .tier-5-b .item .common, .container .tier-6-b .item .common { background: url(images/mask/small/item_common.png) no-repeat left top; }
+.container .tier-5-b .item .common:hover, .container .tier-6-b .item .common:hover { background: url(images/mask/small/item_common.png) no-repeat left bottom; }
+.container .tier-5-b .item .uncommon, .container .tier-6-b .item .uncommon { background: url(images/mask/small/item_uncommon.png) no-repeat left top; }
+.container .tier-5-b .item .uncommon:hover, .container .tier-6-b .item .uncommon:hover { background: url(images/mask/small/item_uncommon.png) no-repeat left bottom; }
+.container .tier-5-b .item .rare, .container .tier-6-b .item .rare { background: url(images/mask/small/item_rare.png) no-repeat left top; }
+.container .tier-5-b .item .rare:hover, .container .tier-6-b .item .rare:hover { background: url(images/mask/small/item_rare.png) no-repeat left bottom; }
+.container .tier-5-b .item .epic, .container .tier-6-b .item .epic { background: url(images/mask/small/item_epic.png) no-repeat left top; }
+.container .tier-5-b .item .epic:hover, .container .tier-6-b .item .epic:hover { background: url(images/mask/small/item_epic.png) no-repeat left bottom; }
+.container .tier-5-b .item .legendary, .container .tier-6-b .item .legendary { background: url(images/mask/small/item_legendary.png) no-repeat left top; }
+.container .tier-5-b .item .legendary:hover, .container .tier-6-b .item .legendary:hover { background: url(images/mask/small/item_legendary.png) no-repeat left bottom; }
+.container .tier-5-b .item .artifact, .container .tier-6-b .item .artifact { background: url(images/mask/small/item_artifact.png) no-repeat left top; }
+.container .tier-5-b .item .artifact:hover, .container .tier-6-b .item .artifact:hover { background: url(images/mask/small/item_artifact.png) no-repeat left bottom; }
+.container .tier-5-b .item .heirloom, .container .tier-6-b .item .heirloom { background: url(images/mask/small/item_artifact.png) no-repeat left top; }
+.container .tier-5-b .item .heirloom:hover, .container .tier-6-b .item .heirloom:hover { background: url(images/mask/small/item_artifact.png) no-repeat left bottom; }
 
 /* Misc Code Fixes */
 .item { position:relative;width:40px;height:40px;cursor:pointer; }
@@ -320,16 +317,16 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 /* Navagation tabs */
 .sections { font:11px arial,helvetica,sans-serif; width:100%; }
 .sections ul { margin:0; padding:0; list-style:none; }
-.sections li { float:left; background:url(./images/tabs/inactive_left.png) no-repeat left top; margin:0 3px -7px 0; padding-left:7px; cursor:pointer; }
-.sections .text { display:block; background:url(./images/tabs/inactive_right.png) no-repeat right top; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
+.sections li { float:left; background:url(images/tabs/inactive_left.png) no-repeat left top; margin:0 3px -7px 0; padding-left:7px; cursor:pointer; }
+.sections .text { display:block; background:url(images/tabs/inactive_right.png) no-repeat right top; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
 .sections .text:hover { color:#000000; }
-.sections .selected { background-image:url(./images/tabs/active_left.png); cursor:default; }
-.sections .selected .text { background-image:url(./images/tabs/active_right.png); color:#000000; padding:8px 11px 10px 3px; }
+.sections .selected { background-image:url(images/tabs/active_left.png); cursor:default; }
+.sections .selected .text { background-image:url(images/tabs/active_right.png); color:#000000; padding:8px 11px 10px 3px; }
 
 .roster-panel { clear: left; }
 
-.roster-panel .container { padding: 0 0 20px; background: #eaca81 url(./images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.roster-panel .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(./images/skill_title_bg.png) repeat-x left top; position: relative; }
+.roster-panel .container { padding: 0 0 20px; background: #eaca81 url(images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.roster-panel .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(images/skill_title_bg.png) repeat-x left top; position: relative; }
 .roster-panel .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
 
 
@@ -338,7 +335,7 @@ img, p { padding:0;margin:0;border:0; }
 /**
  * Search Rows
  */
-.SearchRowAltColor1, .SearchRowAltColor2 { background: #deb760 url(./images/set_row.png) repeat-x left top; }
+.SearchRowAltColor1, .SearchRowAltColor2 { background: #deb760 url(images/set_row.png) repeat-x left top; }
 
 .SearchRowCell {
 	position:relative;
@@ -456,7 +453,7 @@ img, p { padding:0;margin:0;border:0; }
 	white-space:nowrap;
 	color:#000000;
 	font:bold 11px arial,helvetica,sans-serif;
-	background: url(./images/th_bg.png) repeat-x center top;
+	background: url(images/th_bg.png) repeat-x center top;
 	padding:0 6px 0 6px;
 	height: 20px;
 	vertical-align:middle;
@@ -473,7 +470,7 @@ img, p { padding:0;margin:0;border:0; }
 	padding:3px 6px 3px 6px;
 }
 
-.membersRow1, .membersRow2, .membersRowRight1, .membersRowRight2 { border-top: 1px solid #9D7D1C; position:relative; text-align:left; color:#000000; background: #deb760 url(./images/set_row.png) repeat-x left top; font:bold 11px arial,helvetica,sans-serif; white-space:nowrap; padding:3px 6px 3px 6px; }
+.membersRow1, .membersRow2, .membersRowRight1, .membersRowRight2 { border-top: 1px solid #9D7D1C; position:relative; text-align:left; color:#000000; background: #deb760 url(images/set_row.png) repeat-x left top; font:bold 11px arial,helvetica,sans-serif; white-space:nowrap; padding:3px 6px 3px 6px; }
 
 .membersRow1 a:link, .membersRow1 a:hover, .membersRow1 a:active, .membersRow1 a:visited {color:#000000;}
 .membersRowRight1 a:link, .membersRowRight1 a:hover, .membersRowRight1 a:active, .membersRowRight1 a:visited {color:#000000;}
@@ -511,7 +508,7 @@ img, p { padding:0;margin:0;border:0; }
 	overflow:hidden;
 	color:#000000;
 	font:bold 16px arial,helvetica,sans-serif;
-	background: url(./images/skill_title_bg.png) repeat-x left bottom;
+	background: url(images/skill_title_bg.png) repeat-x left bottom;
 	padding:10;
 	vertical-align:middle;
 }
@@ -661,9 +658,9 @@ input.ui-button,
 .ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
 
 
-.bottomshadow { background: url(./images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }
-.bankcontentsfilter{height:40px; background: url('./images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px;}
-.filtercontainer {background-image: url(./images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd;}
+.bottomshadow { background: url(images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }
+.bankcontentsfilter{height:40px; background: url('images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px;}
+.filtercontainer {background-image: url(images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd;}
 .guild-stats-container {padding:20px 20px 10px}
 .filtertitle {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 4px 0 5px 10px;}
-.filtercrest { background: url(./images/guildbank_crest.gif) bottom center no-repeat; height: 34px!important; width: 100%; margin: 0px auto;}
+.filtercrest { background: url(images/guildbank_crest.gif) bottom center no-repeat; height: 34px!important; width: 100%; margin: 0px auto;}
