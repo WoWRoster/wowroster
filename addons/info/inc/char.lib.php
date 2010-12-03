@@ -73,7 +73,7 @@ class char
 
 		if( isset($roster->data['armoryurl']) && $roster->data['armoryurl'] != '' )
 		{
-			$model_url = $roster->data['armoryurl'] . '/character-model-embed.xml?r=' . $this->data['server'] . '&cn=' . $this->data['name'] . '&rhtml=true';
+			$model_url = $roster->data['armoryurl'] . '/character-model-embed.xml?r=' . $this->data['server'] . '&amp;cn=' . $this->data['name'] . '&amp;rhtml=true';
 		}
 
 		/**
@@ -875,9 +875,9 @@ class char
 		return $t;
 
 	}
-        
-        
-        
+
+
+
         /**
 	 * Build Talentarrows
 	 *
@@ -901,12 +901,12 @@ class char
 			{
 				$is++;
 				$ii++;
-                                $t[$row['arrowid']]['tree'] = $tree;
+                $t[$row['arrowid']]['tree'] = $tree;
 				$t[$row['arrowid']]['id'] = $row['arrowid'];
 				$t[$row['arrowid']]['opt1'] = $row['opt1'];
 				$t[$row['arrowid']]['opt2'] = $row['opt2'];
 				$t[$row['arrowid']]['opt3'] = $row['opt3'];
-                                $t[$row['arrowid']]['opt4'] = $row['opt4'];
+                $t[$row['arrowid']]['opt4'] = $row['opt4'];
 			}
 		}
 		return $t;

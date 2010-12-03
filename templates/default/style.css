@@ -64,6 +64,18 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 	position: relative;
 }
 
+.roster-footer {
+	background: url(images/footer.png) no-repeat left bottom;
+	height: 100px;
+	padding: 18px 10px 0;
+	font-size: 10px;
+	position: relative;
+}
+.roster-footer .process { position: absolute; bottom: 5px; right: 5px; color: #AC8739; }
+.roster-footer .valid { position: absolute; bottom: 5px; left: 5px; color: #AC8739; }
+.roster-footer .version { color: #fff; text-align: left; }
+.roster-footer .credit { color: #fff; text-align: left; }
+
 /* Login Box */
 .menu-login { margin: 5px 0 0 130px; width: 300px; }
 .menu-login .message { font-size:10px; }
@@ -116,7 +128,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .mini-list-click { cursor: pointer; }
 .mini-list .tier-1-a { margin: 0px; }
 .mini-list .list { max-height: 600px; overflow: auto; border: 1px solid #9D7D1C; }
-.mini-list .list .member { line-height: 20px; height: 20px; padding: 2px; font-weight: bold; clear: both; }
+.mini-list .list .member { display: block; line-height: 20px; height: 20px; padding: 2px; font-weight: bold; clear: both; }
 .mini-list .list .plain { background: url(images/char_row.png) repeat-x left top; color: #333333; }
 .mini-list .list .plain:hover { background: url(images/char_row.png) repeat-x left bottom; }
 .mini-list .list .u-link { cursor:pointer; background: url(images/char_row_link.png) repeat-x left top; color: #000000; }
@@ -151,7 +163,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .mini-list .list .lvl { float: left; width:20px; }
 .mini-list .list .name { float: left; }
 .mini-list .list .info { float: right; }
-.mini-list .list .info img { float: left; margin: 0px 0px 0px 2px; padding: 0px; height: 20px; width: 20px; }
+.mini-list .list .info img { float: left; margin: 0 0 0 2px; padding: 0; height: 20px; width: 20px; }
 
 
 /* Common Styles */
@@ -262,7 +274,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .container .item { float: left; margin: 3px; }
 .container .item img{ height: 40px; width: 40px;}
-.container .item .mask { background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.container .item .mask { display: block; background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 100; left: 0px; top: 0px; }
 .container .item .mask:hover { background: url(images/mask/item_mask.png) no-repeat left bottom; }
 
 /* Container Medium Item Qualities */

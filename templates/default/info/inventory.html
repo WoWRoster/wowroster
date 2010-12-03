@@ -11,7 +11,7 @@
 					<div class="tier-2-b">
 <!-- BEGIN equipment -->
 						<div class="item">
-							<!-- IF equipment.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{equipment.ICON}" /><!-- ENDIF -->
+							<!-- IF equipment.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{equipment.ICON}" alt="" /><!-- ENDIF -->
 							<div class="mask {equipment.QUALITY}" {equipment.TOOLTIP}{equipment.ITEMLINK}></div>
 <!-- IF equipment.QTY gt 1 -->
 							<b>{equipment.QTY}</b>
@@ -33,9 +33,7 @@
 				<div class="tier-1-title"><!-- TRANSLATE bags -->
 					<div class="links">
 						<!-- BEGIN bag -->
-						<a href="{bag.LINK}">
-							<div class="icon"><img src="{bag.ICON}" /><div class="mask"></div></div>
-						</a>
+						<a href="{bag.LINK}" class="icon"><img src="{bag.ICON}" alt="" /><span class="mask"></span></a>
 						<!-- END bag -->
 					</div> 
 				</div>
@@ -43,10 +41,10 @@
 				<a name="{bag.SLOTL}"></a>
 				<div class="tier-2-a">
 					<div class="tier-2-b">
-						<div class="tier-2-title"><div class="icon"><img src="{bag.ICON}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>{bag.NAME}</div>
+						<div class="tier-2-title"><div class="icon"><img src="{bag.ICON}" alt="" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>{bag.NAME}</div>
 <!-- BEGIN item -->
 						<div class="item">
-							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bag.item.ICON}" /><!-- ENDIF -->
+							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{bag.item.ICON}" alt="" /><!-- ENDIF -->
 							<div class="mask {bag.item.QUALITY}" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
 <!-- IF bag.item.QTY gt 1 -->
 							<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
@@ -70,10 +68,10 @@
 <!-- BEGIN key -->
 				<div class="tier-2-a">
 					<div class="tier-2-b">
-						<div class="tier-2-title"><div class="icon"><img src="{key.ICON}" /><div class="mask" {key.TOOLTIP}{key.LINKTIP}></div></div>{key.NAME}</div>
+						<div class="tier-2-title"><div class="icon"><img src="{key.ICON}" alt="" /><div class="mask" {key.TOOLTIP}{key.LINKTIP}></div></div>{key.NAME}</div>
 <!-- BEGIN item -->
 						<div class="item">
-							<!-- IF key.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{key.item.ICON}" /><!-- ENDIF -->
+							<!-- IF key.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{key.item.ICON}" alt="" /><!-- ENDIF -->
 							<div class="mask {key.item.QUALITY}" {key.item.TOOLTIP}{key.item.ITEMLINK}></div>
 <!-- IF key.item.QTY gt 1 -->
 							<b>{key.item.QTY}</b><span>{key.item.QTY}</span>
@@ -97,9 +95,7 @@
 				<div class="tier-1-title"><!-- TRANSLATE bank -->
 					<div class="links">
 						<!-- BEGIN bank -->
-						<a href="{bank.LINK}">
-							<div class="icon"><img src="{bank.ICON}" /><div class="mask"></div></div>
-						</a>
+						<a href="{bank.LINK}" class="icon"><img src="{bank.ICON}" alt="" /><span class="mask"></span></a>
 						<!-- END bank -->
 					</div> 
 				</div>
@@ -107,10 +103,10 @@
 				<a name="{bank.SLOTL}"></a>
 				<div class="tier-2-a">
 					<div class="tier-2-b">
-						<div class="tier-2-title"><div class="icon"><img src="{bank.ICON}" /><div class="mask" {bank.TOOLTIP}{bank.LINKTIP}></div></div>{bank.NAME}</div>
+						<div class="tier-2-title"><div class="icon"><img src="{bank.ICON}" alt="" /><div class="mask" {bank.TOOLTIP}{bank.LINKTIP}></div></div>{bank.NAME}</div>
 <!-- BEGIN item -->
 						<div class="item">
-							<!-- IF bank.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bank.item.ICON}" /><!-- ENDIF -->
+							<!-- IF bank.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{bank.item.ICON}" alt="" /><!-- ENDIF -->
 							<div class="mask {bank.item.QUALITY}" {bank.item.TOOLTIP}{bank.item.ITEMLINK}></div>
 <!-- IF bank.item.QTY gt 1 -->
 							<b>{bank.item.QTY}</b><span>{bank.item.QTY}</span>
