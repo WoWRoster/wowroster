@@ -4,8 +4,8 @@
  *
  * License Information
  *
- * @copyright  2002-2008 WoWRoster.net
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
@@ -46,7 +46,7 @@ echo '
 							<br />
 
 							<p>You should have received a copy of the GNU General Public License
-							along with this program. If not, see <http://www.gnu.org/licenses/>.</p>
+							along with this program. If not, see &lt;<a href="http://www.gnu.org/licenses" target="_blank">http://www.gnu.org/licenses&gt;</a>.</p>
 						</div>
 					</div>
 				</div>
