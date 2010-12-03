@@ -46,7 +46,7 @@ echo '
 							<br />
 
 							<p>You should have received a copy of the GNU General Public License
-							along with this program. If not, see &lt;<a href="http://www.gnu.org/licenses" target="_blank">http://www.gnu.org/licenses&gt;</a>.</p>
+							along with this program. If not, see &lt;<a href="http://www.gnu.org/licenses" target="_blank">http://www.gnu.org/licenses</a>&gt;.</p>
 						</div>
 					</div>
 				</div>

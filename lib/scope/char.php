@@ -143,7 +143,7 @@ class CharScope
 				'RANK'       => $data['guild_rank'],
 				'RACE'       => $data['race'],
 				'RACE_ID'    => $data['raceid'],
-				'RACE_EN'    => $data['raceid'] != '' ? strtolower(str_replace(' ','',$roster->locale->wordings['enUS']['id_to_race'][$data['raceid']])) : '',
+				'RACE_EN'    => $data['raceid'] != '' && $data['raceid'] != 0 ? strtolower(str_replace(' ','',$roster->locale->wordings['enUS']['id_to_race'][$data['raceid']])) : '',
 				'SEX'        => $data['sex'],
 				'SEX_ID'     => $data['sexid'],
 				'U_LINK'     => ( $data['race'] != '' ? makelink('&amp;a=c:' . $data['member_id'],true) : false ),

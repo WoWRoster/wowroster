@@ -1,5 +1,5 @@
 WoWRoster v2.0.0
-Copyright (C) 2002-2007 The WoWRoster Dev Team
+Copyright (C) 2002-2010 The WoWRoster Dev Team
 Package updated June 20, 2008
 $Id$
 
@@ -45,7 +45,7 @@ Installation
 
 Licensing
 ------------
-	WoWRoster is licensed under a Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" license.
+	WoWRoster is licensed under the GNU General Public License v3.
 	Please see LICENCE.TXT for more info.
 
 Credits
