@@ -14,28 +14,28 @@
 talent arrows
 
 .requiredArrow {
-	Z-INDEX: 100; POSITION: absolute; DISPLAY: block
+	z-index: 100; position: absolute; display: block
 }
 .vArrow {
-	BACKGROUND: url(images/talents/arrow-down.gif) no-repeat 0px 100%
+	background: url(images/talents/arrow-down.gif) no-repeat 0px 100%
 }
 .hArrow {
-	BACKGROUND: url(images/talents/arrow-vertical.gif) no-repeat 0px 100%
+	background: url(images/talents/arrow-vertical.gif) no-repeat 0px 100%
 }
 .plain {
-	BACKGROUND-IMAGE: url(images/talents/arrow-plain.gif)
+	background-image: url(images/talents/arrow-plain.gif)
 }
 .arrowLeft {
-	BACKGROUND-POSITION: 0px 0px
+	background-position: 0px 0px
 }
 .arrowRight {
-	BACKGROUND-POSITION: 100% 0px
+	background-position: 100% 0px
 }
 .disabledArrow {
-	BACKGROUND-POSITION: 100% 100%
+	background-position: 100% 100%
 }
 .disabledArrowL {
-	BACKGROUND-POSITION: 0px 100%
+	background-position: 0px 100%
 }
 
 
@@ -572,54 +572,13 @@ talent arrows
 .main-panel .currency .icon img { height: 24px; width: 24px; }
 .main-panel .currency .text { text-align: left; color: #000; font-size: 14px; line-height: 24px; }
 
-.requiredArrow {
-	Z-INDEX: 100; POSITION: absolute; DISPLAY: block
-}
-.vArrow {
-	BACKGROUND: url(images/talents/arrow-down.gif) no-repeat 0px 100%
-}
-.hArrow {
-	BACKGROUND: url(images/talents/arrow-vertical.gif) no-repeat 0px 100%
-}
-.plain {
-	BACKGROUND-IMAGE: url(images/talents/arrow-plain.gif)
-}
-.arrowLeft {
-	BACKGROUND-POSITION: 0px 0px
-}
-.arrowRight {
-	BACKGROUND-POSITION: 100% 0px
-}
-.disabledArrow {
-	BACKGROUND-POSITION: 100% 100%
-}
-.disabledArrowL {
-	BACKGROUND-POSITION: 0px 100%
-}
 
-/**
- * Quests
- **/
-.questtype {
-	float:left;
-	height:12px;
-	padding:10px 2px 2px 10px;
-	font:bold 12px verdana,arial,sans-serif;
-	color:#EABB00;
-}
-.quest_link a {
-	text-align:center;
-	padding-left:3px;
-	padding-right:3px;
-	margin-left:2px;
-	margin-right:2px;
-	border:solid #5D5D5D;
-	border-width:1px;
-	background: #eaca81 url(../images/wrap_bg.jpg) repeat center top;
-	text-decoration:none;
-}
-/* Links in menu on-click */
-.quest_link a:active { background-color:#778899; color:#EABB00;}
-
-/* Links in menu on-mouseover */
-.quest_link a:hover { background: #eaca81 url(../images/section_bg.jpg) repeat center top; color:#FFFFFF;}
+/***********  Talent tab Arrows ***********/
+.requiredArrow { z-index: 100; position: absolute; display: block; }
+.vArrow { background: url(images/talents/arrow-down.gif) no-repeat 0 100%; }
+.hArrow { background: url(images/talents/arrow-vertical.gif) no-repeat 0 100%; }
+.plain { background-image: url(images/talents/arrow-plain.gif); }
+.arrowLeft { background-position: 0 0; }
+.arrowRight { background-position: 100% 0; }
+.disabledArrow { background-position: 100% 100%; }
+.disabledArrowL { background-position: 0 100%; }

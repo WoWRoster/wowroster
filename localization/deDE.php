@@ -693,6 +693,11 @@ $lang['faction_to_id'] = array(
 // 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
 
 $lang['questlinks'][] = array(
+	'name'=>'WoWHead',
+	'url'=>'http://de.wowhead.com/?quest=%1$s'
+);
+
+$lang['questlinks'][] = array(
 	'name'=>'WoW-Handwerk',
 	'url'=>'http://wowhandwerk.onlinewelten.com/quest.php?id=%1$s'
 );
@@ -705,11 +710,6 @@ $lang['questlinks'][] = array(
 $lang['questlinks'][] = array(
 	'name'=>'Thottbot',
 	'url'=>'http://thottbot.com/q%1$s'
-);
-
-$lang['questlinks'][] = array(
-	'name'=>'WoWHead',
-	'url'=>'http://de.wowhead.com/?quest=%1$s'
 );
 
 // Items external link

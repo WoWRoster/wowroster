@@ -702,15 +702,15 @@ $lang['questlinks'][] = array(
 	'url'=>'http://thottbot.com/q%1$s'
 );
 
-$lang['questlinks'][] = array(
+/*$lang['questlinks'][] = array(
 	'name'=>'Allakhazam',
 	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%1$s'
-);
+);*/
 
-$lang['questlinks'][] = array(
-	'name'=>'WoW Digger',
-	'url'=>'http://wowdigger.com/quest/view/%1$s'
-);
+/*$lang['questlinks'][] = array(
+	'name'=>'',
+	'url'=>''
+);*/
 
 // Items external link
 // Add as many item links as you need
@@ -720,7 +720,7 @@ $lang['itemlink'] = 'Item Links';
 $lang['itemlinks']['WoWHead'] = 'http://www.wowhead.com/?item=';
 $lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
 $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?witem=';
-$lang['itemlinks']['WoW Digger'] = 'http://www.wowdigger.com/item/view/';
+//$lang['itemlinks'][''] = '';
 
 // WoW Data Site Search
 // Add as many item links as you need
