@@ -3,8 +3,6 @@
  *
  * Tab Content javascript
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
  * @copyright  2007 DynamicDrive.com
  * @license    http://www.dynamicdrive.com/notice.htm   DynamicDrive Terms of Use
