@@ -1,32 +1,35 @@
 <!-- $Id$ -->
-<form method="post" action="{U_UPGRADE}">
-<input type="hidden" name="upgrade" value="1" />
 <div class="scope-menu"></div>
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgrayborder">
+<form method="post" action="{U_UPGRADE}">
+	<input type="hidden" name="upgrade" value="1" />
 
-			<div class="header_text sgrayborder"><!-- TRANSLATE upgrade_wowroster --></div>
-			<table cellspacing="0" width="100%">
-				<tr>
-					<td class="membersHeaderRight"><!-- TRANSLATE select_version --></td>
-				</tr>
-				<tr>
-					<td class="membersRowRight1" align="center"><br />
-						<select name="version" class="select">
+	<table class="border_frame" cellpadding="0" cellspacing="1">
+		<tr>
+			<td class="border_color sgrayborder">
+	
+				<div class="header_text sgrayborder"><!-- TRANSLATE upgrade_wowroster --></div>
+				<table cellspacing="0" width="100%">
+					<tr>
+						<td class="membersHeaderRight"><!-- TRANSLATE select_version --></td>
+					</tr>
+					<tr>
+						<td class="membersRowRight1" align="center"><br />
+							<select name="version" class="select">
 <!-- BEGIN version_row -->
-							<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
-						<!-- END version_row -->
-</select><br /><br /></td>
-				</tr>
-				<tr>
-					<td class="membersRowRight2"><div align="center">
-						<input type="submit" value="<!-- TRANSLATE upgrade -->" /></div></td>
-				</tr>
-			</table>
-
-		</td>
-	</tr>
-</table>
-
-</form>
+								<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
+<!-- END version_row -->
+							</select>
+							<br /><br />
+						</td>
+					</tr>
+					<tr>
+						<td class="membersRowRight2"><div align="center">
+							<input type="submit" value="<!-- TRANSLATE upgrade -->" /></div></td>
+					</tr>
+				</table>
+	
+			</td>
+		</tr>
+	</table>
+	
+	</form>
