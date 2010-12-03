@@ -4,11 +4,8 @@
  *
  * WoWRoster Armory Class
  *
- * LICENSE: Licensed under the Creative Commons
- *		  "Attribution-NonCommercial-ShareAlike 2.5" license
- *
- * @copyright  2002-2008 WoWRoster.net
- * @license	http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version	SVN: $Id$
  * @link	   http://www.wowroster.net
  * @since	  File available since Release 1.9.9
@@ -80,8 +77,8 @@ class RosterArmory
 		var $guild;
 		var $guildie;
 		var $page;
-		
-		
+
+
 
 
 	var $base_filename			  = 'roster.test.php';			// Base script file name
@@ -93,7 +90,7 @@ class RosterArmory
 	var $url_prefix_rep			 = 'character-reputation.xml?';  // used for talent links
 
 	// NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
-	var $DIR_cache = ARMORYSYNC_CACHE;		
+	var $DIR_cache = ARMORYSYNC_CACHE;
 	var $HTML_cache = 'cache/as/';				   // Directory where the XML cache files are stored
 	// NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
 
@@ -190,12 +187,12 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 	{
 		$filename_type = 'guild-info';
 		$url = $this->url_prefix_armory.'/'.$filename_type.'.xml?r=' . urlencode( $server ) . '&gn=' . urlencode( $guild );
-	} 
+	}
 	elseif( $query === 'character' )
 	{
 		$filename_type = 'character-sheet';
 		$url = $this->url_prefix_armory.'/'.$filename_type.'.xml?r=' . urlencode( $server ) . '&cn=' . urlencode( $guildie);
-	} 
+	}
 	elseif( $query === 'achievement' )
 	{
 		$filename_type = 'character-achievements';
@@ -209,7 +206,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$url = $this->url_prefix_itemtooltip.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
 		//echo $url.'<br>';
 	}
-	
+
 	elseif( $query === 'talents' )
 	{
 		$filename_type = 'character-talents';
@@ -220,8 +217,8 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$filename_type = 'character-rep';
 		$url = $this->url_prefix_rep.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
 	}
-	
-	
+
+
 	//alert($url);
 	if ( $this->live_system ) {
 		$ch = curl_init();
@@ -250,8 +247,8 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$url = $this->base_url.$this->HTML_cache.$latestGuildXMLfile['filename'];
 		$url_filesize = $latestGuildXMLfile['filesize'];
 		$this->setMessage("<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." ");
-	} 
-	elseif( $query === 'character' ) 
+	}
+	elseif( $query === 'character' )
 	{
 		$char_cache_filename = $filename_type.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
 	   // echo  $char_cache_filename.'<br>';
@@ -262,8 +259,8 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$url = $this->base_url.$this->HTML_cache.$latestCharacterXMLfile['filename'];
 		$url_filesize = $latestCharacterXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
-	} 
-	elseif( $query === 'achievement' ) 
+	}
+	elseif( $query === 'achievement' )
 	{
 		$char_cache_filename = $filename_type.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
 		if ( $this->live_system ) {
@@ -273,8 +270,8 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$url = $this->base_url.$this->HTML_cache.$latestCharacterXMLfile['filename'];
 		$url_filesize = $latestCharacterXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
-	} 
-	elseif( $query === 'itemtooltip' ) 
+	}
+	elseif( $query === 'itemtooltip' )
 	{			 //$url_prefix_itemtooltip
 		$char_cache_filename = $filename_type.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
 		if ( $this->live_system ) {
@@ -284,10 +281,10 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$url = $this->base_url.$this->HTML_cache.$latestCharacteriXMLfile['filename'];
 		$url_filesize = $latestCharacteriXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
-		
-		
-	} 
-	elseif( $query === 'talents' ) 
+
+
+	}
+	elseif( $query === 'talents' )
 	{			 //$url_prefix_itemtooltip
 		$char_cache_filename = $filename_type.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
 		if ( $this->live_system ) {
@@ -298,7 +295,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$url_filesize = $latestCharacteriXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
 	}
-	elseif( $query === 'rep' ) 
+	elseif( $query === 'rep' )
 	{			 //$url_prefix_itemtooltip
 		$char_cache_filename = $filename_type.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
 		if ( $this->live_system ) {
@@ -317,7 +314,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		{
 	   // //aprint($latestCharacteriXMLfile);
 		//unlink($config['DIR_cache'].$latestCharacteriXMLfile['filename']); //alert($config['DIR_cache'].$file);
-		
+
 		}
 		//echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML CACHE:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a> - '.$this->fileSizeInfo($url_filesize).' read...<P>';
 	} else {
@@ -482,7 +479,7 @@ function cacheXMLfile($filename, $XMLstream) {
 			return false;
 		}
 	}
-	// extended function to acomadate achivements 
+	// extended function to acomadate achivements
 	function fetchArmorya( $type, $character, $guild = false, $realm, $item_id,$fetch_type = 'array' )
 	{
 		global $roster;
@@ -507,7 +504,7 @@ function cacheXMLfile($filename, $XMLstream) {
 				//$f = curl_exec($ch);
 				//curl_close($ch);
 			$xml = simplexml_load_string($f, 'SimpleXMLElement', LIBXML_NOCDATA);
-			
+
 			return $xml;
 		}
 		else
@@ -532,7 +529,7 @@ function cacheXMLfile($filename, $XMLstream) {
 
 		return $data;
 		*/
-		
+
 		return $this->fetchArmorya( $url, $character, false, $realm, $item_id, $fetch_type );
 	}
 
@@ -1089,20 +1086,20 @@ function cacheXMLfile($filename, $XMLstream) {
 			case 'search':
 				$mode = 'search.xml?searchQuery=' . urlencode($id) . '&searchType=items';
 				break;
-			case 10:	
+			case 10:
 			case 'talents':
 				$mode = 'talent-tree.xml?cid=' . urlencode($id) . '&loc=' . $locale . '';
 				break;
-				
+
 			// these next 2 modes are for achivements because there is no page identifer for the summary page but one for the other pages
 			// case 11 is for the summary page
-			case 11:	
+			case 11:
 			case 'achivements':
 				$mode = 'character-achievements.xml?cn=' . urlencode($char) . '&r=' . urlencode($realm) . '';
 				break;
 			// case 12 is for sup menu items ie quests and world events for a example...
 			// id is used for the page number
-			case 12:	
+			case 12:
 			case 'achivements':
 				$mode = 'character-achievements.xml?cn=' . urlencode($char) . '&r=' . urlencode($realm) . '&c=' . urlencode($id) . '';
 				break;
@@ -1182,7 +1179,7 @@ function cacheXMLfile($filename, $XMLstream) {
 			$this->simpleParser = new simpleParser();
 		}
 	}
-	
+
 	function _parseData ( $array = array() ) {
 		$this->datas = array();
 		$this->_makeSimpleClass( $array );
@@ -1257,14 +1254,14 @@ function cacheXMLfile($filename, $XMLstream) {
 		}
 		//$this->_debug( 3, '', 'Finalized simple class', 'OK' );
 	}
-	
+
 	function setProp($propName, $propValue) {
 		$propName = $propValue;
 		if (!in_array($propName, $properties)) {
 			$properties[] = $propName;
 		}
-  } 
-  
+  }
+
 	function setArray($array) {
 		if (is_array($array)) {
 			foreach ($array as $key => $value) {
@@ -1272,7 +1269,7 @@ function cacheXMLfile($filename, $XMLstream) {
 			}
 		}
 	}
-	
+
 	function hasProp($propName) {
 		return in_array($propName, $this->properties);
 	}
@@ -1414,6 +1411,6 @@ function cacheXMLfile($filename, $XMLstream) {
 	}
 
 
-	
-	
+
+
 }
