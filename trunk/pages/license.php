@@ -4,9 +4,6 @@
  *
  * License Information
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
- *
  * @copyright  2002-2008 WoWRoster.net
  * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @version    SVN: $Id$
@@ -17,129 +14,192 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
-$roster->output['title'] = 'License';
+$roster->output['title'] = 'License Information';
 
-echo messagebox("<div align=\"left\">
-<p align=\"center\"><span class=\"headline_3\">WoWRoster is licensed under a Creative Commons<br />
-&quot;Attribution-NonCommercial-ShareAlike 2.5&quot; license</span></p>
+echo '
+<div class="container">
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">License Information</div>
 
-<br />
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">WoWRoster is licensed under the GNU General Public License v3.</div>
 
-<p>Short summary: <a href=\"http://creativecommons.org/licenses/by-nc-sa/2.5\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/2.5</a><br />
-Full license: <a href=\"http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode\" target=\"_blank\">http://creativecommons.org/licenses/by-nc-sa/2.5/legalcode</a></p>
+						<div class="info-text-h">
+							<p>This program is free software: you can redistribute it and/or modify
+							it under the terms of the GNU General Public License as published by
+							the Free Software Foundation, either version 3 of the License, or
+							(at your option) any later version.</p>
 
-<br />
+							<br />
 
-<strong>Regarding Attribution:</strong>
-<ul>
-	<li>Keep the credits in the footer of the WoWRoster pages</li>
-	<li>Include this license (license.txt) with all modified versions of the WoWRoster</li>
-</ul>
-<strong>Regarding ShareAlike:</strong>
-<ul>
-	<li>Any changes made to the WoWRoster code must be archived and accessible for public download</li>
-	<li>Including, but not limited to:
-		<ul>
-		<li>HTML, TXT, PHP, CSS, SQL, images, and Javascript</li>
-		</ul></li>
-	<li>You may, of course, remove username, password, and database host information from the archive</li>
-</ul>
+							<p>This program is distributed in the hope that it will be useful,
+							but WITHOUT ANY WARRANTY; without even the implied warranty of
+							MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+							GNU General Public License for more details.</p>
 
-<p>For any reuse or distribution, you must make clear to others the license terms of this work<br />
-Any of these conditions can be waived if you get permission from the dev team at <a href=\"http://www.wowroster.net\" target=\"_blank\">wowroster.net</a></p>
+							<br />
 
-<hr />
+							<p>You should have received a copy of the GNU General Public License
+							along with this program. If not, see <http://www.gnu.org/licenses/>.</p>
+						</div>
+					</div>
+				</div>
 
-<p align=\"center\"><span class=\"headline_3\">Serveral external libraries are included with WoWRoster<br />
-that are not included under the main WoWRoster license</span></p>
+				<br />
 
-<br />
+				<div class="tier-6-a">
+					<div class="tier-6-b">
+						<div class="text" style="text-align: center;">
+							Serveral external libraries are included with WoWRoster
+							that are may not be included under the main WoWRoster license
+						</div>
+					</div>
+				</div>
 
-<p>These are:</p>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">jQuery Javascript Library</div>
 
-<br />
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://www.dynamicdrive.com" target="_blank">http://jquery.com</a></li>
+								<li>jQuery is provided under the following <a href="http://docs.jquery.com/Licensing" target="_blank">MIT and GPL licenses</a>.</li>
+								<li>File located at [js/jquery.js]</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-<strong>Tab Content Script</strong> - DynamicDrive
-<ul>
-	<li><a href=\"http://www.dynamicdrive.com\" target=\"_blank\">http://www.dynamicdrive.com</a></li>
-	<li>DynamicDrive Terms of Use <a href=\"http://www.dynamicdrive.com/notice.htm\" target=\"_blank\">http://www.dynamicdrive.com/notice.htm</a></li>
-	<li>File located at [js/tabcontent.js]</li>
-</ul>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">Tab Content Script - DynamicDrive</div>
 
-<strong>Color Pallet Script</strong> - DhtmlGoodies
-<ul>
-	<li><a href=\"http://www.dynamicdrive.com\" target=\"_blank\">http://www.dynamicdrive.com</a></li>
-	<li>DynamicDrive Terms of Use <a href=\"http://www.dynamicdrive.com/notice.htm\" target=\"_blank\">http://www.dynamicdrive.com/notice.htm</a></li>
-	<li>File located at [js/color_functions.js]</li>
-</ul>
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://www.dynamicdrive.com" target="_blank">http://www.dynamicdrive.com</a></li>
+								<li>DynamicDrive Terms of Use <a href="http://www.dynamicdrive.com/notice.htm" target="_blank">http://www.dynamicdrive.com/notice.htm</a></li>
+								<li>File located at [js/tabcontent.js]</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-<strong>Overlib tooltip library</strong> - Erik Bosrup
-<ul>
-	<li><a href=\"http://www.bosrup.com/web/overlib\" target=\"_blank\">http://www.bosrup.com/web/overlib</a></li>
-	<li>Overlib License: <a href=\"http://www.bosrup.com/web/overlib/?License\" target=\"_blank\">http://www.bosrup.com/web/overlib/?License</a></li>
-	<li>File located at [js/overlib.js]</li>
-</ul>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">Overlib tooltip library - Erik Bosrup</div>
 
-<strong>DHTML Drag & Drop library</strong> - Walter Zorn
-<ul>
-	<li><a href=\"http://www.walterzorn.com/dragdrop/dragdrop_e.htm\" target=\"_blank\">http://www.walterzorn.com/dragdrop/dragdrop_e.htm</a></li>
-	<li>GNU Lesser General Public License: <a href=\"http://gnu.org/copyleft/lesser.html\" target=\"_blank\">http://gnu.org/copyleft/lesser.html</a></li>
-	<li>File located at [js/wz_dragdrop.js]</li>
-</ul>
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://www.bosrup.com/web/overlib" target="_blank">http://www.bosrup.com/web/overlib</a></li>
+								<li>Overlib License: <a href="http://www.bosrup.com/web/overlib/?License" target="_blank">http://www.bosrup.com/web/overlib/?License</a></li>
+								<li>File located at [js/overlib.js]</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-<strong>Modified EQdkp installer</strong>
-<ul>
-	<li><a href=\"http://www.eqdkp.com\" target=\"_blank\">http://www.eqdkp.com</a></li>
-	<li>The installer was based on the EQdkp installer</li>
-	<li>GNU General Public License: <a href=\"http://gnu.org/copyleft/gpl.html\" target=\"_blank\">http://gnu.org/copyleft/gpl.html</a></li>
-	<li>This concerns the files:
-		<ul>
-			<li>install.php</li>
-			<li>pages/upgrade.php</li>
-		</ul>
-	</li>
-</ul>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">DHTML Drag & Drop library - Walter Zorn</div>
 
-<strong>DragonFly CMS Template Engine</strong>
-<ul>
-	<li><a href=\"http://www.dragonflycms.org\" target=\"_blank\">http://www.dragonflycms.org</a></li>
-	<li>GNU General Public License: <a href=\"http://gnu.org/copyleft/gpl.html\" target=\"_blank\">http://gnu.org/copyleft/gpl.html</a></li>
-	<li>This concerns the files:
-		<ul>
-			<li>lib/template.php</li>
-			<li>lib/template_enc.php</li>
-		</ul>
-	</li>
-</ul>
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://www.walterzorn.com/dragdrop/dragdrop_e.htm" target="_blank">http://www.walterzorn.com/dragdrop/dragdrop_e.htm</a></li>
+								<li>GNU Lesser General Public License: <a href="http://gnu.org/copyleft/lesser.html" target="_blank">http://gnu.org/copyleft/lesser.html</a></li>
+								<li>File located at [js/wz_dragdrop.js]</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
-<strong>MiniXML Library</strong>
-<ul>
-	<li><a href=\"http://minixml.psychogenic.com\" target=\"_blank\">http://minixml.psychogenic.com</a></li>
-	<li>GNU General Public License: <a href=\"http://gnu.org/copyleft/gpl.html\" target=\"_blank\">http://gnu.org/copyleft/gpl.html</a></li>
-	<li>This concerns the files:
-		<ul>
-			<li>lib/minixml.lib.php</li>
-			<li>lib/minixml/doc.inc.php</li>
-			<li>lib/minixml/element.inc.php</li>
-			<li>lib/minixml/LICENSE</li>
-			<li>lib/minixml/node.inc.php</li>
-			<li>lib/minixml/treecomp.inc.php</li>
-		</ul>
-	</li>
-</ul>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">Modified EQdkp installer</div>
 
-<strong>NicEdit</strong>
-<ul>
-	<li><a href=\"http://www.nicedit.com\" target=\"_blank\">http://www.nicedit.com</a></li>
-	<li>MIT License: <a href=\"http://www.nicedit.com/license.php\" target=\"_blank\">http://www.nicedit.com/license.php</a></li>
-	<li>This concerns the files:
-		<ul>
-			<li>js/nicEdit.js</li>
-			<li>img/nicEditorIcons.gif</li>
-		</ul>
-	</li>
-</ul>
-</div>",'WoWRoster License');
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://www.eqdkp.com" target="_blank">http://www.eqdkp.com</a></li>
+								<li>The installer was based on the EQdkp installer</li>
+								<li>GNU General Public License: <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a></li>
+								<li>This concerns the files:
+									<ul>
+										<li>install.php</li>
+										<li>pages/upgrade.php</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">DragonFly CMS Template Engine</div>
+
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://www.dragonflycms.org" target="_blank">http://www.dragonflycms.org</a></li>
+								<li>GNU General Public License: <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a></li>
+								<li>This concerns the files:
+									<ul>
+										<li>lib/template.php</li>
+										<li>lib/template_enc.php</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">MiniXML Library</div>
+
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://minixml.psychogenic.com" target="_blank">http://minixml.psychogenic.com</a></li>
+								<li>GNU General Public License: <a href="http://gnu.org/copyleft/gpl.html" target="_blank">http://gnu.org/copyleft/gpl.html</a></li>
+								<li>This concerns the files:
+									<ul>
+										<li>lib/minixml.lib.php</li>
+										<li>lib/minixml/doc.inc.php</li>
+										<li>lib/minixml/element.inc.php</li>
+										<li>lib/minixml/LICENSE</li>
+										<li>lib/minixml/node.inc.php</li>
+										<li>lib/minixml/treecomp.inc.php</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">NicEdit</div>
+
+						<div class="info-text-h">
+							<ul>
+								<li><a href="http://www.nicedit.com" target="_blank">http://www.nicedit.com</a></li>
+								<li>MIT License: <a href="http://www.nicedit.com/license.php" target="_blank">http://www.nicedit.com/license.php</a></li>
+								<li>This concerns the files:
+									<ul>
+										<li>js/nicEdit.js</li>
+										<li>img/nicEditorIcons.gif</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>';

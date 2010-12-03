@@ -17,7 +17,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 $roster->output['title'] = $roster->locale->act['credit'];
@@ -27,10 +27,11 @@ $roster->tpl->assign_vars(array(
 
 	'L_TOP_CREDITS'    => $roster->locale->creditspage['top'],
 	'L_BOTTOM_CREDITS' => $roster->locale->creditspage['bottom'],
+	'L_DEV_TEAM'       => 'WoWRoster Dev Team',
 	'L_ACTIVE_DEV'     => 'Active Developers',
 	'L_3RD_PARTY'      => '3rd-Party Contributions',
 	'L_INACTIVE_DEV'   => 'Retired/Inactive Developers',
-	'L_JS_LIB'         => 'Javascript Libraries',
+	'L_LIBRARY'        => '3rd-Party Libraries',
 	'L_ROSTER_ADDONS'  => 'WoWRoster Addons',
 	'L_VERSION'        => 'Version',
 	)
@@ -72,7 +73,7 @@ foreach( $roster->locale->creditspage['devs']['inactive'] as $dev )
 
 foreach( $roster->locale->creditspage['devs']['library'] as $dev )
 {
-	$roster->tpl->assign_block_vars('js_lib',array(
+	$roster->tpl->assign_block_vars('library',array(
 		'ROW_CLASS' => $roster->switch_row_class(),
 		'NAME'      => $dev['name'],
 		'INFO'      => $dev['info'],

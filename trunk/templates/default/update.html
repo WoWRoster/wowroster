@@ -10,7 +10,7 @@
 			<div class="tier-2-a">
 				<div class="tier-2-b">
 					<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
-						<div style="float:right;">
+						<div class="right">
 							<form method="post" action="{U_MAKELINK}" name="post">
 								<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
 								<input type="hidden" name="send_file" value="error_log" />
@@ -33,7 +33,7 @@
 			<div class="tier-2-a">
 				<div class="tier-2-b">
 					<div class="tier-2-title">
-						<div style="float:right;">
+						<div class="right">
 							<form method="post" action="{U_MAKELINK}" name="post">
 								<input type="hidden" name="data" value="{RESPONSE_POST}" />
 								<input type="hidden" name="send_file" value="update_log" />
@@ -58,7 +58,7 @@
 				<div class="tier-2-a" style="margin:4px auto 0;width:455px;">
 					<div class="tier-2-b">
 						<div class="tier-2-title">
-							<div style="float:right;"><input type="submit" value="<!-- TRANSLATE upload -->" /></div>
+							<div class="right"><input type="submit" value="<!-- TRANSLATE upload -->" /></div>
 							<!-- TRANSLATE select_files -->
 						</div>
 
@@ -67,9 +67,7 @@
 							<div class="tier-3-b">
 								<div class="text">
 									<span class="ui-icon ui-icon-help" style="cursor:help;" {file_fields.TOOLTIP}></span>{file_fields.FILE}.lua
-									<div style="float:right;">
-										<input type="file" accept="{file_fields.FILE}.lua" name="{file_fields.FILE}" />
-									</div>
+									<div style="float:right;"><input type="file" accept="{file_fields.FILE}.lua" name="{file_fields.FILE}" /></div>
 								</div>
 							</div>
 						</div>

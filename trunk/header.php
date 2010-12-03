@@ -39,15 +39,12 @@ if( $roster->output['http_header'] && !headers_sent() )
 switch( $roster->scope )
 {
 	case 'util':
-		$roster->tpl->assign_vars(array(
-			'PAGE_INFO' =>  ''
-			)
-		);
 	case 'page':
 		$roster_title = ' [ ' . $roster->config['default_name'] . ' ] '
 			. (isset($roster->output['title']) ? $roster->output['title'] : '');
 
 		$roster->tpl->assign_vars(array(
+			'PAGE_INFO'       => (isset($roster->output['title']) ? $roster->output['title'] : ''),
 			'ROSTER_TITLE'    => $roster->config['default_name'],
 			'ROSTER_SUBTITLE' => isset($roster->config['default_desc']) ? '<br />' . $roster->config['default_desc'] : '',
 			'ROSTER_3RDTITLE' => false,
