@@ -3,8 +3,6 @@
  *
  * Nicedit javascript file
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
  * @copyright  2007 Brian Kirchoff
  * @license    http://nicedit.com/license.php nicEdit License
