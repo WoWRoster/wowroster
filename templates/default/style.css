@@ -22,7 +22,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 /* Main Roster Wrapper Header */
 
 .theme-wrap {
-	min-height: 450px;
+	min-height: 400px;
 	width: 940px;
 	margin: 20px auto auto;
 	position: relative;
