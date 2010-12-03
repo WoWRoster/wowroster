@@ -693,13 +693,13 @@ $lang['faction_to_id'] = array(
 // 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
 
 $lang['questlinks'][] = array(
-	'name'=>'Thottbot',
-	'url'=>'http://thottbot.com/q%1$s'
+	'name'=>'WoWHead',
+	'url'=>'http://es.wowhead.com/?quest=%1$s'
 );
 
 $lang['questlinks'][] = array(
-	'name'=>'Allakhazam',
-	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%1$s;locale=esES'
+	'name'=>'Thottbot',
+	'url'=>'http://thottbot.com/q%1$s'
 );
 
 $lang['questlinks'][] = array(
@@ -707,10 +707,10 @@ $lang['questlinks'][] = array(
 	'url'=>'http://www.wow-lista.com/verquest.php?num=%1$s'
 );
 
-$lang['questlinks'][] = array(
-	'name'=>'WoWHead',
-	'url'=>'http://es.wowhead.com/?quest=%1$s'
-);
+/*$lang['questlinks'][] = array(
+	'name'=>'Allakhazam',
+	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%1$s;locale=esES'
+);*/
 
 // Items external link
 // Add as manu item links as you need
@@ -718,9 +718,9 @@ $lang['questlinks'][] = array(
 // uses the 'item_id' for data
 $lang['itemlink'] = 'Enlaces de objetos';
 $lang['itemlinks']['Thottbot'] = 'http://www.thottbot.com/i';
-$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?locale=esES&witem=';
 $lang['itemlinks']['WoW-Lista'] = 'http://www.wow-lista.com/veritem.php?num=';
 $lang['itemlinks']['WoWHead'] = 'http://es.wowhead.com/?item=';
+$lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?locale=esES&witem=';
 
 // WoW Data Site Search
 // Add as many item links as you need

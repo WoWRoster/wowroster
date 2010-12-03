@@ -692,6 +692,16 @@ $lang['faction_to_id'] = array(
 // 		'name'=> 'Name',  // This is the name displayed on the quests page
 // 		'url' => 'url',   // This is the URL used for the quest lookup (must be sprintf() compatible)
 
+$lang['questlinks'][] = array(
+	'name'=>'WoWHead',
+	'url'=>'http://fr.wowhead.com/?quest=%s'
+);
+
+/*$lang['questlinks'][] = array(
+	'name'=>'Allakhazam',
+	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%s;locale=frFR'
+);*/
+
 /*$lang['questlinks'][] = array(  // Does not allow quest id linking
 	'name'=>'Judgehype FR',
 	'url'=>'http://worldofwarcraft.judgehype.com/index.php?page=bc-result&amp;Ckey='
@@ -702,25 +712,15 @@ $lang['faction_to_id'] = array(
 	'url'=>'http://wowdbu.com/7.html?m=2&amp;mode=qsearch&amp;title='
 );*/
 
-$lang['questlinks'][] = array(
-	'name'=>'Allakhazam',
-	'url'=>'http://wow.allakhazam.com/db/quest.html?source=live;wquest=%s;locale=frFR'
-);
-
-$lang['questlinks'][] = array(
-	'name'=>'WoWHead',
-	'url'=>'http://fr.wowhead.com/?quest=%s'
-);
-
 // Items external link
 // Add as manu item links as you need
 // Just make sure their names are unique
 // uses the 'item_id' for data
 $lang['itemlink'] = 'Liens vers les objets';
 $lang['itemlinks']['Judgehype FR'] = 'http://worldofwarcraft.judgehype.com/index.php?page=bc-obj&w=';
+$lang['itemlinks']['WoWHead'] = 'http://fr.wowhead.com/?item=';
 $lang['itemlinks']['Allakhazam'] = 'http://wow.allakhazam.com/db/item.html?locale=frFR&witem=';
 //$lang['itemlinks']['WoWDBU FR'] ='http://wowdbu.com/2-1.html?way=asc&amp;order=name&amp;showstats=&amp;type_limit=0&amp;lvlmin=&amp;lvlmax=&amp;name='; // In maintenance mode - not accessible yet
-$lang['itemlinks']['WoWHead'] = 'http://fr.wowhead.com/?item=';
 
 // WoW Data Site Search
 // Add as many item links as you need

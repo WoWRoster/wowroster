@@ -56,9 +56,16 @@ class roster_locale
 
 		$this->creditspage = $creditspage;
 
-		foreach( $roster->multilanguages as $language )
+		foreach( $roster->multilanguages as $index => $language )
 		{
-			$this->add_locale_file(ROSTER_LOCALE_DIR . $language . '.php',$language);
+			if( file_exists(ROSTER_LOCALE_DIR . $language . '.php') )
+			{
+				$this->add_locale_file(ROSTER_LOCALE_DIR . $language . '.php', $language);
+			}
+			else
+			{
+				unset($roster->multilanguages[$index]);
+			}
 		}
 
 		if( isset($_SESSION['locale']) && $_SESSION['locale'] != '' )
@@ -85,7 +92,7 @@ class roster_locale
 		}
 		else
 		{
-			$enUSfile = str_replace($locale . '.php','enUS.php',$localefile);
+			$enUSfile = str_replace($locale . '.php','enUS.php', $localefile);
 			if( file_exists($enUSfile) )
 			{
 				include($enUSfile);
