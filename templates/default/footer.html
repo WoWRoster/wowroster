@@ -6,17 +6,19 @@
 		<!--
 			If you use this software and find it to be useful, we ask that you retain the copyright notice below.
 		//-->
+		<a class="credits-link" href="{U_CREDITS}" onmouseover="return overlib('<!-- TRANSLATE credit -->');" onmouseout="return nd();">
+			<img src="{INTERFACE_URL}Interface/Icons/inv_misc_questionmark.{IMG_SUFFIX}" alt="" />
+			<span class="mask"></span>
+		</a>
 		<div class="version">WoWRoster v{ROSTER_VERSION}</div>
-
-		<div class="credit">
-{ROSTER_CREDITS}
+		<div class="wr-info"><!-- TRANSLATE roster_credits --></div>
+		<div class="bliz">
+<!-- TRANSLATE bliz_notice -->
 		</div>
-
 		<div class="valid">
 			<a href="http://validator.w3.org/check?uri=referer" target="_blank">
 			<img src="{IMG_URL}validxhtml.gif" alt="Valid XHTML 1.0 Transitional" width="80" height="15" /></a>
 		</div>
-
 		<!-- IF S_PROCESSTIME -->
 		<div class="process">{PROCESSTIME} | {QUERYCOUNT}</div>
 		<!-- ENDIF -->

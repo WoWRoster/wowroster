@@ -140,9 +140,8 @@ $lang['update_instructpvp']='
 <li>Envía PvPLog.lua</li>
 </ol>';
 
-$lang['roster_credits']='<p>Página principal de WoWRoster - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a></p>
-<p>World of Warcraft y Blizzard Entertainment son marcas registradas de Blizzard Entertainment, Inc. en los E.U.A. y/u otros países. El resto de marcas registradas pertenecen a sus respectivos propietarios.</p>
-<p><a href="%1$s">Créditos Adicionales</a></p>';
+$lang['roster_credits']='Página principal de WoWRoster - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a>';
+$lang['bliz_notice']='World of Warcraft y Blizzard Entertainment son marcas registradas de Blizzard Entertainment, Inc. en los E.U.A. y/u otros países. El resto de marcas registradas pertenecen a sus respectivos propietarios.';
 
 
 $lang['timeformat'] = '%a %d %b, %H:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html

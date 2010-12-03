@@ -73,8 +73,15 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 }
 .roster-footer .process { position: absolute; bottom: 5px; right: 5px; color: #AC8739; }
 .roster-footer .valid { position: absolute; bottom: 5px; left: 5px; color: #AC8739; }
+
+.roster-footer .credits-link { display: block; position: absolute; top: 20px; right: 1px; height: 22px; width: 22px; }
+.roster-footer .credits-link img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
+.roster-footer .credits-link .mask { background: url(images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
+.roster-footer .credits-link .mask:hover { background-position: right top; }
+
 .roster-footer .version { color: #fff; text-align: left; }
-.roster-footer .credit { color: #fff; text-align: left; }
+.roster-footer .wr-info { color: #fff; text-align: left; }
+.roster-footer .bliz { color: #fff; text-align: left; }
 
 /* Login Box */
 .menu-login { margin: 5px 0 0 130px; width: 300px; }
@@ -87,8 +94,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .scope-menu .menu-scope { margin:2px 0 0; padding:0; width:100%; }
 
 .scope-menu .menu-scope .frame { margin:0; padding:0; width:100%; display: table; position: relative; }
-.scope-menu .menu-scope .frame .button { display:block; float:left; margin:3px; position: relative; }
-.scope-menu .menu-scope .frame .button img { height: 50px; width: 50px; }
+.scope-menu .menu-scope .frame .button { display:block; float:left; margin:3px; position: relative; height: 50px; width: 50px; }
+.scope-menu .menu-scope .frame .button img { position: absolute; clip: rect(2px 48px 48px 2px); height: 50px; width: 50px; }
 .scope-menu .menu-scope .frame .button .mask { display: block; background: url(images/mask/menu_50x50_mask.png) no-repeat left top; height:50px; width:50px; position: absolute; z-index: 100; left: 0; top: 0; }
 .scope-menu .menu-scope .frame .button .mask:hover { background: url(images/mask/menu_50x50_mask.png) no-repeat right top; }
 
@@ -96,11 +103,10 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .menu-frame .section-title { padding: 3px; font: bold 12px Georgia, "Times New Roman", Times, serif; color: #000; background: url(images/th_bg.png) repeat-x left top; }
 
 .scope-menu .menu-scope-panel .frame { margin:5px; width:100%; position: relative; }
-.scope-menu .menu-scope-panel .frame .button { float:left; margin:3px; position: relative; }
-.scope-menu .menu-scope-panel .frame .button img { height: 40px; width: 40px; }
-.scope-menu .menu-scope-panel .frame .button a { display: block; }
-.scope-menu .menu-scope-panel .frame .button .mask { background: url(images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; z-index: 100; left: 0; top: 0; }
-.scope-menu .menu-scope-panel .frame .button .mask:hover { background: url(images/mask/menu_40x40_mask.png) no-repeat right top; }
+.scope-menu .menu-scope-panel .frame .button { display: block; float:left; margin:3px; position: relative; height: 40px; width: 40px; }
+.scope-menu .menu-scope-panel .frame .button img { position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
+.scope-menu .menu-scope-panel .frame .button .mask { background: url(images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
+.scope-menu .menu-scope-panel .frame .button .mask:hover { background-position: right top; }
 
 /* New Main Navagation tabs */
 
@@ -175,8 +181,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-1-title { color:#491F14; text-decoration:none; display:block; position:relative; font: normal 22px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-1-title .links { float: right; margin-top: 1px; }
 .tier-1-title .icon { height: 22px; width: 22px; float: left; margin-left: 5px; position: relative; }
-.tier-1-title .icon img { height: 22px; width: 22px; }
-.tier-1-title .icon .mask { background: url(images/mask/icon_mask_1.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.tier-1-title .icon img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
+.tier-1-title .icon .mask { background: url(images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
 
 .tier-1-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-1-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
@@ -188,8 +194,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .tier-2-title { color:#135E82; display:block; text-align:left; padding:0; margin-bottom: 5px; font: bolder normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-2-title .icon { height: 22px; width: 22px; float: left; margin-right: 5px; left: -2px; top: -2px; position: relative; }
-.tier-2-title .icon img { height: 22px; width: 22px; }
-.tier-2-title .icon .mask { background: url(images/mask/icon_mask_2.png) no-repeat left top; height: 22px; width: 22px; position: absolute; z-index: 100; left: 0px; top: 0px; }
+.tier-2-title .icon img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
+.tier-2-title .icon .mask { background: url(images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
 
 .tier-2-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-2-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
@@ -265,9 +271,9 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 /* Container Styles */
 .container { padding: 0px 0px 20px; background: #eaca81 url(images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(images/skill_title_bg.png) repeat-x left top; position: relative; }
-.container .box-label .icon { height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
-.container .box-label .icon img{ height: 33px; width: 32px;}
-.container .box-label .icon .mask { background: url(images/icon_mask.png) no-repeat left top; height: 33px; width: 32px; position: absolute; z-index: 500; left: 0px; top: 0px; }
+.container .box-label .icon { height: 22px; width: 22px; position: absolute; left: 4px; top: 4px; }
+.container .box-label .icon img{ position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px;}
+.container .box-label .icon .mask { background: url(images/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
 .container .box-label .profile { background: url(info/images/icons/profile.gif) no-repeat left top; }
 
 .container .inner { margin-right: 20px; margin-left: 20px; }

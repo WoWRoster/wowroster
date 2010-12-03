@@ -51,6 +51,19 @@ class RosterMenu
 		{
 			$roster->tpl->set_handle('roster_menu', 'menu.html');
 			$roster->tpl->display('roster_menu');
+
+			// Create the mini update pop-up
+			// Include update lib
+			require_once (ROSTER_LIB . 'update.lib.php');
+			$mini_update = new update();
+
+			// Fetch addon data
+			$mini_update->fetchAddonData();
+
+			// Create the file fields
+			$mini_update->makeFileFields('mini_file_fields');
+
+			unset($mini_update);
 		}
 	}
 
