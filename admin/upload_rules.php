@@ -4,11 +4,8 @@
  *
  * Roster upload rule config
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
- *
- * @copyright  2002-2008 WoWRoster.net
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id: change_pass.php 913 2007-05-08 03:51:55Z Zanix $
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
