@@ -4,11 +4,9 @@
  *
  * Master Locale File
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * @copyright  2002-2008 WoWRoster.net
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
@@ -134,7 +132,7 @@ $creditspage['devs'] = array(
 		),
 	);
 
-$creditspage['bottom']='<p>WoW Roster is licensed under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License v3</a>.</p>
+$creditspage['bottom']='<p>WoWRoster is licensed under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License v3</a>.</p>
 <p>Serveral javascript files are libraries that are under their own licenses.</p>
 <p>The installer was derived from the EQdkp installer and is licensed under the GNU General Public License</p>
 <p>See <a href="' . makelink('license') . '">license</a> for more details</p>';
