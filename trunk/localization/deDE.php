@@ -140,9 +140,8 @@ $lang['update_instructpvp']='
 <li>Lade "PvPLog.lua" über die Update-Seite hoch</li>
 </ol>';
 
-$lang['roster_credits']='<p>WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a></p>
-<p>World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.</p>
-<p><a href="%1$s">Additional Credits</a></p>';
+$lang['roster_credits']='WoWRoster Home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a>';
+$lang['bliz_notice']='World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.';
 
 
 $lang['timeformat'] = '%d.%m. %k:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
@@ -878,7 +877,7 @@ $lang['GPver_err']='Die zur Speicherung der Daten für diese Gilde verwendete Ve
 $lang['menu_upprofile']='Update Profile|Aktualisiere dein Profil auf dieser Seite';
 $lang['menu_search']='Suche|Suche Gegenstände oder Rezepte in der Datenbank';
 $lang['menu_roster_cp']='RosterCP|Roster Konfigurationsbereich';
-$lang['menu_credits']='Credits|Wer entwickelte und programmierte den WoW Roster';
+$lang['menu_credits']='Credits|Wer entwickelte und programmierte den WoWRoster';
 $lang['menupanel_util']  = 'Einstellungen';
 $lang['menupanel_realm'] = 'Realm';
 $lang['menupanel_guild'] = 'Gilde';

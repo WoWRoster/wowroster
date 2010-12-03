@@ -31,6 +31,8 @@ $roster->tpl->assign_vars(array(
 	'S_SQL_WIN'       => $roster->config['sql_window'],
 	'S_DESCRIBE'      => $roster->config['sql_window'] == 2,
 
+	'U_CREDITS'       => makelink('credits'),
+
 	'PROCESSTIME'     => $totaltime,
 	'QUERYCOUNT'      => $roster->db->query_count,
 
@@ -44,7 +46,6 @@ $roster->tpl->assign_vars(array(
 	'IMG_URL'         => $roster->config['img_url'],
 	'INTERFACE_URL'   => $roster->config['interface_url'],
 	'ROSTER_VERSION'  => $roster->config['version'],
-	'ROSTER_CREDITS'  => sprintf($roster->locale->act['roster_credits'], makelink('credits'))
 ));
 
 if( $roster->config['debug_mode'] )
