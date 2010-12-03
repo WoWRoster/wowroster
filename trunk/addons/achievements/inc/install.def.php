@@ -2,11 +2,8 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
- *
  * @copyright  2002-2007 WoWRoster.net
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id: install.def.php 493 2009-12-27 17:29:50Z Ulminia $
  * @link       http://www.wowroster.net
  * @package    Achievements
@@ -31,7 +28,7 @@ class achievementsInstall
 	var $icon = 'achievement_general';
 
 	var $version = '1.0.2141';
-	
+
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';
 	var $wrnet_id = '0';
@@ -75,7 +72,7 @@ class achievementsInstall
 			  `achv_progress` varchar(25) NOT NULL,
 			  `achv_progress_width` varchar(50) NOT NULL,
 			  `achv_complete` varchar(255) NOT NULL default '',
-			  PRIMARY KEY  (`id`)"); 
+			  PRIMARY KEY  (`id`)");
 
 		return true;
 	}
@@ -89,15 +86,15 @@ class achievementsInstall
 	function upgrade($oldversion, $version)
 	{
 		global $installer, $addon;
-		
+
 	// Change the icon for quests
 		if( version_compare('1.0.2141', $oldversion,'>') == true )
 		{
-		
-			//ALTER TABLE `roster_addons_achievements_summary` CHANGE `date_1` `date_1` DATE NOT NULL 
-			
+
+			//ALTER TABLE `roster_addons_achievements_summary` CHANGE `date_1` `date_1` DATE NOT NULL
+
 			$installer->add_query("ALTER TABLE `" . $installer->table('data') . "` CHANGE `achv_date` `achv_date` DATE NOT NULL,");
-		
+
 			$installer->update_menu_button('cb_quests','char','quests','achievement_quests_completed_06');
 		}
 	}

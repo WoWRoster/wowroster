@@ -4,10 +4,8 @@
  *
  * Displays Achievement info
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id: index2.php 477 2009-11-13 07:03:44Z Ulminia $
  * @link       http://ulminia.zenutech.com
  * @package    Achievements
@@ -20,10 +18,10 @@ define("USE_CURL", TRUE);
       end my localisaiation for xml....
 
 */
-    
-    
-      
-	
+
+
+
+
       function arraydisplay($array)
 	{
 	     echo '<pre>';
@@ -98,8 +96,8 @@ require_once( ROSTER_LIB . 'simple.class.php' );
 require_once(ROSTER_LIB . 'armory.class.php');
 			$armory = new RosterArmory();
 	//$url = 'http://www.wowarmory.com/character-achievements.xml?r=Zangarmarsh&n=ulminia&c=96';
-	
-	
+
+
 
 	$r = $armory->fetchArmorya( $type = '11', $character ='Zonous', $guild = false, $realm = 'Zangarmarsh', $item_id = '',$fetch_type = 'array' );//getArmoryDataXML($url);
 	//echo '<pre>';
@@ -116,8 +114,8 @@ require_once(ROSTER_LIB . 'armory.class.php');
 	$rep             = $temps['category']['6']->c['earned'].' / '.$temps['category'][6]->c['total'];
 	$world_events    = $temps['category']['7']->c['earned'].' / '.$temps['category'][7]->c['total'];
       $feats           = $temps['category']['8']->c['earned'].' / '.$temps['category'][8]->c['total'];
-      
-	
+
+
 	//`title_1`,`disc_1`,`date_1`,`points_1`
 
 	'categoryId' => 95,
@@ -142,7 +140,7 @@ $prof = '';
 $rep = '';
 $world_events = '';
 $feats = '';
-	
+
 
 	foreach ($r->achievements->summary as $type => $data)
 	{
@@ -152,12 +150,12 @@ $feats = '';
 	     {
 	           $temp2 = get_object_vars($i);
 	           aprint($temp2);
-	           
+
 	           echo $$temp2['c'][0] .' '.$temp2['c']['total'].'<br>';
 	     }
 	}
 */
-	
+
 $g = 0;
 //arraydisplay($r);
 foreach ($r as $category)
@@ -245,24 +243,24 @@ echo '~~-  '.$pages['96'][$g].'~~~<br><hr><br>';
                   {
                         echo 'Points'.$temp2['@attributes']['points'].'-<br>';
                   }
-                  
+
             }
-            
-            
+
+
             //echo '<pre>';
             //print_R($achievements);
             $g++;
             echo '<br><hr><br>';
       }
-      
+
       echo '<br><hr><br>';
       $g = 1;
-      
+
       foreach($category->category as $f => $achievements)
       {
       foreach ($achievements as $achiev)
       {
-            
+
             $temp = get_object_vars($achiev);
             echo 'title '.$temp['@attributes']['title'].' -<br>';
             echo 'categoryId '.$temp['@attributes']['categoryId'].' -<br>';// => 97
@@ -318,7 +316,7 @@ echo '~~-  '.$pages['96'][$g].'~~~<br><hr><br>';
                   {
                         echo 'maxQuantity '.$temp2['@attributes']['maxQuantity'].'-<br>';
                   }
-                  
+
             }
             echo '<span style="color:red;">Achievement Criteria </span><br />';
             foreach($achiev->achievement as $achievemen)
@@ -357,13 +355,13 @@ echo '~~-  '.$pages['96'][$g].'~~~<br><hr><br>';
                   {
                         echo 'maxQuantity '.$temp2['@attributes']['maxQuantity'].'-<br>';
                   }
-                  
+
             }
-      
+
             //echo '<pre>';
             //print_R($achievements);
             echo '<br><hr><br>';
-            
+
       }
       $g++;
       echo '<br><hr><br>';
@@ -375,13 +373,13 @@ echo '<br><hr><br>';
 */
 
 //}
-/*	
+/*
 	foreach($r as $a => $catagory)
 	{
 	     foreach ($catagory as $b => $achievement)
 	     {
 	     echo $a .' - '.$b.' - '.$achievement['title'].'-<br>';
-	     
+
 	           foreach ($achievement as $achv => $info)
 	           {
 	           if (isset($info['name']))
@@ -408,8 +406,8 @@ echo '<br><hr><br>';
 	           }
 	      echo '<br><hr><br>';
 	     }
-	
-	     
+
+
 	}
 */
 
@@ -500,8 +498,8 @@ echo '<br><hr><br>';
 		if (!in_array($propName, $this->properties)) {
 			$this->properties[] = $propName;
 		}
-  } 
-  
+  }
+
 	function setArray($array) {
 		if (is_array($array)) {
 			foreach ($array as $key => $value) {
@@ -509,7 +507,7 @@ echo '<br><hr><br>';
 			}
 		}
 	}
-	
+
 	function hasProp($propName) {
 		return in_array($propName, $this->properties);
 	}

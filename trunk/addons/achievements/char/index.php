@@ -4,10 +4,7 @@
  *
  * Displays Achievement info
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
- *
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id: index.php 509 2010-02-17 05:43:24Z Ulminia $
  * @link       http://ulminia.zenutech.com
  * @package    Achievements
@@ -34,7 +31,7 @@ if (isset($_GET['cat']))
 else
 {
 	$catee = '00';
-}  
+}
 $roster->tpl->assign_block_vars('menue',array(
 	'ID'       => '00',
 	'LINK'     => makelink('&amp;cat=00'),
@@ -139,7 +136,7 @@ foreach($data as $catagory => $cid)
 //						echo 'A match was found.';
 						$color = '#7eff00';
 					}
-					else 
+					else
 					{
 //						echo 'A match was not found.';
 						$color = '#4169E1';

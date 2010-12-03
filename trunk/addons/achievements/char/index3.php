@@ -4,10 +4,7 @@
  *
  * Displays Achievement info
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
- *
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id: index3.php 490 2009-12-22 15:26:36Z Ulminia $
  * @link       http://ulminia.zenutech.com
  * @package    Achievements
@@ -20,10 +17,10 @@ define("USE_CURL", TRUE);
       end my localisaiation for xml....
 
 */
-    
-    
-      
-	
+
+
+
+
       function arraydisplay($array)
 	{
 	     echo '<pre>';
@@ -114,20 +111,20 @@ require_once(ROSTER_LIB . 'armory.class.php');
 
 
 foreach ($pages as $cat => $title)
-      {      
-                  
+      {
+
             $r = $armory->fetchArmorya( $type = '12', $character ='Ulminia', $guild = false, $realm = 'Zangarmarsh', $item_id = $cat,$fetch_type = 'array' );//getArmoryDataXML($url);
-	
+
             $g = 0;
 
             foreach ($r as $category )
             {
-                  
+
                  // echo '<hr><br>~~-  '.$title[0].'~~~<br>';
                   foreach ($category->achievement as $achievement)
                   {
-                  
-                        
+
+
                         $achv_points='';
                         $achv_icon='';
                         $achv_title='';
@@ -143,7 +140,7 @@ foreach ($pages as $cat => $title)
                         $quantity = '';
                         $max = '';
                         $order = '';
-                        
+
                         //echo '~~----  '.$title[$g].'~~~<br>';
                         $achv_cat_sub = $title[$g];
                         $gh=1;
@@ -158,7 +155,7 @@ foreach ($pages as $cat => $title)
                         $achv_disc=$temp['@attributes']['desc'];//.' -<br>';// => Explore the regions of Northrend.
                         $achv_icon=$temp['@attributes']['icon'];//.' -<br>';// => achievement_zone_northrend_01
                         $achv_id=$temp['@attributes']['id'];//.' -<br>';// => 45
-                        
+
                   echo '$lang[\''.$achv_id.'title\'] = \''.addslashes($achv_title).'\';<br>';//echo "$lang['".$achv_id."title''] = '".$achv_disc."';<br>";
                               echo '$lang[\''.$achv_id.'disc\'] = \''.addslashes($achv_disc).'\';<br>';
                          if (isset($temp['@attributes']['points']))
@@ -193,18 +190,18 @@ foreach ($pages as $cat => $title)
                                     $achv_progress_width = 'width:'.round( ( ( $quantity / $max )*100 ) ).'%';
                                     $achv_progress = ''.$quantity.' / '.$max.'';
                               }
-                              
+
                         }
-                        
+
                         //--echo 'Achievement Criteria <br />';
-                        
+
                         foreach($achievement->achievement as $achievemen)
                         {
                               $date = '';
                               $b1 = '';
                               $b2 = '';
                               $temp2 = get_object_vars($achievemen);
-                  
+
                               if (isset($temp2['@attributes']['dateCompleted']))
                               {
                         ////--echo '-------'.$temp2['@attributes']['date'].' -<br>';
@@ -244,44 +241,44 @@ foreach ($pages as $cat => $title)
                               {
                                     $datae.= ' Points'.$temp2['@attributes']['points'].'<br>';
                               }
-                               
+
                         }
-                        
+
                         $achv_criteria = $datae;
-            
-               
+
+
                         /*
                         //$this->achnum++;
 
                         if ($achv_title != '' && $achv_disc != '')
                         {
-                              $sql = "INSERT INTO `" . $roster->db->table('data',$this->data['basename']) . "` 
+                              $sql = "INSERT INTO `" . $roster->db->table('data',$this->data['basename']) . "`
                                     (`id`,`member_id`,`guild_id`,`achv_cat`,`achv_cat_title`,`achv_cat_sub`,`achv_cat_sub2`,
                                     `achv_id`,`achv_points`,`achv_icon`,`achv_title`,`achv_reward_title`,`achv_disc`,`achv_date`,
-                                    `achv_criteria`,`achv_progress`,`achv_progress_width`,`achv_complete`) 
-                                    VALUES 
+                                    `achv_criteria`,`achv_progress`,`achv_progress_width`,`achv_complete`)
+                                    VALUES
                                     (null,'".$memberid."','".$roster->data['guild_id']."','".$cat."','".addslashes($title['0'])."',
                                     '".addslashes($title['0'])."','".$this->order."','".$achv_id."','".$achv_points."',
                                     '".addslashes($achv_icon)."','".$achv_id."title','".addslashes($achv_reward_title)."','".$achv_id."disc',
                                     '".addslashes($achv_date)."','".addslashes($achv_criteria)."','".$achv_progress."','".$achv_progress_width."','".$achv_complete."');";
                               //$result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
                         }
-                  
+
                         $this->order++;
                         */
                   }
-      
+
                   foreach($category->category as $f => $achievements)
                   {
                         $g++;
-                        
+
                         //aprint($category);
                         $achv_cat_sub = $title[$g];
                         echo "// ".$achv_cat_sub." - ".$f." - ".$category."<br>";
-      
+
                         foreach ($achievements as $achiev)
                         {
-            
+
                               $achv_points='';
                               $achv_icon='';
                               $achv_title='';
@@ -297,8 +294,8 @@ foreach ($pages as $cat => $title)
                               $max = '';
                               $order = '';
                               $achv_complete = '';
-                        
-                  
+
+
                               $temp = get_object_vars($achiev);
                               $achv_title = $temp['@attributes']['title'];//.' -<br>';
                               //--echo $temp['@attributes']['categoryId']v.' -<br>';// => 97
@@ -311,7 +308,7 @@ foreach ($pages as $cat => $title)
                               $achv_icon=$temp['@attributes']['icon'];//.' -<br>';// => achievement_zone_northrend_01
                               $achv_id=$temp['@attributes']['id'];//.' -<br>';// => 45
                               $achv_points=$temp['@attributes']['points'];//.' -<br>';// => 25
-                              
+
                   echo '$lang[\''.$achv_id.'title\'] = \''.addslashes($achv_title).'\';<br>';//echo "$lang['".$achv_id."title''] = '".$achv_disc."';<br>";
                               echo '$lang[\''.$achv_id.'disc\'] = \''.addslashes($achv_disc).'\';<br>';
                               if (isset($temp['@attributes']['reward']))
@@ -342,24 +339,24 @@ foreach ($pages as $cat => $title)
                                           $achv_progress_width = 'width:'.round( ( ( $quantity / $max )*100 ) ).'%';
                                           $achv_progress = ''.$quantity.' / '.$max.'';
                                     }
-                              
+
                               }
-                        
+
                         //--echo 'Achievement Criteria <br />';
-                        
+
                               foreach($achiev->achievement as $achievemen)
                               {
                                     $date = '';
                                     $b1 = '';
                                     $b2 = '';
                                     $temp2 = get_object_vars($achievemen);
-                  
+
                                     if (isset($temp2['@attributes']['dateCompleted']))
                                     {
                         ////--echo '-------'.$temp2['@attributes']['date'].' -<br>';
                                           $date = '( ' . $temp2['@attributes']['dateCompleted'] . ' )';
                                           $b1 = '<b><span style="color:#7eff00;">';
-                                          $b2 = '</span></b>';                             
+                                          $b2 = '</span></b>';
                                     }
                                     else
                                     {
@@ -393,27 +390,27 @@ foreach ($pages as $cat => $title)
                                     {
                                           $datae.= ' Points'.$temp2['@attributes']['points'].'<br>';
                                     }
-                               
+
                               }
-                        
+
                               $achv_criteria = $datae;
                               /*
                               $this->achnum++;
-                              
+
                               if ($achv_title != '' && $achv_disc != '')
                               {
-                                    $sql = "INSERT INTO `" . $roster->db->table('data',$this->data['basename']) . "` 
+                                    $sql = "INSERT INTO `" . $roster->db->table('data',$this->data['basename']) . "`
                                     (`id`,`member_id`,`guild_id`,`achv_cat`,`achv_cat_title`,`achv_cat_sub`,`achv_cat_sub2`,
                                     `achv_id`,`achv_points`,`achv_icon`,`achv_title`,`achv_reward_title`,`achv_disc`,`achv_date`,
-                                    `achv_criteria`,`achv_progress`,`achv_progress_width`,`achv_complete`) 
-                                    VALUES 
+                                    `achv_criteria`,`achv_progress`,`achv_progress_width`,`achv_complete`)
+                                    VALUES
                                     (null,'".$memberid."','".$roster->data['guild_id']."','".$cat."','".addslashes($title['0'])."',
                                     '".addslashes($achv_cat_sub)."','".$this->order."','".$achv_id."','".$achv_points."',
                                     '".addslashes($achv_icon)."','".$achv_id."title','".addslashes($achv_reward_title)."','".$achv_id."disc',
                                     '".addslashes($achv_date)."','".addslashes($achv_criteria)."','".$achv_progress."','".$achv_progress_width."','".$achv_complete."');";
-                              
+
                                     //$result = $roster->db->query($sql) or die_quietly($roster->db->error(),'Database Error',basename(__FILE__),__LINE__,$sql);
-                              } */           
+                              } */
                         }
                   }
             }
@@ -507,8 +504,8 @@ foreach ($pages as $cat => $title)
 		if (!in_array($propName, $this->properties)) {
 			$this->properties[] = $propName;
 		}
-  } 
-  
+  }
+
 	function setArray($array) {
 		if (is_array($array)) {
 			foreach ($array as $key => $value) {
@@ -516,7 +513,7 @@ foreach ($pages as $cat => $title)
 			}
 		}
 	}
-	
+
 	function hasProp($propName) {
 		return in_array($propName, $this->properties);
 	}
