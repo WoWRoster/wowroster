@@ -1,121 +1,125 @@
 <!-- $Id$ -->
 
-<div class="tier-1-a">
-	<div class="tier-1-b">
-		<div class="tier-1-c">
-			<div class="tier-1-title"><!-- TRANSLATE update_page --></div>
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE update_page --></div>
 
 <!-- IF S_RESPONSE -->
 <!-- IF S_RESPONSE_ERROR -->
-			<div class="tier-2-a">
-				<div class="tier-2-b">
-					<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
-						<div class="right">
-							<form method="post" action="{U_MAKELINK}" name="post">
-								<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
-								<input type="hidden" name="send_file" value="error_log" />
-								<input type="submit" name="download" value="<!-- TRANSLATE save_error_log -->" />
-							</form>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('msgbox_data_error','msgboximg_data_error','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
+							<div class="right">
+								<form method="post" action="{U_MAKELINK}" name="post">
+									<input type="hidden" name="data" value="{RESPONSE_ERROR_LOG}" />
+									<input type="hidden" name="send_file" value="error_log" />
+									<input type="submit" name="download" value="<!-- TRANSLATE save_error_log -->" />
+								</form>
+							</div>
+							<!-- TRANSLATE update_errors -->
+							<div class="toggle">
+								<img id="msgboximg_data_error" src="{THEME_PATH}/images/button_close.png" alt="" />
+							</div>
 						</div>
-						<!-- TRANSLATE update_errors -->
-						<div class="toggle">
-							<img id="msgboximg_data_error" src="{THEME_PATH}/images/button_close.png" alt="" />
+	
+						<div class="border_color sredborder" style="background:black;height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
+							{RESPONSE_ERROR}
 						</div>
-					</div>
-
-					<div class="border_color sredborder" style="background:black;height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
-						{RESPONSE_ERROR}
 					</div>
 				</div>
-			</div>
 <!-- ENDIF -->
 
-			<div class="tier-2-a">
-				<div class="tier-2-b">
-					<div class="tier-2-title">
-						<div class="right">
-							<form method="post" action="{U_MAKELINK}" name="post">
-								<input type="hidden" name="data" value="{RESPONSE_POST}" />
-								<input type="hidden" name="send_file" value="update_log" />
-								<input type="submit" name="download" value="<!-- TRANSLATE save_update_log -->" />
-							</form>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">
+							<div class="right">
+								<form method="post" action="{U_MAKELINK}" name="post">
+									<input type="hidden" name="data" value="{RESPONSE_POST}" />
+									<input type="hidden" name="send_file" value="update_log" />
+									<input type="submit" name="download" value="<!-- TRANSLATE save_update_log -->" />
+								</form>
+							</div>
+							<!-- TRANSLATE update_log -->
 						</div>
-						<!-- TRANSLATE update_log -->
+	
+						<div class="border_color syellowborder"  style="background:black;height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
+							{RESPONSE}
+						</div>
+	
 					</div>
-
-					<div class="border_color syellowborder"  style="background:black;height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
-						{RESPONSE}
-					</div>
-
 				</div>
-			</div>
 
 <!-- ELSE -->
 
-			<form action="{U_MAKELINK}" enctype="multipart/form-data" method="post">
-				<input type="hidden" name="process" value="process" />
-
-				<div class="tier-2-a" style="margin:4px auto 0;width:455px;">
-					<div class="tier-2-b">
-						<div class="tier-2-title">
-							<div class="right"><input type="submit" value="<!-- TRANSLATE upload -->" /></div>
-							<!-- TRANSLATE select_files -->
-						</div>
+				<form action="{U_MAKELINK}" enctype="multipart/form-data" method="post">
+					<input type="hidden" name="process" value="process" />
+	
+					<div class="tier-2-a" style="margin:4px auto 0;width:455px;">
+						<div class="tier-2-b">
+							<div class="tier-2-title">
+								<div class="right"><input type="submit" value="<!-- TRANSLATE upload -->" /></div>
+								<!-- TRANSLATE select_files -->
+							</div>
 
 <!-- BEGIN file_fields -->
-						<div class="tier-3-a" style="width:440px;">
-							<div class="tier-3-b">
-								<div class="text">
-									<span class="ui-icon ui-icon-help" style="cursor:help;" {file_fields.TOOLTIP}></span>{file_fields.FILE}.lua
-									<div style="float:right;"><input type="file" accept="{file_fields.FILE}.lua" name="{file_fields.FILE}" /></div>
+							<div class="tier-3-a" style="width:440px;">
+								<div class="tier-3-b">
+									<div class="text">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {file_fields.TOOLTIP}></span>{file_fields.FILE}.lua
+										<div style="float:right;"><input type="file" accept="{file_fields.FILE}.lua" name="{file_fields.FILE}" /></div>
+									</div>
 								</div>
 							</div>
-						</div>
 <!-- END file_fields -->
 
 <!-- IF S_PASS -->
-						<div class="tier-3-a">
-							<div class="tier-3-b">
-								<div class="text">
-									<span class="ui-icon ui-icon-help" style="cursor:help;" {L_PASSWORD_TIP}></span><!-- TRANSLATE roster_upd_pwLabel -->
-									<div style="float:right;"><input type="password" name="password" /></div>
+							<div class="tier-3-a">
+								<div class="tier-3-b">
+									<div class="text">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {L_PASSWORD_TIP}></span><!-- TRANSLATE roster_upd_pwLabel -->
+										<div style="float:right;"><input type="password" name="password" /></div>
+									</div>
 								</div>
 							</div>
-						</div>
 <!-- ENDIF -->
 
+						</div>
 					</div>
-				</div>
 
 <!-- IF MESSAGES -->
 
-			<div class="tier-2-a" style="margin:4px auto 0;width;550px;">
-				<div class="tier-2-b">
-					<div class="tier-2-title">Messages</div>
-
-						<div class="info-text-h border_color sredborder" style="background:black;">
-{MESSAGES}
-						</div>
-				</div>
-			</div>
-<!-- ENDIF -->
-
-<!-- IF S_UPDATE_INS -->
-				<div class="tier-2-a" style="margin:4px auto 0;">
-					<div class="tier-2-b">
-						<div class="tier-2-title"><!-- TRANSLATE update_instructions --></div>
-
-						<div class="info-text-h">
-<!-- TRANSLATE_F update_instruct L_UPLOAD_APP index_text_uniloader L_PROFILER U_UPDATE lualocation -->
+					<div class="tier-2-a" style="margin:4px auto 0;width;550px;">
+						<div class="tier-2-b">
+							<div class="tier-2-title">Messages</div>
+		
+								<div class="info-text-h border_color sredborder" style="background:black;">
+	{MESSAGES}
+								</div>
 						</div>
 					</div>
-				</div>
 <!-- ENDIF -->
 
-			</form>
+				</form>
 
 <!-- ENDIF -->
 
+			</div>
 		</div>
 	</div>
+
+<!-- IF S_UPDATE_INS -->
+	<div class="tier-2-a" style="margin:4px auto 0;">
+		<div class="tier-2-b">
+			<div class="tier-2-title"><!-- TRANSLATE update_instructions --></div>
+
+			<div class="info-text-h">
+<!-- TRANSLATE_F update_instruct L_UPLOAD_APP index_text_uniloader L_PROFILER U_UPDATE lualocation -->
+			</div>
+		</div>
+	</div>
+<!-- ENDIF -->
+
 </div>

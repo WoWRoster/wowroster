@@ -29,12 +29,10 @@
 	<!-- ENDIF -->
 		<div class="frame">
 		<!-- BEGIN menu_buttons -->
-			<div class="button">
-				<a href="{menu_button_section.menu_buttons.U_LINK}" {menu_button_section.menu_buttons.TOOLTIP}>
+			<a class="button" href="{menu_button_section.menu_buttons.U_LINK}" {menu_button_section.menu_buttons.TOOLTIP}>
 				<img src="{menu_button_section.menu_buttons.ICON}" alt="" />
-					<div class="mask"></div>
-				</a>
-			</div>
+				<span class="mask"></span>
+			</a>
 		<!-- END menu_buttons -->
 		</div>
 	<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->

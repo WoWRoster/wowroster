@@ -1,12 +1,11 @@
 
-<table style="width: 100%;" class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td style="text-align: center;" class="border_color sredborder">
-			<div class="header_text sredborder">Beta Software</div>
-				<p>By using this beta software you are bound by the terms
-				<a href="http://www.wowroster.net/topic226.html" target="_blank">outlined here</a>.</p>
-				<p>For information on removing this message, click the link.</p>
-		</td>
-	</tr>
-</table>
-<br />
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">Beta Software</div>
+		<div class="info-text-h">
+			<p>By using this beta software you are bound by the terms
+			<a href="http://www.wowroster.net/topic226.html" target="_blank">outlined here</a>.</p>
+			<p>For information on removing this message, click the link.</p>
+		</div>
+	</div>
+</div>
