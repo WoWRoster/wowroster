@@ -2,13 +2,10 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
- *
  * enUS Locale
  *
- * @copyright  2002-2008 WoWRoster.net
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id: enUS.php 1582 2008-01-11 21:13:42Z pleegwat $
  * @link       http://www.wowroster.net
  * @package    InstanceKeys

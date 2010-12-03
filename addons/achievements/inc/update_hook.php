@@ -4,11 +4,9 @@
  *
  * Displays Raid Progresion info
  *
- * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
  *
 
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id: update_hook.php 504 2010-02-05 14:55:29Z Ulminia $
  * @link       http://ulminia.zenutech.com
  * @package    Achievements
