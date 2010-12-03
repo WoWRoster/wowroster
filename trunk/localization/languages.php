@@ -135,4 +135,4 @@ $creditspage['devs'] = array(
 $creditspage['bottom']='<p>WoWRoster is licensed under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License v3</a>.</p>
 <p>Serveral javascript files are libraries that are under their own licenses.</p>
 <p>The installer was derived from the EQdkp installer and is licensed under the GNU General Public License</p>
-<p>See <a href="' . makelink('license') . '">license</a> for more details</p>';
+<p>See <a href="' . makelink('license') . '">License Information</a> for more details</p>';

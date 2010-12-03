@@ -6,7 +6,6 @@
  *
  * frFR translation by wowodo, lesablier, Exerladan, Ansgar and Theophilius
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -141,10 +140,9 @@ $lang['update_instructpvp']='
 <li>envoyer les informations PvPLog.lua (voir étape 7 de l\'actualisation du profil).</li>
 </ol>';
 
-$lang['roster_credits']='Remerciements à <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, et <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> pour le codage du moteur primitif utilisé par ce site.<br />
-Page officiel de WoWRoster - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
-World of Warcraft et Blizzard Entertainment sont des marques, déposées ou non, appartenant à Blizzard Entertainment Inc. aux États-Unis d\'Amérique et/ou dans les autres pays. Toutes les autres marques sont la propriété de leurs seuls ayant-droits respectifs..<br />
-<a href="%1$s">Crédits supplémentaires</a>';
+$lang['roster_credits']='<p>Page officiel de WoWRoster - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a></p>
+<p>World of Warcraft et Blizzard Entertainment sont des marques, déposées ou non, appartenant à Blizzard Entertainment Inc. aux États-Unis d\'Amérique et/ou dans les autres pays. Toutes les autres marques sont la propriété de leurs seuls ayant-droits respectifs..</p>
+<p><a href="%1$s">Crédits supplémentaires</a></p>';
 
 
 $lang['timeformat'] = '%d/%m/%Y %H:%i:%s'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
@@ -787,7 +785,6 @@ $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
-
 
 $lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
 $lang['tooltip_preg_durability']='/Durabilité(|:) (\d+) \/ (\d+)/';

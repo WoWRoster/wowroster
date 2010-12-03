@@ -6,7 +6,6 @@
  *
  * deDE translation by sphinx, SethDeBlade, wowroster.de
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -141,10 +140,9 @@ $lang['update_instructpvp']='
 <li>Lade "PvPLog.lua" über die Update-Seite hoch</li>
 </ol>';
 
-$lang['roster_credits']='Dank an <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, und <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> für den originalen Code der Seite. <br />
-WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
-World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="%1$s">Additional Credits</a>';
+$lang['roster_credits']='<p>WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a></p>
+<p>World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.</p>
+<p><a href="%1$s">Additional Credits</a></p>';
 
 
 $lang['timeformat'] = '%d.%m. %k:%i'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
@@ -787,7 +785,6 @@ $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
-
 
 $lang['tooltip_preg_armor']='/^(\d+) Rüstung/';
 $lang['tooltip_preg_durability']='/Haltbarkeit(|:) (\d+) \/ (\d+)/';

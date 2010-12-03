@@ -4,8 +4,7 @@
  *
  * enUS Locale File
  *
- *
- *
+ * Use this as a base for all translations
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
@@ -141,10 +140,9 @@ $lang['update_instructpvp']='
 <li>Upload PvPLog.lua</li>
 </ol>';
 
-$lang['roster_credits']='Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site.<br />
-WoWRoster home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a><br />
-World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.<br />
-<a href="%1$s">Additional Credits</a>';
+$lang['roster_credits']='<p>WoWRoster Home - <a href="http://www.wowroster.net" target="_blank">www.wowroster.net</a></p>
+<p>World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All other trademarks are the property of their respective owners.</p>
+<p><a href="%1$s">Additional Credits</a></p>';
 
 
 $lang['timeformat'] = '%a %b %D, %l:%i %p'; // MySQL Time format      (example - '%a %b %D, %l:%i %p' => 'Mon Jul 23rd, 2:19 PM') - http://dev.mysql.com/doc/refman/4.1/en/date-and-time-functions.html
@@ -770,6 +768,7 @@ $lang['tooltip_durability']='Durability';
 $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Speed';
 $lang['tooltip_poisoneffect']='^Each strike has';
+
 // php 5.3 changes
 $lang['tooltip_preg_soulbound']='/Soulbound/';
 $lang['tooltip_preg_dps']='/(\d+) damage per second/';
@@ -803,7 +802,6 @@ $lang['tooltip_preg_meta_requires']='/Requires.*?gem?/';
 $lang['tooltip_preg_meta_requires_min']='/Requires at least (\d) (\S+) gem?/';
 $lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) gems/';
 $lang['tooltip_preg_item_level']='/Item Level (\d+)/';
-
 $lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
