@@ -19,11 +19,6 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-if( version_compare($roster->config['version'], ROSTER_VERSION, '>=') )
-{
-	roster_die($roster->locale->act['no_upgrade'], $roster->locale->act['upgrade_wowroster']);
-}
-
 /**
  * WoWRoster Upgrader
  *
@@ -46,6 +41,15 @@ class Upgrade
 		global $roster;
 
 		//$roster->db->error_die(false);
+
+		$roster->tpl->assign_var('MESSAGE', false);
+
+		// First check the current version compared to upgrade version
+		if( version_compare($roster->config['version'], ROSTER_VERSION, '>=') )
+		{
+			$roster->tpl->assign_var('MESSAGE', $roster->locale->act['no_upgrade']);
+			$this->display_page();
+		}
 
 		if( isset($_POST['upgrade']) )
 		{
@@ -80,7 +84,8 @@ class Upgrade
 		}
 		else
 		{
-			roster_die($roster->locale->act['upgrade_complete'], $roster->locale->act['upgrade_wowroster'], 'sgreen');
+			$roster->tpl->assign_var('MESSAGE', $roster->locale->act['upgrade_complete']);
+			$this->display_page();
 		}
 	}
 
@@ -701,6 +706,12 @@ class Upgrade
 				'OPTION' => 'WoWRoster ' . $version
 			));
 		}
+		$this->display_page();
+	}
+
+	function display_page()
+	{
+		global $roster;
 
 		$roster->tpl->assign_var('U_UPGRADE', makelink('upgrade'));
 
@@ -712,6 +723,7 @@ class Upgrade
 		$roster->tpl->display('body');
 
 		include (ROSTER_BASE . 'footer.php');
+		die();
 	}
 }
 

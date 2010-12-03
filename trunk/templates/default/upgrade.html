@@ -5,36 +5,44 @@
 
 	<form method="post" action="{U_UPGRADE}">
 		<input type="hidden" name="upgrade" value="1" />
-	
-		<table class="border_frame" cellpadding="0" cellspacing="1">
-			<tr>
-				<td class="border_color sgrayborder">
-		
-					<div class="header_text sgrayborder"><!-- TRANSLATE upgrade_wowroster --></div>
-					<table cellspacing="0" width="100%">
-						<tr>
-							<td class="membersHeaderRight"><!-- TRANSLATE select_version --></td>
-						</tr>
-						<tr>
-							<td class="membersRowRight1" align="center"><br />
-								<select name="version" class="select">
-	<!-- BEGIN version_row -->
-									<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
-	<!-- END version_row -->
-								</select>
-								<br /><br />
-							</td>
-						</tr>
-						<tr>
-							<td class="membersRowRight2"><div align="center">
-								<input type="submit" value="<!-- TRANSLATE upgrade -->" /></div></td>
-						</tr>
-					</table>
-		
-				</td>
-			</tr>
-		</table>
-		
+
+		<div class="tier-1-a" style="margin:20px auto;width:350px;">
+			<div class="tier-1-b">
+				<div class="tier-1-c">
+					<div class="tier-1-title">
+<!-- IF not MESSAGE -->
+						<div class="right"><input type="submit" value="<!-- TRANSLATE upgrade -->" /></div>
+<!-- ENDIF -->
+						<!-- TRANSLATE upgrade_wowroster -->
+					</div>
+<!-- IF MESSAGE -->
+					<div class="tier-2-a">
+						<div class="tier-2-b">
+							<div class="info-text-h">
+							{MESSAGE}
+							</div>
+						</div>
+					</div>
+<!-- ELSE -->
+					<div class="tier-3-a">
+						<div class="tier-3-b">
+							<div class="skill">
+								<div class="skill-name"><label for="version"><!-- TRANSLATE select_version --></label></div>
+								<div class="right">
+									<select id="version" name="version" class="select">
+<!-- BEGIN version_row -->
+										<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
+<!-- END version_row -->
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+<!-- ENDIF -->
+
+				</div>
+			</div>
+		</div>
 	</form>
 
 </div>
