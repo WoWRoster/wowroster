@@ -57,7 +57,7 @@ $bob = new bob;
 
 require_once( ROSTER_LIB . 'simple.class.php' );
 
-include_once(ROSTER_LIB . 'armory.class.php');
+include_once( ROSTER_LIB . 'armory.class.php');
 $armory = new RosterArmory;
 
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
@@ -156,6 +156,11 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		'RESPONSE_POST' => htmlspecialchars(stripAllHtml($messages)),
 		)
 	);
+}
+else
+{
+	$roster->tpl->assign_var('S_RESPONSE',false);
+
 }
 
 $roster->output['title'] .= 'Armory Data';
