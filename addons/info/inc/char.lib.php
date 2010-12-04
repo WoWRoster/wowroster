@@ -1365,7 +1365,7 @@ class char
 
 		$skillData = $this->_skill_tab_values();
 
-		if( count($skillData) > 0 )
+		if( $skillData !== false && count($skillData) > 0 )
 		{
 			foreach( $skillData as $sindex => $skill )
 			{

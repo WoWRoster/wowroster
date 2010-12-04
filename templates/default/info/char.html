@@ -485,10 +485,13 @@
 <!-- IF S_TALENT_TAB -->
 <!-- BEGIN talent -->
 				<div id="TS{talent.ID}" style="display:none;">
-          			<div class="tier-2-a">
-                		<div class="tier-2-b">
+					<div class="tier-2-a">
+						<div class="tier-2-b">
 							<div class="tier-2-title">
-								<!-- TRANSLATE unusedtalentpoints -->: {TALENT_POINTS} | <a href="{talent.TALENT_EXPORT}" target="_blank"><!-- TRANSLATE talentexport --></a>
+								<div class="right">
+									<a class="input" href="{talent.TALENT_EXPORT}" target="_blank"><!-- TRANSLATE talentexport --></a>
+								</div>
+								<!-- TRANSLATE unusedtalentpoints -->: {TALENT_POINTS}
 							</div>
 	
 							<div class="frames">
@@ -506,7 +509,7 @@
 													<img class="talent-icon<!-- IF talent.tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent.tree.row.cell.ICON}" alt=""  />
 													<div class="mask"></div>
 <!-- IF talent.tree.row.cell.RANK -->
-													<img class="rank-icon" src="{U_IMAGE_PATH}talent/rank.gif" alt="" />
+													<img class="rank-icon" src="{U_IMAGE_PATH}talents/rank.gif" alt="" />
 													<div class="rank-text" style="font-weight:bold;color:#{talent.tree.row.cell.MAXC};">{talent.tree.row.cell.RANK}</div>
 <!-- ENDIF -->
 												</div>
@@ -543,8 +546,8 @@
 <!-- BEGIN glyphs -->
 				<div id="GL{glyphs.ID}" style="display:none;">
 					<div class="tier-2-a">
-	                	<div class="tier-2-b">
-	                    	<div class="tier-2-title">{glyphs.NAME}</div>
+						<div class="tier-2-b">
+							<div class="tier-2-title">{glyphs.NAME}</div>
 <!-- BEGIN glyph -->
 							<div {glyphs.glyph.TOOLTIP} class="glyph-{glyphs.glyph.TYPE}">
 								<img src="{INTERFACE_URL}Interface/Icons/{glyphs.glyph.ICON}.png" alt="" />
@@ -575,8 +578,8 @@
 				<div class="tier-1-title">{spell_book.NAME}'s <!-- TRANSLATE spellbook --></div>
 
 <!-- BEGIN tree -->
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 						<div class="tier-2-title">
 							<div class="icon">
 								<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" alt="" />
@@ -607,7 +610,7 @@
 <!-- IF S_CURRENCY_TAB -->
 <div id="currency" class="container currency" style="display:none;">
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE currency --></div>
 
@@ -618,12 +621,12 @@
 						<div class="skill">
 <!-- BEGIN item -->
 			<div class="tier-5-a">
-            	<div class="tier-5-b">
+				<div class="tier-5-b">
 					<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" style="width:25px;height:25px;" alt="" {currency.item.TOOLTIP} /></div>
 					<div class="text">
 						{currency.item.NAME} - {currency.item.COUNT}
 					</div>
-            	</div>
+				</div>
 			</div>
 <!-- END item -->
 			</div>

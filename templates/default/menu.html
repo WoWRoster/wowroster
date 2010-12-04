@@ -25,21 +25,21 @@
 <div id="menu-buttons" class="scope-menu">
 <!-- BEGIN menu_button_section -->
 	<div class="menu-scope<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->-panel" id="menu_{menu_button_section.ID}" style="display:none<!-- ENDIF -->">
-	<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
+<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
 		<div class="menu-frame">
 			<div class="section-title">{menu_button_section.LABEL}</div>
-	<!-- ENDIF -->
+<!-- ENDIF -->
 		<div class="frame">
-		<!-- BEGIN menu_buttons -->
+<!-- BEGIN menu_buttons -->
 			<a class="button" href="{menu_button_section.menu_buttons.U_LINK}" {menu_button_section.menu_buttons.TOOLTIP}>
 				<img src="{menu_button_section.menu_buttons.ICON}" alt="" />
 				<span class="mask"></span>
 			</a>
-		<!-- END menu_buttons -->
+<!-- END menu_buttons -->
 		</div>
-	<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
+<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
 		</div>
-	<!-- ENDIF -->
+<!-- ENDIF -->
 	</div>
 <!-- END menu_button_section -->
 </div>

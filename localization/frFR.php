@@ -680,10 +680,11 @@ $lang['faction_to_id'] = array(
 	'The Burning Crusade' => 'theburningcrusade',
 	'Wrath of the Lich King' => 'wrathofthelitchking',
 	'Sholazar Basin' => 'sholazarbasin',
+	'Horde Expedition' => 'horde',
+	'Horde' => 'horde',
+	'Horde Forces' => 'horde',
+	'Guild' => 'guild',
 );
-
-
-
 
 
 // Quests page external links (on character quests page)
