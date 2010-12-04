@@ -985,6 +985,7 @@ class char
 				foreach( $cdata as $r => $rdata )
 				{
 //					aprint($rdata);
+					$max = count($rdata['tooltip']);
 					$returndata[$ti][$c][$r]['name'] = $rdata['name'];
 					$returndata[$ti][$c][$r]['rank'] = $talentArray[$i];
 					$returndata[$ti][$c][$r]['maxrank'] = count($rdata['tooltip']);
@@ -1000,9 +1001,21 @@ class char
                                         {
                                                 $rannk = $talentArray[$i];
                                         }
-                                        $tooltipp = $rdata['tooltip'][$rannk];
+                                        
+											if ($max == $rannk)
+											{
+												$maxc = 'Yellow';
+											}
+											else
+											{
+												$maxc = 'Green';
+											}
+									
+									
+                                        $tooltipp = htmlspecialchars ($rdata['tooltip'][$rannk]);
+                                        $tp = $roster->locale->act['tooltip_rank'] . ': ' . $talentArray[$i] . ' / ' . $max . '<br \/>' . $tooltipp;
                                         $returndata[$ti][$c][$r]['ttip'] = $tooltipp;
-                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($roster->locale->act['tooltip_rank'] . ' ' . $talentArray[$i] . ' / ' . count($rdata['tooltip']) . '<br />' . $tooltipp.'', $rdata['name'], '', 0, $this->data['clientLocale']);
+                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 0, $this->data['clientLocale']);
 
 					$spent = ($spent + $talentArray[$i]);
 					if( $rdata['name'] != $n )
@@ -1136,13 +1149,13 @@ class char
 									$maxc = '';
 									if (isset($cell['maxrank']))
 									{
-										if ($cell['maxrank'] > $cell['rank'])
+										if ($cell['maxrank'] == $cell['rank'])
 										{
-											$maxc = '00dd00';
+											$maxc = 'ffdd00';
 										}
 										else
 										{
-											$maxc = 'ffdd00';
+											$maxc = '00dd00';
 										}
 									}
 									$roster->tpl->assign_block_vars('talent.tree.row.cell', array(

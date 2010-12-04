@@ -82,7 +82,7 @@ class RosterArmory
 
 
 	var $base_filename			  = 'roster.test.php';			// Base script file name
-	var $base_url				   = '';						   // Base URL
+	var $base_url				   =  ROSTER_URL ;//'';						   // Base URL
 	var $url_prefix_armory		  = 'http://www.wowarmory.com/';   // URL for the AMERICAN armory
 	var $url_prefix_char			= 'character-sheet.xml?';	   // Use for Char links
 	var $url_prefix_itemtooltip	 = 'item-tooltip.xml?i=';		// Use for Char links
@@ -91,14 +91,14 @@ class RosterArmory
 
 	// NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
 	var $DIR_cache = ARMORYSYNC_CACHE;
-	var $HTML_cache = 'cache/as/';				   // Directory where the XML cache files are stored
+	var $HTML_cache = 'cache/';				   // Directory where the XML cache files are stored
 	// NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
 
 	var $days_to_cache = 0;								 // How many days to keep cached files for
-	var $DIR_sql = 'cache/as/';							 // Directory where the SQL files are stored
+	var $DIR_sql = 'cache/';							 // Directory where the SQL files are stored
 
 	// LOADING BAR
-	var $loading_bar = 100;								 // How many characters in the loading bar
+	var $loading_bar = 50;								 // How many characters in the loading bar
 	var $loading_bar_mask = "=";							// The loading bar symbol
 
 	// OUTPUT DISPLAY SETTING
@@ -120,7 +120,7 @@ class RosterArmory
 	var $equipable_items_number = 18;					   // How many equipable items on a character. !! DO NOT EDIT THIS !!
 
 	// DEBUG SETTINGS
-	var $chars_to_process = 1;							  // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
+	var $chars_to_process = -1;							  // How many characters to pull xml data for. NOTE: Use '-1' to process all characters.
 	var $use_char_selction_list = false;					// Select this option to only process characters names found in the "$config['char_selction_list']" array.
 	var $char_selction_list = array( "" );
 
@@ -164,18 +164,18 @@ class RosterArmory
 	{
 		global $roster;
 
-		$this->base_url				   = ROSTER_URL;//see if this works..$roster->config['website_address'].'/'; // gotta have a trailing slash here..... allways....
-		$this->url_prefix_armory		  = isset($roster->data['armoryurl']) ? $roster->data['armoryurl'] : $this->url_prefix_armory;
+		$this->base_url				   	= ROSTER_URL;//see if this works..$roster->config['website_address'].'/'; // gotta have a trailing slash here..... allways....
+		$this->url_prefix_armory		= isset($roster->data['armoryurl']) ? $roster->data['armoryurl'] : $this->url_prefix_armory;
 		$this->url_prefix_char			= $this->url_prefix_armory . $this->url_prefix_char;
-		$this->url_prefix_itemtooltip	 = $this->url_prefix_armory . $this->url_prefix_itemtooltip;
-		$this->url_prefix_talents		 = $this->url_prefix_armory . $this->url_prefix_talents;
-		$this->url_prefix_rep			 = $this->url_prefix_armory . $this->url_prefix_rep;
+		$this->url_prefix_itemtooltip	= $this->url_prefix_armory . $this->url_prefix_itemtooltip;
+		$this->url_prefix_talents		= $this->url_prefix_armory . $this->url_prefix_talents;
+		$this->url_prefix_rep			= $this->url_prefix_armory . $this->url_prefix_rep;
 
 		$this->region = ( $region !== false ? strtoupper($region) : 'US' );
 	}
 
- // DEFINE THE ARMORY VARIABLES
- const BROWSER="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.2) Gecko/20070319 Firefox/2.0.0.3";
+	// DEFINE THE ARMORY VARIABLES
+	const BROWSER="Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.2) Gecko/20070319 Firefox/2.0.0.3";
 
 
 
@@ -203,19 +203,19 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 	{
 		$filename_type = 'character-item';
 		//$url = $base_url.'item-tooltip.xml?i='.$item->id.'&n=' . urlencode($this->memberName) . '&r=' . urlencode($this->server);
-		$url = $this->url_prefix_itemtooltip.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
+		$url = $this->url_prefix_itemtooltip.''. $guild . '&cn=' . urlencode( $guildie) . '&r=' . urlencode( $server );
 		//echo $url.'<br>';
 	}
 
 	elseif( $query === 'talents' )
 	{
 		$filename_type = 'character-talents';
-		$url = $this->url_prefix_talents.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
+		$url = $this->url_prefix_talents.''. $guild . '&cn=' . urlencode( $guildie) . '&r=' . urlencode( $server );
 	}
 	elseif( $query === 'rep' )
 	{
 		$filename_type = 'character-rep';
-		$url = $this->url_prefix_rep.''. $guild . '&cn=' . urlencode( utf8_encode($guildie)) . '&r=' . urlencode( utf8_encode( $server ) );
+		$url = $this->url_prefix_rep.''. $guild . '&cn=' . urlencode( $guildie) . '&r=' . urlencode( $server );
 	}
 
 
