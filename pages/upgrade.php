@@ -484,6 +484,15 @@ class Upgrade
 				('warriorprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
 				('warriorprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL);");
 		}
+		// Drop expertise
+		if( version_compare($roster->config['version'], '2.0.9.2223', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('players') . "`
+				DROP `melee_expertise`,
+				DROP `melee_expertise_c`,
+				DROP `melee_expertise_b`,
+				DROP `melee_expertise_d`;");
+		}
 
 		// Standard Beta Update
 		$this->beta_upgrade();
