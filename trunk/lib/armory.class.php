@@ -165,7 +165,7 @@ class RosterArmory
 		global $roster;
 
 		$this->base_url				   	= ROSTER_URL;//see if this works..$roster->config['website_address'].'/'; // gotta have a trailing slash here..... allways....
-		$this->url_prefix_armory		= isset($roster->data['armoryurl']) ? $roster->data['armoryurl'] : $this->url_prefix_armory;
+		$this->url_prefix_armory		= $this->url_prefix_armory;//isset($roster->data['armoryurl']) ? $roster->data['armoryurl'] : $this->url_prefix_armory;
 		$this->url_prefix_char			= $this->url_prefix_armory . $this->url_prefix_char;
 		$this->url_prefix_itemtooltip	= $this->url_prefix_armory . $this->url_prefix_itemtooltip;
 		$this->url_prefix_talents		= $this->url_prefix_armory . $this->url_prefix_talents;
@@ -191,7 +191,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 	elseif( $query === 'character' )
 	{
 		$filename_type = 'character-sheet';
-		$url = $this->url_prefix_armory.'/'.$filename_type.'.xml?r=' . urlencode( $server ) . '&cn=' . urlencode( $guildie);
+		$url = $this->url_prefix_armory.'/'.$filename_type.'.xml?r=' . urlencode( $server ) . '&cn=' . $guildie;
 	}
 	elseif( $query === 'achievement' )
 	{
@@ -217,8 +217,6 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$filename_type = 'character-rep';
 		$url = $this->url_prefix_rep.''. $guild . '&cn=' . urlencode( $guildie) . '&r=' . urlencode( $server );
 	}
-
-
 	//alert($url);
 	if ( $this->live_system ) {
 		$ch = curl_init();
@@ -244,7 +242,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 			$this->cacheXMLfile($guild_cache_filename, $url_string);					// CACHE THE GUILD XML STREAM
 		}
 		$latestGuildXMLfile = $this->getXMLfile('guild-info');					// GET THE LATEST CACHE GUILD XML FILE
-		$url = $this->base_url.$this->HTML_cache.$latestGuildXMLfile['filename'];
+		$url = $this->DIR_cache.$latestGuildXMLfile['filename'];
 		$url_filesize = $latestGuildXMLfile['filesize'];
 		$this->setMessage("<P>RESULT -> ".$latestGuildXMLfile['filename']." - ".$latestGuildXMLfile['filesize']." - ".$latestGuildXMLfile['filetime']." ");
 	}
@@ -256,18 +254,19 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 			$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
 		}
 		$latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);		// GET THE LATEST CACHE GUILD XML FILE
-		$url = $this->base_url.$this->HTML_cache.$latestCharacterXMLfile['filename'];
+		$url = $this->DIR_cache.$latestCharacterXMLfile['filename'];
+		$urla = $this->DIR_cache.$latestCharacterXMLfile['filename'];
 		$url_filesize = $latestCharacterXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
 	}
 	elseif( $query === 'achievement' )
 	{
-		$char_cache_filename = $filename_type.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
+		$char_cache_filename = $filename_type.'-'.urldecode($guildie);		// BUILD THE CHRACTER XML CACHE FILENAME
 		if ( $this->live_system ) {
 			$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
 		}
 		$latestCharacterXMLfile = $this->getXMLfile($char_cache_filename);		// GET THE LATEST CACHE GUILD XML FILE
-		$url = $this->base_url.$this->HTML_cache.$latestCharacterXMLfile['filename'];
+		$url = $this->DIR_cache.$latestCharacterXMLfile['filename'];
 		$url_filesize = $latestCharacterXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
 	}
@@ -278,7 +277,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		//	$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
 		}
 		$latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);		// GET THE LATEST CACHE GUILD XML FILE
-		$url = $this->base_url.$this->HTML_cache.$latestCharacteriXMLfile['filename'];
+		$url = $this->DIR_cache.$latestCharacteriXMLfile['filename'];
 		$url_filesize = $latestCharacteriXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
 
@@ -291,7 +290,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 			$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
 		}
 		$latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);		// GET THE LATEST CACHE GUILD XML FILE
-		$url = $this->base_url.$this->HTML_cache.$latestCharacteriXMLfile['filename'];
+		$url = $this->DIR_cache.$latestCharacteriXMLfile['filename'];
 		$url_filesize = $latestCharacteriXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
 	}
@@ -302,7 +301,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 			$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
 		}
 		$latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);		// GET THE LATEST CACHE GUILD XML FILE
-		$url = $this->base_url.$this->HTML_cache.$latestCharacteriXMLfile['filename'];
+		$url = $this->DIR_cache.$latestCharacteriXMLfile['filename'];
 		$url_filesize = $latestCharacteriXMLfile['filesize'];
 		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
 	}

@@ -2610,12 +2610,12 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 
 		$messages = '<li>Updating Talents';
-//		aprint($talentBuildData);
+
 
 		// Update Talents
 		foreach( $talentBuildData as $build => $talentData )
 		{
-//			echo 'build '.$build.'<br>';
+
 
 			// first delete the stale data
 			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
@@ -2661,7 +2661,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 					}
 					else
 					{
-						if ($talent_skill != "Unlocked" AND $talent_skill !=  "Desc")
+						if ($talent_skill != "Unlocked" && $talent_skill !=  "Desc" && $talent_skill !=  "icon" && $talent_skill !=  "order" && $talent_skill != "background")
 						{
 							$this->reset_values();
 							$this->add_value('member_id', $memberId);
@@ -2721,28 +2721,19 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$build_url = $this->_talent_layer_url( $memberId, $build);
 			$this->reset_values();
 
-/*
-			foreach ($this->talent_build_urls as $build => $num)
-			{
-				foreach ($num as $m => $buil)
-				{
-*/
 					$this->reset_values();
 					$this->add_value('build', $build);
 					$this->add_value('member_id', $memberId);
 					$this->add_value('tree', $build_url);
 					$querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
-//					echo $querystr.'<br />';
+
 					$result = $roster->db->query($querystr);
 
 					if( !$result )
 					{
 						$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
 					}
-/*
-				}
-			}
-*/
+
 			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
 
 			if( !$roster->db->query($querystr) )
@@ -2758,7 +2749,6 @@ CREATE TABLE `renprefix_quest_task_data` (
 	function _talent_layer_url( $memberId , $build )
 	{
 		global $roster;
-//		echo 'Talentlayerurl '.$memberId.' - '.$build.'<br>';
 
 		$sqlquery2 = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $memberId . "' AND `build` = '" . $build . "' ORDER BY `order` ASC";
 		$result2 = $roster->db->query($sqlquery2);
@@ -2794,11 +2784,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 						$returndataa = $talentdata['rank'];
 					}
 				}
-				echo $talentdata['rank'];
 			}
-
 		}
-		//echo '<br>';
 		return $returndataa;
 		//return true;
 	}
