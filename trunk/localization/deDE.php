@@ -234,6 +234,7 @@ $lang['submited_date'] = 'Am';
 //end search engine
 $lang['update']='Update';
 $lang['credit']='Credits';
+$lang['who_made']='Wer entwickelte und programmierte den WoWRoster';
 $lang['members']='Mitglieder';
 $lang['member_profiles']='Mitglieder Profile';
 $lang['items']='Gegenstände';
@@ -886,7 +887,6 @@ $lang['GPver_err']='Die zur Speicherung der Daten für diese Gilde verwendete Ve
 $lang['menu_upprofile']='Update Profile|Aktualisiere dein Profil auf dieser Seite';
 $lang['menu_search']='Suche|Suche Gegenstände oder Rezepte in der Datenbank';
 $lang['menu_roster_cp']='RosterCP|Roster Konfigurationsbereich';
-$lang['menu_credits']='Credits|Wer entwickelte und programmierte den WoWRoster';
 $lang['menupanel_util']  = 'Einstellungen';
 $lang['menupanel_realm'] = 'Realm';
 $lang['menupanel_guild'] = 'Gilde';

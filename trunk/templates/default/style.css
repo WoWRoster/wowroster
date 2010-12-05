@@ -215,6 +215,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-b .text div { float: left; height: 20px; }
 
 .tier-3-b .right { height: 16px; float: right; margin-left: 5px; position: relative; }
+.tier-3-b .toggle { height: 17px; width: 17px; float: right; margin-left: 3px; position: relative; }
+.tier-3-b .toggle img { height: 17px; width: 17px; }
 .tier-3-b .buttons { height: 16px; float: right; padding: 1px; }
 .tier-3-b .buttons a { font: 10px/16px Georgia, "Times New Roman", Times, serif; background: #C60; height: 16px; border: 1px solid #000; margin: 1px; }
 

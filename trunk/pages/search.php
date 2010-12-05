@@ -97,7 +97,7 @@ foreach( $roster->addon_data as $name => $data )
 /**
  * Result processing
  */
-if( isset($_POST['s_term']) || isset($_GET['s_term']) )
+if( isset($_POST['search']) || isset($_GET['search']) )
 {
 	// if page is set in the addon search class this will tell the results what page we are looking at
 	$page  = isset($_GET['page']) ? intval($_GET['page']) : 0;
@@ -106,7 +106,7 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 	$limit = isset($_GET['limit']) ? intval($_GET['limit']) : 10;
 
 	// search is what we are searching for
-	$query = ( isset($_POST['s_term']) ? $_POST['s_term'] : ( isset($_GET['s_term']) ? $_GET['s_term'] : '' ) );
+	$query = ( isset($_POST['search']) ? $_POST['search'] : ( isset($_GET['search']) ? $_GET['search'] : '' ) );
 
 	// variables that can be used in the addon search class which are being defined here
 	$url_query = urlencode($query);
@@ -191,8 +191,8 @@ if( isset($_POST['s_term']) || isset($_GET['s_term']) )
 
 						'TOTAL' => $search_count->result_count,
 
-						'PREV'  => ( $page > 0 ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page-1)) : '' ),
-						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;s_term=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page+1)) : '' ),
+						'PREV'  => ( $page > 0 ? makelink('search&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page-1)) : '' ),
+						'NEXT'  => ( $search->result_count >= $limit ? makelink('search&amp;search=' . $url_query . '&amp;s_addon=' . $search->data['basename'] . $search->search_url . '&amp;page=' . ($page+1)) : '' ),
 						)
 					);
 
@@ -306,13 +306,11 @@ foreach( $roster->addon_data as $addon_name => $addon_data )
 	}
 
 	// this is set to show a checkbox for all installed and active addons with search.inc.php files
-	// it is set to only show 4 addon check boxes per row and allows for the search only in feature
 	if( isset($addon_data['search_class']) )
 	{
 		$roster->tpl->assign_block_vars('only_search', array(
 			'BASENAME' => $addon_data['basename'],
 			'FULLNAME' => $addon_data['fullname'],
-			'S_DIVIDE' => ( $i && ($i % 4 == 0) ? true : false ),
 			'SELECTED' => ( is_array($s_addon) ? ( in_array($addon_data['basename'],$s_addon) ? true : false ) : $addon_data['basename'] == $s_addon )
 			)
 		);

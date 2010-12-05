@@ -60,8 +60,8 @@ class questlistSearch
 		$zone_list = $roster->db->query("SELECT DISTINCT `zone` FROM `" . $roster->db->table('quest_data') . "` ORDER BY `zone`;");
 
 		//advanced options for searching zones
-		$this->options = $roster->locale->act['zone'] . ' <select name="zone"> ';
-		$this->options .= '<option value="">----------</option>';
+		$this->options = $roster->locale->act['zone'] . ' <select name="zone" style="width: 170px;"> ';
+		$this->options .= '<option value=""' . ($this->zone == '' ? ' selected="selected"' : '') . '>----------</option>';
 		while( list($zone) = $roster->db->fetch($zone_list) )
 		{
 			$quests[$zone] = $zone;
@@ -72,8 +72,8 @@ class questlistSearch
 
 
 		//advanced options for searching levels
-		$this->options .=  ' ' . $roster->locale->act['level'] . ' <select name="levelid"> ';
-		$this->options .= '<option value="">-----</option>';
+		$this->options .=  ' ' . $roster->locale->act['level'] . ' <select name="levelid" style="width: 80px;"> ';
+		$this->options .= '<option value=""' . ($this->levelid == '' ? ' selected="selected"' : '') . '>-----</option>';
 		while( list($quest_level) = $roster->db->fetch($level_list) )
 		{
 			$quests[$quest_level] = $quest_level;

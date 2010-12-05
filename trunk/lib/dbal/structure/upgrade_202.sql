@@ -261,6 +261,11 @@ UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWi
 INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
 
 # --------------------------------------------------------
+### Menu Updates
+
+DELETE FROM `renprefix_menu_button` WHERE `addon_id`= '0' AND `title` = 'menu_credits';
+
+# --------------------------------------------------------
 ### Item type/subtype/rarity
 
 ALTER TABLE `renprefix_items`

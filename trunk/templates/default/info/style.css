@@ -301,12 +301,12 @@
 	float: right;
 }
 
-.main-panel .profile .statselect_l { position:absolute; width:170px; left: 0; top: 291px; }
-.main-panel .profile .statselect_r { position:absolute; width:170px; right: 0; top: 291px; }
+.main-panel .profile .statselect_l { position:absolute; width:170px; left: 0; top: 288px; }
+.main-panel .profile .statselect_r { position:absolute; width:170px; right: 0; top: 288px; }
 
-.main-panel .profile .padding { cursor: default; position:absolute; width:360px; height:90px; left: 0px; top: 311px; z-index: 200; }
+.main-panel .profile .padding { cursor: default; position:absolute; width:360px; height:90px; left: 0; top: 311px; z-index: 200; }
 .main-panel .profile .padding .stats { float:left; width:158px; height:74px; padding:5px; color:#FFCC00; margin-right: 10px; }
-.main-panel .profile .padding .stats .statline {	padding:0; font:10px verdana, tahoma, sans-serif;}
+.main-panel .profile .padding .stats .statline { padding:0; font:10px verdana, tahoma, sans-serif;}
 .main-panel .profile .padding .stats .statline .label { overflow:hidden; width:85px;}
 .main-panel .profile .padding .stats .statline .value { float:right; overflow:hidden; text-align:right; }
 

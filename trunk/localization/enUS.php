@@ -234,6 +234,7 @@ $lang['submited_date'] = 'On';
 //end search engine
 $lang['update']='Update';
 $lang['credit']='Credits';
+$lang['who_made']='Who made WoWRoster';
 $lang['members']='Members';
 $lang['member_profiles']='Member Profiles';
 $lang['items']='Items';
@@ -886,7 +887,6 @@ $lang['GPver_err']='The version of GuildProfiler used to capture data for this g
 $lang['menu_upprofile']='Update Profile|Update your profile on this site';
 $lang['menu_search']='Search|Search items and recipes in the database';
 $lang['menu_roster_cp']='RosterCP|Roster Configuration Panel';
-$lang['menu_credits']='Credits|Who made WoWRoster';
 $lang['menupanel_util']  = 'Utilities';
 $lang['menupanel_realm'] = 'Realm';
 $lang['menupanel_guild'] = 'Guild';
