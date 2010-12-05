@@ -16,7 +16,7 @@
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // The key in the $config_pages array is the pagename for the admincp file.

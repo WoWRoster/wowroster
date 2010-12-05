@@ -4,7 +4,7 @@
  *
  * @copyright  2002-2007 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: install.def.php 493 2009-12-27 17:29:50Z Ulminia $
+ * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    Achievements
  * @subpackage Installer

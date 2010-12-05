@@ -39,7 +39,7 @@ $lang['update_disabled']='Ha sido desactivado el acceso a Update.php';
 
 $lang['nofileUploaded']='UniUploader no ha enviado ningún archivo, o ha enviado el archivo incorrecto.';
 $lang['roster_upd_pwLabel']='Clave de Actualización';
-$lang['roster_upd_pw_help']='(Algunos addons requieren de contraseña para poder subir los datos)';
+$lang['roster_upd_pw_help']='Algunos addons requieren de contraseña para poder subir los datos';
 
 
 $lang['roster_error'] = 'Roster Error';
@@ -316,6 +316,14 @@ $lang['talent_build_1'] = 'Inactivo';
 // Char Scope
 $lang['char_level_race_class'] = 'Nivel %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s de %2$s';
+
+// Login
+$lang['login'] = 'Login';
+$lang['logout'] = 'Logout';
+$lang['logged_in'] = 'Logged in';
+$lang['logged_out'] = 'Logged out';
+$lang['login_invalid'] = 'Invalid Password';
+$lang['login_fail'] = 'Failed to fetch password info';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Profesiones';

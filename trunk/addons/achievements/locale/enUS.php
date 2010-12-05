@@ -1,11 +1,11 @@
 <?php
 /******************************
- * $Id: enUS.php 490 2009-12-22 15:26:36Z Ulminia $
+ * $Id$
  ******************************/
 
 if ( !defined('ROSTER_INSTALLED') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // common loc

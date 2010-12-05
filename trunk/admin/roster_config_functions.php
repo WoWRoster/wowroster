@@ -16,7 +16,7 @@
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -32,7 +32,7 @@ function rosterLangValue( $values )
 	{
 		if( $value == $values['value'] && $select_one )
 		{
-			$input_field .= '  <option value="' . $value . '" selected="selected">-[ ' . $value . ' ]-</option>' . "\n";
+			$input_field .= '  <option value="' . $value . '" selected="selected">' . $value . '</option>' . "\n";
 			$select_one = 0;
 		}
 		else
@@ -90,7 +90,7 @@ function pageNames( )
 
 		if( $row['url'] == $roster->config['default_page'] && $select_one )
 		{
-			$input_field .= '  <option value="' . $row['url'] . '" selected="selected">-[ ' . $title . ' ]-</option>' . "\n";
+			$input_field .= '  <option value="' . $row['url'] . '" selected="selected">' . $title . '</option>' . "\n";
 			$select_one = 0;
 		}
 		else
@@ -147,7 +147,7 @@ function fontFiles( $values )
 	{
 		if( $file == $values['value'] && $select_one )
 		{
-			$input_field .= '  <option value="' . $file . '" selected="selected">-[ ' . $name . ' ]-</option>' . "\n";
+			$input_field .= '  <option value="' . $file . '" selected="selected">' . $name . '</option>' . "\n";
 			$select_one = 0;
 		}
 		else
@@ -198,7 +198,7 @@ function templateList( $values )
 	{
 		if( $file == $values['value'] && $select_one )
 		{
-			$input_field .= '  <option value="' . $file . '" selected="selected">-[ ' . ucfirst($file) . ' ]-</option>' . "\n";
+			$input_field .= '  <option value="' . $file . '" selected="selected">' . ucfirst($file) . '</option>' . "\n";
 			$select_one = 0;
 		}
 		else
@@ -224,7 +224,7 @@ function externalAuth( $values )
 
 	if( 'roster' == $roster->config['external_auth'] )
 	{
-		$input_field .= '  <option value="roster" selected="selected">-[ Roster ]-</option>' . "\n";
+		$input_field .= '  <option value="roster" selected="selected">WoWRoster</option>' . "\n";
 		$select_one = 0;
 	}
 	else
@@ -247,7 +247,7 @@ function externalAuth( $values )
 
 			if( $addon_data['basename'] == $roster->config['external_auth'] && $select_one )
 			{
-				$input_field .= '  <option value="' . $addon_data['basename'] . '" selected="selected">-[ ' . $title . ' ]-</option>' . "\n";
+				$input_field .= '  <option value="' . $addon_data['basename'] . '" selected="selected">' . $title . '</option>' . "\n";
 				$select_one = 0;
 			}
 			else

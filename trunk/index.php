@@ -31,7 +31,7 @@ define('IN_ROSTER', true);
 
 require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php');
 
-// --[ Get path info based on scope ]--
+// ----[ Get path info based on scope ]----
 if( !isset($roster->pages[1]) )
 {
 	$roster->pages[1] = '';

@@ -4,7 +4,7 @@
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: pvp3.php 897 2007-05-06 00:35:11Z Zanix $
+ * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    News
  * @subpackage Installer
@@ -12,7 +12,7 @@
 
 if ( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**

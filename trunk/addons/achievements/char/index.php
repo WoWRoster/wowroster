@@ -5,7 +5,7 @@
  * Displays Achievement info
  *
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: index.php 509 2010-02-17 05:43:24Z Ulminia $
+ * @version    SVN: $Id$
  * @link       http://ulminia.zenutech.com
  * @package    Achievements
  */

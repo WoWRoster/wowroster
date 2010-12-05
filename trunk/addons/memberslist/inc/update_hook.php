@@ -13,7 +13,7 @@
 
 if ( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 /**
@@ -384,7 +384,7 @@ class memberslistUpdate
 		}
 
 
-		// -[ Start DB update code ]-
+		// --[ Start DB update code ]--
 		$query = "SELECT `member_id` FROM `".$roster->db->table('alts',$this->data['basename'])."` WHERE `member_id`='$member_id'";
 
 		$result = $roster->db->query( $query );

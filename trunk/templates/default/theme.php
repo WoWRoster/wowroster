@@ -15,7 +15,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 define('R_TPL_VERSION', '2.0.0.0');

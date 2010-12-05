@@ -12,7 +12,7 @@
 
 if ( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 $query = "SELECT `config_name`, `config_value` "

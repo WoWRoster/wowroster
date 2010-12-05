@@ -97,9 +97,9 @@ define('ROSTER_BASE', dirname(__FILE__) . DIR_SEP);
 /**
  * Check PHP version
  */
-if( version_compare(phpversion(), '4.3.0', '<') )
+if( version_compare(phpversion(), '5.1.0', '<') )
 {
-	die('You must have PHP version 4.3 or later to run WoWRoster');
+	die('You must have PHP version 5.1 or later to run WoWRoster');
 }
 
 /**
@@ -116,6 +116,11 @@ require_once (ROSTER_LIB . 'constants.php');
  * Include common functions
  **/
 require_once (ROSTER_LIB . 'functions.lib.php');
+
+/**
+ * Include aprint library
+ **/
+require_once (ROSTER_LIB . 'aprint.php');
 
 /**
  * Slash global data if magic_quotes_gpc is off.

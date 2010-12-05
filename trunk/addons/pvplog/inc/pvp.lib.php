@@ -15,7 +15,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // Multiple edits by Gaxme, 16 May 2006

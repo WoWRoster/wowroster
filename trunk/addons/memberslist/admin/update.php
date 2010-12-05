@@ -12,7 +12,7 @@
 
 if ( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // Recreate a data structure containing what out hooks need to update relations. This is a partial structure, and will need changed for use by any other addon.
