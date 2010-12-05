@@ -202,9 +202,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 	elseif( $query === 'itemtooltip' )
 	{
 		$filename_type = 'character-item';
-		//$url = $base_url.'item-tooltip.xml?i='.$item->id.'&n=' . urlencode($this->memberName) . '&r=' . urlencode($this->server);
 		$url = $this->url_prefix_itemtooltip.''. $guild . '&cn=' . urlencode( $guildie) . '&r=' . urlencode( $server );
-		//echo $url.'<br>';
 	}
 
 	elseif( $query === 'talents' )
@@ -272,9 +270,9 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 	}
 	elseif( $query === 'itemtooltip' )
 	{			 //$url_prefix_itemtooltip
-		$char_cache_filename = $filename_type.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
+		$char_cache_filename = $filename_type.'-'.$guild.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
 		if ( $this->live_system ) {
-		//	$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
+			$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
 		}
 		$latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);		// GET THE LATEST CACHE GUILD XML FILE
 		$url = $this->DIR_cache.$latestCharacteriXMLfile['filename'];
@@ -312,7 +310,7 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		if ($query === 'itemtooltip')
 		{
 	   // //aprint($latestCharacteriXMLfile);
-		//unlink($config['DIR_cache'].$latestCharacteriXMLfile['filename']); //alert($config['DIR_cache'].$file);
+		unlink($url); //alert($config['DIR_cache'].$file);
 
 		}
 		//echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -> <b>'.strtoupper($filename_type).'.XML CACHE:</b> <a href="'.$url.'" target="_BLANK">'.$url.'</a> - '.$this->fileSizeInfo($url_filesize).' read...<P>';
