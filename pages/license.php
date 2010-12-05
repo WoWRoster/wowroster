@@ -46,7 +46,7 @@ echo '
 							<br />
 
 							<p>You should have received a copy of the GNU General Public License
-							along with this program. If not, see &lt;<a href="http://www.gnu.org/licenses" target="_blank">http://www.gnu.org/licenses</a>&gt;.</p>
+							along with this program. If not, see <a href="http://www.gnu.org/licenses" target="_blank">http://www.gnu.org/licenses</a>.</p>
 						</div>
 					</div>
 				</div>
@@ -68,7 +68,7 @@ echo '
 
 						<div class="info-text-h">
 							<ul>
-								<li><a href="http://www.dynamicdrive.com" target="_blank">http://jquery.com</a></li>
+								<li><a href="http://jquery.com" target="_blank">http://jquery.com</a></li>
 								<li>jQuery is provided under the following <a href="http://docs.jquery.com/Licensing" target="_blank">MIT and GPL licenses</a>.</li>
 								<li>File located at [js/jquery.js]</li>
 							</ul>

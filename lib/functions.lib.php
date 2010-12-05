@@ -4,18 +4,17 @@
  *
  * Common functions for Roster
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // Global variables this file uses
@@ -285,13 +284,9 @@ function ajax_die($text, $title, $file, $line, $sql)
  */
 function backtrace()
 {
-	if( version_compare( phpversion(), '4.3', '<' ) )
-	{
-		return 'Unable to print backtrace: PHP version too low';
-	}
 	$bt = debug_backtrace();
 
-	$output = "Backtrace (most recent call last):<ul>\n";
+	$output = "<strong>Backtrace</strong> (most recent call last):<ul>\n";
 	for( $i = 0; $i <= count($bt) - 1; $i++ )
 	{
 		if( !isset($bt[$i]['file']) )
@@ -1316,96 +1311,7 @@ function php_as_nobody( $file )
 }
 
 /**
- * Debugging function dumps arrays/object formatted
- * Do Not call this, call aprint()
- *
- * @param array $arr
- * @param int $tab
- * @return string
- */
-function _aprint( $arr , $tab=1 )
-{
-	$obj = false;
-	if( is_object($arr) )
-	{
-		$obj = get_class($arr);
-		$arr = get_object_vars($arr);
-	}
-	if( !is_array($arr) )
-	{
-		return " <span style=\"color:#3366FF\">" . ucfirst(gettype($arr)) . "</span> " . $arr;
-	}
-
-	$space = str_repeat("\t", $tab);
-	$out = " <span style=\"color:#3366FF\">" . ($obj ? $obj . ' object' : 'Array') . "(</span>\n";
-	end($arr); $end = key($arr);
-
-	if( count($arr) == 0 )
-	{
-		return "<span style=\"color:#3366FF\">" . ($obj ? $obj . ' object' : 'Array') . "()</span>";
-	}
-
-	foreach( $arr as $key=>$val )
-	{
-		if( $key == $end )
-		{
-			$colon = '';
-		}
-		else
-		{
-			$colon = ',';
-		}
-
-		if( !is_numeric($key) )
-		{
-			$key = "<span style=\"color:#FFFFFF\">'" . htmlspecialchars($key) . "'</span>";
-		}
-
-		if( is_object($val) || is_array($val) )
-		{
-			$val = _aprint($val, ($tab+1));
-		}
-		elseif( is_bool($val) )
-		{
-			if( $val )
-			{
-				$val = "<span style=\"color:#3366FF\">True</span>";
-			}
-			else
-			{
-				$val = "<span style=\"color:#FF6633\">False</span>";
-			}
-		}
-		elseif( is_null($val) )
-		{
-			$val = "<span style=\"color:#3366FF\">Null</span>";
-		}
-		elseif( is_resource($val) )
-		{
-			$val = "<span style=\"color:#3366FF\">" . get_resource_type($val) . " resource</span>";
-		}
-		else
-		{
-			if( !is_numeric($val) )
-			{
-				$val = "<span style=\"color:#FFFFFF\">'" . htmlspecialchars($val) . "'</span>";
-			}
-		}
-		$out .= "$space$key => $val$colon\n";
-	}
-
-	if( $tab == 1 )
-	{
-		return "$out$space<span style=\"color:#3366ff\">)</span>;";
-	}
-	else
-	{
-		return "$out$space<span style=\"color:#3366ff\">)</span>";
-	}
-}
-
-/**
- * Debugging function dumps arrays/object formatted
+ * Wrapper for debugging function dumps arrays/object formatted
  *
  * @param array $arr
  * @param string $prefix
@@ -1413,17 +1319,13 @@ function _aprint( $arr , $tab=1 )
  */
 function aprint( $arr , $prefix='' , $return=false )
 {
-	if( ltrim($prefix) != '' )
-	{
-		$prefix = '<span style="color:#3366ff">' . $prefix . '</span> =';
-	}
 	if( $return )
 	{
-		return "\n\n<pre style=\"white-space:pre-wrap;text-align:left;color:#000000;margin:1px;background:#555555;border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
+		return APrint::dump($arr);
 	}
 	else
 	{
-		echo "\n\n<pre style=\"white-space:pre-wrap;text-align:left;color:#000000;margin:1px;background:#555555;border:1px solid #D8DDE6;\">$prefix" . _aprint($arr) . "</pre>\n\n";
+		echo APrint::dump($arr);
 	}
 }
 

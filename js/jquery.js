@@ -10,6 +10,7 @@
  * http://sizzlejs.com/
  * Copyright 2010, The Dojo Foundation
  * Released under the MIT, BSD, and GPL Licenses.
+ * @version    SVN: $Id$
  *
  * Date: Thu Nov 11 19:04:53 2010 -0500
  */

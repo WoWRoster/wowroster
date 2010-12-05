@@ -11,6 +11,7 @@
  */
 
 @import url('jquery-ui.css');
+@import url('ui.selectmenu.css');
 
 body { background:#000000; font-size:62.5%; }
 a:link, a:visited { color:#FFF; text-decoration:none; font-weight:bold; }
@@ -56,7 +57,9 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .info-header .guild span { color: #FFCC00; display: block; position: absolute; left: -1px; top: -2px; }
 .info-header .info span { color: #FFFFFF; display: block; position: absolute; left: -1px; top: -2px; }
 
-.menu-select { position: absolute; top: 30px; right: 10px; }
+.menu-select { position: absolute; top: 30px; right: 10px; text-align: right; }
+.menu-select .locale-select { margin-bottom: 3px; }
+.menu-select .list-select { margin-bottom: 3px; }
 
 .char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap {
 	margin: 102px 0 0;
@@ -84,8 +87,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .roster-footer .bliz { color: #FFF8E1; text-align: center; margin-top: 25px; font-size: 12px; }
 
 /* Login Box */
-.menu-login { margin: 5px 0 0 130px; width: 300px; }
-.menu-login .message { font-size:10px; }
+.menu-login { font-size:10px; position: absolute; bottom: 52px; right: 2px; }
+.menu-login .message { color: #FF3300; }
 .login-box { margin:auto;width:370px; }
 .login-box .message { text-align: center; color: #FF3300; font-size: 14px; line-height: 20px; height: 20px; }
 
@@ -625,6 +628,13 @@ img, p { padding:0;margin:0;border:0; }
  * END Random color defines
  */
 
+/**
+ * Form Styles
+ */
+form.inline { display:inline; }
+form.close { margin:0; }
+form.slim { margin:0;padding:0; }
+
 
 /**
  * Overlib Tooltip Styles
@@ -646,6 +656,126 @@ img, p { padding:0;margin:0;border:0; }
 .overlib_closetext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
 
 
+/**
+ * aPrint Styles
+ */
+ul.aprint-node {
+	margin: 0;
+	padding: 0;
+	background-color: white;
+}
+ul.aprint-node ul {
+	margin-left: 20px;
+}
+* html ul.aprint-node ul {
+	margin-left: 24px;
+}
+div.aprint-root {
+	color: black;
+	border: solid 1px black;
+	margin: 1em 0;
+}
+ul.aprint-first {
+	font: normal 11px tahoma, verdana;
+	border: solid 1px white;
+}
+li.aprint-child {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+div.aprint-element {
+	cursor: default;
+	display: block;
+	clear: both;
+	white-space: nowrap;
+	background-color: white;
+	padding: 2px 0 3px 19px;
+}
+* html div.aprint-element {
+	padding-bottom: 3px;
+	line-height: 13px;
+}
+div.aprint-expand {
+	padding-left: 0;
+	cursor: pointer;
+}
+div.aprint-expand .ui-icon {
+	float: left;
+}
+div.aprint-hover {
+	background-color: #BFDFFF;
+}
+a.aprint-name {
+	color: navy;
+	font: bold 13px courier new;
+	line-height: 12px;
+}
+a.aprint-name big {
+	font: bold 16pt Georgia;
+	line-height: 10px;
+	position: relative;
+	top: 2px;
+	left: -2px;
+}
+* html a.aprint-name big {
+	font: bold 15pt Georgia;
+	float: left;
+	top: -5px;
+	left: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+em.aprint-type {
+	font-style: normal;
+	margin: 0px 2px;
+}
+div.aprint-preview {
+	font: normal 12px courier new;
+	padding: 5px;
+	background: lightyellow;
+	border: solid 1px #808000;
+	overflow: auto;
+	margin: 5px 1em 1em 0px;
+	white-space: pre-wrap;
+}
+* html div.aprint-preview {
+	padding-top: 2px;
+}
+li.aprint-footnote {
+	background: white url(data:image/gif;base64,R0lGODlhCgACALMAAP///8DAwP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAAALAAAAAAKAAIAAAQIEMhJA7D4gggAOw%3D%3D) repeat-x;
+	padding: 4px 5px 3px 5px;
+	list-style: none;
+	cursor: default;
+}
+* html li.aprint-footnote {
+	line-height: 13px;
+}
+li.aprint-footnote span.aprint-call {
+	white-space: nowrap;
+	font:normal 11px tahoma, verdana;
+	position: relative;
+	top: 1px;
+}
+li.aprint-footnote span.aprint-call code {
+	font-weight:bold;
+}
+div.aprint-title {
+	font: normal 11px tahoma, verdana;
+	position:relative;
+	top:9px;
+	cursor:default;
+	line-height:2px;
+}
+strong.aprint-array-length,
+strong.aprint-string-length {
+	font-weight: normal;
+	color: #000099;
+}
+
+
 
 /**
  * jQuery-ui overrides
@@ -658,6 +788,7 @@ a.input:hover { color:#0074c7; }
 
 input.ui-button,
 .ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
+select:focus { outline: none; }
 
 
 .bottomshadow { background: url(images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }

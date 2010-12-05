@@ -162,20 +162,24 @@
 						<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
 					</div>
 <!-- ENDIF -->
-					<select class="statselect_l" name="statbox_left" onchange="doLpage(this.value);">
-						<option value="statsleft" selected="selected"><!-- TRANSLATE menustats --></option>
-						<option value="meleeleft"><!-- TRANSLATE melee --></option>
-						<option value="rangedleft"><!-- TRANSLATE ranged --></option>
-						<option value="spellleft"><!-- TRANSLATE spell --></option>
-						<option value="defenseleft"><!-- TRANSLATE defense --></option>
-					</select>
-					<select class="statselect_r" name="statbox_right" onchange="doRpage(this.value);">
-						<option value="statsright"><!-- TRANSLATE menustats --></option>
-						<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE melee --></option>
-						<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE ranged --></option>
-						<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE spell --></option>
-						<option value="defenseright"><!-- TRANSLATE defense --></option>
-					</select>
+					<div class="statselect_l">
+						<select style="width:170px;" name="statbox_left" onchange="doLpage(this.value);">
+							<option value="statsleft" selected="selected"><!-- TRANSLATE menustats --></option>
+							<option value="meleeleft"><!-- TRANSLATE melee --></option>
+							<option value="rangedleft"><!-- TRANSLATE ranged --></option>
+							<option value="spellleft"><!-- TRANSLATE spell --></option>
+							<option value="defenseleft"><!-- TRANSLATE defense --></option>
+						</select>
+					</div>
+					<div class="statselect_r">
+						<select style="width:170px;" name="statbox_right" onchange="doRpage(this.value);">
+							<option value="statsright"><!-- TRANSLATE menustats --></option>
+							<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE melee --></option>
+							<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE ranged --></option>
+							<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE spell --></option>
+							<option value="defenseright"><!-- TRANSLATE defense --></option>
+						</select>
+					</div>
 
 					<div class="padding">
 <!-- BEGIN box_stats -->

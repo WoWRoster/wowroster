@@ -4,14 +4,14 @@
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: enUS.php 1126 2007-07-27 05:14:27Z Zanix $
+ * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    News
 */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 $roster->auth->setAction('&amp;id=' . $_GET['id']);

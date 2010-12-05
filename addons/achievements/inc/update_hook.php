@@ -7,7 +7,7 @@
  *
 
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: update_hook.php 504 2010-02-05 14:55:29Z Ulminia $
+ * @version    SVN: $Id$
  * @link       http://ulminia.zenutech.com
  * @package    Achievements
 */

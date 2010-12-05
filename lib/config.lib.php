@@ -362,7 +362,7 @@ class roster_config
 						$vals = explode('^',$value);
 						if( $values['value'] == $vals[1] && $select_one )
 						{
-							$input_field .= '  <option value="' . $vals[1] . '" selected="selected">-[ ' . $vals[0] . ' ]-</option>' . "\n";
+							$input_field .= '  <option value="' . $vals[1] . '" selected="selected">' . $vals[0] . '</option>' . "\n";
 							$select_one = 0;
 						}
 						else

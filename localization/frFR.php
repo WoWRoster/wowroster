@@ -39,7 +39,7 @@ $lang['update_disabled']='L\'accès à update.php a été désactivé';
 
 $lang['nofileUploaded']='Votre UniUploader n\'a pas téléchargé de fichier(s), ou des fichiers erronés.';
 $lang['roster_upd_pwLabel']='Mot de passe du Roster';
-$lang['roster_upd_pw_help']='(Quelques mises à jour lua peuvent demander un mot de passe)';
+$lang['roster_upd_pw_help']='Quelques mises à jour lua peuvent demander un mot de passe';
 
 
 $lang['roster_error'] = 'Erreur lié au Roster';
@@ -316,6 +316,14 @@ $lang['talent_build_1'] = 'Inactif';
 // Char Scope
 $lang['char_level_race_class'] = 'Niveau %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s de %2$s';
+
+// Login
+$lang['login'] = 'Login';
+$lang['logout'] = 'Logout';
+$lang['logged_in'] = 'Logged in';
+$lang['logged_out'] = 'Logged out';
+$lang['login_invalid'] = 'Invalid Password';
+$lang['login_fail'] = 'Failed to fetch password info';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Métiers';

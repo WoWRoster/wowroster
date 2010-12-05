@@ -6,7 +6,7 @@
  *
  *
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: index2.php 477 2009-11-13 07:03:44Z Ulminia $
+ * @version    SVN: $Id$
  * @link       http://ulminia.zenutech.com
  * @package    Achievements
  */

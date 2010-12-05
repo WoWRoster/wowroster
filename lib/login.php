@@ -16,7 +16,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 define('ROSTERLOGIN_ADMIN',3);
@@ -44,13 +44,15 @@ class RosterLogin
 	 */
 	function RosterLogin( $script_filename='' )
 	{
+		global $roster;
+
 		$this->setAction($script_filename);
 
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
 			setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->allow_login = 0;
-			$this->message = 'Logged out';
+			$this->message = $roster->locale->act['logged_out'];
 		}
 		elseif( isset($_POST['password']) && $_POST['password'] != '' )
 		{
@@ -78,7 +80,7 @@ class RosterLogin
 		{
 			setcookie( 'roster_pass','',time()-86400,'/' );
 			$this->allow_login = 0;
-			$this->message = 'Failed to fetch password info';
+			$this->message = $roster->locale->act['login_fail'];
 			return;
 		}
 
@@ -90,7 +92,7 @@ class RosterLogin
 			{
 				setcookie( 'roster_pass',$row['hash'],0,'/' );
 				$this->allow_login = $row['account_id'];
- 				$this->message = 'Logged in ' . $row['name'] . ': <form style="display:inline;" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /><input type="submit" value="Logout" /></form>';
+ 				$this->message = $roster->locale->act['logged_in'] . ' ' . $row['name'] . ': <form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /><input type="submit" value="' . $roster->locale->act['logout'] . '" /></form>';
 
 				$roster->db->free_result($result);
 				return;
@@ -100,7 +102,7 @@ class RosterLogin
 
 		setcookie( 'roster_pass','',time()-86400,'/' );
 		$this->allow_login = 0;
-		$this->message = 'Invalid password';
+		$this->message = $roster->locale->act['login_invalid'];
 		return;
 	}
 
@@ -151,8 +153,8 @@ class RosterLogin
 						<div class="tier-3-a">
 							<div class="tier-3-b">
 								<div class="text">
-									' . $log_word . ' ' . $roster->locale->act['password'] . '
 									<div style="float:right;"><input name="password" type="password" size="30" maxlength="30" /></div>
+									' . $log_word . ' ' . $roster->locale->act['password'] . '
 								</div>
 							</div>
 						</div>
@@ -170,12 +172,16 @@ class RosterLogin
 
 	function getMenuLoginForm()
 	{
+		global $roster;
+
 		if( !$this->allow_login )
 		{
 			return '
-			<form action="' . $this->action . '" method="post" enctype="multipart/form-data" style="margin:0;">
-				Log in: <input name="password" type="password" size="14" maxlength="30" />
-				<input type="submit" value="Go" /><div class="message">' . $this->getMessage() . '</div>
+			<form class="slim" action="' . $this->action . '" method="post" enctype="multipart/form-data">
+				' . ( $this->getMessage() ? '<div class="message">' . $this->getMessage() . '</div>' : '') . '
+				' . $roster->locale->act['login'] . '
+				<input name="password" type="password" size="14" maxlength="30" />
+				<input type="submit" value="Go" />
 			</form>';
 		}
 		else
@@ -216,7 +222,7 @@ class RosterLogin
 		{
 			if( $level == $values['value'] && $select_one )
 			{
-				$input_field .= '  <option value="' . $level . '" selected="selected">-[ ' . $name . ' ]-</option>' . "\n";
+				$input_field .= '  <option value="' . $level . '" selected="selected">' . $name . '</option>' . "\n";
 				$select_one = 0;
 			}
 			else

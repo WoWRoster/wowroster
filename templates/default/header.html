@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{THEME_PATH}/style.css" />
 <script type="text/javascript" src="{ROSTER_PATH}js/jquery.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/jquery-ui.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/ui.selectmenu.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/script.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
 /**
@@ -53,16 +54,18 @@
 		</div>
 		<div class="menu-select">
 <!-- IF S_LOCALE_SELECT -->
-			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-				<!-- TRANSLATE language -->
-				<select name="locale" onchange="document.locale_select.submit();">
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
 <!-- BEGIN locale_select -->
-					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
 <!-- END locale_select -->
-				</select>
-			</form>
+					</select>
+				</form>
+			</div>
 <!-- ENDIF -->
-			<br />
+		</div>
+		<div class="menu-login">
 {LOGIN_FORM}
 		</div>
 	</div>
@@ -78,33 +81,35 @@
 		</div>
 		<div class="menu-select">
 		<!-- IF S_LOCALE_SELECT -->
-			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-				<!-- TRANSLATE language -->
-				<select name="locale" onchange="document.locale_select.submit();">
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
 <!-- BEGIN locale_select -->
-					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
 <!-- END locale_select -->
-				</select>
-			</form>
+					</select>
+				</form>
+			</div>
 <!-- ENDIF -->
 
 <!-- IF S_MENU_SELECT -->
-			<form action="{U_MAKELINK}" name="list_select" method="post" style="margin:0;">
-				{L_MENU_LABEL_NAME}:
-				<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
+			<div class="list-select">
+				<form class="slim" action="{U_MAKELINK}" name="list_select" method="post">
+					<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
 <!-- BEGIN menu_select_group -->
-						<optgroup label="{menu_select_group.U_VALUE}">
+							<optgroup label="{menu_select_group.U_VALUE}">
 <!-- BEGIN menu_select_row -->
-							<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
+								<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
 <!-- END menu_select_row -->
-							</optgroup>
+								</optgroup>
 <!-- END menu_select_group -->
-				</select>
-			</form>
+					</select>
+				</form>
+			</div>
 <!-- ELSE -->
-		&nbsp;
 <!-- ENDIF -->
-			<br />
+		</div>
+		<div class="menu-login">
 {LOGIN_FORM}
 		</div>
 	</div>
@@ -119,37 +124,39 @@
 		</div>
 		<div class="menu-select">
 <!-- IF S_LOCALE_SELECT -->
-			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-				<!-- TRANSLATE language -->
-				<select name="locale" onchange="document.locale_select.submit();">
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
 <!-- BEGIN locale_select -->
-					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
 <!-- END locale_select -->
-				</select>
-			</form>
+					</select>
+				</form>
+			</div>
 <!-- ENDIF -->
 
 <!-- IF S_DATA_SELECT -->
-			<form action="{U_MAKELINK}" name="list_select" method="post" style="margin:0;">
-				{L_MENU_LABEL_NAME}:
-				<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
+			<div class="list-select">
+				<form class="slim" action="{U_MAKELINK}" name="list_select" method="post">
+					<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
 <!-- BEGIN menu_select_group -->
-						<optgroup label="{menu_select_group.U_VALUE}">
+							<optgroup label="{menu_select_group.U_VALUE}">
 <!-- BEGIN menu_select_row -->
-							<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
+								<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
 <!-- END menu_select_row -->
-							</optgroup>
+								</optgroup>
 <!-- END menu_select_group -->
-				</select>
-			</form>
+					</select>
+				</form>
+			</div>
 <!-- ELSE -->
-		&nbsp;
 <!-- ENDIF -->
-			<br />
-{LOGIN_FORM}
-		</div>
 	</div>
-	<div class="guild-wrap">
+	<div class="menu-login">
+{LOGIN_FORM}
+	</div>
+</div>
+<div class="guild-wrap">
 <!-- ENDIF -->
 
 <!-- IF ROSTER_SCOPE eq "char" -->
@@ -161,16 +168,18 @@
 		</div>
 		<div class="menu-select">
 <!-- IF S_LOCALE_SELECT -->
-			<form action="{U_MAKELINK}" name="locale_select" method="post" style="margin:0;">
-				<!-- TRANSLATE language -->
-				<select name="locale" onchange="document.locale_select.submit();">
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
 <!-- BEGIN locale_select -->
-					<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
 <!-- END locale_select -->
-				</select>
-			</form>
+					</select>
+				</form>
+			</div>
 <!-- ENDIF -->
-			<br />
+		</div>
+		<div class="menu-login">
 {LOGIN_FORM}
 		</div>
 	</div>

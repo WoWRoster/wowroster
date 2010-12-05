@@ -4,14 +4,14 @@
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: update.php 1287 2007-08-26 12:23:15Z pleegwat $
+ * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    MembersList
  */
 
 if ( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 // ----[ Delete per-guild config for guilds that aren't in the DB anymore ]--

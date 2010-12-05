@@ -14,7 +14,7 @@
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 $roster->output['title'] = $roster->locale->act['guildinfo'];

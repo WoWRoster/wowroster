@@ -6,7 +6,7 @@
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id: $
+ * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 2.1.0
  */
@@ -15,10 +15,15 @@ $(function() {
 	// Apply jQuery UI button styles on EVERYTHING
 	$('button, input:submit, input:reset, .input').button();
 
+	// Create button sets for radio and checkbox groups
 	$('.radioset').buttonset();
 	$('.checkset').buttonset();
 
-	$('input[type=text], input[type=password], input[type=file], select').addClass('ui-widget');
+	// Add a style to the text input and file select boxes
+	$('input[type=text], input[type=password], input[type=file]').addClass('ui-widget');
+
+	// Style select boxes
+	$('select').selectmenu({ style:'popup' });
 
 	// Keep forms from submitting more than once
 	$('input[type=submit]').attr('disabled', false);

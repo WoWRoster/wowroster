@@ -12,7 +12,7 @@
 
 if ( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 $skill_name = isset($_POST['skill']) ? $_POST['skill'] : 'Unarmed';
