@@ -234,6 +234,7 @@ $lang['submited_date'] = 'Date de soumission';
 //end search engine
 $lang['update']='Mise à jour';
 $lang['credit']='Crédits';
+$lang['who_made']='Les artisans du projet WoWRoster';
 $lang['members']='Membres';
 $lang['member_profiles']='Member Profiles';
 $lang['items']='Objets';
@@ -886,7 +887,6 @@ $lang['GPver_err']='La version du GuildProfiler utilisée pour capturer les donn
 $lang['menu_upprofile']='Mise à jour du profil|Mettez à jour votre profil sur ce site';
 $lang['menu_search']='Recherche|Rechercher des objets et des recettes dans la base de donnée';
 $lang['menu_roster_cp']='Configuration Roster|Panneau de configuration du Roster';
-$lang['menu_credits']='Crédits|Les artisans du projet WoW Roster';
 $lang['menupanel_util']  = 'Utilitaires';
 $lang['menupanel_realm'] = 'Royaume';
 $lang['menupanel_guild'] = 'Guilde';

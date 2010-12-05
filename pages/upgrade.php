@@ -484,6 +484,7 @@ class Upgrade
 				('warriorprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
 				('warriorprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL);");
 		}
+
 		// Drop expertise
 		if( version_compare($roster->config['version'], '2.0.9.2223', '<') )
 		{
@@ -492,6 +493,12 @@ class Upgrade
 				DROP `melee_expertise_c`,
 				DROP `melee_expertise_b`,
 				DROP `melee_expertise_d`;");
+		}
+
+		// Remove the Credits icon from the menu
+		if( version_compare($roster->config['version'], '2.0.9.2224', '<') )
+		{
+			$roster->db->query('DELETE FROM `' . $roster->db->table('menu_button') . '` WHERE `addon_id`= "0" AND `title` = "menu_credits";');
 		}
 
 		// Standard Beta Update

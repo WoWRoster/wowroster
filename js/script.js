@@ -23,7 +23,7 @@ $(function() {
 	$('input[type=text], input[type=password], input[type=file]').addClass('ui-widget');
 
 	// Style select boxes
-	$('select').selectmenu({ style:'popup' });
+	$('select:not([multiple])').selectmenu({ style:'popup' });
 
 	// Keep forms from submitting more than once
 	$('input[type=submit]').attr('disabled', false);
