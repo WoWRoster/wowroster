@@ -8,7 +8,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    MembersList
-*/
+ */
 
 if ( !defined('IN_ROSTER') )
 {
@@ -23,7 +23,8 @@ $mainQuery =
 	'SELECT *, DATE_FORMAT( `update_time`, "' . $roster->locale->act['timeformat'] . '" ) AS date, '.
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'UNIX_TIMESTAMP(`update_time`) AS date_stamp '.
-	'FROM `'.$roster->db->table('memberlog').'` AS members ';
+	'FROM `'.$roster->db->table('memberlog').'` AS members '.
+	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` ';
 $where[] = '`guild_id` = "'.$roster->data['guild_id'].'"';
 $order_last[] = '`date_stamp` DESC';
 
