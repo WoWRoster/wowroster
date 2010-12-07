@@ -204,6 +204,11 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 		$filename_type = 'character-item';
 		$url = $this->url_prefix_itemtooltip.''. $guild . '&cn=' . urlencode( $guildie) . '&r=' . urlencode( $server );
 	}
+	elseif( $query === 'itemtooltip2' )
+	{
+		$filename_type = 'item';
+		$url = 'http://wow.allakhazam.com/cluster/item-xml.pl?witem=' . $guild . '&xml';
+	}
 
 	elseif( $query === 'talents' )
 	{
@@ -271,6 +276,19 @@ public function pull_xmln($guildie = false, $guild = false, $server = false, $qu
 	elseif( $query === 'itemtooltip' )
 	{			 //$url_prefix_itemtooltip
 		$char_cache_filename = $filename_type.'-'.$guild.'-'.$guildie;		// BUILD THE CHRACTER XML CACHE FILENAME
+		if ( $this->live_system ) {
+			$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
+		}
+		$latestCharacteriXMLfile = $this->getXMLfile($char_cache_filename);		// GET THE LATEST CACHE GUILD XML FILE
+		$url = $this->DIR_cache.$latestCharacteriXMLfile['filename'];
+		$url_filesize = $latestCharacteriXMLfile['filesize'];
+		//echo "<P>RESULT -> ".$latestCharacterXMLfile['filename']." - ".$latestCharacterXMLfile['filesize']." - ".$latestCharacterXMLfile['filetime']." <br /><br /><br /><br />";
+
+
+	}
+	elseif( $query === 'itemtooltip2' )
+	{			 //$url_prefix_itemtooltip
+		$char_cache_filename = $filename_type.'-'.$guild;		// BUILD THE CHRACTER XML CACHE FILENAME
 		if ( $this->live_system ) {
 			$this->cacheXMLfile($char_cache_filename, $url_string);			// CACHE THE CHARACTER XML STREAM
 		}

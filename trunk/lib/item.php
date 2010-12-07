@@ -1256,6 +1256,7 @@ class item
                                  && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage3'], $line )
                                   && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage4'], $line )
                                    && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage5'], $line )
+                                   && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage6'], $line )
                                    && !preg_match($roster->locale->wordings[$locale]['tooltip_preg_dps'], $line))
 				{
 					//
