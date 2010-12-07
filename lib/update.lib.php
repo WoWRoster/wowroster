@@ -1458,7 +1458,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$gem['gem_name'] 	= $gem_data['Name'];
 			$gem['gem_tooltip'] = $this->tooltip($gem_data['Tooltip']);
 			$gem['gem_bonus'] 	= $gem_bonus;
-			$gem['gem_socketid']= $socket_id;  // the ID the gem holds when socketed in an item.
+			$gem['gem_socketid']= $gem_data['gemID'];//$socket_id;  // the ID the gem holds when socketed in an item.
 			$gem['gem_id'] 		= $gemid; // the ID of gem when not socketed.
 			$gem['gem_texture'] = $this->fix_icon($gem_data['Icon']);
 			$gem['gem_color'] 	= $gem_color;  //meta, prismatic, red, blue, yellow, purple, green, orange.
@@ -3910,11 +3910,12 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->add_rating('melee_hit', $attack['HitRating']);
 			$this->add_rating('melee_crit', $attack['CritRating']);
 			$this->add_rating('melee_haste', $attack['HasteRating']);
+			/*
 			if (isset($attack['Expertise']))
 			{
 				$this->add_rating('melee_expertise', $attack['Expertise']);
 			}
-
+*/
 			$this->add_ifvalue($attack, 'CritChance', 'melee_crit_chance');
 			$this->add_ifvalue($attack, 'AttackPowerDPS', 'melee_power_dps');
 
