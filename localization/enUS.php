@@ -333,6 +333,7 @@ $lang['Blacksmithing']='Blacksmithing';
 $lang['Mining']='Mining';
 $lang['Herbalism']='Herbalism';
 $lang['Alchemy']='Alchemy';
+$lang['Archaeology']='Archaeology';
 $lang['Leatherworking']='Leatherworking';
 $lang['Jewelcrafting']='Jewelcrafting';
 $lang['Skinning']='Skinning';
@@ -364,6 +365,7 @@ $lang['skill_to_id'] = array(
 //Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
+	$lang['Archaeology'],
 	$lang['Herbalism'],
 	$lang['Blacksmithing'],
 	$lang['Mining'],
@@ -384,6 +386,7 @@ $lang['tsArray'] = array (
 //Tradeskill Icons-Array
 $lang['ts_iconArray'] = array (
 	$lang['Alchemy']=>'trade_alchemy',
+	$lang['Archaeology']=>'trade_archaeology',
 	$lang['Herbalism']=>'trade_herbalism',
 	$lang['Blacksmithing']=>'trade_blacksmithing',
 	$lang['Mining']=>'trade_mining',
