@@ -49,9 +49,7 @@ class achievementsInstall
 		global $installer;
 
 		# Master data for the config file
-		//$installer->add_config("1,'startpage','display','display','master'");
 		$installer->add_menu_button('achive','char');
-		$installer->add_config("1,'startpage','achive','display','master'");
 
 		$installer->create_table($installer->table('data'),"
 			  `id` int(11) NOT NULL auto_increment,

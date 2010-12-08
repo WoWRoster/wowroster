@@ -305,7 +305,7 @@ class memberslist
 				$sorts = array();
 			}
 
-			if( false !== ($key = array_search( $field, $sorts )) || 
+			if( false !== ($key = array_search( $field, $sorts )) ||
 				false !== ($key = array_search( $field . ':a', $sorts)) )
 			{
 				unset( $sorts[$key] );
@@ -321,7 +321,7 @@ class memberslist
 				array_unshift( $sorts, $field . ':a' );
 			}
 			$newsort = implode( ',', $sorts );
-			
+
 			$get = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : (($this->addon['config']['group_alts']==1) ? 'close' : 'ungroup')) . '&amp;filter=' . ($this->addon['config']['openfilter'] ? 'open' : 'close') . '&amp;s=' . $newsort;
 			foreach( $get_filter as $key => $filter )
 			{
@@ -660,7 +660,7 @@ class memberslist
 
 				if( active_addon('info') )
 				{
-					$icon_value .= '<a href="' . makelink('char-info-talents&amp;a=c:' . $row['member_id']) . '">' . $specicon . '</a>';
+					$icon_value .= '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id'] . '&amp;t=talents') . '">' . $specicon . '</a>';
 				}
 				else
 				{
