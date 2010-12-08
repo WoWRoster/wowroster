@@ -1001,7 +1001,7 @@ class char
                                         {
                                                 $rannk = $talentArray[$i];
                                         }
-                                        
+
 											if ($max == $rannk)
 											{
 												$maxc = 'Yellow';
@@ -1010,8 +1010,8 @@ class char
 											{
 												$maxc = 'Green';
 											}
-									
-									
+
+
                                         $tooltipp = htmlspecialchars ($rdata['tooltip'][$rannk]);
                                         $tp = $roster->locale->act['tooltip_rank'] . ': ' . $talentArray[$i] . ' / ' . $max . '<br \/>' . $tooltipp;
                                         $returndata[$ti][$c][$r]['ttip'] = $tooltipp;
@@ -2913,11 +2913,15 @@ class char
 			unset($char_bonus);
 		}
 
+
+		// Selected default tab
+		$select_tab = (isset($_GET['t']) ? $_GET['t'] : 'profile');
+
 		// Print tabs
 		$roster->tpl->assign_block_vars('tabs',array(
 			'NAME'     => $roster->locale->act['profile'],
 			'VALUE'    => 'profile',
-			'SELECTED' => true
+			'SELECTED' => $select_tab == 'profile' ? true : false
 			)
 		);
 
@@ -2927,7 +2931,7 @@ class char
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['pets'],
 				'VALUE'    => 'pets',
-				'SELECTED' => false
+				'SELECTED' => $select_tab == 'pets' ? true : false
 				)
 			);
 		}
@@ -2942,7 +2946,7 @@ class char
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['companions'],
 				'VALUE'    => 'companions',
-				'SELECTED' => false
+				'SELECTED' => $select_tab == 'companions' ? true : false
 				)
 			);
 		}
@@ -2957,7 +2961,7 @@ class char
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['reputation'],
 				'VALUE'    => 'reputation',
-				'SELECTED' => false
+				'SELECTED' => $select_tab == 'reputation' ? true : false
 				)
 			);
 		}
@@ -2972,7 +2976,7 @@ class char
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['skills'],
 				'VALUE'    => 'skills',
-				'SELECTED' => false
+				'SELECTED' => $select_tab == 'skills' ? true : false
 				)
 			);
 		}
@@ -2987,7 +2991,7 @@ class char
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['talents'],
 				'VALUE'    => 'talents',
-				'SELECTED' => false
+				'SELECTED' => $select_tab == 'talents' ? true : false
 				)
 			);
 		}
@@ -3008,7 +3012,7 @@ class char
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['spellbook'],
 				'VALUE'    => 'spellbook',
-				'SELECTED' => false
+				'SELECTED' => $select_tab == 'spellbook' ? true : false
 				)
 			);
 		}
@@ -3023,7 +3027,7 @@ class char
 			$roster->tpl->assign_block_vars('tabs',array(
 				'NAME'     => $roster->locale->act['currency'],
 				'VALUE'    => 'currency',
-				'SELECTED' => false
+				'SELECTED' => $select_tab == 'currency' ? true : false
 				)
 			);
 		}
