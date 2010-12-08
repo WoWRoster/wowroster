@@ -81,7 +81,8 @@
 						<th class="membersHeader"><!-- TRANSLATE region --></th>
 						<th class="membersHeader"><!-- TRANSLATE class --></th>
 						<th class="membersHeader"><!-- TRANSLATE level --></th>
-						<th class="membersHeaderRight">&nbsp;</th>
+						<th class="membersHeader">&nbsp;</th>
+						<th class="membersHeaderRight"><input type="checkbox" class="checkall" rel="massdel" /></th>
 					</tr>
 				</thead>
 				<tfoot>
@@ -99,8 +100,8 @@
 						<td class="membersRow{data_list.ROW_CLASS}">{data_list.REGION}</td>
 						<td class="membersRow{data_list.ROW_CLASS}">{data_list.CLASS}</td>
 						<td class="membersRow{data_list.ROW_CLASS}">{data_list.LEVEL}</td>
-						<td class="membersRowRight{data_list.ROW_CLASS}"><button type="submit" class="input" onclick="setvalue('deletehide','del_{data_list.ID}');"><!-- TRANSLATE delete --></button>
-							<label for="massdel_{data_list.ID}">&nbsp;</label><input type="checkbox" name="massdel[{data_list.ID}]" id="massdel_{data_list.ID}" value="1" /></td>
+						<td class="membersRow{data_list.ROW_CLASS}"><button type="submit" class="input" onclick="setvalue('deletehide','del_{data_list.ID}');"><!-- TRANSLATE delete --></button></td>
+						<td class="membersRowRight{data_list.ROW_CLASS}"><label for="massdel_{data_list.ID}">&nbsp;</label><input type="checkbox" name="massdel[{data_list.ID}]" id="massdel_{data_list.ID}" value="1" /></td>
 					</tr>
 		<!-- END data_list -->
 				</tbody>

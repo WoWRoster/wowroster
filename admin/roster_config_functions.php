@@ -61,7 +61,7 @@ function pageNames( )
 		LEFT JOIN `" . $roster->db->table('addon') . "` AS a
 		ON `mb`.`addon_id` = `a`.`addon_id`
 		WHERE `scope` IN ('util','realm','guild')
-		ORDER BY `mb`.`title`;";
+		ORDER BY `mb`.`scope` , `mb`.`title` ASC;";
 
 	$result = $roster->db->query($query);
 	if( !$result )

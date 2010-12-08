@@ -86,11 +86,13 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .roster-footer .wr-info { color: #FFF8E1; text-align: center; }
 .roster-footer .bliz { color: #FFF8E1; text-align: center; margin-top: 25px; font-size: 12px; }
 
+
 /* Login Box */
 .menu-login { font-size:10px; position: absolute; bottom: 52px; right: 2px; }
 .menu-login .message { color: #FF3300; }
 .login-box { margin:auto;width:370px; }
 .login-box .message { text-align: center; color: #FF3300; font-size: 14px; line-height: 20px; height: 20px; }
+
 
 /* General Scope Block */
 .scope-menu { padding: 50px 0 10px; position: relative; }
@@ -111,8 +113,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .scope-menu .menu-scope-panel .frame .button .mask { background: url(images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
 .scope-menu .menu-scope-panel .frame .button .mask:hover { background-position: right top; }
 
-/* New Main Navagation tabs */
 
+/* New Main Navagation tabs */
 .top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 10px; }
 .top-menu .links { height: 40px; }
 .top-menu .links a { display: block; height: 26px; width: 100px; float: left; padding: 4px 5px 10px 45px; color: #000; margin-right: 5px; font: bold 12px/normal Arial, Helvetica, sans-serif; }
@@ -129,7 +131,6 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .button-upload:hover { background: url(images/menu/menu_upload.png) no-repeat left bottom; }
 .button-util { background: url(images/menu/menu_utilities.png) no-repeat left top; }
 .button-util:hover { background: url(images/menu/menu_utilities.png) no-repeat left bottom; }
-
 
 
 /* Mini Pop-Up List */
@@ -288,6 +289,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .container .item .mask { display: block; background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; left: 0; top: 0; }
 .container .item .mask:hover { background-position: left bottom; }
 
+
 /* Container Medium Item Qualities */
 .container .tier-2-b .item { position:relative; float: left; margin: 3px; }
 .container .tier-2-b .item img{ position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px;}
@@ -312,8 +314,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .container .tier-2-b .item .heirloom { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
 .container .tier-2-b .item .heirloom:hover { background-position: left bottom; }
 
-/* Container Small Item Qualities */
 
+/* Container Small Item Qualities */
 .container .tier-5-b .item, .container .tier-6-b .item { width: 24px; height: 24px; margin: 0; padding: 0; }
 .container .tier-5-b .item img, .container .tier-6-b .item img { width: 24px; height: 24px; margin: 0; padding: 0; }
 .container .tier-5-b .item .mask, .container .tier-6-b .item .mask { height: 24px; width: 24px; position: absolute; z-index: 100; left: 0; top: 0;}
@@ -336,6 +338,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .container .tier-5-b .item .artifact:hover, .container .tier-6-b .item .artifact:hover { background-position: left bottom; }
 .container .tier-5-b .item .heirloom, .container .tier-6-b .item .heirloom { background: url(images/mask/small/item_artifact.png) no-repeat left top; }
 .container .tier-5-b .item .heirloom:hover, .container .tier-6-b .item .heirloom:hover { background-position: left bottom; }
+
 
 /* Regular Items */
 .item { position:relative; float: left; margin: 3px; height: 40px; width: 40px; }
@@ -360,6 +363,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .item .artifact:hover { background: url(images/mask/medium/item_artifact.png) no-repeat left bottom; }
 .item .heirloom { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
 .item .heirloom:hover { background: url(images/mask/medium/item_artifact.png) no-repeat left bottom; }
+
 
 /* Misc Code Fixes */
 .item span { position:absolute; bottom:0; right:3px; color:#fff; font-weight:bold; font-size:12px; z-index: 125; }
@@ -476,28 +480,92 @@ img, p { padding:0;margin:0;border:0; }
 
 
 /**
+ * Message box
+ */
+#notify { display:none; width:100%; position:relative; color:#999999; }
+#notify .close { position:absolute; top:2px; right:2px; }
+#notify div.message { margin:5px 20px 0 0; padding:0.2em; }
+#notify div.message .ui-icon { float:left; margin-right:0.3em; }
+#notify div.message .content { padding:1em; margin-left:20px; }
+
+
+/**
+ * RosterCP
+ */
+.config-menu {
+	width: 145px;
+	float: left;
+}
+.config-body {
+	width: 100%;
+}
+.config-body-menu {
+	width: 710px;
+	margin-left: 145px;
+}
+.addon-status {
+	float: right;
+	text-align: right;
+}
+
+
+/**
  * List Menus
  */
-.tab_menu { padding:0;margin:0;font:11px arial,helvetica,sans-serif;list-style-type:none;text-align:center; }
-.tab_menu li { display:block;margin:2px 2px 2px; }
-.tab_menu li a {
-	display:block;
-	width:140px;
-	text-decoration:none;
-	border:solid #5D5D5D;
-	border-width:1px 0 0 1px;
-	color:#CBA300;
-	background-color:#2E2D2B;
+.tab_menu {
+	float: left;
+	width: 130px;
+	color: #FFF;
+	font: 1.3em Arial, Helverica, sans-serif;
+ 	font-weight: bold;
+	list-style-type: none;
+	padding: 0;
+	margin: 0 5px 0 0;
 }
-.tab_menu li a:visited { color:#CBA300; }
-.tab_menu li a:hover { text-decoration:none;background-color:#7A7772;color:#EABB00; }
-.tab_menu li.selected { position:relative; }
-.tab_menu li.selected a { background-color:#5b5955; }
-.tab_menu li.selected a:hover{ text-decoration:none;background-color:#7A7772; }
+
+.tab_menu li a {
+	width: 120px;
+	text-align: left;
+	padding: 2px 6px 4px;
+	background: #FECE2F;
+	color: #4C3000;
+	margin: 1px;
+	*margin: 0px;
+	display: block;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 0.7em;
+	font-style: normal;
+}
+
+.tab_menu li hr {
+	border: 0;
+	width: 142px;
+	height: 5px;
+	background: #4C3000;
+	color: #4C3000;
+	margin: 1px;
+	*margin: 0px;
+	display: block;
+}
+
+.tab_menu li a:hover {
+	background: #FFDD57;
+	color: #0074C7;
+	width: 126px;
+}
+
+.tab_menu li.selected a {
+	background: #FFF8E1;
+	color: #4C3000;
+	width: 130px;
+	cursor: default;
+}
+
+
 
 
 /* Ignore the following options except in the cp */
-
 
 /**
  * Row Coloring
@@ -791,6 +859,13 @@ a.input:hover { color:#0074c7; }
 input.ui-button,
 .ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
 select:focus { outline: none; }
+
+/**
+ * CSS Weirdness
+ */
+.exp-content {
+	overflow: auto;
+}
 
 
 .bottomshadow { background: url(images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }

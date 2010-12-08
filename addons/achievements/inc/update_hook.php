@@ -106,7 +106,7 @@ class achievementsUpdate
 	function achievementsUpdate( $data )
 	{
 		$this->data = $data;
-		$this->baseurl();
+//		$this->baseurl();
 	}
 
 	/**
@@ -144,7 +144,7 @@ class achievementsUpdate
 		return true;
 	}
 
-	function char($char, $memberid) 
+	function char($char, $memberid)
 	{
 		global $roster, $update, $addon;
 
@@ -181,7 +181,7 @@ class achievementsUpdate
 					foreach($achie as $info => $in)
 					{
 						//echo '--'.$info.'-'.$in['Name'].'<br>';
-						
+
 						if ($info != 'id' && $info != 'ParentId')//is_array($achiev))
 						{
 							$achv_points        = '';  //$infos['Points'];
@@ -253,11 +253,11 @@ class achievementsUpdate
 							$this->order++;
 						}
 					}
-				
+
 				}
 			}
-			
-			
+
+
 			if ($sub_cat != '-1')
 			{
 			//echo $sub_cat.'<br>';

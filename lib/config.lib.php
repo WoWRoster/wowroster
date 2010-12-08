@@ -74,8 +74,7 @@ class roster_config
 	{
 		global $roster;
 
-		$menu = '<div style="width:145px;">' . "\n"
-			  . '  <ul id="' . $this->prefix . 'tabs" class="tab_menu">' . "\n";
+		$menu = '<ul id="' . $this->prefix . 'tabs" class="tab_menu">' . "\n";
 
 		if (is_array($this->db_values['menu']))
 		{
@@ -120,9 +119,9 @@ class roster_config
 			}
 		}
 
-		$menu .= "</ul></div>\n";
+		$menu .= "</ul>\n";
 
-		return messagebox($menu, $roster->locale->act['menuconf_section'], 'sgray', '100%');
+		return $menu;
 	}
 
 	/**
@@ -527,7 +526,14 @@ class roster_config
 				$this->db_values[$setitem][$arrayitem]['value'] = $row['config_value'];
 				$this->db_values[$setitem][$arrayitem]['form_type'] = $row['form_type'];
 
-				$db_val_line = '<br /><br /><span style="color:#FFFFFF;font-size:10px;">db name: <span style="color:#FF9900;">' . $row['config_name'] . '</span></span>';
+				if( $roster->config['debug_mode'] > 0 )
+				{
+				$db_val_line = '<br /><br /><span style="color:#FFFFFF;">db name: <span style="color:#FF9900;">' . $row['config_name'] . '</span></span>';
+				}
+				else
+				{
+					$db_val_line = '';
+				}
 
 				// Get description and tooltip
 				if( isset($roster->locale->act['admin'][$row['config_name']]) )
