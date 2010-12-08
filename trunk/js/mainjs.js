@@ -9,67 +9,41 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @since      File available since Release 1.03
-*/
+ */
 
-function submitonce(theform)
-{
-	//if IE 4+ or NS 6+
-	if (document.all||document.getElementById)
-	{
-		//screen thru every element in the form, and hunt down "submit" and "reset"
-		for (i=0;i<theform.length;i++)
-		{
-			var tempobj=theform.elements[i];
-			if(tempobj.type.toLowerCase()=='submit'||tempobj.type.toLowerCase()=='reset')
-				//disable em
-				tempobj.disabled=true;
-		}
-	}
-	return true;
+// Now handled by jQuery
+function submitonce(f) {
+    return true;
 }
 
-/* Some cheesy JS code to set a hidden input field
-    because IE doesn't handle the <button> tag like it
-    is supposed to
-*/
-function setvalue(ElementID,ElementVal)
-{
-	if(document.getElementById)
-		if(document.getElementById(ElementID))
-			document.getElementById(ElementID).value = ElementVal;
+/**
+ * Some cheesy JS code to set a hidden input field because
+ * IE doesn't handle the <button> tag like it is supposed to
+ */
+function setvalue(id, val) {
+	$('#' + id).val(val);
 }
 
 /* Basic id based show */
-function show(ElementID)
-{
-	if(document.getElementById)
-		if(document.getElementById(ElementID))
-			document.getElementById(ElementID).style.display = '';
+function show(id) {
+	$('#' + id).show();
 }
 
 /* Basic id based hide */
-function hide(ElementID)
-{
-	if(document.getElementById)
-		if(document.getElementById(ElementID))
-			document.getElementById(ElementID).style.display = 'none';
+function hide(id) {
+	$('#' + id).hide();
 }
 
 /* Swaps visability of two ids */
-function swapShow(ElementID,ElementID2)
-{
-	if(document.getElementById)
+function swapShow(id,ElementID2) {
+	if ($('#' + id).is(':visible')) {
+		hide(id2);
+		show(id);
+	}
+	else
 	{
-		if(document.getElementById(ElementID).style.display == 'none')
-		{
-			hide(ElementID2);
-			show(ElementID);
-		}
-		else
-		{
-			hide(ElementID);
-			show(ElementID2);
-		}
+		hide(id);
+		show(id2);
 	}
 }
 
@@ -141,17 +115,18 @@ Swaps the visability of an element
 */
 function showHide(ElementID,ImgID,ImgShow,ImgHide)
 {
-	if(document.getElementById)
+	if($('#' + ElementID).is(':visible'))
 	{
-		if(document.getElementById(ElementID).style.display == 'none')
-		{
-			show(ElementID);
-			if(ImgShow) document.getElementById(ImgID).src = ImgShow;
+		hide(ElementID);
+		if(ImgHide) {
+			document.getElementById(ImgID).src = ImgHide;
 		}
-		else
-		{
-			hide(ElementID);
-			if(ImgHide) document.getElementById(ImgID).src = ImgHide;
+	}
+	else
+	{
+		show(ElementID);
+		if(ImgShow) {
+			document.getElementById(ImgID).src = ImgShow;
 		}
 	}
 }

@@ -25,6 +25,14 @@ $(function() {
 	// Style select boxes
 	$('select:not([multiple])').selectmenu({ style:'popup' });
 
+	// Slide down the notification box
+	$('#notify').slideDown('slow');
+	$('#notify .close').hover(
+		function() { $(this).addClass('ui-state-hover'); }, 
+		function() { $(this).removeClass('ui-state-hover'); }
+	)
+	.click(function() { $(this).parent().slideUp('slow'); });
+
 	// Keep forms from submitting more than once
 	$('input[type=submit]').attr('disabled', false);
 	$('input[type=reset]').attr('disabled', false);
@@ -56,6 +64,13 @@ $(function() {
 	$('.mini-list-click').click(function(){
 		$('.mini-list').fadeOut();
 		$('#top_nav > a').removeClass('active');
+	});
+
+	// Check all script
+	// Matches based on rel attribute
+	$('.checkall').click(function () {
+		var rel = $(this).attr('rel');
+		$('input[name*="' + rel + '"]:checkbox').attr('checked', this.checked);
 	});
 
 });

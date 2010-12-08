@@ -1,7 +1,5 @@
 <!-- $Id$ -->
 
-<!-- IF ROSTERCP_MESSAGE -->{ROSTERCP_MESSAGE}<br /><!-- ENDIF -->
-
 {HEADER}
 
 <div class="sections">
@@ -27,7 +25,7 @@
 
 		<div class="tier-1-a">
 			<div class="tier-1-b">
-				<div class="tier-1-c">
+				<div class="tier-1-c exp-content">
 					<div class="tier-1-title">
 						<div class="icon">
 							<img src="{INTERFACE_URL}Interface/Icons/inv_misc_gear_02.{IMG_SUFFIX}" alt="" />
@@ -36,18 +34,26 @@
 						{ROSTERCP_TITLE}
 					</div>
 
-					<table style="width:100%;">
-						<tr>
-<!-- IF MENU neq '' -->
-							<td style="width:15%;" valign="top" align="center">
-{MENU}
-							</td>
+<!-- IF ROSTERCP_MESSAGE -->
+					<div id="notify">
+						<div class="ui-state-default ui-corner-all close" title="close">
+							<span class="ui-icon ui-icon-close"></span>
+						</div>
+{ROSTERCP_MESSAGE}
+					</div>
 <!-- ENDIF -->
-							<td style="width:85%;" valign="top" align="center">
+
+<!-- IF MENU neq '' -->
+					<div class="config-menu">
+{MENU}
+					</div>
+					<div class="config-body-menu">
+<!-- ELSE -->
+					<div class="config-body">
+<!-- ENDIF -->
+
 {BODY}
-							</td>
-						</tr>
-					</table>
+					</div>
 
 				</div>
 			</div>

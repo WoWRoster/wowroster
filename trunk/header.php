@@ -293,6 +293,7 @@ elseif( $roster->scope == 'char' )
 		}
 	}
 }
+
 // BETA ONLY, COMMENT THIS IN RC OR LATER!
 if( file_exists(ROSTER_BASE . 'valid.inc') )
 {
