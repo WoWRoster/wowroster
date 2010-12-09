@@ -983,13 +983,13 @@ class update
 			$this->reset_values();
 			$this->add_value('member_id', $memberId);
 
-			$id = explode(':', $reagent['Item']);
+		       //	$id = explode(':', $reagent['Item']);
 			$this->add_value('reagent_name', $reagent['Name']);
 			$this->add_value('reagent_count', $reagent['Count']);
 			$this->add_value('reagent_color', $reagent['Color']);
 			$this->add_value('reagent_tooltip', $reagent['Tooltip']);
 			$this->add_value('reagent_texture', $reagent['Icon']);
-			$this->add_value('reagent_id', $id[0]);
+			$this->add_value('reagent_id', $reagent['Icon']);//$id[0]);
 
 			$this->add_value('locale', $locale);
 
