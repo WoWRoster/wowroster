@@ -571,6 +571,8 @@ $lang['race_to_en'] = array(
 	'No-muerto' => 'Undead',
 	'Trol'      => 'Troll',
 	'Tauren'    => 'Tauren',
+	'Worgen'	=> 'Worgen',
+	'Goblin'	=> 'Goblin',
 // Female variation
 	'Elfa de sangre' => 'Blood Elf',
 //	'Draenei'   => 'Draenei',
@@ -595,6 +597,8 @@ $lang['race_to_id'] = array(
 	'Trol'      => 8,
 	'Elfo de sangre' => 10,
 	'Draenei'   => 11,
+	'Worgen'	=> 22,
+	'Goblin'	=> 9,
 // Female variation
 	'Humana'    => 1,
 	'Orca'      => 2,
@@ -619,6 +623,8 @@ $lang['id_to_race'] = array(
 	8 => 'Trol',
 	10 => 'Elfo de sangre',
 	11 => 'Draenei',
+	22 => 'Worgen',
+	9 => 'Goblin',
 );
 
 $lang['hslist']=' Estadísticas de honor';
