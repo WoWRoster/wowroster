@@ -571,8 +571,8 @@ $lang['race_to_en'] = array(
 	'Untoter'  => 'Undead',
 	'Troll'    => 'Troll',
 	'Tauren'   => 'Tauren',
-	'Worgen'	=> 'Worgen',
-	'Goblin'	=> 'Goblin',
+	'Worgen'   => 'Worgen',
+	'Goblin'   => 'Goblin',
 // Female variation
 //	'Blutelf'  => 'Blood Elf',
 //	'Draenei'  => 'Draenei',
@@ -584,6 +584,8 @@ $lang['race_to_en'] = array(
 //	'Untoter'  => 'Undead',
 //	'Troll'    => 'Troll',
 //	'Tauren'   => 'Tauren',
+//	'Worgen'   => 'Worgen',
+//	'Goblin'   => 'Goblin',
 );
 
 $lang['race_to_id'] = array(
@@ -597,8 +599,8 @@ $lang['race_to_id'] = array(
 	'Troll'    => 8,
 	'Blutelf'  => 10,
 	'Draenei'  => 11,
-	'Worgen'	=> 22,
-	'Goblin'	=> 9,
+	'Worgen'   => 22,
+	'Goblin'   => 9,
 // Female variation
 //	'Mensch'   => 1,
 //	'Orc'      => 2,
@@ -610,6 +612,8 @@ $lang['race_to_id'] = array(
 //	'Troll'    => 8,
 //	'Blutelf'  => 10,
 //	'Draenei'  => 11,
+//	'Worgen'   => 22,
+//	'Goblin'   => 9,
 );
 
 $lang['id_to_race'] = array(

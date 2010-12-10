@@ -571,9 +571,11 @@ $lang['race_to_en'] = array(
 	'Undead'    => 'Undead',
 	'Troll'     => 'Troll',
 	'Tauren'    => 'Tauren',
-	'Worgen'	=> 'Worgen',
-	'Goblin'	=> 'Goblin',
+	'Worgen'    => 'Worgen',
+	'Goblin'    => 'Goblin',
 // Space so locale files are line synced
+
+
 
 
 
@@ -597,9 +599,11 @@ $lang['race_to_id'] = array(
 	'Troll'     => 8,
 	'Blood Elf' => 10,
 	'Draenei'   => 11,
-	'Worgen'	=> 22,
-	'Goblin'	=> 9,
+	'Worgen'    => 22,
+	'Goblin'    => 9,
 // Space so locale files are line synced
+
+
 
 
 
