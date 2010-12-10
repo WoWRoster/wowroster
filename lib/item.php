@@ -1100,6 +1100,14 @@ class item
 				//Requires
 				$tt['Attributes']['Requires'][] = $line;
 			}
+			
+			//$lang['tooltip_reforged']
+			elseif( preg_match( "/" . $roster->locale->wordings[$locale]['tooltip_reforged'] . "/i", $line) )
+			{
+				//Reforged
+				$tt['Attributes']['Requires'][] = $line;
+			}
+			
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_level'], $line, $matches) )
 			{
 				//Item Level

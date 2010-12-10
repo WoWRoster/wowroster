@@ -825,6 +825,7 @@ $lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Drop Rate';
+$lang['tooltip_reforged']='Reforged';
 
 $lang['tooltip_chance_hit']='Chance to|on hit:';
 $lang['tooltip_reg_requires']='Requires';
