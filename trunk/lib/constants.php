@@ -98,9 +98,11 @@ define('ROSTER_RACE_SCOURGE', 5);
 define('ROSTER_RACE_TAUREN', 6);
 define('ROSTER_RACE_GNOME', 7);
 define('ROSTER_RACE_TROLL', 8);
-//define('ROSTER_RACE_', 9);
+define('ROSTER_RACE_GOBLIN', 9);
 define('ROSTER_RACE_BLOODELF', 10);
 define('ROSTER_RACE_DRAENEI', 11);
+
+define('ROSTER_RACE_WORGEN', 22);
 
 define('ROSTER_SEX_MALE', 0);
 define('ROSTER_SEX_FEMALE', 1);
