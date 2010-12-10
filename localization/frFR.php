@@ -562,7 +562,7 @@ $lang['id_to_class'] = array(
 // Race to English Translation
 $lang['race_to_en'] = array(
 	'Elfe de sang' => 'Blood Elf',
-	'Draeneï'     => 'Draenei',
+	'Draeneï'      => 'Draenei',
 	'Elfe de la nuit' => 'Night Elf',
 	'Nain'         => 'Dwarf',
 	'Gnome'        => 'Gnome',
@@ -571,19 +571,21 @@ $lang['race_to_en'] = array(
 	'Mort-vivant'  => 'Undead',
 	'Troll'        => 'Troll',
 	'Tauren'       => 'Tauren',
-	'Worgen'	=> 'Worgen',
-	'Goblin'	=> 'Goblin',
+	'Worgen'       => 'Worgen',
+	'Gobelin'      => 'Goblin',
 // Female variation
-//	'Elfe de sang' => 'Blood Elf',
-//	'Draeneï'     => 'Draenei',
+//	'Elfe de sang'  => 'Blood Elf',
+//	'Draeneï'       => 'Draenei',
 //	'Elfe de la nuit' => 'Night Elf',
 	'Naine'         => 'Dwarf',
-//	'Gnome'        => 'Gnome',
+//	'Gnome'         => 'Gnome',
 	'Humaine'       => 'Human',
 	'Orque'         => 'Orc',
 	'Morte-vivante' => 'Undead',
 	'Trollesse'     => 'Troll',
 	'Taurène'       => 'Tauren',
+//	'Worgen'        => 'Worgen',
+//	'Gobelin'       => 'Goblin',
 );
 
 $lang['race_to_id'] = array(
@@ -596,9 +598,9 @@ $lang['race_to_id'] = array(
 	'Gnome'        => 7,
 	'Troll'        => 8,
 	'Elfe de sang' => 10,
-	'Draeneï'     => 11,
-	'Worgen'	=> 22,
-	'Goblin'	=> 9,
+	'Draeneï'      => 11,
+	'Worgen'       => 22,
+	'Gobelin'      => 9,
 // Female variation
 	'Humaine'       => 1,
 	'Orque'         => 2,
@@ -610,6 +612,8 @@ $lang['race_to_id'] = array(
 	'Trollesse'     => 8,
 //	'Elfe de sang'  => 10,
 //	'Draeneï'      => 11,
+//	'Worgen'       => 22,
+//	'Gobelin'      => 9,
 );
 
 $lang['id_to_race'] = array(
@@ -624,7 +628,7 @@ $lang['id_to_race'] = array(
 	10 => 'Elfe de sang',
 	11 => 'Draeneï',
 	22 => 'Worgen',
-	9 => 'Goblin',
+	9 => 'Gobelin',
 );
 
 $lang['hslist']=' Statistiques du Système d\'Honneur';
