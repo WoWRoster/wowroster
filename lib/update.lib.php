@@ -989,7 +989,7 @@ class update
 			$this->add_value('reagent_color', $reagent['Color']);
 			$this->add_value('reagent_tooltip', $reagent['Tooltip']);
 			$this->add_value('reagent_texture', $reagent['Icon']);
-			$this->add_value('reagent_id', $reagent['Icon']);//$id[0]);
+			$this->add_value('reagent_id', $reagent['Item']);//$id[0]);
 
 			$this->add_value('locale', $locale);
 
