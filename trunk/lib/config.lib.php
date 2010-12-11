@@ -51,7 +51,7 @@ class roster_config
 		global $roster;
 
 		// Color Picker JS
-		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
+//		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
 
 		$this->tablename = $tablename;
 		$this->where = $where;
@@ -373,7 +373,10 @@ class roster_config
 					break;
 
 				case 'color':
-					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:' . $values['value'] . ';" value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '" id="' . $this->prefix . 'color_' . $values['name'] . '" /><img src="' . $roster->config['theme_path'] . '/images/color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;" onclick="showColorPicker(this,document.getElementById(\'' . $this->prefix . 'color_' . $values['name'] . '\'))" alt="" />' . "\n";
+					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:' . $values['value'] . ';"'
+						. ' value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '" id="' . $this->prefix . 'color_' . $values['name'] . '" />'
+						. '<img src="' . $roster->config['theme_path'] . '/images/color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;"'
+						. ' onclick="showColorPicker(this,document.getElementById(\'' . $this->prefix . 'color_' . $values['name'] . '\'))" alt="" />' . "\n";
 					break;
 
 				case 'access':
