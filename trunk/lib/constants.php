@@ -67,7 +67,7 @@ define('ROSTER_LOCALE_DIR', ROSTER_BASE . 'localization' . DIR_SEP);
  */
 define('ROSTER_SVNREMOTE', 'http://www.wowroster.net/updater/roster_beta/version_match.php');
 define('ROSTER_UPDATECHECK', 'http://www.wowroster.net/updater/roster_beta/version.txt');
-define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/rss/downloads.php?id=%1$s');
+define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/downloads.php?id=%1$s');
 
 /**
  * Some static and semi-static game data.

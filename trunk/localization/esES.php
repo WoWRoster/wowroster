@@ -705,6 +705,7 @@ $lang['faction_to_id'] = array(
 	'Horde Expedition' => 'horde',
 	'Horde' => 'horde',
 	'Horde Forces' => 'horde',
+	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
 );
 
