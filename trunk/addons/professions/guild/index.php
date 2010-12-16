@@ -82,8 +82,11 @@ if( $roster->db->num_rows($result) )
 		$roster->tpl->assign_block_vars('profession',array(
 			'ID'        => $id,
 			'ICON'      => $roster->locale->act['ts_iconArray'][$skill_name],
+			'TOOLTIP'   => makeOverlib($skill_name,'','',2,'',',WRAP'),
 			'NAME'      => $skill_name,
-			'MAX_LEVEL' => $max_level
+			'MAX_LEVEL' => $max_level,
+			'LINK'      => makelink('#' . strtolower(str_replace(" ", "",$skill_name))),
+			'LINK_L'    => strtolower(str_replace(" ", "",$skill_name)),
 			)
 		);
 

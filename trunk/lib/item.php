@@ -138,14 +138,17 @@ class item
 		return $linktip;
 	}
 
-	function out()
+	function out( $small = false )
 	{
-		$output = '<div class="item" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '>
+		$output = '<div class="item' . ($small ? '-sm' : '') . '" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '>
 	<img src="' . $this->tpl_get_icon() . '" alt="" />
-	<div class="mask ' . $this->quality . '"></div>
-	<b>' . $this->quantity . '</b><span>' . $this->quantity . '</span>
-</div>
-';
+	<div class="mask ' . $this->quality . '"></div>';
+		if( $this->quantity > 1 )
+		{
+			$output .= "\n	<b>" . $this->quantity . '</b><span>' . $this->quantity . '</span>';
+		}
+		$output .= "\n</div>\n";
+
 		return $output;
 	}
 
