@@ -501,6 +501,16 @@ class Upgrade
 			$roster->db->query('DELETE FROM `' . $roster->db->table('menu_button') . '` WHERE `addon_id`= "0" AND `title` = "menu_credits";');
 		}
 
+		// Re-add expertise, reports of it's demise are exaggerated
+		if( version_compare($roster->config['version'], '2.0.9.2238', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('players') . "`
+				ADD `melee_expertise` int(11) NOT NULL default '0' AFTER `melee_haste_d`,
+				ADD `melee_expertise_c` int(11) NOT NULL default '0' AFTER `melee_expertise`,
+				ADD `melee_expertise_b` int(11) NOT NULL default '0' AFTER `melee_expertise_c`,
+				ADD `melee_expertise_d` int(11) NOT NULL default '0' AFTER `melee_expertise_b`;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

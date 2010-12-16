@@ -481,25 +481,34 @@
 .main-panel .talents .frames { margin: auto; height: 430px; width: auto; }
 
 .main-panel .talents .spec { position:relative; float: left; width:250px; height:410px; margin: 3px; }
-.main-panel .talents .spec-name { background: url(../images/shader.png) repeat; position:absolute; width:240px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; }
+.main-panel .talents .spec-name { position:absolute; background: url(../images/shader.png) repeat; width:240px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; }
 .main-panel .talents .spec-name .name { color:#ffdd00; }
 .main-panel .talents .tbackground { position:absolute;width:250px;height:410px; }
 .main-panel .talents .content { position:absolute;width:250px;height:410px; }
 
-.main-panel .talents .row { height:40px; margin-top:14px; }
-.main-panel .talents .cell { float:left; width:40px; height:40px; margin-left:16px; top: 0;}
+.main-panel .talents .talent-cell { position: relative; float:left; width:56px; height:54px; }
+.main-panel .talents .talent-icon { position: absolute; top: 14px; left: 16px; height: 40px; width: 40px; }
+.main-panel .talents .talent-icon img { position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
+.main-panel .talents .talent-mask { background: url(../images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
+.main-panel .talents .talent-mask:hover { background-position: right top; }
 
-.main-panel .talents .talent-cell { display: block; position: relative; height: 40px; width: 40px; }
-.main-panel .talents .talent-icon { position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
-.main-panel .talents .mask { background: url(../images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
-.main-panel .talents .mask:hover { background-position: right top; }
-.main-panel .talents .rank-icon { position:absolute; margin-top:31px; margin-left:30px; }
-.main-panel .talents .rank-text { position:absolute; font-size:12px; margin-top:31px; margin-left:34px; cursor:default; }
+.main-panel .talents .talent-ability { background: url(images/talents/frame-ability.png) no-repeat left top; height:54px; width:54px; position: absolute; left: 0; top: 0; }
+
+/* points */
+.main-panel .talents .points,
+.main-panel .talents .points-full { position: absolute; left: 30px; top: 30px; width: 14px; height: 15px; line-height: 14px; color: #6fff5b; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; border: 1px solid #17c815; text-align: center; background: black; }
+.main-panel .talents .points .frame,
+.main-panel .talents .points-full .frame { position: absolute; left: -4px; top: -4px; width: 22px; height: 22px; background: url(images/talents/points-frame.png) no-repeat; }
+
+.main-panel .talents .points-full { border-color: #c7a200; color: #ffd200; }
+.main-panel .talents .points-full .frame { background-position: right top;  }
+
 
 /* Grey out unused talents */
 /* filter:gray only works in IE so we do this to half-assed transparency for Mozilla and Opera */
-.main-panel .talents .icon_grey { filter:gray;opacity:0.3; }
+.main-panel .talents .icon_grey { filter:gray;opacity:0.4; }
 
+/* Glyphs */
 .main-panel .talents .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; clear: right; }
 .main-panel .talents .glyph-1 img { float: left; background: url(images/glyphs/glyph_bg_major.png); height: 30px; width: 30px; padding: 5px; }
 .main-panel .talents .glyph-1 .text { background: url(images/glyphs/glyph_bg_text.png) no-repeat right center; font-size: 14px; font-weight: bold; text-transform: capitalize; color: #FFF; float: left; line-height: 30px; height: 30px; width: 250px; margin-top: 5px; margin-bottom: 5px; padding-right: 5px; padding-left: 5px;  }

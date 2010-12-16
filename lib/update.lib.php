@@ -969,7 +969,7 @@ class update
 	 * @param string $item
 	 * @return bool
 	 */
-	function insert_reagent( $memberId,$reagents,$locale )
+	function insert_reagent( $memberId , $reagents , $locale )
 	{
 		global $roster;
 		//echo'<pre>';
@@ -977,19 +977,35 @@ class update
 
 		foreach ($reagents as $ind => $reagent)
 		{
-			//echo'<pre>';
-			//print_r($reagent);
-			//echo $reagent['Name'];
 			$this->reset_values();
 			$this->add_value('member_id', $memberId);
+			$this->add_value('reagent_id', $reagent['Item']);
+			$this->add_ifvalue($reagent, 'Name', 'reagent_name');
+			$this->add_ifvalue($reagent, 'Count', 'reagent_count');
+			$this->add_ifvalue($reagent, 'Color', 'reagent_color');
 
-		       //	$id = explode(':', $reagent['Item']);
-			$this->add_value('reagent_name', $reagent['Name']);
-			$this->add_value('reagent_count', $reagent['Count']);
-			$this->add_value('reagent_color', $reagent['Color']);
-			$this->add_value('reagent_tooltip', $reagent['Tooltip']);
+			// Fix icon
+			if( !empty($reagent['Icon']) )
+			{
+				$reagent['Icon'] = $this->fix_icon($reagent['Icon']);
+			}
+			else
+			{
+				$reagent['Icon'] = 'inv_misc_questionmark';
+			}
+
+			// Fix tooltip
+			if( !empty($reagent['Tooltip']) )
+			{
+				$reagent['item_tooltip'] = $this->tooltip($reagent['Tooltip']);
+			}
+			else
+			{
+				$reagent['item_tooltip'] = $reagent['Name'];
+			}
+
 			$this->add_value('reagent_texture', $reagent['Icon']);
-			$this->add_value('reagent_id', $reagent['Item']);//$id[0]);
+			$this->add_value('reagent_tooltip', $reagent['Tooltip']);
 
 			$this->add_value('locale', $locale);
 
@@ -1002,21 +1018,18 @@ class update
 			{
 				$this->add_value('level', $level[1]);
 			}
-*/
-			// gotta see of the reagent is in the db allready....
 
-			$querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = ".$id[0].";";
+			// gotta see of the reagent is in the db already....
+
+			$querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = " . $id[0] . ";";
 			$resulta = $roster->db->query($querystra);
 			$num = $roster->db->num_rows($resulta);
-
-			if( $num == 0 )
+*/
+			$querystr = "INSERT INTO `" . $roster->db->table('recipes_reagents') . "` SET " . $this->assignstr . ";";
+			$result = $roster->db->query($querystr);
+			if( !$result )
 			{
-				$querystr = "INSERT INTO `" . $roster->db->table('recipes_reagents') . "` SET " . $this->assignstr . ";";
-				$result = $roster->db->query($querystr);
-				if( !$result )
-				{
-					$this->setError('Item [' . $reagent['item_name'] . '] could not be inserted',$roster->db->error());
-				}
+				$this->setError('Item [' . $reagent['Name'] . '] could not be inserted',$roster->db->error());
 			}
 
 		}
@@ -1030,7 +1043,7 @@ class update
 	 * @param string $item
 	 * @return bool
 	 */
-	function insert_item( $item,$locale )
+	function insert_item( $item , $locale )
 	{
 		global $roster;
 		// echo '<pre>';
@@ -1103,6 +1116,7 @@ class update
 		}
 	}
 
+
 	/**
 	 * Inserts mail into the Database
 	 *
@@ -1150,7 +1164,7 @@ class update
 		$this->add_ifvalue($recipe, 'skill_name');
 		$this->add_ifvalue($recipe, 'difficulty');
 		$this->add_ifvalue($recipe, 'item_color');
-		$this->add_ifvalue($recipe, 'reagents');
+		$this->add_ifvalue($recipe, 'reagent_list','reagents');
 		$this->add_ifvalue($recipe, 'recipe_texture');
 		$this->add_ifvalue($recipe, 'recipe_tooltip');
 
@@ -1165,39 +1179,6 @@ class update
 		if( !$result )
 		{
 			$this->setError('Recipe [' . $recipe['recipe_name'] . '] could not be inserted',$roster->db->error());
-		}
-	}
-
-
-	/**
-	 * Update Memberlog function
-	 *
-	 */
-	function updateMemberlog( $data , $type , $timestamp )
-	{
-		global $roster;
-
-		$this->reset_values();
-		$this->add_ifvalue($data, 'member_id');
-		$this->add_ifvalue($data, 'name');
-		$this->add_ifvalue($data, 'server');
-		$this->add_ifvalue($data, 'region');
-		$this->add_ifvalue($data, 'guild_id');
-		$this->add_ifvalue($data, 'class');
-		$this->add_ifvalue($data, 'classid');
-		$this->add_ifvalue($data, 'level');
-		$this->add_ifvalue($data, 'note');
-		$this->add_ifvalue($data, 'guild_rank');
-		$this->add_ifvalue($data, 'guild_title');
-		$this->add_ifvalue($data, 'officer_note');
-		$this->add_time('update_time', getDate($timestamp));
-		$this->add_value('type', $type);
-
-		$querystr = "INSERT INTO `" . $roster->db->table('memberlog') . "` SET " . $this->assignstr . ";";
-		$result = $roster->db->query($querystr);
-		if( !$result )
-		{
-			$this->setError('Member Log [' . $data['name'] . '] could not be inserted',$roster->db->error());
 		}
 	}
 
@@ -1261,9 +1242,9 @@ class update
 		{
 			$this->setError('Quest Data [' . $quest['QuestId'] . ' : ' . $quest['Title'] . '] could not be inserted',$roster->db->error());
 		}
-
+/*
 		// Now process tasks
-		/* NOT PROCESSING, BUT CODE AND TABLE LAYOUT IS HERE FOR LATER
+		   NOT PROCESSING, BUT CODE AND TABLE LAYOUT IS HERE FOR LATER
 		   The reason is that the task number is in the name
 		   and this is not good for a normalized table
 
@@ -1308,7 +1289,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->setError('Quest Task [' . $taskInfo['Note'] . '] for Quest Data [' . $quest['QuestId'] . ' : ' . $quest['Title'] . '] could not be inserted',$roster->db->error());
 				}
 			}
-		}*/
+		}
+*/
 
 		// Insert this quest id for the character
 		$this->reset_values();
@@ -1488,13 +1470,45 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$recipe['recipe_name'] = $recipe_name;
 		$recipe['recipe_type'] = $recipe_type;
 		$recipe['skill_name'] = $parent;
-		$recipe['difficulty'] = $recipe_data['Difficulty'];
+
+		// Fix Difficulty since it's now a string field
+		if( !is_numeric($recipe_data['Difficulty']) )
+		{
+			switch($recipe_data['Difficulty'])
+			{
+				case 'difficult':
+					$recipe['difficulty'] = 5;
+					break;
+
+				case 'optimal':
+					$recipe['difficulty'] = 4;
+					break;
+
+				case 'medium':
+					$recipe['difficulty'] = 3;
+					break;
+
+				case 'easy':
+					$recipe['difficulty'] = 2;
+					break;
+
+				case 'trivial':
+				default:
+					$recipe['difficulty'] = 1;
+					break;
+			}
+		}
+		else
+		{
+			$recipe['difficulty'] = $recipe_data['Difficulty'];
+		}
+
 		$recipe['item_color'] = isset($recipe_data['Color']) ? $recipe_data['Color'] : '';
 		$recipe['item_id'] = isset($recipe_data['Item']) ? $recipe_data['Item'] : '';
 		$recipe['recipe_id'] = isset($recipe_data['RecipeID']) ? $recipe_data['RecipeID'] : '';
 
-		$recipe['reagent'] = $recipe_data['Reagents'];//array();
-		$recipe['reagents'] = array();
+		$recipe['reagent_data'] = $recipe_data['Reagents'];
+		$recipe['reagent_list'] = array();
 
 		foreach( $recipe_data['Reagents'] as $d => $reagent )
 		{
@@ -1508,11 +1522,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 			{
 				$count = '1';
 			}
-			$recipe['reagents'][] = $id[0] . ':' . $count;
+			$recipe['reagent_list'][] = $id[0] . ':' . $count;
 		}
-		$recipe['reagents'] = implode('|',$recipe['reagents']);
+		$recipe['reagent_list'] = implode('|',$recipe['reagent_list']);
 
-//		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Result']['Icon']);
 		$recipe['recipe_texture'] = $this->fix_icon($recipe_data['Icon']);
 
 		if( !empty($recipe_data['Tooltip']) )
@@ -1670,14 +1683,15 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 			// Delete the stale data
 			$querystr = "DELETE FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '$memberId';";
-			$querystra = "DELETE FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Professions could not be deleted',$roster->error());
 				return;
-			}if( !$roster->db->query($querystra) )
+			}
+			$querystr = "DELETE FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `member_id` = '$memberId';";
+			if( !$roster->db->query($querystr) )
 			{
-				$this->setError('Professions reagents could not be deleted',$roster->error());
+				$this->setError('Profession reagents could not be deleted',$roster->error());
 				return;
 			}
 			// Then process Professions
@@ -1698,7 +1712,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						}
 						$recipe = $this->make_recipe($recipeDetails, $memberId, $skill_name, $recipe_type, $recipe_name);
 						$this->insert_recipe($recipe,$data['Locale']);
-						$this->insert_reagent($memberId,$recipe['reagent'],$data['Locale']);
+						$this->insert_reagent($memberId,$recipe['reagent_data'],$data['Locale']);
 					}
 				}
 			}
@@ -3001,6 +3015,40 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->setMessage($messages . '</ul>');
 	}
 
+
+	/**
+	 * Update Memberlog function
+	 *
+	 */
+	function updateMemberlog( $data , $type , $timestamp )
+	{
+		global $roster;
+
+		$this->reset_values();
+		$this->add_ifvalue($data, 'member_id');
+		$this->add_ifvalue($data, 'name');
+		$this->add_ifvalue($data, 'server');
+		$this->add_ifvalue($data, 'region');
+		$this->add_ifvalue($data, 'guild_id');
+		$this->add_ifvalue($data, 'class');
+		$this->add_ifvalue($data, 'classid');
+		$this->add_ifvalue($data, 'level');
+		$this->add_ifvalue($data, 'note');
+		$this->add_ifvalue($data, 'guild_rank');
+		$this->add_ifvalue($data, 'guild_title');
+		$this->add_ifvalue($data, 'officer_note');
+		$this->add_time('update_time', getDate($timestamp));
+		$this->add_value('type', $type);
+
+		$querystr = "INSERT INTO `" . $roster->db->table('memberlog') . "` SET " . $this->assignstr . ";";
+		$result = $roster->db->query($querystr);
+		if( !$result )
+		{
+			$this->setError('Member Log [' . $data['name'] . '] could not be inserted',$roster->db->error());
+		}
+	}
+
+
 	/**
 	 * Delete Guild from database. Doesn't directly delete members, because some of them may have individual upload permission (char based)
 	 *
@@ -3910,12 +3958,12 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->add_rating('melee_hit', $attack['HitRating']);
 			$this->add_rating('melee_crit', $attack['CritRating']);
 			$this->add_rating('melee_haste', $attack['HasteRating']);
-			/*
+
 			if (isset($attack['Expertise']))
 			{
 				$this->add_rating('melee_expertise', $attack['Expertise']);
 			}
-*/
+
 			$this->add_ifvalue($attack, 'CritChance', 'melee_crit_chance');
 			$this->add_ifvalue($attack, 'AttackPowerDPS', 'melee_power_dps');
 

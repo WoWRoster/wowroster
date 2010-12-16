@@ -253,8 +253,6 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .tier-5-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
 .tier-5-b .text div { float: left; height: 24px; }
-.tier-5-b .icon .item { width: 24px; height: 24px; margin: 0px; padding: 0px; }
-.tier-5-b .icon .item img.icon { width: 24px; height: 24px; margin: 0px; padding: 0px; }
 
 
 .tier-6-a { background:url(images/tier/tier_6_a.jpg) no-repeat right top; height: 30px; }
@@ -285,87 +283,60 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .container .inner { margin-right: 20px; margin-left: 20px; }
 
 .container .item { position:relative; float: left; margin: 3px; }
-.container .item img{ position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px;}
-.container .item .mask { display: block; background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; left: 0; top: 0; }
-.container .item .mask:hover { background-position: left bottom; }
 
+/* Medium Item Qualities */
+.item { position:relative; float: left; margin: 3px; height: 40px; width: 40px; }
+.item img{ position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
+.item .mask { position: absolute; height: 40px; width: 40px; z-index: 100; left: 0; top: 0; }
 
-/* Container Medium Item Qualities */
-.container .tier-2-b .item { position:relative; float: left; margin: 3px; }
-.container .tier-2-b .item img{ position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px;}
-.container .tier-2-b .item .mask { background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; z-index: 100; left: 0; top: 0; }
+.item .none,
+.item .poor { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
+.item .common { background: url(images/mask/medium/item_common.png) no-repeat left top; }
+.item .uncommon { background: url(images/mask/medium/item_uncommon.png) no-repeat left top; }
+.item .rare { background: url(images/mask/medium/item_rare.png) no-repeat left top; }
+.item .epic { background: url(images/mask/medium/item_epic.png) no-repeat left top; }
+.item .legendary { background: url(images/mask/medium/item_legendary.png) no-repeat left top; }
+.item .artifact,
+.item .heirloom { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
 
-.container .tier-2-b .item .none { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
-.container .tier-2-b .item .none:hover { background-position: left bottom; }
-.container .tier-2-b .item .poor { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
-.container .tier-2-b .item .poor:hover { background-position: left bottom; }
-.container .tier-2-b .item .common { background: url(images/mask/medium/item_common.png) no-repeat left top; }
-.container .tier-2-b .item .common:hover { background-position: left bottom; }
-.container .tier-2-b .item .uncommon { background: url(images/mask/medium/item_uncommon.png) no-repeat left top; }
-.container .tier-2-b .item .uncommon:hover { background-position: left bottom; }
-.container .tier-2-b .item .rare { background: url(images/mask/medium/item_rare.png) no-repeat left top; }
-.container .tier-2-b .item .rare:hover { background-position: left bottom; }
-.container .tier-2-b .item .epic { background: url(images/mask/medium/item_epic.png) no-repeat left top; }
-.container .tier-2-b .item .epic:hover { background-position: left bottom; }
-.container .tier-2-b .item .legendary { background: url(images/mask/medium/item_legendary.png) no-repeat left top; }
-.container .tier-2-b .item .legendary:hover { background-position: left bottom; }
-.container .tier-2-b .item .artifact { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
-.container .tier-2-b .item .artifact:hover { background-position: left bottom; }
-.container .tier-2-b .item .heirloom { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
-.container .tier-2-b .item .heirloom:hover { background-position: left bottom; }
+.item .none:hover,
+.item .poor:hover,
+.item .common:hover,
+.item .uncommon:hover,
+.item .rare:hover,
+.item .epic:hover,
+.item .legendary:hover,
+.item .artifact:hover,
+.item .heirloom:hover { background-position: left bottom; }
 
 
 /* Container Small Item Qualities */
-.container .tier-5-b .item, .container .tier-6-b .item { width: 24px; height: 24px; margin: 0; padding: 0; }
-.container .tier-5-b .item img, .container .tier-6-b .item img { width: 24px; height: 24px; margin: 0; padding: 0; }
-.container .tier-5-b .item .mask, .container .tier-6-b .item .mask { height: 24px; width: 24px; position: absolute; z-index: 100; left: 0; top: 0;}
+.item-sm { position:relative; width: 24px; height: 24px; margin: 0; padding: 0; }
+.item-sm img { width: 24px; height: 24px; margin: 0; padding: 0; }
+.item-sm .mask { position: absolute; height: 24px; width: 24px; position: absolute; z-index: 100; left: 0; top: 0;}
 
-.container .tier-5-b .item .none, .container .tier-6-b .item .none { background: url(images/mask/small/item_poor.png) no-repeat left top; }
-.container .tier-5-b .item .none:hover, .container .tier-6-b .item .none:hover { background-position: left bottom; }
-.container .tier-5-b .item .poor, .container .tier-6-b .item .poor { background: url(images/mask/small/item_poor.png) no-repeat left top; }
-.container .tier-5-b .item .poor:hover,.container .tier-6-b .item .poor:hover  { background-position: left bottom; }
-.container .tier-5-b .item .common, .container .tier-6-b .item .common { background: url(images/mask/small/item_common.png) no-repeat left top; }
-.container .tier-5-b .item .common:hover, .container .tier-6-b .item .common:hover { background-position: left bottom; }
-.container .tier-5-b .item .uncommon, .container .tier-6-b .item .uncommon { background: url(images/mask/small/item_uncommon.png) no-repeat left top; }
-.container .tier-5-b .item .uncommon:hover, .container .tier-6-b .item .uncommon:hover { background-position: left bottom; }
-.container .tier-5-b .item .rare, .container .tier-6-b .item .rare { background: url(images/mask/small/item_rare.png) no-repeat left top; }
-.container .tier-5-b .item .rare:hover, .container .tier-6-b .item .rare:hover { background-position: left bottom; }
-.container .tier-5-b .item .epic, .container .tier-6-b .item .epic { background: url(images/mask/small/item_epic.png) no-repeat left top; }
-.container .tier-5-b .item .epic:hover, .container .tier-6-b .item .epic:hover { background-position: left bottom; }
-.container .tier-5-b .item .legendary, .container .tier-6-b .item .legendary { background: url(images/mask/small/item_legendary.png) no-repeat left top; }
-.container .tier-5-b .item .legendary:hover, .container .tier-6-b .item .legendary:hover { background-position: left bottom; }
-.container .tier-5-b .item .artifact, .container .tier-6-b .item .artifact { background: url(images/mask/small/item_artifact.png) no-repeat left top; }
-.container .tier-5-b .item .artifact:hover, .container .tier-6-b .item .artifact:hover { background-position: left bottom; }
-.container .tier-5-b .item .heirloom, .container .tier-6-b .item .heirloom { background: url(images/mask/small/item_artifact.png) no-repeat left top; }
-.container .tier-5-b .item .heirloom:hover, .container .tier-6-b .item .heirloom:hover { background-position: left bottom; }
+.item-sm .none,
+.item-sm .poor { background: url(images/mask/small/item_poor.png) no-repeat left top; }
+.item-sm .common { background: url(images/mask/small/item_common.png) no-repeat left top; }
+.item-sm .uncommon { background: url(images/mask/small/item_uncommon.png) no-repeat left top; }
+.item-sm .rare { background: url(images/mask/small/item_rare.png) no-repeat left top; }
+.item-sm .epic { background: url(images/mask/small/item_epic.png) no-repeat left top; }
+.item-sm .legendary { background: url(images/mask/small/item_legendary.png) no-repeat left top; }
+.item-sm .artifact,
+.item-sm .heirloom { background: url(images/mask/small/item_artifact.png) no-repeat left top; }
 
-
-/* Regular Items */
-.item { position:relative; float: left; margin: 3px; height: 40px; width: 40px; }
-.item img{ position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px;}
-.item .mask { position: absolute; height: 40px; width: 40px; z-index: 100; left: 0; top: 0; }
-
-.item .none { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
-.item .none:hover { background: url(images/mask/medium/item_poor.png) no-repeat left bottom; }
-.item .poor { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
-.item .poor:hover { background: url(images/mask/medium/item_poor.png) no-repeat left bottom; }
-.item .common { background: url(images/mask/medium/item_common.png) no-repeat left top; }
-.item .common:hover { background: url(images/mask/medium/item_common.png) no-repeat left bottom; }
-.item .uncommon { background: url(images/mask/medium/item_uncommon.png) no-repeat left top; }
-.item .uncommon:hover { background: url(images/mask/medium/item_uncommon.png) no-repeat left bottom; }
-.item .rare { background: url(images/mask/medium/item_rare.png) no-repeat left top; }
-.item .rare:hover { background: url(images/mask/medium/item_rare.png) no-repeat left bottom; }
-.item .epic { background: url(images/mask/medium/item_epic.png) no-repeat left top; }
-.item .epic:hover { background: url(images/mask/medium/item_epic.png) no-repeat left bottom; }
-.item .legendary { background: url(images/mask/medium/item_legendary.png) no-repeat left top; }
-.item .legendary:hover { background: url(images/mask/medium/item_legendary.png) no-repeat left bottom; }
-.item .artifact { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
-.item .artifact:hover { background: url(images/mask/medium/item_artifact.png) no-repeat left bottom; }
-.item .heirloom { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
-.item .heirloom:hover { background: url(images/mask/medium/item_artifact.png) no-repeat left bottom; }
+.item-sm .none:hover,
+.item-sm .poor:hover,
+.item-sm .common:hover,
+.item-sm .uncommon:hover,
+.item-sm .rare:hover,
+.item-sm .epic:hover,
+.item-sm .legendary:hover,
+.item-sm .artifact:hover,
+.item-sm .heirloom:hover { background-position: left bottom; }
 
 
-/* Misc Code Fixes */
+/* Item Quantities */
 .item span { position:absolute; bottom:0; right:3px; color:#fff; font-weight:bold; font-size:12px; z-index: 125; }
 .item b { position:absolute; bottom:-1px; right:2px; color:#000; font-weight:bold; font-size:12px; z-index: 120; }
 

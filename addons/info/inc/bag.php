@@ -59,19 +59,6 @@ class bag extends item
 		$bag_type = ( strpos($this->data['item_slot'],'Bank') !== false ? 'bank' : 'bag');
 		$bag_type = ( $this->data['item_slot'] == 'Bag5' ? 'key' : $bag_type);
 
-		$bag_style = $this->data['item_quantity'] % 4;
-
-		if( $bag_style == 0 )
-		{
-			$offset = (($this->data['item_quantity'] / 4) * 41);
-			$offset += 42;
-		}
-		elseif( $bag_style == 2 )
-		{
-			$offset = ((($this->data['item_quantity'] - 2)+1) / 4) * 41;
-			$offset += 53;
-		}
-
 		// If send type is true, the tpl array is set with the bag type
 		$send_type = ( $send_type ? $bag_type : 'bag');
 
@@ -82,8 +69,6 @@ class bag extends item
 			'LINK'    => makelink('#' . str_replace(" ", "",$this->data['item_slot'])),
 			'QUALITY' => $this->quality,
 			'TYPE'    => $bag_type,
-			'STYLE'   => $bag_style,
-			'OFFSET'  => $offset,
 			'ICON'    => $this->tpl_get_icon(),
 			'TOOLTIP' => $this->tpl_get_tooltip(),
 			'LINKTIP' => $this->tpl_get_itemlink(),
