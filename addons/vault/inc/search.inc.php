@@ -78,14 +78,15 @@ class vaultSearch
 	<label for="vault_minle">' . $roster->locale->act['level'] . ':</label>
 	<input type="text" name="vault_minle" id="vault_minle" size="3" maxlength="3" value="' . $this->minlvl . '" /> -
 	<input type="text" name="vault_maxle" id="vault_maxle" size="3" maxlength="3" value="' . $this->maxlvl . '" /><br />
-	<label for="vault_quality">Quality:</label><br />
+	<label for="vault_quality">' . $roster->lang->act['quality'] . ':</label><br />
 	<select name="vault_quality[]" id="vault_quality" size="6" multiple="multiple">
-		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>Poor</option>
-		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>Common</option>
-		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>Uncommon</option>
-		<option value="0070dd" style="color:#0070dd;"' . ( in_array('0070dd',$this->quality) ? ' selected="selected"' : '' ) . '>Rare</option>
-		<option value="a335ee" style="color:#a335ee;"' . ( in_array('a335ee',$this->quality) ? ' selected="selected"' : '' ) . '>Epic</option>
-		<option value="ff8800" style="color:#ff8800;"' . ( in_array('ff8800',$this->quality) ? ' selected="selected"' : '' ) . '>Legendary</option>
+		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['poor'] . '</option>
+		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['common'] . '</option>
+		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['uncommon'] . '</option>
+		<option value="0070dd" style="color:#0070dd;"' . ( in_array('0070dd',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['rare'] . '</option>
+		<option value="a335ee" style="color:#a335ee;"' . ( in_array('a335ee',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['epic'] . '</option>
+		<option value="ff8800" style="color:#ff8800;"' . ( in_array('ff8800',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['legendary'] . '</option>
+		<option value="e6cc80" style="color:#e6cc80;"' . ( in_array('ff8800',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['heirloom'] . '</option>
 	</select>';
 	}
 
@@ -96,13 +97,13 @@ class vaultSearch
 		include_once($this->data['inc_dir'] . 'vault_item.php');
 
 		// Get all the vault page names first
-		$sql = "SELECT `guild_id`, `item_slot`, `item_name`, `item_texture` FROM `" . $roster->db->table('addons_vault_items') . "` WHERE `item_parent` = 'vault';";   
+		$sql = "SELECT `guild_id`, `item_slot`, `item_name`, `item_texture` FROM `" . $roster->db->table('addons_vault_items') . "` WHERE `item_parent` = 'vault';";
 		$result = $roster->db->query($sql);
 		$x = $roster->db->num_rows($result);
 
 		$tab_name = array();
 		while( $x > 0 )
-		{ 
+		{
 			$row = $roster->db->fetch($result);
 			$tab_name[$row['guild_id']][$row['item_slot']] = array(
 				'name' => $row['item_name'],
@@ -143,11 +144,13 @@ class vaultSearch
 				$row['item_quantity'] = $row['total_quantity']; // Totals quantity, found on all pages
 				$icon = new VaultItem($row, false);
 
-				$item['html'] = '<td class="SearchRowCell">' . $icon->out() . '</td>'
+				$item['html'] = '<td class="SearchRowCell">' . $icon->out(true) . '</td>'
 							  . '<td class="SearchRowCell">' . $icon->requires_level . '</td>'
 							  . '<td class="SearchRowCell"><span style="color:#' . $icon->color . '">[' . $icon->name . ']</span></td>'
 							  . '<td class="SearchRowCellRight"><a href="' . makelink('guild-vault&amp;a=g:' . $row['guild_id']) . '">'
-							  . '<img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $tab_name[$row['guild_id']][$row['item_parent']]['icon'] . '.' . $roster->config['img_suffix'] . '" style="width:16px;height:16px;" alt="" /> '
+							  . '<span class="item-sm">'
+							  . '<img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $tab_name[$row['guild_id']][$row['item_parent']]['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" />'
+							  . '<span class="mask none"></span></span>&nbsp;'
 							  . $tab_name[$row['guild_id']][$row['item_parent']]['name'] . '</a></td>';
 
 				$this->add_result($item);

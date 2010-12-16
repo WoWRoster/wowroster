@@ -216,6 +216,17 @@ $lang['scope']='Bereich';
 $lang['tag']='Tag';
 $lang['daily']='Täglich';
 
+// Item Quality
+$lang['quality']='Quality';
+$lang['poor']='Poor';
+$lang['common']='Common';
+$lang['uncommon']='Uncommon';
+$lang['rare']='Rare';
+$lang['epic']='Epic';
+$lang['legendary']='Legendary';
+$lang['artifact']='Artifact';
+$lang['heirloom']='Heirloom';
+
 //start search engine
 $lang['search']='Suche';
 $lang['search_roster']='Suche im Roster';

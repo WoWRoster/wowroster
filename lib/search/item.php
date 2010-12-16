@@ -9,7 +9,7 @@
  * @link       http://www.wowroster.net
  * @package    WoWRoster
  * @subpackage Search
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -78,14 +78,15 @@ class roster_itemSearch
 	<label for="item_minle">' . $roster->locale->act['level'] . ':</label>
 	<input type="text" name="item_minle" id="item_minle" size="3" maxlength="3" value="' . $this->minlvl . '" /> -
 	<input type="text" name="item_maxle" id="item_maxle" size="3" maxlength="3" value="' . $this->maxlvl . '" /><br />
-	<label for="item_quality">Quality:</label><br />
-	<select name="item_quality[]" id="item_quality" size="6" multiple="multiple">
-		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>Poor</option>
-		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>Common</option>
-		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>Uncommon</option>
-		<option value="0070dd" style="color:#0070dd;"' . ( in_array('0070dd',$this->quality) ? ' selected="selected"' : '' ) . '>Rare</option>
-		<option value="a335ee" style="color:#a335ee;"' . ( in_array('a335ee',$this->quality) ? ' selected="selected"' : '' ) . '>Epic</option>
-		<option value="ff8800" style="color:#ff8800;"' . ( in_array('ff8800',$this->quality) ? ' selected="selected"' : '' ) . '>Legendary</option>
+	<label for="item_quality">' . $roster->lang->act['quality'] . ':</label><br />
+	<select name="item_quality[]" id="item_quality" size="7" multiple="multiple">
+		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['poor'] . '</option>
+		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['common'] . '</option>
+		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['uncommon'] . '</option>
+		<option value="0070dd" style="color:#0070dd;"' . ( in_array('0070dd',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['rare'] . '</option>
+		<option value="a335ee" style="color:#a335ee;"' . ( in_array('a335ee',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['epic'] . '</option>
+		<option value="ff8800" style="color:#ff8800;"' . ( in_array('ff8800',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['legendary'] . '</option>
+		<option value="e6cc80" style="color:#e6cc80;"' . ( in_array('ff8800',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->lang->act['heirloom'] . '</option>
 	</select>';
 	}
 
@@ -123,7 +124,7 @@ class roster_itemSearch
 				$row = $roster->db->fetch($result);
 				$icon = new item($row);
 
-				$item['html'] = '<td class="SearchRowCell">' . $icon->out() . '</td>'
+				$item['html'] = '<td class="SearchRowCell">' . $icon->out(true) . '</td>'
 							  . '<td class="SearchRowCell">' . $icon->requires_level . '</td>'
 							  . '<td class="SearchRowCell"><span style="color:#' . $icon->color . '">[' . $icon->name . ']</span></td>'
 							  . '<td class="SearchRowCellRight"><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '"><strong>' . $row['name'] . '</strong></a></td>';

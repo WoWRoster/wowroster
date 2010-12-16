@@ -122,9 +122,9 @@ class recipe
 		return $linktip;
 	}
 
-	function out()
+	function out( $small = false )
 	{
-		$output = '<div class="item">
+		$output = '<div class="item' . ($small ? '-sm' : '') . '">
 	<img src="' . $this->tpl_get_icon() . '" alt="" />
 	<div class="mask ' . $this->quality . '" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '></div>
 </div>

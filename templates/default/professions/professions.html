@@ -7,14 +7,14 @@
 			<div class="tier-1-c">
 				<div class="tier-1-title">{L_PROFESSIONS}
       	          	<div class="links">
-						<!-- BEGIN profession -->
-						<a href="{MAKELINK}#{profession.ID}" class="icon"><img src="{INTERFACE_URL}Interface/Icons/{profession.ICON}.{IMG_SUFFIX}" /><span class="mask" {profession.TOOLTIP}></span></a>
-						<!-- END profession -->
+<!-- BEGIN profession -->
+						<a href="{profession.LINK}" class="icon"><img src="{INTERFACE_URL}Interface/Icons/{profession.ICON}.{IMG_SUFFIX}" /><span class="mask" {profession.TOOLTIP}></span></a>
+<!-- END profession -->
 					</div>                
                 </div>
 
 <!-- BEGIN profession -->
-<a name="{profession.ID}"></a>
+				<a name="{profession.LINK_L}"></a>
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('table_{profession.ID}','img_{profession.ID}','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
