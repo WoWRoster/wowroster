@@ -46,7 +46,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .alliance { background: url(images/bg_alliance.png) no-repeat left top; }
 .horde { background: url(images/bg_horde.png) no-repeat left top; }
 
-.info-header .text { color: #000000; text-align: left; padding: 45px 15px 15px 165px; width:580px; }
+.info-header .text { position: absolute; left: 165px; top: 45px; color: #000000; text-align: left; padding: 0; width: 580px; }
 .info-header .text:hover { background: none; }
 
 .info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
@@ -184,7 +184,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .tier-1-title { color:#491F14; text-decoration:none; display:block; position:relative; font: normal 22px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 .tier-1-title .links { float: right; margin-top: 1px; }
-.tier-1-title .icon { height: 22px; width: 22px; float: left; margin-left: 5px; position: relative; }
+.tier-1-title .icon { height: 22px; width: 22px; float: left; margin: 0 5px; position: relative; }
 .tier-1-title .icon img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
 .tier-1-title .icon .mask { background: url(images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
 
@@ -282,8 +282,6 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .container .inner { margin-right: 20px; margin-left: 20px; }
 
-.container .item { position:relative; float: left; margin: 3px; }
-
 /* Medium Item Qualities */
 .item { position:relative; display:inline-block; float: left; margin: 3px; height: 40px; width: 40px; }
 .item img{ position: absolute; display:block; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
@@ -308,7 +306,6 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .item .legendary:hover,
 .item .artifact:hover,
 .item .heirloom:hover { background-position: left bottom; }
-
 
 /* Container Small Item Qualities */
 .item-sm { position:relative; display:inline-block; width: 24px; height: 24px; margin: 0; padding: 0; }
@@ -335,7 +332,6 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .item-sm .artifact:hover,
 .item-sm .heirloom:hover { background-position: left bottom; }
 
-
 /* Item Quantities */
 .item span, .item-sm span { position:absolute; cursor: default; color:#fff; font-weight:bold; z-index: 125; }
 .item b, .item-sm b { position:absolute; cursor: default; color:#000; font-weight:bold; z-index: 120; }
@@ -343,6 +339,12 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .item b { bottom:-1px; right:2px; font-size:12px; }
 .item-sm b { bottom:-4px; right:1px; font-size:10px; }
 .item-sm span {  bottom:-3px; right:2px; font-size:10px; }
+
+/* Header Icons, Override standard item masks */
+.container .item { position:relative; float: left; margin: 3px; }
+.container .item img{ position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px;}
+.container .item .mask { display: block; background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; left: 0; top: 0; }
+.container .item .mask:hover { background-position: left bottom; }
 
 
 #keyslist img.icon {height:20px; width:20px;}
@@ -459,7 +461,7 @@ img, p { padding:0;margin:0;border:0; }
  */
 #notify { display:none; width:100%; position:relative; color:#999999; }
 #notify .close { position:absolute; top:2px; right:2px; }
-#notify div.message { margin:5px 20px 0 0; padding:0.2em; }
+#notify div.message { margin:5px 0 0 0; padding:0.2em; }
 #notify div.message .ui-icon { float:left; margin-right:0.3em; }
 #notify div.message .content { padding:1em; margin-left:20px; }
 
@@ -843,9 +845,10 @@ select:focus { outline: none; }
 }
 
 
+.guild-stats-container { padding:20px 20px 10px; }
+.filtertitle {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 4px 0 5px 10px; }
+.filtercrest { background: url(images/guildbank_crest.gif) bottom center no-repeat; height: 34px!important; width: 100%; margin: 0 auto; }
+.filtercontainer { background-image: url(images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd; }
+.bankcontentsfilter { height:40px; background: url('images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px; }
 .bottomshadow { background: url(images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }
-.bankcontentsfilter{height:40px; background: url('images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px;}
-.filtercontainer {background-image: url(images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd;}
-.guild-stats-container {padding:20px 20px 10px}
-.filtertitle {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 4px 0 5px 10px;}
-.filtercrest { background: url(images/guildbank_crest.gif) bottom center no-repeat; height: 34px!important; width: 100%; margin: 0px auto;}
+

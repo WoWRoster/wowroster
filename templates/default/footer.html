@@ -34,16 +34,16 @@
 			<div class="header_text sredborder">PHP Errors</div>
 
 			<table cellpadding="0" cellspacing="0" width="100%">
-			<!-- BEGIN php_debug -->
+<!-- BEGIN php_debug -->
 				<tr>
 					<th class="membersHeaderRight">{php_debug.FILE}</th>
 				</tr>
-			<!-- BEGIN row -->
+<!-- BEGIN row -->
 				<tr>
 					<td class="membersRowRight{php_debug.row.ROW_CLASS}" style="font-size:10px;">&nbsp;&nbsp;{php_debug.row.ERROR}</td>
 				</tr>
-			<!-- END row -->
-			<!-- END php_debug -->
+<!-- END row -->
+<!-- END php_debug -->
 			</table>
 
 		</td>
@@ -68,23 +68,23 @@
 						<th class="membersHeader">Time</th>
 						<th class="membersHeaderRight">Query</th>
 					</tr>
-				<!-- BEGIN sql_debug -->
+<!-- BEGIN sql_debug -->
 					<tr>
 						<th colspan="3" class="membersHeaderRight">{sql_debug.FILE}</th>
 					</tr>
-				<!-- BEGIN row -->
+<!-- BEGIN row -->
 					<tr>
 						<td class="membersRow{sql_debug.row.ROW_CLASS}">&nbsp;&nbsp;{sql_debug.row.LINE}</td>
 						<td class="membersRow{sql_debug.row.ROW_CLASS}">{sql_debug.row.TIME}</td>
 						<td class="membersRowRight{sql_debug.row.ROW_CLASS}" style="white-space:normal;">{sql_debug.row.QUERY}</td>
 					</tr>
-				<!-- IF S_DESCRIBE -->
+<!-- IF S_DESCRIBE -->
 					<tr>
 						<td colspan="3" class="membersRowRight{sql_debug.row.ROW_CLASS}">{sql_debug.row.DESCRIBE}</td>
 					</tr>
-				<!-- ENDIF -->
-				<!-- END row -->
-				<!-- END sql_debug -->
+<!-- ENDIF -->
+<!-- END row -->
+<!-- END sql_debug -->
 				</table>
 			</div>
 

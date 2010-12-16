@@ -1,3 +1,14 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Theme Javascript file
+ *
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ */
+
 var ol_width=220;
 var ol_offsetx=15;
 var ol_offsety=15;

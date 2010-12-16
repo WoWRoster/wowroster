@@ -5,7 +5,6 @@
 		<div class="info-text-h">
 			<p>By using this beta software you are bound by the terms
 			<a href="http://www.wowroster.net/topic226.html" target="_blank">outlined here</a>.</p>
-			<p>For information on removing this message, click the link.</p>
 		</div>
 	</div>
 </div>

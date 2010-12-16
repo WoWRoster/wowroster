@@ -982,6 +982,7 @@ $lang['installer_not_uninstallable'] = '%1$s contiene un addon %2$s que debe de 
 // After Install guide
 $lang['install'] = 'Instalar';
 $lang['setup_guide'] = 'Guía después de instalar';
+$lang['skip_setup'] = 'Skip Setup';
 $lang['default_data'] = 'Datos predeterminados';
 $lang['default_data_help'] = 'Elige tu hermandad permitida predeterminada aquí<br />Muchos addons requieren de una hermandad predeterminada para funcionar perfectamente<br />Puedes añadir mas hermandades permitidas en RosterCP-&gt;Normas de subir<br /><br />Si esto es una instalación de una persona que no pertenece a la hermandad:<br />Entre en hermandades-F para ver los nombres de la hermandad<br />Reemplaza F con tu facción (A-Alianza, H-Horda)<br />Introduce tu reino y región<br />Elige las normas de subir personajes en RosterCP-&gt;Normas de subir';
 $lang['guide_complete'] = 'Se ha terminado la configuración después de instalar';

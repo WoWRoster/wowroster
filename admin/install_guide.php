@@ -32,14 +32,13 @@ if( !empty($data_present) )
 
 include(ROSTER_LIB . 'install.lib.php');
 
-
 $roster->tpl->assign_vars(array(
 	'U_ROSTERCP' => makelink('rostercp'),
 
-	'MESSAGE' => '',
+	'MESSAGE'    => '',
 
-	'S_STEP_1' => false,
-	'S_STEP_2' => false,
+	'S_STEP_1'   => false,
+	'S_STEP_2'   => false,
 	)
 );
 
@@ -69,11 +68,11 @@ function guide_step1()
 	global $roster;
 
 	$roster->tpl->assign_vars(array(
-		'S_STEP_1' => true,
+		'S_STEP_1'     => true,
 
-		'L_NAME_TIP'          => makeOverlib($roster->locale->act['guildname']),
-		'L_SERVER_TIP'        => makeOverlib($roster->locale->act['realmname']),
-		'L_REGION_TIP'        => makeOverlib($roster->locale->act['regionname']),
+		'L_NAME_TIP'   => makeOverlib($roster->locale->act['guildname']),
+		'L_SERVER_TIP' => makeOverlib($roster->locale->act['realmname']),
+		'L_REGION_TIP' => makeOverlib($roster->locale->act['regionname']),
 		)
 	);
 }

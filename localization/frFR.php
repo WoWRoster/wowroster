@@ -982,6 +982,7 @@ $lang['installer_not_uninstallable'] = '[%1$s] contient le greffon [%2$s] qui do
 // After Install guide
 $lang['install'] = 'Installation';
 $lang['setup_guide'] = 'Guide de post-installation';
+$lang['skip_setup'] = 'Skip Setup';
 $lang['default_data'] = 'Données par défaut';
 $lang['default_data_help'] = 'Indiquez ici votre guilde autorisé par défaut.<br />Une guilde par défaut est nécessaire pour que plusieurs greffons fonctionnent correctement.<br />Vous pouvez ajouter plusieurs guildes autorisés dans RosterCP-&gt;Règles de mise à jour.<br /><br />Si cette installation de Roster n\'est pas liée à une guilde :<br />indiquez Guildless-F comme nom de guilde en remplaçant F par l\'initiale de votre faction (A-Alliance ou H-Horde), <br />indiquez votre royaume et région par défaut.<br />Indiquez les règles de mise à jour dans RosterCP-&gt;Règles de mise à jour';
 $lang['guide_complete'] = 'Le processus de post-installation est complet.';
