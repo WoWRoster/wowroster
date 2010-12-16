@@ -503,32 +503,32 @@
 								<div class="spec">
 									<img class="tbackground" src="{INTERFACE_URL}Interface/TalentFrame/{talent.tree.ICON}.{IMG_SUFFIX}" alt="" />
 									<div class="content">
-<!-- BEGIN row -->
-										<div class="row">
 <!-- BEGIN cell -->
 
-<!-- IF talent.tree.row.cell.NAME -->
-											<div class="cell" {talent.tree.row.cell.TOOLTIP}>
-												<div class="talent-cell">
-													<img class="talent-icon<!-- IF talent.tree.row.cell.RANK eq 0 --> icon_grey<!-- ENDIF -->" src="{INTERFACE_URL}Interface/Icons/{talent.tree.row.cell.ICON}" alt=""  />
-													<div class="mask"></div>
-<!-- IF talent.tree.row.cell.RANK -->
-													<img class="rank-icon" src="{U_IMAGE_PATH}talents/rank.gif" alt="" />
-													<div class="rank-text" style="font-weight:bold;color:#{talent.tree.row.cell.MAXC};">{talent.tree.row.cell.RANK}</div>
+<!-- IF talent.tree.cell.NAME -->
+										<div class="talent-cell">
+<!-- IF talent.tree.cell.S_ABILITY -->
+											<div class="talent-ability"></div>
 <!-- ENDIF -->
+											<div class="talent-icon" {talent.tree.cell.TOOLTIP}>
+												<img<!-- IF talent.tree.cell.RANK eq 0 --> class="icon_grey"<!-- ENDIF --> src="{INTERFACE_URL}Interface/Icons/{talent.tree.cell.ICON}" alt="" />
+												<span class="talent-mask"></span>
+<!-- IF talent.tree.cell.RANK gt 0 -->
+												<div class="points<!-- IF talent.tree.cell.S_MAX -->-full<!-- ENDIF -->">
+													<span class="frame"></span>
+													<span class="value">{talent.tree.cell.RANK}</span>
 												</div>
+<!-- ENDIF -->
 											</div>
+										</div>
 <!-- ELSE -->
-											<div class="cell">&nbsp;</div>
+										<div class="talent-cell">&nbsp;</div>
 <!-- ENDIF -->
 
 <!-- END cell -->
-										</div>
-<!-- END row -->
-
 									</div>
 									<div class="spec-name">
-										<span class="name">{talent.tree.NAME}</span> : {talent.tree.POINTS}
+										<span class="text">{talent.tree.NAME}</span> : {talent.tree.POINTS}
 									</div>
 <!-- BEGIN arrows -->									
 									<div class="{talent.tree.ICON} arrow-{talent.tree.arrows.ID} requiredArrow {talent.tree.arrows.OPT1} {talent.tree.arrows.OPT2} {talent.tree.arrows.OPT3} {talent.tree.arrows.OPT4}"></div>

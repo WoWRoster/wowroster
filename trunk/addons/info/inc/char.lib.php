@@ -316,12 +316,12 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_RECIPE_HIDE' => $addon['config']['recipe_disp'],
 
-			'U_ITEM'     => makelink('char-info-recipes&amp;s=item'),
-			'U_NAME'     => makelink('char-info-recipes&amp;s=name'),
+			'U_ITEM'       => makelink('char-info-recipes&amp;s=item'),
+			'U_NAME'       => makelink('char-info-recipes&amp;s=name'),
 			'U_DIFFICULTY' => makelink('char-info-recipes&amp;s=difficulty'),
-			'U_TYPE'     => makelink('char-info-recipes&amp;s=type'),
-			'U_LEVEL'    => makelink('char-info-recipes&amp;s=level'),
-			'U_REAGENTS' => makelink('char-info-recipes&amp;s=reagents'),
+			'U_TYPE'       => makelink('char-info-recipes&amp;s=type'),
+			'U_LEVEL'      => makelink('char-info-recipes&amp;s=level'),
+			'U_REAGENTS'   => makelink('char-info-recipes&amp;s=reagents'),
 			)
 		);
 
@@ -330,6 +330,7 @@ class char
 
 		$recipes = recipe_get_many( $this->data['member_id'],'', $sort );
 		$reagents = recipe_get_regents( $this->data['member_id']);
+
 		$reagent_arr = array();
 		foreach( $reagents as $objects)
 		{
@@ -340,7 +341,6 @@ class char
 			$reagent_arr[$skil]['item_id'] = $objects->data['reagent_id'];
 			$reagent_arr[$skil]['item_name'] = $objects->data['reagent_name'];
 			$reagent_arr[$skil]['tooltip'] = $objects->data['reagent_tooltip'];
-//			$reagent_arr[$skill]['item'] = $objects->out();
 		}
 
 //		aprint($reagent_arr);
@@ -359,7 +359,10 @@ class char
 				$recipe_arr[$skill][$recipe]['level'] = $object->data['level'];
 				$recipe_arr[$skill][$recipe]['item_id'] = $object->data['item_id'];
 				$recipe_arr[$skill][$recipe]['recipe_id'] = $object->data['recipe_id'];
-				$recipe_arr[$skill][$recipe]['item'] = $object->out();
+				$recipe_arr[$skill][$recipe]['icon'] = $object->tpl_get_icon();
+				$recipe_arr[$skill][$recipe]['tooltip'] = $object->tpl_get_tooltip();
+				$recipe_arr[$skill][$recipe]['itemlink'] = $object->tpl_get_itemlink();
+				$recipe_arr[$skill][$recipe]['quality'] = $object->quality;
 			}
 
 //			echo '<pre>';
@@ -409,7 +412,10 @@ class char
 						'DIFFICULTY_COLOR' => $difficultycolor,
 						'TYPE'         => $data['recipe_type'],
 						'LEVEL'        => $data['level'],
-						'ICON'         => $data['item'],
+						'ICON'         => $data['icon'],
+						'TOOLTIP'      => $data['tooltip'],
+						'ITEMLINK'     => $data['itemlink'],
+						'QUALITY'      => $data['quality'],
 						)
 					);
 
@@ -422,13 +428,11 @@ class char
 
 						$roster->tpl->assign_block_vars('recipe.row.reagents',array(
 							'DATA' 		=> $reagent,
-							'ID' 		=> $reagent_arr[''.$dtr[0].'']['item_id'],
-							'NAME' 		=> $reagent_arr[''.$dtr[0].'']['item_name'],
+							'ID' 		=> $reagent_arr[$dtr[0]]['item_id'],
+							'NAME' 		=> $reagent_arr[$dtr[0]]['item_name'],
 							'COUNT' 	=> $dtr[1],
-							'ICON' 		=> $reagent_arr[''.$dtr[0].'']['item_texture'],
-							'TOOLTIP' 	=> makeOverlib($reagent_arr[''.$dtr[0].'']['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
-
-//							'Tooltip'	=> makeOverlib($tooltip,'','',0,$this->data['clientLocale'],',RIGHT'),
+							'ICON' 		=> $reagent_arr[$dtr[0]]['item_texture'],
+							'TOOLTIP' 	=> makeOverlib($reagent_arr[$dtr[0]]['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
 							)
 						);
 					}
@@ -1120,52 +1124,42 @@ class char
 							'SELECTED' => ($spc == $build ? true : false)
 							)
 						);
-						$arrows = $this->build_talenttree_arrows( $tree['image'] );
-                                                foreach($arrows as $arr => $arrid)
-                                                {
-                                                	//echo ''.$arrid['id'].'<br>';
-                                                 	$roster->tpl->assign_block_vars('talent.tree.arrows', array(
+
+						$arrows = $this->build_talenttree_arrows($tree['image']);
+						foreach ($arrows as $arr => $arrid)
+						{
+							//echo ''.$arrid['id'].'<br>';
+							$roster->tpl->assign_block_vars('talent.tree.arrows', array(
 								'TREE' => $tree['image'],
-								'ID' => $arrid['id'],
+								'ID'   => $arrid['id'],
 								'OPT1' => $arrid['opt1'],
 								'OPT2' => $arrid['opt2'],
 								'OPT3' => $arrid['opt3'],
 								'OPT4' => $arrid['opt4']
 								)
 							);
-                                                }
+						}
+
 						// Loop rows in tree
 						foreach( $tree['talents'] as $row )
 						{
 							if( is_array($row) )
 							{
 								// Assign a blank block so cell works
-								$roster->tpl->assign_block_vars('talent.tree.row', array());
+//								$roster->tpl->assign_block_vars('talent.tree.row', array());
 
 								// Loop cells in row
 								foreach( $row as $cell )
 								{
-//									aprint($cell);
-									$maxc = '';
-									if (isset($cell['maxrank']))
-									{
-										if ($cell['maxrank'] == $cell['rank'])
-										{
-											$maxc = 'ffdd00';
-										}
-										else
-										{
-											$maxc = '00dd00';
-										}
-									}
-									$roster->tpl->assign_block_vars('talent.tree.row.cell', array(
-										'NAME' => $cell['name'],
-										'RANK' => (isset($cell['rank']) ? $cell['rank'] : 0),
-										'MAXRANK' => (isset($cell['maxrank']) ? $cell['maxrank'] : 0),
-										'MAX' => (isset($cell['rank']) ? $cell['maxrank'] : 0),
-										'MAXC' => $maxc,
-										'TOOLTIP' => (isset($cell['tooltip']) ? $cell['tooltip'] : ''),
-										'ICON' => (isset($cell['image']) ? $cell['image'] : '')
+									$roster->tpl->assign_block_vars('talent.tree.cell', array(
+										'NAME'      => $cell['name'],
+										'RANK'      => (isset($cell['rank']) ? $cell['rank'] : 0),
+										'MAXRANK'   => (isset($cell['maxrank']) ? $cell['maxrank'] : 0),
+										'TOOLTIP'   => (isset($cell['tooltip']) ? $cell['tooltip'] : ''),
+										'ICON'      => (isset($cell['image']) ? $cell['image'] : ''),
+
+										'S_MAX'     => (isset($cell['rank']) && $cell['rank'] == $cell['maxrank'] ? true : false),
+										'S_ABILITY' => false,
 										)
 									);
 								}
@@ -1917,10 +1911,9 @@ class char
 			$tooltipheader = $name . ' ' . $this->rating_long($statname,$data);
 		}
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->pet_stat_line($name, $this->rating_short($statname,$data), $line);
+		$this->pet_stat_line($name, $this->rating_short($statname,$data), $line, $tooltipheader);
 	}
 
 
@@ -1939,10 +1932,9 @@ class char
 		$tooltipheader = $roster->locale->act['mainhand'];
 		$tooltip = sprintf($roster->locale->act['weapon_skill_tooltip'], $data['melee_mhand_skill'], $data['melee_mhand_rating']);
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->pet_stat_line($name, $value, $line);
+		$this->pet_stat_line($name, $value, $line, $tooltipheader);
 	}
 
 
@@ -1961,10 +1953,9 @@ class char
 		$tooltipheader = $roster->locale->act['mainhand'];
 		$tooltip = sprintf($roster->locale->act['damage_tooltip'], $data['melee_mhand_speed'], $data['melee_mhand_mindam'], $data['melee_mhand_maxdam'], $data['melee_mhand_dps']);
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->pet_stat_line($name, $value, $line);
+		$this->pet_stat_line($name, $value, $line, $tooltipheader);
 	}
 
 
@@ -2046,10 +2037,9 @@ class char
 		$tooltip .= '<div><span style="float:right;">' . $data['stat_res_spell'] . '</span>' . $roster->locale->act['spell'] . '</div>';
 
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->pet_stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
+		$this->pet_stat_line($name, '<strong class="white">' . $value . '</strong>', $line, $tooltipheader);
 	}
 
 
@@ -2059,16 +2049,17 @@ class char
 	 * @param string $label
 	 * @param string $value
 	 * @param string $tooltip
+	 * @param string $caption
 	 * @return string
 	 */
-	function pet_stat_line( $label , $value , $tooltip )
+	function pet_stat_line( $label , $value , $tooltip, $caption )
 	{
 		global $roster;
 
 		$roster->tpl->assign_block_vars('pet.box_stats.statline',array(
 			'NAME'  => $label,
 			'VALUE' => $value,
-			'TOOLTIP' => makeOverlib($tooltip,'','',2,'','')
+			'TOOLTIP' => makeOverlib($tooltip,$caption,'',2,'','')
 			)
 		);
 	}
@@ -2080,16 +2071,17 @@ class char
 	 * @param string $label
 	 * @param string $value
 	 * @param string $tooltip
+	 * @param string $caption
 	 * @return string
 	 */
-	function stat_line( $label , $value , $tooltip )
+	function stat_line( $label , $value , $tooltip, $caption )
 	{
 		global $roster;
 
 		$roster->tpl->assign_block_vars('box_stats.statline',array(
 			'NAME'  => $label,
 			'VALUE' => $value,
-			'TOOLTIP' => makeOverlib($tooltip,'','',2,'','')
+			'TOOLTIP' => makeOverlib($tooltip,$caption,'',2,'','')
 			)
 		);
 	}
@@ -2169,11 +2161,11 @@ class char
 			$tooltipheader .= " ($base";
 			if( $buff > 0 )
 			{
-				$tooltipheader .= ' <span class="green">+ ' . $buff . '</span>';
+				$tooltipheader .= ' <span class=\'green\'>+ ' . $buff . '</span>';
 			}
 			if( $debuff > 0 )
 			{
-				$tooltipheader .= ' <span class="red">- ' . $debuff . '</span>';
+				$tooltipheader .= ' <span class=\'red\'>- ' . $debuff . '</span>';
 			}
 			$tooltipheader .= ')';
 		}
@@ -2343,10 +2335,9 @@ class char
 			$tooltipheader = $name . ' ' . $this->rating_long($statname);
 		}
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->stat_line($name, $this->rating_short($statname), $line);
+		$this->stat_line($name, $this->rating_short($statname), $line, $tooltipheader);
 	}
 
 
@@ -2381,10 +2372,9 @@ class char
 
 		$tooltipheader = (isset($name) ? $name : '');
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line, $tooltipheader);
 	}
 
 
@@ -2405,8 +2395,7 @@ class char
 			$tooltipheader = $roster->locale->act['ranged'];
 			$tooltip = sprintf($roster->locale->act['weapon_skill_tooltip'], $this->data['ranged_skill'], $this->data['ranged_rating']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-				  . '<div style="color:#DFB801;">' . $tooltip . '</div>';
+			$line = '<div style="color:#DFB801;">' . $tooltip . '</div>';
 		}
 		else
 		{
@@ -2415,21 +2404,20 @@ class char
 			$tooltipheader = $roster->locale->act['mainhand'];
 			$tooltip = sprintf($roster->locale->act['weapon_skill_tooltip'], $this->data['melee_mhand_skill'], $this->data['melee_mhand_rating']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-				  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+			$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
 				$value .= '/<strong class="white">' . $this->data['melee_ohand_skill'] . '</strong>';
-				$tooltipheader = $roster->locale->act['offhand'];
+				$ohandheader = $roster->locale->act['offhand'];
 				$tooltip = sprintf($roster->locale->act['weapon_skill_tooltip'], $this->data['melee_ohand_skill'], $this->data['melee_ohand_rating']);
 
-				$line .= '<br /><span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
+				$line .= '<br /><span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $ohandheader . '</span><br />'
 					   . '<div style="color:#DFB801;">' . $tooltip . '</div>';
 			}
 		}
 
-		$this->stat_line($name, $value, $line);
+		$this->stat_line($name, $value, $line, $tooltipheader);
 	}
 
 
@@ -2450,8 +2438,7 @@ class char
 			$tooltipheader = $roster->locale->act['ranged'];
 			$tooltip = sprintf($roster->locale->act['damage_tooltip'], $this->data['ranged_speed'], $this->data['ranged_mindam'], $this->data['ranged_maxdam'], $this->data['ranged_dps']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-				  . '<div style="color:#DFB801;">' . $tooltip . '</div>';
+			$line = '<div style="color:#DFB801;">' . $tooltip . '</div>';
 		}
 		else
 		{
@@ -2460,8 +2447,7 @@ class char
 			$tooltipheader = $roster->locale->act['mainhand'];
 			$tooltip = sprintf($roster->locale->act['damage_tooltip'], $this->data['melee_mhand_speed'], $this->data['melee_mhand_mindam'], $this->data['melee_mhand_maxdam'], $this->data['melee_mhand_dps']);
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-				  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+			$line = '<div style="color:#DFB801;">' . $tooltip . '</div>';
 
 			if( $this->data['melee_ohand_dps'] > 0 )
 			{
@@ -2470,15 +2456,15 @@ class char
 				{
 					$value .= '<strong class="white">' . $this->data['melee_ohand_mindam'] . '</strong>-<strong class="white">' . $this->data['melee_ohand_maxdam'] . '</strong>';
 				}
-				$tooltipheader = $roster->locale->act['offhand'];
+				$mindam_header = $roster->locale->act['offhand'];
 				$tooltip = sprintf($roster->locale->act['damage_tooltip'], $this->data['melee_ohand_speed'], $this->data['melee_ohand_mindam'], $this->data['melee_ohand_maxdam'], $this->data['melee_ohand_dps']);
 
-				$line .= '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
+				$line .= '<br /><span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $mindam_header . '</span><br />'
 					   . '<div style="color:#DFB801;">' . $tooltip . '</div>';
 			}
 		}
 
-		$this->stat_line($name, $value, $line);
+		$this->stat_line($name, $value, $line, $tooltipheader);
 	}
 
 
@@ -2496,11 +2482,10 @@ class char
 		{
 			$value = '<strong class="white">' . $this->data['ranged_speed'] . '</strong>';
 			$name = $roster->locale->act['speed'];
-			$tooltipheader = $roster->locale->act['atk_speed'] . ' ' . $value;
+			$tooltipheader = $roster->locale->act['atk_speed'] . ' ' . $this->data['ranged_speed'];
 			$tooltip = $roster->locale->act['haste_tooltip'] . $this->rating_long('ranged_haste');
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-				  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+			$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 		}
 		else
 		{
@@ -2512,14 +2497,13 @@ class char
 				$value .= '/<strong class="white">' . $this->data['melee_ohand_speed'] . '</strong>';
 			}
 
-			$tooltipheader = $roster->locale->act['atk_speed'] . ' ' . $value;
+			$tooltipheader = $roster->locale->act['atk_speed'] . ' ' . $this->data['melee_mhand_speed'];
 			$tooltip = $roster->locale->act['haste_tooltip'] . $this->rating_long('melee_haste');
 
-			$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-				  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+			$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 		}
 
-		$this->stat_line($name, $value, $line);
+		$this->stat_line($name, $value, $line, $tooltipheader);
 	}
 
 
@@ -2535,7 +2519,7 @@ class char
 		$name = $roster->locale->act['spell_damage'];
 		$value = '<strong class="white">' . $this->data['spell_damage'] . '</strong>';
 
-		$tooltipheader = $name . ' ' . $value;
+		$tooltipheader = $name . ' ' . $this->data['spell_damage'];
 
 		$tooltip  = '<div><span style="float:right;">' . $this->data['spell_damage_holy'] . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-holy.gif" alt="" />' . $roster->locale->act['holy'] . '</div>';
 		$tooltip .= '<div><span style="float:right;">' . $this->data['spell_damage_fire'] . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-fire.gif" alt="" />' . $roster->locale->act['fire'] . '</div>';
@@ -2544,10 +2528,9 @@ class char
 		$tooltip .= '<div><span style="float:right;">' . $this->data['spell_damage_shadow'] . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-shadow.gif" alt="" />' . $roster->locale->act['shadow'] . '</div>';
 		$tooltip .= '<div><span style="float:right;">' . $this->data['spell_damage_arcane'] . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-arcane.gif" alt="" />' . $roster->locale->act['arcane'] . '</div>';
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->stat_line($name, $value, $line);
+		$this->stat_line($name, $value, $line, $tooltipheader);
 	}
 
 
@@ -2572,10 +2555,9 @@ class char
 		$tooltip .= '<div><span style="float:right;">' . sprintf('%.2f%%',$this->data['spell_crit_chance_shadow']) . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-shadow.gif" alt="" />' . $roster->locale->act['shadow'] . '</div>';
 		$tooltip .= '<div><span style="float:right;">' . sprintf('%.2f%%',$this->data['spell_crit_chance_arcane']) . '</span><img src="' . $addon['tpl_image_path'] . 'resist/icon-arcane.gif" alt="" />' . $roster->locale->act['arcane'] . '</div>';
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->stat_line($name, $value, $line);
+		$this->stat_line($name, $value, $line, $tooltipheader);
 	}
 
 
@@ -2609,10 +2591,9 @@ class char
 
 		$tooltip = $roster->locale->act['defense_rating'] . $this->rating_long('stat_defr');
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line, $tooltipheader);
 	}
 
 
@@ -2633,10 +2614,9 @@ class char
 		$tooltipheader = $name . ' ' . $this->rating_long('stat_' . $statname);
 		$tooltip = sprintf($roster->locale->act['def_tooltip'],$name);
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->stat_line($name, '<strong class="white">' . $value . '%</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '%</strong>', $line, $tooltipheader);
 	}
 
 
@@ -2657,10 +2637,9 @@ class char
 				 . '<div><span style="float:right;">' . $this->data['stat_res_ranged'] . '</span>' . $roster->locale->act['ranged'] . '</div>'
 				 . '<div><span style="float:right;">' . $this->data['stat_res_spell'] . '</span>' . $roster->locale->act['spell'] . '</div>';
 
-		$line = '<span style="color:#ffffff;font-size:11px;font-weight:bold;">' . $tooltipheader . '</span><br />'
-			  . '<span style="color:#DFB801;">' . $tooltip . '</span>';
+		$line = '<span style="color:#DFB801;">' . $tooltip . '</span>';
 
-		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line);
+		$this->stat_line($name, '<strong class="white">' . $value . '</strong>', $line, $tooltipheader);
 	}
 
 

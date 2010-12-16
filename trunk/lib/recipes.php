@@ -30,10 +30,16 @@ class recipe
 	var $data;
 	var $quality_id;
 	var $quality;
+	var $lang;
 
 	function recipe( $data )
 	{
+		global $roster, $char;
+
 		$this->data = $data;
+		$this->_setQuality($this->data['item_color']);
+
+		$this->lang = ( !is_object($char) ? $roster->config['locale'] : $char->data['clientLocale'] );
 	}
 
 	/**
@@ -75,46 +81,55 @@ class recipe
 				$this->quality = 'poor';
 				break;
 			default:
+				$this->quality_id = '0';
+				$this->quality = 'none';
 				break;
 		}
 	}
 
-	function out()
+	// TPL data the easy way
+	function tpl_get_icon()
 	{
-		global $roster, $char, $tooltips;
+		global $roster;
 
-		if( !is_object($char) )
-		{
-			$lang = $roster->config['locale'];
-		}
-		else
-		{
-			$lang = $char->data['clientLocale'];
-		}
+		return $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['recipe_texture'] . '.' . $roster->config['img_suffix'];
+	}
 
-		$path = $roster->config['interface_url'] . 'Interface/Icons/' . $this->data['recipe_texture'] . '.' . $roster->config['img_suffix'];
+	// TPL data the easy way
+	function tpl_get_tooltip()
+	{
+		return makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$this->lang);
+	}
+
+	// TPL data the easy way
+	function tpl_get_itemlink()
+	{
+		global $roster, $tooltips;
 
 		// Item links
 		$num_of_tips = (count($tooltips)+1);
 		$linktip = '';
-		foreach( $roster->locale->wordings[$lang]['data_links'] as $key => $ilink )
+
+		foreach( $roster->locale->wordings[$this->lang]['data_links'] as $key => $ilink )
 		{
 			$linktip .= '<a href="' . $ilink . urlencode(utf8_decode($this->data['recipe_name'])) . '" target="_blank">' . $key . '</a><br />';
 		}
-		setTooltip($num_of_tips,$linktip);
-		setTooltip('itemlink',$roster->locale->wordings[$lang]['data_search']);
+		setTooltip($num_of_tips, $linktip);
+		setTooltip('itemlink', $roster->locale->wordings[$this->lang]['data_search']);
 
 		$linktip = ' onclick="return overlib(overlib_' . $num_of_tips . ',CAPTION,overlib_itemlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 
-		$tooltip = makeOverlib($this->data['recipe_tooltip'],'',$this->data['item_color'],0,$lang);
-		$this->_setQuality($this->data['item_color']);
+		return $linktip;
+	}
 
-		$returnstring = '<div class="item">
-	<img src="' . $path . '" alt="" />
-	<div class="mask ' . $this->quality . '" ' . $tooltip . '' . $linktip . '></div>
-</div>';
-
-		return $returnstring;
+	function out()
+	{
+		$output = '<div class="item">
+	<img src="' . $this->tpl_get_icon() . '" alt="" />
+	<div class="mask ' . $this->quality . '" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '></div>
+</div>
+';
+		return $output;
 	}
 }
 

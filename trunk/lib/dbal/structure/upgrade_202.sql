@@ -110,14 +110,6 @@ CREATE TABLE `renprefix_pet_talenttree` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Players
-ALTER TABLE `renprefix_players`
-  DROP `melee_expertise`,
-  DROP `melee_expertise_c`,
-  DROP `melee_expertise_b`,
-  DROP `melee_expertise_d`;
-
-# --------------------------------------------------------
 ### Quest Data
 
 DROP TABLE IF EXISTS `renprefix_quest_data`;

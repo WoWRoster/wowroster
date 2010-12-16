@@ -32,7 +32,7 @@ class item
 	var $member_id, $item_id, $name, $level, $icon, $color;
 	var $slot, $parent, $tooltip, $quantity, $locale;
 
-	// 1=poor, 2=common, 3=uncommon, 4=rare, 5=epic, 6=legendary, 7=heirloom
+	// 0=none, 1=poor, 2=common, 3=uncommon, 4=rare, 5=epic, 6=legendary, 7=heirloom
 	var $quality_id; //holds numerical value of item quality
 	var $quality; // holds string value of item quality
 
@@ -140,9 +140,9 @@ class item
 
 	function out()
 	{
-		$output = '<div class="item">
+		$output = '<div class="item" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '>
 	<img src="' . $this->tpl_get_icon() . '" alt="" />
-	<div class="mask ' . $this->quality . '" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '></div>
+	<div class="mask ' . $this->quality . '"></div>
 	<b>' . $this->quantity . '</b><span>' . $this->quantity . '</span>
 </div>
 ';
@@ -782,6 +782,8 @@ class item
 				$this->quality = 'poor';
 				break;
 			default:
+				$this->quality_id = '0';
+				$this->quality = 'none';
 				break;
 		}
 	}
@@ -1100,14 +1102,14 @@ class item
 				//Requires
 				$tt['Attributes']['Requires'][] = $line;
 			}
-			
+
 			//$lang['tooltip_reforged']
 			elseif( preg_match( "/" . $roster->locale->wordings[$locale]['tooltip_reforged'] . "/i", $line) )
 			{
 				//Reforged
 				$tt['Attributes']['Requires'][] = $line;
 			}
-			
+
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_level'], $line, $matches) )
 			{
 				//Item Level
