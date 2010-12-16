@@ -1,36 +1,62 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <!-- $Id$ -->
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<title>WoWRoster Installation - Step {INSTALL_STEP}</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style.css" />
-	<script type="text/javascript">
-	<!--
-		var ol_width=220;var ol_offsetx=15;var ol_offsety=15;var ol_hauto=1;var ol_vauto=1;
-		var ol_fgclass='overlib_fg';var ol_bgclass='overlib_border';var ol_textfontclass='overlib_maintext';
-		var ol_captionfontclass='overlib_captiontext';var ol_closefontclass='overlib_closetext';
-	//-->
-	</script>
-	<script type="text/javascript" src="js/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
-	<script type="text/javascript" src="js/overlib_hideform.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WoWRoster Installation - Step {INSTALL_STEP}</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/ui.selectmenu.js"></script>
+<script type="text/javascript" src="js/overlib.js"></script>
+<script type="text/javascript" src="js/overlib_hideform.js"></script>
+<script type="text/javascript" src="{THEME_PATH}/script.js"></script>
+<script type="text/javascript" src="js/overlib.js"></script>
+<script type="text/javascript" src="js/overlib_hideform.js"></script>
 </head>
 
 <body>
 
-<table width="100%" class="borderless">
-	<tr>
-		<td align="center" valign="top"><img src="img/wowroster_logo.jpg" alt="WoWRoster Logo" /></td>
-	</tr>
-	<tr>
-		<td align="center" valign="top">
-			<span class="maintitle">WoWRoster Installation</span><br />
-			<span class="subtitle">Step {INSTALL_STEP}</span>
-		</td>
-	</tr>
-	<tr>
-		<td align="center" valign="top"><!-- IF MSG_TEXT != '' --><!-- INCLUDE install_message.html --><!-- ELSE -->&nbsp;<!-- ENDIF --></td>
-	</tr>
-</table>
-<br />
+<div class="roster-wrap">
+
+	<div class="logo">
+		<div class="frame">
+			<img src="img/wowroster_logo.jpg" alt="" />
+		</div>
+	</div>
+
+{NOTICE}
+
+	<div class="theme-wrap">
+
+		<div class="info-header realm">
+			<div class="text">
+				<div class="name">WoWRoster Installation<span>WoWRoster Installation</span></div>
+				<div class="info">Step {INSTALL_STEP}<span>Step {INSTALL_STEP}</span></div>
+			</div>
+		</div>
+
+		<div class="util-wrap">
+			<div class="scope-menu"></div>
+			<div class="container">
+
+				<div class="tier-1-a">
+					<div class="tier-1-b">
+						<div class="tier-1-c">
+							<div class="tier-1-title">
+								<div class="icon">
+									<img src="{THEME_PATH}/images/gear.png" alt="" />
+									<div class="mask"></div>
+								</div>
+								WoWRoster Installation: Step {INSTALL_STEP}
+							</div>
+<!-- IF MSG_TEXT != '' -->
+							<div id="notify">
+								<div class="ui-state-default ui-corner-all close" title="close">
+									<span class="ui-icon ui-icon-close"></span>
+								</div>
+<!-- INCLUDE install_message.html -->
+							</div>
+<!-- ENDIF -->

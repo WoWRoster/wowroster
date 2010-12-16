@@ -152,8 +152,10 @@ class RosterLogin
 
 						<div class="tier-3-a">
 							<div class="tier-3-b">
+								<div class="right">
+									<input name="password" type="password" size="30" maxlength="30" />
+								</div>
 								<div class="text">
-									<div style="float:right;"><input name="password" type="password" size="30" maxlength="30" /></div>
 									' . $log_word . ' ' . $roster->locale->act['password'] . '
 								</div>
 							</div>

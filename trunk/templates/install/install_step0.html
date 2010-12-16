@@ -1,24 +1,31 @@
 <!-- $Id$ -->
 
-<h1 align="center">This installation will guide you to setup WoWRoster on your website within minutes.</h1>
 
-<h2 align="center">Click &quot;I Agree&quot; if you accept the following license:</h2>
+<div class="h_1">This installation will guide you in the setup of WoWRoster.</div>
 
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			Click [I Agree] if you accept the following license.
+		</div>
 <!-- IF LICENSE -->
-<div align="center">
-<textarea name="textfield" rows="20" cols="100">
+		<div class="ui-widget ui-widget-content ui-corner-left license">
 {LICENSE}
-</textarea>
-</div>
-<br />
+		</div>
 <!-- ELSE -->
-<h2 align="center">Your server does not support Zlib Compression. Thus you cannot read our license from this page.
-	Please consult license.txt found in your roster distribution and click "I Agree" below</h2>
+		<div class="info-text-h">
+			Your server does not support zlib Compression. Thus you cannot read our license from this page.
+			Please view <a href="license.txt">license.txt</a> found in your WoWRoster distribution and click [I Agree] below
+		</div>
 <!-- ENDIF -->
 
 <!-- IF S_SHOW_BUTTON -->
-<form method="post" action="{FORMACTION}" name="post">
-	<input type="hidden" name="install_step" value="1" />
-	<div align="center"><input type="submit" name="submit" value="I Agree" class="submit" /></div>
-</form>
+		<br />
+		<form method="post" action="{FORMACTION}" name="post">
+			<input type="hidden" name="install_step" value="1" />
+			<div align="center"><input type="submit" name="submit" value="I Agree" /></div>
+		</form>
 <!-- ENDIF -->
+
+	</div>
+</div>

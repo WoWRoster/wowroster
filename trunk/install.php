@@ -185,6 +185,18 @@ class Template_Wrap extends RosterTemplate
 			'ROSTER_VERSION' => $DEFAULTS['version']
 		));
 
+		// BETA ONLY, COMMENT THIS IN RC OR LATER!
+		if( file_exists(ROSTER_BASE . 'valid.inc') )
+		{
+			$v_content = '';
+			ob_start();
+				require (ROSTER_BASE . 'valid.inc');
+			$v_content = ob_get_clean();
+
+			$this->assign_var('NOTICE', $v_content);
+		}
+		// END BETA ONLY
+
 		if( is_object($db) )
 		{
 			$db->close_db();
@@ -193,15 +205,6 @@ class Template_Wrap extends RosterTemplate
 		$this->set_handle('footer', 'install_tail.html');
 
 		$this->display('header');
-
-		// BETA ONLY, COMMENT THIS IN RC OR LATER!
-		if( file_exists(ROSTER_BASE . 'valid.inc') )
-		{
-			include (ROSTER_BASE . 'valid.inc');
-		}
-		// END BETA ONLY
-
-
 		$this->display('body');
 		$this->display('footer');
 
@@ -258,7 +261,7 @@ $DEFAULTS = array(
 );
 
 $REQUIRE = array(
-	'php_version'   => '4.3.0',
+	'php_version'   => '5.2.0',
 	'mysql_version' => '4.1.0'
 );
 
@@ -334,6 +337,8 @@ function process_step0( )
 			ob_start();
 				readgzfile(ROSTER_BASE . 'license.txt');
 			$content = ob_get_clean();
+			$content = htmlentities($content);
+			$content = nl2br($content);
 			$tpl->assign_var('LICENSE', $content);
 		}
 		else
@@ -362,15 +367,23 @@ function process_step1( )
 	 * Check to make sure conf.php exists and is readable / writeable
 	 */
 	$config_file = ROSTER_BASE . 'conf.php';
+	$conf_write = 'green';
+	$conf_tip = 'Write access confirmed';
 	if( !file_exists($config_file) )
 	{
 		if( !@touch($config_file) )
 		{
-			$tpl->error_append('The <strong>conf.php</strong> file does not exist and could not be created in Roster\'s root folder.<br />You must create an empty conf.php file on your server before proceeding. And give it write access');
+			$conf_tip = 'The <strong>conf.php</strong> file does not exist and could not be created in WoWRoster\'s root folder.<br />'
+				. 'You must create an empty conf.php file on your server before proceeding. And give it write access';
+			$conf_write = 'red';
+			$tpl->error_append($conf_tip);
 		}
 		else
 		{
-			$tpl->message_append('The <strong>conf.php</strong> file has been created in Roster\'s root folder<br />Deleting this file will interfere with the operation of your Roster installation.');
+			$conf_tip = 'The <strong>conf.php</strong> file has been created in WoWRoster\'s root folder<br />'
+				. 'Deleting this file will interfere with the operation of your WoWRoster installation.';
+			$conf_write = 'green';
+			$tpl->message_append($conf_tip);
 		}
 	}
 	else
@@ -379,33 +392,49 @@ function process_step1( )
 		{
 			if( !@chmod($config_file, 0666) )
 			{
-				$tpl->error_append('The file <strong>conf.php</strong> is not set to be readable/writable and could not be changed automatically.<br />Please change the permissions to 0666 manually by executing <strong>chmod 0666 conf.php</strong> on your server.');
+				$conf_tip = 'The file <strong>conf.php</strong> is not set to be readable/writable and could not be changed automatically.<br />'
+					. 'Please change the permissions to 0666 manually by executing <strong>chmod 0666 conf.php</strong> on your server.';
+				$conf_write = 'red';
+				$tpl->error_append($conf_tip);
 			}
 			else
 			{
-				$tpl->message_append('<strong>conf.php</strong> has been set to be readable/writable in order to let this installer write your configuration file automatically.');
+				$conf_tip = '<strong>conf.php</strong> has been set to be readable/writable in order to let this installer '
+					. 'write your configuration file automatically.';
+				$conf_write = 'green';
+				$tpl->message_append($conf_tip);
 			}
 		}
 		// config file exists and is writeable, we're good to go
 	}
+
+	$tpl->assign_block_vars('dir', array(
+		'CAPTION'  => 'Config File',
+		'NAME'     => 'conf.php',
+		'TIP'      => addslashes($conf_tip),
+		'WRITE'    => $conf_write
+	));
+
 	clearstatcache();
 
 	/**
 	 * Check to make sure cache exists and is writeable
 	 */
 	$cache_write = 'green';
-	$cache_write_t = 'Write access confirmed';
+	$cache_tip = 'Write access confirmed';
 	if( !file_exists(ROSTER_CACHEDIR) )
 	{
 		if( !@mkdir(ROSTER_CACHEDIR, 0777) )
 		{
-			$tpl->error_append('The cache directory could not be created, create a directory named &quot;cache&quot; manually in the root directory.');
+			$cache_tip = 'The cache directory could not be created, create a directory named &quot;cache&quot; manually in the root directory.';
 			$cache_write = 'red';
-			$cache_write_t = 'Write access denied, read the info above';
+			$tpl->error_append($cache_tip);
 		}
 		else
 		{
-			$tpl->message_append('A cache directory was created');
+			$cache_tip = 'A cache directory was created';
+			$cache_write = 'green';
+			$tpl->message_append($cache_tip);
 		}
 	}
 	else
@@ -414,24 +443,36 @@ function process_step1( )
 		{
 			if( !@chmod(ROSTER_CACHEDIR, 0777) )
 			{
-				$tpl->error_append('The cache directory exists, but is not set to be writable and could not be changed automatically.<br />Please change the permissions to 0777 manually by executing <strong>chmod 0777 cache</strong> on your server.');
+				$cache_tip = 'The cache directory is not set to be writable and could not be changed automatically.<br />'
+					. 'Please change the permissions to 0777 manually by executing <strong>chmod 0777 cache</strong> on your server.';
 				$cache_write = 'red';
-				$cache_write_t = 'Write access denied, read the info above';
+				$tpl->error_append($cache_tip);
 			}
 			else
 			{
-				$tpl->message_append('The cache directory has been set to be writable in order to let the Template engine to function.');
+				$cache_tip = 'The cache directory has been set to be writable.';
+				$cache_write = 'green';
+				$tpl->message_append($cache_tip . '<br />Write access confirmed');
 			}
 		}
 		// Cache directory exists and is writeable, we're good to go
 	}
+
+	$tpl->assign_block_vars('dir', array(
+		'CAPTION' => 'Cache Directory',
+		'NAME'    => 'cache',
+		'TIP'     => addslashes($cache_tip),
+		'WRITE'   => $cache_write
+	));
+
 	clearstatcache();
 
 	/**
-	 * Roster versions
+	 * WoWRoster versions
 	 */
 	$our_roster_version = $DEFAULTS['version'];
 	$their_roster_version = 'Unknown';
+	$their_roster_updated = 'Unknown';
 
 	$location = str_replace('http://www.wowroster.net', '', ROSTER_UPDATECHECK);
 
@@ -451,11 +492,16 @@ function process_step1( )
 				$their_roster_version = $version[1];
 				break;
 			}
+			if( preg_match('#<updated>(.+)</updated>#i', $content, $updated) )
+			{
+				$their_roster_updated = date('D M jS, g:ia', $updated[1]);
+				break;
+			}
 		}
 	}
 	@fclose($sh);
 
-	// Roster Versions
+	// WoWRoster Versions
 	$our_roster_version = ((version_compare($our_roster_version, $their_roster_version, '>=')) ? '<span class="positive">' : '<span class="negative">') . $our_roster_version . '</span>';
 
 	// PHP Versions
@@ -473,11 +519,11 @@ function process_step1( )
 
 	if( (phpversion() < $REQUIRE['php_version']) || (!extension_loaded('mysql')) )
 	{
-		$tpl->error_append('<span style="font-weight:bold;font-size:14px;">Sorry, your server does not meet the minimum requirements for Roster</span>');
+		$tpl->error_append('<span style="font-weight:bold;font-size:14px;">Sorry, your server does not meet the minimum requirements for WoWRoster</span>');
 	}
 	else
 	{
-		$tpl->message_append('Roster has scanned your server and determined that it meets the minimum requirements.');
+		$tpl->message_append('WoWRoster has scanned your server and determined that it meets the minimum requirements.');
 	}
 
 	/**
@@ -486,12 +532,11 @@ function process_step1( )
 	$tpl->assign_vars(array(
 		'OUR_ROSTER_VERSION'   => $our_roster_version,
 		'THEIR_ROSTER_VERSION' => $their_roster_version,
+		'THEIR_ROSTER_UPDATED' => $their_roster_updated,
 		'OUR_PHP_VERSION'      => $our_php_version,
 		'THEIR_PHP_VERSION'    => $their_php_version,
 		'OUR_MYSQL'            => $our_mysql,
 		'THEIR_MYSQL'          => $their_mysql,
-		'CACHE_WRITE'          => $cache_write,
-		'CACHE_TIP'            => $cache_write_t,
 		'OUR_GD'               => $our_gd,
 		'THEIR_GD'             => $their_gd
 	));
@@ -616,7 +661,7 @@ function process_step3( )
 	if( !is_resource($db->link_id) )
 	{
 		// Attempt to
-		$tpl->message_die('Failed to connect to database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />' . '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
+		$tpl->message_die('Failed to connect to database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />' . $db->connect_error() . '<br /><br />' . '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" /></div></form>');
 	}
 
 	$db_structure_file = ROSTER_DB_DIR . 'structure' . DIR_SEP . $db_config['dbtype'] . '_structure.sql';
@@ -630,30 +675,30 @@ function process_step3( )
 
 	if( (isset($server_version) && isset($client_version)) )
 	{
-		$tpl->message_append('MySQL server version ' . $REQUIRE['mysql_version'] . ' or higher is required for Roster.<br /><br />
+		$tpl->message_append('MySQL server version ' . $REQUIRE['mysql_version'] . ' or higher is required for WoWRoster.<br /><br />
 			<strong>You are running:</strong>
 			<ul>
 				<li><strong>Your server version: ' . $server_version . '</strong></li>
 				<li><strong>Your client version: ' . $client_version . '</strong></li>
 			</ul>
-			Your server meets the MySQL requirements for Roster.');
+			Your server meets the MySQL requirements for WoWRoster.');
 
 		if( version_compare($server_version, $REQUIRE['mysql_version'], '<') )
 		{
-			$tpl->message_die('MySQL server version ' . $REQUIRE['mysql_version'] . ' or higher is required for Roster.<br /><br />
+			$tpl->message_die('MySQL server version ' . $REQUIRE['mysql_version'] . ' or higher is required for WoWRoster.<br /><br />
 				<strong>You are running:</strong>
 				<ul>
 					<li><strong>Your server version: ' . $server_version . '</strong></li>
 					<li><strong>Your client version: ' . $client_version . '</strong></li>
 				</ul>
-				We are sorry, your MySQL server version is not high enough to install Roster, please upgrade MySQL.');
+				We are sorry, your MySQL server version is not high enough to install WoWRoster, please upgrade MySQL.');
 		}
 	}
 	else
 	{
 		$tpl->message_die('Failed to get version information for database <strong>' . $db_config['database'] . '</strong> as <strong>' . $db_config['username'] . '@' . $db_config['host'] . '</strong><br />'
 			. $db->connect_error() . '<br /><br />'
-			. '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" class="submit" /></div></form>');
+			. '<form method="post" action="index.php" name="post"><input type="hidden" name="install_step" value="2" /><div align="center"><input type="submit" name="submit" value="Try Again" /></div></form>');
 	}
 
 	// Parse structure file and create database tables
@@ -814,7 +859,7 @@ function process_step4( )
 
 	$db->query("UPDATE `" . $db->table('account') . "` SET `hash` = '" . $pass_word . "';");
 
-	$tpl->message_append('The Roster Officer and Guild accounts have been set to the same password as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');
+	$tpl->message_append('The WoWRoster Officer and Guild accounts have been set to the same password as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');
 
 	/**
 	 * Rewrite the config file to its final form
@@ -845,7 +890,7 @@ function process_step4( )
 		$tpl->message_append('<span style="font-weight:bold;font-size:14px;" class="negative">NOTICE</span><br /><br />Your passwords did not match, so it has been reset to <strong>admin</strong><br />You can change it by logging in and going to your account settings.');
 	}
 
-	$tpl->message_append('Your administrator account has been created, log in to be taken to the Roster configuration page.');
+	$tpl->message_append('Your administrator account has been created, log in to be taken to the WoWRoster configuration page.');
 
 	$tpl->sql_output($db);
 	$tpl->page_header();

@@ -982,6 +982,7 @@ $lang['installer_not_uninstallable'] = '%1$s enthält ein Addon %2$s welches mit
 // After Install guide
 $lang['install'] = 'Installation';
 $lang['setup_guide'] = 'Nach Installationsanleitung';
+$lang['skip_setup'] = 'Skip Setup';
 $lang['default_data'] = 'Standard Daten';
 $lang['default_data_help'] = 'Hier die standardmäßig zugelassene Gilde einstellen<br />Eine Standardgilde wird von vielen Addons benötigt um korrekt zu funktionieren<br />Weitere Gilden können in RosterCP-&gt;Upload Regeln zugelassen werden<br /><br />Falls dies eine Gildenlose Roster Installation ist:<br />Guildless-F als Gildenname angeben<br />F mit der eigenen Fraktion ersetzen (A=Allianz, H=Horde)<br />Realm und Region eingeben<br />Upload Regeln für Charaktere einstellen unter RosterCP-&gt;Upload Regeln';
 $lang['guide_complete'] = 'Das Nach Installationssetup ist komplett';

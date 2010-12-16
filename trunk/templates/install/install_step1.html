@@ -1,64 +1,62 @@
 <!-- $Id$ -->
-<table class="borderless" align="center">
-	<tr>
-		<td valign="top">
 
-			<table width="50" class="install_table">
-				<tr>
-					<th align="left" colspan="2">Version</th>
-				</tr>
-				<tr>
-					<td align="right" class="row2"><strong>Using:</strong></td>
-					<td align="left">{OUR_ROSTER_VERSION}</td>
-				</tr>
-				<tr>
-					<td align="right" class="row2"><strong>Latest:</strong></td>
-					<td align="left">{THEIR_ROSTER_VERSION}</td>
-				</tr>
-			</table>
+<div class="tier-2-a" style="margin:4px auto; width: 600px;">
+	<div class="tier-2-b exp-content">
+		<div class="tier-2-title">
+			<div class="right"><a class="input" href="?mode=phpinfo">View PHPInfo()</a></div>
+			Server Configuration
+		</div>
 
-		</td>
-		<td valign="top">
+		<div class="ui-widget ui-widget-content ui-corner-all roster-version">
+			<div class="title">Version</div>
+			<div class="text">Using:<span class="right">{OUR_ROSTER_VERSION}</span></div>
+			<div class="text">Latest:<span class="right">{THEIR_ROSTER_VERSION}</span></div>
+			<div class="text">Updated:<span class="right">{THEIR_ROSTER_UPDATED}</span></div>
+		</div>
 
-			<table width="420" class="install_table">
-				<tr>
-					<th align="left" colspan="3">PHP Info</th>
-				</tr>
-				<tr>
-					<td align="left" colspan="3" class="row2"><a href="?mode=phpinfo">View phpinfo()</a></td>
-				</tr>
-				<tr>
-					<td align="left" class="row2" nowrap="nowrap"><strong>Version:</strong></td>
-					<td align="left">Using: {OUR_PHP_VERSION}</td>
-					<td align="left">Required: {THEIR_PHP_VERSION}</td>
-				</tr>
-				<tr>
-					<td align="left" class="row2" nowrap="nowrap"><strong>MySQL Module:</strong></td>
-					<td align="left">Available: {OUR_MYSQL}</td>
-					<td align="left">Required: {THEIR_MYSQL}</td>
-				</tr>
-				<tr>
-					<td align="left" class="row2" nowrap="nowrap"><strong>GD Module:</strong></td>
-					<td align="left">Available: {OUR_GD}</td>
-					<td align="left">Required: {THEIR_GD}</td>
-				</tr>
-			</table>
+		<div class="ui-widget ui-widget-content ui-corner-all php-info">
+			<div class="title">PHP Info</div>
+			<div class="text">
+				<span class="first">Version:</span>
+				<span class="middle">Using: {OUR_PHP_VERSION}</span>
+				<span class="right">Required: {THEIR_PHP_VERSION}</span>
+			</div>
+			<div class="text">
+				<span class="first">MySQL Module:</span>
+				<span class="middle">Available: {OUR_MYSQL}</span>
+				<span class="right">Required: {THEIR_MYSQL}</span>
+			</div>
+			<div class="text">
+				<span class="first">GD Module:</span>
+				<span class="middle">Available: {OUR_GD}</span>
+				<span class="right">{THEIR_GD}</span>
+			</div>
+		</div>
 
-		</td>
-	</tr>
-</table>
-<br />
+	</div>
+</div>
 
-<table width="175" align="center" class="install_table">
-	<tr>
-		<th align="left" colspan="2">Directory Access</th>
-	</tr>
-	<tr>
-		<td class="row2" nowrap="nowrap">Cache:</td>
-		<td width="17" onmouseover="return overlib('{CACHE_TIP}',CAPTION,'Cache Directory');" onmouseout="return nd();"><img src="{THEME_PATH}/images/{CACHE_WRITE}.png" alt="" /></td>
-	</tr>
-</table>
-<br /><br />
+<div class="tier-2-a" style="margin:4px auto; width: 300px;">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			Directory Permissions
+		</div>
+
+<!-- BEGIN dir -->
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right" onmouseover="return overlib('{dir.TIP}',CAPTION,'{dir.CAPTION}');" onmouseout="return nd();">
+					<img src="{THEME_PATH}/images/{dir.WRITE}.png" alt="" />
+				</div>
+				<div class="text">
+					{dir.NAME}
+				</div>
+			</div>
+		</div>
+<!-- END dir -->
+
+	</div>
+</div>
 
 <!-- IF S_SHOW_BUTTON -->
 <form method="post" action="{FORMACTION}" name="post">

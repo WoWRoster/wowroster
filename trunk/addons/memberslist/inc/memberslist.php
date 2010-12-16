@@ -494,7 +494,6 @@ class memberslist
 		{
 			if( $roster->config['motd_display_mode'] )
 			{
-				//return '<img src="' . ROSTER_URL . 'motd.php?id=' . $roster->data['guild_id'] . '" alt="Guild MOTD: ' . htmlspecialchars($roster->data['guild_motd']) . '" /><br /><br />';
 				return '
 	<div class="guild-stats-container">
 		<div class="filtercontainer">
