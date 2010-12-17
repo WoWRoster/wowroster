@@ -68,34 +68,31 @@ class RosterArmory
 	var $strings = 8;
 	var $search = 9;
 
-		var $debugmessages = array();
-		var $errormessages = array();
-		var $logmessages = array();
-		var $live_system = true;
-		var $query;
-		var $server;
-		var $guild;
-		var $guildie;
-		var $page;
+	var $debugmessages = array();
+	var $errormessages = array();
+	var $logmessages = array();
+	var $live_system = true;
+	var $query;
+	var $server;
+	var $guild;
+	var $guildie;
+	var $page;
 
-
-
-
-	var $base_filename			  = 'roster.test.php';			// Base script file name
-	var $base_url				   =  ROSTER_URL ;//'';						   // Base URL
-	var $url_prefix_armory		  = 'http://www.wowarmory.com/';   // URL for the AMERICAN armory
-	var $url_prefix_char			= 'character-sheet.xml?';	   // Use for Char links
-	var $url_prefix_itemtooltip	 = 'item-tooltip.xml?i=';		// Use for Char links
-	var $url_prefix_talents		 = 'character-talents.xml?';	 // used for talent links
-	var $url_prefix_rep			 = 'character-reputation.xml?';  // used for talent links
+	var $base_filename           = 'roster.test.php';			// Base script file name
+	var $base_url                =  ROSTER_URL;//'';						   // Base URL
+	var $url_prefix_armory       = 'http://www.wowarmory.com/';   // URL for the AMERICAN armory
+	var $url_prefix_char         = 'character-sheet.xml?';	   // Use for Char links
+	var $url_prefix_itemtooltip  = 'item-tooltip.xml?i=';		// Use for Char links
+	var $url_prefix_talents      = 'character-talents.xml?';	 // used for talent links
+	var $url_prefix_rep          = 'character-reputation.xml?';  // used for talent links
 
 	// NOTE: THE BELOW DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
-	var $DIR_cache = ARMORYSYNC_CACHE;
-	var $HTML_cache = 'cache/';				   // Directory where the XML cache files are stored
+	var $DIR_cache = ROSTER_CACHEDIR;
+	var $HTML_cache = ROSTER_CACHEDIR;				   // Directory where the XML cache files are stored
 	// NOTE: THE ABOVE DIRECTORY NEEDS TO HAVE WRITE ACCESS IN ORDER TO CACHE THE XML
 
 	var $days_to_cache = 0;								 // How many days to keep cached files for
-	var $DIR_sql = 'cache/';							 // Directory where the SQL files are stored
+	var $DIR_sql = ROSTER_CACHEDIR;						// Directory where the SQL files are stored
 
 	// LOADING BAR
 	var $loading_bar = 50;								 // How many characters in the loading bar
