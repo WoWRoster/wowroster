@@ -4,6 +4,9 @@
 # * $Id$
 #
 # --------------------------------------------------------
+### New Tables
+
+# --------------------------------------------------------
 ### Companions
 
 DROP TABLE IF EXISTS `renprefix_companions`;
@@ -50,32 +53,6 @@ CREATE TABLE `renprefix_glyphs` (
   `glyph_icon` varchar(64) NOT NULL default '',
   `glyph_tooltip` mediumtext NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
-### Pets
-
-ALTER TABLE `renprefix_pets`
-  DROP `usedtp`,
-  DROP `loyalty`;
-
-# --------------------------------------------------------
-### Pet Spellbook
-
-CREATE TABLE `renprefix_pet_spellbook` (
-  `member_id` int( 11 ) unsigned NOT NULL default '0',
-  `pet_id` int( 11 ) unsigned NOT NULL default '0',
-  `spell_name` varchar( 64 ) NOT NULL default '',
-  `spell_texture` varchar( 64 ) NOT NULL default '',
-  `spell_rank` varchar( 64 ) NOT NULL default '',
-  `spell_tooltip` mediumtext NOT NULL ,
-  PRIMARY KEY ( `member_id` , `pet_id` , `spell_name` , `spell_rank` )
-) ENGINE = MYISAM DEFAULT CHARSET = utf8;
-
-INSERT INTO `renprefix_pet_spellbook`
-  SELECT *
-  FROM `renprefix_spellbook_pet` ;
-
-DROP TABLE `renprefix_spellbook_pet` ;
 
 # --------------------------------------------------------
 ### Pet Talents
@@ -145,26 +122,6 @@ CREATE TABLE `renprefix_quests` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Reputation
-
-ALTER TABLE `renprefix_reputation`
-ADD `parent` varchar(32) NULL AFTER `faction`,
-ADD `Description` mediumtext NULL AFTER `Standing`;
-
-# --------------------------------------------------------
-### Spellbook
-
-ALTER TABLE `renprefix_spellbook`
-  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
-  DROP PRIMARY KEY,
-  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_name`,`spell_rank`);
-
-ALTER TABLE `renprefix_spellbooktree`
-  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
-  DROP PRIMARY KEY,
-  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);
-
-#---------------------------------------------------------
 ### Recipe Regent Data 
 
 DROP TABLE IF EXISTS `renprefix_recipes_reagents`;
@@ -183,7 +140,6 @@ CREATE TABLE IF NOT EXISTS `renprefix_recipes_reagents` (
   `reagent_rarity` int(4) NOT NULL DEFAULT '-1',
   `locale` varchar(4) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 
 # --------------------------------------------------------
 ### Talents Data
@@ -220,53 +176,7 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Talent Builds
-
-DROP TABLE IF EXISTS `renprefix_talent_builds`;
-CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
-  `member_id` int(11) NOT NULL default '0',
-  `build` tinyint(2) NOT NULL default '0',
-  `tree` varchar(200) NOT NULL default '',
-  PRIMARY KEY  (`member_id`,`build`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
-### Update Talents
-
-ALTER TABLE `renprefix_talents`
-  ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
-  DROP PRIMARY KEY,
-  ADD PRIMARY KEY (`member_id`,`build`,`tree`,`row`,`column`);
-
-# --------------------------------------------------------
-### Talent Tree
-
-ALTER TABLE `renprefix_talenttree`
-  ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
-  DROP PRIMARY KEY,
-  ADD PRIMARY KEY (`member_id`,`build`,`tree`);
-
-# --------------------------------------------------------
-### Config Table Updates
-
-UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;
-INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
-
-# --------------------------------------------------------
-### Menu Updates
-
-DELETE FROM `renprefix_menu_button` WHERE `addon_id`= '0' AND `title` = 'menu_credits';
-
-# --------------------------------------------------------
-### Item type/subtype/rarity
-
-ALTER TABLE `renprefix_items`
-  ADD `item_type` varchar(64) default NULL AFTER `item_level`,
-  ADD `item_subtype` varchar(64) default NULL AFTER `item_type`,
-  ADD `item_rarity` int(4) default NULL AFTER `item_subtype`;
-
-# --------------------------------------------------------
-### Talent Tree Arrows oh so pritty
+### Talent Tree Arrows
 
 DROP TABLE IF EXISTS `renprefix_talenttree_arrows`;
 CREATE TABLE IF NOT EXISTS `renprefix_talenttree_arrows` (
@@ -366,3 +276,101 @@ INSERT INTO `roster_talenttree_arrows` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3
 ('warriorprotection', 1, 'hArrow', 'arrowRight', 'disabledArrow', NULL),
 ('warriorprotection', 2, 'vArrow', 'disabledArrow', NULL, NULL),
 ('warriorprotection', 3, 'vArrow', 'disabledArrow', NULL, NULL);
+
+# --------------------------------------------------------
+### Talent Builds
+
+DROP TABLE IF EXISTS `renprefix_talent_builds`;
+CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
+  `member_id` int(11) NOT NULL default '0',
+  `build` tinyint(2) NOT NULL default '0',
+  `tree` varchar(200) NOT NULL default '',
+  PRIMARY KEY  (`member_id`,`build`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+
+# --------------------------------------------------------
+### Altered Tables
+
+# --------------------------------------------------------
+### Item type/subtype/rarity
+
+ALTER TABLE `renprefix_items`
+  ADD `item_type` varchar(64) default NULL AFTER `item_level`,
+  ADD `item_subtype` varchar(64) default NULL AFTER `item_type`,
+  ADD `item_rarity` int(4) default NULL AFTER `item_subtype`;
+
+# --------------------------------------------------------
+### Pets
+
+ALTER TABLE `renprefix_pets`
+  DROP `usedtp`,
+  DROP `loyalty`;
+
+# --------------------------------------------------------
+### Rename Pet Spellbook Table
+
+CREATE TABLE `renprefix_pet_spellbook` (
+  `member_id` int( 11 ) unsigned NOT NULL default '0',
+  `pet_id` int( 11 ) unsigned NOT NULL default '0',
+  `spell_name` varchar( 64 ) NOT NULL default '',
+  `spell_texture` varchar( 64 ) NOT NULL default '',
+  `spell_rank` varchar( 64 ) NOT NULL default '',
+  `spell_tooltip` mediumtext NOT NULL ,
+  PRIMARY KEY ( `member_id` , `pet_id` , `spell_name` , `spell_rank` )
+) ENGINE = MYISAM DEFAULT CHARSET = utf8;
+
+INSERT INTO `renprefix_pet_spellbook`
+  SELECT *
+  FROM `renprefix_spellbook_pet` ;
+
+DROP TABLE `renprefix_spellbook_pet` ;
+
+# --------------------------------------------------------
+### Reputation
+
+ALTER TABLE `renprefix_reputation`
+ADD `parent` varchar(32) NULL AFTER `faction`,
+ADD `Description` mediumtext NULL AFTER `Standing`;
+
+# --------------------------------------------------------
+### Spellbook
+
+ALTER TABLE `renprefix_spellbook`
+  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_name`,`spell_rank`);
+
+ALTER TABLE `renprefix_spellbooktree`
+  ADD `spell_build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`spell_build`,`spell_type`);
+
+# --------------------------------------------------------
+### Update Talents
+
+ALTER TABLE `renprefix_talents`
+  ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`build`,`tree`,`row`,`column`);
+
+# --------------------------------------------------------
+### Talent Tree
+
+ALTER TABLE `renprefix_talenttree`
+  ADD `build` tinyint(2) NOT NULL default '0' AFTER `member_id`,
+  DROP PRIMARY KEY,
+  ADD PRIMARY KEY (`member_id`,`build`,`tree`);
+
+# --------------------------------------------------------
+### Config Table Updates
+
+UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;
+INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
+
+# --------------------------------------------------------
+### Menu Updates
+
+DELETE FROM `renprefix_menu_button` WHERE `addon_id`= '0' AND `title` = 'menu_credits';
