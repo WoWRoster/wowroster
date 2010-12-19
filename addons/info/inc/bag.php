@@ -52,7 +52,7 @@ class bag extends item
 
 	function out( $send_type = false )
 	{
-		global $roster, $addon, $tooltips;
+		global $roster, $addon;
 
 		$lang = $this->data['locale'];
 

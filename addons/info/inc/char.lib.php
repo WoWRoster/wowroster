@@ -314,7 +314,7 @@ class char
 		global $roster, $addon;
 
 		$roster->tpl->assign_vars(array(
-			'S_RECIPE_HIDE' => $addon['config']['recipe_disp'],
+			'S_RECIPE_HIDE' => !(bool)$addon['config']['recipe_disp'],
 
 			'U_ITEM'       => makelink('char-info-recipes&amp;s=item'),
 			'U_NAME'       => makelink('char-info-recipes&amp;s=name'),
@@ -371,10 +371,11 @@ class char
 			foreach( $recipe_arr as $skill_name => $recipe )
 			{
 				$roster->tpl->assign_block_vars('recipe',array(
-					'ID'   => strtolower(str_replace(' ','',$skill_name)),
-					'NAME' => $skill_name,
-					'ICON' => $this->locale['ts_iconArray'][$skill_name],
-					'LINK' => makelink('#' . strtolower(str_replace(' ','',$skill_name))),
+					'ID'      => strtolower(str_replace(' ','',$skill_name)),
+					'NAME'    => $skill_name,
+					'ICON'    => $this->locale['ts_iconArray'][$skill_name],
+					'TOOLTIP' => makeOverlib($skill_name,'','',1,'',',WRAP'),
+					'LINK'    => makelink('#' . strtolower(str_replace(' ','',$skill_name))),
 					)
 				);
 				foreach( $recipe as $name => $data )
