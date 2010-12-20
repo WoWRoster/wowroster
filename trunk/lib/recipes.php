@@ -87,6 +87,29 @@ class recipe
 		}
 	}
 
+	function getQualityName($color)
+	{
+		switch (strtolower($color))
+		{
+			case 'e6cc80' :
+				return 'heirloom';
+			case 'ff8800' :
+				return 'legendary';
+			case 'a335ee' :
+				return 'epic';
+			case '0070dd' :
+				return 'rare';
+			case '1eff00' :
+				return 'uncommon';
+			case 'ffffff' :
+				return 'common';
+			case '9d9d9d' :
+				return 'poor';
+			default :
+				return 'none';
+		}
+	}
+
 	// TPL data the easy way
 	function tpl_get_icon()
 	{
@@ -137,7 +160,7 @@ function recipe_get_regents( $member_id )
 {
 	global $roster;
 
-	$query = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` ORDER BY `reagent_id` desc;";
+	$query = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` ORDER BY `reagent_id` DESC;";
 
 	$result = $roster->db->query($query);
 	$regents = array();

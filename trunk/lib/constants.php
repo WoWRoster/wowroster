@@ -18,7 +18,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION', '2.0.9.2238');
+define('ROSTER_VERSION', '2.0.9.2244');
 
 /**
  * Roster Conf File
@@ -101,7 +101,6 @@ define('ROSTER_RACE_TROLL', 8);
 define('ROSTER_RACE_GOBLIN', 9);
 define('ROSTER_RACE_BLOODELF', 10);
 define('ROSTER_RACE_DRAENEI', 11);
-
 define('ROSTER_RACE_WORGEN', 22);
 
 define('ROSTER_SEX_MALE', 0);

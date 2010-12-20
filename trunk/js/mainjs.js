@@ -35,13 +35,12 @@ function hide(id) {
 }
 
 /* Swaps visability of two ids */
-function swapShow(id,ElementID2) {
+function swapShow(id,id2) {
 	if ($('#' + id).is(':visible')) {
 		hide(id2);
 		show(id);
 	}
-	else
-	{
+	else {
 		hide(id);
 		show(id2);
 	}
@@ -50,22 +49,17 @@ function swapShow(id,ElementID2) {
 
 var lpages = new Array();
 
-function addLpage( name )
-{
+function addLpage( name ) {
 	lpages[lpages.length] = name;
 }
 
-function doLpage( div )
-{
-	for( i=0 ; i<lpages.length ; i++ )
-	{
+function doLpage( div ) {
+	for( i=0 ; i<lpages.length ; i++ ) {
 		obj = document.getElementById( lpages[i] );
-		if( lpages[i] == div )
-		{
+		if( lpages[i] == div ) {
 			showElem(obj);
 		}
-		else
-		{
+		else {
 			hideElem(obj);
 		}
 	}
@@ -73,34 +67,27 @@ function doLpage( div )
 
 var rpages = new Array();
 
-function addRpage( name )
-{
+function addRpage( name ) {
 	rpages[rpages.length] = name;
 }
 
-function doRpage( div )
-{
-	for( i=0 ; i<rpages.length ; i++ )
-	{
+function doRpage( div ) {
+	for( i=0 ; i<rpages.length ; i++ ) {
 		obj = document.getElementById( rpages[i] );
-		if( rpages[i] == div )
-		{
+		if( rpages[i] == div ) {
 			showElem(obj);
 		}
-		else
-		{
+		else {
 			hideElem(obj);
 		}
 	}
 }
 
-function showElem(oName)
-{
+function showElem(oName) {
 	oName.style.display='';
 }
 
-function hideElem(oName)
-{
+function hideElem(oName) {
 	oName.style.display='none';
 }
 
@@ -111,38 +98,32 @@ Swaps the visability of an element
 	ImgShow = Image we set when we "Show" the element
 	ImgHide= Image we set when we "Hide" the element
 
-	Usage: showHide('id_name','<imgid_name>','<path/to/image1>','<path/to/image2>');
+	Usage: showHide('container element ID','img ID','path/to/image_on_show','path/to/image_on_hidden');
 */
-function showHide(ElementID,ImgID,ImgShow,ImgHide)
-{
-	if($('#' + ElementID).is(':visible'))
-	{
+function showHide(ElementID,ImgID,ImgShow,ImgHide) {
+	if($('#' + ElementID).is(':visible')) {
 		hide(ElementID);
 		if(ImgHide) {
-			document.getElementById(ImgID).src = ImgHide;
+			$('#' + ImgID).attr('src',ImgHide);
 		}
 	}
-	else
-	{
+	else {
 		show(ElementID);
 		if(ImgShow) {
-			document.getElementById(ImgID).src = ImgShow;
+			$('#' + ImgID).attr('src',ImgShow);
 		}
 	}
 }
 
-function setOpacity( sEl,val )
-{
+function setOpacity( sEl,val ) {
 	oEl = document.getElementById(sEl);
-	if(oEl)
-	{
+	if(oEl) {
 		oEl.style.opacity = val/10;
 		oEl.style.filter = 'alpha(opacity=' + val*10 + ')';
 	}
 }
 
-function getElementsByClass( searchClass, domNode, tagName)
-{
+function getElementsByClass( searchClass, domNode, tagName) {
 	if( domNode.getElementsByClassName )
 		{ return domNode.getElementsByClassName( searchClass ); }
 	if (domNode == null)
@@ -158,46 +139,38 @@ function getElementsByClass( searchClass, domNode, tagName)
 	/* Search text */
 	var tcl = " "+searchClass+" ";
 
-	for(i=0, j=0; i<tags.length; i++)
-	{
+	for(i=0, j=0; i<tags.length; i++) {
 		var test = " " + tags[i].className + " ";
-		if (test.indexOf(tcl) != -1)
+		if (test.indexOf(tcl) != -1) {
 			el[j++] = tags[i];
+		}
 	}
 	return el;
 }
 
-function hideElements( els )
-{
-	for( i = 0; i < els.length; i++ )
-	{
+function hideElements( els ) {
+	for( i = 0; i < els.length; i++ ) {
 		els[i].style.display = 'none';
 	}
 }
 
-function showElements( els )
-{
-	for( i = 0; i < els.length; i++ )
-	{
+function showElements( els ) {
+	for( i = 0; i < els.length; i++ ) {
 		els[i].style.display = '';
 	}
 }
 
-function setElementsSrc( els, img )
-{
-	for( i = 0; i < els.length; i++ )
-	{
+function setElementsSrc( els, img ) {
+	for( i = 0; i < els.length; i++ ) {
 		els[i].src = img;
 	}
 }
 
-function patchHref( els, name, value )
-{
+function patchHref( els, name, value ) {
 	var re = new RegExp("\\b" + name + "=([\\w]*)");
 	var replace = name + "=" + value;
 
-	for( i = 0; i < els.length; i++ )
-	{
+	for( i = 0; i < els.length; i++ ) {
 		els[i].href = els[i].href.replace(re, replace);
 	}
 }
@@ -211,20 +184,16 @@ function patchHref( els, name, value )
  * cont:	The javascript function to call once the reply is in.
  * addon:	Addon name the function belongs to, if not a roster function
  */
-function loadXMLDoc(url,post,callback)
-{
-	if( arguments.length < 2 )
-	{
+function loadXMLDoc(url,post,callback) {
+	if( arguments.length < 2 ) {
 		return false;
 	}
-	else if( arguments.length == 2 )
-	{
+	else if( arguments.length == 2 ) {
 		callback=loadAjaxResult;
 	}
 
 	// branch for native XMLHttpRequest object
-	if (window.XMLHttpRequest)
-	{
+	if (window.XMLHttpRequest) {
 		req = new XMLHttpRequest();
 		req.onreadystatechange = function(){ callback(req ); };
 		req.open("POST", url, true);
@@ -232,11 +201,9 @@ function loadXMLDoc(url,post,callback)
 		req.send(post);
 	// branch for IE/Windows ActiveX version
 	}
-	else if (window.ActiveXObject)
-	{
+	else if (window.ActiveXObject) {
 		req = new ActiveXObject("Microsoft.XMLHTTP");
-		if (req)
-		{
+		if (req) {
 			req.onreadystatechange = function(){ callback(req ); };
 			req.open("POST", url, true);
 			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -248,36 +215,29 @@ function loadXMLDoc(url,post,callback)
 function loadAjaxResult( req )
 {
 	// only if req shows "complete"
-	if (req.readyState == 4)
-	{
+	if (req.readyState == 4) {
 		// only if "OK"
-		if (req.status == 200)
-		{
+		if (req.status == 200) {
 //			Unescape this to show the result XML in a popup for debugging.
 //			alert(req.responseText);
-			if (req.responseXML == null)
-			{
+			if (req.responseXML == null) {
 				alert(req.responseText.replace(/<\/?[^>]+>/gi, ''));
 			}
-			else
-			{
+			else {
 				response = req.responseXML.documentElement;
 				cont = response.getElementsByTagName('cont')[0].firstChild.data;
 				result = response.getElementsByTagName('result')[0];
 				status = response.getElementsByTagName('status')[0].firstChild.data;
 				errmsg = response.getElementsByTagName('errmsg')[0];
-				if (status == 0)
-				{
+				if (status == 0) {
 					eval(cont + '(result)');
 				}
-				else
-				{
+				else {
 					alert('Error '+status+': '+errmsg.firstChild.data);
 				}
 			}
 		}
-		else
-		{
+		else {
 			alert("There was a problem retrieving the XML data:\n" + req.statusText);
 		}
 	}
@@ -291,22 +251,18 @@ function loadAjaxResult( req )
  * post = post string
  * id = element ID to insert into
  */
-function loadAjaxInDiv( req, id )
-{
+function loadAjaxInDiv( req, id ) {
 	if(!document.getElementById) return;
 
 	// only if req shows "complete"
-	if (req.readyState == 4)
-	{
+	if (req.readyState == 4) {
 		// only if "OK"
-		if (req.status == 200)
-		{
+		if (req.status == 200) {
 //			Unescape this to show the result XML in a popup for debugging.
 //			alert(req.responseText);
 			document.getElementById( id ).innerHTML = req.responseText;
 		}
-		else
-		{
+		else {
 			alert("There was a problem retrieving the page data:\n" + req.statusText);
 		}
 	}
