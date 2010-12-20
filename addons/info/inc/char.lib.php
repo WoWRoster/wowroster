@@ -328,11 +328,11 @@ class char
 		// Get recipe sort mode
 		$sort = (isset($_GET['s']) ? $_GET['s'] : '');
 
-		$recipes = recipe_get_many( $this->data['member_id'],'', $sort );
-		$reagents = recipe_get_regents( $this->data['member_id']);
+		$recipes = recipe_get_many($this->data['member_id'], '', $sort);
+		$reagents = recipe_get_regents($this->data['member_id']);
 
 		$reagent_arr = array();
-		foreach( $reagents as $objects)
+		foreach ($reagents as $objects)
 		{
 //			aprint($data);
 			$skil = $objects->data['reagent_id'];
@@ -344,10 +344,10 @@ class char
 		}
 
 //		aprint($reagent_arr);
-		if( isset($recipes[0]) )
+		if (isset($recipes[0]))
 		{
 			$recipe_arr = array();
-			foreach( $recipes as $object )
+			foreach ($recipes as $object)
 			{
 				$skill = $object->data['skill_name'];
 				$recipe = $object->data['recipe_name'];
@@ -368,7 +368,7 @@ class char
 //			echo '<pre>';
 //			print_r($recipe_arr);
 
-			foreach( $recipe_arr as $skill_name => $recipe )
+			foreach ($recipe_arr as $skill_name => $recipe)
 			{
 				$roster->tpl->assign_block_vars('recipe',array(
 					'ID'      => strtolower(str_replace(' ','',$skill_name)),
@@ -378,29 +378,29 @@ class char
 					'LINK'    => makelink('#' . strtolower(str_replace(' ','',$skill_name))),
 					)
 				);
-				foreach( $recipe as $name => $data )
+				foreach ($recipe as $name => $data)
 				{
-					switch( $data['difficulty'] )
+					switch ($data['difficulty'])
 					{
-						case 5:
-							$difficultycolor = 'red';
+						case 5 :
+							$difficultycolor = 'red'; //difficult
 							break;
 
-						case 4:
-							$difficultycolor = 'orange';
+						case 4 :
+							$difficultycolor = 'orange'; //optimal
 							break;
 
-						case 3:
-							$difficultycolor = 'yellow';
+						case 3 :
+							$difficultycolor = 'yellow'; //medium
 							break;
 
-						case 2:
-							$difficultycolor = 'green';
+						case 2 :
+							$difficultycolor = 'green'; //easy
 							break;
 
-						case 1:
-						default:
-							$difficultycolor = 'grey';
+						case 1 :
+						default :
+							$difficultycolor = 'grey'; //trivial
 							break;
 					}
 
@@ -422,18 +422,19 @@ class char
 
 					$reagents = explode('|',$data['reagents']);
 
-
-					foreach( $reagents as $reagent )
+					foreach ($reagents as $reagent)
 					{
-                                        	$dtr = explode(':',$reagent);
+						$dtr = explode(':', $reagent);
 
 						$roster->tpl->assign_block_vars('recipe.row.reagents',array(
-							'DATA' 		=> $reagent,
-							'ID' 		=> $reagent_arr[$dtr[0]]['item_id'],
-							'NAME' 		=> $reagent_arr[$dtr[0]]['item_name'],
-							'COUNT' 	=> $dtr[1],
-							'ICON' 		=> $reagent_arr[$dtr[0]]['item_texture'],
-							'TOOLTIP' 	=> makeOverlib($reagent_arr[$dtr[0]]['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
+							'DATA' 		 => $reagent,
+							'ID' 		 => $reagent_arr[$dtr[0]]['item_id'],
+							'NAME' 		 => $reagent_arr[$dtr[0]]['item_name'],
+							'ITEM_COLOR' => $reagent_arr[$dtr[0]]['item_color'],
+							'QUALITY'    => recipe::getQualityName($reagent_arr[$dtr[0]]['item_color']),
+							'COUNT' 	 => $dtr[1],
+							'ICON' 		 => $reagent_arr[$dtr[0]]['item_texture'],
+							'TOOLTIP' 	 => makeOverlib($reagent_arr[$dtr[0]]['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
 							)
 						);
 					}

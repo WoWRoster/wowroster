@@ -49,9 +49,9 @@
 							{bag.NAME}
 						</div>
 <!-- BEGIN item -->
-						<div class="item" {bag.item.TOOLTIP}{bag.item.ITEMLINK}>
+						<div class="item">
 							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{bag.item.ICON}" alt="" /><!-- ENDIF -->
-							<div class="mask {bag.item.QUALITY}"></div>
+							<div class="mask {bag.item.QUALITY}" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
 <!-- IF bag.item.QTY gt 1 -->
 							<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
 <!-- ENDIF -->
@@ -130,9 +130,9 @@
 							{bank.NAME}
 						</div>
 <!-- BEGIN item -->
-						<div class="item" {bank.item.TOOLTIP}{bank.item.ITEMLINK}>
+						<div class="item">
 							<!-- IF bank.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{bank.item.ICON}" alt="" /><!-- ENDIF -->
-							<div class="mask {bank.item.QUALITY}"></div>
+							<div class="mask {bank.item.QUALITY}" {bank.item.TOOLTIP}{bank.item.ITEMLINK}></div>
 <!-- IF bank.item.QTY gt 1 -->
 							<b>{bank.item.QTY}</b><span>{bank.item.QTY}</span>
 <!-- ENDIF -->

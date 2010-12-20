@@ -367,8 +367,12 @@ ALTER TABLE `renprefix_talenttree`
 # --------------------------------------------------------
 ### Config Table Updates
 
+# Update Documents link
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;
 INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
+# Update CP versions
+UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1010;
+UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1020;
 
 # --------------------------------------------------------
 ### Menu Updates

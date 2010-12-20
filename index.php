@@ -18,8 +18,9 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 {
 	$file = $_POST['data'];
 
+	header('Content-Length: ' . strlen(stripslashes($file)));
 	header('Content-Type: text/x-delimtext; name="' . $_POST['send_file'] . '.txt"');
-	header('Content-disposition: attachment; filename="' . $_POST['send_file'] . '.txt"');
+	header('Content-Disposition: attachment; filename="' . $_POST['send_file'] . '.txt"');
 
 	// We need to stripslashes no matter what the setting of magic_quotes_gpc is
 	echo stripslashes($file);

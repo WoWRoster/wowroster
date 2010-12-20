@@ -511,6 +511,13 @@ class Upgrade
 				ADD `melee_expertise_d` int(11) NOT NULL default '0' AFTER `melee_expertise_b`;");
 		}
 
+		// Update minCP and minGP versions
+		if( version_compare($roster->config['version'], '2.0.9.2244', '<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '1.0.0' WHERE `id` = 1010 LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '1.0.0' WHERE `id` = 1020 LIMIT 1;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
