@@ -48,6 +48,8 @@ $lang['arenapoints']            = 'Points d\'arène';
 
 $lang['main_name']              = 'Main name';
 $lang['alt_type']               = 'Alt type';
+$lang['mainless_alt']           = 'Mainless Alt';
+$lang['ma']                     = 'MA';
 
 $lang['xp_to_go']               = '%1$s XP avant le niveau %2$s';
 
@@ -100,7 +102,6 @@ $lang['admin']['nojs']          = 'Type de liste|Spécifier si vous voulez utili
 $lang['admin']['def_sort']		= 'Tri par défaut|Spécifier la méthode de tir par défaut.';
 $lang['admin']['member_tooltip']= 'Member Tooltip|Turn the info tooltips on the member names on or off.';
 $lang['admin']['group_alts']    = 'Group Alts|Goup alts under their main, rather than sorting them separately.';
-$lang['admin']['icon_size']     = 'Taille des icônes|Spécifier la taille des icônes de classe, d\'honneur et de profession.';
 $lang['admin']['spec_icon']		= 'Icône de talent|Affiche ou non l\'icône de spécialisation de talent.';
 $lang['admin']['class_icon']    = 'Icône de classe|Contrôler l\'affichage des icônes de classe et de spécialisation de talent.<br />Full - affiche les icônes de classe et de talent<br />On - affiche uniquement l\'icône de classe<br />Off- cache les icônes';
 $lang['admin']['class_text']    = 'Texte de classe|Contrôler l\'affichage du texte de la classe.<br />Color - texte de classe en couleur<br />On - affiche le texte de classe<br />Off - cache le texte de classe';

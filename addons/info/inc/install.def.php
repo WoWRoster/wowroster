@@ -286,7 +286,6 @@ class infoInstall
 		if( version_compare('2.0.9.2196', $oldversion,'>') == true )
 		{
 			$installer->add_config("'1035', 'show_model', '0', 'function{infoAccess', 'char_conf'");
-		
 		}
 
 		return true;

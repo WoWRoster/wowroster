@@ -153,13 +153,13 @@ function faction_value ( $row, $field )
 		switch( substr($faction,0,1) )
 		{
 			case 'A':
-				$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '"/> ';
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" /> ';
 				break;
 			case 'H':
-				$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '"/> ';
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" /> ';
 				break;
 			default:
-				$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '"/> ';
+				$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" alt="" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" /> ';
 				break;
 		}
 	}

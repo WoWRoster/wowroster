@@ -48,6 +48,8 @@ $lang['arenapoints']            = 'Arenapunkte';
 
 $lang['main_name']              = 'Hauptcharaktername';
 $lang['alt_type']               = 'Twink Typ';
+$lang['mainless_alt']           = 'Mainless Alt';
+$lang['ma']                     = 'MA';
 
 $lang['xp_to_go']               = '%1$s EP bis Stufe %2$s';
 
@@ -100,7 +102,6 @@ $lang['admin']['nojs']          = 'Listentyp|Gib an, ob du eine serverseitige So
 $lang['admin']['def_sort']		= 'Standard Sortierung|Gib die Standard Sortiermethode an.';
 $lang['admin']['member_tooltip']= 'Mitglieder Tooltip|Schalte den Info-Tooltip über den Mitgliedernamen an oder aus.';
 $lang['admin']['group_alts']    = 'Gruppiere Twinks|Gruppiere Twinks unterhalb ihrer Hauptcharaktere anstelle diese seperat zu sortieren.';
-$lang['admin']['icon_size']     = 'Icon Größe|Setze die Größe der Klassen/Ehren/Berufs Icons.';
 $lang['admin']['spec_icon']		= 'Talent Icon|Schalte das Talent Icon an oder aus.';
 $lang['admin']['class_icon']    = 'Klassen Icon|Kontrolliert die Klass/Talent Icon Anzeige.<br />Voll - Anzeige von Talent und Klassen Icon<br />An - Nur Anzeige des Klasse Icons<br />Aus - Keine Icons';
 $lang['admin']['class_text']    = 'Klassentext|Kontrolliert die Klassentextanzeige.<br />Farbe - Farbiger Klassentext<br />An - Anzeige des Klassentextes<br />Aus - Kein Klassentext';

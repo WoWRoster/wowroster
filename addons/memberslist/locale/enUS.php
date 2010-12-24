@@ -48,6 +48,8 @@ $lang['arenapoints']            = 'Arena Points';
 
 $lang['main_name']              = 'Main name';
 $lang['alt_type']               = 'Alt type';
+$lang['mainless_alt']           = 'Mainless Alt';
+$lang['ma']                     = 'MA';
 
 $lang['xp_to_go']               = '%1$s XP until level %2$s';
 
@@ -77,7 +79,7 @@ $lang['accounts']               = 'Accounts';
 
 // Configuration
 $lang['memberslist_config']		= 'Go to memberslist configuration';
-$lang['memberslist_config_page']= 'memberslist Configuration';
+$lang['memberslist_config_page']= 'Members List Configuration';
 $lang['documentation']			= 'Documentation';
 $lang['uninstall']				= 'Uninstall';
 
@@ -100,7 +102,6 @@ $lang['admin']['nojs']          = 'List Type|Specify if you want to use serversi
 $lang['admin']['def_sort']		= 'Default Sort|Specify the default sort method.';
 $lang['admin']['member_tooltip']= 'Member Tooltip|Turn the info tooltips on the member names on or off.';
 $lang['admin']['group_alts']    = 'Group Alts|Goup alts under their main, rather than sorting them separately.';
-$lang['admin']['icon_size']     = 'Icon Size|Set the size for the class/honor/profession icons.';
 $lang['admin']['spec_icon']		= 'Talent Spec icon|Turn the talent spec icon on or off.';
 $lang['admin']['class_icon']    = 'Class Icon|Controls the class/talent spec icon display.<br />Full - Display Talent Spec and Class Icon<br />On - Display only class icon<br />Off- Hide icons';
 $lang['admin']['class_text']    = 'Class Text|Controls the class text display.<br />Color - Class text with coloring<br />On - Display class text<br />Off - Hide class text';
