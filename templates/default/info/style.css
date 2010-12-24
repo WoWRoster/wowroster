@@ -227,34 +227,7 @@
 .money div { text-align: right; font-size: 10px; line-height: 12px; }
 .money .coin { width:11px;height:10px; }
 
-.powers { cursor: default; padding: 5px; width: 338px; position: absolute; left: 0px; top: 125px; }
-.powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
-.powers .bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
-.powers .bar .power-bar { background: transparent repeat-x left center; margin: 1px; line-height: 16px; height: 16px; width: 334px; position: relative; text-align: center; border: 1px solid #000000; }
-.powers .bar .health { background: url(images/bars/bar-life.gif); }
-.powers .bar .health:hover { border-color: #7EFF00; }
-.powers .bar .mana { background: url(images/bars/bar-mana.gif); }
-.powers .bar .mana:hover { border-color: #00A8FF; }
-.powers .bar .rage { background: url(images/bars/bar-rage.gif); }
-.powers .bar .rage:hover { border-color: #FF0000; }
-.powers .bar .energy { background: url(images/bars/bar-energy.gif); }
-.powers .bar .energy:hover { border-color: #FFE100; }
-.powers .bar .focus { background: url(images/bars/bar-energy.gif); }
-.powers .bar .focus:hover { border-color: #FFE100; }
-.powers .bar .runes { background: url(images/bars/bar-runes.gif); }
-.powers .bar .runes:hover { border-color: #00A8FF; }
-.powers .bar .runicpower { background: url(images/bars/bar-runicpower.gif); }
-.powers .bar .runicpower:hover { border-color: #00A8FF; }
-.powers .bar .xp-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
-.powers .bar .xp-bar { margin: 1px; line-height: 16px; height: 16px; width: 334px; position: relative; text-align: center; border: 1px solid #000000; background: #333333; }
-.powers .bar .xp-bar .fill { background: transparent url(images/bars/xp-normal.gif) repeat-x left center; position: absolute; height: 16px; left: 0px; top: 0px; }
-.powers .bar .xp-bar .text { width:334px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
-.powers .bar .xp-bar .normal { background: url(images/bars/xp-normal.gif); }
-.powers .bar .normal:hover { border-color: #00A8FF; }
-.powers .bar .xp-bar .rested { background: url(images/bars/xp-rested.gif); }
-.powers .bar .rested:hover { border-color: #8F00FF; }
-.powers .bar .xp-bar .max { background: url(images/bars/xp-rested.gif); }
-.powers .bar .max:hover { border-color: #8F00FF; }
+.powers { cursor: default; padding: 5px; width: 338px; position: absolute; left: 0; top: 125px; }
 
 /* Buff Icons */
 .buffs { position:absolute; font: bold 11px arial,helvetica,sans-serif; text-transform: uppercase; left: 0; top: 247px; padding: 5px; height: 24px; width: 338px; }
@@ -409,18 +382,18 @@
 .pets .powers .bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
 .pets .powers .bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
 .pets .powers .bar .power-bar { background: transparent repeat-x left center; margin: 1px; float: right; line-height: 16px; height: 16px; width: 130px; position: relative; text-align: center; border: 1px solid #000000; }
-.pets .powers .bar .health { background: url(images/bars/bar-life.gif); }
+.pets .powers .bar .health { background: url(../images/bars/bar-life.gif); }
 .pets .powers .bar .health:hover { border-color: #7EFF00; }
-.pets .powers .bar .Mana { background: url(images/bars/bar-mana.gif); }
+.pets .powers .bar .Mana { background: url(../images/bars/bar-mana.gif); }
 .pets .powers .bar .Mana:hover { border-color: #00A8FF; }
-.pets .powers .bar .Rage { background: url(images/bars/bar-rage.gif); }
+.pets .powers .bar .Rage { background: url(../images/bars/bar-rage.gif); }
 .pets .powers .bar .Rage:hover { border-color: #FF0000; }
-.pets .powers .bar .Focus { background: url(images/bars/bar-energy.gif); }
+.pets .powers .bar .Focus { background: url(../images/bars/bar-energy.gif); }
 .pets .powers .bar .Focus:hover { border-color: #000000; }
-.pets .powers .bar .Energy { background: url(images/bars/bar-energy.gif); }
+.pets .powers .bar .Energy { background: url(../images/bars/bar-energy.gif); }
 .pets .powers .bar .Energy:hover { border-color: #000000; }
 
-.pets .powers .bar .xp-bar .fill { background: url(images/bars/xp-rested.gif); }
+.pets .powers .bar .xp-bar .fill { background: url(../images/bars/xp-rested.gif); }
 .pets .powers .bar .xp-bar .text { width:130px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 .pets .powers .bar .xp-bar:hover { border-color: #8F00FF; }
 
@@ -456,12 +429,12 @@
 .main-panel .reputation .rep-bar .text { width:300px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 .main-panel .reputation .rep-standing { width: 110px; float: right; position: relative; line-height: 20px; text-align: center; }
 
-.main-panel .reputation .rep-bar .Hated { background: url(./images/bars/hated.gif); }
-.main-panel .reputation .rep-bar .Neutral { background: url(./images/bars/neutral.gif); }
-.main-panel .reputation .rep-bar .Friendly { background: url(./images/bars/friendly.gif); }
-.main-panel .reputation .rep-bar .Honored { background: url(./images/bars/honored.gif); }
-.main-panel .reputation .rep-bar .Revered { background: url(./images/bars/revered.gif); }
-.main-panel .reputation .rep-bar .Exhaulted { background: url(./images/bars/exhaulted.gif); }
+.main-panel .reputation .rep-bar .Hated { background: url(../images/bars/hated.gif); }
+.main-panel .reputation .rep-bar .Neutral { background: url(../images/bars/neutral.gif); }
+.main-panel .reputation .rep-bar .Friendly { background: url(../images/bars/friendly.gif); }
+.main-panel .reputation .rep-bar .Honored { background: url(../images/bars/honored.gif); }
+.main-panel .reputation .rep-bar .Revered { background: url(../images/bars/revered.gif); }
+.main-panel .reputation .rep-bar .Exhaulted { background: url(../images/bars/exhaulted.gif); }
 
 
 /*********** Skill Page ***********/

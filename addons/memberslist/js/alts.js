@@ -9,7 +9,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    MembersList
-*/
+ */
 
 /**
  * Function to show/hide alts. Based on the showHide function in mainjs, but

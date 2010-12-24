@@ -9,7 +9,7 @@
  * @link       http://www.wowroster.net
  * @package    MembersList
  * @subpackage MemberList Class
-*/
+ */
 
 if ( !defined('IN_ROSTER') )
 {
@@ -68,8 +68,6 @@ class memberslist
 		{
 			$this->addon['config'] = array_merge($this->addon['config'], $options);
 		}
-
-		$this->addon['config']['icon_size'] = 22;
 
 		// Select the template to use, so other addons can make their own memberslist templates
 		if( isset($this->addon['config']['template']) )
@@ -507,7 +505,6 @@ class memberslist
 			}
 			else
 			{
-				//return '<table class="border_frame" cellpadding="0" cellspacing="1" ><tr><td class="border_colour sgoldborder motd_setup">' . htmlspecialchars($roster->data['guild_motd']) . '</td></tr></table><br /><br />';
 				return '
 	<div class="guild-stats-container">
 		<div class="filtertitle" style="float: left; position: relative;">Motd</div>
@@ -627,7 +624,7 @@ class memberslist
 					if( strlen($icon_name) > 0 ) break;
 				}
 
-				$icon_value .= '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.png" alt="" />';
+				$icon_value .= '<div class="item-sm"><img src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.png" alt="" /><div class="mask"></div></div>';
 			}
 
 			// Don't proceed for characters without data
@@ -656,7 +653,7 @@ class memberslist
 				$specline = implode(' / ', $tooltip);
 				if( !$notalent )
 				{
-					$specicon = '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP') . ' />';
+					$specicon = '<div class="item-sm" ' . makeOverlib($specline,$spec,'',1,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" /><div class="mask"></div></div>';
 				}
 
 				if( active_addon('info') )
@@ -785,7 +782,7 @@ class memberslist
 					$rankicon = 'Interface/PvPRankBadges/pvprank' . $row['lifetimeHighestRank'] . '.' . $roster->config['alt_img_suffix'];
 				}
 				$rankicon = $roster->config['interface_url'] . $rankicon;
-				$rankicon = "<img class=\"membersRowimg\" width=\"" . $this->addon['config']['icon_size'] . "\" height=\"" . $this->addon['config']['icon_size'] . "\" src=\"" . $rankicon . "\" alt=\"\" />";
+				$rankicon = '<img class="middle" width="24" height="24" src="' . $rankicon . '" alt="" />';
 			}
 			else
 			{
@@ -828,7 +825,7 @@ class memberslist
 		// Don't proceed for characters without data
 		if( !isset($row['talents']) || $row['talents'] == '' )
 		{
-			return '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'pixel.gif" alt="" />';
+			return '<img class="middle" width="24" height="24" src="' . $roster->config['img_url'] . 'pixel.gif" alt="" />';
 		}
 
 		$lang = $row['clientLocale'];
@@ -851,7 +848,7 @@ class memberslist
 		}
 		$tooltip = implode(' / ', $tooltip);
 
-		$specicon = '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP') . ' />';
+		$specicon = '<div class="item-sm" ' . makeOverlib($tooltip,$spec,'',1,'',',WRAP') . '><img src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" /><div class="mask"></div></div>';
 
 		if( active_addon('info') )
 		{
