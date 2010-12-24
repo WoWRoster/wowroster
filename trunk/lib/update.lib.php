@@ -1518,6 +1518,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 			{
 				$count = $reagent['Quantity'];
 			}
+			elseif (isset($reagent['Count']))
+			{
+				$count = $reagent['Count'];
+			}
 			else
 			{
 				$count = '1';
