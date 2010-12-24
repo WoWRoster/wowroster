@@ -249,7 +249,7 @@ function tradeskill_icons ( $row )
 		// Don't add professions we don't have an icon for. This keeps other skills out.
 		if ($icon != '')
 		{
-			$icon = '<img class="membersRowimg" width="'.$addon['config']['icon_size'].'" height="'.$addon['config']['icon_size'].'" src="'.$roster->config['interface_url'].'Interface/Icons/'.$icon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($toolTip,$toolTiph,'',2,'',',RIGHT,WRAP').' />';
+			$icon = '<div class="item-sm" '.makeOverlib($toolTip,$toolTiph,'',2,'',',WRAP').'><img src="'.$roster->config['interface_url'].'Interface/Icons/'.$icon.'.'.$roster->config['img_suffix'].'" alt="" /><div class="mask"></div></div>';
 
 			if( active_addon('info') )
 			{

@@ -9,7 +9,7 @@
  * @link       http://www.wowroster.net
  * @package    MembersList
  * @subpackage UpdateHook
-*/
+ */
 
 if ( !defined('IN_ROSTER') )
 {

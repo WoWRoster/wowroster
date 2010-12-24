@@ -454,12 +454,6 @@ img, p { padding:0;margin:0;border:0; }
 
 
 /**
- * Misc Defines
- */
-.lastupdated { color:#0099FF;font-size:x-small;font-style:italic; }
-
-
-/**
  * Message box
  */
 #notify { display:none; width:100%; position:relative; color:#999999; }
@@ -580,7 +574,39 @@ img, p { padding:0;margin:0;border:0; }
 .membersRowRight2 a:link, .membersRowRight2 a:hover, .membersRowRight2 a:active, .membersRowRight2 a:visited {color:#000000;}
 
 
+img.middle,
 .membersRowimg { vertical-align:middle; }
+
+/**
+ * power bars
+ */
+.bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
+.bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
+.bar .power-bar { background: transparent repeat-x left center; margin: 1px; line-height: 16px; height: 16px; width: 334px; position: relative; text-align: center; border: 1px solid #000000; }
+.bar .health { background: url(images/bars/bar-life.gif); }
+.bar .health:hover { border-color: #7EFF00; }
+.bar .mana { background: url(images/bars/bar-mana.gif); }
+.bar .mana:hover { border-color: #00A8FF; }
+.bar .rage { background: url(images/bars/bar-rage.gif); }
+.bar .rage:hover { border-color: #FF0000; }
+.bar .energy { background: url(images/bars/bar-energy.gif); }
+.bar .energy:hover { border-color: #FFE100; }
+.bar .focus { background: url(images/bars/bar-energy.gif); }
+.bar .focus:hover { border-color: #FFE100; }
+.bar .runes { background: url(images/bars/bar-runes.gif); }
+.bar .runes:hover { border-color: #00A8FF; }
+.bar .runicpower { background: url(images/bars/bar-runicpower.gif); }
+.bar .runicpower:hover { border-color: #00A8FF; }
+.bar .xp-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
+.bar .xp-bar { margin: 1px; line-height: 16px; height: 16px; width: 334px; position: relative; text-align: center; border: 1px solid #000000; background: #333333; }
+.bar .xp-bar .fill { background: transparent url(images/bars/xp-normal.gif) repeat-x left center; position: absolute; height: 16px; left: 0px; top: 0px; }
+.bar .xp-bar .text { width:334px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.bar .xp-bar .normal { background: url(images/bars/xp-normal.gif); }
+.bar .normal:hover { border-color: #00A8FF; }
+.bar .xp-bar .rested { background: url(images/bars/xp-rested.gif); }
+.bar .rested:hover { border-color: #8F00FF; }
+.bar .xp-bar .max { background: url(images/bars/xp-rested.gif); }
+.bar .max:hover { border-color: #8F00FF; }
 
 /**
  * Border Styles
@@ -590,17 +616,6 @@ img, p { padding:0;margin:0;border:0; }
 .border_color {
 	border-width:1px;
 	border-style:solid;
-}
-
-.motd_setup {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
-	color:#FFFFFF;
-	font-style:normal;
-	padding-right:8px;
-	padding-left:23px;
-	background:#660000 url(../../img/motd_left.gif) no-repeat left center;
-	height:21px;
 }
 
 /* Header Text */
@@ -667,7 +682,8 @@ img, p { padding:0;margin:0;border:0; }
 .goldB { font-weight:bold;color:#ffcc00; }
 .brownB { font-weight:bold;color:#593300; }
 
-.iconwhite, .icongrey, .icongreen, .iconblue, .iconpurple { float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1;border:2px solid #ffffff; }
+.iconwhite, .icongrey, .icongreen, .iconblue, .iconpurple
+	{ float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1;border:2px solid #ffffff; }
 .iconwhite { }
 .icongrey { border-color:#9d9d9d; }
 .icongreen { border-color:#1eff00; }
@@ -843,9 +859,7 @@ select:focus { outline: none; }
 /**
  * CSS Weirdness
  */
-.exp-content {
-	overflow: auto;
-}
+.exp-content { overflow: auto; }
 
 
 .guild-stats-container { padding:20px 20px 10px; }

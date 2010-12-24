@@ -8,7 +8,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    MembersList
-*/
+ */
 
 if ( !defined('IN_ROSTER') )
 {
