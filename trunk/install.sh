@@ -1,5 +1,5 @@
 #! /bin/bash
-# Roster install shellscript. Tested on linux, probably works on mac OSX. Won't work on windows.
+# WoWRoster install shell script. Tested on Linux, probably works on Mac OSX. Won't work on Windows.
 # $Id$
 
 echo 'At any point in the script, press Control-C to abort'
@@ -27,7 +27,7 @@ if [ ! -f index.php ]
 then
 	if [ "`ls`" != 'install.sh' ]
 	then
-		echo 'Please put this script in an empty directory in which to install roster'
+		echo 'Please put this script in an empty directory in which to install WoWRoster'
 		exit 1
 	fi
 
@@ -44,7 +44,7 @@ then
 	if [ -n "`which svn`" ]
 	then
 		svn=yes
-	        echo 'Installation from SVN is possible'
+		echo 'Installation from SVN is possible'
 	else
 		echo 'Installation from SVN is NOT possible because you do not have subversion client installed'
 	fi
@@ -73,7 +73,7 @@ then
 			cd ..
 		else
 			echo "Since wget is not available, the interface images could not be fetched. Please"
-			echo "download and extract them manually in the 'img' directory"
+			echo "download and extract them manually to the 'img' directory"
 		fi
 	elif [ $mode == 'wget' ]
 	then
@@ -102,9 +102,9 @@ fi
 if [ -z "`which php`" ]
 then
 	echo "PHP version could not be checked: Command line php not available"
-elif php -r 'exit((int)!version_compare(phpversion(),"4.3.0","<"));'
+elif php -r 'exit((int)!version_compare(phpversion(),"5.1.0","<"));'
 then
-	echo "php version is too low: `php -r 'echo phpversion()'` php version 4.3.0 or higher is required."
+	echo "php version is too low: `php -r 'echo phpversion()'` php version 5.1.0 or higher is required."
 fi
 
 # Get the mysql connect data
@@ -260,4 +260,4 @@ then
 	rm -f install.php upgrade.php
 fi
 
-echo 'Roster installation is successful.'
+echo 'WoWRoster installation is successful.'

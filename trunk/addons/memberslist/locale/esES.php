@@ -48,6 +48,8 @@ $lang['arenapoints']            = 'Puntos de arena';
 
 $lang['main_name']              = 'Personaje principal';
 $lang['alt_type']               = 'Personaje Alt';
+$lang['mainless_alt']           = 'Mainless Alt';
+$lang['ma']                     = 'MA';
 
 $lang['xp_to_go']               = '%1$s PE hasta nivel %2$s';
 
@@ -100,7 +102,6 @@ $lang['admin']['nojs']          = 'Tipo de lista|Elige si quieres ordenar el lis
 $lang['admin']['def_sort']		= 'Orden predeterminado|Elige el modo predeterminado de mostrar los datos.';
 $lang['admin']['member_tooltip']= 'Utilidades de personaje|Activa o desactiva mostrar las utilidades del personaje en el nombre del miembro.';
 $lang['admin']['group_alts']    = 'Grupo de alts|Agrupa a los personajes alts debajo del principal, ordenandolos por separado.';
-$lang['admin']['icon_size']     = 'Tamaño de icono|Elige el tamaño del icono de clases/honor/profesiones.';
 $lang['admin']['spec_icon']		= 'Icono de talento espec.|Activa o desactiva mostrar el icono de la especialización en talentos.';
 $lang['admin']['class_icon']    = 'Icono de clase|Elige si mostrar el icono de clase/talento.<br />Completo - Muestra todos los iconos<br />On - Muestra solo el icono de clase<br />Off - Esconde los iconos';
 $lang['admin']['class_text']    = 'Texto de clase|Elige si mostrar el texto de la clase.<br />Color - Colorea el nombre de la clase<br />On - Muestra el texto de la clase<br />Off - Esconde el texto de la clase';

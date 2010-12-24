@@ -30,7 +30,7 @@ class memberslist
 	var $wheres;					// where clauses
 	var $orders;					// order clauses
 
-	var $addon;						// SortMembers addon data
+	var $addon;						// MembersList addon data
 
 	/**
 	 * Constructor
@@ -68,6 +68,8 @@ class memberslist
 		{
 			$this->addon['config'] = array_merge($this->addon['config'], $options);
 		}
+
+		$this->addon['config']['icon_size'] = 22;
 
 		// Select the template to use, so other addons can make their own memberslist templates
 		if( isset($this->addon['config']['template']) )
@@ -654,7 +656,7 @@ class memberslist
 				$specline = implode(' / ', $tooltip);
 				if( !$notalent )
 				{
-					$specicon = '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP') . ' />';
+					$specicon = '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP') . ' />';
 				}
 
 				if( active_addon('info') )
@@ -819,14 +821,14 @@ class memberslist
 	 */
 	function spec_icon( $row )
 	{
-		global $roster, $addon;
+		global $roster;
 
 		$cell_value ='';
 
 		// Don't proceed for characters without data
 		if( !isset($row['talents']) || $row['talents'] == '' )
 		{
-			return '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'pixel.gif" alt="" />';
+			return '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'pixel.gif" alt="" />';
 		}
 
 		$lang = $row['clientLocale'];
@@ -849,7 +851,7 @@ class memberslist
 		}
 		$tooltip = implode(' / ', $tooltip);
 
-		$specicon = '<img class="membersRowimg" width="' . $addon['config']['icon_size'] . '" height="' . $addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP') . ' />';
+		$specicon = '<img class="membersRowimg" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '" src="' . $roster->config['img_url'] . 'spec/' . $specicon . '.' . $roster->config['img_suffix'] . '" alt="" ' . makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP') . ' />';
 
 		if( active_addon('info') )
 		{
