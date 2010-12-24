@@ -257,13 +257,9 @@
 .powers .bar .max:hover { border-color: #8F00FF; }
 
 /* Buff Icons */
-.buffs { position:absolute; font: bold 11px arial,helvetica,sans-serif; text-transform: uppercase; left: 0px; top: 251px; padding: 5px; height: 20px; width: 338px; }
-.buffs .bar { height: 20px; float: right; width: 264px; position: relative; overflow: hidden; }
-.buffs .buff-name { float: right; position: relative; line-height: 20px; margin-right: 4px; }
-.buffs .buff { position:relative; width:20px; height:20px; float:left; margin-left: 2px; }
-.buffs .buff span { position:absolute;bottom:-2px;right:1px;color:#fff;font-weight:bold;font-size:10px; }
-.buffs .buff b { position:absolute;bottom:-3px;right:0px;color:#000;font-weight:bold;font-size:10px; }
-.buffs .buff .icon { width:20px;height:20px; }
+.buffs { position:absolute; font: bold 11px arial,helvetica,sans-serif; text-transform: uppercase; left: 0; top: 247px; padding: 5px; height: 24px; width: 338px; }
+.buffs .bar { height: 24px; float: right; width: 264px; position: relative; overflow: hidden; }
+.buffs .buff-name { float: right; position: relative; line-height: 24px; margin-right: 4px; }
 
 /* Resistances */
 .resist { cursor: default; position: absolute; height: 20px; width: 338px; left: 0px; top: 208px; padding: 5px; }

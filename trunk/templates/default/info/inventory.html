@@ -10,9 +10,9 @@
 				<div class="tier-2-a">
 					<div class="tier-2-b">
 <!-- BEGIN equipment -->
-						<div class="item">
+						<div class="item" {equipment.TOOLTIP}{equipment.ITEMLINK}>
 							<!-- IF equipment.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{equipment.ICON}" alt="" /><!-- ENDIF -->
-							<div class="mask {equipment.QUALITY}" {equipment.TOOLTIP}{equipment.ITEMLINK}></div>
+							<div class="mask {equipment.QUALITY}"></div>
 <!-- IF equipment.QTY gt 1 -->
 							<b>{equipment.QTY}</b>
 							<span>{equipment.QTY}</span>
@@ -42,16 +42,16 @@
 				<div class="tier-2-a">
 					<div class="tier-2-b">
 						<div class="tier-2-title">
-							<div class="icon">
+							<div class="icon" {bag.TOOLTIP}{bag.LINKTIP}>
 								<img src="{bag.ICON}" alt="" />
-								<div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div>
+								<div class="mask"></div>
 							</div>
 							{bag.NAME}
 						</div>
 <!-- BEGIN item -->
-						<div class="item">
+						<div class="item" {bag.item.TOOLTIP}{bag.item.ITEMLINK}>
 							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{bag.item.ICON}" alt="" /><!-- ENDIF -->
-							<div class="mask {bag.item.QUALITY}" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
+							<div class="mask {bag.item.QUALITY}"></div>
 <!-- IF bag.item.QTY gt 1 -->
 							<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
 <!-- ENDIF -->
@@ -82,16 +82,16 @@
 				<div class="tier-2-a">
 					<div class="tier-2-b">
 						<div class="tier-2-title">
-							<div class="icon">
+							<div class="icon" {key.TOOLTIP}{key.LINKTIP}>
 								<img src="{key.ICON}" alt="" />
-								<div class="mask" {key.TOOLTIP}{key.LINKTIP}></div>
+								<div class="mask"></div>
 							</div>
 							{key.NAME}
 						</div>
 <!-- BEGIN item -->
-						<div class="item">
+						<div class="item" {key.item.TOOLTIP}{key.item.ITEMLINK}>
 							<!-- IF key.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{key.item.ICON}" alt="" /><!-- ENDIF -->
-							<div class="mask {key.item.QUALITY}" {key.item.TOOLTIP}{key.item.ITEMLINK}></div>
+							<div class="mask {key.item.QUALITY}"></div>
 <!-- IF key.item.QTY gt 1 -->
 							<b>{key.item.QTY}</b><span>{key.item.QTY}</span>
 <!-- ENDIF -->
@@ -123,16 +123,16 @@
 				<div class="tier-2-a">
 					<div class="tier-2-b">
 						<div class="tier-2-title">
-							<div class="icon">
+							<div class="icon" {bank.TOOLTIP}{bank.LINKTIP}>
 								<img src="{bank.ICON}" alt="" />
-								<div class="mask" {bank.TOOLTIP}{bank.LINKTIP}></div>
+								<div class="mask"></div>
 							</div>
 							{bank.NAME}
 						</div>
 <!-- BEGIN item -->
-						<div class="item">
+						<div class="item" {bank.item.TOOLTIP}{bank.item.ITEMLINK}>
 							<!-- IF bank.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{bank.item.ICON}" alt="" /><!-- ENDIF -->
-							<div class="mask {bank.item.QUALITY}" {bank.item.TOOLTIP}{bank.item.ITEMLINK}></div>
+							<div class="mask {bank.item.QUALITY}"></div>
 <!-- IF bank.item.QTY gt 1 -->
 							<b>{bank.item.QTY}</b><span>{bank.item.QTY}</span>
 <!-- ENDIF -->

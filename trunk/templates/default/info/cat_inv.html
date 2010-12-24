@@ -10,9 +10,9 @@
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 <!-- BEGIN item -->
-						<div class="item">
+						<div class="item" {type.item.TOOLTIP}{type.item.ITEMLINK}>
 						<!-- IF type.item.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{type.item.ICON}" /><!-- ENDIF -->
-							<div class="mask {type.item.QUALITY}" {type.item.TOOLTIP}{type.item.ITEMLINK}></div>
+							<div class="mask {type.item.QUALITY}"></div>
 <!-- IF type.item.QTY gt 1 -->
 							<b>{type.item.QTY}</b>
 							<span>{type.item.QTY}</span>
@@ -29,9 +29,9 @@
                 	<div class="tier-2-b">
 						<div class="tier-2-title">{type.subtype.NAME}</div>
 <!-- BEGIN item -->
-						<div class="item">
+						<div class="item" {type.subtype.item.TOOLTIP}{type.subtype.item.ITEMLINK}>
             				<!-- IF type.subtype.item.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{type.subtype.item.ICON}" /><!-- ENDIF -->
-            				<div class="mask {type.subtype.item.QUALITY}" {type.subtype.item.TOOLTIP}{type.subtype.item.ITEMLINK}></div>
+            				<div class="mask {type.subtype.item.QUALITY}"></div>
 <!-- IF type.subtype.item.QTY gt 1 -->
 							<b>{type.subtype.item.QTY}</b>
 							<span>{type.subtype.item.QTY}</span>
