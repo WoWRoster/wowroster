@@ -852,3 +852,4 @@ select:focus { outline: none; }
 .bankcontentsfilter { height:40px; background: url('images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px; }
 .bottomshadow { background: url(images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }
 
+.tooltip.box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(images/skill_title_bg.png) repeat-x left top; position: relative; }
