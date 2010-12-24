@@ -248,7 +248,7 @@ function key_value( $row, $field, $data )
 
 	if( in_array( $last_stage, $active_stages ) )
 	{
-		$output = '<img class="icon" alt="" src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $data['icon'] . '.' . $roster->config['img_suffix'] . '" />';
+		$output = '<div class="item-sm"><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $data['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /><div class="mask"></div></div>';
 	}
 	else
 	{

@@ -9,7 +9,7 @@
 				<div class="tier-1-title"><!-- TRANSLATE vault --> (Logs Broken, need tabs)
 					<div class="links">
 <!-- BEGIN vault -->
-						<a href="{vault.LINK}" class="icon"><img src="{vault.ICON}" /><span class="mask" {vault.TOOLTIP}></span></a>
+						<a href="{vault.LINK}" class="icon" {vault.TOOLTIP}><img src="{vault.ICON}" /><span class="mask"></span></a>
 <!-- END vault -->
 					</div>
 				</div>
@@ -19,7 +19,8 @@
 				<div class="tier-2-a">
 					<div class="tier-2-b">
 						<div class="tier-2-title">
-							<div class="icon"><img src="{vault.ICON}" />
+							<div class="icon">
+								<img src="{vault.ICON}" />
 								<div class="mask"></div>
 							</div>{vault.NAME}
 <!-- IF vault.SLOT eq 'MoneyLog' -->
@@ -41,9 +42,9 @@
 <!-- BEGIN column -->
 							<div class="vault-column">
 <!-- BEGIN item -->
-								<div class="item">
+								<div class="item" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}>
 									<!-- IF vault.column.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{vault.column.item.ICON}" alt="" /><!-- ENDIF -->
-									<div class="mask {vault.column.item.QUALITY}" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}></div>
+									<div class="mask {vault.column.item.QUALITY}"></div>
 <!-- IF vault.column.item.QTY gt 1 -->
 									<b>{vault.column.item.QTY}</b><span>{vault.column.item.QTY}</span>
 <!-- ENDIF -->

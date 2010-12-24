@@ -285,7 +285,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 /* Medium Item Qualities */
 .item { position:relative; display:inline-block; float: left; margin: 3px; height: 40px; width: 40px; }
 .item img{ position: absolute; display:block; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
-.item .mask { position: absolute; display:block; height: 40px; width: 40px; z-index: 100; left: 0; top: 0; }
+.item .mask { position: absolute; display:block; background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; z-index: 100; left: 0; top: 0; }
 
 .item .none,
 .item .poor { background: url(images/mask/medium/item_poor.png) no-repeat left top; }
@@ -297,20 +297,21 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .item .artifact,
 .item .heirloom { background: url(images/mask/medium/item_artifact.png) no-repeat left top; }
 
-.item .none:hover,
-.item .poor:hover,
-.item .common:hover,
-.item .uncommon:hover,
-.item .rare:hover,
-.item .epic:hover,
-.item .legendary:hover,
-.item .artifact:hover,
-.item .heirloom:hover { background-position: left bottom; }
+.item:hover .mask,
+.item:hover .none,
+.item:hover .poor,
+.item:hover .common,
+.item:hover .uncommon,
+.item:hover .rare,
+.item:hover .epic,
+.item:hover .legendary,
+.item:hover .artifact,
+.item:hover .heirloom { background-position: left bottom; }
 
 /* Container Small Item Qualities */
 .item-sm { position:relative; display:inline-block; width: 24px; height: 24px; margin: 0; padding: 0; }
 .item-sm img { display:block; width: 24px; height: 24px; margin: 0; padding: 0; }
-.item-sm .mask { position: absolute; display:block; height: 24px; width: 24px; position: absolute; z-index: 100; left: 0; top: 0;}
+.item-sm .mask { position: absolute; display:block; background: url(images/mask/small/item_poor.png) no-repeat left top; height: 24px; width: 24px; position: absolute; z-index: 100; left: 0; top: 0;}
 
 .item-sm .none,
 .item-sm .poor { background: url(images/mask/small/item_poor.png) no-repeat left top; }
@@ -322,30 +323,32 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .item-sm .artifact,
 .item-sm .heirloom { background: url(images/mask/small/item_artifact.png) no-repeat left top; }
 
-.item-sm .none:hover,
-.item-sm .poor:hover,
-.item-sm .common:hover,
-.item-sm .uncommon:hover,
-.item-sm .rare:hover,
-.item-sm .epic:hover,
-.item-sm .legendary:hover,
-.item-sm .artifact:hover,
-.item-sm .heirloom:hover { background-position: left bottom; }
+.item-sm:hover .mask,
+.item-sm:hover .none,
+.item-sm:hover .poor,
+.item-sm:hover .common,
+.item-sm:hover .uncommon,
+.item-sm:hover .rare,
+.item-sm:hover .epic,
+.item-sm:hover .legendary,
+.item-sm:hover .artifact,
+.item-sm:hover .heirloom { background-position: left bottom; }
 
 /* Item Quantities */
 .item span, .item-sm span { position:absolute; cursor: default; color:#fff; font-weight:bold; z-index: 125; }
 .item b, .item-sm b { position:absolute; cursor: default; color:#000; font-weight:bold; z-index: 120; }
-.item span { bottom:0; right:3px; font-size:12px; }
-.item b { bottom:-1px; right:2px; font-size:12px; }
-.item-sm b { bottom:-4px; right:1px; font-size:10px; }
-.item-sm span {  bottom:-3px; right:2px; font-size:10px; }
+.item span { bottom:1px; right:3px; font-size:12px; }
+.item b { bottom:0; right:2px; font-size:12px; }
+.item-sm b { bottom:-5px; right:1px; font-size:10px; }
+.item-sm span {  bottom:-4px; right:2px; font-size:10px; }
 
 /* Header Icons, Override standard item masks */
+/*
 .container .item { position:relative; float: left; margin: 3px; }
 .container .item img{ position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px;}
 .container .item .mask { display: block; background: url(images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; position: absolute; left: 0; top: 0; }
 .container .item .mask:hover { background-position: left bottom; }
-
+*/
 
 #keyslist img.icon {height:20px; width:20px;}
 

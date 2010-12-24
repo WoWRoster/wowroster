@@ -147,9 +147,9 @@ class recipe
 
 	function out( $small = false )
 	{
-		$output = '<div class="item' . ($small ? '-sm' : '') . '">
+		$output = '<div class="item' . ($small ? '-sm' : '') . '" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '>
 	<img src="' . $this->tpl_get_icon() . '" alt="" />
-	<div class="mask ' . $this->quality . '" ' . $this->tpl_get_tooltip() . '' . $this->tpl_get_itemlink() . '></div>
+	<div class="mask ' . $this->quality . '"></div>
 </div>
 ';
 		return $output;

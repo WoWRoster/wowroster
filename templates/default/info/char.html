@@ -111,8 +111,9 @@
 					<div class="buffs shader">
 						<div class="bar">
 <!-- BEGIN buff -->
-							<div class="buff">
-								<img class="icon" src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" {buff.TOOLTIP} alt="" />
+							<div class="item-sm" {buff.TOOLTIP}>
+								<img src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" alt="" />
+								<div class="mask"></div>
 <!-- IF buff.COUNT -->
 								<b>{buff.COUNT}</b><span>{buff.COUNT}</span>
 <!-- ENDIF -->
@@ -335,9 +336,9 @@
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 <!-- BEGIN mounts -->
-						<div class="item">
+						<div class="item" {mounts.TOOLTIP}>
 							<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" alt="" />
-							<div class="mask" {mounts.TOOLTIP}></div>
+							<div class="mask"></div>
 						</div>
 <!-- END mounts -->
 						<div style="clear:both;"></div>
@@ -357,9 +358,9 @@
           		<div class="tier-2-a">
                 	<div class="tier-2-b">
 <!-- BEGIN companions -->
-						<div class="item">
+						<div class="item" {companions.TOOLTIP}>
 							<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" alt="" />
-							<div class="mask" {companions.TOOLTIP}></div>
+							<div class="mask"></div>
 						</div>
 <!-- END mounts -->
 						<div style="clear:both;"></div>
@@ -593,9 +594,9 @@
 						</div>
 <!-- BEGIN page -->
 <!-- BEGIN spell -->
-						<div class="item">
+						<div class="item" {spell_book.tree.page.spell.TOOLTIP}>
 							<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" alt="" />
-							<div class="mask" {spell_book.tree.page.spell.TOOLTIP}></div>
+							<div class="mask"></div>
 						</div>
 <!-- END spell -->
 <!-- END page -->
@@ -626,9 +627,15 @@
 <!-- BEGIN item -->
 			<div class="tier-5-a">
 				<div class="tier-5-b">
-					<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" style="width:25px;height:25px;" alt="" {currency.item.TOOLTIP} /></div>
 					<div class="text">
-						{currency.item.NAME} - {currency.item.COUNT}
+						<div class="item-sm" style="margin: 0 1px;" {currency.item.TOOLTIP}>
+							<img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" alt="" />
+							<div class="mask"></div>
+<!-- IF currency.item.COUNT gt 1 -->
+							<b>{currency.item.COUNT}</b><span>{currency.item.COUNT}</span>
+<!-- ENDIF -->						
+						</div>
+						{currency.item.NAME}<!-- IF currency.item.COUNT gt 1 --> [{currency.item.COUNT}]<!-- ENDIF -->	
 					</div>
 				</div>
 			</div>

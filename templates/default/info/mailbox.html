@@ -16,9 +16,9 @@
 					<div class="tier-2-b">
 						<div class="tier-2-title"><div class="icon"><img src="{bag.ICON}" /><div class="mask" {bag.TOOLTIP}{bag.LINKTIP}></div></div>{bag.NAME}</div>
 <!-- BEGIN item -->
-						<div class="item">
+						<div class="item" {bag.item.TOOLTIP}{bag.item.ITEMLINK}>
 							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bag.item.ICON}" /><!-- ENDIF -->
-							<div class="mask {bag.item.QUALITY}" {bag.item.TOOLTIP}{bag.item.ITEMLINK}></div>
+							<div class="mask {bag.item.QUALITY}"></div>
 <!-- IF bag.item.QTY gt 1 -->
 							<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
 <!-- ENDIF -->

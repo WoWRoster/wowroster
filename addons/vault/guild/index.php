@@ -50,7 +50,7 @@ for( $t=1;$t<=$tab_count;$t++ )
 
 			vault_log('Tab' . $t);
 		}
-		
+
 	}
 }
 
@@ -63,7 +63,7 @@ if( $roster->auth->getAuthorized($addon['config']['money']) )
 		'SLOT'    => 'MoneyLog',
 		'LINK'    => makelink('#MoneyLog'),
 		'ICON'    => $roster->config['interface_url'] . 'Interface/Icons/inv_misc_coin_01.' . $roster->config['img_suffix'],
-		'TOOLTIP' => makeOverlib($roster->locale->act['vault_money_log'], '', '', 0,'',',RIGHT')
+		'TOOLTIP' => makeOverlib($roster->locale->act['vault_money_log'], '', '', 0,'',',WRAP')
 		)
 	);
 
