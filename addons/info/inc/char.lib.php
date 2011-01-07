@@ -990,7 +990,8 @@ class char
 				$maxrank = 0;
 				foreach( $cdata as $r => $rdata )
 				{
-//					aprint($rdata);
+					//echo '<pre>';
+					//print_r($rdata['tooltip']);
 					$max = count($rdata['tooltip']);
 					$returndata[$ti][$c][$r]['name'] = $rdata['name'];
 					$returndata[$ti][$c][$r]['rank'] = $talentArray[$i];
@@ -999,14 +1000,18 @@ class char
 					$returndata[$ti][$c][$r]['column'] = $c;
 					$returndata[$ti][$c][$r]['image'] = $rdata['icon'] . '.' . $roster->config['img_suffix'];
                                         $rank = '';
-                                        if ($talentArray[$i]==0)
-                                        {
-                                                $rannk = 1;
-                                        }
-                                        else
+                                        if (isset($talentArray[$i]) && $talentArray[$i] != 0)
                                         {
                                                 $rannk = $talentArray[$i];
                                         }
+                                        elseif ($talentArray[$i] == 0)
+                                        {
+                                                $rannk = 1;
+                                        }
+										else
+										{
+												$rannk = 1;
+										}
 
 											if ($max == $rannk)
 											{
@@ -1018,10 +1023,10 @@ class char
 											}
 
 
-                                        $tooltipp = htmlspecialchars ($rdata['tooltip'][$rannk]);
+                                        $tooltipp = $rdata['tooltip'][$rannk];
                                         $tp = $roster->locale->act['tooltip_rank'] . ': ' . $talentArray[$i] . ' / ' . $max . '<br \/>' . $tooltipp;
                                         $returndata[$ti][$c][$r]['ttip'] = $tooltipp;
-                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 0, $this->data['clientLocale']);
+                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 1, $this->data['clientLocale']);
 
 					$spent = ($spent + $talentArray[$i]);
 					if( $rdata['name'] != $n )
