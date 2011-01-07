@@ -999,40 +999,39 @@ class char
 					$returndata[$ti][$c][$r]['row'] = $r;
 					$returndata[$ti][$c][$r]['column'] = $c;
 					$returndata[$ti][$c][$r]['image'] = $rdata['icon'] . '.' . $roster->config['img_suffix'];
-                                        $rank = '';
-                                        if (isset($talentArray[$i]) && $talentArray[$i] != 0)
-                                        {
-                                                $rannk = $talentArray[$i];
-                                        }
-                                        elseif ($talentArray[$i] == 0)
-                                        {
-                                                $rannk = 1;
-                                        }
-										else
-										{
-												$rannk = 1;
-										}
+					$rank = '';
+					if (isset($talentArray[$i]) && $talentArray[$i] != 0)
+					{
+						$rannk = $talentArray[$i];
+					}
+					elseif ($talentArray[$i] == 0)
+					{
+						$rannk = 1;
+					}
+					else
+					{
+						$rannk = 1;
+					}
 
-											if ($max == $rannk)
-											{
-												$maxc = '666666';
-											}
-											else
-											{
-												$maxc = '00ff00';
-											}
+					// Detect max rank and set color
+					if ($talentArray[$i] < $max)
+					{
+						$maxc = '#6FFF5B';
+					}
+					else
+					{
+						$maxc = '#FFD200';
+					}
 
-
-                                        $tooltipp = $rdata['tooltip'][$rannk];
-                                        $tp = $roster->locale->act['tooltip_rank'] . ': ' . $talentArray[$i] . ' / ' . $max . '<br \/>' . $tooltipp;
-                                        $returndata[$ti][$c][$r]['ttip'] = $tooltipp;
-                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 3, $this->data['clientLocale']);
+					$tooltipp = $rdata['tooltip'][$rannk];
+					$tp = '<div style="color:' . $maxc . ';font-weight:bold">' . $roster->locale->act['tooltip_rank'] . ': ' . $talentArray[$i] . ' / ' . $max . '</div><div>' . $tooltipp . '</div>';
+					$returndata[$ti][$c][$r]['ttip'] = $tooltipp;
+					$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 2);
 
 					$spent = ($spent + $talentArray[$i]);
 					if( $rdata['name'] != $n )
 					{
 						$i++;
-
 					}
 					$n = $rdata['name'];
 				}

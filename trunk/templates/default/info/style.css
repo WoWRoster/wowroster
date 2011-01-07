@@ -482,7 +482,8 @@
 
 /* Grey out unused talents */
 /* filter:gray only works in IE so we do this to half-assed transparency for Mozilla and Opera */
-.main-panel .talents .icon_grey { filter:gray;opacity:0.4; }
+.main-panel .talents .talent-icon .icon_grey { filter:gray;opacity:0.4; }
+.main-panel .talents .talent-icon:hover  .icon_grey{ opacity:0.6; }
 
 /* Glyphs */
 .main-panel .talents .glyph-1 { float: left; height: 40px; width: 300px; margin: 2px; clear: right; }
