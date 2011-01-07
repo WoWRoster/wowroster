@@ -31,14 +31,12 @@ if( !defined('IN_ROSTER') )
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 require_once ($roster_root_path . 'settings.php');
-require_once (ROSTER_LIB . 'simpleparser.class.php');
 
 //==========[ GET FROM CONF.PHP ]====================================================
 
 
 if( isset($_GET['r']) )
 {
-	//echo $_GET['r'].'<br>';
 	list($region, $realmname) = explode('-', urldecode(trim(stripslashes($_GET['r']))), 2);
 	$region = strtoupper($region);
 }
@@ -51,8 +49,7 @@ else
 {
 	$realmname = '';
 }
-//echo $region.'--<br>';
-//echo $realmname.'--<br>';
+
 if( isset($_GET['d']) )
 {
 	$generate_image = ($_GET['d'] == '0' ? false : true);
@@ -66,23 +63,9 @@ else
 	$generate_image = true;
 }
 
-switch( $region )
-{
-	//http://wowfeeds.wipeitau.com/RealmStatus.php?location=US&rn='.$roster->db->escape($realmname).'&output=XML&callback=?
-	case 'US':
-		$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=US&rn='.$roster->db->escape($realmname).'&output=XML&callback=?';
-		break;
+$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
 
-	case 'EU':
-		$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=EU&rn='.$roster->db->escape($realmname).'&output=XML&callback=?';
-		break;
-
-	default:
-		$xmlsource = '';
-}
-//echo $xmlsource.'--<br>';
 //==========[ OTHER SETTINGS ]=========================================================
-
 
 // Path to image folder
 $image_path = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP;
@@ -122,166 +105,27 @@ $current_time = date('i') * 1;
 if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || $current_time < $realmData['timestamp'] )
 {
 	$data = simplexml_load_file($xmlsource);
-	$xmlsource = urlgrabber($xmlsource);
-	//echo $data;
-	//print_r($xmlsource);
 
-	$simpleParser = new SimpleParser();
-	
-	$realmType = str_replace('(', '',$data->REALM->REALMTYPE);
-	$realmType = str_replace(')', '',$realmType);
-	$realmData['server_name']   = $data->REALM->REALMNAME;//'';
-	$realmData['server_region'] = $region;//$data->REALMNAME;//'';
-	$realmData['servertype']    = strtoupper($realmType);//$data->REALM->REALMTYPE;//'';
-	$realmData['serverstatus']  = strtoupper($data->REALM->REALMSTATUS);//'';
-	$realmData['serverpop']     = strtoupper($data->REALM->REALMPOP);//'';
-	$realmData['timestamp']     = '0';
-//echo $realmData['server_name'].' - '.$realmData['server_region'].' - '.$realmData['servertype'].' - '.$realmData['serverstatus'].' - '.$realmData['serverpop'].' - '.$realmData['timestamp'];
-	
-/*	
-	$err = 1;
-	if( $xmlsource != false )
+	if( $data !== false )
 	{
-		if( $region == 'US' )
-		{
-			foreach( $simpleParser->data->rs->r as $value )
-			{
-				echo $value.'<br>';
-				if( str_replace(' ', '', $value->n) == str_replace(' ', '', $realmname) )
-				{
-					$err = 0;
-					switch( strtoupper($value->s) )
-					{
-						case '0':
-							$realmData['serverstatus'] = 'DOWN';
-							break;
+		$realmType = str_replace('(', '',$data->REALM->REALMTYPE);
+		$realmType = str_replace(')', '',$realmType);
 
-						case '1':
-							$realmData['serverstatus'] = 'UP';
-							break;
+		$realmData['server_region'] = $region;
+		$realmData['servertype']    = strtoupper($realmType);
+		$realmData['serverstatus']  = strtoupper($data->REALM->REALMSTATUS);
+		$realmData['serverpop']     = strtoupper($data->REALM->REALMPOP);
 
-						case '2':
-							$realmData['serverstatus'] = 'MAINTENANCE';
-							break;
-
-						default:
-							$realmData['serverstatus'] = 'UNKNOWN';
-					}
-					switch( strtoupper($value->t) )
-					{
-						case '0':
-							$realmData['servertype'] = 'RPPVP';
-							break;
-
-						case '1':
-							$realmData['servertype'] = 'PVE';
-							break;
-
-						case '2':
-							$realmData['servertype'] = 'PVP';
-							break;
-
-						case '3':
-							$realmData['servertype'] = 'RP';
-							break;
-
-						default:
-							$realmData['servertype'] = 'UNKNOWN';
-					}
-					switch( strtoupper($value->l) )
-					{
-						case '0':
-							$realmData['serverpop'] = 'OFFLINE';
-							break;
-
-						case '1':
-							$realmData['serverpop'] = 'LOW';
-							break;
-
-						case '2':
-							$realmData['serverpop'] = 'MEDIUM';
-							break;
-
-						case '3':
-							$realmData['serverpop'] = 'HIGH';
-							break;
-
-						case '4':
-							$realmData['serverpop'] = 'MAX';
-							break;
-
-						default:
-							$realmData['serverpop'] = 'ERROR';
-					}
-				}
-			}
-		}
-		elseif( $region == 'EU' )
-		{
-			foreach( $simpleParser->data->channel->item as $value )
-			{
-				if( str_replace(' ', '', $value->title->_CDATA) == str_replace(' ', '', utf8_encode($realmname)) )
-				{
-					$err = 0;
-					switch( strtoupper($value->category[0]->_CDATA) )
-					{
-						case 'REALM DOWN':
-							$realmData['serverstatus'] = 'DOWN';
-							break;
-
-						case 'REALM UP':
-							$realmData['serverstatus'] = 'UP';
-							break;
-
-						default:
-							$realmData['serverstatus'] = 'UNKNOWN';
-					}
-					switch( strtoupper($value->category[2]->_CDATA) )
-					{
-						case 'RPPVP':
-						case 'RP-PVP':
-							$realmData['servertype'] = 'RPPVP';
-							break;
-
-						case 'PVE':
-							$realmData['servertype'] = 'PVE';
-							break;
-
-						case 'PVP':
-							$realmData['servertype'] = 'PVP';
-							break;
-
-						case 'RP':
-							$realmData['servertype'] = 'RP';
-							break;
-
-						default:
-							$realmData['servertype'] = 'UNKNOWN';
-					}
-					switch( strtoupper($value->category[3]->_CDATA) )
-					{
-						case 'FULL':
-							$realmData['serverpop'] = 'FULL';
-							break;
-
-						case 'RECOMMENDED':
-							$realmData['serverpop'] = 'RECOMMENDED';
-							break;
-
-						case 'FALSE':
-							$realmData['serverpop'] = 'RECOMMENDED';
-							break;
-
-						default:
-							$realmData['serverpop'] = ' ';
-					}
-				}
-			}
-		}
+		$err = 0;
+	}
+	else
+	{
+		$err = 1;
 	}
 
+//	echo $realmData['server_name'].' - '.$realmData['server_region'].' - '.$realmData['servertype'].' - '.$realmData['serverstatus'].' - '.$realmData['serverpop'].' - '.$realmData['timestamp'];
+
 	//==========[ WRITE INFO TO DATABASE ]=================================================
-$generate_image = false;
 
 	if( !$err ) // Don't write to DB if there has been an error
 	{
@@ -306,10 +150,7 @@ $generate_image = false;
 		}
 
 		$roster->db->query($querystr);
-	}*/
-	
-	//$generate_image = false;
-	
+	}
 }
 
 //==========[ "NOW, WHAT TO DO NEXT?" ]================================================

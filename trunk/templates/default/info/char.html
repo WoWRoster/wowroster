@@ -35,291 +35,297 @@
 
 				</div>
 
-	<div class="tier-2-a">
-		<div class="tier-2-b">
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 
-			<div class="equip-bg">
-				<div class="equip">
+						<div class="equip-bg">
+							<div class="equip">
 <!-- BEGIN equipment -->
-					<div class="equip_{equipment.SLOT}">
-						<img src="{equipment.ICON}" class="icon<!-- IF equipment.S_AMMO -->small<!-- ENDIF -->" alt="" />
-						<div class="item {equipment.QUALITY}" {equipment.TOOLTIP}{equipment.ITEMLINK}>
+								<div class="equip_{equipment.SLOT}">
+									<img src="{equipment.ICON}" class="icon<!-- IF equipment.S_AMMO -->small<!-- ENDIF -->" alt="" />
+									<div class="item {equipment.QUALITY}" {equipment.TOOLTIP}{equipment.ITEMLINK}>
 <!-- IF equipment.QTY gt 1 -->
-							<b>{equipment.QTY}</b>
-							<span>{equipment.QTY}</span>
+										<b>{equipment.QTY}</b>
+										<span>{equipment.QTY}</span>
 <!-- ENDIF -->
-						</div>
-					</div>
+									</div>
+								</div>
 <!-- END equipment -->
-				</div>
+							</div>
 
 <!-- IF S_MODEL_TAB -->
-				<div class="model-box" id="modeltoggle" style="display:none;">
-					<iframe src="{MODEL_URL}" scrolling="no" height="443" width="321" frameborder="0"></iframe>
-				</div>
+							<div class="model-box" id="modeltoggle" style="display:none;">
+								<iframe src="{MODEL_URL}" scrolling="no" height="443" width="321" frameborder="0"></iframe>
+							</div>
 <!-- ENDIF -->
 
-				<div class="info-box" id="infotoggle" style="display:none;">
-					<div class="spec shader">
-						<!-- TRANSLATE talent_specialization -->
+							<div class="info-box" id="infotoggle" style="display:none;">
+								<div class="spec shader">
+									<!-- TRANSLATE talent_specialization -->
 <!-- BEGIN talent -->
-						<div class="skill {talent.TYPE}">							
-							<div class="icon"><img src="{IMG_URL}spec/{talent.ICON}.jpg" alt="" /></div>
-							<div class="data">
-								<div class="skill-name">{talent.NAME}</div>
-								<div class="skill-bar">
-									<div class="text">{talent.BUILD}</div>
-								</div>
-							</div>
-						</div>
+									<div class="skill {talent.TYPE}">
+										<div class="icon">
+											<img src="{IMG_URL}spec/{talent.ICON}.jpg" alt="" />
+											<div class="mask"></div>
+										</div>
+										<div class="data">
+											<div class="skill-name">{talent.NAME}</div>
+											<div class="skill-bar">
+												<div class="text">{talent.BUILD}</div>
+											</div>
+										</div>
+									</div>
 <!-- END talent -->
-					</div>
-
-					<div class="professions shader">
-						<!-- TRANSLATE professions -->
-<!-- BEGIN professions -->
-						<div class="skill">
-							<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{professions.ICON}.{IMG_SUFFIX}" alt="" /></div>
-							<div class="data">
-								<div class="skill-name">{professions.NAME}</div>
-								<div class="skill-bar">
-<!-- IF professions.MAXVALUE eq 1 -->
-									<div class="fill" style="width: 100%;"></div>
-<!-- ELSE -->
-									<div class="fill" style="width: {professions.WIDTH}%;"></div>
-									<div class="text">{professions.VALUE} / {professions.MAXVALUE}</div>
-<!-- ENDIF -->
 								</div>
-							</div>
-						</div>
-<!-- END professions -->
-					</div>
 
-				<!-- Resist Icons -->
-					<div class="resist shader">
-						<div class="bar">
-							<div class="icons">
-<!-- BEGIN resist -->
-								<div class="icon {resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
-<!-- END resist -->
-							</div>
-							<div class="text"><!-- TRANSLATE resistances -->:</div>
-						</div>
-					</div>
-
-				<!-- Buff Icons -->
-					<div class="buffs shader">
-						<div class="bar">
-<!-- BEGIN buff -->
-							<div class="item-sm" {buff.TOOLTIP}>
-								<img src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" alt="" />
-								<div class="mask"></div>
-<!-- IF buff.COUNT -->
-								<b>{buff.COUNT}</b><span>{buff.COUNT}</span>
+								<div class="professions shader">
+									<!-- TRANSLATE professions -->
+<!-- BEGIN professions -->
+									<div class="skill">
+										<div class="icon">
+											<img src="{INTERFACE_URL}Interface/Icons/{professions.ICON}.{IMG_SUFFIX}" alt="" />
+											<div class="mask"></div>
+										</div>
+										<div class="data">
+											<div class="skill-name">{professions.NAME}</div>
+											<div class="skill-bar">
+<!-- IF professions.MAXVALUE eq 1 -->
+												<div class="fill" style="width: 100%;"></div>
+<!-- ELSE -->
+												<div class="fill" style="width: {professions.WIDTH}%;"></div>
+												<div class="text">{professions.VALUE} / {professions.MAXVALUE}</div>
 <!-- ENDIF -->
-							</div>
+											</div>
+										</div>
+									</div>
+<!-- END professions -->
+								</div>
+
+							<!-- Resist Icons -->
+								<div class="resist shader">
+									<div class="bar">
+										<div class="icons">
+<!-- BEGIN resist -->
+											<div class="icon {resist.CLASS}" {resist.TOOLTIP}><b>{resist.VALUE}</b><span>{resist.VALUE}</span></div>
+<!-- END resist -->
+										</div>
+										<div class="text"><!-- TRANSLATE resistances -->:</div>
+									</div>
+								</div>
+
+							<!-- Buff Icons -->
+								<div class="buffs shader">
+									<div class="bar">
+<!-- BEGIN buff -->
+										<div class="item-sm" {buff.TOOLTIP}>
+											<img src="{INTERFACE_URL}Interface/Icons/{buff.ICON}.{IMG_SUFFIX}" alt="" />
+											<div class="mask"></div>
+<!-- IF buff.COUNT -->
+											<b>{buff.COUNT}</b><span>{buff.COUNT}</span>
+<!-- ENDIF -->
+										</div>
 <!-- END buff -->
-						</div>
-						<div class="buff-name"><!-- TRANSLATE buffs -->:</div>
-					</div>
+									</div>
+									<div class="buff-name"><!-- TRANSLATE buffs -->:</div>
+								</div>
 
-				<!-- Advanced Stats -->
-					<div class="powers shader">
-						<div class="bar">
-							<div class="power-bar health"><!-- TRANSLATE health -->: {HEALTH}</div>
-						</div>
-						<div class="bar">
-							<div class="power-bar {L_CHAR_POWER_ID}">{L_CHAR_POWER}: {POWER}</div>
-						</div>
-						<div class="bar">
-							<div class="xp-bar {EXP_TYPE}">
-								<div class="fill {EXP_TYPE}" style="width: {EXP_PERC}%;"></div>
-								<div class="text">XP: {EXP_AMOUNT} / {EXP_MAX} <!-- IF EXP_REST -->: {EXP_REST} <!-- ENDIF -->({EXP_PERC}%)</div>
-							</div>
-						</div>
-					</div>
+							<!-- Advanced Stats -->
+								<div class="powers shader">
+									<div class="bar">
+										<div class="power-bar health"><!-- TRANSLATE health -->: {HEALTH}</div>
+									</div>
+									<div class="bar">
+										<div class="power-bar {L_CHAR_POWER_ID}">{L_CHAR_POWER}: {POWER}</div>
+									</div>
+									<div class="bar">
+										<div class="xp-bar {EXP_TYPE}">
+											<div class="fill {EXP_TYPE}" style="width: {EXP_PERC}%;"></div>
+											<div class="text">XP: {EXP_AMOUNT} / {EXP_MAX} <!-- IF EXP_REST -->: {EXP_REST} <!-- ENDIF -->({EXP_PERC}%)</div>
+										</div>
+									</div>
+								</div>
 
 
-					<div class="extras shader">
+								<div class="extras shader">
 
-						<div class="info_desc">
+									<div class="info_desc">
 <!-- BEGIN info_stats -->
-							{info_stats.NAME}<br />
+										{info_stats.NAME}<br />
 <!-- END info_stats -->
-						</div>
+									</div>
 
-						<div class="info_values">
+									<div class="info_values">
 <!-- BEGIN info_stats -->
-							{info_stats.VALUE}<br />
+										{info_stats.VALUE}<br />
 <!-- END info_stats -->
-						</div>
+									</div>
 
-					</div>
+								</div>
 
 <!-- IF S_MONEY -->
-					<div class="money shader">
-						<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
-						<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
-						<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
-					</div>
+								<div class="money shader">
+									<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
+									<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
+									<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
+								</div>
 <!-- ENDIF -->
-					<div class="statselect_l">
-						<select style="width:170px;" name="statbox_left" onchange="doLpage(this.value);">
-							<option value="statsleft" selected="selected"><!-- TRANSLATE menustats --></option>
-							<option value="meleeleft"><!-- TRANSLATE melee --></option>
-							<option value="rangedleft"><!-- TRANSLATE ranged --></option>
-							<option value="spellleft"><!-- TRANSLATE spell --></option>
-							<option value="defenseleft"><!-- TRANSLATE defense --></option>
-						</select>
-					</div>
-					<div class="statselect_r">
-						<select style="width:170px;" name="statbox_right" onchange="doRpage(this.value);">
-							<option value="statsright"><!-- TRANSLATE menustats --></option>
-							<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE melee --></option>
-							<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE ranged --></option>
-							<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE spell --></option>
-							<option value="defenseright"><!-- TRANSLATE defense --></option>
-						</select>
-					</div>
+								<div class="statselect_l">
+									<select style="width:170px;" name="statbox_left" onchange="doLpage(this.value);">
+										<option value="statsleft" selected="selected"><!-- TRANSLATE menustats --></option>
+										<option value="meleeleft"><!-- TRANSLATE melee --></option>
+										<option value="rangedleft"><!-- TRANSLATE ranged --></option>
+										<option value="spellleft"><!-- TRANSLATE spell --></option>
+										<option value="defenseleft"><!-- TRANSLATE defense --></option>
+									</select>
+								</div>
+								<div class="statselect_r">
+									<select style="width:170px;" name="statbox_right" onchange="doRpage(this.value);">
+										<option value="statsright"><!-- TRANSLATE menustats --></option>
+										<option value="meleeright" <!-- IF RIGHTBOX eq 'melee' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE melee --></option>
+										<option value="rangedright" <!-- IF RIGHTBOX eq 'ranged' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE ranged --></option>
+										<option value="spellright" <!-- IF RIGHTBOX eq 'spell' -->selected="selected"<!-- ENDIF -->><!-- TRANSLATE spell --></option>
+										<option value="defenseright"><!-- TRANSLATE defense --></option>
+									</select>
+								</div>
 
-					<div class="padding">
+								<div class="padding">
 <!-- BEGIN box_stats -->
-						<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
+									<div class="stats shader" id="{box_stats.ID}" style="display:<!-- IF box_stats.SHOW -->block<!-- ELSE -->none<!-- ENDIF -->">
 <!-- BEGIN statline -->
-							<div class="statline" {box_stats.statline.TOOLTIP}>
-								<span class="value">{box_stats.statline.VALUE}</span>
-								<span class="label">{box_stats.statline.NAME}:</span>
-							</div>
+										<div class="statline" {box_stats.statline.TOOLTIP}>
+											<span class="value">{box_stats.statline.VALUE}</span>
+											<span class="label">{box_stats.statline.NAME}:</span>
+										</div>
 <!-- END statline -->
-						</div>
+									</div>
 <!-- END box_stats -->
-					</div>
-				</div>
+								</div>
+							</div>
 
 
 <!-- IF S_BONUS_TAB -->
-				<div class="bonus-box shader" id="bonustoggle" style="display:none;">
-					<div class="bonus-container">
+							<div class="bonus-box shader" id="bonustoggle" style="display:none;">
+								<div class="bonus-container">
 <!-- BEGIN bonus -->
-						<div id="{bonus.KEY}" style="display:none;">
+									<div id="{bonus.KEY}" style="display:none;">
 <!-- BEGIN row -->
-							<div class="membersRow{bonus.row.ROW_CLASS}" style="white-space:normal;cursor:pointer;" onmouseover="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,HAUTO);" onmouseout="return nd();" onclick="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,STICKY,OFFSETX,-5,OFFSETY,-5,HAUTO);">{bonus.row.VALUE}</div>
+										<div class="membersRow{bonus.row.ROW_CLASS}" style="white-space:normal;cursor:pointer;" onmouseover="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,HAUTO);" onmouseout="return nd();" onclick="return overlib(overlib_{bonus.row.IDX},CAPTION,overlib_cap_{bonus.row.IDX},WIDTH,325,STICKY,OFFSETX,-5,OFFSETY,-5,HAUTO);">{bonus.row.VALUE}</div>
 <!-- END row -->
-						</div>
+									</div>
 <!-- END bonus -->
-					</div>
+								</div>
 
-					<div class="bonus-navigation">
-						<ul id="bonus_navigation">
+								<div class="bonus-navigation">
+									<ul id="bonus_navigation">
 <!-- BEGIN bonus -->
-							<li><a rel="{bonus.KEY}" class="text">{bonus.VALUE}</a></li>
+										<li><a rel="{bonus.KEY}" class="text">{bonus.VALUE}</a></li>
 <!-- END bonus -->
-						</ul>
-					</div>
-				</div>
+									</ul>
+								</div>
+							</div>
 <!-- ENDIF -->
 
 <!-- IF S_PVP_TAB -->
-				<div class="bonus-box shader" id="pvptoggle" style="display:none;">
-					<div class="bonus-container">
-						
-						<div class="honortext">
-							<img src="{IMG_URL}icon_{FACTION_EN}.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE honor -->:<span>{HONOR_POINTS}</span>
+							<div class="bonus-box shader" id="pvptoggle" style="display:none;">
+								<div class="bonus-container">
+									
+									<div class="honortext">
+										<img src="{IMG_URL}icon_{FACTION_EN}.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE honor -->:<span>{HONOR_POINTS}</span>
+									</div>
+
+									<div class="today"><!-- TRANSLATE today --></div>
+									<div class="yesterday"><!-- TRANSLATE yesterday --></div>
+									<div class="lifetime"><!-- TRANSLATE lifetime --></div>
+
+									<div class="divider"></div>
+
+									<div class="killsline"><!-- TRANSLATE kills --></div>
+									<div class="killsline1">{SESSION_HK}</div>
+									<div class="killsline2">{YEST_HK}</div>
+									<div class="killsline3">{LIFE_HK}</div>
+
+									<div class="honorline"><!-- TRANSLATE honor --></div>
+									<div class="honorline1">{SESSION_CP}</div>
+									<div class="honorline2">{YEST_CP}</div>
+									<div class="honorline3">-</div>
+
+									<div class="divider"></div>
+									
+									<div class="arenatext"><img src="{IMG_URL}arenapointsicon.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE arena -->:<span>{ARENA_POINTS}</span></div>
+								</div>
+							</div>
+<!-- ENDIF -->
+							<div style="clear:both;"></div>
 						</div>
-
-						<div class="today"><!-- TRANSLATE today --></div>
-						<div class="yesterday"><!-- TRANSLATE yesterday --></div>
-						<div class="lifetime"><!-- TRANSLATE lifetime --></div>
-
-						<div class="divider"></div>
-
-						<div class="killsline"><!-- TRANSLATE kills --></div>
-						<div class="killsline1">{SESSION_HK}</div>
-						<div class="killsline2">{YEST_HK}</div>
-						<div class="killsline3">{LIFE_HK}</div>
-
-						<div class="honorline"><!-- TRANSLATE honor --></div>
-						<div class="honorline1">{SESSION_CP}</div>
-						<div class="honorline2">{YEST_CP}</div>
-						<div class="honorline3">-</div>
-
-						<div class="divider"></div>
-						
-						<div class="arenatext"><img src="{IMG_URL}arenapointsicon.png" alt="" style="width:20px;height:20px;" /><!-- TRANSLATE arena -->:<span>{ARENA_POINTS}</span></div>
 					</div>
 				</div>
-<!-- ENDIF -->
-				<div style="clear:both;"></div>
 			</div>
 		</div>
 	</div>
-</div>
-</div>
-</div>
 </div>
 
 
 <!-- IF S_PET_TAB -->
 
 <!-- pets -->
-	<div id="pets" class="pets" style="display:none;">
+<div id="pets" class="pets" style="display:none;">
 
 <!-- IF S_PETS -->
-		<div class="container">
-			<div class="box-label"><div class="icon pets"></div><!-- TRANSLATE pets --></div>
+	<div class="container">
+		<div class="box-label"><div class="icon pets"></div><!-- TRANSLATE pets --></div>
 <!-- BEGIN pet -->
-			<div class="pet shader" >
-				<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
-				<div class="basics">
-					<div class="name">{pet.NAME}</div>
-					<div class="info"><!-- TRANSLATE level --> {pet.LEVEL} {pet.TYPE}</div>
+		<div class="pet shader" >
+			<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
+			<div class="basics">
+				<div class="name">{pet.NAME}</div>
+				<div class="info"><!-- TRANSLATE level --> {pet.LEVEL} {pet.TYPE}</div>
+			</div>
+			<div class="powers">
+				<div class="bar">
+					<div class="power-bar health">{pet.HEALTH}</div>
+					<div class="power-name"><!-- TRANSLATE health -->:</div>
 				</div>
-				<div class="powers">
-					<div class="bar">
-						<div class="power-bar health">{pet.HEALTH}</div>
-						<div class="power-name"><!-- TRANSLATE health -->:</div>
-					</div>
-					<div class="bar">
-						<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
-						<div class="power-name">{pet.L_POWER}:</div>
-					</div>
+				<div class="bar">
+					<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
+					<div class="power-name">{pet.L_POWER}:</div>
+				</div>
 <!-- IF pet.S_EXP -->
-					<div class="bar">
-						<div class="power-bar xp-bar">
-							<div class="fill" style="width: {pet.EXP_PERC}%;"></div>
-							<div class="text">{EXP_AMOUNT} / {EXP_MAX} ({EXP_PERC}%)</div>
-						</div>
-						<div class="power-name">EXP:</div>
+				<div class="bar">
+					<div class="power-bar xp-bar">
+						<div class="fill" style="width: {pet.EXP_PERC}%;"></div>
+						<div class="text">{EXP_AMOUNT} / {EXP_MAX} ({EXP_PERC}%)</div>
 					</div>
-<!-- ENDIF -->
+					<div class="power-name">EXP:</div>
 				</div>
-
-				<div class="resist">
-<!-- BEGIN resist -->
-					<div class="icon {pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
-<!-- END resist -->
-				</div>
-
-				<div class="padding">
-<!-- BEGIN box_stats -->
-					<div class="stats">
-<!-- BEGIN statline -->
-						<div class="statline" {pet.box_stats.statline.TOOLTIP}>
-							<span class="value">{pet.box_stats.statline.VALUE}</span>
-							<span class="label">{pet.box_stats.statline.NAME}:</span>
-						</div>
-<!-- END statline -->
-					</div>
-<!-- END box_stats -->
-				</div>
-
-<!-- IF pet.TOTAL_TP -->
-				<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
 <!-- ENDIF -->
 			</div>
 
-<!-- END pet -->
+			<div class="resist">
+<!-- BEGIN resist -->
+				<div class="icon {pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
+<!-- END resist -->
+			</div>
+
+			<div class="padding">
+<!-- BEGIN box_stats -->
+				<div class="stats">
+<!-- BEGIN statline -->
+					<div class="statline" {pet.box_stats.statline.TOOLTIP}>
+						<span class="value">{pet.box_stats.statline.VALUE}</span>
+						<span class="label">{pet.box_stats.statline.NAME}:</span>
+					</div>
+<!-- END statline -->
+				</div>
+<!-- END box_stats -->
+			</div>
+
+<!-- IF pet.TOTAL_TP -->
+			<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
+<!-- ENDIF -->
 		</div>
+
+<!-- END pet -->
+	</div>
 <!-- ENDIF -->
 </div>
 <!-- ENDIF -->
@@ -329,12 +335,12 @@
 <div id="companions" class="container companions" style="display:none;">
 <!-- IF S_MOUNTS -->
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE mounts --></div>
 				
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 <!-- BEGIN mounts -->
 						<div class="item" {mounts.TOOLTIP}>
 							<img src="{INTERFACE_URL}Interface/Icons/{mounts.ICON}.{IMG_SUFFIX}" alt="" />
@@ -351,12 +357,12 @@
 
 <!-- IF S_COMPANIONS -->
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE companions --></div>
 				
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 <!-- BEGIN companions -->
 						<div class="item" {companions.TOOLTIP}>
 							<img src="{INTERFACE_URL}Interface/Icons/{companions.ICON}.{IMG_SUFFIX}" alt="" />
@@ -381,41 +387,45 @@
 <div id="reputation" class="container reputation" style="display:none;">
 <!-- BEGIN rep -->
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title">{rep.NAME}</div>
-				
-                    
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 <!-- BEGIN bar -->
-						<div class="tier-3-a"><div class="tier-3-b">
-                        <div class="rep" {rep.bar.TOOLTIP}>
-							<div class="rep-name">{rep.bar.NAME}</div>
-							<div class="rep-standing">{rep.bar.STANDING}</div>
-							<div class="rep-bar">
-								<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>
-								<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="rep" {rep.bar.TOOLTIP}>
+									<div class="rep-name">{rep.bar.NAME}</div>
+									<div class="rep-standing">{rep.bar.STANDING}</div>
+									<div class="rep-bar">
+										<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>
+										<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
+									</div>
+								</div>
 							</div>
 						</div>
-                        </div></div>			
+
 <!-- BEGIN rep2 -->
 					</div>
-            	</div>
-                <div class="tier-2-a">
-                	<div class="tier-2-b">
+				</div>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 						<div class="tier-2-title">{rep.bar.rep2.NAME}</div>
 <!-- BEGIN bar2 -->
-						<div class="tier-3-a"><div class="tier-3-b">
-                        <div class="rep" {rep.bar.rep2.bar2.TOOLTIP}>
-							<div class="rep-name">{rep.bar.rep2.bar2.NAME}</div>
-							<div class="rep-standing">{rep.bar.rep2.bar2.STANDING}</div>
-							<div class="rep-bar">
-								<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width: {rep.bar.rep2.bar2.WIDTH}%;"></div>
-								<div class="text">{rep.bar.rep2.bar2.VALUE} / {rep.bar.rep2.bar2.MAXVALUE}</div>
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="rep" {rep.bar.rep2.bar2.TOOLTIP}>
+									<div class="rep-name">{rep.bar.rep2.bar2.NAME}</div>
+									<div class="rep-standing">{rep.bar.rep2.bar2.STANDING}</div>
+									<div class="rep-bar">
+										<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width: {rep.bar.rep2.bar2.WIDTH}%;"></div>
+										<div class="text">{rep.bar.rep2.bar2.VALUE} / {rep.bar.rep2.bar2.MAXVALUE}</div>
+									</div>
+								</div>
 							</div>
 						</div>
-                        </div></div>
 <!-- END bar2 -->
 					
 <!-- END rep2 -->
@@ -438,26 +448,28 @@
 <div id="skills" class="container skills" style="display:none;">
 <!-- BEGIN skill -->
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title">{skill.NAME}</div>
 
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 <!-- BEGIN bar -->
-						<div class="tier-3-a"><div class="tier-3-b">
-						<div class="skill">
-							<div class="skill-name">{skill.bar.NAME}</div>
-							<div class="skill-bar">
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="skill">
+									<div class="skill-name">{skill.bar.NAME}</div>
+									<div class="skill-bar">
 <!-- IF skill.bar.MAXVALUE eq 1 -->
-								<div class="fill" style="width: 100%;"></div>
+										<div class="fill" style="width: 100%;"></div>
 <!-- ELSE -->
-								<div class="fill" style="width: {skill.bar.WIDTH}%;"></div>
-								<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
+										<div class="fill" style="width: {skill.bar.WIDTH}%;"></div>
+										<div class="text">{skill.bar.VALUE} / {skill.bar.MAXVALUE}</div>
 <!-- ENDIF -->
+									</div>
+								</div>
 							</div>
 						</div>
-                        </div></div>
 <!-- END bar -->
 					</div>
 				</div>
@@ -476,7 +488,7 @@
 <div id="talents" class="container talents" style="display:none;">
 
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE talents -->
 					<div class="info-bonus-navigation">
@@ -578,7 +590,7 @@
 <div id="spellbook" class="container spellbook" style="display:none;">
 <!-- BEGIN spell_book -->
 	<div class="tier-1-a">
-        <div class="tier-1-b">
+		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title">{spell_book.NAME}'s <!-- TRANSLATE spellbook --></div>
 
@@ -620,29 +632,29 @@
 				<div class="tier-1-title"><!-- TRANSLATE currency --></div>
 
 <!-- BEGIN currency -->
-          		<div class="tier-2-a">
-                	<div class="tier-2-b">
+				<div class="tier-2-a">
+					<div class="tier-2-b">
 						<div class="tier-2-title">{currency.CATEGORY}</div>
 						<div class="skill">
 <!-- BEGIN item -->
-			<div class="tier-5-a">
-				<div class="tier-5-b">
-					<div class="text">
-						<div class="item-sm" style="margin: 0 1px;" {currency.item.TOOLTIP}>
-							<img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" alt="" />
-							<div class="mask"></div>
+							<div class="tier-5-a">
+								<div class="tier-5-b">
+									<div class="text">
+										<div class="item-sm" style="margin: 0 1px;" {currency.item.TOOLTIP}>
+											<img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" alt="" />
+											<div class="mask"></div>
 <!-- IF currency.item.COUNT gt 1 -->
-							<b>{currency.item.COUNT}</b><span>{currency.item.COUNT}</span>
-<!-- ENDIF -->						
+											<b>{currency.item.COUNT}</b><span>{currency.item.COUNT}</span>
+<!-- ENDIF -->
+										</div>
+										{currency.item.NAME}<!-- IF currency.item.COUNT gt 1 --> [{currency.item.COUNT}]<!-- ENDIF -->	
+									</div>
+								</div>
+							</div>
+<!-- END item -->
 						</div>
-						{currency.item.NAME}<!-- IF currency.item.COUNT gt 1 --> [{currency.item.COUNT}]<!-- ENDIF -->	
 					</div>
 				</div>
-			</div>
-<!-- END item -->
-			</div>
-		</div>
-	</div>
 <!-- END currency -->
 
 			</div>
