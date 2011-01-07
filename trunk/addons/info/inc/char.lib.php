@@ -1015,18 +1015,18 @@ class char
 
 											if ($max == $rannk)
 											{
-												$maxc = 'Yellow';
+												$maxc = '666666';
 											}
 											else
 											{
-												$maxc = 'Green';
+												$maxc = '00ff00';
 											}
 
 
                                         $tooltipp = $rdata['tooltip'][$rannk];
                                         $tp = $roster->locale->act['tooltip_rank'] . ': ' . $talentArray[$i] . ' / ' . $max . '<br \/>' . $tooltipp;
                                         $returndata[$ti][$c][$r]['ttip'] = $tooltipp;
-                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 1, $this->data['clientLocale']);
+                                        $returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 3, $this->data['clientLocale']);
 
 					$spent = ($spent + $talentArray[$i]);
 					if( $rdata['name'] != $n )

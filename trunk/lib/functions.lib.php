@@ -540,7 +540,7 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 				{
 					$color = '00ff00';
 				}
-				elseif(preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_rank'] . "\b/i", $line) )
+				elseif(preg_match( "/" . $roster->locale->wordings[$locale]['tooltip_rank'] . "/i", $line) )
 				{
 					$color = '00ff00;font-weight:bold';
 				}
@@ -709,6 +709,104 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 	return $tooltip_out;
 }
 
+function cleanTTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=1 )
+{
+	global $roster;
+
+	// Use main locale if one is not specified
+	if( $locale == '' )
+	{
+		$locale = $roster->config['locale'];
+	}
+	
+	// Detect caption mode and display accordingly
+	if( $inline_caption )
+	{
+		$first_line = true;
+	}
+	else
+	{
+		$first_line = false;
+	}
+
+
+	// Initialize tooltip_out
+	$tooltip_out = '';
+
+	// Parsing time!
+	$tooltip = str_replace('<br>',"\n",$tooltip);
+	$tooltip = str_replace('<br />',"\n",$tooltip);
+	foreach( explode("\n", $tooltip) as $line )
+	{
+		$color = '';
+
+		if( !empty($line) )
+		{
+			$line = preg_replace('|\\>|','&#8250;', $line );
+			$line = preg_replace('|\\<|','&#8249;', $line );
+			$line = preg_replace('|\|c[a-f0-9]{2}([a-f0-9]{6})(.+?)\|r|','<span style="color:#$1;">$2</span>',$line);
+
+			// Do this on the first line
+			// This is performed when $caption_color is set
+			if( $first_line )
+			{
+				if( $caption_color == '' )
+				{
+					$caption_color = 'ffffff';
+				}
+
+				if( strlen($caption_color) > 6 )
+				{
+					$color = substr( $caption_color, 2, 6 ) . ';font-size:11px;font-weight:bold';
+				}
+				else
+				{
+					$color = $caption_color . ';font-size:11px;font-weight:bold';
+				}
+
+				$first_line = false;
+			}
+			if(preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_rank'] . "\b/i", $line) )
+				{
+					$color = '00ff00;font-weight:bold';
+				}
+				else
+				{
+				$color = 'e5cc80';
+				}
+
+			// Convert tabs to a formated table
+			if( strpos($line,"\t") )
+			{
+				$line = explode("\t",$line);
+				if( !empty($color) )
+				{
+					$line = '<div style="width:100%;color:#' . $color . ';"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+				}
+				else
+				{
+					$line = '<div style="width:100%;"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
+				}
+				$tooltip_out .= $line;
+			}
+			elseif( !empty($color) )
+			{
+				$tooltip_out .= '<span style="color:#' . $color . ';">' . $line . '</span><br />';
+			}
+			else
+			{
+				$tooltip_out .= "$line<br />";
+			}
+		}
+		else
+		{
+			$tooltip_out .= '<br />';
+		}
+	}
+
+	return $tooltip_out;
+}
+
 /**
  * Easy all in one function to make overlib tooltips
  * Creates a string for insertion into any html tag that has "onmouseover" and "onmouseout" events
@@ -771,6 +869,11 @@ function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $lo
 			break;
 
 		case 2:
+			break;
+			
+		case 3:
+		//cleanTTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=1 )
+			$tooltip = cleanTTooltip($tooltip,$caption_color,$locale,$caption_mode);
 			break;
 
 		default:
