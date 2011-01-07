@@ -38,6 +38,7 @@ require_once (ROSTER_LIB . 'simpleparser.class.php');
 
 if( isset($_GET['r']) )
 {
+	//echo $_GET['r'].'<br>';
 	list($region, $realmname) = explode('-', urldecode(trim(stripslashes($_GET['r']))), 2);
 	$region = strtoupper($region);
 }
@@ -50,7 +51,8 @@ else
 {
 	$realmname = '';
 }
-
+//echo $region.'--<br>';
+//echo $realmname.'--<br>';
 if( isset($_GET['d']) )
 {
 	$generate_image = ($_GET['d'] == '0' ? false : true);
@@ -66,18 +68,19 @@ else
 
 switch( $region )
 {
+	//http://wowfeeds.wipeitau.com/RealmStatus.php?location=US&rn='.$roster->db->escape($realmname).'&output=XML&callback=?
 	case 'US':
-		$xmlsource = 'http://www.worldofwarcraft.com/realmstatus/status.xml';
+		$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=US&rn='.$roster->db->escape($realmname).'&output=XML&callback=?';
 		break;
 
 	case 'EU':
-		$xmlsource = 'http://www.wow-europe.com/realmstatus/index.xml';
+		$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=EU&rn='.$roster->db->escape($realmname).'&output=XML&callback=?';
 		break;
 
 	default:
 		$xmlsource = '';
 }
-
+//echo $xmlsource.'--<br>';
 //==========[ OTHER SETTINGS ]=========================================================
 
 
@@ -118,11 +121,24 @@ $current_time = date('i') * 1;
 
 if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || $current_time < $realmData['timestamp'] )
 {
+	$data = simplexml_load_file($xmlsource);
 	$xmlsource = urlgrabber($xmlsource);
+	//echo $data;
+	//print_r($xmlsource);
 
 	$simpleParser = new SimpleParser();
-	$simpleParser->parse($xmlsource);
-
+	
+	$realmType = str_replace('(', '',$data->REALM->REALMTYPE);
+	$realmType = str_replace(')', '',$realmType);
+	$realmData['server_name']   = $data->REALM->REALMNAME;//'';
+	$realmData['server_region'] = $region;//$data->REALMNAME;//'';
+	$realmData['servertype']    = strtoupper($realmType);//$data->REALM->REALMTYPE;//'';
+	$realmData['serverstatus']  = strtoupper($data->REALM->REALMSTATUS);//'';
+	$realmData['serverpop']     = strtoupper($data->REALM->REALMPOP);//'';
+	$realmData['timestamp']     = '0';
+//echo $realmData['server_name'].' - '.$realmData['server_region'].' - '.$realmData['servertype'].' - '.$realmData['serverstatus'].' - '.$realmData['serverpop'].' - '.$realmData['timestamp'];
+	
+/*	
 	$err = 1;
 	if( $xmlsource != false )
 	{
@@ -130,6 +146,7 @@ if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || 
 		{
 			foreach( $simpleParser->data->rs->r as $value )
 			{
+				echo $value.'<br>';
 				if( str_replace(' ', '', $value->n) == str_replace(' ', '', $realmname) )
 				{
 					$err = 0;
@@ -264,7 +281,7 @@ if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || 
 	}
 
 	//==========[ WRITE INFO TO DATABASE ]=================================================
-
+$generate_image = false;
 
 	if( !$err ) // Don't write to DB if there has been an error
 	{
@@ -289,7 +306,10 @@ if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || 
 		}
 
 		$roster->db->query($querystr);
-	}
+	}*/
+	
+	//$generate_image = false;
+	
 }
 
 //==========[ "NOW, WHAT TO DO NEXT?" ]================================================
