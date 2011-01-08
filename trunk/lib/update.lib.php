@@ -470,7 +470,10 @@ class update
 						// Check if the profile is old
 						if( $time != '' && ( strtotime($time) - strtotime($timestamp) ) > 0 )
 						{
-							$output .= sprintf($roster->locale->act['not_update_char_time'],$char_name) . "<br />\n";
+							$current = date($roster->locale->act['phptimeformat'], strtotime($time));
+							$update = date($roster->locale->act['phptimeformat'], currentTimestamp);
+									
+							$output .= sprintf($roster->locale->act['not_update_char_time'],$char_name,$update,$current) . "<br />\n";
 							continue;
 						}
 
@@ -595,7 +598,10 @@ class update
 								// Check if the profile is old
 								if( $time != '' && ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
 								{
-									$output .= sprintf($roster->locale->act['not_update_guild_time'],$guild_name) . "<br />\n";
+									$current = date($roster->locale->act['phptimeformat'], strtotime($time));
+									$update = date($roster->locale->act['phptimeformat'], $currentTimestamp);
+									
+									$output .= sprintf($roster->locale->act['not_update_guild_time'],$guild_name,$update,$current) . "<br />\n";
 									continue;
 								}
 

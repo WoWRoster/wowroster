@@ -80,8 +80,9 @@ $lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s not accepted';
 
 $lang['not_updating'] = 'NOT Updating %1$s for [%2$s] - %3$s';
 $lang['not_update_guild'] = 'NOT Updating Guild List for %1$s@%3$s-%2$s';
-$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile is too old';
-$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile is too old';
+//$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile is too old (%2$s)';
+$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile scaned was on %2$s, guild data stored was scanned on %3$s';
+$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile scaned was on %2$s, guild data stored was scanned on %3$s';
 $lang['no_members'] = 'Data does not contain any guild members';
 $lang['upload_data'] = 'Updating %1$s Data for [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Realm: %1$s Not Scanned';

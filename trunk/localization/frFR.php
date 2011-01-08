@@ -80,8 +80,8 @@ $lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s n\'est pas autorisé';
 
 $lang['not_updating'] = 'Pas de mise à jour de %1$s pour [%2$s] - %3$s';
 $lang['not_update_guild'] = 'Pas de mise à jour de la liste des membres de la guilde pour %1$s@%3$s-%2$s';
-$lang['not_update_guild_time'] = 'Pas de mise à jour de la liste des membres de la guilde pour %1$s. Le profil de guilde est trop ancien';
-$lang['not_update_char_time'] = 'Pas de mise à jour pour le personnage nommé %1$s. Son profil est trop ancien';
+$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile scaned was on %2$s, guild data stored was scanned on %3$s';
+$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile scaned was on %2$s, guild data stored was scanned on %3$s';
 $lang['no_members'] = 'Les données n\'indiquent aucun membre de guilde';
 $lang['upload_data'] = 'Mise à jour des données de %1$s pour [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Royaume : %1$s non traité';
