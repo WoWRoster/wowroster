@@ -393,7 +393,11 @@ class update
 						// Official realms don't trigger this. I looked up and verified the asian ones as well.
 						if( strlen($region) > 2 )
 						{
-							roster_die('You are not playing on an official realm, and your realm setup is incompatible with Roster. Good luck fixing it up.<br /><br />This message exists because we are getting annoyed by the occasional person who can\'t get Roster to work with a private server, since we clearly state that Roster will not work on private servers.','Invalid Realm');
+							roster_die('You are not playing on an official realm, and your data is incompatible with WoWRoster<br /><br />'
+								. 'This message exists because we are getting annoyed by the occasional person who can\'t get WoWRoster to work with a private server, '
+								. 'when we clearly state that WoWRoster will not work on private servers.<br />'
+								. 'You are on your own if you want WoWRoster to work with a private server. Good luck fixing it!'
+								,'Invalid Region/Realm');
 						}
 						$this->current_region = $region;
 
@@ -434,7 +438,7 @@ class update
 
 							if( $roster->db->query_first($query) !== '2' )
 							{
-								$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['character'],$char_name,$region,$realm_name) . "<br />\n";
+								$output .= '<span class="red">' . sprintf($roster->locale->act['not_accepted'], $roster->locale->act['character'], $char_name, $region, $realm_name) . "</span><br />\n";
 								continue;
 							}
 							else
@@ -445,14 +449,14 @@ class update
 								$guilddata['FactionEn'] = $char['FactionEn'];
 								$guilddata['Locale'] = $char['Locale'];
 								$guilddata['Info'] = '';
-								$guildId = $this->update_guild($realm_name,'GuildLess-' . substr($char['FactionEn'],0,1),strtotime($timestamp),$guilddata,$region);
+								$guildId = $this->update_guild($realm_name, 'GuildLess-' . substr($char['FactionEn'],0,1), strtotime($timestamp), $guilddata, $region);
 								unset($guilddata);
 
 								// Copy the array so we can set Online to 1 until I can find a better way to set last online time
 								// We could probably get away with just setting 'Online' in the $char array, but I dont wanna risk tainting the data
 								$chartemp = $char;
 								$chartemp['Online'] = '1';
-								$this->update_guild_member($guildId,$char_name,$realm_name,$region,$chartemp,strtotime($timestamp),array());
+								$this->update_guild_member($guildId, $char_name, $realm_name, $region, $chartemp, strtotime($timestamp), array());
 								unset($chartemp);
 								array_pop($this->messages);
 							}
@@ -471,13 +475,13 @@ class update
 						if( $time != '' && ( strtotime($time) - strtotime($timestamp) ) > 0 )
 						{
 							$current = date($roster->locale->act['phptimeformat'], strtotime($time));
-							$update = date($roster->locale->act['phptimeformat'], currentTimestamp);
-									
-							$output .= sprintf($roster->locale->act['not_update_char_time'],$char_name,$update,$current) . "<br />\n";
+							$update = date($roster->locale->act['phptimeformat'], strtotime($timestamp));
+
+							$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_char_time'], $char_name, $update, $current) . "</span><br />\n";
 							continue;
 						}
 
-						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'],$roster->locale->act['character'],$char_name,$realm_name,$region) . "</strong>\n";
+						$output .= '<strong>' . sprintf($roster->locale->act['upload_data'], $roster->locale->act['character'], $char_name, $realm_name, $region) . "</strong>\n";
 
 						$memberid = $this->update_char($guildId, $region, $realm_name, $char_name, $char);
 						$output .= "<ul>\n" . $this->getMessages() . "</ul>\n";
@@ -491,7 +495,7 @@ class update
 					}
 					else // CP Version not new enough
 					{
-						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler',$char_name,$char['CPversion']) . "</span><br />\n";
+						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler', $char_name, $char['CPversion']) . "</span><br />\n";
 						$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver']) . "\n";
 					}
 				}
@@ -581,7 +585,7 @@ class update
 
 							if( $roster->db->query_first($query) !== '0' )
 							{
-								$output .= sprintf($roster->locale->act['not_accepted'],$roster->locale->act['guild'],$guild_name,$region,$realm_name) . "<br />\n";
+								$output .= '<span class="red">' . sprintf($roster->locale->act['not_accepted'], $roster->locale->act['guild'], $guild_name, $region, $realm_name) . "</span><br />\n";
 								continue;
 							}
 
@@ -596,12 +600,12 @@ class update
 									  . " AND '" . $region . "' LIKE `region`;");
 
 								// Check if the profile is old
-								if( $time != '' && ( strtotime($time) - strtotime($guild['timestamp']['init']['DateUTC']) ) > 0 )
+								if( $time != '' && ( strtotime($time) - $currentTimestamp ) > 0 )
 								{
 									$current = date($roster->locale->act['phptimeformat'], strtotime($time));
 									$update = date($roster->locale->act['phptimeformat'], $currentTimestamp);
 									
-									$output .= sprintf($roster->locale->act['not_update_guild_time'],$guild_name,$update,$current) . "<br />\n";
+									$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild_time'], $guild_name, $update, $current) . "</span><br />\n";
 									continue;
 								}
 
@@ -665,21 +669,21 @@ class update
 							}
 							else
 							{
-								$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'],$guild_name,$realm_name,$region) . "</span><br />\n";
+								$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild'], $guild_name, $realm_name, $region) . "</span><br />\n";
 								$output .= $roster->locale->act['no_members'];
 							}
 						}
 						else
 						// GP Version not new enough
 						{
-							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'GuildProfiler',$guild_name,$guild['GPversion']) . "</span><br />\n";
+							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'], 'GuildProfiler', $guild_name, $guild['GPversion']) . "</span><br />\n";
 							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']);
 						}
 					}
 				}
 				else
 				{
-					$output .= '<span class="red">'.$roster->locale->act['guild_addonNotFound'].'</span><br />';
+					$output .= '<span class="red">' . $roster->locale->act['guild_addonNotFound'] . '</span><br />';
 				}
 			}
 		}

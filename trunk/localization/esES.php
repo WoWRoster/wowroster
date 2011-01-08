@@ -76,14 +76,14 @@ $lang['processing_files'] = 'Procesando Archivos';
 $lang['error_addon'] = 'Ha ocurrido un error en el adddon %1$s en el método %2$s';
 $lang['addon_messages'] = 'Mensajes de Addons:';
 
-$lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s no aceptado';
+$lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s no aceptado. Data does not match upload rules.';
 
 $lang['not_updating'] = 'NO esta actualizando %1$s por [%2$s] - %3$s';
 $lang['not_update_guild'] = 'NO esta actualizando la lista de la hermandad por %1$s@%3$s-%2$s';
-$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile scaned was on %2$s, guild data stored was scanned on %3$s';
-$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile scaned was on %2$s, guild data stored was scanned on %3$s';
+$lang['not_update_guild_time'] = 'Not updating Guild List for %1$s. Guild data uploaded was scanned on %2$s. Guild data stored was scanned on %3$s';
+$lang['not_update_char_time'] = 'Not updating Character %1$s. Profile data uploaded was scanned on %2$s Profile data stored was scanned on %3$s';
 $lang['no_members'] = 'Los datos no contienen información sobre los miembros de la hermandad';
-$lang['upload_data'] = 'Actualizando %1$s datos de [<span class="orange">%2$s@%4$s-%3$s</span>]';
+$lang['upload_data'] = 'Actualizando %1$s datos de [%2$s@%4$s-%3$s]';
 $lang['realm_ignored'] = 'Reino: %1$s No escaneado';
 $lang['guild_realm_ignored'] = 'Hermandad: %1$s @ Reino: %2$s No escaneado';
 $lang['update_members'] = 'Actualizando miembros';

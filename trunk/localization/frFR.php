@@ -76,14 +76,14 @@ $lang['processing_files'] = 'Traitement des fichiers';
 $lang['error_addon'] = 'Le greffon [%1$s] a généré une erreur dans la méthode %2$s';
 $lang['addon_messages'] = 'Messages du greffon :';
 
-$lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s n\'est pas autorisé';
+$lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s n\'est pas autorisé. Data does not match upload rules.';
 
 $lang['not_updating'] = 'Pas de mise à jour de %1$s pour [%2$s] - %3$s';
 $lang['not_update_guild'] = 'Pas de mise à jour de la liste des membres de la guilde pour %1$s@%3$s-%2$s';
-$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile scaned was on %2$s, guild data stored was scanned on %3$s';
-$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile scaned was on %2$s, guild data stored was scanned on %3$s';
+$lang['not_update_guild_time'] = 'Not updating Guild List for %1$s. Guild data uploaded was scanned on %2$s. Guild data stored was scanned on %3$s';
+$lang['not_update_char_time'] = 'Not updating Character %1$s. Profile data uploaded was scanned on %2$s Profile data stored was scanned on %3$s';
 $lang['no_members'] = 'Les données n\'indiquent aucun membre de guilde';
-$lang['upload_data'] = 'Mise à jour des données de %1$s pour [<span class="orange">%2$s@%4$s-%3$s</span>]';
+$lang['upload_data'] = 'Mise à jour des données de %1$s pour [%2$s@%4$s-%3$s]';
 $lang['realm_ignored'] = 'Royaume : %1$s non traité';
 $lang['guild_realm_ignored'] = 'Guilde : %1$s @ Royaume : %2$s non traitée';
 $lang['update_members'] = 'Mise à jour des membres de la guilde';
