@@ -80,8 +80,8 @@ $lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s nicht akzeptiert';
 
 $lang['not_updating'] = 'KEINE Aktualisierung %1$s für [%2$s] - %3$s';
 $lang['not_update_guild'] = 'KEINE Aktualisierung der Gildenliste für %1$s@%3$s-%2$s';
-$lang['not_update_guild_time'] = 'KEINE Aktualisierung der Gildenseite für %1$s. Gildenprofil ist zu alt';
-$lang['not_update_char_time'] = 'KEINE Aktualisierung des Charakters %1$s. Profil ist zu alt';
+$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile scaned was on %2$s, guild data stored was scanned on %3$s';
+$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile scaned was on %2$s, guild data stored was scanned on %3$s';
 $lang['no_members'] = 'Daten enthalten keine Gildemmitglieder';
 $lang['upload_data'] = 'Aktualisiere %1$s Daten für [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Realm: %1$s nicht überprüft';

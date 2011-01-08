@@ -80,8 +80,8 @@ $lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s no aceptado';
 
 $lang['not_updating'] = 'NO esta actualizando %1$s por [%2$s] - %3$s';
 $lang['not_update_guild'] = 'NO esta actualizando la lista de la hermandad por %1$s@%3$s-%2$s';
-$lang['not_update_guild_time'] = 'NO esta actualizando la lista de la hermandad por %1$s. Estas usando una versión de Guild profile demasiado antigua';
-$lang['not_update_char_time'] = 'NO esta actualizando el personaje %1$s. El perfil es demasiado antiguo';
+$lang['not_update_guild_time'] = 'NOT Updating Guild List for %1$s. Guild profile scaned was on %2$s, guild data stored was scanned on %3$s';
+$lang['not_update_char_time'] = 'NOT Updating Character %1$s. Profile scaned was on %2$s, guild data stored was scanned on %3$s';
 $lang['no_members'] = 'Los datos no contienen información sobre los miembros de la hermandad';
 $lang['upload_data'] = 'Actualizando %1$s datos de [<span class="orange">%2$s@%4$s-%3$s</span>]';
 $lang['realm_ignored'] = 'Reino: %1$s No escaneado';
