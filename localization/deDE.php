@@ -811,6 +811,7 @@ $lang['tooltip_preg_item_set']='/Set: (.+)/';
 $lang['tooltip_preg_use']='/Use: (.+)/';
 $lang['tooltip_preg_chance']='/Chance (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
+$lang['tooltip_preg_heroic']='/Heroic/';
 $lang['tooltip_garbage1']='/\<Shift Right Click to Socket\>/';
 $lang['tooltip_garbage2']='/\<Right Click to Read\>/';
 $lang['tooltip_garbage3']='/Duration (.+)/';

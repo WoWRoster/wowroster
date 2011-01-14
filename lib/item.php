@@ -1100,6 +1100,11 @@ class item
 				//Use:
 				$tt['Effects']['Use'][] = $line;
 			}
+			elseif( preg_match( "/" . $roster->locale->wordings[$locale]['tooltip_preg_heroic'] . "/i", $line) )
+			{
+				//heroic
+				$tt['Attributes']['Requires'][] = $line;
+			}
 			elseif( preg_match( "/" . $roster->locale->wordings[$locale]['tooltip_reg_requires'] . "/i", $line) )
 			{
 				//Requires
@@ -1112,6 +1117,7 @@ class item
 				//Reforged
 				$tt['Attributes']['Requires'][] = $line;
 			}
+			
 
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_level'], $line, $matches) )
 			{
