@@ -3448,6 +3448,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->add_ifvalue($guild, 'NumMembers', 'guild_num_members');
 		$this->add_ifvalue($guild, 'NumAccounts', 'guild_num_accounts');
 
+		$this->add_ifvalue($guild, 'GuildXP', 'guild_xp');
+		$this->add_ifvalue($guild, 'GuildXPCap', 'guild_xpcap');
+		$this->add_ifvalue($guild, 'GuildLevel', 'guild_level');
+		
 		$this->add_timestamp('update_time', $currentTime);
 
 		$this->add_ifvalue($guild, 'DBversion');

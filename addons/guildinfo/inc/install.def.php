@@ -46,6 +46,35 @@ class guildinfoInstall
 	{
 		global $installer;
 
+		
+		$installer->create_table($installer->table('log'),"
+			`log_id` int(11) unsigned NOT NULL default '0',
+			`guild_id` int(11) unsigned NOT NULL default '0',
+			`member` varchar(96) NOT NULL default '',
+			`parent` varchar(64) NOT NULL default '',
+			`type` varchar(32) NOT NULL default '0',
+			`time` datetime default NULL,
+			`amount` varchar(32) NOT NULL default '',
+			`count` int(11) default NULL,
+			`item_id` varchar(64) default NULL,
+			KEY  (`log_id`),
+			KEY `type` (`type`),
+			KEY `name` (`member`)");
+			
+		$installer->create_table($installer->table('log'),"
+			`log_id` int(11) unsigned NOT NULL default '0',
+			`guild_id` int(11) unsigned NOT NULL default '0',
+			`member` varchar(96) NOT NULL default '',
+			`parent` varchar(64) NOT NULL default '',
+			`type` varchar(32) NOT NULL default '0',
+			`time` datetime default NULL,
+			`amount` varchar(32) NOT NULL default '',
+			`count` int(11) default NULL,
+			`item_id` varchar(64) default NULL,
+			KEY  (`log_id`),
+			KEY `type` (`type`),
+			KEY `name` (`member`)");
+		
 		$installer->add_menu_button('ginfobutton','guild');
 		return true;
 	}

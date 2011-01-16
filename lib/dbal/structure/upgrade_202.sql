@@ -365,6 +365,15 @@ ALTER TABLE `renprefix_talenttree`
   ADD PRIMARY KEY (`member_id`,`build`,`tree`);
 
 # --------------------------------------------------------
+### Guild table updates
+
+ALTER TABLE `renprefix_guild`
+ADD `guild_xp` varchar(32) NULL default '' AFTER `guild_num_accounts`,
+ADD `guild_xpcap` varchar(32) NULL default '',
+ADD `guild_level` varchar(32) NULL default '';
+
+  
+# --------------------------------------------------------
 ### Config Table Updates
 
 # Update Documents link
