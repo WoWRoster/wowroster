@@ -45,7 +45,7 @@ class guildinfoInstall
 	function install()
 	{
 		global $installer;
-
+/*
 		
 		$installer->create_table($installer->table('log'),"
 			`log_id` int(11) unsigned NOT NULL default '0',
@@ -74,7 +74,7 @@ class guildinfoInstall
 			KEY  (`log_id`),
 			KEY `type` (`type`),
 			KEY `name` (`member`)");
-		
+	*/	
 		$installer->add_menu_button('ginfobutton','guild');
 		return true;
 	}
