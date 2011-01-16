@@ -37,6 +37,12 @@ class recipe
 		global $roster, $char;
 
 		$this->data = $data;
+		//echo '<pre>';
+		//print_r($this->data);
+		if (empty($this->data['item_color']))
+		{
+			$this->data['item_color'] = 'ffffff';
+		}
 		$this->_setQuality($this->data['item_color']);
 
 		$this->lang = ( !is_object($char) ? $roster->config['locale'] : $char->data['clientLocale'] );

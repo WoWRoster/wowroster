@@ -893,6 +893,7 @@ $lang['socket_colors_to_en'] = array(
 	'azul' => 'blue',
 	'amarilla' => 'yellow',
 	'meta' => 'meta',
+	'prismatic' => 'prismatic',
 	);
 // -- end tooltip parsing
 
