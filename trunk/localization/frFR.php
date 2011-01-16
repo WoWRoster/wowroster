@@ -831,7 +831,7 @@ $lang['tooltip_preg_classes']='/^(Classes.:.)(.+)$/'; // text for class restrict
 $lang['tooltip_preg_races']='/^(Races.:.)(.+)$/'; // text for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/i'; // text for items with charges
 $lang['tooltip_preg_block']='/(Bloquer).+?(\d+)/i';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge(?!\()|jaune(?!\()|bleue(?!\()|Méta(?=-))(?:-châsse)?/'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge(?!\()|jaune(?!\()|Prismatic(?!\()|bleue(?!\()|Méta(?=-))(?:-châsse)?/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
 $lang['tooltip_preg_meta_requires']='/Nécessite.*?gemme(?:s|)/i';
