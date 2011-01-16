@@ -831,7 +831,7 @@ $lang['tooltip_preg_classes']='/^(Classes:) (.+)/';
 $lang['tooltip_preg_races']='/^(Races:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Charges?/';
 $lang['tooltip_preg_block']='/(\d+) (Block)/';
-$lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta) Socket$/';
+$lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta|Prismatic) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';
 $lang['tooltip_preg_meta_requires']='/Requires.*?gem?/';
@@ -882,7 +882,7 @@ $lang['gem_colors_to_en'] = array(
 	'green' => 'green',
 	'orange' => 'orange',
 	'purple' => 'purple',
-	'prismatic' => 'prismatic',
+	'prismatic' => 'prismatic',//Prismatic Socket
 	'meta' => 'meta' //verify translation
 	);
 
@@ -891,6 +891,7 @@ $lang['socket_colors_to_en'] = array(
 	'blue' => 'blue',
 	'yellow' => 'yellow',
 	'meta' => 'meta',
+	'prismatic' => 'prismatic',
 	);
 // -- end tooltip parsing
 

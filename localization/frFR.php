@@ -890,7 +890,8 @@ $lang['socket_colors_to_en'] = array(
 	'rouge' => 'red',
 	'bleue' => 'blue',
 	'jaune' => 'yellow',
-	'méta' => 'meta'
+	'méta' => 'meta',
+	'prismatic' => 'prismatic',
 	);
 // -- end tooltip parsing
 
