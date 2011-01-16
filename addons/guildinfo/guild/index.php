@@ -26,17 +26,16 @@ $guild_info_text = empty($roster->data['guild_info_text']) ? '&nbsp;' : $roster-
 ["GuildXP"] = "9604390:16925610",
 ["GuildXPCap"] = "523382:6246000",
 */
-$roster->tpl->assign_vars(array(
-	'S_MONEY' => false,
-	'U_IMAGE_PATH' => $addon['tpl_image_path'],
-	'U_FRAME_IMAGE' => strtolower(substr($roster->data['factionEn'],0,1)),
+$gxp = explode(':',$roster->data['guild_xp']);
+$gxpc = explode(':',$roster->data['guild_xpcap']);
 
-	'L_LOG' => $roster->locale->act['vault_log'],
-	'L_MONEY_AVAIL' => $roster->locale->act['available_amount'],
-	'PROGRESSBAR' => _getgxpBar('9604390', '16925610', 'normal'),
-	'PROGRESSBAR2' => _getgxpBar('523382', '6246000', 'rested'),
+$roster->tpl->assign_vars(array(
+
+	'PROGRESSBAR' => _getgxpBar($gxp[0], $gxp[1], 'normal'),
+	'PROGRESSBAR2' => _getgxpBar($gxpc[0], $gxpc[1], 'rested'),
 	'TITLE' => '',
 	'NEXT' => '',
+	'LEVEL' => $roster->data['guild_level'],
 	'INFO' => $guild_info_text,
 	)
 );
