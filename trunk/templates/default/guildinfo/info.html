@@ -1,0 +1,133 @@
+<!-- $Id$ -->
+
+<!-- Navagation Tabs -->
+<div class="sections">
+	<ul id="char_navagation">
+<!-- BEGIN tabs -->
+		<li<!-- IF tabs.SELECTED --> class="selected"<!-- ENDIF -->><a rel="{tabs.VALUE}" class="text">{tabs.NAME}</a></li>
+<!-- END tabs -->
+	</ul>
+</div>
+
+<div class="main-panel" align="left">
+
+<div id="profile" class="container profile" style="display:none;">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">
+
+					<table align="center" width="100%" cellspacing="0" cellpadding="0">
+						<tr>
+							<td id="progress_title" width="33%" align="left"><!-- TRANSLATE guildinfo --></td>
+							<td id="progress_title" width="33%" align="left">Level {LEVEL}</td>
+							<td width="33%" align="right">
+								<table align="center" width="100%" cellspacing="0" cellpadding="0">
+									<tr>
+										<td width="100%" align="right">
+											{PROGRESSBAR}
+										</td>
+									</tr>
+									<tr>
+										<td width="100%" align="right">
+											{PROGRESSBAR2}
+										</td>
+
+									</tr>
+								</table>
+							</td>
+
+						</tr>
+					</table>		
+
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<table cellspacing="0" cellpadding="0">
+							<tr>
+							<td valign="top">
+								<div style="width:525px;">
+									<div class="shader">
+								<!-- BEGIN news -->
+										{news.DATE} - {news.TEXT}<BR>
+								<!-- END news -->
+									</div>
+								</div>
+							</td>
+							<td width="13px">
+							</td>
+							<td valign="top">
+								<table valign="top" cellspacing="0" cellpadding="0">
+									<tr>
+										<td valign="top">
+											<div style="width:300px;">
+												<div class="shader">
+													{INFO}
+												</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td><br>
+											<table cellspacing="0" cellpadding="0" width="100%">
+									<!-- BEGIN top10 -->
+												<tr class="membersRowColor1" >
+													<td>
+														<td width="10%">{top10.TOTALRANK}</td>
+														<td width="60%">{top10.NAME}</td>
+														<td width="30%">{top10.TOTALXP}</td>
+													</td>
+												</tr>
+									<!-- END top10 -->
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+							</tr>
+						</table>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</div>
+
+
+
+<script type="text/javascript">
+<!--
+	addLpage('statsleft');
+	addLpage('meleeleft');
+	addLpage('rangedleft');
+	addLpage('spellleft');
+	addLpage('defenseleft');
+	addRpage('statsright');
+	addRpage('meleeright');
+	addRpage('rangedright');
+	addRpage('spellright');
+	addRpage('defenseright');
+
+	var char_navagation=new tabcontent('char_navagation');
+	char_navagation.setpersist(false);
+	char_navagation.init();
+
+	var bonus_nav=new tabcontent('bonus_navigation');
+	bonus_nav.setpersist(false);
+	bonus_nav.init();
+
+	var info_bonus_nav=new tabcontent('info_bonus_nav');
+	info_bonus_nav.setpersist(false);
+	info_bonus_nav.init();
+
+	var talentbuild_nav=new tabcontent('talentbuild_nav');
+	talentbuild_nav.setpersist(false);
+	talentbuild_nav.init();
+//-->
+</script>
