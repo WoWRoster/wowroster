@@ -21,13 +21,57 @@ $roster->output['title'] = $roster->locale->act['guildinfo'];
 
 $guild_info_text = empty($roster->data['guild_info_text']) ? '&nbsp;' : $roster->data['guild_info_text'];
 
-//echo messagebox('<div class="infotext">' . nl2br($guild_info_text) . '</div>',$roster->locale->act['guildinfo'],'syellow');
-/*
-["GuildXP"] = "9604390:16925610",
-["GuildXPCap"] = "523382:6246000",
-*/
 $gxp = explode(':',$roster->data['guild_xp']);
 $gxpc = explode(':',$roster->data['guild_xpcap']);
+
+		$query = "SELECT * FROM `" . $roster->db->table('news',$addon['basename']) . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `Date` desc;";
+		$result = $roster->db->query($query);
+
+		$return_string = '';
+		if( $roster->db->num_rows($result) > 0 )
+		{
+			while( $row = $roster->db->fetch($result, SQL_ASSOC) )
+			{
+				//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
+				$roster->tpl->assign_block_vars('news', array(
+					'DATE'    => $row['Display_date'],
+					'TEXT'    =>sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
+					)
+				);
+			}
+		}
+		
+		
+		
+		
+		
+		$querya = "SELECT * FROM `" . $roster->db->table('ranks',$addon['basename']) . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `TotalXP` desc Limit 10;";
+		$resulta = $roster->db->query($querya);
+
+		$return_string = '';
+		if( $roster->db->num_rows($resulta) > 0 )
+		{
+			while( $rowa = $roster->db->fetch($resulta, SQL_ASSOC) )
+			{
+				//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
+				$roster->tpl->assign_block_vars('top10', array(
+					'NAME'    => $rowa['Member'],
+					'TOTALXP'    => $rowa['TotalXP'],
+					'TOTALRANK'    => $rowa['TotalRank'],
+					//'TEXT'    =>sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
+					)
+				);
+			}
+		}
+		
+		
+		
+		
+		
+
+
+
+
 
 $roster->tpl->assign_vars(array(
 

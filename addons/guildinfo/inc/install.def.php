@@ -26,7 +26,7 @@ class guildinfoInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $version = '1.9.9.1758';
+	var $version = '1.9.9.1760';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';
@@ -46,35 +46,45 @@ class guildinfoInstall
 	{
 		global $installer;
 /*
-		
-		$installer->create_table($installer->table('log'),"
-			`log_id` int(11) unsigned NOT NULL default '0',
-			`guild_id` int(11) unsigned NOT NULL default '0',
-			`member` varchar(96) NOT NULL default '',
-			`parent` varchar(64) NOT NULL default '',
-			`type` varchar(32) NOT NULL default '0',
-			`time` datetime default NULL,
-			`amount` varchar(32) NOT NULL default '',
-			`count` int(11) default NULL,
-			`item_id` varchar(64) default NULL,
-			KEY  (`log_id`),
-			KEY `type` (`type`),
-			KEY `name` (`member`)");
-			
-		$installer->create_table($installer->table('log'),"
-			`log_id` int(11) unsigned NOT NULL default '0',
-			`guild_id` int(11) unsigned NOT NULL default '0',
-			`member` varchar(96) NOT NULL default '',
-			`parent` varchar(64) NOT NULL default '',
-			`type` varchar(32) NOT NULL default '0',
-			`time` datetime default NULL,
-			`amount` varchar(32) NOT NULL default '',
-			`count` int(11) default NULL,
-			`item_id` varchar(64) default NULL,
-			KEY  (`log_id`),
-			KEY `type` (`type`),
-			KEY `name` (`member`)");
+local NEWS_MOTD = -1;				-- pseudo category
+local NEWS_GUILD_ACHIEVEMENT = 0;
+local NEWS_PLAYER_ACHIEVEMENT = 1;
+local NEWS_DUNGEON_ENCOUNTER = 2;
+local NEWS_ITEM_LOOTED = 3;
+local NEWS_ITEM_CRAFTED = 4;
+local NEWS_ITEM_PURCHASED = 5;
+local NEWS_GUILD_LEVEL = 6;
+local NEWS_GUILD_CREATE = 7;
+
 	*/	
+		$installer->create_table($installer->table('news'),"
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`guild_id` int(11) unsigned NOT NULL default '0',
+			`type` varchar(96) NOT NULL default '',
+			`Member` varchar(64) NOT NULL default '',
+			`Achievement` varchar(150) NOT NULL default '0',
+			`Date` datetime default NULL,
+			`Display_date` varchar(96) NOT NULL default '',
+			`Typpe` varchar(32) NOT NULL default '',
+			KEY  (`id`)");
+		/*
+
+		["TotalXP"] = 0,
+		["WeeklyXP"] = 0,
+		["TotalRank"] = 108,
+		["WeeklyRank"] = 82,
+		*/					
+		$installer->create_table($installer->table('ranks'),"
+			`id` int(11) NOT NULL AUTO_INCREMENT,
+			`guild_id` int(11) unsigned NOT NULL default '0',
+			`member_id` int(11) NULL default '0',
+			`Member` varchar(64) NULL default '',
+			`TotalXP` INT( 32 ) NOT NULL DEFAULT '0',
+			`WeeklyXP` INT( 32 ) NOT NULL DEFAULT '0',
+			`TotalRank` INT( 32 ) NOT NULL DEFAULT '0',
+			`WeeklyRank` INT( 32 ) NOT NULL DEFAULT '0',
+			KEY  (`id`)");
+		
 		$installer->add_menu_button('ginfobutton','guild');
 		return true;
 	}
@@ -99,6 +109,36 @@ class guildinfoInstall
 		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
 		{
 			$installer->remove_all_config();
+		}
+		
+		if( version_compare( $oldversion, '1.9.9.1759', '<' ) )
+		{
+			$installer->create_table($installer->table('news'),"
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`guild_id` int(11) unsigned NOT NULL default '0',
+				`type` varchar(96) NOT NULL default '',
+				`Member` varchar(64) NOT NULL default '',
+				`Achievement` varchar(150) NOT NULL default '0',
+				`Date` datetime default NULL,
+				`Display_date` varchar(96) NOT NULL default '',
+				`Typpe` varchar(32) NOT NULL default '',
+				KEY  (`id`)
+			");
+		}
+		
+		if( version_compare( $oldversion, '1.9.9.1760', '<' ) )
+		{
+			$installer->create_table($installer->table('ranks'),"
+				`id` int(11) NOT NULL AUTO_INCREMENT,
+				`guild_id` int(11) unsigned NOT NULL default '0',
+				`member_id` int(11) NULL default '0',
+				`Member` varchar(64) NULL default '',
+				`TotalXP` INT( 32 ) NOT NULL DEFAULT '0',
+				`WeeklyXP` INT( 32 ) NOT NULL DEFAULT '0',
+				`TotalRank` INT( 32 ) NOT NULL DEFAULT '0',
+				`WeeklyRank` INT( 32 ) NOT NULL DEFAULT '0',
+				KEY  (`id`)
+			");
 		}
 
 		return true;
