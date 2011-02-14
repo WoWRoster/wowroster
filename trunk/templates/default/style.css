@@ -90,8 +90,12 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 /* Login Box */
 .menu-login { font-size:10px; position: absolute; bottom: 52px; right: 2px; }
 .menu-login .message { color: #FF3300; }
-.login-box { margin:auto;width:370px; }
+.login-box { margin:4px auto auto auto;width:370px; }
 .login-box .message { text-align: center; color: #FF3300; font-size: 14px; line-height: 20px; height: 20px; }
+
+
+/* Roster Diag */
+.diag-download-box { margin:4px auto auto auto;width:300px; }
 
 
 /* General Scope Block */
