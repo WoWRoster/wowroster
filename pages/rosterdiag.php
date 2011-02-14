@@ -214,14 +214,6 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 	return;
 }
 
-// Diplay Password Box
-if( !$roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
-{
-	echo '<br />' . $roster->auth->getLoginForm(ROSTERLOGIN_ADMIN);
-	echo "<br />\n";
-}
-
-
 // Display config errors
 echo ConfigErrors();
 
@@ -317,7 +309,7 @@ echo '
 		<div class="tier-3-a">
 			<div class="tier-3-b">
 				<div class="text">
-					<i><a href="' . makelink('rosterdiag&amp;printconf=1') . '" target="_blank">Show All Config Data</a></i>
+					<em><a href="' . makelink('rosterdiag&amp;printconf=1') . '" target="_blank">Show All Config Data</a></em>
 				</div>
 			</div>
 		</div>
@@ -400,7 +392,7 @@ echo $sql_tables;
 
 
 // Table display fix
-echo "</td></tr></table>\n<br />\n";
+echo "</td></tr></table>\n";
 
 // File Versioning Information
 if( GrabRemoteVersions() !== false )
@@ -434,29 +426,47 @@ if( GrabRemoteVersions() !== false )
 
 	if( $zippackage_files != '' )
 	{
-		if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
+		// Display Password Box
+		if( !$roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
 		{
-			echo messagebox('Log in as Roster Admin to download update files','Updates Available!','spurple');
-			echo '<br />';
+			echo '
+<div class="tier-2-a diag-download-box">
+	<div class="tier-2-b">
+		<div class="tier-2-title">' . $roster->locale->act['updates_available'] . '</div>
+
+		<div class="info-text-h">
+			' . $roster->locale->act['updates_available_message'] . '
+		</div>
+	</div>
+</div>
+';
+			echo $roster->auth->getLoginForm(ROSTERLOGIN_ADMIN) . '<br />';
 		}
 		else
 		{
-			echo border('spurple', 'start', '<span class="blue">Download Update Package</span>');
-			echo '<div align="center" style="background-color:#1F1E1D;"><form method="post" action="' . ROSTER_SVNREMOTE . '">';
-			echo '<input type="hidden" name="filestoget" value="' . $zippackage_files . '" />';
-			echo '<input type="hidden" name="guildname" value="' . $roster->config ['default_name'] . '" />';
-			echo '<input type="hidden" name="website" value="' . $roster->config ['website_address'] . '" />';
-			echo '<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" /><label for="zip">.zip Archive</label><br />';
-			echo '<input type="radio" name="ziptype" id="targz" value="targz" /><label for="targz">.tar.gz Archive</label><br /><br />';
-			echo '<input style="decoration:bold;" type="submit" value="[GET UPDATE PACKAGE]" /><br />';
-			echo '</form></div>';
-			echo border('spurple', 'end') . '<br />';
+			echo '
+<div class="tier-2-a diag-download-box">
+	<div class="tier-2-b">
+		<div class="tier-2-title">' . $roster->locale->act['download_update_pkg'] . '</div>
+
+		<div class="info-text-h">
+			<form method="post" action="' . ROSTER_SVNREMOTE . '">
+				<input type="hidden" name="filestoget" value="' . $zippackage_files . '" />
+				<input type="hidden" name="guildname" value="' . $roster->config ['default_name'] . '" />
+				<input type="hidden" name="website" value="' . $roster->config ['website_address'] . '" />
+				<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" /><label for="zip">' . $roster->locale->act['zip_archive'] . '</label><br />
+				<input type="radio" name="ziptype" id="targz" value="targz" /><label for="targz">' . $roster->locale->act['targz_archive'] . '</label><br /><br />
+				<input type="submit" value="' . $roster->locale->act['download_update'] . '" />
+			</form>
+		</div>
+	</div>
+</div>
+<br />
+';
 		}
 	}
 
 	// Open the main FileVersion table in total color
-//	echo border('sgray', 'start', '<span class="blue">File Versions:</span> <small style="color:#6ABED7;font-weight:bold;"><i>Roster File Validator @ '.str_replace('version_match.php', '', ROSTER_SVNREMOTE).'</i></small>');
-
 	echo '
 <div class="tier-2-a">
 	<div class="tier-2-b">
@@ -484,11 +494,10 @@ if( GrabRemoteVersions() !== false )
 
 			$directory_id = str_replace(array('.', '/', '\\'), '', $directory);
 
-			$headertext = '<div style="cursor:pointer;width:800px;text-align:left;" onclick="showHide(\'table_' . $directory_id . '\',\'img_' . $directory_id . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');" ' . $dirtooltip . '>'
+			$headertext = '<div style="cursor:pointer;width:100%;text-align:left;" onclick="showHide(\'table_' . $directory_id . '\',\'img_' . $directory_id . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');" ' . $dirtooltip . '>'
 				. '<div style="float:right;"><span style="color:' . $severity[$files[$directory]['rollup']]['color'] . ';">' . $severity[$files[$directory]['rollup']]['severityname'] . '</span> <img id="img_' . $directory_id . '" src="' . $roster->config['theme_path'] . '/images/button_close.png" alt="" /></div>' . $dirshow . '/</div>';
 
-			echo border($severity[$files[$directory]['rollup']]['style'], 'start', $headertext);
-
+			echo border($severity[$files[$directory]['rollup']]['style'], 'start', $headertext, '100%');
 
 			echo '<table id="table_' . $directory_id . '" style="display:none;width:100%;" cellpadding="0" cellspacing="0">';
 			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';

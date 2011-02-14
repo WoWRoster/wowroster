@@ -310,6 +310,13 @@ $lang['intellect']='Inteligencia';
 $lang['spirit']='Espíritu';
 
 $lang['rosterdiag'] = 'RosterDiag';
+$lang['updates_available'] = 'Updates Available!';
+$lang['updates_available_message'] = 'Log in as Admin to download update files';
+$lang['download_update_pkg'] = 'Download Update Package';
+$lang['download_update'] = 'Download Update';
+$lang['zip_archive'] = '.zip Archive';
+$lang['targz_archive'] = '.tar.gz Archive';
+
 $lang['difficulty'] = 'Dificultad';
 $lang['recipe_4'] = 'Óptima';
 $lang['recipe_3'] = 'Media';
