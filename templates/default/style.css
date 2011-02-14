@@ -121,7 +121,17 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 /* New Main Navagation tabs */
 .top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 10px; }
 .top-menu .links { height: 40px; }
-.top-menu .links a { display: block; height: 26px; width: 100px; float: left; padding: 4px 5px 10px 45px; color: #000; margin-right: 5px; font: bold 12px/normal Arial, Helvetica, sans-serif; }
+.top-menu .links a {
+	display: block;
+	height: 26px;
+	width: 100px;
+	float: left;
+	padding: 4px 5px 10px 45px;
+	color: #000;
+	margin-right: 5px;
+	font: bold 12px/normal Arial, Helvetica, sans-serif;
+	overflow: hidden;
+}
 
 .button-char { background: url(images/menu/menu_char.png) no-repeat left top; }
 .button-char:hover { background: url(images/menu/menu_char.png) no-repeat left bottom; }
