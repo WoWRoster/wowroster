@@ -558,6 +558,12 @@ img, p { padding:0;margin:0;border:0; }
 /**
  * Row Coloring
  */
+.membersRowColor1, .membersRowColor2 { background: #deb760 url(images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
+.membersRowColor1:hover, .membersRowColor2:hover { background: #b9dc64 url(images/set_row_hover.png) repeat-x left top;}
+
+.membersRowAltColor1, .membersRowAltColor2 { background: url(images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
+.membersRowAltColor1:hover, .membersRowAltColor2:hover { background: url(images/set_row_hover.png) repeat-x left top;}
+
 .membersHeader, .membersHeaderRight {
 	text-align:left;
 	white-space:nowrap;
