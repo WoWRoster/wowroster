@@ -79,22 +79,34 @@ $errorstringout = $update->getErrors();
 // print the error messages
 if( !empty($errorstringout) )
 {
-	print
-	'<div id="errorCol" style="display:inline;">
-		'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster->config['theme_path']."/images/plus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").'
-		'.border('sred','end').'
+	print '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'msgbox_data_error\',\'msgboximg_data_error\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');">
+			' . $roster->locale->act['update_errors'] . '
+			<div class="toggle">
+				<img id="msgboximg_data_error" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
+			</div>
+		</div>
+		<div class="border_color sredborder" style="background:black;height:300px;width:100%;overflow:auto;display:none;" id="msgbox_data_error">
+			' . $errorstringout . '
+		</div>
 	</div>
-	<div id="error" style="display:none">
-	'.border('sred','start',"<div style=\"cursor:pointer;width:550px;\" onclick=\"swapShow('errorCol','error')\"><img src=\"".$roster->config['theme_path']."/images/minus.gif\" style=\"float:right;\" /><span class=\"red\">Update Errors</span></div>").
-	$errorstringout.
-	border('sred','end').
-	'</div>';
+</div>
+';
 }
 
 // Print the update messages
-print
-	border('syellow','start','Update Log').
-	'<div style="font-size:10px;background-color:#1F1E1D;text-align:left;height:300px;width:550px;overflow:auto;">'.
-	$messages.
-	'</div>'.
-	border('syellow','end');
+print '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			' . $roster->locale->act['update_log'] . '
+		</div>
+		<div class="border_color syellowborder"  style="background:black;height:300px;width:100%;overflow:auto;text-align:left;font-size:10px;">
+			' . $messages . '
+		</div>
+
+	</div>
+</div>
+';
