@@ -86,19 +86,19 @@ class roster_config
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . $values['value'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'newlink':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . $values['value'] . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'makelink':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . makelink($values['value']) . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'makenewlink':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><a href="' . makelink($values['value']) . '" target="_blank"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'page': 	// all pages are the same here
@@ -107,7 +107,7 @@ class roster_config
 					case 'blockframe':
 					case 'blockhide':
 					case 'function':
-						$menu .= '    <li' . ( !$in_config && ($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '' ) . '><a href="' . ( !$in_config ? '#' : makelink($in_config) ) . '" rel="' . $values['name'] . '"' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</a></li>' . "\n";
+						$menu .= '    <li' . ( !$in_config && ($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . ( !$in_config ? '#' : makelink($in_config) ) . '" rel="' . $values['name'] . '">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'hr':
@@ -397,9 +397,12 @@ class roster_config
 			}
 
 			$html .= '
-		<tr>
-			<td class="membersRow' . (($i%2)+1) . '"><div' . $this->createTip($values['description'],$values['tooltip'],$values['description']) . '</div></td>
-			<td class="membersRowRight' . (($i%2)+1) . '"><div align="right">' . $input_field . '</div></td>
+		<tr class="membersRowColor' . (($i%2)+1) . '">
+			<td class="membersRowCell">
+				<span class="ui-icon ui-icon-help" style="cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>
+				' . $values['description'] . '
+			</td>
+			<td class="membersRowCell" style="text-align:right;">' . $input_field . '</td>
 		</tr>';
 
 			$i++;
@@ -579,6 +582,19 @@ class roster_config
 		$tip = " style=\"cursor:help;\" $tip>$disp_text";
 
 		return $tip;
+	}
+
+
+	/**
+	 * Create an inline tooltip for use in an html tag
+	 *
+	 * @param string $content | Content in tooltip
+	 * @param string $caption | Text in the caption
+	 * @return string ( Overlib styled tooltip )
+	 */
+	function createInlineTip( $content , $caption )
+	{
+		return makeOverlib($content,$caption,'',2,'',',WRAP');
 	}
 
 }
