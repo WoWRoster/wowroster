@@ -86,19 +86,35 @@ class roster_config
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '>'
+							. '<span class="ui-icon ui-icon-link" style="float:right;"></span>'
+							. '<span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>'
+							. '<a href="' . $values['value'] . '">'
+							. $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'newlink':
-						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '>'
+							. '<span class="ui-icon ui-icon-extlink" style="float:right;"></span>'
+							. '<span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>'
+							. '<a href="' . $values['value'] . '" target="_blank">'
+							. $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'makelink':
-						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '>'
+							. '<span class="ui-icon ui-icon-link" style="float:right;"></span>'
+							. '<span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>'
+							. '<a href="' . makelink($values['value']) . '">'
+							. $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'makenewlink':
-						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '>'
+							. '<span class="ui-icon ui-icon-newwin" style="float:right;"></span>'
+							. '<span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>'
+							. '<a href="' . makelink($values['value']) . '" target="_blank">'
+							. $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'page': 	// all pages are the same here
@@ -107,7 +123,10 @@ class roster_config
 					case 'blockframe':
 					case 'blockhide':
 					case 'function':
-						$menu .= '<li' . ( !$in_config && ($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . ( !$in_config ? '#' : makelink($in_config) ) . '" rel="' . $values['name'] . '">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( !$in_config && ($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '' ) . '>'
+							. ( $in_config ? '<span class="ui-icon ui-icon-link" style="float:right;"></span>' : '' )
+							. '<span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>'
+							. '<a href="' . ( !$in_config ? '#' : makelink($in_config) ) . '" rel="' . $values['name'] . '">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'hr':
@@ -150,15 +169,28 @@ class roster_config
 					break;
 
 				case 'pageframe':
+/*
 					$page .= border('sblue','start',$header_text,'100%') . "\n";
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$page .= $this->buildPage($values['name'],$type[1]);
 					$page .= "</table>\n";
 					$page .= border('sblue','end') . "\n";
+*/
+					$page .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			' . $header_text . '
+		</div>
+' . $this->buildPage($values['name'],$type[1]) . '
+	</div>
+</div>
+';
 					$addpage = true;
 					break;
 
 				case 'pagehide':
+/*
 					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
 					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$page .= border('sblue','end');
@@ -170,19 +202,46 @@ class roster_config
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
 					$page .= '</div>' . "\n";
+*/
 					$addpage = true;
+					$page .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+			' . $header_text . '
+			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
+		</div>
+		<div id="table_' . $values['name'] . '">
+' . $this->buildPage($values['name'],$type[1]) . '
+		</div>
+	</div>
+</div>
+';
 					break;
 
 				case 'blockframe':
+/*
 					$page .= border('sblue','start',$header_text,'100%') . "\n";
 					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$page .= $this->buildBlock($values['name']);
 					$page .= "</table>\n";
 					$page .= border('sblue','end') . "\n";
+*/
 					$addpage = true;
+					$page .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			' . $header_text . '
+		</div>
+' . $this->buildBlock($values['name']) . '
+	</div>
+</div>
+';
 					break;
 
 				case 'blockhide':
+/*
 					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
 					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$page .= border('sblue','end');
@@ -194,7 +253,21 @@ class roster_config
 					$page .= "</table>\n";
 					$page .= border('sblue','end');
 					$page .= '</div>' . "\n";
+*/
 					$addpage = true;
+					$page .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+			' . $header_text . '
+			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
+		</div>
+		<div id="table_' . $values['name'] . '">
+' . $this->buildBlock($values['name']) . '
+		</div>
+	</div>
+</div>
+';
 					break;
 
 				case 'function':
@@ -247,14 +320,27 @@ class roster_config
 					break;
 
 				case 'pageframe':
+/*
 					$html .= border('sblue','start',$header_text,'100%') . "\n";
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$html .= $this->buildPage($values['name'],$type[1]);
 					$html .= "</table>\n";
 					$html .= border('sblue','end');
+*/
+					$html .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			' . $header_text . '
+		</div>
+' . $this->buildPage($values['name'],$type[1]) . '
+	</div>
+</div>
+';
 					break;
 
 				case 'pagehide':
+/*
 					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
 					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$html .= border('sblue','end');
@@ -266,17 +352,44 @@ class roster_config
 					$html .= "</table>\n";
 					$html .= border('sblue','end');
 					$html .= '</div>' . "\n";
+*/
+					$html .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+			' . $header_text . '
+			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
+		</div>
+		<div id="table_' . $values['name'] . '">
+' . $this->buildPage($values['name'],$type[1]) . '
+		</div>
+	</div>
+</div>
+';
 					break;
 
 				case 'blockframe':
+/*
 					$html .= border('sblue','start',$header_text,'100%') . "\n";
 					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
 					$html .= $this->buildBlock($values['name']);
 					$html .= "</table>\n";
 					$html .= border('sblue','end') . "\n";
+*/
+					$html .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			' . $header_text . '
+		</div>
+' . $this->buildBlock($values['name']) . '
+	</div>
+</div>
+';
 					break;
 
 				case 'blockhide':
+/*
 					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
 					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
 					$html .= border('sblue','end');
@@ -288,6 +401,20 @@ class roster_config
 					$html .= '</table>' . "\n";
 					$html .= border('sblue','end');
 					$html .= '</div>' . "\n";
+*/
+					$html .= '
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+			' . $header_text . '
+			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
+		</div>
+		<div id="table_' . $values['name'] . '">
+' . $this->buildBlock($values['name']) . '
+		</div>
+	</div>
+</div>
+';
 					break;
 
 				case 'function':
@@ -395,7 +522,7 @@ class roster_config
 					$input_field = $values['value'];
 					break;
 			}
-
+/*
 			$html .= '
 		<tr class="membersRowColor' . (($i%2)+1) . '">
 			<td class="membersRowCell">
@@ -404,6 +531,21 @@ class roster_config
 			</td>
 			<td class="membersRowCell" style="text-align:right;">' . $input_field . '</td>
 		</tr>';
+*/
+			$html .= '
+<div class="tier-3-a">
+	<div class="tier-3-b">
+		<div class="config">
+			<div class="config-input">
+				' . $input_field . '
+			</div>
+			<div class="config-name">
+				<span class="ui-icon ui-icon-help" style="cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>
+				' . $values['description'] . '
+			</div>
+		</div>
+	</div>
+</div>';
 
 			$i++;
 		}
