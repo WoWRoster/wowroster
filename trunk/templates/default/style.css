@@ -287,7 +287,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 
 /* Container Styles */
-.container { padding: 0px 0px 20px; background: #eaca81 url(images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.container { padding: 0 0 20px; background: #eaca81 url(images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(images/skill_title_bg.png) repeat-x left top; position: relative; }
 .container .box-label .icon { height: 22px; width: 22px; position: absolute; left: 4px; top: 4px; }
 .container .box-label .icon img{ position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px;}
@@ -861,6 +861,154 @@ strong.aprint-string-length {
 	color: #000099;
 }
 
+
+/**
+ * Color Picker
+ */
+
+.colorinput {
+	background: transparent url('images/color/input_img.png') no-repeat;
+	border: 0;
+	height: 16px;
+	margin-right: 1px;
+	padding: 2px 5px;
+	vertical-align: middle;
+	width: 60px;
+}
+* html .colorinput { background-attachment:fixed; }
+
+#colorPicker {
+	position:absolute;
+	width:250px;
+	padding-bottom:1px;
+	background-color:#1F1E1D;
+	border:1px solid #5D5D5D;
+	width:252px;    /* IE 5.x */
+	width/* */:/**/250px;   /* Other browsers */
+	width:/**/250px;
+}
+#colorPicker .colorPicker_topRow {
+	padding-bottom:1px;
+	border-bottom:3px double #5D5D5D;
+	background-color:#2E2D2B;
+	padding-left:2px;
+	width:250px;    /* IE 5.x */
+	width/* */:/**/248px;   /* Other browsers */
+	width:/**/248px;
+	height:20px;    /* IE 5.x */
+	height/* */:/**/16px;   /* Other browsers */
+	height:/**/16px;
+}
+#colorPicker .colorPicker_statusBar {
+	height:13px;
+	padding-bottom:2px;
+	width:248px;
+	border-top:3px double #5D5D5D;
+	background-color:#2E2D2B;
+	padding-left:2px;
+	clear:both;
+	width:250px;    /* IE 5.x */
+	width/* */:/**/248px;   /* Other browsers */
+	width:/**/248px;
+	height:18px;    /* IE 5.x */
+	height/* */:/**/13px;   /* Other browsers */
+	height:/**/13px;
+}
+#colorPicker .colorSquare {
+	margin-left:1px;
+	margin-bottom:1px;
+	float:left;
+	border:1px solid #000;
+	cursor:pointer;
+	width:12px;     /* IE 5.x */
+	width/* */:/**/10px;    /* Other browsers */
+	width:/**/10px;
+	height:12px;    /* IE 5.x */
+	height/* */:/**/10px;   /* Other browsers */
+	height:/**/10px;
+}
+
+.colorPickerTab_inactive,
+.colorPickerTab_active { height:17px;padding-left:4px;cursor:pointer; }
+
+.colorPickerTab_inactive span { background-image:url(images/color/tab_left_inactive.gif); }
+.colorPickerTab_active span{ background-image:url(images/color/tab_left_active.gif); }
+
+.colorPickerTab_inactive span,
+.colorPickerTab_active span {
+	line-height:16px;
+	font-weight:bold;
+	font-family:arial,helvetica,sans-serif;
+	font-size:11px;
+	color:#CBA300;
+	padding-top:1px;
+	vertical-align:middle;
+	background-position:top left;
+	background-repeat:no-repeat;
+	float:left;
+	padding-left:6px;
+}
+.colorPickerTab_inactive img,
+.colorPickerTab_active img { float:left; }
+
+.colorPickerCloseButton {
+	width:16px;
+	height:15px;
+	position:absolute;
+	right:1px;
+	top:1px;
+	cursor:pointer;
+}
+#colorPicker_statusBarTxt {
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	color:#CBA300;
+	vertical-align:top;
+	line-height:13px;
+}
+
+.form_widget_amount_slider {
+	border-top:1px solid #9d9c99;
+	border-left:1px solid #9d9c99;
+	border-bottom:1px solid #eee;
+	border-right:1px solid #eee;
+	background-color:#2E2D2B;
+	position:absolute;
+	bottom:0px;
+	width:5px;      /* IE 5.x */
+	width/* */:/**/3px;     /* Other browsers */
+	width:/**/3px;
+	height:5px;     /* IE 5.x */
+	height/* */:/**/3px;    /* Other browsers */
+	height:/**/3px;
+}
+.colorSliderLabel {
+	width:15px;
+	height:20px;
+	float:left;
+	font-size:11px;
+	font-weight:bold;
+	color:#CBA300;
+}
+.colorSlider { width:175px;height:20px;float:left; }
+.colorInput { width:45px;height:20px;float:left; }
+
+.colorPreviewDiv {
+	width:180px;
+	margin-right:2px;
+	margin-top:1px;
+	border:1px solid #CCC;
+	height:20px;
+	float:left;
+	cursor:pointer;
+	width:182px;    /* IE 5.x */
+	width/* */:/**/180px;   /* Other browsers */
+	width:/**/180px;
+	height:22px;    /* IE 5.x */
+	height/* */:/**/20px;   /* Other browsers */
+	height:/**/20px;
+}
+.colorCodeDiv { width:50px;height:20px;float:left; }
 
 
 /**

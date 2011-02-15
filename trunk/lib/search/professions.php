@@ -83,7 +83,7 @@ class roster_professionsSearch
 	<label for="recipe_quality">' . $roster->locale->act['quality'] . ':</label><br />
 	<select name="recipe_quality[]" id="recipe_quality" size="7" multiple="multiple">
 		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['poor'] . '</option>
-		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['common'] . '</option>
+		<option value="ffffff" style="color:#cecece;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['common'] . '</option>
 		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['uncommon'] . '</option>
 		<option value="0070dd" style="color:#0070dd;"' . ( in_array('0070dd',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['rare'] . '</option>
 		<option value="a335ee" style="color:#a335ee;"' . ( in_array('a335ee',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['epic'] . '</option>

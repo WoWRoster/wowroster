@@ -73,8 +73,4 @@ $(function() {
 		$('input[name*="' + rel + '"]:checkbox').attr('checked', this.checked);
 	});
 
-
-
-
-
 });

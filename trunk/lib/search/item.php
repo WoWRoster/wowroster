@@ -48,9 +48,9 @@ class roster_itemSearch
 		require_once (ROSTER_LIB . 'item.php');
 
 		$this->open_table = '<tr><th class="membersHeader ts_string">' . $roster->locale->act['item'] . '</th>'
-						  . '<th class="membersHeader ts_string">' . $roster->locale->act['level'] . '</th>'
-						  . '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
-						  . '<th class="membersHeaderRight ts_string">' . $roster->locale->act['character'] . '</th></tr>';
+			. '<th class="membersHeader ts_string">' . $roster->locale->act['level'] . '</th>'
+			. '<th class="membersHeader ts_string">' . $roster->locale->act['name'] . '</th>'
+			. '<th class="membersHeaderRight ts_string">' . $roster->locale->act['character'] . '</th></tr>';
 
 		$this->minlvl = isset($_POST['item_minle']) ? (int)$_POST['item_minle'] : ( isset($_GET['item_minle']) ? (int)$_GET['item_minle'] : '' );
 		$this->maxlvl = isset($_POST['item_maxle']) ? (int)$_POST['item_maxle'] : ( isset($_GET['item_maxle']) ? (int)$_GET['item_maxle'] : '' );
@@ -81,7 +81,7 @@ class roster_itemSearch
 	<label for="item_quality">' . $roster->locale->act['quality'] . ':</label><br />
 	<select name="item_quality[]" id="item_quality" size="7" multiple="multiple">
 		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['poor'] . '</option>
-		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['common'] . '</option>
+		<option value="ffffff" style="color:#cecece;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['common'] . '</option>
 		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['uncommon'] . '</option>
 		<option value="0070dd" style="color:#0070dd;"' . ( in_array('0070dd',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['rare'] . '</option>
 		<option value="a335ee" style="color:#a335ee;"' . ( in_array('a335ee',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['epic'] . '</option>
@@ -97,14 +97,14 @@ class roster_itemSearch
 		$first = $page * $limit;
 
 		$sql = "SELECT `players`.`name`, `players`.`member_id`, `players`.`server`, `players`.`region`, `items`.*"
-			 . " FROM `" . $roster->db->table('items') . "` AS items,`" . $roster->db->table('players') . "` AS players"
-			 . " WHERE `items`.`member_id` = `players`.`member_id`"
+			. " FROM `" . $roster->db->table('items') . "` AS items,`" . $roster->db->table('players') . "` AS players"
+			. " WHERE `items`.`member_id` = `players`.`member_id`"
 				. " AND (`items`.`item_name` LIKE '%$search%' OR `items`.`item_tooltip` LIKE '%$search%')"
 				. ( $this->minlvl != '' ? " AND `items`.`level` >= '$this->minlvl'" : '' )
 				. ( $this->maxlvl != '' ? " AND `items`.`level` <= '$this->maxlvl'" : '' )
 				. $this->quality_sql
-			 . " ORDER BY `items`.`item_name` ASC"
-			 . ( $limit > 0 ? " LIMIT $first," . $limit : '' ) . ';';
+			. " ORDER BY `items`.`item_name` ASC"
+			. ( $limit > 0 ? " LIMIT $first," . $limit : '' ) . ';';
 
 		//calculating the search time
 		$this->start_search = format_microtime();
@@ -125,9 +125,9 @@ class roster_itemSearch
 				$icon = new item($row);
 
 				$item['html'] = '<td class="SearchRowCell">' . $icon->out(true) . '</td>'
-							  . '<td class="SearchRowCell">' . $icon->requires_level . '</td>'
-							  . '<td class="SearchRowCell"><span style="color:#' . $icon->color . '">[' . $icon->name . ']</span></td>'
-							  . '<td class="SearchRowCellRight"><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '"><strong>' . $row['name'] . '</strong></a></td>';
+					. '<td class="SearchRowCell">' . $icon->requires_level . '</td>'
+					. '<td class="SearchRowCell"><span style="color:#' . $icon->color . '">[' . $icon->name . ']</span></td>'
+					. '<td class="SearchRowCellRight"><a href="' . makelink('char-info&amp;a=c:' . $row['member_id']) . '"><strong>' . $row['name'] . '</strong></a></td>';
 
 				$this->add_result($item);
 				unset($item);
