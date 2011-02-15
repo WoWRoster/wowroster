@@ -57,10 +57,10 @@ class roster_config
 		$this->where = $where;
 		$this->prefix = $prefix;
 		$this->form_start = "<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"" . $this->prefix . "config\" onsubmit=\"return confirm('" . $roster->locale->act['confirm_config_submit'] . "');\">\n";
-		$this->submit_button = "<br /><br />\n<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n";
+		$this->submit_button = "<div class=\"config-submit\"><input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" /></div>\n";
 		$this->form_end = "</form>\n";
 
-		$this->jscript  = "\n<script type=\"text/javascript\">\nvar " . $this->prefix . "tabs=new tabcontent('" . $this->prefix . "tabs');\n" . $this->prefix . "tabs.init();\n</script>\n";
+		$this->jscript  = '<script type="text/javascript">$(function() { var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');' . $this->prefix . 'tabs.init();});</script>';
 	}
 
 	/**

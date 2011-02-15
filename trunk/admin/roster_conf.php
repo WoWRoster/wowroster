@@ -41,8 +41,8 @@ $config->buildConfigPage();
 
 $body .= $config->form_start
 	   . $save_message
-	   . $config->formpages
 	   . $config->submit_button
+	   . $config->formpages
 	   . $config->form_end
 	   . $config->nonformpages;
 $footer .= $config->jscript;
