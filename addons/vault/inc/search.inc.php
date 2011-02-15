@@ -79,9 +79,9 @@ class vaultSearch
 	<input type="text" name="vault_minle" id="vault_minle" size="3" maxlength="3" value="' . $this->minlvl . '" /> -
 	<input type="text" name="vault_maxle" id="vault_maxle" size="3" maxlength="3" value="' . $this->maxlvl . '" /><br />
 	<label for="vault_quality">' . $roster->locale->act['quality'] . ':</label><br />
-	<select name="vault_quality[]" id="vault_quality" size="6" multiple="multiple">
+	<select name="vault_quality[]" id="vault_quality" size="7" multiple="multiple">
 		<option value="9d9d9d" style="color:#9d9d9d;"' . ( in_array('9d9d9d',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['poor'] . '</option>
-		<option value="ffffff" style="color:#ffffff;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['common'] . '</option>
+		<option value="ffffff" style="color:#cecece;"' . ( in_array('ffffff',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['common'] . '</option>
 		<option value="1eff00" style="color:#1eff00;"' . ( in_array('1eff00',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['uncommon'] . '</option>
 		<option value="0070dd" style="color:#0070dd;"' . ( in_array('0070dd',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['rare'] . '</option>
 		<option value="a335ee" style="color:#a335ee;"' . ( in_array('a335ee',$this->quality) ? ' selected="selected"' : '' ) . '>' . $roster->locale->act['epic'] . '</option>

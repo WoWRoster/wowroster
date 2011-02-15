@@ -373,7 +373,7 @@ class roster_config
 					break;
 
 				case 'color':
-					$input_field .= '<input type="text" class="colorinput" maxlength="7" size="10" style="background-color:' . $values['value'] . ';"'
+					$input_field .= '<input type="text" maxlength="7" size="10" class="colorinput" style="background-color:' . $values['value'] . ';"'
 						. ' value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '" id="' . $this->prefix . 'color_' . $values['name'] . '" />'
 						. '<img src="' . $roster->config['theme_path'] . '/images/color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;"'
 						. ' onclick="showColorPicker(this,document.getElementById(\'' . $this->prefix . 'color_' . $values['name'] . '\'))" alt="" />' . "\n";
