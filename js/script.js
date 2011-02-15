@@ -23,7 +23,7 @@ $(function() {
 	$('input[type=text], input[type=password], input[type=file]').addClass('ui-widget');
 
 	// Style select boxes
-	$('select:not([multiple])').selectmenu({ style:'popup' });
+	$('select:not([multiple],[class="no-style"])').selectmenu({ style:'popup' });
 
 	// Slide down the notification box
 	$('#notify').slideDown('slow');
@@ -72,5 +72,9 @@ $(function() {
 		var rel = $(this).attr('rel');
 		$('input[name*="' + rel + '"]:checkbox').attr('checked', this.checked);
 	});
+
+
+
+
 
 });

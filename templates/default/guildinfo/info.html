@@ -2,7 +2,7 @@
 
 <!-- Navagation Tabs -->
 <div class="sections">
-	<ul id="char_navagation">
+	<ul id="tab_navagation">
 <!-- BEGIN tabs -->
 		<li<!-- IF tabs.SELECTED --> class="selected"<!-- ENDIF -->><a rel="{tabs.VALUE}" class="text">{tabs.NAME}</a></li>
 <!-- END tabs -->
@@ -10,234 +10,193 @@
 </div>
 
 <div class="main-panel" align="left">
+	<div id="profile" class="container profile" style="display:none;">
 
-<div id="profile" class="container profile" style="display:none;">
+		<div class="tier-1-a">
+			<div class="tier-1-b">
+				<div class="tier-1-c">
 
-	<div class="tier-1-a">
-		<div class="tier-1-b">
-			<div class="tier-1-c">
-				<div class="tier-1-title">
-
-					<table align="center" width="100%" cellspacing="0" cellpadding="0">
-						<tr>
-							<td id="progress_title" width="33%" align="left"><!-- TRANSLATE guildinfo --></td>
-							<td id="progress_title" width="33%" align="left">Level {LEVEL}</td>
-							<td width="33%" align="right">
-								<table align="center" width="100%" cellspacing="0" cellpadding="0">
-									<tr>
-										<td width="100%" align="right">
-											{PROGRESSBAR}
-										</td>
-									</tr>
-									<tr>
-										<td width="100%" align="right">
-											{PROGRESSBAR2}
-										</td>
-
-									</tr>
-								</table>
-							</td>
-
-						</tr>
-					</table>		
-
-				</div>
-
-				<div class="tier-2-a">
-					<div class="tier-2-b">
-						<table cellspacing="0" cellpadding="0">
+					<div class="tier-1-title">
+						<table align="center" width="100%" cellspacing="0" cellpadding="0">
 							<tr>
-							<td valign="top">
-								<div style="width:525px;">
-									<div class="shader">
-								<!-- BEGIN news -->
-										<div class="gnewsrow">{news.DATE} - {news.TEXT}<BR></div>
-								<!-- END news -->
-									</div>
-								</div>
-							</td>
-							<td width="13px">
-							</td>
-							<td valign="top">
-								<table valign="top" cellspacing="0" cellpadding="0">
-									<tr>
-										<td valign="top">
-											<div style="width:300px;">
-												<div class="shader">
-													{INFO}
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><br>
-											<table cellspacing="0" cellpadding="0" width="100%">
-												<tr>
-													<td width="100%">
-														<div class="agnewsrow">
-															<span class="blueB"><!-- TRANSLATE TXP --></span>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-												
-									<!-- BEGIN top10 -->
-													<div class="gnewsrow">
-														<table width="100%">
-															<tr>
-																<td width="10%">{top10.TOTALRANK}</td>
-																<td width="60%">{top10.NAME}</td>
-																<td width="30%">{top10.TOTALXP}</td>
-															</tr>
-														</table>
-													</div>
-									<!-- END top10 -->
-									
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-									<tr>
-										<td><br>
-											<table cellspacing="0" cellpadding="0" width="100%">
-												<tr>
-													<td width="100%">
-														<div class="agnewsrow">
-															<span class="blueB"><!-- TRANSLATE WXP --></span>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>
-											
-									<!-- BEGIN top10w -->
-													<div class="gnewsrow">
-														<table width="100%">
-															<tr>
-																<td width="10%">{top10w.TOTALRANK}</td>
-																<td width="60%">{top10w.NAME}</td>
-																<td width="30%">{top10w.TOTALXP}</td>
-															</tr>
-														</table>
-													</div>
-									<!-- END top10w -->
-									
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-									
-								</table>
-							</td>
+								<td id="progress_title" width="33%" align="left"><!-- TRANSLATE guildinfo --></td>
+								<td id="progress_title" width="33%" align="left">Level {LEVEL}</td>
+								<td width="33%" align="right">
+									<table align="center" width="100%" cellspacing="0" cellpadding="0">
+										<tr>
+											<td width="100%" align="right">
+												{PROGRESSBAR}
+											</td>
+										</tr>
+										<tr>
+											<td width="100%" align="right">
+												{PROGRESSBAR2}
+											</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 						</table>
-						
 					</div>
+
+					<div class="tier-2-a">
+						<div class="tier-2-b">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td valign="top">
+										<div style="width:525px;">
+											<div class="shader">
+<!-- BEGIN news -->
+												<div class="gnewsrow">{news.DATE} - {news.TEXT}</div>
+<!-- END news -->
+											</div>
+										</div>
+									</td>
+									<td style="width:13px;"></td>
+									<td valign="top">
+										<table valign="top" cellspacing="0" cellpadding="0">
+											<tr>
+												<td valign="top">
+													<div style="width:300px;">
+														<div class="shader">
+															{INFO}
+														</div>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td><br />
+													<table cellspacing="0" cellpadding="0" width="100%">
+														<tr>
+															<td width="100%">
+																<div class="agnewsrow">
+																	<span class="blueB"><!-- TRANSLATE TXP --></span>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td>
+<!-- BEGIN top10 -->
+															<div class="gnewsrow">
+																<table width="100%">
+																	<tr>
+																		<td width="10%">{top10.TOTALRANK}</td>
+																		<td width="60%">{top10.NAME}</td>
+																		<td width="30%">{top10.TOTALXP}</td>
+																	</tr>
+																</table>
+															</div>
+<!-- END top10 -->
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+
+											<tr>
+												<td><br />
+													<table cellspacing="0" cellpadding="0" width="100%">
+														<tr>
+															<td width="100%">
+																<div class="agnewsrow">
+																	<span class="blueB"><!-- TRANSLATE WXP --></span>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td>
+<!-- BEGIN top10w -->
+																<div class="gnewsrow">
+																	<table width="100%">
+																		<tr>
+																			<td width="10%">{top10w.TOTALRANK}</td>
+																			<td width="60%">{top10w.NAME}</td>
+																			<td width="30%">{top10w.TOTALXP}</td>
+																		</tr>
+																	</table>
+																</div>
+<!-- END top10w -->
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 
 <!-- BEGIN gtabs -->
 
-<div id="{gtabs.BLOCKID}" class="container profile" style="display:none;">
+	<div id="{gtabs.BLOCKID}" class="container profile" style="display:none;">
 
-	<div class="tier-1-a">
-		<div class="tier-1-b">
-			<div class="tier-1-c">
-				<div class="tier-1-title">
+		<div class="tier-1-a">
+			<div class="tier-1-b">
+				<div class="tier-1-c">
 
-					<table align="center" width="100%" cellspacing="0" cellpadding="0">
-						<tr>
-							<td id="progress_title" width="33%" align="left">{gtabs.NAME}</td>
-							<td id="progress_title" width="33%" align="left">Level {LEVEL}</td>
-							<td width="33%" align="right">
-								<table align="center" width="100%" cellspacing="0" cellpadding="0">
-									<tr>
-										<td width="100%" align="right">
-											{PROGRESSBAR}
-										</td>
-									</tr>
-									<tr>
-										<td width="100%" align="right">
-											{PROGRESSBAR2}
-										</td>
-
-									</tr>
-								</table>
-							</td>
-
-						</tr>
-					</table>		
-
-				</div>
-
-				<div class="tier-2-a">
-					<div class="tier-2-b">
-						<table cellspacing="0" cellpadding="0">
+					<div class="tier-1-title">
+						<table align="center" width="100%" cellspacing="0" cellpadding="0">
 							<tr>
-							<td valign="top" align="center">
-								<div style="width:647px;">
-									<div class="shader">
-								<!-- BEGIN news -->
-										<div class="gnewsrow">{gtabs.news.DATE} - {gtabs.news.TEXT}<BR></div>
-								<!-- END news -->
-									</div>
-								</div>
-							</td>
-							<td width="13px">
-							</td>
+								<td id="progress_title" width="33%" align="left">{gtabs.NAME}</td>
+								<td id="progress_title" width="33%" align="left">Level {LEVEL}</td>
+								<td width="33%" align="right">
+									<table align="center" width="100%" cellspacing="0" cellpadding="0">
+										<tr>
+											<td width="100%" align="right">
+												{PROGRESSBAR}
+											</td>
+										</tr>
+										<tr>
+											<td width="100%" align="right">
+												{PROGRESSBAR2}
+											</td>
+										</tr>
+									</table>
+								</td>
 							</tr>
 						</table>
-						
 					</div>
+
+					<div class="tier-2-a">
+						<div class="tier-2-b">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td valign="top" align="center">
+										<div style="width:647px;">
+											<div class="shader">
+<!-- BEGIN news -->
+												<div class="gnewsrow">{gtabs.news.DATE} - {gtabs.news.TEXT}<br /></div>
+<!-- END news -->
+											</div>
+										</div>
+									</td>
+									<td style="width:13px;"></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 <!-- END gtabs -->
 
-
-
 </div>
-
-
 
 <script type="text/javascript">
 <!--
-	addLpage('statsleft');
-	addLpage('meleeleft');
-	addLpage('rangedleft');
-	addLpage('spellleft');
-	addLpage('defenseleft');
-	addRpage('statsright');
-	addRpage('meleeright');
-	addRpage('rangedright');
-	addRpage('spellright');
-	addRpage('defenseright');
-
-	var char_navagation=new tabcontent('char_navagation');
-	char_navagation.setpersist(false);
-	char_navagation.init();
-
-	var bonus_nav=new tabcontent('bonus_navigation');
-	bonus_nav.setpersist(false);
-	bonus_nav.init();
-
-	var info_bonus_nav=new tabcontent('info_bonus_nav');
-	info_bonus_nav.setpersist(false);
-	info_bonus_nav.init();
-
-	var talentbuild_nav=new tabcontent('talentbuild_nav');
-	talentbuild_nav.setpersist(false);
-	talentbuild_nav.init();
+	var tab_navagation=new tabcontent('tab_navagation');
+	tab_navagation.setpersist(false);
+	tab_navagation.init();
 //-->
 </script>

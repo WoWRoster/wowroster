@@ -51,7 +51,7 @@ class roster_config
 		global $roster;
 
 		// Color Picker JS
-//		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
+		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
 
 		$this->tablename = $tablename;
 		$this->where = $where;
@@ -86,19 +86,19 @@ class roster_config
 				{
 					// in the left menu bar, we print external links and all page/config block types.
 					case 'link':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'newlink':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . $values['value'] . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'makelink':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'makenewlink':
-						$menu .= '    <li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( ($values['value'] == ROSTER_PAGE_NAME) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . makelink($values['value']) . '" target="_blank">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'page': 	// all pages are the same here
@@ -107,11 +107,11 @@ class roster_config
 					case 'blockframe':
 					case 'blockhide':
 					case 'function':
-						$menu .= '    <li' . ( !$in_config && ($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . ( !$in_config ? '#' : makelink($in_config) ) . '" rel="' . $values['name'] . '">' . $values['description'] . '</a></li>' . "\n";
+						$menu .= '<li' . ( !$in_config && ($values['name'] == $this->db_values['master']['startpage']['value']) ? ' class="selected"' : '' ) . '><span class="ui-icon ui-icon-help" style="float:right;cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span><a href="' . ( !$in_config ? '#' : makelink($in_config) ) . '" rel="' . $values['name'] . '">' . $values['description'] . '</a></li>' . "\n";
 						break;
 
 					case 'hr':
-						$menu .= "    <li><hr /></li>\n";
+						$menu .= "<li><hr /></li>\n";
 
 					default:
 						break;
@@ -136,7 +136,7 @@ class roster_config
 		foreach($this->db_values['menu'] as $values)
 		{
 			$type = explode('{',$values['form_type']);
-			$page = '<div id="' . $values['name'] . '" style="display:none;">' . "\n";
+			$page = '<div id="' . $values['name'] . '">' . "\n";
 
 			$type[1] = ( isset($type[1]) ? $type[1] : '');
 
