@@ -291,21 +291,9 @@
 .bonus-box .bonus-container .membersRow1 { background: transparent url(../images/shader.png) repeat; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; color: #FFF; }
 .bonus-box .bonus-container .membersRow2 { background: transparent; border-top: 1px solid #000; border-right: 0px none #000; border-bottom: 0px none #000; border-left: 0px none #000; color: #FFF; }
 
-.bonus-navigation { position:absolute; font:11px arial,helvetica,sans-serif; line-height:normal; width:344px; bottom: 0px; }
-.bonus-navigation ul { margin:0;padding:0;list-style:none; }
-.bonus-navigation li { background: transparent url(../images/shader.png) repeat; float:left; margin:0px 0px 3px 3px; cursor:pointer; border: 1px solid #06F; padding: 5px; }
-.bonus-navigation .text { display:block; text-decoration:none;font-weight:normal;color:#FFDD00; }
-.bonus-navigation .text:hover { color:#ffffff;font-weight:normal; }
-.bonus-navigation .selected { cursor:default; border-color: #FC0; }
-.bonus-navigation .selected .text { color:#ffffff; }
-
-.info-bonus-navigation { font:11px arial,helvetica,sans-serif; line-height:normal; position: relative; float: right; }
-.info-bonus-navigation ul { margin:0;padding:0;list-style:none; }
-.info-bonus-navigation li { background: transparent url(../images/shader.png) repeat; float:left; margin:0px 0px 3px 3px; cursor:pointer; border: 1px solid #06F; padding: 5px; }
-.info-bonus-navigation .text { display:block; text-decoration:none;font-weight:normal;color:#FFDD00; }
-.info-bonus-navigation .text:hover { color:#ffffff;font-weight:normal; }
-.info-bonus-navigation .selected { cursor:default; border-color: #FC0; }
-.info-bonus-navigation .selected .text { color:#ffffff; }
+/* Adjustments to the navigation buttons */
+.bonus-navigation { position:absolute; width:344px; bottom:0; }
+.info-navigation { position:relative; float:right; }
 
 .bonus-box .bonus-container .honortext {	position:absolute;	margin:25px 0 0 6px;	text-align:center;	width:337px;	color:#ffffff;	font-size:14px;	font-weight:bold;}
 .bonus-box .bonus-container .honortext span {	margin-left:20px;	color:#FFCC00;}

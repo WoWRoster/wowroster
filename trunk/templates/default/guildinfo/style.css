@@ -15,7 +15,8 @@
 
 /*********** Common Elements ***********/
 .main-panel .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-
+.tier-1-title { height: 42px; text-align: center; }
+.tier-2-b { overflow: auto; } /* Fix so right column expands the parent block*/
 
 /*********** Profile Page ***********/
 .shader { background: url(../images/shader.png) repeat; border: 1px solid #000000; }
@@ -24,8 +25,14 @@
 
 .main-panel .profile .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: 10px auto; padding: 0px; height: 570px; width: 540px; position: relative; }
 
-.gnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 4px; height:20px; text-align: left top; }
-.agnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 5px; height:22px; text-align: center top; }
+.gnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 4px; height:20px; text-align: left; }
+.agnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 5px; height:22px; text-align: center; }
+
+.ginfo-right { float: right; width: 300px; }
+.ginfo-right-block { margin-bottom: 10px; }
+.ginfo-left { width: 525px; }
+.ginfo-left-full { width: 675px; }
+
 
 .membersRowColor1, .membersRowColor2 { background: #deb760 url(../images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C; text-align: center;}
 .membersRowColor1:hover, .membersRowColor2:hover { background: #b9dc64 url(../images/set_row_hover.png) repeat-x left top;}

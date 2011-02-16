@@ -24,78 +24,77 @@ $guild_info_text = empty($roster->data['guild_info_text']) ? '&nbsp;' : $roster-
 $gxp = explode(':',$roster->data['guild_xp']);
 $gxpc = explode(':',$roster->data['guild_xpcap']);
 
-		$query = "SELECT * FROM `" . $roster->db->table('news',$addon['basename']) . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `Date` desc;";
-		$result = $roster->db->query($query);
 
-		$return_string = '';
-		if( $roster->db->num_rows($result) > 0 )
-		{
-			while( $row = $roster->db->fetch($result, SQL_ASSOC) )
-			{
-				//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
-				$roster->tpl->assign_block_vars('news', array(
-					'DATE'    => $row['Display_date'],
-					'TEXT'    =>sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
-					)
-				);
-			}
-		}
-		
-		
-		
-		
-		
-		$querya = "SELECT * FROM `" . $roster->db->table('ranks',$addon['basename']) . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `TotalXP` desc Limit 10;";
-		$resulta = $roster->db->query($querya);
+$query = "SELECT * FROM `" . $roster->db->table('news',$addon['basename']) . "`"
+	. " WHERE `guild_id` = '".$roster->data['guild_id']."'"
+	. " ORDER BY `Date` DESC;";
+$result = $roster->db->query($query);
 
-		$return_string = '';
-		if( $roster->db->num_rows($resulta) > 0 )
-		{
-			while( $rowa = $roster->db->fetch($resulta, SQL_ASSOC) )
-			{
-				//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
-				$roster->tpl->assign_block_vars('top10', array(
-					'NAME'    => $rowa['Member'],
-					'TOTALXP'    => $rowa['TotalXP'],
-					'TOTALRANK'    => $rowa['TotalRank'],
-					//'TEXT'    =>sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
-					)
-				);
-			}
-		}
-		
-		$queryb = "SELECT * FROM `" . $roster->db->table('ranks',$addon['basename']) . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `WeeklyXP` desc Limit 10;";
-		$resultb = $roster->db->query($queryb);
-
-		$return_string = '';
-		if( $roster->db->num_rows($resultb) > 0 )
-		{
-			$wx = 1;
-			while( $rowb = $roster->db->fetch($resultb, SQL_ASSOC) )
-			{
-				//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
-				$roster->tpl->assign_block_vars('top10w', array(
-					'NAME'    => $rowb['Member'],
-					'TOTALXP'    => $rowb['WeeklyXP'],
-					'TOTALRANK'    => $wx,
-					//'TEXT'    =>sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
-					)
-				);
-				$wx++;
-			}
-		}
-		
-		
-		
+$return_string = '';
+if( $roster->db->num_rows($result) > 0 )
+{
+	while( $row = $roster->db->fetch($result, SQL_ASSOC) )
+	{
+		//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
+		$roster->tpl->assign_block_vars('news', array(
+			'DATE'    => $row['Display_date'],
+			'TEXT'    => sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
+			)
+		);
+	}
+}
 
 
 
+$querya = "SELECT * FROM `" . $roster->db->table('ranks',$addon['basename']) . "`"
+	. " WHERE `guild_id` = '".$roster->data['guild_id']."'"
+	. " ORDER BY `TotalXP` DESC LIMIT 10;";
+$resulta = $roster->db->query($querya);
 
+$return_string = '';
+if( $roster->db->num_rows($resulta) > 0 )
+{
+	while( $rowa = $roster->db->fetch($resulta, SQL_ASSOC) )
+	{
+		//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
+		$roster->tpl->assign_block_vars('top10', array(
+			'NAME'      => $rowa['Member'],
+			'TOTALXP'   => $rowa['TotalXP'],
+			'TOTALRANK' => $rowa['TotalRank'],
+			//'TEXT'      =>sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
+			)
+		);
+	}
+}
+
+$queryb = "SELECT * FROM `" . $roster->db->table('ranks',$addon['basename']) . "`"
+	. " WHERE `guild_id` = '".$roster->data['guild_id']."'"
+	. " ORDER BY `WeeklyXP` DESC LIMIT 10;";
+$resultb = $roster->db->query($queryb);
+
+$return_string = '';
+if( $roster->db->num_rows($resultb) > 0 )
+{
+	$wx = 1;
+	while( $rowb = $roster->db->fetch($resultb, SQL_ASSOC) )
+	{
+		//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
+		$roster->tpl->assign_block_vars('top10w', array(
+			'NAME'      => $rowb['Member'],
+			'TOTALXP'   => $rowb['WeeklyXP'],
+			'TOTALRANK' => $wx,
+			//'TEXT'      => sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
+			)
+		);
+		$wx++;
+	}
+}
+
+
+_renderxpBar($gxp[0], $gxp[1], 'normal');
+_renderxpBar($gxpc[0], $gxpc[1], 'rested');
 
 $roster->tpl->assign_vars(array(
-
-	'PROGRESSBAR' => _getgxpBar($gxp[0], $gxp[1], 'normal'),
-	'PROGRESSBAR2' => _getgxpBar($gxpc[0], $gxpc[1], 'rested'),
 	'TITLE' => '',
 	'NEXT' => '',
 	'LEVEL' => $roster->data['guild_level'],
@@ -105,94 +104,74 @@ $roster->tpl->assign_vars(array(
 
 
 
-	$select_tab = (isset($_GET['t']) ? $_GET['t'] : 'profile');
+$select_tab = (isset($_GET['t']) ? $_GET['t'] : 'profile');
 
-	$roster->tpl->assign_block_vars('tabs',array(
-			'NAME'     => $roster->locale->act['guildinfo'],
-			'VALUE'    => 'profile',
-			'SELECTED' => $select_tab == 'profile' ? true : false
-			)
-		);
-	
-	foreach ($roster->locale->act['NEWS_FILTER'] as $id => $name)
+$roster->tpl->assign_block_vars('gtabs', array(
+	'NAME'     => $roster->locale->act['guildinfo'],
+	'BLOCKID'  => 'profile',
+	'SELECTED' => $select_tab == 'profile' ? true : false
+	)
+);
+
+foreach ($roster->locale->act['NEWS_FILTER'] as $id => $name)
+{
+	//echo $id.' - '.$name.' --<br>';
+
+	$roster->tpl->assign_block_vars('gtabs', array(
+		'NAME'     => $name,
+		'BLOCKID'  => 'ginfo' . $id,
+		'SELECTED' => $select_tab == 'profile' ? true : false
+		)
+	);
+
+	$query = "SELECT * FROM `" . $roster->db->table('news',$addon['basename']) . "`"
+		. " WHERE `guild_id` = '".$roster->data['guild_id']."'"
+			. " AND `Typpe` = '".($id-1)."'"
+		. " ORDER BY `Date` DESC;";
+	$result = $roster->db->query($query);
+
+	$return_string = '';
+	if( $roster->db->num_rows($result) > 0 )
 	{
-		//echo $id.' - '.$name.' --<br>';
-		
-		$roster->tpl->assign_block_vars('tabs',array(
-			'NAME'     => $name,
-			'VALUE'    => 'ginfo'.$id,
-			'SELECTED' => $select_tab == 'profile' ? true : false
-			)
-		);
-		$roster->tpl->assign_block_vars('gtabs', array(
-				'NAME'     => $name,
-				'BLOCKID'    => 'ginfo'.$id,
-			)
-		);
-		
-		$query = "SELECT * FROM `" . $roster->db->table('news',$addon['basename']) . "` WHERE `guild_id` = '".$roster->data['guild_id']."' AND `Typpe` = '".($id-1)."' ORDER BY `Date` desc;";
-		$result = $roster->db->query($query);
-
-		$return_string = '';
-		if( $roster->db->num_rows($result) > 0 )
+		while( $row = $roster->db->fetch($result, SQL_ASSOC) )
 		{
-			while( $row = $roster->db->fetch($result, SQL_ASSOC) )
-			{
-				//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
-				$roster->tpl->assign_block_vars('gtabs.news', array(
-					'DATE'    => $row['Display_date'],
-					'TEXT'    =>sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
-					)
-				);
-			}
+			//echo $row['Achievement'].'<br> '.sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']).'<br>';
+			$roster->tpl->assign_block_vars('gtabs.news', array(
+				'DATE'    => $row['Display_date'],
+				'TEXT'    => sprintf($roster->locale->act['NEWS_FORMAT'][$row['Typpe']], $row['Member'], $row['Achievement']),
+				)
+			);
 		}
-		
-		
 	}
-	
-	
+}
+
+
 $roster->tpl->set_handle('body', $addon['basename'] . '/info.html');
 $roster->tpl->display('body');
 
 
-	function _getgxpBar($step, $total, $txt) {
-        global $roster;
 
-        $perc = 0;
-        if ( $total == 0 ) {
-            $perc = 100;
-        } else {
-            $perc = round ($step / $total * 100);
-        }
-        $per_left = 100 - $perc;
-/*        $pb = "<table class=\"main_roster_menu\" cellspacing=\"0\" cellpadding=\"0\" border=\"1\" align=\"center\" width=\"200\" id=\"Table1\">";
-        $pb .= "<tr>";
-        $pb .= "    <td id=\"progress_text\" class=\"header\" colspan=\"2\" align=\"center\">";
-        $pb .= "        $perc% ". $roster->locale->act['complete']. " ($step / $total)";
-        $pb .= "    </td>";
-        $pb .= "</tr>";
-        $pb .= "<tr id=\"progress_bar\">";
-        if ( $perc ) {
-            $pb .= "	<td bgcolor=\"#660000\" height=\"12px\" width=\"$perc%\">" ;
-            $pb .= "	</td>";
-        }
-        if ( $per_left ) {
-            $pb .= "	<td bgcolor=\"#FFF7CE\" height=\"12px\" width=\"$per_left%\">";
-            $pb .= "        </td>";
-        }
-        $pb .= "</tr>";
-        $pb .= "</table>";
-*/
 
-		$pb = '	<div class="bar">
-					<div class="xp-bar '.$txt.'">
-						<div class="fill '.$txt.'" style="width: '.$perc.'%;"></div>
-						<div class="text">XP: '.$step.' / '.$total.' ('.$perc.'%)</div>
-					</div>
-				</div>';
-        //$this->_debug( 3, $pb, 'Fetched progressbar', $pb ? 'OK' : 'Failed');
-        return $pb;
-    }
-	
-	
-	
+function _renderxpBar($step, $total, $txt)
+{
+	global $roster;
+
+	$perc = 0;
+	if ( $total == 0 )
+	{
+		$perc = 100;
+	}
+	else
+	{
+		$perc = round($step / $total * 100);
+	}
+	$per_left = 100 - $perc;
+
+	$roster->tpl->assign_block_vars('p_bar', array(
+		'TEXT'    => $txt,
+		'PERCENT' => $perc,
+		'STEP'    => $step,
+		'TOTAL'   => $total,
+		)
+	);
+}
