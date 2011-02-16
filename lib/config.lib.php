@@ -536,12 +536,12 @@ class roster_config
 <div class="tier-3-a">
 	<div class="tier-3-b">
 		<div class="config">
-			<div class="config-input">
-				' . $input_field . '
-			</div>
 			<div class="config-name">
 				<span class="ui-icon ui-icon-help" style="cursor:help;" ' . $this->createInlineTip($values['tooltip'],$values['description']) . '></span>
 				' . $values['description'] . '
+			</div>
+			<div class="config-input">
+				' . $input_field . '
 			</div>
 		</div>
 	</div>

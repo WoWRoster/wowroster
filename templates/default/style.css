@@ -245,8 +245,8 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-3-b .skill-bar .text { width:400px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
 .tier-3-b .config { cursor: default; text-align:left; color:#000000; height: 20px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
-.tier-3-b .config-name { height: 20px; overflow: hidden; }
-.tier-3-b .config-input { height: 20px; float: right; position: relative; }
+.tier-3-b .config-name { height: 20px; float: left; overflow: hidden; }
+.tier-3-b .config-input { height: 20px; float: right; }
 
 .tier-3-a .white { background:url(images/tier/color/tier_3_b_white.jpg) no-repeat left top; }
 .tier-3-a .red { background:url(images/tier/color/tier_3_b_red.jpg) no-repeat left top; }
