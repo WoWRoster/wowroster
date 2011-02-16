@@ -50,7 +50,6 @@ for( $t=1;$t<=$tab_count;$t++ )
 
 			vault_log('Tab' . $t);
 		}
-
 	}
 }
 

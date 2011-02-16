@@ -203,6 +203,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-1-title .icon .mask { background: url(images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
 
 .tier-1-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
+.tier-1-title .left { height: 22px; float: left; margin-left: 5px; position: relative; }
 .tier-1-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-1-title .toggle img { height: 22px; width: 22px; }
 
@@ -216,6 +217,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .tier-2-title .icon .mask { background: url(images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
 
 .tier-2-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
+.tier-2-title .left { height: 22px; float: left; margin-left: 5px; position: relative; }
 .tier-2-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
 .tier-2-title .toggle img { height: 22px; width: 22px; }
 
@@ -378,6 +380,15 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .sections .text:hover { color:#000000; }
 .sections .selected { background-image:url(images/tabs/active_left.png); cursor:default; }
 .sections .selected .text { background-image:url(images/tabs/active_right.png); color:#000000; padding:8px 11px 10px 3px; }
+
+/* Block style navigation tabs */
+.tab-navigation { font:11px arial,helvetica,sans-serif; line-height:normal; }
+.tab-navigation ul { margin:0; padding:0; list-style:none; }
+.tab-navigation li { background: transparent url(images/shader.png) repeat; float:left; margin:0 0 3px 3px; cursor:pointer; border: 1px solid #06F; padding: 5px; }
+.tab-navigation .text { display:block; text-decoration:none; font-weight:normal; color:#FFDD00; }
+.tab-navigation .text:hover { color:#ffffff; font-weight:normal; }
+.tab-navigation .selected { cursor:default; border-color:#FC0; }
+.tab-navigation .selected .text { color:#ffffff; }
 
 .roster-panel { clear: left; }
 
@@ -738,6 +749,7 @@ form.slim { margin:0;padding:0; }
 /**
  * Overlib Tooltip Styles
  */
+#overDiv { position:absolute; visibility:hidden; z-index:9999; }
 
 /* Sets main text background - ol_fgclass*/
 .overlib_fg { background-color:#000000; }

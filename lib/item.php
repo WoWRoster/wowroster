@@ -1117,7 +1117,7 @@ class item
 				//Reforged
 				$tt['Attributes']['Requires'][] = $line;
 			}
-			
+
 
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_level'], $line, $matches) )
 			{
@@ -1267,21 +1267,21 @@ class item
 			}
 			else
 			{
-				//
 				// pass 2
 				// check for less common strings here. this will only get called if pass1 has failed to match anything on the current line
-				if( $line !== '' && $line !== ' ' && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage1'], $line )
-                                  && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage2'], $line )
-                                 && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage3'], $line )
-                                  && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage4'], $line )
-                                   && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage5'], $line )
-                                   && !preg_match( $roster->locale->wordings[$locale]['tooltip_garbage6'], $line )
-                                   && !preg_match($roster->locale->wordings[$locale]['tooltip_preg_dps'], $line))
+				if( $line !== '' && $line !== ' '
+					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage1'], $line)
+					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage2'], $line)
+					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage3'], $line)
+					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage4'], $line)
+					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage5'], $line)
+					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage6'], $line)
+					&& !preg_match($roster->locale->wordings[$locale]['tooltip_preg_dps'], $line)
+				)
 				{
-					//
 					// check to match more simpler items
 					// also could have fell through the line split in pass1
-                                        if( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_weapon_types'], $line ) )
+					if( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_weapon_types'], $line ) )
 					{
 						$tt['Attributes']['WeaponSlot'] = $line;
 						$this->isWeapon = true;

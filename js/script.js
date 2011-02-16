@@ -73,4 +73,7 @@ $(function() {
 		$('input[name*="' + rel + '"]:checkbox').attr('checked', this.checked);
 	});
 
+	// Make overlib tooltips transparent
+	setOpacity('overDiv',8.5);
+
 });

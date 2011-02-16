@@ -6,7 +6,7 @@
 	<div class="tier-1-a">
 		<div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title"><!-- TRANSLATE vault --> (Logs Broken, need tabs)
+				<div class="tier-1-title"><!-- TRANSLATE vault -->
 					<div class="links">
 <!-- BEGIN vault -->
 						<a href="{vault.LINK}" class="icon" {vault.TOOLTIP}><img src="{vault.ICON}" /><span class="mask"></span></a>
@@ -19,11 +19,21 @@
 				<div class="tier-2-a">
 					<div class="tier-2-b">
 						<div class="tier-2-title">
+<!-- IF vault.SLOT neq 'MoneyLog' -->
+							<div class="tab-navigation">
+								<ul id="tab_navigation">
+									<li class="selected"><a rel="{vault.SLOT}Items" class="text"><!-- TRANSLATE items --></a></li>
+<!-- BEGIN log -->
+									<li><a rel="{vault.SLOT}Log" class="text"><!-- TRANSLATE vault_log --></a></li>
+<!-- END log -->
+								</ul>
+							</div>
+<!-- ENDIF -->
 							<div class="icon">
-								<img src="{vault.ICON}" />
+								<img src="{vault.ICON}" alt="" />
 								<div class="mask"></div>
 							</div>{vault.NAME}
-<!-- IF vault.SLOT eq 'MoneyLog' -->
+<!-- IF S_MONEY and vault.SLOT eq 'MoneyLog' -->
 							<div class="title-money">
 <!-- IF MONEY_G gt 0 -->
 								{MONEY_G}<img src="{IMG_URL}coin_gold.gif" alt="g" />
@@ -38,7 +48,7 @@
 <!-- ENDIF -->
 						</div>
 <!-- IF vault.SLOT neq 'MoneyLog' -->
-						<div class="vault-grid">
+						<div id="{vault.SLOT}Items" class="vault-grid">
 <!-- BEGIN column -->
 							<div class="vault-column">
 <!-- BEGIN item -->
@@ -56,7 +66,7 @@
 						</div>
 <!-- ENDIF -->
 <!-- BEGIN log -->
-						<div class="tier-3-a"<!-- IF vault.SLOT neq 'MoneyLog' --> style="display:none;"<!-- ENDIF -->>
+						<div id="{vault.SLOT}Log" class="tier-3-a"<!-- IF vault.SLOT neq 'MoneyLog' --> style="display:none;"<!-- ENDIF -->>
 							<div class="tier-3-b">
 								<div class="text">
 									<span style="float:right;">{vault.log.TIME}</span>
@@ -73,3 +83,12 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+<!--
+$(function() {
+	var tab_navigation=new tabcontent('tab_navigation');
+	tab_navigation.init();
+});
+//-->
+</script>

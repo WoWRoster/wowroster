@@ -18,7 +18,7 @@
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE profile -->
 
-					<div class="info-bonus-navigation">
+					<div class="tab-navigation info-navigation">
 						<ul id="info_bonus_nav">
 							<li><a rel="infotoggle" class="text"><!-- TRANSLATE profile --></a></li>
 <!-- IF S_MODEL_TAB -->
@@ -215,7 +215,7 @@
 <!-- END bonus -->
 								</div>
 
-								<div class="bonus-navigation">
+								<div class="tab-navigation bonus-navigation">
 									<ul id="bonus_navigation">
 <!-- BEGIN bonus -->
 										<li><a rel="{bonus.KEY}" class="text">{bonus.VALUE}</a></li>
@@ -491,7 +491,7 @@
 		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title"><!-- TRANSLATE talents -->
-					<div class="info-bonus-navigation">
+					<div class="tab-navigation info-navigation">
 						<ul id="talentbuild_nav">
 <!-- BEGIN talent -->
 							<li><a rel="TS{talent.ID}"<!-- IF S_GLYPH_TAB --> rev="GL{talent.ID}"<!-- ENDIF --> class="text">{talent.NAME}</a></li>
@@ -666,9 +666,9 @@
 </div>
 
 
-
 <script type="text/javascript">
 <!--
+$(function() {
 	addLpage('statsleft');
 	addLpage('meleeleft');
 	addLpage('rangedleft');
@@ -695,5 +695,6 @@
 	var talentbuild_nav=new tabcontent('talentbuild_nav');
 	talentbuild_nav.setpersist(false);
 	talentbuild_nav.init();
+});
 //-->
 </script>
