@@ -954,8 +954,8 @@ $lang['installer_status'] = 'Status';
 $lang['installer_installation'] = 'Installation';
 $lang['installer_author'] = 'Autor';
 $lang['installer_log'] = 'Addon Verwalter Log';
-$lang['installer_activated'] = 'Aktiviert';
-$lang['installer_deactivated'] = 'Deaktiviert';
+$lang['installer_activate_0'] = 'Addon %1$s deaktiviert';
+$lang['installer_activate_1'] = 'Addon %1$s aktiviert';
 $lang['installer_installed'] = 'Installiert';
 $lang['installer_upgrade_avail'] = 'Upgrade verfügbar';
 $lang['installer_not_installed'] = 'Nicht installiert';
@@ -1001,6 +1001,8 @@ $lang['guide_already_complete'] = 'Der Installationsassistent wurde bereits been
 
 // Armory Data
 $lang['adata_update_talents'] = 'Talente';
+$lang['adata_update_class'] = 'Class %1$s updated';
+$lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
 $lang['password'] = 'Passwort';

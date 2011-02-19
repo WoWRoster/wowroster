@@ -547,6 +547,65 @@ class roster
 	}
 
 	/**
+	 * Set a message which reflects the status of the performed operation.
+	 * If the function is called with no arguments, this function returns all set messages without clearing them.
+	 *
+	 * @param string $message The message should begin with a capital letter and always ends with a period '.'.
+	 * @param string $title (optional) The title of the message
+	 * @param string $type The type of the message. One of the following values are possible: 'status' 'warning' 'error'
+	 * @return Ambigous <NULL, unknown>
+	 */
+	function set_message( $message = NULL, $title = NULL, $type = 'status' )
+	{
+		if( $message )
+		{
+			if( !isset($_SESSION['messages'][$type]) )
+			{
+				$_SESSION['messages'][$type] = array();
+			}
+			$_SESSION['messages'][$type][] = array($title, $message);
+		}
+		// Messages not set when DB connection fails.
+		return isset($_SESSION['messages']) ? $_SESSION['messages'] : NULL;
+	}
+
+	/**
+	 * Return all messages that have been set.
+	 *
+	 * @param string $type (optional) Only return messages of this type.
+	 * @param bool $clear_queue (optional) Set to FALSE if you do not want to clear the messages queue
+	 * @return An associative array, the key is the message type, the value an array of messages.
+	 * 		If the $type parameter is passed, you get only that type, or an empty array if there are no such messages.
+	 * 		If $type is not passed, all message types are returned, or an empty array if none exist.
+	 */
+	function get_messages( $type = NULL, $clear_queue = TRUE )
+	{
+		if( $messages = $this->set_message() )
+		{
+			if( $type )
+			{
+				if( $clear_queue )
+				{
+					unset($_SESSION['messages'][$type]);
+				}
+				if( isset($messages[$type]) )
+				{
+					return array($type => $messages[$type]);
+				}
+			}
+			else
+			{
+				if( $clear_queue )
+				{
+					unset($_SESSION['messages']);
+				}
+				return $messages;
+			}
+		}
+		return array();
+	}
+
+	/**
 	 * Switches the class for row coloring
 	 *
 	 * @param bool $set_new

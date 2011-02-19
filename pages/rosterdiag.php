@@ -103,13 +103,13 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnurl = parse_url(ROSTER_SVNREMOTE);
 				$svnpath = pathinfo($svnurl['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'].'://'.$svnurl['host'].$svnpath.'/';
-				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">Local Image</th><th class="membersHeaderRight">SVN Image</th></tr>';
-				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'" alt="Local Image" /></td><td class="membersRowRight1"><img src="'.$svnurl.$filename.'" alt="SVN Image" /></td></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">Local Image</th><th class="membersHeader">SVN Image</th></tr>';
+				$diffcheck .= '<tr><td class="membersRow1"><img src="'.$filename.'" alt="Local Image" /></td><td class="membersRow1"><img src="'.$svnurl.$filename.'" alt="SVN Image" /></td></tr>';
 				$diffcheck .= '</table>';
 			}
 			else
 			{
-				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeaderRight">SVN File</th></tr>';
+				$diffcheck = '<table width="100%" border="0" cellspacing="0"><tr><th class="membersHeader">Type</th><th class="membersHeader">Local File</th><th class="membersHeader">SVN File</th></tr>';
 				$difffiles = difffile($filelocalsource, $filesvnsource);
 				$row_color=2;
 				foreach ($difffiles as $difference)
@@ -138,7 +138,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 					{
 						$diffcheck .= highlight_php(implode("\n",$difference['from']), $rowfile1[0]);
 					}
-					$diffcheck .= '</td><td class="membersRowRight'.$row_color.'">';
+					$diffcheck .= '</td><td class="membersRow'.$row_color.'">';
 					if (isset($difference['to']))
 					{
 						$diffcheck .= highlight_php(implode("\n",$difference['to']), $rowfile2[0]);
@@ -157,15 +157,15 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 				$svnpath = pathinfo($svnurl ['path'], PATHINFO_DIRNAME);
 				$svnurl = $svnurl['scheme'] . '://' . $svnurl ['host'] . $svnpath . '/';
 				$diffcheck = '<table width="100%" border="0" cellspacing="0">'
-						   . '<tr><th class="membersHeaderRight">SVN Image</th></tr>'
-						   . '<tr><td class="membersRowRight1"><img src="'. $svnurl . $filename . '" alt="" /></td></tr>'
-						   . '<tr><td class="membersRowRight2">&nbsp;</td></tr></table>';
+						   . '<tr><th class="membersHeader">SVN Image</th></tr>'
+						   . '<tr><td class="membersRow1"><img src="'. $svnurl . $filename . '" alt="" /></td></tr>'
+						   . '<tr><td class="membersRow2">&nbsp;</td></tr></table>';
 			}
 			else
 			{
 				$diffcheck = '<table width="100%" border="0" cellspacing="0">'
-						   . '<tr><th class="membersHeaderRight">SVN File</th></tr>'
-						   . '<tr><td class="membersRowRight1">'. highlight_php(str_replace("\r\n", "\n", $filesvnsource)) . '</td></tr>'
+						   . '<tr><th class="membersHeader">SVN File</th></tr>'
+						   . '<tr><td class="membersRow1">'. highlight_php(str_replace("\r\n", "\n", $filesvnsource)) . '</td></tr>'
 						   . '</table>';
 			}
 		}
@@ -174,8 +174,8 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 		print border('syellow', 'start', 'MD5 Information for file: ' . $filename) . "\n";
 		print '<table width="100%" cellspacing="0" border="0">';
-		print '<tr><td class="membersRow1">Remote:</td><td class="membersRowRight1">' . $md5remote . "</td></tr>\n";
-		print '<tr><td class="membersRow2">Local:</td><td class="membersRowRight2">' . $md5local . "</td></tr>\n";
+		print '<tr><td class="membersRow1">Remote:</td><td class="membersRow1">' . $md5remote . "</td></tr>\n";
+		print '<tr><td class="membersRow2">Local:</td><td class="membersRow2">' . $md5local . "</td></tr>\n";
 		print "</table>\n";
 		print border('syellow', 'end');
 
@@ -183,7 +183,7 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 		print border('sblue', 'start', 'Back Link');
 		print '<table width="100%" cellspacing="0" border="0">';
-		print '<tr><td class="membersRowRight2"><form method="post" action="' . makelink() . '">';
+		print '<tr><td class="membersRow2"><form method="post" action="' . makelink() . '">';
 		print '<input type="hidden" name="filename" value="' . $filename . '" />';
 		print '<input type="hidden" name="downloadsvn" value="savefile" />';
 		print '<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />';
@@ -229,15 +229,15 @@ echo '
 		<table class="border_frame" width="100%" cellspacing="0">
 			<tr>
 				<td class="membersRow'. ((($rowstripe = 0) % 2) + 1) . '">OS</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . php_uname('s') . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . php_uname('s') . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">Server Software</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '" style="white-space:normal;">' . $_SERVER ['SERVER_SOFTWARE'] . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '" style="white-space:normal;">' . $_SERVER ['SERVER_SOFTWARE'] . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">MySQL Version</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->db->server_info() . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->db->server_info() . '</td>
 			</tr>
 		</table>
 	</div>
@@ -249,31 +249,31 @@ echo '
 		<table class="border_frame" width="100%" cellspacing="0">
 			<tr>
 				<td class="membersRow'. ((($rowstripe = 0) % 2) + 1) . '">PHP Version</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . PHP_VERSION . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . PHP_VERSION . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">PHP API Type</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . php_sapi_name() . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . php_sapi_name() . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">safe_mode</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . onOffRev(ini_get('safe_mode')) . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOffRev(ini_get('safe_mode')) . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">open_basedir</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . onOffRev(ini_get('open_basedir')) . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOffRev(ini_get('open_basedir')) . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">allow_url_fopen</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . onOff(ini_get('allow_url_fopen')) . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff(ini_get('allow_url_fopen')) . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">file_uploads</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . onOff(ini_get('file_uploads')) . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff(ini_get('file_uploads')) . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">upload_max_filesize</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . ini_get('upload_max_filesize') . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . ini_get('upload_max_filesize') . '</td>
 			</tr>
 		</table>
 	</div>
@@ -316,43 +316,43 @@ echo '
 		<table class="border_frame" width="100%" cellspacing="0">
 			<tr>
 				<td class="membersRow'. ((($rowstripe = 0) % 2) + 1) . '">version</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['version'] . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['version'] . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">db_version</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['roster_dbver'] . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['roster_dbver'] . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">db_prefix</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->db->prefix . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->db->prefix . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">debug_mode</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . onOffRev($roster->config ['debug_mode']) . ($roster->config ['debug_mode'] == 2 ? ' (extended)' : '') . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOffRev($roster->config ['debug_mode']) . ($roster->config ['debug_mode'] == 2 ? ' (extended)' : '') . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">roster_lang</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['locale'] . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['locale'] . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">img_url</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['img_url'] . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['img_url'] . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">interface_url</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['interface_url'] . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['interface_url'] . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">img_suffix</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['img_suffix'] . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['img_suffix'] . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">use_update_triggers</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . onOff($roster->config ['use_update_triggers']) . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff($roster->config ['use_update_triggers']) . '</td>
 			</tr>
 			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">rs_mode</td>
-				<td class="membersRowRight' . ((($rowstripe) % 2) + 1) . '">' . onOff($roster->config ['rs_mode']) . '</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff($roster->config ['rs_mode']) . '</td>
 			</tr>
 		</table>
 	</div>
@@ -380,7 +380,7 @@ else
 	$table_list = "\n<table class=\"border_frame\" style=\"width:100%;\" cellspacing=\"0\">\n";
 	while( $row = $roster->db->fetch($result) )
 	{
-		$table_list .= '<tr><td class="membersRowRight' . (((++$rowstripe) % 2) + 1) . '">' . $row [0] . '</td></tr>' . "\n";
+		$table_list .= '<tr><td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">' . $row [0] . '</td></tr>' . "\n";
 	}
 	$table_list .= "</table>\n";
 	$roster->db->free_result($result);
@@ -500,8 +500,15 @@ if( GrabRemoteVersions() !== false )
 			echo border($severity[$files[$directory]['rollup']]['style'], 'start', $headertext, '100%');
 
 			echo '<table id="table_' . $directory_id . '" style="display:none;width:100%;" cellpadding="0" cellspacing="0">';
-			echo '<tr><th class="membersHeader">Filename</th><th class="membersHeader">Revision</th><th class="membersHeader">Date</th><th class="membersHeader">Author</th><th class="membersHeader">MD5 Match</th><th class="membersHeaderRight">SVN</th>';
-			echo '</tr>';
+			echo '
+<tr>
+	<th class="membersHeader">Filename</th>
+	<th class="membersHeader">Revision</th>
+	<th class="membersHeader">Date</th>
+	<th class="membersHeader">Author</th>
+	<th class="membersHeader">MD5 Match</th>
+	<th class="membersHeader">SVN</th>
+</tr>';
 			$row=0;
 			foreach ($files[$directory] as $file => $filedata)
 			{
@@ -568,7 +575,7 @@ if( GrabRemoteVersions() !== false )
 						echo 'Unknown';
 					}
 					echo "</td>\n";
-					echo '<td class="membersRowRight' . $row . '">' . "\n";
+					echo '<td class="membersRow' . $row . '">' . "\n";
 					if($filedata['diff'] || $filedata['missing'])
 					{
 						echo '<form method="post" action="' . makelink() . '">' . "\n";
@@ -624,7 +631,7 @@ else
 		}
 	}
 	echo border('sblue', 'start', 'File Version Information');
-	echo '<div class="membersRowRight1"><div align="center">Cannot access Roster site for file integrity checking<br />Please press the button to perform a remote File Verion Check';
+	echo '<div class="membersRow1"><div align="center">Cannot access Roster site for file integrity checking<br />Please press the button to perform a remote File Verion Check';
 	echo '<br /><br /><input type="submit" value="Check files Remotely"></div></div>';
 	echo border('sblue', 'end');
 	echo '</div></div></div></div></div>'; // End tier 1 element

@@ -117,8 +117,8 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">"
-		   . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['theme_path'] . "/images/button_open.png','" . $roster->config['theme_path'] . "/images/button_close.png');\">"
+		   . "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style, 'start', $title, $width)
@@ -144,8 +144,8 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
 
 	$toggleboxes++;
 
-	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . ROSTER_PATH . "templates/default/images/minus.gif','" . ROSTER_PATH . "templates/default/images/plus.gif');\">"
-		   . "<img src=\"" . ROSTER_PATH . 'templates/default/images/' . (($open)?'minus':'plus') . ".gif\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['theme_path'] . "/images/button_open.png','" . $roster->config['theme_path'] . "/images/button_close.png');\">"
+		   . "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style,'start',$title, $width)

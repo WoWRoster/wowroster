@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 
 if( !isset($roster->pages[2]) )
 {
-	$body .= messagebox($roster->locale->act['specify_addon'],$roster->locale->act['addon_error'],'sred');
+	$roster->set_message($roster->locale->act['specify_addon'], $roster->locale->act['addon_error'], 'error');
 	return;
 }
 
@@ -49,8 +49,8 @@ if( $addon['active'] = '1' )
 
 			if( version_compare($addonstuff->version,$addon['version']) )
 			{
-				$body = messagebox(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
-					  . sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>',$roster->locale->act['addon_error'],'sred');
+				$roster->set_message(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
+					  . sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>', $roster->locale->act['addon_error'], 'error');
 				return;
 			}
 			unset($addonstuff);
@@ -109,7 +109,7 @@ if( $addon['active'] = '1' )
 		$config->getConfigData();
 
 		// ----[ Process data if available ]------------------------
-		$save_message = $config->processData($addon['config']);
+		$config->processData($addon['config']);
 
 		// ----[ Build the page items using lib functions ]---------
 		$menu = $config->buildConfigMenu();
@@ -117,7 +117,6 @@ if( $addon['active'] = '1' )
 		$config->buildConfigPage();
 
 		$body .= $config->form_start
-			   . $save_message
 			   . $config->formpages
 			   . $config->submit_button
 			   . $config->form_end
@@ -126,12 +125,12 @@ if( $addon['active'] = '1' )
 	}
 	else
 	{
-		$body .=  messagebox(sprintf($roster->locale->act['addon_no_config'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
+		$roster->set_message(sprintf($roster->locale->act['addon_no_config'],$addon['basename']), $roster->locale->act['addon_error'], 'error');
 	}
 }
 else
 {
-	$body .=  messagebox(sprintf($roster->locale->act['addon_disabled'],$addon['basename']),$roster->locale->act['addon_error'],'sred');
+	$roster->set_message(sprintf($roster->locale->act['addon_disabled'],$addon['basename']), $roster->locale->act['addon_error'], 'error');
 }
 
 // Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines

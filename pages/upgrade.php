@@ -517,13 +517,20 @@ class Upgrade
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '1.0.0' WHERE `id` = 1010 LIMIT 1;");
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '1.0.0' WHERE `id` = 1020 LIMIT 1;");
 		}
-		// guild level updates
+
+		// Guild level updates
 		if( version_compare($roster->config['version'], '2.0.9.2262', '<') )
 		{
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('guild') . "`
 				ADD `guild_xp` varchar(32) NULL default '' AFTER `guild_num_accounts`,
 				ADD `guild_xpcap` varchar(32) NULL default '',
 				ADD `guild_level` varchar(32) NULL default '';");
+		}
+
+		// Change config table a bit
+		if( version_compare($roster->config['version'], '2.0.9.2276', '<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` =  'radio{full^full|half^half' WHERE `id` = 8100;");
 		}
 
 		// Standard Beta Update

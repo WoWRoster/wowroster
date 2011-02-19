@@ -32,7 +32,7 @@ include(ROSTER_ADMIN . 'roster_config_functions.php');
 $config->getConfigData();
 
 // ----[ Process data if available ]------------------------
-$save_message = $config->processData( $roster->config );
+$config->processData($roster->config);
 
 // ----[ Build the page items using lib functions ]---------
 $menu = $config->buildConfigMenu();
@@ -40,7 +40,6 @@ $menu = $config->buildConfigMenu();
 $config->buildConfigPage();
 
 $body .= $config->form_start
-	   . $save_message
 	   . $config->submit_button
 	   . $config->formpages
 	   . $config->form_end

@@ -382,6 +382,7 @@ INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|of
 # Update CP versions
 UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1010;
 UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1020;
+UPDATE `renprefix_config` SET `form_type` =  'radio{full^full|half^half' WHERE `id` = 8100;
 
 # --------------------------------------------------------
 ### Menu Updates

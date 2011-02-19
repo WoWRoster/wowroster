@@ -44,7 +44,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 	{
 		$type = ($mode == 'guild'?0:2) + ($_POST['block'] == 'allow'?0:1);
 
-		if( !empty($_POST['value']) || !empty($_POST['server']) || !empty($_POST['region']) )
+		if( !empty($_POST['value']) && !empty($_POST['server']) && !empty($_POST['region']) )
 		{
 			$name = $_POST['value'];
 			$server = $_POST['server'];
@@ -73,7 +73,7 @@ if( isset($_POST['process']) && $_POST['process'] == 'process')
 		}
 		else
 		{
-			$body .= messagebox($roster->locale->act['upload_rules_error'],'','sred') . "<br />\n";
+			$roster->set_message($roster->locale->act['upload_rules_error'], '', 'error');
 		}
 	}
 	elseif( substr($_POST['action'],0,4) == 'del_' )
@@ -146,7 +146,7 @@ $default_present = $roster->db->query_first("SELECT `name` FROM `" . $roster->db
 
 if( empty($default_present) )
 {
-	$rcp_message .= messagebox($roster->locale->act['no_default_guild'],$roster->locale->act['pagebar_uploadrules'],'sred');
+	$roster->set_message($roster->locale->act['no_default_guild'], $roster->locale->act['pagebar_uploadrules'], 'error');
 }
 
 $l_enforce_rules = explode('|',$roster->locale->act['admin']['enforce_rules']);

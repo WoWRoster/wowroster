@@ -407,7 +407,7 @@ class memberslistUpdate
 		if( $update )
 			$querystr = "UPDATE `".$roster->db->table('alts',$this->data['basename'])."` SET ".$roster->db->build_query('UPDATE',$build_query)." WHERE `member_id` = '$member_id'";
 		else
-			$querystr = "INSERT INTO `".$roster->db->table('alts',$this->data['basename'])."` SET ".$roster->db->build_query('UPDATE',$build_query);
+			$querystr = "INSERT INTO `".$roster->db->table('alts',$this->data['basename'])."` ".$roster->db->build_query('INSERT',$build_query);
 
 		$result = $roster->db->query($querystr);
 

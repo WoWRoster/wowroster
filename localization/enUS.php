@@ -947,6 +947,7 @@ $lang['installer_upgrade_0']='Upgrade of %1$s successful';
 $lang['installer_upgrade_1']='Upgrade of %1$s failed, but rollback successful';
 $lang['installer_upgrade_2']='Upgrade of %1$s failed, and rollback also failed';
 $lang['installer_purge_0']='Purge of %1$s successful';
+$lang['installer_purge_0']='Purge of %1$s successful';
 
 $lang['installer_icon'] = 'Icon';
 $lang['installer_addoninfo'] = 'Addon Info';
@@ -954,8 +955,8 @@ $lang['installer_status'] = 'Status';
 $lang['installer_installation'] = 'Installation';
 $lang['installer_author'] = 'Author';
 $lang['installer_log'] = 'Addon Manager Log';
-$lang['installer_activated'] = 'Activated';
-$lang['installer_deactivated'] = 'Deactivated';
+$lang['installer_activate_0'] = 'Addon %1$s deactivated';
+$lang['installer_activate_1'] = 'Addon %1$s activated';
 $lang['installer_installed'] = 'Installed';
 $lang['installer_upgrade_avail'] = 'Upgrade Available';
 $lang['installer_not_installed'] = 'Not Installed';
@@ -1001,6 +1002,8 @@ $lang['guide_already_complete'] = 'The after install guide setup has already bee
 
 // Armory Data
 $lang['adata_update_talents'] = 'Talents';
+$lang['adata_update_class'] = 'Class %1$s updated';
+$lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
 $lang['password'] = 'Password';

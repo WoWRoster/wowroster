@@ -87,7 +87,7 @@ while( $row = $roster->db->fetch( $result ) )
 include(ROSTER_LIB.'config.lib.php');
 $config['master'] = new roster_config( $roster->db->table('addon_config'), '`addon_id` = \'' . $addon['addon_id'] . '\'', 'config_master_' );
 $config['master']->getConfigData();
-$save_message = $config['master']->processData($addon['config']);
+$config['master']->processData($addon['config']);
 
 // ----[ Create horizontal menu separator ]-----------------
 $config['master']->db_values['menu']['hr'] = array(
@@ -125,7 +125,7 @@ foreach( $config as $id => $conf_obj )
 	$config[$id]->buildConfigPage();
 }
 
-$body .= $config['master']->form_start . $save_message;
+$body .= $config['master']->form_start;
 foreach( $config as $id => $conf_obj )
 {
 	$body .= $config[$id]->formpages;
