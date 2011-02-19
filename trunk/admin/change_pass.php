@@ -45,44 +45,41 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 		$newpass = ( isset($_POST['newpass']) ? $_POST['newpass'] : '' );
 		$confirmpass = ( isset($_POST['confirmpass']) ? $_POST['confirmpass'] : '' );
 
-		$success = 0;
 		if( $mode == 'Admin' && md5($oldpass) != $realhash )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_old_error'],$roster->locale->act['roster_cp'],'sred');
+			$roster->set_message($roster->locale->act['pass_old_error'], '', 'error');
 		}
 		elseif( !array_key_exists('newpass',$_POST) || !array_key_exists('confirmpass',$_POST) )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_submit_error'],$roster->locale->act['roster_cp'],'sred');
+			$roster->set_message($roster->locale->act['pass_submit_error'], '', 'error');
 		}
 		elseif( $newpass != $confirmpass )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_mismatch'],$roster->locale->act['roster_cp'],'sred');
+			$roster->set_message($roster->locale->act['pass_mismatch'], '', 'error');
 		}
 		elseif( $newpass === '' || $confirmpass === '' || md5($newpass) == md5('') )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_blank'],$roster->locale->act['roster_cp'],'sred');
+			$roster->set_message($roster->locale->act['pass_blank'], '', 'error');
 		}
 		elseif( md5($newpass) == $realhash )
 		{
-			$rcp_message .= messagebox($roster->locale->act['pass_isold'],$roster->locale->act['roster_cp'],'sorange');
+			$roster->set_message($roster->locale->act['pass_isold'], '', 'warning');
 		}
 		else // valid password
 		{
 			$query = 'UPDATE `' . $roster->db->table('account') . '` SET `hash` = "' . md5($newpass) . '"  WHERE `name` = "' . $mode . '";';
-
 			$result = $roster->db->query($query);
 
 			if (!$result)
 			{
-				die_quietly('There was a database error while trying to change the password. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['roster_cp'],__FILE__,__LINE__,$query);
+				$roster->set_message('There was a database error while trying to change the password.', '', 'error');
+				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 			}
-
-			$success = 1;
-
-			$rcp_message .= messagebox(sprintf($roster->locale->act['pass_changed'],$mode,'<span style="font-size:11px;color:red;">' . $newpass . '</span>'),$roster->locale->act['roster_cp'],'sgreen');
+			else
+			{
+				$roster->set_message(sprintf($roster->locale->act['pass_changed'], $mode, '<span style="font-size:11px;color:red;">' . $newpass . '</span>'));
+			}
 		}
-
-		$rcp_message .= '<br />';
 	}
 }
 

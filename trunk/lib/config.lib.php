@@ -179,10 +179,8 @@ class roster_config
 					$page .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title">
-			' . $header_text . '
-		</div>
-' . $this->buildPage($values['name'],$type[1]) . '
+' . ($header_text ? '		<div class="tier-2-title">' . $header_text . "</div>\n" : '') .
+$this->buildPage($values['name'],$type[1]) . '
 	</div>
 </div>
 ';
@@ -208,7 +206,7 @@ class roster_config
 <div class="tier-2-a">
 	<div class="tier-2-b">
 		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
-			' . $header_text . '
+			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
 		<div id="table_' . $values['name'] . '">
@@ -231,10 +229,8 @@ class roster_config
 					$page .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title">
-			' . $header_text . '
-		</div>
-' . $this->buildBlock($values['name']) . '
+' . ($header_text ? '		<div class="tier-2-title">' . $header_text . "</div>\n" : '') .
+$this->buildBlock($values['name']) . '
 	</div>
 </div>
 ';
@@ -259,7 +255,7 @@ class roster_config
 <div class="tier-2-a">
 	<div class="tier-2-b">
 		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
-			' . $header_text . '
+			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
 		<div id="table_' . $values['name'] . '">
@@ -293,12 +289,20 @@ class roster_config
 	 * @param string $page pagename of the page to render
 	 * @return string $html HTML code for the block
 	 */
-	function buildPage($page,$columns)
+	function buildPage($page, $columns)
 	{
 		global $roster;
 
-		$html = '<table style="width:100%;"><tr><td align="center" valign="top">';
-		$i = 0;
+		// Only print a table is there is more than 1 column
+		if( $columns > 1 )
+		{
+			$html = '<table style="width:100%;" cellspacing="0" cellpadding="0"><tr><td align="center" valign="top">';
+		}
+		else
+		{
+			$html = '';
+		}
+		$i = 1;
 
 		foreach($this->db_values[$page] as $values)
 		{
@@ -330,10 +334,8 @@ class roster_config
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title">
-			' . $header_text . '
-		</div>
-' . $this->buildPage($values['name'],$type[1]) . '
+' . ($header_text ? '		<div class="tier-2-title">' . $header_text . "</div>\n" : '') .
+$this->buildPage($values['name'],$type[1]) . '
 	</div>
 </div>
 ';
@@ -357,7 +359,7 @@ class roster_config
 <div class="tier-2-a">
 	<div class="tier-2-b">
 		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
-			' . $header_text . '
+			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
 		<div id="table_' . $values['name'] . '">
@@ -379,10 +381,8 @@ class roster_config
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title">
-			' . $header_text . '
-		</div>
-' . $this->buildBlock($values['name']) . '
+' . ($header_text ? '		<div class="tier-2-title">' . $header_text . "</div>\n" : '') .
+	$this->buildBlock($values['name']) . '
 	</div>
 </div>
 ';
@@ -406,7 +406,7 @@ class roster_config
 <div class="tier-2-a">
 	<div class="tier-2-b">
 		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
-			' . $header_text . '
+			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
 		<div id="table_' . $values['name'] . '">
@@ -424,16 +424,27 @@ class roster_config
 				default:
 					break;
 			}
-			if ((++$i) % $columns)
+
+			// Only print a table is there is more than 1 column
+			if( $columns > 1 && $i < $columns )
 			{
-				$html .= '</td><td align="center" valign="top">';
+				if ($i % $columns)
+				{
+					$html .= '</td><td align="center" valign="top">';
+				}
+				else
+				{
+					$html .= '</td></tr><tr><td align="center" valign="top">';
+				}
 			}
-			else
-			{
-				$html .= '</td></tr><tr><td align="center" valign="top">';
-			}
+			++$i;
 		}
-		$html .= '</td></tr></table>';
+
+		// Only print a table is there is more than 1 column
+		if( $columns > 1 )
+		{
+			$html .= '</td></tr></table>';
+		}
 		return $html;
 	}
 
@@ -561,7 +572,7 @@ class roster_config
 
 		if( !(array_key_exists('process',$_POST) && ($_POST['process'] == 'process')) )
 		{
-			return '';
+			return false;
 		}
 
 		// Update only the changed fields
@@ -637,21 +648,25 @@ class roster_config
 				$result = $roster->db->query($sql);
 				if( !$result )
 				{
-					return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
+					$roster->set_message('There was an error saving settings.', 'error');
+					$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+					return false;
 				}
 			}
-			return '<span style="color:#0099FF;font-size:11px;">Settings have been changed</span><br />';
+			$roster->set_message('Settings have been changed');
+			return true;
 		}
 		else
 		{
-			return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span><br />';
+			$roster->set_message('No changes have been made');
+			return true;
 		}
 	}
 
 	/**
 	 * Get config data
 	 *
-	 * @return error string on failure
+	 * @return bool true failure
 	 */
 	function getConfigData()
 	{
@@ -701,11 +716,13 @@ class roster_config
 
 			$roster->db->free_result($results);
 
-			return;
+			return true;
 		}
 		else
 		{
-			return $roster->db->error();
+			$roster->set_message('There was a database while fetching config data.', 'error');
+			$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+			return false;
 		}
 	}
 

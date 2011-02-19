@@ -486,10 +486,11 @@ img, p { padding:0;margin:0;border:0; }
  * Message box
  */
 #notify { display:none; width:100%; position:relative; color:#999999; }
-#notify .close { position:absolute; top:2px; right:2px; }
-#notify div.message { margin:5px 0 0 0; padding:0.2em; }
+#notify div.message { position:relative; margin:5px 0 0 0; padding:0.2em; }
+#notify .close { position:absolute; top:4px; right:4px; }
+#notify div.message h4 { padding:0.2em; margin-bottom: 0; }
 #notify div.message .ui-icon { float:left; margin-right:0.3em; }
-#notify div.message .content { padding:1em; margin-left:20px; }
+#notify div.message .content { padding:1em; margin-left:20px; margin-top:3px; padding-top:0; }
 
 
 /**

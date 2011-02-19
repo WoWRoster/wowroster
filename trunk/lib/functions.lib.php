@@ -1376,8 +1376,6 @@ function updateCheck( $addon )
 {
 	global $roster;
 
-	$return = '';
-
 	if( $roster->config['check_updates'] && isset($addon['wrnet_id']) && !empty($addon['wrnet_id']) )
 	{
 		$cache = unserialize($addon['versioncache']);
@@ -1439,10 +1437,10 @@ function updateCheck( $addon )
 			unset($localetemp);
 
 			$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600*$roster->config['localtimeoffset']));
-			$return = messagebox(sprintf($roster->locale->act['new_version_available'],$name,$cache['ver_latest'],$cache['ver_date'],$cache['ver_link']) . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
+			$roster->set_message(sprintf($roster->locale->act['new_version_available'], $name, $cache['ver_latest'], $cache['ver_date'], $cache['ver_link']), $roster->locale->act['update']);
+			$roster->set_message($cache['ver_info']);
 		}
 	}
-	return $return;
 }
 
 /**

@@ -19,11 +19,11 @@ if( !defined('IN_ROSTER') )
 
 if( isset($_POST['process']) && $_POST['process'] != '' )
 {
-	$rcp_message .= processData();
+	processData();
 }
 if( isset($_POST['default']) && $_POST['default'] != '' )
 {
-	$rcp_message .= defaultData();
+	defaultData();
 }
 
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
@@ -246,13 +246,18 @@ function processData()
 			$result = $roster->db->query($sql);
 			if( !$result )
 			{
-				return '<span style="color:#0099FF;font-size:11px;">Error saving settings</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
+				$roster->set_message('There was an error saving settings.', '', 'error');
+				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+				return false;
 			}
 		}
+		$roster->set_message('Settings were saved');
+		return true;
 	}
 	else
 	{
-		return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span>';
+		$roster->set_message('No changes have been made');
+		return false;
 	}
 }
 /**
@@ -286,17 +291,23 @@ function defaultData()
 			$result = $roster->db->query($sql);
 			if( !$result )
 			{
-				return '<span style="color:#0099FF;font-size:11px;">Error saving defaults</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
+				$roster->set_message('There was an error saving defaults.', '', 'error');
+				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+				return false;
 			}
 		}
 
-		$sql = "UPDATE `" . $roster->db->table('default',$addon['basename']) . "` SET " . $roster->db->build_query('UPDATE',$build_sql) . ";";
+		$sql = "UPDATE `" . $roster->db->table('default', $addon['basename']) . "` SET " . $roster->db->build_query('UPDATE',$build_sql) . ";";
 
 		// Update DataBase
 		$result = $roster->db->query($sql);
 		if( !$result )
 		{
-			return '<span style="color:#0099FF;font-size:11px;">Error saving defaults</span><br />MySQL Said:<br /><pre>' . $roster->db->error() . '</pre><br />';
+			$roster->set_message('There was an error saving defaults.', '', 'error');
+			$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+			return false;
 		}
+		$roster->set_message('Settings were saved.');
+		return true;
 	}
 }

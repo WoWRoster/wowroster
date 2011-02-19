@@ -954,8 +954,8 @@ $lang['installer_status'] = 'Estado';
 $lang['installer_installation'] = 'Instalar';
 $lang['installer_author'] = 'Autor';
 $lang['installer_log'] = 'Registro del Addon Manager';
-$lang['installer_activated'] = 'Activado';
-$lang['installer_deactivated'] = 'Desactivado';
+$lang['installer_activate_0'] = 'Addon %1$s desactivado';
+$lang['installer_activate_1'] = 'Addon %1$s activado';
 $lang['installer_installed'] = 'Instalado';
 $lang['installer_upgrade_avail'] = 'Mejora disponible';
 $lang['installer_not_installed'] = 'No instalado';
@@ -1001,6 +1001,8 @@ $lang['guide_already_complete'] = 'La guía de después de instalar acaba de com
 
 // Armory Data
 $lang['adata_update_talents'] = 'Talents';
+$lang['adata_update_class'] = 'Class %1$s updated';
+$lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
 $lang['password'] = 'Contraseña';

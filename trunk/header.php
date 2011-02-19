@@ -294,6 +294,30 @@ elseif( $roster->scope == 'char' )
 	}
 }
 
+// Gather messages and create the messages block
+$roster->tpl->assign_var('S_MESSAGES', (bool)$roster->get_messages('', false));
+
+foreach( $roster->get_messages() as $type => $messages )
+{
+	if( count($messages) > 0 )
+	{
+		$roster->tpl->assign_block_vars('messages', array(
+			'TYPE' => $type
+			)
+		);
+
+		foreach( $messages as $message )
+		{
+			$roster->tpl->assign_block_vars('messages.item', array(
+				'TITLE' => $message[0],
+				'TEXT' => $message[1]
+				)
+			);
+		}
+	}
+}
+
+
 // BETA ONLY, COMMENT THIS IN RC OR LATER!
 if( file_exists(ROSTER_BASE . 'valid.inc') )
 {

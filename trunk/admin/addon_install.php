@@ -135,13 +135,13 @@ $sqlstringout = $installer->getsql();
 // print the error messages
 if( !empty($errorstringout) )
 {
-	$rcp_message .= messagebox($errorstringout,$roster->locale->act['installer_error'],'sred') . '<br />';
+	$roster->set_message($errorstringout, $roster->locale->act['installer_error'], 'error');
 }
 
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$rcp_message .= messagebox($messagestringout,$roster->locale->act['installer_log'],'syellow') . '<br />';
+	$roster->set_message($messagestringout, $roster->locale->act['installer_log'], 'warning');
 }
 
 $roster->tpl->set_filenames(array('body' => 'admin/addon_install.html'));
@@ -251,6 +251,9 @@ function processActive( $id , $mode )
 {
 	global $roster, $installer;
 
+	$query = "SELECT `basename` FROM `" . $roster->db->table('addon') . "` WHERE `addon_id` = " . $id . ";";
+	$basename = $roster->db->query_first($query);
+
 	$query = "UPDATE `" . $roster->db->table('addon') . "` SET `active` = '$mode' WHERE `addon_id` = '$id' LIMIT 1;";
 	$result = $roster->db->query($query);
 	if( !$result )
@@ -259,8 +262,7 @@ function processActive( $id , $mode )
 	}
 	else
 	{
-		$mode = ( $mode ? $roster->locale->act['installer_activated'] : $roster->locale->act['installer_deactivated'] );
-		$installer->setmessages('Addon ' . $mode);
+		$installer->setmessages(sprintf($roster->locale->act['installer_activate_' . $mode] ,$basename));
 	}
 }
 

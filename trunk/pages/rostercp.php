@@ -48,7 +48,7 @@ define('IN_ROSTER_ADMIN',true);
 
 include_once(ROSTER_ADMIN . 'pages.php');
 
-$header = $menu = $footer = $body = $rcp_message = '';
+$header = $menu = $footer = $body = '';
 
 // ----[ Check for latest WoWRoster Version ]------------------
 
@@ -92,7 +92,8 @@ if( $roster->config['check_updates'] && isset($roster->config['versioncache']) )
 	if( version_compare($cache['ver_latest'],ROSTER_VERSION,'>') )
 	{
 		$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600*$roster->config['localtimeoffset']));
-		$rcp_message .= messagebox(sprintf($roster->locale->act['new_version_available'],'WoWRoster',$cache['ver_latest'],$cache['ver_date'],'http://www.wowroster.net') . '<br />' . $cache['ver_info'],$roster->locale->act['update']);
+		$roster->set_message(sprintf($roster->locale->act['new_version_available'], 'WoWRoster', $cache['ver_latest'], $cache['ver_date'], 'http://www.wowroster.net'), $roster->locale->act['update']);
+		$roster->set_message($cache['ver_info']);
 	}
 }
 
@@ -107,12 +108,12 @@ if( isset($config_pages[$page]['file']) )
 	}
 	else
 	{
-		$rcp_message .= messagebox(sprintf($roster->locale->act['roster_cp_not_exist'],$page),$roster->locale->act['roster_cp'],'sred');
+		$roster->set_message(sprintf($roster->locale->act['roster_cp_not_exist'], $page), $roster->locale->act['roster_cp'], 'error');
 	}
 }
 else
 {
-	$rcp_message .= messagebox($roster->locale->act['roster_cp_invalid'],$roster->locale->act['roster_cp'],'sred');
+	$roster->set_message($roster->locale->act['roster_cp_invalid'], $roster->locale->act['roster_cp'], 'error');
 }
 
 // Build the pagebar from admin/pages.php
@@ -141,7 +142,7 @@ foreach( $roster->addon_data as $row )
 {
 	$addon = getaddon($row['basename']);
 
-	$rcp_message .= updateCheck($addon);
+	updateCheck($addon);
 
 	if( file_exists($addon['admin_dir'] . 'index.php') || $addon['config'] != '' )
 	{
@@ -188,7 +189,6 @@ if( isset($roster->pages[1]) )
 
 $roster->tpl->assign_vars(array(
 	'ROSTERCP_TITLE'  => $rostercp_title,
-	'ROSTERCP_MESSAGE' => $rcp_message,
 	'HEADER' => $header,
 	'MENU' => $menu,
 	'BODY' => $body,

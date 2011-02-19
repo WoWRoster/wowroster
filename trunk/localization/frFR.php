@@ -954,8 +954,8 @@ $lang['installer_status'] = 'Status';
 $lang['installer_installation'] = 'Installation';
 $lang['installer_author'] = 'Auteur';
 $lang['installer_log'] = 'Journal du gestionnaire de greffon';
-$lang['installer_activated'] = 'Activé';
-$lang['installer_deactivated'] = 'Désactivé';
+$lang['installer_activate_0'] = 'Addon %1$s désactivé';
+$lang['installer_activate_1'] = 'Addon %1$s activé';
 $lang['installer_installed'] = 'Installé';
 $lang['installer_upgrade_avail'] = 'Une mise à jour est disponible';
 $lang['installer_not_installed'] = 'Non installé';
@@ -1001,6 +1001,8 @@ $lang['guide_already_complete'] = 'Le processus de post-installation a déjà é
 
 // Armory Data
 $lang['adata_update_talents'] = 'Talents';
+$lang['adata_update_class'] = 'Class %1$s updated';
+$lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
 $lang['password'] = 'Mot de passe';
