@@ -40,7 +40,8 @@ function border( $style , $mode , $header_text='' , $width='' )
 
 	if( $header_text != '' && $style != 'end' )
 	{
-		$header_text = "\n" . '<div class="header_text ' . $backg_css . '">' . $header_text . "</div>\n";
+//		$header_text = "\n" . '<div class="header_text ' . $backg_css . '">' . $header_text . "</div>\n";
+		$header_text = "\n" . '<div class="tier-2-title">' . $header_text . "</div>\n";
 	}
 	else
 	{
@@ -48,9 +49,13 @@ function border( $style , $mode , $header_text='' , $width='' )
 	}
 
 	// Dynamic Bordering
-	$start = '<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_color ' . $backg_css . '">' . $header_text;
+//	$start = '<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_color ' . $backg_css . '">' . $header_text;
+	$start = '<div class="tier-2-a' . ($backg_css!=''?' '.$backg_css:'') . '" style="width:' . ( $width!=''?$width:'auto' ) . ';">
+	<div class="tier-2-b">
+' . $header_text;
 
-	$end = "\n</td></tr></table>\n";
+//	$end = "\n</td></tr></table>\n";
+	$end = "\n</div>\n</div>\n";
 
 	switch( $mode )
 	{
@@ -77,7 +82,7 @@ function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
 {
 	return
 		border($style, 'start', $title, $width)
-			. $message
+			. '<div class="info-text-h">' . $message . '</div>'
 			. border($style, 'end');
 }
 
@@ -96,7 +101,7 @@ function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px
 	return
 		border($style,'start',$title, $width)
 			. '<div style="height:' . $height . ';width:100%;overflow:auto;">'
-			. $message
+			. '<div class="info-text-h">' . $message . '</div>'
 			. '</div>'
 			. border($style,'end');
 }
@@ -118,12 +123,12 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
 	$toggleboxes++;
 
 	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['theme_path'] . "/images/button_open.png','" . $roster->config['theme_path'] . "/images/button_close.png');\">"
-		   . "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+		. "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style, 'start', $title, $width)
 			. '<div style="display:' . (($open)?'inline':'none') . ';" id="msgbox_' . $toggleboxes . '">'
-			. $message
+			. '<div class="info-text-h">' . $message . '</div>'
 			. '</div>'
 			. border($style, 'end');
 }
@@ -145,12 +150,12 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
 	$toggleboxes++;
 
 	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['theme_path'] . "/images/button_open.png','" . $roster->config['theme_path'] . "/images/button_close.png');\">"
-		   . "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+		. "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style,'start',$title, $width)
 			. '<div style="height:' . $height . ';width:100%;overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'
-			. $message
+			. '<div class="info-text-h">' . $message . '</div>'
 			. '</div>'
 			. border($style,'end');
 }

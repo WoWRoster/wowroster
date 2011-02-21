@@ -1,29 +1,34 @@
 <!-- $Id$ -->
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgreenborder">
-			<div class="header_text sgreenborder">{L_EDIT_NEWS}</div>
+<form method="post" action="{U_EDIT_FORMACTION}" id="editnews" style="text-align:left;">
+	<input type="hidden" name="process" value="process" />
+	<input type="hidden" name="id" value="{U_NEWS_ID}" />
 
-			<form method="post" action="{U_EDIT_FORMACTION}" id="editnews" style="text-align:left;">
-				<label for="author">{L_NAME}:</label> <input name="author" id="author" type="text" maxlength="16" size="16" value="{AUTHOR}" />
-				<label for="title">{L_TITLE}:</label> <input name="title" id="title" type="text" size="32" value="{TITLE}" />
-				<br /><br />
+	<div class="tier-2-a">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+				<div class="right"><input type="submit" value="<!-- TRANSLATE edit_news -->" /></div>
+				<!-- TRANSLATE edit_news -->
+			</div>
 
-				<!-- IF S_HTML_ENABLE -->
-				<input type="radio" id="html_on" name="html" value="1" <!-- IF S_COMMENT_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_on">{L_ENABLE_HTML}</label>
-				<input type="radio" id="html_off" name="html" value="0" <!-- IF ! S_COMMENT_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_off">{L_DISABLE_HTML}</label>
-				<br /><br />
-				<!-- ENDIF -->
+			<div class="info-text">
+				<label for="author"><!-- TRANSLATE name -->:</label> <input name="author" id="author" type="text" maxlength="16" size="16" value="{AUTHOR}" />
+			</div>
+			<div class="info-text">
+				<label for="title"><!-- TRANSLATE title -->:</label> <input name="title" id="title" type="text" size="32" value="{TITLE}" />
+			</div>
+			<br />
 
-				<textarea class="input" name="news" id="news" cols="85" rows="20">{CONTENT}</textarea>
-				<br />
-				<br />
-				<input type="hidden" name="process" value="process" />
-				<input type="hidden" name="id" value="{U_NEWS_ID}" />
-				<input type="submit" value="{L_EDIT_NEWS}" />
-			</form>
+<!-- IF S_HTML_ENABLE -->
+			<div class="radioset">
+				<input type="radio" id="html_on" name="html" value="1" <!-- IF S_NEWS_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_on"><!-- TRANSLATE enable_html --></label>
+				<input type="radio" id="html_off" name="html" value="0" <!-- IF ! S_NEWS_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_off"><!-- TRANSLATE disable_html --></label>
+			</div>
+			<br />
+<!-- ENDIF -->
 
-		</td>
-	</tr>
-</table>
+			<textarea name="news" id="news" cols="100" rows="20">{CONTENT}</textarea>
+		</div>
+	</div>
+
+</form>

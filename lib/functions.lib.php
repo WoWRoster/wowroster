@@ -239,7 +239,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 		$roster->db->close_db();
 	}
 
-	echo messagebox('<div align="center">' . $message . '</div>',$title,$style);
+	echo messagebox($message, $title, $style);
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{

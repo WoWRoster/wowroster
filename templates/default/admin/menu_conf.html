@@ -1,17 +1,17 @@
 <!-- $Id$ -->
 
-{SAVE_STATUS}
-
 <div class="tier-2-a">
 	<div class="tier-2-b">
 		<div class="tier-2-title">
-			<div style="float:right;">
+			<div class="right">
 				<form action="{U_FORM_ACTION}" method="post" onsubmit="return confirm('<!-- TRANSLATE confirm_config_submit -->') &amp;&amp; writeValue();">
-					<input type="hidden" name="arrayput" id="arrayput" /><input type="hidden" name="section" value="{SECTION}" /><input type="hidden" name="process" value="process" />
+					<input type="hidden" name="arrayput" id="arrayput" />
+					<input type="hidden" name="section" value="{SECTION}" />
+					<input type="hidden" name="process" value="process" />
 					<input type="submit" value="<!-- TRANSLATE config_submit_button -->" />
 				</form>
 			</div>
-			{SECTION}
+			{SECTION_NAME}
 		</div>
 
 		<div class="border_frame border_color sgreenborder" id="array" style="width:{BUTTON_GRID_WIDTH}px;height:{BUTTON_GRID_HEIGHT}px;"></div>
@@ -23,8 +23,7 @@
 		</div>
 <!-- END button_grid -->
 
-		<br />
-		<br />
+		<div style="clear:both;"></div>
 
 		<table class="border_frame" cellpadding="0" cellspacing="1">
 			<tbody><tr><td class="border_color sblueborder">
@@ -40,5 +39,12 @@
 		</div>
 <!-- END pallet_grid -->
 
+	</div>
+</div>
+
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title"><!-- TRANSLATE menuconf_drag_delete --></div>
+		<div id="rec_bin" class="border_color sredborder" style="width:100%;height:65px;"></div>
 	</div>
 </div>

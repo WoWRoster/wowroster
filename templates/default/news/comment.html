@@ -1,21 +1,27 @@
 <!-- $Id$ -->
 
-<table class="border_frame" cellpadding="0" cellspacing="1" style="width:60%;">
-	<tr>
-		<td class="border_color swhiteborder">
-			<div class="header_text swhiteborder">{L_COMMENTS}</div>
+<!-- IF S_COMMENTS -->
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title"><!-- TRANSLATE comments --></div>
 
-			<!-- BEGIN comment_row -->
-			<div style="text-align:left;">
-				{comment_row.CONTENT}
-				<br />
-				<br />
-				<span style="float:right;"><a href="{comment_row.U_EDIT}">{L_EDIT}</a></span>
-				{L_POSTEDBY}: {comment_row.AUTHOR} - {comment_row.DATE}
+<!-- BEGIN comment_row -->
+		<div class="info-text-h">
+{comment_row.CONTENT}
+		</div>
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="config">
+					<div class="config-name"><!-- TRANSLATE posted_by -->: {comment_row.AUTHOR} - {comment_row.DATE}</div>
+<!-- IF S_EDIT_COMMENT -->
+					<div class="config-input"><a class="input" href="{comment_row.U_EDIT}"><!-- TRANSLATE edit --></a></div>
+<!-- ENDIF -->
+				</div>
 			</div>
-			<hr />
-			<!-- END comment_row -->
+		</div>
+		<br />
+<!-- END comment_row -->
 
-		</td>
-	</tr>
-</table>
+	</div>
+</div>
+<!-- ENDIF -->

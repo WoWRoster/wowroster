@@ -5,7 +5,6 @@
  * RosterCP (Control Panel)
  * After Install Guide
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -13,7 +12,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
@@ -22,7 +21,7 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 
 $data_present = $roster->db->query_first("SELECT `name` FROM `" . $roster->db->table('upload') . "` WHERE `default` = 1;");
 
-if( empty($data_present) )
+if( !empty($data_present) )
 {
 	$roster->set_message($roster->locale->act['guide_already_complete'], $roster->locale->act['setup_guide'], 'error');
 	$body .= messagebox(sprintf($roster->locale->act['guide_next_text'], makelink('rostercp-install'), makelink('rostercp-upload'), makelink('rostercp-armory_data')), $roster->locale->act['guide_next']);
@@ -108,10 +107,12 @@ function guide_step2()
 		{
 			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
 		}
-		$roster->set_message($roster->locale->act['guide_complete']);
-		$body .= messagebox(sprintf($roster->locale->act['guide_next_text'], makelink('rostercp-install'), makelink('rostercp-upload'), makelink('rostercp-armory_data')), $roster->locale->act['guide_next']);
+		$roster->tpl->assign_var('S_STEP_2', true);
 
-		$roster->tpl->assign_var('S_STEP_2',true);
+		$roster->set_message($roster->locale->act['guide_complete']);
+		$roster->tpl->assign_var('MESSAGE',
+			messagebox(sprintf($roster->locale->act['guide_next_text'], makelink('rostercp-install'), makelink('rostercp-upload'), makelink('rostercp-armory_data')), $roster->locale->act['guide_next'])
+		);
 	}
 	else
 	{

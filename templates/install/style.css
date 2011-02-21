@@ -95,6 +95,9 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 	height: 320px;
 	overflow: auto;
 }
+.info {
+	padding: 0.8em;
+}
 
 /* Installer version checker */
 .roster-version {
@@ -288,7 +291,7 @@ img, p { padding:0;margin:0;border:0; }
 /**
  * Message box
  */
-#notify { display:none; width:100%; position:relative; color:#999999; }
+#notify { width:100%; position:relative; color:#999999; }
 #notify .close { position:absolute; top:4px; right:4px; }
 #notify div.message { margin:5px 0 0 0; padding:0.2em; }
 #notify div.message .ui-icon { float:left; margin-right:0.3em; }

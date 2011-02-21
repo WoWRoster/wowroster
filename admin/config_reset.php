@@ -4,7 +4,6 @@
  *
  * Configuration reset
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -12,7 +11,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
@@ -21,10 +20,6 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 
 $roster->output['title'] .= $roster->locale->act['pagebar_configreset'];
 
-$roster->tpl->assign_vars(array(
-	'MESSAGE' => '',
-	)
-);
 
 if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 {
@@ -46,30 +41,27 @@ if( isset($_POST['doit']) && ($_POST['doit'] == 'doit') )
 	}
 	unset($sql);
 
-	$roster->tpl->assign_var('MESSAGE',messagebox($roster->locale->act['config_is_reset'],$roster->locale->act['roster_cp']));
+	$roster->set_message($roster->locale->act['config_is_reset'], $roster->locale->act['roster_cp'], 'error');
 }
 
 $roster->tpl->set_filenames(array('body' => 'admin/config_reset.html'));
 $body = $roster->tpl->fetch('body');
 
-
 /**
-* Parse multi-line SQL statements into a single line
-*
-* @param    string  $sql    SQL file contents
-* @param    char    $delim  End-of-statement SQL delimiter
-* @return   array
-*/
+ * Parse multi-line SQL statements into a single line
+ *
+ * @param    string  $sql    SQL file contents
+ * @param    char    $delim  End-of-statement SQL delimiter
+ * @return   array
+ */
 function parse_sql( $sql , $delim )
 {
-	global $roster;
-
 	if( $sql == '' )
 	{
 		die_quietly('Could not obtain SQL structure/data');
 	}
 
-	$retval     = array();
+	$retval = array();
 	$statements = explode($delim, $sql);
 	unset($sql);
 

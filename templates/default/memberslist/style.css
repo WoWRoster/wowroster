@@ -6,12 +6,7 @@
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    MembersList
-*/
-
-.membersRowCell a:link    {color:#000000}
-.membersRowCell a:hover   {color:#000000}
-.membersRowCell a:active  {color:#000000}
-.membersRowCell a:visited {color:#000000}
+ */
 
 .skill_bar {
 	background-image:url(images/skill/bar_empty.gif);
@@ -22,19 +17,3 @@
 	padding-left:14px;
 	background-repeat:no-repeat;
 }
-/*
-.skill_bar .text:hover { background:transparent url(images/skill/bar_empty_hover.gif) no-repeat; }
-
-.skill_bar .text {
-	padding-left:10px;
-	padding-top:0px;
-	width:273px;
-	height:18px;
-	color:#000000;
-	position:absolute;
-}
-.skill_bar .text_num {
-	margin-left:10px;
-	color:#000000;
-}
-*/

@@ -185,7 +185,7 @@ class Template_Wrap extends RosterTemplate
 			'ROSTER_VERSION' => $DEFAULTS['version']
 		));
 
-		// BETA ONLY, COMMENT THIS IN RC OR LATER!
+// BETA ONLY, COMMENT THIS IN RC OR LATER!
 		if( file_exists(ROSTER_BASE . 'valid.inc') )
 		{
 			$v_content = '';
@@ -195,7 +195,7 @@ class Template_Wrap extends RosterTemplate
 
 			$this->assign_var('NOTICE', $v_content);
 		}
-		// END BETA ONLY
+// END BETA ONLY
 
 		if( is_object($db) )
 		{
@@ -331,7 +331,6 @@ function process_step0( )
 
 	if( file_exists(ROSTER_BASE . 'license.txt') )
 	{
-
 		if( function_exists('readgzfile') )
 		{
 			ob_start();

@@ -2,13 +2,12 @@
 /**
  * WoWRoster.net WoWRoster
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    News
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -17,10 +16,9 @@ if( !defined('IN_ROSTER') )
 
 $roster->auth->setAction('&amp;id=' . $_GET['id']);
 
-if( ! $roster->auth->getAuthorized( $addon['config']['comm_edit'] ) )
+if( !$roster->auth->getAuthorized( $addon['config']['comm_edit'] ) )
 {
 	echo $roster->auth->getLoginForm($addon['config']['comm_edit']);
-
 	return; //To the addon framework
 }
 
@@ -35,12 +33,6 @@ $comment = $roster->db->fetch($result);
 
 // Assign template vars
 $roster->tpl->assign_vars(array(
-	'L_EDIT'         => $roster->locale->act['edit'],
-	'L_NAME'         => $roster->locale->act['name'],
-	'L_EDIT_COMMENT' => $roster->locale->act['edit_comment'],
-	'L_ENABLE_HTML'  => $roster->locale->act['enable_html'],
-	'L_DISABLE_HTML' => $roster->locale->act['disable_html'],
-
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => (bool)$comment['html'],
 
@@ -61,5 +53,12 @@ if( $addon['config']['comm_html'] >= 0 && $addon['config']['news_nicedit'] > 0 )
 </script>';
 }
 
-$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/comment_edit.html'));
+$roster->tpl->set_filenames(array(
+	'head' => $addon['basename'] . '/news_head.html',
+	'body' => $addon['basename'] . '/comment_edit.html',
+	'foot' => $addon['basename'] . '/news_foot.html'
+	)
+);
+$roster->tpl->display('head');
 $roster->tpl->display('body');
+$roster->tpl->display('foot');

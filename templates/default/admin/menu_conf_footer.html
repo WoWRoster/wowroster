@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 <!--
-	SET_DHTML(CURSOR_MOVE, TRANSPARENT, SCROLL{DHTML_REG}, "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
+	SET_DHTML(CURSOR_MOVE, TRANSPARENT, SCROLL{DHTML_REG}, 'palet' + NO_DRAG, 'array' + NO_DRAG, 'rec_bin' + NO_DRAG);
 
 	var roster_url	= '{ROSTER_URL}';
 
@@ -19,14 +19,14 @@
 	var aElts = Array();
 	var palet = Array();
 
-	<!-- BEGIN script_pallet -->
+<!-- BEGIN script_pallet -->
 	palet[{script_pallet.IDX}] = dd.elements.{script_pallet.ID};
-	<!-- END script_pallet -->
+<!-- END script_pallet -->
 
-	<!-- BEGIN script_aelts -->
+<!-- BEGIN script_aelts -->
 	aElts[{script_aelts.POS}] = dd.elements.b{script_aelts.ID};
-	<!-- END script_aelts -->
+<!-- END script_aelts -->
 
 	updatePositions();
-	//-->
+//-->
 </script>

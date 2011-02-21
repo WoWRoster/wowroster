@@ -35,7 +35,6 @@ $(function() {
 	$('select:not([multiple])').selectmenu({ style:'popup' });
 
 	// Slide down the notification box
-	$('#notify').slideDown('slow');
 	$('#notify .close').hover(
 		function() { $(this).addClass('ui-state-hover'); }, 
 		function() { $(this).removeClass('ui-state-hover'); }
