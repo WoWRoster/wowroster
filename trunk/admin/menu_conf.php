@@ -23,6 +23,7 @@ $roster->output['title'] .= $roster->locale->act['pagebar_menuconf'];
 
 // --[ Translate GET data ]--
 $section = (isset($_GET['section']) ? $_GET['section'] : 'util' );
+$section_name = (isset($roster->locale->act['menupanel_' . $section]) ? $roster->locale->act['menupanel_' . $section] : $section);
 
 // --[ Write submitted menu configuration to DB if applicable ]--
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
@@ -33,16 +34,17 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 
 	if( !$result )
 	{
-		$save_status = messagebox('Failed to update ' . $section . ' menu configuration due to a database error. MySQL said: <br />' . $roster->db->error(),$roster->locale->act['pagebar_menuconf'],'sred');
+		$roster->set_message('Failed to update ' . $section_name . ' menu configuration due to a database error.', '' ,'error');
+		$roster->set_message('<pre>' . $roster->db->error() , '</pre>', 'MySQL Said', 'error');
 	}
 
 	if( $roster->db->affected_rows() > 0 ) // the config row was actually changed
 	{
-		$save_status = '<span style="color:#0099FF;font-size:11px;">' . sprintf($roster->locale->act['menuconf_changes_saved'],$section) . '</span>';
+		$roster->set_message(sprintf($roster->locale->act['menuconf_changes_saved'], $section_name));
 	}
 	else
 	{
-		$save_status = '<span style="color:#0099FF;font-size:11px;">' . $roster->locale->act['menuconf_no_changes_saved'] . '</span>';
+		$roster->set_message($roster->locale->act['menuconf_no_changes_saved']);
 	}
 }
 
@@ -129,8 +131,8 @@ $roster->tpl->assign_vars(array(
 
 	'DHTML_REG' => $dhtml_reg,
 
-	'SAVE_STATUS'  => ( isset($save_status) ? $save_status : '' ),
 	'SECTION'      => $section,
+	'SECTION_NAME' => $section_name,
 
 	'ARRAY_WIDTH' => $arrayWidth,
 	'ARRAY_HEIGHT' => $arrayHeight,
@@ -157,9 +159,12 @@ if( !$result )
 
 while( $row = $roster->db->fetch($result) )
 {
+	$panel_label = (isset($roster->locale->act['menupanel_' . $row['section']]) ? $roster->locale->act['menupanel_' . $row['section']] : $row['section']);
+
 	$roster->tpl->assign_block_vars('section_select',array(
 		'SELECTED' => ( $row['section'] == $section ? true : false ),
-		'NAME' => $row['section'],
+		'VALUE' => $row['section'],
+		'NAME' => $panel_label,
 		)
 	);
 }
@@ -318,30 +323,7 @@ foreach( $palet as $id => $button )
 	unset($localetemp);
 }
 
-// --[ Javascript defines and variable passing ]--
-$footer .=
-'<script type="text/javascript">
-<!--
-
-SET_DHTML(CURSOR_MOVE, TRANSPARENT, SCROLL' . $dhtml_reg . ', "palet"+NO_DRAG, "array"+NO_DRAG, "rec_bin"+NO_DRAG);
-
-var roster_url	= \'' . ROSTER_URL . '\';
-
-var dy		= 40;
-var margTop	= 5;
-var dx		= 40;
-var margLef	= 5;
-
-var arrayWidth = ' . $arrayWidth . ';
-var arrayHeight = ' . $arrayHeight . ';
-var paletHeight = ' . $paletHeight . ';
-
-// Array intended to reflect the order of the draggable items
-var aElts = Array();
-var palet = Array();' . "\n";
-
 $i = 0;
-
 foreach( $palet as $id => $button )
 {
 	$roster->tpl->assign_block_vars('script_pallet',array(
@@ -360,13 +342,13 @@ foreach( $arrayButtons as $pos => $button )
 	);
 }
 
-
 $roster->tpl->set_filenames(array(
 	'menu' => 'admin/menu_conf_menu.html',
 	'body' => 'admin/menu_conf.html',
 	'foot' => 'admin/menu_conf_footer.html',
 	)
 );
+
 $menu = $roster->tpl->fetch('menu');
 $body = $roster->tpl->fetch('body');
 $footer = $roster->tpl->fetch('foot');

@@ -108,12 +108,12 @@ if( isset($config_pages[$page]['file']) )
 	}
 	else
 	{
-		$roster->set_message(sprintf($roster->locale->act['roster_cp_not_exist'], $page), $roster->locale->act['roster_cp'], 'error');
+		$body = messagebox(sprintf($roster->locale->act['roster_cp_not_exist'], $page), $roster->locale->act['roster_cp'], 'sred');
 	}
 }
 else
 {
-	$roster->set_message($roster->locale->act['roster_cp_invalid'], $roster->locale->act['roster_cp'], 'error');
+	$body = messagebox($roster->locale->act['roster_cp_invalid'], $roster->locale->act['roster_cp'], 'sred');
 }
 
 // Build the pagebar from admin/pages.php
@@ -188,7 +188,7 @@ if( isset($roster->pages[1]) )
 }
 
 $roster->tpl->assign_vars(array(
-	'ROSTERCP_TITLE'  => $rostercp_title,
+	'ROSTERCP_TITLE'  => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
 	'HEADER' => $header,
 	'MENU' => $menu,
 	'BODY' => $body,

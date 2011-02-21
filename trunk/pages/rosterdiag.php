@@ -363,16 +363,13 @@ echo '
 echo "</td><td valign=\"top\" style=\"width:50%;\">\n";
 
 // Display MySQL Tables
-$sql_tables = '
-<div class="tier-2-a">
-	<div class="tier-2-b">
-		<div class="tier-2-title">MySQL Tables</div>';
+$sql_tables = '';
 
 $result = $roster->db->query("SHOW TABLES;");
 if( !$result )
 {
-	$sql_tables .= '<tr><td class="membersRow1">DB Error, could not list tables<br />' . "\n";
-	$sql_tables .= 'MySQL Error: ' . $roster->db->error() . '</td></tr>' . "\n";
+	$table_list .= 'DB Error, could not list tables<br />' . "\n";
+	$table_list .= 'MySQL Error: ' . $roster->db->error() . '' . "\n";
 }
 else
 {
@@ -385,8 +382,7 @@ else
 	$table_list .= "</table>\n";
 	$roster->db->free_result($result);
 }
-$sql_tables .= scrollbox($table_list, '', '', '100%', '231px');
-$sql_tables .= "</div>\n</div>\n";
+$sql_tables .= scrollbox($table_list, 'MySQL Tables', '', '100%', '231px');
 
 echo $sql_tables;
 

@@ -96,7 +96,7 @@ $memberlist->prepareData($mainQuery, $where, null, $order_first, $order_last, $F
 
 echo $memberlist->makeMembersList('syellow');
 
-echo "<br />\n".scrollbox(aprint($addon,'$addon',true),'Config data','sgray');
+echo "<br />\n".messagebox(aprint($addon,'$addon',true),'Config data','sgray');
 
 function debugNote( $row, $field, $data )
 {

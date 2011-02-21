@@ -17,18 +17,17 @@ if( !defined('IN_ROSTER') )
 // Add news if any was POSTed
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
-	if( ! $roster->auth->getAuthorized( $addon['config']['news_add'] ) && !isset($_POST['id']) )
+	if( !$roster->auth->getAuthorized( $addon['config']['news_add'] ) && !isset($_POST['id']) )
 	{
 		echo $roster->auth->getLoginForm($addon['config']['news_add']);
-
 		return; //To the addon framework
 	}
-	if( ! $roster->auth->getAuthorized( $addon['config']['news_edit'] ) && isset($_POST['id']) )
+	if( !$roster->auth->getAuthorized( $addon['config']['news_edit'] ) && isset($_POST['id']) )
 	{
 		echo $roster->auth->getLoginForm($addon['config']['news_edit']);
-
 		return; //To the addon framework
 	}
+
 	if( isset($_POST['author']) && !empty($_POST['author'])
 		&& isset($_POST['title']) && !empty($_POST['title'])
 		&& isset($_POST['news']) && !empty($_POST['news']) )
@@ -45,43 +44,45 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		if( isset($_POST['id']) )
 		{
 			$query = "UPDATE `" . $roster->db->table('news','news') . "` SET "
-					. "`author` = '" . $_POST['author'] . "', "
-					. "`title` = '" . $_POST['title'] . "', "
-					. "`content` = '" . $_POST['news'] . "', "
-					. "`html` = '" . $html . "' "
-					. "WHERE `news_id` = '" . $_POST['id'] . "';";
+				. "`author` = '" . $_POST['author'] . "', "
+				. "`title` = '" . $_POST['title'] . "', "
+				. "`content` = '" . $_POST['news'] . "', "
+				. "`html` = '" . $html . "' "
+				. "WHERE `news_id` = '" . $_POST['id'] . "';";
 
 			if( $roster->db->query($query) )
 			{
-				echo messagebox($roster->locale->act['news_edit_success']);
+				$roster->set_message($roster->locale->act['news_edit_success']);
 			}
 			else
 			{
-				echo messagebox("There was a DB error while editing the article. MySQL said: " . $wowdb->db->error());
+				$roster->set_message('There was a DB error while editing the article.', '', 'error');
+				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 			}
 		}
 		else
 		{
 			$query = "INSERT INTO `" . $roster->db->table('news','news') . "` SET "
-					. "`author` = '" . $_POST['author'] . "', "
-					. "`title` = '" . $_POST['title'] . "', "
-					. "`content` = '" . $_POST['news'] . "', "
-					. "`html` = '" . $html . "', "
-					. "`date` = NOW();";
+				. "`author` = '" . $_POST['author'] . "', "
+				. "`title` = '" . $_POST['title'] . "', "
+				. "`content` = '" . $_POST['news'] . "', "
+				. "`html` = '" . $html . "', "
+				. "`date` = NOW();";
 
 			if( $roster->db->query($query) )
 			{
-				echo messagebox($roster->locale->act['news_add_success']);
+				$roster->set_message($roster->locale->act['news_add_success']);
 			}
 			else
 			{
-				echo messagebox("There was a DB error while adding the article. MySQL said: " . $wowdb->db->error());
+				$roster->set_message('There was a DB error while adding the article.', '', 'error');
+				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 			}
 		}
 	}
 	else
 	{
-		echo messagebox($roster->locale->act['news_error_process']);
+		$roster->set_message($roster->locale->act['news_error_process'], '', 'error');
 	}
 }
 
@@ -104,13 +105,10 @@ if( $roster->db->num_rows($result) == 0 )
 
 // Assign template vars
 $roster->tpl->assign_vars(array(
-	'L_POSTEDBY' => $roster->locale->act['posted_by'],
-	'L_EDIT'     => $roster->locale->act['edit'],
-	'L_ADD_NEWS' => $roster->locale->act['add_news'],
-
 	'U_ADD_NEWS'  => makelink('util-news-add'),
 
-	'S_ADD_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_add'])
+	'S_ADD_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_add']),
+	'S_EDIT_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_edit'])
 	)
 );
 
@@ -141,11 +139,12 @@ while( $news = $roster->db->fetch($result) )
 	);
 }
 
-$roster->tpl->set_filenames(array('head' => $addon['basename'] . '/news_head.html'));
+$roster->tpl->set_filenames(array(
+	'head' => $addon['basename'] . '/news_head.html',
+	'body' => $addon['basename'] . '/news.html',
+	'foot' => $addon['basename'] . '/news_foot.html'
+	)
+);
 $roster->tpl->display('head');
-
-$roster->tpl->set_filenames(array('body' => $addon['basename'] . '/news.html'));
 $roster->tpl->display('body');
-
-$roster->tpl->set_filenames(array('foot' => $addon['basename'] . '/news_foot.html'));
 $roster->tpl->display('foot');
