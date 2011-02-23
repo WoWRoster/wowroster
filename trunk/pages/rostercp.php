@@ -92,8 +92,9 @@ if( $roster->config['check_updates'] && isset($roster->config['versioncache']) )
 	if( version_compare($cache['ver_latest'],ROSTER_VERSION,'>') )
 	{
 		$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600*$roster->config['localtimeoffset']));
-		$roster->set_message(sprintf($roster->locale->act['new_version_available'], 'WoWRoster', $cache['ver_latest'], $cache['ver_date'], 'http://www.wowroster.net'), $roster->locale->act['update']);
-		$roster->set_message($cache['ver_info']);
+		$roster->set_message(sprintf($roster->locale->act['new_version_available'], 'WoWRoster', $cache['ver_latest'], $cache['ver_date'], 'http://www.wowroster.net'), $roster->locale->act['update']
+			. $cache['ver_info']
+		);
 	}
 }
 

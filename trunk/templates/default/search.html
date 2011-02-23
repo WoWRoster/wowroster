@@ -5,11 +5,16 @@
 	<div class="tier-1-a">
 		<div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title">
+				<div class="tier-1-title"<!-- IF S_RESULT --> style="cursor:pointer;" onclick="showHide('search','img_hide_search','{THEME_PATH}/images/button_open.png','{THEME_PATH}/images/button_close.png');"<!-- ENDIF -->>
+<!-- IF S_RESULT -->
+					<div class="right">
+						<img id="img_hide_search" src="{THEME_PATH}/images/button_close.png" alt="" />
+					</div>
+<!-- ENDIF -->
 					<!-- TRANSLATE search -->
 				</div>
 
-				<form id="search" name="search" action="{U_SEARCH_LINK}" method="post" enctype="multipart/form-data">
+				<form id="search" name="search" action="{U_SEARCH_LINK}" method="post" enctype="multipart/form-data"<!-- IF S_RESULT --> style="display:none;"<!-- ENDIF -->>
 
 					<div class="tier-2-a" style="margin: 20px auto; width: 450px;">
 						<div class="tier-2-b">

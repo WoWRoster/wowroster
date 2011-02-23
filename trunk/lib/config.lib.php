@@ -205,7 +205,7 @@ $this->buildPage($values['name'],$type[1]) . '
 					$page .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');">
 			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
@@ -254,7 +254,7 @@ $this->buildBlock($values['name']) . '
 					$page .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');">
 			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
@@ -358,7 +358,7 @@ $this->buildPage($values['name'],$type[1]) . '
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');">
 			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
@@ -405,7 +405,7 @@ $this->buildPage($values['name'],$type[1]) . '
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_close.png\',\'' . $roster->config['theme_path'] . '/images/button_open.png\');">
+		<div class="tier-2-title" style="cursor:pointer;" onclick="showHide(\'table_' . $values['name'] . '\',\'img_' . $values['name'] . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');">
 			' . ($header_text ? $header_text : '&nbsp;') . '
 			<img style="float:right;" id="img_' . $values['name'] . '" src="' . $roster->config['theme_path'] . '/images/button_open.png" alt="" />
 		</div>
@@ -648,7 +648,7 @@ $this->buildPage($values['name'],$type[1]) . '
 				$result = $roster->db->query($sql);
 				if( !$result )
 				{
-					$roster->set_message('There was an error saving settings.', 'error');
+					$roster->set_message('There was an error saving settings.', '', 'error');
 					$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 					return false;
 				}
@@ -691,7 +691,7 @@ $this->buildPage($values['name'],$type[1]) . '
 
 				if( $roster->config['debug_mode'] > 0 )
 				{
-				$db_val_line = '<br /><br /><span style="color:#FFFFFF;">db name: <span style="color:#FF9900;">' . $row['config_name'] . '</span></span>';
+				$db_val_line = '<ul style="margin:0;"><li>db name: <span style="color:#FF9900;">' . $row['config_name'] . '</span></li></ul>';
 				}
 				else
 				{
@@ -720,7 +720,7 @@ $this->buildPage($values['name'],$type[1]) . '
 		}
 		else
 		{
-			$roster->set_message('There was a database while fetching config data.', 'error');
+			$roster->set_message('There was a database error while fetching config data.', '', 'error');
 			$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 			return false;
 		}

@@ -50,7 +50,7 @@ if( $addon['active'] = '1' )
 			if( version_compare($addonstuff->version,$addon['version']) )
 			{
 				$roster->set_message(sprintf($roster->locale->act['addon_upgrade_notice'],$addon['basename']) . '<br /><a href="' . makelink('rostercp-install') . '">'
-					  . sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'],$addonstuff->version) . '</a>', $roster->locale->act['addon_error'], 'error');
+					  . sprintf($roster->locale->act['installer_click_upgrade'],$addon['version'], $addonstuff->version) . '</a>', $roster->locale->act['addon_error'], 'error');
 				return;
 			}
 			unset($addonstuff);
@@ -125,12 +125,12 @@ if( $addon['active'] = '1' )
 	}
 	else
 	{
-		$roster->set_message(sprintf($roster->locale->act['addon_no_config'],$addon['basename']), $roster->locale->act['addon_error'], 'error');
+		$roster->set_message(sprintf($roster->locale->act['addon_no_config'], $addon['basename']), $roster->locale->act['addon_error'], 'error');
 	}
 }
 else
 {
-	$roster->set_message(sprintf($roster->locale->act['addon_disabled'],$addon['basename']), $roster->locale->act['addon_error'], 'error');
+	$roster->set_message(sprintf($roster->locale->act['addon_disabled'], $addon['basename']), $roster->locale->act['addon_error'], 'error');
 }
 
 // Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
