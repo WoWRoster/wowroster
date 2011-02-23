@@ -93,15 +93,14 @@ $lang['select_files'] = 'Select Files';
 $lang['save_error_log'] = 'Registro de errores';
 $lang['save_update_log'] = 'Registro de actualizaciones';
 
-$lang['new_version_available'] = 'Existe una nueva versión de %1$s disponible <span class="green">v%2$s</span><br />Actual: %3$s<br />Descargalo <a href="%4$s" target="_blank">AQUI</a>';
+$lang['new_version_available'] = 'Existe una nueva versión de %1$s disponible v%2$s<br />Actual: %3$s<br />Descargalo <a href="%4$s" target="_blank">AQUI</a>';
 
 $lang['remove_install_files'] = 'Borrar archivos de instalación';
-$lang['remove_install_files_text'] = 'Por favor, elimina <span class="green">install.php</span> de este directorio';
+$lang['remove_install_files_text'] = 'Por favor, elimina <span class="redB">install.php</span> de este directorio';
 
 $lang['upgrade_wowroster'] = 'Mejorar WoWRoster';
 $lang['upgrade'] = 'Mejorar';
 $lang['select_version'] = 'Selecciona versión';
-$lang['upgrade_wowroster_text'] = "Has cargado una nueva versión del Roster<br /><br />\nTu versión: <span class=\"red\">%1\$s</span><br />\nNueva versión: <span class=\"green\">%2\$s</span><br /><br />\n<a href=\"upgrade.php\" style=\"border:1px outset white;padding:2px 6px 2px 6px;\">MEJORAR</a>";
 $lang['no_upgrade'] = 'Acabas de mejorar tu Roster<br />O tienes una nueva versión mas nueva que esta mejora';
 $lang['upgrade_complete'] = 'La instalación de WoWRoster se ha completado satisfactoriamente';
 
@@ -937,6 +936,8 @@ $lang['menuconf_drag_delete']='Arrastrar aquí para borrar';
 $lang['menuconf_addon_inactive']='El addon está inactivo';
 $lang['menuconf_unused_buttons']='Botones sin usar';
 
+$lang['default_page_set']='The default page has been set to [%1$s]';
+
 $lang['installer_install_0']='La instalación de %1$s se ha completado satisfactoriamente';
 $lang['installer_install_1']='La instalación de %1$s falló, pero se ha recuperado la versión anterior satisfactoriamente';
 $lang['installer_install_2']='La instalación de %1$s falló y no se ha conseguido recuperar la versión anterior';
@@ -1067,6 +1068,8 @@ $lang['pagebar_configreset'] = 'Restaurar configuración';
 $lang['pagebar_addonconf'] = 'Configurar addon';
 
 $lang['roster_config_menu'] = 'Menú de configuración';
+$lang['menu_config_help'] = 'Add Menu Button Help';
+$lang['menu_config_help_text'] = 'Use this to add a new menu button. Adding a new menu button here will add it to the current section.<ul><li>Title - The name of the new button.</li><li>URL - The button\'s link. This can be a WoWRoster path or a full URL (add http:// in the link)</li><li>Icon - The button\'s image. This must be an image from the Interface Image Pack without the path or extension (ex. inv_misc_gear_01)</ul>';
 
 // Submit/Reset confirm questions
 $lang['config_submit_button'] = 'Guardar opciones';
@@ -1158,7 +1161,7 @@ $lang['admin']['menu_right_text'] = "Fuente de texto|El tipo de fuente para las 
 $lang['admin']['menu_bottom_pane'] = "Panel inferior|Muestra el panel inferior debajo del menu principal de Roster.<br />Este area contiene el campo de búsqueda.";
 
 // display_conf
-$lang['admin']['theme'] = "Tema del Roster|Elige el aspecto general de Roster<br /><span style=\"color:red;\">NOTA:</span> No todo el Roster varia con el tema.<br />Usando otros temas puede que no obtengas los resultados esperados";
+$lang['admin']['theme'] = "Tema del Roster|Elige el aspecto general de Roster<br /><span class=\"red\">NOTA:</span> No todo el Roster varia con el tema.<br />Usando otros temas puede que no obtengas los resultados esperados";
 $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br />Es la imagen que se muestra en la cabecera de la página";
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
 $lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como mostrar el texto del mensaje del día<br /><br />&quot;Texto&quot; - Muestra el MDD en rojo<br />&quot;Imagen&quot; - Muestra el MDD en una imagen (¡REQUERIDO GD!)";

@@ -4,7 +4,6 @@
  *
  * AddOn installer
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -12,7 +11,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCP
-*/
+ */
 
 if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
@@ -534,6 +533,7 @@ function processPage()
 	{
 		// Set this enforce_rules value to the right one since roster_config isn't refreshed here
 		$roster->config['default_page'] = $default;
+		$roster->set_message(sprintf($roster->locale->act['default_page_set'], $default));
 	}
 }
 
@@ -542,8 +542,8 @@ function processAccess()
 {
 	global $roster;
 
-	$access = ( $_POST['config_access'] );
-	$id = ( $_POST['id'] );
+	$access = $_POST['config_access'];
+	$id = (int)$_POST['id'];
 	$query = "UPDATE `" . $roster->db->table('addon') . "` SET `access` = '$access' WHERE `addon_id` = '$id';";
 
 	if( !$roster->db->query($query) )

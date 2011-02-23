@@ -23,7 +23,7 @@ $lang['update_instructions']='Instructions de mise à jour.';
 
 $lang['lualocation']='Cliquer, naviguer et télécharger les fichiers *.lua<br />';
 
-$lang['filelocation']='se trouve sous <br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
+$lang['filelocation']='se trouve sous<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['nodata']='Impossible de trouver la guilde : <b>\'%1$s\'</b> du serveur <b>\'%2$s\'</b><br />Vous devez préalablement<a href="%3$s">charger votre guilde</a> et <a href="%4$s">finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles ici</a>';
 $lang['no_default_guild']='Aucune guilde par défaut n\'a encore été indiqué. Veuillez en indiquer une ici.';
@@ -93,15 +93,14 @@ $lang['select_files'] = 'Select Files';
 $lang['save_error_log'] = 'Sauver le journal des erreurs';
 $lang['save_update_log'] = 'Sauver le journal des mises à jour';
 
-$lang['new_version_available'] = 'Une nouvelle version de [%1$s] est disponible <span class="green">v%2$s</span><br />Released: %3$s<br />vous pouvez la récupérer <a href="%4$s" target="_blank">ici</a>';
+$lang['new_version_available'] = 'Une nouvelle version de [%1$s] est disponible v%2$s<br />Released: %3$s<br />vous pouvez la récupérer <a href="%4$s" target="_blank">ici</a>';
 
 $lang['remove_install_files'] = 'Supprimez les fichiers d\'installation';
-$lang['remove_install_files_text'] = 'Merci de supprimer <span class="green">install.php</span> de ce répertoire';
+$lang['remove_install_files_text'] = 'Merci de supprimer <span class="redB">install.php</span> de ce répertoire';
 
 $lang['upgrade_wowroster'] = 'Mise à jour de WoWRoster';
 $lang['upgrade'] = 'Mise à jour';
 $lang['select_version'] = 'Choisissez votre version';
-$lang['upgrade_wowroster_text'] = "Il semblerait que vous ayez chargé une nouvelle version du Roster<br /><br />\nVotre version : <span class=\"red\">%1\$s</span><br />\nNouvelle version : <span class=\"green\">%2\$s</span><br /><br />\n<a href=\"upgrade.php\" style=\"border:1px outset white;padding:2px 6px 2px 6px;\">mise à jour</a>";
 $lang['no_upgrade'] = 'Vous avez déjà mis à jour le Roster.<br />Ou vous avez déjà une version plus récente.';
 $lang['upgrade_complete'] = 'Le Roster a été mis à jour';
 
@@ -937,6 +936,8 @@ $lang['menuconf_drag_delete']='Déplacer ici pour supprimer';
 $lang['menuconf_addon_inactive']='Greffon inactif';
 $lang['menuconf_unused_buttons']='Boutons non utilisés';
 
+$lang['default_page_set']='The default page has been set to [%1$s]';
+
 $lang['installer_install_0'] = 'L\'installation de [%1$s] a réussi';
 $lang['installer_install_1'] = 'L\'installation de [%1$s] a échoué mais le retour à l\'état précédent a réussi';
 $lang['installer_install_2'] = 'L\'installation de [%1$s] a échoué et il n\'a pas été possible de revenir à l\'état précédent la tentative d\'installation';
@@ -1067,6 +1068,8 @@ $lang['pagebar_configreset'] = 'Remise à zéro de la configuration';
 $lang['pagebar_addonconf'] = 'Greffons';
 
 $lang['roster_config_menu'] = 'Menu de configuration';
+$lang['menu_config_help'] = 'Add Menu Button Help';
+$lang['menu_config_help_text'] = 'Use this to add a new menu button. Adding a new menu button here will add it to the current section.<ul><li>Title - The name of the new button.</li><li>URL - The button\'s link. This can be a WoWRoster path or a full URL (add http:// in the link)</li><li>Icon - The button\'s image. This must be an image from the Interface Image Pack without the path or extension (ex. inv_misc_gear_01)</ul>';
 
 // Submit/Reset confirm questions
 $lang['config_submit_button'] = 'Sauvegarder les modifications';
@@ -1158,7 +1161,7 @@ $lang['admin']['menu_right_text'] = "Police de caractère|Police de caractère u
 $lang['admin']['menu_bottom_pane'] = "Panneau inférieur|Contrôle les affichages du panneau inférieur du menu principal du roster<br />Cette zone contient la boîte de recherche";
 
 // display_conf
-$lang['admin']['theme'] = "Thème du roster|Sélectionner l'apparence du roster<br /><span style=\"color:red;\">NOTE :</span> la matrice du roster n'a pas encore été complètement achevée<br />et l'utilisation de thèmes autres que celui par défaut peut donc avoir des conséquences sur l'affichage de celui-ci.";
+$lang['admin']['theme'] = "Thème du roster|Sélectionner l'apparence du roster<br /><span class=\"red\">NOTE :</span> la matrice du roster n'a pas encore été complètement achevée<br />et l'utilisation de thèmes autres que celui par défaut peut donc avoir des conséquences sur l'affichage de celui-ci.";
 $lang['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['roster_bg'] = "URL pour l'image de fond|L'URL absolue de l'image pour le fond principal<br />Ou en laissant &quot;img/&quot; devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['motd_display_mode'] = "Mode d'affichage du message du jour|Comment le message du jour sera affiché<br /><br />&quot;Text&quot; - Montre le message de du jour en rouge<br />&quot;Image&quot; - Montre le message du jour sous forme d'une image (nécesite GD!)";

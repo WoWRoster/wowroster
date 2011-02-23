@@ -93,15 +93,14 @@ $lang['select_files'] = 'Select Files';
 $lang['save_error_log'] = 'Speichere Fehler Log';
 $lang['save_update_log'] = 'Speichere Update Log';
 
-$lang['new_version_available'] = 'Eine neue Version von %1$s ist verfügbar <span class="green">v%2$s</span><br />Released: %3$s<br />Download <a href="%4$s" target="_blank">HIER</a>';
+$lang['new_version_available'] = 'Eine neue Version von %1$s ist verfügbar v%2$s<br />Released: %3$s<br />Download <a href="%4$s" target="_blank">HIER</a>';
 
 $lang['remove_install_files'] = 'Entferne Installationsdateien';
-$lang['remove_install_files_text'] = 'Bitte entferne <span class="green">install.php</span> im Roster Verzeichnis';
+$lang['remove_install_files_text'] = 'Bitte entferne <span class="redB">install.php</span> im Roster Verzeichnis';
 
 $lang['upgrade_wowroster'] = 'Upgrade WoWRoster';
 $lang['upgrade'] = 'Upgrade';
 $lang['select_version'] = 'Wähle Version';
-$lang['upgrade_wowroster_text'] = "Du hast die neue Version von WOWRoster geladen<br /><br />\nDeine Version: <span class=\"red\">%1\$s</span><br />\nNeue Version: <span class=\"green\">%2\$s</span><br /><br />\n<a href=\"upgrade.php\" style=\"border:1px outset white;padding:2px 6px 2px 6px;\">UPGRADE</a>";
 $lang['no_upgrade'] = 'Du hast den Roster bereits aktualisiert<br />oder du haste eine aktuallere Version als dieses Upgrade';
 $lang['upgrade_complete'] = 'Deine WoWRoster-Installation wurde erfolgreich upgegradet';
 
@@ -937,6 +936,8 @@ $lang['menuconf_drag_delete']='Ziehe hierher zum Löschen';
 $lang['menuconf_addon_inactive']='Addon ist inaktiv';
 $lang['menuconf_unused_buttons']='Ungenutze Buttons';
 
+$lang['default_page_set']='The default page has been set to [%1$s]';
+
 $lang['installer_install_0']='Installation von %1$s erfolgreich';
 $lang['installer_install_1']='Installation von %1$s fehlgeschlagen, aber Wiederherstellung erfolgreich';
 $lang['installer_install_2']='Installation ovonf %1$s fehlgeschlagen und Wiederherstellung ebenfalls fehlgeschlagen';
@@ -1067,6 +1068,8 @@ $lang['pagebar_configreset'] = 'Einstellungen zurücksetzen';
 $lang['pagebar_addonconf'] = 'Addon Konfiguration';
 
 $lang['roster_config_menu'] = 'Einstellungsmenü';
+$lang['menu_config_help'] = 'Add Menu Button Help';
+$lang['menu_config_help_text'] = 'Use this to add a new menu button. Adding a new menu button here will add it to the current section.<ul><li>Title - The name of the new button.</li><li>URL - The button\'s link. This can be a WoWRoster path or a full URL (add http:// in the link)</li><li>Icon - The button\'s image. This must be an image from the Interface Image Pack without the path or extension (ex. inv_misc_gear_01)</ul>';
 
 // Submit/Reset confirm questions
 $lang['config_submit_button'] = 'Speichere Einstellungen';
@@ -1158,7 +1161,7 @@ $lang['admin']['menu_right_text'] = "Text Schriftart|Die Schriftart für die Lev
 $lang['admin']['menu_bottom_pane'] = "Unterer Abschnitt|Kontrolliert die Anzeige des unteren Abschnitts des Hauptmenüs<br />Dieser Bereich enthält das Suche-Feld";
 
 // display_conf
-$lang['admin']['theme'] = "Roster Theme|Wähle das generelle Aussehen des Rosters<br /><span style=\"color:red;\">ACHTUNG:</span> Momentan ünterstützen nicht alle Teile des Rosters dieses Feature<br />Ein anderes als das Standardaussehen zu wählen, kann zu unerwartete Ereignissen führen";
+$lang['admin']['theme'] = "Roster Theme|Wähle das generelle Aussehen des Rosters<br /><span class=\"red\">ACHTUNG:</span> Momentan ünterstützen nicht alle Teile des Rosters dieses Feature<br />Ein anderes als das Standardaussehen zu wählen, kann zu unerwartete Ereignissen führen";
 $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Nachricht des Tages) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";

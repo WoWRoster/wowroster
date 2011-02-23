@@ -645,7 +645,7 @@ img.middle,
 /**
  * Border Styles
  */
-.border_frame { border: 1px solid #EEDBA2; margin: auto; padding:0px; background: #deb760; color: #000; }
+.border_frame { border: 1px solid #EEDBA2; margin: auto; padding:0; background: #deb760; color: #000; }
 
 .border_color {
 	border-width:1px;

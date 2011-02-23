@@ -84,9 +84,19 @@ switch ($method)
 			return;
 		}
 
+		if( !empty($icon) )
+		{
+			$icon = $roster->config['interface_url'] . 'Interface/Icons/' . $icon . '.' . $roster->config['img_suffix'];
+		}
+		else
+		{
+			$icon = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+		}
+
 		$status=0;
 		$result  = '<id>b' . $roster->db->insert_id() . "</id>\n";
-		$result .= '<title>' . $_POST['title'] . '</title>';
+		$result .= '<title>' . $title . '</title>';
+		$result .= '<icon>' . $icon . '</icon>';
 
 		break;
 
