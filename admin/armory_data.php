@@ -51,7 +51,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 	);
 
 	// aprint($d);
-	$count = '0';
+	$count = 0;
 	foreach ($d->talentTrees->tree as $a => $treedata)
 	{
 		$treenum = 0;

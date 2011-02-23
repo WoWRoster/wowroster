@@ -77,7 +77,7 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 			}
 			else
 			{
-				$roster->set_message(sprintf($roster->locale->act['pass_changed'], $mode, '<span style="font-size:11px;color:red;">' . $newpass . '</span>'));
+				$roster->set_message(sprintf($roster->locale->act['pass_changed'], $mode, '<span class="redB">' . $newpass . '</span>'));
 			}
 		}
 	}

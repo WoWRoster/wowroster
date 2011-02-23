@@ -20,7 +20,9 @@
 						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('table_{profession.ID}','img_{profession.ID}','{THEME_PATH}/images/button_close.png','{THEME_PATH}/images/button_open.png');">
 							<div class="icon"><img src="{INTERFACE_URL}Interface/Icons/{profession.ICON}.{IMG_SUFFIX}" /><div class="mask"></div></div>
 							{profession.NAME}
-							<img style="float:right;" id="img_{profession.ID}" src="{THEME_PATH}/images/button_<!-- IF S_HIDE -->open<!-- ELSE -->close<!-- ENDIF -->.png" alt="" />
+							<div class="right">
+								<img id="img_{profession.ID}" src="{THEME_PATH}/images/button_<!-- IF S_HIDE -->open<!-- ELSE -->close<!-- ENDIF -->.png" alt="" />
+							</div>
 						</div>
 
 						<div id="table_{profession.ID}">

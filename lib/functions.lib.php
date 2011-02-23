@@ -1437,8 +1437,9 @@ function updateCheck( $addon )
 			unset($localetemp);
 
 			$cache['ver_date'] = date($roster->locale->act['phptimeformat'], $cache['ver_date'] + (3600*$roster->config['localtimeoffset']));
-			$roster->set_message(sprintf($roster->locale->act['new_version_available'], $name, $cache['ver_latest'], $cache['ver_date'], $cache['ver_link']), $roster->locale->act['update']);
-			$roster->set_message($cache['ver_info']);
+			$roster->set_message(sprintf($roster->locale->act['new_version_available'], $name, $cache['ver_latest'], $cache['ver_date'], $cache['ver_link']), $roster->locale->act['update']
+				. $cache['ver_info']
+			);
 		}
 	}
 }

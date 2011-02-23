@@ -140,7 +140,7 @@ if( !empty($errorstringout) )
 // Print the update messages
 if( !empty($messagestringout) )
 {
-	$roster->set_message($messagestringout, $roster->locale->act['installer_log'], 'warning');
+	$roster->set_message($messagestringout, $roster->locale->act['installer_log']);
 }
 
 $roster->tpl->set_filenames(array('body' => 'admin/addon_install.html'));
