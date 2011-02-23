@@ -121,7 +121,6 @@ $paletHeight = 1;
 $paletWidth = count($palet);
 
 
-
 // --[ Render configuration screen. ]--
 $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/wz_dragdrop.js"></script>' . "\n";
 $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/menuconf.js"></script>' . "\n";
@@ -129,21 +128,23 @@ $roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER
 $roster->tpl->assign_vars(array(
 	'U_FORM_ACTION' => makelink('&amp;section=' . $section),
 
-	'DHTML_REG' => $dhtml_reg,
+	'DHTML_REG'     => $dhtml_reg,
 
-	'SECTION'      => $section,
-	'SECTION_NAME' => $section_name,
+	'SECTION'       => $section,
+	'SECTION_NAME'  => $section_name,
 
-	'ARRAY_WIDTH' => $arrayWidth,
-	'ARRAY_HEIGHT' => $arrayHeight,
-	'PALLET_WIDTH' => $paletWidth,
+	'ARRAY_WIDTH'   => $arrayWidth,
+	'ARRAY_HEIGHT'  => $arrayHeight,
+	'PALLET_WIDTH'  => $paletWidth,
 	'PALLET_HEIGHT' => $paletHeight,
 
-	'BUTTON_GRID_WIDTH' => (40*$arrayWidth+5),
-	'BUTTON_GRID_HEIGHT' => (40*$arrayHeight+5),
+	'BUTTON_GRID_WIDTH'     => (40*$arrayWidth+8),
+	'BUTTON_GRID_HEIGHT'    => (40*$arrayHeight+8),
 
-	'UN_BUTTON_GRID_WIDTH' => (40*$paletWidth+5),
-	'UN_BUTTON_GRID_HEIGHT' => (40*$paletHeight+5),
+	'UN_BUTTON_GRID_WIDTH'  => (40*$paletWidth+8),
+	'UN_BUTTON_GRID_HEIGHT' => (40*$paletHeight+8),
+
+	'ADD_TIP' => makeOverlib($roster->locale->act['menu_config_help_text'], $roster->locale->act['menu_config_help'], '', 2, '', ',WRAP')
 	)
 );
 

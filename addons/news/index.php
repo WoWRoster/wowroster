@@ -97,11 +97,6 @@ $query = "SELECT `news`.*, "
 
 $result = $roster->db->query($query);
 
-if( $roster->db->num_rows($result) == 0 )
-{
-	echo messagebox($roster->locale->act['no_news']);
-}
-
 
 // Assign template vars
 $roster->tpl->assign_vars(array(
@@ -111,6 +106,19 @@ $roster->tpl->assign_vars(array(
 	'S_EDIT_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_edit'])
 	)
 );
+
+// Show no news when there is none
+if( $roster->db->num_rows($result) == 0 )
+{
+	$roster->tpl->set_filenames(array(
+		'head' => $addon['basename'] . '/news_head.html',
+		'foot' => $addon['basename'] . '/news_foot.html'
+		)
+	);
+	$roster->tpl->display('head');
+	echo messagebox($roster->locale->act['no_news'], '');
+	$roster->tpl->display('foot');
+}
 
 while( $news = $roster->db->fetch($result) )
 {

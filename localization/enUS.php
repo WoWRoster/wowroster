@@ -93,15 +93,14 @@ $lang['select_files'] = 'Select Files';
 $lang['save_error_log'] = 'Save Error Log';
 $lang['save_update_log'] = 'Save Update Log';
 
-$lang['new_version_available'] = 'There is a new version of %1$s available <span class="green">v%2$s</span><br />Released: %3$s<br />Get it <a href="%4$s" target="_blank">HERE</a>';
+$lang['new_version_available'] = 'There is a new version of %1$s available v%2$s<br />Released: %3$s<br />Get it <a href="%4$s" target="_blank">HERE</a>';
 
 $lang['remove_install_files'] = 'Remove Install Files';
-$lang['remove_install_files_text'] = 'Please remove <span class="green">install.php</span> in this directory';
+$lang['remove_install_files_text'] = 'Please remove <span class="redB">install.php</span> in this directory';
 
 $lang['upgrade_wowroster'] = 'Upgrade WoWRoster';
 $lang['upgrade'] = 'Upgrade';
 $lang['select_version'] = 'Select Version';
-$lang['upgrade_wowroster_text'] = "Looks like you've loaded a new version of Roster<br /><br />\nYour Version: <span class=\"red\">%1\$s</span><br />\nNew Version: <span class=\"green\">%2\$s</span><br /><br />\n<a href=\"upgrade.php\" style=\"border:1px outset white;padding:2px 6px 2px 6px;\">UPGRADE</a>";
 $lang['no_upgrade'] = 'You have already upgraded Roster<br />Or you have a newer version than this upgrader';
 $lang['upgrade_complete'] = 'Your WoWRoster installation has been successfully upgraded';
 
@@ -937,6 +936,8 @@ $lang['menuconf_drag_delete']='Drag here to delete';
 $lang['menuconf_addon_inactive']='Addon is inactive';
 $lang['menuconf_unused_buttons']='Unused Buttons';
 
+$lang['default_page_set']='The default page has been set to [%1$s]';
+
 $lang['installer_install_0']='Installation of %1$s successful';
 $lang['installer_install_1']='Installation of %1$s failed, but rollback successful';
 $lang['installer_install_2']='Installation of %1$s failed, and rollback also failed';
@@ -946,7 +947,6 @@ $lang['installer_uninstall_2']='Uninstallation of %1$s failed, and rollback also
 $lang['installer_upgrade_0']='Upgrade of %1$s successful';
 $lang['installer_upgrade_1']='Upgrade of %1$s failed, but rollback successful';
 $lang['installer_upgrade_2']='Upgrade of %1$s failed, and rollback also failed';
-$lang['installer_purge_0']='Purge of %1$s successful';
 $lang['installer_purge_0']='Purge of %1$s successful';
 
 $lang['installer_icon'] = 'Icon';
@@ -1068,6 +1068,8 @@ $lang['pagebar_configreset'] = 'Config Reset';
 $lang['pagebar_addonconf'] = 'Addon Config';
 
 $lang['roster_config_menu'] = 'Config Menu';
+$lang['menu_config_help'] = 'Add Menu Button Help';
+$lang['menu_config_help_text'] = 'Use this to add a new menu button. Adding a new menu button here will add it to the current section.<ul><li>Title - The name of the new button.</li><li>URL - The button\'s link. This can be a WoWRoster path or a full URL (add http:// in the link)</li><li>Icon - The button\'s image. This must be an image from the Interface Image Pack without the path or extension (ex. inv_misc_gear_01)</ul>';
 
 // Submit/Reset confirm questions
 $lang['config_submit_button'] = 'Save Settings';
@@ -1159,7 +1161,7 @@ $lang['admin']['menu_right_text'] = "Text font|The font for the level/class grou
 $lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom pane of the main roster menu<br />This area holds the search box";
 
 // display_conf
-$lang['admin']['theme'] = "Roster Theme|Choose the overall look of Roster<br /><span style=\"color:red;\">NOTE:</span> Not all of Roster is currently templated<br />and using themes other than the default may have unexpected results";
+$lang['admin']['theme'] = "Roster Theme|Choose the overall look of Roster<br /><span class=\"red\">NOTE:</span> Not all of Roster is currently templated<br />and using themes other than the default may have unexpected results";
 $lang['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";

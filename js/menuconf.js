@@ -224,13 +224,28 @@ function sendAddElement()
  */
 function doAddElement(result)
 {
-	// Create the button
+	// Create the button outer div
 	var button = document.createElement('div');
 	button.id = result.getElementsByTagName('id')[0].firstChild.data;
-	button.className = 'menu_config_div';
-	var title = result.getElementsByTagName('title')[0].firstChild.data
-	button.appendChild(document.createTextNode(title))
-	dd.elements.palet.div.appendChild(button);
+	button.className = 'item';
+	var title = result.getElementsByTagName('title')[0].firstChild.data;
+
+	// Create the icon
+	var icon = result.getElementsByTagName('icon')[0].firstChild.data;
+	var image = document.createElement('img');
+	image.src = icon;
+	image.alt = '';
+
+	// Create the mask
+	var mask = document.createElement('div');
+	mask.className = 'mask epic';
+
+	// Attach the image and mask
+	button.appendChild(image);
+	button.appendChild(mask);
+
+	var parent = document.getElementById('palet').parentNode;
+	parent.insertBefore(button,document.getElementById('palet'));
 	ADD_DHTML(button.id);
 
 	// And add it to the bottom palet position
