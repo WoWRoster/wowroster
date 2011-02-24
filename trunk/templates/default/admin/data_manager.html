@@ -50,6 +50,7 @@
 <div class="tier-3-a">
 	<div class="tier-3-b">
 		<div class="text">
+			<span class="ui-icon ui-icon-help" style="cursor:help;" {L_CLEAN_TIP}></span>
 			<!-- TRANSLATE clean -->
 
 			<form action="{U_ACTION}" method="post" id="clean" style="display:inline;">
@@ -121,8 +122,9 @@
 </form>
 
 <!-- ELSE -->
-	<span class="title_text">No Data</span>
-	<br />
+	<h1>No Data</h1>
+<!-- IF U_GUILD_ID neq '' -->
 	<button type="submit" class="input" onclick="return confirm('<!-- TRANSLATE delete_guild_confirm -->') &amp;&amp; setvalue('deletehide','delguild_{U_GUILD_ID}');"><!-- TRANSLATE delete_guild --></button>
+	<!-- ENDIF -->
 </form>
 <!-- ENDIF -->

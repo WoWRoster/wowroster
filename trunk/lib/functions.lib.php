@@ -159,44 +159,48 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		$roster_menu->displayMenu();
 	}
 
-	if( is_object($roster->db) )
+	// Only print the border if we have any information
+	if( !empty($text) && !empty($title) && !empty($file) && !empty($line) && !empty($sql) )
 	{
-		$roster->db->close_db();
-	}
+		echo border('sred','start',$title) . '<table cellspacing="0" cellpadding="0">'."\n";
 
-	echo border('sred','start',$title) . '<table cellspacing="0" cellpadding="0">'."\n";
+		if( !empty($text) )
+		{
+			echo "<tr>\n<td class=\"membersRow1\" style=\"white-space:normal;\"><div style=\"text-align:center;\">$text</div></td>\n</tr>\n";
+		}
+		if( !empty($sql) )
+		{
+			echo "<tr>\n<td class=\"membersRow1\" style=\"white-space:normal;\">SQL:<br />" . sql_highlight($sql) . "</td>\n</tr>\n";
+		}
+		if( !empty($file) )
+		{
+			$file = str_replace(ROSTER_BASE,'',$file);
 
-	if( !empty($text) )
-	{
-		echo "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\"><div align=\"center\">$text</div></td>\n</tr>\n";
-	}
-	if( !empty($sql) )
-	{
-		echo "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">SQL:<br />" . sql_highlight($sql) . "</td>\n</tr>\n";
-	}
-	if( !empty($file) )
-	{
-		$file = str_replace(ROSTER_BASE,'',$file);
+			echo "<tr>\n<td class=\"membersRow1\">File: $file</td>\n</tr>\n";
+		}
+		if( !empty($line) )
+		{
+			echo "<tr>\n<td class=\"membersRow1\">Line: $line</td>\n</tr>\n";
+		}
 
-		echo "<tr>\n<td class=\"membersRowRight1\">File: $file</td>\n</tr>\n";
-	}
-	if( !empty($line) )
-	{
-		echo "<tr>\n<td class=\"membersRowRight1\">Line: $line</td>\n</tr>\n";
-	}
+		if( $roster->config['debug_mode'] == 2 )
+		{
+			echo "<tr>\n<td class=\"membersRow1\" style=\"white-space:normal;\">";
+			echo  backtrace();
+			echo "</td>\n</tr>\n";
+		}
 
-	if( $roster->config['debug_mode'] == 2 )
-	{
-		echo "<tr>\n<td class=\"membersRowRight1\" style=\"white-space:normal;\">";
-		echo  backtrace();
-		echo "</td>\n</tr>\n";
+		echo "</table>\n" . border('sred','end');
 	}
-
-	echo "</table>\n" . border('sred','end');
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'footer.php');
+	}
+
+	if( is_object($roster->db) )
+	{
+		$roster->db->close_db();
 	}
 
 	exit();
@@ -234,16 +238,16 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	$roster_menu->displayMenu();
 
-	if( is_object($roster->db) )
-	{
-		$roster->db->close_db();
-	}
-
 	echo messagebox($message, $title, $style);
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{
 		include_once(ROSTER_BASE . 'footer.php');
+	}
+
+	if( is_object($roster->db) )
+	{
+		$roster->db->close_db();
 	}
 
 	exit();
@@ -1338,6 +1342,7 @@ function format_microtime( )
 
 /**
  * A better array_merge()
+ * Merges multi-dimensional arrays
  *
  * @param array $skel
  * @param array $arr

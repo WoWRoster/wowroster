@@ -26,7 +26,9 @@ $lang['lualocation']='Cliquer, naviguer et télécharger les fichiers *.lua<br /
 $lang['filelocation']='se trouve sous<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['nodata']='Impossible de trouver la guilde : <b>\'%1$s\'</b> du serveur <b>\'%2$s\'</b><br />Vous devez préalablement<a href="%3$s">charger votre guilde</a> et <a href="%4$s">finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles ici</a>';
+$lang['no_char_in_db']='The member <b>\'%1$s\'</b> is not in the database';
 $lang['no_default_guild']='Aucune guilde par défaut n\'a encore été indiqué. Veuillez en indiquer une ici.';
+$lang['not_valid_anchor']='The anchor(a=) parameter does not provide accurate enough data or is badly formatted.';
 $lang['nodefguild']='Il n\'y a actuellement aucune guilde par défaut. Vous devez préalablement <a href="%1$s">>finaliser la configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Les instructions d\'installation sont disponibles ici</a>';
 $lang['nodata_title']='Données de guilde introuvables';
 
@@ -1033,7 +1035,8 @@ $lang['upload_rules_error'] = 'Vous ne pouvez pas laisser un des champs vide qua
 $lang['upload_rules_help'] = 'Les règles sont séparées en deux blocs.<br />Pour chaque guilde/personnage envoyé, le premier bloc est pris en compte en premier.<br />Si le couple nom@serveur correspond à l\'une des règles de rejet, celui-ci sera rejeté.<br />Ensuite le second bloc est vérifié.<br />Si le couple nom@serveur correspond à l\'une des règles d\'acceptation, celui-ci sera accepté.<br />Si aucune règle n\'est vérifiée, celui-ci est alors rejeté.';
 
 // Data Manager
-$lang['clean'] = 'Clean up entries based on rules';
+$lang['clean'] = 'Clean up entries based on upload rules';
+$lang['clean_help'] = 'This will run an update and enforce the rules as set by the \'Enforce Upload Rules\' setting';
 $lang['select_guild'] = 'Sélectionner une guilde';
 $lang['delete_checked'] = 'Supprimé les validés';
 $lang['delete_guild'] = 'Supprimer la guilde';
@@ -1124,7 +1127,7 @@ $lang['admin']['check_updates'] = "Vérifier les mises à jour|Permettre au site
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Système de cache de fichiers|Utiliser un système de cache de fichiers sur le serveur pour améliorer les performances.";
 $lang['admin']['use_temp_tables'] = "Utiliser des tables temporaires|Désactiver ce paramètre si votre hôte ne permet pas de créer des tables de base de données temporaires (le privilège CREATE TEMPORARY TABLE).<br/>Laisser activé ce paramètre est recommandé pour les performances.";
-$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />- Never: Never enforce rules<br />- All LUA Updates: Enforce rules on all lua updates<br />- CP Updates: Enforce rules on any CP.lua update<br />- Guild Updates: Enforce rules only on guild updates<br /><br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
+$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<ul class='ul-no-m'><li>Never: Never enforce rules</li><li>All LUA Updates: Enforce rules on all lua updates</li><li>CP Updates: Enforce rules on any CP.lua update</li><li>Guild Updates: Enforce rules only on guild updates</li></ul>You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "Nom du roster|Saisissez un nom qui sera affiché quand vous ne serez pas sur une page de guilde ou de personnage";

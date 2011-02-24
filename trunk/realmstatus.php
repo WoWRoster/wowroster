@@ -223,9 +223,9 @@ function text_output( $realmData )
 	{
 		$outtext .= '
 	<div style="vertical-align:middle;text-align:center;width:88px;height:54px;background-image:url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '2.png);">
-		<div style="padding-top:7px;color:' . $roster->config['rs_color_server'] . ';font-size:10px;">' . $realmData['server_name'] . '</div>
-		<div style="color:' . $realmData['serverpopcolor'] . ';font-size:12px;">' . $realmData['serverpop'] . '</div>
-		<div style="color:' . $realmData['servertypecolor'] . ';font-size:9px;">' . $realmData['servertype'] . '</div>
+		<div style="padding-top:7px;color:' . $roster->config['rs_color_server'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:10px;">' . $realmData['server_name'] . '</div>
+		<div style="color:' . $realmData['serverpopcolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:12px;">' . $realmData['serverpop'] . '</div>
+		<div style="color:' . $realmData['servertypecolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:9px;">' . $realmData['servertype'] . '</div>
 	</div>';
 	}
 	$outtext .= '

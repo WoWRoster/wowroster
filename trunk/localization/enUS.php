@@ -26,7 +26,9 @@ $lang['lualocation']='Click browse and select your *.lua files to upload';
 $lang['filelocation']='is located at<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['nodata']='Could not find guild: <b>\'%1$s\'</b> for server <b>\'%2$s\'</b><br />You need to <a href="%3$s">load your guild</a> first and make sure you <a href="%4$s">finished configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Click here for installation instructions</a>';
+$lang['no_char_in_db']='The member <b>\'%1$s\'</b> is not in the database';
 $lang['no_default_guild']='No default guild has been set yet. Please set one here.';
+$lang['not_valid_anchor']='The anchor(a=) parameter does not provide accurate enough data or is badly formatted.';
 $lang['nodefguild']='No default guild has been set yet. Please make sure you have <a href="%1$s">finished configuration</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Click here for installation instructions</a>';
 $lang['nodata_title']='No Guild Data';
 
@@ -975,7 +977,7 @@ $lang['installer_click_uninstall'] = 'Click to Uninstall';
 $lang['installer_click_upgrade'] = 'Click to Upgrade %1$s to %2$s';
 $lang['installer_click_install'] = 'Click to Install';
 $lang['installer_overwrite'] = 'Old Version Overwrite';
-$lang['installer_replace_files'] = 'You have overwrote your current addon installation with an older version<br />Replace files with latest version<br /><br />Or Click to Purge AddOn';
+$lang['installer_replace_files'] = 'You have overwrote your current addon installation with an older version<br />Replace files with latest version<br /><br /><br />Or Click to Purge AddOn';
 
 $lang['installer_error'] = 'Install Errors';
 $lang['installer_invalid_type'] = 'Invalid install type';
@@ -1033,7 +1035,8 @@ $lang['upload_rules_error'] = 'You cannot leave one of the fields empty when add
 $lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked. If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked. If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.<br /><br />Remember to set a default guild here as well.';
 
 // Data Manager
-$lang['clean'] = 'Clean up entries based on rules';
+$lang['clean'] = 'Clean up entries based on upload rules';
+$lang['clean_help'] = 'This will run an update and enforce the rules as set by the \'Enforce Upload Rules\' setting';
 $lang['select_guild'] = 'Select Guild';
 $lang['delete_checked'] = 'Delete Checked';
 $lang['delete_guild'] = 'Delete Guild';
@@ -1069,7 +1072,7 @@ $lang['pagebar_addonconf'] = 'Addon Config';
 
 $lang['roster_config_menu'] = 'Config Menu';
 $lang['menu_config_help'] = 'Add Menu Button Help';
-$lang['menu_config_help_text'] = 'Use this to add a new menu button. Adding a new menu button here will add it to the current section.<ul><li>Title - The name of the new button.</li><li>URL - The button\'s link. This can be a WoWRoster path or a full URL (add http:// in the link)</li><li>Icon - The button\'s image. This must be an image from the Interface Image Pack without the path or extension (ex. inv_misc_gear_01)</ul>';
+$lang['menu_config_help_text'] = 'Use this to add a new menu button. Adding a new menu button here will add it to the current section.<ul class="ul-no-m"><li>Title - The name of the new button.</li><li>URL - The button\'s link. This can be a WoWRoster path or a full URL (add http:// in the link)</li><li>Icon - The button\'s image. This must be an image from the Interface Image Pack without the path or extension (ex. inv_misc_gear_01)</ul>';
 
 // Submit/Reset confirm questions
 $lang['config_submit_button'] = 'Save Settings';
@@ -1105,8 +1108,8 @@ $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the
 // main_conf
 $lang['admin']['roster_dbver'] = "Roster Database Version|The version of the database";
 $lang['admin']['version'] = "Roster Version|Current version of Roster";
-$lang['admin']['debug_mode'] = "Debug Mode|off - No debug or error messages<br />on - Display error messages and simple debug<br />extended - Full debug mode and backtrace in error messages";
-$lang['admin']['sql_window'] = "SQL Window|off - Do not show query window<br />on - Display query window in the footer<br />extended - Include DESCRIBE statements";
+$lang['admin']['debug_mode'] = "Debug Mode|<ul class='ul-no-m'><li>off: No debug or error messages</li><li>on: Display error messages and simple debug</li><li>extended: Full debug mode and backtrace in error messages</li></ul>";
+$lang['admin']['sql_window'] = "SQL Window|<ul class='ul-no-m'><li>off: Do not show query window</li><li>on: Display query window in the footer</li><li>extended: Include DESCRIBE statements</li></ul>";
 $lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler version allowed to upload";
 $lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
 $lang['admin']['locale'] = "Roster Main Language|The main language roster will be displayed in";
@@ -1121,10 +1124,10 @@ $lang['admin']['timezone'] = "Timezone|Displayed after timestamps so people know
 $lang['admin']['localtimeoffset'] = "Time Offset|Your timezone offset from UTC/GMT<br />Times on roster will be displayed as a calculated value using this offset";
 $lang['admin']['use_update_triggers'] = "Addon Update Triggers|Addon Update Triggers are for addons that need to run during a character or guild update<br />Some addons my require that this is turned on for them to function properly";
 $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of WoWRoster (and addons that use this feature) to<br />check if you have the newest version of the software";
-$lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<br /><br />on - /some/page/here/param=value.html<br />off - index.php?p=some-page-here&amp;param=value";
+$lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<ul class='ul-no-m'><li>on: /some/page/here/param=value.html</li><li>off: index.php?p=some-page-here&amp;param=value</li></ul>";
 $lang['admin']['local_cache']= "File System Cache|Use server local file system to cache some files to increase performance.";
 $lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br />Leaving this on is recommended for performance.";
-$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<br />- Never: Never enforce rules<br />- All LUA Updates: Enforce rules on all lua updates<br />- CP Updates: Enforce rules on any CP.lua update<br />- Guild Updates: Enforce rules only on guild updates<br /><br />You can also toggle this setting on the &quot;Upload Rules&quot; page.";
+$lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<ul class='ul-no-m'><li>Never: Never enforce rules</li><li>All LUA Updates: Enforce rules on all lua updates</li><li>CP Updates: Enforce rules on any CP.lua update</li><li>Guild Updates: Enforce rules only on guild updates</li></ul>You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "WoWRoster Name|Enter a name to be displayed when not in the guild or char scope";
@@ -1164,17 +1167,17 @@ $lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom
 $lang['admin']['theme'] = "Roster Theme|Choose the overall look of Roster<br /><span class=\"red\">NOTE:</span> Not all of Roster is currently templated<br />and using themes other than the default may have unexpected results";
 $lang['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
-$lang['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<br /><br />&quot;Text&quot; - Shows MOTD in red text<br />&quot;Image&quot; - Shows MOTD as an image (REQUIRES GD!)";
+$lang['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<ul class='ul-no-m'><li>Text: Shows MOTD in red text</li><li>Image: Shows MOTD as an image (REQUIRES GD!)</li></ul>";
 $lang['admin']['signaturebackground'] = "img.php Background|Support for legacy signature creator";
-$lang['admin']['processtime'] = "Process time|Displays render time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
+$lang['admin']['processtime'] = "Process time|Displays render time and query count in the footer<br />(<i>x.xx | xx</i>)";
 
 // data_links
 $lang['admin']['profiler'] = "CharacterProfiler download link|URL to download CharacterProfiler";
 $lang['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
 
 // realmstatus_conf
-$lang['admin']['rs_display'] = "Info Mode|&quot;full&quot; will show status and server name, population, and type<br />&quot;half&quot; will display just the status";
-$lang['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<br /><br />&quot;DIV Container&quot; - Shows Realmstatus in a DIV container with text and standard images<br />&quot;Image&quot; - Shows Realmstatus as an image (REQUIRES GD!)";
+$lang['admin']['rs_display'] = "Info Mode|<ul class='ul-no-m'><li>full: Show status and server name, population, and type</li><li>half: Displays just the status</li></ul>";
+$lang['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<ul class='ul-no-m'><li>DIV Container: Shows Realmstatus in a DIV container with text and standard images</li><li>Image: Shows Realmstatus as an image (REQUIRES GD!)</li></ul>";
 $lang['admin']['rs_timer'] = "Refresh Timer|Set the timeout period for fetching new realmstatus data";
 $lang['admin']['rs_left'] = "Display|";
 $lang['admin']['rs_middle'] = "Realm Type|";

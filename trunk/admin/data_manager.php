@@ -24,7 +24,7 @@ $update = new update;
 
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
-$roster->output['title'] .= $roster->locale->act['pagebar_uploadrules'];
+$roster->output['title'] .= $roster->locale->act['pagebar_dataman'];
 
 // Change scope to guild, and rerun detection to load default
 $roster->scope = 'guild';
@@ -33,7 +33,9 @@ $roster->get_scope_data();
 
 $roster->tpl->assign_vars(array(
 	'U_ACTION'   => makelink('&amp;start=' . $start),
-	'U_GUILD_ID' => $roster->data['guild_id'],
+	'U_GUILD_ID' => isset($roster->data['guild_id']) ? $roster->data['guild_id'] : '',
+
+	'L_CLEAN_TIP'      => makeOverlib($roster->locale->act['clean_help'], $roster->locale->act['clean'], '', 2, '', ',WRAP'),
 
 	'S_DATA'           => false,
 	'S_RESPONSE'       => false,

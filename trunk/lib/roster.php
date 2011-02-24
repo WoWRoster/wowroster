@@ -223,15 +223,15 @@ class roster
 			}
 		}
 
-		define('ROSTER_PAGE_NAME', $page);
-
-		$this->pages = explode('-', $page);
-
 		// --[ We only accept certain characters in our page ]--
-		if( preg_match('/[^a-zA-Z0-9_-]/', ROSTER_PAGE_NAME) )
+		if( preg_match('/[^a-zA-Z0-9_-]/', $page) )
 		{
 			roster_die($this->locale->act['invalid_char_module'], $this->locale->act['roster_error']);
 		}
+
+		define('ROSTER_PAGE_NAME', $page);
+
+		$this->pages = explode('-', $page);
 
 		if( in_array($this->pages[0], array('util', 'realm', 'guild', 'char')) )
 		{
@@ -286,8 +286,8 @@ class roster
 		}
 		else
 		{
-			// There is no way to see from the anchor if this is a guild anchor or a char anchor. To keep
-			// it simple, we'll just assume it's an anchor for the current scope.
+			// There is no way to see from the anchor if this is a guild anchor or a char anchor.
+			// To keep it simple, we'll just assume it's an anchor for the current scope.
 			$this->atype = $this->scope;
 		}
 
@@ -317,7 +317,10 @@ class roster
 				$this->atype = 'none';
 				$this->anchor = '';
 
-				roster_die(sprintf($this->locale->act['nodefguild'], makelink('rostercp-upload')), $this->locale->act['nodata_title']);
+//				roster_die(sprintf($this->locale->act['nodefguild'], makelink('rostercp-upload')), $this->locale->act['nodata_title']);
+				$this->set_message(sprintf($this->locale->act['nodefguild'], makelink('rostercp-upload')), $this->locale->act['nodata_title'], 'error');
+				$this->_break_scope();
+				return;
 			}
 		}
 
@@ -369,7 +372,10 @@ class roster
 
 				if( !($this->data = $this->db->fetch($result)) )
 				{
-					roster_die('The member ' . $this->anchor . ' is not in the database', $this->locale->act['roster_error']);
+//					roster_die('The member ' . $this->anchor . ' is not in the database', $this->locale->act['roster_error']);
+					$this->set_message(sprintf($roster->locale->act['no_char_in_db'], $this->anchor), $this->locale->act['roster_error'], 'error');
+					$this->_break_scope();
+					return;
 				}
 
 				$this->db->free_result($result);
@@ -389,7 +395,9 @@ class roster
 			case 'default':
 				if( in_array($this->scope, array('char')) )
 				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.', 'WoWRoster');
+					$this->set_message($roster->locale->act['not_valid_anchor'], '', 'error');
+					$this->anchor = 'none';
+					$this->atype = 'none';
 				}
 				// Parse the attribute
 				if( is_numeric($this->anchor) )
@@ -432,7 +440,10 @@ class roster
 
 				if( !($this->data = $this->db->fetch($result)) )
 				{
-					roster_die(sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title']);
+//					roster_die(sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title']);
+					$this->set_message(sprintf($this->locale->act['nodata'], $name, $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title'], 'error');
+					$this->_break_scope();
+					return;
 				}
 
 				$this->db->free_result($result);
@@ -448,7 +459,9 @@ class roster
 			case 'realm':
 				if( in_array($this->scope, array('char', 'guild')) )
 				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.', 'WoWRoster');
+					$this->set_message($roster->locale->act['not_valid_anchor'], '', 'error');
+					$this->anchor = 'none';
+					$this->atype = 'none';
 				}
 				if( strpos($this->anchor, '-') !== false )
 				{
@@ -480,7 +493,10 @@ class roster
 
 				if( !($this->data = $this->db->fetch($result, SQL_ASSOC)) )
 				{
-					roster_die(sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title']);
+//					roster_die(sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title']);
+					$this->set_message(sprintf($this->locale->act['nodata'], '', $realm, makelink('update'), makelink('rostercp-upload')), $this->locale->act['nodata_title'], 'error');
+					$this->_break_scope();
+					return;
 				}
 
 				$this->anchor = $this->data['region'] . '-' . $this->data['server'];
@@ -493,7 +509,9 @@ class roster
 			default:
 				if( in_array($this->scope, array('char', 'guild', 'realm')) )
 				{
-					roster_die('The a= parameter does not provide accurate enough data or is badly formatted.', 'WoWRoster');
+					$this->set_message($roster->locale->act['not_valid_anchor'], '', 'error');
+					$this->anchor = 'none';
+					$this->atype = 'none';
 				}
 				// no anchor passed, and we didn't load defaults so we're in util or page scope. No data needed.
 				$this->data = array();
@@ -529,6 +547,17 @@ class roster
 		}
 
 		$this->output['show_menu'][$this->scope == 'page' ? 'util' : $this->scope] = 1;
+	}
+
+	function _break_scope()
+	{
+		// Scope specific functions
+		$this->anchor = 'none';
+		$this->atype = 'none';
+		$this->scope = 'util';
+
+		$this->data = array();
+		$this->output['show_menu']['util'] = 1;
 	}
 
 	/**

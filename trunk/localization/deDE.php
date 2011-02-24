@@ -26,7 +26,9 @@ $lang['lualocation']='Wähle deine *.lua Datei für den Upload aus';
 $lang['filelocation']='zu finden unter<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*ACCOUNT_NAME*</i>\\\\SavedVariables';
 
 $lang['nodata']='Konnte Gilde <b>\'%1$s\'</b> auf dem Server <b>\'%2$s\'</b> nicht finden.<br />Du musst erst einmal die <a href="%3$s">Gildendaten hochladen</a> oder die <a href="%4$s">Konfiguration beenden</a>.<br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Klicke hier um zur Installationsanleitung zu gelangen</a>';
+$lang['no_char_in_db']='The member <b>\'%1$s\'</b> is not in the database';
 $lang['no_default_guild']='Es wurde bisher keine Standardgilde gesetzt. Bitte hier eine angeben.';
+$lang['not_valid_anchor']='The anchor(a=) parameter does not provide accurate enough data or is badly formatted.';
 $lang['nodefguild']='Es wurde bisher keine Standardgilde gesetzt. Bitte versichere dich, dass die <a href="%1$s">Konfiguration abgeschlossen wurde</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Für Installationsanleitung hier klicken</a>';
 $lang['nodata_title']='Keine Gildendaten vorhanden';
 
@@ -1034,6 +1036,7 @@ $lang['upload_rules_help'] = 'Die Regeln sind in zwei Blöcke unterteilt.<br />F
 
 // Data Manager
 $lang['clean'] = 'Einträge auf den Regeln basierent säubern';
+$lang['clean_help'] = 'This will run an update and enforce the rules as set by the \'Enforce Upload Rules\' setting';
 $lang['select_guild'] = 'Gilde auswählen';
 $lang['delete_checked'] = 'Markierte löschen';
 $lang['delete_guild'] = 'Gilde löschen';
@@ -1124,7 +1127,7 @@ $lang['admin']['check_updates'] = "Überprüfe auf Updates|Dies erlaubt deiner R
 $lang['admin']['seo_url'] = "Friendly URLs|Aktiviert SEO artige URL Links im Roster<br /><br />ein - /some/page/here/param=value.html<br />aus - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Dateisystem Cache|Benutze lokales Server Dateisystem um einige Dateien zu cachen und damit die Leistung zu erhöhen.";
 $lang['admin']['use_temp_tables'] = "Benutze Temporary Tables|Diese Einstellung deaktivieren wenn dein Webhoster es nicht erlaubt temporary database tables zu generieren (CREATE TEMPORARY TABLE privilege).<br/>Diese Einstellung eingeschaltet zu lassen wird aus Performancegründen empfohlen.";
-$lang['admin']['enforce_rules'] = "Upload Regeln erzwingen|Diese Einstellung erzwingt die Anwendung der Upload Regeln bei jedem lua Upload<br />- Niemals: Regeln niemals erzwingen<br />- Alle LUA Updates: Regeln bei jedem lua Update erzwingen<br />- CP Updates: Regeln nur bei CP.lua Updates erzwingen<br />- Gilden Updates: Regeln nur bei Gildenupdates erzwingen<br /><br />Diese Einstellungen können auch auf der &quot;Upload Regeln&quot; Seite eingestellt werden.";
+$lang['admin']['enforce_rules'] = "Upload Regeln erzwingen|Diese Einstellung erzwingt die Anwendung der Upload Regeln bei jedem lua Upload<ul class='ul-no-m'><li>Niemals: Regeln niemals erzwingen<li></li>Alle LUA Updates: Regeln bei jedem lua Update erzwingen<li></li>CP Updates: Regeln nur bei CP.lua Updates erzwingen<li></li>Gilden Updates: Regeln nur bei Gildenupdates erzwingen</li></ul>Diese Einstellungen können auch auf der &quot;Upload Regeln&quot; Seite eingestellt werden.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "WowRoster Name|Einen Namen eingeben, dieser wird angezeigt wenn man nicht in der Gilden- oder Charakteransicht ist";
