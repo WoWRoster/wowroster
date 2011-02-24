@@ -691,7 +691,7 @@ $this->buildPage($values['name'],$type[1]) . '
 
 				if( $roster->config['debug_mode'] > 0 )
 				{
-				$db_val_line = '<ul style="margin:0;"><li>db name: <span style="color:#FF9900;">' . $row['config_name'] . '</span></li></ul>';
+				$db_val_line = '<ul class="ul-no-m"><li>db name: <span style="color:#FF9900;">' . $row['config_name'] . '</span></li></ul>';
 				}
 				else
 				{

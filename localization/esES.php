@@ -26,7 +26,9 @@ $lang['lualocation']='Pulsa Examinar y selecciona tus ficheros *.lua para el env
 $lang['filelocation']='se encuentra en<br /><i>*WOWDIR*</i>\\\\WTF\\\\Account\\\\<i>*NOMBRE_DE_CUENTA*</i>\\\\SavedVariables';
 
 $lang['nodata']='No se pudo encontrar la hermandad: <b>\'%1$s\'</b> del servidor <b>\'%2$s\'</b><br />Necesitas <a href="%3$s">incluir tu hermandad</a> y asegurarte de que has <a href="%4$s">terminado la configuración</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Pulsa aquí para ver las instrucciones de instalación</a>';
+$lang['no_char_in_db']='The member <b>\'%1$s\'</b> is not in the database';
 $lang['no_default_guild']='Todavía no se ha seleccionado ninguna hermandad como predeterminada. Por favor, elige una aquí.';
+$lang['not_valid_anchor']='The anchor(a=) parameter does not provide accurate enough data or is badly formatted.';
 $lang['nodefguild']='No se ha seleccionado ninguna hermandad como predeterminada. Por favor, asegurate de haber <a href="%1$s">completado la configuración</a><br /><br /><a href="http://www.wowroster.net/MediaWiki/Roster:Install" target="_blank">Haz click aquí para ver las instrucciones de instalación</a>';
 $lang['nodata_title']='No hay información de la hermandad';
 
@@ -1034,6 +1036,7 @@ $lang['upload_rules_help'] = 'En este apartado puedes configurar las hermandades
 
 // Data Manager
 $lang['clean'] = 'Limpia todas las entradas basándose en las normas';
+$lang['clean_help'] = 'This will run an update and enforce the rules as set by the \'Enforce Upload Rules\' setting';
 $lang['select_guild'] = 'Selecciona hermandad';
 $lang['delete_checked'] = 'Eliminar marcado';
 $lang['delete_guild'] = 'Eliminar hermandad';
@@ -1124,7 +1127,7 @@ $lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y
 $lang['admin']['seo_url'] = "URLs amistosos|Activa enlaces en Roster<br /><br />on - /alguna/página/aquí/param=value.html<br />off - index.php?p=alguna-página-aquí&amp;param=value";
 $lang['admin']['local_cache']= "Sistema de archivos en caché|Permite al servidor local guardar algunos archivos para mejorar el rendimiento.";
 $lang['admin']['use_temp_tables'] = "Usar tablas temporales|Desactiva esta opción si tu servidor no permite crear tablas temporales en la base de datos (CREATE TEMPORARY TABLE privilege).<br/>Se recomienda activarlo para mejorar el rendimiento.";
-$lang['admin']['enforce_rules'] = "Forzar exclusiones|Esta opción forzará las mismas normas de subida para todos los ficheros lua que se suban<br />- Never: Nunca forzará las normas<br />- All LUA Updates: Forzará las normas a todas las actualizaciones de ficheros lua<br />- CP Updates: Forzará las normas solo a los ficheros CP.lua<br />- Guild Updates: Forzará las normas solo con actualizaciones de la hermandad<br /><br />También puedes activar esta opción en el panel &quot;Exclusiones&quot;.";
+$lang['admin']['enforce_rules'] = "Forzar exclusiones|Esta opción forzará las mismas normas de subida para todos los ficheros lua que se suban<ul class='ul-no-m'><li>Never: Nunca forzará las normas<li></li>All LUA Updates: Forzará las normas a todas las actualizaciones de ficheros lua<li></li>CP Updates: Forzará las normas solo a los ficheros CP.lua<li></li>Guild Updates: Forzará las normas solo con actualizaciones de la hermandad</li></ul>También puedes activar esta opción en el panel &quot;Exclusiones&quot;.";
 
 // defaults_conf
 $lang['admin']['default_name'] = "Nombre de WoWRoster|Título que aparece en la parte superior del menú principal";
