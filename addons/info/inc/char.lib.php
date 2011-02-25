@@ -421,22 +421,49 @@ class char
 					);
 
 					$reagents = explode('|',$data['reagents']);
-
+					
+					//echo $name.'<br>';
+					if ( is_array($reagents) )
+					{
+					//Print_R($reagents);
+					//echo '<pre><br>';
 					foreach ($reagents as $reagent)
 					{
 						$dtr = explode(':', $reagent);
-
+						//Print_R($reagent);
+						//echo '<br>';
+						//echo $dtr[0].' -|- '.
+						//print_r($reagent_arr[$dtr[0]]);
+						//echo '<br><hr><br>';
+						if (empty($dtr[0]))
+						{
 						$roster->tpl->assign_block_vars('recipe.row.reagents',array(
 							'DATA' 		 => $reagent,
-							'ID' 		 => $reagent_arr[$dtr[0]]['item_id'],
-							'NAME' 		 => $reagent_arr[$dtr[0]]['item_name'],
-							'ITEM_COLOR' => $reagent_arr[$dtr[0]]['item_color'],
-							'QUALITY'    => recipe::getQualityName($reagent_arr[$dtr[0]]['item_color']),
-							'COUNT' 	 => $dtr[1],
-							'ICON' 		 => $reagent_arr[$dtr[0]]['item_texture'],
-							'TOOLTIP' 	 => makeOverlib($reagent_arr[$dtr[0]]['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
+							'ID' 		 => '000',
+							'NAME' 		 => 'Missing',
+							'ITEM_COLOR' => '000000',
+							'QUALITY'    => recipe::getQualityName('ffffff'),
+							'COUNT' 	 => '0',
+							'ICON' 		 => 'inv_misc_questionmark',
+							'TOOLTIP' 	 => makeOverlib('Missing data','','',0,$this->data['clientLocale'],',RIGHT'),
 							)
 						);
+						}
+						else
+						{
+							$roster->tpl->assign_block_vars('recipe.row.reagents',array(
+								'DATA' 		 => $reagent,
+								'ID' 		 => $reagent_arr[$dtr[0]]['item_id'],
+								'NAME' 		 => $reagent_arr[$dtr[0]]['item_name'],
+								'ITEM_COLOR' => $reagent_arr[$dtr[0]]['item_color'],
+								'QUALITY'    => recipe::getQualityName($reagent_arr[$dtr[0]]['item_color']),
+								'COUNT' 	 => $dtr[1],
+								'ICON' 		 => $reagent_arr[$dtr[0]]['item_texture'],
+								'TOOLTIP' 	 => makeOverlib($reagent_arr[$dtr[0]]['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
+								)
+							);
+						}
+						}
 					}
 				}
 			}
