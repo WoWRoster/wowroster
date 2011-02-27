@@ -747,22 +747,46 @@ form.slim { margin:0;padding:0; }
 /**
  * Overlib Tooltip Styles
  */
-#overDiv { position:absolute; visibility:hidden; z-index:9999; }
+#overDiv { position: absolute; visibility: hidden; z-index: 9999; padding: 0; margin: 0; }
+#overDiv a:link,
+#overDiv a:visited,
+#overDiv a:active { color:#069; text-decoration:none; font-weight:bold; }
+#overDiv a:hover { color:#4C3000; text-decoration:none; font-weight:bold; }
 
-/* Sets main text background - ol_fgclass*/
-.overlib_fg { background-color:#000000; }
-
-/* Sets the border style - ol_bgclass*/
-.overlib_border { border:1px outset #CCCCCC; }
-
-/* Sets main text style - ol_textfontclass */
-.overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif;white-space:normal; }
+/* Sets the border style - ol_bgclass */
+.overlib_border {
+	background: transparent url(images/shader.png) repeat;
+	border: 2px outset #CCCCCC;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	color: #ffffff;
+	font: 10px verdana, arial, helvetica, sans-serif;
+}
 
 /* Sets Caption Text - ol_captionfontclass */
-.overlib_captiontext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
+.overlib_captiontext {
+	background: transparent url(images/shader.png) repeat;
+	/*background-color: #2E2D2B;*/
+	font-weight: bold;
+	font-size: 11px;
+}
 
 /* Sets Close Text - ol_closefontclass */
-.overlib_closetext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
+.overlib_closetext {
+	background: transparent url(images/shader.png) repeat;
+	/*background-color: #2E2D2B;*/
+	font-weight: bold;
+	font-size: 11px;
+}
+
+/* Sets main text background - ol_fgclass */
+.overlib_fg { padding: 0 2px 1px 2px; }
+
+/* Sets main text style - ol_textfontclass */
+.overlib_maintext {
+	white-space: normal;
+}
+
 
 
 /**

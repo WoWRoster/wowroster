@@ -73,6 +73,6 @@ $(function() {
 	});
 
 	// Make overlib tooltips transparent
-	setOpacity('overDiv',8.5);
+	//setOpacity('overDiv',8.5);
 
 });
