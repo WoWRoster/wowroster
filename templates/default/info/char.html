@@ -266,67 +266,77 @@
 
 
 <!-- IF S_PET_TAB -->
-
-<!-- pets -->
-<div id="pets" class="pets" style="display:none;">
+<div id="pets" class="container pets" style="display:none;">
 
 <!-- IF S_PETS -->
-	<div class="container">
-		<div class="box-label"><div class="icon pets"></div><!-- TRANSLATE pets --></div>
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE pets --></div>
+
 <!-- BEGIN pet -->
-		<div class="pet shader" >
-			<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>
-			<div class="basics">
-				<div class="name">{pet.NAME}</div>
-				<div class="info"><!-- TRANSLATE level --> {pet.LEVEL} {pet.TYPE}</div>
-			</div>
-			<div class="powers">
-				<div class="bar">
-					<div class="power-bar health">{pet.HEALTH}</div>
-					<div class="power-name"><!-- TRANSLATE health -->:</div>
-				</div>
-				<div class="bar">
-					<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
-					<div class="power-name">{pet.L_POWER}:</div>
-				</div>
+				<div class="pet shader" >
+					<!--<div class="icon"><img class="icon" src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" /></div>-->
+
+					<div class="icon">
+						<img src="{INTERFACE_URL}Interface/Icons/{pet.ICON}.{IMG_SUFFIX}" alt="" />
+						<div class="mask"></div>
+					</div>
+
+					<div class="basics">
+						<div class="name">{pet.NAME}</div>
+						<div class="info"><!-- TRANSLATE level --> {pet.LEVEL} {pet.TYPE}</div>
+					</div>
+					<div class="powers">
+						<div class="bar">
+							<div class="power-bar health">{pet.HEALTH}</div>
+							<div class="power-name"><!-- TRANSLATE health -->:</div>
+						</div>
+						<div class="bar">
+							<div class="power-bar {pet.L_POWER}">{pet.POWER}</div>
+							<div class="power-name">{pet.L_POWER}:</div>
+						</div>
 <!-- IF pet.S_EXP -->
-				<div class="bar">
-					<div class="power-bar xp-bar">
-						<div class="fill" style="width: {pet.EXP_PERC}%;"></div>
-						<div class="text">{EXP_AMOUNT} / {EXP_MAX} ({EXP_PERC}%)</div>
-					</div>
-					<div class="power-name">EXP:</div>
-				</div>
+						<div class="bar">
+							<div class="power-bar xp-bar">
+								<div class="fill" style="width: {pet.EXP_PERC}%;"></div>
+								<div class="text">{EXP_AMOUNT} / {EXP_MAX} ({EXP_PERC}%)</div>
+							</div>
+							<div class="power-name">EXP:</div>
+						</div>
 <!-- ENDIF -->
-			</div>
-
-			<div class="resist">
-<!-- BEGIN resist -->
-				<div class="icon {pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
-<!-- END resist -->
-			</div>
-
-			<div class="padding">
-<!-- BEGIN box_stats -->
-				<div class="stats">
-<!-- BEGIN statline -->
-					<div class="statline" {pet.box_stats.statline.TOOLTIP}>
-						<span class="value">{pet.box_stats.statline.VALUE}</span>
-						<span class="label">{pet.box_stats.statline.NAME}:</span>
 					</div>
+
+					<div class="resist">
+<!-- BEGIN resist -->
+						<div class="icon {pet.resist.CLASS}" {pet.resist.TOOLTIP}><b>{pet.resist.VALUE}</b><span>{pet.resist.VALUE}</span></div>
+<!-- END resist -->
+					</div>
+
+					<div class="padding">
+<!-- BEGIN box_stats -->
+						<div class="stats">
+<!-- BEGIN statline -->
+							<div class="statline" {pet.box_stats.statline.TOOLTIP}>
+								<span class="value">{pet.box_stats.statline.VALUE}</span>
+								<span class="label">{pet.box_stats.statline.NAME}:</span>
+							</div>
 <!-- END statline -->
-				</div>
+						</div>
 <!-- END box_stats -->
-			</div>
+					</div>
 
 <!-- IF pet.TOTAL_TP -->
-			<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
+					<div class="trainingpts">{L_UNUSED_TRAINING}: {pet.UNUSED_TP} / {pet.TOTAL_TP}</div>
 <!-- ENDIF -->
-		</div>
+				</div>
 
 <!-- END pet -->
+			</div>
+		</div>
 	</div>
 <!-- ENDIF -->
+
 </div>
 <!-- ENDIF -->
 
@@ -396,8 +406,11 @@
 <!-- BEGIN bar -->
 						<div class="tier-3-a">
 							<div class="tier-3-b">
-								<div class="rep" {rep.bar.TOOLTIP}>
-									<div class="rep-name">{rep.bar.NAME}</div>
+								<div class="rep">
+									<div class="rep-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {rep.bar.TOOLTIP}></span>
+										{rep.bar.NAME}
+									</div>
 									<div class="rep-standing">{rep.bar.STANDING}</div>
 									<div class="rep-bar">
 										<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>

@@ -162,12 +162,12 @@
 .equip .epic { background: url(images/equip_epic.png) no-repeat left top; }
 .equip .legendary { background: url(images/equip_legendary.png) no-repeat left top; }
 
-.equip .none:hover { background-position: right top; }
-.equip .poor:hover { background-position: right top); }
-.equip .common:hover { background-position: right top; }
-.equip .uncommon:hover { background-position: right top; }
-.equip .rare:hover { background-position: right top; }
-.equip .epic:hover { background-position: right top; }
+.equip .none:hover,
+.equip .poor:hover,
+.equip .common:hover,
+.equip .uncommon:hover,
+.equip .rare:hover,
+.equip .epic:hover,
 .equip .legendary:hover { background-position: right top; }
 
 .equip .icon { position:absolute; clip: rect(2px 62px 62px 2px); width:64px; height:64px; cursor:pointer; left: 0; top: 0; z-index: 90; margin: 0; padding: 0; }
@@ -315,7 +315,7 @@
 .bonus-box .bonus-container .honorline3 {	position:absolute;	margin:100px 0 0 250px;	text-align:right;	width:50px;	font-size:13px;	color:#FFF;	font-weight:bold;	overflow:hidden;}
 
 /*********** Companion Page ***********/
-.main-panel .companions .container { padding: 0px 0px 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.main-panel .companions .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .companions .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
 
 .main-panel .companions .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
@@ -332,10 +332,14 @@
 
 
 /*********** Pet Page ***********/
-.main-panel .pets .container { padding: 0px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .pets .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.main-panel .pets .container { padding: 0; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
 .main-panel .pets .pet { height:80px; margin: 10px; position:relative; }
+
 .main-panel .pets .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
+.main-panel .pets .pet .icon img { position: absolute; clip: rect(2px 62px 62px 2px); width:64px; height:64px; cursor: pointer; left: 0; top: 0; z-index: 90; margin: 0; padding: 0; }
+.main-panel .pets .pet .icon .mask { position: absolute; width: 64px; height: 64px; z-index: 100; background: url(images/equip_button.png) no-repeat left top; }
+.main-panel .pets .pet .icon .mask:hover { background-position: right top; }
+
 .main-panel .pets .pet .basics { height: 64px; width: 200px; position:absolute; left: 75px; top: 6px; }
 .main-panel .pets .pet .basics .name { font: bold 18px/20px Geneva, Arial, Helvetica, sans-serif; text-transform: capitalize; color: #FFCC00; }
 
