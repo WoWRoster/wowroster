@@ -425,29 +425,29 @@ class char
 					//echo $name.'<br>';
 					if ( is_array($reagents) )
 					{
-					//Print_R($reagents);
+					//print_r($reagents);
 					//echo '<pre><br>';
 					foreach ($reagents as $reagent)
 					{
 						$dtr = explode(':', $reagent);
-						//Print_R($reagent);
+						//print_r($reagent);
 						//echo '<br>';
 						//echo $dtr[0].' -|- '.
 						//print_r($reagent_arr[$dtr[0]]);
 						//echo '<br><hr><br>';
 						if (empty($dtr[0]))
 						{
-						$roster->tpl->assign_block_vars('recipe.row.reagents',array(
-							'DATA' 		 => $reagent,
-							'ID' 		 => '000',
-							'NAME' 		 => 'Missing',
-							'ITEM_COLOR' => '000000',
-							'QUALITY'    => recipe::getQualityName('ffffff'),
-							'COUNT' 	 => '0',
-							'ICON' 		 => 'inv_misc_questionmark',
-							'TOOLTIP' 	 => makeOverlib('Missing data','','',0,$this->data['clientLocale'],',RIGHT'),
-							)
-						);
+							$roster->tpl->assign_block_vars('recipe.row.reagents',array(
+								'DATA' 		 => $reagent,
+								'ID' 		 => '000',
+								'NAME' 		 => 'Missing',
+								'ITEM_COLOR' => '000000',
+								'QUALITY'    => recipe::getQualityName('ffffff'),
+								'COUNT' 	 => '0',
+								'ICON' 		 => 'inv_misc_questionmark',
+								'TOOLTIP' 	 => makeOverlib('Missing data','','',0,$this->data['clientLocale'],',RIGHT'),
+								)
+							);
 						}
 						else
 						{
