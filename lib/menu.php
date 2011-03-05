@@ -34,7 +34,7 @@ class RosterMenu
 		define('ROSTER_MENU_INC',true);
 
 		$roster->tpl->assign_vars(array(
-			'MENU_LEFT'     => /*$this->makePane('menu_left')*/'',
+			'MENU_LEFT'     => $this->makePane('menu_left'),//'',
 			'MENU_RIGHT'    => /*$this->makePane('menu_right')*/'',
 			'S_MENU_BOTTOM' => false
 			)
@@ -144,13 +144,21 @@ class RosterMenu
 				{
 					$dat[$i]['name'] = ROSTER_MAXCHARLEVEL;
 				}
-				elseif( $i * 10 + 9 >= ROSTER_MAXCHARLEVEL )
+				elseif( $i * 10 + 9 >= ROSTER_MAXCHARLEVEL-1 )
 				{
 					$dat[$i]['name'] = ($i*10) . ' - ' . ROSTER_MAXCHARLEVEL;
 				}
 				else
 				{
-					$dat[$i]['name'] = ($i*10) . ' - ' . ($i*10+9);
+					if (($i*10)==0)
+					{
+						$num = 1;
+					}
+					else
+					{
+						$num = ($i*10);
+					}
+					$dat[$i]['name'] = $num . ' - ' . ($i*10+9);
 				}
 				$dat[$i]['alt'] = 0;
 				$dat[$i]['nonalt'] = 0;
