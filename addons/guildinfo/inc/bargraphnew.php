@@ -53,35 +53,71 @@ if( is_array($bar2sizes) && (count($bar2sizes) != count($barnames)) )
 	debugMode(__LINE__,'some secondary bar sizes were passed but the count doesn\'t match');
 }
 
+
+
+$barnames = array_reverse($barnames);
+$barsizes = array_reverse($barsizes);
+$bar2sizes = array_reverse ($bar2sizes);
+
+
 // Hardcoded options
-$w = 130;
-$h = 115;
+$w = 850;
+$h = 179;
 $font = ROSTER_BASE . 'fonts' . DIR_SEP . $roster->config[$side . '_text'];
 
 // calculate extra attributes
 $count = count($barnames);
 $colh = $h/$count;
-$offset = ($type == 'class') ? $colh : 0;
-$factor = ($w-$offset)/max($barsizes);
-$textheight = .7 * $colh;
-$textbase = .8 * $colh;
+$offset = '58';//($type == 'class') ? $colh : 0;
+$factor = ($h-$offset)/max($barsizes);
+$textheight = .6 * $colh;
+$textbase = .7 * $colh;
 $textoffset = $offset + .2 * $colh;
 
+//echo max($barsizes).'<br>';
+// ulms vars
+
+$tm=0;
+
+#get total members...
+for($i=0; $i<$count; $i++)
+{
+	$tm = ($tm+($barsizes[$i]+$bar2size[$i]));
+}
+
+
+
+#end total members
+
+
+$x1 = '58';
+$x2 = '77';
+$x3 = max($barsizes);
+$x4 = '41';
+$x5 = '36';
+$x6 = 58;
+$x7 = 78;
+// end ulms vars...
+
 // Initialize image
-$image = imagecreatetruecolor($w,$h);
-imagealphablending($image,false);
-$bgcolor = imagecolorallocatealpha($image,0,0,0,127);
-imagefilledrectangle($image,0,0,$w,$h,$bgcolor);
-imagealphablending($image,true);
+$image = ImageCreateFromJPEG(ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . 'class-bg.jpg');//imagecreatetruecolor($w,$h);
+//imagealphablending($image,false);
+//$bgcolor = imagecolorallocatealpha($image,0,0,0,127);
+//imagefilledrectangle($image,0,0,$w,$h,$bgcolor);
+//imagealphablending($image,true);
 
 // Initialize colors
 $barcolor = setColor($image,$roster->config[$side.'_barcolor']);
 $bar2color = setColor($image,$roster->config[$side.'_bar2color']);
 $textcolor = setColor($image,$roster->config[$side.'_textcolor']);
 
+
+
 // Draw bars
 for($i=0; $i<$count; $i++)
 {
+	$xxx=0;
+	$xxxx=0;
 	// Get icon
 	if( $type == 'class' )
 	{
@@ -96,23 +132,37 @@ for($i=0; $i<$count; $i++)
 		$thisbarcolor = $barcolor;
 		$thisbar2color = $bar2color;
 	}
-
-	// If there was an error $icon will be false, otherwise add the icon
 	if( $icon )
 	{
-		imagecopyresampled($image, $icon, 0, $colh * $i, 0, 0, $colh, $offset, 64, 64);
+		imagecopyresampled($image, $icon, $x6+1, 98, 0, 0, 40, 40, 64, 64);
 		imagedestroy($icon);
 	}
 
-	// Draw the bar
+	// If there was an error $icon will be false, otherwise add the icon
+		// Draw the bar
 	if( $barsizes[$i] > 0 )
 	{
-		imagefilledrectangle($image, $offset, $colh * $i, $offset+$barsizes[$i]*$factor, $colh * ($i+1) - 2, $thisbarcolor);
+		//echo $offset+$barsizes[$i]*$factor.'<br>';
+		//imagefilledrectangle($image, $offset, $colh * $i, $offset+$barsizes[$i]*$factor, 74, $thisbarcolor);
+		$xxx = FLOOR($barsizes[$i] / $x3 * 100 / 2);
+		//echo '{'.$xxx.'} - ';
+		if ($type=='class'){ $thisbarcolor= setColor($image, $roster->locale->act['class_colorArray'][$barnames[$i]]);}
+		imagefilledrectangle($image, $x6, 74-$xxx, $x6 + $x4, 74, $thisbarcolor);
+		
 	}
 	if( isset($bar2sizes[$i]) && $bar2sizes[$i] > 0 )
 	{
-		imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, $colh * ($i+.3), $thisbar2color);
+		//echo $offset+$barsizes[$i]*$factor.'<br>';
+		
+		$xxxx = FLOOR($bar2sizes[$i] / $x3 * 100 /2);
+		//echo '('.$xxxx . ') - ';
+		imagefilledrectangle($image, $x6, 74-$xxxx, $x6 + $x4/2, 74, $thisbar2color);
+		
+		
+		//imagefilledrectangle($image, $offset, $colh * $i, $offset+$bar2sizes[$i]*$factor, 74, $thisbar2color);
 	}
+	
+	$x6 = ($x6+77);
 }
 // Draw the labels
 // This is separate so the text is on top of the bars
@@ -129,14 +179,46 @@ for($i=0; $i<$count; $i++)
 
 	if( isset($font) )
 	{
+		$xyy = textAlignment( $font,$textheight,$barnames[$i],$x7,'center' );
+		$xxyy = textAlignment( $font,$textheight,$barsizes[$i],$x7,'center' );
+		
 		if( $roster->config[$side.'_outlinecolor'] != '' )
 		{
-			writeOutline($image,$textheight,$textoffset,$colh*$i+$textbase,$roster->config[$side.'_outlinecolor'],$font,$barnames[$i]);
+			writeOutline($image,$textheight,$xyy,95,$roster->config[$side.'_outlinecolor'],$font,$barnames[$i]);
+			writeOutline($image,$textheight,$xxyy,59,$roster->config[$side.'_outlinecolor'],$font,$barsizes[$i]);
 		}
-		imagettftext($image, $textheight, 0, $textoffset, $colh*$i+$textbase, $thistextcolor, $font, $barnames[$i]);
+		imagettftext($image, $textheight, 0, $xyy, 95, $thistextcolor, $font, $barnames[$i]);
+		imagettftext($image, $textheight, 0, $xxyy, 59, $thistextcolor, $font, $barsizes[$i]);
 	}
+	$x7 = ($x7+77);
 }
 
+
+
+function textAlignment( $font,$size,$text,$where,$align = 'left' )
+	{
+		$txtsize = @imageTTFBBox( $size,0,$font,$text )
+			or debugMode((__LINE__),$php_errormsg);		// Gets the points of the image coordinates
+
+		switch ($align)
+		{
+			case 'right':
+				$txt = $txtsize[2];
+				break;
+
+			case 'center':
+				$txt = $txtsize[2]/2;
+				break;
+
+			default:
+				$txt = 0;
+				break;
+		}
+		$txtloc = $where-$txt;	// Sets the x coordinate where to print the server name
+		return $txtloc;
+	}
+	
+	
 // Output image
 header('Content-type: image/png');
 imagealphablending( $image, false );
