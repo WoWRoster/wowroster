@@ -34,7 +34,7 @@ class RosterMenu
 		define('ROSTER_MENU_INC',true);
 
 		$roster->tpl->assign_vars(array(
-			'MENU_LEFT'     => $this->makePane('menu_left'),//'',
+			'MENU_LEFT'     => /*$this->makePane('menu_left'),*/'',
 			'MENU_RIGHT'    => /*$this->makePane('menu_right')*/'',
 			'S_MENU_BOTTOM' => false
 			)
