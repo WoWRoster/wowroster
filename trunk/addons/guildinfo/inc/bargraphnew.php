@@ -219,6 +219,9 @@ function textAlignment( $font,$size,$text,$where,$align = 'left' )
 	}
 	
 	
+	combineImage( $image,ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . 'class-bg.png',(__LINE__),0,0 );
+	
+	
 // Output image
 header('Content-type: image/png');
 imagealphablending( $image, false );
@@ -446,3 +449,38 @@ function writeOutline( $image , $size , $xpos , $ypos , $color , $font , $text ,
 		}
 	}
 }
+function combineImage( $image,$filename,$line,$x_loc,$y_loc )
+	{
+		$info = getimagesize($filename);
+
+		switch( $info['mime'] )
+		{
+			case 'image/jpeg' :
+				$im_temp = @imagecreatefromjpeg($filename);
+				break;
+
+			case 'image/png' :
+				$im_temp = @imagecreatefrompng($filename);
+				break;
+
+			case 'image/gif' :
+				$im_temp = @imagecreatefromgif($filename);
+				break;
+
+			default:
+			break;
+		}
+
+		// Get the image dimentions
+		$im_temp_width = imageSX( $im_temp );
+		$im_temp_height = imageSY( $im_temp );
+
+		// Copy created image into main image
+		@imagecopy( $image,$im_temp,$x_loc,$y_loc,0,0,$im_temp_width,$im_temp_height );
+
+		// Destroy the temp image
+		if( isset($im_temp) )
+		{
+			@imageDestroy( $im_temp );
+		}
+	}
