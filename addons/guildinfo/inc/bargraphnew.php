@@ -14,7 +14,7 @@
 */
 
 define('IN_ROSTER',true);
-include('../../settings.php');
+include('../../../settings.php');
 
 // Parameter fetching and checking
 $barnames = isset($_GET['barnames'])?$_GET['barnames']:false;
@@ -100,7 +100,7 @@ $x7 = 78;
 // end ulms vars...
 
 // Initialize image
-$image = ImageCreateFromJPEG(ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . 'class-bg.jpg');//imagecreatetruecolor($w,$h);
+$image = ImageCreateFromPNG(ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . 'class-bg.png');//imagecreatetruecolor($w,$h);
 //imagealphablending($image,false);
 //$bgcolor = imagecolorallocatealpha($image,0,0,0,127);
 //imagefilledrectangle($image,0,0,$w,$h,$bgcolor);
