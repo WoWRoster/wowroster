@@ -510,18 +510,18 @@ class char
 
 					$mail_money['c'] = $db_money % 100;
 					$db_money = floor( $db_money / 100 );
-					$money_included = $mail_money['c'] . '<img src="' . $roster->config['img_url'] . 'coin_copper.gif" alt="c" />';
+					$money_included = $mail_money['c'] . '<img src="' . $roster->config['img_url'] . 'coin_copper.png" alt="c" />';
 
 					if( !empty($db_money) )
 					{
 						$mail_money['s'] = $db_money % 100;
 						$db_money = floor( $db_money / 100 );
-						$money_included = $mail_money['s'] . '<img src="' . $roster->config['img_url'] . 'coin_silver.gif" alt="s" /> ' . $money_included;
+						$money_included = $mail_money['s'] . '<img src="' . $roster->config['img_url'] . 'coin_silver.png" alt="s" /> ' . $money_included;
 					}
 					if( !empty($db_money) )
 					{
 						$mail_money['g'] = $db_money;
-						$money_included = $mail_money['g'] . '<img src="' . $roster->config['img_url'] . 'coin_gold.gif" alt="g" /> ' . $money_included;
+						$money_included = $mail_money['g'] . '<img src="' . $roster->config['img_url'] . 'coin_gold.png" alt="g" /> ' . $money_included;
 					}
 				}
 

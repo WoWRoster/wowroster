@@ -164,9 +164,9 @@
 
 <!-- IF S_MONEY -->
 								<div class="money shader">
-									<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.gif" class="coin" alt="g" /></div><!-- ENDIF -->
-									<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.gif" class="coin" alt="s" /></div><!-- ENDIF -->
-									<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.gif" class="coin" alt="c" /></div><!-- ENDIF -->
+									<!-- IF MONEY_G --><div>{MONEY_G}<img src="{IMG_URL}coin_gold.png" class="coin" alt="g" /></div><!-- ENDIF -->
+									<!-- IF MONEY_S --><div>{MONEY_S}<img src="{IMG_URL}coin_silver.png" class="coin" alt="s" /></div><!-- ENDIF -->
+									<!-- IF MONEY_C --><div>{MONEY_C}<img src="{IMG_URL}coin_copper.png" class="coin" alt="c" /></div><!-- ENDIF -->
 								</div>
 <!-- ENDIF -->
 								<div class="statselect_l">
@@ -642,7 +642,16 @@
 	<div class="tier-1-a">
 		<div class="tier-1-b">
 			<div class="tier-1-c">
-				<div class="tier-1-title"><!-- TRANSLATE currency --></div>
+				<div class="tier-1-title">
+<!-- IF S_MONEY -->
+					<div class="right">
+						<!-- IF MONEY_G --> {MONEY_G}<img src="{IMG_URL}coin_gold.png" alt="g" /><!-- ENDIF -->
+						<!-- IF MONEY_S --> {MONEY_S}<img src="{IMG_URL}coin_silver.png" alt="s" /><!-- ENDIF -->
+						<!-- IF MONEY_C --> {MONEY_C}<img src="{IMG_URL}coin_copper.png" alt="c" /><!-- ENDIF -->
+					</div>
+<!-- ENDIF -->
+					<!-- TRANSLATE currency -->
+				</div>
 
 <!-- BEGIN currency -->
 				<div class="tier-2-a">
@@ -653,7 +662,7 @@
 							<div class="tier-5-a">
 								<div class="tier-5-b">
 									<div class="text">
-										<div class="item-sm" style="margin: 0 1px;" {currency.item.TOOLTIP}>
+										<div class="item-sm" style="margin-right: 5px;" {currency.item.TOOLTIP}>
 											<img src="{INTERFACE_URL}Interface/Icons/{currency.item.ICON}.{IMG_SUFFIX}" alt="" />
 											<div class="mask"></div>
 <!-- IF currency.item.COUNT gt 1 -->
