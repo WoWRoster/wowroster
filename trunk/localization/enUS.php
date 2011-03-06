@@ -110,7 +110,7 @@ $lang['upgrade_complete'] = 'Your WoWRoster installation has been successfully u
 $lang['menu_header_scope_panel'] = '%s Panel';
 
 $lang['menu_totals'] = 'Total: %1$s (+%2$s Alts)';
-$lang['menu_totals_level'] = ' At least L%1$s';
+$lang['menu_totals_level'] = ' at least L%1$s';
 
 // Updating Instructions
 $lang['index_text_uniloader'] = '(You can download the program from the WoWRoster website, look for the UniUploader Installer for the latest version)';
@@ -1101,7 +1101,7 @@ $lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main
 $lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
 $lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br /><br />To turn this off, look in the Menu section';
 $lang['admin']['data_links'] = 'Data Links|External links';
-$lang['admin']['update_access'] = 'Update Access|Set access levels for rostercp components';
+$lang['admin']['update_access'] = 'Update Access|Set access levels for RosterCP components';
 
 $lang['admin']['documentation'] = 'Documentation|WoWRoster Documentation via the wowroster.net wiki';
 
@@ -1136,31 +1136,9 @@ $lang['admin']['alt_type'] = "Alt-Text Search|Text used to designate alts for di
 $lang['admin']['alt_location'] = "Alt-Search Field|Search location, what field to search for Alt-Text<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 
 // menu_conf
-$lang['admin']['menu_conf_left'] = "Left pane|";
-$lang['admin']['menu_conf_right'] = "Right pane|";
-
 $lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, last update, etc...";
 $lang['admin']['menu_top_faction'] = "Faction Icon|Controls display of the faction icon in the top pane of the main roster menu";
 $lang['admin']['menu_top_locale'] = "Locale Selection|Controls display of the locale selection in the top pane of the main roster menu";
-
-$lang['admin']['menu_left_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
-$lang['admin']['menu_left_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
-$lang['admin']['menu_left_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
-$lang['admin']['menu_left_barcolor'] = "Bar color|The color for the bar showing the number of characters of this level group/class";
-$lang['admin']['menu_left_bar2color'] = "Bar 2 color|The color for the bar showing the number of alts of this level group/class";
-$lang['admin']['menu_left_textcolor'] = "Text color|The color for the level/class group labels (class graph uses class colors for labels)";
-$lang['admin']['menu_left_outlinecolor'] = "Text Outline color|The outline color for the level/class group labels<br />Clear this box to turn the outline off";
-$lang['admin']['menu_left_text'] = "Text Font|The font for the level/class group labels";
-
-$lang['admin']['menu_right_type'] = "Display type|Decide whether to show a level overview, a class overview, the realm status, or nothing at all";
-$lang['admin']['menu_right_level'] = "Minimum level|Minimum level for characters to be included in the level/class overview";
-$lang['admin']['menu_right_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
-$lang['admin']['menu_right_barcolor'] = "Bar color|The color for the bar showing the number of characters of this level group/class";
-$lang['admin']['menu_right_bar2color'] = "Bar 2 color|The color for the bar showing the number of alts of this level group/class";
-$lang['admin']['menu_right_textcolor'] = "Text color|The color for the level/class group labels (class graph uses class colors for labels)";
-$lang['admin']['menu_right_outlinecolor'] = "Text Outline color|The outline color for the level/class group labels<br />Clear this box to turn the outline off";
-$lang['admin']['menu_right_text'] = "Text font|The font for the level/class group labels";
-
 $lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom pane of the main roster menu<br />This area holds the search box";
 
 // display_conf

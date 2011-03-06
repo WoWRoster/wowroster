@@ -122,7 +122,7 @@ CREATE TABLE `renprefix_quests` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### Recipe Regent Data 
+### Recipe Regent Data
 
 DROP TABLE IF EXISTS `renprefix_recipes_reagents`;
 CREATE TABLE IF NOT EXISTS `renprefix_recipes_reagents` (
@@ -372,17 +372,48 @@ ADD `guild_xp` varchar(32) NULL default '' AFTER `guild_num_accounts`,
 ADD `guild_xpcap` varchar(32) NULL default '',
 ADD `guild_level` varchar(32) NULL default '';
 
-  
+
+
+
 # --------------------------------------------------------
 ### Config Table Updates
 
 # Update Documents link
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;
-INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
+
 # Update CP versions
-UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1010;
-UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1020;
-UPDATE `renprefix_config` SET `form_type` =  'radio{full^full|half^half' WHERE `id` = 8100;
+UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1010 LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1020 LIMIT 1;
+
+# Change realmstatus options
+UPDATE `renprefix_config` SET `form_type` = 'radio{off^0|full^full|half^half' WHERE `id` = 8100 LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/downloads/?mcat=2' WHERE `id` = 6120 LIMIT 1;
+
+# Add update instruction control
+INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
+
+# Remove all of the menu block display settings, they are in GuildInfo now
+DELETE FROM `renprefix_config` WHERE `id` = '4001' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4002' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4003' LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = '4200' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4210' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4220' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4230' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4240' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4250' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4260' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4270' LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = '4300' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4310' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4320' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4330' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4340' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4350' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4360' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4370' LIMIT 1;
 
 # --------------------------------------------------------
 ### Menu Updates

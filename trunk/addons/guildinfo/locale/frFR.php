@@ -48,3 +48,41 @@ $lang['weekday'] = array(
 	'6' => 'FRI',
 	'7' => 'SAT'
 );
+
+$lang['admin']['guildinfo_conf'] = 'GuildInfo|General configuration options';
+$lang['admin']['guildinfo_graph'] = "Info Graphs";
+
+$lang['admin']['guildinfo_access'] = "Access Control";
+//$lang['admin'][''] = "";
+
+
+$lang['admin']['graph_level'] = "Level Data";
+$lang['admin']['graph_class'] = "Class Data";
+
+$lang['admin']['graph_level_display'] = "Enable|Turn the level graph on or off";
+$lang['admin']['graph_level_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
+$lang['admin']['graph_level_level'] = "Minimum level|Minimum level for characters to be included in the level overview";
+$lang['admin']['graph_level_bar_color'] = "Bar color|The color for the bar showing the number of characters for each level group";
+$lang['admin']['graph_level_bar2_color'] = "Bar 2 color|The color for the bar showing the number of alts for each level group";
+$lang['admin']['graph_level_font'] = "Text Font|The font for the level group labels";
+$lang['admin']['graph_level_font_size'] = "Text font size|The font size for the level group labels";
+$lang['admin']['graph_level_font_color'] = "Text color|The color for the level group labels";
+$lang['admin']['graph_level_outline'] = "Text outline color|The outline color for the level group labels<br />Clear this box to turn the outline off";
+$lang['admin']['graph_level_foot_font'] = "Footer Font|The font for the footer text";
+$lang['admin']['graph_level_foot_size'] = "Footer font size|The font size for the level group labels";
+$lang['admin']['graph_level_foot_color'] = "Footer color|The color for the footer text";
+$lang['admin']['graph_level_foot_outline'] = "Footer outline color|The outline color for the footer text<br />Clear this box to turn the outline off";
+
+$lang['admin']['graph_class_display'] = "Enable|Turn the class graph on or off";
+$lang['admin']['graph_class_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
+$lang['admin']['graph_class_level'] = "Minimum level|Minimum level for characters to be included in the class overview";
+$lang['admin']['graph_class_bar_color'] = "Override bar color|The color for the bar showing the number of characters for each class group<br />Leave blank to use class colors";
+$lang['admin']['graph_class_bar2_color'] = "Bar 2 color|The color for the bar showing the number of alts for each class group";
+$lang['admin']['graph_class_font'] = "Text Font|The font for the level class labels";
+$lang['admin']['graph_class_font_size'] = "Text font size|The font size for the class group labels";
+$lang['admin']['graph_class_font_color'] = "Override text color|Overrides the color for the class labels<br />Leave blank to use class colors";
+$lang['admin']['graph_class_outline'] = "Text outline color|The outline color for the class group labels<br />Clear this box to turn the outline off";
+$lang['admin']['graph_class_foot_font'] = "Footer Font|The font for the footer text";
+$lang['admin']['graph_class_foot_size'] = "Footer font size|The font size for the level group labels";
+$lang['admin']['graph_class_foot_color'] = "Footer color|The color for the footer text";
+$lang['admin']['graph_class_foot_outline'] = "Footer outline color|The outline color for the footer text<br />Clear this box to turn the outline off";

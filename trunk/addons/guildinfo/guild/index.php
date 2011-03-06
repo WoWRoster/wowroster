@@ -2,15 +2,14 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Displays the guild information text
- *
+ * Displays guild information
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
  * @link       http://www.wowroster.net
  * @package    GuildInfo
-*/
+ */
 
 if( !defined('IN_ROSTER') )
 {
@@ -18,6 +17,12 @@ if( !defined('IN_ROSTER') )
 }
 
 $roster->output['title'] = $roster->locale->act['guildinfo'];
+
+if( !$roster->auth->getAuthorized($addon['config']['guildinfo_access']) )
+{
+	echo $roster->auth->getLoginForm($addon['config']['guildinfo_access']);
+	return; //To the addon framework
+}
 
 $guild_info_text = empty($roster->data['guild_info_text']) ? '&nbsp;' : $roster->data['guild_info_text'];
 
@@ -94,12 +99,24 @@ if( $roster->db->num_rows($resultb) > 0 )
 _renderxpBar($gxp[0], $gxp[1], 'normal');
 _renderxpBar($gxpc[0], $gxpc[1], 'rested');
 
+// Make the bar graphs
+$graph = '';
+if( $addon['config']['graph_level_display'] == 1 )
+{
+	$graph .= makeGraph('level', $addon['config']['graph_level_level'], $addon['config']['graph_level_style']);
+}
+if( $addon['config']['graph_class_display'] == 1 )
+{
+	$graph .= makeGraph('class', $addon['config']['graph_class_level'], $addon['config']['graph_class_style']);
+}
+
 $roster->tpl->assign_vars(array(
+	'L_MEMBER_ACHIEVEMENTS' => $roster->locale->act['NEWS_FILTER']['2'],
 	'TITLE' => '',
 	'NEXT' => '',
 	'LEVEL' => $roster->data['guild_level'],
 	'INFO' => $guild_info_text,
-	'GRAPH' => makePane( 'menu_left' ),
+	'GRAPH' => $graph
 	)
 );
 
@@ -178,223 +195,223 @@ function _renderxpBar($step, $total, $txt)
 }
 
 
-
-
 /**
-	 * Builds either of the side panes.
-	 *
-	 * @param string kind of (a) pane to build...lol
-	 */
-	function makePane( $side )
+ * Make level/class distribution list
+ *
+ * @param string $type
+ *		'level' for level list
+ *		'class' for class list
+ * @param int $level
+ *		minimum level to display
+ * @param string $style
+ *		'list' for text list
+ *		'bar' for bargraph
+ *		'barlog' for logarithmic bargraph
+ */
+function makeGraph( $type , $level , $style )
+{
+	global $roster, $addon;
+
+	// Initialize data array
+	$dat = array();
+	if( $type == 'level' )
 	{
-		global $roster;
-
-		switch( $roster->config[$side . '_type'] )
+		for( $i=floor(ROSTER_MAXCHARLEVEL/10); $i>=floor($level/10); $i-- )
 		{
-			case 'level':
-			case 'class':
-				$pane = makeList($roster->config[$side . '_type'], $roster->config[$side . '_level'], $roster->config[$side . '_style'], $side);
-				break;
-
-			case 'realm':
-				$pane = makeRealmStatus();
-				break;
-
-			default:
-				$pane = '';
-				break;
-		}
-
-		return $pane;
-	}
-
-	/**
-	 * Make level/class distribution list
-	 *
-	 * @param string $type
-	 *		'level' for level list
-	 *		'class' for class list
-	 * @param int $level
-	 *		minimum level to display
-	 * @param string $style
-	 *		'list' for text list
-	 *		'bar' for bargraph
-	 *		'barlog' for logarithmic bargraph
-	 * @param string $side
-	 *		side this is appearing on, for the image to get the colors
-	 */
-	function makeList( $type , $level , $style , $side )
-	{
-		global $roster, $addon;
-
-		// Figure out the scope and limit accordingly.
-		switch( $roster->scope )
-		{
-			case 'guild':
-				// Restrict on the selected guild
-				$where = "AND `guild_id` = '" . $roster->data['guild_id'] . "' ";
-				break;
-
-			case 'char':
-				// Restrict on this char's guild
-				$where = "AND `guild_id` = '" . $roster->data['guild_id'] . "' ";
-				break;
-
-			default:
-				// util/pages uses all entries
-				$where = '';
-				break;
-		}
-
-		// Initialize data array
-		$dat = array();
-		if( $type == 'level' )
-		{
-			for( $i=floor(ROSTER_MAXCHARLEVEL/10); $i>=floor($level/10); $i-- )
+			if( $i * 10 == ROSTER_MAXCHARLEVEL )
 			{
-				if( $i * 10 == ROSTER_MAXCHARLEVEL )
-				{
-					$dat[$i]['name'] = ROSTER_MAXCHARLEVEL;
-				}
-				elseif( $i * 10 + 9 >= ROSTER_MAXCHARLEVEL-1 )
-				{
-					$dat[$i]['name'] = ($i*10) . ' - ' . ROSTER_MAXCHARLEVEL;
-				}
-				else
-				{
-					if (($i*10)==0)
-					{
-						$num = 1;
-					}
-					else
-					{
-						$num = ($i*10);
-					}
-					$dat[$i]['name'] = $num . ' - ' . ($i*10+9);
-				}
-				$dat[$i]['alt'] = 0;
-				$dat[$i]['nonalt'] = 0;
+				$dat[$i]['name'] = ROSTER_MAXCHARLEVEL;
 			}
-
-			$qrypart = "FLOOR(`level`/10)";
-		}
-		elseif( $type == 'class' )
-		{
-			foreach($roster->locale->act['id_to_class'] as $class_id => $class)
+			elseif( $i * 10 + 9 >= ROSTER_MAXCHARLEVEL-1 )
 			{
-				$dat[$class_id]['name'] = $class;
-				$dat[$class_id]['alt'] = 0;
-				$dat[$class_id]['nonalt'] = 0;
-			}
-
-			$qrypart = "`classid`";
-		}
-		else
-		{
-			die_quietly('Invalid list type','Menu Sidepane error',__FILE__,__LINE__);
-		}
-		$num_alts = $num_non_alts = 0;
-
-		// Build query
-		$query  = "SELECT count(`member_id`) AS `amount`, ";
-
-		if( empty( $roster->config['alt_location'] ) || empty( $roster->config['alt_type'] ) )
-		{
-			$query .= "0 AS isalt, ";
-		}
-		else
-		{
-			$query .= "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
-		}
-
-		$query .= $qrypart . " AS label "
-			. "FROM `" . $roster->db->table('members') . "` "
-			. "WHERE `level` >= $level "
-			. $where
-			. "GROUP BY isalt, label;";
-
-		$result = $roster->db->query($query);
-
-		if( !$result )
-		{
-			die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$query);
-		}
-
-		// Fetch results
-		while( $row = $roster->db->fetch($result) )
-		{
-			$label = $row['label'];
-
-			if( $row['isalt'] )
-			{
-				$num_alts += $row['amount'];
-				$dat[$label]['alt'] += $row['amount'];
+				$dat[$i]['name'] = ($i*10) . ' - ' . ROSTER_MAXCHARLEVEL;
 			}
 			else
 			{
-				$num_non_alts += $row['amount'];
-				$dat[$label]['nonalt'] += $row['amount'];
+				if (($i*10)==0)
+				{
+					$num = 1;
+				}
+				else
+				{
+					$num = ($i*10);
+				}
+				$dat[$i]['name'] = $num . ' - ' . ($i*10+9);
 			}
-		}
-		//aprint($dat);die();
-
-		// No entries at all? Then there's no data uploaded, so there's no use
-		// rendering the panel.
-		if( $num_alts + $num_non_alts == 0 )
-		{
-			return '';
+			$dat[$i]['alt'] = 0;
+			$dat[$i]['nonalt'] = 0;
 		}
 
-		$text = sprintf($roster->locale->act['menu_totals'], $num_non_alts, $num_alts) . ($level>0 ? sprintf($roster->locale->act['menu_totals_level'], $level) : '');
-		$output = '';
-
-		if( $style == 'bar' )
+		$qrypart = "FLOOR(`level`/10)";
+	}
+	elseif( $type == 'class' )
+	{
+		foreach($roster->locale->act['id_to_class'] as $class_id => $class)
 		{
-			$req = 'inc/bargraphnew.php?';
-			$i = 0;
-			foreach( $dat as $bar )
-			{
-				$req .= 'barnames[' . $i . ']=' . urlencode($bar['name']) . '&amp;';
-				$req .= 'barsizes[' . $i . ']=' . ($bar['alt']+$bar['nonalt']) . '&amp;';
-				$req .= 'bar2sizes[' . $i . ']=' . $bar['alt'] . '&amp;';
-				$i++;
-			}
-			$req .= 'type=' . $type . '&amp;side=' . $side;
-			$req = str_replace(' ','%20',$req);
-
-			$output .= '<img src="' . $addon['url'] . $req . '" alt="" />';
+			$dat[$class_id]['name'] = $class;
+			$dat[$class_id]['alt'] = 0;
+			$dat[$class_id]['nonalt'] = 0;
 		}
-		elseif( $style == 'barlog' )
-		{
-			$req = 'inc/bargraphnew.php?';
-			$i = 0;
-			foreach( $dat as $bar )
-			{
-				$req .= 'barnames[' . $i . ']=' . urlencode($bar['name']) . '&amp;';
-				$req .= 'barsizes[' . $i . ']=' . (($bar['alt']+$bar['nonalt']==0) ? -1 : log($bar['alt']+$bar['nonalt'])) . '&amp;';
-				$req .= 'bar2sizes[' . $i . ']=' . (($bar['alt']==0) ? -1 : log($bar['alt'])) . '&amp;';
-				$i++;
-			}
-			$req .= 'type=' . $type . '&amp;side=' . $side;
 
-			$output .= '<img src="' . $addon['url'] . $req . '" alt="" />';
+		$qrypart = "`classid`";
+	}
+	else
+	{
+		$roster->set_message('Invalid list type', 'GuildInfo graph error', 'error');
+		return;
+	}
+	$num_alts = $num_non_alts = 0;
+
+	// Build query
+	$query  = "SELECT count(`member_id`) AS `amount`, ";
+
+	if( empty( $roster->config['alt_location'] ) || empty( $roster->config['alt_type'] ) )
+	{
+		$query .= "0 AS isalt, ";
+	}
+	else
+	{
+		$query .= "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
+	}
+
+	$query .= $qrypart . " AS label "
+		. "FROM `" . $roster->db->table('members') . "` "
+		. "WHERE `level` >= $level "
+		. "AND `guild_id` = '" . $roster->data['guild_id'] . "' "
+		. "GROUP BY isalt, label;";
+
+	$result = $roster->db->query($query);
+
+	if( !$result )
+	{
+		$roster->set_message($roster->db->error(), 'Database Error', 'error');
+		return;
+	}
+
+	// Fetch results
+	while( $row = $roster->db->fetch($result) )
+	{
+		$label = $row['label'];
+
+		if( $row['isalt'] )
+		{
+			$num_alts += $row['amount'];
+			$dat[$label]['alt'] += $row['amount'];
 		}
 		else
 		{
-			$output .= "<ul>\n";
-
-			foreach( $dat as $line )
-			{
-				$output .= '<li>';
-				$output .= $line['name'] . ': ' . $line['nonalt'] . ' (+' . $line['alt'] . " Alts)</li>\n";
-			}
-			$output .= '</ul>';
+			$num_non_alts += $row['amount'];
+			$dat[$label]['nonalt'] += $row['amount'];
 		}
-		$output .= "<br />$text\n";
-
-		return $output;
 	}
-	
-	
-	
-	
+	//aprint($dat);die();
+
+	// No entries at all? Then there's no data uploaded, so there's no use
+	// rendering the panel.
+	if( $num_alts + $num_non_alts == 0 )
+	{
+		return '';
+	}
+
+	$text = sprintf($roster->locale->act['menu_totals'], $num_non_alts, $num_alts) . ($level>0 ? sprintf($roster->locale->act['menu_totals_level'], $level) : '');
+	$text = str_replace('+', '%2B', $text);
+	$output = '';
+
+	if( $style == 'bar' )
+	{
+		$req = array(
+			'type'   => $type,
+			'text'   => array(
+				'font'    => $addon['config']['graph_' . $type . '_font'],
+				'size'    => $addon['config']['graph_' . $type . '_font_size'],
+				'color'   => $addon['config']['graph_' . $type . '_font_color'],
+				'outline' => $addon['config']['graph_' . $type . '_outline']
+			),
+			'footer' => array(
+				'text'    => $text,
+				'font'    => $addon['config']['graph_' . $type . '_foot_font'],
+				'size'    => $addon['config']['graph_' . $type . '_foot_size'],
+				'color'   => $addon['config']['graph_' . $type . '_foot_color'],
+				'outline' => $addon['config']['graph_' . $type . '_foot_outline']
+			),
+			'bar' => array(
+				'color' => $addon['config']['graph_' . $type . '_bar_color'],
+				'names' => array(),
+				'sizes'  => array()
+			),
+			'bar2' => array(
+				'color' => $addon['config']['graph_' . $type . '_bar2_color'],
+				'sizes'  => array()
+			)
+		);
+
+		$i = 0;
+		foreach( $dat as $bar )
+		{
+			$req['bar']['names'][$i] = urlencode($bar['name']);
+			$req['bar']['sizes'][$i] = ($bar['alt'] + $bar['nonalt']);
+			$req['bar2']['sizes'][$i] = $bar['alt'];
+			$i++;
+		}
+		$req = 'inc/bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
+
+		$output .= '<img class="info-graph" src="' . $addon['url'] . $req . '" alt="" />';
+	}
+	elseif( $style == 'barlog' )
+	{
+		$req = array(
+			'type'   => $type,
+			'text'   => array(
+				'font'    => $addon['config']['graph_' . $type . '_font'],
+				'size'    => $addon['config']['graph_' . $type . '_font_size'],
+				'color'   => $addon['config']['graph_' . $type . '_font_color'],
+				'outline' => $addon['config']['graph_' . $type . '_outline']
+			),
+			'footer' => array(
+				'text'    => $text,
+				'font'    => $addon['config']['graph_' . $type . '_foot_font'],
+				'size'    => $addon['config']['graph_' . $type . '_foot_size'],
+				'color'   => $addon['config']['graph_' . $type . '_foot_color'],
+				'outline' => $addon['config']['graph_' . $type . '_foot_outline']
+			),
+			'bar' => array(
+				'color' => $addon['config']['graph_' . $type . '_bar_color'],
+				'names' => array(),
+				'sizes'  => array()
+			),
+			'bar2' => array(
+				'color' => $addon['config']['graph_' . $type . '_bar2_color'],
+				'sizes'  => array()
+			)
+		);
+
+		$i = 0;
+		foreach( $dat as $bar )
+		{
+			$req['bar']['names'][$i] = urlencode($bar['name']);
+			$req['bar']['sizes'][$i] = (($bar['alt'] + $bar['nonalt'] == 0) ? -1 : log($bar['alt'] + $bar['nonalt']));
+			$req['bar2']['sizes'][$i] = (($bar['alt'] == 0) ? -1 : log($bar['alt']));
+			$i++;
+		}
+
+		$req = 'inc/bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
+		$output .= '<img class="info-graph" src="' . $addon['url'] . $req . '" alt="" />';
+	}
+	else
+	{
+		$output .= '<ul class="' . $type . '-list">' . "\n";
+
+		foreach( $dat as $line )
+		{
+			$output .= '<li>';
+			$output .= $line['name'] . ': ' . $line['nonalt'] . ' (+' . $line['alt'] . " Alts)</li>\n";
+		}
+		$output .= '</ul>';
+	}
+
+	return $output;
+}
+
+
+
+

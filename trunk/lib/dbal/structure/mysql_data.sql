@@ -61,32 +61,11 @@ INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Pla
 ### Roster Menu Settings
 
 INSERT INTO `renprefix_config` VALUES (4000, 'menu_conf_top', NULL, 'blockframe', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4001, 'menu_conf_wide', NULL, 'page{2', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4002, 'menu_conf_left', NULL, 'blockframe', 'menu_conf_wide');
-INSERT INTO `renprefix_config` VALUES (4003, 'menu_conf_right', NULL, 'blockframe', 'menu_conf_wide');
 INSERT INTO `renprefix_config` VALUES (4004, 'menu_conf_bottom', NULL, 'blockframe', 'menu_conf');
 
 INSERT INTO `renprefix_config` VALUES (4100, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf_top');
 INSERT INTO `renprefix_config` VALUES (4110, 'menu_top_faction', '1', 'radio{on^1|off^0', 'menu_conf_top');
 INSERT INTO `renprefix_config` VALUES (4120, 'menu_top_locale', '1', 'radio{on^1|off^0', 'menu_conf_top');
-
-INSERT INTO `renprefix_config` VALUES (4200, 'menu_left_type', 'level', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_left');
-INSERT INTO `renprefix_config` VALUES (4210, 'menu_left_level', '30', 'text{2|10', 'menu_conf_left');
-INSERT INTO `renprefix_config` VALUES (4220, 'menu_left_style', 'list', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'menu_conf_left');
-INSERT INTO `renprefix_config` VALUES (4230, 'menu_left_barcolor', '#3e0000', 'color', 'menu_conf_left');
-INSERT INTO `renprefix_config` VALUES (4240, 'menu_left_bar2color', '#003e00', 'color', 'menu_conf_left');
-INSERT INTO `renprefix_config` VALUES (4250, 'menu_left_textcolor', '#ffffff', 'color', 'menu_conf_left');
-INSERT INTO `renprefix_config` VALUES (4260, 'menu_left_outlinecolor', '#000000', 'color', 'menu_conf_left');
-INSERT INTO `renprefix_config` VALUES (4270, 'menu_left_text', 'VERANDA.TTF', 'function{fontFiles', 'menu_conf_left');
-
-INSERT INTO `renprefix_config` VALUES (4300, 'menu_right_type', 'realm', 'select{Hide^|Levels^level|Class^class|Realmstatus^realm', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4310, 'menu_right_level', '60', 'text{2|10', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4320, 'menu_right_style', 'list', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4330, 'menu_right_barcolor', '#3e0000', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4340, 'menu_right_bar2color', '#003e00', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4350, 'menu_right_textcolor', '#ffffff', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4360, 'menu_right_outlinecolor', '#000000', 'color', 'menu_conf_right');
-INSERT INTO `renprefix_config` VALUES (4370, 'menu_right_text', 'VERANDA.TTF', 'function{fontFiles', 'menu_conf_right');
 
 INSERT INTO `renprefix_config` VALUES (4400, 'menu_bottom_pane', '1', 'radio{on^1|off^0', 'menu_conf_bottom');
 
@@ -104,7 +83,7 @@ INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off
 ### Links Settings
 
 INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|30', 'data_links');
-INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/Downloads/c=2.html', 'text{128|30', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/downloads/?mcat=2', 'text{128|30', 'data_links');
 
 # --------------------------------------------------------
 ### Realmstatus Settings
@@ -115,7 +94,7 @@ INSERT INTO `renprefix_config` VALUES (8030, 'rs_left', NULL, 'blockframe', 'rs_
 INSERT INTO `renprefix_config` VALUES (8040, 'rs_middle', NULL, 'blockframe', 'rs_wide');
 INSERT INTO `renprefix_config` VALUES (8050, 'rs_right', NULL, 'blockframe', 'rs_wide');
 
-INSERT INTO `renprefix_config` VALUES (8100, 'rs_display', 'full', 'radio{full^full|half^half', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8100, 'rs_display', 'full', 'radio{off^0|full^full|half^half', 'rs_top');
 INSERT INTO `renprefix_config` VALUES (8110, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'rs_top');
 INSERT INTO `renprefix_config` VALUES (8120, 'rs_timer', '10', 'text{5|5', 'rs_top');
 

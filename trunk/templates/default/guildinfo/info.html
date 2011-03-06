@@ -10,12 +10,12 @@
 </div>
 
 <div class="main-panel" align="left">
-	<div class="container profile">
-	
+	<div class="container profile guild-info">
+
 		<div class="tier-1-a">
 			<div class="tier-1-b">
 				<div class="tier-1-c">
-	
+
 					<div class="tier-1-title">
 						<div class="right">
 <!-- BEGIN p_bar -->
@@ -30,80 +30,84 @@
 						<div class="left"><!-- TRANSLATE level --> {LEVEL}</div>
 						<!-- TRANSLATE guildinfo -->
 					</div>
-	
+
 					<div id="profile" class="tier-2-a" style="display:none;">
 						<div class="tier-2-b">
 							<div class="tier-2-title"><!-- TRANSLATE guildinfo --></div>
-	{GRAPH}
+{GRAPH}
 							<div class="ginfo-right">
 								<div class="ginfo-right-block">
 									<div class="shader">
 										{INFO}
 									</div>
 								</div>
-	
+
 								<div class="ginfo-right-block">
 									<div class="agnewsrow">
 										<span class="blueB"><!-- TRANSLATE TXP --></span>
 									</div>
 <!-- BEGIN top10 -->
 									<div class="gnewsrow">
-										<table width="100%">
+										<table style="width:100%" cellpadding="0" cellspacing="0">
 											<tr>
-												<td width="10%">{top10.TOTALRANK}</td>
-												<td width="60%">{top10.NAME}</td>
-												<td width="30%">{top10.TOTALXP}</td>
+												<td style="width:10%">{top10.TOTALRANK}</td>
+												<td style="width:60%">{top10.NAME}</td>
+												<td style="width:30%;text-align:right">{top10.TOTALXP}</td>
 											</tr>
 										</table>
 									</div>
 <!-- END top10 -->
 								</div>
-	
+
 								<div class="ginfo-right-block">
 									<div class="agnewsrow">
 										<span class="blueB"><!-- TRANSLATE WXP --></span>
 									</div>
 <!-- BEGIN top10w -->
 									<div class="gnewsrow">
-										<table width="100%">
+										<table style="width:100%" cellpadding="0" cellspacing="0">
 											<tr>
-												<td width="10%">{top10w.TOTALRANK}</td>
-												<td width="60%">{top10w.NAME}</td>
-												<td width="30%">{top10w.TOTALXP}</td>
+												<td style="width:10%">{top10w.TOTALRANK}</td>
+												<td style="width:60%">{top10w.NAME}</td>
+												<td style="width:30%;text-align:right">{top10w.TOTALXP}</td>
 											</tr>
 										</table>
 									</div>
 <!-- END top10w -->
 								</div>
 							</div>
-	
+
 							<div class="ginfo-left">
-								<div class="shader">
+									<div class="agnewsrow">
+										<span class="blueB">{L_MEMBER_ACHIEVEMENTS}</span>
+									</div>
 <!-- BEGIN news -->
-									<div class="gnewsrow">{news.DATE} - {news.TEXT}</div>
-<!-- END news -->
+								<div class="gnewsrow">
+									<div class="text">{news.DATE} - {news.TEXT}</div>
 								</div>
+<!-- END news -->
 							</div>
-	
+
 						</div>
 					</div>
-	
+
 <!-- BEGIN gtabs -->
 					<div id="{gtabs.BLOCKID}" class="tier-2-a" style="display:none;">
 						<div class="tier-2-b">
 							<div class="tier-2-title">{gtabs.NAME}</div>
-	
+
 							<div class="ginfo-left-full">
-								<div class="shader">
+								<div class="agnews-spacer"></div>
 <!-- BEGIN news -->
-									<div class="gnewsrow">{gtabs.news.DATE} - {gtabs.news.TEXT}</div>
-<!-- END news -->
+								<div class="gnewsrow">
+									<div class="text">{gtabs.news.DATE} - {gtabs.news.TEXT}</div>
 								</div>
+<!-- END news -->
 							</div>
 						</div>
 					</div>
 <!-- END gtabs -->
-	
+
 				</div>
 			</div>
 		</div>

@@ -1136,31 +1136,9 @@ $lang['admin']['alt_type'] = "Identification des rerolls|Textes identifiant les 
 $lang['admin']['alt_location'] = "Identification des rerolls (champ)|Où faut-il rechercher l'identification des rerolls<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 
 // menu_conf
-$lang['admin']['menu_conf_left'] = "Panneau gauche|";
-$lang['admin']['menu_conf_right'] = "Panneau droit|";
-
 $lang['admin']['menu_top_pane'] = "Panneau supérieur|Contrôle les affichages du panneau supérieur du menu principal du roster<br />Cette zone contient le nom de la guilde, le nom du serveur, la date de la dernière mise à jour, etc.";
 $lang['admin']['menu_top_faction'] = "Icône de faction|Contrôle l'affichage de l'icône de faction du panneau supérieur du menu principal du roster";
 $lang['admin']['menu_top_locale'] = "Sélection de la langue|Contrôle l'affichage de la zone de sélection de la langue du panneau supérieur du menu principal du roster";
-
-$lang['admin']['menu_left_type'] = "Type d'affichage|Contrôle l'affichage du résumé par niveau, par classe, ou le status du royaume ou rien du tout";
-$lang['admin']['menu_left_level'] = "Niveau minimum|Niveau minimum pour apparaitre dans le résumé niveau ou classe";
-$lang['admin']['menu_left_style'] = "Style d'affichage|Affiche une liste, un graphe en barre linéaire ou en barre logarythmique";
-$lang['admin']['menu_left_barcolor'] = "Couleur de barre|Couleur de la barre montrant le nombre personnage de ce groupe de niveau ou de cette classe";
-$lang['admin']['menu_left_bar2color'] = "Couleur de barre 2|Couleur de la barre montrant le nombre de personnages secondaires de ce groupe de niveau ou de cette classe";
-$lang['admin']['menu_left_textcolor'] = "Couleur du texte|Couleur utilisée pour les étiquettes du groupe de niveau ou de classe (Les graphes de classe utilisent la couleur de classe pour ses étiquettes)";
-$lang['admin']['menu_left_outlinecolor'] = "Couleur du contour du texte |La couleur de contour utilisée pour les étiquettes du groupe niveau/classe<br />Videz cette case pour désactiver cette fonction";
-$lang['admin']['menu_left_text'] = "Police de caractère|Police de caractère utilisée pour les étiquettes du groupe de niveau ou de classe";
-
-$lang['admin']['menu_right_type'] = "Type d'affichage|Contrôle l'affichage du résumé par niveau, par classe, ou le status du royaume ou rien du tout";
-$lang['admin']['menu_right_level'] = "Niveau minimum|Niveau minimum pour apparaitre dans le résumé niveau ou classe";
-$lang['admin']['menu_right_style'] = "Style d'affichage|Affiche une liste, un graphe en barre linéaire ou en barre logarythmique";
-$lang['admin']['menu_right_barcolor'] = "Couleur de barre|Couleur de la barre montrant le nombre personnage de ce groupe de niveau ou de cette classe";
-$lang['admin']['menu_right_bar2color'] = "Couleur de barre 2|Couleur de la barre montrant le nombre de personnages secondaires de ce groupe de niveau ou de cette classe";
-$lang['admin']['menu_right_textcolor'] = "Couleur du texte|Couleur utilisée pour les étiquettes du groupe de niveau ou de classe (Les graphes de classe utilisent la couleur de classe pour ses étiquettes)";
-$lang['admin']['menu_right_outlinecolor'] = "Couleur du contour du texte |La couleur de contour utilisée pour les étiquettes du groupe niveau/classe<br />Videz cette case pour désactiver cette fonction";
-$lang['admin']['menu_right_text'] = "Police de caractère|Police de caractère utilisée pour les étiquettes du groupe de niveau ou de classe";
-
 $lang['admin']['menu_bottom_pane'] = "Panneau inférieur|Contrôle les affichages du panneau inférieur du menu principal du roster<br />Cette zone contient la boîte de recherche";
 
 // display_conf
