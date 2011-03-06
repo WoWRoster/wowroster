@@ -216,7 +216,7 @@ function makeGraph( $type , $level , $style )
 	$dat = array();
 	if( $type == 'level' )
 	{
-		for( $i=floor(ROSTER_MAXCHARLEVEL/10); $i>=floor($level/10); $i-- )
+		/*for( $i=floor(ROSTER_MAXCHARLEVEL/10); $i>=floor($level/10); $i-- )
 		{
 			if( $i * 10 == ROSTER_MAXCHARLEVEL )
 			{
@@ -240,7 +240,103 @@ function makeGraph( $type , $level , $style )
 			}
 			$dat[$i]['alt'] = 0;
 			$dat[$i]['nonalt'] = 0;
+		}*/
+		
+		
+		$queryxxx = "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
+		$wherexx = "Where `guild_id` = '" . $roster->data['guild_id'] . "' and `level` >= ".$addon['config']['graph_level_level']."";
+		$queryxx = "SELECT ".$queryxxx." `level` FROM `" . $roster->db->table('members') . "`"
+			. $wherexx . " Order by `level` ASC";
+		$resultxx = $roster->db->query($queryxx);
+		$f = array();
+		$d=0;
+		$i=0;
+		for( $i=0;$i<=9;$i++)
+		{
+			$f[$i]=array();
+			$f[$i]['name'] = '';
+			$f[$i]['alt'] = 0;
+			$f[$i]['nonalt'] = 0;
 		}
+		while ($rowx = $roster->db->fetch($resultxx))
+		{
+		//echo $rowx['level'].' - '.$rowx['isalt'].'<br>';
+		//for( $i=0;$i>=9;$i++)
+			//{
+			//	echo $i.'<br>';
+				
+				if( $rowx['level'] == ROSTER_MAXCHARLEVEL )
+				{
+					$f['9']['name'] = ROSTER_MAXCHARLEVEL;
+					if ($rowx['isalt']==1){	$f['9']['alt']++;}
+					$f['9']['nonalt']++;
+				}
+				elseif( $rowx['level'] <=9 )
+				{
+					$f['0']['name'] = '1 - 9';
+					if ($rowx['isalt']==1){$f['0']['alt']++;}					
+					$f['0']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=10 && $rowx['level'] <=19 )
+				{
+					$f['1']['name'] = '10 - 19';
+					if ($rowx['isalt']==1)	{$f['1']['alt']++;}					
+					$f['1']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=20 && $rowx['level'] <=29 )
+				{
+					$f['2']['name'] = '20 - 29';
+					if ($rowx['isalt']==1){$f['2']['alt']++;}					
+					$f['2']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=30 && $rowx['level'] <=39 )
+				{
+					$f['3']['name'] = '30 - 39';
+					if ($rowx['isalt']==1){	$f['3']['alt']++;}					
+					$f['3']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=40 && $rowx['level'] <=49 )
+				{
+					$f['4']['name'] = '40 - 49';
+					if ($rowx['isalt']==1){$f['4']['alt']++;}
+					$f['4']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=50 && $rowx['level'] <=59 )
+				{
+					$f['5']['name'] = '50 - 59';
+					if ($rowx['isalt']==1){$f['5']['alt']++;}					
+					$f['5']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=60 && $rowx['level'] <=69 )
+				{
+					$f['6']['name'] = '60 - 69';
+					if ($rowx['isalt']==1){$f['6']['alt']++;}					
+					$f['6']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=70 && $rowx['level'] <=79 )
+				{
+					$f['7']['name'] = '70 - 79';
+					if ($rowx['isalt']==1){$f['7']['alt']++;}					
+					$f['7']['nonalt']++;
+					
+				}
+				elseif( $rowx['level'] >=80 && $rowx['level'] <=84 )
+				{
+					$f['8']['name'] = '80 - 84';
+					if ($rowx['isalt']==1){	$f['8']['alt']++;}					
+					$f['8']['nonalt']++;					
+				}
+			}
+			//echo '<pre>';
+			//print_r($f);
+		$dat = $f;
 
 		$qrypart = "FLOOR(`level`/10)";
 	}
