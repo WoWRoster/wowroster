@@ -105,6 +105,9 @@ if( $addon['active'] = '1' )
 		include(ROSTER_LIB . 'config.lib.php');
 		$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
 
+		// ----[ Include special functions file ]-------------------
+		include(ROSTER_ADMIN . 'roster_config_functions.php');
+
 		// ----[ Get configuration data ]---------------------------
 		$config->getConfigData();
 

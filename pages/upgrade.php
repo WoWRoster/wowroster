@@ -533,6 +533,36 @@ class Upgrade
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` =  'radio{full^full|half^half' WHERE `id` = 8100;");
 		}
 
+		// Clean up the config
+		if( version_compare($roster->config['version'], '2.0.9.2292', '<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'http://www.wowroster.net/downloads/?mcat=2' WHERE `id` = 6120 LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'radio{off^0|full^full|half^half' WHERE `id` = 8100 LIMIT 1;");
+
+			// Remove all of the menu block display settings, they are in GuildInfo now
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4001' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4002' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4003' LIMIT 1;");
+
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4200' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4210' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4220' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4230' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4240' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4250' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4260' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4270' LIMIT 1;");
+
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4300' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4310' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4320' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4330' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4340' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4350' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4360' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4370' LIMIT 1;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

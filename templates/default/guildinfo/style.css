@@ -15,23 +15,27 @@
 
 /*********** Common Elements ***********/
 .main-panel .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.tier-1-title { height: 42px; text-align: center; }
-.tier-2-b { overflow: auto; } /* Fix so right column expands the parent block*/
+.guild-info .tier-1-title  { height: 42px; text-align: center; }
+.guild-info .tier-2-b { overflow: auto; } /* Fix so right column expands the parent block*/
 
 /*********** Profile Page ***********/
-.shader { background: url(../images/shader.png) repeat; border: 1px solid #000000; }
+.shader { background: url(../images/shader.png) repeat; border: 1px solid #000000; padding: 2px; }
 
 .main-panel { clear: left; position: relative; }
 
-.main-panel .profile .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: 10px auto; padding: 0px; height: 570px; width: 540px; position: relative; }
+.main-panel .profile .equip-bg { background: url(images/charframe.jpg) no-repeat 0 0; margin: 10px auto; padding: 0px; height: 570px; width: 540px; position: relative; }
 
-.gnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 4px; height:20px; text-align: left; }
-.agnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 5px; height:22px; text-align: center; }
+.gnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat center bottom; padding: 0 10px 5px 10px; height:17px; text-align: left; }
+.gnewsrow .text { height:16px; overflow: hidden; }
+.agnewsrow { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 5px 10px 2px 10px; height:22px; text-align: center; }
+.agnews-spacer { background: #deb760 url(../images/news-bg.jpg) repeat-x center bottom; padding: 0; height:5px; }
 
 .ginfo-right { float: right; width: 300px; }
 .ginfo-right-block { margin-bottom: 10px; }
 .ginfo-left { width: 525px; }
-.ginfo-left-full { width: 675px; }
+.ginfo-left-full { width: 647px; }
+
+.info-graph { margin-bottom: 5px; }
 
 
 .membersRowColor1, .membersRowColor2 { background: #deb760 url(../images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C; text-align: center;}

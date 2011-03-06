@@ -369,7 +369,7 @@ $lang['backpack']='Rucksack';
 $lang['PvPRankNone']='none';
 
 // Uses preg_match() to find required level in recipe tooltip
-$lang['requires_level'] = '/Ben�tigt Stufe ([\d]+)/';
+$lang['requires_level'] = '/Ben�tigt Stufe ([\d]+)/';
 
 // Skills to EN id array
 $lang['skill_to_id'] = array(
@@ -1136,31 +1136,9 @@ $lang['admin']['alt_type'] = "2.-Char Suche (Twinks)|Text, der zur Anzeige der A
 $lang['admin']['alt_location'] = "Twink Suchfeld|In welchem Feld soll der Twink-Text gesucht werden<br /><br /><span class=\"red\">Das Addon Mitgliederliste benutzt das nicht für die Twink Gruppierung</span>";
 
 // menu_conf
-$lang['admin']['menu_conf_left'] = "Linker Ausschnitt|";
-$lang['admin']['menu_conf_right'] = "Rechter Ausschnitt|";
-
 $lang['admin']['menu_top_pane'] = "Oberer Ausschnitt|Kontrolliert die Anzeige des oberen Ausschnitts des Hauptmenüs<br />Dieser Bereich beinhaltet Gildennamen, Server, Letzte Aktualisierung, usw...";
 $lang['admin']['menu_top_faction'] = "Fraktionssymbol|Kontrolliert die Anzeige der Fraktionssymbols im oberen Ausschnitt des Hauptmenüs";
 $lang['admin']['menu_top_locale'] = "Sprachauswahl|Kontrolliert die Anzeige der Sprachauswahl im oberen Ausschnitt des Hauptmenüs";
-
-$lang['admin']['menu_left_type'] = "Anzeigetyp|Entscheide, ob eine Level-, eine Klassenübersicht, der Realmstatus oder nichts angezeigt werden soll";
-$lang['admin']['menu_left_level'] = "Minimum Level|Untere Levelgrenze für Charaktere zur Einbeziehung in die Level-/Klassenübersicht";
-$lang['admin']['menu_left_style'] = "Anzeigestil|Anzeige als Liste, als lineares oder als logarithmisches Balkendiagramm";
-$lang['admin']['menu_left_barcolor'] = "Balkenfarbe|Die Farbe für die Balkenanzeige der Anzahl Charaktere eines Levels oder Klasse";
-$lang['admin']['menu_left_bar2color'] = "Balkenfarbe 2|Die Farbe für die Balkenanzeige der Zweitcharaktere eines Levels oder klasse";
-$lang['admin']['menu_left_textcolor'] = "Textfarbe|Die Farbe für die Level/Klassen Gruppenbezeichnungen (Klassengraph benutzt die Klassenfarben für die Bezeichnunger)";
-$lang['admin']['menu_left_outlinecolor'] = "Aussenrandtextfarbe|Die Aussenrandtextfarbe für die Level-/Klassengruppenbezeichnungen<br />Leere dieses Feld um den Aussenrand zu deaktivieren";
-$lang['admin']['menu_left_text'] = "Text Schriftart|Die Schriftart für die Level-/Klassenbezeichner";
-
-$lang['admin']['menu_right_type'] = "Anzeigetyp|Entscheide, ob eine Level-, eine Klassenübersicht, der Realmstatus oder nichts angezeigt werden soll";
-$lang['admin']['menu_right_level'] = "Minimum Level|Untere Levelgrenze für Charaktere zur Einbeziehung in die Level-/Klassenübersicht";
-$lang['admin']['menu_right_style'] = "Anzeigestil|Anzeige als Liste, als lineares oder als logarithmisches Balkendiagramm";
-$lang['admin']['menu_right_barcolor'] = "Balkenfarbe|Die Farbe für die Balkenanzeige der Anzahl Charaktere eines Levels oder Klasse";
-$lang['admin']['menu_right_bar2color'] = "Balkenfarbe 2|Die Farbe für die Balkenanzeige der Zweitcharaktere eines Levels oder klasse";
-$lang['admin']['menu_right_textcolor'] = "Textfarbe|Die Farbe für die Level/Klassen Gruppenbezeichnungen (Klassengraph benutzt die Klassenfarben für die Bezeichnunger)";
-$lang['admin']['menu_right_outlinecolor'] = "Aussenrandtextfarbe|Die Aussenrandtextfarbe für die Level-/Klassengruppenbezeichnungen<br />Leere dieses Feld um den Aussenrand zu deaktivieren";
-$lang['admin']['menu_right_text'] = "Text Schriftart|Die Schriftart für die Level-/Klassenbezeichner";
-
 $lang['admin']['menu_bottom_pane'] = "Unterer Abschnitt|Kontrolliert die Anzeige des unteren Abschnitts des Hauptmenüs<br />Dieser Bereich enthält das Suche-Feld";
 
 // display_conf

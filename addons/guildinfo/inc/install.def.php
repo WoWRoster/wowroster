@@ -26,7 +26,7 @@ class guildinfoInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $version = '1.9.9.1760';
+	var $version = '2.0.9.2292';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';
@@ -46,17 +46,16 @@ class guildinfoInstall
 	{
 		global $installer;
 /*
-local NEWS_MOTD = -1;				-- pseudo category
-local NEWS_GUILD_ACHIEVEMENT = 0;
-local NEWS_PLAYER_ACHIEVEMENT = 1;
-local NEWS_DUNGEON_ENCOUNTER = 2;
-local NEWS_ITEM_LOOTED = 3;
-local NEWS_ITEM_CRAFTED = 4;
-local NEWS_ITEM_PURCHASED = 5;
-local NEWS_GUILD_LEVEL = 6;
-local NEWS_GUILD_CREATE = 7;
-
-	*/	
+		local NEWS_MOTD = -1;				-- pseudo category
+		local NEWS_GUILD_ACHIEVEMENT = 0;
+		local NEWS_PLAYER_ACHIEVEMENT = 1;
+		local NEWS_DUNGEON_ENCOUNTER = 2;
+		local NEWS_ITEM_LOOTED = 3;
+		local NEWS_ITEM_CRAFTED = 4;
+		local NEWS_ITEM_PURCHASED = 5;
+		local NEWS_GUILD_LEVEL = 6;
+		local NEWS_GUILD_CREATE = 7;
+*/
 		$installer->create_table($installer->table('news'),"
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`guild_id` int(11) unsigned NOT NULL default '0',
@@ -73,7 +72,7 @@ local NEWS_GUILD_CREATE = 7;
 		["WeeklyXP"] = 0,
 		["TotalRank"] = 108,
 		["WeeklyRank"] = 82,
-		*/					
+		*/
 		$installer->create_table($installer->table('ranks'),"
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`guild_id` int(11) unsigned NOT NULL default '0',
@@ -84,7 +83,44 @@ local NEWS_GUILD_CREATE = 7;
 			`TotalRank` INT( 32 ) NOT NULL DEFAULT '0',
 			`WeeklyRank` INT( 32 ) NOT NULL DEFAULT '0',
 			KEY  (`id`)");
-		
+
+		$installer->add_config("'1','startpage','guildinfo_conf','display','master'");
+		$installer->add_config("'100','guildinfo_conf',NULL,'blockframe','menu'");
+		$installer->add_config("'200','guildinfo_graph',NULL,'page{2','menu'");
+
+		$installer->add_config("'210', 'graph_level', NULL, 'blockframe', 'guildinfo_graph'");
+		$installer->add_config("'220', 'graph_class', NULL, 'blockframe', 'guildinfo_graph'");
+
+		$installer->add_config("'1000', 'guildinfo_access', '0', 'access', 'guildinfo_conf'");
+
+		$installer->add_config("'2000', 'graph_level_display', '1', 'radio{off^0|on^1', 'graph_level'");
+		$installer->add_config("'2010', 'graph_level_style', 'bar', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'graph_level'");
+		$installer->add_config("'2020', 'graph_level_level', '1', 'text{2|10', 'graph_level'");
+		$installer->add_config("'2030', 'graph_level_bar_color', '#3E0000', 'color', 'graph_level'");
+		$installer->add_config("'2040', 'graph_level_bar2_color', '#FFCC33', 'color', 'graph_level'");
+		$installer->add_config("'2050', 'graph_level_font', 'VERANDA.TTF', 'function{fontFiles', 'graph_level'");
+		$installer->add_config("'2060', 'graph_level_font_size', '10', 'text{2|10', 'graph_level'");
+		$installer->add_config("'2070', 'graph_level_font_color', '#FFFFFF', 'color', 'graph_level'");
+		$installer->add_config("'2080', 'graph_level_outline', '#000000', 'color', 'graph_level'");
+		$installer->add_config("'2090', 'graph_level_foot_font', 'visitor.ttf', 'function{fontFiles', 'graph_level'");
+		$installer->add_config("'2100', 'graph_level_foot_size', '12', 'text{2|10', 'graph_level'");
+		$installer->add_config("'2110', 'graph_level_foot_color', '#FFFFFF', 'color', 'graph_level'");
+		$installer->add_config("'2120', 'graph_level_foot_outline', '#000000', 'color', 'graph_level'");
+
+		$installer->add_config("'3000', 'graph_class_display', '1', 'radio{off^0|on^1', 'graph_class'");
+		$installer->add_config("'3010', 'graph_class_style', 'bar', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'graph_class'");
+		$installer->add_config("'3020', 'graph_class_level', '1', 'text{2|10', 'graph_class'");
+		$installer->add_config("'3030', 'graph_class_bar_color', '', 'color', 'graph_class'");
+		$installer->add_config("'3040', 'graph_class_bar2_color', '#000066', 'color', 'graph_class'");
+		$installer->add_config("'3050', 'graph_class_font', 'VERANDA.TTF', 'function{fontFiles', 'graph_class'");
+		$installer->add_config("'3060', 'graph_class_font_size', '10', 'text{2|10', 'graph_class'");
+		$installer->add_config("'3070', 'graph_class_font_color', '', 'color', 'graph_class'");
+		$installer->add_config("'3080', 'graph_class_outline', '#000000', 'color', 'graph_class'");
+		$installer->add_config("'3090', 'graph_class_foot_font', 'visitor.ttf', 'function{fontFiles', 'graph_class'");
+		$installer->add_config("'3100', 'graph_class_foot_size', '12', 'text{2|10', 'graph_class'");
+		$installer->add_config("'3110', 'graph_class_foot_color', '#FFFFFF', 'color', 'graph_class'");
+		$installer->add_config("'3120', 'graph_class_foot_outline', '#000000', 'color', 'graph_class'");
+
 		$installer->add_menu_button('ginfobutton','guild');
 		return true;
 	}
@@ -99,18 +135,6 @@ local NEWS_GUILD_CREATE = 7;
 	{
 		global $installer;
 
-		if( version_compare( $oldversion, '1.9.9.1562', '<' ) )
-		{
-			$installer->add_config("'1','startpage','guildinfo_conf','display','master'");
-			$installer->add_config("'100','guildinfo_conf',NULL,'blockframe','menu'");
-			$installer->add_config("'1000', 'guildinfo_access', '0', 'access', 'guildinfo_conf'");
-		}
-
-		if( version_compare( $oldversion, '1.9.9.1758', '<' ) )
-		{
-			$installer->remove_all_config();
-		}
-		
 		if( version_compare( $oldversion, '1.9.9.1759', '<' ) )
 		{
 			$installer->create_table($installer->table('news'),"
@@ -125,7 +149,7 @@ local NEWS_GUILD_CREATE = 7;
 				KEY  (`id`)
 			");
 		}
-		
+
 		if( version_compare( $oldversion, '1.9.9.1760', '<' ) )
 		{
 			$installer->create_table($installer->table('ranks'),"
@@ -141,6 +165,49 @@ local NEWS_GUILD_CREATE = 7;
 			");
 		}
 
+		// Add config for bargraphs and such
+		if( version_compare( $oldversion, '2.0.9.2292', '<' ) )
+		{
+			$installer->remove_all_config();
+
+			$installer->add_config("'1','startpage','guildinfo_conf','display','master'");
+			$installer->add_config("'100','guildinfo_conf',NULL,'blockframe','menu'");
+			$installer->add_config("'200','guildinfo_graph',NULL,'page{2','menu'");
+
+			$installer->add_config("'210', 'graph_level', NULL, 'blockframe', 'guildinfo_graph'");
+			$installer->add_config("'220', 'graph_class', NULL, 'blockframe', 'guildinfo_graph'");
+
+			$installer->add_config("'1000', 'guildinfo_access', '0', 'access', 'guildinfo_conf'");
+
+			$installer->add_config("'2000', 'graph_level_display', '1', 'radio{off^0|on^1', 'graph_level'");
+			$installer->add_config("'2010', 'graph_level_style', 'bar', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'graph_level'");
+			$installer->add_config("'2020', 'graph_level_level', '1', 'text{2|10', 'graph_level'");
+			$installer->add_config("'2030', 'graph_level_bar_color', '#3E0000', 'color', 'graph_level'");
+			$installer->add_config("'2040', 'graph_level_bar2_color', '#FFCC33', 'color', 'graph_level'");
+			$installer->add_config("'2050', 'graph_level_font', 'VERANDA.TTF', 'function{fontFiles', 'graph_level'");
+			$installer->add_config("'2060', 'graph_level_font_size', '10', 'text{2|10', 'graph_level'");
+			$installer->add_config("'2070', 'graph_level_font_color', '#FFFFFF', 'color', 'graph_level'");
+			$installer->add_config("'2080', 'graph_level_outline', '#000000', 'color', 'graph_level'");
+			$installer->add_config("'2090', 'graph_level_foot_font', 'visitor.ttf', 'function{fontFiles', 'graph_level'");
+			$installer->add_config("'2100', 'graph_level_foot_size', '12', 'text{2|10', 'graph_level'");
+			$installer->add_config("'2110', 'graph_level_foot_color', '#FFFFFF', 'color', 'graph_level'");
+			$installer->add_config("'2120', 'graph_level_foot_outline', '#000000', 'color', 'graph_level'");
+
+			$installer->add_config("'3000', 'graph_class_display', '1', 'radio{off^0|on^1', 'graph_class'");
+			$installer->add_config("'3010', 'graph_class_style', 'bar', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'graph_class'");
+			$installer->add_config("'3020', 'graph_class_level', '1', 'text{2|10', 'graph_class'");
+			$installer->add_config("'3030', 'graph_class_bar_color', '', 'color', 'graph_class'");
+			$installer->add_config("'3040', 'graph_class_bar2_color', '#000066', 'color', 'graph_class'");
+			$installer->add_config("'3050', 'graph_class_font', 'VERANDA.TTF', 'function{fontFiles', 'graph_class'");
+			$installer->add_config("'3060', 'graph_class_font_size', '10', 'text{2|10', 'graph_class'");
+			$installer->add_config("'3070', 'graph_class_font_color', '', 'color', 'graph_class'");
+			$installer->add_config("'3080', 'graph_class_outline', '#000000', 'color', 'graph_class'");
+			$installer->add_config("'3090', 'graph_class_foot_font', 'visitor.ttf', 'function{fontFiles', 'graph_class'");
+			$installer->add_config("'3100', 'graph_class_foot_size', '12', 'text{2|10', 'graph_class'");
+			$installer->add_config("'3110', 'graph_class_foot_color', '#FFFFFF', 'color', 'graph_class'");
+			$installer->add_config("'3120', 'graph_class_foot_outline', '#000000', 'color', 'graph_class'");
+		}
+
 		return true;
 	}
 
@@ -153,6 +220,8 @@ local NEWS_GUILD_CREATE = 7;
 	{
 		global $installer;
 
+		$installer->drop_table($installer->table('news'));
+		$installer->drop_table($installer->table('ranks'));
 		$installer->remove_all_menu_button();
 		return true;
 	}

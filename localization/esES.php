@@ -859,7 +859,7 @@ $lang['tooltip_reg_conjureditems']='Los objetos creados mágicamente desaparecen
 $lang['tooltip_reg_weaponorbulletdps']='^\(|^Añade ';
 
 $lang['tooltip_armor_types']='Tela|Cuero|Malla|Placas';  // the types of armor
-$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|�?dolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
+$lang['tooltip_weapon_types']='Flecha|Hacha|Arco|Bala|Ballesta|Daga|Caña de pescar|Arma de puño|Arma de fuego|�?dolo|Maza|Mano derecha|Mano izquierda|Arma de asta|Bastón|Espada|Arma arrojadiza|Varita|Sostener con la mano izquierda|Mano principal|Reliquia'; // the types of weapons as shown in the tooltip
 $lang['tooltip_bind_types']='Ligado|Se liga al equiparlo|Objeto de misión|Se liga al recogerlo|Este objeto inicia una misión|Se liga a la cuenta|Account Bound';
 $lang['tooltip_misc_types']='Dedo|Cuello|Atrás|Camisa|Alhaja|Tabardo|Cabeza|Pecho|Espalda|Pies|Abalorio';
 $lang['tooltip_garbage']='<Mayús clic derecho para insertar>|<Clic derecho para leer>|Duración|<Clic derecho para abrir>';  // these are texts that we really do not need to show in WoWRoster's tooltip so we'll strip them out
@@ -1136,31 +1136,9 @@ $lang['admin']['alt_type'] = "Alt-Texto búsqueda|Asigna el código para reconoc
 $lang['admin']['alt_location'] = "Campo búsqueda de alts|Indica el campo en el que se tiene que buscar la etiqueta establecida en el campo anterior<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 
 // menu_conf
-$lang['admin']['menu_conf_left'] = "Panel Izquierdo|";
-$lang['admin']['menu_conf_right'] = "Panel Derecho|";
-
 $lang['admin']['menu_top_pane'] = "Panel Superior|Muestra el panel superior encima del menú principal de Roster<br />Este area tiene el nombre de la hermandad, servidor, última actualización, etc...";
 $lang['admin']['menu_top_faction'] = "Icono de facción|Muestra un icono con la facción de la hermandad en el menú principal de Roster";
 $lang['admin']['menu_top_locale'] = "Caja de idioma|Muestra la caja de selección de idioma en el menú principal de Roster";
-
-$lang['admin']['menu_left_type'] = "Mostrar tipo|Decide si mostrar una descripción por nivel, por clase, por el estado de reino o nada";
-$lang['admin']['menu_left_level'] = "Nivel mínimo|Nivel mínimo de los personajes para ser mostrados en la descripción de nivel/clase";
-$lang['admin']['menu_left_style'] = "Muestra estilo|Como mostrar la lista, como un gráfico linear o como uno logarítmico";
-$lang['admin']['menu_left_barcolor'] = "Color de la barra|Decide el color de la barra que muestra el numero de personajes de un nivel, grupo/clase";
-$lang['admin']['menu_left_bar2color'] = "Color 2 de la barra|Decide el color de la barra que muestra el numero de alts de un nivel, grupo/clase";
-$lang['admin']['menu_left_textcolor'] = "Color del texto|Elige el color para las etiquetas del nivel/clase grupo (El gráfico de las clases usa el color de las etiquetas de clase)";
-$lang['admin']['menu_left_outlinecolor'] = "Color de texto fuera de línea|Elige el color del texto fuera de línea para las etiquetas del nivel/clase y grupo.<br />Vacia esta casilla para desactivar el color de fuera de linea";
-$lang['admin']['menu_left_text'] = "Fuente de texto|El tipo de fuente para las etiquetas de nivel/clase y grupo";
-
-$lang['admin']['menu_right_type'] = "Mostrar tipo|Decide si mostrar una descripción por nivel, por clase, por el estado de reino o nada";
-$lang['admin']['menu_right_level'] = "Nivel mínimo|Nivel mínimo de los personajes para ser mostrados en la descripción de nivel/clase";
-$lang['admin']['menu_right_style'] = "Muestra estilo|Como mostrar la lista, como un gráfico linear o como uno logarítmico";
-$lang['admin']['menu_right_barcolor'] = "Color de la barra|Decide el color de la barra que muestra el numero de personajes de un nivel, grupo/clase";
-$lang['admin']['menu_right_bar2color'] = "Color 2 de la barra|Decide el color de la barra que muestra el numero de alts de un nivel, grupo/clase";
-$lang['admin']['menu_right_textcolor'] = "Color del texto|Elige el color para las etiquetas del nivel/clase grupo (El gráfico de las clases usa el color de las etiquetas de clase)";
-$lang['admin']['menu_right_outlinecolor'] = "Color de texto fuera de línea|Elige el color del texto fuera de línea para las etiquetas del nivel/clase y grupo.<br />Vacia esta casilla para desactivar el color de fuera de linea";
-$lang['admin']['menu_right_text'] = "Fuente de texto|El tipo de fuente para las etiquetas de nivel/clase y grupo";
-
 $lang['admin']['menu_bottom_pane'] = "Panel inferior|Muestra el panel inferior debajo del menu principal de Roster.<br />Este area contiene el campo de búsqueda.";
 
 // display_conf

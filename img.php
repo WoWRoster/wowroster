@@ -2,9 +2,8 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Signature Generator
- * (Use The AddOn SigGen, it's much better)
- *
+ * Old Signature Generator
+ * (Use The AddOn SigGen, it's much better. Zanix just likes to keep this around for his own reasons)
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
@@ -45,7 +44,6 @@ else
 }
 
 $sitename = $roster->config['website_address']; ## Change this to your web address or a guild motto or whatever
-
 
 $result = $roster->db->query("SELECT * FROM `" . $roster->db->table('players') . "` WHERE $where LIMIT 0 , 1;");
 
@@ -102,8 +100,6 @@ ImageTTFText($im, 6, 0, $mtxtloc, 77, $color, 'fonts/VERANDA.TTF', $sitename);
 
 ##  Time for the professions and secondary skills to be shown
 ##  Scrolls through database and finds the 2 main professions then prints them and their skill levels on the signature
-
-
 $result4 = $roster->db->query("SELECT * FROM `" . $roster->db->table('skills') . "` WHERE `member_id` = '$nameid' LIMIT 0 , 30;");
 
 $pos = 35; # <-- used as the variable for moving the text to the next line.  without this it would print the professions right on top of each other
@@ -123,8 +119,6 @@ $pos += 3; # <-- just to put a small space between the primary and secondary pro
 
 
 ##  Scrolls through database and finds all the secondary skills then prints them and their skill levels on the signature
-
-
 $result5 = $roster->db->query("SELECT * FROM `" . $roster->db->table('skills') . "` WHERE `member_id` LIKE '$nameid' LIMIT 0 , 30;");
 while( $r = $roster->db->fetch($result5) )
 {
@@ -139,8 +133,6 @@ while( $r = $roster->db->fetch($result5) )
 }
 
 ##  Now to finalize and close
-
-
 $trans = imagecolorresolve($im, 255, 255, 254);
 imagecolortransparent($im, $trans);
 
