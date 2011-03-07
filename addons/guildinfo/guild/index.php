@@ -214,35 +214,10 @@ function makeGraph( $type , $level , $style )
 
 	// Initialize data array
 	$dat = array();
+	$num_alts = $num_non_alts = 0;
 	if( $type == 'level' )
 	{
-		/*for( $i=floor(ROSTER_MAXCHARLEVEL/10); $i>=floor($level/10); $i-- )
-		{
-			if( $i * 10 == ROSTER_MAXCHARLEVEL )
-			{
-				$dat[$i]['name'] = ROSTER_MAXCHARLEVEL;
-			}
-			elseif( $i * 10 + 9 >= ROSTER_MAXCHARLEVEL-1 )
-			{
-				$dat[$i]['name'] = ($i*10) . ' - ' . ROSTER_MAXCHARLEVEL;
-			}
-			else
-			{
-				if (($i*10)==0)
-				{
-					$num = 1;
-				}
-				else
-				{
-					$num = ($i*10);
-				}
-				$dat[$i]['name'] = $num . ' - ' . ($i*10+9);
-			}
-			$dat[$i]['alt'] = 0;
-			$dat[$i]['nonalt'] = 0;
-		}*/
-		
-		
+
 		$queryxxx = "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
 		$wherexx = "Where `guild_id` = '" . $roster->data['guild_id'] . "' and `level` >= ".$addon['config']['graph_level_level']."";
 		$queryxx = "SELECT ".$queryxxx." `level` FROM `" . $roster->db->table('members') . "`"
@@ -258,155 +233,125 @@ function makeGraph( $type , $level , $style )
 			$f[$i]['alt'] = 0;
 			$f[$i]['nonalt'] = 0;
 		}
+		
 		while ($rowx = $roster->db->fetch($resultxx))
-		{
-		//echo $rowx['level'].' - '.$rowx['isalt'].'<br>';
-		//for( $i=0;$i>=9;$i++)
-			//{
-			//	echo $i.'<br>';
-				
-				if( $rowx['level'] == ROSTER_MAXCHARLEVEL )
-				{
-					$f['9']['name'] = ROSTER_MAXCHARLEVEL;
-					if ($rowx['isalt']==1){	$f['9']['alt']++;}
-					$f['9']['nonalt']++;
-				}
-				elseif( $rowx['level'] <=9 )
+		{				
+				if( $rowx['level'] <=9 )
 				{
 					$f['0']['name'] = '1 - 9';
-					if ($rowx['isalt']==1){$f['0']['alt']++;}					
-					$f['0']['nonalt']++;
-					
+					if ($rowx['isalt']==1){$f['0']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}					
+					$f['0']['nonalt']++;			
 				}
 				elseif( $rowx['level'] >=10 && $rowx['level'] <=19 )
 				{
 					$f['1']['name'] = '10 - 19';
-					if ($rowx['isalt']==1)	{$f['1']['alt']++;}					
-					$f['1']['nonalt']++;
-					
+					if ($rowx['isalt']==1)	{$f['1']['alt']++;$num_alts++;}	
+					else{$num_non_alts++;}					
+					$f['1']['nonalt']++;			
 				}
 				elseif( $rowx['level'] >=20 && $rowx['level'] <=29 )
 				{
 					$f['2']['name'] = '20 - 29';
-					if ($rowx['isalt']==1){$f['2']['alt']++;}					
-					$f['2']['nonalt']++;
-					
+					if ($rowx['isalt']==1){$f['2']['alt']++;$num_alts++;}	
+					else{$num_non_alts++;}					
+					$f['2']['nonalt']++;			
 				}
 				elseif( $rowx['level'] >=30 && $rowx['level'] <=39 )
 				{
 					$f['3']['name'] = '30 - 39';
-					if ($rowx['isalt']==1){	$f['3']['alt']++;}					
-					$f['3']['nonalt']++;
-					
+					if ($rowx['isalt']==1){	$f['3']['alt']++;$num_alts++;}	
+					else{$num_non_alts++;}					
+					$f['3']['nonalt']++;				
 				}
 				elseif( $rowx['level'] >=40 && $rowx['level'] <=49 )
 				{
 					$f['4']['name'] = '40 - 49';
-					if ($rowx['isalt']==1){$f['4']['alt']++;}
-					$f['4']['nonalt']++;
-					
+					if ($rowx['isalt']==1){$f['4']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['4']['nonalt']++;				
 				}
 				elseif( $rowx['level'] >=50 && $rowx['level'] <=59 )
 				{
 					$f['5']['name'] = '50 - 59';
-					if ($rowx['isalt']==1){$f['5']['alt']++;}					
-					$f['5']['nonalt']++;
-					
+					if ($rowx['isalt']==1){$f['5']['alt']++;$num_alts++;}	
+					else{$num_non_alts++;}					
+					$f['5']['nonalt']++;				
 				}
 				elseif( $rowx['level'] >=60 && $rowx['level'] <=69 )
 				{
 					$f['6']['name'] = '60 - 69';
-					if ($rowx['isalt']==1){$f['6']['alt']++;}					
-					$f['6']['nonalt']++;
-					
+					if ($rowx['isalt']==1){$f['6']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}					
+					$f['6']['nonalt']++;				
 				}
 				elseif( $rowx['level'] >=70 && $rowx['level'] <=79 )
 				{
 					$f['7']['name'] = '70 - 79';
-					if ($rowx['isalt']==1){$f['7']['alt']++;}					
-					$f['7']['nonalt']++;
-					
+					if ($rowx['isalt']==1){$f['7']['alt']++;$num_alts++;}	
+					else{$num_non_alts++;}					
+					$f['7']['nonalt']++;					
 				}
 				elseif( $rowx['level'] >=80 && $rowx['level'] <=84 )
 				{
 					$f['8']['name'] = '80 - 84';
-					if ($rowx['isalt']==1){	$f['8']['alt']++;}					
-					$f['8']['nonalt']++;					
+					if ($rowx['isalt']==1){	$f['8']['alt']++;$num_alts++;}	
+					else{$num_non_alts++;}					
+					$f['8']['nonalt']++;				
+				}
+				elseif( $rowx['level'] == ROSTER_MAXCHARLEVEL )
+				{
+					$f['9']['name'] = ROSTER_MAXCHARLEVEL;
+					if ($rowx['isalt']==1){$f['9']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['9']['nonalt']++;
 				}
 			}
-			//echo '<pre>';
-			//print_r($f);
+
 		$dat = $f;
 
-		$qrypart = "FLOOR(`level`/10)";
 	}
 	elseif( $type == 'class' )
 	{
+		$queryccc = "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
+		$wherec = "Where `guild_id` = '" . $roster->data['guild_id'] . "' and `level` >= ".$addon['config']['graph_class_level']."";
+		$queryc = "SELECT ".$queryccc." `classid` FROM `" . $roster->db->table('members') . "`"
+			. $wherec . " Order by `level` ASC";
+		$resultc = $roster->db->query($queryc);
 		foreach($roster->locale->act['id_to_class'] as $class_id => $class)
+			{
+				$dat[$class_id]['name'] = $class;
+				$dat[$class_id]['alt'] = 0;
+				$dat[$class_id]['nonalt'] = 0;
+			}
+			
+		while ($rowc = $roster->db->fetch($resultc))
 		{
-			$dat[$class_id]['name'] = $class;
-			$dat[$class_id]['alt'] = 0;
-			$dat[$class_id]['nonalt'] = 0;
+			if ($rowc['isalt']==1)
+			{
+				$dat[$rowc['classid']]['alt']++;
+				$num_alts++;
+			}
+			else
+			{
+				$num_non_alts++;
+			}
+			$dat[$rowc['classid']]['nonalt']++;	
+			
 		}
-
-		$qrypart = "`classid`";
+		
 	}
 	else
 	{
 		$roster->set_message('Invalid list type', 'GuildInfo graph error', 'error');
 		return;
 	}
-	$num_alts = $num_non_alts = 0;
-
-	// Build query
-	$query  = "SELECT count(`member_id`) AS `amount`, ";
-
-	if( empty( $roster->config['alt_location'] ) || empty( $roster->config['alt_type'] ) )
-	{
-		$query .= "0 AS isalt, ";
-	}
-	else
-	{
-		$query .= "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
-	}
-
-	$query .= $qrypart . " AS label "
-		. "FROM `" . $roster->db->table('members') . "` "
-		. "WHERE `level` >= $level "
-		. "AND `guild_id` = '" . $roster->data['guild_id'] . "' "
-		. "GROUP BY isalt, label;";
-
-	$result = $roster->db->query($query);
-
-	if( !$result )
-	{
-		$roster->set_message($roster->db->error(), 'Database Error', 'error');
-		return;
-	}
-
-	// Fetch results
-	while( $row = $roster->db->fetch($result) )
-	{
-		$label = $row['label'];
-
-		if( $row['isalt'] )
-		{
-			$num_alts += $row['amount'];
-			$dat[$label]['alt'] += $row['amount'];
-		}
-		else
-		{
-			$num_non_alts += $row['amount'];
-			$dat[$label]['nonalt'] += $row['amount'];
-		}
-	}
-	//aprint($dat);die();
 
 	// No entries at all? Then there's no data uploaded, so there's no use
 	// rendering the panel.
 	if( $num_alts + $num_non_alts == 0 )
 	{
-		return '';
+		return 'bummer';
 	}
 
 	$text = sprintf($roster->locale->act['menu_totals'], $num_non_alts, $num_alts) . ($level>0 ? sprintf($roster->locale->act['menu_totals_level'], $level) : '');
@@ -445,7 +390,7 @@ function makeGraph( $type , $level , $style )
 		foreach( $dat as $bar )
 		{
 			$req['bar']['names'][$i] = urlencode($bar['name']);
-			$req['bar']['sizes'][$i] = ($bar['alt'] + $bar['nonalt']);
+			$req['bar']['sizes'][$i] = $bar['nonalt'];
 			$req['bar2']['sizes'][$i] = $bar['alt'];
 			$i++;
 		}
@@ -485,7 +430,7 @@ function makeGraph( $type , $level , $style )
 		foreach( $dat as $bar )
 		{
 			$req['bar']['names'][$i] = urlencode($bar['name']);
-			$req['bar']['sizes'][$i] = (($bar['alt'] + $bar['nonalt'] == 0) ? -1 : log($bar['alt'] + $bar['nonalt']));
+			$req['bar']['sizes'][$i] = (($bar['nonalt'] == 0) ? -1 : log($bar['nonalt']));
 			$req['bar2']['sizes'][$i] = (($bar['alt'] == 0) ? -1 : log($bar['alt']));
 			$i++;
 		}

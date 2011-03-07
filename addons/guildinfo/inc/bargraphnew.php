@@ -179,7 +179,7 @@ for($i=0; $i<$count; $i++)
 	}
 
 	$roster_gd->write_text($text['size'], 0, $text_offset, 95, $thiscolor, 0, $text['font'], $barnames[$i], 'center', array(), $shadow);
-	$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], number_format((string)$barsizes[$i], 3, ',', ' '), 'right', array(), $shadow);
+	$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], number_format((string)$barsizes[$i], 1, '.', ' '), 'right', array(), $shadow);
 
 	$text_offset += $bar_gap;
 }
