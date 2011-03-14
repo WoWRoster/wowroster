@@ -43,7 +43,7 @@ $mainQuery =
 	'`players`.`exp`, '.
 	'`players`.`clientLocale`, '.
 
-	"GROUP_CONCAT( DISTINCT CONCAT( `tree` , '|', `pointsspent` , '|', `background` ) ORDER BY `order`) AS 'talents', ".
+	"GROUP_CONCAT( DISTINCT CONCAT( `build`, '|', `tree` , '|', `pointsspent` , '|', `background` ) ORDER BY `build`, `order`) AS 'talents', ".
 
 	'`skills`.`skill_level`, '.
 	'`skills`.`skill_name` '.

@@ -52,12 +52,12 @@ $mainQuery =
 	'`players`.`honorpoints`, '.
 	'`players`.`arenapoints`, '.
 
-	"GROUP_CONCAT( DISTINCT CONCAT( `talenttable`.`tree` , '|', `talenttable`.`pointsspent` , '|', `talenttable`.`background` ) ORDER BY `talenttable`.`order`) AS 'talents' ".
+	"GROUP_CONCAT( DISTINCT CONCAT( `talenttable`.`build`, '|', `talenttable`.`tree` , '|', `talenttable`.`pointsspent` , '|', `talenttable`.`background` ) ORDER BY `talenttable`.`build`, `talenttable`.`order`) AS 'talents' ".
 
 	'FROM `'.$roster->db->table('members').'` AS members '.
 	'INNER JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id`  AND `talenttable`.`build` = "0"';
+	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` ';
 $where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'"';
 $group[] = '`members`.`member_id`';
 $order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
