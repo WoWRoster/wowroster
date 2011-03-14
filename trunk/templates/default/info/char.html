@@ -413,7 +413,7 @@
 									</div>
 									<div class="rep-standing">{rep.bar.STANDING}</div>
 									<div class="rep-bar">
-										<div class="fill {rep.bar.STANDING}" style="width: {rep.bar.WIDTH}%;"></div>
+										<div class="fill {rep.bar.STANDING}" style="width:{rep.bar.WIDTH}%;"></div>
 										<div class="text">{rep.bar.VALUE} / {rep.bar.MAXVALUE}</div>
 									</div>
 								</div>
@@ -429,11 +429,14 @@
 <!-- BEGIN bar2 -->
 						<div class="tier-3-a">
 							<div class="tier-3-b">
-								<div class="rep" {rep.bar.rep2.bar2.TOOLTIP}>
-									<div class="rep-name">{rep.bar.rep2.bar2.NAME}</div>
+								<div class="rep">
+									<div class="rep-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {rep.bar.rep2.bar2.TOOLTIP}></span>
+										{rep.bar.rep2.bar2.NAME}
+									</div>
 									<div class="rep-standing">{rep.bar.rep2.bar2.STANDING}</div>
 									<div class="rep-bar">
-										<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width: {rep.bar.rep2.bar2.WIDTH}%;"></div>
+										<div class="fill {rep.bar.rep2.bar2.STANDING}" style="width:{rep.bar.rep2.bar2.WIDTH}%;"></div>
 										<div class="text">{rep.bar.rep2.bar2.VALUE} / {rep.bar.rep2.bar2.MAXVALUE}</div>
 									</div>
 								</div>
@@ -471,7 +474,10 @@
 						<div class="tier-3-a">
 							<div class="tier-3-b">
 								<div class="skill">
-									<div class="skill-name">{skill.bar.NAME}</div>
+									<div class="skill-name">
+										<img class="skill-icon" src="{INTERFACE_URL}Interface/Icons/{skill.bar.ICON}.{IMG_SUFFIX}" alt="" />
+										{skill.bar.NAME}
+									</div>
 									<div class="skill-bar">
 <!-- IF skill.bar.MAXVALUE eq 1 -->
 										<div class="fill" style="width: 100%;"></div>

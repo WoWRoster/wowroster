@@ -1409,10 +1409,11 @@ class char
 						'NAME'     => $skillbar['name'],
 						'WIDTH'    => $skillbar['barwidth'],
 						'VALUE'    => $skillbar['value'],
-						'MAXVALUE' => $skillbar['maxvalue']
+						'MAXVALUE' => $skillbar['maxvalue'],
+						'ICON'     => $this->locale['ts_iconArray'][$skillbar['name']]
 						)
 					);
-
+/*
 					if( $skill['name'] == $this->locale['professions'] )
 					{
 						$roster->tpl->assign_block_vars('professions',array(
@@ -1424,6 +1425,7 @@ class char
 							)
 						);
 					}
+*/
 				}
 			}
 			return true;
