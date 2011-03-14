@@ -519,3 +519,6 @@
 .arrowRight { background-position: 100% 0; }
 /*.disabledArrow { background-position: 100% 100%; }
 .disabledArrowL { background-position: 0 100%; }*/
+
+
+.skill-icon { float:left; margin-right: 2px; width: 18px; height: 18px; }
