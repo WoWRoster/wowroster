@@ -102,7 +102,6 @@ class guildinfoUpdate
 	{
 		global $roster, $update;
 
-		$update = false;
 /*
 		Array
 		(
