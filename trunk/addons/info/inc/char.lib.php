@@ -1413,7 +1413,7 @@ class char
 						'ICON'     => $this->locale['ts_iconArray'][$skillbar['name']]
 						)
 					);
-/*
+
 					if( $skill['name'] == $this->locale['professions'] )
 					{
 						$roster->tpl->assign_block_vars('professions',array(
@@ -1425,7 +1425,7 @@ class char
 							)
 						);
 					}
-*/
+
 				}
 			}
 			return true;
