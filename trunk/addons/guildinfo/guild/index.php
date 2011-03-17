@@ -215,14 +215,17 @@ function makeGraph( $type , $level , $style )
 	// Initialize data array
 	$dat = array();
 	$num_alts = $num_non_alts = 0;
+	$queryxxx = "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
+	$wherexx = "Where `guild_id` = '" . $roster->data['guild_id'] . "' and `level` >= ".$addon['config']['graph_level_level']."";
+	$queryxx = "SELECT ".$queryxxx." `level`, `classid` FROM `" . $roster->db->table('members') . "`"
+	. $wherexx . " Order by `level` ASC";
+	$resultxx = $roster->db->query($queryxx);
+		
+	
 	if( $type == 'level' )
 	{
 
-		$queryxxx = "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
-		$wherexx = "Where `guild_id` = '" . $roster->data['guild_id'] . "' and `level` >= ".$addon['config']['graph_level_level']."";
-		$queryxx = "SELECT ".$queryxxx." `level` FROM `" . $roster->db->table('members') . "`"
-			. $wherexx . " Order by `level` ASC";
-		$resultxx = $roster->db->query($queryxx);
+		
 		$f = array();
 		$d=0;
 		$i=0;
@@ -313,11 +316,8 @@ function makeGraph( $type , $level , $style )
 	}
 	elseif( $type == 'class' )
 	{
-		$queryccc = "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
-		$wherec = "Where `guild_id` = '" . $roster->data['guild_id'] . "' and `level` >= ".$addon['config']['graph_class_level']."";
-		$queryc = "SELECT ".$queryccc." `classid` FROM `" . $roster->db->table('members') . "`"
-			. $wherec . " Order by `level` ASC";
-		$resultc = $roster->db->query($queryc);
+
+		$resultc = $resultxx;
 		foreach($roster->locale->act['id_to_class'] as $class_id => $class)
 			{
 				$dat[$class_id]['name'] = $class;
@@ -394,7 +394,7 @@ function makeGraph( $type , $level , $style )
 			$req['bar2']['sizes'][$i] = $bar['alt'];
 			$i++;
 		}
-		$req = 'inc/bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
+		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
 
 		$output .= '<img class="info-graph" src="' . $addon['url'] . $req . '" alt="" />';
 	}
@@ -435,7 +435,7 @@ function makeGraph( $type , $level , $style )
 			$i++;
 		}
 
-		$req = 'inc/bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
+		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
 		$output .= '<img class="info-graph" src="' . $addon['url'] . $req . '" alt="" />';
 	}
 	else

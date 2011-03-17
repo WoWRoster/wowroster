@@ -32,6 +32,7 @@ $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 require_once ($roster_root_path . 'settings.php');
 
+
 //==========[ GET FROM CONF.PHP ]====================================================
 
 
@@ -248,6 +249,7 @@ function img_output( $realmData , $err , $image_path , $font_path )
 	$typefont = $font_path . $roster->config['rs_font_type'];
 	$serverpopfont = $font_path . $roster->config['rs_font_pop'];
 
+	/*
 	// Get and combine base images, set colors
 	$top = @imagecreatefrompng($image_path . strtolower($realmData['serverstatus']) . '.png');
 	if( !$top )
@@ -364,13 +366,40 @@ function img_output( $realmData , $err , $image_path , $font_path )
 			writeText($top, $roster->config['rs_size_type'], round(($topwidth - $w) / 2), 88, $realmData['servertypecolor'], $typefont, $realmData['servertype'], $roster->config['rs_color_shadow']);
 		}
 	}
+	*/
 
+	require(ROSTER_LIB . 'roster_gd.php');
+	$roster_gd =& new RosterGD();
+
+	$shadow = array('color' => 'fff000', 'distance' => 1, 'direction' => 90, 'spread' => 1);
+	
+	$bkg_img = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP . strtolower($realmData['serverpop']).'.png';
+
+	$bkg_img_info = getimagesize($bkg_img);
+	$roster_gd->make_image($bkg_img_info[0], $bkg_img_info[1]);
+	$roster_gd->combine_image($bkg_img, 0, 0);
+
+	
+	//$top = @imagecreatefrompng($image_path . strtolower($realmData['serverpop']) . '.png');
+	
+	$roster_gd->write_text($roster->config['rs_size_server'], 0, 8, 20, $roster->config['rs_color_server'], 0,$serverfont, $realmData['server_name'], 'left', array(), $shadow);
+	
+	$roster_gd->write_text($roster->config['rs_size_type'], 0, 125, 15, $realmData['servertypecolor'], 0, $serverpopfont, $realmData['servertype'], 'left', array(), $shadow);	
+	
+	$roster_gd->write_text($roster->config['rs_size_pop'], 0, 125, 30, $realmData['serverpopcolor'], 0, $serverpopfont, $realmData['serverpop'], 'left', array(), $shadow);
+	
+	$roster_gd->get_image('png');
+	$roster_gd->finish();
+	/*
+	
 	header('Content-type: image/png');
 
 	imagealphablending($top, false);
 	imagesavealpha($top, true);
 	imagepng($top);
 	imagedestroy($top);
+	//echo $realmData['serverpop'];
+	*/
 }
 
 // Function to set color of text
