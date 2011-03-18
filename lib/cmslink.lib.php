@@ -108,10 +108,12 @@ function parse_params()
  * (Ninja looted from DragonFly, thanks you guys!)
  *
  * @param string $url
- * @param bool $full
+ * @param bool $full (optional)
+ * @param bool $anchor (optional)
+ * @param string $ext (optional)
  * @return string
  */
-function makelink( $url='' , $full=false )
+function makelink( $url='' , $full=false , $anchor=false , $ext='html')
 {
 	global $roster;
 
@@ -143,18 +145,25 @@ function makelink( $url='' , $full=false )
 	}
 
 	// Add the anchor param if it isn't in yet
-	switch($roster->atype)
+	if( $anchor )
 	{
-		case 'char':
-			$anchor = ( isset($roster->data['member_id'])?'a=c:' . $roster->data['member_id']:'' );
-			break;
-		case 'guild': case 'default':
-			$anchor = ( isset($roster->data['guild_id'])?'a=g:' . $roster->data['guild_id']:'' );
-			break;
-		case 'realm':
-			$anchor = 'a=r:' . $roster->anchor;
-		default:
-			$anchor = '';
+		switch($roster->atype)
+		{
+			case 'char':
+				$anchor = ( isset($roster->data['member_id'])?'a=c:' . $roster->data['member_id']:'' );
+				break;
+			case 'guild': case 'default':
+				$anchor = ( isset($roster->data['guild_id'])?'a=g:' . $roster->data['guild_id']:'' );
+				break;
+			case 'realm':
+				$anchor = 'a=r:' . $roster->anchor;
+			default:
+				$anchor = '';
+		}
+	}
+	else
+	{
+		$anchor = '';
 	}
 
 	if( empty($url) || empty($anchor) )
@@ -174,11 +183,11 @@ function makelink( $url='' , $full=false )
 
 		if( empty($url) )
 		{
-			$url = $page . '.html';
+			$url = $page . '.' . $ext;
 		}
 		else
 		{
-			$url = $page . '/' . $url . '.html';
+			$url = $page . '/' . $url . '.' . $ext;
 		}
 	}
 	else

@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{XML_LANG}" lang="{XML_LANG}">
 <head>
 <!-- $Id$ -->
@@ -13,11 +12,13 @@
 <script type="text/javascript" src="{ROSTER_PATH}js/ui.selectmenu.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/script.js"></script>
 <script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
+<!--
 /**
  * Tab Content script v2.0- Dynamic Drive DHTML code library (www.dynamicdrive.com)
  * This notice MUST stay intact for legal use
  * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
- **/
+ */
+//-->
 </script>
 <script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
 <script type="text/javascript" src="{THEME_PATH}/theme.js"></script>
@@ -59,9 +60,12 @@
 			</div>
 <!-- ENDIF -->
 		</div>
-		<div class="menu-login">
-{LOGIN_FORM}
-		</div>
+<!-- IF S_REALMSTATUS -->
+		<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+		<div class="menu-login">{LOGIN_FORM}</div>
+<!-- ENDIF -->
 	</div>
 	<div class="util<!-- IF ROSTER_SCOPE eq "page" -->-page<!-- ENDIF -->-wrap">
 <!-- ENDIF -->
@@ -102,9 +106,12 @@
 			</div>
 <!-- ENDIF -->
 		</div>
-		<div class="menu-login">
-{LOGIN_FORM}
-		</div>
+<!-- IF S_REALMSTATUS -->
+		<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+		<div class="menu-login">{LOGIN_FORM}</div>
+<!-- ENDIF -->
 	</div>
 	<div class="realm-wrap">
 <!-- ENDIF -->
@@ -144,9 +151,12 @@
 			</div>
 <!-- ENDIF -->
 	</div>
-	<div class="menu-login">
-{LOGIN_FORM}
-	</div>
+<!-- IF S_REALMSTATUS -->
+	<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+	<div class="menu-login">{LOGIN_FORM}</div>
+<!-- ENDIF -->
 </div>
 <div class="guild-wrap">
 <!-- ENDIF -->
@@ -171,9 +181,12 @@
 			</div>
 <!-- ENDIF -->
 		</div>
-		<div class="menu-login">
-{LOGIN_FORM}
-		</div>
+<!-- IF S_REALMSTATUS -->
+		<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+		<div class="menu-login">{LOGIN_FORM}</div>
+<!-- ENDIF -->
 	</div>
 	<div class="char-wrap">
 

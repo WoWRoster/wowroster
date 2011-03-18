@@ -103,8 +103,8 @@ $lang['remove_install_files_text'] = 'Merci de supprimer <span class="redB">inst
 $lang['upgrade_wowroster'] = 'Mise à jour de WoWRoster';
 $lang['upgrade'] = 'Mise à jour';
 $lang['select_version'] = 'Choisissez votre version';
-$lang['no_upgrade'] = 'Vous avez déjà mis à jour le Roster.<br />Ou vous avez déjà une version plus récente.';
-$lang['upgrade_complete'] = 'Le Roster a été mis à jour';
+$lang['no_upgrade'] = 'Vous avez déjà mis à jour le Roster.<br />Ou vous avez déjà une version plus récente.<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
+$lang['upgrade_complete'] = 'Le Roster a été mis à jour<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
 
 // Menu buttons
 $lang['menu_header_scope_panel'] = 'Panneau de contrôle : %s';
@@ -1135,17 +1135,14 @@ $lang['admin']['default_desc'] = "Description|Saisissez une courte description d
 $lang['admin']['alt_type'] = "Identification des rerolls|Textes identifiant les rerolls pour le décompte dans le menu principal<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 $lang['admin']['alt_location'] = "Identification des rerolls (champ)|Où faut-il rechercher l'identification des rerolls<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 
-// menu_conf
-$lang['admin']['menu_top_pane'] = "Panneau supérieur|Contrôle les affichages du panneau supérieur du menu principal du roster<br />Cette zone contient le nom de la guilde, le nom du serveur, la date de la dernière mise à jour, etc.";
-$lang['admin']['menu_top_faction'] = "Icône de faction|Contrôle l'affichage de l'icône de faction du panneau supérieur du menu principal du roster";
-$lang['admin']['menu_top_locale'] = "Sélection de la langue|Contrôle l'affichage de la zone de sélection de la langue du panneau supérieur du menu principal du roster";
-$lang['admin']['menu_bottom_pane'] = "Panneau inférieur|Contrôle les affichages du panneau inférieur du menu principal du roster<br />Cette zone contient la boîte de recherche";
-
 // display_conf
 $lang['admin']['theme'] = "Thème du roster|Sélectionner l'apparence du roster<br /><span class=\"red\">NOTE :</span> la matrice du roster n'a pas encore été complètement achevée<br />et l'utilisation de thèmes autres que celui par défaut peut donc avoir des conséquences sur l'affichage de celui-ci.";
 $lang['admin']['logo'] = "URL pour le logo de l'entête|L'URL complète de l'image<br />Ou en laissant \"img/\" devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['roster_bg'] = "URL pour l'image de fond|L'URL absolue de l'image pour le fond principal<br />Ou en laissant &quot;img/&quot; devant le nom, celà cherchera dans le répertoire img/ du roster";
 $lang['admin']['motd_display_mode'] = "Mode d'affichage du message du jour|Comment le message du jour sera affiché<br /><br />&quot;Text&quot; - Montre le message de du jour en rouge<br />&quot;Image&quot; - Montre le message du jour sous forme d'une image (nécesite GD!)";
+$lang['admin']['header_locale'] = "Sélection de la langue|Contrôle l'affichage de la zone de sélection de la langue du panneau supérieur du menu principal du roster";
+$lang['admin']['header_login'] = "Login in header|Control the display of the login box in the header";
+$lang['admin']['header_search'] = "Search in header|Control the display of the search box in the header";
 $lang['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l'ancien générateur de signature";
 $lang['admin']['processtime'] = "Temps de génération de la page|Displays render time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
 
@@ -1154,8 +1151,7 @@ $lang['admin']['profiler'] = "Lien de téléchargement du CharacterProfiler|URL 
 $lang['admin']['uploadapp'] = "Lien de téléchargement d'UniUploader|URL de téléchargement d'UniUploader";
 
 // realmstatus_conf
-$lang['admin']['rs_display'] = "Mode d'information|&quot;full&quot; Affichera l'état et le nom du serveur, la population, and le type<br />&quot;half&quot; ne montrera que l'état";
-$lang['admin']['rs_mode'] = "Mode d'affichage|Comment l'état du royaume sera affiché<br /><br />&quot;DIV Container&quot; - L'état du royaume sera affiché dans une balise DIV avec du texte et des images<br />&quot;Image&quot; - Le statut du royaume sera affiché comme une image (NECESSITE GD !)";
+$lang['admin']['rs_display'] = "Mode d'affichage|Comment l'état du royaume sera affiché<ul class='ul-no-m'><li>off: Do not show realm status</li><li>Text: L'état du royaume sera affiché dans une balise DIV avec du texte et des images</li><li>Image: Le statut du royaume sera affiché comme une image (NECESSITE GD !)</li></ul>";
 $lang['admin']['rs_timer'] = "Rafraîchissement|Temps que met le roster avant de récupérer à nouveau les données sur l'état de royaume";
 $lang['admin']['rs_left'] = "Affichage|";
 $lang['admin']['rs_middle'] = "Type de royaume|";

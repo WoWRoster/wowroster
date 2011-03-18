@@ -4,7 +4,6 @@
  *
  * Overall header for Roster
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -119,21 +118,25 @@ $roster->tpl->assign_vars(array(
 	'ROSTER_BODY'   => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
 	'ROSTER_ONLOAD' => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
 
-	'LOGIN_FORM'           => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
-	'U_SEARCH_FORM_ACTION' => makelink('search'),
-
-	'S_LOCALE_SELECT'   => (bool)$roster->config['menu_top_locale'],
-
 	'L_MENU_LABEL'      => $roster->scope,
 	'L_MENU_LABEL_NAME' => $roster->locale->act[$roster->scope],
 
+	'S_LOCALE_SELECT'   => (bool)$roster->config['header_locale'],
+	'S_HEADER_SEARCH'   => (bool)$roster->config['header_search'],
+	'S_HEADER_LOGIN'    => (bool)$roster->config['header_login'],
+	'S_REALMSTATUS'     => (bool)$roster->config['rs_display'],
+
+	'LOGIN_FORM'           => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
+	'REALMSTATUS'   => isset($roster->data['server']) ? makeRealmStatus() : '',
+
 	'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 
+	'U_SEARCH_FORM_ACTION' => makelink('search'),
 	'U_MENU_UPDATE_LUA' => makelink('update')
 ));
 
 // Make a listing of our current locales
-if( $roster->config['menu_top_locale'] )
+if( $roster->config['header_locale'] )
 {
 	foreach( $roster->multilanguages as $language )
 	{

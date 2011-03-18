@@ -103,8 +103,8 @@ $lang['remove_install_files_text'] = 'Por favor, elimina <span class="redB">inst
 $lang['upgrade_wowroster'] = 'Mejorar WoWRoster';
 $lang['upgrade'] = 'Mejorar';
 $lang['select_version'] = 'Selecciona versión';
-$lang['no_upgrade'] = 'Acabas de mejorar tu Roster<br />O tienes una nueva versión mas nueva que esta mejora';
-$lang['upgrade_complete'] = 'La instalación de WoWRoster se ha completado satisfactoriamente';
+$lang['no_upgrade'] = 'Acabas de mejorar tu Roster<br />O tienes una nueva versión mas nueva que esta mejora<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
+$lang['upgrade_complete'] = 'La instalación de WoWRoster se ha completado satisfactoriamente<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
 
 // Menu buttons
 $lang['menu_header_scope_panel'] = 'Panel de %s';
@@ -1135,17 +1135,14 @@ $lang['admin']['default_desc'] = "Descripción|Introduce una breve descripción 
 $lang['admin']['alt_type'] = "Alt-Texto búsqueda|Asigna el código para reconocer a los personajes alts<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 $lang['admin']['alt_location'] = "Campo búsqueda de alts|Indica el campo en el que se tiene que buscar la etiqueta establecida en el campo anterior<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 
-// menu_conf
-$lang['admin']['menu_top_pane'] = "Panel Superior|Muestra el panel superior encima del menú principal de Roster<br />Este area tiene el nombre de la hermandad, servidor, última actualización, etc...";
-$lang['admin']['menu_top_faction'] = "Icono de facción|Muestra un icono con la facción de la hermandad en el menú principal de Roster";
-$lang['admin']['menu_top_locale'] = "Caja de idioma|Muestra la caja de selección de idioma en el menú principal de Roster";
-$lang['admin']['menu_bottom_pane'] = "Panel inferior|Muestra el panel inferior debajo del menu principal de Roster.<br />Este area contiene el campo de búsqueda.";
-
 // display_conf
 $lang['admin']['theme'] = "Tema del Roster|Elige el aspecto general de Roster<br /><span class=\"red\">NOTA:</span> No todo el Roster varia con el tema.<br />Usando otros temas puede que no obtengas los resultados esperados";
 $lang['admin']['logo'] = "URL para el logo de la cabecera|Escribe el URL completo de la imagen o en su lugar &quot;img/&quot;nombre_logo. <br />Es la imagen que se muestra en la cabecera de la página";
 $lang['admin']['roster_bg'] = "URL para la imagen del fondo|Indica el URL completo de la imagen a mostrar en el fondo de la web<br />o el nombre relativo &quot;img/&quot;";
 $lang['admin']['motd_display_mode'] = "Modo de mostrar MDD|Elige como mostrar el texto del mensaje del día<br /><br />&quot;Texto&quot; - Muestra el MDD en rojo<br />&quot;Imagen&quot; - Muestra el MDD en una imagen (¡REQUERIDO GD!)";
+$lang['admin']['header_locale'] = "Caja de idioma|Muestra la caja de selección de idioma en el menú principal de Roster";
+$lang['admin']['header_login'] = "Login in header|Control the display of the login box in the header";
+$lang['admin']['header_search'] = "Search in header|Control the display of the search box in the header";
 $lang['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fondo de pantalla";
 $lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Muestra el tiempo de renderizado y el número de llamadas al pie de la página<br />&quot;<i>x.xx | xx</i>&quot;";
 
@@ -1154,8 +1151,7 @@ $lang['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para d
 $lang['admin']['uploadapp'] = "Enlace para descargar UniUploader|URL para descargar UniUploader";
 
 // realmstatus_conf
-$lang['admin']['rs_display'] = "Mostrar Información|&quot;lleno&quot; muestra el estado y el nombre del servidor, población y tipo<br />&quot;medio&quot; muestra el estado del reino";
-$lang['admin']['rs_mode'] = "Modo de mostrar|Elige como mostrar el estado del reino<br /><br />&quot;DIV Container&quot; - Muestra el reino en una imagen con un texto<br />&quot;Imagen&quot; - Muestra el estado del reino con una imagen (¡REQUERIDO GD!)";
+$lang['admin']['rs_display'] = "Modo de mostrar|Elige como mostrar el estado del reino<ul class='ul-no-m'><li>off: Do not show realm status</li><li>Text: Muestra el reino en una imagen con un texto</li><li>Imagen: Muestra el estado del reino con una imagen (¡REQUERIDO GD!)</li></ul>";
 $lang['admin']['rs_timer'] = "Tiempo de refresco|Elige el periodo de tiempo para obtener nuevos datos sobre el estado del reino";
 $lang['admin']['rs_left'] = "Mostrar|";
 $lang['admin']['rs_middle'] = "Opciones de tipos de Mostrar|";

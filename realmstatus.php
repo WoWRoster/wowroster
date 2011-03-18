@@ -4,7 +4,6 @@
  *
  * Realmstatus Image generator
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -55,9 +54,9 @@ if( isset($_GET['d']) )
 {
 	$generate_image = ($_GET['d'] == '0' ? false : true);
 }
-elseif( isset($roster->config['rs_mode']) )
+elseif( isset($roster->config['rs_display']) )
 {
-	$generate_image = ($roster->config['rs_mode'] ? true : false);
+	$generate_image = ($roster->config['rs_display'] == 'image' ? true : false);
 }
 else
 {
@@ -70,9 +69,6 @@ $xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region 
 
 // Path to image folder
 $image_path = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP;
-
-// Path to font folder
-$font_path = ROSTER_BASE . 'fonts' . DIR_SEP;
 
 #--[ MYSQL CONNECT AND STORE ]=========================================================
 
@@ -101,9 +97,9 @@ else
 
 
 // Check timestamp, update when ready
-$current_time = date('i') * 1;
+$current_time = time();
 
-if( $current_time >= ($realmData['timestamp'] + $roster->config['rs_timer']) || $current_time < $realmData['timestamp'] )
+if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3600)) )
 {
 	$data = simplexml_load_file($xmlsource);
 
@@ -201,7 +197,7 @@ else
 // Generate image or text?
 if( $generate_image )
 {
-	img_output($realmData, $err, $image_path, $font_path);
+	img_output($realmData, $err, $image_path);
 }
 else
 {
@@ -214,7 +210,7 @@ return;
 function text_output( $realmData )
 {
 	global $roster;
-
+/*
 	$outtext = '
 <!-- Begin Realmstatus -->
 <div style="width:88px;font-family:arial;font-weight:bold;">
@@ -233,23 +229,33 @@ function text_output( $realmData )
 </div>
 <!-- End Realmstatus -->
 ';
+*/
+	$outtext = '
+<!-- Begin Realmstatus -->
+<div style="position:relative;width:272px;height:35px;font-family:arial;font-weight:bold;background-image:url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverpop']) . '.png);">
+	<div style="top:7px;left:0;color:' . $roster->config['rs_color_server'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:10px;">' . $realmData['server_name'] . '</div>
+	<div style="top:15px;left:125px;color:' . $realmData['serverpopcolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:12px;">' . $realmData['serverpop'] . '</div>
+	<div style="top:30px;left:125px;color:' . $realmData['servertypecolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:9px;">' . $realmData['servertype'] . '</div>
+</div>
+<!-- End Realmstatus -->
+';
 	return $outtext;
 }
 
 //==========[ IMAGE GENERATOR ]========================================================
 
 
-function img_output( $realmData , $err , $image_path , $font_path )
+function img_output( $realmData , $err , $image_path )
 {
 	global $roster;
 
 	$vadj = 0;
 
-	$serverfont = $font_path . $roster->config['rs_font_server'];
-	$typefont = $font_path . $roster->config['rs_font_type'];
-	$serverpopfont = $font_path . $roster->config['rs_font_pop'];
+	$serverfont = $roster->config['rs_font_server'];
+	$typefont = $roster->config['rs_font_type'];
+	$serverpopfont = $roster->config['rs_font_pop'];
 
-	/*
+/*
 	// Get and combine base images, set colors
 	$top = @imagecreatefrompng($image_path . strtolower($realmData['serverstatus']) . '.png');
 	if( !$top )
@@ -366,40 +372,35 @@ function img_output( $realmData , $err , $image_path , $font_path )
 			writeText($top, $roster->config['rs_size_type'], round(($topwidth - $w) / 2), 88, $realmData['servertypecolor'], $typefont, $realmData['servertype'], $roster->config['rs_color_shadow']);
 		}
 	}
-	*/
 
-	require(ROSTER_LIB . 'roster_gd.php');
-	$roster_gd =& new RosterGD();
+	$top = @imagecreatefrompng($image_path . strtolower($realmData['serverpop']) . '.png');
 
-	$shadow = array('color' => 'fff000', 'distance' => 1, 'direction' => 90, 'spread' => 1);
-	
-	$bkg_img = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP . strtolower($realmData['serverpop']).'.png';
-
-	$bkg_img_info = getimagesize($bkg_img);
-	$roster_gd->make_image($bkg_img_info[0], $bkg_img_info[1]);
-	$roster_gd->combine_image($bkg_img, 0, 0);
-
-	
-	//$top = @imagecreatefrompng($image_path . strtolower($realmData['serverpop']) . '.png');
-	
-	$roster_gd->write_text($roster->config['rs_size_server'], 0, 8, 20, $roster->config['rs_color_server'], 0,$serverfont, $realmData['server_name'], 'left', array(), $shadow);
-	
-	$roster_gd->write_text($roster->config['rs_size_type'], 0, 125, 15, $realmData['servertypecolor'], 0, $serverpopfont, $realmData['servertype'], 'left', array(), $shadow);	
-	
-	$roster_gd->write_text($roster->config['rs_size_pop'], 0, 125, 30, $realmData['serverpopcolor'], 0, $serverpopfont, $realmData['serverpop'], 'left', array(), $shadow);
-	
-	$roster_gd->get_image('png');
-	$roster_gd->finish();
-	/*
-	
 	header('Content-type: image/png');
 
 	imagealphablending($top, false);
 	imagesavealpha($top, true);
 	imagepng($top);
 	imagedestroy($top);
-	//echo $realmData['serverpop'];
-	*/
+*/
+
+	require(ROSTER_LIB . 'roster_gd.php');
+	$roster_gd =& new RosterGD();
+
+	$shadow = array('color' => $roster->config['rs_color_shadow'], 'distance' => 1, 'direction' => 45, 'spread' => 1);
+
+	$bkg_img = ROSTER_BASE . 'img' . DIR_SEP . 'realmstatus' . DIR_SEP . strtolower($realmData['serverpop']) . '.png';
+
+	$bkg_img_info = getimagesize($bkg_img);
+	$roster_gd->make_image($bkg_img_info[0], $bkg_img_info[1]);
+	$roster_gd->combine_image($bkg_img, 0, 0);
+
+	$roster_gd->write_text($roster->config['rs_size_server'], 0, 8, 20, $roster->config['rs_color_server'], 0, $serverfont, $realmData['server_name'], 'left', array(), $shadow);
+	$roster_gd->write_text($roster->config['rs_size_type'], 0, 125, 15, $realmData['servertypecolor'], 0, $typefont, $realmData['servertype'], 'left', array(), $shadow);
+	$roster_gd->write_text($roster->config['rs_size_pop'], 0, 125, 30, $realmData['serverpopcolor'], 0, $serverpopfont, $realmData['serverpop'], 'left', array(), $shadow);
+
+	$roster_gd->get_image('png');
+	$roster_gd->finish();
+
 }
 
 // Function to set color of text

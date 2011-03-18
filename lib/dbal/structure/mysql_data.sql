@@ -18,7 +18,6 @@ INSERT INTO `renprefix_config` VALUES (6, 'versioncache', '', 'hidden', 'master'
 ### Menu Entries
 INSERT INTO `renprefix_config` VALUES (110, 'main_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (120, 'defaults_conf', NULL, 'blockframe', 'menu');
-INSERT INTO `renprefix_config` VALUES (130, 'menu_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (140, 'display_conf', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (150, 'realmstatus_conf', NULL, 'page{1', 'menu');
 INSERT INTO `renprefix_config` VALUES (160, 'data_links', NULL, 'blockframe', 'menu');
@@ -58,24 +57,15 @@ INSERT INTO `renprefix_config` VALUES (2040, 'alt_type', 'alt', 'text{30|30', 'd
 INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title', 'defaults_conf');
 
 # --------------------------------------------------------
-### Roster Menu Settings
-
-INSERT INTO `renprefix_config` VALUES (4000, 'menu_conf_top', NULL, 'blockframe', 'menu_conf');
-INSERT INTO `renprefix_config` VALUES (4004, 'menu_conf_bottom', NULL, 'blockframe', 'menu_conf');
-
-INSERT INTO `renprefix_config` VALUES (4100, 'menu_top_pane', '1', 'radio{on^1|off^0', 'menu_conf_top');
-INSERT INTO `renprefix_config` VALUES (4110, 'menu_top_faction', '1', 'radio{on^1|off^0', 'menu_conf_top');
-INSERT INTO `renprefix_config` VALUES (4120, 'menu_top_locale', '1', 'radio{on^1|off^0', 'menu_conf_top');
-
-INSERT INTO `renprefix_config` VALUES (4400, 'menu_bottom_pane', '1', 'radio{on^1|off^0', 'menu_conf_bottom');
-
-# --------------------------------------------------------
 ### Display Settings
 
 INSERT INTO `renprefix_config` VALUES (5000, 'theme', 'default', 'function{templateList', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5030, 'motd_display_mode', '0', 'radio{Image^1|Text^0', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5031, 'header_locale', '1', 'radio{on^1|off^0', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5032, 'header_login', '1', 'radio{on^1|off^0', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5033, 'header_search', '1', 'radio{on^1|off^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5040, 'signaturebackground', 'img/default.png', 'text{128|30', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf');
 
@@ -94,8 +84,7 @@ INSERT INTO `renprefix_config` VALUES (8030, 'rs_left', NULL, 'blockframe', 'rs_
 INSERT INTO `renprefix_config` VALUES (8040, 'rs_middle', NULL, 'blockframe', 'rs_wide');
 INSERT INTO `renprefix_config` VALUES (8050, 'rs_right', NULL, 'blockframe', 'rs_wide');
 
-INSERT INTO `renprefix_config` VALUES (8100, 'rs_display', 'full', 'radio{off^0|full^full|half^half', 'rs_top');
-INSERT INTO `renprefix_config` VALUES (8110, 'rs_mode', '1', 'radio{Image^1|DIV Container^0', 'rs_top');
+INSERT INTO `renprefix_config` VALUES (8100, 'rs_display', 'full', 'radio{off^0|image^image|text^text', 'rs_top');
 INSERT INTO `renprefix_config` VALUES (8120, 'rs_timer', '10', 'text{5|5', 'rs_top');
 
 INSERT INTO `renprefix_config` VALUES (8200, 'rs_font_server', 'VERANDA.TTF', 'function{fontFiles', 'rs_left');

@@ -47,7 +47,7 @@ class Upgrade
 		// First check the current version compared to upgrade version
 		if( version_compare($roster->config['version'], ROSTER_VERSION, '>=') )
 		{
-			$roster->tpl->assign_var('MESSAGE', $roster->locale->act['no_upgrade']);
+			$roster->tpl->assign_var('MESSAGE', sprintf($roster->locale->act['no_upgrade'], ROSTER_PATH));
 			$this->display_page();
 		}
 
@@ -84,7 +84,7 @@ class Upgrade
 		}
 		else
 		{
-			$roster->tpl->assign_var('MESSAGE', $roster->locale->act['upgrade_complete']);
+			$roster->tpl->assign_var('MESSAGE', sprintf($roster->locale->act['upgrade_complete'], ROSTER_PATH));
 			$this->display_page();
 		}
 	}
@@ -561,6 +561,30 @@ class Upgrade
 			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4350' LIMIT 1;");
 			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4360' LIMIT 1;");
 			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4370' LIMIT 1;");
+		}
+
+		// More config cleanup and changes
+		if( version_compare($roster->config['version'], '2.0.9.2300', '<') )
+		{
+			// Remove all of the menu block display settings, they are in GuildInfo now
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '130' LIMIT 1;");
+
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4000' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4004' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4100' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4110' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4120' LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '4400' LIMIT 1;");
+
+			// Change realmstatus
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'radio{off^0|image^image|text^text', `config_value` = 'image' WHERE `id` = 8100 LIMIT 1;");
+			$roster->db->query("DELETE FROM `" . $roster->db->table('config') . "` WHERE `id` = '8110' LIMIT 1;");
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('realmstatus') . "` CHANGE `timestamp` `timestamp` int(11) NOT NULL DEFAULT '0';");
+
+			// Add some header area configs
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (5031, 'header_locale', '1', 'radio{on^1|off^0', 'display_conf');");
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (5032, 'header_login', '1', 'radio{on^1|off^0', 'display_conf');");
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (5033, 'header_search', '1', 'radio{on^1|off^0', 'display_conf');");
 		}
 
 		// Standard Beta Update
