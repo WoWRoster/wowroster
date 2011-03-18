@@ -12,7 +12,7 @@
 */
 
 define('IN_ROSTER', true);
-require('../../../settings.php');
+require('../../settings.php');
 require(ROSTER_LIB . 'roster_gd.php');
 $roster_gd =& new RosterGD();
 
@@ -97,9 +97,6 @@ $bkg_img_info = getimagesize($bkg_img);
 $roster_gd->make_image($bkg_img_info[0], $bkg_img_info[1]);
 $roster_gd->combine_image($bkg_img, 0, 0);
 
-$roster_gd->gd_rectangle(0, 0, $bkg_img_info[0]-1, $bkg_img_info[1]-1, 0, 0, '#B6803D');
-$roster_gd->gd_rectangle(1, 1, $bkg_img_info[0]-2, $bkg_img_info[1]-2, 0, 0, '#FFFFD6');
-
 $w = $bkg_img_info[0];
 $h = $bkg_img_info[1];
 
@@ -179,7 +176,7 @@ for($i=0; $i<$count; $i++)
 	}
 
 	$roster_gd->write_text($text['size'], 0, $text_offset, 95, $thiscolor, 0, $text['font'], $barnames[$i], 'center', array(), $shadow);
-	$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], number_format((string)$barsizes[$i], 1, '.', ' '), 'right', array(), $shadow);
+	$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], (string)$barsizes[$i], 'right', array(), $shadow);
 
 	$text_offset += $bar_gap;
 }
@@ -189,6 +186,12 @@ if( $footer['text'] != '' )
 	$shadow = array('color' => $footer['outline'], 'distance' => 1, 'direction' => 90, 'spread' => 0);
 	$roster_gd->write_text($footer['size'], 0, 5, $h-5, $footer['color'], 0, $footer['font'], $footer['text'], 'left', array(), $shadow);
 }
+
+
+// Give the image a border in GD!
+$roster_gd->gd_rectangle(0, 0, $bkg_img_info[0]-1, $bkg_img_info[1]-1, 0, 0, '#B6803D');
+$roster_gd->gd_rectangle(1, 1, $bkg_img_info[0]-2, $bkg_img_info[1]-2, 0, 0, '#FFFFD6');
+
 
 $roster_gd->get_image('png');
 $roster_gd->finish();

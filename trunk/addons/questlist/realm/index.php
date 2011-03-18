@@ -198,7 +198,7 @@ function selectQuery( $table , $fieldtoget , $field , $current , $urltorun )
 
 		$roster->tpl->assign_block_vars($field . '_list',array(
 			'NAME'     => $optiontodisplay,
-			'VALUE'    => makelink("$urltorun=$id",true),
+			'VALUE'    => makelink("$urltorun=$id", true),
 			'SELECTED' => ( stripslashes($current) == $optiontocompare ? true : false )
 			)
 		);

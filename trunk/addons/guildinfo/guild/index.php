@@ -243,64 +243,64 @@ function makeGraph( $type , $level , $style )
 				{
 					$f['0']['name'] = '1 - 9';
 					if ($rowx['isalt']==1){$f['0']['alt']++;$num_alts++;}
-					else{$num_non_alts++;}					
-					$f['0']['nonalt']++;			
+					else{$num_non_alts++;}
+					$f['0']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=10 && $rowx['level'] <=19 )
 				{
 					$f['1']['name'] = '10 - 19';
-					if ($rowx['isalt']==1)	{$f['1']['alt']++;$num_alts++;}	
-					else{$num_non_alts++;}					
-					$f['1']['nonalt']++;			
+					if ($rowx['isalt']==1)	{$f['1']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['1']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=20 && $rowx['level'] <=29 )
 				{
 					$f['2']['name'] = '20 - 29';
-					if ($rowx['isalt']==1){$f['2']['alt']++;$num_alts++;}	
-					else{$num_non_alts++;}					
-					$f['2']['nonalt']++;			
+					if ($rowx['isalt']==1){$f['2']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['2']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=30 && $rowx['level'] <=39 )
 				{
 					$f['3']['name'] = '30 - 39';
-					if ($rowx['isalt']==1){	$f['3']['alt']++;$num_alts++;}	
-					else{$num_non_alts++;}					
-					$f['3']['nonalt']++;				
+					if ($rowx['isalt']==1){	$f['3']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['3']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=40 && $rowx['level'] <=49 )
 				{
 					$f['4']['name'] = '40 - 49';
 					if ($rowx['isalt']==1){$f['4']['alt']++;$num_alts++;}
 					else{$num_non_alts++;}
-					$f['4']['nonalt']++;				
+					$f['4']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=50 && $rowx['level'] <=59 )
 				{
 					$f['5']['name'] = '50 - 59';
-					if ($rowx['isalt']==1){$f['5']['alt']++;$num_alts++;}	
-					else{$num_non_alts++;}					
-					$f['5']['nonalt']++;				
+					if ($rowx['isalt']==1){$f['5']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['5']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=60 && $rowx['level'] <=69 )
 				{
 					$f['6']['name'] = '60 - 69';
 					if ($rowx['isalt']==1){$f['6']['alt']++;$num_alts++;}
-					else{$num_non_alts++;}					
-					$f['6']['nonalt']++;				
+					else{$num_non_alts++;}
+					$f['6']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=70 && $rowx['level'] <=79 )
 				{
 					$f['7']['name'] = '70 - 79';
-					if ($rowx['isalt']==1){$f['7']['alt']++;$num_alts++;}	
-					else{$num_non_alts++;}					
-					$f['7']['nonalt']++;					
+					if ($rowx['isalt']==1){$f['7']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['7']['nonalt']++;
 				}
 				elseif( $rowx['level'] >=80 && $rowx['level'] <=84 )
 				{
 					$f['8']['name'] = '80 - 84';
-					if ($rowx['isalt']==1){	$f['8']['alt']++;$num_alts++;}	
-					else{$num_non_alts++;}					
-					$f['8']['nonalt']++;				
+					if ($rowx['isalt']==1){	$f['8']['alt']++;$num_alts++;}
+					else{$num_non_alts++;}
+					$f['8']['nonalt']++;
 				}
 				elseif( $rowx['level'] == ROSTER_MAXCHARLEVEL )
 				{
@@ -337,9 +337,7 @@ function makeGraph( $type , $level , $style )
 				$num_non_alts++;
 			}
 			$dat[$rowc['classid']]['nonalt']++;	
-			
 		}
-		
 	}
 	else
 	{
@@ -355,7 +353,6 @@ function makeGraph( $type , $level , $style )
 	}
 
 	$text = sprintf($roster->locale->act['menu_totals'], $num_non_alts, $num_alts) . ($level>0 ? sprintf($roster->locale->act['menu_totals_level'], $level) : '');
-	$text = str_replace('+', '%2B', $text);
 	$output = '';
 
 	if( $style == 'bar' )
@@ -369,7 +366,7 @@ function makeGraph( $type , $level , $style )
 				'outline' => $addon['config']['graph_' . $type . '_outline']
 			),
 			'footer' => array(
-				'text'    => $text,
+				'text'    => str_replace('+', '%2B', $text),
 				'font'    => $addon['config']['graph_' . $type . '_foot_font'],
 				'size'    => $addon['config']['graph_' . $type . '_foot_size'],
 				'color'   => $addon['config']['graph_' . $type . '_foot_color'],
@@ -396,7 +393,7 @@ function makeGraph( $type , $level , $style )
 		}
 		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
 
-		$output .= '<img class="info-graph" src="' . $addon['url'] . $req . '" alt="" />';
+		$output .= '<img class="info-graph" src="' . $addon['url_path'] . $req . '" alt="" />';
 	}
 	elseif( $style == 'barlog' )
 	{
@@ -409,7 +406,7 @@ function makeGraph( $type , $level , $style )
 				'outline' => $addon['config']['graph_' . $type . '_outline']
 			),
 			'footer' => array(
-				'text'    => $text,
+				'text'    => str_replace('+', '%2B', $text),
 				'font'    => $addon['config']['graph_' . $type . '_foot_font'],
 				'size'    => $addon['config']['graph_' . $type . '_foot_size'],
 				'color'   => $addon['config']['graph_' . $type . '_foot_color'],
@@ -436,7 +433,7 @@ function makeGraph( $type , $level , $style )
 		}
 
 		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
-		$output .= '<img class="info-graph" src="' . $addon['url'] . $req . '" alt="" />';
+		$output .= '<img class="info-graph" src="' . $addon['url_path'] . $req . '" alt="" />';
 	}
 	else
 	{
@@ -448,6 +445,7 @@ function makeGraph( $type , $level , $style )
 			$output .= $line['name'] . ': ' . $line['nonalt'] . ' (+' . $line['alt'] . " Alts)</li>\n";
 		}
 		$output .= '</ul>';
+		$output .= '<div class="' . $type . '-footer">' . $text . '</div>';
 	}
 
 	return $output;

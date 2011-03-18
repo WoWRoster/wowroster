@@ -735,7 +735,7 @@ CREATE TABLE `renprefix_realmstatus` (
   `servertype` varchar(20) NOT NULL default '',
   `serverstatus` varchar(20) NOT NULL default '',
   `serverpop` varchar(20) NOT NULL default '',
-  `timestamp` tinyint(2) NOT NULL default '0',
+  `timestamp` int(11) NOT NULL default '0',
   UNIQUE KEY `server_name` (`server_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

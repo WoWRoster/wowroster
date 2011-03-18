@@ -467,7 +467,7 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 	}
 
 	// Initialize tooltip_out
-	$tooltip_out = '';
+	$tooltip_out = array();
 
 	// Color parsing time!
 	$tooltip = str_replace("\n\n", "\n", $tooltip);
@@ -601,23 +601,23 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 				{
 					$line = '<div style="width:100%;"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
 				}
-				$tooltip_out .= $line;
+				$tooltip_out[] = $line;
 			}
 			elseif( !empty($color) )
 			{
-				$tooltip_out .= '<span style="color:#' . $color . ';">' . $line . '</span><br />';
+				$tooltip_out[] = '<span style="color:#' . $color . ';">' . $line . '</span>';
 			}
 			else
 			{
-				$tooltip_out .= "$line<br />";
+				$tooltip_out[] = $line;
 			}
 		}
 		else
 		{
-			$tooltip_out .= '<br />';
+			$tooltip_out[] = '';
 		}
 	}
-	return $tooltip_out;
+	return implode('<br />', $tooltip_out);
 }
 
 /**
@@ -693,24 +693,24 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
 				{
 					$line = '<div style="width:100%;"><span style="float:right;">' . $line[1] . '</span>' . $line[0] . '</div>';
 				}
-				$tooltip_out .= $line;
+				$tooltip_out[] = $line;
 			}
 			elseif( !empty($color) )
 			{
-				$tooltip_out .= '<span style="color:#' . $color . ';">' . $line . '</span><br />';
+				$tooltip_out[] = '<span style="color:#' . $color . ';">' . $line . '</span>';
 			}
 			else
 			{
-				$tooltip_out .= "$line<br />";
+				$tooltip_out[] = $line;
 			}
 		}
 		else
 		{
-			$tooltip_out .= '<br />';
+			$tooltip_out[] = '';
 		}
 	}
 
-	return $tooltip_out;
+	return implode('<br />', $tooltip_out);
 }
 
 
@@ -1138,23 +1138,23 @@ function urlgrabber( $url , $timeout=5 , $user_agent=false, $loopcount=0 )
 			$roster->cache->put($tmp[1], $cache_tag);
 		}
 
-        if( $http_code == 301 || $http_code == 302 )
-        {
-            $matches = array();
-            preg_match('/Location:(.*?)\n/', $resHeader, $matches);
-            $redirect = trim(array_pop($matches));
-            if( !$redirect )
-            {
-                //couldn't process the url to redirect to
-                return $data;
-            }
+		if( $http_code == 301 || $http_code == 302 )
+		{
+			$matches = array();
+			preg_match('/Location:(.*?)\n/', $resHeader, $matches);
+			$redirect = trim(array_pop($matches));
+			if( !$redirect )
+			{
+				//couldn't process the url to redirect to
+				return $data;
+			}
 
-            return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
-        }
+			return urlgrabber( $redirect, $timeout, $user_agent, $loopcount );
+		}
 		else
 		{
-            return $data;
-        }
+			return $data;
+		}
 	}
 	elseif( preg_match('/\bhttps?:\/\/([-A-Z0-9.]+):?(\d+)?(\/[-A-Z0-9+&@#\/%=~_|!:,.;]*)?(\?[-A-Z0-9+&@#\/%=~_|!:,.;]*)?/i', $url, $matches) )
 	{
@@ -1541,4 +1541,70 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
 		}
 	}
+}
+
+
+/**
+ * Makes the Realmstatus block
+ *
+ * @return the formatted realmstatus block
+ */
+function makeRealmStatus( )
+{
+	global $roster;
+
+	$realmStatus = "\n";
+
+	if( isset($roster->data['server']) )
+	{
+		$realmname = $roster->data['region'] . '-' . utf8_decode($roster->data['server']);
+	}
+	else
+	{
+		// Get the default selected guild from the upload rules
+		$query =  "SELECT `name`, `server`, `region`"
+				. " FROM `" . $roster->db->table('upload') . "`"
+				. " WHERE `default` = '1' LIMIT 1;";
+
+		$roster->db->query($query);
+
+		if( $roster->db->num_rows() > 0 )
+		{
+			$data = $roster->db->fetch();
+
+			$realmname = $data['region'] . '-' . utf8_decode($data['server']);
+		}
+		else
+		{
+			$realmname = '';
+		}
+	}
+
+	if( !empty($realmname) )
+	{
+		if( $roster->config['rs_display'] == 'image' )
+		{
+			$realmStatus .= '<img alt="Realm Status" src="' . ROSTER_URL . 'realmstatus.php?r=' . urlencode($realmname) . '" />' . "\n";
+		}
+		elseif( $roster->config['rs_display'] == 'text' && file_exists(ROSTER_BASE . 'realmstatus.php') )
+		{
+			$_GET['r'] = urlencode($realmname);
+			ob_start();
+				include_once (ROSTER_BASE . 'realmstatus.php');
+			$realmStatus .= ob_get_clean() . "\n";
+		}
+		else
+		{
+			$realmStatus .= '&nbsp;';
+		}
+
+	}
+	else
+	{
+		$realmStatus .= '&nbsp;';
+	}
+
+	$realmStatus .= "\n";
+
+	return $realmStatus;
 }

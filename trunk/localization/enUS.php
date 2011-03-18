@@ -103,8 +103,8 @@ $lang['remove_install_files_text'] = 'Please remove <span class="redB">install.p
 $lang['upgrade_wowroster'] = 'Upgrade WoWRoster';
 $lang['upgrade'] = 'Upgrade';
 $lang['select_version'] = 'Select Version';
-$lang['no_upgrade'] = 'You have already upgraded Roster<br />Or you have a newer version than this upgrader';
-$lang['upgrade_complete'] = 'Your WoWRoster installation has been successfully upgraded';
+$lang['no_upgrade'] = 'You have already upgraded Roster<br />Or you have a newer version than this upgrader<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
+$lang['upgrade_complete'] = 'Your WoWRoster installation has been successfully upgraded<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
 
 // Menu buttons
 $lang['menu_header_scope_panel'] = '%s Panel';
@@ -1135,17 +1135,14 @@ $lang['admin']['default_desc'] = "Description|Enter a short description to be di
 $lang['admin']['alt_type'] = "Alt-Text Search|Text used to designate alts for display count in the main menu<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 $lang['admin']['alt_location'] = "Alt-Search Field|Search location, what field to search for Alt-Text<br /><br /><span class=\"red\">The Memebers List AddOn DOES NOT use this for alt grouping</span>";
 
-// menu_conf
-$lang['admin']['menu_top_pane'] = "Top Pane|Controls display of the top pane of the main roster menu<br />This area holds the guild name, server, last update, etc...";
-$lang['admin']['menu_top_faction'] = "Faction Icon|Controls display of the faction icon in the top pane of the main roster menu";
-$lang['admin']['menu_top_locale'] = "Locale Selection|Controls display of the locale selection in the top pane of the main roster menu";
-$lang['admin']['menu_bottom_pane'] = "Bottom Pane|Controls display of the bottom pane of the main roster menu<br />This area holds the search box";
-
 // display_conf
 $lang['admin']['theme'] = "Roster Theme|Choose the overall look of Roster<br /><span class=\"red\">NOTE:</span> Not all of Roster is currently templated<br />and using themes other than the default may have unexpected results";
 $lang['admin']['logo'] = "URL for header logo|The full URL to the image<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['roster_bg'] = "URL for background image|The full URL to the image used for the main background<br />Or by apending &quot;img/&quot; to the name, it will look in the roster's img/ directory";
 $lang['admin']['motd_display_mode'] = "MOTD Display Mode|How the MOTD will be displayed<ul class='ul-no-m'><li>Text: Shows MOTD in red text</li><li>Image: Shows MOTD as an image (REQUIRES GD!)</li></ul>";
+$lang['admin']['header_locale'] = "Locale Selection|Controls display of the locale selection in the top pane of the main roster menu";
+$lang['admin']['header_login'] = "Login in header|Control the display of the login box in the header";
+$lang['admin']['header_search'] = "Search in header|Control the display of the search box in the header";
 $lang['admin']['signaturebackground'] = "img.php Background|Support for legacy signature creator";
 $lang['admin']['processtime'] = "Process time|Displays render time and query count in the footer<br />(<i>x.xx | xx</i>)";
 
@@ -1154,8 +1151,7 @@ $lang['admin']['profiler'] = "CharacterProfiler download link|URL to download Ch
 $lang['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
 
 // realmstatus_conf
-$lang['admin']['rs_display'] = "Info Mode|<ul class='ul-no-m'><li>full: Show status and server name, population, and type</li><li>half: Displays just the status</li></ul>";
-$lang['admin']['rs_mode'] = "Display Mode|How Realmstatus will be displayed<ul class='ul-no-m'><li>DIV Container: Shows Realmstatus in a DIV container with text and standard images</li><li>Image: Shows Realmstatus as an image (REQUIRES GD!)</li></ul>";
+$lang['admin']['rs_display'] = "Display Mode|Controls the display of the realm status block<ul class='ul-no-m'><li>off: Do not show realm status</li><li>Text: Shows Realmstatus in a DIV container with text and standard images</li><li>Image: Shows Realmstatus as an image (REQUIRES GD!)</li></ul>";
 $lang['admin']['rs_timer'] = "Refresh Timer|Set the timeout period for fetching new realmstatus data";
 $lang['admin']['rs_left'] = "Display|";
 $lang['admin']['rs_middle'] = "Realm Type|";

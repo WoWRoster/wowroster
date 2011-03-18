@@ -103,8 +103,8 @@ $lang['remove_install_files_text'] = 'Bitte entferne <span class="redB">install.
 $lang['upgrade_wowroster'] = 'Upgrade WoWRoster';
 $lang['upgrade'] = 'Upgrade';
 $lang['select_version'] = 'Wähle Version';
-$lang['no_upgrade'] = 'Du hast den Roster bereits aktualisiert<br />oder du haste eine aktuallere Version als dieses Upgrade';
-$lang['upgrade_complete'] = 'Deine WoWRoster-Installation wurde erfolgreich upgegradet';
+$lang['no_upgrade'] = 'Du hast den Roster bereits aktualisiert<br />oder du haste eine aktuallere Version als dieses Upgrade<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
+$lang['upgrade_complete'] = 'Deine WoWRoster-Installation wurde erfolgreich upgegradet<br /><a class="input" href="%1$s">Back to WoWRoster</a>';
 
 // Menu buttons
 $lang['menu_header_scope_panel'] = '%s Menü';
@@ -1135,17 +1135,14 @@ $lang['admin']['default_desc'] = "Beschreibung|Eine kurze Beschreibung eingeben,
 $lang['admin']['alt_type'] = "2.-Char Suche (Twinks)|Text, der zur Anzeige der Anzahl der 2.-Charaktere auf der Hautpseite benutzt wird<br /><br /><span class=\"red\">Das Addon Mitgliederliste benutzt das nicht für die Twink Gruppierung</span>";
 $lang['admin']['alt_location'] = "Twink Suchfeld|In welchem Feld soll der Twink-Text gesucht werden<br /><br /><span class=\"red\">Das Addon Mitgliederliste benutzt das nicht für die Twink Gruppierung</span>";
 
-// menu_conf
-$lang['admin']['menu_top_pane'] = "Oberer Ausschnitt|Kontrolliert die Anzeige des oberen Ausschnitts des Hauptmenüs<br />Dieser Bereich beinhaltet Gildennamen, Server, Letzte Aktualisierung, usw...";
-$lang['admin']['menu_top_faction'] = "Fraktionssymbol|Kontrolliert die Anzeige der Fraktionssymbols im oberen Ausschnitt des Hauptmenüs";
-$lang['admin']['menu_top_locale'] = "Sprachauswahl|Kontrolliert die Anzeige der Sprachauswahl im oberen Ausschnitt des Hauptmenüs";
-$lang['admin']['menu_bottom_pane'] = "Unterer Abschnitt|Kontrolliert die Anzeige des unteren Abschnitts des Hauptmenüs<br />Dieser Bereich enthält das Suche-Feld";
-
 // display_conf
 $lang['admin']['theme'] = "Roster Theme|Wähle das generelle Aussehen des Rosters<br /><span class=\"red\">ACHTUNG:</span> Momentan ünterstützen nicht alle Teile des Rosters dieses Feature<br />Ein anderes als das Standardaussehen zu wählen, kann zu unerwartete Ereignissen führen";
 $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Nachricht des Tages) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";
+$lang['admin']['header_locale'] = "Sprachauswahl|Kontrolliert die Anzeige der Sprachauswahl im oberen Ausschnitt des Hauptmenüs";
+$lang['admin']['header_login'] = "Login in header|Control the display of the login box in the header";
+$lang['admin']['header_search'] = "Search in header|Control the display of the search box in the header";
 $lang['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
 $lang['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeit für die Berechnung der Seite und die Anzahl der Datenbankabfragen in der Fußzeile anzeigen<br />&quot;<i>x.xx | xx</i>&quot;";
 
@@ -1154,8 +1151,7 @@ $lang['admin']['profiler'] = "CharacterProfiler Downloadlink|URL um das Characte
 $lang['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den UniUploader herunterzuladen";
 
 // realmstatus_conf
-$lang['admin']['rs_display'] = "Info Modus|&quot;voll&quot; zeigt Status, Name, Population, und Servertyp<br />&quot;halb&quot; zeigt nur den Status an";
-$lang['admin']['rs_mode'] = "Anzeige Modus|Wie der Status angezeigt werden soll:<br /><br />&quot;DIV Container&quot; - Zeigt den Realmstatus in einem DIV Container mit Text und Standardbildern<br />&quot;Image&quot; - Zeigt Realmstatus als ein Bild (BENÖTIGT GD!)";
+$lang['admin']['rs_display'] = "Anzeige Modus|Wie der Status angezeigt werden soll<ul class='ul-no-m'><li>off: Do not show realm status</li><li>Text: Zeigt den Realmstatus in einem DIV Container mit Text und Standardbildern</li><li>Image: Zeigt Realmstatus als ein Bild (BENÖTIGT GD!)</li></ul>";
 $lang['admin']['rs_timer'] = "Refresh Timer|Setzt das Intervall, in dem neue Realmstatusdaten abgefragt werden";
 $lang['admin']['rs_left'] = "Anzeige|";
 $lang['admin']['rs_middle'] = "Typanzeige Einstellungen|";

@@ -295,6 +295,14 @@ CREATE TABLE IF NOT EXISTS `renprefix_talent_builds` (
 ### Altered Tables
 
 # --------------------------------------------------------
+### Guild table updates
+
+ALTER TABLE `renprefix_guild`
+ADD `guild_xp` varchar(32) NULL default '' AFTER `guild_num_accounts`,
+ADD `guild_xpcap` varchar(32) NULL default '',
+ADD `guild_level` varchar(32) NULL default '';
+
+# --------------------------------------------------------
 ### Item type/subtype/rarity
 
 ALTER TABLE `renprefix_items`
@@ -336,6 +344,12 @@ ADD `parent` varchar(32) NULL AFTER `faction`,
 ADD `Description` mediumtext NULL AFTER `Standing`;
 
 # --------------------------------------------------------
+### Realmstatus
+
+ALTER TABLE `renprefix_realmstatus`
+  CHANGE `timestamp` `timestamp` int( 11 ) NOT NULL DEFAULT '0';
+
+# --------------------------------------------------------
 ### Spellbook
 
 ALTER TABLE `renprefix_spellbook`
@@ -365,17 +379,6 @@ ALTER TABLE `renprefix_talenttree`
   ADD PRIMARY KEY (`member_id`,`build`,`tree`);
 
 # --------------------------------------------------------
-### Guild table updates
-
-ALTER TABLE `renprefix_guild`
-ADD `guild_xp` varchar(32) NULL default '' AFTER `guild_num_accounts`,
-ADD `guild_xpcap` varchar(32) NULL default '',
-ADD `guild_level` varchar(32) NULL default '';
-
-
-
-
-# --------------------------------------------------------
 ### Config Table Updates
 
 # Update Documents link
@@ -386,16 +389,31 @@ UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1010 LIMIT 1
 UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1020 LIMIT 1;
 
 # Change realmstatus options
-UPDATE `renprefix_config` SET `form_type` = 'radio{off^0|full^full|half^half' WHERE `id` = 8100 LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'radio{off^0|image^image|text^text', `config_value` = 'image' WHERE `id` = 8100 LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '8110' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/downloads/?mcat=2' WHERE `id` = 6120 LIMIT 1;
+
+# New display options
+INSERT INTO `renprefix_config` VALUES (5031, 'header_locale', '1', 'radio{on^1|off^0', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5032, 'header_login', '1', 'radio{on^1|off^0', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5033, 'header_search', '1', 'radio{on^1|off^0', 'display_conf');
 
 # Add update instruction control
 INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
 
-# Remove all of the menu block display settings, they are in GuildInfo now
+# Remove most of the menu block display settings, they are in GuildInfo now
+DELETE FROM `renprefix_config` WHERE `id` = '130' LIMIT 1;
+
+
+DELETE FROM `renprefix_config` WHERE `id` = '4000' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4001' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4002' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4003' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4004' LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = '4100' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4110' LIMIT 1;
+DELETE FROM `renprefix_config` WHERE `id` = '4120' LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = '4200' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4210' LIMIT 1;
@@ -414,6 +432,8 @@ DELETE FROM `renprefix_config` WHERE `id` = '4340' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4350' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4360' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4370' LIMIT 1;
+
+DELETE FROM `renprefix_config` WHERE `id` = '4400' LIMIT 1;
 
 # --------------------------------------------------------
 ### Menu Updates
