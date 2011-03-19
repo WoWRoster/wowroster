@@ -87,7 +87,7 @@ class CharScope
 					{
 						if( $alt['main_id'] == $alt['member_id'] )
 						{
-							$caption = '<a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
+							$caption = 'Alts of: <a href="' . makelink('char-info&amp;a=c:' . $alt['member_id']) . '">'
 									 . $alt['name'] . ' (' . $roster->locale->act['level']
 									 . ' ' . $alt['level'] . ' ' . $alt['class'] . ')</a>';
 						}
@@ -101,12 +101,12 @@ class CharScope
 					setTooltip('alt_html', $html);
 					setTooltip('alt_cap', $caption);
 					$alt_hover = ' style="cursor:pointer;" onmouseover="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap);" '
-						. 'onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-5,OFFSETY,-5,NOCLOSE);" '
+						. 'onclick="return overlib(overlib_alt_html,CAPTION,overlib_alt_cap,STICKY,OFFSETX,-10,OFFSETY,-10,NOCLOSE);" '
 						. 'onmouseout="return nd();"';
 				}
 			}
 		}
-		$roster->tpl->assign_var('ALT_TOOLTIP',$alt_hover);
+		$roster->tpl->assign_var('ALT_TOOLTIP', $alt_hover);
 	}
 
 	function mini_members_list()
@@ -129,7 +129,7 @@ class CharScope
 			return false;
 		}
 
-		while( $data = $roster->db->fetch($result,SQL_ASSOC) )
+		while( $data = $roster->db->fetch($result, SQL_ASSOC) )
 		{
 			$roster->tpl->assign_block_vars('mini_memberslist', array(
 				'ID'         => $data['member_id'],

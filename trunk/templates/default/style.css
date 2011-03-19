@@ -74,6 +74,12 @@ textbox {
 	padding: 0;
 }
 
+.realm-status {
+	left: 170px;
+    position: absolute;
+    top: 85px;
+}
+
 .info-header {
 	width: 100%;
 	height: 125px;
@@ -88,16 +94,14 @@ textbox {
 .alliance { background: url(images/bg_alliance.png) no-repeat left top; }
 .horde { background: url(images/bg_horde.png) no-repeat left top; }
 
-.info-header .text { position: absolute; left: 165px; top: 45px; color: #000000; text-align: left; padding: 0; width: 580px; }
+.info-header .text { position: absolute; left: 160px; top: 35px; color: #FFFFFF; text-align: left; padding: 0; width: 580px; text-shadow:1px 2px 0 #000000; }
 .info-header .text:hover { background: none; }
+.info-header .text.up { top:20px; }
 
 .info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
+.info-header .name small { font-size: 18px; }
 .info-header .guild { font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
 .info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
-
-.info-header .name span { color: #FFFFFF; display: block; position: absolute; left: -1px; top: -2px; }
-.info-header .guild span { color: #FFCC00; display: block; position: absolute; left: -1px; top: -2px; }
-.info-header .info span { color: #FFFFFF; display: block; position: absolute; left: -1px; top: -2px; }
 
 .menu-select { position: absolute; top: 30px; right: 10px; text-align: right; }
 .menu-select .locale-select { margin-bottom: 3px; }

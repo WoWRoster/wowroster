@@ -75,12 +75,12 @@ if( !empty($zoneid) )
 
 		// Quest links
 		$num_of_tips = (count($tooltips)+1);
-		$linktip = '';
+		$linktip = array();
 		foreach( $roster->locale->act['questlinks'] as $link )
 		{
-			$linktip .= '<a href="' . sprintf($link['url'],$qrow['quest_id']) . '" target="_blank">' . $link['name'] . '</a><br />';
+			$linktip[] = '<a href="' . sprintf($link['url'],$qrow['quest_id']) . '" target="_blank">' . $link['name'] . '</a>';
 		}
-		setTooltip($num_of_tips,$linktip);
+		setTooltip($num_of_tips, implode('<br />', $linktip));
 
 		// Set template variables
 		$roster->tpl->assign_block_vars('quests',array(
@@ -128,12 +128,12 @@ if( !empty($questid) )
 
 	// Quest links
 	$num_of_tips = (count($tooltips)+1);
-	$linktip = '';
+	$linktip = array();
 	foreach( $roster->locale->act['questlinks'] as $link )
 	{
-		$linktip .= '<a href="' . sprintf($link['url'],$qnrow['quest_id']) . '" target="_blank">' . $link['name'] . '</a><br />';
+		$linktip[] = '<a href="' . sprintf($link['url'],$qnrow['quest_id']) . '" target="_blank">' . $link['name'] . '</a>';
 	}
-	setTooltip($num_of_tips,$linktip);
+	setTooltip($num_of_tips, implode('<br />', $linktip));
 
 	$linktip = ' onclick="return overlib(overlib_'.$num_of_tips.',CAPTION,overlib_questlink,STICKY,NOCLOSE,WRAP,OFFSETX,5,OFFSETY,5);"';
 

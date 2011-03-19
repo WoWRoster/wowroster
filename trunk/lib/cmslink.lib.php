@@ -113,7 +113,7 @@ function parse_params()
  * @param string $ext (optional)
  * @return string
  */
-function makelink( $url='' , $full=false , $anchor=false , $ext='html')
+function makelink( $url='' , $full=false , $anchor=true , $ext='html')
 {
 	global $roster;
 
@@ -152,11 +152,13 @@ function makelink( $url='' , $full=false , $anchor=false , $ext='html')
 			case 'char':
 				$anchor = ( isset($roster->data['member_id'])?'a=c:' . $roster->data['member_id']:'' );
 				break;
-			case 'guild': case 'default':
+			case 'guild':
+			case 'default':
 				$anchor = ( isset($roster->data['guild_id'])?'a=g:' . $roster->data['guild_id']:'' );
 				break;
 			case 'realm':
 				$anchor = 'a=r:' . $roster->anchor;
+				break;
 			default:
 				$anchor = '';
 		}
@@ -170,7 +172,7 @@ function makelink( $url='' , $full=false , $anchor=false , $ext='html')
 	{
 		$url = $anchor . $url;
 	}
-	elseif( substr($url,0,2) != 'a=' && FALSE == strpos( $url, '&amp;a=' ) )
+	elseif( substr($url,0,2) != 'a=' && (FALSE == strpos($url, '&amp;a=')) )
 	{
 		$url = $anchor . '&amp;' . $url;
 	}
