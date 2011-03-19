@@ -122,9 +122,13 @@ $roster->tpl->assign_vars(array(
 
 	'S_HTML_ENABLE'    => false,
 	'S_COMMENT_HTML'   => $addon['config']['comm_html'],
+	'S_ADD_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_add']),
+	'S_EDIT_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_edit']),
 
 	'U_ADD_FORMACTION'   => makelink('util-news-comment&amp;id=' . $_GET['id']),
 	'U_NEWS_ID'          => $news['news_id'],
+	'U_ADD_NEWS'  => makelink('util-news-add'),
+
 	)
 );
 

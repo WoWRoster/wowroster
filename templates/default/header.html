@@ -43,9 +43,9 @@
 
 <!-- IF ROSTER_SCOPE eq "page" or ROSTER_SCOPE eq "util" -->
 	<div class="info-header realm">
-		<div class="text">
-			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
-			<!-- IF PAGE_INFO --><div class="info">{PAGE_INFO}<span>{PAGE_INFO}</span></div><!-- ENDIF -->
+		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
+			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
+			<!-- IF PAGE_INFO --><div class="info">{PAGE_INFO}</div><!-- ENDIF -->
 		</div>
 		<div class="menu-select">
 <!-- IF S_LOCALE_SELECT -->
@@ -83,9 +83,9 @@
 
 <!-- IF ROSTER_SCOPE eq "realm" -->
 	<div class="info-header realm">
-		<div class="text">
-			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
-			<div class="info"><!-- TRANSLATE guilds -->: {TOTAL_GUILDS}<span>Guilds: {TOTAL_GUILDS}</span></div>
+		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
+			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
+			<div class="info"><!-- TRANSLATE guilds -->: {TOTAL_GUILDS}</div>
 		</div>
 		<div class="menu-select">
 <!-- IF S_LOCALE_SELECT -->
@@ -139,8 +139,8 @@
 <!-- IF ROSTER_SCOPE eq "guild" -->
 	<div class="info-header {FACTION}">
 	  	<div class="text">
-			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
-			<div class="info"><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}<span><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}</span></div>
+			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
+			<div class="info"><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}</div>
 		</div>
 		<div class="menu-select">
 <!-- IF S_LOCALE_SELECT -->
@@ -193,10 +193,18 @@
 
 <!-- IF ROSTER_SCOPE eq "char" -->
 	<div class="info-header {FACTION}">
-		<div class="text"{ALT_TOOLTIP}>
-			<div class="name" {ALT_TOOLTIP}>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small><span>{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></span></div>
-			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --><span><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></span></div><!-- ENDIF -->
-			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --><span><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></span></div>
+		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
+			<div class="name">
+<!-- IF ALT_TOOLTIP neq '' -->
+				<div class="item"{ALT_TOOLTIP}>
+					<img src="{INTERFACE_URL}Interface/Icons/spell_holy_prayerofspirit.{IMG_SUFFIX}" alt="" />
+					<div class="mask"></div>
+				</div>
+<!-- ENDIF -->
+				{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small>
+			</div>
+			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></div><!-- ENDIF -->
+			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></div>
 		</div>
 		<div class="menu-select">
 <!-- IF S_LOCALE_SELECT -->
