@@ -1,0 +1,28 @@
+<!-- $Id$ -->
+
+<form action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
+	<div class="tier-2-a login-box">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+				<div style="float:right;"><input type="submit" value="<!-- TRANSLATE login -->" /></div>
+				<!-- TRANSLATE auth_req -->
+			</div>
+
+			<div class="tier-3-a">
+				<div class="tier-3-b">
+					<div class="right">
+						<input name="password" type="password" size="30" maxlength="30" />
+					</div>
+					<div class="text">
+						{L_LOGIN_WORD} <!--  TRANSLATE password -->
+					</div>
+				</div>
+			</div>
+<!-- IF S_LOGIN_MESSAGE -->
+			<div class="message">
+				{L_LOGIN_MESSAGE}
+			</div>
+<!-- ENDIF -->
+		</div>
+	</div>
+</form>

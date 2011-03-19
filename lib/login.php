@@ -92,7 +92,8 @@ class RosterLogin
 			{
 				setcookie( 'roster_pass',$row['hash'],0,'/' );
 				$this->allow_login = $row['account_id'];
- 				$this->message = $roster->locale->act['logged_in'] . ' ' . $row['name'] . ': <form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /><input type="submit" value="' . $roster->locale->act['logout'] . '" /></form>';
+ 				$this->message = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" />'
+ 					. '<div class="clear-text"><div class="box">' . $roster->locale->act['logged_in'] . ' ' . $row['name'] . '</div><button type="submit">' . $roster->locale->act['logout'] . '</button></div></form>';
 
 				$roster->db->free_result($result);
 				return;
@@ -138,33 +139,17 @@ class RosterLogin
 			$row = $roster->db->fetch($result);
 			$roster->db->free_result($result);
 
-			$log_word = $row['name'];
+			$login_message = $this->getMessage();
 
-			return '
-			<!-- Begin Password Input Box -->
-			<form action="' . $this->action . '" method="post" enctype="multipart/form-data">
-				<div class="tier-2-a login-box">
-					<div class="tier-2-b">
-						<div class="tier-2-title">
-							<div style="float:right;"><input type="submit" value="Go" /></div>
-							' . $roster->locale->act['auth_req'] . '
-						</div>
+			$roster->tpl->assign_vars(array(
+				'U_LOGIN_ACTION'  => $this->action,
+				'L_LOGIN_WORD'    => htmlspecialchars($row['name']),
+				'S_LOGIN_MESSAGE' => (bool)$login_message,
+				'L_LOGIN_MESSAGE' => $login_message
+			));
 
-						<div class="tier-3-a">
-							<div class="tier-3-b">
-								<div class="right">
-									<input name="password" type="password" size="30" maxlength="30" />
-								</div>
-								<div class="text">
-									' . $log_word . ' ' . $roster->locale->act['password'] . '
-								</div>
-							</div>
-						</div>
-						' . ( $this->getMessage() ? '<div class="message">' . $this->getMessage() . '</div>' : '') . '
-					</div>
-				</div>
-			</form>
-			<!-- End Password Input Box -->';
+			$roster->tpl->set_handle('roster_login', 'login.html');
+			return $roster->tpl->fetch('roster_login');
 		}
 		else
 		{
@@ -178,13 +163,16 @@ class RosterLogin
 
 		if( !$this->allow_login )
 		{
-			return '
-			<form class="slim" action="' . $this->action . '" method="post" enctype="multipart/form-data">
-				' . ( $this->getMessage() ? '<div class="message">' . $this->getMessage() . '</div>' : '') . '
-				' . $roster->locale->act['login'] . '
-				<input name="password" type="password" size="14" maxlength="30" />
-				<input type="submit" value="Go" />
-			</form>';
+			$login_message = $this->getMessage();
+
+			$roster->tpl->assign_vars(array(
+				'U_LOGIN_ACTION'  => $this->action,
+				'S_LOGIN_MESSAGE' => (bool)$login_message,
+				'L_LOGIN_MESSAGE' => $login_message
+			));
+
+			$roster->tpl->set_handle('roster_menu_login', 'menu_login.html');
+			return $roster->tpl->fetch('roster_menu_login');
 		}
 		else
 		{

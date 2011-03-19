@@ -1094,12 +1094,12 @@ $lang['confirm_config_reset'] = 'This will reset the form to how it was when you
 
 
 // Main Menu words
-$lang['admin']['main_conf'] = 'Main Settings|Roster\'s main settings<br />Including roster URL, Interface Images URL, and other core options';
-$lang['admin']['defaults_conf'] = 'Defaults Config|Set up your Roster defaults';
+$lang['admin']['main_conf'] = 'Main Settings|WoWRoster main settings and core options';
+$lang['admin']['defaults_conf'] = 'Defaults|Set up your Roster defaults';
 $lang['admin']['index_conf'] = 'Index Page|Options for what shows on the Main Page';
-$lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Roster Main Menu';
-$lang['admin']['display_conf'] = 'Display Config|Misc display settings<br />css, javascript, motd, etc...';
-$lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus<br /><br />To turn this off, look in the Menu section';
+$lang['admin']['menu_conf'] = 'Menu|Control what is displayed in the Main Menu';
+$lang['admin']['display_conf'] = 'Display|Misc display settings: css, javascript, motd, etc...';
+$lang['admin']['realmstatus_conf'] = 'Realmstatus|Options for Realmstatus';
 $lang['admin']['data_links'] = 'Data Links|External links';
 $lang['admin']['update_access'] = 'Update Access|Set access levels for RosterCP components';
 

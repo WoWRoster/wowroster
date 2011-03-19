@@ -34,11 +34,11 @@ INSERT INTO `renprefix_config` VALUES (1020, 'minGPver', '1.0.0', 'text{10|10', 
 INSERT INTO `renprefix_config` VALUES (1040, 'locale', 'enUS', 'function{rosterLangValue', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'rostercp', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1055, 'external_auth', 'roster', 'function{externalAuth', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|30', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|30', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|60', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|60', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1090, 'img_suffix', 'png', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'png', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1100, 'img_url', 'img/', 'text{128|30', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1100, 'img_url', 'img/', 'text{128|60', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1110, 'timezone', 'PST', 'text{10|10', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1120, 'localtimeoffset', '0', 'select{-12^-12|-11^-11|-10^-10|-9^-9|-8^-8|-7^-7|-6^-6|-5^-5|-4^-4|-3.5^-3.5|-3^-3|-2^-2|-1^-1|0^0|+1^1|+2^2|+3^3|+3.5^3.5|+4^4|+4.5^4.5|+5^5|+5.5^5.5|+6^6|+6.5^6.5|+7^7|+8^8|+9^9|+9.5^9.5|+10^10|+11^11|+12^12|+13^13', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1140, 'use_update_triggers', '1', 'radio{on^1|off^0', 'main_conf');
@@ -51,8 +51,8 @@ INSERT INTO `renprefix_config` VALUES (1190, 'enforce_rules', '1', 'select{Never
 # --------------------------------------------------------
 ### Guild Settings
 
-INSERT INTO `renprefix_config` VALUES (2000, 'default_name', 'WoWRoster', 'text{50|30', 'defaults_conf');
-INSERT INTO `renprefix_config` VALUES (2020, 'default_desc', 'THE original Roster for World of Warcraft', 'text{255|30', 'defaults_conf');
+INSERT INTO `renprefix_config` VALUES (2000, 'default_name', 'WoWRoster', 'text{50|50', 'defaults_conf');
+INSERT INTO `renprefix_config` VALUES (2020, 'default_desc', 'THE original Roster for World of Warcraft', 'text{255|60', 'defaults_conf');
 INSERT INTO `renprefix_config` VALUES (2040, 'alt_type', 'alt', 'text{30|30', 'defaults_conf');
 INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Player Note^note|Officer Note^officer_note|Guild Rank Number^guild_rank|Guild Title^guild_title', 'defaults_conf');
 
@@ -60,20 +60,20 @@ INSERT INTO `renprefix_config` VALUES (2050, 'alt_location', 'note', 'select{Pla
 ### Display Settings
 
 INSERT INTO `renprefix_config` VALUES (5000, 'theme', 'default', 'function{templateList', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|30', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|30', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5020, 'logo', 'img/wowroster_logo.jpg', 'text{128|60', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5025, 'roster_bg', 'img/wowroster_bg.jpg', 'text{128|60', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5030, 'motd_display_mode', '0', 'radio{Image^1|Text^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5031, 'header_locale', '1', 'radio{on^1|off^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5032, 'header_login', '1', 'radio{on^1|off^0', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5033, 'header_search', '1', 'radio{on^1|off^0', 'display_conf');
-INSERT INTO `renprefix_config` VALUES (5040, 'signaturebackground', 'img/default.png', 'text{128|30', 'display_conf');
+INSERT INTO `renprefix_config` VALUES (5040, 'signaturebackground', 'img/default.png', 'text{128|60', 'display_conf');
 INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off^0', 'display_conf');
 
 # --------------------------------------------------------
 ### Links Settings
 
-INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|30', 'data_links');
-INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/downloads/?mcat=2', 'text{128|30', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|60', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/downloads/?mcat=2', 'text{128|60', 'data_links');
 
 # --------------------------------------------------------
 ### Realmstatus Settings

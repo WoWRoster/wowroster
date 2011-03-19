@@ -382,16 +382,16 @@ ALTER TABLE `renprefix_talenttree`
 ### Config Table Updates
 
 # Update Documents link
-UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = '180' LIMIT 1;
 
 # Update CP versions
-UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1010 LIMIT 1;
-UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = 1020 LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = '1010' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = '1020' LIMIT 1;
 
 # Change realmstatus options
-UPDATE `renprefix_config` SET `form_type` = 'radio{off^0|image^image|text^text', `config_value` = 'image' WHERE `id` = 8100 LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'radio{off^0|image^image|text^text', `config_value` = 'image' WHERE `id` = '8100' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '8110' LIMIT 1;
-UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/downloads/?mcat=2' WHERE `id` = 6120 LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/downloads/?mcat=2' WHERE `id` = '6120' LIMIT 1;
 
 # New display options
 INSERT INTO `renprefix_config` VALUES (5031, 'header_locale', '1', 'radio{on^1|off^0', 'display_conf');
@@ -434,6 +434,18 @@ DELETE FROM `renprefix_config` WHERE `id` = '4360' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4370' LIMIT 1;
 
 DELETE FROM `renprefix_config` WHERE `id` = '4400' LIMIT 1;
+
+# Change form values
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '1060' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '1085' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '1100' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{50|50'  WHERE `id` = '2000' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{255|60' WHERE `id` = '2020' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '5020' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '5025' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '5040' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '6100' LIMIT 1;
+UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '6120' LIMIT 1;
 
 # --------------------------------------------------------
 ### Menu Updates

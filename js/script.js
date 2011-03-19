@@ -20,7 +20,7 @@ $(function() {
 	$('.checkset').buttonset();
 
 	// Add a style to the text input and file select boxes
-	$('input[type=text], input[type=password], input[type=file]').addClass('ui-widget');
+	$('input[type=file]').addClass('ui-widget');
 
 	// Style select boxes
 	$('select:not([multiple],[class="no-style"])').selectmenu({ style:'popup' });
