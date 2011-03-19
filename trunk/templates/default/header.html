@@ -63,9 +63,19 @@
 <!-- IF S_REALMSTATUS -->
 		<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-		<div class="menu-login">{LOGIN_FORM}</div>
+		<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
+					<button type="submit"><!-- TRANSLATE search --></button>
+				</div>
+			</form>
 <!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+		</div>
 	</div>
 	<div class="util<!-- IF ROSTER_SCOPE eq "page" -->-page<!-- ENDIF -->-wrap">
 <!-- ENDIF -->
@@ -109,9 +119,19 @@
 <!-- IF S_REALMSTATUS -->
 		<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-		<div class="menu-login">{LOGIN_FORM}</div>
+		<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
+					<button type="submit"><!-- TRANSLATE search --></button>
+				</div>
+			</form>
 <!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+		</div>
 	</div>
 	<div class="realm-wrap">
 <!-- ENDIF -->
@@ -154,9 +174,19 @@
 <!-- IF S_REALMSTATUS -->
 	<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-	<div class="menu-login">{LOGIN_FORM}</div>
+	<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+		<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+			<div class="clear-text">
+				<input class="box search" type="text" name="search" />
+				<button type="submit"><!-- TRANSLATE search --></button>
+			</div>
+		</form>
 <!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+	</div>
 </div>
 <div class="guild-wrap">
 <!-- ENDIF -->
@@ -184,9 +214,19 @@
 <!-- IF S_REALMSTATUS -->
 		<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-		<div class="menu-login">{LOGIN_FORM}</div>
+		<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
+					<button type="submit"><!-- TRANSLATE search --></button>
+				</div>
+			</form>
 <!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+		</div>
 	</div>
 	<div class="char-wrap">
 

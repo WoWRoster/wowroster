@@ -509,7 +509,7 @@ class roster
 			default:
 				if( in_array($this->scope, array('char', 'guild', 'realm')) )
 				{
-					$this->set_message($roster->locale->act['not_valid_anchor'], '', 'error');
+					$this->set_message($this->locale->act['not_valid_anchor'], '', 'error');
 					$this->anchor = 'none';
 					$this->atype = 'none';
 				}

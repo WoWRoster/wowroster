@@ -25,8 +25,45 @@ a:hover { color:#069; text-decoration:none; font-weight:bold; }
 .roster-wrap h2 { color:#000000; display:block; text-align:left; padding:0; margin-bottom: 5px; font: normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
 
 
-/* Main Roster Wrapper Header */
+/* Text input style */
+input[type="text"],
+input[type="password"],
+textbox {
+	border: none;
+	background: transparent url(images/shader.png) 0 0 repeat;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 4px 6px 3px 6px;
+	font-size: 10px;
+	outline: none; /* remove webkit glow */
+	text-shadow: 1px 1px 0 #000000;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+.clear-text { display: inline-block; }
+.clear-text input.box,
+.clear-text .box {
+	border: none;
+	float: left;
+	background: transparent url(images/shader.png) 0 0 repeat;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 4px 6px 3px 6px;
+	font-size: 10px;
+	outline: none; /* remove webkit glow */
+	border-radius: 6px 0 0 6px;
+	-moz-border-radius: 6px 0 0 6px;
+}
+.clear-text button {
+	float: left;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-moz-border-radius-bottomleft: 0;
+}
 
+
+/* Main Roster Wrapper Header */
 .theme-wrap {
 	min-height: 380px;
 	width: 940px;
@@ -93,8 +130,9 @@ a:hover { color:#069; text-decoration:none; font-weight:bold; }
 
 
 /* Login Box */
-.menu-login { font-size:10px; position: absolute; bottom: 52px; right: 2px; }
-.menu-login .message { color: #FF3300; }
+.menu-bottom { font-size: 10px; position: absolute; bottom: 52px; right: 2px; }
+.menu-bottom .message { color: #FF3300; }
+
 .login-box { margin:4px auto auto auto;width:370px; }
 .login-box .message { text-align: center; color: #FF3300; font-size: 14px; line-height: 20px; height: 20px; }
 
@@ -913,16 +951,22 @@ strong.aprint-string-length {
  * Color Picker
  */
 
-.colorinput {
+input.colorinput {
+	font-family: Segoe UI, Arial, sans-serif;
+	font-size: 10px;
 	background: transparent url('images/color/input_img.png') no-repeat;
+	color: #000000;
+	text-shadow: none;
 	border: 0;
 	height: 16px;
 	margin-right: 1px;
 	padding: 2px 5px;
 	vertical-align: middle;
 	width: 60px;
+	border-radius: 0;
+	-moz-border-radius: 0;
 }
-* html .colorinput { background-attachment:fixed; }
+* html input.colorinput { background-attachment:fixed; }
 
 #colorPicker {
 	position:absolute;
@@ -1064,6 +1108,7 @@ strong.aprint-string-length {
 .ui-widget { font-size:10px; }
 input.ui-button,
 .ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
+.ui-buttonset .ui-button { margin-right: -.4em; }
 select:focus { outline: none; }
 
 /**

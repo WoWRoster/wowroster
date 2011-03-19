@@ -1098,8 +1098,8 @@ $lang['admin']['main_conf'] = 'Fondamentaux|Paramètres principaux du roster.<br
 $lang['admin']['defaults_conf'] = 'Divers|Définissez divers options du roster';
 $lang['admin']['index_conf'] = 'Accueil|Options pour ce qu\'affiche la page d\'accueil';
 $lang['admin']['menu_conf'] = 'Menu|Contrôlez ce qu\'affiche le menu principal du roster';
-$lang['admin']['display_conf'] = 'Affichage|Différents paramètres de configuration<br />css, javascript, motd, etc...';
-$lang['admin']['realmstatus_conf'] = 'États des royaumes|Paramètres pour l\'état des royaumes<br /><br />Pour le désactiver, référez-vous à la section menu';
+$lang['admin']['display_conf'] = 'Affichage|Différents paramètres de configuration: css, javascript, motd, etc...';
+$lang['admin']['realmstatus_conf'] = 'États des royaumes|Paramètres pour l\'état des royaumes';
 $lang['admin']['data_links'] = 'Liens annexes|Liens externes';
 $lang['admin']['update_access'] = 'Accréditations|Spécifiez les niveau d\'accès aux différents composants du panneau de contrôle du roster';
 

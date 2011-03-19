@@ -587,6 +587,22 @@ class Upgrade
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (5033, 'header_search', '1', 'radio{on^1|off^0', 'display_conf');");
 		}
 
+
+		// Change form values to make bigger input fields
+		if( version_compare($roster->config['version'], '2.0.9.2301', '<') )
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '1060' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '1085' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '1100' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{50|50'  WHERE `id` = '2000' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{255|60' WHERE `id` = '2020' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '5020' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '5025' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '5040' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '6100' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '6120' LIMIT 1;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

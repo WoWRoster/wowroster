@@ -209,17 +209,17 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 /**
  * Draw a message box with the specified border color, then die cleanly
  *
- * @param string $message | The message to display inside the box
+ * @param string $text | The message to display inside the box
  * @param string $title | The box title (default = 'Message')
  * @param string $style | The border style (default = sred)
  */
-function roster_die( $message , $title = 'Message' , $style = 'sred' )
+function roster_die( $text , $title = 'Message' , $style = 'sred' )
 {
 	global $roster;
 
 	if( $roster->pages[0] == 'ajax' )
 	{
-		ajax_die($message, $title, null, null, null );
+		ajax_die($text, $title, null, null, null );
 	}
 
 	// Set scope to util
@@ -238,7 +238,7 @@ function roster_die( $message , $title = 'Message' , $style = 'sred' )
 
 	$roster_menu->displayMenu();
 
-	echo messagebox($message, $title, $style);
+	echo messagebox($text, $title, $style);
 
 	if( !defined('ROSTER_FOOTER_INC') && is_array($roster->config) )
 	{

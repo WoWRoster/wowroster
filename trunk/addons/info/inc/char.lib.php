@@ -46,6 +46,11 @@ class char
 	{
 		global $roster, $addon;
 
+		if( empty($data) )
+		{
+			roster_die('The member is not in the database', $roster->locale->act['roster_error']);
+		}
+
 		$this->data = $data;
 		$this->locale = $roster->locale->wordings[$this->data['clientLocale']];
 
@@ -421,7 +426,7 @@ class char
 					);
 
 					$reagents = explode('|',$data['reagents']);
-					
+
 					//echo $name.'<br>';
 					if ( is_array($reagents) )
 					{

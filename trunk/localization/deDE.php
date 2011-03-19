@@ -1098,8 +1098,8 @@ $lang['admin']['main_conf'] = 'Haupteinstellungen|Roster Haupteinstellungen<br /
 $lang['admin']['defaults_conf'] = 'Standarteinstellungen|Setz die Einstellung auf Standart';
 $lang['admin']['index_conf'] = 'Indexseite|Einstellen, was auf der Startseite angezeigt werden soll';
 $lang['admin']['menu_conf'] = 'Menüeinstellungen|Einstellen, welche Elemente im Menü angezeigt werden sollen';
-$lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen<br />css, javascript, motd, etc...';
-$lang['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für den Serverstatus<br /><br />Um diesen auszustellen, bitte bei den Menüeinstellungen gucken';
+$lang['admin']['display_conf'] = 'Anzeigeneinstellungen|Verschiedene Anzeigeeinstellungen: css, javascript, motd, etc...';
+$lang['admin']['realmstatus_conf'] = 'Serverstatus|Optionen für den Serverstatus';
 $lang['admin']['data_links'] = 'Daten Links|Externe Links';
 $lang['admin']['update_access'] = 'Update Zugriff|Optionale phpBB Authorisierung für Update';
 

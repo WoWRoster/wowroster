@@ -1098,8 +1098,8 @@ $lang['admin']['main_conf'] = 'Opciones principales|Opciones principales del Ros
 $lang['admin']['defaults_conf'] = 'Datos de la hermandad|Configura aspectos generales sobre la hermandad';
 $lang['admin']['index_conf'] = 'Página principal|Opciones sobre que mostrar en la Página Principal';
 $lang['admin']['menu_conf'] = 'Aspecto del menú|Cambia el aspecto del menú principal';
-$lang['admin']['display_conf'] = 'Configuración general|Muestra opciones misceláneas<br />css, javascript, motd, etc...';
-$lang['admin']['realmstatus_conf'] = 'Estado del reino|Opciones sobre la imagen del estado del reino<br /><br />Para quitarlo, mira en la sección Aspecto del menú';
+$lang['admin']['display_conf'] = 'Configuración general|Muestra opciones misceláneas: css, javascript, motd, etc...';
+$lang['admin']['realmstatus_conf'] = 'Estado del reino|Opciones sobre la imagen del estado del reino';
 $lang['admin']['data_links'] = 'Descargas|Enlaces externos de addons indispensables';
 $lang['admin']['update_access'] = 'Permisos para actualizar|Configura los niveles de acceso al panel de control de control de Roster';
 
