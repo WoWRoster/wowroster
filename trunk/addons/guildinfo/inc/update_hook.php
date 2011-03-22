@@ -102,67 +102,45 @@ class guildinfoUpdate
 	{
 		global $roster, $update;
 
-/*
-		Array
-		(
-			[AchRank] => 2
-			[Zone] => Stormwind City
-			[Class] => Death Knight
-			[ClassId] => 6
-			[Name] => Boofis
-			[Level] => 85
-			[Mobile] =>
-			[Title] => Royalty
-			[AchPoints] => 4805
-			[RankEn] => Royalty
-			[LastOnline] => 0:0:0:1
-			[XP] => Array
-				(
-					[TotalXP] => 16103407
-					[WeeklyXP] => 289276
-					[TotalRank] => 3
-					[WeeklyRank] => 12
-				)
-
-			[Rank] => 1
-		)
-*/
+	
 		$this->messages = '';
-
-		$queryx = "SELECT `member_id` FROM `".$roster->db->table('ranks',$this->data['basename'])."` WHERE `member_id`='" . $member_id . "'";
-		$resultx = $roster->db->query( $queryx );
-		$update_sql = $roster->db->num_rows( $resultx ) == 1;
-
-		$this->reset_values();
-		$update->add_value('member_id', $member_id);
-		$update->add_ifvalue($char['XP'], 'TotalXP');
-		$update->add_ifvalue($char['XP'], 'WeeklyXP');
-		$update->add_ifvalue($char['XP'], 'TotalRank');
-		$update->add_ifvalue($char['XP'], 'WeeklyRank');
-		$update->add_ifvalue($char, 'Name', 'Member');
-		$update->add_value('guild_id', $this->guild_id);
-
-		if( $update_sql )
+		
+		if (is_array($char['XP']))
 		{
-			$querystr = "UPDATE `".$roster->db->table('ranks',$this->data['basename'])."` SET ".$this->assignstr." WHERE `member_id` = '$member_id'";
+			$queryx = "SELECT `member_id` FROM `".$roster->db->table('ranks',$this->data['basename'])."` WHERE `member_id`='" . $member_id . "'";
+			$resultx = $roster->db->query( $queryx );
+			$update_sql = $roster->db->num_rows( $resultx ) == 1;
+
+			$this->reset_values();
+			$update->add_value('member_id', $member_id);
+			$update->add_ifvalue($char['XP'], 'TotalXP');
+			$update->add_ifvalue($char['XP'], 'WeeklyXP');
+			$update->add_ifvalue($char['XP'], 'TotalRank');
+			$update->add_ifvalue($char['XP'], 'WeeklyRank');
+			$update->add_ifvalue($char, 'Name', 'Member');
+			$update->add_value('guild_id', $this->guild_id);
+
+			if( $update_sql )
+			{
+				$querystr = "UPDATE `".$roster->db->table('ranks',$this->data['basename'])."` SET ".$this->assignstr." WHERE `member_id` = '$member_id'";
+			}	
+			else
+			{
+				$querystr = "INSERT INTO `".$roster->db->table('ranks',$this->data['basename'])."` SET " . $this->assignstr . ";";
+			}
+		
+		
+			$result = $roster->db->query($querystr);
+			if ( $result )
+			{
+				$this->messages .= 'Contrabution Rank Updated';
+			}
+
 		}
 		else
 		{
-			$querystr = "INSERT INTO `".$roster->db->table('ranks',$this->data['basename'])."` SET " . $this->assignstr . ";";
+			$this->messages .= 'No Contrabution Rank Data';
 		}
-		//echo $querystr.'<br>';
-		$result = $roster->db->query($querystr);
-		if ( $result )
-		{
-			$this->messages .= 'Contrabution Rank Updated';
-		}
-/*
-		if( !$result )
-		{
-			$this->setError('Member Log [' . $data['name'] . '] could not be inserted',$roster->db->error());
-		}
- */
-
 		return true;
 	}
 
@@ -176,56 +154,60 @@ class guildinfoUpdate
 	{
 		global $roster, $update;
 
-		//echo '<pre>';
-		//print_r($guild['News']);
-		$news = $guild['News'];
-		foreach ($news as $catagory => $id)
+
+		if (is_array($guild['News']))
 		{
-			//echo $catagory.' - '.$id.'<br>';
-			foreach ($id as $entry => $d)
+		
+			$news = $guild['News'];
+			foreach ($news as $catagory => $id)
 			{
-				if (!empty($d))
-				{
-					$mat = explode("/",$d['Date']);
-					$datee = $mat[2].'-'.$mat[1].'-'.$mat[0];
-					$date = date_create($datee);
-					$display =  date_format($date, 'D F jS');
 
-					$queryx = "SELECT `Member`,`Achievement`,`Date` FROM `".$roster->db->table('news',$this->data['basename'])."` WHERE `Member`='" . $d['Member'] . "' AND `Achievement`='".$d['Achievement']."' AND `Date`='".date_format($date, 'Y-m-d H:i:s')."'";
-					$resultx = $roster->db->query( $queryx );
-					$update_sql = $roster->db->num_rows( $resultx ) == 1;
-
-					$this->reset_values();
-					//$update->add_value('member_id', $member_id);
-					$update->add_ifvalue($d, 'Achievement');
-					$update->add_ifvalue($d, 'Member');
-					$update->add_value('Date', date_format($date, 'Y-m-d H:i:s'));
-					$update->add_ifvalue($d, 'Typpe');
-					$update->add_ifvalue($d, 'Type');
-					$update->add_value('guild_id', $this->guild_id);
-					$update->add_value('Display_date', $display);
-					//$querystr = "INSERT INTO `".$roster->db->table('news',$this->data['basename'])."` SET " . $this->assignstr . ";";
-					if( $update_sql )
-					{
-						//$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$this->assignstr." WHERE `member_id` = '$member_id'";
-					}
-					else
-					{
-						$querystr = "INSERT INTO `".$roster->db->table('news',$this->data['basename'])."` SET " . $this->assignstr . ";";
-					}
-					//echo $querystr.'<br>';
-					$result = $roster->db->query($querystr);
-				}
-/*
-				foreach ($d as $t => $e)
+				foreach ($id as $entry => $d)
 				{
-					echo '--'.$t.' - '.$e.'<br>';
+					if (!empty($d))
+					{
+						$mat = explode("/",$d['Date']);
+						$datee = $mat[2].'-'.$mat[1].'-'.$mat[0];
+						$date = date_create($datee);
+						$display =  date_format($date, 'D F jS');
+
+						$queryx = "SELECT `Member`,`Achievement`,`Date` FROM `".$roster->db->table('news',$this->data['basename'])."` WHERE `Member`='" . $d['Member'] . "' AND `Achievement`='".$d['Achievement']."' AND `Date`='".date_format($date, 'Y-m-d H:i:s')."'";
+						$resultx = $roster->db->query( $queryx );
+						$update_sql = $roster->db->num_rows( $resultx ) == 1;
+
+						$this->reset_values();
+
+						$update->add_ifvalue($d, 'Achievement');
+						$update->add_ifvalue($d, 'Member');
+						$update->add_value('Date', date_format($date, 'Y-m-d H:i:s'));
+						$update->add_ifvalue($d, 'Typpe');
+						$update->add_ifvalue($d, 'Type');
+						$update->add_value('guild_id', $this->guild_id);
+						$update->add_value('Display_date', $display);
+					
+						if( $update_sql )
+						{
+							//$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$this->assignstr." WHERE `member_id` = '$member_id'";
+						}
+						else
+						{
+							$querystr = "INSERT INTO `".$roster->db->table('news',$this->data['basename'])."` SET " . $this->assignstr . ";";
+						}
+
+						$result = $roster->db->query($querystr);
+					}	
 				}
-*/
 			}
+		
+			$this->messages = 'Guild News Updated';
+		
+		}
+		else
+		{
+			$this->messages = 'No Guild News Data';
 		}
 
-		$this->messages = 'Guild News Updated';
+		
 
 		return true;
 	}
