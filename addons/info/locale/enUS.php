@@ -180,6 +180,7 @@ $lang['res_shadow_tooltip']='Increases your ability to resist Shadow Resistance-
 $lang['empty_equip']='No item equipped';
 $lang['pointsspent']='Points Spent in %1$s Talents';
 $lang['export_url']='http://www.wowarmory.com/talent-calc.xml?cid=%1$s&amp;tal=%2$s';
+$lang['export_url2']='http://www.wowhead.com/talent#%1$s-%2$s';
 $lang['no_talents']='No Talents for %1$s';
 
 // item_bonus locales //

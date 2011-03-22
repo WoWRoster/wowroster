@@ -1136,7 +1136,8 @@ class char
 //			aprint($talentdata);
 
 			$roster->tpl->assign_block_vars('talent', array(
-				'TALENT_EXPORT' => sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
+				'TALENT_EXPORT' => sprintf($roster->locale->act['export_url2'], strtolower($roster->locale->act['id_to_class'][$this->data['classid']]), $builddata),
+				// old code keeping for now  sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
 				'ID'    => $build,
 				'NAME'  => $specdata[$build]['name'],
 				'TYPE'  => $roster->locale->act['talent_build_' . $build],
