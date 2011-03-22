@@ -180,6 +180,7 @@ $lang['res_shadow_tooltip']='Aumenta tu facultad para resistir ataques, hechizos
 $lang['empty_equip']='No hay objetos equipados';
 $lang['pointsspent']='Puntos de talento gastados en %1$s';
 $lang['export_url']='http://eu.wowarmory.com/talent-calc.xml?locale=es_es&amp;cid=%1$s&amp;tal=%2$s';
+$lang['export_url2']='http://www.wowhead.com/talent#%1$s-%2$s';
 $lang['no_talents']='No hay talentos para %1$s';
 
 // item_bonus locales //
