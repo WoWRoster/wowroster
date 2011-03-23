@@ -1183,12 +1183,19 @@ class update
 		{
 			$this->add_value('level',$level[1]);
 		}
+		
+		$querystra = "SELECT * FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '" . $recipe['member_id'] . "' and `recipe_name` = '".addslashes($recipe['recipe_name'])."' and `skill_name` = '".addslashes($recipe['skill_name'])."';";
+		$resulta = $roster->db->query($querystra);
+		$num = $roster->db->num_rows($resulta);
 
-		$querystr = "INSERT INTO `" . $roster->db->table('recipes') . "` SET " . $this->assignstr . ";";
-		$result = $roster->db->query($querystr);
+		if ($num <=0)
+		{
+			$querystr = "INSERT INTO `" . $roster->db->table('recipes') . "` SET " . $this->assignstr . ";";
+			$result = $roster->db->query($querystr);
 		if( !$result )
 		{
 			$this->setError('Recipe [' . $recipe['recipe_name'] . '] could not be inserted',$roster->db->error());
+		}
 		}
 	}
 
@@ -1702,12 +1709,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->setError('Professions could not be deleted',$roster->error());
 				return;
 			}
+			/* this shouldent be here unneeded processing if they are there leave them...
 			$querystr = "DELETE FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError('Profession reagents could not be deleted',$roster->error());
 				return;
 			}
+			*/
 			// Then process Professions
 			foreach( array_keys($prof) as $skill_name )
 			{

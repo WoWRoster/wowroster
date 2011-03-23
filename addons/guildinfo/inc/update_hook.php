@@ -109,9 +109,9 @@ class guildinfoUpdate
 		{
 			$queryx = "SELECT `member_id` FROM `".$roster->db->table('ranks',$this->data['basename'])."` WHERE `member_id`='" . $member_id . "'";
 			$resultx = $roster->db->query( $queryx );
-			$update_sql = $roster->db->num_rows( $resultx ) == 1;
+			$update_sql = $roster->db->num_rows( $resultx );
 
-			$this->reset_values();
+			$update->reset_values();
 			$update->add_value('member_id', $member_id);
 			$update->add_ifvalue($char['XP'], 'TotalXP');
 			$update->add_ifvalue($char['XP'], 'WeeklyXP');
@@ -120,13 +120,13 @@ class guildinfoUpdate
 			$update->add_ifvalue($char, 'Name', 'Member');
 			$update->add_value('guild_id', $this->guild_id);
 
-			if( $update_sql )
+			if( $update_sql >= '1' )
 			{
-				$querystr = "UPDATE `".$roster->db->table('ranks',$this->data['basename'])."` SET ".$this->assignstr." WHERE `member_id` = '$member_id'";
+				$querystr = "UPDATE `".$roster->db->table('ranks',$this->data['basename'])."` SET ". $update->assignstr." WHERE `member_id` = '".$member_id."'";
 			}	
 			else
 			{
-				$querystr = "INSERT INTO `".$roster->db->table('ranks',$this->data['basename'])."` SET " . $this->assignstr . ";";
+				$querystr = "INSERT INTO `".$roster->db->table('ranks',$this->data['basename'])."` SET " .  $update->assignstr . ";";
 			}
 		
 		
@@ -173,9 +173,9 @@ class guildinfoUpdate
 
 						$queryx = "SELECT `Member`,`Achievement`,`Date` FROM `".$roster->db->table('news',$this->data['basename'])."` WHERE `Member`='" . $d['Member'] . "' AND `Achievement`='".$d['Achievement']."' AND `Date`='".date_format($date, 'Y-m-d H:i:s')."'";
 						$resultx = $roster->db->query( $queryx );
-						$update_sql = $roster->db->num_rows( $resultx ) == 1;
+						$update_sql = $roster->db->num_rows( $resultx );
 
-						$this->reset_values();
+						$update->reset_values();
 
 						$update->add_ifvalue($d, 'Achievement');
 						$update->add_ifvalue($d, 'Member');
@@ -185,13 +185,13 @@ class guildinfoUpdate
 						$update->add_value('guild_id', $this->guild_id);
 						$update->add_value('Display_date', $display);
 					
-						if( $update_sql )
+						if( $update_sql >= '1' )
 						{
-							//$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$this->assignstr." WHERE `member_id` = '$member_id'";
+							$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$update->assignstr." WHERE `Member` = '".$d['member']."' and `Achievement` = '".$d['Achievement']."'";
 						}
 						else
 						{
-							$querystr = "INSERT INTO `".$roster->db->table('news',$this->data['basename'])."` SET " . $this->assignstr . ";";
+							$querystr = "INSERT INTO `".$roster->db->table('news',$this->data['basename'])."` SET " .  $update->assignstr . ";";
 						}
 
 						$result = $roster->db->query($querystr);
