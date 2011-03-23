@@ -138,7 +138,8 @@ CREATE TABLE IF NOT EXISTS `renprefix_recipes_reagents` (
   `reagent_type` varchar(64) DEFAULT NULL,
   `reagent_subtype` varchar(64) DEFAULT NULL,
   `reagent_rarity` int(4) NOT NULL DEFAULT '-1',
-  `locale` varchar(4) DEFAULT NULL
+  `locale` varchar(4) DEFAULT NULL,
+  PRIMARY KEY (`reagent_id`,`locale`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------

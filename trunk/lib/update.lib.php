@@ -1030,16 +1030,19 @@ class update
 			}
 
 			// gotta see of the reagent is in the db already....
-
-			$querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = " . $id[0] . ";";
+*/
+			$querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = " . $reagent['Item'] . ";";
 			$resulta = $roster->db->query($querystra);
 			$num = $roster->db->num_rows($resulta);
-*/
+			
+			if ($num < '1')
+			{
 			$querystr = "INSERT INTO `" . $roster->db->table('recipes_reagents') . "` SET " . $this->assignstr . ";";
 			$result = $roster->db->query($querystr);
 			if( !$result )
 			{
 				$this->setError('Item [' . $reagent['Name'] . '] could not be inserted',$roster->db->error());
+			}
 			}
 
 		}
