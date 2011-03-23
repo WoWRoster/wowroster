@@ -603,6 +603,12 @@ class Upgrade
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `form_type` = 'text{128|60' WHERE `id` = '6120' LIMIT 1;");
 		}
 
+		// reagent normalization 2309
+		if( version_compare($roster->config['version'], '2.0.9.2309', '<') )
+		{
+			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipe_reagents') . "`  DROP PRIMARY KEY , ADD PRIMARY KEY (`reagent_id`,`locale`);");
+			$roster->db->query("TRUNCATE TABLE `" . $roster->db->table('recipe_reagents') . "`;");
+		}
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
