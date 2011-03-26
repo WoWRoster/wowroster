@@ -606,9 +606,20 @@ class Upgrade
 		// reagent normalization 2309
 		if( version_compare($roster->config['version'], '2.0.9.2309', '<') )
 		{
+			$roster->set_message('The recipe and reagents tables were cleared in this update, you will need to upload character data again to get recipes back.');
+
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes_reagents') . "`  DROP PRIMARY KEY , ADD PRIMARY KEY (`reagent_id`,`locale`);");
 			$roster->db->query("TRUNCATE TABLE `" . $roster->db->table('recipes_reagents') . "`;");
 		}
+
+		// update CP download url because cp is depreciated
+		if( version_compare($roster->config['version'], '2.0.9.2311', '<') )
+		{
+			$roster->set_message('The ability to use CharacterProfiler and GuildProfiler was removed in this update.<br />Please download and use <a href="http://www.wowroster.net/downloads/?cat=3&id=142" target="_blank">WoWRoster-Profiler</a> and <a href="http://www.wowroster.net/downloads/?cat=3&id=143" target="_blank">WoWRoster-GuildProfiler</a>.');
+
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'http://www.wowroster.net/downloads/index.php?cat=3&id=142' WHERE `id` = '6100' LIMIT 1;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

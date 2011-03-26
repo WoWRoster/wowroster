@@ -34,7 +34,7 @@ $lang['nodata_title']='Données de guilde introuvables';
 
 $lang['update_page']='Mise à jour du profil';
 
-$lang['guild_addonNotFound']='Impossible de trouver la guilde. Le greffon GuildProfiler est-il installé correctement ?';
+$lang['guild_addonNotFound']='Impossible de trouver la guilde. Le greffon WoWRoster-GuildProfiler est-il installé correctement ?';
 
 $lang['ignored']='Ignoré';
 $lang['update_disabled']='L\'accès à update.php a été désactivé';
@@ -917,8 +917,8 @@ $lang['Felguard']='Gangregarde';
 $lang['max_exp']='XP maximum';
 
 // Error messages
-$lang['CPver_err']='La version du CharacterProfiler utilisée pour récupérer les données pour ce personnage est plus ancienne que la version minimum autorisée.<br />Veuillez vous assurez que vous fonctionnez avec au moins la version v%1$s, que vous vous êtes connecté sur ce personnage et avez sauvé les données en utilisant cette version.';
-$lang['GPver_err']='La version du GuildProfiler utilisée pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />SVP assurez vous que vous fonctionnez avec la v%1$s';
+$lang['CPver_err']='La version du WoWRoster-Profiler utilisée pour récupérer les données pour ce personnage est plus ancienne que la version minimum autorisée.<br />Veuillez vous assurez que vous fonctionnez avec au moins la version v%1$s, que vous vous êtes connecté sur ce personnage et avez sauvé les données en utilisant cette version.';
+$lang['GPver_err']='La version du WoWRoster-GuildProfiler utilisée pour capturer les données pour ce personnage est plus ancienne que la version minimum autorisée pour le téléchargement.<br />SVP assurez vous que vous fonctionnez avec la v%1$s';
 
 // Menu titles
 $lang['menu_upprofile']='Mise à jour du profil|Mettez à jour votre profil sur ce site';
@@ -1110,8 +1110,8 @@ $lang['admin']['roster_dbver'] = 'Version de la base de données Roster|La versi
 $lang['admin']['version'] = 'Version du Roster|Version actuelle du Roster';
 $lang['admin']['debug_mode'] = 'Mode debug|off - aucun message d\'erreur ou de debug<br />on - message d\'erreur et de debug simples<br />étendu - mode debug complet et backtrace dans les messages d\'erreurs';
 $lang['admin']['sql_window'] = 'Fenêtre SQL|off - pas de fenêtre des requêtes<br />on - fenêtre des requêtes en pied de page<br />étendu - inclure DESCRIBE statements';
-$lang['admin']['minCPver'] = 'Version minimum de CP|Version minimale de CharacterProfiler autorisée';
-$lang['admin']['minGPver'] = 'Version minimum de GP|Version minimale de GuildProfiler autorisée';
+$lang['admin']['minCPver'] = 'Version minimum de CP|Version minimale de WoWRoster-Profiler autorisée';
+$lang['admin']['minGPver'] = 'Version minimum de GP|Version minimale de WoWRoster-GuildProfiler autorisée';
 $lang['admin']['locale'] = "Langue principale|Langue principale utilisée par sur le roster";
 $lang['admin']['default_page'] = 'Page d\'accueil|Page à afficher si aucune n\'est spécifiée dans l\'adresse';
 $lang['admin']['external_auth'] = 'Authentification|Ici vous pouvez choisir le fichier que Roster utilisera pour l\'authentification.<br />&quot;Roster&quot; est la valeur par défaut, système d\'authentification intégré.';
@@ -1147,7 +1147,7 @@ $lang['admin']['signaturebackground'] = "Image de fond pour img.php|Support de l
 $lang['admin']['processtime'] = "Temps de génération de la page|Displays render time and query count in the footer<br />&quot;<i>x.xx | xx</i>&quot;";
 
 // data_links
-$lang['admin']['profiler'] = "Lien de téléchargement du CharacterProfiler|URL de téléchargement de CharacterProfiler";
+$lang['admin']['profiler'] = "Lien de téléchargement du WoWRoster-Profiler|URL de téléchargement de WoWRoster-Profiler";
 $lang['admin']['uploadapp'] = "Lien de téléchargement d'UniUploader|URL de téléchargement d'UniUploader";
 
 // realmstatus_conf
@@ -1181,8 +1181,8 @@ $lang['admin']['rs_color_recommended'] = "Couleur Recommandé|Couleur pour un se
 // update_access
 $lang['admin']['authenticated_user'] = "Accès à Update.php|Contrôle l'accès à update.php<br /><br />Passer ce paramètre à off désactive l'accès à TOUT LE MONDE";
 $lang['admin']['update_inst'] = 'Instructions de mise à jour|Controls the display of the Update Instructions on the update page';
-$lang['admin']['gp_user_level'] = "Niveau d'accès aux données de guilde|Niveau requis pour mettre à jour les données fournies par GuildProfiler";
-$lang['admin']['cp_user_level'] = "Niveau d'accès aux données des personnages|Niveau requis pour mettre à jour les données fournies par CharacterProfiler";
+$lang['admin']['gp_user_level'] = "Niveau d'accès aux données de guilde|Niveau requis pour mettre à jour les données fournies par WoWRoster-GuildProfiler";
+$lang['admin']['cp_user_level'] = "Niveau d'accès aux données des personnages|Niveau requis pour mettre à jour les données fournies par WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Niveau d'accès aux données des autres LUA|Niveau requis pour mettre à jour les données fournies par d'autres sources de données (LUA).<br />Ceci est valable pour TOUTES SOURCES AUTRES pouvant être envoyées au roster.";
 
 // Character Display Settings

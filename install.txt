@@ -26,8 +26,8 @@ For corrections and/or suggestions - http://www.wowroster.net
 * Configure Roster by going to RosterCP and checking out all the settings
     o Check out the First Upload instructions for help [http://www.wowroster.net/MediaWiki/Roster:FirstUpload]
 
-* Have members install CharacterProfiler (and optional PVPLog)
-    o Deputize people you trust with the Roster Upload/Officer password to also run GuildProfiler
+* Have members install WoWRoster-Profiler (and optional PVPLog)
+    o Deputize people you trust with the Roster Upload/Officer password to also run WoWRoster-GuildProfiler
 	o Profiler Add-ons can be downloaded here [http://www.wowroster.net/Downloads/c=3.html]
 
 * Have everyone upload their data with regularity or look into using UniUploader, javaUniUploader, or phpUniUploader
@@ -53,9 +53,9 @@ For corrections and/or suggestions - http://www.wowroster.net
 * Configuring Roster (*ROSTERDIR*/?p=rostercp | *ROSTERDIR*/rostercp.html) - ACCESS VIA WEB!
     Check out the First Upload instructions for help [http://www.wowroster.net/MediaWiki/Roster:FirstUpload]
 
-* Do not worry about GuildProfiler.lua
+* Do not worry about wowrostergp.lua
     There's nothing you need in there, either during installation or when updating information
-    All the info you should care about is in CharacterProfiler.lua
+    All the info you should care about is in wowroster.lua
 
 
 

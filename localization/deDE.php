@@ -34,7 +34,7 @@ $lang['nodata_title']='Keine Gildendaten vorhanden';
 
 $lang['update_page']='Gildenmitglied aktualisieren';
 
-$lang['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon GuildProfiler korrekt installiert?';
+$lang['guild_addonNotFound']='Keine Gilde gefunden. Ist das Addon WoWRoster-GuildProfiler korrekt installiert?';
 
 $lang['ignored']='Ignoriert';
 $lang['update_disabled']='Update.php Zugriff deaktiviert.';
@@ -123,8 +123,8 @@ $lang['update_instruct']='
 </ul>
 <strong>Anleitung:</strong>
 <ol>
-<li>Lade den <a href="%3$s" target="_blank">CharacterProfiler</a> herunter</li>
-<li>Extrahiere die Zip-Datei in ein eigenes Verzeichnis unter C:\Programme\World of Warcraft\Interface\Addons\CharacterProfiler\ (oder an dem Ort wo dein World of Wacraft installiert ist)</li>
+<li>Lade den <a href="%3$s" target="_blank">WoWRoster-Profiler</a> herunter</li>
+<li>Extrahiere die Zip-Datei in ein eigenes Verzeichnis unter C:\Programme\World of Warcraft\Interface\Addons\wowroster\ (oder an dem Ort wo dein World of Wacraft installiert ist)</li>
 <li>Starte WoW</li>
 <li>Öffne einmal dein Bankschliessfach, deine Rucksäcke, deine Berufsseiten und deine Charakter-Übersicht</li>
 <li>Logge aus oder beende WoW (Siehe oben, falls das der UniUploader automatisch erledigen soll.)</li>
@@ -917,8 +917,8 @@ $lang['Felguard']='Teufelswache';
 $lang['max_exp']='Max XP';
 
 // Error messages
-$lang['CPver_err']='Die zur Speicherung der Daten für diesen Charakter verwendete Version des CharacterProfiler ist älter als die für den Upload minimal zugelassene Version.<br />Bitte stelle sicher, daß Du mindestens v%1$s verwendest, und daß Du diese Version verwendet hast, um die Daten für diesen Charakter zu speichern.';
-$lang['GPver_err']='Die zur Speicherung der Daten für diese Gilde verwendete Version von GuildProfiler ist älter als die für den Upload minimal zugelassene Version.<br />Bitte stelle sicher, daß Du mindestens v%1$s verwendest.';
+$lang['CPver_err']='Die zur Speicherung der Daten für diesen Charakter verwendete Version des WoWRoster-Profiler ist älter als die für den Upload minimal zugelassene Version.<br />Bitte stelle sicher, daß Du mindestens v%1$s verwendest, und daß Du diese Version verwendet hast, um die Daten für diesen Charakter zu speichern.';
+$lang['GPver_err']='Die zur Speicherung der Daten für diese Gilde verwendete Version von WoWRoster-GuildProfiler ist älter als die für den Upload minimal zugelassene Version.<br />Bitte stelle sicher, daß Du mindestens v%1$s verwendest.';
 
 // Menu titles
 $lang['menu_upprofile']='Update Profile|Aktualisiere dein Profil auf dieser Seite';
@@ -1110,8 +1110,8 @@ $lang['admin']['roster_dbver'] = "Roster Datenbank Version|Die Version der Daten
 $lang['admin']['version'] = "Roster Version|Aktuelle Version des Rosters";
 $lang['admin']['debug_mode'] = "Debug Mode|aus - Keine Debug- oder Fehlermeldungen<br />ein - Anzeige von Fehler- und einfachen Debugmeldungen<br />erweitert - Vollständiger Debugmodus und Ablaufverfolgung bei Fehlermeldungen";
 $lang['admin']['sql_window'] = "SQL Fenster|aus - Query Fenster nicht anzeigen<br />ein - Query Fenster in Fußzeile anzeigen<br />erweitert - DESCRIBE statements einbeziehen";
-$lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler Version zum Upload";
-$lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler Version zum Upload";
+$lang['admin']['minCPver'] = "Min CP Version|Minimum WoWRoster-Profiler Version zum Upload";
+$lang['admin']['minGPver'] = "Min GP version|Minimum WoWRoster-GuildProfiler Version zum Upload";
 $lang['admin']['locale'] = "Roster Hauptsprache|Sprache, in welcher der Roster angezeigt wird";
 $lang['admin']['default_page'] = "Standard Seite|Seite, die angezeigt wird, wenn keine Seite in der URL angegeben ist";
 $lang['admin']['external_auth'] = "Roster Auth|Hier kannst du die Anmeldedatei auswählen die der Roster benutzen soll<br />&quot;Roster&quot; ist das Standard, Anmelde System";
@@ -1147,7 +1147,7 @@ $lang['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (a
 $lang['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeit für die Berechnung der Seite und die Anzahl der Datenbankabfragen in der Fußzeile anzeigen<br />&quot;<i>x.xx | xx</i>&quot;";
 
 // data_links
-$lang['admin']['profiler'] = "CharacterProfiler Downloadlink|URL um das CharacterProfiler-Addon herunterzuladen";
+$lang['admin']['profiler'] = "WoWRoster-Profiler Downloadlink|URL um das WoWRoster-Profiler Addon herunterzuladen";
 $lang['admin']['uploadapp'] = "UniUploader Downloadlink|URL um den UniUploader herunterzuladen";
 
 // realmstatus_conf
@@ -1181,8 +1181,8 @@ $lang['admin']['rs_color_recommended'] = "Empfohlene Farbe|Farbe für empfohlene
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";
 $lang['admin']['update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Update Seite';
-$lang['admin']['gp_user_level'] = "Gildendaten-Level|Level benötigt um GuildProfiler Daten zu verarbeiten";
-$lang['admin']['cp_user_level'] = "Charakterdata-Level|Level benötigt um CharacterProfiler Daten zu verarbeiten";
+$lang['admin']['gp_user_level'] = "Gildendaten-Level|Level benötigt um WoWRoster-GuildProfiler Daten zu verarbeiten";
+$lang['admin']['cp_user_level'] = "Charakterdata-Level|Level benötigt um WoWRoster-Profiler Daten zu verarbeiten";
 $lang['admin']['lua_user_level'] = "Andere LUA Daten Level|Level benötigt um andere LUA-Dateien zu verarbeiten<br />Dies gilt für JEDE andere LUA-Datei, die in den Roster hochgeladen werden kann";
 
 // Character Display Settings

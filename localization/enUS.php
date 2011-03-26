@@ -34,7 +34,7 @@ $lang['nodata_title']='No Guild Data';
 
 $lang['update_page']='Update Profile';
 
-$lang['guild_addonNotFound']='Could not find Guild. GuildProfiler Addon not installed correctly?';
+$lang['guild_addonNotFound']='Could not find Guild. WoWRoster-GuildProfiler Addon not installed correctly?';
 
 $lang['ignored']='Ignored';
 $lang['update_disabled']='Update access has been disabled';
@@ -917,8 +917,8 @@ $lang['Felguard']='Felguard';
 $lang['max_exp']='Max XP';
 
 // Error messages
-$lang['CPver_err']='The version of CharacterProfiler used to capture data for this character is older than the minimum version allowed for upload.<br />Please ensure you are running at least v%1$s and have logged onto this character and saved data using this version.';
-$lang['GPver_err']='The version of GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />Please ensure you are running at least v%1$s';
+$lang['CPver_err']='The version of WoWRoster-Profiler used to capture data for this character is older than the minimum version allowed for upload.<br />Please ensure you are running at least v%1$s and have logged onto this character and saved data using this version.';
+$lang['GPver_err']='The version of WoWRoster-GuildProfiler used to capture data for this guild is older than the minimum version allowed for upload.<br />Please ensure you are running at least v%1$s';
 
 // Menu titles
 $lang['menu_upprofile']='Update Profile|Update your profile on this site';
@@ -1110,8 +1110,8 @@ $lang['admin']['roster_dbver'] = "Roster Database Version|The version of the dat
 $lang['admin']['version'] = "Roster Version|Current version of Roster";
 $lang['admin']['debug_mode'] = "Debug Mode|<ul class='ul-no-m'><li>off: No debug or error messages</li><li>on: Display error messages and simple debug</li><li>extended: Full debug mode and backtrace in error messages</li></ul>";
 $lang['admin']['sql_window'] = "SQL Window|<ul class='ul-no-m'><li>off: Do not show query window</li><li>on: Display query window in the footer</li><li>extended: Include DESCRIBE statements</li></ul>";
-$lang['admin']['minCPver'] = "Min CP Version|Minimum CharacterProfiler version allowed to upload";
-$lang['admin']['minGPver'] = "Min GP version|Minimum GuildProfiler version allowed to upload";
+$lang['admin']['minCPver'] = "Min CP Version|Minimum WoWRoster-Profiler version allowed to upload";
+$lang['admin']['minGPver'] = "Min GP version|Minimum WoWRoster-GuildProfiler version allowed to upload";
 $lang['admin']['locale'] = "Roster Main Language|The main language roster will be displayed in";
 $lang['admin']['default_page'] = "Default Page|Page to display if no page is specified in the url";
 $lang['admin']['external_auth'] = "Roster Auth|Here you can choose the auth file Roster will use<br />&quot;Roster&quot; is the default, built-in auth system";
@@ -1147,7 +1147,7 @@ $lang['admin']['signaturebackground'] = "img.php Background|Support for legacy s
 $lang['admin']['processtime'] = "Process time|Displays render time and query count in the footer<br />(<i>x.xx | xx</i>)";
 
 // data_links
-$lang['admin']['profiler'] = "CharacterProfiler download link|URL to download CharacterProfiler";
+$lang['admin']['profiler'] = "WoWRoster-Profiler download link|URL to download WoWRoster-Profiler";
 $lang['admin']['uploadapp'] = "UniUploader download link|URL to download UniUploader";
 
 // realmstatus_conf
@@ -1181,8 +1181,8 @@ $lang['admin']['rs_color_recommended'] = "Recommended|Color for recommended real
 // update_access
 $lang['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
 $lang['admin']['update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the update page';
-$lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process GuildProfiler Data";
-$lang['admin']['cp_user_level'] = "Character Data Level|Level required to process CharacterProfiler Data";
+$lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process WoWRoster-GuildProfiler Data";
+$lang['admin']['cp_user_level'] = "Character Data Level|Level required to process WoWRoster-Profiler Data";
 $lang['admin']['lua_user_level'] = "Other LUA Data Level|Level required to process other LUA files' Data<br />This is for EVERY other lua file that can be uploaded to Roster";
 
 // Character Display Settings
