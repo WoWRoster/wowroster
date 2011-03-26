@@ -132,17 +132,6 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 		'ROSTER_CREDITS'  => '',
 		'XML_LANG'        => 'en',
 
-		'T_BORDER_WHITE'  => border('swhite', 'start'),
-		'T_BORDER_GRAY'   => border('sgray', 'start'),
-		'T_BORDER_GOLD'   => border('sgold', 'start'),
-		'T_BORDER_RED'    => border('sred', 'start'),
-		'T_BORDER_ORANGE' => border('sorange', 'start'),
-		'T_BORDER_YELLOW' => border('syellow', 'start'),
-		'T_BORDER_GREEN'  => border('sgreen', 'start'),
-		'T_BORDER_PURPLE' => border('spurple', 'start'),
-		'T_BORDER_BLUE'   => border('sblue', 'start'),
-		'T_BORDER_END'    => border('sgray', 'end'),
-
 		'PAGE_TITLE'         => '',
 		'ROSTER_HEAD'        => '',
 		'ROSTER_BODY'        => '',
@@ -224,7 +213,7 @@ elseif( isset($_POST['remotediag']) && $_POST['remotediag'] == 'true' )
 
 	if( $zippackage_files != '' )
 	{
-		echo border('spurple', 'start', '<span class="blue">Download Update Package From:</span> <small style="color:#6ABED7;font-weight:bold;"><i>SVN @ ' . str_replace('version_match.php', '', ROSTER_SVNREMOTE) . '</i></small>');
+		echo border('spurple', 'start', 'Download Update Package From: <small style="font-weight:bold;"><i>SVN @ ' . str_replace('version_match.php', '', ROSTER_SVNREMOTE) . '</i></small>');
 		echo '<div align="center"><form method="post" action="' . ROSTER_SVNREMOTE . '">';
 		echo '<input type="hidden" name="filestoget" value="' . $zippackage_files . '">';
 		echo '<input type="hidden" name="guildname" value="' . $roster->config['default_name'] . '">';
