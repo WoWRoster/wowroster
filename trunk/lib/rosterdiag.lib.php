@@ -31,7 +31,7 @@ $ignored_dirs = array('.', '..', 'SVN', '.svn', 'Interface', 'cache');
 $extensions = array('php', 'inc', 'css', 'js', 'tpl', 'htm', 'html', 'jpg', 'gif', 'png', 'sql', 'txt');
 
 // Files to ignore
-$ignored_files = array('conf.php', '.htaccess');
+$ignored_files = array('conf.php', '.htaccess', 'roster_addons_go_here.txt');
 
 // Do we want to check the SubDirs ?? I think we do :)
 $subdirectories = 1;
@@ -49,20 +49,20 @@ $problemsev['nosvn'] = 2;
 $problemsev['nolocal'] = 3;
 $problemsev['unknown'] = 1;
 
-$severity[0] = array('style' => 'sgreen', 'color' => '#12C312', 'weight' => 0, 'severityname' => 'No Issues');
-$severity[1] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Unknown');
-$severity[2] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Not in SVN');
-$severity[3] = array('style' => 'sgray', 'color' => '#AFAFAF', 'weight' => 0, 'severityname' => 'Not in Local');
-$severity[4] = array('style' => 'sblue', 'color' => '#312CF8', 'weight' => 0, 'severityname' => 'Newer Files');
-$severity[5] = array('style' => 'sblue', 'color' => '#312CF8', 'weight' => 1, 'severityname' => 'Initial');
-$severity[6] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 1, 'severityname' => 'Strange');
-$severity[7] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 3, 'severityname' => 'Minor');
-$severity[8] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 7, 'severityname' => 'Major');
-$severity[9] = array('style' => 'sred', 'color' => '#FF0000', 'weight' => 15, 'severityname' => 'Critical');
+$severity[0] = array('style' => 'sgreen',  'color' => '#12C312', 'weight' => 0,  'severityname' => 'No Issues');
+$severity[1] = array('style' => 'sgray',   'color' => '#AFAFAF', 'weight' => 0,  'severityname' => 'Unknown');
+$severity[2] = array('style' => 'sgray',   'color' => '#AFAFAF', 'weight' => 0,  'severityname' => 'Not in SVN');
+$severity[3] = array('style' => 'sgray',   'color' => '#AFAFAF', 'weight' => 0,  'severityname' => 'Not in Local');
+$severity[4] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 0,  'severityname' => 'Newer Files');
+$severity[5] = array('style' => 'sblue',   'color' => '#312CF8', 'weight' => 1,  'severityname' => 'Initial');
+$severity[6] = array('style' => 'spurple', 'color' => '#E920CF', 'weight' => 1,  'severityname' => 'Strange');
+$severity[7] = array('style' => 'syellow', 'color' => '#F1B10E', 'weight' => 3,  'severityname' => 'Minor');
+$severity[8] = array('style' => 'sorange', 'color' => '#EE870D', 'weight' => 7,  'severityname' => 'Major');
+$severity[9] = array('style' => 'sred',    'color' => '#FF0000', 'weight' => 15, 'severityname' => 'Critical');
 
 
-$rollups[] = array('rollup' => 2, 'severity' => 7);
-$rollups[] = array('rollup' => 5, 'severity' => 8);
+$rollups[] = array('rollup' => 2,  'severity' => 7);
+$rollups[] = array('rollup' => 5,  'severity' => 8);
 $rollups[] = array('rollup' => 14, 'severity' => 9);
 
 $newerfilesev = 4;
@@ -247,7 +247,6 @@ function GetFileVersionInfo($directory, $file)
 	else
 	{
 		// String to match in SVN: $Id$
-		// String to match in SVN: $Id$
 		if ((preg_match('~\s\$Id\:\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s(.+?)\s\$~', $fileheader, $local_version) > 0) || (preg_match('~\s\$Id\:\s(.+?)\,v\s(.+?)\s(.+?)\s(.+?)\s(.+?)\sExp\s\$~', $fileheader, $local_version) > 0) )
 		{
 			$files[$directory][$file]['local']['versionDesc'] = $local_version[1];
@@ -385,14 +384,14 @@ function VerifyVersions()
 				if (strcmp($file['local']['versionDesc'], $file['remote']['versionDesc']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['description']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['description']]['color'] . ';">Local Description does NOT match with SVN</span><br />';
+					$files[$directory][$filename]['tooltip'] .= 'Local Description does NOT match with SVN<br />';
 				}
 				// Check if the local version matches the SVN version
 				if (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) < 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
 					$files[$directory][$filename]['newer'] = 1;
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['revisiongreater']]['color'] . ';">Local Version: ' . $file['local']['versionRev'] . ' is HIGHER than SVN Version: ' . $file['remote']['versionRev'] . '</span><br />';
+					$files[$directory][$filename]['tooltip'] .= 'Local Version: ' . $file['local']['versionRev'] . ' is HIGHER than SVN Version: ' . $file['remote']['versionRev'] . '<br />';
 					$files[$directory][$filename]['rev'] = $file['local']['versionRev'] . ' < ' . $file['remote']['versionRev'];
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
@@ -400,7 +399,7 @@ function VerifyVersions()
 				elseif (version_compare($file['local']['versionRev'], $file['remote']['versionRev']) > 0)
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['revisiongreater']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['revisiongreater']]['color'] . ';">Local Version: ' . $file['local']['versionRev'] . ' is HIGHER than SVN Version: ' . $file['remote']['versionRev'] . '</span><br />';
+					$files[$directory][$filename]['tooltip'] .= 'Local Version: ' . $file['local']['versionRev'] . ' is HIGHER than SVN Version: ' . $file['remote']['versionRev'] . '<br />';
 					$files[$directory][$filename]['rev'] = $file['local']['versionRev'] . ' > ' . $file['remote']['versionRev'];
 					$files[$directory][$filename]['diff'] = 1;
 				}
@@ -413,7 +412,7 @@ function VerifyVersions()
 				if (($file['local']['versionDate'] < $file['remote']['versionDate']) && !check_if_image($filename))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateolder']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['dateolder']]['color'] . ';">Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is OLDER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '</span><br />';
+					$files[$directory][$filename]['tooltip'] .= 'Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is OLDER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '<br />';
 					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' < ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['update'] = 1;
 					$files[$directory][$filename]['diff'] = 1;
@@ -422,7 +421,7 @@ function VerifyVersions()
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['dateyounger']]['weight'];
 					$files[$directory][$filename]['newer'] = 1;
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['dateyounger']]['color'] . ';">Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is NEWER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '</span><br />';
+					$files[$directory][$filename]['tooltip'] .= 'Local Date: ' . gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' is NEWER than SVN Date: ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']) . '<br />';
 					$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']) . ' > ' . gmdate('Y/m/d H:i', $file['remote']['versionDate']);
 					$files[$directory][$filename]['diff'] = 1;
 				}
@@ -434,13 +433,13 @@ function VerifyVersions()
 				if (strcmp($file['local']['versionAuthor'], $file['remote']['versionAuthor']))
 				{
 					$files[$directory][$filename]['severity'] += $severity[$problemsev['author']]['weight'];
-					$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['author']]['color'] . ';">Local Author does NOT match with SVN</span><br />';
-					$files[$directory][$filename]['author'] = $file['local']['versionAuthor'] . ' != ' . $file['remote']['versionAuthor'];
+					$files[$directory][$filename]['tooltip'] .= 'Local Author does NOT match with SVN<br />';
+					$files[$directory][$filename]['author'] = preg_replace('/@(.+)/i', '', $file['local']['versionAuthor']) . ' != ' . preg_replace('/@(.+)/i', '', $file['remote']['versionAuthor']);
 					$files[$directory][$filename]['diff'] = 1;
 				}
 				else
 				{
-					$files[$directory][$filename]['author'] = $file['local']['versionAuthor'];
+					$files[$directory][$filename]['author'] = preg_replace('/@(.+)/i', '', $file['local']['versionAuthor']);
 				}
 				// Check if the local MD5 matches the SVN MD5
 				if (strcmp($file['local']['versionMD5'], $file['remote']['versionMD5']))
@@ -448,13 +447,13 @@ function VerifyVersions()
 					if (check_if_image($filename))
 					{
 						$files[$directory][$filename]['severity'] += $severity[$problemsev['MD5binary']]['weight'];
-						$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['MD5binary']]['color'] . ';">Local MD5 does not match with SVN</span><br />';
+						$files[$directory][$filename]['tooltip'] .= 'Local MD5 does not match with SVN<br />';
 						$files[$directory][$filename]['update'] = 1;
 					}
 					else
 					{
 						$files[$directory][$filename]['severity'] += $severity[$problemsev['MD5']]['weight'];
-						$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['MD5']]['color'] . ';">Local MD5 does not match with SVN</span><br />';
+						$files[$directory][$filename]['tooltip'] .= 'Local MD5 does not match with SVN<br />';
 					}
 					$files[$directory][$filename]['md5'] = 'MD5 String does NOT match';
 					$files[$directory][$filename]['diff'] = 1;
@@ -467,23 +466,23 @@ function VerifyVersions()
 			elseif (isset($file['local']) && !isset($file['remote']))
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nosvn']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['nosvn']]['color'] . ';">Local file does not exist in SVN</span><br />';
+				$files[$directory][$filename]['tooltip'] .= 'Local file does not exist in SVN<br />';
 				$files[$directory][$filename]['rogue'] = 1;
 				$files[$directory][$filename]['rev'] = $file['local']['versionRev'];
 				$files[$directory][$filename]['date'] = gmdate('Y/m/d H:i', $file['local']['versionDate']);
-				$files[$directory][$filename]['author'] = $file['local']['versionAuthor'];
+				$files[$directory][$filename]['author'] = preg_replace('/@(.+)/i', '', $file['local']['versionAuthor']);
 			}
 			elseif (!isset($file['local']) && isset($file['remote']))
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['nolocal']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['nolocal']]['color'] . ';">Local file is missing compared to SVN</span><br />';
+				$files[$directory][$filename]['tooltip'] .= 'Local file is missing but is present in SVN<br />';
 				$files[$directory][$filename]['update'] = 1;
 				$files[$directory][$filename]['missing'] = 1;
 			}
 			else
 			{
 				$files[$directory][$filename]['severity'] += $severity[$problemsev['unknown']]['weight'];
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[$problemsev['unknown']]['color'] . ';">Unknown Issue</span><br />';
+				$files[$directory][$filename]['tooltip'] .= 'Unknown Issue<br />';
 			}
 			$files[$directory][$filename]['rollup'] = 0;
 			foreach ($rollups as $rollupkey => $rollup)
@@ -504,7 +503,7 @@ function VerifyVersions()
 
 			if ($files[$directory][$filename]['tooltip'] == '' && !$files[$directory][$filename]['severity'] && !$files[$directory][$filename]['rogue'] && !$files[$directory][$filename]['diff'] && !$files[$directory][$filename]['newer'])
 			{
-				$files[$directory][$filename]['tooltip'] .= '<span style="color:' . $severity[0]['color'] . ';">Local file same as SVN</span><br />';
+				$files[$directory][$filename]['tooltip'] .= 'Local file same as SVN<br />';
 			}
 
 			if ($files[$directory][$filename]['rogue'])
@@ -521,13 +520,13 @@ function VerifyVersions()
 
 			if ($files[$directory][$filename]['rollup'])
 			{
-				$files[$directory]['tooltip'] .= '<span style="color:' . $severity[$files[$directory][$filename]['rollup']]['color'] . ';">File: ' . $filename . ' - Severity: ' . $files[$directory][$filename]['rollup'] . '</span><br />';
+				$files[$directory]['tooltip'] .= 'File: ' . $filename . ' - Severity: ' . $files[$directory][$filename]['rollup'] . '<br />';
 			}
 		}
 
 		if ($files[$directory]['tooltip'] == '')
 		{
-			$files[$directory]['tooltip'] = '<span style="color:' . $severity[0]['color'] . ';">No File Version Issues!</span>';
+			$files[$directory]['tooltip'] = 'No File Version Issues!';
 		}
 
 		$files[$directory]['rollup'] = 0;
@@ -636,26 +635,26 @@ function ConfigErrors()
 	$errors = '';
 
 	// Check GD and Freetype status in PHP config if GD Realm Status option is set
-	if ($roster->config['rs_mode'] == 1)
+	if ($roster->config['rs_display'] == 'image')
 	{
 		if( !function_exists('gd_info') )
 		{
-			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = on) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = off) in RosterCP<br />\n";
+			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = Image) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = text) in RosterCP<br />\n";
 		}
 		if ($FreeType == 0)
 		{
-			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = on) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = off) in RosterCP<br />\n";
+			$errors .= "Realm Status GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = Image) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;Display Mode = text) in RosterCP<br />\n";
 		}
 	}
 	if ($roster->config['motd_display_mode'] == 1)
 	{
 		if( !function_exists('gd_info') )
 		{
-			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = off) in RosterCP<br />\n";
+			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but GD library was not found.<br />Either load the GD extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = text) in RosterCP<br />\n";
 		}
 		if ($FreeType == 0)
 		{
-			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = off) in RosterCP<br />\n";
+			$errors .= "MOTD GD image mode enabled (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = on) in RosterCP but FreeType support was not found.<br />Either load the Freetype extension in PHP or set (RosterCP-&gt;Main Settings-&gt;Realmstatus-&gt;MOTD Display Mode = text) in RosterCP<br />\n";
 		}
 	}
 
@@ -1002,7 +1001,7 @@ function highlight_php($string, $startline=1)
  */
 function check_date_time($date, $time)
 {
-	if (preg_match("~([1-9][0-9][0-9][0-9]).([1-9]|0[1-9]|[1[0-9]).([1-9]|0[0-9]|1[0-9]|2[0-9])~", $date, $datepart))
+	if (preg_match("~(\d\d\d\d)[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])~", $date, $datepart))
 	{
 		$returndate = $datepart;
 	}

@@ -181,14 +181,9 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 
 		print '</td><td>&nbsp;</td><td valign="top" align="left">';
 
-		print border('sblue', 'start', 'Back Link');
-		print '<table width="100%" cellspacing="0" border="0">';
-		print '<tr><td class="membersRow2"><form method="post" action="' . makelink() . '">';
-		print '<input type="hidden" name="filename" value="' . $filename . '" />';
-		print '<input type="hidden" name="downloadsvn" value="savefile" />';
-		print '<input type="button" value="[ RETURN TO ROSTERDIAG ]" onclick="history.go(-1);return false;" />';
-		print '</form></td></tr></table>';
-		print border('sblue', 'end');
+		print border('sred', 'start', 'Back Link');
+		print '<button onclick="history.go(-1);return false;">Return to Roster Diag</button>';
+		print border('sred', 'end');
 
 		print '</td></tr></table><br />' ;
 
@@ -200,15 +195,14 @@ if(isset($_POST['filename']) && isset($_POST['downloadsvn']))
 		{
 			$diffwindow = 'File Differences for file:&nbsp;&nbsp;';
 		}
-		print border('sblue', 'start', $diffwindow . $filename, '90%');
+		print border('sblue', 'start', $diffwindow . $filename);
 		print $diffcheck;
 		print border('sblue', 'end');
 		print '</div></div></div></div></div>'; // End tier 1 element
-
 	}
 	else
 	{
-		roster_die('If you get this page, you probably are trying to exploit the system!','UNSPECIFIED ACTION');
+		roster_die('If you get this page, you probably are trying to exploit the system somehow.','UNSPECIFIED ACTION');
 	}
 
 	return;
@@ -351,8 +345,8 @@ echo '
 				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff($roster->config ['use_update_triggers']) . '</td>
 			</tr>
 			<tr>
-				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">rs_mode</td>
-				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff($roster->config ['rs_mode']) . '</td>
+				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">rs_display</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . $roster->config ['rs_display'] . '</td>
 			</tr>
 		</table>
 	</div>
@@ -486,7 +480,7 @@ if( GrabRemoteVersions() !== false )
 			$dirshow = substr_replace($directory, substr(ROSTER_PATH, 1, -1), 0, 1);
 
 			$dirtooltip = str_replace("'", "\\'", $files[$directory]['tooltip']);
-			$dirtooltip = makeOverlib($dirtooltip, $dirshow . '/&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$files[$directory]['rollup']]['severityname'], '', 2);
+			$dirtooltip = makeOverlib($dirtooltip, $dirshow . '/&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$files[$directory]['rollup']]['severityname'], '', 2, '', ',WRAP');
 
 			$directory_id = str_replace(array('.', '/', '\\'), '', $directory);
 
@@ -522,11 +516,11 @@ if( GrabRemoteVersions() !== false )
 					if (isset($filedata['tooltip']))
 					{
 						$filetooltip = str_replace("'", "\\'", $filedata ['tooltip']);
-						$filetooltip = makeOverlib($filetooltip, $file . '/&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$filedata['rollup']]['severityname'], '', 2);
+						$filetooltip = makeOverlib($filetooltip, $file . '&nbsp;&nbsp;-&nbsp;&nbsp;' . $severity[$filedata['rollup']]['severityname'], '', 2, '', ',WRAP');
 					}
 					else
 					{
-						$filetooltip = makeOverlib('Unknown', 'Unknown', '', 2);
+						$filetooltip = makeOverlib('Unknown', 'Unknown', '', 2, '', ',WRAP');
 					}
 
 					echo '<tr style="cursor:help;" ' . $filetooltip . '>';
