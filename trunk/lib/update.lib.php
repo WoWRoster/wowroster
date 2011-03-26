@@ -59,7 +59,7 @@ class update
 		global $roster;
 
 		// Add roster-used tables
-		$this->files[] = 'characterprofiler';
+//		$this->files[] = 'characterprofiler';
 		$this->files[] = 'wowroster';
 
 		if( !$roster->config['use_update_triggers'] )
@@ -217,7 +217,8 @@ class update
 		$output = $roster->locale->act['processing_files'] . "<br />\n";
 
 		$gotfiles = array_keys($this->uploadData);
-		if( in_array('characterprofiler',$gotfiles) or in_array('wowroster',$gotfiles) )
+//		if( in_array('characterprofiler',$gotfiles) || in_array('wowroster',$gotfiles) )
+		if( in_array('wowroster',$gotfiles) )
 		{
 
 			if( $roster->auth->getAuthorized($roster->config['gp_user_level']) )
@@ -343,11 +344,13 @@ class update
 		 * Rule #4 If Zanix yells at you, you deserve it
 		 */
 
-		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
+/*		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
 		{
 			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
 		}
-		elseif ( isset($this->uploadData['wowroster']['cpProfile']) )
+		else
+*/
+		if ( isset($this->uploadData['wowroster']['cpProfile']) )
 		{
 			$myProfile = $this->uploadData['wowroster']['cpProfile'];
 		}
@@ -495,7 +498,7 @@ class update
 					}
 					else // CP Version not new enough
 					{
-						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'],'CharacterProfiler', $char_name, $char['CPversion']) . "</span><br />\n";
+						$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'], 'WoWRoster-Profiler', $char_name, $char['CPversion']) . "</span><br />\n";
 						$output .= sprintf($roster->locale->act['CPver_err'], $roster->config['minCPver']) . "\n";
 					}
 				}
@@ -516,12 +519,14 @@ class update
 	function processGuildRoster()
 	{
 		global $roster;
-
+/*
 		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
 		{
 			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
 		}
-		elseif ( isset($this->uploadData['wowroster']['cpProfile']) )
+		else
+*/
+		if ( isset($this->uploadData['wowroster']['cpProfile']) )
 		{
 			$myProfile = $this->uploadData['wowroster']['cpProfile'];
 		}
@@ -604,7 +609,7 @@ class update
 								{
 									$current = date($roster->locale->act['phptimeformat'], strtotime($time));
 									$update = date($roster->locale->act['phptimeformat'], $currentTimestamp);
-									
+
 									$output .= '<span class="red">' . sprintf($roster->locale->act['not_update_guild_time'], $guild_name, $update, $current) . "</span><br />\n";
 									continue;
 								}
@@ -676,7 +681,7 @@ class update
 						else
 						// GP Version not new enough
 						{
-							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'], 'GuildProfiler', $guild_name, $guild['GPversion']) . "</span><br />\n";
+							$output .= '<span class="red">' . sprintf($roster->locale->act['not_updating'], 'WoWRoster-GuildProfiler', $guild_name, $guild['GPversion']) . "</span><br />\n";
 							$output .= sprintf($roster->locale->act['GPver_err'], $roster->config['minGPver']);
 						}
 					}
@@ -1034,7 +1039,7 @@ class update
 			$querystra = "SELECT * FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `reagent_id` = " . $reagent['Item'] . ";";
 			$resulta = $roster->db->query($querystra);
 			$num = $roster->db->num_rows($resulta);
-			
+
 			if ($num < '1')
 			{
 			$querystr = "INSERT INTO `" . $roster->db->table('recipes_reagents') . "` SET " . $this->assignstr . ";";
@@ -1186,7 +1191,7 @@ class update
 		{
 			$this->add_value('level',$level[1]);
 		}
-		
+
 		$querystra = "SELECT * FROM `" . $roster->db->table('recipes') . "` WHERE `member_id` = '" . $recipe['member_id'] . "' and `recipe_name` = '".addslashes($recipe['recipe_name'])."' and `skill_name` = '".addslashes($recipe['skill_name'])."';";
 		$resulta = $roster->db->query($querystra);
 		$num = $roster->db->num_rows($resulta);
@@ -3463,7 +3468,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->add_ifvalue($guild, 'GuildXP', 'guild_xp');
 		$this->add_ifvalue($guild, 'GuildXPCap', 'guild_xpcap');
 		$this->add_ifvalue($guild, 'GuildLevel', 'guild_level');
-		
+
 		$this->add_timestamp('update_time', $currentTime);
 
 		$this->add_ifvalue($guild, 'DBversion');

@@ -45,30 +45,30 @@
 </div>
 
 <!-- IF S_MESSAGES -->
-		<div id="notify">
+<div id="notify">
 
 <!-- BEGIN messages -->
 <!-- BEGIN item -->
-			<div class="ui-widget message">
-			<div class="ui-state-default ui-corner-all close" title="close">
-				<span class="ui-icon ui-icon-close"></span>
-			</div>
-				<div class="ui-state-<!-- IF messages.TYPE eq 'error' -->error<!-- ELSE -->highlight<!-- ENDIF --> ui-corner-all">
+	<div class="ui-widget message">
+	<div class="ui-state-default ui-corner-all close" title="close">
+		<span class="ui-icon ui-icon-close"></span>
+	</div>
+		<div class="ui-state-<!-- IF messages.TYPE eq 'error' -->error<!-- ELSE -->highlight<!-- ENDIF --> ui-corner-all">
 
 <!-- IF messages.item.TITLE neq '' -->
-					<h4><span class="ui-icon ui-icon-<!-- IF messages.TYPE eq 'error' -->alert<!-- ELSE -->info<!-- ENDIF -->"></span>
-						{messages.item.TITLE}</h4>
-					<div class="content">
+			<h4><span class="ui-icon ui-icon-<!-- IF messages.TYPE eq 'error' -->alert<!-- ELSE -->info<!-- ENDIF -->"></span>
+				{messages.item.TITLE}</h4>
+			<div class="content">
 <!-- ELSE -->
-					<div class="content">
-						<span class="ui-icon ui-icon-<!-- IF messages.TYPE eq 'error' -->alert<!-- ELSE -->info<!-- ENDIF -->"></span>
+			<div class="content">
+				<span class="ui-icon ui-icon-<!-- IF messages.TYPE eq 'error' -->alert<!-- ELSE -->info<!-- ENDIF -->"></span>
 <!-- ENDIF -->
-						{messages.item.TEXT}
-					</div>
-				</div>
+				{messages.item.TEXT}
 			</div>
+		</div>
+	</div>
 <!-- END item -->
 <!-- END messages -->
 
-		</div>
+</div>
 <!-- ENDIF -->

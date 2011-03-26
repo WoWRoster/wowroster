@@ -34,7 +34,7 @@ $lang['nodata_title']='No hay información de la hermandad';
 
 $lang['update_page']='Actualizar Perfil';
 
-$lang['guild_addonNotFound']='No se pudo encontrar la hermandad. ¿Has instalado correctamente Guild Profiler?';
+$lang['guild_addonNotFound']='No se pudo encontrar la hermandad. ¿Has instalado correctamente WoWRoster-GuildProfiler?';
 
 $lang['ignored']='Ignorado';
 $lang['update_disabled']='Ha sido desactivado el acceso a Update.php';
@@ -917,8 +917,8 @@ $lang['Felguard']='Guardia Maldito';
 $lang['max_exp']='Max PE';
 
 // Error messages
-$lang['CPver_err']='La versión de CharacterProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />Por favor, asegúrate de que estás utilizando al menos la versión %1$s y has iniciado sesión y grabado los datos utilizando la misma.';
-$lang['GPver_err']='La versión de GuildProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />Por favor, asegúrate de que estás utilizando al menos la versión %1$s';
+$lang['CPver_err']='La versión de WoWRoster-Profiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />Por favor, asegúrate de que estás utilizando al menos la versión %1$s y has iniciado sesión y grabado los datos utilizando la misma.';
+$lang['GPver_err']='La versión de WoWRoster-GuildProfiler utilizada para capturar los datos de este personaje es inferior a la versión mínima admitida para el envío.<br />Por favor, asegúrate de que estás utilizando al menos la versión %1$s';
 
 // Menu titles
 $lang['menu_upprofile']='Actualizar Perfil|Aquí puedes actualizar tu perfil';
@@ -1110,8 +1110,8 @@ $lang['admin']['roster_dbver'] = "Versión de la base de datos de Roster|Versió
 $lang['admin']['version'] = "Versión de Roster|Versión actual del Roster";
 $lang['admin']['debug_mode'] = "Modo Depurar|off - No depurar los mensajes de error<br />on - Muestra mensajes de error y una sencilla depuración<br />extendido - Modo de depuración completa";
 $lang['admin']['sql_window'] = "Ventana SQL|off - No mostrará la ventana de entradas<br />on - Muestra la ventana de entradas al pie de la página<br />extendido - Incluye estadisticas de descripción";
-$lang['admin']['minCPver'] = "Versión min de CP|Mínima versión permitida del CharacterProfiler";
-$lang['admin']['minGPver'] = "Versión min de GP|Mínima versión permitida del GuildProfiler";
+$lang['admin']['minCPver'] = "Versión min de CP|Mínima versión permitida del WoWRoster-Profiler";
+$lang['admin']['minGPver'] = "Versión min de GP|Mínima versión permitida del WoWRoster-GuildProfiler";
 $lang['admin']['locale'] = "Lenguaje principal del Roster|Elige el lenguaje del interfaz";
 $lang['admin']['default_page'] = "Página predeterminada|Elige la página a mostrar si el URL introducido no existe";
 $lang['admin']['external_auth'] = "Roster Auth|Aquí puedes elegir que archivo auth se utilizará<br />&quot;Roster&quot; es el predeterminado, creado por el sistema";
@@ -1147,7 +1147,7 @@ $lang['admin']['signaturebackground'] = "img.php Fondo|Soporte para elegir el fo
 $lang['admin']['processtime'] = "Pag Gen. Tiempo/DB Colas|Muestra el tiempo de renderizado y el número de llamadas al pie de la página<br />&quot;<i>x.xx | xx</i>&quot;";
 
 // data_links
-$lang['admin']['profiler'] = "Enlace para descargar CharacterProfiler|URL para descargar CharacterProfiler";
+$lang['admin']['profiler'] = "Enlace para descargar WoWRoster-Profiler|URL para descargar WoWRoster-Profiler";
 $lang['admin']['uploadapp'] = "Enlace para descargar UniUploader|URL para descargar UniUploader";
 
 // realmstatus_conf
@@ -1181,8 +1181,8 @@ $lang['admin']['rs_color_recommended'] = "Recomendado Color|Color para reinos re
 // update_access
 $lang['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a update.php<br /><br />Poniendo esta opción en off desactivas el acceso para todo el mundo.";
 $lang['admin']['update_inst'] = 'Instrucciones de actualización|Controls the display of the Update Instructions on the update page';
-$lang['admin']['gp_user_level'] = "Nivel de hermandad|Elige el nivel requerido para poder subir datos con GuildProfiler";
-$lang['admin']['cp_user_level'] = "Nivel de personaje|Elige el nivel requerido para poder subir datos con CharacterProfiler";
+$lang['admin']['gp_user_level'] = "Nivel de hermandad|Elige el nivel requerido para poder subir datos con WoWRoster-GuildProfiler";
+$lang['admin']['cp_user_level'] = "Nivel de personaje|Elige el nivel requerido para poder subir datos con WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Nivel de otros LUA|Elige el nivel requerido para poder subir datos con otros addons<br />Esto es para TODOS los tipos de archivos LUA que quieras subir al Roster.";
 
 // Character Display Settings

@@ -72,7 +72,7 @@ INSERT INTO `renprefix_config` VALUES (5050, 'processtime', '1', 'radio{on^1|off
 # --------------------------------------------------------
 ### Links Settings
 
-INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.rpgoutfitter.com/Addons/CharacterProfiler.cfm', 'text{128|60', 'data_links');
+INSERT INTO `renprefix_config` VALUES (6100, 'profiler', 'http://www.wowroster.net/downloads/index.php?cat=3&id=142', 'text{128|60', 'data_links');
 INSERT INTO `renprefix_config` VALUES (6120, 'uploadapp', 'http://www.wowroster.net/downloads/?mcat=2', 'text{128|60', 'data_links');
 
 # --------------------------------------------------------

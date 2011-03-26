@@ -392,6 +392,7 @@ UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = '1020' LIMIT
 # Change realmstatus options
 UPDATE `renprefix_config` SET `form_type` = 'radio{off^0|image^image|text^text', `config_value` = 'image' WHERE `id` = '8100' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '8110' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/downloads/index.php?cat=3&id=142' WHERE `id` = '6100' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/downloads/?mcat=2' WHERE `id` = '6120' LIMIT 1;
 
 # New display options

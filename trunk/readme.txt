@@ -13,7 +13,7 @@ Introduction
 	What is WoWRoster?
 
 	WoWRoster is a profiler which retrieves and stores data gathered from WoW through the use of authorized addons
-	(CharacterProfiler , GuildProfiler , and PvPLog)
+	(WoWRoster-Profiler , WoWRoster-GuildProfiler , and PvPLog)
 
 	WoWRoster then organizes all of the data, provides a suite of presentations for the gathered data,
 	and houses a base for addons to access and manipulate roster data, displays addon links in the Roster menu,
@@ -22,7 +22,7 @@ Introduction
 
 Information
 ------------
-	Check out our WiKi - http://www.wowroster.net/MediaWiki.html
+	Check out our WiKi - http://www.wowroster.net/MediaWiki
 
 
 Contact
@@ -32,11 +32,11 @@ Contact
 	http://www.wowroster.net
 
 	If you're using WoWRoster, we'd love to hear from you.  If you have a moment, post your site in
-	the 'WoWRoster.net->WebLinks'.
+	the forum.
 
 Donations
 ------------
-	We only accept donations for hosting/bandwidth costs for http://www.wowroster.net
+	We only accept donations for hosting/bandwidth costs for www.wowroster.net
 	We do this out of the kindness of our hearts and your happiness is enough payment :)
 
 Installation
@@ -52,6 +52,7 @@ Credits
 ------------
 	Props to Celandro, Paleblackness, Pytte, Rubricsinger, and Konkers for the original code used for this site
 	Special thanks to calvin from rpgoutfitter.com for his wonderfull addons CharacterProfiler and GuildProfiler
+	Thanks to Ulminia for creating WoWRoster-Profiler and WoWRoster-GuildProfiler
 
 	To the DEVs of Roster, for helping to build and maintain the package. You Rock!
 
