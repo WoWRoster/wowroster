@@ -610,6 +610,7 @@ class Upgrade
 
 			$roster->db->query("ALTER TABLE `" . $roster->db->table('recipes_reagents') . "`  DROP PRIMARY KEY , ADD PRIMARY KEY (`reagent_id`,`locale`);");
 			$roster->db->query("TRUNCATE TABLE `" . $roster->db->table('recipes_reagents') . "`;");
+			$roster->db->query("TRUNCATE TABLE `" . $roster->db->table('recipes') . "`;");
 		}
 
 		// update CP download url because cp is depreciated

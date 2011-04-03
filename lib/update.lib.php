@@ -3927,9 +3927,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 			unset($honor);
 		}
 		// END HONOR VALUES
-
-		$this->add_ifvalue($data['Attributes']['Melee'], 'CritChance', 'crit', 0);
-
+		if ( isset($data['Attributes']['Melee']) && is_array($data['Attributes']['Melee']) )
+		{
+			$this->add_ifvalue($data['Attributes']['Melee'], 'CritChance', 'crit', 0);
+		}
 		// BEGIN STATS
 		if( isset($data['Attributes']['Stats']) && is_array($data['Attributes']['Stats']) )
 		{
@@ -4010,7 +4011,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->add_ifvalue($hand, 'AttackDPS', 'melee_mhand_dps');
 				$this->add_ifvalue($hand, 'AttackSkill', 'melee_mhand_skill');
 
-				list($mindam, $maxdam) = explode(':',$hand['DamageRange']);
+				list($mindam, $maxdam) = explode(':',$hand['DamageRangeBase']);
 				$this->add_value('melee_mhand_mindam', $mindam);
 				$this->add_value('melee_mhand_maxdam', $maxdam);
 				unset($mindam, $maxdam);
@@ -4026,7 +4027,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->add_ifvalue($hand, 'AttackDPS', 'melee_ohand_dps');
 				$this->add_ifvalue($hand, 'AttackSkill', 'melee_ohand_skill');
 
-				list($mindam, $maxdam) = explode(':',$hand['DamageRange']);
+				list($mindam, $maxdam) = explode(':',$hand['DamageRangeBase']);
 				$this->add_value('melee_ohand_mindam', $mindam);
 				$this->add_value('melee_ohand_maxdam', $maxdam);
 				unset($mindam, $maxdam);
@@ -4075,7 +4076,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->add_ifvalue($attack, 'AttackDPS', 'ranged_dps');
 			$this->add_ifvalue($attack, 'AttackSkill', 'ranged_skill');
 
-			list($mindam, $maxdam) = explode(':',$attack['DamageRange']);
+			list($mindam, $maxdam) = explode(':',$attack['DamageRangeBase']);
 			$this->add_value('ranged_mindam', $mindam);
 			$this->add_value('ranged_maxdam', $maxdam);
 			unset($mindam, $maxdam);
@@ -4148,9 +4149,15 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		$this->add_ifvalue($data, 'TalentPoints', 'talent_points');
 
-		$this->add_value('money_c', $data['Money']['Copper']);
-		$this->add_value('money_s', $data['Money']['Silver']);
-		$this->add_value('money_g', $data['Money']['Gold']);
+		//$this->add_ifvalue('money_c', $data['Money']['Copper']);
+		//$this->add_ifvalue('money_s', $data['Money']['Silver']);
+		//$this->add_ifvalue('money_g', $data['Money']['Gold']);
+		if (isset($data['Money']))
+		{
+		$this->add_ifvalue($data['Money'], 'Silver', 'money_s');
+		$this->add_ifvalue($data['Money'], 'Copper', 'money_c');
+		$this->add_ifvalue($data['Money'], 'Gold', 'money_g');
+		}
 
 		$this->add_ifvalue($data, 'Experience', 'exp');
 		$this->add_ifvalue($data, 'Race', 'race');
@@ -4204,8 +4211,14 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		$this->locale = $data['Locale'];
 
-		$this->do_equip($data, $memberId);
-		$this->do_inventory($data, $memberId);
+		if ( isset($data['Equipment']) && is_array($data['Equipment']) )
+		{
+			$this->do_equip($data, $memberId);
+		}
+		if ( isset($data['Inventory']) && is_array($data['Inventory']) )
+		{
+			$this->do_inventory($data, $memberId);
+		}
 		$this->do_bank($data, $memberId);
 		$this->do_mailbox($data, $memberId);
 		$this->do_skills($data, $memberId);

@@ -198,6 +198,8 @@ class memberslistUpdate
 			$main_name = '';				// No regex result; assume the character is mainless alt
 			$this->messages .= " - <span style='color:yellow;'>No main match</span>\n";
 		}
+		//echo '<br>'.$member_name.'<pre>';
+		//print_r($regs);
 
 		// Fix name case. Won't work if it's accented or anything like that.
 		$main_name = ucfirst(strtolower($main_name));
