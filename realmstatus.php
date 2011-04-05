@@ -178,6 +178,7 @@ if( $err )
 	$realmData['serverpop'] = 'NOSTATUS';
 	$realmData['serverpopcolor'] = $roster->config['rs_color_error'];
 	$realmData['servertypecolor'] = $roster->config['rs_color_error'];
+	$realmData['servertype'] = ($realmData['servertype'] != '' ? $realmData['servertype'] : '');
 }
 else
 {
@@ -191,7 +192,7 @@ else
 	}
 	$realmData['servertypecolor'] = $roster->config['rs_color_' . strtolower($realmData['servertype'])];
 	$realmData['serverpop'] = $realmData['serverpop'];
-	$realmData['servertype'] = $realmData['servertype'];
+	$realmData['servertype'] = ($realmData['servertype'] != '' ? $realmData['servertype'] : '');
 }
 
 // Generate image or text?
@@ -210,32 +211,16 @@ return;
 function text_output( $realmData )
 {
 	global $roster;
-/*
-	$outtext = '
-<!-- Begin Realmstatus -->
-<div style="width:88px;font-family:arial;font-weight:bold;">
-	<div style="width:88px;height:41px;background-image:url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '.png);"></div>';
 
-	if( $roster->config['rs_display'] == 'full' )
-	{
-		$outtext .= '
-	<div style="vertical-align:middle;text-align:center;width:88px;height:54px;background-image:url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '2.png);">
-		<div style="padding-top:7px;color:' . $roster->config['rs_color_server'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:10px;">' . $realmData['server_name'] . '</div>
-		<div style="color:' . $realmData['serverpopcolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:12px;">' . $realmData['serverpop'] . '</div>
-		<div style="color:' . $realmData['servertypecolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:9px;">' . $realmData['servertype'] . '</div>
-	</div>';
-	}
-	$outtext .= '
-</div>
-<!-- End Realmstatus -->
-';
-*/
+	// If there is no data, then we want to output blank text
+	$realmData['servertype'] = $realmData['servertype'] != '' ? $roster->locale->act['rs'][$realmData['servertype']] : $realmData['servertype'];
+
 	$outtext = '
 <div style="position:relative;width:272px;height:35px;font-family:arial;font-weight:bold;background:transparent url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/background.png) no-repeat;">
 	<div style="position:absolute;width:272px;height:35px;background:transparent url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverpop']) . '.png) no-repeat;">
 		<div style="position:absolute;bottom:-1px;left:30px;color:' . $roster->config['rs_color_server'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:24px;">' . $realmData['server_name'] . '</div>
 		<div style="position:absolute;bottom:3px;right:5px;color:' . $realmData['serverpopcolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:10px;">' . $roster->locale->act['rs'][$realmData['serverpop']] . '</div>
-		<div style="position:absolute;bottom:22px;left:35px;color:' . $realmData['servertypecolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:10px;">' . $roster->locale->act['rs'][$realmData['servertype']] . '</div>
+		<div style="position:absolute;bottom:22px;left:35px;color:' . $realmData['servertypecolor'] . ';' . ($roster->config['rs_color_shadow'] ? 'text-shadow:' . $roster->config['rs_color_shadow'] . ' 1px 1px 0;' : '') . 'font-size:10px;">' . $realmData['servertype'] . '</div>
 		<div style="position:absolute;bottom:2px;left:1px;width:32px;height:32px;background:transparent url(' . ROSTER_URL . $roster->config['img_url'] . 'realmstatus/' . strtolower($realmData['serverstatus']) . '-icon.png) no-repeat;"></div>
 	</div>
 </div>
@@ -269,7 +254,10 @@ function img_output( $realmData , $err , $image_path )
 	$roster_gd->make_image($bkg_img_info[0], $bkg_img_info[1]);
 	$roster_gd->combine_image($bkg_img, 0, 0);
 
-	$roster_gd->write_text($roster->config['rs_size_type'], 0, 30, 8, $realmData['servertypecolor'], 0, $typefont, $roster->locale->act['rs'][$realmData['servertype']], 'left', array(), $shadow);
+	// If there is no data, then we want to output blank text
+	$realmData['servertype'] = $realmData['servertype'] != '' ? $roster->locale->act['rs'][$realmData['servertype']] : $realmData['servertype'];
+
+	$roster_gd->write_text($roster->config['rs_size_type'], 0, 30, 8, $realmData['servertypecolor'], 0, $typefont, $realmData['servertype'], 'left', array(), $shadow);
 	$roster_gd->write_text($roster->config['rs_size_pop'], 0, 267, 30, $realmData['serverpopcolor'], 0, $serverpopfont, $roster->locale->act['rs'][$realmData['serverpop']], 'right', array(), $shadow);
 	$roster_gd->write_text($roster->config['rs_size_server'], 0, 30, 30, $roster->config['rs_color_server'], 0, $serverfont, $realmData['server_name'], 'left', array(), $shadow);
 
