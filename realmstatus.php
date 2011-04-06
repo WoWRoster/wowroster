@@ -30,6 +30,7 @@ if( !defined('IN_ROSTER') )
 $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 
 require_once ($roster_root_path . 'settings.php');
+require_once(ROSTER_LIB . 'simpleparser.class.php');
 
 
 //==========[ GET FROM CONF.PHP ]====================================================
@@ -63,7 +64,8 @@ else
 	$generate_image = true;
 }
 
-$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
+//$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
+$xmlsource = 'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
 
 //==========[ OTHER SETTINGS ]=========================================================
 
@@ -99,19 +101,23 @@ else
 // Check timestamp, update when ready
 $current_time = time();
 
-if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3600)) )
-{
+//if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3600)) )
+//{
 	$data = simplexml_load_file($xmlsource);
+	$xmlsource = urlgrabber($xmlsource);
 
-	if( $data !== false )
+	$simpleParser = new SimpleParser();
+	$simpleParser->parse($xmlsource);
+	//<r N="Zangarmarsh" S="up" T="pve" P="medium" L="United States" Q="No" />
+	if( $simpleParser !== false )
 	{
-		$realmType = str_replace('(', '',$data->REALM->REALMTYPE);
+		$realmType = str_replace('(', '',$simpleParser->datas[0]->T);
 		$realmType = str_replace(')', '',$realmType);
 
 		$realmData['server_region'] = $region;
 		$realmData['servertype']    = strtoupper($realmType);
-		$realmData['serverstatus']  = strtoupper($data->REALM->REALMSTATUS);
-		$realmData['serverpop']     = strtoupper($data->REALM->REALMPOP);
+		$realmData['serverstatus']  = strtoupper($simpleParser->datas[0]->S);
+		$realmData['serverpop']     = strtoupper($simpleParser->datas[0]->P);
 
 		$err = 0;
 	}
@@ -148,7 +154,7 @@ if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3
 
 		$roster->db->query($querystr);
 	}
-}
+//}
 
 //==========[ "NOW, WHAT TO DO NEXT?" ]================================================
 
@@ -174,6 +180,7 @@ else
 // Set to Unknown values upon error
 if( $err )
 {
+	$realmData['servertype'] = 'UNKNOWN';
 	$realmData['serverstatus'] = 'UNKNOWN';
 	$realmData['serverpop'] = 'NOSTATUS';
 	$realmData['serverpopcolor'] = $roster->config['rs_color_error'];
