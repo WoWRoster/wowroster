@@ -6,11 +6,11 @@
  *
  *
  * @copyright  2002-2011 WoWRoster.net
- * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id$
- * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
- * @package    WoWRoster
+ * @license	http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version	SVN: $Id$
+ * @link	   http://www.wowroster.net
+ * @since	  File available since Release 1.8.0
+ * @package	WoWRoster
  * @subpackage LuaUpdate
  */
 
@@ -22,7 +22,7 @@ if ( !defined('IN_ROSTER') )
 /**
  * Lua Update handler
  *
- * @package    WoWRoster
+ * @package	WoWRoster
  * @subpackage LuaUpdate
  */
 class update
@@ -143,6 +143,53 @@ class update
 	}
 
 	/**
+	*
+	*	file error upload handler
+	*	returns true/false | sets error message with file name
+	*/
+	
+	function upload_error_check($file)
+	{
+		global $roster;
+		
+		switch($file['error'])
+		{
+			case 0:		  // Value: 0; There is no error, the file uploaded with success.
+				return true;
+			break;
+ 
+			case 1:	// Value: 1; The uploaded file exceeds the upload_max_filesize directive in php.ini.
+				$this->setError('The uploaded file exceeds the upload_max_filesize directive in php.ini.','File Error ['.$file['name'].']');
+				
+			case 2:   // Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.
+				$this->setError('The uploaded file exceeds the server maximum filesize allowed.','File Error ['.$file['name'].']');
+				return false;
+			break;
+ 
+			case 3:	 // Value: 3; The uploaded file was only partially uploaded.
+				$this->setError('The uploaded file was only partially uploaded.','File Error ['.$file['name'].']');
+				return false;
+				break;
+ 
+			case 4:	 // Value: 4; No file was uploaded.
+				$this->setError('No file was uploaded.','File Error ['.$file['name'].']');
+				return false;
+				break;
+ 
+			case 6:  // Value: 6; Missing a temporary folder.
+				$output .= '<li>Missing a temporary folder. Please contact the admin.</li>';
+				return false;
+				break;
+ 
+			case 7:  // Value: 7; Failed to write file to disk.
+				$output .= '<li>Failed to write file to disk. Please contact the admin.</li>';
+				return false;
+				break;
+		}
+	}
+	
+	
+	/**
 	 * Parses the files and put it in $uploadData
 	 *
 	 * @return string $output | Output messages
@@ -157,20 +204,18 @@ class update
 		}
 
 		require_once(ROSTER_LIB . 'luaparser.php');
-
 		$output = $roster->locale->act['parsing_files'] . "<br />\n<ul>";
 		foreach( $_FILES as $file )
 		{
-			if( !empty($file['name']) )
+			if( !empty($file['name']) && $this->upload_error_check($file))
 			{
 				$filename = explode('.',$file['name']);
-				$filebase = strtolower($filename[0]);
-
-				if( in_array($filebase,$this->files) )
+				$filebase = strtolower($filename[0]);				
+				
+				if( in_array($filebase,$this->files))
 				{
 					// Get start of parse time
 					$parse_starttime = format_microtime();
-
 					$luahandler = new lua();
 					$data = $luahandler->luatophp( $file['tmp_name'], isset($this->blinds[$filebase]) ? $this->blinds[$filebase] : array() );
 
@@ -194,6 +239,10 @@ class update
 					$output .= '<li>' . sprintf($roster->locale->act['upload_not_accept'],$file['name']) . "</li>\n";
 				}
 			}
+			else
+			{
+				$output .= '<li>' . sprintf($roster->locale->act['error_parsed_time'],$file['name'],'0') . "</li>\n";
+			}
 		}
 		$output .= "</ul><br />\n";
 		return $output;
@@ -207,7 +256,6 @@ class update
 	function processFiles()
 	{
 		global $roster;
-
 		$this->processTime = time();
 
 		if( !is_array($this->uploadData) )
@@ -343,7 +391,6 @@ class update
 		 * Rule #3 This works for both new and old CPs lol
 		 * Rule #4 If Zanix yells at you, you deserve it
 		 */
-
 /*		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
 		{
 			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
@@ -3578,10 +3625,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 			list($lastOnlineYears,$lastOnlineMonths,$lastOnlineDays,$lastOnlineHours) = explode(':',$char['LastOnline']);
 
 			# use strtotime instead
-			#      $lastOnlineTime = $currentTimestamp - 365 * 24* 60 * 60 * $lastOnlineYears
-			#                        - 30 * 24 * 60 * 60 * $lastOnlineMonths
-			#                        - 24 * 60 * 60 * $lastOnlineDays
-			#                        - 60 * 60 * $lastOnlineHours;
+			#	  $lastOnlineTime = $currentTimestamp - 365 * 24* 60 * 60 * $lastOnlineYears
+			#						- 30 * 24 * 60 * 60 * $lastOnlineMonths
+			#						- 24 * 60 * 60 * $lastOnlineDays
+			#						- 60 * 60 * $lastOnlineHours;
 			$timeString = '-';
 			if ($lastOnlineYears > 0)
 			{
