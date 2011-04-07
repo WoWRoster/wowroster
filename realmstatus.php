@@ -65,7 +65,7 @@ else
 }
 //piss the xml noise we are going json
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
-$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=US&rn=Zangarmarsh&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
+$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
 
 //==========[ OTHER SETTINGS ]=========================================================
 
