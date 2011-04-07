@@ -63,9 +63,9 @@ else
 {
 	$generate_image = true;
 }
-
+//piss the xml noise we are going json
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
-$xmlsource = 'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
+$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=US&rn=Zangarmarsh&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
 
 //==========[ OTHER SETTINGS ]=========================================================
 
@@ -101,23 +101,21 @@ else
 // Check timestamp, update when ready
 $current_time = time();
 
-//if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3600)) )
-//{
-	$data = simplexml_load_file($xmlsource);
-	$xmlsource = urlgrabber($xmlsource);
+if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3600)) )
+{
+	$r = file_get_contents($xmlsource);
+	$x = preg_replace('/.+?({.+}).+/','$1',$r);
+	$d = json_decode($x);
 
-	$simpleParser = new SimpleParser();
-	$simpleParser->parse($xmlsource);
-	//<r N="Zangarmarsh" S="up" T="pve" P="medium" L="United States" Q="No" />
-	if( $simpleParser !== false )
+	if( $d !== false )
 	{
-		$realmType = str_replace('(', '',$simpleParser->datas[0]->T);
+		$realmType = str_replace('(', '',$d->realmType);
 		$realmType = str_replace(')', '',$realmType);
 
 		$realmData['server_region'] = $region;
 		$realmData['servertype']    = strtoupper($realmType);
-		$realmData['serverstatus']  = strtoupper($simpleParser->datas[0]->S);
-		$realmData['serverpop']     = strtoupper($simpleParser->datas[0]->P);
+		$realmData['serverstatus']  = strtoupper($d->realmStatus);
+		$realmData['serverpop']     = strtoupper($d->realmPop);
 
 		$err = 0;
 	}
@@ -125,8 +123,6 @@ $current_time = time();
 	{
 		$err = 1;
 	}
-
-//	echo $realmData['server_name'].' - '.$realmData['server_region'].' - '.$realmData['servertype'].' - '.$realmData['serverstatus'].' - '.$realmData['serverpop'].' - '.$realmData['timestamp'];
 
 	//==========[ WRITE INFO TO DATABASE ]=================================================
 
@@ -154,7 +150,7 @@ $current_time = time();
 
 		$roster->db->query($querystr);
 	}
-//}
+}
 
 //==========[ "NOW, WHAT TO DO NEXT?" ]================================================
 
