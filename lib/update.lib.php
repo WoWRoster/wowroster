@@ -151,37 +151,37 @@ class update
 	function upload_error_check($file)
 	{
 		global $roster;
-		
+
 		switch($file['error'])
 		{
-			case 0:		  // Value: 0; There is no error, the file uploaded with success.
+			case UPLOAD_ERR_OK:		  // Value: 0; There is no error, the file uploaded with success.
 				return true;
 			break;
  
-			case 1:	// Value: 1; The uploaded file exceeds the upload_max_filesize directive in php.ini.
+			case UPLOAD_ERR_INI_SIZE:	// Value: 1; The uploaded file exceeds the upload_max_filesize directive in php.ini.
 				$this->setError('The uploaded file exceeds the upload_max_filesize directive in php.ini.','File Error ['.$file['name'].']');
 				
-			case 2:   // Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.
+			case UPLOAD_ERR_FORM_SIZE:   // Value: 2; The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.
 				$this->setError('The uploaded file exceeds the server maximum filesize allowed.','File Error ['.$file['name'].']');
 				return false;
 			break;
  
-			case 3:	 // Value: 3; The uploaded file was only partially uploaded.
+			case UPLOAD_ERR_PARTIAL:	 // Value: 3; The uploaded file was only partially uploaded.
 				$this->setError('The uploaded file was only partially uploaded.','File Error ['.$file['name'].']');
 				return false;
 				break;
  
-			case 4:	 // Value: 4; No file was uploaded.
+			case UPLOAD_ERR_NO_FILE:	 // Value: 4; No file was uploaded.
 				$this->setError('No file was uploaded.','File Error ['.$file['name'].']');
 				return false;
 				break;
  
-			case 6:  // Value: 6; Missing a temporary folder.
+			case UPLOAD_ERR_NO_TMP_DIR:  // Value: 6; Missing a temporary folder.
 				$output .= '<li>Missing a temporary folder. Please contact the admin.</li>';
 				return false;
 				break;
  
-			case 7:  // Value: 7; Failed to write file to disk.
+			case UPLOAD_ERR_CANT_WRITE:  // Value: 7; Failed to write file to disk.
 				$output .= '<li>Failed to write file to disk. Please contact the admin.</li>';
 				return false;
 				break;
