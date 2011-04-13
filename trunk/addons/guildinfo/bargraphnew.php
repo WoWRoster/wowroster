@@ -10,7 +10,7 @@
  * @link       http://www.wowroster.net
  * @package    GuildInfo
 */
-
+//echo 'jj';
 define('IN_ROSTER', true);
 require('../../settings.php');
 require(ROSTER_LIB . 'roster_gd.php');
@@ -123,7 +123,7 @@ for($i=0; $i<$count; $i++)
 	if( $type == 'class' )
 	{
 		$icon = ROSTER_BASE . 'img' . DIR_SEP . 'class' . DIR_SEP . $roster->locale->act['class_iconArray'][$barnames[$i]] . '.png';
-		$roster_gd->combine_image($icon, $bar_x_offset + 1, 98, 0, 0, 40, 40);
+		$roster_gd->combine_image($icon, $bar_x_offset + 1, 105, 0, 0, 40, 40);
 	}
 
 	// Draw the bar
@@ -159,7 +159,7 @@ for($i=0; $i<$count; $i++)
 // Overlay the foreground image
 $roster_gd->combine_image($fg_img, 0, 0);
 
-
+//echo 'ff';
 // Draw the labels
 // This is separate so the text is on top of all the bars
 $shadow = array('color' => $text['outline'], 'distance' => 1, 'direction' => 90, 'spread' => 0);
@@ -174,10 +174,24 @@ for($i=0; $i<$count; $i++)
 	{
 		$thiscolor = $text['color'];
 	}
-
-	$roster_gd->write_text($text['size'], 0, $text_offset, 95, $thiscolor, 0, $text['font'], $barnames[$i], 'center', array(), $shadow);
-	$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], (string)$barsizes[$i], 'right', array(), $shadow);
-
+	$texct = preg_match("/ /", $barnames[$i], $match); 
+	//echo '@@@@@@@@';
+	if ($match &&  $type != 'level')
+	{
+		$d = explode(" ", $barnames[$i]);
+		//echo '!!!!!!!!!!';
+		//echo '|'.$d[0].'<br>'.$d[1].'|';
+		$roster_gd->write_text($text['size'], 0, $text_offset, 95, $thiscolor, 0, $text['font'], $d[0], 'center', array(), $shadow);
+		$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], (string)$barsizes[$i], 'right', array(), $shadow);
+		//
+		$roster_gd->write_text($text['size'], 0, $text_offset, 98+$text['size'], $thiscolor, 0, $text['font'], $d[1], 'center', array(), $shadow);
+		//$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], (string)$d[1], 'right', array(), $shadow);
+	}
+	else
+	{
+		$roster_gd->write_text($text['size'], 0, $text_offset, 95, $thiscolor, 0, $text['font'], $barnames[$i], 'center', array(), $shadow);
+		$roster_gd->write_text($text['size']*.7, 0, $text_offset+18, $bar_y_offset-1, $thiscolor, 0, $text['font'], (string)$barsizes[$i], 'right', array(), $shadow);
+	}
 	$text_offset += $bar_gap;
 }
 

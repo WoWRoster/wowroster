@@ -86,3 +86,17 @@ $lang['admin']['graph_class_foot_font'] = "Footer Font|The font for the footer t
 $lang['admin']['graph_class_foot_size'] = "Footer font size|The font size for the level group labels";
 $lang['admin']['graph_class_foot_color'] = "Footer color|The color for the footer text";
 $lang['admin']['graph_class_foot_outline'] = "Footer outline color|The outline color for the footer text<br />Clear this box to turn the outline off";
+
+$lang['admin']['graph_rank_display'] = "Enable|Turn the rank graph on or off";
+$lang['admin']['graph_rank_style'] = "Display style|Show as a list, a linear bargraph, or a logarithmic bargraph";
+$lang['admin']['graph_rank_level'] = "Minimum level|Minimum level for characters to be included in the rank overview";
+$lang['admin']['graph_rank_bar_color'] = "Override bar color|The color for the bar showing the number of characters for each rank group<br />Leave blank to use rank colors";
+$lang['admin']['graph_rank_bar2_color'] = "Bar 2 color|The color for the bar showing the number of alts for each rank group";
+$lang['admin']['graph_rank_font'] = "Text Font|The font for the level rank labels";
+$lang['admin']['graph_rank_font_size'] = "Text font size|The font size for the rank group labels";
+$lang['admin']['graph_rank_font_color'] = "Override text color|Overrides the color for the rank labels<br />Leave blank to use rank colors";
+$lang['admin']['graph_rank_outline'] = "Text outline color|The outline color for the rank group labels<br />Clear this box to turn the outline off";
+$lang['admin']['graph_rank_foot_font'] = "Footer Font|The font for the footer text";
+$lang['admin']['graph_rank_foot_size'] = "Footer font size|The font size for the level group labels";
+$lang['admin']['graph_rank_foot_color'] = "Footer color|The color for the footer text";
+$lang['admin']['graph_rank_foot_outline'] = "Footer outline color|The outline color for the footer text<br />Clear this box to turn the outline off";

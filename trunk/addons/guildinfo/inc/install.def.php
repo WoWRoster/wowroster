@@ -26,7 +26,7 @@ class guildinfoInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $version = '2.0.9.2292';
+	var $version = '2.0.9.2300';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';
@@ -120,6 +120,20 @@ class guildinfoInstall
 		$installer->add_config("'3100', 'graph_class_foot_size', '12', 'text{2|10', 'graph_class'");
 		$installer->add_config("'3110', 'graph_class_foot_color', '#FFFFFF', 'color', 'graph_class'");
 		$installer->add_config("'3120', 'graph_class_foot_outline', '#000000', 'color', 'graph_class'");
+		
+		$installer->add_config("'4000', 'graph_rank_display', '1', 'radio{off^0|on^1', 'graph_rank'");
+		$installer->add_config("'4010', 'graph_rank_style', 'bar', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'graph_rank'");
+		$installer->add_config("'4020', 'graph_rank_level', '1', 'text{2|10', 'graph_rank'");
+		$installer->add_config("'4030', 'graph_rank_bar_color', '', 'color', 'graph_rank'");
+		$installer->add_config("'4440', 'graph_rank_bar2_color', '#000066', 'color', 'graph_rank'");
+		$installer->add_config("'4450', 'graph_rank_font', 'VERANDA.TTF', 'function{fontFiles', 'graph_rank'");
+		$installer->add_config("'4060', 'graph_rank_font_size', '10', 'text{2|10', 'graph_rank'");
+		$installer->add_config("'4070', 'graph_rank_font_color', '', 'color', 'graph_rank'");
+		$installer->add_config("'4080', 'graph_rank_outline', '#000000', 'color', 'graph_rank'");
+		$installer->add_config("'4090', 'graph_rank_foot_font', 'visitor.ttf', 'function{fontFiles', 'graph_rank'");
+		$installer->add_config("'4100', 'graph_rank_foot_size', '12', 'text{2|10', 'graph_rank'");
+		$installer->add_config("'4110', 'graph_rank_foot_color', '#FFFFFF', 'color', 'graph_rank'");
+		$installer->add_config("'4120', 'graph_rank_foot_outline', '#000000', 'color', 'graph_rank'");
 
 		$installer->add_menu_button('ginfobutton','guild');
 		return true;
@@ -165,6 +179,23 @@ class guildinfoInstall
 			");
 		}
 
+		if( version_compare( $oldversion, '2.0.9.2300', '<' ) )
+		{
+		
+		$installer->add_config("'4000', 'graph_rank_display', '1', 'radio{off^0|on^1', 'graph_rank'");
+		$installer->add_config("'4010', 'graph_rank_style', 'bar', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'graph_rank'");
+		$installer->add_config("'4020', 'graph_rank_level', '1', 'text{2|10', 'graph_rank'");
+		$installer->add_config("'4030', 'graph_rank_bar_color', '', 'color', 'graph_rank'");
+		$installer->add_config("'4440', 'graph_rank_bar2_color', '#000066', 'color', 'graph_rank'");
+		$installer->add_config("'4450', 'graph_rank_font', 'VERANDA.TTF', 'function{fontFiles', 'graph_rank'");
+		$installer->add_config("'4060', 'graph_rank_font_size', '10', 'text{2|10', 'graph_rank'");
+		$installer->add_config("'4070', 'graph_rank_font_color', '', 'color', 'graph_rank'");
+		$installer->add_config("'4080', 'graph_rank_outline', '#000000', 'color', 'graph_rank'");
+		$installer->add_config("'4090', 'graph_rank_foot_font', 'visitor.ttf', 'function{fontFiles', 'graph_rank'");
+		$installer->add_config("'4100', 'graph_rank_foot_size', '12', 'text{2|10', 'graph_rank'");
+		$installer->add_config("'4110', 'graph_rank_foot_color', '#FFFFFF', 'color', 'graph_rank'");
+		$installer->add_config("'4120', 'graph_rank_foot_outline', '#000000', 'color', 'graph_rank'");
+		}
 		// Add config for bargraphs and such
 		if( version_compare( $oldversion, '2.0.9.2292', '<' ) )
 		{
@@ -222,6 +253,7 @@ class guildinfoInstall
 
 		$installer->drop_table($installer->table('news'));
 		$installer->drop_table($installer->table('ranks'));
+		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
 		return true;
 	}
