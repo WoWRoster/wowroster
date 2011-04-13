@@ -109,6 +109,10 @@ if( $addon['config']['graph_class_display'] == 1 )
 {
 	$graph .= makeGraph('class', $addon['config']['graph_class_level'], $addon['config']['graph_class_style']);
 }
+if( $addon['config']['graph_rank_display'] == 1 )
+{
+	$graph .= makeGraph('rank', $addon['config']['graph_rank_level'], $addon['config']['graph_rank_style']);
+}
 
 $roster->tpl->assign_vars(array(
 	'L_MEMBER_ACHIEVEMENTS' => $roster->locale->act['NEWS_FILTER']['2'],
@@ -217,7 +221,7 @@ function makeGraph( $type , $level , $style )
 	$num_alts = $num_non_alts = 0;
 	$queryxxx = "IF(`" . $roster->db->escape($roster->config['alt_location']) . "` LIKE '%" . $roster->db->escape($roster->config['alt_type']) . "%',1,0) AS isalt, ";
 	$wherexx = "Where `guild_id` = '" . $roster->data['guild_id'] . "' and `level` >= ".$addon['config']['graph_level_level']."";
-	$queryxx = "SELECT ".$queryxxx." `level`, `classid` FROM `" . $roster->db->table('members') . "`"
+	$queryxx = "SELECT ".$queryxxx." `level`, `classid`, `guild_title` FROM `" . $roster->db->table('members') . "`"
 	. $wherexx . " Order by `level` ASC";
 	$resultxx = $roster->db->query($queryxx);
 		
@@ -337,6 +341,34 @@ function makeGraph( $type , $level , $style )
 				$num_non_alts++;
 			}
 			$dat[$rowc['classid']]['nonalt']++;	
+		}
+	}
+	elseif( $type == 'rank' )
+	{
+
+		$resultd = $resultxx;
+		/*
+		foreach($roster->locale->act['id_to_class'] as $class_id => $class)
+			{
+				$dat[$class_id]['name'] = $class;
+				$dat[$class_id]['alt'] = 0;
+				$dat[$class_id]['nonalt'] = 0;
+			}
+		*/
+		//$dat[$rowd['guild_title']]['name']=
+		while ($rowd = $roster->db->fetch($resultd))
+		{
+			$dat[$rowd['guild_title']]['name']=$rowd['guild_title'];
+			if ($rowd['isalt']==1)
+			{
+				$dat[$rowd['guild_title']]['alt']++;
+				$num_alts++;
+			}
+			else
+			{
+				$num_non_alts++;
+			}
+			$dat[$rowd['guild_title']]['nonalt']++;	
 		}
 	}
 	else
