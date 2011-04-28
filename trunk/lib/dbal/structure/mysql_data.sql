@@ -35,7 +35,7 @@ INSERT INTO `renprefix_config` VALUES (1040, 'locale', 'enUS', 'function{rosterL
 INSERT INTO `renprefix_config` VALUES (1050, 'default_page', 'rostercp', 'function{pageNames', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1055, 'external_auth', 'roster', 'function{externalAuth', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1060, 'website_address', '', 'text{128|60', 'main_conf');
-INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'img/', 'text{128|60', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1085, 'interface_url', 'http://www.wowroster.net/', 'text{128|60', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1090, 'img_suffix', 'png', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1095, 'alt_img_suffix', 'png', 'select{jpg^jpg|png^png|gif^gif', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1100, 'img_url', 'img/', 'text{128|60', 'main_conf');
@@ -87,29 +87,29 @@ INSERT INTO `renprefix_config` VALUES (8050, 'rs_right', NULL, 'blockframe', 'rs
 INSERT INTO `renprefix_config` VALUES (8100, 'rs_display', 'full', 'radio{off^0|image^image|text^text', 'rs_top');
 INSERT INTO `renprefix_config` VALUES (8120, 'rs_timer', '10', 'text{5|5', 'rs_top');
 
-INSERT INTO `renprefix_config` VALUES (8200, 'rs_font_server', 'VERANDA.TTF', 'function{fontFiles', 'rs_left');
-INSERT INTO `renprefix_config` VALUES (8210, 'rs_size_server', '7', 'text{5|5', 'rs_left');
-INSERT INTO `renprefix_config` VALUES (8220, 'rs_color_server', '#000000', 'color', 'rs_left');
-INSERT INTO `renprefix_config` VALUES (8230, 'rs_color_shadow', '#95824e', 'color', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8200, 'rs_font_server', 'GREY.TTF', 'function{fontFiles', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8210, 'rs_size_server', '20', 'text{5|5', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8220, 'rs_color_server', '#FFFFFF', 'color', 'rs_left');
+INSERT INTO `renprefix_config` VALUES (8230, 'rs_color_shadow', '#000000', 'color', 'rs_left');
 
-INSERT INTO `renprefix_config` VALUES (8300, 'rs_font_type', 'silkscreenb.ttf', 'function{fontFiles', 'rs_middle');
-INSERT INTO `renprefix_config` VALUES (8310, 'rs_size_type', '6', 'text{5|5', 'rs_middle');
-INSERT INTO `renprefix_config` VALUES (8320, 'rs_color_rppvp', '#535600', 'color', 'rs_middle');
-INSERT INTO `renprefix_config` VALUES (8330, 'rs_color_pve', '#234303', 'color', 'rs_middle');
-INSERT INTO `renprefix_config` VALUES (8340, 'rs_color_pvp', '#660D02', 'color', 'rs_middle');
-INSERT INTO `renprefix_config` VALUES (8350, 'rs_color_rp', '#535600', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8300, 'rs_font_type', 'visitor.ttf', 'function{fontFiles', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8310, 'rs_size_type', '10', 'text{5|5', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8320, 'rs_color_rppvp', '#EBDBA2', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8330, 'rs_color_pve', '#EBDBA2', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8340, 'rs_color_pvp', '#CC3333', 'color', 'rs_middle');
+INSERT INTO `renprefix_config` VALUES (8350, 'rs_color_rp', '#33CC33', 'color', 'rs_middle');
 INSERT INTO `renprefix_config` VALUES (8360, 'rs_color_unknown', '#860D02', 'color', 'rs_middle');
 
-INSERT INTO `renprefix_config` VALUES (8400, 'rs_font_pop', 'GREY.TTF', 'function{fontFiles', 'rs_right');
-INSERT INTO `renprefix_config` VALUES (8410, 'rs_size_pop', '11', 'text{5|5', 'rs_right');
-INSERT INTO `renprefix_config` VALUES (8420, 'rs_color_low', '#234303', 'color', 'rs_right');
-INSERT INTO `renprefix_config` VALUES (8430, 'rs_color_medium', '#535600', 'color', 'rs_right');
-INSERT INTO `renprefix_config` VALUES (8440, 'rs_color_high', '#660D02', 'color', 'rs_right');
-INSERT INTO `renprefix_config` VALUES (8450, 'rs_color_max', '#860D02', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8400, 'rs_font_pop', 'visitor.ttf', 'function{fontFiles', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8410, 'rs_size_pop', '10', 'text{5|5', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8420, 'rs_color_low', '#33CC33', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8430, 'rs_color_medium', '#EBDBA2', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8440, 'rs_color_high', '#CC3333', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8450, 'rs_color_max', '#CC3333', 'color', 'rs_right');
 INSERT INTO `renprefix_config` VALUES (8460, 'rs_color_error', '#646464', 'color', 'rs_right');
 INSERT INTO `renprefix_config` VALUES (8465, 'rs_color_offline', '#646464', 'color', 'rs_right');
-INSERT INTO `renprefix_config` VALUES (8470, 'rs_color_full', '#990000', 'color', 'rs_right');
-INSERT INTO `renprefix_config` VALUES (8480, 'rs_color_recommended', '#0033FF', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8470, 'rs_color_full', '#CC3333', 'color', 'rs_right');
+INSERT INTO `renprefix_config` VALUES (8480, 'rs_color_recommended', '#33CC33', 'color', 'rs_right');
 
 
 # --------------------------------------------------------
