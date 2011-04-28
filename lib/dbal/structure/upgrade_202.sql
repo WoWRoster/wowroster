@@ -385,6 +385,9 @@ ALTER TABLE `renprefix_talenttree`
 # Update Documents link
 UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = '180' LIMIT 1;
 
+# Interface Images now available directly from wowroster.net
+UPDATE `renprefix_config` SET `config_value` = 'http://www.wowroster.net/' WHERE `id` = '1085' LIMIT 1;
+
 # Update CP versions
 UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = '1010' LIMIT 1;
 UPDATE `renprefix_config` SET `config_value` = '1.0.0' WHERE `id` = '1020' LIMIT 1;
@@ -405,7 +408,6 @@ INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|of
 
 # Remove most of the menu block display settings, they are in GuildInfo now
 DELETE FROM `renprefix_config` WHERE `id` = '130' LIMIT 1;
-
 
 DELETE FROM `renprefix_config` WHERE `id` = '4000' LIMIT 1;
 DELETE FROM `renprefix_config` WHERE `id` = '4001' LIMIT 1;
@@ -448,6 +450,26 @@ UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '5025' LI
 UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '5040' LIMIT 1;
 UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '6100' LIMIT 1;
 UPDATE `renprefix_config` SET `form_type` = 'text{128|60' WHERE `id` = '6120' LIMIT 1;
+
+# Update realmstatus
+UPDATE `renprefix_config` SET `config_value` = 'GREY.TTF' WHERE `id` = '8200' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '20' WHERE `id` = '8210' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#FFFFFF' WHERE `id` = '8220' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#000000' WHERE `id` = '8230' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = 'visitor.ttf' WHERE `id` = '8300' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '10' WHERE `id` = '8310' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#EBDBA2' WHERE `id` = '8320' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#EBDBA2' WHERE `id` = '8330' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#CC3333' WHERE `id` = '8340' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#33CC33' WHERE `id` = '8350' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = 'visitor.ttf' WHERE `id` = '8400' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '10' WHERE `id` = '8410' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#33CC33' WHERE `id` = '8420' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#EBDBA2' WHERE `id` = '8430' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#CC3333' WHERE `id` = '8440' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#CC3333' WHERE `id` = '8450' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#CC3333' WHERE `id` = '8470' LIMIT 1;
+UPDATE `renprefix_config` SET `config_value` = '#33CC33' WHERE `id` = '8480' LIMIT 1;
 
 # --------------------------------------------------------
 ### Menu Updates

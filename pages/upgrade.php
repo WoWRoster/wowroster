@@ -621,6 +621,35 @@ class Upgrade
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'http://www.wowroster.net/downloads/index.php?cat=3&id=142' WHERE `id` = '6100' LIMIT 1;");
 		}
 
+		// allow interface images from wowroster.net
+		// change defaults for realmstatus
+		if( version_compare($roster->config['version'], '2.0.9.2323', '<') )
+		{
+			$roster->set_message('Interface images have been set to wowroster.net. Enjoy always updated, clean icon images.<br />You can always change them back to your local copy.');
+			$roster->set_message('Realm Status has been reset to &quot;nicer&quot; defaults.');
+
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'http://www.wowroster.net/' WHERE `id` = '1085' LIMIT 1;");
+
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'GREY.TTF' WHERE `id` = '8200' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '20' WHERE `id` = '8210' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#FFFFFF' WHERE `id` = '8220' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#000000' WHERE `id` = '8230' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'visitor.ttf' WHERE `id` = '8300' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '10' WHERE `id` = '8310' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#EBDBA2' WHERE `id` = '8320' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#EBDBA2' WHERE `id` = '8330' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#CC3333' WHERE `id` = '8340' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#33CC33' WHERE `id` = '8350' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'visitor.ttf' WHERE `id` = '8400' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '10' WHERE `id` = '8410' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#33CC33' WHERE `id` = '8420' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#EBDBA2' WHERE `id` = '8430' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#CC3333' WHERE `id` = '8440' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#CC3333' WHERE `id` = '8450' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#CC3333' WHERE `id` = '8470' LIMIT 1;");
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '#33CC33' WHERE `id` = '8480' LIMIT 1;");
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
