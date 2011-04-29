@@ -170,6 +170,28 @@ class item
 		return $html;
 	}
 
+	// heroic shit wow i missed this 
+	function _getHeroic()
+	{
+		global $roster;
+
+		$heroic = $this->attributes['Heroic'];
+
+		if( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_heroic'], $heroic) )
+		{
+			$color = '66DD33';
+		}
+		
+		else
+		{
+			$color = 'ffffff';
+		}
+
+		$html = '<span style="color:#' . $color . ';"><i>' . $heroic . '</i></span><br />';
+
+		return $html;
+	}
+	
 	function _getBindType()
 	{
 		global $roster;
@@ -631,6 +653,10 @@ class item
 			if( isset($this->attributes['Conjured']) )
 			{
 				$html_tt .= $this->_getConjures();
+			}
+			if( isset($this->attributes['Heroic']) )
+			{
+				$html_tt .= $this->_getHeroic();
 			}
 			if( isset($this->attributes['BindType']) )
 			{
@@ -1100,11 +1126,7 @@ class item
 				//Use:
 				$tt['Effects']['Use'][] = $line;
 			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_heroic'], $line) )
-			{
-				//heroic
-				$tt['Attributes']['Requires'][] = $line;
-			}
+			
 			elseif( preg_match( "/" . $roster->locale->wordings[$locale]['tooltip_reg_requires'] . "/i", $line) )
 			{
 				//Requires
@@ -1146,11 +1168,17 @@ class item
 			{
 				$tt['Effects']['Equip'][] = $line;
 			}
+			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_heroic'], $line) )
+			{
+				//heroic
+				$tt['Attributes']['Heroic'] = $line;
+			}
 			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_bind_types'] . "\b/i", $line) )
 			{
 				//soulbound, bop, quest item etc
 				$tt['Attributes']['BindType'] = $line;
 			}
+			
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_item_set'], $line) )
 			{
 				//set piece bonus
