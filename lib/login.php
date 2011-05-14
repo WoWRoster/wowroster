@@ -86,14 +86,11 @@ class RosterLogin
 
 		while( $row = $roster->db->fetch($result) )
 		{
-			if( ( $row['hash'] == md5($pass) ) ||
-				( $row['hash'] == $pass )
-			)
+			if( ( $row['hash'] == md5($pass) ) || ( $row['hash'] == $pass ) )
 			{
 				setcookie( 'roster_pass',$row['hash'],0,'/' );
 				$this->allow_login = $row['account_id'];
- 				$this->message = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" />'
- 					. '<div class="clear-text"><div class="box">' . $roster->locale->act['logged_in'] . ' ' . $row['name'] . '</div><button type="submit">' . $roster->locale->act['logout'] . '</button></div></form>';
+				$this->message = $roster->locale->act['logged_in'] . ' ' . $row['name'];
 
 				$roster->db->free_result($result);
 				return;
@@ -176,7 +173,16 @@ class RosterLogin
 		}
 		else
 		{
-			return $this->getMessage();
+			$logout_message = $this->getMessage();
+
+			$roster->tpl->assign_vars(array(
+				'U_LOGOUT_ACTION'  => $this->action,
+				'S_LOGOUT_MESSAGE' => (bool)$logout_message,
+				'L_LOGOUT_MESSAGE' => $logout_message
+			));
+
+			$roster->tpl->set_handle('roster_menu_logout', 'menu_logout.html');
+			return $roster->tpl->fetch('roster_menu_logout');
 		}
 	}
 

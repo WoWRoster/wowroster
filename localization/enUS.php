@@ -1032,7 +1032,7 @@ $lang['enforce_rules_all'] = 'All LUA Updates';
 $lang['enforce_rules_cp'] = 'CP Updates Only';
 $lang['enforce_rules_gp'] = 'Guild Updates Only';
 $lang['upload_rules_error'] = 'You cannot leave one of the fields empty when adding a rule';
-$lang['upload_rules_help'] = 'The rules are divided into two blocks.<br />For each uploaded guild/char, first the top block is checked. If the name@server matches one of these \'deny\' rules, it is rejected.<br />After that the second block is checked. If the name@server matches one of these \'accept\' rules, it is accepted.<br />If it does not match any rule, it is rejected.<br /><br />Remember to set a default guild here as well.';
+$lang['upload_rules_help'] = 'The rules are divided into two blocks.<ul><li>For each uploaded guild/char, first the top block is checked.<br />If the name@server matches one of these \'deny\' rules, it is instantly rejected.</li><li>After that the second block is checked.<br />If the name@server matches one of these \'accept\' rules, it is accepted.</li><li>If no rule is matched, it is rejected.</li></ul>You can use % for a wildcard.<br /><br />Remember to set a default guild here as well.';
 
 // Data Manager
 $lang['clean'] = 'Clean up entries based on upload rules';
