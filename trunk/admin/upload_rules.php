@@ -156,7 +156,7 @@ $roster->tpl->assign_vars(array(
 	'S_ENFORCE_RULES' => $roster->config['enforce_rules'],
 	'S_EXISTING_DATA' => $existing_data,
 
-	'L_ENFORCE_RULES_HELP' => makeOverlib($l_enforce_rules[1],$l_enforce_rules[0],'',0,'',',WRAP'),
+	'L_ENFORCE_RULES_HELP' => makeOverlib($l_enforce_rules[1], $l_enforce_rules[0], '', 2, '', ',WRAP'),
 	'L_NAME_TIP'           => makeOverlib( $mode == 'guild' ? $roster->locale->act['guildname'] : $roster->locale->act['charname'] ),
 	'L_SERVER_TIP'         => makeOverlib($roster->locale->act['realmname']),
 	'L_REGION_TIP'         => makeOverlib($roster->locale->act['regionname']),

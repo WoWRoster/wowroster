@@ -382,8 +382,8 @@ class CharBonus
 			{
 				return 	/*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
 						. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
-						. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
-						. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier;
+						. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="font-size:12px;"><span style="color:#' . $this->item->color
+						. ';">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier . '</span>';
 			}
 		}
 	}

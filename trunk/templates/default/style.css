@@ -48,7 +48,8 @@ textbox {
 	background: transparent url(images/shader.png) 0 0 repeat;
 	color: #FFFFFF;
 	margin: 0;
-	padding: 4px 6px 3px 6px;
+	padding: 5px 6px 2px 6px;
+	height: 16px;
 	font-size: 10px;
 	outline: none; /* remove webkit glow */
 	border-radius: 6px 0 0 6px;
@@ -776,7 +777,7 @@ img.middle,
 /**
  * Form Styles
  */
-form.inline { display:inline; }
+form.inline { display:inline-block; }
 form.close { margin:0; }
 form.slim { margin:0;padding:0; }
 
@@ -1110,6 +1111,7 @@ input.colorinput {
  * jQuery-ui overrides
  */
 .ui-widget { font-size:10px; }
+.ui-icon { width: 14px; height: 14px; }
 input.ui-button,
 .ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
 .ui-buttonset .ui-button { margin-right: -.4em; }

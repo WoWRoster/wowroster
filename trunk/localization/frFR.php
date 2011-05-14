@@ -1032,7 +1032,7 @@ $lang['enforce_rules_all'] = 'All LUA Updates';
 $lang['enforce_rules_cp'] = 'CP Updates Only';
 $lang['enforce_rules_gp'] = 'Guild Updates Only';
 $lang['upload_rules_error'] = 'Vous ne pouvez pas laisser un des champs vide quand vous ajoutez une règle.';
-$lang['upload_rules_help'] = 'Les règles sont séparées en deux blocs.<br />Pour chaque guilde/personnage envoyé, le premier bloc est pris en compte en premier.<br />Si le couple nom@serveur correspond à l\'une des règles de rejet, celui-ci sera rejeté.<br />Ensuite le second bloc est vérifié.<br />Si le couple nom@serveur correspond à l\'une des règles d\'acceptation, celui-ci sera accepté.<br />Si aucune règle n\'est vérifiée, celui-ci est alors rejeté.';
+$lang['upload_rules_help'] = 'Les règles sont séparées en deux blocs.<ul><li>Pour chaque guilde/personnage envoyé, le premier bloc est pris en compte en premier.<br />Si le couple nom@serveur correspond à l\'une des règles de rejet, celui-ci sera rejeté.</li><li>Ensuite le second bloc est vérifié.<br />Si le couple nom@serveur correspond à l\'une des règles d\'acceptation, celui-ci sera accepté.</li><li>Si aucune règle n\'est vérifiée, celui-ci est alors rejeté.</li></ul>You can use % for a wildcard.<br /><br />Remember to set a default guild here as well.';
 
 // Data Manager
 $lang['clean'] = 'Clean up entries based on upload rules';
