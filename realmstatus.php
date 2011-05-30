@@ -32,7 +32,25 @@ $roster_root_path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 require_once ($roster_root_path . 'settings.php');
 require_once(ROSTER_LIB . 'simpleparser.class.php');
 
-
+function statussw($status)
+{
+	switch ($status)
+	{
+		case '0':
+			$q = 'error';
+		break;
+		case '1':
+			$q = 'up';
+		break;
+		case '2':
+			$q = 'down';
+		break;
+		default:
+		break;
+	}
+		
+	return $q;
+}
 //==========[ GET FROM CONF.PHP ]====================================================
 
 
@@ -65,7 +83,8 @@ else
 }
 //piss the xml noise we are going json
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
-$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
+//$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
+$xmlsource = 'http://' . $region . '.battle.net/api/wow/realm/status?realm=' . $realmname . '';
 
 //==========[ OTHER SETTINGS ]=========================================================
 
@@ -81,7 +100,7 @@ $querystr = "SELECT * FROM `" . $roster->db->table('realmstatus') . "`"
 	. " AND `server_name` = '" . $roster->db->escape($realmname) . "';";
 
 $sql = $roster->db->query($querystr);
-if( $sql && $roster->db->num_rows($sql) > 0 )
+if( $sql && 0 > 0 ) //$roster->db->num_rows($sql) > 0 )
 {
 	$realmData = $roster->db->fetch($sql, SQL_ASSOC);
 }
@@ -103,19 +122,19 @@ $current_time = time();
 
 if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3600)) )
 {
-	$r = file_get_contents($xmlsource);
-	$x = preg_replace('/.+?({.+}).+/','$1',$r);
-	$d = json_decode($x);
+	$r = json_decode(file_get_contents($xmlsource));
+
+	$d = $r->realms['0'];
 
 	if( $d !== false )
 	{
-		$realmType = str_replace('(', '',$d->realmType);
+		$realmType = str_replace('(', '',$d->type);
 		$realmType = str_replace(')', '',$realmType);
 
 		$realmData['server_region'] = $region;
 		$realmData['servertype']    = strtoupper($realmType);
-		$realmData['serverstatus']  = strtoupper($d->realmStatus);
-		$realmData['serverpop']     = strtoupper($d->realmPop);
+		$realmData['serverstatus']  = strtoupper(statussw($d->status));
+		$realmData['serverpop']     = strtoupper($d->population);
 
 		$err = 0;
 	}
