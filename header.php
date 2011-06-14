@@ -321,7 +321,7 @@ foreach( $roster->get_messages() as $type => $messages )
 }
 
 
-// BETA ONLY, COMMENT THIS IN RC OR LATER!
+/*/ BETA ONLY, COMMENT THIS IN RC OR LATER!
 if( file_exists(ROSTER_BASE . 'valid.inc') )
 {
 	$v_content = '';
@@ -332,7 +332,7 @@ if( file_exists(ROSTER_BASE . 'valid.inc') )
 	$roster->tpl->assign_var('ROSTER_TOP', $v_content);
 }
 // END BETA ONLY
-
+*/
 $roster->tpl->set_handle('roster_header', 'header.html');
 $roster->tpl->display('roster_header');
 

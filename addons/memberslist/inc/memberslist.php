@@ -29,6 +29,7 @@ class memberslist
 	var $query;						// main query
 	var $wheres;					// where clauses
 	var $orders;					// order clauses
+	var $pageanat;
 
 	var $addon;						// MembersList addon data
 
@@ -112,7 +113,7 @@ class memberslist
 	function prepareData( $query, $where, $group, $order_first, $order_last, $fields, $listname )
 	{
 		global $roster;
-
+		$this->pageanat = ($this->addon['config']['page_size'] > '0' ? true : false );
 		// Save some info
 		$this->listname = $listname;
 		$this->fields = $fields;
@@ -149,7 +150,7 @@ class memberslist
 			'S_FILTER' => $this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
 
-			'B_PAGINATION' => false,
+			//'B_PAGINATION' => $this->pageanat,
 
 			'COLS' => $cols+1,
 			'LISTNAME' => $this->listname,
@@ -197,11 +198,17 @@ class memberslist
 		}
 
 		// --[ Get number of rows ]--
-		if( $this->addon['config']['page_size'] )
+		if( $this->addon['config']['page_size'] > 0 )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
 			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM'));
-			$num_rows = $roster->db->query_first($rowsqry);
+			$result = $roster->db->query($rowsqry);
+			$nn = 0;
+			while( $data = $roster->db->fetch($result, SQL_NUM) )
+			{
+				$nn++;
+			}
+			$num_rows = $nn;
 		}
 
 		// --[ Add sorting SQL ]--
@@ -255,17 +262,15 @@ class memberslist
 		}
 
 		// --[ Add pagination SQL ]--
-		if( $get_st )
+		if( $this->pageanat )
 		{
 			$query .= ' LIMIT ' . $get_st . ',' . $this->addon['config']['page_size'];
 		}
 
 		// --[ Query done, add to class vars ]--
 		$this->query = $query;
-
 		// --[ Page list ]--
-		if( $this->addon['config']['page_size']
-			&& (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
+		if( $this->pageanat && (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
 		)
 		{
 			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));

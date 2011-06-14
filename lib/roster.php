@@ -180,7 +180,7 @@ class roster
 			}
 		}
 
-// BETA ONLY, COMMENT THIS IN RC OR LATER!
+/*/ BETA ONLY, COMMENT THIS IN RC OR LATER!
 // if these equal 0, force these on
 		if( $this->config['debug_mode'] == 0 )
 		{
@@ -191,7 +191,7 @@ class roster
 			$this->config['sql_window'] = 1;
 		}
 // END BETA ONLY
-
+*/
 		$this->db->log_level($this->config['sql_window']);
 	}
 
