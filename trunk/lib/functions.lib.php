@@ -1485,6 +1485,7 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 	$total_pages = ceil($num_items/$per_page);
 	$on_page = floor($start_item/$per_page);
 
+
 	if( $total_pages < 2 )
 	{
 		$roster->tpl->assign_var('B_PAGINATION', false);
@@ -1493,8 +1494,8 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 
 	$roster->tpl->assign_vars(array(
 		'B_PAGINATION' => true,
-		'PAGINATION_PREV' => ($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false,
-		'PAGINATION_NEXT' => ($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false,
+		'PAGINATION_PREV' => (($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false),
+		'PAGINATION_NEXT' => (($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false),
 		)
 	);
 

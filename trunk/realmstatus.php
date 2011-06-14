@@ -45,6 +45,9 @@ function statussw($status)
 		case '2':
 			$q = 'down';
 		break;
+		case 'false':
+			$q = 'error';
+		break;
 		default:
 		break;
 	}
@@ -175,7 +178,7 @@ if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3
 
 
 // Error control
-if( $realmData['serverstatus'] == 'DOWN' || $realmData['serverstatus'] == 'MAINTENANCE' )
+if( $realmData['serverstatus'] == 'DOWN' || $realmData['serverstatus'] == 'MAINTENANCE' || $realmData['serverpop'] == 'N/A')
 {
 	$realmData['serverstatus'] = 'DOWN';
 	$realmData['serverpop'] = 'OFFLINE';
