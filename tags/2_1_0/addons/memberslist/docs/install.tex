@@ -1,0 +1,494 @@
+%$Id: install.txt 923 2007-05-16 17:14:43Z pleegwat $
+\documentclass[12pt, a4paper]{article}
+\usepackage[english]{babel}
+
+\title{MembersList Roster Addon}
+\author{WoWRoster Development Team}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+MembersList is an addon that displays the main members list, but sortable and
+filterable using JavaScript
+
+\section{Install}
+\begin{enumerate}
+\item Extract the SortMember archive to the roster/addons/ directory on your site.
+
+\item Go to the Roster Control Panel, manage addons, and click the SortMember
+   installation icon.
+
+\item The addon installs automatically. 
+
+\item Click the new SortMember button in the pagebar to configure SortMember.
+\end{enumerate}
+
+\section{Configure}
+\begin{enumerate}
+\item Go to the SortMember configuration panel using the link in the Roster Control
+   Panel
+
+\item Change any options you want. Use the buttons on the left side to see more
+   options.
+
+\item Use the reset button at the top of the config page to reset to the settings
+   as they were when you loaded the page.
+
+\item Use the save button at the top of the config page to save the changes.
+\end{enumerate}
+
+\section{Uninstall}
+\begin{enumerate}
+\item Click the uninstall link in the config page.
+
+\item Click OK to confirm the uninstall.
+
+\item Delete the SortMember folder from your webserver.
+\end{enumerate}
+
+\section{Using MembersList}
+Click one of this addon's buttons in the menu to view the sortable list.
+It may take a couple of seconds to sort the full list; sorting a filtered list
+is faster.
+
+\section{Version Log}
+
+\begin{description}
+\item{1.8.0-0}
+\begin{itemize}
+\item Merged AltMonitor, SortMember, and the built-in memberslist and memberlog
+   into a single roster addon
+\end{itemize}
+\end{description}
+
+\subsection{AltMonitor}
+\begin{description}
+\item{2.0.2}
+\begin{itemize}
+\item Removed php close tags in files that don't need them.
+\item Fixed the update type setting to actually work.
+\item Clarified update log a bit when the regex doesn't match.
+\item Fixed debug mode.
+\item Changed to use a roster JS function rather than its own to show and hide alts
+\item Fixed an error that caused the spanish uninstalled wording to overwrite the
+   english one.
+\end{itemize}
+
+\item{2.0.1}
+\begin{itemize}
+\item Fixed the DOM (three identification bytes) in the top of localization.de.php
+\item Updated some german strings with better translations. (thanks Lunzet)
+\item Fixed a load of spelling errors in the french translation. (thanks Malkom)
+\item Added a missing SQL change for 2.0.0
+\end{itemize}
+
+\item{2.0.0}
+\begin{itemize}
+\item Fiddled around with the altlist indentation a bit
+\item Cleaned up localization. It's in 1 file per language now, since organizing
+   it like that makes it easier to keep the wordings in sync.
+\item AltMonitor triggers no longer even attempt to run if its own tables
+   aren't there.
+\item Added an uninstaller. Basically it drops the tables.
+\item Added a small change to the installer so it's possible to close the last
+   statement with a ; now.
+\item Added an option to switch between updating on guild updates, char updates,
+   both, or neither.
+\item Added a system that writes manual alt entries during character updates.
+   This won't work before wow roster 1.7.3 because it uses the extra update
+   hookpoints
+\item Added some fixes from the main memberslist to altlist.php
+\item Updated to use message\_die rather than die\_quietly for install and upgrade
+   messages
+\item Shortened update log output (only 1 line per character now)
+\item Changed default sort to level then name
+\end{itemize}
+
+\item{1.5.1}
+\begin{itemize}
+\item Fixed for L70
+\end{itemize}
+
+\item{1.5.0}
+\begin{itemize}
+\item Added confirm dialogs to the config screen
+\item Changed the debug mode. This now shows only the fields actually relevant if
+   I need to debug something
+\item SVN-versioned all files
+\item Removed the guild info pull since that's pulled in Settings.php now
+\item Removed the honour progress bar
+\item Fixed the tooltips for mains/alts
+\item Fixed a quoting error in the main/alt list
+\end{itemize}
+
+\item{1.4.1}
+\begin{itemize}
+\item Removed the extra addslashes() for systems with magic quotes off since in
+   Roster 1.7.1 this is done by settings already.
+\item Removed some unneccesary code from the config library.
+\end{itemize}
+
+\item{1.4.0}
+\begin{itemize}
+\item Roster 1.7.1 compatibility update for config screen
+\item Now use the Roster Login class
+\item Added support for putting the note as an icon on the right side of the table
+\item Added a line to the tooltip if this is an alt, with the main name.
+\item Put the update info in a box, like it is on the front page since this roster
+   version
+\end{itemize}
+
+\item{1.3.2}
+\begin{itemize}
+\item Forgot to do that debug mode fix. Done.
+\end{itemize}
+
+\item{1.3.1}
+\begin{itemize}
+\item Added more indentation for alts because the buttons made them harder to 
+   distinguish
+\item Fixed an issue with database handling that should cause a warning but is
+   ignored on some systems and fatal on others (guess which it was on mine).
+\item Fixed the disappearing $\backslash$ issue on systems with magic\_quotes\_gpc
+   set off.
+\end{itemize}
+
+\item{1.3.0}
+\begin{itemize}
+\item Turned the config.php into a library, should be usable by others too now.
+\item Changed addon link format to use a action= parameter for page selection.
+\item Added french localization by Harut.
+\item Added german localization by Geschan and Sphinx
+\end{itemize}
+
+\item{1.2.0}
+\begin{itemize}
+\item Fixed the occasional blue line in the update log.
+\item The ugly box-button under the config page menu for updating relations is now
+   a nice link in the rest of the list. Cheers to Zanix and Silencer-ch for
+   helping me with the jscript involved.
+\item Finally really fixed the initial regex setting. Appearantly I needed to
+   accomodate 3 different spots (2 before entereing into the da\-ta\-base, 1 after)
+   where the backslashes got removed.
+\item Some abstractizing of config.php to ease future introduction of it in a
+   skeleton mod to be used as a base for other addon authors.
+\item Fixed missing +/- problem. This occurred because there wasn't a main has
+   alts check if a character was assigned main status because of an invalid
+   main name.
+\end{itemize}
+
+\item{1.1.3}
+\begin{itemize}
+\item Fixed error on SQL updates.
+\end{itemize}
+
+\item{1.1.2}
+\begin{itemize}
+\item Fixed parsing errors when updating.
+\end{itemize}
+
+\item{1.1.1}
+\begin{itemize}
+\item Fixed the config link in the bottom of the altlist.
+\item Realized an earlier change in the fetching of the config idea wasn't as good
+   as I initially thought; I reverted the change.
+\end{itemize}
+
+\item{1.1.0}
+\begin{itemize}
+\item Fixed the displaying of an incorrect roster version on the AltMonitor config
+   page
+\item Changed the config page to use the addon framework.
+\item Added a SQL update system. This will ask for a Roster password to update the
+   AltMonitor database after each file update, to write the new version nr to
+   DB and add/edit/change any other options that were changed in that update
+\item Added debug switch to the alt list. Call up the addon list, then edit the
+   url by appending \&debug=true. It's meant for troubleshooting.
+\item Added 2 buttons to open or close all alt rollouts. Anyone who knows a way to
+   do this in JS is welcome.
+\item Fixed the default regex. Forgot to escape the $\backslash$ in the SQL. If
+   you are updating you will have to change this value manually.
+\end{itemize}
+
+\item{1.0.3}
+\begin{itemize}
+\item How'd that dot get there?
+\end{itemize}
+
+\item{1.0.2}
+\begin{itemize}
+\item Fixed some includes that caused problems for some people.
+\item I went over the code and changed something I shouldn't have. Fixed now.
+\end{itemize}
+
+\item{1.0.1}
+\begin{itemize}
+\item Fixed a stupid bug with installing.
+\end{itemize}
+
+\item{1.0.0}
+\begin{itemize}
+\item Now features an options screen where you can configure AltMonitor without
+   manually editing and uploading php files.
+\item Now features an automatic install procedure, no more manual SQL entering.
+\item Compatible with Roster 1.7.0.
+\end{itemize}
+
+\item{0.6.1}
+\begin{itemize}
+\item Fixed an issue with images not loading properly.
+\item Added update info from main member list to the altlist one.
+\item Removed modified main members list.
+\item Added switch to show mainless alts in bottom rather than top.
+\end{itemize}
+
+\item{0.6.0}
+\begin{itemize}
+\item Added the ability to fold in/out the alts in the altlist. 1 javascript file
+   and 2 image files have been added for this.
+\item Changed round the altlist code so you can have alt indenting in any sort.
+   Still need to fix some ascending/descending stuff.
+\end{itemize}
+
+\item{0.5.5}
+\begin{itemize}
+\item Added color coding to the main/alt update page. The red ones indicate
+   whose public/officer notes need looking at.
+\item Fixed a bug that would occur if you called altlist without specifying a
+   collumn to sort on. This bug would also crop up if you specified an
+   incorrect password to update the relations.
+\item Turns out the previous fix didn't work on all setups. I'm forcing dutch
+   locale for sting comparisons now since that makes it accept a lot of special
+   characters correctly.
+\end{itemize}
+
+\item{0.5.4}
+\begin{itemize}
+\item Switched to the other regex algorithm in php. This fixes the special
+   character bug. However it also changes the syntax a bit; you should now
+   add a / before and after a custom regex string.
+\item Added some examples to the regex configuration.
+\end{itemize}
+
+\item{0.5.3}
+\begin{itemize}
+\item Fixed alt of alt bug that basically blew up everything. Note to self: Start
+   testing PROPERLY
+\end{itemize}
+
+\item{0.5.2}
+\begin{itemize}
+\item Added and tested a routine to check for alts of alts.
+\end{itemize}
+
+\item{0.5.1}
+\begin{itemize}
+\item Forgot to actually add the check if a main has alts
+\end{itemize}
+
+\item{0.5.0}
+\begin{itemize}
+\item Partial rewrite of the addon to remove the dependancy on the wowdb.php
+   file and the roster\_accounts table. Changes are in altlist.php and update.php
+\end{itemize}
+
+\item{0.4.3}
+\begin{itemize}
+\item Replaced the short openign tag in the beginning of altlist.php with a normal
+   one.
+\item Removed quotes around the member ID in the first query in update.php. This
+   caused errors with some MySQL versions, though not with mine.
+\end{itemize}
+
+\item{0.4.2}
+\begin{itemize}
+\item Fixed a stupid semicolon bug that didn't show on my system.
+\end{itemize}
+
+\item{0.4.1}
+\begin{itemize}
+\item Fixed SQL error in the members tables
+\item Fixed wrong file inclusion on global update.
+\end{itemize}
+
+\item{0.4.0}
+\begin{itemize}
+\item Added feature to declare a char as main when the regex didn't give a result
+\item Added main/alt relation update button to the character list
+\item Changed file structure, added some files.
+\end{itemize}
+
+\item{0.3.3}
+\begin{itemize}
+\item Added the officer note as a valid choice for the main/alt indication.
+   Another oversight of mine.
+\end{itemize}
+
+\item{0.3.2}
+\begin{itemize}
+\item Added an additional check in 3 places in membersList.php if \$ORDER\_FIELD
+   is an array. This worked before but produced a warning, which goes into the
+   error log for me but appears on the screen for some people.
+\end{itemize}
+
+\item{0.3.1}
+\begin{itemize}
+\item Fixed a syntax bug in the index.php
+\end{itemize}
+
+\item{0.3}
+\begin{itemize}
+\item Added indent-style alt list display, and an option to switch between
+   indent-style and divider-style.
+\end{itemize}
+
+\item{0.2}
+\begin{itemize}
+\item Added Main/Alt display
+\item Added patch instructions to allow this display in the main memberlist.
+\item Reorganized files in the archive.
+\end{itemize}
+
+\item{0.1}
+\begin{itemize}
+\item Initial beta release. Only updates members, does not display them yet.
+\end{itemize}
+\end{description}
+
+\subsection{SortMember}
+\begin{description}
+\item{0.2.0}
+\begin{itemize}
+\item Inequality filters on date columns work in FF, work even better in Opera,
+   and fail to work completely in IE. I'm not gonna fix this since it'd involve
+   writing my own date parsing function, and there are limits.
+\item Added inequality filtering. Currently supports <, >, <=, =<, >=, =>, == for
+   number fields and == for string fields. Put the symbol at the beginning of
+   the field.
+\end{itemize}
+
+\item{0.1.0}
+\begin{itemize}
+\item Initial beta release.
+\item Merged the AltMonitor framework with a couple of files from the roster 1x
+   AdminPanel branch.
+\end{itemize}
+\end{description}
+
+\section{File by file function info}
+\begin{description}
+\item{conf.php}\\
+	Some defines for the alt detection system
+\item{install.def.php}\\
+	Installer definition file. Read by the roster addon installer
+\item{update\_hook.php}\\
+	Writes the Main/Alt table.
+	
+\medskip
+\item{admin/update.php}\\
+	Wrapper for update\_hook.php. Simulates a guild update on current data,
+	so the main/alt relations can be updated.
+
+\medskip
+\item{docs/install.txt}\\
+	by PleegWat.
+	This file. Installation instructions, usage instructions, version log,
+	todo info, credits/file overview.
+
+\medskip
+\item{guild/debug.php}\\
+	Main/Alt system debug mode
+\item{guild/honorlist.php}\\
+	shows the honor attributes
+\item{guild/index.php}\\
+	Shows the standard memberlist, with guild rank, online times, guild note,
+	professions.
+\item{guild/log.php}\\
+	Shows the memberlog
+\item{guild/statslist.php}\\
+	Shows character attributes like strength, stamina, etc.
+
+\medskip
+\item{inc/memberslist.php}\\
+	Originally roster's memberslist.php, significantly edited by PleegWat into
+	a library for the later abandoned AdminPanel branch. Minor edits to make it
+	work in an addon. More edits to reinsert support for serverside sorting,
+	allowing this addon to replace the standard memberlist in roster
+	completely.
+
+\medskip
+\item{js/sorttable.js}\\
+	Original sorting code by Stuard Langridge. I found this code at
+	http://kryogenix.org/code/browser/sorttable/. The filtering code and
+	the column show/hide code is all by PleegWat.
+
+\medskip
+\item{locale/deDE.php}\\
+	German localization
+\item{locale/enUS.php}\\
+	English localization
+\item{locale/esES.php}\\
+	Spanish localization
+\item{locale/frFR.php}\\
+	French localization
+\end{description}
+
+\section{Library format}
+If you want to add more, similar member listings, or you want to change the
+displays in the existing listings beyond what is possible from the config,
+the following points are interesting:
+
+\begin{itemize}
+\item To create a new page, copy one of the files in the guild directory to a
+  new file in the same directory. A file called mylist.php will be accessible as
+  ?p=guild-memberslist-mylist
+\item The MOTD, honor/pvp overviews, and update info are all included from this
+  list file.
+\item The query is fully defined in the list file, except for the order part.
+  Delete the fields you don't use and add those you want to use additionally.
+  Remember some of the fields are still used in the name popup.
+\item The columns are defined as elements of the FIELD array. The key in the
+  field array is the DB field to be displayed. The array inside has these
+  supported keys and values:
+
+\begin{description}
+\item{\texttt{'lang\_field' => 'name',}}\\
+  'lang\_field' is the localization key for the header. If the key is invalid,
+  it is printed in the header literally.
+\item{\texttt{'order' => array( '`members`.`name` ASC' ),}}\\
+  'order' contains the SQL for an ascending sort
+\item{\texttt{'order\_d' => array( '`members`.`name` DESC' ),}}\\
+  'order\_d' contains the SQL for a descending sort
+\item{\texttt{'value' => 'name\_value',}}\\
+  'value' is a callback to the function that draws this column. The function
+  should also be defined in the list file (except for the name/class/level/honor
+  value functions included in the lib).\\ 
+  It has two parameter, the DB row for the current player and the db field name
+  to be displayed.
+\item{\texttt{'js\_type' => 'js\_string',}}\\
+  'js\_type' is the field type for the javascript. There are currently three
+  supported values:
+  \begin{description}
+  \item{\texttt{'js\_string'}} for string sorting/filtering
+  \item{\texttt{'js\_number'}} for numeric sorting/filtering, including
+    inequalities.
+  \item{\texttt{'js\_date'}} like js\_number, but filter criteria are fed to
+    Date.parse first. The value in the jsort property should be a unix timestamp
+  \end{description}
+\item{\texttt{'jsort' => 'name',}}\\
+  'jsort' is the field the javascript (clientside sorting) should sort and
+  filter on. This can be omitted if it's the same as the display field. If the
+  'value' attribute is given, this attribute is ignored.
+\item{\texttt{'display' => 3,}}\\
+  'display' generally refers to a config field. It determines if the column is
+  visible:
+  \begin{description}
+  \item{0} for force hidden (not drawn/passed to the client)
+  \item{1} for default hidden (can be made visible if clientside sorting is active)
+  \item{2} for default shown (can be made invisible if clientside sorting is active)
+  \item{3} for force shown (always shown and cannot be hidden using JS)
+  \end{description}
+\end{description}
+\end{itemize}
+\end{document}

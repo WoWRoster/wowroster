@@ -1,0 +1,9 @@
+<!-- BEGIN item -->
+<div class="item" {item.TOOLTIP}{item.ITEMLINK}>
+	<!-- IF item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{item.ICON}" alt="" /><!-- ENDIF -->
+	<div class="mask {item.QUALITY}"></div>
+<!-- IF item.QTY gt 1 -->
+	<b>{item.QTY}</b><span>{item.QTY}</span>
+<!-- ENDIF -->
+</div>
+<!-- END item -->

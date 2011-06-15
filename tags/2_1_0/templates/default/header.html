@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{XML_LANG}" lang="{XML_LANG}">
+<head>
+<!-- $Id$ -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WoWRoster{PAGE_TITLE}</title>
+<base href="{ROSTER_URL}" />
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{THEME_PATH}/style.css" />
+<script type="text/javascript" src="{ROSTER_PATH}js/jquery.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/jquery-ui.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/ui.selectmenu.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/script.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
+<!--
+/**
+ * Tab Content script v2.0- Dynamic Drive DHTML code library (www.dynamicdrive.com)
+ * This notice MUST stay intact for legal use
+ * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+ */
+//-->
+</script>
+<script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
+<script type="text/javascript" src="{THEME_PATH}/theme.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/overlib.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/overlib_hideform.js"></script>
+{ROSTER_HEAD}
+</head>
+ 
+<body{ROSTER_BODY}<!-- IF ROSTER_ONLOAD --> onload="{ROSTER_ONLOAD}"<!-- ENDIF -->>
+
+<div class="roster-wrap">
+
+<!-- IF S_HEADER_LOGO -->
+<div style="margin:10px;text-align:center;">
+	<a href="{WEBSITE_ADDRESS}"><img src="{HEADER_LOGO}" alt="" /></a>
+</div>
+<!-- ENDIF -->
+
+{ROSTER_TOP}
+
+<div class="theme-wrap">
+
+<!-- IF ROSTER_SCOPE eq "page" or ROSTER_SCOPE eq "util" -->
+	<div class="info-header realm">
+		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
+			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
+			<!-- IF PAGE_INFO --><div class="info">{PAGE_INFO}</div><!-- ENDIF -->
+		</div>
+		<div class="menu-select">
+<!-- IF S_LOCALE_SELECT -->
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
+<!-- BEGIN locale_select -->
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+<!-- END locale_select -->
+					</select>
+				</form>
+			</div>
+<!-- ENDIF -->
+		</div>
+<!-- IF S_REALMSTATUS -->
+		<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+		<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
+					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
+				</div>
+			</form>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+		</div>
+	</div>
+	<div class="util<!-- IF ROSTER_SCOPE eq "page" -->-page<!-- ENDIF -->-wrap">
+<!-- ENDIF -->
+
+
+<!-- IF ROSTER_SCOPE eq "realm" -->
+	<div class="info-header realm">
+		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
+			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
+			<div class="info"><!-- TRANSLATE guilds -->: {TOTAL_GUILDS}</div>
+		</div>
+		<div class="menu-select">
+<!-- IF S_LOCALE_SELECT -->
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
+<!-- BEGIN locale_select -->
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+<!-- END locale_select -->
+					</select>
+				</form>
+			</div>
+<!-- ENDIF -->
+
+<!-- IF S_MENU_SELECT -->
+			<div class="list-select">
+				<form class="slim" action="{U_MAKELINK}" name="list_select" method="post">
+					<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
+<!-- BEGIN menu_select_group -->
+							<optgroup label="{menu_select_group.U_VALUE}">
+<!-- BEGIN menu_select_row -->
+								<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
+<!-- END menu_select_row -->
+								</optgroup>
+<!-- END menu_select_group -->
+					</select>
+				</form>
+			</div>
+<!-- ENDIF -->
+		</div>
+<!-- IF S_REALMSTATUS -->
+		<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+		<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
+					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
+				</div>
+			</form>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+		</div>
+	</div>
+	<div class="realm-wrap">
+<!-- ENDIF -->
+
+<!-- IF ROSTER_SCOPE eq "guild" -->
+	<div class="info-header {FACTION}">
+	  	<div class="text">
+			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
+			<div class="info"><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}</div>
+		</div>
+		<div class="menu-select">
+<!-- IF S_LOCALE_SELECT -->
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
+<!-- BEGIN locale_select -->
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+<!-- END locale_select -->
+					</select>
+				</form>
+			</div>
+<!-- ENDIF -->
+
+<!-- IF S_DATA_SELECT -->
+			<div class="list-select">
+				<form class="slim" action="{U_MAKELINK}" name="list_select" method="post">
+					<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
+<!-- BEGIN menu_select_group -->
+							<optgroup label="{menu_select_group.U_VALUE}">
+<!-- BEGIN menu_select_row -->
+								<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
+<!-- END menu_select_row -->
+								</optgroup>
+<!-- END menu_select_group -->
+					</select>
+				</form>
+			</div>
+<!-- ENDIF -->
+	</div>
+<!-- IF S_REALMSTATUS -->
+	<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+	<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+		<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+			<div class="clear-text">
+				<input class="box search" type="text" name="search" />
+				<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
+			</div>
+		</form>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+	</div>
+</div>
+<div class="guild-wrap">
+<!-- ENDIF -->
+
+<!-- IF ROSTER_SCOPE eq "char" -->
+	<div class="info-header {FACTION}">
+		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
+			<div class="name">
+<!-- IF ALT_TOOLTIP neq '' -->
+				<div class="item"{ALT_TOOLTIP}>
+					<img src="{INTERFACE_URL}Interface/Icons/spell_holy_prayerofspirit.{IMG_SUFFIX}" alt="" />
+					<div class="mask"></div>
+				</div>
+<!-- ENDIF -->
+				{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small>
+			</div>
+			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></div><!-- ENDIF -->
+			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></div>
+		</div>
+		<div class="menu-select">
+<!-- IF S_LOCALE_SELECT -->
+			<div class="locale-select">
+				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+					<select name="locale" onchange="document.locale_select.submit();">
+<!-- BEGIN locale_select -->
+						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+<!-- END locale_select -->
+					</select>
+				</form>
+			</div>
+<!-- ENDIF -->
+		</div>
+<!-- IF S_REALMSTATUS -->
+		<div class="realm-status">{REALMSTATUS}</div>
+<!-- ENDIF -->
+		<div class="menu-bottom">
+<!-- IF S_HEADER_SEARCH -->
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
+					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
+				</div>
+			</form>
+<!-- ENDIF -->
+<!-- IF S_HEADER_LOGIN -->
+{LOGIN_FORM}
+<!-- ENDIF -->
+		</div>
+	</div>
+	<div class="char-wrap">
+
+<!-- INCLUDE mini_guild.html -->
+
+<!-- ENDIF -->
