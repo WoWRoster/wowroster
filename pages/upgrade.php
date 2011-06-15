@@ -662,8 +662,7 @@ class Upgrade
 	{
 		global $roster;
 
-		// This will be active when the release is done
-		//$this->standard_upgrader();
+		$this->standard_upgrader();
 		$this->finalize();
 	}
 

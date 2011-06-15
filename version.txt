@@ -1,3 +1,3 @@
-<version>2.0.9.2323</version>
-<updated>1302711639</updated>
-<info>2.1.0 Beta</info>
+<version>2.1.0</version>
+<updated>1308098516</updated>
+<info>2.1.0 Release</info>
