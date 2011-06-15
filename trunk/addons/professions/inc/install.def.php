@@ -27,7 +27,7 @@ class professionsInstall
 	var $active = true;
 	var $icon = 'trade_blacksmithing';
 
-	var $version = '1.9.9.1758';
+	var $version = '2.1.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'professions';

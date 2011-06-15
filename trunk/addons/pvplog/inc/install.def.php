@@ -27,7 +27,7 @@ class pvplogInstall
 	var $active = true;
 	var $icon = 'inv_banner_03';
 
-	var $version = '2.0.9.1976';
+	var $version = '2.1.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'pvplog';

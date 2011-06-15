@@ -26,7 +26,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'spell_holy_divinespirit';
 
-	var $version = '2.0.9.2196';
+	var $version = '2.1.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';

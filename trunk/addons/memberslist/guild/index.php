@@ -303,5 +303,4 @@ function note_value ( $row, $field )
 
 	return '<div style="display:none;">'.$note.'</div>'.$value;
 }
-echo '<pre>';
-//print_R($roster->tpl);
+
