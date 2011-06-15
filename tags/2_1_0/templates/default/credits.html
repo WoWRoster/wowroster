@@ -1,0 +1,127 @@
+<!-- $Id$ -->
+
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE credit --></div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="info-text-h">
+{L_TOP_CREDITS}
+						</div>
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_ACTIVE_DEV}</div>
+
+<!-- BEGIN active_dev -->
+						<div class="tier-3-a">
+							<div class="tier-3-b green">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{active_dev.NAME}</div>
+									<div>{active_dev.INFO}</div>
+								</div>
+							</div>
+						</div>
+<!-- END active_dev -->
+
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_3RD_PARTY}</div>
+
+<!-- BEGIN 3rd_party -->
+						<div class="tier-3-a">
+							<div class="tier-3-b yellow">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{3rd_party.NAME}</div>
+									<div>{3rd_party.INFO}</div>
+								</div>
+							</div>
+						</div>
+<!-- END 3rd_party -->
+
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_INACTIVE_DEV}</div>
+
+<!-- BEGIN inactive_dev -->
+						<div class="tier-3-a">
+							<div class="tier-3-b red">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{inactive_dev.NAME}</div>
+									<div>{inactive_dev.INFO}</div>
+								</div>
+							</div>
+						</div>
+<!-- END inactive_dev -->
+
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_LIBRARY}</div>
+
+<!-- BEGIN library -->
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{library.NAME}</div>
+									<div>{library.INFO}</div>
+								</div>
+							</div>
+						</div>
+<!-- END library -->
+
+					</div>
+				</div>
+
+<!-- IF S_ADDON_CREDITS -->
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{L_ROSTER_ADDONS}</div>
+
+<!-- BEGIN addon_row -->
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="skill">
+									<div class="skill-name" style="width:200px;">{addon_row.NAME}</div>
+									<div class="skill-name" style="width:100px;">v{addon_row.VERSION}</div>
+									<div>
+<!-- BEGIN addon_credit_row -->
+									{addon_row.addon_credit_row.NAME} - {addon_row.addon_credit_row.INFO}
+<!-- END addon_credit_row -->
+									</div>
+								</div>
+							</div>
+						</div>
+<!-- END addon_row -->
+
+					</div>
+				</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="info-text-h">
+{L_BOTTOM_CREDITS}
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+<!-- ENDIF -->
+
+</div>

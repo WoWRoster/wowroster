@@ -1,0 +1,13 @@
+<!-- $Id$ -->
+
+<form class="inline slim" action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
+<!-- IF S_LOGIN_MESSAGE -->
+	<div class="message">
+		{L_LOGIN_MESSAGE}
+	</div>
+<!-- ENDIF -->
+	<div class="clear-text">
+		<input class="box" name="password" type="password" size="14" maxlength="30" />
+		<button type="submit"><span class="ui-icon ui-icon-key"></span> <!-- TRANSLATE login --></button>
+	</div>
+</form>

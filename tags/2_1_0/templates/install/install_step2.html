@@ -1,0 +1,156 @@
+<!-- $Id$ -->
+<!-- IF S_SHOW_BUTTON -->
+<form method="post" action="{FORMACTION}" name="post">
+<input type="hidden" name="install_step" value="3" />
+<!-- ENDIF -->
+
+
+<div class="tier-2-a" style="margin:4px auto; width: 400px;">
+	<div class="tier-2-b">
+		<div class="tier-2-title">Locale Configuration</div>
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<select name="default_lang">
+<!-- BEGIN locale_row -->
+						<option value="{locale_row.VALUE}">{locale_row.OPTION}</option>
+<!-- END locale_row -->
+					</select>
+				</div>
+				<div class="text">
+					Default Locale
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="tier-2-a" style="margin:4px auto; width: 400px;">
+	<div class="tier-2-b">
+		<div class="tier-2-title">Database Configuration</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<select name="dbtype">
+<!-- BEGIN dbal_row -->
+						<option value="{dbal_row.VALUE}">{dbal_row.OPTION}</option>
+<!-- END dbal_row -->
+					</select>
+				</div>
+				<div class="text">
+					Type
+				</div>
+			</div>
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="text" name="dbhost" size="25" value="{DB_HOST}" />
+				</div>
+				<div class="text">
+					Host
+				</div>
+			</div>
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="text" name="dbname" size="25" value="" />
+				</div>
+				<div class="text">
+					Database Name
+				</div>
+			</div>
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="text" name="dbuser" size="25" value="" />
+				</div>
+				<div class="text">
+					Database User
+				</div>
+			</div>
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="password" name="dbpass" size="25" value="" />
+				</div>
+				<div class="text">
+					Password
+				</div>
+			</div>
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="text" name="table_prefix" size="25" value="{TABLE_PREFIX}" />
+				</div>
+				<div class="text">
+					Table Prefix
+				</div>
+			</div>
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="text" name="server_name" size="40" value="{SERVER_NAME}" />
+				</div>
+				<div class="text">
+					Main Site URL Link
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<div class="tier-2-a" style="margin:4px auto; width: 400px;">
+	<div class="tier-2-b">
+		<div class="tier-2-title">Create Database Options</div>
+		<div class="info-text-h">
+			If you would like the installer to create the database,
+			you can enter the db user with permissions to create a database here<br />
+			This information will <u>NOT</u> be saved
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="text" name="dbuser_c" size="25" value="" />
+				</div>
+				<div class="text">
+					User Name
+				</div>
+			</div>
+		</div>
+
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div class="right">
+					<input type="password" name="dbpass_c" size="25" value="" />
+				</div>
+				<div class="text">
+					Password
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- IF S_SHOW_BUTTON -->
+<div align="center"><input type="submit" name="submit" value="Proceed" /></div>
+</form>
+<!-- ENDIF -->

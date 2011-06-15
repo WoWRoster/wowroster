@@ -1,0 +1,19 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @package    MembersList
+ */
+
+.skill_bar {
+	background-image:url(images/skill/bar_empty.gif);
+	font-size:11px;
+	vertical-align:top;
+	height:18px;
+	width:287px;
+	padding-left:14px;
+	background-repeat:no-repeat;
+}
