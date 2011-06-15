@@ -26,7 +26,7 @@ class guildinfoInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $version = '2.0.9.2300';
+	var $version = '2.1.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';

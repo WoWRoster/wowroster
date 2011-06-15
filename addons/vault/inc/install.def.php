@@ -26,7 +26,7 @@ class vaultInstall
 	var $active = true;
 	var $icon = 'inv_misc_ornatebox';
 
-	var $version = '1.9.9.1515';
+	var $version = '2.1.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'vault';

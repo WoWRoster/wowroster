@@ -27,7 +27,7 @@ class achievementsInstall
 	var $active = true;
 	var $icon = 'achievement_general';
 
-	var $version = '1.0.2141';
+	var $version = '2.1.0';
 
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';

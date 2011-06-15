@@ -25,7 +25,7 @@ class newsInstall
 	var $active = true;
 	var $icon = 'ability_warrior_rallyingcry';
 
-	var $version = '1.9.9.1674';
+	var $version = '2.1.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'news';
