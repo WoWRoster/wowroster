@@ -65,19 +65,9 @@ then
 		rm -f 'trunk/install.sh'
 		mv trunk/* trunk/.htaccess trunk/.svn .
 		rm -rf trunk
-		# Get the interface images with wget if available. The SVN ones are much slower, and only available to devs.
-		if [ -n "$wget" ]
-		then
-			cd img
-			wget -O - 'www.wowroster.net/uploads/interface_latest.tar.gz' | tar -xz
-			cd ..
-		else
-			echo "Since wget is not available, the interface images could not be fetched. Please"
-			echo "download and extract them manually to the 'img' directory"
-		fi
 	elif [ $mode == 'wget' ]
 	then
-		wget -O - 'www.wowroster.net/uploads/roster_latest_full.tar.gz' | tar -xz
+		wget -O - 'www.wowroster.net/uploads/roster_latest.tar.gz' | tar -xz
 		mv roster/* roster/.htaccess .
 		rm -rf roster
 	fi
