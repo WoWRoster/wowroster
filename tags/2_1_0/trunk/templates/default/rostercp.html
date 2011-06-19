@@ -1,0 +1,54 @@
+<!-- $Id$ -->
+
+{HEADER}
+
+<div class="sections">
+	<ul>
+<!-- BEGIN pagebar -->
+		<!-- IF pagebar.SPECIAL eq 'divider' --><!-- ELSE --><li<!-- IF pagebar.SELECTED --> class="selected"<!-- ENDIF -->><a href="{pagebar.LINK}" class="text">{pagebar.NAME}</a></li><!-- ENDIF -->
+<!-- END pagebar -->
+	</ul>
+</div>
+
+<!-- IF ADDON_PAGEBAR -->
+<div class="sections">
+	<ul>
+<!-- BEGIN addon_pagebar -->
+		<li<!-- IF addon_pagebar.SELECTED --> class="selected"<!-- ENDIF -->><a href="{addon_pagebar.LINK}" class="text">{addon_pagebar.NAME}</a></li>
+<!-- END addon_pagebar -->
+	</ul>
+</div>
+<!-- ENDIF -->
+
+<div class="roster-panel">
+	<div class="container">
+
+		<div class="tier-1-a">
+			<div class="tier-1-b">
+				<div class="tier-1-c exp-content">
+					<div class="tier-1-title">
+						<div class="icon">
+							<img src="{INTERFACE_URL}Interface/Icons/inv_misc_gear_02.{IMG_SUFFIX}" alt="" />
+							<div class="mask"></div>
+						</div>
+						{ROSTERCP_TITLE}
+					</div>
+
+<!-- IF MENU neq '' -->
+					<div class="config-menu">
+{MENU}
+					</div>
+					<div class="config-body-menu">
+<!-- ELSE -->
+					<div class="config-body">
+<!-- ENDIF -->
+{BODY}
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{FOOTER}
