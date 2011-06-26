@@ -4,8 +4,10 @@
 @import url('ui.selectmenu.css');
 
 body { background:#000000; font-size:62.5%; }
-a:link, a:visited { color:#FFF; text-decoration:none; font-weight:bold; }
-a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
+a:link,
+a:visited,
+a:active { color:#4C3000; text-decoration:none; font-weight:bold; }
+a:hover { color:#069; text-decoration:none; font-weight:bold; }
 
 .roster-wrap { font:12px arial,helvetica,sans-serif; color:#FFFFFF; width: 960px; margin: auto; position: relative; padding-top: 1px; }
 
@@ -13,7 +15,7 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 /* Main Roster Wrapper Header */
 
 .theme-wrap {
-	min-height: 400px;
+	min-height: 380px;
 	width: 940px;
 	margin: 20px auto auto;
 	position: relative;
@@ -34,14 +36,13 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 
 .realm { background: url(images/bg_neutral.png) no-repeat left top; }
 
-.info-header .text { position: absolute; left: 165px; top: 45px; color: #000000; text-align: left; padding: 0; width: 580px; }
+.info-header .text { position: absolute; left: 160px; top: 35px; color: #FFFFFF; text-align: left; padding: 0; width: 580px; text-shadow:1px 2px 0 #000000; }
 .info-header .text:hover { background: none; }
 
 .info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
+.info-header .name small { font-size: 18px; }
+.info-header .guild { font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
 .info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
-
-.info-header .name span { color: #FFFFFF; display: block; position: absolute; left: -1px; top: -2px; }
-.info-header .info span { color: #FFFFFF; display: block; position: absolute; left: -1px; top: -2px; }
 
 .util-wrap {
 	margin: 102px 0 0;
@@ -86,9 +87,9 @@ a:hover, a:active { color:#069; text-decoration:none; font-weight:bold; }
 .stats-container .contents { background: url('images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px; }
 
 
-.positive { font-weight: bold; color: #8DDC42; }
-.negative { font-weight: bold; color: #F33; }
-.neutral { font-weight: bold; color: white; }
+.positive { font-weight: bold; color: #8DDC42; text-shadow: 1px 1px 0 #666; }
+.negative { font-weight: bold; color: #F33; text-shadow: 1px 1px 0 #666; }
+.neutral { font-weight: bold; color: #135E82; text-shadow: 1px 1px 0 #666; }
 
 .license {
 	padding: 0.8em;
@@ -401,43 +402,61 @@ form.inline { display:inline; }
 form.close { margin:0; }
 form.slim { margin:0;padding:0; }
 
-
 /**
  * Overlib Tooltip Styles
  */
+#overDiv { position: absolute; visibility: hidden; z-index: 9999; padding: 0; margin: 0; }
+#overDiv a:link,
+#overDiv a:visited,
+#overDiv a:active { color:#069; text-decoration:none; font-weight:bold; }
+#overDiv a:hover { color:#4C3000; text-decoration:none; font-weight:bold; }
 
-/* Sets main text background - ol_fgclass*/
-.overlib_fg { background-color:#000000; }
-
-/* Sets the border style - ol_bgclass*/
-.overlib_border { border:1px outset #CCCCCC; }
-
-/* Sets main text style - ol_textfontclass */
-.overlib_maintext { color:#ffffff;font:10px verdana,arial,helvetica,sans-serif;white-space:normal; }
+/* Sets the border style - ol_bgclass */
+.overlib_border {
+	background: transparent url(images/shader.png) repeat;
+	border: 2px outset #CCCCCC;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	color: #ffffff;
+	font: 10px verdana, arial, helvetica, sans-serif;
+}
 
 /* Sets Caption Text - ol_captionfontclass */
-.overlib_captiontext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
+.overlib_captiontext {
+	background: transparent url(images/shader.png) repeat;
+	/*background-color: #2E2D2B;*/
+	font-weight: bold;
+	font-size: 11px;
+}
 
 /* Sets Close Text - ol_closefontclass */
-.overlib_closetext { color:#ffffff;background-color:#2E2D2B;font:bold 10px verdana,arial,helvetica,sans-serif; }
+.overlib_closetext {
+	background: transparent url(images/shader.png) repeat;
+	/*background-color: #2E2D2B;*/
+	font-weight: bold;
+	font-size: 11px;
+}
+
+/* Sets main text background - ol_fgclass */
+.overlib_fg { padding: 0 2px 1px 2px; }
+
+/* Sets main text style - ol_textfontclass */
+.overlib_maintext {
+	white-space: normal;
+}
 
 
 /**
  * jQuery-ui overrides
  */
 .ui-widget { font-size:10px; }
-a.input:link,
-a.input:visited,
-a.input:active { color:#4C3000; }
-a.input:hover { color:#0074c7; }
-
+.ui-icon { width: 14px; height: 14px; }
 input.ui-button,
 .ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
+.ui-buttonset .ui-button { margin-right: -.4em; }
 select:focus { outline: none; }
 
 /**
  * CSS Weirdness
  */
-.exp-content {
-	overflow: auto;
-}
+.exp-content { overflow: auto; }

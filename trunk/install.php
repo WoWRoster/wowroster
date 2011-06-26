@@ -185,6 +185,8 @@ class Template_Wrap extends RosterTemplate
 			'ROSTER_VERSION' => $DEFAULTS['version']
 		));
 
+		$this->assign_var('NOTICE', '');
+
 /*/ BETA ONLY, COMMENT THIS IN RC OR LATER!
 		if( file_exists(ROSTER_BASE . 'valid.inc') )
 		{
