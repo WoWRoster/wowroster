@@ -150,7 +150,7 @@ textbox {
 .scope-menu { padding: 50px 0 10px; position: relative; }
 .scope-menu .menu-scope { margin:2px 0 0; padding:0; width:100%; }
 
-.scope-menu .menu-scope .frame { margin:0; padding:0; width:100%; display: table; position: relative; }
+.scope-menu .menu-scope .frame { margin:0; padding:0; width:100%; display: block; height:60px; position: relative; }
 .scope-menu .menu-scope .frame .button { display:block; float:left; margin:3px; position: relative; height: 50px; width: 50px; }
 .scope-menu .menu-scope .frame .button img { position: absolute; clip: rect(2px 48px 48px 2px); height: 50px; width: 50px; }
 .scope-menu .menu-scope .frame .button .mask { display: block; background: url(images/mask/menu_50x50_mask.png) no-repeat left top; height:50px; width:50px; position: absolute; z-index: 100; left: 0; top: 0; }

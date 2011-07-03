@@ -19,17 +19,12 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 	exit('Detected invalid access to this file!');
 }
 
-require_once( ROSTER_LIB . 'simple.class.php' );
-
-include_once( ROSTER_LIB . 'armory.class.php');
-$armory = new RosterArmory;
-
 if (isset($_POST['process']) && $_POST['process'] == 'process')
 {
 	//	aprint($_POST);
-
 	$i = $_POST['class_id'];
-
+	$talents = $roster->api->Talents->getTalentInfo(''.$i.'');
+	
 	$querystr = "DELETE FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $_POST['class_id'] . "';";
 	if (!$roster->db->query($querystr))
 	{
@@ -46,88 +41,144 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		return;
 	}
 
-	$d = $armory->_parseData(
-		$armory->fetchArmory('10', $character = false, $guild = false, $realm = false, $i, $fetch_type = 'array')
-	);
-
-	// aprint($d);
-	$count = 0;
-	foreach ($d->talentTrees->tree as $a => $treedata)
+	$treenum = 1;
+//$i=$tid;
+	foreach ($talents['talentData']['talentTrees'] as $a => $treedata)
 	{
-		$treenum = 0;
+		
 
-		foreach ($treedata->talent as $t => $talents)
+		foreach ($treedata['talents'] as $t => $talent)
 		{
-			$treenum = $t;
-
-			if (isset($talents->rank->description))
+			$lvl = 1;
+			foreach ($talent['ranks'] as $r => $ranks)
 			{
 				$values = array(
-					'talent_id'  => $talents->key,
+					'talent_id'  => $talent['id'],
 					'talent_num' => $t,
-					'tree_order' => $treedata->order,
+					'tree_order' => $treenum,
 					'class_id'   => $i,
-					'name'       => $talents->name,
-					'tree'       => $treedata->name,
-					'tooltip'    => tooltip(addslashes($talents->rank->description)),
-					'texture'    => $talents->icon,
-					'row'        => ($talents->tier + 1),
-					'column'     => ($talents->column + 1),
-					'rank'       => $talents->rank->lvl
+					'name'       => $talent['name'],
+					'tree'       => $treedata['name'],
+					'tooltip'    => tooltip($ranks['description']),
+					'texture'    => $talent['icon'],
+					'row'        => ($talent['y'] + 1),
+					'column'     => ($talent['x'] + 1),
+					'rank'       => $lvl
 				);
-
+				$lvl++;
+				
 				$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
 					. $roster->db->build_query('INSERT', $values) . ";";
 				$result = $roster->db->query($querystr);
 				$count++;
 			}
-			else
-			{
-				foreach ($talents->rank as $r => $ranks)
-				{
-					$values = array(
-						'talent_id'  => $talents->key,
-						'talent_num' => $t,
-						'tree_order' => $treedata->order,
-						'class_id'   => $i,
-						'name'       => $talents->name,
-						'tree'       => $treedata->name,
-						'tooltip'    => tooltip(addslashes($ranks->description)),
-						'texture'    => $talents->icon,
-						'row'        => ($talents->tier + 1),
-						'column'     => ($talents->column + 1),
-						'rank'       => $ranks->lvl
-					);
-
-					$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
-						. $roster->db->build_query('INSERT', $values) . ";";
-
-					$result = $roster->db->query($querystr);
-					$count++;
-				}
-			}
 		}
 
 		$values = array(
-			'tree'       => $treedata->name,
-			'order'      => $treedata->order,
+			'tree'       => $treedata['name'],
+			'order'      => $treenum,
 			'class_id'   => $i,
-			'background' => strtolower($treedata->bgImage),
-			'icon'       => $treedata->icon,
+			'background' => strtolower($treedata['backgroundFile']),
+			'icon'       => $treedata['icon'],
 			'tree_num'   => $treenum
 		);
 
 		$querystr = "INSERT INTO `" . $roster->db->table('talenttree_data') . "` "
-			. $roster->db->build_query('INSERT', $values) . ";";
+			. $roster->db->build_query('INSERT', $values) . "
+			;";
+			$result = $roster->db->query($querystr);
 
-		$result = $roster->db->query($querystr);
 		$count++;
+		$treenum++;
 	}
+
 
 	$roster->set_message(sprintf($roster->locale->act['adata_update_class'], $roster->locale->act['id_to_class'][$_POST['class_id']]));
 	$roster->set_message(sprintf($roster->locale->act['adata_update_row'], $count));
 }
+if (isset($_GET['parse']) && $_GET['parse'] == 'all'){
 
+	$classes = array('1','2','3','4','5','6','7','8','9','11');
+	
+	foreach ($classes as $tid)
+	{
+	//$tid = $_GET['classid'];
+	$i = $tid;
+	$talents = $roster->api->Talents->getTalentInfo(''.$tid.'');
+	
+	$querystr = "DELETE FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $tid . "';";
+	if (!$roster->db->query($querystr))
+	{
+		$roster->set_message('Talent Data Table could not be emptied.', '', 'error');
+		$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+		return;
+	}
+
+	$querystr = "DELETE FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $tid . "';";
+	if (!$roster->db->query($querystr))
+	{
+		$roster->set_message('Talent Tree Data Table could not be emptied.', '', 'error');
+		$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+		return;
+	}
+
+	$count = 1;
+	$treenum = 1;
+//$i=$tid;
+	foreach ($talents['talentData']['talentTrees'] as $a => $treedata)
+	{
+		
+
+		foreach ($treedata['talents'] as $t => $talent)
+		{
+			$lvl = 1;
+			foreach ($talent['ranks'] as $r => $ranks)
+			{
+				$values = array(
+					'talent_id'  => $talent['id'],
+					'talent_num' => $t,
+					'tree_order' => $treenum,
+					'class_id'   => $i,
+					'name'       => $talent['name'],
+					'tree'       => $treedata['name'],
+					'tooltip'    => tooltip($ranks['description']),
+					'texture'    => $talent['icon'],
+					'row'        => ($talent['y'] + 1),
+					'column'     => ($talent['x'] + 1),
+					'rank'       => $lvl
+				);
+				$lvl++;
+				
+				$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
+					. $roster->db->build_query('INSERT', $values) . ";";
+				$result = $roster->db->query($querystr);
+				$count++;
+			}
+		}
+
+		$values = array(
+			'tree'       => $treedata['name'],
+			'order'      => $treenum,
+			'class_id'   => $i,
+			'background' => strtolower($treedata['backgroundFile']),
+			'icon'       => $treedata['icon'],
+			'tree_num'   => $treenum
+		);
+
+		$querystr = "INSERT INTO `" . $roster->db->table('talenttree_data') . "` "
+			. $roster->db->build_query('INSERT', $values) . "
+			;";
+			$result = $roster->db->query($querystr);
+
+		$count++;
+		$treenum++;
+	}
+
+
+	$roster->set_message(sprintf($roster->locale->act['adata_update_class'], $roster->locale->act['id_to_class'][$_POST['class_id']]));
+	$roster->set_message(sprintf($roster->locale->act['adata_update_row'], $count));
+	}
+}
 //echo 'will have update information for talents';
 
 foreach ($roster->locale->act['class_to_id'] as $class => $num)
