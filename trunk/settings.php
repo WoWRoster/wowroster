@@ -213,7 +213,7 @@ unset($locale);
  *
  *	HAS to be after the local defign for url parsing
  */
-require_once (ROSTER_LIB . 'API/API.php');
+require_once (ROSTER_LIB . 'api/api.php');
 $regon = str_replace('en' , '' , $roster->config['locale']);
 $roster->api = new WowAPI($regon);
 
