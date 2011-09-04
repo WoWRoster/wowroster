@@ -4,7 +4,6 @@
  *
  * Roster global class
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -36,6 +35,14 @@ class roster
 	 * @var roster_locale
 	 */
 	var $locale;
+
+
+	/**
+	 * Roster API Object
+	 *
+	 * @var WowAPI
+	 */
+	var $api;
 
 	/**
 	 * Roster database Object

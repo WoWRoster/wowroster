@@ -14,9 +14,10 @@
  * @copyright Copyright (c) 2011, Chris Saylor
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  * @link	  https://github.com/cjsaylor/WoWAPI-PHP-SDK
+ * @version    SVN: $Id$
  */
 
-require_once 'Resource.php';
+require_once ROSTER_API . 'resource/Resource.php';
 
 /**
  * Realm resource.

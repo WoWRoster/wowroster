@@ -1111,7 +1111,7 @@ input.colorinput {
  * jQuery-ui overrides
  */
 .ui-widget { font-size:10px; }
-.ui-icon { width: 14px; height: 14px; }
+.ui-icon { display: inline-block; width: 14px; height: 14px; }
 input.ui-button,
 .ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
 .ui-buttonset .ui-button { margin-right: -.4em; }

@@ -22,7 +22,13 @@ $(function() {
 	$('input[type=file]').addClass('ui-widget');
 
 	// Style select boxes
-	$('select:not([multiple],[class="no-style"])').selectmenu({ style:'popup' });
+	$('select:not([multiple],[class="no-style"],[class="big-list"])').selectmenu({ style:'dropdown' });
+	// Special style for realm/guild/character select dropdown
+	$('select.big-list')
+		.selectmenu({
+			style     : 'dropdown',
+			maxHeight : 350
+		});
 
 	// Slide down the notification box
 	$('#notify .close').hover(
@@ -43,15 +49,13 @@ $(function() {
 	$('#top_nav > a').click(function(){
 		var menu_div = $(this).attr('href');
 
-		if($(this).hasClass('active') == false)
-		{
+		if($(this).hasClass('active') == false) {
 			$('#menu-buttons > div.menu-scope-panel').fadeOut();
 			$('#top_nav > a').removeClass('active');
 			$(this).addClass('active');
 			$(menu_div).fadeIn();
 		}
-		else
-		{
+		else {
 			$(this).removeClass('active');
 			$(menu_div).fadeOut();
 		}
@@ -70,8 +74,5 @@ $(function() {
 		var rel = $(this).attr('rel');
 		$('input[name*="' + rel + '"]:checkbox').attr('checked', this.checked);
 	});
-
-	// Make overlib tooltips transparent
-	//setOpacity('overDiv',8.5);
 
 });

@@ -18,7 +18,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION', '2.1.0');
+define('ROSTER_VERSION', '2.1.0.2342');
 
 /**
  * Roster Conf File
@@ -34,6 +34,11 @@ define('ROSTER_ADMIN', ROSTER_BASE . 'admin' . DIR_SEP);
  * Base, absolute roster ajax directory
  */
 define('ROSTER_AJAX', ROSTER_BASE . 'ajax' . DIR_SEP);
+
+/**
+ * Base, absolute roster api directory
+ */
+define('ROSTER_API', ROSTER_BASE . 'api' . DIR_SEP);
 
 /**
  * Cache directory
