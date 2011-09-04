@@ -22,13 +22,7 @@ $(function() {
 	$('input[type=file]').addClass('ui-widget');
 
 	// Style select boxes
-	$('select:not([multiple],[class="no-style"],[class="big-list"])').selectmenu({ style:'dropdown' });
-	// Special style for realm/guild/character select dropdown
-	$('select.big-list')
-		.selectmenu({
-			style     : 'dropdown',
-			maxHeight : 350
-		});
+	$('select:not([multiple],[class="no-style"])').selectmenu();
 
 	// Slide down the notification box
 	$('#notify .close').hover(

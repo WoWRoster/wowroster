@@ -28,11 +28,12 @@ if( !defined('IN_ROSTER') )
 class Upgrade
 {
 	var $versions = array(
-		'1.9.9',
+		//'1.9.9',
 		'2.0.0',
 		'2.0.1',
 		'2.0.2',
-		'2.0.9'
+		//'2.0.9',
+		'2.1.0'
 	);
 	var $index = null;
 
@@ -93,6 +94,18 @@ class Upgrade
 	// Upgrade methods
 	//--------------------------------------------------------------
 
+
+	/**
+	 * Upgrades 2.1.0 to 2.1.1
+	 */
+	function upgrade_210( )
+	{
+		global $roster;
+
+		//$this->standard_upgrader();
+		$this->beta_upgrade();
+		$this->finalize();
+	}
 
 	/**
 	 * Upgrades the 2.0.9.x beta versions into the 2.1.0 release
