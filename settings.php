@@ -207,17 +207,14 @@ if( $locale != '' )
 }
 unset($locale);
 
-
 /**
  * Include API class
- *
- *	HAS to be after the local defign for url parsing
+ * MUST to be after the local define for url parsing
+ * since we use it for the API url
  */
-require_once (ROSTER_LIB . 'api/api.php');
-$regon = str_replace('en' , '' , $roster->config['locale']);
-$roster->api = new WowAPI($regon);
-
-
+require_once (ROSTER_API . 'api.php');
+$region = str_replace('en' , '' , $roster->config['locale']);
+$roster->api = new WowAPI($region);
 
 /**
  * Include cms linking file

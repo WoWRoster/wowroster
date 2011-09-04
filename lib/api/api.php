@@ -1,9 +1,23 @@
 <?php
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 2.1.1
+ * @package    WoWRoster
+ */
 
-require_once 'resource/Realm.php';
-require_once 'resource/Char.php';
-require_once 'resource/Guild.php';
-require_once 'resource/Talents.php';
+if( !defined('IN_ROSTER') ) {
+	exit('Detected invalid access to this file!');
+}
+
+require_once ROSTER_API . 'resource/Realm.php';
+require_once ROSTER_API . 'resource/Char.php';
+require_once ROSTER_API . 'resource/Guild.php';
+require_once ROSTER_API . 'resource/Talents.php';
 
 class WowAPI {
 	/**
@@ -35,8 +49,4 @@ class WowAPI {
 		//$this->Team = new team($region);
 		$this->Talents = new talents($region);
 	}
-	
-	
 }
-//eof api.php
-?>
