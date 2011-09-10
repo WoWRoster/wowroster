@@ -1127,6 +1127,8 @@ $lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y
 $lang['admin']['seo_url'] = "URLs amistosos|Activa enlaces en Roster<br /><br />on - /alguna/página/aquí/param=value.html<br />off - index.php?p=alguna-página-aquí&amp;param=value";
 $lang['admin']['local_cache']= "Sistema de archivos en caché|Permite al servidor local guardar algunos archivos para mejorar el rendimiento.";
 $lang['admin']['use_temp_tables'] = "Usar tablas temporales|Desactiva esta opción si tu servidor no permite crear tablas temporales en la base de datos (CREATE TEMPORARY TABLE privilege).<br/>Se recomienda activarlo para mejorar el rendimiento.";
+$lang['admin']['preprocess_js'] = "Aggregate JavaScript files|Certain JavaScript files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
+$lang['admin']['preprocess_css'] = "Aggregate and compress CSS files|Certain CSS files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
 $lang['admin']['enforce_rules'] = "Forzar exclusiones|Esta opción forzará las mismas normas de subida para todos los ficheros lua que se suban<ul class='ul-no-m'><li>Never: Nunca forzará las normas</li><li>All LUA Updates: Forzará las normas a todas las actualizaciones de ficheros lua</li><li>CP Updates: Forzará las normas solo a los ficheros CP.lua</li><li>Guild Updates: Forzará las normas solo con actualizaciones de la hermandad</li></ul>También puedes activar esta opción en el panel &quot;Exclusiones&quot;.";
 
 // defaults_conf

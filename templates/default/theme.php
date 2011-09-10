@@ -18,7 +18,10 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-define('R_TPL_VERSION', '2.0.0.0');
+define('R_TPL_VERSION', '2.2.0.0');
+
+roster_add_js('templates/' . $roster->tpl->tpl . '/theme.js');
+roster_add_css('templates/' . $roster->tpl->tpl . '/style.css', 'theme');
 
 /**
  * Starts or ends fancy bodering containers

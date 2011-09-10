@@ -941,7 +941,7 @@ function getaddon( $addonname )
 
 	if( file_exists($addon['css_file']) )
 	{
-		$addon['css_url'] = $addon['url_path'] . 'style.css';
+		$addon['css_url'] = $addon['url'] . 'style.css';
 	}
 	else
 	{
@@ -959,31 +959,35 @@ function getaddon( $addonname )
 	if( !file_exists($addon['tpl_dir']) )
 	{
 		$addon['tpl_dir'] = ROSTER_TPLDIR . 'default' . DIR_SEP . $addon['basename'] . DIR_SEP;
-		$addon['tpl_url'] = ROSTER_URL . 'templates/default/';
-		$addon['tpl_url_path'] = ROSTER_PATH . 'templates/default/';
+		$addon['tpl_url'] = 'templates/default/';
+		$addon['tpl_url_full'] = ROSTER_URL . $addon['tpl_url'];
+		$addon['tpl_url_path'] = ROSTER_PATH . $addon['tpl_url'];
 
 		if( !file_exists($addon['tpl_dir']) )
 		{
 			$addon['tpl_dir'] = $addon['dir'] . 'templates' . DIR_SEP;
-			$addon['tpl_url'] = $addon['url_full'] . 'templates/';
+			$addon['tpl_url'] = $addon['url'] . 'templates/';
+			$addon['tpl_url_full'] = $addon['url_full'] . 'templates/';
 			$addon['tpl_url_path'] = $addon['url_path'] . 'templates/';
 
 			if( !file_exists($addon['tpl_dir']) )
 			{
 				$addon['tpl_dir'] = '';
 				$addon['tpl_url'] = '';
+				$addon['tpl_url_full'] = '';
 				$addon['tpl_url_path'] = '';
 			}
 		}
 	}
 	else
 	{
-		$addon['tpl_url'] = ROSTER_URL . 'templates/' . $roster->config['theme'] . '/' . $addon['basename'] . '/';
-		$addon['tpl_url_path'] = ROSTER_PATH . 'templates/' . $roster->config['theme'] . '/' . $addon['basename'] . '/';
+		$addon['tpl_url'] = 'templates/' . $roster->config['theme'] . '/' . $addon['basename'] . '/';
+		$addon['tpl_url_full'] = ROSTER_URL . $addon['tpl_url'];
+		$addon['tpl_url_path'] = ROSTER_PATH . $addon['tpl_url'];
 	}
 
 	// Get addons url to template images directory
-	$addon['tpl_image_url'] = $addon['tpl_url'] . 'images/';
+	$addon['tpl_image_url'] = $addon['tpl_url_full'] . 'images/';
 	$addon['tpl_image_path'] = $addon['tpl_url_path'] . 'images/';
 
 	// Get the addon's template based css style
@@ -991,7 +995,7 @@ function getaddon( $addonname )
 
 	if( file_exists($addon['tpl_css_file']) )
 	{
-		$addon['tpl_css_url'] = $addon['tpl_url_path'] . 'style.css';
+		$addon['tpl_css_url'] = $addon['tpl_url'] . 'style.css';
 	}
 	else
 	{

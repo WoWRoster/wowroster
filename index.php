@@ -4,7 +4,6 @@
  *
  * The only file anyone should directly access in Roster
  *
- *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -183,14 +182,14 @@ if( $addon['active'] == '1' )
 		require ($path);
 	$content .= ob_get_clean();
 
-	// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
+	// Pass all the css to roster_add_css() which is a placeholder in roster_header for more css style defines
 	if( $addon['css_url'] != '' )
 	{
-		$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $addon['css_url'] . '" />' . "\n";
+		roster_add_css($addon['css_url'], 'theme');
 	}
 	if( $addon['tpl_css_url'] != '' )
 	{
-		$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $addon['tpl_css_url'] . '" />' . "\n";
+		roster_add_css($addon['tpl_css_url'], 'theme');
 	}
 
 	if( $roster->output['show_header'] )

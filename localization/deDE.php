@@ -1127,6 +1127,8 @@ $lang['admin']['check_updates'] = "Überprüfe auf Updates|Dies erlaubt deiner R
 $lang['admin']['seo_url'] = "Friendly URLs|Aktiviert SEO artige URL Links im Roster<br /><br />ein - /some/page/here/param=value.html<br />aus - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Dateisystem Cache|Benutze lokales Server Dateisystem um einige Dateien zu cachen und damit die Leistung zu erhöhen.";
 $lang['admin']['use_temp_tables'] = "Benutze Temporary Tables|Diese Einstellung deaktivieren wenn dein Webhoster es nicht erlaubt temporary database tables zu generieren (CREATE TEMPORARY TABLE privilege).<br/>Diese Einstellung eingeschaltet zu lassen wird aus Performancegründen empfohlen.";
+$lang['admin']['preprocess_js'] = "Aggregate JavaScript files|Certain JavaScript files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
+$lang['admin']['preprocess_css'] = "Aggregate and compress CSS files|Certain CSS files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
 $lang['admin']['enforce_rules'] = "Upload Regeln erzwingen|Diese Einstellung erzwingt die Anwendung der Upload Regeln bei jedem lua Upload<ul class='ul-no-m'><li>Niemals: Regeln niemals erzwingen</li><li>Alle LUA Updates: Regeln bei jedem lua Update erzwingen</li><li>CP Updates: Regeln nur bei CP.lua Updates erzwingen</li><li>Gilden Updates: Regeln nur bei Gildenupdates erzwingen</li></ul>Diese Einstellungen können auch auf der &quot;Upload Regeln&quot; Seite eingestellt werden.";
 
 // defaults_conf

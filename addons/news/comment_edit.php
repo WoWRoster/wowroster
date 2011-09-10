@@ -47,10 +47,8 @@ $roster->tpl->assign_vars(array(
 
 if( $addon['config']['comm_html'] >= 0 && $addon['config']['news_nicedit'] > 0 )
 {
-	$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'js/nicEdit.js"></script>
-<script type="text/javascript">
-	bkLib.onDomLoaded(function() { nicEditors.allTextAreas({xhtml : true, fullPanel : true, iconsPath : \'' . $roster->config['img_url'] . 'nicEditorIcons.gif\'}) });
-</script>';
+	roster_add_js('js/nicEdit.js');
+	roster_add_js('bkLib.onDomLoaded(function() { nicEditors.allTextAreas({xhtml : true, fullPanel : true, iconsPath : \'' . $roster->config['img_url'] . 'nicEditorIcons.gif\'}) });', 'inline');
 }
 
 $roster->tpl->set_filenames(array(

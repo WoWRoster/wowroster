@@ -136,13 +136,13 @@ else
 	$roster->set_message(sprintf($roster->locale->act['addon_disabled'], $addon['basename']), $roster->locale->act['addon_error'], 'error');
 }
 
-// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
+// Pass all the css to roster_add_css() which is a placeholder in roster_header for more css style defines
 if( $addon['css_url'] != '' )
 {
-	$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $addon['css_url'] . '" />' . "\n";
+	roster_add_css($addon['css_url'], 'theme');
 }
 
 if( $addon['tpl_css_url'] != '' )
 {
-	$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $addon['tpl_css_url'] . '" />' . "\n";
+	roster_add_css($addon['tpl_css_url'], 'theme');
 }

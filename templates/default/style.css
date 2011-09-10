@@ -104,7 +104,7 @@ textbox {
 .info-header .guild { font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
 .info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
 
-.menu-select { position: absolute; top: 30px; right: 10px; text-align: right; }
+.menu-select { position: absolute; top: 30px; right: 10px; }
 .menu-select .locale-select { margin-bottom: 3px; }
 .menu-select .list-select { margin-bottom: 3px; }
 
@@ -542,7 +542,8 @@ img, p { padding:0;margin:0;border:0; }
 	float: left;
 }
 .config-body {
-	width: 100%;
+	width: 100;
+	position: relative;
 }
 .config-body-menu {
 	width: 710px;
@@ -554,6 +555,9 @@ img, p { padding:0;margin:0;border:0; }
 	right: 0;
 	top: -26px;
 	text-align: right;
+}
+.config-submit .ui-selectmenu {
+	text-align: left;
 }
 .addon-status {
 	float: right;

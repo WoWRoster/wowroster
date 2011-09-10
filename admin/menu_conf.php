@@ -122,8 +122,8 @@ $paletWidth = count($palet);
 
 
 // --[ Render configuration screen. ]--
-$roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/wz_dragdrop.js"></script>' . "\n";
-$roster->output['html_head'] .= '	<script type="text/javascript" src="' . ROSTER_PATH . 'js/menuconf.js"></script>' . "\n";
+roster_add_js('js/wz_dragdrop.js');
+roster_add_js('js/menuconf.js');
 
 $roster->tpl->assign_vars(array(
 	'U_FORM_ACTION' => makelink('&amp;section=' . $section),
