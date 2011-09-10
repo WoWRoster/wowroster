@@ -1,7 +1,7 @@
 #
 # MySQL WoWRoster Upgrade File
 #
-# * $Id:$
+# * $Id$
 #
 # --------------------------------------------------------
 ### New Tables
