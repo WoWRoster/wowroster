@@ -1,5 +1,21 @@
 <!-- $Id$ -->
 
+<!-- IF S_DM_SELECT -->
+<div class="config-submit">
+	<form class="slim" action="{U_MAKELINK}" name="data_select" method="post">
+		<select name="guild" onchange="window.location.href=this.options[this.selectedIndex].value;">
+<!-- BEGIN dm_select_group -->
+			<optgroup label="{dm_select_group.U_VALUE}">
+<!-- BEGIN dm_select_row -->
+				<option value="{dm_select_group.dm_select_row.U_VALUE}"<!-- IF dm_select_group.dm_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{dm_select_group.dm_select_row.TEXT}</option>
+<!-- END dm_select_row -->
+			</optgroup>
+<!-- END dm_select_group -->
+		</select>
+	</form>
+</div>
+<!-- ENDIF -->
+
 <!-- IF S_RESPONSE -->
 <!-- IF S_RESPONSE_ERROR -->
 <div class="tier-2-a">
@@ -68,56 +84,55 @@
 	<input type="hidden" id="deletehide" name="action" value="" />
 	<input type="hidden" name="process" value="process" />
 <!-- IF S_DATA -->
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			<div class="right">
+				{PREV}{LISTING}{NEXT}
+			</div>
+			<!-- TRANSLATE delete -->
+		</div>
 
-<table class="border_frame" cellpadding="0" cellspacing="1">
-	<tr>
-		<td class="border_color sgreenborder">
-			<div class="header_text sgreenborder"><!-- TRANSLATE delete --></div>
+		<table cellspacing="0" style="width: 100%;">
+			<thead>
+				<tr>
+					<th class="membersHeader"><!-- TRANSLATE name --></th>
+					<th class="membersHeader"><!-- TRANSLATE server --></th>
+					<th class="membersHeader"><!-- TRANSLATE region --></th>
+					<th class="membersHeader"><!-- TRANSLATE class --></th>
+					<th class="membersHeader"><!-- TRANSLATE level --></th>
+					<th class="membersHeader">&nbsp;</th>
+					<th class="membersHeader"><input type="checkbox" class="checkall" rel="massdel" /></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="7" class="membersRow" style="text-align: center;">
+						<button type="submit" class="input" style="float: right;"><!-- TRANSLATE delete_checked --></button>
+						<button type="submit" class="input" style="float: left;" onclick="return confirm('<!-- TRANSLATE delete_guild_confirm -->') &amp;&amp; setvalue('deletehide','delguild_{U_GUILD_ID}');"><!-- TRANSLATE delete_guild --></button>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+	<!-- BEGIN data_list -->
+				<tr>
+					<td class="membersRow{data_list.ROW_CLASS}">{data_list.NAME}</td>
+					<td class="membersRow{data_list.ROW_CLASS}">{data_list.SERVER}</td>
+					<td class="membersRow{data_list.ROW_CLASS}">{data_list.REGION}</td>
+					<td class="membersRow{data_list.ROW_CLASS}">{data_list.CLASS}</td>
+					<td class="membersRow{data_list.ROW_CLASS}">{data_list.LEVEL}</td>
+					<td class="membersRow{data_list.ROW_CLASS}"><button type="submit" class="input" onclick="setvalue('deletehide','del_{data_list.ID}');"><!-- TRANSLATE delete --></button></td>
+					<td class="membersRow{data_list.ROW_CLASS}"><label for="massdel_{data_list.ID}">&nbsp;</label><input type="checkbox" name="massdel[{data_list.ID}]" id="massdel_{data_list.ID}" value="1" /></td>
+				</tr>
+	<!-- END data_list -->
+			</tbody>
+		</table>
 
-			<table cellspacing="0">
-				<thead>
-					<tr>
-						<td colspan="7" class="membersRow" style="text-align: center;">
-							{PREV}{LISTING}{NEXT}
-						</td>
-					</tr>
-					<tr>
-						<th class="membersHeader"><!-- TRANSLATE name --></th>
-						<th class="membersHeader"><!-- TRANSLATE server --></th>
-						<th class="membersHeader"><!-- TRANSLATE region --></th>
-						<th class="membersHeader"><!-- TRANSLATE class --></th>
-						<th class="membersHeader"><!-- TRANSLATE level --></th>
-						<th class="membersHeader">&nbsp;</th>
-						<th class="membersHeader"><input type="checkbox" class="checkall" rel="massdel" /></th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<td colspan="7" class="membersRow" style="text-align: center;">
-							<button type="submit" class="input" style="float: right;"><!-- TRANSLATE delete_checked --></button>
-							<button type="submit" class="input" style="float: left;" onclick="return confirm('<!-- TRANSLATE delete_guild_confirm -->') &amp;&amp; setvalue('deletehide','delguild_{U_GUILD_ID}');"><!-- TRANSLATE delete_guild --></button>
-							{PREV}{LISTING}{NEXT}
-						</td>
-					</tr>
-				</tfoot>
-				<tbody>
-		<!-- BEGIN data_list -->
-					<tr>
-						<td class="membersRow{data_list.ROW_CLASS}">{data_list.NAME}</td>
-						<td class="membersRow{data_list.ROW_CLASS}">{data_list.SERVER}</td>
-						<td class="membersRow{data_list.ROW_CLASS}">{data_list.REGION}</td>
-						<td class="membersRow{data_list.ROW_CLASS}">{data_list.CLASS}</td>
-						<td class="membersRow{data_list.ROW_CLASS}">{data_list.LEVEL}</td>
-						<td class="membersRow{data_list.ROW_CLASS}"><button type="submit" class="input" onclick="setvalue('deletehide','del_{data_list.ID}');"><!-- TRANSLATE delete --></button></td>
-						<td class="membersRow{data_list.ROW_CLASS}"><label for="massdel_{data_list.ID}">&nbsp;</label><input type="checkbox" name="massdel[{data_list.ID}]" id="massdel_{data_list.ID}" value="1" /></td>
-					</tr>
-		<!-- END data_list -->
-				</tbody>
-			</table>
-
-		</td>
-	</tr>
-</table>
+		<div class="tier-2-title">
+			{PREV}{LISTING}{NEXT}
+		</div>
+	</div>
+</div>
 
 </form>
 

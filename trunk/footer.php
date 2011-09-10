@@ -46,6 +46,7 @@ $roster->tpl->assign_vars(array(
 	'IMG_URL'         => $roster->config['img_url'],
 	'INTERFACE_URL'   => $roster->config['interface_url'],
 	'ROSTER_VERSION'  => $roster->config['version'],
+	'ROSTER_FOOT_JS'  => roster_get_js('footer'),
 ));
 
 if( $roster->config['debug_mode'] )

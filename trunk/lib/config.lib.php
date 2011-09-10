@@ -53,6 +53,7 @@ class roster_config
 		// Color Picker JS
 		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
 
+
 		$this->tablename = $tablename;
 		$this->where = $where;
 		$this->prefix = $prefix;
@@ -60,7 +61,8 @@ class roster_config
 		$this->submit_button = "<div class=\"config-submit\"><input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" /></div>\n";
 		$this->form_end = "</form>\n";
 
-		$this->jscript  = '<script type="text/javascript">$(function() { var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');' . $this->prefix . 'tabs.init();});</script>';
+		$jscript  = '$(function() { var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');' . $this->prefix . 'tabs.init();});';
+		roster_add_js($jscript, 'inline', 'footer');
 	}
 
 	/**
@@ -623,6 +625,9 @@ $this->buildPage($values['name'],$type[1]) . '
 					}
 				}
 
+				// Update the css_js_query_string
+				$update_sql[] = "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . $roster->db->escape(base_convert(REQUEST_TIME, 10, 36)) . "' WHERE `id` = '99';";
+
 				if( !empty($this->db_values) && isset($this->db_values['all']) && isset($this->db_values['all'][$settingName]))
 				{
 					if( $this->db_values['all'][$settingName]['value'] != $settingValue )
@@ -639,7 +644,7 @@ $this->buildPage($values['name'],$type[1]) . '
 		}
 
 		// Update DataBase
-		if( isset($update_sql) && is_array($update_sql) && count($update_sql)>0 )
+		if( isset($update_sql) && is_array($update_sql) && count($update_sql) > 0 )
 		{
 			foreach( $update_sql as $sql )
 			{

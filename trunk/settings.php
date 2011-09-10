@@ -63,6 +63,7 @@ if( function_exists('set_magic_quotes_runtime') )
  */
 $sec = explode(' ', microtime());
 define('ROSTER_STARTTIME', $sec[0] + $sec[1]);
+define('REQUEST_TIME', (int)$_SERVER['REQUEST_TIME']);
 unset($sec);
 
 /**
@@ -222,6 +223,11 @@ $roster->api = new WowAPI($region);
 require_once (ROSTER_LIB . 'cmslink.lib.php');
 
 /**
+ * Include the CSS/JS Aggregator
+ */
+include (ROSTER_LIB . 'css_js.php');
+
+/**
  * Load the Template Parser
  */
 include (ROSTER_LIB . 'template.php');
@@ -314,6 +320,8 @@ $roster->tpl->assign_vars(array(
 	'ROSTER_TOP'         => '',
 	'PAGE_TITLE'         => '',
 	'ROSTER_HEAD'        => '',
+	'ROSTER_HEAD_JS'     => roster_get_js(),
+	'ROSTER_HEAD_CSS'    => roster_get_css(),
 	'ROSTER_BODY'        => '',
 	'ROSTER_ONLOAD'      => ''
 ));
@@ -326,7 +334,7 @@ $roster->db->error_die(false);
 /**
  * If the db version doesn't match our constant, redirect to upgrader
  */
-if( empty($roster->config['version']) || version_compare($roster->config['version'], ROSTER_VERSION, '<') )
+if( (empty($roster->config['version']) || version_compare($roster->config['version'], ROSTER_VERSION, '<')) && ROSTER_PAGE_NAME != 'realmstatus' )
 {
 	require (ROSTER_PAGES . 'upgrade.php');
 	die();

@@ -13,6 +13,7 @@ INSERT INTO `renprefix_config` VALUES (3, 'roster_dbver', '6', 'display', 'maste
 INSERT INTO `renprefix_config` VALUES (4, 'version', '', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (5, 'startpage', 'main_conf', 'display', 'master');
 INSERT INTO `renprefix_config` VALUES (6, 'versioncache', '', 'hidden', 'master');
+INSERT INTO `renprefix_config` VALUES (99, 'css_js_query_string', 'lod68q', 'hidden', 'master');
 
 # --------------------------------------------------------
 ### Menu Entries
@@ -46,6 +47,8 @@ INSERT INTO `renprefix_config` VALUES (1150, 'check_updates', '24', 'select{Do N
 INSERT INTO `renprefix_config` VALUES (1160, 'seo_url', '0', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1170, 'local_cache', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1180, 'use_temp_tables', '1', 'radio{on^1|off^0', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1181, 'preprocess_js', '1', 'radio{on^1|off^0', 'main_conf');
+INSERT INTO `renprefix_config` VALUES (1182, 'preprocess_css', '1', 'radio{on^1|off^0', 'main_conf');
 INSERT INTO `renprefix_config` VALUES (1190, 'enforce_rules', '1', 'select{Never^0|All LUA Updates^1|CP Updates^2|Guild Updates^3', 'main_conf');
 
 # --------------------------------------------------------

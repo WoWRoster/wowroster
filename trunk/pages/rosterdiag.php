@@ -484,7 +484,7 @@ if( GrabRemoteVersions() !== false )
 
 			$directory_id = str_replace(array('.', '/', '\\'), '', $directory);
 
-			$headertext = '<div style="cursor:pointer;width:100%;text-align:left;" onclick="showHide(\'table_' . $directory_id . '\',\'img_' . $directory_id . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');" ' . $dirtooltip . '>'
+			$headertext = '<div style="text-transform:none;cursor:pointer;width:100%;text-align:left;" onclick="showHide(\'table_' . $directory_id . '\',\'img_' . $directory_id . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');" ' . $dirtooltip . '>'
 				. '<div style="float:right;"><span style="color:' . $severity[$files[$directory]['rollup']]['color'] . ';">' . $severity[$files[$directory]['rollup']]['severityname'] . '</span> <img id="img_' . $directory_id . '" src="' . $roster->config['theme_path'] . '/images/button_close.png" alt="" /></div>' . $dirshow . '/</div>';
 
 			echo border($severity[$files[$directory]['rollup']]['style'], 'start', $headertext, '100%');
@@ -524,7 +524,7 @@ if( GrabRemoteVersions() !== false )
 					}
 
 					echo '<tr style="cursor:help;" ' . $filetooltip . '>';
-					echo '<td class="membersRow' . $row . '"><span style="color:' . $severity[$filedata['rollup']]['color'] . '">' . $file . '</span></td>';
+					echo '<td class="membersRow' . $row . '"><span style="padding-left: 3px; border-left: 10px solid ' . $severity[$filedata['rollup']]['color'] . '">' . $file . '</span></td>';
 					echo '<td class="membersRow' . $row . '">' . "\n";
 					if (isset($filedata['rev']))
 					{
