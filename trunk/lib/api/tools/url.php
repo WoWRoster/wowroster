@@ -67,7 +67,14 @@ class url {
 			break;
 			case 'talents':
 				// http://us.battle.net/wow/talents/class/3?jsonp=Talents
+				if ($name == 'pets')
+				{
+				$q = $ui.'talents/pet';
+				}
+				else
+				{
 				$q = $ui.'talents/class/'.$name.'?jsonp=';
+				}
 			break;
 			
 			default:

@@ -150,7 +150,7 @@ class memberslist
 			'S_FILTER' => $this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
 
-			//'B_PAGINATION' => $this->pageanat,
+			'B_PAGINATION' => $this->pageanat,
 
 			'COLS' => $cols+1,
 			'LISTNAME' => $this->listname,
@@ -275,7 +275,8 @@ class memberslist
 		{
 			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
 
-			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
+			//paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
+			paginate2($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 		}
 
 		// header row

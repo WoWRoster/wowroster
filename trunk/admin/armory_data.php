@@ -98,7 +98,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 }
 if (isset($_GET['parse']) && $_GET['parse'] == 'all'){
 
-	$classes = array('1','2','3','4','5','6','7','8','9','11');
+	$classes = array('1','2','3','4','5','6','7','8','9','11','pet');
 	
 	foreach ($classes as $tid)
 	{
@@ -198,7 +198,14 @@ foreach ($roster->locale->act['class_to_id'] as $class => $num)
 		)
 	);
 }
-
+$roster->tpl->assign_block_vars('classes', array(
+		'NAME'       => 'pets',
+		'ID'         => 'pets',
+		'UPDATELINK' => makelink('&amp;class=pets'),
+		'ROWS'       => '--',
+		'ROW'        => (($i % 2) + 1)
+		)
+	);
 $roster->tpl->set_filenames(array('body' => 'admin/armory_data.html'));
 $body = $roster->tpl->fetch('body');
 
