@@ -465,7 +465,7 @@ function makeGraph( $type , $level , $style )
 			$i++;
 		}
 
-		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
+		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req));
 		$output .= '<img class="info-graph" src="' . $addon['url_path'] . $req . '" alt="" />';
 	}
 	else

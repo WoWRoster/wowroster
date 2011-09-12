@@ -1470,6 +1470,91 @@ function dummy(){}
  * @param bool $add_prevnext
  * @return void
  */
+//paginate
+function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true)
+{
+	global $roster;
+
+	
+	function paginate_page( $page , $url , $first=false )
+	{
+		global $roster;
+
+		$roster->tpl->assign_block_vars('pagination', array(
+			'PAGE' => $page,
+			'URL' => $url,
+			'FIRST' => $first
+			)
+		);
+	}
+	
+	
+	// Make sure $per_page is a valid value
+	$per_page = ($per_page <= 0) ? 1 : $per_page;
+
+	$seperator = '<span class="page-sep"> - </span>';
+	$total_pages = ceil($num_items / $per_page);
+
+	if ($total_pages == 1 || !$num_items)
+	{
+		return false;
+	}
+
+	$on_page = floor($start_item / $per_page) + 1;
+	$url_delim = (strpos($base_url, '?') === false) ? '?' : ((strpos($base_url, '?') === strlen($base_url) - 1) ? '' : '&amp;');
+
+	$page_string = ($on_page == 1) ? '<strong>1</strong>' : '<a href="' . $base_url . '0">1</a>';
+
+	if ($total_pages > 5)
+	{
+		$start_cnt = min(max(1, $on_page - 4), $total_pages - 5);
+		$end_cnt = max(min($total_pages, $on_page + 4), 6);
+
+		$page_string .= ($start_cnt > 1) ? ' ... ' : $seperator;
+
+		for ($i = $start_cnt + 1; $i < $end_cnt; $i++)
+		{
+			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="'.makelink($base_url . (($i-1) * $per_page)).'">' . $i . '</a>';
+			if ($i < $end_cnt - 1)
+			{
+				$page_string .= $seperator;
+			}
+		}
+
+		$page_string .= ($end_cnt < $total_pages) ? ' ... ' : $seperator;
+	}
+	else
+	{
+		$page_string .= $seperator;
+
+		for ($i = 2; $i <= $total_pages; $i++)
+		{
+			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="'.makelink($base_url . (($i-1) * $per_page)).'">' . $i . '</a>';
+			if ($i < $total_pages)
+			{
+				$page_string .= $seperator;
+			}
+		}
+	}
+
+	$page_string .= ($on_page == $total_pages) ? '<strong>' . $total_pages . '</strong>' : '<a href="'.makelink($base_url . (($total_pages-1) * $per_page)) . '">'.$total_pages.'</a>';
+
+
+	$roster->tpl->assign_vars(array(
+		'URL'		=> $base_url,
+		'BASE_URL'	=> addslashes($base_url),
+		'PER_PAGE'		=> $per_page,
+
+		'B_PAGINATION' => true,
+		'PAGINATION_PREV' => (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item-$per_page)) : false),
+		'PAGINATION_NEXT' => (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item+$per_page)) : false),
+		'TOTAL_PAGES'		=> $total_pages,
+		'PAGE' => $page_string,
+	));
+
+	//return $page_string;
+}
+
 function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
 {
 	function paginate_page( $page , $url , $first=false )
@@ -1498,7 +1583,7 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 
 	$roster->tpl->assign_vars(array(
 		'B_PAGINATION' => true,
-		'PAGINATION_PREV' => (($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false),
+		'PAGINATION_PREV' => (($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page)*$per_page)) : false),
 		'PAGINATION_NEXT' => (($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false),
 		)
 	);
