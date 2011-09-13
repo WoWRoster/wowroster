@@ -117,8 +117,11 @@ INSERT INTO `renprefix_config` VALUES (8480, 'rs_color_recommended', '#33CC33', 
 
 # --------------------------------------------------------
 ### Update Access
-
 INSERT INTO `renprefix_config` VALUES (10000, 'authenticated_user', '1', 'radio{enable^1|disable^0', 'update_access');
+### api key settings
+INSERT INTO `renprefix_config` VALUES (10001, 'api_key_privet', '', 'text{30|30', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10002, 'api_key_public', '', 'text{30|30', 'update_access');
+### end api key settings
 INSERT INTO `renprefix_config` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10010, 'gp_user_level', '2', 'access', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10020, 'cp_user_level', '0', 'access', 'update_access');

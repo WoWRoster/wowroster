@@ -30,7 +30,7 @@ class Curl {
 	 * @return array Array containing the 'response' and the 'code'
 	 */
 	public function makeRequest($url, $method='GET', $options=array()) {
-
+		echo $url.'<br>';
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);

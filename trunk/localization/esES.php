@@ -1187,6 +1187,10 @@ $lang['admin']['gp_user_level'] = "Nivel de hermandad|Elige el nivel requerido p
 $lang['admin']['cp_user_level'] = "Nivel de personaje|Elige el nivel requerido para poder subir datos con WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Nivel de otros LUA|Elige el nivel requerido para poder subir datos con otros addons<br />Esto es para TODOS los tipos de archivos LUA que quieras subir al Roster.";
 
+$lang['admin']['api_key_privet'] = "Your Blizzard API Privet key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
+$lang['admin']['api_key_public'] = "Your Blizzard API Public key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
+
+
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Pantalla Per-Character';
 
