@@ -23,5 +23,14 @@ INSERT INTO `renprefix_config` VALUES (1182, 'preprocess_css', '1', 'radio{on^1|
 INSERT INTO `renprefix_config` VALUES (10001, 'api_key_private', '', 'text{64|30', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10002, 'api_key_public', '', 'text{64|30', 'update_access');
 
+CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `total` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+
 # --------------------------------------------------------
 ### Menu Updates

@@ -3494,7 +3494,6 @@ CREATE TABLE `renprefix_quest_task_data` (
 	function update_guild( $realmName , $guildName , $currentTime , $guild , $region )
 	{
 		global $roster;
-
 		$guildInfo = $this->get_guild_info($realmName,$guildName,$region);
 
 		$this->locale = $guild['Locale'];
@@ -3525,15 +3524,15 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		if( is_array($guildInfo) )
 		{
-			$querystr = "UPDATE `" . $roster->db->table('guild') . "` SET " . $this->assignstr . " WHERE `guild_id` = '" . $guildInfo['guild_id'] . "';";
+			$querystra = "UPDATE `" . $roster->db->table('guild') . "` SET " . $this->assignstr . " WHERE `guild_id` = '" . $guildInfo['guild_id'] . "';";
 			$output = $guildInfo['guild_id'];
 		}
 		else
 		{
-			$querystr = "INSERT INTO `" . $roster->db->table('guild') . "` SET " . $this->assignstr;
+			$querystra = "INSERT INTO `" . $roster->db->table('guild') . "` SET " . $this->assignstr;
 		}
 
-		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
+		$roster->db->query($querystra) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystra);
 
 		if( is_array($guildInfo) )
 		{

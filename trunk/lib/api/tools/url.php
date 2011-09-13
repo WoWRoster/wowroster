@@ -1,20 +1,13 @@
 <?php
 /**
- * Battle.net WoW API PHP SDK
+ * WoWRoster.net WoWRoster
  *
- * This software is not affiliated with Battle.net, and all references
- * to Battle.net and World of Warcraft are copyrighted by Blizzard Entertainment.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @package   WoWAPI-PHP-SDK
- * @author	  Chris Saylor
- * @author	  Daniel Cannon <daniel@danielcannon.co.uk>
- * @copyright Copyright (c) 2011, Chris Saylor
- * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link	  https://github.com/cjsaylor/WoWAPI-PHP-SDK
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 2.2.0
+ * @package    WoWRoster
  */
 
 // this classes only purpose is to build the url for the curl function
@@ -37,52 +30,66 @@ class url {
 		$name = str_replace('+' , '%20' , urlencode($name));
 		$server = str_replace('+' , '%20' , urlencode($server));
 
-
 		switch ($class)
 		{
 			case 'character':
 				// /api/wow/character/{realm}/{name}
-				$q = $ui.'character/'.$server.'/'.$name.$fields['data'].'';
+				$q = 'api/wow/character/'.$server.'/'.$name.$fields['data'].'';
 			break;
 			case 'status':
-				/*
-				With that, an example URL and it’s payload would look like this:
-				http://us.battle.net/api/wow/realm/status?realm=Medivh
 
-				The following url would return the entire list of realms and their statuses:
-				http://us.battle.net/api/wow/realm/status
-
-				Multiple realms can also be specified:
-				http://us.battle.net/api/wow/realm/status?realm=Medivh&realm=Blackrock 
-				*/
-				$q = $ui.'realm/status?'.$fields['data'].'';
+				$q = 'api/wow/realm/status?'.$fields['data'].'';
 			break;
 			case 'guild':
 				// /api/wow/guild/{realm}/{name}
-				$q = $ui.'guild/'.$server.'/'.$name.'/'.$fields['data'].'';
+				$q = 'api/wow/guild/'.$server.'/'.$name.'/'.$fields['data'].'';
 			break;
 			case 'team':
 				// /api/wow/arena/{realm}/{size}/{name} (size being 2v2, 3v3 or 5v5)
-				$q = $ui.'arena/'.$server.'/'.$field['data'].'/'.$name.'';
+				$q = 'api/wow/arena/'.$field['server'].'/'.$field['size'].'/'.$field['name'].'';
 			break;
-			case 'talents':
-				// http://us.battle.net/wow/talents/class/3?jsonp=Talents
-				if ($name == 'pets')
-				{
-				$q = $ui.'talents/pet';
-				}
-				else
-				{
-				$q = $ui.'talents/class/'.$name.'?jsonp=';
-				}
+			
+			case 'item':
+					#api/wow/data/item/38268
+				$q = 'api/wow/item/'.$name.''.$fields['tts'].'';
+			break;
+			
+			case 'gperks':
+				
+				$q = 'api/wow/data/guild/perks';
+			break;
+			
+			case 'gachievments':
+				
+				$q = 'api/wow/data/guild/achievements';
+			break;
+			case 'grewards':
+				
+				$q = 'api/wow/data/guild/rewards';
+			break;
+			
+			case 'races':
+				
+				$q = 'api/wow/data/character/races';
+			break;
+
+			case 'achievement':
+				$q = 'api/wow/data/character/achievements';
+			break;
+			
+			case 'quests':
+				$q = '/api/wow/quest/'.$name.'';
+			break;
+			
+			case 'ladder':
+				$q = '/api/wow/pvp/arena/'.$field['server'].'/'.$field['size'].'';
 			break;
 			
 			default:
 			break;
 		}
-	
-		//echo '<br>---- ['.$class.'] --| '.$q.' |--<br>';
-		return $q;
+
+		return $ui.$q;
 	}
 
 

@@ -105,7 +105,7 @@ class guildinfoUpdate
 	
 		$this->messages = '';
 		
-		if (is_array($char['XP']))
+		if (isset($char['XP']))
 		{
 			$queryx = "SELECT `member_id` FROM `".$roster->db->table('ranks',$this->data['basename'])."` WHERE `member_id`='" . $member_id . "'";
 			$resultx = $roster->db->query( $queryx );
@@ -155,7 +155,7 @@ class guildinfoUpdate
 		global $roster, $update;
 
 
-		if (is_array($guild['News']))
+		if (isset($guild['News']))
 		{
 		
 			$news = $guild['News'];
