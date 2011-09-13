@@ -1182,14 +1182,12 @@ $lang['admin']['rs_color_recommended'] = "Empfohlene Farbe|Farbe für empfohlene
 
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";
+$lang['admin']['api_key_private'] = "Blizzard API Private key|This is the Private key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
+$lang['admin']['api_key_public'] = "Blizzard API Public key|This is the Public key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
 $lang['admin']['update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Update Seite';
 $lang['admin']['gp_user_level'] = "Gildendaten-Level|Level benötigt um WoWRoster-GuildProfiler Daten zu verarbeiten";
 $lang['admin']['cp_user_level'] = "Charakterdata-Level|Level benötigt um WoWRoster-Profiler Daten zu verarbeiten";
 $lang['admin']['lua_user_level'] = "Andere LUA Daten Level|Level benötigt um andere LUA-Dateien zu verarbeiten<br />Dies gilt für JEDE andere LUA-Datei, die in den Roster hochgeladen werden kann";
-
-$lang['admin']['api_key_privet'] = "Your Blizzard API Privet key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
-$lang['admin']['api_key_public'] = "Your Blizzard API Public key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
-
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';
