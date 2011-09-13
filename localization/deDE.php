@@ -1187,6 +1187,10 @@ $lang['admin']['gp_user_level'] = "Gildendaten-Level|Level benötigt um WoWRoste
 $lang['admin']['cp_user_level'] = "Charakterdata-Level|Level benötigt um WoWRoster-Profiler Daten zu verarbeiten";
 $lang['admin']['lua_user_level'] = "Andere LUA Daten Level|Level benötigt um andere LUA-Dateien zu verarbeiten<br />Dies gilt für JEDE andere LUA-Datei, die in den Roster hochgeladen werden kann";
 
+$lang['admin']['api_key_privet'] = "Your Blizzard API Privet key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
+$lang['admin']['api_key_public'] = "Your Blizzard API Public key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
+
+
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';
 

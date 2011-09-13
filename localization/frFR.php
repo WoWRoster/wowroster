@@ -1187,6 +1187,10 @@ $lang['admin']['gp_user_level'] = "Niveau d'accès aux données de guilde|Niveau
 $lang['admin']['cp_user_level'] = "Niveau d'accès aux données des personnages|Niveau requis pour mettre à jour les données fournies par WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Niveau d'accès aux données des autres LUA|Niveau requis pour mettre à jour les données fournies par d'autres sources de données (LUA).<br />Ceci est valable pour TOUTES SOURCES AUTRES pouvant être envoyées au roster.";
 
+$lang['admin']['api_key_privet'] = "Your Blizzard API Privet key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
+$lang['admin']['api_key_public'] = "Your Blizzard API Public key|This is the key given to you from blizzard so you may make more then 3000 requests a day";
+
+
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Affichage par personnage';
 
