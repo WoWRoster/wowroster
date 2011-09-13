@@ -90,7 +90,7 @@ class Upgrade {
 		global $roster;
 
 		/* Update Examples
-		if (version_compare($roster->config['version'], '2.0.9.1879', '<')) {
+		if (version_compare($roster->config['version'], '2.1.9.2344', '<')) { // This MUST be equal or lower than the version set on lib/constants.php
 			$roster->set_message('Message');
 
 			$roster->db->query('DELETE FROM `' . $roster->db->table('menu_button') . '` WHERE `addon_id`= "0" AND `title` = "menu_credits";');
@@ -125,11 +125,11 @@ class Upgrade {
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1182, 'preprocess_css', '1', 'radio{on^1|off^0', 'main_conf');");
 		}
 		
-		if (version_compare($roster->config['version'], '2.1.9.2346', '<')) {
-			$roster->set_message('Key setting for the api');
+		if (version_compare($roster->config['version'], '2.1.9.2350', '<')) {
+			$roster->set_message('Blizzard API key settings');
 
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10001, 'api_key_privet', '', 'text{30|30', 'update_access');");
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10002, 'api_key_public', '', 'text{30|30', 'update_access');");
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10001, 'api_key_private', '', 'text{64|30', 'update_access');");
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10002, 'api_key_public', '', 'text{64|30', 'update_access');");
 		}
 
 		// Standard Beta Update
