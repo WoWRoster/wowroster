@@ -1,20 +1,13 @@
 <?php
 /**
- * Battle.net WoW API PHP SDK
+ * WoWRoster.net WoWRoster
  *
- * This software is not affiliated with Battle.net, and all references
- * to Battle.net and World of Warcraft are copyrighted by Blizzard Entertainment.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @package   WoWAPI-PHP-SDK
- * @author	  Chris Saylor
- * @author	  Daniel Cannon <daniel@danielcannon.co.uk>
- * @copyright Copyright (c) 2011, Chris Saylor
- * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link	  https://github.com/cjsaylor/WoWAPI-PHP-SDK
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 2.2.0
+ * @package    WoWRoster
  */
 
 require_once ROSTER_API . 'tools/Curl.php';
@@ -31,8 +24,7 @@ abstract class Resource {
 	/**
 	 * API uri for Wow's API
 	 */
-	const API_URI = 'http://%s.battle.net/api/wow/';
-	const API_URI2 = 'http://%s.battle.net/wow/';
+	const API_URI = 'http://%s.battle.net/';
 
 	/**
 	 * @var string Serve region(`us` or `eu`)
@@ -78,34 +70,62 @@ abstract class Resource {
 	 */
 	public function consume($method, $params=array()) 
 	{
+		global $roster;
+		$makecache = false;
+		$msg = '';
 		if (!in_array($method, $this->methods_allowed)) 
 		{
 			throw new ResourceException('Method not allowed.', 405);
 		}
 		// new prity url builder ... much better then befor...
 		$ui = sprintf(self::API_URI, $this->region);
-		if ($method == 'talents')
-		{
-			$ui2 = sprintf(self::API_URI2, $this->region);
-			$data = $this->Curl->makeRequest($this->url->BuildUrl($ui2,$method,$params[server],$params[name],$params));
-		}
-		else
-		{
-			$data = $this->Curl->makeRequest($this->url->BuildUrl($ui,$method,$params[server],$params[name],$params));
-		}
-		//cURL returned an error code
+
+		// new cache system see hwo old teh file is only live update files more then X days/hours old
+
+			$url = $this->url->BuildUrl($ui,$method,$params['server'],$params['name'],$params);
+			$data = $this->Curl->makeRequest($url,null, $params,$url,$method);
+			if ($this->Curl->errno !== CURLE_OK) 
+			{
+				throw new ResourceException($this->Curl->error, $this->Curl->errno);
+			}
+			
+			// update the tracker...
+			$q = "SELECT * FROM `" . $roster->db->table('api_usage') . "` WHERE `date`='".date("Y-m-d")."' AND `type` = '".$method."'";
+			$y = $roster->db->query($q);
+			$row = $roster->db->fetch($y);
+			if (!isset($row['total']))
+			{
+				$query = 'INSERT INTO `' . $roster->db->table('api_usage') . '` VALUES ';
+				$query .= "('','".$method."','".date("Y-m-d")."','+1'); ";
+			}
+			else
+			{
+				$query = "Update `" . $roster->db->table('api_usage') . "` SET `total`='".($row['total']+1)."' WHERE `type` = '".$method."' AND `date` = '".date("Y-m-d")."'";
+			}
+			$ret = $roster->db->query($query);
+			
+			//Battle.net returned a HTTP error code
+			$x = json_decode($data['response'], true);
+			if (isset($data['response_headers']) && $data['response_headers']['http_code'] != '200') 
+			{
+				$msg = $this->transhttpciode($data['response_headers']['http_code']);
+				//throw new HttpException(json_decode($data['response'], true), $data['response_headers']['http_code']);
+				$this->seterrors(array('type'=>$method,'msg'=>''.$msg.'<br>'.$url.''));
+				//$this->query['result'] = false; // over ride cache and set to false no data or no url no file lol
+			}
 		
-		if ($this->Curl->errno !== CURLE_OK) 
-		{
-			throw new ResourceException($this->Curl->error, $this->Curl->errno);
-		}
-		//Battle.net returned a HTTP error code
-		if (!isset($data['response_headers']['http_code']) || $data['response_headers']['http_code'] !== 200) 
-		{
-			throw new HttpException(json_decode($data['response'], true), $data['response_headers']['http_code']);
-		}
-		
-		return json_decode($data['response'], true);
+			//$makecache
+			if (isset($x['reason']))
+			{
+				$this->seterrors(array('type'=>$method,'msg'=>$x['reason']));
+				$this->query['result'] = false; // over ride cache and set to false no data or no url no file lol
+			}
+			//print_r($data['response_headers']);
+			$data = json_decode($data['response'], true);
+			$info = $data;//$this->utf8_array_decode($data);
+
+
+		return $info;
 	}
 
 	/**

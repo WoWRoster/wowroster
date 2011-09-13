@@ -18,6 +18,8 @@ require_once ROSTER_API . 'resource/Realm.php';
 require_once ROSTER_API . 'resource/Char.php';
 require_once ROSTER_API . 'resource/Guild.php';
 require_once ROSTER_API . 'resource/Talents.php';
+require_once ROSTER_API . 'resource/Data.php';
+require_once ROSTER_API . 'apiitem.php';
 
 class WowAPI {
 	/**
@@ -27,7 +29,9 @@ class WowAPI {
 	public $Char; // char object
 	public $Guild; // guild Object
 	public $Team; // team Object
+	public $Data; // Blizzard Data Objects..
 	public $Talents; // char name nyi
+	public $Aitem;
 	public $realmn; // realm name nyi
 	public $guildn; // guild name nyi
 	
@@ -46,6 +50,8 @@ class WowAPI {
 		$this->Realm = new Realm($region);
 		$this->Char = new character($region);
 		$this->Guild = new guild($region);
+		$this->Data = new Data(strtoupper($region));
+		$this->Item = new ApiItem();
 		//$this->Team = new team($region);
 		$this->Talents = new talents($region);
 	}

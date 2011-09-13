@@ -1,20 +1,13 @@
 <?php
 /**
- * Battle.net WoW API PHP SDK
+ * WoWRoster.net WoWRoster
  *
- * This software is not affiliated with Battle.net, and all references
- * to Battle.net and World of Warcraft are copyrighted by Blizzard Entertainment.
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @package   WoWAPI-PHP-SDK
- * @author	  Chris Saylor
- * @author	  Daniel Cannon <daniel@danielcannon.co.uk>
- * @copyright Copyright (c) 2011, Chris Saylor
- * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
- * @link	  https://github.com/cjsaylor/WoWAPI-PHP-SDK
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 2.2.0
+ * @package    WoWRoster
  */
 
 class Curl {
@@ -29,8 +22,44 @@ class Curl {
 	 * @param array $options Various options for the request (including data)
 	 * @return array Array containing the 'response' and the 'code'
 	 */
-	public function makeRequest($url, $method='GET', $options=array()) {
-		echo $url.'<br>';
+	 public function pulldata($url)
+	 {
+				$file_handle = fopen($url, 'r');
+				$response = fread($file_handle, filesize($url));
+				fclose($file_handle);
+				$headers = array('http_code'=>303);
+				return array(
+				'response'		    => stripslashes($response),
+				'response_headers'  => $headers,
+			);
+	 }
+
+	public function genauth($url)
+	{
+		global $roster;
+
+		$UrlPath = '/'.$url;
+		$keys = array(
+			'public' => $roster->config['api_key_public'],
+			'private' => $roster->config['api_key_private']
+		);
+	/*	
+		$StringToSign = "GET \n" .date('D, d M Y G:i:s T') . "\n" . $UrlPath . "\n";
+
+		$Signature = base64_encode( HMAC-SHA1( utf8_encode( "0I1F46TO8TZ5" ), $StringToSign ) );
+
+		$header = "\nAuthorization: BNET ".$key.":".$Signature;
+*/
+		
+		$date = date('D, d M Y G:i:s T');//date(DATE_RFC2822);
+		$header = "Date: ". $date."\nAuthorization: BNET ". $keys['public'] .":". base64_encode(hash_hmac('sha1', "GET\n".$date."\n".$UrlPath."\n", $keys['private'], true))."\n";
+			
+			
+		return $header;
+	}
+	public function makeRequest($url, $method='GET', $options=array(),$uri,$method) 
+	{
+
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -60,9 +89,14 @@ class Curl {
 			}
 		}
 
+		if ($method != 'itemtooltip' && $method != 'talents')
+		{
+		$options['header'] .= $this->genauth($uri);
+		}
+		//var_dump($options);
 		// Prepare headers (if applicable)
 		if (isset($options['headers'])) {
-			curl_setopt($ch, CURLOPT_HTTPHEADER, $options['headers']);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $options['header']);
 		}
 
 		// Setup methods
@@ -88,21 +122,25 @@ class Curl {
 
 		// Execute
 		$response	    = curl_exec($ch);
+		//$cache->cachejsonfile($filename, $ch);
 		$headers		= curl_getinfo($ch);
 		//Deal with HTTP errors
 		$this->errno	= curl_errno($ch);
 		$this->error	= curl_error($ch);
 
 		curl_close($ch);
-
 		if ($this->errno) {
 			return false;
 		}else{
+		/*
+			$cache = new cache();
+			$fname = $method;
+			$cache->cachejsonfile($fname,$response."\r\n\r\n".$headers,null );
+			print_R($headers);*/
 			return array(
 				'response'		    => $response,
 				'response_headers'  => $headers,
 			);
 		}
 	}
-
 }
