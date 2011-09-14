@@ -51,7 +51,7 @@ class url {
 			
 			case 'item':
 					#api/wow/data/item/38268
-				$q = 'api/wow/item/'.$name.''.$fields['tts'].'';
+				$q = 'api/wow/item/'.$name;
 			break;
 			
 			case 'gperks':
