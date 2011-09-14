@@ -43,14 +43,7 @@ class Curl {
 			'public' => $roster->config['api_key_public'],
 			'private' => $roster->config['api_key_private']
 		);
-	/*	
-		$StringToSign = "GET \n" .date('D, d M Y G:i:s T') . "\n" . $UrlPath . "\n";
 
-		$Signature = base64_encode( HMAC-SHA1( utf8_encode( "0I1F46TO8TZ5" ), $StringToSign ) );
-
-		$header = "\nAuthorization: BNET ".$key.":".$Signature;
-*/
-		
 		$date = date('D, d M Y G:i:s T');//date(DATE_RFC2822);
 		$header = "Date: ". $date."\nAuthorization: BNET ". $keys['public'] .":". base64_encode(hash_hmac('sha1', "GET\n".$date."\n".$UrlPath."\n", $keys['private'], true))."\n";
 			
@@ -122,7 +115,6 @@ class Curl {
 
 		// Execute
 		$response	    = curl_exec($ch);
-		//$cache->cachejsonfile($filename, $ch);
 		$headers		= curl_getinfo($ch);
 		//Deal with HTTP errors
 		$this->errno	= curl_errno($ch);
@@ -132,11 +124,7 @@ class Curl {
 		if ($this->errno) {
 			return false;
 		}else{
-		/*
-			$cache = new cache();
-			$fname = $method;
-			$cache->cachejsonfile($fname,$response."\r\n\r\n".$headers,null );
-			print_R($headers);*/
+
 			return array(
 				'response'		    => $response,
 				'response_headers'  => $headers,
