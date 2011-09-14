@@ -351,14 +351,16 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 	var $DEBUG_junk = '';
 	var $user = array();
 	var $dapi = array();
+	var $dgems = array();
 	
 	
 	
-	function item ($data,$userData)
+	function item ($data,$userData,$gems=false)
 	{
 		global $api, $roster;
 		$this->user = $userData;
 		$this->dapi = $data;
+		$this->dgems = $gems;
 		$this->build_Attributes($data);
 		
 		$a = $this->_makeTooltipHTML();
@@ -379,9 +381,9 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 			$tt['General']['Icon'] = $data['icon'];
 			$tt['Attributes']['Icon'] = $data['icon'];
 			$tt['General']['Slot'] = $data['inventoryType'];
-			$tt['General']['Parent'] = $data['parent'];
+			$tt['General']['Parent'] = 'Equip';
 			$tt['General']['Tooltip'] = '';// i wish...str_replace("\n", '<br>', $data['tooltip']);
-			$tt['General']['Locale']=$data['locale'];
+			$tt['General']['Locale']=$roster->config['locale'];
 
 			
 			foreach( $data['bonusStats'] as $id => $stat )
@@ -404,7 +406,7 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 				{
 					if ($spell['spell']['description'] != '')
 					{
-						$tt['Effects']['Use'][] = $spell['spell']['description'];
+						$tt['Effects']['Use'][] = 'Equip: '.$spell['spell']['description'];
 					}
 				}
 			}
@@ -438,7 +440,7 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 				$tt['Attributes']['Class'] = 'Classes:';
 				foreach($data['allowableClasses'] as $id => $classes)
 				{
-					$tt['Attributes']['ClassText'][] = 		$roster->locale->wordings['enUS']['id_to_class'][$classes];
+					$tt['Attributes']['ClassText'][] = $roster->locale->wordings['enUS']['id_to_class'][$classes];
 				}
 			}
 			if (isset($data['allowableRaces']))
@@ -462,12 +464,15 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 			if(isset($data['gemInfo']))
 			{
 				$tt['Attributes']['GemBonus'] = $data['gemInfo']['bonus']['name'];
-				$tt['Attributes']['SkillRequired'] = $this->skills[$data['gemInfo']['bonus']['requiredSkillId']].' ('.$data['gemInfo']['bonus']['requiredSkillRank'].')';
+				if (isset($data['gemInfo']['bonus']['requiredSkillId']) && $data['gemInfo']['bonus']['requiredSkillId'] > 0)
+				{
+					$tt['Attributes']['SkillRequired'] = $this->skills[$data['gemInfo']['bonus']['requiredSkillId']].' ('.$data['gemInfo']['bonus']['requiredSkillRank'].')';
+				}
 			}
 			$this->isSocketable = $data['hasSockets'];
 			
 			$tt['Attributes']['ItemNote'] = $data['description'];
-			$tt['Attributes']['Unique'] = $line;
+			//$tt['Attributes']['Unique'] = $line;
 			if ($data['itemClass'] == '4')
 			{
 				if ($data['baseArmor'] > 0)
@@ -485,8 +490,9 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 				$tt['Attributes']['WeaponSlot'] = ''.$this->slotType[$data['inventoryType']].'';
 				$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
 				$tt['Attributes']['WeaponDamage'] = $data['weaponInfo']['damage'][0]['minDamage'].' - '.$data['weaponInfo']['damage'][0]['maxDamage'];
-				$this->isWeapon = true;
 				$tt['Attributes']['WeaponDPS'] = $data['weaponInfo']['dps'];
+				$this->isWeapon = true;
+				
 			}
 			if ($data['itemClass'] == '1' )
 			{
@@ -500,7 +506,7 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 			//$tt['Attributes']['MadeBy']['Name'] = $matches[1];
 			//$tt['Attributes']['MadeBy']['Line'] = $matches[0];
 
-			$tt['Attributes']['Charges'] = $line;
+			//$tt['Attributes']['Charges'] = $line;
 			//$tt['Poison']['Effect'][] = $line;
 			//$this->isPoison = true;
 			//$tt['Attributes']['Conjured'][] = $line;
@@ -542,11 +548,11 @@ function _makeTooltipHTML()
 			{
 				$html_tt .= $this->_getArmor();
 			}
-			elseif( $this->isWeapon )
+			if( $this->isWeapon )
 			{
 				$html_tt .= $this->_getWeapon();
 			}
-			elseif( $this->isBag )
+			if( $this->isBag )
 			{
 				$html_tt .= $this->_getBag();
 			}
@@ -685,7 +691,7 @@ function _getCaption()
 		global $roster;
 
 		$bindtype = $this->attributes['BindType'];
-
+/*
 		if( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_soulbound'], $bindtype) )
 		{
 			$color = '00bbff';
@@ -695,9 +701,9 @@ function _getCaption()
 			$color = 'e6cc80';
 		}
 		else
-		{
+		{*/
 			$color = 'ffffff';
-		}
+	//	}
 
 		$html = '<span style="color:#' . $color . ';">' . $bindtype . '</span><br />';
 
@@ -746,9 +752,11 @@ function _getCaption()
 	{
 		if( isset($this->attributes['WeaponType']) && isset($this->attributes['WeaponSlot']) )
 		{
-			$html = '<div style="width:100%;"><span style="float:right;">'
+			/*$html = '<div style="width:100%;"><span style="float:right;">'
 				  . $this->attributes['WeaponType'] . '</span>'
 				  . $this->attributes['WeaponSlot'] . '</div>';
+				  */
+			$html = '' . $this->attributes['WeaponSlot'] . '	' . $this->attributes['WeaponType'] . "<br />";
 		}
 		elseif( isset($this->attributes['WeaponType']) )
 		{
@@ -761,9 +769,10 @@ function _getCaption()
 
 		if( isset($this->attributes['WeaponDamage']) )
 		{
-			$html  .= '<div style="width:100%;"><span style="float:right;">Speed '
-					. $this->attributes['WeaponSpeed'] . '</span>'
-					. $this->attributes['WeaponDamage'] . ' Damage</div>';
+			/*$html  .= '<div style="width:100%;"><span style="float:right;">Speed 
+					' . $this->attributes['WeaponSpeed'] . '</span>
+					' . $this->attributes['WeaponDamage'] . ' Damage</div>';*/
+			$html .='' . $this->attributes['WeaponDamage'] . ' Damage	Speed ' . $this->attributes['WeaponSpeed'] . "<br />";
 		}
 		if( isset($this->attributes['WeaponDPS']) )
 		{
@@ -837,6 +846,7 @@ function _getCaption()
 		//$this->user['tooltipParams']
 		$numSockets = count($this->dapi['socketInfo']['sockets']);
 		//echo '--['.$numSockets.' sockets]--<br>';
+		$gem0 =  $gem1 =  $gem2 = null;
 		if (isset($this->user['tooltipParams']['gem0']))
 		{
 			$gem0 = $this->user['tooltipParams']['gem0'] ? $this->user['tooltipParams']['gem0'] : null;
@@ -857,7 +867,7 @@ function _getCaption()
 			//echo $gem.'<br>';
 			if ( isset($gem))// != '0'  ) 
 			{	
-				$item_api = $roster->api->Data->getItemInfo($gem);
+				$item_api = $this->dgems[$gem];
 				$html .= $item_api['gemInfo']['bonus']['name']."\n";
 				$i++;
 			}
@@ -924,7 +934,7 @@ function _getCaption()
 	{
 		global $roster;
 
-		$html = $this->attributes['Class'] . '&nbsp;';
+		$html = $this->attributes['Class'] . ' ';
 		$count = count($this->attributes['ClassText']);
 
 		$i = 0;
@@ -1111,7 +1121,8 @@ function _getCaption()
 		return $html;
 	}
 	
-		function _getItemColor($value) {
+		function _getItemColor($value) 
+		{
 		$ret = '';
 		switch ($value) {
 			case 5: $ret = "ff8000"; //Orange
@@ -1130,6 +1141,7 @@ function _getCaption()
 		
 		return $ret;
 	}
+
 	
 }
 
