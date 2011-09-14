@@ -1,4 +1,16 @@
 <?php
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 2.2.0
+ * @package    WoWRoster
+ */
+ 
+ 
 /*
 this file will process the json data for items and make a tooltip for us ..
 
@@ -9,209 +21,59 @@ this file will process the json data for items and make a tooltip for us ..
 class ApiItem {
 
 var $itemclass = array(
-'0' => 'Consumable',
-'1' => 'Container',
-'2' => 'Weapon',
-'3' => 'Gem',
-'4' => 'Armor',
-'5' => 'Reagent',
-'6' => 'Projectile',
-'7' => 'Trade Goods',
-'8' => 'Generic',
-'9' => 'Book',
-'10' => 'Money',
-'11' => 'Quiver',
-'12' => 'Quest',
-'13' => 'Key',
-'14' => 'Permanent',
-'15' => 'Junk',
-'16' => 'Glyph');
+'0' => 'Consumable','1' => 'Container','2' => 'Weapon','3' => 'Gem','4' => 'Armor','5' => 'Reagent','6' => 'Projectile',
+'7' => 'Trade Goods','8' => 'Generic','9' => 'Book','10' => 'Money','11' => 'Quiver','12' => 'Quest','13' => 'Key','14' => 'Permanent',
+'15' => 'Junk','16' => 'Glyph');
 
 //itemSubClass
 
 //'classid' => 'subclassid' => 'subclassname' => 'subclassfullname',
 var $itemSubClass = array(
-'0' => array(
-'0' => 'Consumable',
-'5' => 'Food & Drink',
-'1' => 'Potion',
-'2' => 'Elixir',
-'3' => 'Flask',
-'7' => 'Bandage',
-'6' => 'Item Enhancement',
-'4' => 'Scroll',
-'8' => 'Other'),
+'0' => array('0' => 'Consumable','5' => 'Food & Drink','1' => 'Potion','2' => 'Elixir','3' => 'Flask','7' => 'Bandage','6' => 'Item Enhancement',
+'4' => 'Scroll','8' => 'Other'),
 
-'1' => array(
-'0' => 'Bag',
-'1' => 'Soul Bag',
-'2' => 'Herb Bag',
-'3' => 'Enchanting Bag',
-'4' => 'Engineering Bag',
-'5' => 'Gem Bag',
-'6' => 'Mining Bag',
-'7' => 'Leatherworking Bag',
-'8' => 'Inscription Bag',
-'9' => 'Tackle Box'),
+'1' => array('0' => 'Bag','1' => 'Soul Bag','2' => 'Herb Bag','3' => 'Enchanting Bag','4' => 'Engineering Bag','5' => 'Gem Bag','6' => 'Mining Bag',
+'7' => 'Leatherworking Bag','8' => 'Inscription Bag','9' => 'Tackle Box'),
 
-'2' => array(
-'0' => 'Axe',
-'1' => 'Axe',
-'2' => 'Bow',
-'3' => 'Gun',
-'4' => 'One-Handed Mace',
-'5' => 'Two-Handed Mace',
-'6' => 'Polearm',
-'7' => 'One-Handed Sword',
-'8' => 'Two-Handed Sword',
-'9' => 'Obsolete',
-'10' => 'Stave',
-'11' => 'One-Handed Exotic',
-'12' => 'Two-Handed Exotic',
-'13' => 'Fist Weapon',
-'14' => 'Miscellaneous',
-'15' => 'Dagger',
-'16' => 'Thrown',
-'17' => 'Spear',
-'18' => 'Crossbow',
-'19' => 'Wand',
-'20' => 'Fishing Pole'),
+'2' => array('0' => 'Axe','1' => 'Axe','2' => 'Bow','3' => 'Gun','4' => 'One-Handed Mace','5' => 'Two-Handed Mace','6' => 'Polearm','7' => 'One-Handed Sword',
+'8' => 'Two-Handed Sword','9' => 'Obsolete','10' => 'Stave','11' => 'One-Handed Exotic','12' => 'Two-Handed Exotic','13' => 'Fist Weapon','14' => 'Miscellaneous',
+'15' => 'Dagger','16' => 'Thrown','17' => 'Spear','18' => 'Crossbow','19' => 'Wand','20' => 'Fishing Pole'),
 
-'3' => array(
-'0' => 'Red',
-'1' => 'Blue',
-'2' => 'Yellow',
-'3' => 'Purple',
-'4' => 'Green',
-'5' => 'Orange',
-'6' => 'Meta',
-'7' => 'Simple',
-'8' => 'Prismatic',
-'9' => 'Hydraulic',
-'10' => 'Cogwheel'),
+'3' => array('0' => 'Red','1' => 'Blue','2' => 'Yellow','3' => 'Purple','4' => 'Green','5' => 'Orange','6' => 'Meta','7' => 'Simple','8' => 'Prismatic',
+'9' => 'Hydraulic','10' => 'Cogwheel'),
 
-'4' => array(
-'0' => 'Miscellaneous',
-'1' => 'Cloth',
-'2' => 'Leather',
-'3' => 'Mail',
-'4' => 'Plate',
-'5' => 'Bucklers',
-'6' => 'Shield',
-'7' => 'Libram',
-'8' => 'Idol',
-'9' => 'Totem',
-'10' => 'Sigil',
-'11' => 'Relic'),
+'4' => array('0' => 'Miscellaneous','1' => 'Cloth','2' => 'Leather','3' => 'Mail','4' => 'Plate','5' => 'Bucklers','6' => 'Shield','7' => 'Libram',
+'8' => 'Idol','9' => 'Totem','10' => 'Sigil','11' => 'Relic'),
 
-'5' => array(
-'0' => 'Reagent'),
+'5' => array('0' => 'Reagent'),
 
-'6' => array(
-'0' => 'Wand(OBSOLETE)',
-'1' => 'Bolt(OBSOLETE)',
-'2' => 'Arrow',
-'3' => 'Bullet',
-'4' => 'Thrown(OBSOLETE)'),
+'6' => array('0' => 'Wand(OBSOLETE)','1' => 'Bolt(OBSOLETE)','2' => 'Arrow','3' => 'Bullet','4' => 'Thrown(OBSOLETE)'),
 
-'7' => array(
-'0' => 'Trade Goods',
-'10' => 'Elemental',
-'15' => 'Weapon Enchantment - Obsolete',
-'5' => 'Cloth',
-'6' => 'Leather',
-'7' => 'Metal & Stone',
-'8' => 'Meat',
-'9' => 'Herb',
-'12' => 'Enchanting',
-'4' => 'Jewelcrafting',
-'1' => 'Parts',
-'3' => 'Devices',
-'2' => 'Explosives',
-'13' => 'Materials',
-'11' => 'Other',
-'14' => 'Item Enchantment'),
+'7' => array('0' => 'Trade Goods','10' => 'Elemental','15' => 'Weapon Enchantment - Obsolete','5' => 'Cloth','6' => 'Leather','7' => 'Metal & Stone','8' => 'Meat',
+'9' => 'Herb','12' => 'Enchanting','4' => 'Jewelcrafting','1' => 'Parts','3' => 'Devices','2' => 'Explosives','13' => 'Materials','11' => 'Other','14' => 'Item Enchantment'),
 
 //'0' => 'Generic(OBSOLETE)',
 
-'9' => array(
-'0' => 'Book',
-'1' => 'Leatherworking',
-'2' => 'Tailoring',
-'3' => 'Engineering',
-'4' => 'Blacksmithing',
-'5' => 'Cooking',
-'6' => 'Alchemy',
-'7' => 'First Aid',
-'8' => 'Enchanting',
-'9' => 'Fishing',
-'10' => 'Jewelcrafting',
-'11' => 'Inscription'),
-
+'9' => array('0' => 'Book','1' => 'Leatherworking','2' => 'Tailoring','3' => 'Engineering','4' => 'Blacksmithing','5' => 'Cooking','6' => 'Alchemy','7' => 'First Aid',
+'8' => 'Enchanting','9' => 'Fishing','10' => 'Jewelcrafting','11' => 'Inscription'),
 //'0' => 'Money(OBSOLETE)',
 
-'11' => array(
-'0' => 'Quiver(OBSOLETE)',
-'1' => 'Quiver(OBSOLETE)',
-'2' => 'Quiver',
-'3' => 'Ammo Pouch'),
+'11' => array('0' => 'Quiver(OBSOLETE)','1' => 'Quiver(OBSOLETE)','2' => 'Quiver','3' => 'Ammo Pouch'),
 
 '12' => array('0' => 'Quest'),
 
-'13' => array(
-'0' => 'Key',
-'1' => 'Lockpick'),
+'13' => array('0' => 'Key','1' => 'Lockpick'),
 
 '14' => array('0' => 'Permanent'),
 
-'15' => array(
-'0' => 'Junk',
-'1' => 'Reagent',
-'2' => 'Pet',
-'3' => 'Holiday',
-'4' => 'Other',
-'5' => 'Mount'),
+'15' => array('0' => 'Junk','1' => 'Reagent','2' => 'Pet','3' => 'Holiday','4' => 'Other','5' => 'Mount'),
 
-'16' => array(
-'1' => 'Warrior',
-'2' => 'Paladin',
-'3' => 'Hunter',
-'4' => 'Rogue',
-'5' => 'Priest',
-'6' => 'Death Knight',
-'7' => 'Shaman',
-'8' => 'Mage',
-'9' => 'Warlock',
-'11' => 'Druid'));
+'16' => array('1' => 'Warrior','2' => 'Paladin','3' => 'Hunter','4' => 'Rogue','5' => 'Priest','6' => 'Death Knight','7' => 'Shaman','8' => 'Mage',
+'9' => 'Warlock','11' => 'Druid'));
 
-var $slotType = array(
-'0' => 'None',
-'1' => 'Head',
-'2' => 'Neck',
-'3' => 'Shoulder',
-'4' => 'Shirt',
-'5' => 'Chest',
-'6' => 'Waist',
-'7' => 'Legs',
-'8' => 'Feet',
-'9' => 'Wrist',
-'10' => 'Hands',
-'11' => 'Finger',
-'12' => 'Trinket',
-'13' => 'One-Hand',
-'14' => 'Shield',
-'15' => 'Ranged',
-'16' => 'Cloak',
-'17' => 'Two-Hand',
-'18' => 'Bag',
-'19' => 'Tabard',
-'20' => 'Robe',
-'21' => 'Main Hand',
-'22' => 'Off Hand',
-'23' => 'Held In Off-hand',
-'24' => 'Ammo',
-'25' => 'Thrown',
-'26' => 'Ranged Right',
+var $slotType = array('0' => 'None','1' => 'Head','2' => 'Neck','3' => 'Shoulder','4' => 'Shirt','5' => 'Chest','6' => 'Waist','7' => 'Legs','8' => 'Feet',
+'9' => 'Wrist','10' => 'Hands','11' => 'Finger','12' => 'Trinket','13' => 'One-Hand','14' => 'Shield','15' => 'Ranged','16' => 'Cloak','17' => 'Two-Hand',
+'18' => 'Bag','19' => 'Tabard','20' => 'Robe','21' => 'Main Hand','22' => 'Off Hand','23' => 'Held In Off-hand','24' => 'Ammo','25' => 'Thrown','26' => 'Ranged Right',
 '28' => 'Relic');
 
 
