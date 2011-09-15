@@ -97,7 +97,6 @@ class character extends Resource {
 			}
 		
 		}
-		echo $this->x.'<br>';
 		return $this->x;
 	}
 	/**
