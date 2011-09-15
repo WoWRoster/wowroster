@@ -352,7 +352,6 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 				$tt['Attributes']['WeaponSlot'] = ''.$this->slotType[$data['inventoryType']].'';
 				$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
 				$tt['Attributes']['WeaponDamage'] = $data['weaponInfo']['damage'][0]['minDamage'].' - '.$data['weaponInfo']['damage'][0]['maxDamage'];
-				echo $data['weaponInfo']['dps'].'<br>';
 				$tt['Attributes']['WeaponDPS'] = number_format($data['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
 				$this->isWeapon = true;
 				
@@ -639,7 +638,7 @@ function _getCaption()
 		}
 		if( isset($this->attributes['WeaponDPS']) )
 		{
-			$html .= '('.$this->attributes['WeaponDPS'] . ' damage per second)<br>';
+			$html .= '('.$this->attributes['WeaponDPS'] . ' damage per second)<br />';
 		}
 
 		return $html;
