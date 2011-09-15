@@ -127,6 +127,52 @@ abstract class Resource {
 
 		return $info;
 	}
+	function seterrors($errors)
+	{
+		$this->errors[] = $errors;
+	}
+
+
+	/**
+	 * Returns all errors
+	 *
+	 * @return string
+	 */
+	function geterrors()
+	{
+		return implode("\n",$this->errors) . "\n";
+	}
+
+
+	/**
+	 * Resets the stored errors
+	 *
+	 */
+	function reseterrors()
+	{
+		$this->errors = array();
+	}
+	public function transhttpciode($code)
+	{
+		switch ($code)
+		{
+			case '404':
+				return 'A request was made to a resource that doesn\'t exist.';
+			break;
+			case '500':
+				return 'If at first you don\'t succeed, blow it up again';			
+			break;
+			case '200':
+				return 'Access to this API url is Restricted';			
+			break;
+			case '303':
+				return 'Local Cache file used.';			
+			break;
+			
+			default:
+			break;
+		}	
+	}
 
 	/**
 	 * Returns the URI for use with the request object

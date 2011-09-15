@@ -1248,7 +1248,7 @@ class item
 				}
 			}
 
-			elseif( !$this->isArmor && preg_match("/\b" . $roster->locale->wordings[$locale]['tooltip_reg_weaponorbulletdps'] . "\b/i", $line) )
+			elseif( $this->isWeapon && preg_match("/" . $roster->locale->wordings[$locale]['tooltip_reg_weaponorbulletdps'] . "/", $line) )
 			{
 				$tt['Attributes']['WeaponDPS'] = $line;
 				$this->isWeapon = true;

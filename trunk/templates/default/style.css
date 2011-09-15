@@ -92,8 +92,8 @@ textbox {
 }
 
 .realm { background: url(images/bg_neutral.png) no-repeat left top; }
-.alliance { background: url(images/bg_alliance.png) no-repeat left top; }
-.horde { background: url(images/bg_horde.png) no-repeat left top; }
+.alliance { background: url(images/bg_alliance_new.png) no-repeat left top; }
+.horde { background: url(images/bg_horde_new.png) no-repeat left top; }
 
 .info-header .text { position: absolute; left: 160px; top: 35px; color: #FFFFFF; text-align: left; padding: 0; width: 580px; text-shadow:1px 2px 0 #000000; }
 .info-header .text:hover { background: none; }
