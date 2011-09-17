@@ -31,16 +31,16 @@ class talents extends Resource {
 	 */
 	public function getTalentInfo($class) {
 		
-		if (empty($class))
+		if ($class == '')
 		{
 			throw new ResourceException('No Class Given.');
 		} 
 		else
 		{
 			$data = $this->consume('talents', array(
-			'data' => $fd,
-			'dataa' => $realm.'/'.$char,
-			'server' => $realm,
+			'data' => '',
+			'dataa' => '',
+			'server' => '',
 			'name' => $class,
 			'header'=>"Accept-language: enUS\r\n"
 			));
