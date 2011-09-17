@@ -22,10 +22,11 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 if (isset($_POST['process']) && $_POST['process'] == 'process')
 {
 	//	aprint($_POST);
-	$i = $_POST['class_id'];
-	$talents = $roster->api->Talents->getTalentInfo(''.$i.'');
+	$classid = (isset($_POST['class_id']) ? $_POST['class_id'] : $_GET['class']);
+	echo '<br>--[ '.$classid.' ]--<br>';
+	$talents = $roster->api->Talents->getTalentInfo($classid);
 	
-	$querystr = "DELETE FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $_POST['class_id'] . "';";
+	$querystr = "DELETE FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $classid . "';";
 	if (!$roster->db->query($querystr))
 	{
 		$roster->set_message('Talent Data Table could not be emptied.', '', 'error');
@@ -33,7 +34,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		return;
 	}
 
-	$querystr = "DELETE FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $_POST['class_id'] . "';";
+	$querystr = "DELETE FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $classid . "';";
 	if (!$roster->db->query($querystr))
 	{
 		$roster->set_message('Talent Tree Data Table could not be emptied.', '', 'error');
@@ -42,10 +43,9 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 	}
 
 	$treenum = 1;
-//$i=$tid;
+
 	foreach ($talents['talentData']['talentTrees'] as $a => $treedata)
 	{
-		
 
 		foreach ($treedata['talents'] as $t => $talent)
 		{
@@ -56,7 +56,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 					'talent_id'  => $talent['id'],
 					'talent_num' => $t,
 					'tree_order' => $treenum,
-					'class_id'   => $i,
+					'class_id'   => $classid,
 					'name'       => $talent['name'],
 					'tree'       => $treedata['name'],
 					'tooltip'    => tooltip($ranks['description']),
@@ -77,7 +77,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		$values = array(
 			'tree'       => $treedata['name'],
 			'order'      => $treenum,
-			'class_id'   => $i,
+			'class_id'   => $classid,
 			'background' => strtolower($treedata['backgroundFile']),
 			'icon'       => $treedata['icon'],
 			'tree_num'   => $treenum
@@ -93,12 +93,12 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 	}
 
 
-	$roster->set_message(sprintf($roster->locale->act['adata_update_class'], $roster->locale->act['id_to_class'][$_POST['class_id']]));
+	$roster->set_message(sprintf($roster->locale->act['adata_update_class'], $roster->locale->act['id_to_class'][$classid]));
 	$roster->set_message(sprintf($roster->locale->act['adata_update_row'], $count));
 }
 if (isset($_GET['parse']) && $_GET['parse'] == 'all'){
 
-	$classes = array('1','2','3','4','5','6','7','8','9','11','pet');
+	$classes = array('1','2','3','4','5','6','7','8','9','11','0');
 	
 	foreach ($classes as $tid)
 	{
@@ -180,8 +180,12 @@ if (isset($_GET['parse']) && $_GET['parse'] == 'all'){
 	}
 }
 //echo 'will have update information for talents';
+$array1 = $roster->locale->act['class_to_id'];
+$array2 = array('Pets' => 0);
+$classes = array_merge($array1, $array2);
 
-foreach ($roster->locale->act['class_to_id'] as $class => $num)
+
+foreach ($classes as $class => $num)
 {
 	$querystra = $classr = $resulta = 0;
 	$querystra = "SELECT * FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $num . "';";
@@ -191,21 +195,41 @@ foreach ($roster->locale->act['class_to_id'] as $class => $num)
 
 	$roster->tpl->assign_block_vars('classes', array(
 		'NAME'       => $class,
-		'ID'         => $roster->locale->act['class_to_id'][$class],
-		'UPDATELINK' => makelink('&amp;class=' . $roster->locale->act['class_to_id'][$class]),
+		'ID'         => $num,
+		'UPDATELINK' => makelink('&amp;class=' . $num),
 		'ROWS'       => $classr,
 		'ROW'        => (($i % 2) + 1)
 		)
 	);
 }
-$roster->tpl->assign_block_vars('classes', array(
-		'NAME'       => 'pets',
-		'ID'         => 'pets',
-		'UPDATELINK' => makelink('&amp;class=pets'),
-		'ROWS'       => '--',
-		'ROW'        => (($i % 2) + 1)
-		)
-	);
+	
+	$queryx = "SELECT * FROM `" . $roster->db->table('api_usage') . "` ORDER BY `date` DESC LIMIT 0,150;";
+	$resultx = $roster->db->query($queryx);
+	$usage = array();
+	while ($row = $roster->db->fetch($resultx))
+	{
+		$usage[$row['date']][$row['type']]['total']=$row['total'];
+	}
+
+	
+	foreach($usage as $date => $x)
+	{
+		$roster->tpl->assign_block_vars('apiusage', array(
+				'DATE'	=> $date
+			)
+		);
+		foreach($x as $type => $d)
+		{
+			$roster->tpl->assign_block_vars('apiusage.type', array(
+					'TYPE'       => $type,
+					'REQ'         => $d['total'],
+					'PERCENT'       => ($d['total']/3000*100).'% (Based on daily limit of 3000 with no API key)',
+					'ROW_CLASS'        => (($i % 2) + 1)
+				)
+			);
+		}
+	}
+	
 $roster->tpl->set_filenames(array('body' => 'admin/armory_data.html'));
 $body = $roster->tpl->fetch('body');
 

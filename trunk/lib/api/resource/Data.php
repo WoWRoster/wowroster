@@ -88,6 +88,20 @@ class Data extends Resource {
 		}
 		return $data;
 	}
+	
+	public function getGuildAchieInfo() {
+		
+			$data = $this->consume('gachievements', array(
+			'data' => '',
+			'dataa' => $achiID.'-achiv',
+			'server' => '',
+			'name' => $achiID,
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		return $data;
+	}
+	
+	
 
 	public function getAchievInfo() {
 		
