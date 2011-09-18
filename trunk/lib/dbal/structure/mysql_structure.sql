@@ -48,6 +48,18 @@ CREATE TABLE `renprefix_addon_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
+### API Usage
+
+DROP TABLE IF EXISTS `renprefix_api_usage`;
+CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(50) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `total` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
 ### Buffs
 
 DROP TABLE IF EXISTS `renprefix_buffs`;
@@ -967,12 +979,3 @@ CREATE TABLE `renprefix_webdb_cache` (
   `source_id` smallint(8) NOT NULL COMMENT 'source data was collected from',
   PRIMARY KEY  (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `renprefix_api_usage`;
-CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(50) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `total` int(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

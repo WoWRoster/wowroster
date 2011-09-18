@@ -133,7 +133,9 @@ class Upgrade {
 		}
 
 		if (version_compare($roster->config['version'], '2.1.9.2352', '<')) {
-			$roster->set_message('api usage table');
+			$roster->set_message('Adding RosterAPI usage table');
+
+			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('api_usage') . "`;");
 			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('api_usage')."` (
 				`id` int(11) NOT NULL AUTO_INCREMENT,
 				`type` varchar(50) DEFAULT NULL,
@@ -141,8 +143,8 @@ class Upgrade {
 				`total` int(10) NOT NULL DEFAULT '0',
 				PRIMARY KEY (`id`)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
-			
 		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
