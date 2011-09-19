@@ -749,6 +749,7 @@ class memberslist
 		return '<div style="display:none;">' . str_pad($row['level'],2,'0',STR_PAD_LEFT) . '</div>' . $cell_value;
 	}
 
+	
 	/**
 	 * Controls Output of the Honor Column
 	 *
