@@ -16,13 +16,12 @@ $members_list_select .='`rep`.`curr_rep`, '.
 	'`rep`.`AtWar`, '.
 	'`rep`.`Standing`, '.
 	"`rep`.`name` AS 'repname', ".
-	//"GROUP_CONCAT( DISTINCT CONCAT( `rep`.`name` , '|', `rep`.`Standing` ) ) as repx, ".
 	"IF( `rep`.`Standing` IS NULL OR `rep`.`Standing` = '', 1, 0 ) AS `repisnull`, ";
 	
 $members_list_table .='LEFT JOIN `'.$roster->db->table('reputation').'` AS rep ON `members`.`member_id` = `rep`.`member_id` ';
+
 $members_list_where['guild_rep'] = "`rep`.`name` = '".$roster->data['guild_name']."' OR `rep`.`name` IS NULL";
-//$members_list_where['guild_rep'] = "if (repisnull, `rep`.`name` = '".$roster->data['guild_name']."','')";
-//$members_list_where;//['guild_rep'] = '`rep`.`name` = "'.$roster->data['guild_name'].'" ';
+
 $members_list_fields['guild_rep'] = array (
 	'lang_field' => 'reputation',
 	'value'      => 'guild_rep',
@@ -45,7 +44,7 @@ function guild_rep ( $row, $field )
 			$cell_value = '<div ' . $tooltip . ' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">' . $row['Standing'] . '</div></div>';
 			$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 			$cell_value .= '<tr>';
-			$cell_value .= '<td style="background-image: url(\'' . $roster->config['img_url'] . 'expbar-var2.gif\');" width="' . $percentage . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>';
+			$cell_value .= '<td style="background-image: url(\'' . $roster->config['theme_path'] . '/images/bars/' . strtolower($row['Standing']).'.gif\');" width="' . $percentage . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>';
 			$cell_value .= '<td width="' . (100 - $percentage) . '%"></td>';
 			$cell_value .= "</tr>\n</table>\n</div>\n";
 		
