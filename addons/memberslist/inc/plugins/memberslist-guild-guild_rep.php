@@ -10,28 +10,37 @@
  * @package    MembersList
  * @subpackage MemberList Plugins
  */
- 
-$members_list_select .='`rep`.`curr_rep`, '.
-	'`rep`.`max_rep`, '.
-	'`rep`.`AtWar`, '.
-	'`rep`.`Standing`, '.
-	"`rep`.`name` AS 'repname', ".
-	"IF( `rep`.`Standing` IS NULL OR `rep`.`Standing` = '', 1, 0 ) AS `repisnull`, ";
+
+class guild_rep
+{
+
+	var $members_list_select;
+	var $members_list_table;
+	var $members_list_where = array();
+	var $members_list_fields = array();
 	
-$members_list_table .='LEFT JOIN `'.$roster->db->table('reputation').'` AS rep ON `members`.`member_id` = `rep`.`member_id` ';
+	public function __construct()
+	{
+		global $roster;
+		$this->members_list_select = '`rep`.`curr_rep`, `rep`.`max_rep`, `rep`.`AtWar`, `rep`.`Standing`, `rep`.`name` AS \'repname\', IF( `rep`.`Standing` IS NULL OR `rep`.`Standing` = \'\', 1, 0 ) AS `repisnull`, ';
 
-$members_list_where['guild_rep'] = "`rep`.`name` = '".$roster->data['guild_name']."' OR `rep`.`name` IS NULL";
+		$this->members_list_table = 'LEFT JOIN `'.$roster->db->table('reputation').'` AS rep ON `members`.`member_id` = `rep`.`member_id` ';
 
-$members_list_fields['guild_rep'] = array (
-	'lang_field' => 'reputation',
-	'value'      => 'guild_rep',
-	'order'      => array( '`rep`.`max_rep` ASC','`rep`.`curr_rep` ASC' ),
-	'order_d'    => array( '`rep`.`max_rep` DESC','`rep`.`curr_rep` DESC' ),
-	'filter'     => false,
-	'display'    => 5
-);
+		$this->members_list_where['guild_rep'] = "`rep`.`name` = '".$roster->data['guild_name']."' OR `rep`.`name` IS NULL";
 
-function guild_rep ( $row, $field )
+		$this->members_list_fields['guild_rep'] = array (
+				'lang_field' => 'reputation',
+				'value'      => 'guild_rep_function::guild_rep',
+				'order'      => array( '`rep`.`max_rep` ASC','`rep`.`curr_rep` ASC' ),
+				'order_d'    => array( '`rep`.`max_rep` DESC','`rep`.`curr_rep` DESC' ),
+				'filter'     => false,
+				'display'    => 5
+			);
+	}
+}
+abstract class guild_rep_function
+{
+	public function guild_rep ( $row, $field )
 	{
 		global $roster, $member_list_where;
 
@@ -56,5 +65,7 @@ function guild_rep ( $row, $field )
 			return $cell_value;
 		}
 	}
+}
+
 	
 ?>

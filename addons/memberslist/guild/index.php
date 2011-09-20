@@ -19,16 +19,10 @@ include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
 
-$members_list_select = $members_list_table = $members_list_where = null;
-$members_list_fields = array();
-	$dir = opendir ($addon['dir'] . 'plugins/');
-	while (($file = readdir($dir)) !== false)
-	{
-		if (strpos($file, '.php',1))
-		{
-			include_once($addon['dir'] . 'plugins/' . $file);
-		}
-	}
+$members_list_select = $memberlist->members_list_select;
+$members_list_table = $memberlist->members_list_table;
+$members_list_where = $memberlist->members_list_where;
+$members_list_fields = $memberlist->members_list_fields;
 
 $mainQuery =
 	'SELECT '.
@@ -82,10 +76,17 @@ $mainQuery =
 	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.$members_list_table;
 
 $where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'" ';
-foreach ($members_list_where as $piwhere => $str)
-{
-	$where[] = $str;
-}
+
+	if (!empty($members_list_where))
+	{
+		foreach ($members_list_where as $piwhere => $str)
+		{
+			foreach ($str as $e)
+			{
+				$where[] = $e;
+			}
+		}
+	}
 $group[] = '`members`.`member_id`';
 $order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
 $order_last[] = '`members`.`level` DESC';
@@ -173,8 +174,12 @@ $FIELD['officer_note'] = array (
 );
 foreach ($members_list_fields as $pifield => $data)
 {
-	$FIELD[$pifield] = $data;
+	foreach ($data as $name => $d)
+	{
+		$FIELD[$name] = $d;
+	}
 }
+
 $memberlist->prepareData($mainQuery, $where, $group, $order_first, $order_last, $FIELD, 'memberslist');
 
 // Start output
@@ -331,5 +336,8 @@ function note_value ( $row, $field )
 
 	return '<div style="display:none;">'.$note.'</div>'.$value;
 }
-//echo '<pre>';
-//print_r($roster);
+/*
+echo'<pre>';
+print_r($roster);
+echo '</pre>';
+*/

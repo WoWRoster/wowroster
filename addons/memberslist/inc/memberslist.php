@@ -29,6 +29,12 @@ class memberslist
 	var $query;						// main query
 	var $wheres;					// where clauses
 	var $orders;					// order clauses
+	// plugin fields to pass
+	var $members_list_select;
+	var $members_list_table;
+	var $members_list_where = array();
+	var $members_list_fields = array();
+	var $plugin_name = array();
 	var $pageanat;
 
 	var $addon;						// MembersList addon data
@@ -90,8 +96,57 @@ class memberslist
 		{
 			$this->addon['config']['openfilter'] = ($_GET['filter'] == 'open') ? 1 : 0;
 		}
+		$this->_initPlugins();
 	}
 
+	
+	/**
+	 * Build the list of plugins to include based on roster scope and if addons have plugins
+	 *
+	 *
+	 */
+	
+	function _initPlugins()
+	{
+		global $roster, $addon;
+		$addons = $roster->addon_data;
+		if( !empty($addons) )
+		{
+			foreach( $addons as $addon_name => $addonx )
+			{
+				$dirx = ROSTER_ADDONS . $addonx['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
+			if (is_dir($dirx))
+			{
+				$dir = opendir ($dirx);
+				while (($file = readdir($dir)) !== false)
+				{
+					if (strpos($file, '.php',1))
+					{
+						$info = pathinfo($file);
+						$file_name =  basename($file,'.'.$info['extension']);
+						list($reqaddon, $scope, $name) = explode('-',$file_name);
+						if ($scope == $roster->scope && $reqaddon == $addon['basename'])
+						{
+							require($dirx . $file);
+							$addonstuff = new $name;
+							$this->members_list_select .= $addonstuff->members_list_select;
+							$this->members_list_table .= $addonstuff->members_list_table;
+							if (isset($addonstuff->members_list_where))
+							{
+								$this->members_list_where[] = $addonstuff->members_list_where;
+							}
+							$this->members_list_fields[] = $addonstuff->members_list_fields;
+						}
+					}
+				}
+			}
+	
+			}
+		}
+	
+		return true;
+	
+	}
 	/**
 	 * Prepare the data to build a memberlist.
 	 *
