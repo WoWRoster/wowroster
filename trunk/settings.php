@@ -214,7 +214,8 @@ unset($locale);
  * since we use it for the API url
  */
 require_once (ROSTER_API . 'api.php');
-$region = str_replace('en' , '' , $roster->config['locale']);
+$regionArray = preg_split('//', $roster->config['locale'], -1, PREG_SPLIT_NO_EMPTY);
+$region = $regionArray[0].$regionArray[1];
 $roster->api = new WowAPI($region);
 
 /**
