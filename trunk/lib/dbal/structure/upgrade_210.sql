@@ -31,6 +31,7 @@ INSERT INTO `renprefix_config` VALUES (1182, 'preprocess_css', '1', 'radio{on^1|
 ### api key settings
 INSERT INTO `renprefix_config` VALUES (10001, 'api_key_private', '', 'text{64|30', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10002, 'api_key_public', '', 'text{64|30', 'update_access');
+INSERT INTO `renprefix_config` VALUES (10003, 'api_url_region', '', 'select{us.battle.net^us|eu.battle.net^eu|kr.battle.net^kr|tw.battle.net^tw', 'update_access');
 
 
 # --------------------------------------------------------

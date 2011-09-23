@@ -144,6 +144,10 @@ class Upgrade {
 				PRIMARY KEY (`id`)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
 		}
+		if (version_compare($roster->config['version'], '2.1.9.2362', '<')) {
+			$roster->set_message('api url settings');
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10003, 'api_url_region', '', 'select{us.battle.net^us|eu.battle.net^eu|kr.battle.net^kr|tw.battle.net^tw', 'update_access');");
+		}
 
 		// Standard Beta Update
 		$this->beta_upgrade();
