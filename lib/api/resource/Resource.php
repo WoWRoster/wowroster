@@ -83,6 +83,10 @@ abstract class Resource {
 		// new cache system see hwo old teh file is only live update files more then X days/hours old
 
 			$url = $this->url->BuildUrl($ui,$method,$params['server'],$params['name'],$params);
+			if (isset($_GET['debug']))
+			{
+				echo '--[ '.$url.' ]--<br>';
+			}
 			$data = $this->Curl->makeRequest($url,null, $params,$url,$method);
 			if ($this->Curl->errno !== CURLE_OK) 
 			{
