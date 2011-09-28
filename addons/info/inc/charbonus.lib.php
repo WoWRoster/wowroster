@@ -376,32 +376,23 @@ class CharBonus
 	{
 		global $roster, $tooltips;
 
-		foreach( $tooltips as $key => $value )
-		{
-			if( strpos($value, addslashes($this->item->name)) )
-			{
+
 				return 	/*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
 						. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 						. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="font-size:12px;"><span style="color:#' . $this->item->color
 						. ';">&nbsp;&nbsp;' . $this->item->name . '</span>&nbsp;:&nbsp;' . $modifier . '</span>';
-			}
-		}
+
 	}
 
 	function _setNewSetBonusHTML( )
 	{
 		global $roster, $tooltips;
 
-		foreach( $tooltips as $key => $value )
-		{
-			if( strpos(substr($value, 0, 256), addslashes($this->item->name)) ) //search the first 256 characters only
-			{
 				return 	/*'<a onmouseover="return overlib2(overlib_' . $key . ',WIDTH,325,HAUTO);" onmouseout="return nd2();">'
 				  	   	. */'<img width="24px" height="24px" src="' . $roster->config['interface_url'] . 'Interface/Icons/'
 				  	   	. $this->item->icon . '.' . $roster->config['img_suffix'] . '"/><span style="color:#' . $this->item->color
 				  		. ';font-size:12px;">&nbsp;&nbsp;' . $this->item->name . '</span>';
-			}
-		}
+
 	}
 
 	function _formatTooltip()

@@ -88,7 +88,7 @@ class char
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
-			'S_MODEL_TAB'   => $roster->auth->getAuthorized($addon['config']['show_model']),
+			'S_MODEL_TAB'   => false,//$roster->auth->getAuthorized($addon['config']['show_model']),
 			'MODEL_URL'     => $model_url != '' ? $model_url : false,
 
 			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
