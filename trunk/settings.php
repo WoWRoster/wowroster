@@ -177,7 +177,7 @@ $roster = new roster();
  * Roster Error Handler
  */
 include (ROSTER_LIB . 'roster_error.php');
-$roster->error = & new roster_error();
+$roster->error = new roster_error();
 
 /**
  * Load the dbal
