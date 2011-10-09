@@ -85,6 +85,9 @@ class roster_config
 	.bind("keyup", function(){
 		$(this).ColorPickerSetColor(this.value);
 		$(this).next().css("background-color", this.value);
+	})
+	.next().click(function(){
+		$(this).prev().click();
 	});
 });';
 		roster_add_js($jscript, 'inline', 'footer');
