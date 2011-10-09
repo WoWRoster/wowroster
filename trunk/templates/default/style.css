@@ -547,6 +547,15 @@ img, p { padding:0;margin:0;border:0; }
 	margin-left: 145px;
 	position: relative;
 }
+
+.config-section a,
+.config-section-addons a {
+	font-size: 12px;
+}
+.config-section-addons {
+	margin-top: 2px;
+}
+
 .config-submit {
 	position: absolute;
 	right: 0;
