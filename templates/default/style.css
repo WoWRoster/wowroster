@@ -10,9 +10,6 @@
  * @since      File available since Release 1.03
  */
 
-@import url('jquery-ui.css');
-@import url('ui.selectmenu.css');
-
 body { background:#000000; font-size:62.5%; }
 a:link,
 a:visited,
@@ -957,9 +954,24 @@ strong.aprint-string-length {
 
 
 /**
- * Color Picker
+ * Color Functions
  */
-
+input.color-picker {
+	margin-right: 0;
+	padding: 2px 2px 3px 6px;
+	vertical-align: middle;
+	border-radius: 6px 0 0 6px;
+}
+div.color-display {
+	width: 20px;
+	height: 18px;
+	background: black;
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 0 6px 6px 0;
+	-moz-border-radius: 0 6px 6px 0;
+	margin-left: 0;
+}
 input.colorinput {
 	font-family: Segoe UI, Arial, sans-serif;
 	font-size: 10px;
@@ -975,7 +987,8 @@ input.colorinput {
 	border-radius: 0;
 	-moz-border-radius: 0;
 }
-* html input.colorinput { background-attachment:fixed; }
+* html input.colorinput,
+* html input.color-picker { background-attachment:fixed; }
 
 #colorPicker {
 	position:absolute;

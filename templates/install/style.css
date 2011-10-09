@@ -1,8 +1,5 @@
 /* $Id$ */
 
-@import url('jquery-ui.css');
-@import url('ui.selectmenu.css');
-
 body { background:#000000; font-size:62.5%; }
 a:link,
 a:visited,
