@@ -5,14 +5,14 @@
 <div class="roster-panel">
 	<div class="container">
 
-		<div class="ui-buttonset">
+		<div class="ui-buttonset config-section">
 <!-- BEGIN pagebar -->
 			<!-- IF pagebar.SPECIAL eq 'divider' --><!-- ELSE --><a class="ui-button ui-widget <!-- IF pagebar.SELECTED -->ui-state-active<!-- ELSE -->ui-state-default<!-- ENDIF --> ui-button-text-only" href="{pagebar.LINK}" role="button"><span class="ui-button-text">{pagebar.NAME}</span></a><!-- ENDIF -->
 <!-- END pagebar -->
 		</div>
 
 <!-- IF ADDON_PAGEBAR -->
-		<div class="ui-buttonset" style="margin-top: 2px;">
+		<div class="ui-buttonset config-section config-section-addons">
 <!-- BEGIN addon_pagebar -->
 			<a class="ui-button ui-widget <!-- IF addon_pagebar.SELECTED -->ui-state-active<!-- ELSE -->ui-state-default<!-- ENDIF --> ui-button-text-only" href="{addon_pagebar.LINK}" role="button"><span class="ui-button-text">{addon_pagebar.NAME}</span></a>
 <!-- END addon_pagebar -->
