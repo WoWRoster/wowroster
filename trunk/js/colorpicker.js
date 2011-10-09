@@ -5,6 +5,7 @@
  * 
  * Dual licensed under the MIT and GPL licenses
  * 
+ * @version SVN: $Id$
  */
 (function ($) {
 	var ColorPicker = function () {
