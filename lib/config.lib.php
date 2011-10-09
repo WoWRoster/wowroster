@@ -60,36 +60,36 @@ class roster_config
 		// Color Picker JS
 		roster_add_js('js/colorpicker.js');
 		$jscript = 
-'$(function() {
-	var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');
-	' . $this->prefix . 'tabs.init();
+			'$(function() {
+				var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');
+				' . $this->prefix . 'tabs.init();
 
-	$(".color-picker").ColorPicker({
-		onSubmit: function(hsb, hex, rgb, el) {
-			$(el).val("#" + hex.toUpperCase());
-			$(el).next().css("background-color", "#" + hex.toUpperCase());
-			$(el).ColorPickerHide();
-		},
-		onShow: function (colpkr) {
-			$(colpkr).fadeIn(500);
-			return false;
-		},
-		onBeforeShow: function () {
-			$(this).ColorPickerSetColor(this.value);
-		},
-		onHide: function (colpkr) {
-			$(colpkr).fadeOut(500);
-			return false;
-		}
-	})
-	.bind("keyup", function(){
-		$(this).ColorPickerSetColor(this.value);
-		$(this).next().css("background-color", this.value);
-	})
-	.next().click(function(){
-		$(this).prev().click();
-	});
-});';
+				$(".color-picker").ColorPicker({
+					onSubmit: function(hsb, hex, rgb, el) {
+						$(el).val("#" + hex.toUpperCase());
+						$(el).next().css("background-color", "#" + hex.toUpperCase());
+						$(el).ColorPickerHide();
+					},
+					onShow: function (colpkr) {
+						$(colpkr).fadeIn(500);
+						return false;
+					},
+					onBeforeShow: function () {
+						$(this).ColorPickerSetColor(this.value);
+					},
+					onHide: function (colpkr) {
+						$(colpkr).fadeOut(500);
+						return false;
+					}
+				})
+				.bind("keyup", function(){
+					$(this).ColorPickerSetColor(this.value);
+					$(this).next().css("background-color", this.value);
+				})
+				.next().click(function(){
+					$(this).prev().click();
+				});
+			});';
 		roster_add_js($jscript, 'inline', 'footer');
 		roster_add_css('templates/' . $roster->tpl->tpl . '/colorpicker.css', 'theme');
 	}

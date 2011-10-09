@@ -124,7 +124,7 @@ class Upgrade {
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1181, 'preprocess_js', '1', 'radio{on^1|off^0', 'main_conf');");
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1182, 'preprocess_css', '1', 'radio{on^1|off^0', 'main_conf');");
 		}
-		
+
 		if (version_compare($roster->config['version'], '2.1.9.2350', '<')) {
 			$roster->set_message('Blizzard API key settings');
 
@@ -144,8 +144,9 @@ class Upgrade {
 				PRIMARY KEY (`id`)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
 		}
+
 		if (version_compare($roster->config['version'], '2.1.9.2362', '<')) {
-			$roster->set_message('api url settings');
+			$roster->set_message('API URL Setting');
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10003, 'api_url_region', '', 'select{us.battle.net^us|eu.battle.net^eu|kr.battle.net^kr|tw.battle.net^tw', 'update_access');");
 		}
 
