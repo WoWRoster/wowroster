@@ -21,6 +21,8 @@ if( !defined('IN_ROSTER') )
 define('R_TPL_VERSION', '2.2.0.0');
 
 roster_add_js('templates/' . $roster->tpl->tpl . '/theme.js');
+roster_add_css('templates/' . $roster->tpl->tpl . '/jquery-ui.css', 'theme');
+roster_add_css('templates/' . $roster->tpl->tpl . '/ui.selectmenu.css', 'theme');
 roster_add_css('templates/' . $roster->tpl->tpl . '/style.css', 'theme');
 
 /**
