@@ -75,7 +75,8 @@ abstract class Resource {
 		$msg = '';
 		if (!in_array($method, $this->methods_allowed)) 
 		{
-			throw new ResourceException('Method not allowed.', 405);
+			$roster->set_message( 'The selected api action is not allowed', 'Method not allowed.', 'error' );
+			//throw new ResourceException('Method not allowed.', 405);
 		}
 		// new prity url builder ... much better then befor...
 		$ui = sprintf(self::API_URI, $this->region);
@@ -90,7 +91,8 @@ abstract class Resource {
 			$data = $this->Curl->makeRequest($url,null, $params,$url,$method);
 			if ($this->Curl->errno !== CURLE_OK) 
 			{
-				throw new ResourceException($this->Curl->error, $this->Curl->errno);
+				//throw new ResourceException($this->Curl->error, $this->Curl->errno);
+				$roster->set_message( 'The selected api action is not allowed'.$this->Curl->errno.'<br>'.$this->Curl->error.'', 'Curl has Failed!', 'error' );
 			}
 			
 			// update the tracker...
@@ -113,8 +115,9 @@ abstract class Resource {
 			if (isset($data['response_headers']) && $data['response_headers']['http_code'] != '200') 
 			{
 				$msg = $this->transhttpciode($data['response_headers']['http_code']);
+				$roster->set_message( ' '.$method.': '.$msg.' : '.$x['reason'].'<br>'.$url.' ', 'Api call fail!', 'error' );
 				//throw new HttpException(json_decode($data['response'], true), $data['response_headers']['http_code']);
-				$this->seterrors(array('type'=>$method,'msg'=>''.$msg.'<br>'.$url.''));
+				//$this->seterrors(array('type'=>$method,'msg'=>''.$msg.'<br>'.$url.''));
 				//$this->query['result'] = false; // over ride cache and set to false no data or no url no file lol
 			}
 		
@@ -122,6 +125,7 @@ abstract class Resource {
 			if (isset($x['reason']))
 			{
 				$this->seterrors(array('type'=>$method,'msg'=>$x['reason']));
+				//$roster->set_message( ' '.$method.': '.$x['reason'].' ', 'Api call fail!', 'error' );
 				$this->query['result'] = false; // over ride cache and set to false no data or no url no file lol
 			}
 			//print_r($data['response_headers']);

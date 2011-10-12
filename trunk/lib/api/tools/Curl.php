@@ -34,6 +34,7 @@ class Curl {
 			);
 	 }
 
+	 /*
 	public function genauth($url)
 	{
 		global $roster;
@@ -50,6 +51,39 @@ class Curl {
 			
 		return $header;
 	}
+	*/
+	
+	public function genauth($path,$method)
+	{
+		global $roster;
+
+		$keys = array(
+			'public' => $roster->config['api_key_public'],
+			'private' => $roster->config['api_key_private']
+		);
+		$headers = '';
+		if ($keys['public'] !== null && $keys['private'] !== null) {
+            $date = gmdate(DATE_RFC1123);
+
+            //Signed requests don't like urlencoded quotes
+            $path = str_replace('%27', '\'',$path); 
+
+            $stringToSign = "$method\n" . $date . "\n".$path."\n";
+            $signature = base64_encode(hash_hmac('sha1',$stringToSign, $keys['private'], true));
+
+            $this->headers['Authorization'] =  "BNET" . " " . $keys['public'] . ":" . $signature;
+            $this->headers['Date'] = $date;
+			$headers .= "\nAuthorization: BNET" . " " . $keys['public'] . ":" . $signature;
+            $headers .= "\nDate: ".$date."\n";
+        }
+		return $headers;
+
+	}
+	public function set($key, $value)
+    {
+        $this->parameters[$key] = $value;
+    }
+	
 	public function makeRequest($url, $method='GET', $options=array(),$uri,$method) 
 	{
 
@@ -84,7 +118,8 @@ class Curl {
 
 		if ($method != 'itemtooltip' && $method != 'talents')
 		{
-		$options['header'] .= $this->genauth($uri);
+			$headersss = $this->genauth($uri,$method);		
+			$options['header'] .= $headersss;
 		}
 		//var_dump($options);
 		// Prepare headers (if applicable)
