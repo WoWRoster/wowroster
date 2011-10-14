@@ -24,63 +24,64 @@ class url {
 	**********************************************/
 	public function BuildUrl($ui,$class,$server,$name,$fields)
 	{
+		global $roster;
 		$name = str_replace('+' , '%20' , urlencode($name));
 		$server = str_replace('+' , '%20' , urlencode($server));
+		$local = 'locale='.$roster->config['api_url_locale'];
 
 		switch ($class)
 		{
 			case 'character':
-				$q = 'api/wow/character/'.$server.'/'.$name.$fields['data'].'';
+				$q = 'api/wow/character/'.$server.'/'.$name.$fields['data'].'&'.$local;
 			break;
 			case 'status':
 				$q = 'api/wow/realm/status?'.$fields['data'].'';
 			break;
 			case 'guild':
-				$q = 'api/wow/guild/'.$server.'/'.$name.'/'.$fields['data'].'';
+				$q = 'api/wow/guild/'.$server.'/'.$name.'/'.$fields['data'].'&'.$local;
 			break;
 			case 'team':
-				$q = 'api/wow/arena/'.$field['server'].'/'.$field['size'].'/'.$field['name'].'';
+				$q = 'api/wow/arena/'.$field['server'].'/'.$field['size'].'/'.$field['name'].'?'.$local;
 			break;
 			
 			case 'item':
-				$q = 'api/wow/item/'.$name;
+				$q = 'api/wow/item/'.$name.'?'.$local;
 			break;
 			
 			case 'gperks':
-				$q = 'api/wow/data/guild/perks';
+				$q = 'api/wow/data/guild/perks?'.$local;
 			break;
 			
 			case 'gachievements':
-				$q = 'api/wow/data/guild/achievements';
+				$q = 'api/wow/data/guild/achievements?'.$local;
 			break;
 			case 'grewards':
-				$q = 'api/wow/data/guild/rewards';
-			break;
+				$q = 'api/wow/data/guild/rewards?'.$local;
 			
 			case 'races':
-				$q = 'api/wow/data/character/races';
+				$q = 'api/wow/data/character/races?'.$local;
 			break;
 
 			case 'achievement':
-				$q = 'api/wow/data/character/achievements';
+				$q = 'api/wow/data/character/achievements?'.$local;
 			break;
 			
 			case 'quests':
-				$q = '/api/wow/quest/'.$name.'';
+				$q = '/api/wow/quest/'.$name.'?'.$local;
 			break;
 			
 			case 'ladder':
-				$q = '/api/wow/pvp/arena/'.$field['server'].'/'.$field['size'].'';
+				$q = '/api/wow/pvp/arena/'.$field['server'].'/'.$field['size'].'?'.$local;
 			break;
 			case 'talents':
 				// http://us.battle.net/wow/talents/class/3?jsonp=Talents
 				if ($name =='0')
 				{
-				$q = 'wow/talents/pet?jsonp=';
+				$q = 'wow/talents/pet?jsonp=?'.$local;
 				}
 				else
 				{
-				$q = 'wow/talents/class/'.$name.'?jsonp=';
+				$q = 'wow/talents/class/'.$name.'?jsonp=?'.$local;
 				}
 			break;
 			
