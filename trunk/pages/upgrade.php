@@ -149,6 +149,11 @@ class Upgrade {
 			$roster->set_message('API URL Setting');
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10003, 'api_url_region', '', 'select{us.battle.net^us|eu.battle.net^eu|kr.battle.net^kr|tw.battle.net^tw', 'update_access');");
 		}
+		if (version_compare($roster->config['version'], '2.1.9.2372', '<')) {
+			$roster->set_message('API URL Setting');
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10004, 'api_url_locale', 'en_US', 'select{us.battle.net (en_US)^en_US|us.battle.net (es_MX)^es_MX|eu.battle.net (en_GB)^en_GB|eu.battle.net (es_ES)^es_ES|eu.battle.net (fr_FR)^fr_FR|eu.battle.net (ru_RU)^ru_RU|eu.battle.net (de_DE)^de_DE|kr.battle.net (ko_kr)^ko_kr|tw.battle.net (zh_TW)^zh_TW|battlenet.com.cn (zh_CN)^zh_CN', 'update_access');");
+			
+		}
 
 		// Standard Beta Update
 		$this->beta_upgrade();
