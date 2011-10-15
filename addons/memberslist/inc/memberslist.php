@@ -440,7 +440,16 @@ class memberslist
 			{
 				if ( isset( $DATA['value'] ) )
 				{
-					$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
+					//$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
+					if (!is_array($DATA['value']) && preg_match('/::/', $DATA['value'])) 
+					{
+						$tmp = explode('::', $DATA['value']);
+						$cell_value = call_user_func(array($tmp[0], $tmp[1]), $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
+					} 
+					else
+					{					
+						$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
+					}
 				}
 				else
 				{
