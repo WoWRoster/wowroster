@@ -24,7 +24,7 @@ $lang['memberslist_Honor']		= 'Ehre|Zeigt die PvP-Informationen jedes Gildenmitg
 $lang['memberslist_Log']		= 'Mitglieder Log|Zeigt das Upload Log für neue und entfernte Mitglieder an';
 $lang['memberslist_Realm']		= 'Mitglieder|Zeigt die Mitgliederliste für alle Gilden auf allen Servern an';
 $lang['memberslist_RealmGuild']	= 'Gilden|Zeigt eine Liste für alle Gilden auf allen Realms an';
-$lang['memberslist_Skills']		= 'Skills|Displays each member\'s skills';
+$lang['memberslist_Skills']		= 'Berufe|Zeigt die Berufe jedes Mitgliedes';
 
 // Interface wordings
 $lang['memberssortfilter']		= 'Sortierreihenfolge und Filterung';
@@ -48,7 +48,7 @@ $lang['arenapoints']            = 'Arenapunkte';
 
 $lang['main_name']              = 'Hauptcharaktername';
 $lang['alt_type']               = 'Twink Typ';
-$lang['mainless_alt']           = 'Mainless Alt';
+$lang['mainless_alt']           = 'Twink ohne Main';
 $lang['ma']                     = 'MA';
 
 $lang['xp_to_go']               = '%1$s EP bis Stufe %2$s';
@@ -82,6 +82,9 @@ $lang['memberslist_config']		= 'Gehe zur Mitgliederliste-Konfiguration';
 $lang['memberslist_config_page']= 'Mitgliederliste-Konfiguration';
 $lang['documentation']			= 'Dokumentation';
 $lang['uninstall']				= 'Deinstallieren';
+
+// Reputation
+$lang['reputation'] = 'Gildenruf';
 
 // Page names
 $lang['admin']['main']			= 'Start|Zurück zur Hauptseite der Konfiguration.';
@@ -183,3 +186,4 @@ $lang['admin']['defmain']       = 'Kein Ergebnis|Setze wie die Charaktere defini
 $lang['admin']['invmain']       = 'Ungültiges Ergebnis|Setze wie die Charaktere definiert werden sollen, <br />wenn der Regex ein Ergebnis ausgibt, dass kein Gildenmitglied oder kein Hauptcharakter ist.';
 $lang['admin']['altofalt']      = 'Twink des Twinks|Gib an, was zu tun ist, wenn der Charakter ein hauptcharakterloser Twink ist.';
 $lang['admin']['update_type']   = 'Aktualisierungstyp|Gib an, an welchem Auslöser die Hauptchar/Twink Beziehungen aktualisiert werden sollen.';
+
