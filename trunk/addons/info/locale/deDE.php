@@ -25,17 +25,17 @@ $lang['cb_bags'] = 'Taschen|Zeigt den Inhalt der Taschen dieses Charakters';
 $lang['cb_bank'] = 'Bank|Zeigt den Inhalt der Bank dieses Charakters';
 $lang['cb_quests'] = 'Quests|Eine Liste der Quests, die dieser Charakter momentan hat';
 $lang['cb_recipes'] = 'Rezepte|Zeigt die Gegenstände, die dieser Charakter herstellen kann';
-$lang['cb_inventory'] = 'Inventory|Shows the current inventory of the players bank and bags';
+$lang['cb_inventory'] = 'Inventar|Zeigt das komplette Inventar (Bank, Taschen, Equipment) eines Charakters';
 
 $lang['char_stats'] = 'Charakterwerte für: %1$s';
 $lang['talents'] = 'Talente';
-$lang['talent_specialization'] = 'Talent Specialization';
+$lang['talent_specialization'] = 'Talent Spezialisierung';
 $lang['unusedtalentpoints']='Unbenutzte Talentpunkte';
 $lang['hybrid']='Hybrid';
 
-$lang['pets']='Pets';
-$lang['companions']='Companions';
-$lang['mounts']='Mounts';
+$lang['pets']='Haustiere';
+$lang['companions']='Begleiter';
+$lang['mounts']='Reittiere';
 $lang['unusedtrainingpoints']='Unbenutzte Trainingspunkte';
 
 // Spellbook
@@ -43,7 +43,7 @@ $lang['spellbook'] = 'Zaubersprüche';
 $lang['no_spellbook'] = 'Keine Zaubersprüche für %1$s';
 
 // Currency
-$lang['currency'] = 'Currency';
+$lang['currency'] = 'Währungen';
 
 // Mailbox
 $lang['mailbox'] = 'Postfach';
@@ -91,7 +91,7 @@ $lang['Trinket0']      = 'Schmuck 0';
 $lang['Trinket1']      = 'Schmuck 1';
 
 //tabs
-$lang['profile']='Profile';
+$lang['profile']='Profil';
 $lang['model_viewer']='Model Viewer';
 $lang['reputation']='Ruf';
 $lang['skills']='Fertigk.';
@@ -217,7 +217,7 @@ $lang['item_bonuses_preg_replacements'] =
 		'+XX $1 Schaden', //7
 		'+XX $1 Zaubertrefferwertung', //8
 		'+XX Zaubertrefferwertung:+XX Heilungszauber', //8.5
-		'+XX Ranged Damage (Scope)', //9
+		'+XX Fernkampfschaden (Scope)', //9
 		'+XX Blockwertung', //10
 		'+XX Stärke:+XX Beweglichkeit:+XX Ausdauer:+XX Intelligenz:+XX Willenskraft', //11
 		'+XX Arkanwiderstand:+XX Feuerwiderstand:+XX Naturwiderstand:+XX Frostwiderstand:+XX Schattenwiderstand', //12
@@ -286,13 +286,13 @@ $lang['admin']['mail_disp'] = "Post Anzeige|Einstellen ob Post angezeigt werden 
 $lang['admin']['show_money'] = "Gold|Anzeige des Goldes im Rucksack<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_played'] = "Zeit gespielt|Einstellen der Anzeige der Gesamtenspielzeit und der Spielzeit auf dem Level<br /><br />Diese Einstellung ist Global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_model'] = "Model Viewer|Controls the display of Blizzard's Model Viewer<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_pets'] = "Begleiter|Kontrolliere die Begleiteranzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_pets'] = "Haustiere|Kontrolliere die Anzeige der Haustiere<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_reputation'] = "Ruf|Kontrolliert die Rufanzeige<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_skills'] = "Zaubersprüche|Kontrolliert die Anzeuge der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_skills'] = "Zaubersprüche|Kontrolliert die Anzeige der Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_honor'] = "PvP|Kontrolliert die Anzeige des PvP<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_currency'] = "Currency|Controls the display of the Currency Page<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_currency'] = "Währung|Kontrolliert die Anzeige der Währung<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_talents'] = "Talente|Anzeige der Talente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_glyphs'] = "Glyphs|Controls the display of Glpyhs<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_glyphs'] = "Glyphen|Kontrolliert die Anzeige der Glyphen<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_spellbook'] = "Zaubersprüche|Anzeige des Zauberbuchs<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_mail'] = "Postfach|Anzeige des Postfaches<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_bags'] = "Taschen|Anzeige der Taschen<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
@@ -303,10 +303,10 @@ $lang['admin']['show_bg'] = "Schlachtfeld PvPLog Daten|Anzeige der Schlachtfeld-
 $lang['admin']['show_pvp'] = "PvPLog Daten|Anzeige der PvPLog Daten<br />Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_duels'] = "Duell PvPLog Daten|Anzeige der Duell PvPLog Data<br />Benötigt das Hochladen der PvP-Daten mittels des PvPLog-Addons<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 $lang['admin']['show_item_bonuses'] = "Gegenstands Boni|Anzeige der Boni durch angelegte Gegenstände<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
-$lang['admin']['show_pet_talents'] = "Pet Talents|Controls the display of Pet Talents<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_pet_spells'] = "Pet Spells|Controls the display of Pet Spells<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_companions'] = "Companions|Controls the display of Companions<br /><br />Setting is global and overrides per-user setting";
-$lang['admin']['show_mounts'] = "Mounts|Controls the display of Mounts<br /><br />Setting is global and overrides per-user setting";
+$lang['admin']['show_pet_talents'] = "Begleiter Talente|Kontrolliert die Anzeige der Begleitertalente<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_pet_spells'] = "Begleiter Zaubersprüche|Kontrolliert die Anzeige der Begleiter Zaubersprüche<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_companions'] = "Haus- und Reittiere|Kontrolliert die Anzeige der Haus- und Reittiere<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
+$lang['admin']['show_mounts'] = "Reittiere|Kontrolliert die Anzeige der Reittiere<br /><br />Einstellung ist global und überschreibt Charakterspezifische Anzeige-Einstellungen!";
 
 $lang['admin']['char_pref'] = 'Anzeige Vorlieben|Kontrolliert, was auf den Charakterseiten pro Charakter angezeigt wird';
 

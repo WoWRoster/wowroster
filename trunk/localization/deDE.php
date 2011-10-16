@@ -80,10 +80,10 @@ $lang['addon_messages'] = 'Addon Nachrichten:';
 
 $lang['not_accepted'] = '%1$s %2$s @ %3$s-%4$s nicht akzeptiert. Data does not match upload rules.';
 
-$lang['not_updating'] = 'KEINE Aktualisierung %1$s für [%2$s] - %3$s';
-$lang['not_update_guild'] = 'KEINE Aktualisierung der Gildenliste für %1$s@%3$s-%2$s';
-$lang['not_update_guild_time'] = 'Not updating Guild List for %1$s. Guild data uploaded was scanned on %2$s. Guild data stored was scanned on %3$s';
-$lang['not_update_char_time'] = 'Not updating Character %1$s. Profile data uploaded was scanned on %2$s Profile data stored was scanned on %3$s';
+$lang['not_updating'] = 'Keine Aktualisierung %1$s für [%2$s] - %3$s';
+$lang['not_update_guild'] = 'Keine Aktualisierung der Gildenliste für %1$s@%3$s-%2$s';
+$lang['not_update_guild_time'] = 'Keine Aktualisierung der Gildenliste für %1$s. Die hochgeladenen Gildendaten wurden am %2$s gescannt, die gespeichert Gildendaten sind vom %3$s';
+$lang['not_update_char_time'] = 'Keine Aktualisierung des Charakters %1$s. Profildaten wurde am %2$s gescannt, die gespeicherten Profildaten sind vom %3$s';
 $lang['no_members'] = 'Daten enthalten keine Gildemmitglieder';
 $lang['upload_data'] = 'Aktualisiere %1$s Daten für [%2$s@%4$s-%3$s]';
 $lang['realm_ignored'] = 'Realm: %1$s nicht überprüft';
@@ -91,7 +91,7 @@ $lang['guild_realm_ignored'] = 'Gilde: %1$s @ Realm: %2$s nicht überprüft';
 $lang['update_members'] = 'Aktualisiere Mitglieder';
 $lang['update_errors'] = 'Aktualisierungsfehler';
 $lang['update_log'] = 'Update Log';
-$lang['select_files'] = 'Select Files';
+$lang['select_files'] = 'Bitte Dateien wählen';
 $lang['save_error_log'] = 'Speichere Fehler Log';
 $lang['save_update_log'] = 'Speichere Update Log';
 
@@ -218,15 +218,15 @@ $lang['tag']='Tag';
 $lang['daily']='Täglich';
 
 // Item Quality
-$lang['quality']='Quality';
-$lang['poor']='Poor';
-$lang['common']='Common';
-$lang['uncommon']='Uncommon';
-$lang['rare']='Rare';
-$lang['epic']='Epic';
-$lang['legendary']='Legendary';
-$lang['artifact']='Artifact';
-$lang['heirloom']='Heirloom';
+$lang['quality']='Qualität';
+$lang['poor']='Schlecht';
+$lang['common']='Gewöhnlich';
+$lang['uncommon']='Ungewöhnlich';
+$lang['rare']='Rar';
+$lang['epic']='Episch';
+$lang['legendary']='Legendär';
+$lang['artifact']='Artefakt';
+$lang['heirloom']='Erbstück';
 
 //start search engine
 $lang['search']='Suche';
@@ -311,12 +311,12 @@ $lang['intellect']='Intelligenz';
 $lang['spirit']='Willenskraft';
 
 $lang['rosterdiag'] = 'Roster Diagnose Seite';
-$lang['updates_available'] = 'Updates Available!';
-$lang['updates_available_message'] = 'Log in as Admin to download update files';
-$lang['download_update_pkg'] = 'Download Update Package';
+$lang['updates_available'] = 'Update verfügbar!';
+$lang['updates_available_message'] = 'Als Admin anmelden um die Updatedateien herunterzuladen';
+$lang['download_update_pkg'] = 'Download Update Paket';
 $lang['download_update'] = 'Download Update';
-$lang['zip_archive'] = '.zip Archive';
-$lang['targz_archive'] = '.tar.gz Archive';
+$lang['zip_archive'] = '.zip Archiv';
+$lang['targz_archive'] = '.tar.gz Archiv';
 
 $lang['difficulty'] = 'Schwierigkeit';
 $lang['recipe_4'] = 'optimal';
@@ -338,12 +338,12 @@ $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s der %2$s';
 
 // Login
-$lang['login'] = 'Login';
-$lang['logout'] = 'Logout';
-$lang['logged_in'] = 'Logged in';
-$lang['logged_out'] = 'Logged out';
-$lang['login_invalid'] = 'Invalid Password';
-$lang['login_fail'] = 'Failed to fetch password info';
+$lang['login'] = 'Anmelden';
+$lang['logout'] = 'Abmelden';
+$lang['logged_in'] = 'Angemeldet';
+$lang['logged_out'] = 'Abgemeldet';
+$lang['login_invalid'] = 'Ungültiges Passwort';
+$lang['login_fail'] = 'Fehler bei dem Abrufen der Passwort Informationen';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Berufe';
@@ -369,7 +369,7 @@ $lang['backpack']='Rucksack';
 $lang['PvPRankNone']='none';
 
 // Uses preg_match() to find required level in recipe tooltip
-$lang['requires_level'] = '/Ben�tigt Stufe ([\d]+)/';
+$lang['requires_level'] = '/Benötigt Stufe ([\d]+)/';
 
 // Skills to EN id array
 $lang['skill_to_id'] = array(
@@ -812,23 +812,23 @@ $lang['tooltip_speed']='Tempo';
 $lang['tooltip_poisoneffect']='^Bei jedem Schlag';
 
 // php 5.3 changes
-$lang['tooltip_preg_soulbound']='/Soulbound/';
-$lang['tooltip_preg_dps']='/(\d+) damage per second/';
-$lang['tooltip_preg_item_equip']='/Equip: (.+)/';
+$lang['tooltip_preg_soulbound']='/Seelengebunden/';
+$lang['tooltip_preg_dps']='/(\d+) Schaden pro Sekunde/';
+$lang['tooltip_preg_item_equip']='/Anlegen: (.+)/';
 $lang['tooltip_preg_item_set']='/Set: (.+)/';
-$lang['tooltip_preg_use']='/Use: (.+)/';
-$lang['tooltip_preg_chance']='/Chance (.+)/';
+$lang['tooltip_preg_use']='/Benutzen: (.+)/';
+$lang['tooltip_preg_chance']='/Gewährt (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
-$lang['tooltip_preg_heroic']='/Heroic/';
-$lang['tooltip_garbage1']='/\<Shift Right Click to Socket\>/';
-$lang['tooltip_garbage2']='/\<Right Click to Read\>/';
-$lang['tooltip_garbage3']='/Duration (.+)/';
+$lang['tooltip_preg_heroic']='/Heroisch/';
+$lang['tooltip_garbage1']='/\<Zum Sockeln Shift-Rechtsklick\>/';
+$lang['tooltip_garbage2']='/\<Zum Lesen rechtsklicken\>/';
+$lang['tooltip_garbage3']='/Dauer (.+)/';
 $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
-$lang['tooltip_garbage5']='/\<Right Click to Open\>/';
+$lang['tooltip_garbage5']='/\<Zum Öffnen rechtsklicken\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
 //^(Red|Yellow|Blue|Meta)
-$lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
-$lang['tooltip_preg_speed']='/Speed/';
+$lang['tooltip_preg_weapon_types']='/^(Pfeil|Axt|Bogen|Kugel|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Götze|Streitkolben|Waffenhand|Nebenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|Fernkampf|Einhand|Zweihand|Relikt)/';
+$lang['tooltip_preg_speed']='/Geschwindigkeit/';
 
 $lang['tooltip_preg_armor']='/^(\d+) Rüstung/';
 $lang['tooltip_preg_durability']='/Haltbarkeit(|:) (\d+) \/ (\d+)/';
@@ -850,7 +850,7 @@ $lang['tooltip_feral_ap']='Erhöht die Angriffskraft um';
 $lang['tooltip_source']='Quelle';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Droprate';
-$lang['tooltip_reforged']='Reforged';
+$lang['tooltip_reforged']='Umgeschmiedet';
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Benötigt';
@@ -938,7 +938,7 @@ $lang['menuconf_drag_delete']='Ziehe hierher zum Löschen';
 $lang['menuconf_addon_inactive']='Addon ist inaktiv';
 $lang['menuconf_unused_buttons']='Ungenutze Buttons';
 
-$lang['default_page_set']='The default page has been set to [%1$s]';
+$lang['default_page_set']='Die Standardseite wurde auf [%1$s] gesetzt.';
 
 $lang['installer_install_0']='Installation von %1$s erfolgreich';
 $lang['installer_install_1']='Installation von %1$s fehlgeschlagen, aber Wiederherstellung erfolgreich';
@@ -956,7 +956,7 @@ $lang['installer_addoninfo'] = 'Addon Info';
 $lang['installer_status'] = 'Status';
 $lang['installer_installation'] = 'Installation';
 $lang['installer_author'] = 'Autor';
-$lang['installer_log'] = 'Addon Verwalter Log';
+$lang['installer_log'] = 'Addon Log';
 $lang['installer_activate_0'] = 'Addon %1$s deaktiviert';
 $lang['installer_activate_1'] = 'Addon %1$s aktiviert';
 $lang['installer_deactivated'] = 'Deaktiviert';
@@ -964,12 +964,12 @@ $lang['installer_activated'] = 'Aktiviert';
 $lang['installer_installed'] = 'Installiert';
 $lang['installer_upgrade_avail'] = 'Upgrade verfügbar';
 $lang['installer_not_installed'] = 'Nicht installiert';
-$lang['installer_install'] = 'Install';
-$lang['installer_uninstall'] = 'Uninstall';
-$lang['installer_activate'] = 'Activate';
-$lang['installer_deactivate'] = 'Deactivate';
-$lang['installer_upgrade'] = 'Upgrade';
-$lang['installer_purge'] = 'Purge';
+$lang['installer_install'] = 'Installieren';
+$lang['installer_uninstall'] = 'Deinstallieren';
+$lang['installer_activate'] = 'Aktivieren';
+$lang['installer_deactivate'] = 'Deaktivieren';
+$lang['installer_upgrade'] = 'Aktualisieren';
+$lang['installer_purge'] = 'Säubern';
 
 $lang['installer_turn_off'] = 'Klicken zum Deaktivieren';
 $lang['installer_turn_on'] = 'Klicken zum Aktivieren';
@@ -1006,8 +1006,8 @@ $lang['guide_already_complete'] = 'Der Installationsassistent wurde bereits been
 
 // Armory Data
 $lang['adata_update_talents'] = 'Talente';
-$lang['adata_update_class'] = 'Class %1$s updated';
-$lang['adata_update_row'] = '%1$s rows added to database.';
+$lang['adata_update_class'] = 'Klasse %1$s aktualisiert';
+$lang['adata_update_row'] = '%1$s Zeilen zur Datenbank hinzugefügt.';
 
 // Password Stuff
 $lang['password'] = 'Passwort';
@@ -1027,16 +1027,16 @@ $lang['auth_req'] = 'Anmeldung erforderlich';
 
 // Upload Rules
 $lang['enforce_rules'] = 'Upload Regeln erzwingen';
-$lang['enforce_rules_never'] = 'Never';
-$lang['enforce_rules_all'] = 'All LUA Updates';
-$lang['enforce_rules_cp'] = 'CP Updates Only';
-$lang['enforce_rules_gp'] = 'Guild Updates Only';
+$lang['enforce_rules_never'] = 'Niemals';
+$lang['enforce_rules_all'] = 'Bei allen LUA Dateien';
+$lang['enforce_rules_cp'] = 'Nur bei wowroster.lua';
+$lang['enforce_rules_gp'] = 'Nur bei Gilden aktualisierung';
 $lang['upload_rules_error'] = 'Du kannst beim Hinzufügen einer Regel kein Feld leer lassen';
 $lang['upload_rules_help'] = 'Die Regeln sind in zwei Blöcke unterteilt.<ul><li>Für jeden hochgeladene Gilde/Charakter wird zuerst der oberste Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Verbieten\' Regeln, wird er abgewiesen.</li><li>Anschließend wird der zweite Block überprüft.<br />Wenn der Name@Server übereinstimmt mit einer der \'Erlauben\' Regeln, wird er akzeptiert.</li><li>Wenn er mit keiner Regel übereinstimmt, wird er abgewiesen.</li></ul>You can use % for a wildcard.<br /><br />Remember to set a default guild here as well.';
 
 // Data Manager
 $lang['clean'] = 'Einträge auf den Regeln basierent säubern';
-$lang['clean_help'] = 'This will run an update and enforce the rules as set by the \'Enforce Upload Rules\' setting';
+$lang['clean_help'] = 'Dies wird alle Einträge anhand der \'Upload Regeln\' säubern.';
 $lang['select_guild'] = 'Gilde auswählen';
 $lang['delete_checked'] = 'Markierte löschen';
 $lang['delete_guild'] = 'Gilde löschen';
@@ -1071,8 +1071,8 @@ $lang['pagebar_configreset'] = 'Einstellungen zurücksetzen';
 $lang['pagebar_addonconf'] = 'Addon Konfiguration';
 
 $lang['roster_config_menu'] = 'Einstellungsmenü';
-$lang['menu_config_help'] = 'Add Menu Button Help';
-$lang['menu_config_help_text'] = 'Use this to add a new menu button. Adding a new menu button here will add it to the current section.<ul><li>Title - The name of the new button.</li><li>URL - The button\'s link. This can be a WoWRoster path or a full URL (add http:// in the link)</li><li>Icon - The button\'s image. This must be an image from the Interface Image Pack without the path or extension (ex. inv_misc_gear_01)</ul>';
+$lang['menu_config_help'] = 'Menü Button hinzufügen Hilfe';
+$lang['menu_config_help_text'] = 'Benutzen um einen neuen Button hinzuzufügen. Der neue Button wird in der aktuellen Sektion hinzugefügt.<ul><li>Titel - Der Name des Buttons.</li><li>URL - Der Link für den Button. Das kann eine interne URL sein oder eine komplette URL (dann bitte http:// voranstellen).</li><li>Icon - Das Icon für den Button. Dieses muss ein Icon aus dem Interface Image Pack sein, ohne den Pfad und ohne Dateiendung (Bsp. inv_misc_gear_01)</ul>';
 
 // Submit/Reset confirm questions
 $lang['config_submit_button'] = 'Speichere Einstellungen';
@@ -1127,8 +1127,8 @@ $lang['admin']['check_updates'] = "Überprüfe auf Updates|Dies erlaubt deiner R
 $lang['admin']['seo_url'] = "Friendly URLs|Aktiviert SEO artige URL Links im Roster<br /><br />ein - /some/page/here/param=value.html<br />aus - index.php?p=some-page-here&amp;param=value";
 $lang['admin']['local_cache']= "Dateisystem Cache|Benutze lokales Server Dateisystem um einige Dateien zu cachen und damit die Leistung zu erhöhen.";
 $lang['admin']['use_temp_tables'] = "Benutze Temporary Tables|Diese Einstellung deaktivieren wenn dein Webhoster es nicht erlaubt temporary database tables zu generieren (CREATE TEMPORARY TABLE privilege).<br/>Diese Einstellung eingeschaltet zu lassen wird aus Performancegründen empfohlen.";
-$lang['admin']['preprocess_js'] = "Aggregate JavaScript files|Certain JavaScript files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
-$lang['admin']['preprocess_css'] = "Aggregate and compress CSS files|Certain CSS files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
+$lang['admin']['preprocess_js'] = "Javascript Dateien zusammenfassen|Bestimmte Javascript Dateien werden automatisch optimiert, was zu einer Reduzierung der Dateigröße und Anzahl der Zugriffe auf die Webseite führen kann.<br />Es wird empfohlen diese Option aktiviert zu lassen, für besser Perfomance.";
+$lang['admin']['preprocess_css'] = "CSS Dateien zusammenfassen und komprimieren|Bestimmte CSS Dateien werden automatisch optimiert, was zu einer Reduzierung der Dateigröße und Anzahl der Zugriffe auf die Webseite führen kann.<br />Es wird empfohlen diese Option aktiviert zu lassen, für besser Perfomance.";
 $lang['admin']['enforce_rules'] = "Upload Regeln erzwingen|Diese Einstellung erzwingt die Anwendung der Upload Regeln bei jedem lua Upload<ul class='ul-no-m'><li>Niemals: Regeln niemals erzwingen</li><li>Alle LUA Updates: Regeln bei jedem lua Update erzwingen</li><li>CP Updates: Regeln nur bei CP.lua Updates erzwingen</li><li>Gilden Updates: Regeln nur bei Gildenupdates erzwingen</li></ul>Diese Einstellungen können auch auf der &quot;Upload Regeln&quot; Seite eingestellt werden.";
 
 // defaults_conf
@@ -1143,8 +1143,8 @@ $lang['admin']['logo'] = "URL für das Kopf-Logo|Die volle URL für das Logo<br 
 $lang['admin']['roster_bg'] = "URL für das Hintergrundbild|Die volle URL für den Haupthintergrund<br />Oder &quot;img/&quot; vor den Namen setzen, um im /img-Verzeichnis des Rosters nachzugucken";
 $lang['admin']['motd_display_mode'] = "MOTD Anzeige Modus|Wie die MOTD (Nachricht des Tages) angezeigt werden soll:<br /><br />&quot;Text&quot; - Zeigt MOTD in rotem Text<br />&quot;Image&quot; - Zeigt MOTD als Bild (Benötigt GD!)";
 $lang['admin']['header_locale'] = "Sprachauswahl|Kontrolliert die Anzeige der Sprachauswahl im oberen Ausschnitt des Hauptmenüs";
-$lang['admin']['header_login'] = "Login in header|Control the display of the login box in the header";
-$lang['admin']['header_search'] = "Search in header|Control the display of the search box in the header";
+$lang['admin']['header_login'] = "Login im Kopfbereich|Anzeigen der Loginbox im Kopfbereich";
+$lang['admin']['header_search'] = "Suchen im Kopfbereich|Anzeigen der Suchbox im Kopfbereich";
 $lang['admin']['signaturebackground'] = "img.php Hintergrund|Support für die (alten) Standard Signaturen";
 $lang['admin']['processtime'] = "Seiten Gen. Zeit/DB Abfragen|Zeit für die Berechnung der Seite und die Anzahl der Datenbankabfragen in der Fußzeile anzeigen<br />&quot;<i>x.xx | xx</i>&quot;";
 
@@ -1182,8 +1182,8 @@ $lang['admin']['rs_color_recommended'] = "Empfohlene Farbe|Farbe für empfohlene
 
 // update_access
 $lang['admin']['authenticated_user'] = "Zugriff auf Update.php|Kontrolliert den Zugriff auf update.php<br /><br />OFF deaktiviert den Zugriff für JEDEN";
-$lang['admin']['api_key_private'] = "Blizzard API Private key|This is the Private key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
-$lang['admin']['api_key_public'] = "Blizzard API Public key|This is the Public key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
+$lang['admin']['api_key_private'] = "Blizzard API Privatschlüssel|Dies ist der private Schlüssel, den man von Blizzard erhält.<br />Dieser aktiviert das der WoWRoster mehr als 3000 Anfrage pro Tag an das Arsenal senden darf.";
+$lang['admin']['api_key_public'] = "Blizzard API Öffentlicherschlüssel|Dies ist der öffentliche Schlüssel, den man von Blizzard erhält<br />Dieser aktiviert das der WoWRoster mehr als 3000 Anfrage pro Tag an das Arsenal senden darf.";
 $lang['admin']['api_url_region'] = "Blizzard API Region|this is the armory region that you are accessing";
 $lang['admin']['api_url_locale'] = "Blizzard API Locale|These locales are REGION dependent and will display<br>info in the desired language";
 $lang['admin']['update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzeige der Aktualisierungsanleitung auf der Update Seite';
