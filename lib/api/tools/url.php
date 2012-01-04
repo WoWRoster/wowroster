@@ -34,6 +34,10 @@ class url {
 			case 'character':
 				$q = 'api/wow/character/'.$server.'/'.$name.$fields['data'].'&'.$local;
 			break;
+			case 'cfeed':
+			////http://us.battle.net/wow/en/character/zangarmarsh/Ulminia/feed
+				$q = 'wow/en/character/'.$server.'/'.$name.'/feed/';
+			break;
 			case 'status':
 				$q = 'api/wow/realm/status?'.$fields['data'].'';
 			break;
