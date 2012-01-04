@@ -18,8 +18,13 @@ require_once ROSTER_API . 'resource/Resource.php';
  * @throws ResourceException If no methods are defined.
  */
 class character extends Resource {
+	
+	protected $region;
+	
+	
 	protected $methods_allowed = array(
 		'character',
+		'cfeed',
 	);
 	var $x = '';
 /*
@@ -127,6 +132,19 @@ class character extends Resource {
 			'header'=>"Accept-language: enUS\r\n"
 			));
 		}
+		return $data;
+	}
+	public function getCharFeed($realm, $char)
+	{
+		//http://us.battle.net/wow/en/character/zangarmarsh/Ulminia/feed
+		$data = $this->consume('cfeed', array(
+			'data' => '',
+			'dataa' => '',
+			'server' => $realm,
+			'name' => $char,
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+
 		return $data;
 	}
 }

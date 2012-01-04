@@ -125,6 +125,8 @@ abstract class Resource {
 			if (isset($x['reason']))
 			{
 				$this->seterrors(array('type'=>$method,'msg'=>$x['reason']));
+				$msg = $this->transhttpciode($data['response_headers']['http_code']);
+				$roster->set_message( ' '.$method.': '.$msg.' : '.$x['reason'].'<br>'.$url.' ', 'Api call fail!', 'error' );
 				//$roster->set_message( ' '.$method.': '.$x['reason'].' ', 'Api call fail!', 'error' );
 				$this->query['result'] = false; // over ride cache and set to false no data or no url no file lol
 			}

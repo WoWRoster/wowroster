@@ -92,7 +92,7 @@ define('ROSTER_CLASS_DEATHKNIGHT', 6);
 define('ROSTER_CLASS_SHAMAN', 7);
 define('ROSTER_CLASS_MAGE', 8);
 define('ROSTER_CLASS_WARLOCK', 9);
-//define('ROSTER_CLASS_', 10);
+define('ROSTER_CLASS_MONK', 10);
 define('ROSTER_CLASS_DRUID', 11);
 
 define('ROSTER_RACE_HUMAN', 1);
