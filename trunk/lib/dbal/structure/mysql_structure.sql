@@ -34,6 +34,25 @@ CREATE TABLE `renprefix_addon` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
+### plugin
+
+DROP TABLE IF EXISTS `renprefix_plugin`;
+CREATE TABLE `renprefix_plugin` (
+  `addon_id` int(11) NOT NULL auto_increment,
+  `basename` varchar(16) NOT NULL default '',
+  `version` varchar(16) NOT NULL default '0',
+  `active` int(1) NOT NULL default '1',
+  `access` int(1) NOT NULL default '0',
+  `fullname` tinytext NOT NULL,
+  `description` mediumtext NOT NULL,
+  `credits` mediumtext NOT NULL,
+  `icon` varchar(64) NOT NULL default '',
+  `wrnet_id` int(4) NOT NULL default '0',
+  `versioncache` tinytext,
+  PRIMARY KEY  (`addon_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+# --------------------------------------------------------
 ### Addon Config
 
 DROP TABLE IF EXISTS `renprefix_addon_config`;

@@ -19,6 +19,37 @@ class guild_rep
 	var $members_list_where = array();
 	var $members_list_fields = array();
 	
+	/*
+	*	These Vars are used with the new Plugin installer 
+	*	@var name - unique name for the plugin
+	*	@var parent - the intended addon to use this plugin
+	*
+	*/
+	var $active = true;
+	var $name = 'guild_rep';
+	var $filename = 'memberslist-guild-guild_rep.php';
+	var $parent = 'memberslist';
+	var $icon = 'inv_misc_film_01';
+	var $version = '1.0';
+	var $oldversion = '';
+	var $wrnet_id = '';
+
+	var $fullname = 'MembersList Guild Rep';
+	var $description = 'displays guildrep on members list.';
+	var $credits = array(
+		array(	"name"=>	"Ulminia <Ulminia@gmail.com>",
+				"info"=>	"Guild Rep (Alpha Release)"),
+	);
+	
+	/*
+	*	__construct
+	*	this is there the veriables for the addons are 
+	*	set in the plugin these are unique to each addon 
+	*
+	*	contact the addon author is you have a sugestion 
+	*	as to where plugin code should occure or use there descression
+	*/
+	
 	public function __construct()
 	{
 		global $roster;
@@ -37,6 +68,43 @@ class guild_rep
 				'display'    => 5
 			);
 	}
+	
+	/**
+	 * Install Function
+	 *
+	 * @return bool
+	 */
+	function install()
+	{
+		global $installer;
+		return true;
+	}
+
+	/**
+	 * Upgrade Function
+	 *
+	 * @param string $oldversion
+	 * @return bool
+	 */
+	function upgrade($oldversion)
+	{
+	     global $installer,$addon,$roster;
+		// Nothing to upgrade from yet
+		return true;
+
+	}
+
+	/**
+	 * Un-Install Function
+	 *
+	 * @return bool
+	 */
+	function uninstall()
+	{
+		global $installer, $addon;
+		return true;
+	}
+	
 }
 abstract class guild_rep_function
 {
