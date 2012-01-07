@@ -54,6 +54,12 @@ $config_pages['install'] = array(
 	'title'=>	'pagebar_addoninst',
 	'file'=>	'addon_install.php',
 	);
+$config_pages['plugin'] = array(
+	'href'=>	$roster->pages[0].'-plugin',
+	'title'=>	'pagebar_plugin',
+	'file'=>	'plugin_install.php',
+	);
+	
 $config_pages['menu'] = array(
 	'href'=>	$roster->pages[0].'-menu',
 	'title'=>	'pagebar_menuconf',

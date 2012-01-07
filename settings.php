@@ -338,7 +338,11 @@ if( (empty($roster->config['version']) || version_compare($roster->config['versi
 	require (ROSTER_PAGES . 'upgrade.php');
 	die();
 }
-
+/**
+ * Cache plugin data
+	putting this here untill release.....
+ */
+$roster->get_plugin_data();
 /**
  * If the install directory or files exist, die()
  */

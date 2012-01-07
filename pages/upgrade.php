@@ -154,6 +154,24 @@ class Upgrade {
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10004, 'api_url_locale', 'en_US', 'select{us.battle.net (en_US)^en_US|us.battle.net (es_MX)^es_MX|eu.battle.net (en_GB)^en_GB|eu.battle.net (es_ES)^es_ES|eu.battle.net (fr_FR)^fr_FR|eu.battle.net (ru_RU)^ru_RU|eu.battle.net (de_DE)^de_DE|kr.battle.net (ko_kr)^ko_kr|tw.battle.net (zh_TW)^zh_TW|battlenet.com.cn (zh_CN)^zh_CN', 'update_access');");
 			
 		}
+		
+		if (version_compare($roster->config['version'], '2.1.9.2378', '<')) {
+			$roster->set_message('Plugin install system');
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('plugin')."` (
+				  `addon_id` int(11) NOT NULL auto_increment,
+				  `basename` varchar(16) NOT NULL default '',
+				  `version` varchar(16) NOT NULL default '0',
+				  `active` int(1) NOT NULL default '1',
+				  `access` int(1) NOT NULL default '0',
+				  `fullname` tinytext NOT NULL,
+				  `description` mediumtext NOT NULL,
+				  `credits` mediumtext NOT NULL,
+				  `icon` varchar(64) NOT NULL default '',
+				  `wrnet_id` int(4) NOT NULL default '0',
+				  `versioncache` tinytext,
+				  PRIMARY KEY  (`addon_id`)
+				) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
+		}
 
 		// Standard Beta Update
 		$this->beta_upgrade();

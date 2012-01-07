@@ -125,17 +125,22 @@ class memberslist
 						$info = pathinfo($file);
 						$file_name =  basename($file,'.'.$info['extension']);
 						list($reqaddon, $scope, $name) = explode('-',$file_name);
-						if ($scope == $roster->scope && $reqaddon == $addon['basename'])
+						if ($roster->plugin_data[$name] == '1')
 						{
-							require($dirx . $file);
-							$addonstuff = new $name;
-							$this->members_list_select .= $addonstuff->members_list_select;
-							$this->members_list_table .= $addonstuff->members_list_table;
-							if (isset($addonstuff->members_list_where))
+							if ($scope == $roster->scope && $reqaddon == $addon['basename'])
 							{
-								$this->members_list_where[] = $addonstuff->members_list_where;
+								require($dirx . $file);
+								$addonstuff = new $name;
+								$this->members_list_select .= $addonstuff->members_list_select;
+								$this->members_list_table .= $addonstuff->members_list_table;
+								if (isset($addonstuff->members_list_where))
+								{
+									$this->members_list_where[] = $addonstuff->members_list_where;
+								}
+								$this->members_list_fields[] = $addonstuff->members_list_fields;
+								
+								unset($addonstuff);
 							}
-							$this->members_list_fields[] = $addonstuff->members_list_fields;
 						}
 					}
 				}

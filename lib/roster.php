@@ -56,6 +56,7 @@ class roster
 	var $scope;
 	var $data = false;		// scope data
 	var $addon_data;
+	var $plugin_data;
 
 	/**
 	 * Roster Error Handler Object
@@ -581,6 +582,18 @@ class roster
 			$this->addon_data[$row['basename']] = $row;
 		}
 	}
+	
+	function get_plugin_data( )
+	{
+		$query = "SELECT * FROM `" . $this->db->table('plugin') . "` ORDER BY `basename`;";
+		$result = $this->db->query($query);
+		$this->plugin_data = array();
+		while( $row = $this->db->fetch($result, SQL_ASSOC) )
+		{
+			$this->plugin_data[$row['basename']] = $row;
+		}
+	}
+	
 
 	/**
 	 * Set a message which reflects the status of the performed operation.
