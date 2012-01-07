@@ -115,36 +115,36 @@ class memberslist
 			foreach( $addons as $addon_name => $addonx )
 			{
 				$dirx = ROSTER_ADDONS . $addonx['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
-			if (is_dir($dirx))
-			{
-				$dir = opendir ($dirx);
-				while (($file = readdir($dir)) !== false)
+				if (is_dir($dirx))
 				{
-					if (strpos($file, '.php',1))
+					$dir = opendir ($dirx);
+					while (($file = readdir($dir)) !== false)
 					{
-						$info = pathinfo($file);
-						$file_name =  basename($file,'.'.$info['extension']);
-						list($reqaddon, $scope, $name) = explode('-',$file_name);
-						if ($roster->plugin_data[$name] == '1')
+						if (strpos($file, '.php',1))
 						{
-							if ($scope == $roster->scope && $reqaddon == $addon['basename'])
+							$info = pathinfo($file);
+							$file_name =  basename($file,'.'.$info['extension']);
+							list($reqaddon, $scope, $name) = explode('-',$file_name);
+							if (isset($roster->plugin_data[$name]) && $roster->plugin_data[$name]['active'] == '1')
 							{
-								require($dirx . $file);
-								$addonstuff = new $name;
-								$this->members_list_select .= $addonstuff->members_list_select;
-								$this->members_list_table .= $addonstuff->members_list_table;
-								if (isset($addonstuff->members_list_where))
+								if ($scope == $roster->scope && $reqaddon == $addon['basename'])
 								{
-									$this->members_list_where[] = $addonstuff->members_list_where;
+									require($dirx . $file);
+									$addonstuff = new $name;
+									$this->members_list_select .= $addonstuff->members_list_select;
+									$this->members_list_table .= $addonstuff->members_list_table;
+									if (isset($addonstuff->members_list_where))
+									{
+										$this->members_list_where[] = $addonstuff->members_list_where;
+									}
+									$this->members_list_fields[] = $addonstuff->members_list_fields;
+									
+									unset($addonstuff);
 								}
-								$this->members_list_fields[] = $addonstuff->members_list_fields;
-								
-								unset($addonstuff);
 							}
 						}
 					}
 				}
-			}
 	
 			}
 		}
