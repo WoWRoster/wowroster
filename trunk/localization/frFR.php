@@ -1063,6 +1063,7 @@ $lang['pagebar_dataman'] = 'Gestion des données';
 $lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Changer le mot de passe';
 $lang['pagebar_addoninst'] = 'Gestion des greffons';
+$lang['pagebar_plugin'] = 'Plugin Management';
 $lang['pagebar_update'] = 'Mise à jour';
 $lang['pagebar_rosterdiag'] = 'Diagnostic';
 $lang['pagebar_menuconf'] = 'Configuration des menus';

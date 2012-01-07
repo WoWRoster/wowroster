@@ -1063,6 +1063,7 @@ $lang['pagebar_dataman'] = 'Daten Manager';
 $lang['pagebar_armory_data'] = 'Arsenal Daten';
 $lang['pagebar_changepass'] = 'Passwort ändern';
 $lang['pagebar_addoninst'] = 'Verwalte Addons';
+$lang['pagebar_plugin'] = 'Plugin Management';
 $lang['pagebar_update'] = 'Upload Profil';
 $lang['pagebar_rosterdiag'] = 'Roster Diagnose Seite';
 $lang['pagebar_menuconf'] = 'Menü Konfiguration';
