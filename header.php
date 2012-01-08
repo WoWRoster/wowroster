@@ -128,8 +128,8 @@ $roster->tpl->assign_vars(array(
 	'S_HEADER_LOGIN'    => (bool)$roster->config['header_login'],
 	'S_REALMSTATUS'     => (bool)$roster->config['rs_display'],
 
-	'LOGIN_FORM'           => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
-	'REALMSTATUS'   => isset($roster->data['server']) ? makeRealmStatus() : '',
+	'LOGIN_FORM'        => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
+	'REALMSTATUS'       => isset($roster->data['server']) ? makeRealmStatus() : '',
 
 	'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 

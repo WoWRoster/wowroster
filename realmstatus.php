@@ -56,7 +56,6 @@ function statussw($status)
 }
 //==========[ GET FROM CONF.PHP ]====================================================
 
-
 if( isset($_GET['r']) )
 {
 	list($region, $realmname) = explode('-', urldecode(trim(stripslashes($_GET['r']))), 2);
@@ -84,6 +83,7 @@ else
 {
 	$generate_image = true;
 }
+
 //piss the xml noise we are going json
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
@@ -103,7 +103,7 @@ $querystr = "SELECT * FROM `" . $roster->db->table('realmstatus') . "`"
 	. " AND `server_name` = '" . $roster->db->escape($realmname) . "';";
 
 $sql = $roster->db->query($querystr);
-if( $sql && 0 > 0 ) //$roster->db->num_rows($sql) > 0 )
+if( $sql && $roster->db->num_rows($sql) > 0 )
 {
 	$realmData = $roster->db->fetch($sql, SQL_ASSOC);
 }
