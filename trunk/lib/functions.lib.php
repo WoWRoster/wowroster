@@ -1678,7 +1678,7 @@ function makeRealmStatus( )
 		}
 		elseif( $roster->config['rs_display'] == 'text' && file_exists(ROSTER_BASE . 'realmstatus.php') )
 		{
-			$_GET['r'] = urlencode($realmname);
+			//$_GET['r'] = urlencode($realmname);
 			ob_start();
 				include_once (ROSTER_BASE . 'realmstatus.php');
 			$realmStatus .= ob_get_clean() . "\n";
