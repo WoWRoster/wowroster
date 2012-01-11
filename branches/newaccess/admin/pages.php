@@ -44,6 +44,11 @@ $config_pages['dataman'] = array(
 	'title'=>	'pagebar_dataman',
 	'file'=>	'data_manager.php',
 	);
+$config_pages['userman'] = array(
+	'href'=>	$roster->pages[0].'-userman',
+	'title'=>	'pagebar_userman',
+	'file'=>	'user_manager.php',
+	);
 $config_pages['armory_data'] = array(
 	'href'=>	$roster->pages[0].'-armory_data',
 	'title'=>	'pagebar_armory_data',

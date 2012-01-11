@@ -1060,6 +1060,7 @@ $lang['pagebar_function'] = 'Function';
 $lang['pagebar_rosterconf'] = 'Main Settings';
 $lang['pagebar_uploadrules'] = 'Upload Rules';
 $lang['pagebar_dataman'] = 'Data Manager';
+$lang['pagebar_userman'] = 'User Manager';
 $lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Change Password';
 $lang['pagebar_addoninst'] = 'Addon Management';

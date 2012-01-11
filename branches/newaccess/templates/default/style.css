@@ -234,7 +234,14 @@ textbox {
 .mini-list .list .info { float: right; }
 .mini-list .list .info img { float: left; margin: 0 0 0 2px; padding: 0; height: 20px; width: 20px; }
 
+/* Config Tier Styles */
 
+.ctier-3-a { background:url('images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; min-height: 30px; max-height: 100px; min-width: 210px; padding:1px 1px 1px 1px}
+.ctier-3-b { background:url('images/tier/tier_1_b.gif') left top repeat-x; border:1px solid #ffffd6; padding:2px 2px 2px 2px; max-height: 100px;}
+.ctier-3-b .config { position: relative; cursor: default; text-align:left; color:#000000;  font: bold 11px Geneva, Arial, Helvetica, sans-serif;  }
+.ctier-3-b .config-name { position: relative; float: left;}
+.ctier-3-b .config-input { position: relative; float: right;}
+.config-input { position: relative; float: right;}
 /* Common Styles */
 
 .tier-1-a { background:url('images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; margin: 20px 20px 0px; }
