@@ -1,0 +1,25 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Displays the guild information text
+ *
+ *
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @package    GuildInfo
+*/
+
+.infotext {
+	background:url(../../img/paperback.jpg) no-repeat;
+	text-align:left;
+	font-weight:bold;
+	font-size:12px;
+	color:#260A17;
+	padding:10px 8px;
+	margin:0;
+	width:306px;
+	height:337px;
+	overflow:auto;
+}

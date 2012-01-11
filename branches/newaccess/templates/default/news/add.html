@@ -1,0 +1,33 @@
+<!-- $Id$ -->
+
+<form method="post" action="{U_FORMACTION}" id="addnews" style="text-align:left;">
+	<input type="hidden" name="process" value="process" />
+
+	<div class="tier-2-a">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+				<div class="right"><input type="submit" value="<!-- TRANSLATE add_news -->" /></div>
+				<!-- TRANSLATE add_news -->
+			</div>
+
+			<div class="info-text">
+				<label for="author"><!-- TRANSLATE name -->:</label> <input name="author" id="author" type="text" maxlength="16" size="16" value="" />
+			</div>
+			<div class="info-text">
+				<label for="title"><!-- TRANSLATE title -->:</label> <input name="title" id="title" type="text" size="32" value="" />
+			</div>
+			<br />
+
+<!-- IF S_HTML_ENABLE -->
+			<div class="radioset">
+				<input type="radio" id="html_on" name="html" value="1" <!-- IF S_NEWS_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_on"><!-- TRANSLATE enable_html --></label>
+				<input type="radio" id="html_off" name="html" value="0" <!-- IF ! S_NEWS_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_off"><!-- TRANSLATE disable_html --></label>
+			</div>
+			<br />
+<!-- ENDIF -->
+
+			<textarea name="news" id="news" cols="100" rows="20"></textarea>
+		</div>
+	</div>
+
+</form>

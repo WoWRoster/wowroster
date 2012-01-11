@@ -1,0 +1,51 @@
+<!-- $Id$ -->
+
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title"><!-- TRANSLATE adata_update_talents --></div>
+
+<!-- BEGIN classes -->
+		<div class="tier-3-a">
+			<div class="tier-3-b">
+				<div style="float:right;text-align:right;">
+					<form action="{classes.UPDATELINK}" method="post" id="update">
+						<input type="hidden" name="class_id" value="{classes.ID}" />
+						<input type="hidden" name="process" value="process" />
+						<button type="submit" class="input"><!-- TRANSLATE update --></button>
+					</form>
+				</div>
+				<div class="text">{classes.NAME} ({classes.ROWS})</div>
+			</div>
+		</div>
+<!-- END classes -->
+	</div>
+</div>
+<br />
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">Api Usage</div>
+
+			<div class="sqlwindow">
+				<table cellpadding="0" cellspacing="0" width="100%">
+					<tr>
+						<th class="membersHeader">Type</th>
+						<th class="membersHeader">Request</th>
+						<th class="membersHeaderRight">Percent</th>
+					</tr>
+<!-- BEGIN apiusage -->
+					<tr>
+						<th colspan="3" class="membersHeaderRight">{apiusage.DATE}</th>
+					</tr>
+<!-- BEGIN type -->
+					<tr>
+						<td class="membersRow{apiusage.type.ROW_CLASS}">&nbsp;&nbsp;{apiusage.type.TYPE}</td>
+						<td class="membersRow{apiusage.type.ROW_CLASS}">{apiusage.type.REQ}</td>
+						<td class="membersRowRight{apiusage.type.ROW_CLASS}" style="white-space:normal;">{apiusage.type.PERCENT}</td>
+					</tr>
+<!-- END type -->
+<!-- END apiusage -->
+				</table>
+			</div>
+			
+	</div>
+</div>

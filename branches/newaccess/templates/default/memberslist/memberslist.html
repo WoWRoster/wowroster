@@ -1,0 +1,161 @@
+<!-- $Id$ -->
+
+<!-- IF S_GROUP_ALTS ge 0 -->
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color sgrayborder">
+			<table cellpadding="0" cellspacing="0" id="{LISTNAME}-toolbar" style="width:100%">
+				<tr>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_CLOSE_ALTS}" class="internal_link"
+							onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+							<img src="{THEME_PATH}/images/minus.gif" alt="+" /><!-- TRANSLATE closeall -->
+						</a>
+					</th>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_OPEN_ALTS}" class="internal_link"
+							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
+							<img src="{THEME_PATH}/images/plus.gif" alt="-" /><!-- TRANSLATE openall -->
+						</a>
+					</th>
+					<th class="membersHeader groupalt" <!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_UNGROUP_ALTS}" class="internal_link"
+							onclick="unGroupAlts('{LISTNAME}'); return false;">
+							<!-- TRANSLATE ungroupalts -->
+						</a>
+					</th>
+					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_OPEN_ALTS}" class="internal_link"
+							onclick="openAlts('{LISTNAME}','{THEME_PATH}/images/minus.gif'); return false;">
+							<!-- TRANSLATE openalts -->
+						</a>
+					</th>
+					<th class="membersHeader ungroupalt" <!-- IF S_GROUP_ALTS neq 0 -->style="display:none"<!-- ENDIF -->>
+						<a href="{U_CLOSE_ALTS}" class="internal_link"
+							onclick="closeAlts('{LISTNAME}','{THEME_PATH}/images/plus.gif'); return false;">
+							<!-- TRANSLATE closealts -->
+						</a>
+					</th>
+				</tr>
+			</table>
+
+		</td>
+	</tr>
+</table>
+<br />
+<!-- ENDIF -->
+
+
+<!-- IF S_ML_BORDER -->
+<table class="border_frame" cellpadding="0" cellspacing="1">
+	<tr>
+		<td class="border_color {S_ML_BORDER}border">
+<!-- ENDIF -->
+<form name="{LISTNAME}_filterform" action="{U_FILTER_FORM}" method="get">
+<table cellpadding="0" cellspacing="0" id="{LISTNAME}" style="width:100%;">
+	<thead>
+<!-- IF B_PAGINATION -->
+		<tr>
+			<th colspan="{COLS}" class="membersHeader" style="text-align:center;color:#ffffff">
+				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}" class="internal_link"><!-- TRANSLATE prev --></a><!-- ENDIF --> - 
+{PAGE}
+				<!-- IF PAGINATION_NEXT --><a href="{PAGINATION_NEXT}" class="internal_link"><!-- TRANSLATE next --></a><!-- ENDIF -->
+		</tr>
+<!-- ENDIF -->
+		<tr>
+			<th class="membersHeader groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+				<a href="<!-- IF S_FILTER -->{U_CLOSE_FILTER}<!-- ELSE -->{U_OPEN_FILTER}<!-- ENDIF -->" 
+					onclick="toggleFilter('{LISTNAME}','filterrow','foldout-filter','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
+					<img src="{THEME_PATH}/images/<!-- IF S_FILTER eq 1 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					class="foldout"
+					id="foldout-filter"
+					alt="<!-- IF S_FILTER eq 1 -->-<!-- ELSE -->+<!-- ENDIF -->" />
+				</a>
+			</th>
+<!-- BEGIN header_cell -->
+			<th class="membersHeader">
+<!-- IF header_cell.LINK -->
+				<a href="{header_cell.LINK}" class="internal_link">{header_cell.TEXT}</a>
+<!-- ELSE -->
+				{header_cell.TEXT}
+<!-- ENDIF -->
+			</th>
+<!-- END header_cell -->
+		</tr>
+		<tr id="filterrow" <!-- IF S_FILTER eq 0 -->style="display:none"<!-- ENDIF -->>
+			<th class="membersHeader groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+				<img
+				src="{ML_IMAGE_URL}/search24.png"
+				alt="Go"
+				style="cursor:pointer;"
+				onclick="document.{LISTNAME}_filterform.submit();" />
+			</th>
+<!-- BEGIN header_cell -->
+			<th class="membersHeader">
+<!-- IF header_cell.B_FILTER -->
+				<input
+				type="text"
+				name="filter_{header_cell.NAME}"
+				id="filter_{header_cell.NAME}"
+				value="{header_cell.FILTER}"
+				onchange="document.{LISTNAME}_filterform.submit();" />
+<!-- ELSE -->
+				&nbsp;
+<!-- ENDIF -->
+			</th>
+<!-- END header_cell -->
+		</tr>
+	</thead>
+<!-- BEGIN members_row -->
+	<tbody id="playerrow-{members_row.MEMBER_ID}">
+		<tr class="membersRowColor{members_row.ROW_CLASS} {members_row.CLASS} <!-- IF members_row.CLASS == 'amain' -->ungroupalt<!-- ELSEIF members_row.CLASS == 'alt_mainless' -->groupalt<!-- ENDIF -->"
+			<!-- IF (members_row.CLASS eq 'amain' && S_GROUP_ALTS neq 0) or (members_row.CLASS eq 'alt_mainless' && S_GROUP_ALTS eq 0) --> style="display:none;"<!-- ENDIF -->>
+			<td class="membersRowCell groupalt"
+				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
+<!-- IF members_row.CLASS == 'main' --> 
+				<a href="#" 
+					onclick="toggleAlts('playerrow-{members_row.MEMBER_ID}','foldout-{members_row.MEMBER_ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
+					<img src="{THEME_PATH}/images/<!-- IF S_GROUP_ALTS eq 2 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					class="foldout"
+					id="foldout-{members_row.MEMBER_ID}"
+					alt="<!-- IF S_GROUP_ALTS eq 2 -->-<!-- ELSE -->+<!-- ENDIF -->" />
+				</a>
+<!-- ELSEIF members_row.CLASS == 'alt_mainless' -->
+				<!-- TRANSLATE ma -->
+<!-- ELSE -->
+				&nbsp;
+<!-- ENDIF -->
+			</td>
+<!-- BEGIN cell -->
+			<td class="membersRowCell">
+				{members_row.cell.VALUE}
+			</td>
+<!-- END cell -->
+		</tr>
+<!-- BEGIN alt -->
+		<tr class="membersRowAltColor{members_row.alt.ROW_CLASS} groupalt {members_row.alt.CLASS}"
+			<!-- IF S_GROUP_ALTS neq 2 --> style="display:none;"<!-- ENDIF -->>
+			<td class="membersRowCell">&nbsp;</td>
+<!-- BEGIN cell(0,0) -->
+			<td class="membersRowCell" style="padding-left:20px;">
+				{members_row.alt.cell.VALUE}
+			</td>
+<!-- END -->
+<!-- BEGIN cell(1) -->
+			<td class="membersRowCell">
+				{members_row.alt.cell.VALUE}
+			</td>
+<!-- END cell -->
+		</tr>
+<!-- END alt -->
+	</tbody>
+<!-- END members_row -->
+</table>
+</form>
+<!-- IF S_ML_BORDER -->
+		</td>
+	</tr>
+</table>
+<!-- ENDIF -->
