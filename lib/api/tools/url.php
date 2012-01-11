@@ -42,7 +42,7 @@ class url {
 				$q = 'api/wow/realm/status?'.$fields['data'].'';
 			break;
 			case 'guild':
-				$q = 'api/wow/guild/'.$server.'/'.$name.'/'.$fields['data'].'&'.$local;
+				$q = 'api/wow/guild/'.$server.'/'.$name . $fields['data'].'&'.$local;
 			break;
 			case 'team':
 				$q = 'api/wow/arena/'.$field['server'].'/'.$field['size'].'/'.$field['name'].'?'.$local;
