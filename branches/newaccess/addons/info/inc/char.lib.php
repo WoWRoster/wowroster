@@ -1158,6 +1158,7 @@ class char
 				$talentdata[$build][$order]['name'] = $tree;
 				$talentdata[$build][$order]['image'] = $data['background'];
 				$talentdata[$build][$order]['points'] = $data['spent'];
+				$talentdata[$build][$order]['role'] = $data['role'];
 				$talentdata[$build][$order]['talents'] = $data;
 			}
 //			aprint($talentdata);
@@ -1187,11 +1188,13 @@ class char
 						$roster->tpl->assign_block_vars('talent.tree', array(
 							'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $tree['name']),
 							'NAME' => $tree['name'],
+							'ROLE'  => $tree['role'],
 							'MAST_NAME'	=> $mastery[$treeindex]['mastery']['name'],
 							'MAST_DESC'	=> $mastery[$treeindex]['mastery']['desc'],
 							'ID' => $treeindex,
 							'POINTS' => $tree['points'],
 							'ICON' => $tree['image'],
+							'HSELECT' => ($tree['points'] >= 31 ? true : false),
 							'SELECTED' => ($spc == $build ? true : false)
 							)
 						);
@@ -1489,7 +1492,14 @@ class char
 		$returnData['maxvalue'] = $max;
 		$returnData['value'] = $level;
 		$returnData['name'] = $skilldata['skill_name'];
-		$returnData['barwidth'] = ceil($level/$max*100);
+		if ($level != '0' && $max != '0')
+		{
+			$returnData['barwidth'] = ceil($level/$max*100);
+		}
+		else
+		{
+			$returnData['barwidth'] = 100;
+		}
 
 		return $returnData;
 	}

@@ -535,7 +535,7 @@
 	
 							<div class="frames">
 <!-- BEGIN tree -->
-								<div class="spec">
+								<div class="spec<!-- IF talent.tree.HSELECT --> tselected<!-- ELSE --> tnselected<!-- ENDIF -->">
 									<img class="tbackground" src="{INTERFACE_URL}Interface/TalentFrame/{talent.tree.ICON}.{IMG_SUFFIX}" alt="" />
 									<div class="content">
 <!-- BEGIN cell -->
@@ -564,7 +564,7 @@
 									</div>
 									<div class="spec-name">
 										<span class="text">{talent.tree.NAME}</span> : {talent.tree.POINTS}
-										<span class="icon-{talent.ROLE}"></span>
+										<span class="icon-{talent.tree.ROLE}"></span>
 						
 									</div>
 									
