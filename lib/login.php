@@ -35,6 +35,7 @@ class RosterLogin
 	var $levels = array();
 	var $logout;
 	var $valid;
+	var $radid = 30;
 
 	/**
 	 * Constructor for Roster Login class
@@ -258,43 +259,42 @@ class RosterLogin
 		$this->action = makelink($action);
 	}
 
-	function makeAccess($name,$access=null,$table)
+	function makeAccess( $values )
 	{
 		global $roster;
-		
-		//$this->GetAccess();
-		if ($table == 'table')
+
+		if( count($this->levels) == 0 )
 		{
-			$x = '<table class="border_frame" cellpadding="0" cellspacing="1">';
-			$x .= '<tr>';
-				foreach ($roster->auth->GetAccess() as $acc => $a)
-				{
-					$x .= '<td style="font-size:10px;">'.$a.'</td>';
-				}
-			$x .= '</tr>';
-			$x .= '<tr>';
-			$lvl = explode(":",$access);
-			foreach ($this->levels as $acc => $a)
+			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` ORDER BY `guild_rank` ASC";
+			$result = $roster->db->query($query);
+			if( !$result )
 			{
-				$x .= '<td style="font-size:8px;text-align:center;">
-				<input type="checkbox" name="config_'.$name.'['.$acc.']" id="'.$acc.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
-				</td>';
+				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
 			}
-			$x .= '</tr></table>';
+			$this->levels[11] = 'CP Admin';
+			$this->levels[0] = 'Public';
+			$x ='1';
+			while( $row = $roster->db->fetch($result) )
+			{
+				$this->levels[($row['guild_rank']+1)] = $row['guild_title'];
+				//$x++;
+			}
 		}
-		else
+		$name = $values['name'];
+		$x = '';
+		$x .= '<div class="radioset">';
+		$lvl = explode(":",$values['value']);
+		foreach ($this->levels as $acc => $a)
 		{
-			$x = '<table class="border_frame" cellpadding="0" cellspacing="0">';
-			$x .= '<tr>';
-			$lvl = explode(":",$access);
-			foreach ($this->levels as $acc => $a)
-			{
-				$x .= '<td style="font-size:8px;text-align:center;">'.$a.'<input type="checkbox" name="config_'.$name.'['.$acc.']" id="'.$acc.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' /></td>';
-			}
-			$x .= '</tr></table>';
+			$this->radid++;
+			$x .= '<input type="checkbox" name="'.$name.'['.$acc.']" id="rad_config_'.$this->radid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
+			<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
 		}
+		$x .= '</div>';
+			
 		return $x;
 	}
+	
 	function GetAccess()
 	{
 		global $roster;
@@ -346,13 +346,14 @@ class RosterLogin
 			$lvl = explode(":",$values['value']);
 			foreach ($this->levels as $acc => $a)
 			{
-				$x .= '<input type="checkbox" name="config_'.$name.'['.$acc.']" id="rad_config_'.$name.'['.$acc.']" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
-				<label for="rad_config_'.$name.'['.$acc.']">'.substr($a,0,9).'</label>';
+				$this->radid++;
+				$x .= '<input type="checkbox" name="config_'.$name.'['.$acc.']" id="rad_config_'.$this->radid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
+				<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
 			}
 			$x .= '</div>';
 			if ($roster->output['title'] == $roster->locale->act['pagebar_addoninst'])
 			{
-				$x = '<div class="config-input">'.$x.'</div>';
+				//$x = '<div class="config-input">'.$x.'</div>';
 			}
 			//$x .= '</tr></table>';
 		return $x;
