@@ -1537,7 +1537,7 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 		}
 	}
 
-	$page_string .= ($on_page == $total_pages) ? '<strong>' . $total_pages . '</strong>' : '<a href="'.makelink($base_url . (($total_pages-1) * $per_page)) . '">'.$total_pages.'</a>';
+	$page_string .= ($on_page == $total_pages) ? ' <strong>' . $total_pages . '</strong>' : '<a href="'.makelink($base_url . (($total_pages-1) * $per_page)) . '"> '.$total_pages.'</a>';
 
 
 	$roster->tpl->assign_vars(array(
@@ -1548,7 +1548,7 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 		'B_PAGINATION' => true,
 		'PAGINATION_PREV' => (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item-$per_page)) : false),
 		'PAGINATION_NEXT' => (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item+$per_page)) : false),
-		'TOTAL_PAGES'		=> $total_pages,
+		'TOTAL_PAGES'		=> '  '.$total_pages,
 		'PAGE' => $page_string,
 	));
 

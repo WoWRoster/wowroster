@@ -67,6 +67,9 @@
 										<div class="icon">
 											<img src="{IMG_URL}spec/{talent.ICON}.jpg" alt="" />
 											<div class="mask"></div>
+											<span class="roles">
+												<span class="icon-{talent.ROLE}"></span>
+											</span>
 										</div>
 										<div class="data">
 											<div class="skill-name">{talent.NAME}</div>
@@ -561,11 +564,22 @@
 									</div>
 									<div class="spec-name">
 										<span class="text">{talent.tree.NAME}</span> : {talent.tree.POINTS}
+										<span class="icon-{talent.ROLE}"></span>
+						
 									</div>
+									
+									
+									
 <!-- BEGIN arrows -->									
 									<div class="{talent.tree.ICON} arrow-{talent.tree.arrows.ID} requiredArrow {talent.tree.arrows.OPT1} {talent.tree.arrows.OPT2} {talent.tree.arrows.OPT3} {talent.tree.arrows.OPT4}"></div>
 
 <!-- END arrows -->
+									<div class="mastery">
+										<div class="mastery-name">
+											<span class="text">{talent.tree.MAST_NAME}</span> : {talent.tree.MAST_DESC}
+										</div>
+									</div>
+									
 								</div>
 <!-- END tree -->
 <!-- # bm tree -->

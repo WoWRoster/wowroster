@@ -191,11 +191,34 @@ class Upgrade {
 			$roster->set_message('Admin user created password: password <font color=red>Changthis asap!</font>');
 			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Officer', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
 			$roster->set_message('Officer user created password: password');
-			$roster->db->query("INSERT INTO ``".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
+			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
 			$roster->set_message('Guild user created password: password');
 			
 			$roster->db->query("ALTER TABLE `".$roster->db->table('addon')."` CHANGE `access` `access` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0'");
 			$roster->set_message('Addon access field updated');
+		}
+		
+
+		if (version_compare($roster->config['version'], '2.1.9.2386', '<')) {
+			
+			$roster->set_message('Talent updates of all things....');
+			
+			$roster->db->query("ALTER TABLE `".$roster->db->table('talenttree_data')."` ADD `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,
+			ADD `desc` VARCHAR( 255 ) NULL DEFAULT NULL");
+			
+			$roster->db->query("ALTER TABLE `".$roster->db->table('talents_data')."` ADD `isspell` INT( 1 ) NULL DEFAULT NULL");
+
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('talent_mastery')."` (
+			  `class_id` int(11) NOT NULL DEFAULT '0',
+			  `tree` varchar(64) NOT NULL DEFAULT '',
+			  `tree_num` varchar(64) NOT NULL DEFAULT '',
+			  `icon` varchar(64) NOT NULL DEFAULT '',
+			  `name` varchar(64) DEFAULT NULL,
+			  `desc` varchar(255) DEFAULT NULL,
+			  `spell_id` varchar(64) NOT NULL DEFAULT '',
+			  PRIMARY KEY (`class_id`,`spell_id`,`tree`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
 		}
 
 		// Standard Beta Update

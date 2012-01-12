@@ -446,11 +446,16 @@
 .main-panel .skills .skill-bar .text { width:273px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
 /*********** Talent Page ***********/
-.main-panel .talents .frames { margin: auto; height: 430px; width: auto; }
+.main-panel .talents .frames { margin: auto; height: 465px; width: auto; }
 
-.main-panel .talents .spec { position:relative; float: left; width:250px; height:410px; margin: 3px; }
-.main-panel .talents .spec-name { position:absolute; background: url(../images/shader.png) repeat; width:240px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; }
+.main-panel .talents .spec { position:relative; float: left; width:250px; height:465px; margin: 3px; }
+.main-panel .talents .spec-name { position:absolute; background: url(../images/shader.png) repeat; width:240px; padding: 5px; left: 0; bottom: 55px; font-size: 10px; font-weight: bold; }
 .main-panel .talents .spec-name .name { color:#ffdd00; }
+
+.main-panel .talents .mastery { position:absolute; background: url(../images/shader.png) repeat; width:240px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; height:50px;}
+.main-panel .talents .mastery.name { color:#ffdd00; }
+.main-panel .talents .mastery.desc { color:#ffdd00; }
+
 .main-panel .talents .tbackground { position:absolute;width:250px;height:410px; }
 .main-panel .talents .content { position:absolute;width:250px;height:410px; }
 
@@ -460,8 +465,16 @@
 .main-panel .talents .talent-mask { background: url(../images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
 .main-panel .talents .talent-mask:hover { background-position: right top; }
 
-.main-panel .talents .talent-ability { background: url(images/talents/frame-ability.png) no-repeat left top; height:54px; width:54px; position: absolute; left: 0; top: 0; }
-
+.main-panel .talents .talent-ability { background: url(images/talents/frame-ability.png) no-repeat left top; 
+	height:54px; width:54px; position: absolute; left: 9px; top: 7px; }
+.main-panel .talents .ability {
+    background: url(images/talents/frame-ability.png) no-repeat scroll -54px 0 transparent;
+    height: 54px;
+    left: -9px;
+    position: absolute;
+    top: -9px;
+    width: 54px;
+}
 /* points */
 .main-panel .talents .points,
 .main-panel .talents .points-full { position: absolute; left: 30px; top: 30px; width: 14px; height: 15px; line-height: 14px; color: #6fff5b; font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; border: 1px solid #17c815; text-align: center; background: black; }
