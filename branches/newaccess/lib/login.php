@@ -127,9 +127,8 @@ class RosterLogin
 			setcookie('roster_pass',$pass,(time()+60*60*24*30) );
 			setcookie('roster_remember',$remember,(time()+60*60*24*30) );
 			$this->valid = 1;
-			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" />'
- 					. '<button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
-			$this->message = 'Welcome, '.$user.'<br>'.$this->logout;
+			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
+			$this->message = '<span class="login-message">Welcome, '.$user.' '.$this->logout.'</span>';
 			//$this->UserHud($action, $word, $login_message, $valid);
 			//return true;
 		}
@@ -244,8 +243,9 @@ class RosterLogin
 				'L_LOGIN_MESSAGE' => $login_message,
 				'U_LOGIN' => 0
 			));
-
-			return true;
+			$roster->tpl->set_handle('roster_menu_login', 'menu_login.html');
+			return $roster->tpl->fetch('roster_menu_login');
+			//return true;
 		}
 		else
 		{
@@ -301,7 +301,6 @@ class RosterLogin
 
 		if( count($this->levels) == 0 )
 		{
-			//$query = "SELECT `account_id`, `name` FROM `" . $roster->db->table('account') . "`;";
 			$query = "SELECT DISTINCT (`guild_rank` ), `guild_title` FROM `" . $roster->db->table('members') . "` ORDER BY `guild_rank` ASC";
 			$result = $roster->db->query($query);
 
@@ -312,13 +311,10 @@ class RosterLogin
 
 			$this->levels[11] = 'Roster Admin';
 			$this->levels[0] = 'Public';
-			$x ='1';
 			while( $row = $roster->db->fetch($result) )
 			{
 				$this->levels[($row['guild_rank']+1)] = $row['guild_title'];
-				//$x++;
 			}
-			//$this->levels[11] = 'Public';
 		}
 		return $this->levels;
 	}
@@ -328,16 +324,13 @@ class RosterLogin
 
 		if( count($this->levels) == 0 )
 		{
-			//$query = "SELECT `account_id`, `name` FROM `" . $roster->db->table('account') . "`;";
-			$query = "SELECT DISTINCT (`guild_rank` ), `guild_title` FROM `" . $roster->db->table('members') . "` ORDER BY `guild_rank` ASC";
+			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` ORDER BY `guild_rank` ASC";
 			$result = $roster->db->query($query);
-
 			if( !$result )
 			{
 				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
 			}
-
-			$this->levels[11] = 'Roster Admin';
+			$this->levels[11] = 'CP Admin';
 			$this->levels[0] = 'Public';
 			$x ='1';
 			while( $row = $roster->db->fetch($result) )
@@ -347,43 +340,14 @@ class RosterLogin
 			}
 			//$this->levels[11] = 'Public';
 		}
-/*
-		$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
-		$select_one = 1;
-		foreach( $this->levels as $level => $name )
-		{
-			if( $level == $values['value'] && $select_one )
-			{
-				$input_field .= '  <option value="' . $level . '" selected="selected">' . $name . '</option>' . "\n";
-				$select_one = 0;
-			}
-			else
-			{
-				$input_field .= '  <option value="' . $level . '">' . $name . '</option>' . "\n";
-			}
-		}
-		$input_field .= '</select>';
-*/
-			$x = '';
 			$name = $values['name'];
-			//$x .= '<table class="border_frame" cellpadding="0" cellspacing="1">';
-			/*
-			$x .= '<tr>';
-				foreach ($this->levels as $acc => $a)
-				{
-					$x .= '<td style="font-size:10px;">'.$a.'</td>';
-				}
-			$x .= '</tr>';*/
-			//$x .= '<tr>';
+			$x = '';
 			$x .= '<div class="radioset">';
 			$lvl = explode(":",$values['value']);
 			foreach ($this->levels as $acc => $a)
 			{
-				//$x .= '<td style="font-size:8px;text-align:center;">';
-				$x .= '
-				<input type="checkbox" name="config_'.$name.'['.$acc.']" id="rad_config_'.$name.'['.$acc.']" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
-				<label for="rad_config_'.$name.'['.$acc.']">'.$a.'</label>';
-				//$x .= '</td>';
+				$x .= '<input type="checkbox" name="config_'.$name.'['.$acc.']" id="rad_config_'.$name.'['.$acc.']" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
+				<label for="rad_config_'.$name.'['.$acc.']">'.substr($a,0,9).'</label>';
 			}
 			$x .= '</div>';
 			if ($roster->output['title'] == $roster->locale->act['pagebar_addoninst'])
