@@ -1,0 +1,23 @@
+<!-- $Id$ -->
+<form action="" method="post" id="update">
+	<input type="hidden" id="deletehide" name="action" value="" />
+	<input type="hidden" name="process" value="process" />
+
+<!-- BEGIN user -->
+				<div class="tier-3-a">
+					<div class="tier-3-b">
+						<div class="config">
+							<div class="config-name">
+								{user.NAME} ({user.EMAIL}) [delete box]
+							</div>
+							<div class="config-input">
+								{user.ACCESS}
+							</div>
+						</div>
+					</div>
+				</div>
+
+<!-- END user -->
+<button type="submit" class="input" onclick="return confirm('update settings');">update</button>
+
+</form>
