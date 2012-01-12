@@ -529,6 +529,11 @@ $this->buildPage($values['name'],$type[1]) . '
 		// Update only the changed fields
 		foreach( $_POST as $settingName => $settingValue )
 		{
+			// we use an array now to we must implode it!
+			if (is_array($settingValue))
+			{
+				$settingValue = implode(":",$settingValue);
+			}
 			// Remove the extra slashes added by settings.php
 			$settingValue = stripslashes($settingValue);
 
