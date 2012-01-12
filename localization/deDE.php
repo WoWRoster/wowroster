@@ -726,6 +726,7 @@ $lang['faction_to_id'] = array(
 	'Streitkräfte der Horde' => 'horde',
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
+	'Reputation' => 'reputation',
 );
 
 

@@ -12,129 +12,129 @@
  */
 
 /*********** Talent Tree Arrows ***********/
-.hunterbeastmastery.arrow-1 {width: 21px; height: 19px; top: 54px; left: 138px; }
-.hunterbeastmastery.arrow-2 {width: 21px; height: 73px; top: 162px; left: 82px; }
-.hunterbeastmastery.arrow-3 {width: 21px; height: 19px; top: 270px; left: 82px; }
-.hunterbeastmastery.arrow-4 {width: 21px; height: 19px; top: 270px; left: 138px; }
+.hunterbeastmastery.arrow-1 {width: 21px; height: 19px; top: 54px; left: 148px; }
+.hunterbeastmastery.arrow-2 {width: 21px; height: 73px; top: 162px; left: 92px; }
+.hunterbeastmastery.arrow-3 {width: 21px; height: 19px; top: 270px; left: 92px; }
+.hunterbeastmastery.arrow-4 {width: 21px; height: 19px; top: 270px; left: 148px; }
 
-.huntermarksmanship.arrow-1 {width: 21px; height: 19px; top: 54px; left: 26px; }
-.huntermarksmanship.arrow-2 {width: 21px; height: 73px; top: 270px; left: 82px; }
-.huntermarksmanship.arrow-3 {width: 40px; height: 21px; top: 242px; left: 112px; }
-.huntermarksmanship.arrow-4 {width: 21px; height: 33px; top: 255px; left: 138px; }
+.huntermarksmanship.arrow-1 {width: 21px; height: 19px; top: 54px; left: 36px; }
+.huntermarksmanship.arrow-2 {width: 21px; height: 73px; top: 270px; left: 92px; }
+.huntermarksmanship.arrow-3 {width: 40px; height: 21px; top: 242px; left: 122px; }
+.huntermarksmanship.arrow-4 {width: 21px; height: 33px; top: 255px; left: 148px; }
 
-.huntersurvival.arrow-1 {width: 21px; height: 19px; top: 162px; left: 138px; }
-.huntersurvival.arrow-2 {width: 20px; height: 21px; top: 242px; left: 112px; }
-.huntersurvival.arrow-3 {width: 21px; height: 73px; top: 270px; left: 82px; }
+.huntersurvival.arrow-1 {width: 21px; height: 19px; top: 162px; left: 148px; }
+.huntersurvival.arrow-2 {width: 20px; height: 21px; top: 242px; left: 122px; }
+.huntersurvival.arrow-3 {width: 21px; height: 73px; top: 270px; left: 92px; }
 
 
-.magefrost.arrow-4 {width: 21px; height: 73px; top: 270px; left: 82px; }
+.magefrost.arrow-4 {width: 21px; height: 73px; top: 270px; left: 92px; }
 .magefrost.arrow-3 {width: 21px; height: 19px; top: 134px; left: 169px; }
 .magefrost.arrow-2 {width: 21px; height: 19px; top: 242px; left: 51px; }
-.magefrost.arrow-1 {width: 21px; height: 19px; top: 242px; left: 112px; }
+.magefrost.arrow-1 {width: 21px; height: 19px; top: 242px; left: 122px; }
 
-.magefire.arrow-2 {width: 21px; height: 19px; top: 162px; left: 138px; }
-.magefire.arrow-1 {width: 21px; height: 73px; top: 270px; left: 82px; }
+.magefire.arrow-2 {width: 21px; height: 19px; top: 162px; left: 148px; }
+.magefire.arrow-1 {width: 21px; height: 73px; top: 270px; left: 92px; }
 
-.magearcane.arrow-5 {width: 21px; height: 19px; top: 108px; left: 138px; }
-.magearcane.arrow-4 {width: 21px; height: 19px; top: 242px; left: 112px; }
-.magearcane.arrow-3 {width: 21px; height: 19px; top: 162px; left: 82px; }
-.magearcane.arrow-2 {width: 21px; height: 73px; top: 270px; left: 82px; }
+.magearcane.arrow-5 {width: 21px; height: 19px; top: 108px; left: 148px; }
+.magearcane.arrow-4 {width: 21px; height: 19px; top: 242px; left: 122px; }
+.magearcane.arrow-3 {width: 21px; height: 19px; top: 162px; left: 92px; }
+.magearcane.arrow-2 {width: 21px; height: 73px; top: 270px; left: 92px; }
 .magearcane.arrow-1 {width: 21px; height: 19px; top: 134px; left: 51px; }
 
 
-.druidrestoration.arrow-3 {width: 21px; height: 19px; top: 54px; left: 82px; }
-.druidrestoration.arrow-2 {width: 21px; height: 73px; top: 162px; left: 26px; }
-.druidrestoration.arrow-1 {width: 21px; height: 73px; top: 270px; left: 82px; }
+.druidrestoration.arrow-3 {width: 21px; height: 19px; top: 54px; left: 92px; }
+.druidrestoration.arrow-2 {width: 21px; height: 73px; top: 162px; left: 36px; }
+.druidrestoration.arrow-1 {width: 21px; height: 73px; top: 270px; left: 92px; }
 
-.druidferalcombat.arrow-3 {width: 21px; height: 73px; top: 162px; left: 26px; }
-.druidferalcombat.arrow-2 {width: 21px; height: 19px; top: 134px; left: 112px; }
-.druidferalcombat.arrow-1 {width: 21px; height: 19px; top: 242px; left: 112px; }
+.druidferalcombat.arrow-3 {width: 21px; height: 73px; top: 162px; left: 36px; }
+.druidferalcombat.arrow-2 {width: 21px; height: 19px; top: 134px; left: 122px; }
+.druidferalcombat.arrow-1 {width: 21px; height: 19px; top: 242px; left: 122px; }
 
-.druidbalance.arrow-5 {width: 21px; height: 73px; top: 162px; left: 26px; }
-.druidbalance.arrow-4 {width: 21px; height: 19px; top: 162px; left: 82px; }
-.druidbalance.arrow-3 {width: 21px; height: 19px; top: 162px; left: 138px; }
-.druidbalance.arrow-2 {width: 21px; height: 19px; top: 270px; left: 82px; }
-.druidbalance.arrow-1 {width: 21px; height: 19px; top: 270px; left: 138px; }
+.druidbalance.arrow-5 {width: 21px; height: 73px; top: 162px; left: 36px; }
+.druidbalance.arrow-4 {width: 21px; height: 19px; top: 162px; left: 92px; }
+.druidbalance.arrow-3 {width: 21px; height: 19px; top: 162px; left: 148px; }
+.druidbalance.arrow-2 {width: 21px; height: 19px; top: 270px; left: 92px; }
+.druidbalance.arrow-1 {width: 21px; height: 19px; top: 270px; left: 148px; }
 
-.deathknightunholy.arrow-3 {width: 21px; height: 73px; top: 54px; left: 138px; }
+.deathknightunholy.arrow-3 {width: 21px; height: 73px; top: 54px; left: 148px; }
 .deathknightunholy.arrow-2 {width: 21px; height: 73px; top: 162px; left: 194px; }
-.deathknightunholy.arrow-1 {width: 21px; height: 19px; top: 216px; left: 82px; }
+.deathknightunholy.arrow-1 {width: 21px; height: 19px; top: 216px; left: 92px; }
 
-.deathknightfrost.arrow-1 {width: 21px; height: 71px; top: 270px; left: 82px; }
+.deathknightfrost.arrow-1 {width: 21px; height: 71px; top: 270px; left: 92px; }
 
 .deathknightblood.arrow-1 {width: 21px; height: 19px; top: 242px; left: 51px; }
 
 
-.paladinholy.arrow-1 {width: 21px; height: 19px; top: 162px; left: 138px; }
-.paladinholy.arrow-2 {width: 21px; height: 71px; top: 216px; left: 82px; }
+.paladinholy.arrow-1 {width: 21px; height: 19px; top: 162px; left: 148px; }
+.paladinholy.arrow-2 {width: 21px; height: 71px; top: 216px; left: 92px; }
 
-.paladinprotection.arrow-1 {width: 21px; height: 19px; top: 162px; left: 138px; }
-.paladinprotection.arrow-2 {width: 21px; height: 19px; top: 162px; left: 82px; }
-.paladinprotection.arrow-3 {width: 21px; height: 19px; top: 216px; left: 82px; }
-.paladinprotection.arrow-4 {width: 21px; height: 19px; top: 270px; left: 82px; }
+.paladinprotection.arrow-1 {width: 21px; height: 19px; top: 162px; left: 148px; }
+.paladinprotection.arrow-2 {width: 21px; height: 19px; top: 162px; left: 92px; }
+.paladinprotection.arrow-3 {width: 21px; height: 19px; top: 216px; left: 92px; }
+.paladinprotection.arrow-4 {width: 21px; height: 19px; top: 270px; left: 92px; }
 
-.paladincombat.arrow-1 {width: 21px; height: 71px; top: 54px; left: 138px; }
+.paladincombat.arrow-1 {width: 21px; height: 71px; top: 54px; left: 148px; }
 
 
 .priestdiscipline.arrow-1 {width: 21px; height: 19px; top: 80px; left:56px; }
-.priestdiscipline.arrow-2 {width: 21px; height: 71px; top: 162px; left: 26px; }
-.priestdiscipline.arrow-3 {width: 21px; height: 71px; top: 270px; left: 82px; }
+.priestdiscipline.arrow-2 {width: 21px; height: 71px; top: 162px; left: 36px; }
+.priestdiscipline.arrow-3 {width: 21px; height: 71px; top: 270px; left: 92px; }
 
-.priestholy.arrow-1 {width: 21px; height: 71px; top: 54px; left: 26px; }
-.priestholy.arrow-2 {width: 21px; height: 19px; top: 162px; left: 26px; }
-.priestholy.arrow-3 {width: 21px; height: 71px; top: 162px; left: 82px; }
-.priestholy.arrow-4 {width: 21px; height: 19px; top: 242px; left: 112px; }
-.priestholy.arrow-5 {width: 21px; height: 19px; top: 270px; left: 82px; }
+.priestholy.arrow-1 {width: 21px; height: 71px; top: 54px; left: 36px; }
+.priestholy.arrow-2 {width: 21px; height: 19px; top: 162px; left: 36px; }
+.priestholy.arrow-3 {width: 21px; height: 71px; top: 162px; left: 92px; }
+.priestholy.arrow-4 {width: 21px; height: 19px; top: 242px; left: 122px; }
+.priestholy.arrow-5 {width: 21px; height: 19px; top: 270px; left: 92px; }
 
-.priestshadow.arrow-1 {width: 21px; height: 71px; top: 108px; left: 26px; }
-.priestshadow.arrow-2 {width: 21px; height: 19px; top: 188px; left: 112px; }
-.priestshadow.arrow-3 {width: 21px; height: 19px; top: 216px; left: 82px; }
-.priestshadow.arrow-4 {width: 21px; height: 19px; top: 270px; left: 82px; }
-
-
-.rogueassassination.arrow-1 {width: 21px; height: 19px; top: 162px; left: 82px; }
-.rogueassassination.arrow-2 {width: 21px; height: 71px; top: 162px; left: 138px; }
-
-.roguecombat.arrow-1 {width: 21px; height: 71px; top: 270px; left: 82px; }
-
-.roguesubtlety.arrow-1 {width: 21px; height: 19px; top: 54px; left: 82px; }
-.roguesubtlety.arrow-2 {width: 21px; height: 71px; top: 162px; left: 138px; }
+.priestshadow.arrow-1 {width: 21px; height: 71px; top: 108px; left: 36px; }
+.priestshadow.arrow-2 {width: 21px; height: 19px; top: 188px; left: 122px; }
+.priestshadow.arrow-3 {width: 21px; height: 19px; top: 216px; left: 92px; }
+.priestshadow.arrow-4 {width: 21px; height: 19px; top: 270px; left: 92px; }
 
 
-.shamanelementalcombat.arrow-1 {width: 21px; height: 19px; top: 270px; left: 82px; }
-.shamanelementalcombat.arrow-2 {width: 21px; height: 19px; top: 162px; left: 82px; }
-.shamanelementalcombat.arrow-3 {width: 21px; height: 71px; top: 162px; left: 26px; }
+.rogueassassination.arrow-1 {width: 21px; height: 19px; top: 162px; left: 92px; }
+.rogueassassination.arrow-2 {width: 21px; height: 71px; top: 162px; left: 148px; }
 
-.shamanenhancement.arrow-1 {width: 21px; height: 71px; top: 216px; left: 138px; }
+.roguecombat.arrow-1 {width: 21px; height: 71px; top: 270px; left: 92px; }
+
+.roguesubtlety.arrow-1 {width: 21px; height: 19px; top: 54px; left: 92px; }
+.roguesubtlety.arrow-2 {width: 21px; height: 71px; top: 162px; left: 148px; }
+
+
+.shamanelementalcombat.arrow-1 {width: 21px; height: 19px; top: 270px; left: 92px; }
+.shamanelementalcombat.arrow-2 {width: 21px; height: 19px; top: 162px; left: 92px; }
+.shamanelementalcombat.arrow-3 {width: 21px; height: 71px; top: 162px; left: 36px; }
+
+.shamanenhancement.arrow-1 {width: 21px; height: 71px; top: 216px; left: 148px; }
 
 .shamanrestoration.arrow-1 {width: 21px; height: 19px; top: 188px; left: 169px; }
-.shamanrestoration.arrow-2 {width: 21px; height: 71px; top: 162px; left: 26px; }
+.shamanrestoration.arrow-2 {width: 21px; height: 71px; top: 162px; left: 36px; }
 
 
-.warlockcurses.arrow-1 {width: 21px; height: 19px; top: 80px; left: 112px; }
-.warlockcurses.arrow-2 {width: 21px; height: 71px; top: 108px; left: 82px; }
+.warlockcurses.arrow-1 {width: 21px; height: 19px; top: 80px; left: 122px; }
+.warlockcurses.arrow-2 {width: 21px; height: 71px; top: 108px; left: 92px; }
 
-.warlocksummoning.arrow-1 {width: 21px; height: 19px; top: 188px; left: 112px; }
-.warlocksummoning.arrow-2 {width: 21px; height: 19px; top: 216px; left: 82px; }
-.warlocksummoning.arrow-3 {width: 21px; height: 19px; top: 270px; left: 82px; }
+.warlocksummoning.arrow-1 {width: 21px; height: 19px; top: 188px; left: 122px; }
+.warlocksummoning.arrow-2 {width: 21px; height: 19px; top: 216px; left: 92px; }
+.warlocksummoning.arrow-3 {width: 21px; height: 19px; top: 270px; left: 92px; }
 
-.warlockdestruction.arrow-1 {width: 21px; height: 71px; top: 216px; left: 26px; }
-.warlockdestruction.arrow-2 {width: 21px; height: 71px; top: 270px; left: 82px; }
+.warlockdestruction.arrow-1 {width: 21px; height: 71px; top: 216px; left: 36px; }
+.warlockdestruction.arrow-2 {width: 21px; height: 71px; top: 270px; left: 92px; }
 .warlockdestruction.arrow-3 {width: 21px; height: 19px; top: 216px; left: 194px; }
 
 
-.warriorarms.arrow-1 {width: 21px; height: 19px; top: 108px; left: 138px; }
-.warriorarms.arrow-2 {width: 21px; height: 71px; top: 270px; left: 82px; }
-.warriorarms.arrow-3 {width: 40px; height: 21px; top: 242px; left: 112px; }
-.warriorarms.arrow-4 {width: 21px; height: 33px; top: 255px; left: 138px; }
+.warriorarms.arrow-1 {width: 21px; height: 19px; top: 108px; left: 148px; }
+.warriorarms.arrow-2 {width: 21px; height: 71px; top: 270px; left: 92px; }
+.warriorarms.arrow-3 {width: 40px; height: 21px; top: 242px; left: 122px; }
+.warriorarms.arrow-4 {width: 21px; height: 33px; top: 255px; left: 148px; }
 
-.warriorfury.arrow-1 {width: 21px; height: 19px; top: 162px; left: 82px; }
-.warriorfury.arrow-2 {width: 21px; height: 19px; top: 188px; left: 112px; }
-.warriorfury.arrow-3 {width: 21px; height: 71px; top: 216px; left: 82px; }
+.warriorfury.arrow-1 {width: 21px; height: 19px; top: 162px; left: 92px; }
+.warriorfury.arrow-2 {width: 21px; height: 19px; top: 188px; left: 122px; }
+.warriorfury.arrow-3 {width: 21px; height: 71px; top: 216px; left: 92px; }
 
-.warriorprotection.arrow-1 {width: 21px; height: 19px; top: 188px; left:167px; }
-.warriorprotection.arrow-2 {width: 21px; height: 71px; top: 162px; left: 82px; }
-.warriorprotection.arrow-3 {width: 21px; height: 71px; top: 216px; left: 138px; }
+.warriorprotection.arrow-1 {width: 21px; height: 19px; top: 188px; left: 177px; }
+.warriorprotection.arrow-2 {width: 21px; height: 71px; top: 162px; left: 92px; }
+.warriorprotection.arrow-3 {width: 21px; height: 71px; top: 216px; left: 148px; }
 
 
 /*********** Common Elements ***********/
@@ -446,18 +446,20 @@
 .main-panel .skills .skill-bar .text { width:273px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
 
 /*********** Talent Page ***********/
-.main-panel .talents .frames { margin: auto; height: 465px; width: auto; }
+.main-panel .talents .frames { margin: auto; height: 485px; width: auto; float: center;}
 
-.main-panel .talents .spec { position:relative; float: left; width:250px; height:465px; margin: 3px; }
-.main-panel .talents .spec-name { position:absolute; background: url(../images/shader.png) repeat; width:240px; padding: 5px; left: 0; bottom: 55px; font-size: 10px; font-weight: bold; }
+.main-panel .talents .spec { position:relative; float: left; width:270px; height:475px; margin: 3px; }
+.tselected { border: 2px solid #008000;}
+.tnselected { border: 2px solid #000000;}
+.main-panel .talents .spec-name { position:absolute; background: url(../images/shader.png) repeat; width:260px; padding: 5px; left: 0; bottom: 65px; font-size: 10px; font-weight: bold; }
 .main-panel .talents .spec-name .name { color:#ffdd00; }
 
-.main-panel .talents .mastery { position:absolute; background: url(../images/shader.png) repeat; width:240px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; height:50px;}
+.main-panel .talents .mastery { position:absolute; background: url(../images/shader.png) repeat; width:260px; padding: 5px; left: 0; bottom: 0; font-size: 10px; font-weight: bold; height:60px;}
 .main-panel .talents .mastery.name { color:#ffdd00; }
 .main-panel .talents .mastery.desc { color:#ffdd00; }
 
-.main-panel .talents .tbackground { position:absolute;width:250px;height:410px; }
-.main-panel .talents .content { position:absolute;width:250px;height:410px; }
+.main-panel .talents .tbackground { position:absolute;width:270px;height:410px; }
+.main-panel .talents .content { position:absolute;width:260px;height:410px; padding-left: 10px;}
 
 .main-panel .talents .talent-cell { position: relative; float:left; width:56px; height:54px; }
 .main-panel .talents .talent-icon { position: absolute; top: 14px; left: 16px; height: 40px; width: 40px; }

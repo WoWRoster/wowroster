@@ -726,7 +726,8 @@ $lang['faction_to_id'] = array(
 	'Horde Forces' => 'horde',
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
-);
+	'Reputation' => 'reputation',
+	);
 
 
 // Quests page external links (on character quests page)
