@@ -60,6 +60,17 @@ textbox {
 	-moz-border-radius-bottomleft: 0;
 }
 
+.pagi-selected {
+	border:1px solid #4e4d4c;
+	background-color:#FF7D0A;
+	padding:1px 4px 1px 4px;
+}
+.pagi-active {
+	border:1px solid #4e4d4c;
+	background-color:#C79C6E;
+	padding:1px 4px 1px 4px;
+}
+
 
 /* Main Roster Wrapper Header */
 .theme-wrap {

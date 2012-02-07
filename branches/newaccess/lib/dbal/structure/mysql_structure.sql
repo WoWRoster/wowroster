@@ -14,6 +14,19 @@ CREATE TABLE `renprefix_account` (
   PRIMARY KEY  (`account_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `renprefix_user_members`;
+CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usr` varchar(32) NOT NULL DEFAULT '',
+  `pass` varchar(32) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `regIP` varchar(15) NOT NULL DEFAULT '',
+  `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `access` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usr` (`usr`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
 # --------------------------------------------------------
 ### Addon
 

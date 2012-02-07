@@ -41,9 +41,30 @@ class Guild extends Resource {
 			'dataa' => $name.'@'.$rname,
 			'server' => $rname,
 			'name' => $name,
-			'header'=>"Accept-language: enUS\r\n"
+			'header'=>"Accept-language: ".$this->region."\r\n"
 			));
 		}
 		return $data;
 	}
+	
+	public function getGuildrewards($rname, $name, $fields)
+	{
+		if (empty($rname)) {
+			throw new ResourceException('No realms specified.');
+		} elseif (empty($name)) {
+			throw new ResourceException('No guild name specified.');
+		} else {
+			
+			$data = $this->consume('grewards', array(
+			'data' => $fields,
+			'dataa' => $name.'@'.$rname.'-rewards',
+			'server' => $rname,
+			'name' => $name,
+			'type' => 'GET',
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		}
+		return $data;
+	}
+	
 }

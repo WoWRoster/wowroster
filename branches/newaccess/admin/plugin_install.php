@@ -46,86 +46,7 @@ switch( $op )
 	default:
 		break;
 }
-
-
-$plugins = getPluginList();
-if( !empty($plugins) )
-{
-	$roster->tpl->assign_vars(array(
-		'S_ADDON_LIST' => true,
-
-		'L_TIP_STATUS_ACTIVE' => makeOverlib($roster->locale->act['installer_turn_off'],$roster->locale->act['installer_activated']),
-		'L_TIP_STATUS_INACTIVE' => makeOverlib($roster->locale->act['installer_turn_on'],$roster->locale->act['installer_deactivated']),
-		'L_TIP_INSTALL_OLD' => makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']),
-		'L_TIP_INSTALL' => makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']),
-		'L_TIP_UNINSTALL' => makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']),
-		)
-	);
-
-	foreach( $plugins as $addon )
-	{
-		if( !empty($addon['icon']) )
-		{
-			if( strpos($addon['icon'],'.') !== false )
-			{
-				$addon['icon'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/' . $addon['icon'];
-			}
-			else
-			{
-				$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
-			}
-		}
-		else
-		{
-			$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
-		}
-
-		$roster->tpl->assign_block_vars('addon_list', array(
-			'ROW_CLASS'   => $roster->switch_row_class(),
-			'ID'          => ( isset($addon['id']) ? $addon['id'] : '' ),
-			'ICON'        => $addon['icon'],
-			'FULLNAME'    => $addon['fullname'],
-			'BASENAME'    => $addon['basename'],
-			'FILENAME'    => $addon['filename'],
-			'PARENT'	  => $addon['parent'],
-			'VERSION'     => $addon['version'],
-			'OLD_VERSION' => ( isset($addon['oldversion']) ? $addon['oldversion'] : '' ),
-			'DESCRIPTION' => $addon['description'],
-			'AUTHOR'      => $addon['author'],
-			'ACTIVE'      => ( isset($addon['active']) ? $addon['active'] : '' ),
-			'INSTALL'     => $addon['install'],
-			'L_TIP_UPGRADE' => ( isset($addon['active']) ? makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'],$addon['oldversion'],$addon['version']),$roster->locale->act['installer_upgrade_avail']) : '' ),
-			'ACCESS'      => ''
-			)
-		);
-	}
-}
-else
-{
-	$installer->setmessages('No addons available!');
-}
-
-$errorstringout = $installer->geterrors();
-$messagestringout = $installer->getmessages();
-$sqlstringout = $installer->getsql();
-
-// print the error messages
-if( !empty($errorstringout) )
-{
-	$roster->set_message($errorstringout, $roster->locale->act['installer_error'], 'error');
-}
-
-// Print the update messages
-if( !empty($messagestringout) )
-{
-	$roster->set_message($messagestringout, $roster->locale->act['installer_log']);
-}
-
-$roster->tpl->set_filenames(array('body' => 'admin/plugin_install.html'));
-$body = $roster->tpl->fetch('body');
-
-
-
+$roster->get_plugin_data();
 	function getPluginlist()
 	{
 		global $roster, $addon;
@@ -392,3 +313,79 @@ $body = $roster->tpl->fetch('body');
 
 		return true;
 	}
+
+$plugins = getPluginList();
+if( !empty($plugins) )
+{
+	$roster->tpl->assign_vars(array(
+		'S_ADDON_LIST' => true,
+
+		'L_TIP_STATUS_ACTIVE' => makeOverlib($roster->locale->act['installer_turn_off'],$roster->locale->act['installer_activated']),
+		'L_TIP_STATUS_INACTIVE' => makeOverlib($roster->locale->act['installer_turn_on'],$roster->locale->act['installer_deactivated']),
+		'L_TIP_INSTALL_OLD' => makeOverlib($roster->locale->act['installer_replace_files'],$roster->locale->act['installer_overwrite']),
+		'L_TIP_INSTALL' => makeOverlib($roster->locale->act['installer_click_uninstall'],$roster->locale->act['installer_installed']),
+		'L_TIP_UNINSTALL' => makeOverlib($roster->locale->act['installer_click_install'],$roster->locale->act['installer_not_installed']),
+		)
+	);
+
+	foreach( $plugins as $addon )
+	{
+		if( !empty($addon['icon']) )
+		{
+			if( strpos($addon['icon'],'.') !== false )
+			{
+				$addon['icon'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/' . $addon['icon'];
+			}
+			else
+			{
+				$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $addon['icon'] . '.' . $roster->config['img_suffix'];
+			}
+		}
+		else
+		{
+			$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+		}
+
+		$roster->tpl->assign_block_vars('addon_list', array(
+			'ROW_CLASS'   => $roster->switch_row_class(),
+			'ID'          => ( isset($addon['id']) ? $addon['id'] : '' ),
+			'ICON'        => $addon['icon'],
+			'FULLNAME'    => $addon['fullname'],
+			'BASENAME'    => $addon['basename'],
+			'FILENAME'    => $addon['filename'],
+			'PARENT'	  => $addon['parent'],
+			'VERSION'     => $addon['version'],
+			'OLD_VERSION' => ( isset($addon['oldversion']) ? $addon['oldversion'] : '' ),
+			'DESCRIPTION' => $addon['description'],
+			'AUTHOR'      => $addon['author'],
+			'ACTIVE'      => ( isset($addon['active']) ? $addon['active'] : '' ),
+			'INSTALL'     => $addon['install'],
+			'L_TIP_UPGRADE' => ( isset($addon['active']) ? makeOverlib(sprintf($roster->locale->act['installer_click_upgrade'],$addon['oldversion'],$addon['version']),$roster->locale->act['installer_upgrade_avail']) : '' ),
+			'ACCESS'      => ''
+			)
+		);
+	}
+}
+else
+{
+	$installer->setmessages('No addons available!');
+}
+
+$errorstringout = $installer->geterrors();
+$messagestringout = $installer->getmessages();
+$sqlstringout = $installer->getsql();
+
+// print the error messages
+if( !empty($errorstringout) )
+{
+	$roster->set_message($errorstringout, $roster->locale->act['installer_error'], 'error');
+}
+
+// Print the update messages
+if( !empty($messagestringout) )
+{
+	$roster->set_message($messagestringout, $roster->locale->act['installer_log']);
+}
+
+$roster->tpl->set_filenames(array('body' => 'admin/plugin_install.html'));
+$body = $roster->tpl->fetch('body');
