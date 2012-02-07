@@ -24,7 +24,7 @@ abstract class Resource {
 	/**
 	 * API uri for Wow's API
 	 */
-	const API_URI = 'http://%s.battle.net/';
+	//const API_URI = 'http://%s.battle.net/';
 
 	/**
 	 * @var string Serve region(`us` or `eu`)
@@ -79,7 +79,7 @@ abstract class Resource {
 			//throw new ResourceException('Method not allowed.', 405);
 		}
 		// new prity url builder ... much better then befor...
-		$ui = sprintf(self::API_URI, $this->region);
+		$ui = API_URI;//sprintf(self::API_URI, $this->region);
 
 		// new cache system see hwo old teh file is only live update files more then X days/hours old
 
@@ -92,7 +92,7 @@ abstract class Resource {
 			if ($this->Curl->errno !== CURLE_OK) 
 			{
 				//throw new ResourceException($this->Curl->error, $this->Curl->errno);
-				$roster->set_message( 'The selected api action is not allowed'.$this->Curl->errno.'<br>'.$this->Curl->error.'', 'Curl has Failed!', 'error' );
+				$roster->set_message( "The selected api action is not allowed <br/>\n\r [".$this->Curl->errno.'] : '.$this->Curl->error.'', 'Curl has Failed!', 'error' );
 			}
 			
 			// update the tracker...

@@ -27,21 +27,7 @@ class character extends Resource {
 		'cfeed',
 	);
 	var $x = '';
-/*
-	var $items = true;
-	var $stats = true;
-	var $reputation = true;
-	var $skills = true;
-	var $achievements = true;
-	var $statistics = true;
-	var $talents = true;
-	var $appearance = true;
-	var $titles = true;
-	var $mounts = true;
-	var $companions = true;
-	var $pets = true;
-	var $PvP = true;
-*/
+
 	function build_fields($data)
 	{
 		$fds = explode(":",$data);

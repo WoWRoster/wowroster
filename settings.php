@@ -214,8 +214,7 @@ unset($locale);
  * since we use it for the API url
  */
 require_once (ROSTER_API . 'api.php');
-$roster->api = new WowAPI($roster->config['api_url_region']);
-
+$roster->api = new WowAPI($roster->config['api_url_locale']);
 /**
  * Include cms linking file
  */
