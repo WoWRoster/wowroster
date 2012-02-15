@@ -184,6 +184,7 @@ class lua
 				{
 					continue;
 				}
+				//print_R($stack);
 				// Look for end of an array
 				if( isset($this->line[0]) && $this->line[0] == '}' )
 				{
@@ -214,7 +215,7 @@ class lua
 					// If we have nothing, then this isn't a lua data file
 					elseif( $stack_pos == 0 )
 					{
-						$this->seterror('LUA parsing error. Are you sure this is a SavedVariables file?');
+						$this->seterror('LUA parsing error. Are you sure this is a SavedVariables file? '.(__LINE__).'');
 						return false;
 					}
 					// Otherwise we'll have to make one up for ourselves
@@ -264,6 +265,7 @@ class lua
 						$stack[$stack_pos][1][$name] = $value;
 					}
 				}
+				//print_R($stack);
 			}
 
 			$this->__closefile();
@@ -271,7 +273,7 @@ class lua
 		}
 		else
 		{
-			$this->seterror('File location was not set. Are you trying to access this function directly?');
+			$this->seterror('File location was not set. Are you trying to access this function directly? '.(__LINE__).'');
 			return false;
 		}
 	}

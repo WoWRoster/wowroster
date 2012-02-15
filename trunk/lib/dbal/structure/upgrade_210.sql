@@ -30,10 +30,36 @@ CREATE TABLE `renprefix_plugin` (
   `versioncache` tinytext,
   PRIMARY KEY  (`addon_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_talent_mastery`;
+CREATE TABLE `renprefix_talent_mastery` (
+  `class_id` int(11) NOT NULL DEFAULT '0',
+  `tree` varchar(64) NOT NULL DEFAULT '',
+  `tree_num` varchar(64) NOT NULL DEFAULT '',
+  `icon` varchar(64) NOT NULL DEFAULT '',
+  `name` varchar(64) DEFAULT NULL,
+  `desc` varchar(255) DEFAULT NULL,
+  `spell_id` varchar(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (`class_id`,`spell_id`,`tree`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_user_members`;
+CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usr` varchar(32) NOT NULL DEFAULT '',
+  `pass` varchar(32) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `regIP` varchar(15) NOT NULL DEFAULT '',
+  `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `access` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usr` (`usr`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
 # --------------------------------------------------------
 ### Altered Tables
-
-
+ALTER TABLE `renprefix_talenttree_data` ADD `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,ADD `desc` VARCHAR( 255 ) NULL DEFAULT NULL
+ALTER TABLE `renprefix_talents_data` ADD `isspell` INT( 1 ) NULL DEFAULT NULL
 # --------------------------------------------------------
 ### Config Table Updates
 

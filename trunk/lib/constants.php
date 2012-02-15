@@ -18,7 +18,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION', '2.1.9.2378');
+define('ROSTER_VERSION', '2.1.9.2386');
 
 /**
  * Roster Conf File

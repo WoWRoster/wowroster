@@ -14,6 +14,19 @@ CREATE TABLE `renprefix_account` (
   PRIMARY KEY  (`account_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `renprefix_user_members`;
+CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usr` varchar(32) NOT NULL DEFAULT '',
+  `pass` varchar(32) NOT NULL DEFAULT '',
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `regIP` varchar(15) NOT NULL DEFAULT '',
+  `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `access` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usr` (`usr`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
 # --------------------------------------------------------
 ### Addon
 
@@ -23,7 +36,7 @@ CREATE TABLE `renprefix_addon` (
   `basename` varchar(16) NOT NULL default '',
   `version` varchar(16) NOT NULL default '0',
   `active` int(1) NOT NULL default '1',
-  `access` int(1) NOT NULL default '0',
+  `access` varchar(30) NOT NULL default '0',
   `fullname` tinytext NOT NULL,
   `description` mediumtext NOT NULL,
   `credits` mediumtext NOT NULL,
@@ -920,6 +933,7 @@ CREATE TABLE IF NOT EXISTS `renprefix_talents_data` (
   `rank` tinyint(4) NOT NULL default '0',
   `tooltip` mediumtext NOT NULL,
   `texture` varchar(64) NOT NULL default '',
+  `isspell` INT( 1 ) NULL DEFAULT NULL
   PRIMARY KEY  (`rank`,`tree`,`row`,`column`,`class_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -949,6 +963,8 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
   `background` varchar(64) NOT NULL default '',
   `order` tinyint(4) NOT NULL default '0',
   `icon` varchar(64) NOT NULL default '',
+    `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,
+  `desc` VARCHAR( 255 ) NULL DEFAULT NULL ,
   PRIMARY KEY  (`class_id`,`build`,`tree`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
