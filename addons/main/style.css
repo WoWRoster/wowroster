@@ -1,0 +1,297 @@
+body {height:100%; }
+
+#container {     
+position:inherit;
+vertical-align:middle;
+}  
+#img2 {     
+position: absolute;     
+left: -8px;     
+top: 5px; 
+background: url(../images/mask/manu_mask.png) no-repeat left top;
+}
+#left {
+	BORDER: #a16c29 1px solid;
+	WIDTH: 646px
+}
+
+
+#homepage .name { 
+	font: bold normal 18px Georgia, "Times New Roman", Times, serif; 
+	text-transform: none; 
+	position: relative;
+	text-shadow:1px 2px 0 #000000;
+	text-align:center;
+	
+}
+#homepage .name small { 
+	font-size: 12px;
+	text-shadow:1px 2px 0 #000000;
+}
+#homepage .guild { 
+	font: bold normal 12px Georgia, "Times New Roman", Times, serif; 
+	text-transform: none; 
+	position: relative;
+	text-shadow:1px 2px 0 #000000;
+}
+#homepage .info { 
+	font: bold normal 9px Verdana, Arial, Helvetica, sans-serif; 
+	text-transform: uppercase; 
+	position: relative;
+	text-shadow:1px 2px 0 #000000;
+}
+
+
+
+.events {
+	z-index: 600;
+	left: 10px;
+    position: absolute;
+    top: 10px;
+	display: block;
+}
+
+.right-side {
+	Z-INDEX: -1;
+BORDER: #a16c29 1px solid;
+
+	PADDING-BOTTOM: 10px; LINE-HEIGHT: 1.5em; MARGIN: 0px 0px 20px 0px; PADDING-LEFT: 10px; WIDTH: 251px; PADDING-RIGHT: 5px; FLOAT: right; PADDING-TOP: 0px; -moz-border-radius: 10px; border-radius: 10px
+}
+
+td.mybackground{
+	BORDER: #e4cda4 1px solid;
+background-image: url(images/right-bg.png); /* forward slash for the path */ 
+width: 290px; /* use you own image size; */ 
+/*height: 125px; /* use you own image size; */ 
+background-repeat: repeat-y; 
+background-position: left top; 
+vertical-align: top; 
+} 
+
+
+#homepage {
+	Z-INDEX: 9999999;
+	BACKGROUND: url(images/shadow.png) repeat-y;
+	
+}
+#slideshow {
+	POSITION: relative; WIDTH: 647px; HEIGHT: 300px; OVERFLOW: hidden;
+	BACKGROUND: url(images/featured_bg.jpg);
+	border-image: url(images/border-left.png) 100% repeat;
+}
+#slideshow .container {
+	Z-INDEX: 20; POSITION: relative; WIDTH: 638px; HEIGHT: 303px;
+	padding-left: 1px;
+	
+}
+#slideshow .mask {
+	Z-INDEX: 34; POSITION: absolute; WIDTH: 641px; HEIGHT: 303px; TOP: 0px; CURSOR: pointer; LEFT: 0px;
+	BACKGROUND: url(images/slideshow-mask.png) no-repeat 0px 0px;
+	width: 644px;
+}
+#slideshow .caption {
+	Color: #0066FF;
+	Z-INDEX: 35; POSITION: absolute; WIDTH: 580px; BOTTOM: 30px; LEFT: 30px
+}
+#slideshow .caption H3 {
+	COLOR: #fff; FONT-SIZE: 28px; FONT-WEIGHT: normal
+}
+#slideshow .caption H3 A {
+	COLOR: #fff8d6
+}
+#slideshow .caption H3 A:hover {
+	COLOR: #fff
+}
+#slideshow .paging {
+	Z-INDEX: 35; POSITION: absolute; WIDTH: 15px; TOP: 15px; RIGHT: 15px
+}
+#slideshow .paging A {
+	BACKGROUND-COLOR: #fff; DISPLAY: block; MARGIN-BOTTOM: 5px; HEIGHT: 10px; opacity: .5; -moz-border-radius: 3px; border-radius: 3px
+}
+#slideshow .paging A:hover {
+	background: #0068ff;
+	BORDER: #a16c29 1px solid;
+	opacity: 1
+}
+#slideshow .paging A.current {
+	background: #8000ff;
+	BORDER: #a16c29 1px solid;
+	color: blue;
+	opacity: 1
+}
+#slideshow .preview {
+	Z-INDEX: 35; POSITION: absolute; TEXT-ALIGN: center; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; WIDTH: 100px; PADDING-RIGHT: 5px; DISPLAY: none; BACKGROUND: #fff; COLOR: #000; TOP: 15px; RIGHT: 35px; PADDING-TOP: 5px; -moz-border-radius: 5px; border-radius: 5px
+}
+#slideshow .preview SPAN {
+	DISPLAY: block
+}
+#slideshow .slide {
+	Z-INDEX: 15; POSITION: absolute; WIDTH: 640px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: 0px 0px; HEIGHT: 300px; TOP: 0px; LEFT: 0px
+}
+#slideshow .slide .click-area {
+	Z-INDEX: 20; POSITION: absolute; WIDTH: 640px; BOTTOM: 0px; HEIGHT: 300px; LEFT: 0px
+}
+#slideshow .slide .click-area EMBED {
+	Z-INDEX: 25
+}
+#homepage {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px;
+
+}
+#news-updates {
+	PADDING-BOTTOM: 40px; 
+	PADDING-LEFT: 15px; PADDING-RIGHT: 15px;
+	BACKGROUND: url(images/featured_bg.jpg) #23120b repeat 0px 100%
+}
+#news-updates H3 {
+	PADDING-LEFT: 3px
+}
+#news-updates .by-line {
+	PADDING-LEFT: 3px;
+	color: #8000ff;
+	font: bold normal 10px Verdana, Arial, Helvetica, sans-serif;
+}
+
+#news-updates .article-left {
+Padding-top: 8px;
+	WIDTH: 156px; DISPLAY: block; HEIGHT: 130px;overflow:hidden;
+}
+#news-updates .article-left IMG {
+	WIDTH: 156px; DISPLAY: block; HEIGHT: 130px;overflow:hidden;
+}
+#news-updates .article-left {
+
+	-moz-box-shadow: 0 0 20px -4px #000; 
+	-webkit-box-shadow: 0 0 20px -4px #000; 
+	box-shadow: 0 0 20px -4px #000
+}
+#news-updates .article-left A {
+	BORDER-BOTTOM: #541f09 1px solid; BORDER-LEFT: #541f09 1px solid; BORDER-TOP: #541f09 1px solid; BORDER-RIGHT: #541f09 1px solid
+}
+#news-updates .article-left A:hover {
+	BORDER-BOTTOM-COLOR: #cd9000; BORDER-TOP-COLOR: #cd9000; BORDER-RIGHT-COLOR: #cd9000; BORDER-LEFT-COLOR: #cd9000
+}
+#news-updates .article-right {
+	WIDTH: 400px;
+}
+#news-updates .article-summary {
+	MARGIN: 10px 10px 10px 10px;
+	LINE-HEIGHT: 1.8em; WIDTH: 540px;
+	color: #333333;
+font: bold normal 12px Verdana, Arial, Helvetica, sans-serif;
+}
+
+#right {
+	BORDER: #a16c29 1px solid;
+	PADDING-BOTTOM: 0px; MARGIN: 0px 20px 0px 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.homepage #right {
+	PADDING-TOP: 15px
+}
+
+.sidebar-module {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 25px; PADDING-TOP: 0px
+}
+.sidebar-module .sidebar-title {
+	BORDER-BOTTOM: #552b12 2px solid; PADDING-BOTTOM: 6px; MARGIN-BOTTOM: 6px
+}
+.sidebar-module .sidebar-title H3 {
+	TEXT-TRANSFORM: uppercase; COLOR: #fef092; FONT-SIZE: 14px; FONT-WEIGHT: normal
+}
+#right .sidebar-module .sidebar-title H3 A {
+	PADDING-RIGHT: 20px; BACKGROUND: url(../images/icons/next.gif) no-repeat 100% 50%; COLOR: #fef092
+}
+#right .sidebar-module .sidebar-title H3 A:hover {
+	COLOR: #fff
+}
+.sidebar-module .sidebar-content {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.sidebar-module .loading.sidebar-content {
+	PADDING-BOTTOM: 40px; PADDING-LEFT: 40px; PADDING-RIGHT: 40px; BACKGROUND: url(/wow/static/images/loaders/canvas-loader.gif) no-repeat 50% 50%; PADDING-TOP: 40px
+}
+.sidebar-module .sidebar-content .empty {
+	COLOR: #c09a67
+}
+.sidebar-module .sidebar-all {
+	TEXT-ALIGN: right; PADDING-TOP: 10px
+}
+.sidebar-module .sidebar-all A {
+	PADDING-RIGHT: 12px; BACKGROUND: url(/wow/static/images/icons/more-arrows.gif) no-repeat 100% 2px
+}
+.sidebar-module .sidebar-all A:hover {
+	BACKGROUND-POSITION: 100% -45px
+}
+.sidebar-module .sidebar-error {
+	TEXT-ALIGN: center; PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #c09a67; PADDING-TOP: 10px
+}
+.sidebar-module .date {
+	COLOR: #71401f; FONT-SIZE: 11px
+}
+.sidebar-module .activity-feed LI {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; PADDING-TOP: 10px
+}
+/*
+#nav, #nav ul{
+Z-INDEX: 505;
+margin:0;
+padding:0;
+list-style-type:none;
+list-style-position:outside;
+POSITION: relative;
+line-height:1.5em;
+background: url('images/bg-dark-menu.png');
+POSITION: absolute; WIDTH: 994px; HEIGHT: 30px; TOP: 155px; LEFT: 3px; -moz-user-select: none; -webkit-user-select: none; user-select: none 
+}
+
+#nav a{
+font: bold 12px Georgia, "Times New Roman", Times, serif; color: #000;
+PADDING-BOTTOM: 2px; LINE-HEIGHT: 25px; MARGIN: 0px; PADDING-LEFT: 8px; PADDING-RIGHT: 8px; DISPLAY: block; COLOR: #fff; PADDING-TOP: 2px;
+
+color:#fff;
+WIDTH: 145px;
+text-decoration:none;
+background: url('images/bg-dark-menu.png');
+/*background-color:#333;
+}
+
+#nav a:hover{
+/*background-color:#fff;
+WIDTH: 145px;
+background: url('images/bg-dark-menu.png') repeat-x left bottom;
+color:#fff;
+}
+
+#nav li{
+float:left;
+position:relative;WIDTH: 145px;
+background: url('images/bg-dark-menu.png')repeat-x left bottom;
+}
+
+#nav ul {
+position:absolute;
+display:none;
+width:12em;WIDTH: 145px;
+top:1.5em;
+background-image:url('images/bg-dark-menu.png')repeat-x left bottom;
+}
+
+#nav li ul a{
+width:12em;
+height:auto;WIDTH: 145px;
+float:right;
+}
+
+#nav li ul {
+Top:27px;
+Left: 9px;
+margin:0px 0 0 10px;
+}
+
+#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li:hover ul ul ul ul{
+display:none;
+}
+#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul{
+display:block;
+}
+*/
