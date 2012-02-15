@@ -968,6 +968,17 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
   PRIMARY KEY  (`class_id`,`build`,`tree`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `renprefix_talent_mastery`;
+CREATE TABLE `renprefix_talent_mastery` (
+  `class_id` int(11) NOT NULL DEFAULT '0',
+  `tree` varchar(64) NOT NULL DEFAULT '',
+  `tree_num` varchar(64) NOT NULL DEFAULT '',
+  `icon` varchar(64) NOT NULL DEFAULT '',
+  `name` varchar(64) DEFAULT NULL,
+  `desc` varchar(255) DEFAULT NULL,
+  `spell_id` varchar(64) NOT NULL DEFAULT '',
+  PRIMARY KEY (`class_id`,`spell_id`,`tree`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 # --------------------------------------------------------
 ### Talent Tree Arrows
 
