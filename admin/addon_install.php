@@ -542,7 +542,7 @@ function processAccess()
 {
 	global $roster;
 
-	$access = $_POST['config_access'];
+	$access = implode(":",$_POST['config_access']);
 	$id = (int)$_POST['id'];
 	$query = "UPDATE `" . $roster->db->table('addon') . "` SET `access` = '$access' WHERE `addon_id` = '$id';";
 

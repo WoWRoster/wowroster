@@ -54,10 +54,9 @@ class RosterLogin
 		
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
-
-			setcookie('roster_user',$_COOKIE['roster_user'],time()-60*60*24*30*4 );
-			setcookie('roster_pass',$_COOKIE['roster_pass'],time()-60*60*24*30*4 );
-			setcookie('roster_remember','',time()-60*60*24*30*4 );
+			setcookie('roster_user','',time()-(60*60*24*30*100) );
+			setcookie('roster_pass','',time()-(60*60*24*30*100) );
+			setcookie('roster_remember','',time()-(60*60*24*30*100) );
 
 			$this->allow_login = 0;
 			$this->message = $roster->locale->act['logged_out'];
@@ -102,9 +101,9 @@ class RosterLogin
 		}
 		else
 		{
-			setcookie('roster_user','',time()-86400,'/' );
-			setcookie('roster_pass','',time()-86400,'/' );
-			setcookie('roster_remember','',time()-86400,'/' );
+			setcookie('roster_user','',time()-864000000,'/' );
+			setcookie('roster_pass','',time()-864000000,'/' );
+			setcookie('roster_remember','',time()-864000000,'/' );
 			$this->allow_login = 0;
 			$this->message = $roster->locale->act['login_fail'];
 			return false;
@@ -128,7 +127,7 @@ class RosterLogin
 			setcookie('roster_pass',$pass,(time()+60*60*24*30) );
 			setcookie('roster_remember',$remember,(time()+60*60*24*30) );
 			$this->valid = 1;
-			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
+			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
 			$this->message = '<span class="login-message">Welcome, '.$user.' '.$this->logout.'</span>';
 			//$this->UserHud($action, $word, $login_message, $valid);
 			//return true;
@@ -164,6 +163,7 @@ class RosterLogin
 
 	function getAuthorized( $access )
 	{
+		
 		//echo $this->allow_login >= $access;
 		///* user acceess checking this is kinda cool and really new to roster
 		$lvl = array();
@@ -363,9 +363,9 @@ class RosterLogin
 	{
 		global $roster;
 
-		if( !$this->allow_login )
+		if( !$this->allow_login && !isset($_POST['logout']) )
 		{
-			echo 'check login';
+			//echo 'check login';
 			$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `access` = '" . $level . "';";
 			$result = $roster->db->query($query);
 
