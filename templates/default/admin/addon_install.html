@@ -109,17 +109,29 @@
 		</div>
 		<div class="info-text-h">
 			<div>{addon_list.DESCRIPTION}</div>
-<!-- IF addon_list.ACCESS -->
-			<!-- TRANSLATE access_level -->: <form action="{U_MAKELINK}" method="post" style="display:inline;">
-				<input type="hidden" name="op" value="access" />
-				<input type="hidden" name="id" value="{addon_list.ID}" />
-				{addon_list.ACCESS}
-				<input type="submit" value="Set" />
-			</form>
-<!-- ENDIF -->
+
 		</div>
 
 	</div>
+
+	<!-- IF addon_list.ACCESS -->
+			<form action="{U_MAKELINK}" method="post" style="display:block;padding: 3px;">
+				<input type="hidden" name="op" value="access" />
+				<input type="hidden" name="id" value="{addon_list.ID}" />
+				<div class="tier-3-a">
+					<div class="tier-3-b">
+						<div class="config">
+							<div class="config-name">
+								<!-- TRANSLATE access_level -->: <input type="submit" value="Set" />
+							</div>
+							<div class="config-input">
+								{addon_list.ACCESS}
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+<!-- ENDIF -->
 
 </div>
 

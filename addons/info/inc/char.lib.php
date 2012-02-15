@@ -905,6 +905,7 @@ class char
 				$is++;
 				$ii++;
 				$t[$row['tree']]['name'] = $row['tree'];
+				$t[$row['tree']]['role'] = $row['roles'];
 				$t[$row['tree']]['background'] = $row['background'];
 				$t[$row['tree']]['icon'] = $row['icon'];
 				$t[$row['tree']]['order'] = $row['order'];
@@ -974,6 +975,7 @@ class char
 				$t[$row['tree']][$row['row']][$row['column']]['id'] = $row['talent_id'];
 				$t[$row['tree']][$row['row']][$row['column']]['tooltip'][$row['rank']] = $row['tooltip'];
 				$t[$row['tree']][$row['row']][$row['column']]['icon'] = $row['texture'];
+				$t[$row['tree']][$row['row']][$row['column']]['isspell'] = $row['isspell'];
 			}
 		}
 		return $t;
@@ -994,6 +996,7 @@ class char
 		{
 			$treed[$row['tree']]['background'] = $row['background'];
 			$treed[$row['tree']]['icon'] = $row['icon'];
+			$treed[$row['tree']]['role'] = $row['roles'];
 			$treed[$row['tree']]['order'] = $row['order'];
 		}
 		$talentinfo = $this->build_talent_data($this->data['classid']);
@@ -1016,6 +1019,7 @@ class char
 			$returndata[$ti]['icon'] = $treed[$ti]['icon'];
 			$returndata[$ti]['background'] = $treed[$ti]['background'];
 			$returndata[$ti]['order'] = $treed[$ti]['order'];
+			$returndata[$ti]['role'] = $treed[$ti]['role'];
 
 			foreach( $talentdata as $c => $cdata )
 			{
@@ -1026,6 +1030,7 @@ class char
 					//print_r($rdata['tooltip']);
 					$max = count($rdata['tooltip']);
 					$returndata[$ti][$c][$r]['name'] = $rdata['name'];
+					$returndata[$ti][$c][$r]['isspell'] = $rdata['isspell'];
 					$returndata[$ti][$c][$r]['rank'] = $talentArray[$i];
 					$returndata[$ti][$c][$r]['maxrank'] = count($rdata['tooltip']);
 					$returndata[$ti][$c][$r]['row'] = $r;
@@ -1075,6 +1080,25 @@ class char
 
 		return $returndata;
 	}
+	
+	function _build_Mastery()
+	{
+		global $roster;
+
+		$sqlquery = "SELECT * FROM `" . $roster->db->table('talent_mastery') . "`"
+			. " WHERE `class_id` = '" . $this->data['classid'] . "';";
+
+		$result = $roster->db->query($sqlquery);
+
+		$treed = array();
+		while( $row = $roster->db->fetch($result, SQL_ASSOC) )
+		{
+			$treed[$row['tree_num']]['mastery']['icon'] = $row['icon'];
+			$treed[$row['tree_num']]['mastery']['name'] = $row['name'];
+			$treed[$row['tree_num']]['mastery']['desc'] = $row['desc'];
+		}
+		return $treed;
+	}
 
 	function show_talents( )
 	{
@@ -1093,6 +1117,7 @@ class char
 
 		$tree_rows = $roster->db->num_rows($trees);
 		$trees = $this->build_talenttree_data($this->data['classid']);
+		$mastery = $this->_build_Mastery();
 
 		// Talent data and build spec data
 		$talentdata = $specdata = array();
@@ -1112,12 +1137,14 @@ class char
 					$spec_points_temp[$build] = $data['spent'];
 					$specdata[$build]['order'] = $build;
 					$specdata[$build]['name'] = $tree;
+					$specdata[$build]['role'] = $data['role'];
 					$specdata[$build]['icon'] = $data['background'];
 				}
 				elseif( $data['spent'] > $spec_points_temp[$build] )
 				{
 					$specdata[$build]['order'] = $data['order'];
 					$specdata[$build]['name'] = $tree;
+					$specdata[$build]['role'] = $data['role'];
 					$specdata[$build]['icon'] = $data['background'];
 
 					// Store highest tree points to temp var
@@ -1131,6 +1158,7 @@ class char
 				$talentdata[$build][$order]['name'] = $tree;
 				$talentdata[$build][$order]['image'] = $data['background'];
 				$talentdata[$build][$order]['points'] = $data['spent'];
+				$talentdata[$build][$order]['role'] = $data['role'];
 				$talentdata[$build][$order]['talents'] = $data;
 			}
 //			aprint($talentdata);
@@ -1140,13 +1168,16 @@ class char
 				// old code keeping for now  sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
 				'ID'    => $build,
 				'NAME'  => $specdata[$build]['name'],
+				'ROLE'  => $specdata[$build]['role'],
 				'TYPE'  => $roster->locale->act['talent_build_' . $build],
 				'BUILD' => implode(' / ', $specdata[$build]['points']),
 				'ICON'  => $specdata[$build]['icon'],
 				'SELECTED' => ($build == 0 ? true : false)
 				)
 			);
-                        //aprint($talentdata);
+			//echo '<pre>';
+			//print_r($talentdata);
+			//echo '</pre>';
 			foreach( $talentdata as $build => $builddata )
 			{
 				if( $spc == $build )
@@ -1157,9 +1188,13 @@ class char
 						$roster->tpl->assign_block_vars('talent.tree', array(
 							'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $tree['name']),
 							'NAME' => $tree['name'],
+							'ROLE'  => $tree['role'],
+							'MAST_NAME'	=> $mastery[$treeindex]['mastery']['name'],
+							'MAST_DESC'	=> $mastery[$treeindex]['mastery']['desc'],
 							'ID' => $treeindex,
 							'POINTS' => $tree['points'],
 							'ICON' => $tree['image'],
+							'HSELECT' => ($tree['points'] >= 31 ? true : false),
 							'SELECTED' => ($spc == $build ? true : false)
 							)
 						);
@@ -1190,15 +1225,16 @@ class char
 								// Loop cells in row
 								foreach( $row as $cell )
 								{
+									$abil = (isset($cell['isspell']) ? $cell['isspell'] : false);
 									$roster->tpl->assign_block_vars('talent.tree.cell', array(
 										'NAME'      => $cell['name'],
 										'RANK'      => (isset($cell['rank']) ? $cell['rank'] : 0),
 										'MAXRANK'   => (isset($cell['maxrank']) ? $cell['maxrank'] : 0),
 										'TOOLTIP'   => (isset($cell['tooltip']) ? $cell['tooltip'] : ''),
 										'ICON'      => (isset($cell['image']) ? $cell['image'] : ''),
+										'S_ABILITY'	=> (!$abil ? false : true),
 
 										'S_MAX'     => (isset($cell['rank']) && $cell['rank'] == $cell['maxrank'] ? true : false),
-										'S_ABILITY' => false,
 										)
 									);
 								}
@@ -1456,7 +1492,14 @@ class char
 		$returnData['maxvalue'] = $max;
 		$returnData['value'] = $level;
 		$returnData['name'] = $skilldata['skill_name'];
-		$returnData['barwidth'] = ceil($level/$max*100);
+		if ($level != '0' && $max != '0')
+		{
+			$returnData['barwidth'] = ceil($level/$max*100);
+		}
+		else
+		{
+			$returnData['barwidth'] = 100;
+		}
 
 		return $returnData;
 	}

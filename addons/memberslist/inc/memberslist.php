@@ -336,7 +336,7 @@ class memberslist
 			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
 
 			//paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
-			paginate2($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
+			paginate2($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st,true,count($this->fields));
 		}
 
 		// header row
