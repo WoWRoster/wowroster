@@ -726,7 +726,8 @@ $lang['faction_to_id'] = array(
 	'Horde Forces' => 'horde',
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
-);
+	'Reputation' => 'reputation',
+	);
 
 
 // Quests page external links (on character quests page)
@@ -1060,6 +1061,7 @@ $lang['pagebar_function'] = 'Fonctions';
 $lang['pagebar_rosterconf'] = 'Configuration principale';
 $lang['pagebar_uploadrules'] = 'Règles de mise à jour';
 $lang['pagebar_dataman'] = 'Gestion des données';
+$lang['pagebar_userman'] = 'User Manager';
 $lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Changer le mot de passe';
 $lang['pagebar_addoninst'] = 'Gestion des greffons';
