@@ -726,6 +726,7 @@ $lang['faction_to_id'] = array(
 	'Streitkräfte der Horde' => 'horde',
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
+	'Reputation' => 'reputation',
 );
 
 
@@ -1060,6 +1061,7 @@ $lang['pagebar_function'] = 'Aufgaben';
 $lang['pagebar_rosterconf'] = 'Konfiguriere Roster';
 $lang['pagebar_uploadrules'] = 'Upload Regeln';
 $lang['pagebar_dataman'] = 'Daten Manager';
+$lang['pagebar_userman'] = 'User Manager';
 $lang['pagebar_armory_data'] = 'Arsenal Daten';
 $lang['pagebar_changepass'] = 'Passwort ändern';
 $lang['pagebar_addoninst'] = 'Verwalte Addons';

@@ -21,6 +21,7 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 
 if (isset($_POST['process']) && $_POST['process'] == 'process')
 {
+	$count=1;
 	//	aprint($_POST);
 	$classid = (isset($_POST['class_id']) ? $_POST['class_id'] : $_GET['class']);
 	echo '<br>--[ '.$classid.' ]--<br>';
@@ -41,7 +42,14 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 		return;
 	}
-
+	//talent_mastery
+	$querystr = "DELETE FROM `" . $roster->db->table('talent_mastery') . "` WHERE `class_id` = '" . $classid . "';";
+	if (!$roster->db->query($querystr))
+	{
+		$roster->set_message('Talent Tree Data Table could not be emptied.', '', 'error');
+		$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+		return;
+	}
 	$treenum = 1;
 
 	foreach ($talents['talentData']['talentTrees'] as $a => $treedata)
@@ -61,6 +69,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 					'tree'       => $treedata['name'],
 					'tooltip'    => tooltip($ranks['description']),
 					'texture'    => $talent['icon'],
+					'isspell'	 => ( !$talent['keyAbility'] ? false : true ),
 					'row'        => ($talent['y'] + 1),
 					'column'     => ($talent['x'] + 1),
 					'rank'       => $lvl
@@ -73,16 +82,39 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 				$count++;
 			}
 		}
-
+		$role = '';
+		foreach ($treedata['roles'] as $name => $h)
+		{
+			if ($h == 1)
+			{
+				$role = $name;
+			}
+		}
 		$values = array(
 			'tree'       => $treedata['name'],
 			'order'      => $treenum,
 			'class_id'   => $classid,
 			'background' => strtolower($treedata['backgroundFile']),
 			'icon'       => $treedata['icon'],
+			'roles'		 => $role,
+			'desc'		 => $treedata['description'],
 			'tree_num'   => $treenum
 		);
+		$masterys = array(
+			'class_id'	=>	$classid,
+			'tree'		=>	$treedata['name'],
+			'tree_num'	=>	$treenum,
+			'icon'		=>	$treedata['masteries'][0]['icon'],
+			'name'		=>	$treedata['masteries'][0]['name'],
+			'desc'		=>	$treedata['masteries'][0]['description'],
+			'spell_id'	=>	$treedata['masteries'][0]['spellId']
+		);
 
+		$mquerystr = "INSERT INTO `" . $roster->db->table('talent_mastery') . "` "
+			. $roster->db->build_query('INSERT', $masterys) . "
+			;";
+		$mresult = $roster->db->query($mquerystr);
+			
 		$querystr = "INSERT INTO `" . $roster->db->table('talenttree_data') . "` "
 			. $roster->db->build_query('INSERT', $values) . "
 			;";
@@ -202,7 +234,7 @@ foreach ($classes as $class => $num)
 		)
 	);
 }
-	
+
 	$queryx = "SELECT * FROM `" . $roster->db->table('api_usage') . "` ORDER BY `date` DESC LIMIT 0,150;";
 	$resultx = $roster->db->query($queryx);
 	$usage = array();

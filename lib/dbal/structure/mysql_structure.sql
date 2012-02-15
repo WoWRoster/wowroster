@@ -933,7 +933,7 @@ CREATE TABLE IF NOT EXISTS `renprefix_talents_data` (
   `rank` tinyint(4) NOT NULL default '0',
   `tooltip` mediumtext NOT NULL,
   `texture` varchar(64) NOT NULL default '',
-  `isspell` INT( 1 ) NULL DEFAULT NULL
+  `isspell` INT( 1 ) NULL DEFAULT '0',
   PRIMARY KEY  (`rank`,`tree`,`row`,`column`,`class_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
