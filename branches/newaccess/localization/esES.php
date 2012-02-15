@@ -726,7 +726,6 @@ $lang['faction_to_id'] = array(
 	'Horde Forces' => 'horde',
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
-	'Reputation' => 'reputation',
 );
 
 
@@ -1061,7 +1060,6 @@ $lang['pagebar_function'] = 'Funciones';
 $lang['pagebar_rosterconf'] = 'Configuración de Roster';
 $lang['pagebar_uploadrules'] = 'Exclusiones';
 $lang['pagebar_dataman'] = 'Control de datos';
-$lang['pagebar_userman'] = 'User Manager';
 $lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Cambiar contraseña';
 $lang['pagebar_addoninst'] = 'Instalar addons';
