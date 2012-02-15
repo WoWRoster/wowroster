@@ -853,14 +853,14 @@ function process_step4( )
 	{
 		$pass_word = md5('admin');
 	}
-	$db->query("INSERT INTO `" . $db->table('user_members') . "` (`usr`) VALUES
-		('Guild'),
-		('Officer'),
-		('Admin');");
+	$db->query("INSERT INTO `" . $db->table('account') . "` (`account_id`, `name`) VALUES
+		(1, 'Guild'),
+		(2, 'Officer'),
+		(3, 'Admin');");
 
-	$db->query("UPDATE `" . $db->table('user_members') . "` SET `pass` = '" . $pass_word . "' AND `access` = '11:0';");
+	$db->query("UPDATE `" . $db->table('account') . "` SET `hash` = '" . $pass_word . "';");
 
-	$tpl->message_append('The WoWRoster Officer and Guild accounts have been set to the same password and access as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');
+	$tpl->message_append('The WoWRoster Officer and Guild accounts have been set to the same password as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');
 
 	/**
 	 * Rewrite the config file to its final form

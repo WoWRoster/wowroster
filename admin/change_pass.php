@@ -25,7 +25,7 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 {
 	$mode = $_POST['mode'];
 
-	$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr` = '" . $mode . "';";
+	$query = "SELECT * FROM `" . $roster->db->table('account') . "` WHERE `name` = '" . $mode . "';";
 	$result = $roster->db->query($query);
 
 	if( !$result )
@@ -35,7 +35,7 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 
 	if( $row = $roster->db->fetch($result) )
 	{
-		$realhash = $row['pass'];
+		$realhash = $row['hash'];
 	}
 
 
@@ -67,7 +67,7 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 		}
 		else // valid password
 		{
-			$query = 'UPDATE `' . $roster->db->table('user_members') . '` SET `pass` = "' . md5($newpass) . '"  WHERE `usr` = "' . $mode . '";';
+			$query = 'UPDATE `' . $roster->db->table('account') . '` SET `hash` = "' . md5($newpass) . '"  WHERE `name` = "' . $mode . '";';
 			$result = $roster->db->query($query);
 
 			if (!$result)
