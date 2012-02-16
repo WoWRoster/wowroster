@@ -3,13 +3,13 @@ $roster->output['show_header'] = true;
 //$roster->output['show_menu'] = 'guild';
 // Assign template vars
 
-require (ROSTER_BASE . 'events/event.php');
-$events = new events();
+//require (ROSTER_BASE . 'events/event.php');
+//$events = new events();
 $roster->auth->GetMemberLogin();
 $roster->tpl->assign_vars(array(
 'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
-'JSDIE'		=>$addon['dir'].'js',
-'EVENTS' => $events->display()
+'JSDIE'		=>$addon['dir'].'js'
+//'EVENTS' => $events->display()
 ));
 roster_add_js('addons/' . $addon['basename'] . '/js/slideshow.js');
 //roster_add_js('js/slideshow.js');
