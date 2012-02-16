@@ -40,7 +40,7 @@ class Upgrade {
 		//$roster->db->error_die(false);
 
 		$roster->tpl->assign_var('MESSAGE', false);
-
+		$roster->cache->cleanCache();
 		// First check the current version compared to upgrade version
 		if (version_compare($roster->config['version'], ROSTER_VERSION, '>=')) {
 			$roster->tpl->assign_var('MESSAGE', sprintf($roster->locale->act['no_upgrade'], ROSTER_PATH));
