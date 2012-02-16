@@ -857,7 +857,7 @@ function process_step4( )
 	('Guild'),
 	('Officer'),
 	('Admin');");
-	$db->query("UPDATE `" . $db->table('user_members') . "` SET `pass` = '" . $pass_word . "' AND `access` = '11:0' WHERE `usr` = 'Admin';");  
+	$db->query("UPDATE `" . $db->table('user_members') . "` SET `pass` = '" . $pass_word . "',`access` = '11:0' WHERE `usr` = 'Admin';");  
 
 	$tpl->message_append('The WoWRoster Officer and Guild accounts have been set to the same password and access as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');    
 
