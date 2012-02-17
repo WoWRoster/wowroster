@@ -1,77 +1,53 @@
 <?php
-	
-	
-	/*
-	
-if($_POST['submit']=='Register')
+
+if(isset($_POST['op']) && $_POST['op']=='register')
 {
+
 	// If the Register form has been submitted
 	
 	$err = array();
 	
-	if(strlen($_POST['username'])<4 || strlen($_POST['username'])>32)
+	if(strlen($_POST['username'])<4 || strlen($_POST['username'])>64)
 	{
-		$err[]='Your username must be between 3 and 32 characters!';
+		$err[]='Your username must be between 3 and 64 characters!';
 	}
-	
-	if(preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['username']))
+
+	if (isset($_POST['password1']) && isset($_POST['password2']) && $_POST['password1'] == $_POST['password2'])
 	{
-		$err[]='Your username contains invalid characters!';
+		$pass = md5($_POST['password1']);
 	}
-	
-	if(!checkEmail($_POST['email']))
-	{
-		$err[]='Your email is not valid!';
-	}
-	
+		
 	if(!count($err))
 	{
-		// If there are no errors
-		
-		$pass = md5($_POST['password']);
-		// Generate a random password
 		
 		$_POST['email'] = mysql_real_escape_string($_POST['email']);
 		$_POST['username'] = mysql_real_escape_string($_POST['username']);
 		// Escape the input data
-		
-		
-		mysql_query("INSERT INTO ".USER_TABLE." (usr,pass,email,regIP,dt,access)
-						VALUES(
-						
-							'".$_POST['username']."',
-							'".$pass."',
-							'".$_POST['email']."',
-							'".$_SERVER['REMOTE_ADDR']."',
-							NOW(),
-							'7'
-							
-						)");
-		
-		if(mysql_affected_rows($link)==1)
-		{
-			send_mail(	'demo-test@tutorialzine.com',
-						$_POST['email'],
-						'Registration System Demo - Your New Password',
-						'Your password is: '.$pass);
 
-			$_SESSION['msg']['reg-success']='We sent you an email with your new password!';
-		}
-		else
-		{
-			$err[]='This username is already taken!';
-		}
+		$query = "INSERT INTO `" . $roster->db->table('user_members') . "` (usr,pass,email,regIP,dt,access)
+			VALUES('".$_POST['username']."','".$pass."','".$_POST['email']."','".$_SERVER['REMOTE_ADDR']."','". $roster->db->escape(gmdate('Y-m-d H:i:s')). "','0:".$_POST['rank']."');";
+
+			if( $roster->db->query($query) )
+			{
+				$roster->set_message('You are not registered and can now login','User Register:','notice');
+				
+				echo $roster->auth->getLoginForm();
+				return;
+	
+			}
+			else
+			{
+				$roster->set_message('There was a DB error while editing the article.', '', 'error');
+				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+			}
 	}
 
 	if(count($err))
 	{
-		$_SESSION['msg']['reg-err'] = implode('<br />',$err);
-	}	
-	
-	header("Location: index.php");
-	exit;
+		$e = implode('<br />',$err);
+	}
+
 }
-*/
 	$num1=$num2=$num3=null;
 	function generateUniqueRandoms($min, $max, $count)  
 	{
