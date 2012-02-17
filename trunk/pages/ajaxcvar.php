@@ -29,13 +29,13 @@
 	$equip = array (
 		'0' => 'head',	'1' => 'neck',	'2' => 'shoulder',	'14' => 'back',	'4' => 'chest',	'3' => 'shirt',
 		'18' => 'tabard',	'8' => 'wrist',	'9' => 'hands',	'5' => 'waist',	'6' => 'legs',	'7' => 'feet',	'10' => 'finger1',
-		'11' => 'finger2',	'12' => 'trinket1',	'13' => 'trinket2',	'15' => 'mainHand','16' => 'offHand', '17' => 'ranged');
+		'11' => 'finger2',	'12' => 'trinket1',	'13' => 'trinket2',	'15' => 'mainHand',	'17' => 'ranged');
 	list($num1,$num2,$num3) = explode('-',$slots);
 	$x= array($num1,$num2,$num3);
 
 	$error = true;
 	$msg = array();
-	$u=0;
+	$u=1;
 	$mag = array();
 	foreach ($x as $var => $id)
 	{
@@ -43,14 +43,14 @@
 		{
 			$u++;
 			$msg[]= '<span style="color: #7eff00;">'.$equip[$id].' Unequiped</span>';
-			$mag[$u] = 'RGaccepy';
+			$mag[$u] = true;
 			
 		}
 		else
 		{
 			$msg[]= '<span style="color: #f00;">'.$equip[$id].' NOT Unequiped</span>';
 			$u++;
-			$mag[$u] = 'RGdenyed';
+			$mag[$u] = false;
 			$error = false;
 		}		
 	}
@@ -72,9 +72,9 @@
 		'thumb' => $data['thumbnail'],
 		'rank'	=> (isset($rw['guild_rank']) ? $rw['guild_rank'] : ''),
 		'title'	=> (isset($rw['guild_title']) ? $rw['guild_title'] : ''),
-		'EEQQ1' => $mag[1],
-		'EEQQ2' => $mag[2],
-		'EEQQ3' => $mag[3],
+		'EQ1' => $mag[1],
+		'EQ2' => $mag[2],
+		'EQ3' => $mag[3],
 		'msg' => '<br>'.$msg
 		);
 	echo json_encode($response);

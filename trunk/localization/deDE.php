@@ -1202,3 +1202,17 @@ $lang['guildname'] = 'Gildenname';
 $lang['realmname']  = 'Realmname';
 $lang['regionname'] = 'Region (z.B. EU)';
 $lang['charname'] = 'Charaktername';
+
+//register locals
+$lang['register'] 	= 'Register';
+$lang['menue_register'] 	= 'Register|Register with roster to have access to your guilds pages';
+$lang['cname_tt'] 	='Your Username should be your Main charactor in the guild Alts can be added later';
+$lang['cname'] 		='Character name';
+$lang['cclass_tt'] 	='Your characters class';
+$lang['cclass'] 	='Character Class';
+$lang['clevel_tt'] 	='Your characters level';
+$lang['clevel']		='Character level';
+$lang['cgrank_tt'] 	='This is your guild rank in the guild';
+$lang['cgrank'] 	='Guild Rank';
+$lang['cemail_tt'] 	='Your Email address DO NOT USE your battle.net address';
+$lang['cemail'] 	='Email address';
