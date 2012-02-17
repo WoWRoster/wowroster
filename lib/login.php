@@ -36,6 +36,7 @@ class RosterLogin
 	var $logout;
 	var $valid;
 	var $radid = 30;
+	var $approved;
 
 	/**
 	 * Constructor for Roster Login class
@@ -87,7 +88,7 @@ class RosterLogin
 	{
 		global $roster;
 		
-		if (isset($_POST['username']))
+		if (isset($_POST['username']) && isset($_POST['password']))
 		{
 			$user = mysql_real_escape_string($_POST['username']);
 			$pass = md5(mysql_real_escape_string($_POST['password']));
@@ -164,7 +165,7 @@ class RosterLogin
 	function getAuthorized( $access )
 	{
 		
-		//echo $this->allow_login >= $access;
+		//echo $this->allow_login.' - '.$access;
 		///* user acceess checking this is kinda cool and really new to roster
 		$lvl = array();
 		$lvl = explode(":",$this->allow_login);
@@ -187,11 +188,13 @@ class RosterLogin
 		//echo '<font color=white>+'.$x.'+</font>';
 		if ($x == 1)
 		{
+			$this->approved = 1;
 			return true;
 		}
 		else
 		{
-			return false;
+			$this->approved = 0;
+			echo $this->getLoginForm(ROSTERLOGIN_ADMIN);
 		}
 		
 		//*/
@@ -363,7 +366,12 @@ class RosterLogin
 	{
 		global $roster;
 
-		if( !$this->allow_login && !isset($_POST['logout']) )
+		if( $this->approved != 1 )
+		{
+			roster_die('Invalid access lvl to access admin section logout and login as admin or ask for admin access from admin');
+		}
+			
+		if( !$this->allow_login && !isset($_POST['logout']) && $this->approved==1 )
 		{
 			//echo 'check login';
 			$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `access` = '" . $level . "';";
@@ -381,7 +389,7 @@ class RosterLogin
 
 			$row = $roster->db->fetch($result);
 			$roster->db->free_result($result);
-			$this->ValadateUser ();
+			//$this->ValadateUser ();
 			$login_message = $this->getMessage();
 
 			$roster->tpl->assign_block_vars('login', array(
