@@ -129,7 +129,7 @@ INSERT INTO `renprefix_config` VALUES (10030, 'lua_user_level', '0', 'access', '
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2');
+INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2:b3');
 INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
 INSERT INTO `renprefix_menu` VALUES (3, 'guild', '');
 INSERT INTO `renprefix_menu` VALUES (4, 'char', '');
@@ -138,6 +138,7 @@ INSERT INTO `renprefix_menu` VALUES (4, 'char', '');
 ### Menu Button entries
 INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_search', 'util', 'search', 'inv_misc_spyglass_02');
 INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_roster_cp', 'util', 'rostercp', 'inv_misc_gear_02');
+INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_register', 'util', 'register', 'inv_misc_bag_26_spellfire');
 
 # --------------------------------------------------------
 ### Talent Tree Arrows

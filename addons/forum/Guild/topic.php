@@ -61,9 +61,7 @@ $roster->tpl->assign_vars(array(
 	function postReply()
 	{
 		global $roster, $addon;
-		//echo '<pre>';
-		//print_r($_POST);
-		//echo '</pre>';
+
 		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon['config']['forum_html_posts'] >= 0 )
 		{
 			$html = 1;

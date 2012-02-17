@@ -74,7 +74,6 @@ $roster->tpl->assign_vars(array(
 			(".$_GET['id'].",'".$_POST['title']."','".$access."','". $roster->db->escape(gmdate('Y-m-d H:i:s')). "',	'". $roster->db->escape(gmdate('Y-m-d H:i:s')). "',	'".$_POST['author']."',	'',	'',	'1');";
 		$result = $roster->db->query($query);
 		$t_id = $roster->db->insert_id();
-		echo $t_id;
 		
 		$q = "INSERT INTO `" . $roster->db->table('posts',$addon['basename']) . "` 
 		(`topic_id`, `forum_id`, `poster_id`, `post_time`, `post_username`, `enable_html`, `post_edit_time`, `post_edit_count`, `post_subject`, `post_text`)

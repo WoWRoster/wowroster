@@ -206,7 +206,7 @@ class Upgrade {
 			$roster->db->query("ALTER TABLE `".$roster->db->table('talenttree_data')."` ADD `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,
 			ADD `desc` VARCHAR( 255 ) NULL DEFAULT NULL");
 			
-			$roster->db->query("ALTER TABLE `".$roster->db->table('talents_data')."` ADD `isspell` INT( 1 ) NULL DEFAULT NULL");
+			$roster->db->query("ALTER TABLE `".$roster->db->table('talents_data')."` ADD `isspell` INT( 1 ) NULL DEFAULT '0'");
 
 			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('talent_mastery')."` (
 			  `class_id` int(11) NOT NULL DEFAULT '0',
@@ -220,7 +220,13 @@ class Upgrade {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
 		}
-
+		if (version_compare($roster->config['version'], '2.1.9.2400', '<')) 
+		{
+			$roster->db->query("INSERT INTO `".$roster->db->table('menu_button')."` VALUES (null, 0, 'menu_register', 'util', 'register', 'inv_misc_bag_26_spellfire');");
+			$t_id = $roster->db->insert_id();
+			$roster->db->query("UPDATE `".$roster->db->table('menu')."` SET `config` = CONACT(`config`, ':b".$t_id."');");
+			$roster->set_message('Added Register Button');
+		}
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
