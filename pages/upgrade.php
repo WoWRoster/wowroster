@@ -188,7 +188,7 @@ class Upgrade {
 
 		//5f4dcc3b5aa765d61d8327deb882cf99 password Duh!
 			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Admin', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
-			$roster->set_message('Admin user created password: password <font color=red>Changthis asap!</font>');
+			$roster->set_message('Admin user created password: password <span style="color:red;">Change this asap!</span>');
 			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Officer', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
 			$roster->set_message('Officer user created password: password');
 			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
@@ -224,7 +224,7 @@ class Upgrade {
 		{
 			$roster->db->query("INSERT INTO `".$roster->db->table('menu_button')."` VALUES (null, 0, 'menu_register', 'util', 'register', 'inv_misc_bag_26_spellfire');");
 			$t_id = $roster->db->insert_id();
-			$roster->db->query("UPDATE `".$roster->db->table('menu')."` SET `config` = CONACT(`config`, ':b".$t_id."');");
+			$roster->db->query("UPDATE `".$roster->db->table('menu')."` SET `config` = CONCAT(`config`, ':b".$t_id."');");
 			$roster->set_message('Added Register Button');
 		}
 		// Standard Beta Update
