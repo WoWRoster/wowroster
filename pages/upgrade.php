@@ -220,11 +220,11 @@ class Upgrade {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
 		}
-		if (version_compare($roster->config['version'], '2.1.9.2400', '<')) 
+		if (version_compare($roster->config['version'], '2.1.9.2404', '<')) 
 		{
 			$roster->db->query("INSERT INTO `".$roster->db->table('menu_button')."` VALUES (null, 0, 'menu_register', 'util', 'register', 'inv_misc_bag_26_spellfire');");
 			$t_id = $roster->db->insert_id();
-			$roster->db->query("UPDATE `".$roster->db->table('menu')."` SET `config` = CONCAT(`config`, ':b".$t_id."');");
+			$roster->db->query("UPDATE `".$roster->db->table('menu')."` SET `config` = CONCAT(config, ':b$t_id') WHERE `section` = 'util';");
 			$roster->set_message('Added Register Button');
 		}
 		// Standard Beta Update
