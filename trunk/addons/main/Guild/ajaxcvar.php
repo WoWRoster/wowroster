@@ -55,27 +55,46 @@
 		}		
 	}
 	$rw=null;
-	if ($error)
+
+	$sqlquery2 = "SELECT * FROM `".$roster->db->table('members')."` WHERE `name` = '".$char."'";
+	$result2 = $roster->db->query($sqlquery2);
+	
+	if ($result2)
 	{
-		$sqlquery2 = "SELECT * FROM `".$roster->db->table('members')."` WHERE `name` = '".$char."'";
-		$result2 = $roster->db->query($sqlquery2);
+	
 		$rw = $roster->db->fetch($result2);
 		//print_r($rw);
+
+
+		$msg = implode('<br>',$msg);
+		$response = array(
+			'ok' => $error,
+			'cla55' => $roster->locale->wordings['enUS']['id_to_class'][$data['class']],
+			'level' => $data['level'],
+			'thumb' => $data['thumbnail'],
+			'rank'	=> (isset($rw['guild_rank']) ? $rw['guild_rank'] : ''),
+			'title'	=> (isset($rw['guild_title']) ? $rw['guild_title'] : ''),
+			'EEQQ1' => $mag[1],
+			'EEQQ2' => $mag[2],
+			'EEQQ3' => $mag[3],
+			'msg' => '<br>'.$msg
+			);
 	}
-	
-	
-	$msg = implode('<br>',$msg);
-	$response = array(
-		'ok' => $error,
-		'cla55' => $roster->locale->wordings['enUS']['id_to_class'][$data['class']],
-		'level' => $data['level'],
-		'thumb' => $data['thumbnail'],
-		'rank'	=> (isset($rw['guild_rank']) ? $rw['guild_rank'] : ''),
-		'title'	=> (isset($rw['guild_title']) ? $rw['guild_title'] : ''),
-		'EEQQ1' => $mag[1],
-		'EEQQ2' => $mag[2],
-		'EEQQ3' => $mag[3],
-		'msg' => '<br>'.$msg
-		);
+	else
+	{
+		$msg = 'Sorry you are not in the guild member list';
+		$response = array(
+			'ok' => false,
+			'cla55' => 'x',
+			'level' => 'x',
+			'thumb' => $data['thumbnail'],
+			'rank'	=> 'x',
+			'title'	=> 'x',
+			'EEQQ1' =>'RGdenyed',
+			'EEQQ2' => 'RGdenyed',
+			'EEQQ3' => 'RGdenyed',
+			'msg' => '<br>'.$msg
+			);
+	}
 	echo json_encode($response);
 	?>

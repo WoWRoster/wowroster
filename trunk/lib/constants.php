@@ -18,7 +18,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION', '2.1.9.2404');
+define('ROSTER_VERSION', '2.1.9.2405');
 
 /**
  * Roster Conf File
@@ -54,6 +54,7 @@ define('ROSTER_TPLDIR', ROSTER_BASE . 'templates' . DIR_SEP);
  * Base, absolute roster addons directory
  */
 define('ROSTER_ADDONS', ROSTER_BASE . 'addons' . DIR_SEP);
+define('ROSTER_PLUGINS', ROSTER_BASE . 'plugins' . DIR_SEP);
 
 /**
  * Base, absolute roster pages directory

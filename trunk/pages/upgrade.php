@@ -227,6 +227,11 @@ class Upgrade {
 			$roster->db->query("UPDATE `".$roster->db->table('menu')."` SET `config` = CONCAT(config, ':b$t_id') WHERE `section` = 'util';");
 			$roster->set_message('Added Register Button');
 		}
+		if (version_compare($roster->config['version'], '2.1.9.2405', '<')) 
+		{
+			$roster->db->query("ALTER TABLE `".$roster->db->table('plugin')."` ADD `parent` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `basename` ,
+			ADD `scope` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `parent`");
+		}
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

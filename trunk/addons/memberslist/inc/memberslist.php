@@ -101,7 +101,7 @@ class memberslist
 
 	
 	/**
-	 * Build the list of plugins to include based on roster scope and if addons have plugins
+	 * Build the list of plugins to include based on roster scope and if plugins have plugins
 	 *
 	 *
 	 */
@@ -109,43 +109,34 @@ class memberslist
 	function _initPlugins()
 	{
 		global $roster, $addon;
-		$addons = $roster->addon_data;
-		if( !empty($addons) )
+		$plugins = $roster->plugin_data;
+		if( !empty($plugins) )
 		{
-			foreach( $addons as $addon_name => $addonx )
+			foreach( $plugins as $plugin_name => $plugin )
 			{
-				$dirx = ROSTER_ADDONS . $addonx['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
-				if (is_dir($dirx))
+				//$dirx = ROSTER_ADDONS . $plugin['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
+				if ($plugin['parent'] == $addon['basename'])
 				{
-					$dir = opendir ($dirx);
-					while (($file = readdir($dir)) !== false)
+
+					if ($roster->plugin_data[$plugin_name]['active'] == '1')
 					{
-						if (strpos($file, '.php',1))
+						if ($plugin['scope'] == $roster->scope)
 						{
-							$info = pathinfo($file);
-							$file_name =  basename($file,'.'.$info['extension']);
-							list($reqaddon, $scope, $name) = explode('-',$file_name);
-							if (isset($roster->plugin_data[$name]) && $roster->plugin_data[$name]['active'] == '1')
+							$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
+							require($classfile);
+							$pluginstuff = new $plugin_name;
+							$this->members_list_select .= $pluginstuff->members_list_select;
+							$this->members_list_table .= $pluginstuff->members_list_table;
+							if (isset($pluginstuff->members_list_where))
 							{
-								if ($scope == $roster->scope && $reqaddon == $addon['basename'])
-								{
-									require($dirx . $file);
-									$addonstuff = new $name;
-									$this->members_list_select .= $addonstuff->members_list_select;
-									$this->members_list_table .= $addonstuff->members_list_table;
-									if (isset($addonstuff->members_list_where))
-									{
-										$this->members_list_where[] = $addonstuff->members_list_where;
-									}
-									$this->members_list_fields[] = $addonstuff->members_list_fields;
-									
-									unset($addonstuff);
-								}
+								$this->members_list_where[] = $pluginstuff->members_list_where;
 							}
+							$this->members_list_fields[] = $pluginstuff->members_list_fields;
+							
+							unset($pluginstuff);
 						}
 					}
 				}
-	
 			}
 		}
 	

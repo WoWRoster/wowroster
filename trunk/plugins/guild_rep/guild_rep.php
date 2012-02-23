@@ -69,41 +69,7 @@ class guild_rep
 			);
 	}
 	
-	/**
-	 * Install Function
-	 *
-	 * @return bool
-	 */
-	function install()
-	{
-		global $installer;
-		return true;
-	}
 
-	/**
-	 * Upgrade Function
-	 *
-	 * @param string $oldversion
-	 * @return bool
-	 */
-	function upgrade($oldversion)
-	{
-	     global $installer,$addon,$roster;
-		// Nothing to upgrade from yet
-		return true;
-
-	}
-
-	/**
-	 * Un-Install Function
-	 *
-	 * @return bool
-	 */
-	function uninstall()
-	{
-		global $installer, $addon;
-		return true;
-	}
 	
 }
 abstract class guild_rep_function
