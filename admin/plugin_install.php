@@ -47,10 +47,11 @@ switch( $op )
 		break;
 }
 $roster->get_plugin_data();
+/*
 	function getPluginlist()
 	{
 		global $roster, $addon;
-		$addons = $roster->addon_data;
+		$addons = $roster->plugin_data;
 		$plugins = array();
 		if( !empty($addons) )
 		{
@@ -71,7 +72,7 @@ $roster->get_plugin_data();
 							//if ($scope == $roster->scope && $reqaddon == $addon['basename'])
 							//
 							require($dirx . $file);
-							$addonstuff = new $name;
+							$addonstuff = new $name.'Install';
 							if (isset($addonstuff->name))
 							{
 								$plugin = $addonstuff->name;
@@ -110,7 +111,86 @@ $roster->get_plugin_data();
 		}
 		return $plugins;
 	}
-	
+*/	
+function getPluginlist()
+{
+	global $roster, $installer;
+
+	// Initialize output
+	$addons = '';
+	$output = '';
+
+	if( $handle = @opendir(ROSTER_PLUGINS) )
+	{
+		while( false !== ($file = readdir($handle)) )
+		{
+			if( $file != '.' && $file != '..' && $file != '.svn' )
+			{
+				$addons[] = $file;
+			}
+		}
+	}
+
+	usort($addons, 'strnatcasecmp');
+
+	if( is_array($addons) )
+	{
+		foreach( $addons as $addon )
+		{
+			$installfile = ROSTER_PLUGINS . $addon . DIR_SEP . 'install.def.php';
+			$install_class = $addon . 'Install';
+
+			if( file_exists($installfile) )
+			{
+				include_once($installfile);
+
+				if( !class_exists($install_class) )
+				{
+					$installer->seterrors(sprintf($roster->locale->act['installer_no_class'],$addon));
+					continue;
+				}
+
+				$addonstuff = new $install_class;
+
+				if( array_key_exists($addon,$roster->plugin_data) )
+				{
+					$output[$addon]['id'] = $roster->plugin_data[$addon]['addon_id'];
+					$output[$addon]['active'] = $roster->plugin_data[$addon]['active'];
+					$output[$addon]['access'] = $roster->plugin_data[$addon]['access'];
+					$output[$addon]['oldversion'] = $roster->plugin_data[$addon]['version'];
+
+					// -1 = overwrote newer version
+					//  0 = same version
+					//  1 = upgrade available
+					$output[$addon]['install'] = version_compare($addonstuff->version,$roster->plugin_data[$addon]['version']);
+
+				}
+				else
+				{
+					$output[$addon]['install'] = 3;
+				}
+
+				// Save current locale array
+				// Since we add all locales for localization, we save the current locale array
+				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+				
+				$output[$addon]['filename'] = $addonstuff->filename;
+				$output[$addon]['basename'] = $addon;
+				$output[$addon]['parent'] = $addonstuff->parent;
+				$output[$addon]['scope'] = $addonstuff->scope;
+				$output[$addon]['fullname'] = ( isset($roster->locale->act[$addonstuff->fullname]) ? $roster->locale->act[$addonstuff->fullname] : $addonstuff->fullname );
+				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
+				$output[$addon]['version'] = $addonstuff->version;
+				$output[$addon]['icon'] = $addonstuff->icon;
+				$output[$addon]['description'] = ( isset($roster->locale->act[$addonstuff->description]) ? $roster->locale->act[$addonstuff->description] : $addonstuff->description );
+
+				unset($addonstuff);
+			}
+		}
+	}
+	return $output;
+}
+
 	function processActive( $id , $mode )
 	{
 		global $roster, $installer;
@@ -158,9 +238,10 @@ $roster->get_plugin_data();
 		//$roster->db->error_die($old_error_die);
 
 		// Include addon install definitions
-		$addonDir = ROSTER_ADDONS . $addon_parent . DIR_SEP;
-		$addon_install_file = $addonDir . 'inc' . DIR_SEP . 'plugins' . DIR_SEP . $addon_file;
-		$install_class = $addon_name;
+		$addonDir = ROSTER_PLUGINS . $addon_name . DIR_SEP;
+		$addon_install_file = $addonDir . 'install.def.php';
+		echo $addon_install_file.'<br>';
+		$install_class = $addon_name.'Install';
 
 		if( !file_exists($addon_install_file) )
 		{
@@ -205,7 +286,18 @@ $roster->get_plugin_data();
 					$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 					break;
 				}
-				$query = 'INSERT INTO `' . $roster->db->table('plugin') . '` VALUES (NULL,"' . $installer->addata['basename'] . '","' . $installer->addata['version'] . '","' . (int)$installer->addata['active'] . '",0,"' . $installer->addata['fullname'] . '","' . $installer->addata['description'] . '","' . $roster->db->escape(serialize($installer->addata['credits'])) . '","' . $installer->addata['icon'] . '","' . $installer->addata['wrnet_id'] . '",NULL);';
+				$query = 'INSERT INTO `' . $roster->db->table('plugin') . '` VALUES 
+				(NULL,"' . $installer->addata['basename'] . '",
+				"' . $installer->addata['parent'] . '",
+				"' . $installer->addata['scope'] . '",
+				"' . $installer->addata['version'] . '",
+				"' . (int)$installer->addata['active'] . '",
+				0,
+				"' . $installer->addata['fullname'] . '",
+				"' . $installer->addata['description'] . '",
+				"' . $roster->db->escape(serialize($installer->addata['credits'])) . '",
+				"' . $installer->addata['icon'] . '",
+				"' . $installer->addata['wrnet_id'] . '",NULL);';
 				$result = $roster->db->query($query);
 				if( !$result )
 				{

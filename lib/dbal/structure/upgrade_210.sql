@@ -58,8 +58,11 @@ CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
 
 # --------------------------------------------------------
 ### Altered Tables
-ALTER TABLE `renprefix_talenttree_data` ADD `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,ADD `desc` VARCHAR( 255 ) NULL DEFAULT NULL
-ALTER TABLE `renprefix_talents_data` ADD `isspell` INT( 1 ) NULL DEFAULT NULL
+ALTER TABLE `renprefix_talenttree_data` ADD `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,ADD `desc` VARCHAR( 255 ) NULL DEFAULT NULL;
+ALTER TABLE `renprefix_talents_data` ADD `isspell` INT( 1 ) NULL DEFAULT NULL;
+
+ALTER TABLE `renprefix_plugin` ADD `parent` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `basename` ,
+ADD `scope` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `parent` ;
 # --------------------------------------------------------
 ### Config Table Updates
 

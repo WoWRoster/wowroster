@@ -69,6 +69,7 @@ if( array_key_exists('mode',$_POST) && $roster->auth->getAuthorized(ROSTERLOGIN_
 		{
 			$query = 'UPDATE `' . $roster->db->table('user_members') . '` SET `pass` = "' . md5($newpass) . '"  WHERE `usr` = "' . $mode . '";';
 			$result = $roster->db->query($query);
+			setcookie('roster_pass',md5($newpass),(time()+60*60*24*30) );
 
 			if (!$result)
 			{

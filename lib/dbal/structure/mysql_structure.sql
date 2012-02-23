@@ -53,6 +53,8 @@ DROP TABLE IF EXISTS `renprefix_plugin`;
 CREATE TABLE `renprefix_plugin` (
   `addon_id` int(11) NOT NULL auto_increment,
   `basename` varchar(16) NOT NULL default '',
+  `parent` VARCHAR( 100 ) NULL DEFAULT NULL,
+  `scope` VARCHAR( 20 ) NULL DEFAULT NULL,
   `version` varchar(16) NOT NULL default '0',
   `active` int(1) NOT NULL default '1',
   `access` int(1) NOT NULL default '0',
