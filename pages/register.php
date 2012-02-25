@@ -88,7 +88,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 			var pUsername = $('#pUsername');
 			var pclass = $('input#class');
 			var plevel = $('input#level');
-			var prank = $('input#rank');
+			var prank = $('#rank');
 			var ptitle = $('#title');
 			var photo = $('#photo');
 			var EQ1 = $('div#EQ1');
@@ -116,7 +116,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 								pclass.val(j.cla55);
 								plevel.val(j.level);
 								prank.val(j.rank);
-								ptitle.val(j.title);
+								ptitle.html(j.title);
 								
 								photo.html('<img src=\"http://us.battle.net/static-render/us/'+j.thumb+'\" height=\"75\" width=\"75\" /></a>');
 								
@@ -133,7 +133,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 								pclass.val(j.cla55);
 								plevel.val(j.level);
 								prank.val(j.rank);
-								ptitle.val(j.title);
+								ptitle.html(j.title);
 								
 							}
 							
@@ -156,7 +156,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 			case 6: $ret = "Legs";break;		case 7: $ret = "Feet";break;			case 8: $ret = "Wrist";break;
 			case 9: $ret = "Hands";break;		case 10: $ret = "Finger0";break;		case 11: $ret = "Finger1";break;
 			case 12: $ret = "Trinket0";break;	case 13: $ret = "Trinket1";break;		case 14: $ret = "Back";break;
-			case 15: $ret = "MainHand";break;	case 16: $ret = "Off Hand";break;	case 17: $ret = "Ranged";break;
+			case 15: $ret = "MainHand";break;	case 16: $ret = "SecondaryHand";break;	case 17: $ret = "Ranged";break;
 			case 18: $ret = "Tabard";break;		
 		}
 		return $ret;
@@ -187,6 +187,17 @@ $roster->tpl->assign_vars(array(
 	//'R_Q_CHAR'     => @$_REQUEST['character'],
 	//'R_Q_RANK'     => @$_REQUEST['rank'],
 	'R_MSG_ERROR'	=> (!empty($e) ? $e : ''),
+
+	'CNAMETT' 		=> makeOverlib($roster->locale->act['cname_tt'],$roster->locale->act['cname'],'',1,'',',WRAP'),
+	'CNAME' 		=> $roster->locale->act['cname'],
+	'CLASSTT' 		=> makeOverlib($roster->locale->act['cclass_tt'],$roster->locale->act['cclass'],'',1,'',',WRAP'),
+	'CLASS'			=> $roster->locale->act['cclass'],
+	'LEVELTT' 		=> makeOverlib($roster->locale->act['clevel_tt'],$roster->locale->act['clevel'],'',1,'',',WRAP'),
+	'LEVEL' 		=> $roster->locale->act['clevel'],
+	'RANKTT' 		=> makeOverlib($roster->locale->act['cgrank_tt'],$roster->locale->act['cgrank'],'',1,'',',WRAP'),
+	'RANK' 			=> $roster->locale->act['cgrank'],
+	'EMAILTT' 		=> makeOverlib($roster->locale->act['cemail_tt'],$roster->locale->act['cemail'],'',1,'',',WRAP'),
+	'EMAIL' 		=> $roster->locale->act['cemail'],
 	)
 );
 

@@ -113,8 +113,8 @@ textbox {
 .info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
 
 .menu-select { position: absolute; top: 30px; right: 80px; width:180px;}
-.menu-select .locale-select { position: relative;top: -1px; left: 20px; margin-bottom: 3px; }
-.menu-select .list-select { position: relative;top: -24px; left: 110px; margin-bottom: 3px; }
+.menu-select .locale-select { position: relative;top: -8px; left: 180px; margin-bottom: 3px; }
+.menu-select .list-select { position: relative;top: -31px; left: 18px; margin-bottom: 3px; }
 
 .char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap {
 	margin: 102px 0 0;
