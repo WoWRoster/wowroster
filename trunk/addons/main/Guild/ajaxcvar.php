@@ -57,8 +57,10 @@
 	$rw=null;
 
 	$sqlquery2 = "SELECT * FROM `".$roster->db->table('members')."` WHERE `name` = '".$char."'";
+	//echo $sqlquery2.'<br>';
 	$result2 = $roster->db->query($sqlquery2);
-	
+		//$rw = $roster->db->fetch($result2);
+		//print_r($rw);
 	if ($result2)
 	{
 	

@@ -45,8 +45,8 @@
 							<div class="tier-3-b">
 								<div class="config">
 									<div class="config-name">
-										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('Your Username should be your Main charactor in the guild Alts can be added later',CAPTION,'User Name',WRAP);" onmouseout="return nd();"></span>
-									<label for="username">Character name</label> <input type="submit" name="submit" class="button" id="submit_btn" value="Check Me" />
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {CNAMETT} onmouseout="return nd();"></span>
+									<label for="username">{CNAME}</label> <input type="submit" name="submit" class="button" id="submit_btn" value="Check Me" />
 									</div>
 <form name="register" style="display:inline;" method="post" enctype="multipart/form-data" action="">
 									<div class="config-input">
@@ -60,8 +60,8 @@
 							<div class="tier-3-b">
 								<div class="config">
 									<div class="config-name">
-										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('Your characters class',CAPTION,'Char Class',WRAP);" onmouseout="return nd();"></span>
-									<label for="username">Character Class</label>
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {CLASSTT} onmouseout="return nd();"></span>
+									<label for="username">{CLASS}</label>
 									</div>
 									<div class="config-input">
 										<input type="text" name="class" value="" id="class" disabled="disabled" />
@@ -74,8 +74,8 @@
 							<div class="tier-3-b">
 								<div class="config">
 									<div class="config-name">
-										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('Your characters level',CAPTION,'Char Level',WRAP);" onmouseout="return nd();"></span>
-									<label for="username">Character level</label>
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {LEVELTT} onmouseout="return nd();"></span>
+									<label for="username">{LEVEL}</label>
 									</div>
 									<div class="config-input">
 										<input type="text" name="level" value="" id="level" disabled="disabled" />
@@ -89,8 +89,8 @@
 							<div class="tier-3-b">
 								<div class="config">
 									<div class="config-name">
-										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('This is your guild rank in the guild',CAPTION,'Guild Rank',WRAP);" onmouseout="return nd();"></span>
-									<label for="username">Guild Rank</label>
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {RANKTT} onmouseout="return nd();"></span>
+									<label for="username">{RANK}</label>
 									</div>
 									<div class="config-input">
 										<input type="hidden" name="rank" value="" id="rank" /><div id="title"></div>
@@ -103,8 +103,8 @@
 							<div class="tier-3-b">
 								<div class="config">
 									<div class="config-name">
-										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('Your Email address DO NOT USE your battle.net address',CAPTION,'Char Level',WRAP);" onmouseout="return nd();"></span>
-									<label for="username">Email</label>
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {EMAILTT} onmouseout="return nd();"></span>
+									<label for="username">{EMAIL}</label>
 									</div>
 									<div class="config-input">
 										<input type="text" name="email" value="" id="email" size="60"/>
@@ -118,7 +118,7 @@
 								<div class="config">
 									<div class="config-name">
 										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('chose your password DONOT use your wow password',CAPTION,'Password',WRAP);" onmouseout="return nd();"></span>
-									<label for="username">Password</label>
+									<label for="username"><!-- TRANSLATE password --></label>
 									</div>
 									<div class="config-input">
 										<input type="password" name="password1" value="" id="password1" size="30"/>
@@ -131,7 +131,7 @@
 								<div class="config">
 									<div class="config-name">
 										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('confirm your password above',CAPTION,'Confirm',WRAP);" onmouseout="return nd();"></span>
-									<label for="username">[confirm]</label>
+									<label for="username"><!-- TRANSLATE new_pass_confirm --></label>
 									</div>
 									<div class="config-input">
 										<input type="password" name="password2" value="" id="password2" size="30"/>
