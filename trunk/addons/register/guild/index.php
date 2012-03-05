@@ -1,5 +1,5 @@
 <?php
-
+$roster->scope == 'guild';
 if(isset($_POST['op']) && $_POST['op']=='register')
 {
 
@@ -37,7 +37,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 			}
 			else
 			{
-				$roster->set_message('There was a DB error while editing the article.', '', 'error');
+				$roster->set_message('There was a DB error while creating your user.', '', 'error');
 				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 			}
 	}
@@ -100,7 +100,8 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 				validateUsername.removeClass('error').html('<img src=\"".$roster->config['img_url']."canvas-loader.gif\" height=\"18\" width=\"18\" /> checking availability...');
 				this.timer = setTimeout(function () {
 					$.ajax({
-						url: 'index.php?p=guild-main-ajaxcvar',
+						url: 'index.php?p=guild-register-ajaxcvar',
+						//url: 'index.php?p=ajaxcvar',
 						data: 'action=check_username&slot=".$num1.'-'.$num2.'-'.$num3."&character=' + char,
 						dataType: 'json',
 						type: 'post',
@@ -207,6 +208,5 @@ $roster->tpl->set_filenames(array(
 	)
 );
 $roster->tpl->display('register');	
-	
-	
+
 ?>
