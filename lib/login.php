@@ -34,10 +34,10 @@ class RosterLogin
 	var $action;
 	var $logout;
 	var $levels = array();
-	var $valid;
+	var $valid = 0;
 	var $radid = 30;
 	var $approved;
-	var $access;
+	var $access = 0;
 	
 	/**
 	 * Constructor for Roster Login class
@@ -60,7 +60,8 @@ class RosterLogin
 			setcookie('roster_remember','',time()-(60*60*24*30*100) );
 			$this->allow_login = false;
 			$this->valid = 0;
-			$this->message = $roster->locale->act['logged_out'];
+			$this->message = $roster->locale->act['logged_out'].$this->getLoginForm();
+			$this->getLoginForm();
 		}
 		elseif( isset($_POST['password']) && $_POST['password'] != '' && isset($_POST['username']) && $_POST['username'] != '')
 		{
@@ -81,10 +82,12 @@ class RosterLogin
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE usr='".$user."' AND pass='".$pass."' ;";
+		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."';";
 		$result = $roster->db->query($query);
-
-		if( !$result )
+		//echo (bool)$result;
+		$count = $roster->db->num_rows($result);
+		//echo $count;
+		if( $count == 0 )
 		{
 			setcookie('roster_user','',time()-(60*60*24*30*100) );
 			setcookie('roster_pass','',time()-(60*60*24*30*100) );
@@ -92,10 +95,10 @@ class RosterLogin
 			$this->allow_login = false;
 			$this->valid = 0;
 			$this->message = $roster->locale->act['login_fail'];
-			return;
+			return false;
 		}
 
-		if( $result )
+		if( $count == 1 )
 		{
 			$remember = (isset($_POST['rememberMe']) ? (int)$_POST['rememberMe'] : (int)$_COOKIE['roster_remember'] );
 			$row = $roster->db->fetch($result);
@@ -109,14 +112,14 @@ class RosterLogin
 			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
 			$this->message = '<span class="login-message">Welcome, '.$user.' '.$this->logout.'</span>';
 			$roster->db->free_result($result);
-			return;
+			return true;
 
 		}
 		$roster->db->free_result($result);
 
-		setcookie('roster_user','',time()-(60*60*24*30*100) );
-		setcookie('roster_pass','',time()-(60*60*24*30*100) );
-		setcookie('roster_remember','',time()-(60*60*24*30*100) );
+		//setcookie('roster_user','',time()-(60*60*24*30*100) );
+		//setcookie('roster_pass','',time()-(60*60*24*30*100) );
+		//setcookie('roster_remember','',time()-(60*60*24*30*100) );
 		$this->allow_login = false;
 		$this->message = $roster->locale->act['login_invalid'];
 		return;
@@ -124,56 +127,26 @@ class RosterLogin
 
 	function getAuthorized( $access )
 	{
-		
-		//echo $this->allow_login.' - '.$access;
-		///* user acceess checking this is kinda cool and really new to roster
-		$lvl = array();
-		$lvl = explode(":",$this->access);
-		//print_r($lvl);
-		$x = 0;
-		//echo '-'.$x.'-';
-		foreach ($lvl as $acc => $a)
-		{
-			//echo $acc.' - '.$a.'<br>';
-			if ($a == $access)
-			{
-				$x = 1;
-			}
-			
-		}
-		if (is_array($lvl))
-		{
-			if (in_array(ROSTERLOGIN_ADMIN, $lvl))
-			{
-				$x = 1;
-			}
-		}
+	
+		$this->approved = false;
+		$addon = array();
+		$addon = explode(":",$access);
+		$user = array();
+		$user = explode(":",$this->access);
 
+		foreach ($user as $x => $ac)
+		{
+			if (in_array($ac,$addon))
+			{
+				$this->approved = true;
+			}
+		}
 		if ($this->access == ROSTERLOGIN_ADMIN)
 		{
-			$x = 1;
+			$this->approved = true;
 		}
-		//echo '<font color=white>+'.$x.'+</font>';
-		if ($x == 1)
-		{
-			$this->approved = 1;
-			return true;
-		}
-		else
-		{
-			$this->approved = 0;
-			if ($this->allow_login)
-			{
-				roster_die('Invalid access lvl to access admin section logout and login as admin or ask for admin access from admin');
-				return false;
-			}
-			else
-			{
-				echo $this->getLoginForm(ROSTERLOGIN_ADMIN);
-			}
-		}
-		
-		//*/
+		return $this->approved;
+	
 	}
 
 	function getMessage()
@@ -181,6 +154,10 @@ class RosterLogin
 		return $this->message;
 	}
 
+	function GetMemberLogin()
+	{
+		$this->getLoginForm();
+	}
 	function getLoginForm( $level = ROSTERLOGIN_ADMIN )
 	{
 		global $roster;
@@ -194,27 +171,13 @@ class RosterLogin
 		if( !$this->allow_login && !isset($_POST['logout']) ) // && $this->approved==1 )
 		{
 			//echo 'check login';
-			$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `access` = '" . $level . "';";
-			$result = $roster->db->query($query);
 
-			if( !$result )
-			{
-				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
-			}
-
-			if( $roster->db->num_rows($result) != 1 )
-			{
-				//die_quietly('Invalid required login level specified', 'Roster Auth');
-			}
-
-			$row = $roster->db->fetch($result);
-			$roster->db->free_result($result);
 			//$this->ValadateUser ();
 			$login_message = $this->getMessage();
 
 			$roster->tpl->assign_block_vars('login', array(
 				'U_LOGIN_ACTION'  	=> (isset($this->action) ? $this->action : $action),
-				'L_LOGIN_WORD'    	=> $row['usr'],
+				'L_LOGIN_WORD'    	=> '',
 				'S_LOGIN_MESSAGE' 	=> (bool)$login_message,
 				'L_LOGIN_MESSAGE' 	=> $login_message,
 				'L_REGISTER'		=> '<a href="'.makelink("register", true).'"><br>Register Here!</a>',
