@@ -60,7 +60,7 @@ switch( $roster->scope )
 			'LAST_UPDATED'    => false
 		));
 		break;
-
+	case 'user':
 	case 'guild':
 		$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['region'] . '-'
 			. $roster->data['server'] . ' ] ' . (isset($roster->output['title']) ? $roster->output['title'] : '');
@@ -72,7 +72,6 @@ switch( $roster->scope )
 			'LAST_UPDATED'    => (isset($roster->data['update_time']) ? readbleDate($roster->data['update_time']) . ((!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')' : '') : '')
 		));
 		break;
-
 	case 'char':
 		$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['region'] . '-'
 			. $roster->data['server'] . ' ] ' . (isset($roster->output['title']) ? $roster->output['title'] : '');
@@ -211,6 +210,54 @@ if( $roster->scope == 'realm' )
 	}
 }
 elseif( $roster->scope == 'guild' )
+{
+	// Get the scope select data
+	$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id`"
+		. " FROM `" . $roster->db->table('guild') . "`"
+		. " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
+
+	$result = $roster->db->query($query);
+
+	if( !$result )
+	{
+		die_quietly($roster->db->error(), 'Database error', __FILE__, __LINE__, $query);
+	}
+
+	$guilds = 0;
+	while( $data = $roster->db->fetch($result, SQL_NUM) )
+	{
+		$menu_select[$data[1]][$data[2]] = $data[0];
+		$guilds++;
+	}
+
+	$roster->db->free_result($result);
+
+	$roster->tpl->assign_vars(array(
+		'S_DATA_SELECT' => ($guilds > 1 ? true : false),
+		'TOTAL_GUILDS' =>  $guilds
+		)
+	);
+
+	if( count($menu_select) > 0 )
+	{
+		foreach( $menu_select as $realm => $guild )
+		{
+			$roster->tpl->assign_block_vars('menu_select_group', array(
+				'U_VALUE' => $realm
+			));
+
+			foreach( $guild as $id => $name )
+			{
+				$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
+					'TEXT'       => $name,
+					'U_VALUE'    => makelink('&amp;a=g:' . $id, true),
+					'S_SELECTED' => ($id == $roster->data['guild_id'] ? true : false)
+				));
+			}
+		}
+	}
+}
+elseif( $roster->scope == 'user' )
 {
 	// Get the scope select data
 	$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id`"

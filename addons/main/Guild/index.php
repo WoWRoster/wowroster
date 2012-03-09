@@ -5,7 +5,7 @@ $roster->output['show_header'] = true;
 
 //require (ROSTER_BASE . 'events/event.php');
 //$events = new events();
-$roster->auth->GetMemberLogin();
+//$roster->auth->GetMemberLogin();
 $roster->tpl->assign_vars(array(
 'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 'JSDIE'		=>$addon['dir'].'js'
@@ -17,7 +17,74 @@ roster_add_js('addons/' . $addon['basename'] . '/js/slideshow.js');
 roster_add_css($addon['dir'] . 'styles.css','module');
 
 
+	$roster->tpl->assign_block_vars('right', array(
+					'BLOCKNAME' 	=> 'User menu',
+					'ICON'			=> 'inv_misc_bag_26_spellfire',
+					'BLOCK_DATA'	=> $roster->auth->getLoginForm(),
+				));
+	
+// begin the session user detection
 
+	$userlist_ary = $userlist_visible = array();
+	$logged_visible_online = $logged_hidden_online = $guests_online = $prev_user_id = 0;
+	$prev_session_ip ='';
+	
+
+	$sqlg = 'SELECT COUNT(DISTINCT s.session_ip) as num_guests
+				FROM ' . $roster->db->table('sessions') . ' s
+				WHERE s.session_user_id = 0
+					AND s.session_time >= ' . (time() - (60 * 5));
+
+	$resultg = $roster->db->query($sqlg);
+	$guest = $roster->db->fetch($resultg);
+	$guests_online = $guest['num_guests'];
+
+	$sql = 'SELECT u.usr, u.id, s.*
+		FROM ' . $roster->db->table('user_members') . ' u, ' . $roster->db->table('sessions') . ' s
+		WHERE s.session_time >= ' . (time() - (60 * 10)) .
+			' AND u.id = s.session_user_id AND s.session_user_id != 0
+		ORDER BY u.usr ASC, s.session_ip ASC';
+	$result = $roster->db->query($sql);
+	$user_online_link = '';
+	while ($row = $roster->db->fetch($result))
+	{
+		// User is logged in and therefore not a guest
+		if ($row['id'] != 0)
+		{
+			// Skip multiple sessions for one user
+			if ($row['id'] != $prev_user_id)
+			{
+					$user_online_link .= '<em>'.$row['usr'].'<em>,';
+					$logged_visible_online++;
+			}
+			$prev_user_id = $row['id'];
+		}
+		else
+		{
+			// Skip multiple sessions for one user
+			if ($row['session_ip'] != $prev_session_ip)
+			{
+				$guests_online++;
+			}
+		}
+		$prev_session_ip = $row['session_ip'];
+	}
+	$online = '<span style="float:left;">Total:</span><span style="float:right;padding-right:10px;">'.($logged_visible_online+$guests_online).'</span><br /><hr width="90%" />
+			<span style="float:left;">Registered:</span><span style="float:right;padding-right:10px;">'.$logged_visible_online.'</span><br />
+			<span style="float:left;">Guest:</span><span style="float:right;padding-right:10px;">'.$guests_online.'</span><br />
+			<small>
+				'.$user_online_link.'
+			</small>
+			';
+
+	$roster->tpl->assign_block_vars('right', array(
+					'BLOCKNAME' 	=> 'Who is online',
+					'ICON'			=> 'inv_misc_groupneedmore',
+					'BLOCK_DATA'	=> $online,
+				));
+
+
+				
 // Add news if any was POSTed
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {

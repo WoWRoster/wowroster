@@ -264,6 +264,7 @@ include(ROSTER_LIB . 'scope' . DIR_SEP . 'util.php');
 include(ROSTER_LIB . 'scope' . DIR_SEP . 'realm.php');
 include(ROSTER_LIB . 'scope' . DIR_SEP . 'guild.php');
 include(ROSTER_LIB . 'scope' . DIR_SEP . 'char.php');
+include(ROSTER_LIB . 'scope' . DIR_SEP . 'user.php');
 
 /**
  * Run the scope algorithm to load the data and figure out the data to load
@@ -281,10 +282,12 @@ else
 {
 	$roster->config['external_auth'] = 'roster';
 	require_once (ROSTER_LIB . 'login.php');
+	require_once (ROSTER_LIB . 'sessions.lib.php');
 }
 
-$roster->auth = new RosterLogin();
 
+$roster->auth = new RosterLogin();
+$roster->session = new Session();
 /**
  * Assign initial template vars
  */

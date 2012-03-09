@@ -1,5 +1,10 @@
 <?php
-$roster->scope == 'guild';
+
+if( !isset($user) )
+{
+include_once ($addon['inc_dir'] . 'conf.php');
+}
+
 if(isset($_POST['op']) && $_POST['op']=='register')
 {
 
@@ -89,6 +94,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 			var pclass = $('input#class');
 			var plevel = $('input#level');
 			var prank = $('#rank');
+			var pmember_id = $('#member_id');
 			var ptitle = $('#title');
 			var photo = $('#photo');
 			var EQ1 = $('div#EQ1');
@@ -100,9 +106,9 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 				validateUsername.removeClass('error').html('<img src=\"".$roster->config['img_url']."canvas-loader.gif\" height=\"18\" width=\"18\" /> checking availability...');
 				this.timer = setTimeout(function () {
 					$.ajax({
-						url: 'index.php?p=guild-register-ajaxcvar',
+						url: 'index.php?p=user-user-ajaxcvar',
 						//url: 'index.php?p=ajaxcvar',
-						data: 'action=check_username&slot=".$num1.'-'.$num2.'-'.$num3."&character=' + char,
+						data: 'action=check_username&server=".$roster->data['server']."&slot=".$num1.'-'.$num2.'-'.$num3."&character=' + char,
 						dataType: 'json',
 						type: 'post',
 						success: function (j) {
@@ -117,6 +123,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 								pclass.val(j.cla55);
 								plevel.val(j.level);
 								prank.val(j.rank);
+								pmember_id.val(j.member_id);
 								ptitle.html(j.title);
 								
 								photo.html('<img src=\"http://us.battle.net/static-render/us/'+j.thumb+'\" height=\"75\" width=\"75\" /></a>');
@@ -176,7 +183,14 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 		}
 		return $ret;
 	}
-
+$form = 'userApp';
+$user->form->newForm('post', makelink('util-accounts-application'), $form, 'formClass', 4);
+		
+$user->form->addDateSelect('age','Birthdate',1,$form);
+$user->form->addTextBox('text','City','',$roster->locale->act['user_int']['city'],'wowinput128','',$form);
+$user->form->addTextBox('text','State','',$roster->locale->act['user_int']['state'],'wowinput128','',$form);
+$user->form->addTextBox('text','Country','',$roster->locale->act['user_int']['country'],'wowinput128',1,$form);
+$user->form->addTimezone('Zone',$roster->locale->act['user_app']['zone'],'',$form);
 $roster->tpl->assign_vars(array(
 	'R_EQUIP_1'     => _getItemSlot($num1),
 	'R_EQUIP_2'     => _getItemSlot($num2),
@@ -199,6 +213,9 @@ $roster->tpl->assign_vars(array(
 	'RANK' 			=> $roster->locale->act['cgrank'],
 	'EMAILTT' 		=> makeOverlib($roster->locale->act['cemail_tt'],$roster->locale->act['cemail'],'',1,'',',WRAP'),
 	'EMAIL' 		=> $roster->locale->act['cemail'],
+	'AGE'			=> 'Birthday',
+	'AGEF'			=> '',
+	'XXX'			=> $user->form->getTableOfElements_1(1,$form),
 	)
 );
 

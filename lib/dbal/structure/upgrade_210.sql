@@ -52,6 +52,13 @@ CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
   `regIP` varchar(15) NOT NULL DEFAULT '',
   `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `access` varchar(25) NOT NULL,
+  `user_last_visit` INT( 11 ) NOT NULL DEFAULT '0'
+  `age` varchar(32) NOT NULL default '',
+  `email` varchar(32) NOT NULL default '',
+  `city` varchar(32) NOT NULL default '',
+  `state` varchar(32) NOT NULL default '',
+  `country` varchar(32) NOT NULL default '',
+  `zone` varchar(32) NOT NULL default '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `usr` (`usr`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
@@ -63,6 +70,10 @@ ALTER TABLE `renprefix_talents_data` ADD `isspell` INT( 1 ) NULL DEFAULT NULL;
 
 ALTER TABLE `renprefix_plugin` ADD `parent` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `basename` ,
 ADD `scope` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `parent` ;
+
+ALTER TABLE `renprefix_members` CHANGE `account_id` `account_id` SMALLINT( 6 ) NULL DEFAULT NULL;
+UPDATE `renprefix_members` set `account_id` = NULL WHERE `account_id` = '0';
+
 # --------------------------------------------------------
 ### Config Table Updates
 
@@ -77,7 +88,12 @@ INSERT INTO `renprefix_config` VALUES (10002, 'api_key_public', '', 'text{64|30'
 INSERT INTO `renprefix_config` VALUES (10003, 'api_url_region', 'us', 'select{us.battle.net^us|eu.battle.net^eu|kr.battle.net^kr|tw.battle.net^tw', 'update_access');
 INSERT INTO `renprefix_config` VALUES (10004, 'api_url_locale', 'en_US', 'select{us.battle.net (en_US)^en_US|us.battle.net (es_MX)^es_MX|eu.battle.net (en_GB)^en_GB|eu.battle.net (es_ES)^es_ES|eu.battle.net (fr_FR)^fr_FR|eu.battle.net (ru_RU)^ru_RU|eu.battle.net (de_DE)^de_DE|kr.battle.net (ko_kr)^ko_kr|tw.battle.net (zh_TW)^zh_TW|battlenet.com.cn (zh_CN)^zh_CN', 'update_access');
 
+# session settings
+INSERT INTO `renprefix_config` VALUES (190,'acc_session','NULL','blockframe','menu'),
+(1900, 'sess_time', '15', 'text{30|4', 'acc_session'),
+(1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session')
 
 
 # --------------------------------------------------------
 ### Menu Updates
+INSERT INTO `renprefix_menu` VALUES ('', 'user', '');

@@ -51,12 +51,7 @@ background: url(../images/mask/manu_mask.png) no-repeat left top;
 	display: block;
 }
 
-.right-side {
-	Z-INDEX: -1;
-BORDER: #a16c29 1px solid;
 
-	PADDING-BOTTOM: 10px; LINE-HEIGHT: 1.5em; MARGIN: 0px 0px 20px 0px; PADDING-LEFT: 10px; WIDTH: 251px; PADDING-RIGHT: 5px; FLOAT: right; PADDING-TOP: 0px; -moz-border-radius: 10px; border-radius: 10px
-}
 
 td.mybackground{
 	BORDER: #e4cda4 1px solid;
@@ -180,57 +175,20 @@ Padding-top: 8px;
 	color: #333333;
 font: bold normal 12px Verdana, Arial, Helvetica, sans-serif;
 }
-
+/*
 #right {
 	BORDER: #a16c29 1px solid;
 	PADDING-BOTTOM: 0px; MARGIN: 0px 20px 0px 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
 }
-.homepage #right {
-	PADDING-TOP: 15px
+*/
+#right {
+    float: center;
+    line-height: 1.5em;
+    margin: 2px 2px 2px 0;
+    padding: 5px;
+    width: 260px;
 }
 
-.sidebar-module {
-	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 25px; PADDING-TOP: 0px
-}
-.sidebar-module .sidebar-title {
-	BORDER-BOTTOM: #552b12 2px solid; PADDING-BOTTOM: 6px; MARGIN-BOTTOM: 6px
-}
-.sidebar-module .sidebar-title H3 {
-	TEXT-TRANSFORM: uppercase; COLOR: #fef092; FONT-SIZE: 14px; FONT-WEIGHT: normal
-}
-#right .sidebar-module .sidebar-title H3 A {
-	PADDING-RIGHT: 20px; BACKGROUND: url(../images/icons/next.gif) no-repeat 100% 50%; COLOR: #fef092
-}
-#right .sidebar-module .sidebar-title H3 A:hover {
-	COLOR: #fff
-}
-.sidebar-module .sidebar-content {
-	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
-}
-.sidebar-module .loading.sidebar-content {
-	PADDING-BOTTOM: 40px; PADDING-LEFT: 40px; PADDING-RIGHT: 40px; BACKGROUND: url(/wow/static/images/loaders/canvas-loader.gif) no-repeat 50% 50%; PADDING-TOP: 40px
-}
-.sidebar-module .sidebar-content .empty {
-	COLOR: #c09a67
-}
-.sidebar-module .sidebar-all {
-	TEXT-ALIGN: right; PADDING-TOP: 10px
-}
-.sidebar-module .sidebar-all A {
-	PADDING-RIGHT: 12px; BACKGROUND: url(/wow/static/images/icons/more-arrows.gif) no-repeat 100% 2px
-}
-.sidebar-module .sidebar-all A:hover {
-	BACKGROUND-POSITION: 100% -45px
-}
-.sidebar-module .sidebar-error {
-	TEXT-ALIGN: center; PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #c09a67; PADDING-TOP: 10px
-}
-.sidebar-module .date {
-	COLOR: #71401f; FONT-SIZE: 11px
-}
-.sidebar-module .activity-feed LI {
-	PADDING-BOTTOM: 10px; PADDING-LEFT: 20px; PADDING-RIGHT: 0px; PADDING-TOP: 10px
-}
 /*
 #nav, #nav ul{
 Z-INDEX: 505;

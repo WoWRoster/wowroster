@@ -85,6 +85,7 @@ class roster
 		'show_header' => true,
 		'show_menu'   => array(
 			'util'  => 0,
+			'user'  => 0,
 			'realm' => 0,
 			'guild' => 0
 		),
@@ -241,7 +242,7 @@ class roster
 
 		$this->pages = explode('-', $page);
 
-		if( in_array($this->pages[0], array('util', 'realm', 'guild', 'char')) )
+		if( in_array($this->pages[0], array('util', 'user', 'realm', 'guild', 'char')) )
 		{
 			$this->scope = $this->pages[0];
 		}
@@ -276,6 +277,10 @@ class roster
 				case 'g':
 				case 'guild':
 					$this->atype = 'guild';
+					break;
+				case 'u':
+				case 'user':
+					$this->atype = 'user';
 					break;
 
 				case 'c':
@@ -400,6 +405,7 @@ class roster
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
 			case 'guild':
+			case 'user':
 			case 'default':
 				if( in_array($this->scope, array('char')) )
 				{

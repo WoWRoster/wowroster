@@ -1784,3 +1784,187 @@ function makeRealmStatus( )
 
 	return $realmStatus;
 }
+/**
+* request_var
+*
+* Used to get passed variable
+*/
+function request_var($var_name, $default, $multibyte = false, $cookie = false)
+{
+	if (!$cookie && isset($_COOKIE[$var_name]))
+	{
+		if (!isset($_GET[$var_name]) && !isset($_POST[$var_name]))
+		{
+			return (is_array($default)) ? array() : $default;
+		}
+		$_REQUEST[$var_name] = isset($_POST[$var_name]) ? $_POST[$var_name] : $_GET[$var_name];
+	}
+
+	$super_global = ($cookie) ? '_COOKIE' : '_REQUEST';
+	if (!isset($GLOBALS[$super_global][$var_name]) || is_array($GLOBALS[$super_global][$var_name]) != is_array($default))
+	{
+		return (is_array($default)) ? array() : $default;
+	}
+
+	$var = $GLOBALS[$super_global][$var_name];
+	if (!is_array($default))
+	{
+		$type = gettype($default);
+	}
+	else
+	{
+		list($key_type, $type) = each($default);
+		$type = gettype($type);
+		$key_type = gettype($key_type);
+		if ($type == 'array')
+		{
+			reset($default);
+			$default = current($default);
+			list($sub_key_type, $sub_type) = each($default);
+			$sub_type = gettype($sub_type);
+			$sub_type = ($sub_type == 'array') ? 'NULL' : $sub_type;
+			$sub_key_type = gettype($sub_key_type);
+		}
+	}
+
+	if (is_array($var))
+	{
+		$_var = $var;
+		$var = array();
+
+		foreach ($_var as $k => $v)
+		{
+			set_var($k, $k, $key_type);
+			if ($type == 'array' && is_array($v))
+			{
+				foreach ($v as $_k => $_v)
+				{
+					if (is_array($_v))
+					{
+						$_v = null;
+					}
+					set_var($_k, $_k, $sub_key_type, $multibyte);
+					set_var($var[$k][$_k], $_v, $sub_type, $multibyte);
+				}
+			}
+			else
+			{
+				if ($type == 'array' || is_array($v))
+				{
+					$v = null;
+				}
+				set_var($var[$k], $v, $type, $multibyte);
+			}
+		}
+	}
+	else
+	{
+		set_var($var, $var, $type, $multibyte);
+	}
+
+	return $var;
+}
+/**
+* This function returns a regular expression pattern for commonly used expressions
+* Use with / as delimiter for email mode and # for url modes
+* mode can be: email|bbcode_htm|url|url_inline|www_url|www_url_inline|relative_url|relative_url_inline|ipv4|ipv6
+*/
+function get_preg_expression($mode)
+{
+	switch ($mode)
+	{
+		case 'email':
+			// Regex written by James Watts and Francisco Jose Martin Moreno
+			// http://fightingforalostcause.net/misc/2006/compare-email-regex.php
+			return '([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*(?:[\w\!\#$\%\'\*\+\-\/\=\?\^\`{\|\}\~]|&amp;)+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)';
+		break;
+
+		case 'bbcode_htm':
+			return array(
+				'#<!\-\- e \-\-><a href="mailto:(.*?)">.*?</a><!\-\- e \-\->#',
+				'#<!\-\- l \-\-><a (?:class="[\w-]+" )?href="(.*?)(?:(&amp;|\?)sid=[0-9a-f]{32})?">.*?</a><!\-\- l \-\->#',
+				'#<!\-\- ([mw]) \-\-><a (?:class="[\w-]+" )?href="(.*?)">.*?</a><!\-\- \1 \-\->#',
+				'#<!\-\- s(.*?) \-\-><img src="\{SMILIES_PATH\}\/.*? \/><!\-\- s\1 \-\->#',
+				'#<!\-\- .*? \-\->#s',
+				'#<.*?>#s',
+			);
+		break;
+
+		// Whoa these look impressive!
+		// The code to generate the following two regular expressions which match valid IPv4/IPv6 addresses
+		// can be found in the develop directory
+		case 'ipv4':
+			return '#^(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$#';
+		break;
+
+		case 'ipv6':
+			return '#^(?:(?:(?:[\dA-F]{1,4}:){6}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:::(?:[\dA-F]{1,4}:){0,5}(?:[\dA-F]{1,4}(?::[\dA-F]{1,4})?|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:):(?:[\dA-F]{1,4}:){4}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,2}:(?:[\dA-F]{1,4}:){3}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,3}:(?:[\dA-F]{1,4}:){2}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,4}:(?:[\dA-F]{1,4}:)(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,5}:(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,6}:[\dA-F]{1,4})|(?:(?:[\dA-F]{1,4}:){1,7}:)|(?:::))$#i';
+		break;
+
+		case 'url':
+		case 'url_inline':
+			$inline = ($mode == 'url') ? ')' : '';
+			$scheme = ($mode == 'url') ? '[a-z\d+\-.]' : '[a-z\d+]'; // avoid automatic parsing of "word" in "last word.http://..."
+			// generated with regex generation file in the develop folder
+			return "[a-z]$scheme*:/{2}(?:(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+|[0-9.]+|\[[a-z0-9.]+:[a-z0-9.]+:[a-z0-9.:]+\])(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+		break;
+
+		case 'www_url':
+		case 'www_url_inline':
+			$inline = ($mode == 'www_url') ? ')' : '';
+			return "www\.(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+		break;
+
+		case 'relative_url':
+		case 'relative_url_inline':
+			$inline = ($mode == 'relative_url') ? ')' : '';
+			return "(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+		break;
+	}
+
+	return '';
+}
+
+/**
+* Return unique id
+* @param string $extra additional entropy
+*/
+function unique_id($extra = 'c')
+{
+	static $dss_seeded = false;
+	global $config;
+
+	$val = $config['rand_seed'] . microtime();
+	$val = md5($val);
+
+	return substr($val, 4, 16);
+}
+function set_var(&$result, $var, $type, $multibyte = false)
+{
+	settype($var, $type);
+	$result = $var;
+
+	if ($type == 'string')
+	{
+		$result = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $result), ENT_COMPAT, 'UTF-8'));
+
+		if (!empty($result))
+		{
+			// Make sure multibyte characters are wellformed
+			if ($multibyte)
+			{
+				if (!preg_match('/^./u', $result))
+				{
+					$result = '';
+				}
+			}
+			else
+			{
+				// no multibyte, allow only ASCII (0-127)
+				$result = preg_replace('/[\x80-\xFF]/', '?', $result);
+			}
+		}
+
+		$result = stripslashes($result);
+	}
+}
