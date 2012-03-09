@@ -24,7 +24,15 @@
 		$slots = $_GET['slot'];
 	}
 	
-	$server = isset($roster->data['server']) ? $roster->data['server'] : $data['server'];
+	if (isset($_POST['server']))
+	{
+		$server = $_POST['server'];
+	}
+	else
+	{
+		$server = $_GET['server'];
+	}
+	
 	$data = $roster->api->Char->getCharInfo($server, $char, '4');
 	$equip = array (
 		'0' => 'head',	'1' => 'neck',	'2' => 'shoulder',	'14' => 'back',	'4' => 'chest',	'3' => 'shirt',
@@ -73,6 +81,7 @@
 			'ok' => $error,
 			'cla55' => $roster->locale->wordings['enUS']['id_to_class'][$data['class']],
 			'level' => $data['level'],
+			'member_id' => $rw['member_id'],
 			'thumb' => $data['thumbnail'],
 			'rank'	=> (isset($rw['guild_rank']) ? $rw['guild_rank'] : ''),
 			'title'	=> (isset($rw['guild_title']) ? $rw['guild_title'] : ''),

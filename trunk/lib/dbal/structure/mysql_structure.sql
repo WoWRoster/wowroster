@@ -23,9 +23,46 @@ CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
   `regIP` varchar(15) NOT NULL DEFAULT '',
   `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `access` varchar(25) NOT NULL,
+  `user_last_visit` INT( 11 ) NOT NULL DEFAULT '0'
+  `age` varchar(32) NOT NULL default '',
+  `email` varchar(32) NOT NULL default '',
+  `city` varchar(32) NOT NULL default '',
+  `state` varchar(32) NOT NULL default '',
+  `country` varchar(32) NOT NULL default '',
+  `zone` varchar(32) NOT NULL default '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `usr` (`usr`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_sessions`;
+CREATE TABLE IF NOT EXISTS `renprefix_sessions` (
+  `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `session_user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `session_last_visit` int(11) unsigned NOT NULL DEFAULT '0',
+  `session_start` int(11) unsigned NOT NULL DEFAULT '0',
+  `session_time` int(11) unsigned NOT NULL DEFAULT '0',
+  `session_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `session_browser` varchar(150) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `session_forwarded_for` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `session_page` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `session_viewonline` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `session_autologin` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `session_admin` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`session_id`),
+  KEY `session_time` (`session_time`),
+  KEY `session_user_id` (`session_user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_sessions_keys`;
+CREATE TABLE IF NOT EXISTS `renprefix_sessions_keys` (
+  `key_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `last_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `last_login` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`key_id`,`user_id`),
+  KEY `last_login` (`last_login`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 # --------------------------------------------------------
 ### Addon
@@ -296,7 +333,7 @@ CREATE TABLE `renprefix_members` (
   `status` varchar(16) NOT NULL default '',
   `online` int(1) default '0',
   `last_online` datetime default NULL,
-  `account_id` smallint(6) NOT NULL default '0',
+  `account_id` smallint(6) NULL default NULL,
   `active` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`member_id`),
   KEY `member` (`guild_id`,`name`),

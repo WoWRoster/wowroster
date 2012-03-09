@@ -173,6 +173,7 @@ $lang['rs'] = array(
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['guildless']='Guildless';
 $lang['util']='Utilities';
+$lang['user']='User CP';
 $lang['char']='Character';
 $lang['equipment']='Equipment';
 $lang['upload']='Upload';
@@ -925,7 +926,8 @@ $lang['GPver_err']='The version of WoWRoster-GuildProfiler used to capture data 
 $lang['menu_upprofile']='Update Profile|Update your profile on this site';
 $lang['menu_search']='Search|Search items and recipes in the database';
 $lang['menu_roster_cp']='RosterCP|Roster Configuration Panel';
-$lang['menupanel_util']  = 'Utilities';
+$lang['menupanel_util'] = 'Utilities';
+$lang['menupanel_user'] = 'User CP';
 $lang['menupanel_realm'] = 'Realm';
 $lang['menupanel_guild'] = 'Guild';
 $lang['menupanel_char']  = 'Character';
@@ -1193,6 +1195,10 @@ $lang['admin']['update_inst'] = 'Update Instructions|Controls the display of the
 $lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process WoWRoster-GuildProfiler Data";
 $lang['admin']['cp_user_level'] = "Character Data Level|Level required to process WoWRoster-Profiler Data";
 $lang['admin']['lua_user_level'] = "Other LUA Data Level|Level required to process other LUA files' Data<br />This is for EVERY other lua file that can be uploaded to Roster";
+//session
+$lang['admin']['sess_time']		= 'Session Time|Edit the length of time before a session is ended.';
+$lang['admin']['save_login']  	= 'Save Login|Use a cookie to remember the client login?';
+$lang['admin']['acc_session']	= 'Session Config|Configure the settings for accounts sessions.';
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Per-Character Display';

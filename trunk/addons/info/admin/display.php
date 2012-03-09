@@ -72,7 +72,7 @@ foreach( $disp_defaults as $name => $value )
 		'NAME' => $name,
 		'VALUE' => $value,
 		'DISPLAY' => ( $addon['config'][$name] == -1 ? true : false ),
-		'SELECT' => $roster->auth->rosterAccess($values)
+		'SELECT' => cdAccess($values),//$roster->auth->rosterAccess($values)
 		)
 	);
 }
@@ -174,7 +174,7 @@ if( $num_members > 0 )
 				'ID' => $k,
 				'NAME' => $val_name,
 				'VALUE' => $value,
-				'SELECT' => $roster->auth->rosterAccess($values),
+				'SELECT' => cdAccess($values),
 				)
 			);
 
@@ -311,3 +311,25 @@ function defaultData()
 		return true;
 	}
 }
+
+function cdAccess( $values )
+	{
+		global $roster;
+		$levels = array();
+		$rid = 80;
+		$levels[1] = 'on';
+		$levels[0] = 'off';
+			$name = $values['name'];
+			$x = '';
+			$lvl = explode(":",$values['value']);
+			foreach ($levels as $acc => $a)
+			{
+				$rid++;
+				/*$x .= '<input type="checkbox" name="config_'.$name.'['.$acc.']" id="rad_config_'.$rid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
+				<label for="rad_config_'.$rid.'">'.substr($a,0,9).'</label>';
+				*/
+				$x .= '<label for="rad_config_'.$rid.'">'.substr($a,0,9).'</label><input type="radio" id="rad_config_'.$rid.'" name="config_'.$name.'['.$acc.']" value="'.$acc.'"  />';
+			}
+
+		return $x;
+	}

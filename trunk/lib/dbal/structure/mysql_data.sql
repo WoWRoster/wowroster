@@ -24,6 +24,7 @@ INSERT INTO `renprefix_config` VALUES (150, 'realmstatus_conf', NULL, 'page{1', 
 INSERT INTO `renprefix_config` VALUES (160, 'data_links', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (170, 'update_access', NULL, 'blockframe', 'menu');
 INSERT INTO `renprefix_config` VALUES (180, 'documentation', 'http://www.wowroster.net/MediaWiki', 'newlink', 'menu');
+INSERT INTO `renprefix_config` VALUES (190,'acc_session','NULL','blockframe','menu');
 
 # --------------------------------------------------------
 ### Main Roster Config
@@ -128,17 +129,22 @@ INSERT INTO `renprefix_config` VALUES (10020, 'cp_user_level', '0', 'access', 'u
 INSERT INTO `renprefix_config` VALUES (10030, 'lua_user_level', '0', 'access', 'update_access');
 
 # --------------------------------------------------------
+### Session config
+INSERT INTO `renprefix_config` VALUES (1900, 'sess_time', '15', 'text{30|4', 'acc_session');
+INSERT INTO `renprefix_config` VALUES (1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session');
+
+# --------------------------------------------------------
 ### Menu table entries
 INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2:b3');
 INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
 INSERT INTO `renprefix_menu` VALUES (3, 'guild', '');
 INSERT INTO `renprefix_menu` VALUES (4, 'char', '');
+INSERT INTO `renprefix_menu` VALUES (5, 'user', '');
 
 # --------------------------------------------------------
 ### Menu Button entries
 INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_search', 'util', 'search', 'inv_misc_spyglass_02');
 INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_roster_cp', 'util', 'rostercp', 'inv_misc_gear_02');
-INSERT INTO `renprefix_menu_button` VALUES (3, 0, 'menu_register', 'util', 'register', 'inv_misc_bag_26_spellfire');
 
 # --------------------------------------------------------
 ### Talent Tree Arrows

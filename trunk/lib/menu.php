@@ -192,7 +192,7 @@ class RosterMenu
 					$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
 				}
 
-				if( !in_array($button['scope'],array('util','realm','guild','char')) || $button['addon_id'] == 0 )
+				if( !in_array($button['scope'],array('util','user','realm','guild','char')) || $button['addon_id'] == 0 )
 				{
 					$button['url'] = makelink($button['url']);
 				}

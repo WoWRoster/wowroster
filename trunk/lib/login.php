@@ -33,9 +33,10 @@ class RosterLogin
 	var $message;
 	var $action;
 	var $logout;
+	var $uid;
 	var $levels = array();
 	var $valid = 0;
-	var $radid = 30;
+	var $radid = 55;
 	var $approved;
 	var $access = 0;
 	
@@ -65,11 +66,11 @@ class RosterLogin
 		}
 		elseif( isset($_POST['password']) && $_POST['password'] != '' && isset($_POST['username']) && $_POST['username'] != '')
 		{
-			$this->checkPass(md5($_POST['password']),$_POST['username']);
+			$this->checkPass(md5($_POST['password']),$_POST['username'],'1');
 		}
 		elseif( isset($_COOKIE['roster_pass']) && isset($_COOKIE['roster_user']) )
 		{
-			$this->checkPass($_COOKIE['roster_pass'],$_COOKIE['roster_user']);
+			$this->checkPass($_COOKIE['roster_pass'],$_COOKIE['roster_user'],'0');
 		}
 		else
 		{
@@ -78,7 +79,7 @@ class RosterLogin
 		}
 	}
 
-	function checkPass( $pass, $user )
+	function checkPass( $pass, $user,$createsession )
 	{
 		global $roster;
 
@@ -89,9 +90,11 @@ class RosterLogin
 		//echo $count;
 		if( $count == 0 )
 		{
-			setcookie('roster_user','',time()-(60*60*24*30*100) );
-			setcookie('roster_pass','',time()-(60*60*24*30*100) );
-			setcookie('roster_remember','',time()-(60*60*24*30*100) );
+			setcookie('roster_user',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_u',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_pass',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_remember',NULL,(time()-60*60*24*30*100) );
 			$this->allow_login = false;
 			$this->valid = 0;
 			$this->message = $roster->locale->act['login_fail'];
@@ -104,13 +107,28 @@ class RosterLogin
 			$row = $roster->db->fetch($result);
 			
 			setcookie('roster_user',$user,(time()+60*60*24*30) );
+			setcookie('roster_u',$row['id'],(time()+60*60*24*30) );
+			setcookie('roster_k',$row['id'].$pass,(time()+60*60*24*30) );
 			setcookie('roster_pass',$pass,(time()+60*60*24*30) );
 			setcookie('roster_remember',$remember,(time()+60*60*24*30) );
 			$this->valid = 1;
+			$this->uid = $row['id'];
 			$this->allow_login = true;
 			$this->access = $row['access'];
 			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
 			$this->message = '<span class="login-message">Welcome, '.$user.' '.$this->logout.'</span>';
+			/*
+			if ($createsession == '1')
+			{
+				$resul = $roster->session->session_create($row['id'], (in_array('11',$row['access']) ? true : false), true, true);
+			}
+			else
+			{
+				$roster->session->session_begin();
+			}
+			*/
+				
+			
 			$roster->db->free_result($result);
 			return true;
 
@@ -180,7 +198,7 @@ class RosterLogin
 				'L_LOGIN_WORD'    	=> '',
 				'S_LOGIN_MESSAGE' 	=> (bool)$login_message,
 				'L_LOGIN_MESSAGE' 	=> $login_message,
-				'L_REGISTER'		=> '<a href="'.makelink("register", true).'"><br>Register Here!</a>',
+				'L_REGISTER'		=> '<a href="'.makelink("user-user-register", true).'"><br>Register Here!</a>',
 				'U_LOGIN' 			=>  0
 			));
 
@@ -331,6 +349,14 @@ class RosterLogin
 			}
 			//$x .= '</tr></table>';
 		return $x;
+	}
+	function getUID($user, $pass)
+	{
+		global $roster;
+		$query = "SELECT `id` FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."';";
+		$result = $roster->db->query($query);
+		$row = $roster->db->fetch($result);
+		return $row['id'];
 	}
 	
 }

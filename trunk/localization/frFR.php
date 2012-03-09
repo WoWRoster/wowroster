@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * WoWRoster.net WoWRoster
  *
@@ -173,6 +173,7 @@ $lang['rs'] = array(
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['guildless']='Sans guilde';
 $lang['util']='Utilitaires';
+$lang['user']='User CP';
 $lang['char']='Personnage';
 $lang['equipment']='Equipment';
 $lang['upload']='Envoyer';
@@ -925,7 +926,8 @@ $lang['GPver_err']='La version du WoWRoster-GuildProfiler utilisée pour capture
 $lang['menu_upprofile']='Mise à jour du profil|Mettez à jour votre profil sur ce site';
 $lang['menu_search']='Recherche|Rechercher des objets et des recettes dans la base de donnée';
 $lang['menu_roster_cp']='Configuration Roster|Panneau de configuration du Roster';
-$lang['menupanel_util']  = 'Utilitaires';
+$lang['menupanel_util'] = 'Utilitaires';
+$lang['menupanel_user'] = 'User CP';
 $lang['menupanel_realm'] = 'Royaume';
 $lang['menupanel_guild'] = 'Guilde';
 $lang['menupanel_char']  = 'Personnage';
@@ -1193,6 +1195,10 @@ $lang['admin']['update_inst'] = 'Instructions de mise à jour|Controls the displ
 $lang['admin']['gp_user_level'] = "Niveau d'accès aux données de guilde|Niveau requis pour mettre à jour les données fournies par WoWRoster-GuildProfiler";
 $lang['admin']['cp_user_level'] = "Niveau d'accès aux données des personnages|Niveau requis pour mettre à jour les données fournies par WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Niveau d'accès aux données des autres LUA|Niveau requis pour mettre à jour les données fournies par d'autres sources de données (LUA).<br />Ceci est valable pour TOUTES SOURCES AUTRES pouvant être envoyées au roster.";
+//session
+$lang['admin']['sess_time']		= 'Session Time|Edit the length of time before a session is ended.';
+$lang['admin']['save_login']  	= 'Save Login|Use a cookie to remember the client login?';
+$lang['admin']['acc_session']	= 'Session Config|Configure the settings for accounts sessions.';
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Affichage par personnage';

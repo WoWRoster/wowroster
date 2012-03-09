@@ -116,7 +116,7 @@ textbox {
 .menu-select .locale-select { position: relative;top: -8px; left: 180px; margin-bottom: 3px; }
 .menu-select .list-select { position: relative;top: -31px; left: 18px; margin-bottom: 3px; }
 
-.char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap {
+.char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap, .user-wrap {
 	margin: 102px 0 0;
 	padding: 0 10px 10px;
 	position: relative;
@@ -199,6 +199,8 @@ textbox {
 .button-realm:hover { background: url(images/menu/menu_realm.png) no-repeat left bottom; }
 .button-upload { background: url(images/menu/menu_upload.png) no-repeat left top; }
 .button-upload:hover { background: url(images/menu/menu_upload.png) no-repeat left bottom; }
+.button-user { background: url(images/menu/menu_user.png) no-repeat left top; }
+.button-user:hover { background: url(images/menu/menu_user.png) no-repeat left bottom; }
 .button-util { background: url(images/menu/menu_utilities.png) no-repeat left top; }
 .button-util:hover { background: url(images/menu/menu_utilities.png) no-repeat left bottom; }
 

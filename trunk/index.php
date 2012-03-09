@@ -29,6 +29,7 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 
 define('IN_ROSTER', true);
 
+
 require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php');
 
 // ----[ Get path info based on scope ]----
@@ -45,6 +46,15 @@ switch( $roster->pages[0] )
 		if( !file_exists($path) )
 		{
 			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP . 'index.php';
+		}
+		break;
+
+	case 'user':
+		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'user' . DIR_SEP
+			. (isset($roster->pages[2]) ? $roster->pages[2] : 'index') . '.php';
+		if( !file_exists($path) )
+		{
+			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'user' . DIR_SEP . 'index.php';
 		}
 		break;
 

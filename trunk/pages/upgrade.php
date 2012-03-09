@@ -87,7 +87,7 @@ class Upgrade {
 	 * Upgrades the 2.1.9.x beta versions into the 2.2.0 release
 	 */
 	function upgrade_219() {
-		global $roster;
+		global $roster, $installer;
 
 		/* Update Examples
 		if (version_compare($roster->config['version'], '2.1.9.2344', '<')) { // This MUST be equal or lower than the version set on lib/constants.php
@@ -232,6 +232,56 @@ class Upgrade {
 			$roster->db->query("ALTER TABLE `".$roster->db->table('plugin')."` ADD `parent` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `basename` ,
 			ADD `scope` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `parent`");
 		}
+		///*
+		//	these updates begin with 2405 and up
+		if (version_compare($roster->config['version'], '2.1.9.2410', '<')) 
+		{
+			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."` 
+				ADD `user_last_visit` INT( 11 ) NOT NULL DEFAULT '0',
+				ADD `age` varchar(32) NOT NULL default '',
+				ADD `email` varchar(32) NOT NULL default '',
+				ADD `city` varchar(32) NOT NULL default '',
+				ADD `state` varchar(32) NOT NULL default '',
+				ADD `country` varchar(32) NOT NULL default '',
+				ADD `zone` varchar(32) NOT NULL default ''");
+				
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES 
+				(190,'acc_session','NULL','blockframe','menu'),
+				(1900, 'sess_time', '15', 'text{30|4', 'acc_session'),
+				(1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session');");
+			
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions')."` (
+			  `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+			  `session_user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+			  `session_last_visit` int(11) unsigned NOT NULL DEFAULT '0',
+			  `session_start` int(11) unsigned NOT NULL DEFAULT '0',
+			  `session_time` int(11) unsigned NOT NULL DEFAULT '0',
+			  `session_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
+			  `session_browser` varchar(150) COLLATE utf8_bin NOT NULL DEFAULT '',
+			  `session_forwarded_for` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+			  `session_page` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+			  `session_viewonline` tinyint(1) unsigned NOT NULL DEFAULT '1',
+			  `session_autologin` tinyint(1) unsigned NOT NULL DEFAULT '0',
+			  `session_admin` tinyint(1) unsigned NOT NULL DEFAULT '0',
+			  PRIMARY KEY (`session_id`),
+			  KEY `session_time` (`session_time`),
+			  KEY `session_user_id` (`session_user_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions_keys')."` (
+			  `key_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
+			  `user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+			  `last_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
+			  `last_login` int(11) unsigned NOT NULL DEFAULT '0',
+			  PRIMARY KEY (`key_id`,`user_id`),
+			  KEY `last_login` (`last_login`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			
+			$roster->db->query("ALTER TABLE `".$roster->db->table('members')."` CHANGE `account_id` `account_id` SMALLINT( 6 ) NULL DEFAULT NULL;");
+			$roster->db->query("UPDATE `".$roster->db->table('members')."` set `account_id` = NULL WHERE `account_id` = '0';");
+			$roster->db->query("INSERT INTO `".$roster->db->table('menu')."` VALUES ('', 'user', '');");
+		}
+		//*/
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
