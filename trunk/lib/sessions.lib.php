@@ -173,7 +173,6 @@ class Session
 			{
 				// Validate IP length according to admin ... enforces an IP
 				// check on bots if admin requires this
-//				$quadcheck = ($config['ip_check_bot'] && $this->data['user_type'] & USER_BOT) ? 4 : $config['ip_check'];
 
 				if (strpos($this->ip, ':') !== false && strpos($this->data['session_ip'], ':') !== false)
 				{
@@ -191,18 +190,7 @@ class Session
 
 				$s_forwarded_for = (false) ? substr($this->data['session_forwarded_for'], 0, 254) : '';
 				$u_forwarded_for = (false) ? substr($this->forwarded_for, 0, 254) : '';
-/*
-				// referer checks
-				// The @ before $config['referer_validation'] suppresses notices present while running the updater
-				$check_referer_path = (@$config['referer_validation'] == REFERER_VALIDATE_PATH);
-				$referer_valid = true;
 
-				// we assume HEAD and TRACE to be foul play and thus only whitelist GET
-				if (@$config['referer_validation'] && isset($_SERVER['REQUEST_METHOD']) && strtolower($_SERVER['REQUEST_METHOD']) !== 'get')
-				{
-					$referer_valid = $this->validate_referer($check_referer_path);
-				}
-*/
 				if ($u_ip === $s_ip && $s_browser === $u_browser && $s_forwarded_for === $u_forwarded_for)
 				{
 					$session_expired = false;
@@ -242,16 +230,10 @@ class Session
 								//$sql_ary['session_forum_id'] = $this->page['forum'];
 							}
 
-							//$db->sql_return_on_error(true);
-
 							$sql = 'UPDATE ' . $roster->db->table('sessions') . ' SET ' . $roster->db->build_query('UPDATE', $sql_ary) . "
 								WHERE session_id = '" . $roster->db->escape($this->session_id) . "'";
 							$result = $roster->db->query($sql);
 
-							//$db->sql_return_on_error(false);
-
-							// If the database is not yet updated, there will be an error due to the session_forum_id
-							// @todo REMOVE for 3.0.2
 							if ($result === false)
 							{
 								unset($sql_ary['session_forum_id']);
@@ -269,7 +251,6 @@ class Session
 
 						$this->data['is_registered'] = ($this->data['id'] != ANONYMOUS) ? true : false;
 						$this->data['is_bot'] = (!$this->data['is_registered'] && $this->data['id'] != ANONYMOUS) ? true : false;
-						//$this->data['user_lang'] = basename($this->data['user_lang']);
 
 						return true;
 					}
@@ -320,7 +301,6 @@ class Session
 					AND `k`.`key_id` = '" . md5($_COOKIE['roster_k']) . "'";
 			$result = $roster->db->query($sql);
 			$this->data = $roster->db->fetch($result);
-			//print_r($this->data);
 			$roster->db->free_result($result);
 			$bot = false;
 		}
@@ -334,7 +314,6 @@ class Session
 				WHERE id = ' . (int) $this->cookie_data['u'] . '';
 			$result = $roster->db->query($sql);
 			$this->data = $roster->db->fetch($result);
-			//print_r($this->data);
 			$this->data['is_registered'] = '1';
 			$roster->db->free_result($result);
 			$bot = false;
@@ -379,13 +358,8 @@ class Session
 			$this->data['session_last_visit'] = $this->time_now;
 		}
 
-		//echo '<font color=white><br>usr id '.$this->data['id'].'</font>';
 		// Force user id to be integer...
 		$this->data['id'] = (int) $this->data['id'];
-		//echo '<font color=white><br>usr id '.$this->data['id'].'</font>';
-
-		
-
 		$session_autologin = (($this->cookie_data['k'] || $persist_login) && $this->data['is_registered']) ? true : false;
 		$set_admin = ($set_admin && $this->data['is_registered']) ? true : false;
 
@@ -421,7 +395,6 @@ class Session
 			// Limit new sessions in 1 minute period (if required)
 			if (empty($this->data['session_time']) && $config['active_sessions'])
 			{
-//				$db->sql_return_on_error(false);
 
 				$sql = 'SELECT COUNT(session_id) AS sessions
 					FROM ' . $roster->db->table('sessions') . '
@@ -440,7 +413,6 @@ class Session
 
 		// Since we re-create the session id here, the inserted row must be unique. Therefore, we display potential errors.
 		// Commented out because it will not allow forums to update correctly
-//		$db->sql_return_on_error(false);
 
 		// Something quite important: session_page always holds the *last* page visited, except for the *first* visit.
 		// We are not able to simply have an empty session_page btw, therefore we need to tell phpBB how to detect this special case.
@@ -454,14 +426,10 @@ class Session
 		$this->session_id = $this->data['session_id'] = md5(unique_id());
 
 		$sql_ary['session_id'] = (string) $this->session_id;
-		//$sql_ary['session_page'] = (string) substr($this->page['page'], 0, 199);
-		//$sql_ary['session_forum_id'] = $this->page['forum'];
 
 		$sql = 'INSERT INTO ' . $roster->db->table('sessions') . ' ' . $roster->db->build_query('INSERT', $sql_ary);
 		$roster->db->query($sql);
 		setcookie('roster_sid',$sql_ary['session_id'],(time()+60*60*24*30) );
-
-		//$db->sql_return_on_error(false);
 
 		// Regenerate autologin/persistent login key
 		if ($session_autologin)
