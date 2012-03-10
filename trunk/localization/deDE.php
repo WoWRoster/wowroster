@@ -173,7 +173,6 @@ $lang['rs'] = array(
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['guildless']='Gildenlos';
 $lang['util']='Einstellungen';
-$lang['user']='User CP';
 $lang['char']='Charakter';
 $lang['equipment']='Equipment';
 $lang['upload']='Upload';
@@ -217,6 +216,7 @@ $lang['basename']='Basisname';
 $lang['scope']='Bereich';
 $lang['tag']='Tag';
 $lang['daily']='Täglich';
+$lang['user'] = 'User';
 
 // Item Quality
 $lang['quality']='Qualität';
@@ -926,11 +926,11 @@ $lang['GPver_err']='Die zur Speicherung der Daten für diese Gilde verwendete Ve
 $lang['menu_upprofile']='Update Profile|Aktualisiere dein Profil auf dieser Seite';
 $lang['menu_search']='Suche|Suche Gegenstände oder Rezepte in der Datenbank';
 $lang['menu_roster_cp']='RosterCP|Roster Konfigurationsbereich';
-$lang['menupanel_util'] = 'Einstellungen';
-$lang['menupanel_user'] = 'User CP';
+$lang['menupanel_util']  = 'Einstellungen';
 $lang['menupanel_realm'] = 'Realm';
 $lang['menupanel_guild'] = 'Gilde';
 $lang['menupanel_char']  = 'Charakter';
+$lang['menupanel_user'] = 'User CP';
 
 $lang['menuconf_sectionselect']='Wähle Auswahl';
 $lang['menuconf_section']='Section';
@@ -1195,10 +1195,11 @@ $lang['admin']['update_inst'] = 'Aktualisierungsanleitung|Kontrolliert die Anzei
 $lang['admin']['gp_user_level'] = "Gildendaten-Level|Level benötigt um WoWRoster-GuildProfiler Daten zu verarbeiten";
 $lang['admin']['cp_user_level'] = "Charakterdata-Level|Level benötigt um WoWRoster-Profiler Daten zu verarbeiten";
 $lang['admin']['lua_user_level'] = "Andere LUA Daten Level|Level benötigt um andere LUA-Dateien zu verarbeiten<br />Dies gilt für JEDE andere LUA-Datei, die in den Roster hochgeladen werden kann";
+
 //session
-$lang['admin']['sess_time']		= 'Session Time|Edit the length of time before a session is ended.';
-$lang['admin']['save_login']  	= 'Save Login|Use a cookie to remember the client login?';
-$lang['admin']['acc_session']	= 'Session Config|Configure the settings for accounts sessions.';
+$lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';
+$lang['admin']['save_login'] = 'Save Login|Use a cookie to remember the client login?';
+$lang['admin']['acc_session'] = 'Session Config|Configure the settings for accounts sessions.';
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Charakterspezifische Anzeige-Einstellungen';

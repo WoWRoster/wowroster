@@ -173,7 +173,6 @@ $lang['rs'] = array(
 //single words used in menu and/or some of the functions, so if theres a wow eqivalent be correct
 $lang['guildless']='Guildless'; //Need to translate
 $lang['util']='Utilidades';
-$lang['user']='User CP';
 $lang['char']='Personaje';
 $lang['equipment']='Equipment';
 $lang['upload']='Enviar';
@@ -926,11 +925,11 @@ $lang['GPver_err']='La versión de WoWRoster-GuildProfiler utilizada para captur
 $lang['menu_upprofile']='Actualizar Perfil|Aquí puedes actualizar tu perfil';
 $lang['menu_search']='Buscar|Busca objetos y recetas en la base de datos';
 $lang['menu_roster_cp']='Panel de control|Abre el panel de configuración de Roster';
-$lang['menupanel_util'] = 'Utilidades';
-$lang['menupanel_user'] = 'User CP';
+$lang['menupanel_util']  = 'Utilidades';
 $lang['menupanel_realm'] = 'Reino';
 $lang['menupanel_guild'] = 'Hermandad';
 $lang['menupanel_char']  = 'Personaje';
+$lang['menupanel_user'] = 'User CP';
 
 $lang['menuconf_sectionselect']='Selecciona panel';
 $lang['menuconf_section']='Section';
@@ -1195,10 +1194,11 @@ $lang['admin']['update_inst'] = 'Instrucciones de actualización|Controls the di
 $lang['admin']['gp_user_level'] = "Nivel de hermandad|Elige el nivel requerido para poder subir datos con WoWRoster-GuildProfiler";
 $lang['admin']['cp_user_level'] = "Nivel de personaje|Elige el nivel requerido para poder subir datos con WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Nivel de otros LUA|Elige el nivel requerido para poder subir datos con otros addons<br />Esto es para TODOS los tipos de archivos LUA que quieras subir al Roster.";
+
 //session
-$lang['admin']['sess_time']		= 'Session Time|Edit the length of time before a session is ended.';
-$lang['admin']['save_login']  	= 'Save Login|Use a cookie to remember the client login?';
-$lang['admin']['acc_session']	= 'Session Config|Configure the settings for accounts sessions.';
+$lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';
+$lang['admin']['save_login'] = 'Save Login|Use a cookie to remember the client login?';
+$lang['admin']['acc_session'] = 'Session Config|Configure the settings for accounts sessions.';
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Pantalla Per-Character';
