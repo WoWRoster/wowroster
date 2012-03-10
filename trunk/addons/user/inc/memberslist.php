@@ -231,13 +231,13 @@ class memberslist
 			{
 				$th_text = $roster->locale->act[$DATA['lang_field']];
 			}
-			elseif( !empty($roster->locale->act['acc_charlist'][$DATA['lang_field']]) )
+			elseif( !empty($roster->locale->act['user_charlist'][$DATA['lang_field']]) )
 			{
-				$th_text = $roster->locale->act['acc_charlist'][$DATA['lang_field']];
+				$th_text = $roster->locale->act['user_charlist'][$DATA['lang_field']];
 			}
-			elseif( !empty($roster->locale->act['acc_rs'][$DATA['lang_field']]) )
+			elseif( !empty($roster->locale->act['user_rs'][$DATA['lang_field']]) )
 			{
-				$th_text = $roster->locale->act['acc_rs'][$DATA['lang_field']];
+				$th_text = $roster->locale->act['user_rs'][$DATA['lang_field']];
 			}
 			else
 			{
@@ -768,7 +768,7 @@ class memberslist
 			{
 				$rested = ' : '.$rested;
 			}
-			$togo = sprintf($roster->locale->act['acc_charlist']['xp'], $max - $current, ($row['level']+1));
+			$togo = sprintf($roster->locale->act['user_charlist']['xp'], $max - $current, ($row['level']+1));
 
 			$percent_exp = ($max > 0 ? round(($current/$max)*100) : 0);
 
@@ -928,47 +928,47 @@ class memberslist
 
 			if( $difference < 60 )
 			{
-				return $realtime . sprintf(($difference == '1' ? $roster->locale->act['acc_charlist']['second'] : $roster->locale->act['acc_charlist']['seconds']),$difference);
+				return $realtime . sprintf(($difference == '1' ? $roster->locale->act['user_charlist']['second'] : $roster->locale->act['user_charlist']['seconds']),$difference);
 			}
 			else
 			{
 				$difference = round($difference / 60);
 				if( $difference < 60 )
 				{
-					return $realtime . sprintf(($difference == '1' ? $roster->locale->act['acc_charlist']['minute'] : $roster->locale->act['acc_charlist']['minutes']),$difference);
+					return $realtime . sprintf(($difference == '1' ? $roster->locale->act['user_charlist']['minute'] : $roster->locale->act['user_charlist']['minutes']),$difference);
 				}
 				else
 				{
 					$difference = round($difference / 60);
 					if( $difference < 24 )
 					{
-						return $realtime . sprintf(($difference == '1' ? $roster->locale->act['acc_charlist']['hour'] : $roster->locale->act['acc_charlist']['hours']),$difference);
+						return $realtime . sprintf(($difference == '1' ? $roster->locale->act['user_charlist']['hour'] : $roster->locale->act['user_charlist']['hours']),$difference);
 					}
 					else
 					{
 						$difference = round($difference / 24);
 						if( $difference < 7 )
 						{
-							return $realtime . sprintf(($difference == '1' ? $roster->locale->act['acc_charlist']['day'] : $roster->locale->act['acc_charlist']['days']),$difference);
+							return $realtime . sprintf(($difference == '1' ? $roster->locale->act['user_charlist']['day'] : $roster->locale->act['user_charlist']['days']),$difference);
 						}
 						else
 						{
 							$difference = round($difference / 7);
 							if( $difference < 4 )
 							{
-								return $realtime . sprintf(($difference == '1' ? $roster->locale->act['acc_charlist']['week'] : $roster->locale->act['acc_charlist']['weeks']),$difference);
+								return $realtime . sprintf(($difference == '1' ? $roster->locale->act['user_charlist']['week'] : $roster->locale->act['user_charlist']['weeks']),$difference);
 							}
 							else
 							{
 								$difference = round($difference / 4);
 								if( $difference < 12 )
 								{
-									return $realtime . sprintf(($difference == '1' ? $roster->locale->act['acc_charlist']['month'] : $roster->locale->act['acc_charlist']['months']),$difference);
+									return $realtime . sprintf(($difference == '1' ? $roster->locale->act['user_charlist']['month'] : $roster->locale->act['user_charlist']['months']),$difference);
 								}
 								else
 								{
 									$difference = round($difference / 12);
-									return $realtime . sprintf(($difference == '1' ? $roster->locale->act['acc_charlist']['year'] : $roster->locale->act['acc_charlist']['years']),$difference);
+									return $realtime . sprintf(($difference == '1' ? $roster->locale->act['user_charlist']['year'] : $roster->locale->act['user_charlist']['years']),$difference);
 								}
 
 							}
@@ -1146,23 +1146,23 @@ class memberslist
 		switch ( $row['servertype'] )
 		{
 			case "RPPVP":
-				$text = $roster->locale->act['acc_rs']['rppvp'];
+				$text = $roster->locale->act['user_rs']['rppvp'];
 				$textcolor = $roster->config['rs_color_rppvp'];
 				break;
 			case "PVE":
-				$text = $roster->locale->act['acc_rs']['pve'];
+				$text = $roster->locale->act['user_rs']['pve'];
 				$textcolor = $roster->config['rs_color_pve'];
 				break;
 			case "PVP":
-				$text = $roster->locale->act['acc_rs']['pvp'];
+				$text = $roster->locale->act['user_rs']['pvp'];
 				$textcolor = $roster->config['rs_color_pvp'];
 				break;
 			case "RP":
-				$text = $roster->locale->act['acc_rs']['rp'];
+				$text = $roster->locale->act['user_rs']['rp'];
 				$textcolor = $roster->config['rs_color_rp'];
 				break;
 			default:
-				$text = $roster->locale->act['acc_rs']['error'];
+				$text = $roster->locale->act['user_rs']['error'];
 				$textcolor = $roster->config['rs_color_unknown'];
 		}
 		return '<div style="display:none; ">' . $row['servertype'] . '</div><center><font color="' . $textcolor . '">' . $text . '</font></center>';
@@ -1181,16 +1181,16 @@ class memberslist
 		switch( $row['serverstatus'] )
 		{
 			case 'UP':
-				$icon = '<img src="' . $roster->config['img_url'] . 'uparrow.gif" alt="' . $roster->locale->act['acc_rs']['up'] . '"/> ';
+				$icon = '<img src="' . $roster->config['img_url'] . 'uparrow.gif" alt="' . $roster->locale->act['user_rs']['up'] . '"/> ';
 				break;
 			case 'DOWN':
-				$icon = '<img src="' . $roster->config['img_url'] . 'downarrow2.gif" alt="' . $roster->locale->act['acc_rs']['down'] . '"/> ';
+				$icon = '<img src="' . $roster->config['img_url'] . 'downarrow2.gif" alt="' . $roster->locale->act['user_rs']['down'] . '"/> ';
 				break;
 			case 'MAINTENANCE':
-				$icon = '<img src="' . $roster->config['img_url'] . 'downarrow2.gif" alt="' . $roster->locale->act['acc_rs']['maintenance'] . '"/> ';
+				$icon = '<img src="' . $roster->config['img_url'] . 'downarrow2.gif" alt="' . $roster->locale->act['user_rs']['maintenance'] . '"/> ';
 				break;
 			default:
-				$icon = '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="' . $roster->locale->act['acc_rs']['error'] . '"/> ';
+				$icon = '<img src="' . $roster->config['img_url'] . 'blue-question-mark.gif" alt="' . $roster->locale->act['user_rs']['error'] . '"/> ';
 				break;
 		}
 
@@ -1212,27 +1212,27 @@ class memberslist
 		switch ( $row['serverpop'] )
 		{
 			case "LOW":
-				$text = $roster->locale->act['acc_rs']['low'];
+				$text = $roster->locale->act['user_rs']['low'];
 				$textcolor = $roster->config['rs_color_low'];
 				break;
 			case "MEDIUM":
-				$text = $roster->locale->act['acc_rs']['medium'];
+				$text = $roster->locale->act['user_rs']['medium'];
 				$textcolor = $roster->config['rs_color_medium'];
 				break;
 			case "HIGH":
-				$text = $roster->locale->act['acc_rs']['high'];
+				$text = $roster->locale->act['user_rs']['high'];
 				$textcolor = $roster->config['rs_color_high'];
 				break;
 			case "MAX":
-				$text = $roster->locale->act['acc_rs']['max'];
+				$text = $roster->locale->act['user_rs']['max'];
 				$textcolor = $roster->config['rs_color_max'];
 				break;
 			case "OFFLINE":
-				$text = $roster->locale->act['acc_rs']['offline'];
+				$text = $roster->locale->act['user_rs']['offline'];
 				$textcolor = $roster->config['rs_color_offline'];
 				break;
 			default:
-				$text = $roster->locale->act['acc_rs']['error'];
+				$text = $roster->locale->act['user_rs']['error'];
 				$textcolor = $roster->config['rs_color_error'];
 		}
 		return '<div style="display:none; ">' . $row['serverpop'] . '</div><center><font color="' . $textcolor . '">' . $text . '</font></center>';
@@ -1258,13 +1258,13 @@ class memberslist
 			switch( substr($faction,0,1) )
 			{
 				case 'A':
-					$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" alt="" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '"/> ';
+					$icon = '<img src="' . $roster->config['img_url'] . 'icon_alliance.png" alt="" width="20" height="20"/> ';
 					break;
 				case 'H':
-					$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" alt="" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '"/> ';
+					$icon = '<img src="' . $roster->config['img_url'] . 'icon_horde.png" alt="" width="20" height="20"/> ';
 					break;
 				default:
-					$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" alt="" width="' . $this->addon['config']['icon_size'] . '" height="' . $this->addon['config']['icon_size'] . '"/> ';
+					$icon = '<img src="' . $roster->config['img_url'] . 'icon_neutral.png" alt="" width="20" height="20"/> ';
 					break;
 			}
 		}

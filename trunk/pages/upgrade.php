@@ -281,7 +281,31 @@ class Upgrade {
 			$roster->db->query("UPDATE `".$roster->db->table('members')."` set `account_id` = NULL WHERE `account_id` = '0';");
 			$roster->db->query("INSERT INTO `".$roster->db->table('menu')."` VALUES ('', 'user', '');");
 		}
-		//*/
+		/*
+		next update
+		alter table `roster_user_members` 
+ADD `fname` varchar(30) NOT NULL default '',
+ADD `lname` varchar(30) NOT NULL default '',
+ADD `age` varchar(32) NOT NULL default '',
+ADD `city` varchar(32) NOT NULL default '',
+ADD `state` varchar(32) NOT NULL default '',
+ADD `country` varchar(32) NOT NULL default '',
+ADD `zone` varchar(32) NOT NULL default '',
+ADD `homepage` varchar(64) NOT NULL default '',
+ADD `other_guilds` varchar(64) NOT NULL,
+ADD `why` varchar(64) NOT NULL,
+ADD `about` varchar(64) NOT NULL,
+ADD `notes` varchar(64) NOT NULL default '',
+ADD `last_login` varchar(64) NOT NULL default '',
+ADD `date_joined` varchar(64) NOT NULL default '',
+ADD `tmp_mail` varchar(32) NOT NULL default '',
+ADD `group_id` smallint(6) NOT NULL default '1',
+ADD `is_member` INT(11) NOT NULL default '0',
+ADD `active` INT(11) NOT NULL default '0',
+ADD `online` INT(11) NOT NULL default '0'
+
+
+		*/
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

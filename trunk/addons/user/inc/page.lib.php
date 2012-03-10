@@ -477,14 +477,6 @@ class userPage extends user
 				'display' => 2,
 			);
 
-			$FIELD['guild_num_user'] = array (
-				'lang_field' => 'user',
-				'order' => array( '`guild`.`guild_num_user` ASC' ),
-				'order_d' => array( '`guild`.`guild_num_user` DESC' ),
-				'js_type' => 'ts_number',
-				'display' => 2,
-			);
-
 			$FIELD['guild_motd'] = array (
 				'lang_field' => 'motd',
 				'order' => array( '`guild`.`guild_motd` ASC' ),
@@ -535,7 +527,7 @@ class userPage extends user
 				'SELECT '.
 				'`user`.`id`, '.
 				'`user`.`id`, '.
-				'`user_link`.`realm`, '.
+				'`members`.`server` as realm, '.
 				'`members`.`member_id`, '.
 				'`members`.`server`, '.
 				'`realm`.`server_name`, '.
@@ -548,7 +540,7 @@ class userPage extends user
 				'LEFT JOIN `'.$roster->db->table('members').'` AS members ON `user`.`id` = `members`.`member_id` '.
 				'LEFT JOIN `'.$roster->db->table('realmstatus').'` AS realm ON `members`.`server` = `realm`.`server_name` '.
 				'WHERE `user`.`id` = "' . $uid . '" '.
-				'ORDER BY IF(`realm`.`server_name` = `user_link`.`realm`,1,0),';
+				'ORDER BY IF(`realm`.`server_name` = `realm`,1,0),';
 
 			$always_sort = ' `realm`.`server_name` ASC';
 
@@ -643,17 +635,6 @@ class userPage extends user
 				include_once($addon['admin_dir'] . 'profile.php');
 			}
 
-			$roster->output['show_menu']['acc_menu'] = 1;  // Display the button listing
-	
-			$roster->tpl->assign_block_vars('user_settings', array(
-				'MESSAGE' => $user->message,
-				'MENU' => $menu,
-				'BODY' => $body,
-				)
-			);
-
-			$roster->tpl->set_filenames(array('user_settings' => $addon['basename'] . '/settings.html'));
-			$roster->tpl->display('user_settings');
 		}
 	}
 
@@ -801,11 +782,11 @@ class userPage extends user
 		
 		$roster->output['show_menu']['acc_menu'] = 1;  // Display the button listing
 
-		$user = $roster->pages[3];
+		$usr = $roster->pages[3];
 
-		$uid = $user->user->getUser($user);
+		$uid = $user->user->getUser($usr);
 
-		$user->user->getInfo($user);
+		$user->user->getInfo($usr);
 
 		$user->profile->getConfigData($uid);
 
@@ -820,10 +801,10 @@ class userPage extends user
 		$error = $user->user->message; // error message
 
 		$roster->tpl->assign_block_vars('user_profile', array(
-			'USER_LINK' => makelink('user-profile-' . $user),
+			'USER_LINK' => makelink('user-profile-' . $usr),
 			'MESSAGE' => $user->message,
-			'BORDER_START' => border('sblue','start', sprintf($roster->locale->act['user_page']['profile'], $user->user->info['uname'])),
-			'USER' => '<b>' . $roster->locale->act['user_int']['uname'] . ':</b> <a href="' . makelink('user-profile-' . $user) . '">' . $user->user->info['uname'] . '</a>',
+			'BORDER_START' => border('sblue','start', sprintf($roster->locale->act['user_page']['profile'], $user->user->info['usr'])),
+			'USER' => '<b>' . $roster->locale->act['user_int']['uname'] . ':</b> <a href="' . makelink('user-profile-' . $usr) . '">' . $user->user->info['usr'] . '</a>',
 			'AVATAR' => $user->profile->getAvSig('av', $uid),
 			'S_CITY' => $user->profile->configData['show_city'],
 			'CITY' => '<b>' . $roster->locale->act['user_int']['city'] . ':</b> ' . $user->user->info['city'],
@@ -833,7 +814,6 @@ class userPage extends user
 			'FNAME' => '<b>' . $roster->locale->act['user_int']['fname'] . ':</b> ' . $user->user->info['fname'],
 			'S_LNAME' => $user->profile->configData['show_lname'],
 			'LNAME' => '<b>' . $roster->locale->act['user_int']['lname'] . ':</b> ' . $user->user->info['lname'],
-			'GROUPID' => '<b>' . $roster->locale->act['user_int']['ugroup'] . ':</b> ' . $user->profile->getGroup($user),
 			'S_EMAIL' => $user->profile->configData['show_email'],
 			'EMAIL' => '<b>' . $roster->locale->act['user_int']['email'] . ':</b> ' . $user->user->info['email'],
 			'S_HOMEPAGE' => $user->profile->configData['show_homepage'],
@@ -849,8 +829,11 @@ class userPage extends user
 			)
 		);
 
-		$roster->tpl->set_filenames(array('user_profile' => $addon['basename'] . '/profile.html'));
-		$roster->tpl->display('user_profile');
+		$roster->tpl->set_filenames(array(
+			'uprofile' => $addon['basename'] . '/profile.html'
+			)
+		);
+		$roster->tpl->display('uprofile');
 
 		return;
 	}
