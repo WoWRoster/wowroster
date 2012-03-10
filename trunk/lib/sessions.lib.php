@@ -54,7 +54,7 @@ class Session
 	*/
 	function session_begin($update_session_page = true)
 	{
-		global $phpEx, $SID, $_SID, $_EXTRA_URL, $roster, $config, $phpbb_root_path;
+		global $phpEx, $SID, $_SID, $_EXTRA_URL, $roster, $config;
 
 		// Give us some basic information
 		$this->time_now				= time();
@@ -75,7 +75,7 @@ class Session
 			$this->cookie_data['k'] = $_COOKIE['roster_k'];//, '', false, true);
 			$this->session_id 		= $_COOKIE['roster_sid'];
 		}
-		else if (isset($_COOKIE['roster_sid']) || isset($_COOKIE['roster_u']))
+		else if (isset($_COOKIE['roster_user']) && isset($_COOKIE['roster_sid']) && $_COOKIE['roster_sid'] != '' && isset($_COOKIE['roster_u']) && $_COOKIE['roster_u'] != '')
 		{
 			$this->cookie_data['user'] = $_COOKIE['roster_user'];//, 0, false, true);
 			$this->cookie_data['u'] = $_COOKIE['roster_u'];//, 0, false, true);
@@ -87,15 +87,12 @@ class Session
 
 			if (empty($this->session_id))
 			{
-				$this->session_id = $_SID = request_var('sid', '');
-				$SID = '?sid=' . $this->session_id;
-				$this->cookie_data = array('u' => 0, 'k' => '');
+				$this->session_create();
 			}
 		}
 		else
 		{
-			$this->session_id = $_SID = request_var('sid', '');
-			$SID = '?sid=' . $this->session_id;
+			$this->session_create();
 		}
 
 		$_EXTRA_URL = array();
@@ -306,8 +303,8 @@ class Session
 		}
 		else if ($user_id !== false && !sizeof($this->data))
 		{
-			$this->cookie_data['k'] = '';
-			$this->cookie_data['u'] = $user_id;
+			$_COOKIE['roster_k'] = '';
+			$_COOKIE['roster_u'] = $user_id;
 
 			$sql = 'SELECT *
 				FROM ' . $roster->db->table('user_members') . '
@@ -324,6 +321,7 @@ class Session
 				'is_registered'	=> false,
 				'id'			=> '0',
 				'user'			=> 'Guest',
+				'user_lastvisit'=>'',
 				
 			);
 			$bot = false;
@@ -336,17 +334,30 @@ class Session
 		// User is bot
 		if (!is_array($this->data))
 		{
-			$this->cookie_data['k'] = '';
-			$this->cookie_data['u'] = ($bot) ? $bot : ANONYMOUS;
+			$_COOKIE['roster_k'] = '';
+			$_COOKIE['roster_u'] = ($bot) ? $bot : ANONYMOUS;
 			//echo '<font color=white><br>fail?</font>';
 
-				$sql = 'SELECT *
+				$sql = 'SELECT `id`, `usr`, `pass`, `last_login`, `online`, `user_lastvisit`
 					FROM ' . $roster->db->table('user_members') . '
 					WHERE id = ' . (int) $_COOKIE['roster_u'];
-
+					
+			$this->data['id'] = $_COOKIE['roster_u'];
 			$result = $roster->db->query($sql);
-			$this->data = $roster->db->fetch($result);
-			//aprint($this->data);
+			if ($result)
+			{
+				$this->data = $roster->db->fetch($result);
+			}
+			else
+			{
+				$this->data = array(
+					'is_registered'	=> false,
+					'id'			=> '0',
+					'user'			=> 'Guest',
+					'user_lastvisit'=>'',
+					
+				);
+			}
 			$roster->db->free_result($result);
 		}
 
