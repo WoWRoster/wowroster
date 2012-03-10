@@ -100,11 +100,11 @@ class userUser extends user
 		}
 	}
 
-	function getInfo($user)
+	function getInfo($usr)
 	{
 		global $roster, $addon, $user;
 		
-		$sql_info = sprintf("SELECT * FROM %s WHERE `uname` = '%s'", $user->db['usertable'], $user);
+		$sql_info = sprintf("SELECT * FROM `%s` WHERE `usr` = '%s'", $roster->db->table('user_members'), $usr);
 		$results = $roster->db->query($sql_info);
 		
 		if( !$results || $roster->db->num_rows($results) == 0 )
@@ -136,7 +136,7 @@ class userUser extends user
 		}
 		else
 		{
-			$sql_info = sprintf("SELECT `id` FROM %s WHERE `usr ` = '%s'", $roster->db->table('user_members'), $usr);
+			$sql_info = sprintf("SELECT `id` FROM %s WHERE `usr` = '%s'", $roster->db->table('user_members'), $usr);
 		}
 
 		$results = $roster->db->query($sql_info);
@@ -146,8 +146,16 @@ class userUser extends user
 			die_quietly('Cannot get user data! MySQL said: ' . $roster->db->error(),'Database Error',__FILE__,__LINE__,$sql_info);
 		}
 
-		$data = $roster->db->fetch($results);
-		$return = $data['usr'];
+		while( $data = $roster->db->fetch($results, SQL_ASSOC) )
+		{
+			foreach( $data as $row )
+			{
+				foreach( $data as $key => $value )
+				{
+					$return = $value;
+				}
+			}
+		}
 
 		return $return;
 	}

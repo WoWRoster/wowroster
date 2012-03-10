@@ -37,7 +37,7 @@ class Session
 	{
 		$this->clearSession();
 		$this->session_begin();
-		$this->auth = new RosterLogin();
+	//	$this->auth = new RosterLogin();
 	}
 	/**
 	* Start session management
@@ -72,15 +72,15 @@ class Session
 			$this->uid = $roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
 			$this->cookie_data['user'] = $_COOKIE['roster_user'];
 			$this->cookie_data['u'] = $this->uid;
-			$this->cookie_data['k'] = request_var('roster_k', '', false, true);
+			$this->cookie_data['k'] = $_COOKIE['roster_k'];//, '', false, true);
 			$this->session_id 		= $_COOKIE['roster_sid'];
 		}
 		else if (isset($_COOKIE['roster_sid']) || isset($_COOKIE['roster_u']))
 		{
-			$this->cookie_data['user'] = request_var('roster_user', 0, false, true);
+			$this->cookie_data['user'] = $_COOKIE['roster_user'];//, 0, false, true);
 			$this->cookie_data['u'] = $_COOKIE['roster_u'];//, 0, false, true);
-			$this->cookie_data['k'] = request_var('roster_k', '', false, true);
-			$this->session_id 		= request_var('roster_sid', '', false, true);
+			$this->cookie_data['k'] = $_COOKIE['roster_k'];//, '', false, true);
+			$this->session_id 		= $_COOKIE['roster_sid'];//, '', false, true);
 
 			$SID = (defined('NEED_SID')) ? '?sid=' . $this->session_id : '?sid=';
 			$_SID = (defined('NEED_SID')) ? $this->session_id : '';
@@ -113,18 +113,18 @@ class Session
 
 		foreach ($ips as $ip)
 		{
-			if (preg_match(get_preg_expression('ipv4'), $ip))
+			if (preg_match($this->get_preg_expression('ipv4'), $ip))
 			{
 				$this->ip = $ip;
 			}
-			else if (preg_match(get_preg_expression('ipv6'), $ip))
+			else if (preg_match($this->get_preg_expression('ipv6'), $ip))
 			{
 			// Quick check for IPv4-mapped address in IPv6
 			if (stripos($ip, '::ffff:') === 0)
 			{
 				$ipv4 = substr($ip, 7);
 
-				if (preg_match(get_preg_expression('ipv4'), $ipv4))
+				if (preg_match($this->get_preg_expression('ipv4'), $ipv4))
 				{
 					$ip = $ipv4;
 				}
@@ -346,6 +346,7 @@ class Session
 
 			$result = $roster->db->query($sql);
 			$this->data = $roster->db->fetch($result);
+			//aprint($this->data);
 			$roster->db->free_result($result);
 		}
 
@@ -423,12 +424,14 @@ class Session
 			$this->data['session_created'] = true;
 		}
 
-		$this->session_id = $this->data['session_id'] = md5(unique_id());
+		$this->session_id = $this->data['session_id'] = md5($this->unique_id());
 
 		$sql_ary['session_id'] = (string) $this->session_id;
 
 		$sql = 'INSERT INTO ' . $roster->db->table('sessions') . ' ' . $roster->db->build_query('INSERT', $sql_ary);
 		$roster->db->query($sql);
+		$qry1 = "UPDATE `" . $roster->db->table('user_members') . "` SET `online` = '1' WHERE `id` = '".$sql_ary['session_user_id']."'";
+		$roster->db->query($qry1);
 		setcookie('roster_sid',$sql_ary['session_id'],(time()+60*60*24*30) );
 
 		// Regenerate autologin/persistent login key
@@ -477,7 +480,16 @@ class Session
 
 		return true;
 	}
+function unique_id($extra = 'c')
+{
+	static $dss_seeded = false;
+	global $config;
 
+	$val = $config['rand_seed'] . microtime();
+	$val = md5($val);
+
+	return substr($val, 4, 16);
+}
 	function validate_session($user)
 	{
 		// Check if PHP_AUTH_USER is set and handle this case
@@ -763,8 +775,8 @@ class Session
 		$time = time()-(60*60*$roster->config['sess_time']);
 		
 		// select expired sessions
-		$qry  = 'SELECT `session_id` FROM `' . $roster->db->table('sessions') . '` WHERE '
-				. '`session_last_visit` < "' . $time . '" ;';
+		$qry  = 'SELECT * FROM `' . $roster->db->table('sessions') . '` WHERE '
+				. '`session_last_visit` < \'' . $time . '\';';
 		
 		$result = $roster->db->query($qry);
 		
@@ -776,17 +788,73 @@ class Session
 		while ($row = $roster->db->fetch($result)) 
 		{			
 			// delete sql record values
-			$qry = 'DELETE FROM `' . $roster->db->table('sessions') . '` WHERE `session_id` = "' . $row['session_id'] . '";';
-			$roster->db->query($qry);
+			$qry = 'DELETE FROM `' . $roster->db->table('sessions') . '` WHERE `session_id` = \'' . $row['session_id'] . '\';';
+			$qry1 = "UPDATE `" . $roster->db->table('user_members') . "` SET `online` = '0' WHERE `id` = '".$row['session_user_id']."';";
+			$c = $roster->db->query($qry);
+			$e = $roster->db->query($qry2);
 		}
 		
 		// delete expired sql records
 		$qry = 'DELETE FROM `' . $roster->db->table('sessions') . '` WHERE `session_last_visit` < "' . $time . '";';
-		$roster->db->query($qry);
+		$b = $roster->db->query($qry);
 		
 		return true;
 	}
-	
+	function get_preg_expression($mode)
+{
+	switch ($mode)
+	{
+		case 'email':
+			// Regex written by James Watts and Francisco Jose Martin Moreno
+			// http://fightingforalostcause.net/misc/2006/compare-email-regex.php
+			return '([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*(?:[\w\!\#$\%\'\*\+\-\/\=\?\^\`{\|\}\~]|&amp;)+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)';
+		break;
+
+		case 'bbcode_htm':
+			return array(
+				'#<!\-\- e \-\-><a href="mailto:(.*?)">.*?</a><!\-\- e \-\->#',
+				'#<!\-\- l \-\-><a (?:class="[\w-]+" )?href="(.*?)(?:(&amp;|\?)sid=[0-9a-f]{32})?">.*?</a><!\-\- l \-\->#',
+				'#<!\-\- ([mw]) \-\-><a (?:class="[\w-]+" )?href="(.*?)">.*?</a><!\-\- \1 \-\->#',
+				'#<!\-\- s(.*?) \-\-><img src="\{SMILIES_PATH\}\/.*? \/><!\-\- s\1 \-\->#',
+				'#<!\-\- .*? \-\->#s',
+				'#<.*?>#s',
+			);
+		break;
+
+		// Whoa these look impressive!
+		// The code to generate the following two regular expressions which match valid IPv4/IPv6 addresses
+		// can be found in the develop directory
+		case 'ipv4':
+			return '#^(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$#';
+		break;
+
+		case 'ipv6':
+			return '#^(?:(?:(?:[\dA-F]{1,4}:){6}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:::(?:[\dA-F]{1,4}:){0,5}(?:[\dA-F]{1,4}(?::[\dA-F]{1,4})?|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:):(?:[\dA-F]{1,4}:){4}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,2}:(?:[\dA-F]{1,4}:){3}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,3}:(?:[\dA-F]{1,4}:){2}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,4}:(?:[\dA-F]{1,4}:)(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,5}:(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,6}:[\dA-F]{1,4})|(?:(?:[\dA-F]{1,4}:){1,7}:)|(?:::))$#i';
+		break;
+
+		case 'url':
+		case 'url_inline':
+			$inline = ($mode == 'url') ? ')' : '';
+			$scheme = ($mode == 'url') ? '[a-z\d+\-.]' : '[a-z\d+]'; // avoid automatic parsing of "word" in "last word.http://..."
+			// generated with regex generation file in the develop folder
+			return "[a-z]$scheme*:/{2}(?:(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+|[0-9.]+|\[[a-z0-9.]+:[a-z0-9.]+:[a-z0-9.:]+\])(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+		break;
+
+		case 'www_url':
+		case 'www_url_inline':
+			$inline = ($mode == 'www_url') ? ')' : '';
+			return "www\.(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+		break;
+
+		case 'relative_url':
+		case 'relative_url_inline':
+			$inline = ($mode == 'relative_url') ? ')' : '';
+			return "(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+		break;
+	}
+
+	return '';
+}
 	
 }
 // eof sessions.lib.php

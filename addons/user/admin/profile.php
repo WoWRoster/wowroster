@@ -20,6 +20,9 @@ if( !defined('IN_ROSTER') )
 if( isset($_POST['process']) && $_POST['process'] != '' )
 {
 	$roster_config_message = processData();
+	echo '<prE>';
+	print_r($_POST);
+	echo '</pre>';
 }
 
 global $roster, $user, $addon;
@@ -49,46 +52,7 @@ $num_members = $roster->db->query_first($query);
 
 if( $num_members > 0 )
 {
-	// Draw the header line
-	if ($start > 0)
-	{
-		$prev = '<a href="' . makelink('&amp;start=0') . '">|&lt;&lt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ($start - 15)) . '">&lt;</a> ';
-	}
-	else
-	{
-		$prev = '';
-	}
-
-	if (($start+15) < $num_members)
-	{
-		$listing = ' <small>[' . $start . ' - ' . ($start+15) . '] of ' . $num_members . '</small>';
-		$next = ' <a href="' . makelink('&amp;start=' . ($start+15)) . '">&gt;</a>&nbsp;&nbsp;<a href="' . makelink('&amp;start=' . ( floor( $num_members / 15) * 15 )) . '">&gt;&gt;|</a>';
-	}
-	else
-	{
-		$listing = ' <small>[' . $start . ' - ' . ($num_members) . '] of ' . $num_members . '</small>';
-		$next = '';
-	}
-
-	$formbody = "<br /><div id=\"char_disp\">\n" . border('sblue','start',$prev . $roster->locale->act['user_settings']['profile'] . $listing . $next) . "\n<table cellspacing=\"0\" cellpadding=\"0\" class=\"bodyline\">\n";
-
-	$formbody .= '
-	<tr>
-		<th class="membersHeader">' . $roster->locale->act['name'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['fname'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['lname'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['email'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['city'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['country'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['homepage'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['notes'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['joined'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['lastlogin'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['chars'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['guilds'] . '</th>
-		<th class="membersHeader">' . $roster->locale->act['user_settings']['realms'] . "</th>\n\t</tr>\n";
-
-	$i=0;
+	$i=1;
 
 	$query = 'SELECT '.
 	'`user`.`id`, '.
@@ -119,9 +83,12 @@ if( $num_members > 0 )
 
 	while( $data = $roster->db->fetch($result) )
 	{
-		$formbody .= '	<tr>
-		<td class="membersRow' . (($i%2)+1) . '"><a href="' . makelink('user-user-profile-' . $data['usr']) . '" target="_blank">' . $data['usr'] . "</a><br /></td>\n";
-
+		$roster->tpl->assign_block_vars('profile', array(
+			'CNAME'  => '<a href="' . makelink('user-user-profile-' . $data['usr']) . '" target="_blank">' . $data['usr'] . '</a>',
+			'CUSR' => $data['usr'],
+			'ID' => $i,
+			)
+		);
 		$k=0;
 		foreach( $data as $val_name => $value )
 		{
@@ -129,20 +96,25 @@ if( $num_members > 0 )
 			{
 				continue;
 			}
-
-			$formbody .= '		<td class="membersRow' . (($i%2)+1) . '">' . "\n";
-			$formbody .= '			<input type="radio" id="chard_f' . $k . '_' . $data['uid'] . '" name="disp_' . $data['uid'] . ':' . $val_name . '" value="0" ' . ( $value == '0' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['uid'] . '">Off</label><br />' . "\n";
-			$formbody .= '			<input type="radio" id="chard_n' . $k . '_' . $data['uid'] . '" name="disp_' . $data['uid'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['uid'] . '">On</label>' . "\n";
-			$formbody .= "\t\t</td>\n";
-
+			$field = '';
+			$field .= '<input type="radio" id="chard_f' . $k . '_' . $data['id'] . '" name="disp_' . $data['id'] . ':' . $val_name . '" value="0" ' . ( $value == '0' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['id'] . '">Off</label>';
+			$field .= '<input type="radio" id="chard_n' . $k . '_' . $data['id'] . '" name="disp_' . $data['id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['id'] . '">On</label>';
+			
+			$roster->tpl->assign_block_vars('profile.cfg',array(
+				'NAME'  => $roster->locale->act['user_settings'][substr( $val_name, 5)],
+				'FIELD' => $field,
+				)
+			);
 			$k++;
 		}
-		$formbody .= "\t</tr>\n";
+
 		$i++;
 	}
+	/*
 	$formbody .= '<tr><td class="membersRow2" colspan="13"><center><div>'  . $roster->locale->act['user_settings']['main'] . ': ' . selectMain($uid) . '&nbsp;&nbsp;&nbsp;'  . $roster->locale->act['user_settings']['src_gen'] . ': ' . selectGen($uid) . '</div></center></td></tr>';
 	$formbody .= "</table>\n" . border('syellow','end') . "\n</div>\n";
 	$formbody .= $prev . $listing . $next;
+	*/
 }
 else
 {
@@ -150,12 +122,6 @@ else
 }
 
 $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
-$body = "
-<form action=\"\" method=\"post\" enctype=\"multipart/form-data\" id=\"config\" onsubmit=\"return confirm('" . $roster->locale->act['confirm_config_submit'] . "');submitonce(this);\">
-	$formbody
-<br /><br />\n<input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" />\n
-</form>";
 
 $tab1 = explode('|',$roster->locale->act['user_settings']['set']);
 $tab2 = explode('|',$roster->locale->act['user_settings']['prof']);
@@ -167,6 +133,23 @@ $menu = messagebox('
 </ul>
 ',$roster->locale->act['user_page']['settings'],'sgray','145px');
 
+$roster->tpl->set_filenames(array(
+	'ucp2' => $addon['basename'] . '/ucp-profile.html'
+	)
+);
+
+$roster->tpl->assign_vars(array(
+	'ROSTERCP_TITLE'  => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
+	'MENU' => $menu,
+	'BODY' => $roster->tpl->fetch('ucp2'),
+	'PAGE_INFO' => 'User Controle Pannel',
+	)
+);
+$roster->tpl->set_filenames(array(
+	'ucp' => $addon['basename'] . '/ucp.html'
+	)
+);
+$roster->tpl->display('ucp');
 /**
  * Make select box of characters for main selection
  */

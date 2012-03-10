@@ -228,10 +228,8 @@ class usersProfile extends user
 		$uid = $id;
 
 		$query = 'SELECT '.
-		'`user`.`uid`, '.
-		'`user`.`uname`, '.
-		'`user`.`group_id`, '.
-		'`ugroup`.`name`, '.
+		'`user`.`id`, '.
+		'`user`.`usr`, '.
 		'`profile`.`uid`, '.
 		'`profile`.`show_fname`, '.
 		'`profile`.`show_lname`, '.
@@ -247,11 +245,10 @@ class usersProfile extends user
 		'`profile`.`show_realms`, '.
 		'`profile`.`avsig_src` '.
 
-		'FROM `'.$roster->db->table('user', 'user').'` AS user '.
-		'LEFT JOIN `'.$roster->db->table('account').'` AS ugroup ON `user`.`group_id` = `ugroup`.`account_id` '.
-		'LEFT JOIN `'.$roster->db->table('profile', 'user').'` AS profile ON `user`.`uid` = `profile`.`uid` '.
-		'WHERE `user`.`uid` = "' . $uid . '" '.
-		'ORDER BY `uname` ASC'.
+		'FROM `'.$roster->db->table('user_members').'` AS user '.
+		'LEFT JOIN `'.$roster->db->table('profile', 'user').'` AS profile ON `user`.`id` = `profile`.`uid` '.
+		'WHERE `user`.`id` = "' . $uid . '" '.
+		'ORDER BY `usr` ASC'.
 		' LIMIT 15;';
 
 		$result = $roster->db->query($query);
