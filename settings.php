@@ -287,7 +287,10 @@ else
 
 
 $roster->auth = new RosterLogin();
-$roster->session = new Session();
+if (version_compare($roster->config['version'], '2.1.9.2410', '>=')) 
+{
+	$roster->session = new Session();
+}
 /**
  * Assign initial template vars
  */
