@@ -281,7 +281,7 @@ class Upgrade {
 			$roster->db->query("UPDATE `".$roster->db->table('members')."` set `account_id` = NULL WHERE `account_id` = '0';");
 			$roster->db->query("INSERT INTO `".$roster->db->table('menu')."` VALUES ('', 'user', '');");
 			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."` 
-				ADD `fname` varchar(30) NOT NULL default '',
+			ADD `fname` varchar(30) NOT NULL default '',
 				ADD `lname` varchar(30) NOT NULL default '',
 				ADD `age` varchar(32) NOT NULL default '',
 				ADD `city` varchar(32) NOT NULL default '',
@@ -323,8 +323,7 @@ class Upgrade {
 
 		}
 		
-	}
-	/*	// Standard Beta Update
+		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
 	}
