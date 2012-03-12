@@ -322,9 +322,9 @@ class Upgrade {
 
 
 		}
-		/*
-
-		// Standard Beta Update
+		
+	}
+	/*	// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
 	}
