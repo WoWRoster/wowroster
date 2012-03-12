@@ -1,21 +1,12 @@
 <?php
-$roster->output['show_header'] = true;
-//$roster->output['show_menu'] = 'guild';
-// Assign template vars
 
-//require (ROSTER_BASE . 'events/event.php');
-//$events = new events();
-//$roster->auth->GetMemberLogin();
+
 $roster->tpl->assign_vars(array(
 'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 'JSDIE'		=>$addon['dir'].'js'
-//'EVENTS' => $events->display()
 ));
 roster_add_js('addons/' . $addon['basename'] . '/js/slideshow.js');
-//roster_add_js('js/slideshow.js');
-//roster_add_js$addon['dir']('js/swfobject.js');
 roster_add_css($addon['dir'] . 'styles.css','module');
-
 
 	$roster->tpl->assign_block_vars('right', array(
 					'BLOCKNAME' 	=> 'User menu',
@@ -24,16 +15,15 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 				));
 	
 // begin the session user detection
-
+/*
 	$userlist_ary = $userlist_visible = array();
 	$logged_visible_online = $logged_hidden_online = $guests_online = $prev_user_id = 0;
 	$prev_session_ip ='';
 	
 
-	$sqlg = 'SELECT COUNT(DISTINCT s.session_ip) as num_guests
-				FROM ' . $roster->db->table('sessions') . ' s
-				WHERE s.session_user_id = 0
-					AND s.session_time >= ' . (time() - (60 * 5));
+	$sqlg = 'SELECT COUNT(DISTINCT session_ip) as num_guests
+				FROM ' . $roster->db->table('sessions') . ' WHERE session_user_id = 0
+					AND session_time >= ' . (time() - (60 * 10));
 
 	$resultg = $roster->db->query($sqlg);
 	$guest = $roster->db->fetch($resultg);
@@ -41,7 +31,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 
 	$sql = 'SELECT u.usr, u.id, s.*
 		FROM ' . $roster->db->table('user_members') . ' u, ' . $roster->db->table('sessions') . ' s
-		WHERE s.session_time >= ' . (time() - (60 * 10)) .
+		WHERE s.session_time >= ' . (time() - (60 * 15)) .
 			' AND u.id = s.session_user_id AND s.session_user_id != 0
 		ORDER BY u.usr ASC, s.session_ip ASC';
 	$result = $roster->db->query($sql);
@@ -69,6 +59,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 		}
 		$prev_session_ip = $row['session_ip'];
 	}
+	*
 	$online = '<span style="float:left;">Total:</span><span style="float:right;padding-right:10px;">'.($logged_visible_online+$guests_online).'</span><br /><hr width="90%" />
 			<span style="float:left;">Registered:</span><span style="float:right;padding-right:10px;">'.$logged_visible_online.'</span><br />
 			<span style="float:left;">Guest:</span><span style="float:right;padding-right:10px;">'.$guests_online.'</span><br />
@@ -76,7 +67,8 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 				'.$user_online_link.'
 			</small>
 			';
-
+	*/
+	$online = '';
 	$roster->tpl->assign_block_vars('right', array(
 					'BLOCKNAME' 	=> 'Who is online',
 					'ICON'			=> 'inv_misc_groupneedmore',

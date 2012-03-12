@@ -1,23 +1,46 @@
 <?php
-/**
- * WoWRoster.net WoWRoster
- *
- * @copyright  2002-2011 WoWRoster.net
- * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id$
- * @link       http://www.wowroster.net
- * @since      File available since Release 2.2.0
- * @package    WoWRoster
- */
-
- /**
- * This is the new sessions lib for roster with the new user system ... why not use sessions to show whos online lol
- *
- */
-define('ANONYMOUS','0');
-
+//You can do anything with this but you can't claim it or remove this line and the next .
+//Copyright : darklight@home.ro 2004 . send feedback here .
 class Session
 {
+/*
+	$trackerTable;
+	$newSession;
+	$trackerID;
+	$expireTime;
+	$cookieName;
+
+	isNewSession(); 				is this the first visit in the seesion.
+	listUsers(); 					returns an array with all the users available.
+	userCount($max=0); 				returns and user count . the tricky thing is this :
+									you can set sessions to expire in 1 year .
+									but this doesn't mean the user is online .
+									$max=means the maximum offline time .
+									so you can count the users who loaded your page in the last $max minutes .
+	endSession($uid=""); 			end this session. get rid of cookie and db info .
+	getIP($uid=""); 				get the ip of an users . left blank returns yours .
+	getUserAgent($uid=""); 			get the browser of an users . left blank returns yours .
+	loginTime($uid=""); 			get the online time of an user . left blank returns yours .
+									this is the time from the tracking begin utill the last time he loaded the page .
+									smaller than expire time .
+	delVar($name,$uid=""); 			delete a var
+	getVar($name,$uid=""); 			get a var . this vars can be any php vars .
+	setVar($name,$data,$uid=""); 	any php var . the content is serialized .
+	lastVisitTime($uid="");
+	myID(); 						my uid .
+	getTableName(); 				table name .
+	setExpiryTime($minutes); 		session expiry time . this is set when you initiate the class but if you want to
+									give certain users longer sessions you set the time here .
+	getExpiryTime(); 				get the expire time .
+*/
+	var $trackerTable="UTracker";
+	var $newSession=0;
+	var $trackerID="";
+	var $expireTime=15;
+	var $cookieName="woworster";
+	var $uid;
+	var $uuid;
+	var $ip;
 	var $cookie_data = array();
 	var $page = array();
 	var $data = array();
@@ -25,88 +48,267 @@ class Session
 	var $forwarded_for = '';
 	var $host = '';
 	var $session_id = '';
-	var $ip = '';
-	var $load = 0;
-	var $time_now = 0;
-	var $update_session_page = true;
-	var $uid;
-	var $auth;
-	
+	var $referer;
 	
 	function __construct()
 	{
-		$this->clearSession();
-		$this->session_begin();
-	//	$this->auth = new RosterLogin();
-	}
-	/**
-	* Start session management
-	*
-	* This is where all session activity begins. We gather various pieces of
-	* information from the client and server. We test to see if a session already
-	* exists. If it does, fine and dandy. If it doesn't we'll go on to create a
-	* new one ... pretty logical heh? We also examine the system load (if we're
-	* running on a system which makes such information readily available) and
-	* halt if it's above an admin definable limit.
-	*
-	* @param bool $update_session_page if true the session page gets updated.
-	*			This can be set to circumvent certain scripts to update the users last visited page.
-	*/
-	function session_begin($update_session_page = true)
-	{
-		global $phpEx, $SID, $_SID, $_EXTRA_URL, $roster, $config;
+		global $roster;
+		
 
-		// Give us some basic information
+		$this->uid = ( isset($_COOKIE['roster_u']) && $_COOKIE['roster_u'] != 0 ? $roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']) : '0');
+		if (isset($_COOKIE['roster_user']))
+		{
+			$this->uuid = $roster->auth->getUUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
+		}
+		$this->expireTime = $roster->config['sess_time'];
+
+		$this->UserTracker();
+
+	}
+	
+	function UserTracker ($table="UTracker",$cookie="roster_hash",$minutes=15)
+	{
+		global $roster;
+		
+		if($minutes<15)
+			$minutes=15;
+		$this->expireTime=$minutes;
+		$this->cookieName=$cookie;
 		$this->time_now				= time();
-		$this->cookie_data			= array('u' => 0, 'k' => '');
-		$this->update_session_page	= $update_session_page;
+		$this->cookie_data			= array('u' => '', 'k' => '');
+
 		$this->browser				= (!empty($_SERVER['HTTP_USER_AGENT'])) ? htmlspecialchars((string) $_SERVER['HTTP_USER_AGENT']) : '';
 		$this->referer				= (!empty($_SERVER['HTTP_REFERER'])) ? htmlspecialchars((string) $_SERVER['HTTP_REFERER']) : '';
 		$this->forwarded_for		= (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ? htmlspecialchars((string) $_SERVER['HTTP_X_FORWARDED_FOR']) : '';
 
 		$this->host					= $this->extract_current_hostname();
 		$this->page					= $this->extract_current_page($roster->config['website_address']);
+		
+		
+		//remove all the expired sessions . no need to keep them . cookies are long gone anyway .
+		$queryd="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_time`  <= '".(time())."'";
+		//echo $queryd.'<br>';
+		$resultd = $roster->db->query($queryd);
+		//$roster->db->free_result($resultd);
+		
+		$this->trackerID= (isset($this->uuid) ? $this->uuid : md5($_SERVER["HTTP_USER_AGENT"].$_SERVER["REMOTE_ADDR"]) );
 
-		if (isset($_COOKIE['roster_user']) && $_COOKIE['roster_user'] != ''|| isset($_COOKIE['roster_pass']) && $_COOKIE['roster_pass'] != '')
+		$aquery="SELECT * FROM `".$roster->db->table('sessions')."` WHERE `session_id`='".session_id()."'";
+
+		$result = $roster->db->query($aquery);
+
+		$rows = $roster->db->num_rows($result);
+		$rec = array();
+		//$rec = $roster->db->fetch($result);
+
+		if ($rows >= 1)
 		{
-			$this->uid = $roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
-			$this->cookie_data['user'] = $_COOKIE['roster_user'];
-			$this->cookie_data['u'] = $this->uid;
-			$this->cookie_data['k'] = $_COOKIE['roster_k'];//, '', false, true);
-			$this->session_id 		= $_COOKIE['roster_sid'];
+			$roster->set_message( ' '.(__LINE__).' '.$rows.' collected', 'Sessions', 'notice' );
+			$rec = $roster->db->fetch($result);
 		}
-		else if (isset($_COOKIE['roster_user']) && isset($_COOKIE['roster_sid']) && $_COOKIE['roster_sid'] != '' && isset($_COOKIE['roster_u']) && $_COOKIE['roster_u'] != '')
+		
+		if(isset($rec['session_id']) && $rec['session_id'] == session_id())
 		{
-			$this->cookie_data['user'] = $_COOKIE['roster_user'];//, 0, false, true);
-			$this->cookie_data['u'] = $_COOKIE['roster_u'];//, 0, false, true);
-			$this->cookie_data['k'] = $_COOKIE['roster_k'];//, '', false, true);
-			$this->session_id 		= $_COOKIE['roster_sid'];//, '', false, true);
 
-			$SID = (defined('NEED_SID')) ? '?sid=' . $this->session_id : '?sid=';
-			$_SID = (defined('NEED_SID')) ? $this->session_id : '';
+			$page = implode('-',$roster->pages);
+			//make the life of the cookie longer and update time and IP .
+			$xsql = "UPDATE `". $roster->db->table('sessions') ."` SET	`session_user_id` = '".$this->uid."', `session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
+			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]' WHERE `session_id` = '" . session_id() . "'";
+			
+			$roster->db->query("UPDATE `". $roster->db->table('sessions') ."` SET	`session_user_id` = '".$this->uid."', `session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
+			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]' WHERE `session_id` = '" . session_id() . "';");
+			$roster->set_message( ' '.(__LINE__).' '.$xsql.' <br>update row', 'Sessions', 'notice' );
+			
+			//$rx = $roster->db->query($xsql);
+			//echo '<br>'.$roster->db->affected_rows().'<br>result var dump<br>';
+			//var_dump($rx);
+			//$roster->db->free_result($rx);
 
-			if (empty($this->session_id))
-			{
-				$this->session_create();
-			}
+			$this->newSession=0;
+			return true;
+		}
+		else if ($rows == 0)
+		{
+
+			$xsql_ary = array(
+				'sess_id'				=> $this->trackerID,
+				'session_id'				=> session_id(),
+				'session_user_id'		=> $this->uid,
+				'session_start'			=> (int) time(),
+				'session_last_visit'	=> (int) time(),
+				'session_time'			=> (int) time()+(60*15),
+				'session_page'			=> substr($this->page['page'], 0, 199),
+				'session_browser'		=> (string) trim(substr($this->browser, 0, 149)),
+				'session_forwarded_for'	=> (string) $this->forwarded_for,
+				'session_ip'			=> (string) $this->getIP(),
+				'session_autologin'		=> ($session_autologin) ? 1 : 0,
+				'session_admin'			=> ($set_admin) ? 1 : 0,
+				'session_viewonline'	=> ($viewonline) ? 1 : 0,
+			);
+
+			// this allways errors out because the session exists... i hate this class....
+			$sql = 'REPLACE INTO `' . $roster->db->table('sessions') . '` ' . $roster->db->build_query('INSERT', $xsql_ary);
+			$s = $roster->db->query($sql);
+			$qry1 = "UPDATE `" . $roster->db->table('user_members') . "` SET `online` = '1' WHERE `id` = '".$sql_ary['session_user_id']."'";
+			$q = $roster->db->query($qry1);
+
+			$this->newSession=1;
+			return true;
 		}
 		else
 		{
-			$this->session_create();
+			$roster->set_message( ' An erroro has occured in your session it will now be reset', 'Sessions', 'notice' );
 		}
-
-		$_EXTRA_URL = array();
-
-		// Why no forwarded_for et al? Well, too easily spoofed. With the results of my recent requests
-		// it's pretty clear that in the majority of cases you'll at least be left with a proxy/cache ip.
-		$this->ip = (!empty($_SERVER['REMOTE_ADDR'])) ? (string) $_SERVER['REMOTE_ADDR'] : '';
+	}
+	function getExpiryTime()
+	{
+		return $this->expireTime;
+	}
+	function setExpiryTime($minutes)
+	{
+		if($minutes<15)
+			$minutes=15;
+		$this->expireTime=$minutes;
+		$query="UPDATE `".$roster->db->table('sessions')."` SET `Expire`='".($this->expireTime*60)."' WHERE `ID`='".$this->trackerID."'";
+		$result=$roster->db->query($query);
+	}
+	function myID()
+	{
+		return $this->trackerID;
+	}
+	function getTableName()
+	{
+		return $roster->db->table('sessions');
+	}
+	function isNewSession()
+	{
+		return (bool)($this->newSession==1);
+	}
+	function setVar($name,$value,$uid="")
+	{
+		if($uid=="")
+			$uid=$this->trackerID;
+		$data=array();
+		$query="SELECT `Data` FROM `".$roster->db->table('sessions')."` WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+		if($roster->db->num_rows($result)>0)
+		{
+			$rec=$roster->db->fetch($result);
+			$data=unserialize($rec[0]);
+			if(!is_array($data))
+				$data=array();
+			mysql_free_result($result);			
+		}
+		$data["$name"]=$value;
+		$query="UPDATE `".$roster->db->table('sessions')."` SET `Data`='".serialize($data)."' WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+	}
+	function delVar($name,$uid="")
+	{
+		if($uid=="")
+			$uid=$this->trackerID;
+		$data=array();
+		$query="SELECT `Data` FROM `".$roster->db->table('sessions')."` WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+		if($roster->db->num_rows($result)>0)
+		{
+			$rec=$roster->db->fetch($result);
+			$data=unserialize($rec[0]);
+			if(!is_array($data))
+				$data=array();
+			mysql_free_result($result);			
+		}
+		unset($data["$name"]);
+		$query="UPDATE `".$roster->db->table('sessions')."` SET `Data`='".serialize($data)."' WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+	}
+	function getVar($name,$uid="")
+	{
+		if($uid=="")
+			$uid=$this->trackerID;
+		$data=array();
+		$query="SELECT `Data` FROM `".$roster->db->table('sessions')."` WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+		if($roster->db->num_rows($result)>0)
+		{
+			$rec=$roster->db->fetch($result);
+			$data=unserialize($rec[0]);
+			if(!is_array($data))
+				$data=array();
+			mysql_free_result($result);			
+		}
+		return $data["$name"];
+	}
+	function loginTime($uid="")
+	{
+		if($uid=="")
+			$uid=$this->trackerID;
+		$data=0;
+		$query="SELECT `JTime` FROM `".$roster->db->table('sessions')."` WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+		if($roster->db->num_rows($result)>0)
+		{
+			$rec=$roster->db->fetch($result);
+			$data=$rec[0];
+			mysql_free_result($result);			
+		}
+		return $data;
+	}
+	function lastVisitTime($uid="")
+	{
+		if($uid=="")
+			$uid=$this->trackerID;
+		$data=0;
+		$query="SELECT `Time` FROM `".$roster->db->table('sessions')."` WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+		if($roster->db->num_rows($result)>0)
+		{
+			$rec=$roster->db->fetch($result);
+			$data=$rec[0];
+			mysql_free_result($result);			
+		}
+		return $data;
+	}
+	function getUserAgent($uid="")
+	{
+		if($uid=="")
+			$uid=$this->trackerID;
+		$data="";
+		$query="SELECT `UserAgent` FROM `".$roster->db->table('sessions')."` WHERE `ID`='".$uid."'";
+		$result=$roster->db->query($query);
+		if($roster->db->num_rows($result)>0)
+		{
+			$rec=$roster->db->fetch($result);
+			$data=$rec[0];
+			mysql_free_result($result);			
+		}
+		return $data;
+	}
+	/*
+	function getIP($uid="")
+	{
+		global $roster;
+		if($uid=="")
+			$uid=$this->trackerID;
+		$data="";
+		$query="SELECT `session_ip` FROM `".$roster->db->table('sessions')."` WHERE `sess_id`='".$uid."'";
+		$result=$roster->db->query($query);
+		if($roster->db->num_rows($result)>0)
+		{
+			$rec=$roster->db->fetch($result);
+			$data=$rec[0];
+			mysql_free_result($result);			
+		}
+		return $data;
+	}
+	*/
+	function getIP()
+	{
+		$this->ip = (!empty($_SERVER['REMOTE_ADDR'])) ? (string) $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
 		$this->ip = preg_replace('# {2,}#', ' ', str_replace(',', ' ', $this->ip));
 
 		// split the list of IPs
 		$ips = explode(' ', trim($this->ip));
-
-		// Default IP if REMOTE_ADDR is invalid
-		$this->ip = '127.0.0.1';
 
 		foreach ($ips as $ip)
 		{
@@ -136,391 +338,93 @@ class Session
 				break;
 			}
 		}
-
-		$this->load = false;
-
-		// Load limit check (if applicable)
-		if ($config['limit_load'] || $config['limit_search_load'])
-		{
-			if ((function_exists('sys_getloadavg') && $load = sys_getloadavg()) || ($load = explode(' ', @file_get_contents('/proc/loadavg'))))
-			{
-				$this->load = array_slice($load, 0, 1);
-				$this->load = floatval($this->load[0]);
-			}
-			else
-			{
-				set_config('limit_load', '0');
-				set_config('limit_search_load', '0');
-			}
-		}
-
-		// Is session_id is set or session_id is set and matches the url param if required
-		if (!empty($this->session_id) && (!defined('NEED_SID') || (isset($_GET['sid']) && $this->session_id === $_GET['sid'])))
-		{
-			$sql = 'SELECT u.*, s.*
-				FROM ' . $roster->db->table('sessions') . ' s, ' . $roster->db->table('user_members') . " u
-				WHERE s.session_id = '" . $roster->db->escape($this->session_id) . "'
-					AND u.id = s.session_user_id";
-			$result = $roster->db->query($sql);
-			$this->data = $roster->db->fetch($result);
-			$roster->db->free_result($result);
-
-			// Did the session exist in the DB?
-			if (isset($this->data['id']))
-			{
-				// Validate IP length according to admin ... enforces an IP
-				// check on bots if admin requires this
-
-				if (strpos($this->ip, ':') !== false && strpos($this->data['session_ip'], ':') !== false)
-				{
-					$s_ip = short_ipv6($this->data['session_ip'], $config['ip_check']);
-					$u_ip = short_ipv6($this->ip, $config['ip_check']);
-				}
-				else
-				{
-					$s_ip = implode('.', array_slice(explode('.', $this->data['session_ip']), 0, $config['ip_check']));
-					$u_ip = implode('.', array_slice(explode('.', $this->ip), 0, $config['ip_check']));
-				}
-
-				$s_browser = (true) ? trim(strtolower(substr($this->data['session_browser'], 0, 149))) : '';
-				$u_browser = (true) ? trim(strtolower(substr($this->browser, 0, 149))) : '';
-
-				$s_forwarded_for = (false) ? substr($this->data['session_forwarded_for'], 0, 254) : '';
-				$u_forwarded_for = (false) ? substr($this->forwarded_for, 0, 254) : '';
-
-				if ($u_ip === $s_ip && $s_browser === $u_browser && $s_forwarded_for === $u_forwarded_for)
-				{
-					$session_expired = false;
-
-					if (!$this->validate_session($this->data))
-					{
-						$session_expired = true;
-					}
-
-					if (!$session_expired)
-					{
-						// Check the session length timeframe if autologin is not enabled.
-						// Else check the autologin length... and also removing those having autologin enabled but no longer allowed board-wide.
-						if (!$this->data['session_autologin'])
-						{
-							if ($this->data['session_time'] < $this->time_now - ($config['session_length'] + 60))
-							{
-								$session_expired = true;
-							}
-						}
-						else if (!$config['allow_autologin'] || ($config['max_autologin_time'] && $this->data['session_time'] < $this->time_now - (86400 * (int) $config['max_autologin_time']) + 60))
-						{
-							$session_expired = true;
-						}
-					}
-
-					if (!$session_expired)
-					{
-						// Only update session DB a minute or so after last update or if page changes
-						if ($this->time_now - $this->data['session_time'] > 60 || ($this->update_session_page && $this->data['session_page'] != $this->page['page']))
-						{
-							$sql_ary = array('session_time' => $this->time_now);
-
-							if ($this->update_session_page)
-							{
-								$sql_ary['session_page'] = substr($this->page['page'], 0, 199);
-								//$sql_ary['session_forum_id'] = $this->page['forum'];
-							}
-
-							$sql = 'UPDATE ' . $roster->db->table('sessions') . ' SET ' . $roster->db->build_query('UPDATE', $sql_ary) . "
-								WHERE session_id = '" . $roster->db->escape($this->session_id) . "'";
-							$result = $roster->db->query($sql);
-
-							if ($result === false)
-							{
-								unset($sql_ary['session_forum_id']);
-
-								$sql = 'UPDATE ' . $roster->db->table('sessions') . ' SET ' . $roster->db->build_query('UPDATE', $sql_ary) . "
-									WHERE session_id = '" . $roster->db->escape($this->session_id) . "'";
-								$roster->db->query($sql);
-							}
-
-							if ($this->data['id'] != ANONYMOUS && !empty($config['new_member_post_limit']) && $this->data['user_new'] && $config['new_member_post_limit'] <= $this->data['user_posts'])
-							{
-								$this->leave_newly_registered();
-							}
-						}
-
-						$this->data['is_registered'] = ($this->data['id'] != ANONYMOUS) ? true : false;
-						$this->data['is_bot'] = (!$this->data['is_registered'] && $this->data['id'] != ANONYMOUS) ? true : false;
-
-						return true;
-					}
-				}
-				else
-				{
-					// Added logging temporarly to help debug bugs...
-					if (defined('DEBUG_EXTRA') && $this->data['id'] != ANONYMOUS)
-					{
-						if ($referer_valid)
-						{
-							add_log('critical', 'LOG_IP_BROWSER_FORWARDED_CHECK', $u_ip, $s_ip, $u_browser, $s_browser, htmlspecialchars($u_forwarded_for), htmlspecialchars($s_forwarded_for));
-						}
-						else
-						{
-							add_log('critical', 'LOG_REFERER_INVALID', $this->referer);
-						}
-					}
-				}
-			}
-		}
-
-		// If we reach here then no (valid) session exists. So we'll create a new one
-		return $this->session_create();
+		return $this->ip;
 	}
-
-	/**
-	* Create a new session
-	*
-	* If upon trying to start a session we discover there is nothing existing we
-	* jump here. Additionally this method is called directly during login to regenerate
-	* the session for the specific user. In this method we carry out a number of tasks;
-	* garbage collection, (search)bot checking, banned user comparison. Basically
-	* though this method will result in a new session for a specific user.
-	*/
-	function session_create($user_id = false, $set_admin = false, $persist_login = false, $viewonline = true)
+	function userCount($max=0)
 	{
-		global $SID, $_SID, $roster, $config, $cache;
-		//echo '<font color=white>session create '.$user_id.'<br></font>';
-		$this->data = array();
-
-		// If we're presented with an autologin key we'll join against it.
-		// Else if we've been passed a user_id we'll grab data based on that
-		if (isset($_COOKIE['roster_k']))
+		$query="SELECT COUNT(*) FROM `".$roster->db->table('sessions')."`";
+		if($maxSleep>0)
+			$query.=" WHERE (".time()."-`JTime`)<".($max*60)."";
+		$result=$roster->db->query($query);
+		$rec=$roster->db->fetch($result);
+		return (int)$rec[0];
+	}
+	function listUsers()
+	{
+		$uids=array();
+		$result=$roster->db->query("SELECT `ID` FROM `".$roster->db->table('sessions')."`");
+		if($roster->db->num_rows($result)>0)
 		{
-			$sql = 'SELECT `u`.*, `k`.* FROM `' . $roster->db->table('user_members') . '` as `u`, `' . $roster->db->table('sessions_keys') . '` as `k` WHERE `u`.`id` = ' . (int) $_COOKIE['roster_u'] . "
-					AND `k`.`user_id` = `u`.`id`
-					AND `k`.`key_id` = '" . md5($_COOKIE['roster_k']) . "'";
-			$result = $roster->db->query($sql);
-			$this->data = $roster->db->fetch($result);
-			$roster->db->free_result($result);
-			$bot = false;
-		}
-		else if ($user_id !== false && !sizeof($this->data))
-		{
-			$_COOKIE['roster_k'] = '';
-			$_COOKIE['roster_u'] = $user_id;
-
-			$sql = 'SELECT *
-				FROM ' . $roster->db->table('user_members') . '
-				WHERE id = ' . (int) $this->cookie_data['u'] . '';
-			$result = $roster->db->query($sql);
-			$this->data = $roster->db->fetch($result);
-			$this->data['is_registered'] = '1';
-			$roster->db->free_result($result);
-			$bot = false;
-		}
-		else
-		{
-			$this->data = array(
-				'is_registered'	=> false,
-				'id'			=> '0',
-				'user'			=> 'Guest',
-				'user_lastvisit'=>'',
-				
-			);
-			$bot = false;
-		}
-
-		// If no data was returned one or more of the following occurred:
-		// Key didn't match one in the DB
-		// User does not exist
-		// User is inactive
-		// User is bot
-		if (!is_array($this->data))
-		{
-			$_COOKIE['roster_k'] = '';
-			$_COOKIE['roster_u'] = ($bot) ? $bot : ANONYMOUS;
-			//echo '<font color=white><br>fail?</font>';
-
-				$sql = 'SELECT `id`, `usr`, `pass`, `last_login`, `online`, `user_lastvisit`
-					FROM ' . $roster->db->table('user_members') . '
-					WHERE id = ' . (int) $_COOKIE['roster_u'];
-					
-			$this->data['id'] = $_COOKIE['roster_u'];
-			$result = $roster->db->query($sql);
-			if ($result)
+			while($rec=$roster->db->fetch($result))
 			{
-				$this->data = $roster->db->fetch($result);
+				array_push($uids,$rec[0]);			
 			}
-			else
-			{
-				$this->data = array(
-					'is_registered'	=> false,
-					'id'			=> '0',
-					'user'			=> 'Guest',
-					'user_lastvisit'=>'',
-					
+			mysql_free_result($result);
+		}
+		return $uids;
+	}
+	function endSession($uid="")
+	{
+		if($uid=="")
+			$uid=$this->trackerID;
+		$query="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_user_id`='".$uid."'";
+		$roster->db->query($query);
+	}
+	function get_preg_expression($mode)
+	{
+		switch ($mode)
+		{
+			case 'email':
+				// Regex written by James Watts and Francisco Jose Martin Moreno
+				// http://fightingforalostcause.net/misc/2006/compare-email-regex.php
+				return '([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*(?:[\w\!\#$\%\'\*\+\-\/\=\?\^\`{\|\}\~]|&amp;)+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)';
+			break;
+
+			case 'bbcode_htm':
+				return array(
+					'#<!\-\- e \-\-><a href="mailto:(.*?)">.*?</a><!\-\- e \-\->#',
+					'#<!\-\- l \-\-><a (?:class="[\w-]+" )?href="(.*?)(?:(&amp;|\?)sid=[0-9a-f]{32})?">.*?</a><!\-\- l \-\->#',
+					'#<!\-\- ([mw]) \-\-><a (?:class="[\w-]+" )?href="(.*?)">.*?</a><!\-\- \1 \-\->#',
+					'#<!\-\- s(.*?) \-\-><img src="\{SMILIES_PATH\}\/.*? \/><!\-\- s\1 \-\->#',
+					'#<!\-\- .*? \-\->#s',
+					'#<.*?>#s',
 				);
-			}
-			$roster->db->free_result($result);
+			break;
+
+			// Whoa these look impressive!
+			// The code to generate the following two regular expressions which match valid IPv4/IPv6 addresses
+			// can be found in the develop directory
+			case 'ipv4':
+				return '#^(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$#';
+			break;
+
+			case 'ipv6':
+				return '#^(?:(?:(?:[\dA-F]{1,4}:){6}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:::(?:[\dA-F]{1,4}:){0,5}(?:[\dA-F]{1,4}(?::[\dA-F]{1,4})?|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:):(?:[\dA-F]{1,4}:){4}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,2}:(?:[\dA-F]{1,4}:){3}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,3}:(?:[\dA-F]{1,4}:){2}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,4}:(?:[\dA-F]{1,4}:)(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,5}:(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,6}:[\dA-F]{1,4})|(?:(?:[\dA-F]{1,4}:){1,7}:)|(?:::))$#i';
+			break;
+
+			case 'url':
+			case 'url_inline':
+				$inline = ($mode == 'url') ? ')' : '';
+				$scheme = ($mode == 'url') ? '[a-z\d+\-.]' : '[a-z\d+]'; // avoid automatic parsing of "word" in "last word.http://..."
+				// generated with regex generation file in the develop folder
+				return "[a-z]$scheme*:/{2}(?:(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+|[0-9.]+|\[[a-z0-9.]+:[a-z0-9.]+:[a-z0-9.:]+\])(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+			break;
+
+			case 'www_url':
+			case 'www_url_inline':
+				$inline = ($mode == 'www_url') ? ')' : '';
+				return "www\.(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+			break;
+
+			case 'relative_url':
+			case 'relative_url_inline':
+				$inline = ($mode == 'relative_url') ? ')' : '';
+				return "(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
+			break;
 		}
 
-		if ($this->data['id'] != ANONYMOUS)
-		{
-			$this->data['session_last_visit'] = (isset($this->data['session_time']) && $this->data['session_time']) ? $this->data['session_time'] : (($this->data['user_lastvisit']) ? $this->data['user_lastvisit'] : time());
-		}
-		else
-		{
-			$this->data['session_last_visit'] = $this->time_now;
-		}
-
-		// Force user id to be integer...
-		$this->data['id'] = (int) $this->data['id'];
-		$session_autologin = (($this->cookie_data['k'] || $persist_login) && $this->data['is_registered']) ? true : false;
-		$set_admin = ($set_admin && $this->data['is_registered']) ? true : false;
-
-		// Create or update the session
-		$sql_ary = array(
-			'session_user_id'		=> (int) $this->data['id'],
-			'session_start'			=> (int) $this->time_now,
-			'session_last_visit'	=> (int) $this->data['session_last_visit'],
-			'session_time'			=> (int) $this->time_now,
-			'session_browser'		=> (string) trim(substr($this->browser, 0, 149)),
-			'session_forwarded_for'	=> (string) $this->forwarded_for,
-			'session_ip'			=> (string) $this->ip,
-			'session_autologin'		=> ($session_autologin) ? 1 : 0,
-			'session_admin'			=> ($set_admin) ? 1 : 0,
-			'session_viewonline'	=> ($viewonline) ? 1 : 0,
-		);
-
-		if ($this->update_session_page)
-		{
-			//$sql_ary['session_page'] = (string) substr($this->page['page'], 0, 199);
-			//$sql_ary['session_forum_id'] = $this->page['forum'];
-		}
-
-		//$db->sql_return_on_error(true);
-
-		$sql = 'DELETE
-			FROM ' . $roster->db->table('sessions') . '
-			WHERE session_id = \'' . $roster->db->escape($this->session_id) . '\'
-				AND session_user_id = ' . ANONYMOUS;
-
-		if (!defined('IN_ERROR_HANDLER') && (!$this->session_id || !$roster->db->query($sql) || !$roster->db->affected_rows()))
-		{
-			// Limit new sessions in 1 minute period (if required)
-			if (empty($this->data['session_time']) && $config['active_sessions'])
-			{
-
-				$sql = 'SELECT COUNT(session_id) AS sessions
-					FROM ' . $roster->db->table('sessions') . '
-					WHERE session_time >= ' . ($this->time_now - 60);
-				$result = $roster->db->query($sql);
-				$row = $roster->db->fetch($result);
-				$roster->db->free_result($result);
-
-				if ((int) $row['sessions'] > (int) $config['active_sessions'])
-				{
-					send_status_line(503, 'Service Unavailable');
-					trigger_error('BOARD_UNAVAILABLE');
-				}
-			}
-		}
-
-		// Since we re-create the session id here, the inserted row must be unique. Therefore, we display potential errors.
-		// Commented out because it will not allow forums to update correctly
-
-		// Something quite important: session_page always holds the *last* page visited, except for the *first* visit.
-		// We are not able to simply have an empty session_page btw, therefore we need to tell phpBB how to detect this special case.
-		// If the session id is empty, we have a completely new one and will set an "identifier" here. This identifier is able to be checked later.
-		if (empty($this->data['session_id']))
-		{
-			// This is a temporary variable, only set for the very first visit
-			$this->data['session_created'] = true;
-		}
-
-		$this->session_id = $this->data['session_id'] = md5($this->unique_id());
-
-		$sql_ary['session_id'] = (string) $this->session_id;
-
-		$sql = 'INSERT INTO ' . $roster->db->table('sessions') . ' ' . $roster->db->build_query('INSERT', $sql_ary);
-		$roster->db->query($sql);
-		$qry1 = "UPDATE `" . $roster->db->table('user_members') . "` SET `online` = '1' WHERE `id` = '".$sql_ary['session_user_id']."'";
-		$roster->db->query($qry1);
-		setcookie('roster_sid',$sql_ary['session_id'],(time()+60*60*24*30) );
-
-		// Regenerate autologin/persistent login key
-		if ($session_autologin)
-		{
-			$this->set_login_key();
-		}
-
-		// refresh data
-		$SID = '?sid=' . $this->session_id;
-		$_SID = $this->session_id;
-		$this->data = array_merge($this->data, $sql_ary);
-
-		if ($this->data['user_lastvisit'] < 100 )
-		{
-			$cookie_expire = $this->time_now + (($config['max_autologin_time']) ? 86400 * (int) $config['max_autologin_time'] : 31536000);
-
-			$this->set_cookie('u', $this->cookie_data['u'], $cookie_expire);
-			$this->set_cookie('k', $this->cookie_data['k'], $cookie_expire);
-			$this->set_cookie('sid', $this->session_id, $cookie_expire);
-
-			unset($cookie_expire);
-
-			$sql = 'SELECT COUNT(session_id) AS sessions
-					FROM ' . $roster->db->table('sessions') . '
-					WHERE session_user_id = ' . (int) $this->data['id'] . '
-					AND session_time >= ' . (int) ($this->time_now - (max((60*60*24*30), (60*60*$roster->config['sess_time']))));
-			$result = $roster->db->query($sql);
-			$row = $roster->db->fetch($result);
-			$roster->db->free_result($result);
-
-		}
-		else
-		{
-			$this->data['session_time'] = $this->data['session_last_visit'] = $this->time_now;
-
-			// Update the last visit time
-			$sql = 'UPDATE ' . $roster->db->table('user_members') . '
-				SET user_lastvisit = ' . (int) $this->data['session_time'] . '
-				WHERE id = ' . (int) $this->data['id'];
-			$roster->db->query($sql);
-
-			$SID = '?sid=';
-			$_SID = '';
-		}
-
-		return true;
+		return '';
 	}
-function unique_id($extra = 'c')
-{
-	static $dss_seeded = false;
-	global $config;
-
-	$val = $config['rand_seed'] . microtime();
-	$val = md5($val);
-
-	return substr($val, 4, 16);
-}
-	function validate_session($user)
-	{
-		// Check if PHP_AUTH_USER is set and handle this case
-		if (isset($_SERVER['PHP_AUTH_USER']))
-		{
-			$php_auth_user = '';
-			set_var($php_auth_user, $_SERVER['PHP_AUTH_USER'], 'string', true);
-
-			return ($php_auth_user === $user['username']) ? true : false;
-		}
-
-		// PHP_AUTH_USER is not set. A valid session is now determined by the user type (anonymous/bot or not)
-		if ($user['id'] != 0)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
 	function extract_current_hostname()
 	{
 		global $config;
@@ -668,206 +572,5 @@ function unique_id($extra = 'c')
 
 		return $page_array;
 	}
-	
-	function set_cookie($name, $cookiedata, $cookietime)
-	{
-		global $roster;
-		$domai = str_replace('http://', '' ,$roster->config['website_address']);
-		$name_data = rawurlencode('roster_' . $name) . '=' . rawurlencode($cookiedata);
-		$expire = gmdate('D, d-M-Y H:i:s \\G\\M\\T', $cookietime);
-		$domain = (!$domai || $domai == 'localhost' || $domai == '127.0.0.1') ? '' : '; domain=' . $domai;
-
-		header('Set-Cookie: ' . $name_data . (($cookietime) ? '; expires=' . $expire : '') . '; path=' . ROSTER_BASE . $domain . ((!false) ? '' : '; secure') . '; HttpOnly', false);
-	}
-	
-	/**
-	* Set/Update a persistent login key
-	*
-	* This method creates or updates a persistent session key. When a user makes
-	* use of persistent (formerly auto-) logins a key is generated and stored in the
-	* DB. When they revisit with the same key it's automatically updated in both the
-	* DB and cookie. Multiple keys may exist for each user representing different
-	* browsers or locations. As with _any_ non-secure-socket no passphrase login this
-	* remains vulnerable to exploit.
-	*/
-	function set_login_key($user_id = false, $key = false, $user_ip = false)
-	{
-		global $config, $roster;
-
-		$user_id = ($user_id === false) ? $this->data['id'] : $user_id;
-		$user_ip = ($user_ip === false) ? $this->ip : $user_ip;
-		$key = ($key === false) ? (($this->cookie_data['k']) ? $this->cookie_data['k'] : false) : $key;
-
-		$key_id = unique_id(hexdec(substr($this->session_id, 0, 8)));
-
-		$sql_ary = array(
-			'key_id'		=> (string) md5($key_id),
-			'last_ip'		=> (string) $this->ip,
-			'last_login'	=> (int) time()
-		);
-
-		if (!$key)
-		{
-			$sql_ary += array(
-				'user_id'	=> (int) $user_id
-			);
-		}
-
-		if ($key)
-		{
-			$sql = 'UPDATE ' . $roster->db->table('sessions_keys') . '
-				SET ' . $roster->db->build_query('UPDATE', $sql_ary) . '
-				WHERE user_id = ' . (int) $user_id . "
-					AND key_id = '" . $db->sql_escape(md5($key)) . "'";
-		}
-		else
-		{
-			$sql = 'INSERT INTO ' . $roster->db->table('sessions_keys') . ' ' . $roster->db->build_query('INSERT', $sql_ary);
-		}
-		$roster->db->query($sql);
-
-		$this->cookie_data['k'] = $key_id;
-
-		return false;
-	}
-
-	/**
-	* Reset all login keys for the specified user
-	*
-	* This method removes all current login keys for a specified (or the current)
-	* user. It will be called on password change to render old keys unusable
-	*/
-	function reset_login_keys($user_id = false)
-	{
-		global $config, $roster;
-
-		$user_id = ($user_id === false) ? (int) $this->data['user_id'] : (int) $user_id;
-
-		$sql = 'DELETE FROM ' . $roster->db->table('sessions_keys') . '
-			WHERE user_id = ' . (int) $user_id;
-		$roster->db->query($sql);
-
-		// If the user is logged in, update last visit info first before deleting sessions
-		$sql = 'SELECT session_time, session_page
-			FROM ' . $roster->db->table('sessions') . '
-			WHERE session_user_id = ' . (int) $user_id . '
-			ORDER BY session_time DESC';
-		$result = $roster->db->query($sql, 1);
-		$row = $roster->db->fetch($result);
-		$db->sql_freeresult($result);
-
-		if ($row)
-		{
-			$sql = 'UPDATE ' . $roster->db->table('user_members') . '
-				SET user_lastvisit = ' . (int) $row['session_time'] . "
-				WHERE id = " . (int) $user_id;
-			$roster->db->query($sql);
-		}
-
-		// Let's also clear any current sessions for the specified user_id
-		// If it's the current user then we'll leave this session intact
-		$sql_where = 'session_user_id = ' . (int) $user_id;
-		$sql_where .= ($user_id === (int) $this->data['user_id']) ? " AND session_id <> '" . $db->sql_escape($this->session_id) . "'" : '';
-
-		$sql = 'DELETE FROM ' . $roster->db->table('sessions') . "
-			WHERE $sql_where";
-		$roster->db->query($sql);
-
-		// We're changing the password of the current user and they have a key
-		// Lets regenerate it to be safe
-		if ($user_id === (int) $this->data['user_id'] && $this->cookie_data['k'])
-		{
-			$this->set_login_key($user_id);
-		}
-	}
-	function clearSession()
-	{
-		global $roster;
-		$time = time()-(60*60*$roster->config['sess_time']);
-		
-		// select expired sessions
-		$qry  = 'SELECT * FROM `' . $roster->db->table('sessions') . '` WHERE '
-				. '`session_last_visit` < \'' . $time . '\';';
-		
-		$result = $roster->db->query($qry);
-		
-		if ($roster->db->num_rows($result) == 0)
-		{
-			return true;
-		}
-		
-		while ($row = $roster->db->fetch($result)) 
-		{			
-			// delete sql record values
-			$qry = 'DELETE FROM `' . $roster->db->table('sessions') . '` WHERE `session_id` = \'' . $row['session_id'] . '\';';
-			$qry1 = "UPDATE `" . $roster->db->table('user_members') . "` SET `online` = '0' WHERE `id` = '".$row['session_user_id']."';";
-			$c = $roster->db->query($qry);
-			$e = $roster->db->query($qry2);
-		}
-		
-		// delete expired sql records
-		$qry = 'DELETE FROM `' . $roster->db->table('sessions') . '` WHERE `session_last_visit` < "' . $time . '";';
-		$b = $roster->db->query($qry);
-		
-		return true;
-	}
-	function get_preg_expression($mode)
-{
-	switch ($mode)
-	{
-		case 'email':
-			// Regex written by James Watts and Francisco Jose Martin Moreno
-			// http://fightingforalostcause.net/misc/2006/compare-email-regex.php
-			return '([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*(?:[\w\!\#$\%\'\*\+\-\/\=\?\^\`{\|\}\~]|&amp;)+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)';
-		break;
-
-		case 'bbcode_htm':
-			return array(
-				'#<!\-\- e \-\-><a href="mailto:(.*?)">.*?</a><!\-\- e \-\->#',
-				'#<!\-\- l \-\-><a (?:class="[\w-]+" )?href="(.*?)(?:(&amp;|\?)sid=[0-9a-f]{32})?">.*?</a><!\-\- l \-\->#',
-				'#<!\-\- ([mw]) \-\-><a (?:class="[\w-]+" )?href="(.*?)">.*?</a><!\-\- \1 \-\->#',
-				'#<!\-\- s(.*?) \-\-><img src="\{SMILIES_PATH\}\/.*? \/><!\-\- s\1 \-\->#',
-				'#<!\-\- .*? \-\->#s',
-				'#<.*?>#s',
-			);
-		break;
-
-		// Whoa these look impressive!
-		// The code to generate the following two regular expressions which match valid IPv4/IPv6 addresses
-		// can be found in the develop directory
-		case 'ipv4':
-			return '#^(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$#';
-		break;
-
-		case 'ipv6':
-			return '#^(?:(?:(?:[\dA-F]{1,4}:){6}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:::(?:[\dA-F]{1,4}:){0,5}(?:[\dA-F]{1,4}(?::[\dA-F]{1,4})?|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:):(?:[\dA-F]{1,4}:){4}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,2}:(?:[\dA-F]{1,4}:){3}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,3}:(?:[\dA-F]{1,4}:){2}(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,4}:(?:[\dA-F]{1,4}:)(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,5}:(?:[\dA-F]{1,4}:[\dA-F]{1,4}|(?:(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(?:\d{1,2}|1\d\d|2[0-4]\d|25[0-5])))|(?:(?:[\dA-F]{1,4}:){1,6}:[\dA-F]{1,4})|(?:(?:[\dA-F]{1,4}:){1,7}:)|(?:::))$#i';
-		break;
-
-		case 'url':
-		case 'url_inline':
-			$inline = ($mode == 'url') ? ')' : '';
-			$scheme = ($mode == 'url') ? '[a-z\d+\-.]' : '[a-z\d+]'; // avoid automatic parsing of "word" in "last word.http://..."
-			// generated with regex generation file in the develop folder
-			return "[a-z]$scheme*:/{2}(?:(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+|[0-9.]+|\[[a-z0-9.]+:[a-z0-9.]+:[a-z0-9.:]+\])(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
-		break;
-
-		case 'www_url':
-		case 'www_url_inline':
-			$inline = ($mode == 'www_url') ? ')' : '';
-			return "www\.(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})+(?::\d*)?(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
-		break;
-
-		case 'relative_url':
-		case 'relative_url_inline':
-			$inline = ($mode == 'relative_url') ? ')' : '';
-			return "(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*(?:/(?:[a-z0-9\-._~!$&'($inline*+,;=:@|]+|%[\dA-F]{2})*)*(?:\?(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?(?:\#(?:[a-z0-9\-._~!$&'($inline*+,;=:@/?|]+|%[\dA-F]{2})*)?";
-		break;
-	}
-
-	return '';
-}
-	
-}
-// eof sessions.lib.php
-
+};
 ?>

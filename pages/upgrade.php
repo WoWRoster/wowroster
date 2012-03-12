@@ -280,32 +280,50 @@ class Upgrade {
 			$roster->db->query("ALTER TABLE `".$roster->db->table('members')."` CHANGE `account_id` `account_id` SMALLINT( 6 ) NULL DEFAULT NULL;");
 			$roster->db->query("UPDATE `".$roster->db->table('members')."` set `account_id` = NULL WHERE `account_id` = '0';");
 			$roster->db->query("INSERT INTO `".$roster->db->table('menu')."` VALUES ('', 'user', '');");
+			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."` 
+				ADD `fname` varchar(30) NOT NULL default '',
+				ADD `lname` varchar(30) NOT NULL default '',
+				ADD `age` varchar(32) NOT NULL default '',
+				ADD `city` varchar(32) NOT NULL default '',
+				ADD `state` varchar(32) NOT NULL default '',
+				ADD `country` varchar(32) NOT NULL default '',
+				ADD `zone` varchar(32) NOT NULL default '',
+				ADD `homepage` varchar(64) NOT NULL default '',
+				ADD `other_guilds` varchar(64) NOT NULL,
+				ADD `why` varchar(64) NOT NULL,
+				ADD `about` varchar(64) NOT NULL,
+				ADD `notes` varchar(64) NOT NULL default '',
+				ADD `last_login` varchar(64) NOT NULL default '',
+				ADD `date_joined` varchar(64) NOT NULL default '',
+				ADD `tmp_mail` varchar(32) NOT NULL default '',
+				ADD `group_id` smallint(6) NOT NULL default '1',
+				ADD `is_member` INT(11) NOT NULL default '0',
+				ADD `active` INT(11) NOT NULL default '0',
+				ADD `online` INT(11) NOT NULL default '0'");
+		}
+		if (version_compare($roster->config['version'], '2.1.9.2415', '<')) 
+		{
+			$roster->db->query("DROP TABLE IF EXISTS `".$roster->db->table('sessions')."`");
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions')."` (
+				  `sess_id` varchar(35) DEFAULT NULL,
+				  `session_id` char(32) NOT NULL DEFAULT '',
+				  `session_user_id` varchar(5) DEFAULT NULL,
+				  `session_last_visit` int(11) NOT NULL DEFAULT '0',
+				  `session_start` int(11) NOT NULL DEFAULT '0',
+				  `session_time` int(11) NOT NULL DEFAULT '0',
+				  `session_ip` varchar(40) NOT NULL DEFAULT '',
+				  `session_browser` varchar(150) NOT NULL DEFAULT '',
+				  `session_forwarded_for` varchar(255) NOT NULL DEFAULT '',
+				  `session_page` varchar(255) NOT NULL DEFAULT '',
+				  `session_viewonline` tinyint(1) NOT NULL DEFAULT '1',
+				  `session_autologin` tinyint(1) NOT NULL DEFAULT '0',
+				  `session_admin` tinyint(1) NOT NULL DEFAULT '0'
+				) ENGINE=MyISAM;");
+
+
 		}
 		/*
-		next update
-		alter table `roster_user_members` 
-ADD `fname` varchar(30) NOT NULL default '',
-ADD `lname` varchar(30) NOT NULL default '',
-ADD `age` varchar(32) NOT NULL default '',
-ADD `city` varchar(32) NOT NULL default '',
-ADD `state` varchar(32) NOT NULL default '',
-ADD `country` varchar(32) NOT NULL default '',
-ADD `zone` varchar(32) NOT NULL default '',
-ADD `homepage` varchar(64) NOT NULL default '',
-ADD `other_guilds` varchar(64) NOT NULL,
-ADD `why` varchar(64) NOT NULL,
-ADD `about` varchar(64) NOT NULL,
-ADD `notes` varchar(64) NOT NULL default '',
-ADD `last_login` varchar(64) NOT NULL default '',
-ADD `date_joined` varchar(64) NOT NULL default '',
-ADD `tmp_mail` varchar(32) NOT NULL default '',
-ADD `group_id` smallint(6) NOT NULL default '1',
-ADD `is_member` INT(11) NOT NULL default '0',
-ADD `active` INT(11) NOT NULL default '0',
-ADD `online` INT(11) NOT NULL default '0'
 
-
-		*/
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
