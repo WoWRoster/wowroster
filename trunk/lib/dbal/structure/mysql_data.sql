@@ -135,7 +135,7 @@ INSERT INTO `renprefix_config` VALUES (1910, 'save_login', '1', 'radio{on^1|off^
 
 # --------------------------------------------------------
 ### Menu table entries
-INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2:b3');
+INSERT INTO `renprefix_menu` VALUES (1, 'util', 'b1:b2');
 INSERT INTO `renprefix_menu` VALUES (2, 'realm', '');
 INSERT INTO `renprefix_menu` VALUES (3, 'guild', '');
 INSERT INTO `renprefix_menu` VALUES (4, 'char', '');

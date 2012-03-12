@@ -51,16 +51,21 @@ class RosterLogin
 	function RosterLogin( $script_filename='' )
 	{
 		global $roster;
-
+setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 		$this->setAction($script_filename);
 
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
-			setcookie('roster_user','',time()-(60*60*24*30*100) );
-			setcookie('roster_pass','',time()-(60*60*24*30*100) );
-			setcookie('roster_remember','',time()-(60*60*24*30*100) );
+			setcookie('roster_user',NULL,time()-(60*60*24*30*100) );
+			setcookie('roster_u',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_pass',NULL,time()-(60*60*24*30*100) );
+			setcookie('roster_remember',NULL,time()-(60*60*24*30*100) );
 			$this->allow_login = false;
 			$this->valid = 0;
+			$this->uid = 0;
+			//$roster->sessions->endSession()
 			$this->message = $roster->locale->act['logged_out'].$this->getLoginForm();
 			$this->getLoginForm();
 		}
@@ -76,6 +81,12 @@ class RosterLogin
 		{
 			$this->allow_login = false;
 			$this->message = '';
+			setcookie('roster_user',NULL,time()-(60*60*24*30*100) );
+			setcookie('roster_u',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_pass',NULL,time()-(60*60*24*30*100) );
+			setcookie('roster_remember',NULL,time()-(60*60*24*30*100) );
 		}
 	}
 
@@ -83,7 +94,7 @@ class RosterLogin
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."';";
+		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."' limit 1;";
 		$result = $roster->db->query($query);
 		//echo (bool)$result;
 		$count = $roster->db->num_rows($result);
@@ -93,6 +104,8 @@ class RosterLogin
 			setcookie('roster_user',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_u',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_pass',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_remember',NULL,(time()-60*60*24*30*100) );
 			$this->allow_login = false;
@@ -108,7 +121,6 @@ class RosterLogin
 			
 			setcookie('roster_user',$user,(time()+60*60*24*30) );
 			setcookie('roster_u',$row['id'],(time()+60*60*24*30) );
-			setcookie('roster_k',$row['id'].$pass,(time()+60*60*24*30) );
 			setcookie('roster_pass',$pass,(time()+60*60*24*30) );
 			setcookie('roster_remember',$remember,(time()+60*60*24*30) );
 			$this->valid = 1;
@@ -176,7 +188,7 @@ class RosterLogin
 	{
 		$this->getLoginForm();
 	}
-	function getLoginForm( $level = ROSTERLOGIN_ADMIN )
+	function getLoginForm(  )
 	{
 		global $roster;
 
@@ -355,8 +367,20 @@ class RosterLogin
 		global $roster;
 		$query = "SELECT `id` FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."';";
 		$result = $roster->db->query($query);
+		$rows = $roster->db->num_rows($result);
 		$row = $roster->db->fetch($result);
-		return $row['id'];
+		if ($rows == 1)
+		{
+			return $row['id'];
+		}else{
+			return '0';
+		}
+	}
+	function getUUID()
+	{
+		global $roster;
+		
+		return md5($_COOKIE['roster_user'].$_COOKIE['roster_pass']);
 	}
 	
 }

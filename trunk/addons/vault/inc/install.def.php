@@ -26,7 +26,7 @@ class vaultInstall
 	var $active = true;
 	var $icon = 'inv_misc_ornatebox';
 
-	var $version = '2.1.0';
+	var $version = '2.1.2415';
 	var $wrnet_id = '0';
 
 	var $fullname = 'vault';
@@ -49,12 +49,14 @@ class vaultInstall
 		// Master and menu entries
 		$installer->add_config("'1','startpage','vault_conf','display','master'");
 		$installer->add_config("'100','vault_conf',NULL,'blockframe','menu'");
-		$installer->add_config("'1000', 'tab1', '1', 'access', 'vault_conf'");
-		$installer->add_config("'1010', 'tab2', '1', 'access', 'vault_conf'");
-		$installer->add_config("'1020', 'tab3', '1', 'access', 'vault_conf'");
-		$installer->add_config("'1030', 'tab4', '1', 'access', 'vault_conf'");
-		$installer->add_config("'1040', 'tab5', '1', 'access', 'vault_conf'");
-		$installer->add_config("'1045', 'tab6', '1', 'access', 'vault_conf'");
+		$installer->add_config("'1000', 'tab1', '0:13', 'access', 'vault_conf'");
+		$installer->add_config("'1010', 'tab2', '0:13', 'access', 'vault_conf'");
+		$installer->add_config("'1020', 'tab3', '0:13', 'access', 'vault_conf'");
+		$installer->add_config("'1030', 'tab4', '0:13', 'access', 'vault_conf'");
+		$installer->add_config("'1040', 'tab5', '0:13', 'access', 'vault_conf'");
+		$installer->add_config("'1045', 'tab6', '0:13', 'access', 'vault_conf'");
+		$installer->add_config("'1046', 'tab7', '0:13', 'access', 'vault_conf'");
+		$installer->add_config("'1047', 'tab8', '0:13', 'access', 'vault_conf'");
 		$installer->add_config("'1050', 'money', '1', 'access', 'vault_conf'");
 
 		$installer->create_table($installer->table('log'),"
@@ -125,6 +127,11 @@ class vaultInstall
 		if( version_compare('1.9.9.1492', $oldversion,'>') == true )
 		{
 			$installer->add_config("'1045', 'tab6', '1', 'access', 'vault_conf'");
+		}
+		if( version_compare('2.1.2415', $oldversion,'>') == true )
+		{
+			$installer->add_config("'1046', 'tab7', '0:13', 'access', 'vault_conf'");
+			$installer->add_config("'1047', 'tab8', '0:13', 'access', 'vault_conf'");
 		}
 		return true;
 	}
