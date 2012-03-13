@@ -52,15 +52,47 @@ CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
   `regIP` varchar(15) NOT NULL DEFAULT '',
   `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `access` varchar(25) NOT NULL,
-  `user_last_visit` INT( 11 ) NOT NULL DEFAULT '0'
-  `age` varchar(32) NOT NULL default '',
-  `email` varchar(32) NOT NULL default '',
-  `city` varchar(32) NOT NULL default '',
-  `state` varchar(32) NOT NULL default '',
-  `country` varchar(32) NOT NULL default '',
-  `zone` varchar(32) NOT NULL default '',
+  `fname` varchar(30) NOT NULL DEFAULT '',
+  `lname` varchar(30) NOT NULL DEFAULT '',
+  `age` varchar(32) NOT NULL DEFAULT '',
+  `city` varchar(32) NOT NULL DEFAULT '',
+  `state` varchar(32) NOT NULL DEFAULT '',
+  `country` varchar(32) NOT NULL DEFAULT '',
+  `zone` varchar(32) NOT NULL DEFAULT '',
+  `homepage` varchar(64) NOT NULL DEFAULT '',
+  `other_guilds` varchar(64) NOT NULL,
+  `why` varchar(64) NOT NULL,
+  `about` varchar(64) NOT NULL,
+  `notes` varchar(64) NOT NULL DEFAULT '',
+  `last_login` varchar(64) NOT NULL DEFAULT '',
+  `date_joined` varchar(64) NOT NULL DEFAULT '',
+  `tmp_mail` varchar(32) NOT NULL DEFAULT '',
+  `group_id` smallint(6) NOT NULL DEFAULT '1',
+  `is_member` int(11) NOT NULL DEFAULT '0',
+  `active` int(11) NOT NULL DEFAULT '0',
+  `online` int(11) NOT NULL DEFAULT '0',
+  `user_lastvisit` int(15) DEFAULT NULL,
+  `last_sid` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usr` (`usr`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_sessions`;
+CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
+  `sess_id` varchar(35) DEFAULT NULL,
+  `session_id` char(32) NOT NULL DEFAULT '',
+  `session_user_id` varchar(5) DEFAULT NULL,
+  `session_last_visit` int(11) NOT NULL DEFAULT '0',
+  `session_start` int(11) NOT NULL DEFAULT '0',
+  `session_time` int(11) NOT NULL DEFAULT '0',
+  `session_ip` varchar(40) NOT NULL DEFAULT '',
+  `session_browser` varchar(150) NOT NULL DEFAULT '',
+  `session_forwarded_for` varchar(255) NOT NULL DEFAULT '',
+  `session_page` varchar(255) NOT NULL DEFAULT '',
+  `session_viewonline` tinyint(1) NOT NULL DEFAULT '1',
+  `session_autologin` tinyint(1) NOT NULL DEFAULT '0',
+  `session_admin` tinyint(1) NOT NULL DEFAULT '0',
+  UNIQUE KEY `sess_id` (`sess_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
@@ -91,7 +123,7 @@ INSERT INTO `renprefix_config` VALUES (10004, 'api_url_locale', 'en_US', 'select
 # session settings
 INSERT INTO `renprefix_config` VALUES (190,'acc_session','NULL','blockframe','menu'),
 (1900, 'sess_time', '15', 'text{30|4', 'acc_session'),
-(1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session')
+(1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session');
 
 
 # --------------------------------------------------------

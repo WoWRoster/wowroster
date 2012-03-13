@@ -346,10 +346,14 @@ if( (empty($roster->config['version']) || version_compare($roster->config['versi
 	putting this here untill release.....
  */
 $roster->get_plugin_data();
-if (version_compare($roster->config['version'], '2.1.9.2415', '>=')) 
+/**
+*	run sessions after update happens
+*/
+if (version_compare($roster->config['version'], '2.1.9.2415', '=')) 
 {
 	$roster->session = new Session();
 }
+
 /**
  * If the install directory or files exist, die()
  */

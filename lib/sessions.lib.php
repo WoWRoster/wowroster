@@ -1,44 +1,15 @@
-<?php
+﻿<?php
 //You can do anything with this but you can't claim it or remove this line and the next .
 //Copyright : darklight@home.ro 2004 . send feedback here .
 class Session
 {
-/*
-	$trackerTable;
-	$newSession;
-	$trackerID;
-	$expireTime;
-	$cookieName;
 
-	isNewSession(); 				is this the first visit in the seesion.
-	listUsers(); 					returns an array with all the users available.
-	userCount($max=0); 				returns and user count . the tricky thing is this :
-									you can set sessions to expire in 1 year .
-									but this doesn't mean the user is online .
-									$max=means the maximum offline time .
-									so you can count the users who loaded your page in the last $max minutes .
-	endSession($uid=""); 			end this session. get rid of cookie and db info .
-	getIP($uid=""); 				get the ip of an users . left blank returns yours .
-	getUserAgent($uid=""); 			get the browser of an users . left blank returns yours .
-	loginTime($uid=""); 			get the online time of an user . left blank returns yours .
-									this is the time from the tracking begin utill the last time he loaded the page .
-									smaller than expire time .
-	delVar($name,$uid=""); 			delete a var
-	getVar($name,$uid=""); 			get a var . this vars can be any php vars .
-	setVar($name,$data,$uid=""); 	any php var . the content is serialized .
-	lastVisitTime($uid="");
-	myID(); 						my uid .
-	getTableName(); 				table name .
-	setExpiryTime($minutes); 		session expiry time . this is set when you initiate the class but if you want to
-									give certain users longer sessions you set the time here .
-	getExpiryTime(); 				get the expire time .
-*/
 	var $trackerTable="UTracker";
 	var $newSession=0;
 	var $trackerID="";
 	var $expireTime=15;
 	var $cookieName="woworster";
-	var $uid;
+	var $zsause;
 	var $uuid;
 	var $ip;
 	var $cookie_data = array();
@@ -49,31 +20,52 @@ class Session
 	var $host = '';
 	var $session_id = '';
 	var $referer;
+	protected $user_id;
 	
 	function __construct()
 	{
 		global $roster;
+	
+		$this->expireTime = $roster->config['sess_time'];
 		
+		$this->getuserid();
+		$this->UserTracker();
+		return true;
 
-		$this->uid = ( isset($_COOKIE['roster_u']) && $_COOKIE['roster_u'] != 0 ? $roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']) : '0');
+	}
+	function getuserid()
+	{
+		global $roster;
+		if (isset($_COOKIE['roster_u']) && $_COOKIE['roster_u'] != 0)
+		{
+			echo 'cookie '.$_COOKIE['roster_u'].'<br>';
+			define('USER_ID',$_COOKIE['roster_u']);
+			return $_COOKIE['roster_u'];
+		}
+		else if (isset($_COOKIE['roster_pass']) && $_COOKIE['roster_pass'] != 0)
+		{
+			echo 'auth '.$roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']).'<br>';
+			define('USER_ID',$roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']));
+			return $roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
+		}
+		else
+		{
+			define('USER_ID','0');
+			return '0';
+		}
+	}
+	function UserTracker ()
+	{
+		global $roster;
+		
+		echo ' '.(__LINE__).' your user id is '.(int) USER_ID.' '.$_COOKIE['roster_u'].' ';
 		if (isset($_COOKIE['roster_user']))
 		{
 			$this->uuid = $roster->auth->getUUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
 		}
-		$this->expireTime = $roster->config['sess_time'];
-
-		$this->UserTracker();
-
-	}
-	
-	function UserTracker ($table="UTracker",$cookie="roster_hash",$minutes=15)
-	{
-		global $roster;
-		
 		if($minutes<15)
 			$minutes=15;
 		$this->expireTime=$minutes;
-		$this->cookieName=$cookie;
 		$this->time_now				= time();
 		$this->cookie_data			= array('u' => '', 'k' => '');
 
@@ -84,40 +76,40 @@ class Session
 		$this->host					= $this->extract_current_hostname();
 		$this->page					= $this->extract_current_page($roster->config['website_address']);
 		
-		
+		$update = true;
 		//remove all the expired sessions . no need to keep them . cookies are long gone anyway .
 		$queryd="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_time`  <= '".(time())."'";
 		//echo $queryd.'<br>';
 		$resultd = $roster->db->query($queryd);
 		//$roster->db->free_result($resultd);
-		
 		$this->trackerID= (isset($this->uuid) ? $this->uuid : md5($_SERVER["HTTP_USER_AGENT"].$_SERVER["REMOTE_ADDR"]) );
-
+		$_COOKIE['wrsid'] = session_id();
 		$aquery="SELECT * FROM `".$roster->db->table('sessions')."` WHERE `session_id`='".session_id()."'";
 
 		$result = $roster->db->query($aquery);
-
 		$rows = $roster->db->num_rows($result);
-		$rec = array();
-		//$rec = $roster->db->fetch($result);
-
-		if ($rows >= 1)
+		$rec = $roster->db->fetch($result);
+		
+		if ($rec['session_user_id'] != (int) USER_ID)
 		{
-			$roster->set_message( ' '.(__LINE__).' '.$rows.' collected', 'Sessions', 'notice' );
-			$rec = $roster->db->fetch($result);
+			$x="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_id`='".$rec['session_id']."'";
+			$result = $roster->db->query($x);
+			$update = false;
 		}
 		
-		if(isset($rec['session_id']) && $rec['session_id'] == session_id())
+		if(isset($rec['session_id']) && $rec['session_id'] == session_id() && $update)
 		{
 
 			$page = implode('-',$roster->pages);
-			//make the life of the cookie longer and update time and IP .
-			$xsql = "UPDATE `". $roster->db->table('sessions') ."` SET	`session_user_id` = '".$this->uid."', `session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
+			//make the life of the cookie longer and update time and IP .   `session_zsause` = '".USER_ID."',
+			/*
+			$xsql = "UPDATE `". $roster->db->table('sessions') ."` SET	`session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
 			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]' WHERE `session_id` = '" . session_id() . "'";
-			
-			$roster->db->query("UPDATE `". $roster->db->table('sessions') ."` SET	`session_user_id` = '".$this->uid."', `session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
+			*/
+			//`session_user_id` = '".USER_ID."', 
+			$roster->db->query("UPDATE `". $roster->db->table('sessions') ."` SET `session_user_id` = '".USER_ID."', `session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
 			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]' WHERE `session_id` = '" . session_id() . "';");
-			$roster->set_message( ' '.(__LINE__).' '.$xsql.' <br>update row', 'Sessions', 'notice' );
+			//$roster->set_message( ' '.(__LINE__).' '.$xsql.' <br>update row', 'Sessions', 'notice' );
 			
 			//$rx = $roster->db->query($xsql);
 			//echo '<br>'.$roster->db->affected_rows().'<br>result var dump<br>';
@@ -127,13 +119,13 @@ class Session
 			$this->newSession=0;
 			return true;
 		}
-		else if ($rows == 0)
+		else if ($rows == 0 OR !$update)
 		{
 
 			$xsql_ary = array(
 				'sess_id'				=> $this->trackerID,
 				'session_id'				=> session_id(),
-				'session_user_id'		=> $this->uid,
+				'session_user_id'		=> (int) USER_ID,
 				'session_start'			=> (int) time(),
 				'session_last_visit'	=> (int) time(),
 				'session_time'			=> (int) time()+(60*15),
@@ -149,7 +141,7 @@ class Session
 			// this allways errors out because the session exists... i hate this class....
 			$sql = 'REPLACE INTO `' . $roster->db->table('sessions') . '` ' . $roster->db->build_query('INSERT', $xsql_ary);
 			$s = $roster->db->query($sql);
-			$qry1 = "UPDATE `" . $roster->db->table('user_members') . "` SET `online` = '1' WHERE `id` = '".$sql_ary['session_user_id']."'";
+			$qry1 = "UPDATE `" . $roster->db->table('user_members') . "` SET `online` = '1' WHERE `id` = '".$xsql_ary['session_user_id']."'";
 			$q = $roster->db->query($qry1);
 
 			$this->newSession=1;
@@ -157,7 +149,7 @@ class Session
 		}
 		else
 		{
-			$roster->set_message( ' An erroro has occured in your session it will now be reset', 'Sessions', 'notice' );
+			//$roster->set_message( ' An erroro has occured in your session it will now be reset', 'Sessions', 'notice' );
 		}
 	}
 	function getExpiryTime()
@@ -367,7 +359,7 @@ class Session
 	{
 		if($uid=="")
 			$uid=$this->trackerID;
-		$query="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_user_id`='".$uid."'";
+		$query="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_zsause`='".$uid."'";
 		$roster->db->query($query);
 	}
 	function get_preg_expression($mode)
