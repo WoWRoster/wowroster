@@ -6,6 +6,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 	// Add news if any was POSTed
 	if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	{
+/*	
 		if( !$roster->auth->getAuthorized( $addon['config']['news_add'] ) && !isset($_POST['id']) )
 		{
 			echo $roster->auth->getLoginForm($addon['config']['news_add']);
@@ -16,7 +17,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 			echo $roster->auth->getLoginForm($addon['config']['news_edit']);
 			return; //To the addon framework
 		}
-
+*/
 		if( isset($_POST['author']) && !empty($_POST['author'])
 			&& isset($_POST['title']) && !empty($_POST['title'])
 			&& isset($_POST['news']) && !empty($_POST['news']) )
@@ -82,13 +83,15 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 		)
 	);
 
+
+
 	$roster->tpl->assign_block_vars('right', array(
 			'BLOCKNAME' 	=> 'User menu',
 			'ICON'			=> 'inv_misc_bag_26_spellfire',
-			'BLOCK_DATA'	=> $roster->auth->getLoginForm(),
+			'BLOCK_DATA'	=> $roster->auth->getLoginForm()
 		)
 	);
-	
+
 // begin the session user detection
 
 	$userlist_ary = $userlist_visible = array();
@@ -103,6 +106,8 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 	$resultg = $roster->db->query($sqlg);
 	$guest = $roster->db->fetch($resultg);
 	$guests_online = $guest['num_guests'];
+	unset($sqlg);
+	$roster->db->free_result($resultg);
 
 	$sql = 'SELECT u.usr, u.id, s.*
 		FROM ' . $roster->db->table('user_members') . ' u, ' . $roster->db->table('sessions') . ' s
@@ -134,6 +139,8 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 		}
 		$prev_session_ip = $row['session_ip'];
 	}
+	unset($sql);
+	$roster->db->free_result($result);
 	
 	$online = '<span style="float:left;">Total:</span><span style="float:right;padding-right:10px;">'.($logged_visible_online+$guests_online).'</span><br /><hr width="90%" />
 			<span style="float:left;">Registered:</span><span style="float:right;padding-right:10px;">'.$logged_visible_online.'</span><br />
@@ -147,7 +154,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 	$roster->tpl->assign_block_vars('right', array(
 					'BLOCKNAME' 	=> 'Who is online',
 					'ICON'			=> 'inv_misc_groupneedmore',
-					'BLOCK_DATA'	=> $online,
+					'BLOCK_DATA'	=> $online
 				));
 
 	$queryb = "SELECT * FROM `" . $roster->db->table('banners',$addon['basename']) . "` WHERE `b_active` = '1' ORDER BY `id` DESC;";
@@ -180,6 +187,8 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 				));
 			$num++;
 		}
+	unset($queryb);
+	$roster->db->free_result($resultsb);
 
 	$roster->tpl->assign_vars(array(
 		'FIRST1' 		=> $x,
@@ -188,7 +197,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 		//'S_ADD_NEWS'    => true,
 		'S_ADD_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_add']),
 		'S_EDIT_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_edit']),
-		'U_ADD_NEWS'	=> makelink('guild-'.$addon['basename'].'-add'),
+		'U_ADD_NEWS'	=> makelink('guild-'.$addon['basename'].'-add')
 	));
 
 	$query = "SELECT `news`.*, "
@@ -220,9 +229,13 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 				));
 			$numn++;
 		}
+	unset($query);
+	$roster->db->free_result($results);
 
 	$roster->tpl->set_filenames(array(
 			'main' => $addon['basename'] . '/index_main.html'
 			)
 		);
 	$roster->tpl->display('main');
+	
+	echo '<p>I break sessions :(</p>';

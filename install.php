@@ -518,6 +518,9 @@ function process_step1( )
 	// Required?
 	$their_gd = 'Optional';
 
+	//curl check
+	$our_curl = in_array('curl', get_loaded_extensions()) ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
+	$their_curl = 'Curl is required for api usage for updating.';
 	if( (phpversion() < $REQUIRE['php_version']) || (!extension_loaded('mysql')) )
 	{
 		$tpl->error_append('<span style="font-weight:bold;font-size:14px;">Sorry, your server does not meet the minimum requirements for WoWRoster</span>');
@@ -539,7 +542,9 @@ function process_step1( )
 		'OUR_MYSQL'            => $our_mysql,
 		'THEIR_MYSQL'          => $their_mysql,
 		'OUR_GD'               => $our_gd,
-		'THEIR_GD'             => $their_gd
+		'THEIR_GD'             => $their_gd,
+		'OUR_CURL'               => $our_curl,
+		'THEIR_CURL'             => $their_curl
 	));
 
 	$tpl->page_header();

@@ -64,7 +64,6 @@ class Session
 			$this->uuid = $roster->auth->getUUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
 		}
 
-		$this->expireTime=$minutes;
 		$this->time_now				= time();
 		$this->cookie_data			= array('u' => '', 'k' => '');
 
@@ -81,44 +80,37 @@ class Session
 		////--echo $queryd.'<br>';
 		$resultd = $roster->db->query($queryd);
 		//$roster->db->free_result($resultd);
-		$this->trackerID= (isset($this->uuid) ? $this->uuid : md5($_SERVER["HTTP_USER_AGENT"].$_SERVER["REMOTE_ADDR"]) );
+		$this->trackerID= (isset($this->uuid) ? $this->uuid : $roster->auth->getUUID() );
 		$_COOKIE['wrsid'] = session_id();
-		$aquery="SELECT * FROM `".$roster->db->table('sessions')."` WHERE `session_id`='".session_id()."'";
+		$aquery="SELECT `session_id` FROM `".$roster->db->table('sessions')."` WHERE `session_id`='".session_id()."'";
 
-		$result = $roster->db->query($aquery);
-		$rows = $roster->db->num_rows($result);
-		$rec = $roster->db->fetch($result);
-		
-		if ($rec['session_user_id'] != (int) USER_ID)
-		{
-			$x="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_id`='".$rec['session_id']."'";
-			$result = $roster->db->query($x);
-			$update = false;
-		}
-		
-		if(isset($rec['session_id']) && $rec['session_id'] == session_id() && $update)
+		$aresult = $roster->db->query($aquery);
+		$rows = $roster->db->num_rows($aresult);
+		$rec = $roster->db->fetch($aresult);
+		/*
+		echo '<pre>';
+		print_r($rec);
+		echo '</pre>';
+		*/
+		if(isset($rec['session_id']) && $rec['session_id'] == session_id())
 		{
 
 			$page = implode('-',$roster->pages);
 			//make the life of the cookie longer and update time and IP .   `session_zsause` = '".USER_ID."',
-			/*
-			$xsql = "UPDATE `". $roster->db->table('sessions') ."` SET	`session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
-			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]' WHERE `session_id` = '" . session_id() . "'";
-			*/
-			//`session_user_id` = '".USER_ID."', 
-			$roster->db->query("UPDATE `". $roster->db->table('sessions') ."` SET `session_user_id` = '".USER_ID."', `session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
-			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]' WHERE `session_id` = '" . session_id() . "';");
-			//$roster->set_message( ' '.(__LINE__).' '.$xsql.' <br>update row', 'Sessions', 'notice' );
-			
-			//$rx = $roster->db->query($xsql);
-			////--echo '<br>'.$roster->db->affected_rows().'<br>result var dump<br>';
-			//var_dump($rx);
-			//$roster->db->free_result($rx);
 
-			$this->newSession=0;
+			
+			$xsql = "UPDATE `". $roster->db->table('sessions') ."` SET ".
+			"`session_user_id` = '".$_COOKIE['roster_u']."',".
+			"`session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
+			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]'".
+			//" WHERE `session_id` = '" . session_id() . "';";
+			" WHERE `sess_id` = '" . $this->uuid . "';";
+			
+			//echo $xsql.'<br>';
+			$rx = $roster->db->query($xsql);
 			return true;
 		}
-		else if ($rows == 0 OR !$update)
+		else if ($rows == 0)
 		{
 
 			$xsql_ary = array(
