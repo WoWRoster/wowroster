@@ -380,7 +380,8 @@ setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 	{
 		global $roster;
 		
-		return md5($_COOKIE['roster_user'].$_COOKIE['roster_pass']);
+		return hash('ripemd128',$_COOKIE['roster_user']);
 	}
+	
 	
 }

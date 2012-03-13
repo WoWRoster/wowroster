@@ -213,9 +213,11 @@ unset($locale);
  * MUST to be after the local define for url parsing
  * since we use it for the API url
  */
-require_once (ROSTER_API . 'api.php');
-$roster->api = new WowAPI($roster->config['api_url_region']);
-
+if  (function_exists('curl_init'))
+{
+	require_once (ROSTER_API . 'api.php');
+	$roster->api = new WowAPI($roster->config['api_url_region']);
+}
 /**
  * Include cms linking file
  */

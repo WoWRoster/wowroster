@@ -98,5 +98,5 @@ $roster->tpl->assign_var('ROSTER_TOOLTIPS', getAllTooltips());
 $roster->tpl->set_handle('roster_footer', 'footer.html');
 $roster->tpl->display('roster_footer');
 //aprint($_POST);
-aprint($_COOKIE);
-//aprint($_SESSION);
+//aprint($_COOKIE);
+//a/print($_SESSION);
