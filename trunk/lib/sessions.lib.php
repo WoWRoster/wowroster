@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 //You can do anything with this but you can't claim it or remove this line and the next .
 //Copyright : darklight@home.ro 2004 . send feedback here .
 class Session
@@ -61,7 +61,11 @@ class Session
 		//--echo ' '.(__LINE__).' your user id is '.(int) USER_ID.' '.$_COOKIE['roster_u'].' ';
 		if (isset($_COOKIE['roster_user']))
 		{
-			$this->uuid = $roster->auth->getUUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
+			$this->uuid = $roster->auth->getUUID($_COOKIE['roster_user']);
+		}
+		else
+		{
+			$this->uuid = $roster->auth->getUUID($_SERVER['HTTP_USER_AGENT']);
 		}
 
 		$this->time_now				= time();
@@ -73,7 +77,7 @@ class Session
 
 		$this->host					= $this->extract_current_hostname();
 		$this->page					= $this->extract_current_page($roster->config['website_address']);
-		
+		$session_autologin = $set_admin = $viewonline = '';;
 		$update = true;
 		//remove all the expired sessions . no need to keep them . cookies are long gone anyway .
 		$queryd="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_time`  <= '".(time())."'";
