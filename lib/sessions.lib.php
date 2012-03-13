@@ -38,13 +38,13 @@ class Session
 		global $roster;
 		if (isset($_COOKIE['roster_u']) && $_COOKIE['roster_u'] != 0)
 		{
-			echo 'cookie '.$_COOKIE['roster_u'].'<br>';
+			//--echo 'cookie '.$_COOKIE['roster_u'].'<br>';
 			define('USER_ID',$_COOKIE['roster_u']);
 			return $_COOKIE['roster_u'];
 		}
 		else if (isset($_COOKIE['roster_pass']) && $_COOKIE['roster_pass'] != 0)
 		{
-			echo 'auth '.$roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']).'<br>';
+			//--echo 'auth '.$roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']).'<br>';
 			define('USER_ID',$roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']));
 			return $roster->auth->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
 		}
@@ -58,13 +58,12 @@ class Session
 	{
 		global $roster;
 		
-		echo ' '.(__LINE__).' your user id is '.(int) USER_ID.' '.$_COOKIE['roster_u'].' ';
+		//--echo ' '.(__LINE__).' your user id is '.(int) USER_ID.' '.$_COOKIE['roster_u'].' ';
 		if (isset($_COOKIE['roster_user']))
 		{
 			$this->uuid = $roster->auth->getUUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']);
 		}
-		if($minutes<15)
-			$minutes=15;
+
 		$this->expireTime=$minutes;
 		$this->time_now				= time();
 		$this->cookie_data			= array('u' => '', 'k' => '');
@@ -79,7 +78,7 @@ class Session
 		$update = true;
 		//remove all the expired sessions . no need to keep them . cookies are long gone anyway .
 		$queryd="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_time`  <= '".(time())."'";
-		//echo $queryd.'<br>';
+		////--echo $queryd.'<br>';
 		$resultd = $roster->db->query($queryd);
 		//$roster->db->free_result($resultd);
 		$this->trackerID= (isset($this->uuid) ? $this->uuid : md5($_SERVER["HTTP_USER_AGENT"].$_SERVER["REMOTE_ADDR"]) );
@@ -112,7 +111,7 @@ class Session
 			//$roster->set_message( ' '.(__LINE__).' '.$xsql.' <br>update row', 'Sessions', 'notice' );
 			
 			//$rx = $roster->db->query($xsql);
-			//echo '<br>'.$roster->db->affected_rows().'<br>result var dump<br>';
+			////--echo '<br>'.$roster->db->affected_rows().'<br>result var dump<br>';
 			//var_dump($rx);
 			//$roster->db->free_result($rx);
 
