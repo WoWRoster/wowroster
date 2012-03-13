@@ -376,11 +376,11 @@ setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 			return '0';
 		}
 	}
-	function getUUID()
+	function getUUID( $d )
 	{
 		global $roster;
 		
-		return hash('ripemd128',$_COOKIE['roster_user']);
+		return hash('ripemd128',$d);
 	}
 	
 	
