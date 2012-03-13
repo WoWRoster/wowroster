@@ -241,12 +241,12 @@ var Slideshow = {
     }
 
 };
-
+/*
 var TakeOver = {
 
 	/**
 	 * Open the take over ad and hide the slideshow.
-	 */
+	 *
 	open: function() {
 		var cookie = Cookie.read('sc2.takeOver');
 
@@ -260,7 +260,7 @@ var TakeOver = {
 	 * Close the take over and play the slideshow.
 	 *
 	 * @param saveCookie
-	 */
+	 *
 	close: function(saveCookie) {
 		$('#takeover-container').hide();
 		$('.sidebar-promo').show();
@@ -280,10 +280,10 @@ var TakeOver = {
 
 	/**
 	 * Play the media video.
-	 */
+	 *
 	play: function() {
 		$("#takeover-play").hide();
 		$("#takeover-video").show();
 	}
 
-};
+};*/
