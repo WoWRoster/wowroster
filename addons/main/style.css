@@ -70,19 +70,19 @@ vertical-align: top;
 	
 }
 #slideshow {
-	POSITION: relative; WIDTH: 647px; HEIGHT: 300px; OVERFLOW: hidden;
+	POSITION: relative; WIDTH: 640px; HEIGHT: 300px; OVERFLOW: hidden;
 	BACKGROUND: url(images/featured_bg.jpg);
 	border-image: url(images/border-left.png) 100% repeat;
 }
 #slideshow .container {
-	Z-INDEX: 20; POSITION: relative; WIDTH: 638px; HEIGHT: 303px;
-	padding-left: 1px;
+	Z-INDEX: 20; POSITION: relative; WIDTH: 640px; HEIGHT: 303px;
+	padding-left: 0px;
 	
 }
 #slideshow .mask {
-	Z-INDEX: 34; POSITION: absolute; WIDTH: 641px; HEIGHT: 303px; TOP: 0px; CURSOR: pointer; LEFT: 0px;
+	Z-INDEX: 34; POSITION: relative; WIDTH: 640px; HEIGHT: 303px; TOP: 0px; CURSOR: pointer; LEFT: 0px;
 	BACKGROUND: url(images/slideshow-mask.png) no-repeat 0px 0px;
-	width: 644px;
+	width: 640px;
 }
 #slideshow .caption {
 	Color: #0066FF;
