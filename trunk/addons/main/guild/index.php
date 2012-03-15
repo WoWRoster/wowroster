@@ -75,7 +75,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 			$roster->set_message($roster->locale->act['news_error_process'], '', 'error');
 		}
 	}
-
+///*
 	
 	$roster->tpl->assign_vars(array(
 			'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
@@ -91,7 +91,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 			'BLOCK_DATA'	=> $roster->auth->getLoginForm()
 		)
 	);
-
+//*/
 // begin the session user detection
 
 	$userlist_ary = $userlist_visible = array();
@@ -238,4 +238,4 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 		);
 	$roster->tpl->display('main');
 	
-	echo '<p>I break sessions :(</p>';
+	//echo '<p>I break sessions :(</p>';

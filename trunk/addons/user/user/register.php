@@ -9,7 +9,9 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 {
 
 	// If the Register form has been submitted
-	
+	echo '<pre>';
+	print_r($_POST);
+	echo '</pre>';
 	$err = array();
 	
 	if(strlen($_POST['username'])<4 || strlen($_POST['username'])>64)
@@ -29,22 +31,37 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 		$_POST['username'] = mysql_real_escape_string($_POST['username']);
 		// Escape the input data
 
-		$query = "INSERT INTO `" . $roster->db->table('user_members') . "` (usr,pass,email,regIP,dt,access)
-			VALUES('".$_POST['username']."','".$pass."','".$_POST['email']."','".$_SERVER['REMOTE_ADDR']."','". $roster->db->escape(gmdate('Y-m-d H:i:s')). "','0:".$_POST['rank']."');";
+		$age = mktime(0, 0, 0, $_POST['age_Month'], $_POST['age_Day'], $_POST['age_Year']);
+		$data = array(
+			'usr'		=> $_POST['username'],
+			'pass'		=> $pass,
+			'email'		=> $_POST['email'],
+			'regIP'		=> $_SERVER['REMOTE_ADDR'],
+			'dt'		=> $roster->db->escape(gmdate('Y-m-d H:i:s')),
+			'access'	=> '0:'.$_POST['rank'],
+			'fname'		=> $_POST['fname'],
+			'lname'		=> $_POST['lname'],
+			'age'		=> $age,
+			'city'		=> $_POST['City'],
+			'state'		=> $_POST['State'],
+			'country'	=> $_POST['Country'],
+			'zone'		=> $_POST['Zone']
+		);
+		$query = 'INSERT INTO `' . $roster->db->table('user_members') . '` ' . $roster->db->build_query('INSERT', $data);
 
-			if( $roster->db->query($query) )
-			{
-				$roster->set_message('You are not registered and can now login','User Register:','notice');
-				
-				echo $roster->auth->getLoginForm();
-				return;
-	
-			}
-			else
-			{
-				$roster->set_message('There was a DB error while creating your user.', '', 'error');
-				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
-			}
+		if( $roster->db->query($query) )
+		{
+			$roster->set_message('You are not registered and can now login','User Register:','notice');
+			
+			echo $roster->auth->getLoginForm();
+			return;
+
+		}
+		else
+		{
+			$roster->set_message('There was a DB error while creating your user.', '', 'error');
+			$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+		}
 	}
 
 	if(count($err))
@@ -84,7 +101,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 
 	$s = "
 	$(document).ready(function () {  
-		$('input#xsubmit').attr('disabled', 'true');
+		//$('input#xsubmit').attr('disabled', 'true');
 		$('input#submit_btn').click(function(){
 		//$('#pUsername').keyup(function () {
 			var t = this;
@@ -184,8 +201,10 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 		return $ret;
 	}
 $form = 'userApp';
-$user->form->newForm('post', makelink('util-accounts-application'), $form, 'formClass', 4);
-		
+//$user->form->newForm('post', makelink('util-accounts-application'), $form, 'formClass', 4);
+$user->form->newForm('post', makelink('util-user-register'), $form, 'formClass', 4);
+$user->form->addTextBox('text', 'fname', '', $roster->locale->act['user_int']['fname'], 'wowinput128', 1, $form);
+$user->form->addTextBox('text', 'lname', '', $roster->locale->act['user_int']['lname'], 'wowinput128', '', $form);
 $user->form->addDateSelect('age','Birthdate',1,$form);
 $user->form->addTextBox('text','City','',$roster->locale->act['user_int']['city'],'wowinput128','',$form);
 $user->form->addTextBox('text','State','',$roster->locale->act['user_int']['state'],'wowinput128','',$form);
@@ -215,7 +234,7 @@ $roster->tpl->assign_vars(array(
 	'EMAIL' 		=> $roster->locale->act['cemail'],
 	'AGE'			=> 'Birthday',
 	'AGEF'			=> '',
-	'XXX'			=> $user->form->getTableOfElements_1(1,$form),
+	'XXX'			=> $user->form->getTableOfElements_3(1,$form),
 	)
 );
 

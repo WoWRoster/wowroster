@@ -678,6 +678,212 @@ class userForm extends user
 		}
 		return $outp;
 	}
+	
+	
+	function getTableOfElements_3($rowColoring=0,$form,$i=1,$ftgs=true)
+	{
+		$outp = "";
+		$element = $this->getNext($form);
+		$el_num = $this->numElements($form);
+		$cols = $this->formCols[$form];
+		$rowEnd = '';
+		while( $element )
+		{
+			if( $i > $cols)
+			{
+				$i = 1;
+			}
+
+			if( $i <= $cols )
+			{
+				if( $i == 1 && $element['id'] != 0 )
+				{
+					$row = '</tr><tr>';
+				}
+				elseif( $i == 1 && $element['id'] == 0 )
+				{
+					$row = '<tr>';
+				}
+				else
+				{
+					$row = '';
+				}
+				if( $element['id'] == $el_num - 1 )
+				{
+					$rowEnd = '</tr>';
+				}
+			}
+
+			if ($rowColoring == 1)
+			{
+				if ($element['id']&1)
+				{
+					$rowColor = 'membersRow1';
+				}
+				else
+				{
+					$rowColor = 'membersRow2';
+				}
+			}
+			else
+			{
+				$rowColor = 'formElement';
+			}
+
+			$outp .= "\t";
+
+			if ($element['required'] == 1)
+			{
+				$element['required'] = '<font color="#FF0000">*</font>';
+			}
+			else
+			{
+				$element['required'] = '';
+			}
+
+			switch($element['type'])
+			{
+				case 'dateselect':
+					$selectItems['month'] = $this->getSelectItems( $element,$form,'month' );
+					$selectItems['day'] = $this->getSelectItems( $element,$form,'day' );
+					$selectItems['year'] = $this->getSelectItems( $element,$form,'year' );
+					/*$outp .= $row .
+					"\n\t<td class='{$rowColor}'>{$element['description']}</td>\n" .
+					"\t<td class='{$rowColor}'>\n" .
+					"\t" . $element['beginMonth'] . "\n" .
+					$selectItems['month'] .
+					"\t" . $element['endMonth'] . "\n" .
+					"\t" . $element['beginDay'] . "\n" .
+					$selectItems['day'] .
+					"\t" . $element['endDay'] . "\n" .
+					"\t" . $element['beginYear'] . "\n" .
+					$selectItems['year'] .
+					"\t" . $element['endYear'] . "{$element['required']}\n" .
+					"\t</td>\n\t";
+					*/
+					$desc = $element['description'];
+					$name = $element['name'];
+					$code = $element['beginMonth'] . "\n" .	$selectItems['month'] .	"\t" . $element['endMonth'] . "\n" ."\t" . $element['beginDay'] . "\n" .
+					$selectItems['day'] ."\t" . $element['endDay'] . "\n" ."\t" . $element['beginYear'] . "\n" .$selectItems['year'] ."\t" . $element['endYear'];
+					$req = $element['required'];
+					
+					$outp .= $this->boxLayout($code, $name, $req, $desc);
+					
+					
+					$i = ($i + 2);
+					break;
+				case 'select':
+					$selectItems = $this->getSelectItems( $element,$form,'select' );
+					
+					/*
+					$row .
+					"\n\t<td class='{$rowColor}'>{$element['description']}</td>\n" .
+					"\t<td class='{$rowColor}'>\n" .
+					"\t" . $element['beginCode'] . "\n" .
+					$selectItems .
+					"\t" . $element['endCode'] . "{$element['required']}\n" .
+					"\t</td>\n\t";
+					*/
+					$desc = $element['description'];
+					$name = $element['name'];
+					$code = $element['beginCode'] . "\n" .$selectItems ."\t" . $element['endCode'];
+					$req = $element['required'];
+					
+					$outp .= $this->boxLayout($code, $name, $req, $desc);
+					
+					$i = ($i + 2);
+					break;
+				case 'formtext':
+					$outp .= $row . "<td id='{$element['name']}' class='{$element['class']}' colspan='{$cols}' align='{$element['align']}'>{$element['description']}</td>";
+					$i = ($i + $cols);
+					break;
+				case 'text':
+					//$outp .= $row . "<td class='{$rowColor}'>{$element['description']}</td><td style='text-align:left;' class='{$rowColor}'>{$element['code']}{$element['required']}</td>";
+					$desc = $element['description'];
+					$name = $element['name'];
+					$code = $element['code'];// . "\n" .$selectItems ."\t" . $element['endCode'];
+					$req = $element['required'];
+					
+					$outp .= $this->boxLayout($code, $name, $req, $desc);
+					$i = ($i + 2);
+					break;
+				case 'password':
+					$outp .= $row . "<td class='{$rowColor}'>{$element['description']}</td><td style='text-align:left;' class='{$rowColor}'>{$element['code']}{$element['required']}</td>";
+					$i = ($i + 2);
+					break;
+				case 'checkbox':
+					$outp .= $row . "<td class='{$rowColor}'>{$element['description']}</td><td style='text-align:left;' class='{$rowColor}'>{$element['code']}{$element['required']}</td>";
+					$i = ($i + 2);
+					break;
+				case 'radio':
+					$outp .= $row . "<td class='{$rowColor}'>{$element['description']}</td><td style='text-align:left;' class='{$rowColor}'>{$element['code']}{$element['required']}</td>";
+					$i = ($i + 2);
+					break;
+				case 'textarea':
+					//$outp .= $row . "<td class='{$rowColor}'>{$element['description']}</td><td style='text-align:left;' class='{$rowColor}'>{$element['code']}{$element['required']}</td>";
+					$outp .= '<div class="tier-2-aa">
+								<div class="article-right">
+									<div class="info-text-h">
+									'.$element['description'].$element['code'].$element['required'].'
+									</div>
+								</div>
+							</div>';
+					$i = ($i + 2);
+					break;
+				case 'tray':
+					$selectItems = $this->getSelectItems( $element,$form,'tray' );
+					if( $element['id'] == $el_num - 1 )
+					{
+					//	$outp .= $rowEnd;
+						$rowEnd = '';
+					}
+					//$outp .= "\t" . $element['beginCode'] . "\n" .					$selectItems .					"\t" . $element['endCode'] . "\n";
+					$outp .= '<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+									</div>
+									<div class="config-input">
+									'.$selectItems.'
+									</div>
+								</div>
+							</div></div>';
+					break;
+				case 'row':
+					if($element['class'] != '')
+					{
+						$rowColor = $element['class'];
+					}
+					//$outp .= $row . "<td id='{$element['name']}' class='{$rowColor}' colspan='{$element['span']}'>{$element['description']}</td>";
+					$outp .= '<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+									</div>
+									<div class="config-input">
+									'.$element['description'].'
+									</div>
+								</div>
+							</div></div>';
+					$i = ($i + $element['span']);
+					break;
+				case 'column':
+					if($element['class'] != '')
+					{
+						$rowColor = $element['class'];
+					}
+					$outp .= $row . "<td id='{$element['name']}' class='{$rowColor}' colspan='{$element['span']}'>{$element['description']}</td>";
+
+					$i = ($i + $element['span']);
+					break;
+			}
+			$outp .= "\n";
+			$element = $this->getNext($form);
+			$outp .= $rowEnd;
+		}
+
+		return $outp;
+	}
 	function boxLayout($code, $name, $req, $desc)
 	{
 		$e = '<div class="tier-3-a">
