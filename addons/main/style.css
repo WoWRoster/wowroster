@@ -10,11 +10,24 @@ left: -8px;
 top: 5px; 
 background: url(../images/mask/manu_mask.png) no-repeat left top;
 }
-#left {
+#main {
+	position: relative;
 	BORDER: #a16c29 1px solid;
-	WIDTH: 646px
+	background: url(images/tier_1_a.gif) left top repeat;
+}
+#left {
+	position: relative;
+	float: left;
+	WIDTH: 658px;
 }
 
+#right {
+	width: 250px;
+	margin-left: 660px;
+	position: relative;
+	background: url(../images/tier/tier_1_a.gif) left top repeat;
+
+}
 
 #homepage .name { 
 	font: bold normal 18px Georgia, "Times New Roman", Times, serif; 
@@ -63,7 +76,9 @@ background-position: left top;
 vertical-align: top; 
 } 
 
-
+.icon { height: 22px; width: 22px; float: left; margin: 0 5px; position: relative; }
+.icon img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
+.icon .mask { background: url(images/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
 #homepage {
 	Z-INDEX: 9999999;
 	BACKGROUND: url(images/shadow.png) repeat-y;
@@ -72,15 +87,14 @@ vertical-align: top;
 #slideshow {
 	POSITION: relative; WIDTH: 640px; HEIGHT: 300px; OVERFLOW: hidden;
 	BACKGROUND: url(images/featured_bg.jpg);
-	border-image: url(images/border-left.png) 100% repeat;
 }
 #slideshow .container {
-	Z-INDEX: 20; POSITION: relative; WIDTH: 640px; HEIGHT: 303px;
-	padding-left: 0px;
+	Z-INDEX: 20; POSITION: relative; WIDTH: 640px; HEIGHT: 300px;
+
 	
 }
 #slideshow .mask {
-	Z-INDEX: 34; POSITION: relative; WIDTH: 640px; HEIGHT: 303px; TOP: 0px; CURSOR: pointer; LEFT: 0px;
+	Z-INDEX: 34; POSITION: relative; WIDTH: 640px; HEIGHT: 300px; TOP: 0px; CURSOR: pointer; LEFT: 0px;
 	BACKGROUND: url(images/slideshow-mask.png) no-repeat 0px 0px;
 	width: 640px;
 }
@@ -175,81 +189,3 @@ Padding-top: 8px;
 	color: #333333;
 font: bold normal 12px Verdana, Arial, Helvetica, sans-serif;
 }
-/*
-#right {
-	BORDER: #a16c29 1px solid;
-	PADDING-BOTTOM: 0px; MARGIN: 0px 20px 0px 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
-}
-*/
-#right {
-    float: center;
-    line-height: 1.5em;
-    margin: 2px 2px 2px 0;
-    padding: 5px;
-    width: 260px;
-}
-
-/*
-#nav, #nav ul{
-Z-INDEX: 505;
-margin:0;
-padding:0;
-list-style-type:none;
-list-style-position:outside;
-POSITION: relative;
-line-height:1.5em;
-background: url('images/bg-dark-menu.png');
-POSITION: absolute; WIDTH: 994px; HEIGHT: 30px; TOP: 155px; LEFT: 3px; -moz-user-select: none; -webkit-user-select: none; user-select: none 
-}
-
-#nav a{
-font: bold 12px Georgia, "Times New Roman", Times, serif; color: #000;
-PADDING-BOTTOM: 2px; LINE-HEIGHT: 25px; MARGIN: 0px; PADDING-LEFT: 8px; PADDING-RIGHT: 8px; DISPLAY: block; COLOR: #fff; PADDING-TOP: 2px;
-
-color:#fff;
-WIDTH: 145px;
-text-decoration:none;
-background: url('images/bg-dark-menu.png');
-/*background-color:#333;
-}
-
-#nav a:hover{
-/*background-color:#fff;
-WIDTH: 145px;
-background: url('images/bg-dark-menu.png') repeat-x left bottom;
-color:#fff;
-}
-
-#nav li{
-float:left;
-position:relative;WIDTH: 145px;
-background: url('images/bg-dark-menu.png')repeat-x left bottom;
-}
-
-#nav ul {
-position:absolute;
-display:none;
-width:12em;WIDTH: 145px;
-top:1.5em;
-background-image:url('images/bg-dark-menu.png')repeat-x left bottom;
-}
-
-#nav li ul a{
-width:12em;
-height:auto;WIDTH: 145px;
-float:right;
-}
-
-#nav li ul {
-Top:27px;
-Left: 9px;
-margin:0px 0 0 10px;
-}
-
-#nav li:hover ul ul, #nav li:hover ul ul ul, #nav li:hover ul ul ul ul{
-display:none;
-}
-#nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li li li li:hover ul{
-display:block;
-}
-*/

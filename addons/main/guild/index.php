@@ -2,7 +2,7 @@
 
 roster_add_js('addons/' . $addon['basename'] . '/js/slideshow.js');
 roster_add_css($addon['dir'] . 'styles.css','module');
-
+$roster->cache->cleanCache();
 	// Add news if any was POSTed
 	if( isset($_POST['process']) && $_POST['process'] == 'process' )
 	{
@@ -83,12 +83,21 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 		)
 	);
 
-
+	$r = makeUSERmenu($roster->output['show_menu']);
+	$usrmenu = '<br><ul style="line-height: 24px;">';
+	foreach($r['user'] as $i => $usr)
+	{
+		$usrmenu .= '<li><div class="icon">
+							<img src="'.$usr['ICON'].'" alt="" />
+							<div class="mask"></div>
+						</div><a href="'.$usr['U_LINK'].'">'.$usr['NAME'].'</a></li>';
+	}
+	$usrmenu .= '</ul>';
 
 	$roster->tpl->assign_block_vars('right', array(
 			'BLOCKNAME' 	=> 'User menu',
 			'ICON'			=> 'inv_misc_bag_26_spellfire',
-			'BLOCK_DATA'	=> $roster->auth->getLoginForm()
+			'BLOCK_DATA'	=> $roster->auth->getLoginForm().$usrmenu
 		)
 	);
 //*/
@@ -237,5 +246,161 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 			)
 		);
 	$roster->tpl->display('main');
-	
-	//echo '<p>I break sessions :(</p>';
+
+	function makeUSERmenu( $sections )
+	{
+		global $roster;
+
+		// Save current locale array
+		// Since we add all locales for button name localization, we save the current locale array
+		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+		$localetemp = $roster->locale->wordings;
+		
+		$menue = array();
+
+		// Add all addon locale files
+		foreach( $roster->addon_data as $addondata )
+		{
+			foreach( $roster->multilanguages as $lang )
+			{
+				$roster->locale->add_locale_file(ROSTER_ADDONS . $addondata['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
+			}
+		}
+
+		$section = "'" . implode("','",array_keys($sections)) . "'";
+
+		// --[ Fetch button list from DB ]--
+		$query = "SELECT `mb`.*, `a`.`basename` "
+			   . "FROM `" . $roster->db->table('menu_button') . "` AS mb "
+			   . "LEFT JOIN `" . $roster->db->table('addon') . "` AS a "
+			   . "ON `mb`.`addon_id` = `a`.`addon_id` "
+			   . "WHERE `a`.`addon_id` IS NULL "
+			   . "OR `a`.`active` = 1;";
+
+		$result = $roster->db->query($query);
+
+		if (!$result)
+		{
+			die_quietly('Could not fetch buttons from database .  MySQL said: <br />' . $roster->db->error(),'Roster',__FILE__,__LINE__,$query);
+		}
+
+		while ($row = $roster->db->fetch($result,SQL_ASSOC))
+		{
+			$palet['b' . $row['button_id']] = $row;
+		}
+
+		$roster->db->free_result($result);
+
+		// --[ Fetch menu configuration from DB ]--
+		$query = "SELECT * FROM `" . $roster->db->table('menu') . "` WHERE `section` IN (" . $section . ") ORDER BY `config_id`;";
+
+		$result = $roster->db->query($query);
+
+		if (!$result)
+		{
+			die_quietly('Could not fetch menu configuration from database. MySQL said: <br />' . $roster->db->error(),'Roster',__FILE__,__LINE__,$query);
+		}
+
+		while($row = $roster->db->fetch($result,SQL_ASSOC))
+		{
+			$data[$row['section']] = $row;
+		}
+
+		$roster->db->free_result($result);
+
+		$page = array();
+		$arrayButtons = array();
+
+		foreach( $sections as $name => $visible )
+		{
+			if( isset($data[$name]) )
+			{
+				$page[$name] = $data[$name];
+			}
+		}
+
+		// --[ Parse DB data ]--
+		foreach( $page as $name => $value )
+		{
+			$config[$name] = explode(':',$value['config']);
+			foreach( $config[$name] as $pos=>$button )
+			{
+				if( isset($palet[$button]) )
+				{
+					$arrayButtons[$name][$pos] = $palet[$button];
+				}
+			}
+		}
+
+		foreach( $arrayButtons as $id => $page )
+		{
+			switch( $id )
+			{
+				case 'char':
+					$panel_label = $roster->data['name'] . ' @ ' . $roster->data['region'] . '-' . $roster->data['server'];
+					break;
+
+				default:
+					$panel_label = (isset($roster->locale->act['menupanel_' . $id]) ? sprintf($roster->locale->act['menu_header_scope_panel'], $roster->locale->act['menupanel_' . $id]) : '');
+					break;
+			}
+
+			$menue[$panel_label][] = array(
+				'ID' => $id,
+				'OPEN' => !$sections[$id],
+				'LABEL' => $panel_label
+				);
+
+			foreach( $page as $button )
+			{
+				if( !empty($button['icon']) )
+				{
+					if( strpos($button['icon'],'.') !== false )
+					{
+						$button['icon'] = ROSTER_PATH . 'addons/' . $button['basename'] . '/images/' . $button['icon'];
+					}
+					else
+					{
+						$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $button['icon'] . '.' . $roster->config['img_suffix'];
+					}
+				}
+				else
+				{
+					$button['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
+				}
+
+				if( !in_array($button['scope'],array('util','user','realm','guild','char')) || $button['addon_id'] == 0 )
+				{
+					$button['url'] = makelink($button['url']);
+				}
+				elseif( substr($button['url'],0,7) != 'http://')
+				{
+					$button['url'] = makelink($button['scope'] . '-' . $button['basename'] . (empty($button['url']) ? '' : '-' . $button['url']));
+				}
+
+				$button['title'] = isset($roster->locale->act[$button['title']]) ? $roster->locale->act[$button['title']] : $button['title'];
+				if( strpos($button['title'],'|') )
+				{
+					list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
+					$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
+				}
+				else
+				{
+					$button['tooltip'] = ' ' . makeOverlib($button['title']);
+				}
+
+				$menue[''.$button['scope'].''][] = array(
+					'TOOLTIP'  => $button['tooltip'],
+					'ICON'     => $button['icon'],
+					'NAME'     => $button['title'],
+					'SCOPE'    => $button['scope'],
+					'BASENAME' => $button['basename'],
+					'U_LINK'   => $button['url']
+					);
+			}
+		}
+
+		// Restore our locale array
+		unset($localetemp);
+		return $menue;
+	}
