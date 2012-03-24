@@ -101,10 +101,11 @@ class Session
 
 			$page = implode('-',$roster->pages);
 			//make the life of the cookie longer and update time and IP .   `session_zsause` = '".USER_ID."',
+			$u = (isset($_COOKIE['roster_u']) ?$_COOKIE['roster_u'] : '0');
 
 			
 			$xsql = "UPDATE `". $roster->db->table('sessions') ."` SET ".
-			"`session_user_id` = '".$_COOKIE['roster_u']."',".
+			"`session_user_id` = '".$u."',".
 			"`session_last_visit` = '".time()."', `session_browser` = '".$this->browser."', `session_ip` = '".$this->getIP()."', `session_time` = '".(time()+60*15)."',
 			`session_page` = '".substr($this->page['page'], 0, 199)."[$page]'".
 			//" WHERE `session_id` = '" . session_id() . "';";
