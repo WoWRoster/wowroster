@@ -51,13 +51,13 @@ class RosterLogin
 	function RosterLogin( $script_filename='' )
 	{
 		global $roster;
-setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
+		//setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 		$this->setAction($script_filename);
 
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
 			setcookie('roster_user',NULL,time()-(60*60*24*30*100) );
-			setcookie('roster_u',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_u','0',(time()+60*60*24*30) );
 			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_pass',NULL,time()-(60*60*24*30*100) );
@@ -82,7 +82,7 @@ setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 			$this->allow_login = false;
 			$this->message = '';
 			setcookie('roster_user',NULL,time()-(60*60*24*30*100) );
-			setcookie('roster_u',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_u','0',(time()+60*60*24*30) );
 			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_pass',NULL,time()-(60*60*24*30*100) );
@@ -102,7 +102,7 @@ setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 		if( $count == 0 )
 		{
 			setcookie('roster_user',NULL,(time()-60*60*24*30*100) );
-			setcookie('roster_u',NULL,(time()-60*60*24*30*100) );
+			setcookie('roster_u','0',(time()+60*60*24*30) );
 			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
@@ -147,7 +147,7 @@ setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 		}
 		$roster->db->free_result($result);
 
-		//setcookie('roster_user','',time()-(60*60*24*30*100) );
+		setcookie('roster_u','0',(time()+60*60*24*30) );
 		//setcookie('roster_pass','',time()-(60*60*24*30*100) );
 		//setcookie('roster_remember','',time()-(60*60*24*30*100) );
 		$this->allow_login = false;
@@ -210,7 +210,7 @@ setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
 				'L_LOGIN_WORD'    	=> '',
 				'S_LOGIN_MESSAGE' 	=> (bool)$login_message,
 				'L_LOGIN_MESSAGE' 	=> $login_message,
-				'L_REGISTER'		=> '<a href="'.makelink("user-user-register", true).'"><br>Register Here!</a>',
+				'L_REGISTER'		=> '',//'<a href="'.makelink("user-user-register", true).'"><br>Register Here!</a>',
 				'U_LOGIN' 			=>  0
 			));
 

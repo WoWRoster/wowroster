@@ -822,12 +822,14 @@ $lang['tooltip_preg_use']='/Benutzen: (.+)/';
 $lang['tooltip_preg_chance']='/Gewährt (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
 $lang['tooltip_preg_heroic']='/Heroisch/';
+$lang['tooltip_preg_lfr']='/Raid Finder/';
 $lang['tooltip_garbage1']='/\<Zum Sockeln Shift-Rechtsklick\>/';
 $lang['tooltip_garbage2']='/\<Zum Lesen rechtsklicken\>/';
 $lang['tooltip_garbage3']='/Dauer (.+)/';
 $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Zum Öffnen rechtsklicken\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
+$lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Pfeil|Axt|Bogen|Kugel|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Götze|Streitkolben|Waffenhand|Nebenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|Fernkampf|Einhand|Zweihand|Relikt)/';
 $lang['tooltip_preg_speed']='/Geschwindigkeit/';
@@ -853,6 +855,9 @@ $lang['tooltip_source']='Quelle';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Droprate';
 $lang['tooltip_reforged']='Umgeschmiedet';
+$lang['tooltip_transmogc'] = '/Transmogrified to: (.+)/';
+$lang['tooltip_transmogb'] = 'Transmogrified to: ';
+$lang['tooltip_transmoga'] = "Transmogrified to:\n";
 
 $lang['tooltip_chance_hit']='Trefferchance'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='Benötigt';

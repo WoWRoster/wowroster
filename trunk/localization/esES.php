@@ -821,12 +821,14 @@ $lang['tooltip_preg_use']='/Use: (.+)/';
 $lang['tooltip_preg_chance']='/Chance (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
 $lang['tooltip_preg_heroic']='/Heroic/';
+$lang['tooltip_preg_lfr']='/Raid Finder/';
 $lang['tooltip_garbage1']='/\<Shift Right Click to Socket\>/';
 $lang['tooltip_garbage2']='/\<Right Click to Read\>/';
 $lang['tooltip_garbage3']='/Duration (.+)/';
 $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
+$lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
@@ -852,6 +854,9 @@ $lang['tooltip_source']='Fuente';
 $lang['tooltip_boss']='Jefe';
 $lang['tooltip_droprate']='Pos\. de aparici';
 $lang['tooltip_reforged']='Reforged';
+$lang['tooltip_transmogc'] = '/Transmogrified to: (.+)/';
+$lang['tooltip_transmogb'] = 'Transmogrified to: ';
+$lang['tooltip_transmoga'] = "Transmogrified to:\n";
 
 $lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc
