@@ -46,7 +46,7 @@ $roster->cache->cleanCache();
 	);
 
 	$r = $func->makeUSERmenu($roster->output['show_menu']);
-	$usrmenu = '<br><ul style="line-height: 24px;">';
+	$usrmenu = '<br /><ul style="line-height: 24px;">';
 	foreach($r['user'] as $i => $usr)
 	{
 		$usrmenu .= '<li><div class="icon">
@@ -93,7 +93,7 @@ $roster->cache->cleanCache();
 			// Skip multiple sessions for one user
 			if ($row['id'] != $prev_user_id)
 			{
-					$user_online_link .= '<em>'.$row['usr'].'<em>,';
+					$user_online_link .= '<em>'.$row['usr'].'</em>,';
 					$logged_visible_online++;
 			}
 			$prev_user_id = $row['id'];
@@ -155,7 +155,7 @@ $roster->cache->cleanCache();
 				$x = $rowb['b_title'];
 				$y = $rowb['b_desc'];
 			}
-			//echo $row['title'].'-'.$row['poster'].'-'.$row['text'].'<br>';
+			//echo $row['title'].'-'.$row['poster'].'-'.$row['text'].'<br />';
 			$roster->tpl->assign_block_vars('banners', array(
 					'B_DESC' 	=> $rowb['b_desc'],
 					'B_URL'		=> $rowb['b_url'],
@@ -196,7 +196,7 @@ $roster->cache->cleanCache();
 	
 	while( $row = $roster->db->fetch($results) )
 		{
-			//echo $row['title'].'-'.$row['poster'].'-'.$row['text'].'<br>';
+			//echo $row['title'].'-'.$row['poster'].'-'.$row['text'].'<br />';
 			$roster->tpl->assign_block_vars('news', array(
 					'POSTER' 	=> $row['poster'],
 					'NUM'		=> $numn,
