@@ -131,7 +131,11 @@ $roster->cache->cleanCache();
 	$guests_online = $guest['num_guests'];
 	// lets get the bots..
 	$bot = '';
-	while ($r = $roster->db->fetch($resultg))
+	$x = "SELECT * FROM " . $roster->db->table('sessions') . " WHERE `session_user_id` = '0'
+					AND `session_time` >= '" . (time() - (60 * 10)) ."';";
+
+	$d = $roster->db->query($x);
+	while ($r = $roster->db->fetch($d))
 	{
 		foreach ($bots as $rx)
 		{
