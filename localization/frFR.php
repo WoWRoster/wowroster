@@ -562,6 +562,7 @@ $lang['class_to_id'] = array(
 	'Chamane' => 7,
 //	'Mage' => 8,
 //	'Démoniste' => 9,
+	'Monk' => 10,
 	'Druidesse' => 11,
 );
 
@@ -576,6 +577,7 @@ $lang['id_to_class'] = array(
 	7 => 'Chaman',
 	8 => 'Mage',
 	9 => 'Démoniste',
+	10 => 'Monk',
 	11 => 'Druide'
 );
 
@@ -606,6 +608,7 @@ $lang['race_to_en'] = array(
 	'Taurène'       => 'Tauren',
 //	'Worgen'        => 'Worgen',
 //	'Gobelin'       => 'Goblin',
+	'Pandaren'	=> 'Pandaren',
 );
 
 $lang['race_to_id'] = array(
@@ -634,6 +637,8 @@ $lang['race_to_id'] = array(
 //	'Draeneï'      => 11,
 //	'Worgen'       => 22,
 //	'Gobelin'      => 9,
+	'Pandaren'	=> 25,
+	'Pandaren'	=> 26,
 );
 
 $lang['id_to_race'] = array(

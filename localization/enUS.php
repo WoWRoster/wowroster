@@ -576,6 +576,7 @@ $lang['id_to_class'] = array(
 	7 => 'Shaman',
 	8 => 'Mage',
 	9 => 'Warlock',
+	10 => 'Monk',
 	11 => 'Druid'
 );
 
@@ -593,6 +594,7 @@ $lang['race_to_en'] = array(
 	'Tauren'    => 'Tauren',
 	'Worgen'    => 'Worgen',
 	'Goblin'    => 'Goblin',
+	'Pandaren'	=> 'Pandaren',
 // Space so locale files are line synced
 
 
@@ -621,6 +623,8 @@ $lang['race_to_id'] = array(
 	'Draenei'   => 11,
 	'Worgen'    => 22,
 	'Goblin'    => 9,
+	'Pandaren'	=> 25,
+	'Pandaren'	=> 26,
 // Space so locale files are line synced
 
 
