@@ -64,18 +64,83 @@ $roster->cache->cleanCache();
 	);
 
 // begin the session user detection
+		$bots = array(
+		array('agent' => 'AdsBot-Google', 'name' =>'AdsBot [Google]'),
+		array('agent' => 'ia_archiver', 'name' =>'Alexa [Bot]'),
+		array('agent' => 'Scooter/', 'name' =>'Alta Vista [Bot]'),
+		array('agent' => 'Ask Jeeves', 'name' =>'Ask Jeeves [Bot]'),
+		array('agent' => 'Baiduspider+(', 'name' =>'Baidu [Spider]'),
+		array('agent' => 'Exabot/', 'name' =>'Exabot [Bot]'),
+		array('agent' => 'FAST Enterprise Crawler', 'name' =>'FAST Enterprise [Crawler]'),
+		array('agent' => 'FAST-WebCrawler/', 'name' =>'FAST WebCrawler [Crawler]'),
+		array('agent' => 'http://www.neomo.de/', 'name' =>'Francis [Bot]'),
+		array('agent' => 'Gigabot/', 'name' =>'Gigabot [Bot]'),
+		array('agent' => 'Mediapartners-Google', 'name' =>'Google Adsense [Bot]'),
+		array('agent' => 'Google Desktop', 'name' =>'Google Desktop'),
+		array('agent' => 'Feedfetcher-Google', 'name' =>'Google Feedfetcher'),
+		array('agent' => 'Googlebot', 'name' =>'Google [Bot]'),
+		array('agent' => 'heise-IT-Markt-Crawler Heise', 'name' =>'IT-Markt [Crawler]'),
+		array('agent' => 'heritrix/1.', 'name' =>'Heritrix [Crawler]'),
+		array('agent' => 'ibm.com/cs/crawler', 'name' =>'IBM Research [Bot]'),
+		array('agent' => 'ICCrawler - ICjobs', 'name' =>'ICCrawler - ICjobs'),
+		array('agent' => 'ichiro/', 'name' =>'ichiro [Crawler]'),
+		array('agent' => 'MJ12bot/', 'name' =>'Majestic-12 [Bot]'),
+		array('agent' => 'MetagerBot/', 'name' =>'Metager [Bot]'),
+		array('agent' => 'msnbot-NewsBlogs/', 'name' =>'MSN NewsBlogs'),
+		array('agent' => 'msnbot/', 'name' =>'MSN [Bot]'),
+		array('agent' => 'msnbot-media/', 'name' =>'MSNbot Media'),
+		array('agent' => 'NG-Search/', 'name' =>'NG-Search [Bot]'),
+		array('agent' => 'http://lucene.apache.org/nutch/', 'name' =>'Nutch [Bot]'),
+		array('agent' => 'NutchCVS/', 'name' =>'Nutch/CVS [Bot]'),
+		array('agent' => 'OmniExplorer_Bot/', 'name' =>'OmniExplorer [Bot]'),
+		array('agent' => 'online link validator', 'name' =>'Online link [Validator]'),
+		array('agent' => 'psbot/0', 'name' =>'psbot [Picsearch]'),
+		array('agent' => 'Seekbot/', 'name' =>'Seekport [Bot]'),
+		array('agent' => 'Sensis Web Crawler', 'name' =>'Sensis [Crawler]'),
+		array('agent' => 'SEO search Crawler/', 'name' =>'SEO Crawler'),
+		array('agent' => 'Seoma [SEO Crawler]', 'name' =>'Seoma [Crawler]'),
+		array('agent' => 'SEOsearch/', 'name' =>'SEOSearch [Crawler]'),
+		array('agent' => 'Snappy/1.1 ( http://www.urltrends.com/ )', 'name' =>'Snappy [Bot]'),
+		array('agent' => 'http://www.tkl.iis.u-tokyo.ac.jp/~crawler/', 'name' =>'Steeler [Crawler]'),
+		array('agent' => 'SynooBot/', 'name' =>'Synoo [Bot]'),
+		array('agent' => 'crawleradmin.t-info@telekom.de', 'name' =>'Telekom [Bot]'),
+		array('agent' => 'TurnitinBot/', 'name' =>'TurnitinBot [Bot]'),
+		array('agent' => 'voyager/1.0', 'name' =>'Voyager [Bot]'),
+		array('agent' => 'W3 SiteSearch', 'name' =>'Crawler W3 [Sitesearch]'),
+		array('agent' => 'W3C-checklink/', 'name' =>'W3C [Linkcheck]'),
+		array('agent' => 'W3C_*Validator', 'name' =>'W3C [Validator]'),
+		array('agent' => 'http://www.WISEnutbot.com', 'name' =>'WiseNut [Bot]'),
+		array('agent' => 'yacybot', 'name' =>'YaCy [Bot]'),
+		array('agent' => 'Yahoo-MMCrawler/', 'name' =>'Yahoo MMCrawler [Bot]'),
+		array('agent' => 'Yahoo! DE Slurp', 'name' =>'Yahoo Slurp [Bot]'),
+		array('agent' => 'Yahoo! Slurp', 'name' =>'Yahoo [Bot]'),
+		array('agent' => 'YahooSeeker/', 'name' =>'YahooSeeker [Bot]'),
+		array('agent' => 'bingbot/', 'name' =>'Bing [Bot]'),);
 
+	
 	$userlist_ary = $userlist_visible = array();
 	$logged_visible_online = $logged_hidden_online = $guests_online = $prev_user_id = 0;
 	$prev_session_ip ='';
 
-	$sqlg = "SELECT COUNT(DISTINCT session_ip) as num_guests
+	$sqlg = "SELECT COUNT(DISTINCT session_ip) as num_guests , session_browser 
 				FROM " . $roster->db->table('sessions') . " WHERE `session_user_id` = '0'
 					AND `session_time` >= '" . (time() - (60 * 10)) ."';";
 
 	$resultg = $roster->db->query($sqlg);
 	$guest = $roster->db->fetch($resultg);
 	$guests_online = $guest['num_guests'];
+	// lets get the bots..
+	$bot = '';
+	while ($r = $roster->db->fetch($resultg))
+	{
+		foreach ($bots as $rx)
+		{
+			if ($rx['agent'] && preg_match('#' . str_replace('\*', '.*?', preg_quote($rx['agent'], '#')) . '#i', $r['session_browser']))
+			{
+				$bot .= '<em>'.$rx['name'].'</em>, ';
+			}
+		}
+	}
 	unset($sqlg);
 	$roster->db->free_result($resultg);
 
@@ -116,8 +181,8 @@ $roster->cache->cleanCache();
 			<span style="float:left;">Guest:</span><span style="float:right;padding-right:10px;">'.$guests_online.'</span><br />
 			<small>
 				'.$user_online_link.'
-			</small>
-			';
+			<br />
+			Bots: '.$bot.'</small>';
 	
 	//$online = '';
 	$roster->tpl->assign_block_vars('right', array(
