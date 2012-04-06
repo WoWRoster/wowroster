@@ -195,7 +195,7 @@ echo '--------------------'
 sed "s/renprefix_/${db_prefix}/;/^#/d;/^\$/d" lib/dbal/structure/mysql_structure.sql lib/dbal/structure/mysql_data.sql | $MYSQL
 
 # Update the version number
-version=`cat version.txt | cut -f2 -d\> | cut -f1 -d\<`
+version=`sed -n "s/<version>\(.*\)<\/version>/\1/p" version.txt`
 
 $MYSQL << !
 UPDATE \`${db_prefix}config\` SET \`config_value\` = '${version}' WHERE \`config_name\` = 'version';
