@@ -72,10 +72,12 @@ class RosterLogin
 		elseif( isset($_POST['password']) && $_POST['password'] != '' && isset($_POST['username']) && $_POST['username'] != '')
 		{
 			$this->checkPass(md5($_POST['password']),$_POST['username'],'1');
+			return;
 		}
 		elseif( isset($_COOKIE['roster_pass']) && isset($_COOKIE['roster_user']) )
 		{
 			$this->checkPass($_COOKIE['roster_pass'],$_COOKIE['roster_user'],'0');
+			return;
 		}
 		else
 		{
@@ -97,8 +99,10 @@ class RosterLogin
 		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."' limit 1;";
 		$result = $roster->db->query($query);
 		//echo (bool)$result;
+		$row = $roster->db->fetch($result);
 		$count = $roster->db->num_rows($result);
 		//echo $count;
+		
 		if( $count == 0 )
 		{
 			setcookie('roster_user',NULL,(time()-60*60*24*30*100) );
@@ -117,8 +121,6 @@ class RosterLogin
 		if( $count == 1 )
 		{
 			$remember = (isset($_POST['rememberMe']) ? (int)$_POST['rememberMe'] : (int)$_COOKIE['roster_remember'] );
-			$row = $roster->db->fetch($result);
-			
 			setcookie('roster_user',$user,(time()+60*60*24*30) );
 			setcookie('roster_u',$row['id'],(time()+60*60*24*30) );
 			setcookie('roster_pass',$pass,(time()+60*60*24*30) );
@@ -126,25 +128,24 @@ class RosterLogin
 			$this->valid = 1;
 			$this->uid = $row['id'];
 			$this->allow_login = true;
-			$this->access = $row['access'];
-			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
-			$this->message = '<span class="login-message">Welcome, '.$user.' '.$this->logout.'</span>';
-			/*
-			if ($createsession == '1')
+			if ($row['active'] != 1)
 			{
-				$resul = $roster->session->session_create($row['id'], (in_array('11',$row['access']) ? true : false), true, true);
+				//roster_die('Your account is nto active or has not been approved by the admin only "Public" areas can be accessed');
+				$roster->set_message('Your account is not active or has not been approved by the admin only "Public" areas can be accessed', '', 'error');
+				$this->access = '0:';
 			}
 			else
 			{
-				$roster->session->session_begin();
+				$this->access = $row['access'];
 			}
-			*/
-				
 			
+			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
+			$this->message = '<span class="login-message">Welcome, '.$user.' '.$this->logout.'</span>';
 			$roster->db->free_result($result);
 			return true;
 
 		}
+	
 		$roster->db->free_result($result);
 
 		setcookie('roster_u','0',(time()+60*60*24*30) );

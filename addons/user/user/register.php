@@ -45,7 +45,8 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 			'city'		=> $_POST['City'],
 			'state'		=> $_POST['State'],
 			'country'	=> $_POST['Country'],
-			'zone'		=> $_POST['Zone']
+			'zone'		=> $_POST['Zone'],
+			'active'	=> $_POST['active']
 		);
 		$query = 'INSERT INTO `' . $roster->db->table('user_members') . '` ' . $roster->db->build_query('INSERT', $data);
 
@@ -94,84 +95,87 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 		}
 		return $numArray;
 	}
+
+	if ($addon['config']['char_auth'])
+	{
+		$x = generateUniqueRandoms(0, 18, 3);
+		$r = implode(':',$x);
+		list($num1,$num2,$num3) = explode(':',$r);
+
+		$s = "
+		$(document).ready(function () {  
+			//$('input#xsubmit').attr('disabled', 'true');
+			$('input#submit_btn').click(function(){
+			//$('#pUsername').keyup(function () {
+				var t = this;
+				var char = $('input#pUsername').val();
+				var validateUsername = $('#validateUsername');
+				var pUsername = $('#pUsername');
+				var pclass = $('input#class');
+				var plevel = $('input#level');
+				var prank = $('#rank');
+				var pmember_id = $('#member_id');
+				var ptitle = $('#title');
+				var photo = $('#photo');
+				var EQ1 = $('div#EQ1');
+				var EQ2 = $('div#EQ2');
+				var EQ3 = $('div#EQ3');
+			
+
+					if (this.timer) clearTimeout(this.timer);
+					validateUsername.removeClass('error').html('<img src=\"".$roster->config['img_url']."canvas-loader.gif\" height=\"18\" width=\"18\" /> checking availability...');
+					this.timer = setTimeout(function () {
+						$.ajax({
+							url: 'index.php?p=user-user-ajaxcvar',
+							//url: 'index.php?p=ajaxcvar',
+							data: 'action=check_username&server=".$roster->data['server']."&slot=".$num1.'-'.$num2.'-'.$num3."&character=' + char,
+							dataType: 'json',
+							type: 'post',
+							success: function (j) {
+								if (j.ok)
+								{
+									validateUsername.html(j.msg);
+									pUsername.val(char);
+									$('div#EQ1').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ1);
+									$('div#EQ2').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ2);
+									$('div#EQ3').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ3);
+									
+									pclass.val(j.cla55);
+									plevel.val(j.level);
+									prank.val(j.rank);
+									pmember_id.val(j.member_id);
+									ptitle.html(j.title);
+									
+									photo.html('<img src=\"http://us.battle.net/static-render/us/'+j.thumb+'\" height=\"75\" width=\"75\" /></a>');
+									
+									$('#xsubmit').removeAttr('disabled');
+									$('input#submit_btn').attr('disabled', 'true');
+								}
+								else
+								{
+									photo.html('<img src=\"http://us.battle.net/static-render/us/'+j.thumb+'\" height=\"75\" width=\"75\" /></a>');
+									validateUsername.html(j.msg);
+									$('div#EQ1').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ1);
+									$('div#EQ2').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ2);
+									$('div#EQ3').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ3);
+									pclass.val(j.cla55);
+									plevel.val(j.level);
+									prank.val(j.rank);
+									ptitle.html(j.title);
+									
+								}
+								
+							}
+
+						});
+					}, 200);
+
+			});
+		});";
+
+		roster_add_js($s,'inline');
+	}
 	
-	$x = generateUniqueRandoms(0, 18, 3);
-	$r = implode(':',$x);
-	list($num1,$num2,$num3) = explode(':',$r);
-
-	$s = "
-	$(document).ready(function () {  
-		//$('input#xsubmit').attr('disabled', 'true');
-		$('input#submit_btn').click(function(){
-		//$('#pUsername').keyup(function () {
-			var t = this;
-			var char = $('input#pUsername').val();
-			var validateUsername = $('#validateUsername');
-			var pUsername = $('#pUsername');
-			var pclass = $('input#class');
-			var plevel = $('input#level');
-			var prank = $('#rank');
-			var pmember_id = $('#member_id');
-			var ptitle = $('#title');
-			var photo = $('#photo');
-			var EQ1 = $('div#EQ1');
-			var EQ2 = $('div#EQ2');
-			var EQ3 = $('div#EQ3');
-		
-
-				if (this.timer) clearTimeout(this.timer);
-				validateUsername.removeClass('error').html('<img src=\"".$roster->config['img_url']."canvas-loader.gif\" height=\"18\" width=\"18\" /> checking availability...');
-				this.timer = setTimeout(function () {
-					$.ajax({
-						url: 'index.php?p=user-user-ajaxcvar',
-						//url: 'index.php?p=ajaxcvar',
-						data: 'action=check_username&server=".$roster->data['server']."&slot=".$num1.'-'.$num2.'-'.$num3."&character=' + char,
-						dataType: 'json',
-						type: 'post',
-						success: function (j) {
-							if (j.ok)
-							{
-								validateUsername.html(j.msg);
-								pUsername.val(char);
-								$('div#EQ1').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ1);
-								$('div#EQ2').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ2);
-								$('div#EQ3').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ3);
-								
-								pclass.val(j.cla55);
-								plevel.val(j.level);
-								prank.val(j.rank);
-								pmember_id.val(j.member_id);
-								ptitle.html(j.title);
-								
-								photo.html('<img src=\"http://us.battle.net/static-render/us/'+j.thumb+'\" height=\"75\" width=\"75\" /></a>');
-								
-								$('#xsubmit').removeAttr('disabled');
-								$('input#submit_btn').attr('disabled', 'true');
-							}
-							else
-							{
-								photo.html('<img src=\"http://us.battle.net/static-render/us/'+j.thumb+'\" height=\"75\" width=\"75\" /></a>');
-								validateUsername.html(j.msg);
-								$('div#EQ1').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ1);
-								$('div#EQ2').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ2);
-								$('div#EQ3').removeClass(\"RGaccepy RGdenyed RGquestion\").addClass(j.EEQQ3);
-								pclass.val(j.cla55);
-								plevel.val(j.level);
-								prank.val(j.rank);
-								ptitle.html(j.title);
-								
-							}
-							
-						}
-
-					});
-				}, 200);
-
-		});
-	});";
-
-	roster_add_js($s,'inline');
-
 	function _getItemSlot($value) {
 		$ret = '';
 		switch ($value) 
@@ -200,44 +204,102 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 		}
 		return $ret;
 	}
+
 $form = 'userApp';
 //$user->form->newForm('post', makelink('util-accounts-application'), $form, 'formClass', 4);
+
 $user->form->newForm('post', makelink('util-user-register'), $form, 'formClass', 4);
-$user->form->addTextBox('text', 'fname', '', $roster->locale->act['user_int']['fname'], 'wowinput128', 1, $form);
-$user->form->addTextBox('text', 'lname', '', $roster->locale->act['user_int']['lname'], 'wowinput128', '', $form);
-$user->form->addDateSelect('age','Birthdate',1,$form);
-$user->form->addTextBox('text','City','',$roster->locale->act['user_int']['city'],'wowinput128','',$form);
-$user->form->addTextBox('text','State','',$roster->locale->act['user_int']['state'],'wowinput128','',$form);
-$user->form->addTextBox('text','Country','',$roster->locale->act['user_int']['country'],'wowinput128',1,$form);
-$user->form->addTimezone('Zone',$roster->locale->act['user_app']['zone'],'',$form);
-$roster->tpl->assign_vars(array(
-	'R_EQUIP_1'     => _getItemSlot($num1),
-	'R_EQUIP_2'     => _getItemSlot($num2),
-	'R_EQUIP_3'     => _getItemSlot($num3),
-	'N_EQUIP_1'     => _getItemSlotn($num1),
-	'N_EQUIP_2'     => _getItemSlotn($num2),
-	'N_EQUIP_3'     => _getItemSlotn($num3),
-	'R_IMAGE_PTH'	=> $roster->config['img_url'].'Interface/EmptyEquip/',
-	//'R_Q_CHAR'     => @$_REQUEST['character'],
-	//'R_Q_RANK'     => @$_REQUEST['rank'],
-	'R_MSG_ERROR'	=> (!empty($e) ? $e : ''),
 
-	'CNAMETT' 		=> makeOverlib($roster->locale->act['cname_tt'],$roster->locale->act['cname'],'',1,'',',WRAP'),
-	'CNAME' 		=> $roster->locale->act['cname'],
-	'CLASSTT' 		=> makeOverlib($roster->locale->act['cclass_tt'],$roster->locale->act['cclass'],'',1,'',',WRAP'),
-	'CLASS'			=> $roster->locale->act['cclass'],
-	'LEVELTT' 		=> makeOverlib($roster->locale->act['clevel_tt'],$roster->locale->act['clevel'],'',1,'',',WRAP'),
-	'LEVEL' 		=> $roster->locale->act['clevel'],
-	'RANKTT' 		=> makeOverlib($roster->locale->act['cgrank_tt'],$roster->locale->act['cgrank'],'',1,'',',WRAP'),
-	'RANK' 			=> $roster->locale->act['cgrank'],
-	'EMAILTT' 		=> makeOverlib($roster->locale->act['cemail_tt'],$roster->locale->act['cemail'],'',1,'',',WRAP'),
-	'EMAIL' 		=> $roster->locale->act['cemail'],
-	'AGE'			=> 'Birthday',
-	'AGEF'			=> '',
-	'XXX'			=> $user->form->getTableOfElements_3(1,$form),
-	)
-);
+if ($addon['config']['fname_auth'] == '1')
+{
+	$user->form->addTextBox('text', 'fname', '', $roster->locale->act['user_int']['fname'], 'wowinput128', 1, $form);
+}
+if ($addon['config']['lname_auth'] == '1')
+{
+	$user->form->addTextBox('text', 'lname', '', $roster->locale->act['user_int']['lname'], 'wowinput128', '', $form);
+}
+if ($addon['config']['age_auth'] == '1')
+{
+	$user->form->addDateSelect('age','Birthdate',1,$form);
+}
+if ($addon['config']['city_auth'] == '1')
+{
+	$user->form->addTextBox('text','City','',$roster->locale->act['user_int']['city'],'wowinput128','',$form);
+}
+if ($addon['config']['state_auth'] == '1')
+{
+	$user->form->addTextBox('text','State','',$roster->locale->act['user_int']['state'],'wowinput128','',$form);
+}
+if ($addon['config']['country_auth'] == '1')
+{
+	$user->form->addTextBox('text','Country','',$roster->locale->act['user_int']['country'],'wowinput128',1,$form);
+}
+if ($addon['config']['zone_auth'] == '1')
+{
+	$user->form->addTimezone('Zone',$roster->locale->act['user_app']['zone'],'',$form);
+}
 
+if ($addon['config']['char_auth'] == '1')
+{
+	$roster->tpl->assign_vars(array(
+		'R_EQUIP_1'     => _getItemSlot($num1),
+		'R_EQUIP_2'     => _getItemSlot($num2),
+		'R_EQUIP_3'     => _getItemSlot($num3),
+		'N_EQUIP_1'     => _getItemSlotn($num1),
+		'N_EQUIP_2'     => _getItemSlotn($num2),
+		'N_EQUIP_3'     => _getItemSlotn($num3),
+		'R_IMAGE_PTH'	=> $roster->config['img_url'].'Interface/EmptyEquip/',
+		//'R_Q_CHAR'     => @$_REQUEST['character'],
+		//'R_Q_RANK'     => @$_REQUEST['rank'],
+		'R_MSG_ERROR'	=> (!empty($e) ? $e : ''),
+		'CHAR_AUTH'		=> $addon['config']['char_auth'],
+		'CNAMETT' 		=> makeOverlib($roster->locale->act['cname_tt'],$roster->locale->act['cname'],'',1,'',',WRAP'),
+		'CNAME' 		=> $roster->locale->act['cname'],
+		'CLASSTT' 		=> makeOverlib($roster->locale->act['cclass_tt'],$roster->locale->act['cclass'],'',1,'',',WRAP'),
+		'CLASS'			=> $roster->locale->act['cclass'],
+		'LEVELTT' 		=> makeOverlib($roster->locale->act['clevel_tt'],$roster->locale->act['clevel'],'',1,'',',WRAP'),
+		'LEVEL' 		=> $roster->locale->act['clevel'],
+		'RANKTT' 		=> makeOverlib($roster->locale->act['cgrank_tt'],$roster->locale->act['cgrank'],'',1,'',',WRAP'),
+		'RANK' 			=> $roster->locale->act['cgrank'],
+		'EMAILTT' 		=> makeOverlib($roster->locale->act['cemail_tt'],$roster->locale->act['cemail'],'',1,'',',WRAP'),
+		'EMAIL' 		=> $roster->locale->act['cemail'],
+		'AGE'			=> 'Birthday',
+		'AGEF'			=> '',
+		'XXX'			=> $user->form->getTableOfElements_3(1,$form),
+		)
+	);
+
+}
+else
+{
+	$roster->tpl->assign_vars(array(
+		'R_EQUIP_1'     => '',//_getItemSlot($num1),
+		'R_EQUIP_2'     => '',//_getItemSlot($num2),
+		'R_EQUIP_3'     => '',//_getItemSlot($num3),
+		'N_EQUIP_1'     => '',//_getItemSlotn($num1),
+		'N_EQUIP_2'     => '',//_getItemSlotn($num2),
+		'N_EQUIP_3'     => '',//_getItemSlotn($num3),
+		'R_IMAGE_PTH'	=> $roster->config['img_url'].'Interface/EmptyEquip/',
+		//'R_Q_CHAR'     => @$_REQUEST['character'],
+		//'R_Q_RANK'     => @$_REQUEST['rank'],
+		'R_MSG_ERROR'	=> (!empty($e) ? $e : ''),
+		'CHAR_AUTH'		=> $addon['config']['char_auth'],
+		'CNAMETT' 		=> makeOverlib($roster->locale->act['cname_tt'],$roster->locale->act['cname'],'',1,'',',WRAP'),
+		'CNAME' 		=> $roster->locale->act['cname'],
+		'CLASSTT' 		=> makeOverlib($roster->locale->act['cclass_tt'],$roster->locale->act['cclass'],'',1,'',',WRAP'),
+		'CLASS'			=> $roster->locale->act['cclass'],
+		'LEVELTT' 		=> makeOverlib($roster->locale->act['clevel_tt'],$roster->locale->act['clevel'],'',1,'',',WRAP'),
+		'LEVEL' 		=> $roster->locale->act['clevel'],
+		'RANKTT' 		=> makeOverlib($roster->locale->act['cgrank_tt'],$roster->locale->act['cgrank'],'',1,'',',WRAP'),
+		'RANK' 			=> $roster->locale->act['cgrank'],
+		'EMAILTT' 		=> makeOverlib($roster->locale->act['cemail_tt'],$roster->locale->act['cemail'],'',1,'',',WRAP'),
+		'EMAIL' 		=> $roster->locale->act['cemail'],
+		'AGE'			=> 'Birthday',
+		'AGEF'			=> '',
+		'XXX'			=> $user->form->getTableOfElements_3(1,$form),
+		)
+	);
+}
 
 $roster->tpl->set_filenames(array(
 	'register' => 'register.html'

@@ -28,27 +28,35 @@ $roster->output['title'] .= $roster->locale->act['pagebar_userman'];
 
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
-
+		if (isset($_POST['delete']))
+		{
+			foreach ($_POST['delete'] as $user => $id)
+			{
+				$dl_query = "DELETE FROM `" . $roster->db->table('user_members') . "` WHERE `id` = '".$id."';";
+				$dl_result = $roster->db->query($dl_query);
+			}
+		}
 	foreach ($_POST as $name => $value)
 	{
 		$query = $access = '';
+		$ad = array();
+
 		if ($name != 'action' && $name != 'process')
 		{
-			//echo $name.' - '.implode(":",$value).'<br>';
-			if (is_array($value))
+
+			if (isset($value['access']))
 			{
-				$access = implode(":",$value);
+				$access = implode(":",$value['access']);
+				$a = "`access` = '".$access."' ";
 			}
-			else
+			if (isset($value['active']))
 			{
-				$access = $value;
+				$b = ", `active` = '".$value['active']."' ";
 			}
-			$up_query = "UPDATE `" . $roster->db->table('user_members') . "` SET `access` = '".$access."' WHERE `id` = '".$name."';";
-			//echo $up_query.'<br>';
+			$up_query = "UPDATE `" . $roster->db->table('user_members') . "` SET $a $b WHERE `id` = '".$name."';";
 			$up_result = $roster->db->query($up_query);
 		}
 	}
-
 }
 // Change scope to guild, and rerun detection to load default
 //print_r($roster->auth->GetAccess());
@@ -61,29 +69,23 @@ if( !$dm_result )
 {
 	die_quietly($roster->db->error(), 'Database error', __FILE__, __LINE__, $dm_query);
 }
-$x .= '<table>';
-$x .= '<tr>
-		<td>User</td>
-		<td>email</td>';
-		foreach ($roster->auth->GetAccess() as $acc => $a)
-		{
-			$x .= '<td>'.$a.'</td>';
-		}
-$x .= '</tr>';
+
+$c = 1;
 while( $row = $roster->db->fetch($dm_result) )
 {
 
-	
 	$roster->tpl->assign_block_vars('user', array(
-			'ROW_CLASS' => $roster->switch_row_class(),
-			'ID'        => $row['id'],
-			'NAME'      => $row['usr'],
-			'EMAIL'    => $row['email'],
-			'ACCESS'     => $roster->auth->makeAccess(array('name' => $row['id'], 'value' => $row['access']))
-			)
-		);
+		'ROW_CLASS' => $roster->switch_row_class(),
+		'ID'        => $row['id'],
+		'IDC'        => $c++,
+		'IDX'        => $c++,
+		'ACTIVE'	=> (bool)$row['active'],
+		'NAME'      => $row['usr'],
+		'EMAIL'    => $row['email'],
+		'ACCESS'     => $roster->auth->makeAccess(array('name' => ''.$row['id'].'[access]', 'value' => $row['access']))
+		)
+	);
 }
-$x .= '<table>';
 $roster->db->free_result($dm_result);
 
 
