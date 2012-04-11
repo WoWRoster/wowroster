@@ -25,7 +25,7 @@ class userInstall
 	var $active = true;
 	var $icon = 'inv_misc_bag_26_spellfire';
 
-	var $version = '0.1';
+	var $version = '0.2.1';
 	var $wrnet_id = '0';
 
 	var $fullname = 'Guild User pages';
@@ -97,7 +97,16 @@ class userInstall
 		/**
 		* admin section settings
 		**/
-
+		$installer->add_config("8000,'startpage','usr_config','display','master'");
+		$installer->add_config("8001,'usr_config',NULL,'blockframe','menu'");
+		$installer->add_config("8002,'char_auth','1','select{Default^1|Character^1|Admin Approve^2|None^1','usr_config'");
+		$installer->add_config("8003,'fname_auth','0','radio{On^1|Off^0','usr_config'");
+		$installer->add_config("8004,'lname_auth','0','radio{On^1|Off^0','usr_config'");
+		$installer->add_config("8005,'age_auth','0','radio{On^1|Off^0','usr_config'");
+		$installer->add_config("8006,'city_auth','0','radio{On^1|Off^0','usr_config'");
+		$installer->add_config("8007,'state_auth','0','radio{On^1|Off^0','usr_config'");
+		$installer->add_config("8008,'country_auth','0','radio{On^1|Off^0','usr_config'");
+		$installer->add_config("8009,'zone_auth','0','radio{On^1|Off^0','usr_config'");
 
 		/**
 		* Master and menu entries 
@@ -121,6 +130,23 @@ class userInstall
 	{
 		global $installer;
 
+		if( version_compare('0.2', $oldversion,'>') == true )
+		{
+			$installer->add_config("8000,'startpage','usr_config','display','master'");
+			$installer->add_config("8001,'usr_config',NULL,'blockframe','menu'");
+			$installer->add_config("8002,'char_auth','1','select{Default^1|Character^1|Admin Approve^2|None^0','usr_config'");
+			$installer->add_config("8003,'fname_auth','0','radio{On^1|Off^0','usr_config'");
+			$installer->add_config("8004,'lname_auth','0','radio{On^1|Off^0','usr_config'");
+			$installer->add_config("8005,'age_auth','0','radio{On^1|Off^0','usr_config'");
+			$installer->add_config("8006,'city_auth','0','radio{On^1|Off^0','usr_config'");
+			$installer->add_config("8007,'state_auth','0','radio{On^1|Off^0','usr_config'");
+			$installer->add_config("8008,'country_auth','0','radio{On^1|Off^0','usr_config'");
+			$installer->add_config("8009,'zone_auth','0','radio{On^1|Off^0','usr_config'");
+		}
+		if( version_compare('0.2.1', $oldversion,'>') == true )
+		{
+			$installer->add_config("8001,'usr_config',NULL,'blockframe','menu'");
+		}
 		
 		return true;
 	}

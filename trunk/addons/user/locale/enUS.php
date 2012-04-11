@@ -171,6 +171,16 @@ $lang['user_page'] = array(
 	'messaging' => 'My Mail',
 	'login' => 'User Login',
 );
+// Reg Page config
+$lang['admin']['usr_config']	= 'Reg Config|Settings for the registration page';
+$lang['admin']['char_auth']		= 'Registration Type|This sets the type of registration to use<br />Default\Char - User has to valadate there char name<br />Admin - Admin has to approve Users<br />None - Any one can register';
+$lang['admin']['fname_auth']	= 'User First name|';
+$lang['admin']['lname_auth']	= 'User Last name|';
+$lang['admin']['age_auth']		= 'User Age|';
+$lang['admin']['city_auth']		= 'User City|';
+$lang['admin']['state_auth']	= 'User State|';
+$lang['admin']['country_auth']	= 'User Country|';
+$lang['admin']['zone_auth']		= 'User Time Zone|';
 
 // Config page names
 $lang['admin']['user_display']	= 'Configuration|Configure options specific to accounts.';
