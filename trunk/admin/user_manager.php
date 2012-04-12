@@ -73,7 +73,7 @@ if( !$dm_result )
 $c = 1;
 while( $row = $roster->db->fetch($dm_result) )
 {
-
+$tooltip = implode('<br />',$row);
 	$roster->tpl->assign_block_vars('user', array(
 		'ROW_CLASS' => $roster->switch_row_class(),
 		'ID'        => $row['id'],
@@ -81,6 +81,7 @@ while( $row = $roster->db->fetch($dm_result) )
 		'IDX'        => $c++,
 		'ACTIVE'	=> (bool)$row['active'],
 		'NAME'      => $row['usr'],
+		'TOOLTIP'      => $tooltip,
 		'EMAIL'    => $row['email'],
 		'ACCESS'     => $roster->auth->makeAccess(array('name' => ''.$row['id'].'[access]', 'value' => $row['access']))
 		)
