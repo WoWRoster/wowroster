@@ -73,7 +73,28 @@ if( !$dm_result )
 $c = 1;
 while( $row = $roster->db->fetch($dm_result) )
 {
-$tooltip = implode('<br />',$row);
+$tooltip = 'User ID '.$row['id'].'</br>';
+$tooltip .= 'Username '.$row['usr'].'</br>';
+$tooltip .= 'Email '.$row['email'].'</br>';
+$tooltip .= 'Reg ip '.$row['regIP'].'</br>';
+$tooltip .= 'Access '.$row['access'].'</br>';
+$tooltip .= 'Name '.$row['fname'].' '.$row['lname'].'</br>';
+$tooltip .= 'Age '.$row['age'].'</br>';
+$tooltip .= 'City '.$row['city'].'</br>';
+$tooltip .= 'State '.$row['state'].'</br>';
+$tooltip .= 'Country '.$row['country'].'</br>';
+$tooltip .= 'Zone '.$row['zone'].'</br>';
+$tooltip .= 'WWW '.$row['homepage'].'</br>';
+$tooltip .= 'O/Guilds '.$row['other_guilds'].'</br>';
+$tooltip .= 'Why '.$row['why'].'</br>';
+$tooltip .= 'About '.$row['about'].'</br>';
+$tooltip .= 'Notes '.$row['notes'].'</br>';
+$tooltip .= 'Last Login '.$row['last_login'].'</br>';
+$tooltip .= 'Joined '.$row['date_joined'].'</br>';
+$tooltip .= 'Is Member '.$row['is_member'].'</br>';
+$tooltip .= 'Active '.$row['active'].'</br>';
+$tooltip .= 'Online '.$row['online'].'</br>';
+$tooltip .= 'LAst online '.$row['user_lastvisit'].'</br>';
 	$roster->tpl->assign_block_vars('user', array(
 		'ROW_CLASS' => $roster->switch_row_class(),
 		'ID'        => $row['id'],
