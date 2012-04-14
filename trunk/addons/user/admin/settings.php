@@ -122,7 +122,7 @@ if( $num_members > 0 )
 			$k++;
 			$roster->tpl->assign_block_vars('characters.cfg',array(
 				'NAME'  => $v['disc'],
-				'FIELD' => $field,
+				'FIELD' => $roster->auth->makeAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
 				)
 			);
 		}
