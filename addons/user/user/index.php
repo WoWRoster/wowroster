@@ -10,11 +10,12 @@ if ( !defined('ROSTER_INSTALLED') )
 
 if( !isset($user) )
 {
-include_once ($addon['inc_dir'] . 'conf.php');
+	include_once( $addon['inc_dir'] . 'users.lib.php' );
+	$user = new user();
 }
 
 
-global $roster, $addon, $user;
+//global $roster, $addon, $user;
 
 // --[ Get path info based on scope ]--
 if( !isset($roster->pages[2]) )

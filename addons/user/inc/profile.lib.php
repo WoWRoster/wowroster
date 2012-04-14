@@ -16,7 +16,7 @@ if( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-//include_once ($addon['inc_dir'] . 'user.lib.php');
+include_once ($addon['inc_dir'] . 'users.lib.php');
 
 class usersProfile extends user
 {
@@ -28,14 +28,14 @@ class usersProfile extends user
 	var $notes;
 	var $configData = array();
 
-	function usersProfile()
+	function userProfile()
 	{
 		global $roster, $addon, $user;
 
-		$this->uid = 0;
+		//$this->uid = 0;
 	}
 
-	function userProfile($uid = '', $char = '', $uname = '', $email = '')
+	function usersProfile($uid = '', $char = '', $uname = '', $email = '')
 	{
 		global $roster, $addon, $user;
 		
@@ -68,7 +68,7 @@ class usersProfile extends user
 					$mid = $row['member_id'];
 				}
 				
-				$usql = 'SELECT `uid` FROM ' . $user->db['userlink'] . ' WHERE `member_id` = ' . $mid . ';';
+				$usql = 'SELECT `uid` FROM ' . $roster->db->table('user_link', 'user') . ' WHERE `member_id` = ' . $mid . ';';
 				$uquery = $roster->db->query($usql);
 				while ($row = $roster->db->fetch($uquery))
 				{
@@ -275,9 +275,9 @@ class usersProfile extends user
 
 	function getMain($uid)
 	{
-		global $roster, $addon, $user;
+		global $roster, $addon;
 
-		$sql = 'SELECT `member_id` FROM `' . $user->db['userlink'] . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
+		$sql = 'SELECT `member_id` FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
 		$query = $roster->db->query($sql);
 		while($row = $roster->db->fetch($query))
 		{
@@ -295,11 +295,11 @@ class usersProfile extends user
 	{
 		global $roster, $addon, $user;
             //Unset previous main(s)
-            $usql = 'UPDATE `' . $user->db['userlink'] . '` SET `is_main` = 0 WHERE `uid` = ' . $uid;
+            $usql = 'UPDATE `' . $roster->db->table('user_link', 'user') . '` SET `is_main` = 0 WHERE `uid` = ' . $uid;
             $roster->db->query($usql);
             
             //Set New Main
-		$sql = 'UPDATE `' . $user->db['userlink'] . '` SET `is_main` = 1 WHERE `uid` = ' . $uid . ' AND `member_id` = ' . $mid;
+		$sql = 'UPDATE `' . $roster->db->table('user_link', 'user') . '` SET `is_main` = 1 WHERE `uid` = ' . $uid . ' AND `member_id` = ' . $mid;
 		$roster->db->query($sql);
 		return;
 	}
@@ -329,21 +329,21 @@ class usersProfile extends user
 		switch ($case)
 		{
 		case 'signature':
-			$sql = 'SELECT `signature` FROM `' . $user->db['profile'] . '` WHERE `uid` = ' . $uid;
+			$sql = 'SELECT `signature` FROM `' . $roster->db->table('profile','user') . '` WHERE `uid` = ' . $uid;
 			$result = $roster->db->query($sql);
 			$sig = $roster->db->fetch($result);
 
 			return urldecode($sig['signature']);
 			break;
 		case 'avatar':
-			$sql = 'SELECT `avatar` FROM `' . $user->db['profile'] . '` WHERE `uid` = ' . $uid;
+			$sql = 'SELECT `avatar` FROM `' . $roster->db->table('profile','user') . '` WHERE `uid` = ' . $uid;
 			$result = $roster->db->query($sql);
 			$avatar = $roster->db->fetch($result);
 
 			return urldecode($avatar['avatar']);
 			break;
 		default:
-			$sql = 'SELECT `avatar` FROM `' . $user->db['profile'] . '` WHERE `uid` = ' . $uid;
+			$sql = 'SELECT `avatar` FROM `' . $roster->db->table('profile','user') . '` WHERE `uid` = ' . $uid;
 			$result = $roster->db->query($sql);
 			$avatar = $roster->db->fetch($result);
 
@@ -352,22 +352,10 @@ class usersProfile extends user
 		}
 	}
 
-	function setAvSig($switch, $id = '', $mid, $src = '')
+	function setAvSig($id = '', $mid, $src = '')
 	{
 		global $roster, $addon, $user;
 
-		if($switch == 'av')
-		{
-			$case = 'avatar';
-		}
-		elseif($switch == 'sig')
-		{
-			$case = 'signature';
-		}
-		else
-		{
-			$case = 'avatar';
-		}
 		
 		if(!is_null($id) || $id > 0)
 		{
@@ -382,7 +370,7 @@ class usersProfile extends user
 
 		if($mid > 0 && $mid != '')
 		{
-			$sql = 'SELECT `name` FROM `' . $roster->db->table('players') . '` WHERE `member_id` = ' . $mid;
+			$sql = 'SELECT `name` FROM `' . $roster->db->table('members') . '` WHERE `member_id` = ' . $mid;
 			$query = $roster->db->query($sql);
 			while($row = $roster->db->fetch($query))
 			{
@@ -404,53 +392,58 @@ class usersProfile extends user
 
 		$is_active = active_addon('siggen');
 
-		if($hasMain == false)
+			$c = array('signature','avatar');
+		foreach ($c as $case)
 		{
-			die_quietly("You do not have a main character set. Please set your main character and try again.");
-		}
-		else
-		{
-			if($is_active == 1 && $src == 'SigGen')
+		
+			if($hasMain == false)
 			{
-				$sql = 'SELECT `region`, `realm` FROM `' . $user->db['userlink'] . '` WHERE `uid` = ' . $uid . ' AND `member_id` = ' . $mid;
-				$query = $roster->db->query($sql);
-				while($row = $roster->db->fetch($query))
+				die_quietly("You do not have a main character set. Please set your main character and try again.");
+			}
+			else
+			{
+				if($is_active == 1 && $src == 'SigGen')
 				{
-					$link = makelink('util-siggen-' . $case . '&amp;member=' . $char . '@' . $row['region'] . '-' . $row['realm'], 'url');
+					$sql = 'SELECT `region`, `realm` FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `member_id` = ' . $mid;
+					$query = $roster->db->query($sql);
+					while($row = $roster->db->fetch($query))
+					{
+						$link = makelink('util-siggen-' . $case . '&amp;member=' . $char . '@' . $row['region'] . '-' . $row['realm'], 'url');
+					}
+				}
+				elseif($is_active == 0 && $src == 'SigGen')
+				{
+					die_quietly("SigGen is not installed! Please install SigGen and try again.<br />");
+				}
+				elseif($src == 'default')
+				{
+					$sql = 'SELECT `race`, `sex` FROM `' . $roster->db->table('players') . '` WHERE `member_id` = ' . $mid;
+					$query = $roster->db->query($sql);
+					while($row = $roster->db->fetch($query))
+					{
+						$link = $addon['image_url'] . str_replace(' ', '', $row['race']) . '-' . $row['sex'] . '.png';
+					}
 				}
 			}
-			elseif($is_active == 0 && $src == 'SigGen')
+
+			switch ($case)
 			{
-				die_quietly("SigGen is not installed! Please install SigGen and try again.<br />");
-			}
-			elseif($src == 'default')
-			{
-				$sql = 'SELECT `race`, `sex` FROM `' . $roster->db->table('players') . '` WHERE `member_id` = ' . $mid;
-				$query = $roster->db->query($sql);
-				while($row = $roster->db->fetch($query))
-				{
-					$link = $addon['image_url'] . str_replace(' ', '', $row['race']) . '-' . $row['sex'] . '.png';
-				}
+			case 'signature':
+				$sql = 'UPDATE `' . $roster->db->table('profile','user') . '` SET `signature` = "' . urlencode($link) . '" WHERE `uid` = ' . $uid;
+				$roster->db->query($sql);
+				break;
+			case 'avatar':
+				$sql = 'UPDATE `' . $roster->db->table('profile','user') . '` SET `avatar` = "' . urlencode($link) . '" WHERE `uid` = ' . $uid;
+				$roster->db->query($sql);
+				break;
+			default:
+				$sql = 'UPDATE `' . $roster->db->table('profile','user') . '` SET `avatar` = "' . urlencode($link) . '" WHERE `uid` = ' . $uid;
+				$roster->db->query($sql);
+				break;
 			}
 		}
-
-		switch ($case)
-		{
-		case 'signature':
-			$sql = 'UPDATE `' . $user->db['profile'] . '` SET `signature` = "' . urlencode($link) . '" WHERE `uid` = ' . $uid;
-			$roster->db->query($sql);
-			break;
-		case 'avatar':
-			$sql = 'UPDATE `' . $user->db['profile'] . '` SET `avatar` = "' . urlencode($link) . '" WHERE `uid` = ' . $uid;
-			$roster->db->query($sql);
-			break;
-		default:
-			$sql = 'UPDATE `' . $user->db['profile'] . '` SET `avatar` = "' . urlencode($link) . '" WHERE `uid` = ' . $uid;
-			$roster->db->query($sql);
-			break;
-		}
-
-		return;
+		echo 'i worked<br>';
+		return true;
 	}
 
 	function getGroup( $member )

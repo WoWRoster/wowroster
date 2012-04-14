@@ -17,7 +17,7 @@ if( !isset($user))
 {
 	include_once( $addon['inc_dir'] . 'users.lib.php' );
 	$user = new user;
-
+/*
 	if( !isset($user->form))
 	{
 		include_once( $addon['inc_dir'] . 'form.lib.php');
@@ -29,7 +29,7 @@ if( !isset($user))
 		include_once( $addon['inc_dir'] . 'admin.lib.php');
 		$user->admin = new userAdmin;
 	}
-*/
+
 	if( !isset($user->page))
 	{
 		include_once( $addon['inc_dir'] . 'page.lib.php');
@@ -53,6 +53,6 @@ if( !isset($user))
 		include_once( $addon['inc_dir'] . 'messaging.lib.php');
 		$user->messaging = new userMessaging;
 	}
-
+*/
 }
 ?>
