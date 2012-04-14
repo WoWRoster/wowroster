@@ -15,7 +15,7 @@ if( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
 }
-
+		
 class userUser extends user
 {
 	var $id = 0; // the current user's id

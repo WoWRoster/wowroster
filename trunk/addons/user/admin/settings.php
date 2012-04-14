@@ -69,7 +69,7 @@ if( $num_members > 0 )
 	);
 
 	$query = 'SELECT '.
-		'`user`.`id`, '.	'`members`.`member_id`, '.	'`members`.`account_id`, '.	'`player`.`member_id`, '.	'`player`.`name`, '.
+		'`user`.`id`, '.	'`members`.`member_id`, '.	'`members`.`account_id`, '.	'`player`.`member_id`, '.	'`members`.`name`, '.
 		'`player`.`race`, '.
 		'`player`.`sex`, '.
 		'`player`.`level`, '.

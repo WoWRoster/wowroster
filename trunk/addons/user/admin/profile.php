@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /** 
  * Dev.PKComp.net WoWRoster Addon
  * 
@@ -19,10 +19,7 @@ if( !defined('IN_ROSTER') )
 
 if( isset($_POST['process']) && $_POST['process'] != '' )
 {
-	$roster_config_message = processData();
-	echo '<prE>';
-	print_r($_POST);
-	echo '</pre>';
+	processData();
 }
 
 global $roster, $user, $addon;
@@ -115,6 +112,16 @@ if( $num_members > 0 )
 	$formbody .= "</table>\n" . border('syellow','end') . "\n</div>\n";
 	$formbody .= $prev . $listing . $next;
 	*/
+	$roster->tpl->assign_block_vars('profile.cfg',array(
+				'NAME'  => $roster->locale->act['user_settings']['main'],
+				'FIELD' => selectMain($uid),
+				)
+			);
+	$roster->tpl->assign_block_vars('profile.cfg',array(
+				'NAME'  => $roster->locale->act['user_settings']['src_gen'],
+				'FIELD' => selectGen($uid),
+				)
+			);
 }
 else
 {
@@ -156,13 +163,14 @@ $roster->tpl->display('ucp');
 function selectMain($uid)
 {
 	global $roster, $addon, $user;
-
-	$query = "SELECT `link`.`member_id`, `player`.`name` FROM `".$user->db['userlink']."` AS link LEFT JOIN `".$roster->db->table('players')."` AS player ON `link`.`member_id` = `player`.`member_id` WHERE `link`.`uid` = ".$uid.";";
+include_once( $addon['inc_dir'] . 'users.lib.php' );
+	$user = new user();
+	$query = "SELECT `users`.`id`, `member`.`name`,`member`.`member_id` FROM `".$roster->db->table('user_members')."` AS users LEFT JOIN `".$roster->db->table('members')."` AS member ON `users`.`id` = `member`.`account_id` WHERE `users`.`id` = ".$uid.";";
 	$result = $roster->db->query($query);
 
 	if( !$result )
 	{
-		die_quietly($roster->db->error, 'user Profile', __FILE__,__LINE__,$query);
+		die_quietly($roster->db->error, 'users Profile', __FILE__,__LINE__,$query);
 	}
 
       $chars = '';
@@ -171,13 +179,13 @@ function selectMain($uid)
 		$chars[$row['member_id']] = $row['name'];
 	}
 
-	$input_field = '<select name="select_' . $uid . ':is_main">' . "\n";
+	$input_field = '<select name="is_main">' . "\n";
 	$select_one = 1;
 	if(is_array($chars) && count($chars) > 0)
 	{
 	     foreach( $chars as $member => $name )
 	     {
-	     	     if( $member == $user->profile->getMain($uid) && $select_one )
+	     	     if( $member == getMain($uid) && $select_one )
 		    {
 			   $input_field .= '  <option value="' . $member . '" selected="selected">-[ ' . $name . ' ]-</option>' . "\n";
 			   $select_one = 0;
@@ -197,7 +205,23 @@ function selectMain($uid)
 
 	     return $input_field;
 }
+function getMain($uid)
+	{
+		global $roster, $addon;
 
+		$sql = 'SELECT `member_id` FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
+		$query = $roster->db->query($sql);
+		while($row = $roster->db->fetch($query))
+		{
+			if(!$query || $roster->db->num_rows($query) == 0)
+			{
+				return false;
+			}
+			$mid = $row['member_id'];
+		}
+
+		return $mid;
+	}
 /**
  * Make select box of characters for main selection
  */
@@ -205,7 +229,7 @@ function selectGen($uid)
 {
 	global $roster, $addon, $user;
 
-	$query = "SELECT `avsig_src` FROM `".$user->db['profile']."` WHERE `uid` = ".$uid.";";
+	$query = "SELECT `avsig_src` FROM `".$roster->db->table('profile','user')."` WHERE `uid` = ".$uid.";";
 	$result = $roster->db->query($query);
 
 	if( !$result )
@@ -248,14 +272,14 @@ function selectGen($uid)
  *
  * @return string Settings changed or not changed
  */
-function processData( )
+function processData()
 {
 	global $roster, $addon, $user;
 
 	$update_sql = array();
 	$mid = 0;
 	$src = '';
-
+	
 	// Update only the changed fields
 	foreach( $_POST as $settingName => $settingValue )
 	{
@@ -267,15 +291,15 @@ function processData( )
 
 			if( $settingName == 'is_main' && $settingValue != 'none' )
 			{
-				$get_val = "SELECT `$settingName`"
-						 . " FROM `" . $roster->db->table('user_link', 'user') . "`"
-						 . " WHERE `uid` = '$uid' AND `member_id` = '" . $roster->db->escape( $settingValue ) . "';";
+	/*			$get_val = "SELECT `$settingName`"
+						 . " FROM `" . $roster->db->table('members') . "`"
+						 . " WHERE `account_id` = '$uid' AND `member_id` = '" . $roster->db->escape( $settingValue ) . "';";
 
 				$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
 
 				$config = $roster->db->fetch($result);
-
-				$mid = $roster->db->escape( $settingValue );
+*/
+				$mid = $roster->db->escape( $settingValue );//$roster->db->escape( $settingValue );
 			}
 			
 			if( $settingName == 'avsig_src' )
@@ -293,8 +317,8 @@ function processData( )
 
 			if($src != '' && $mid > 0)
 			{
-				$user->profile->setAvSig('av', $uid, $mid, $src);
-				$user->profile->setAvSig('sig', $uid, $mid, $src);
+
+				$user->profile->setAvSig($uid, $mid, $src);
 				$src = '';
 				$mid = 0;
 			}
@@ -350,4 +374,5 @@ function processData( )
 	{
 		return '<span style="color:#0099FF;font-size:11px;">No changes have been made</span>';
 	}
+	return true;
 }

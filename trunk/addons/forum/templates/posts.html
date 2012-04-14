@@ -7,11 +7,17 @@
 				</div>
 				<!-- BEGIN forums -->
 				<div class="tier-2-a">
-					<div class="tier-2-b">
+					<div class="tier-2-b" style="min-height: 85px;">
 					<div class="addon-status">
-							<div class="info-text" style="text-align:right;">
+							<!-- IF forums.POST_ISAV eq 0 -->
+							<div class="info-text" style="text-align:right;display:block;">
 								{forums.POST_USERNAME}
 							</div>
+							<!-- ELSE -->
+							<div style="float: right;display:block;padding-right: 2px;">
+								<div>{forums.POST_AVATAR}</div>
+							</div>
+							<!-- ENDIF -->
 						</div>
 						
 						<div class="tier-2-title">

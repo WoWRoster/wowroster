@@ -30,6 +30,24 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 		$_POST['email'] = mysql_real_escape_string($_POST['email']);
 		$_POST['username'] = mysql_real_escape_string($_POST['username']);
 		// Escape the input data
+		if (!empty($_POST['rank']))
+		{
+			$rank = $_POST['rank'];
+		}
+		else
+		{
+			$querya = "SELECT `name`,`guild_rank` FROM `".$roster->db->table('members')."` WHERE `name` = '".$_POST['username']."';";
+			$resulta = $roster->db->query($querya);
+			if( $resulta )
+			{
+				$row = $roster->db->fetch($resulta);
+				$rank = $row['guild_rank'];
+			}
+			else
+			{
+				$rank = '';
+			}
+		}
 
 		$age = mktime(0, 0, 0, $_POST['age_Month'], $_POST['age_Day'], $_POST['age_Year']);
 		$data = array(
@@ -38,7 +56,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 			'email'		=> $_POST['email'],
 			'regIP'		=> $_SERVER['REMOTE_ADDR'],
 			'dt'		=> $roster->db->escape(gmdate('Y-m-d H:i:s')),
-			'access'	=> '0:'.$_POST['rank'],
+			'access'	=> '0:'.$rank,
 			'fname'		=> $_POST['fname'],
 			'lname'		=> $_POST['lname'],
 			'age'		=> $age,
@@ -50,10 +68,44 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 		);
 		$query = 'INSERT INTO `' . $roster->db->table('user_members') . '` ' . $roster->db->build_query('INSERT', $data);
 
+		// user link table i was hoping to NOT use this....
+		
 		if( $roster->db->query($query) )
 		{
-			$roster->set_message('You are not registered and can now login','User Register:','notice');
+			$uuid = $roster->db->insert_id();
+			$roster->set_message('You are registered and can now login','User Register:','notice');
 			
+			$querya = "SELECT `name`,`guild_id`,`server`,`region`,`member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '".$_POST['username']."';";
+			$resulta = $roster->db->query($querya);
+			$a = "INSERT INTO `".$roster->db->table('profile','user')."` (`uid`, `signature`, `avatar`, `avsig_src`, `show_fname`, `show_lname`, `show_email`, `show_city`, `show_country`, `show_homepage`, `show_notes`, `show_joined`, `show_lastlogin`, `show_chars`, `show_guilds`, `show_realms`) VALUES ('$uuid', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');";
+			$aa = $roster->db->query($a);
+
+			if( !$resulta )
+			{
+				die_quietly($roster->db->error, 'user Profile', __FILE__,__LINE__,$querya);
+			}
+			else
+			{
+				$row = $roster->db->fetch($resulta);
+				
+				$data2 = array(
+					'uid' => $uuid,
+					'member_id' => $row['member_id'],
+					'guild_id' => $row['guild_id'],
+					'group_id' => '1',
+					'is_main' => '1',
+					'realm' => $row['server'],
+					'region' => $row['region']
+				);
+				$query2 = 'INSERT INTO `' . $roster->db->table('user_link', 'user') . '` ' . $roster->db->build_query('INSERT', $data2);
+				$result2 = $roster->db->query($query2);
+				
+				$update_sql = "UPDATE `" . $roster->db->table('members') . "`"
+							  . " SET `account_id` = '" . $uuid . "'"
+							  . " WHERE `name` = '".$_POST['username']."';";
+				$accid = $roster->db->query($update_sql);
+			}
+
 			echo $roster->auth->getLoginForm();
 			return;
 

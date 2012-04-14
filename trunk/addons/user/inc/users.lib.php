@@ -17,7 +17,12 @@ if ( !defined('ROSTER_INSTALLED') )
 { 
     exit('Detected invalid access to this file!'); 
 }
-
+	include_once( $addon['inc_dir'] . 'form.lib.php');
+	include_once( $addon['inc_dir'] . 'page.lib.php');
+	include_once( $addon['inc_dir'] . 'user.lib.php');
+	include_once( $addon['inc_dir'] . 'profile.lib.php');
+	include_once( $addon['inc_dir'] . 'messaging.lib.php');
+	
 class user
 {
 	var $id;
@@ -79,15 +84,21 @@ class user
 	 */
 	var $session;
 	
+	public $messaging;
 	/**
 	 * user Locale Object
 	 */
 	var $locale;
 	
-	function user()
+	function __construct()
 	{
 		global $roster, $addon;
-
+		$this->form = new userForm();
+		$this->page = new userPage();
+		$this->user = new userUser();
+		$this->profile = new usersProfile();
+		$this->messaging = new userMessaging();
+		
 		$this->get_db();
 	}
 
