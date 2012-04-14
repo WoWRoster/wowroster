@@ -122,7 +122,7 @@ if( $num_members > 0 )
 			$k++;
 			$roster->tpl->assign_block_vars('characters.cfg',array(
 				'NAME'  => $v['disc'],
-				'FIELD' => $roster->auth->makeAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
+				'FIELD' =>  infoAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),//$roster->auth->makeAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
 				)
 			);
 		}
@@ -168,6 +168,21 @@ $roster->tpl->set_filenames(array(
 );
 $roster->tpl->display('ucp');
 
+
+function infoAccess($values)
+{
+	global $roster;
+
+	if( count($roster->auth->levels) == 0 )
+	{
+		$roster->auth->rosterAccess(array('name'=>'','value'=>''));
+		$roster->auth->levels[-1] = 'None';
+		ksort($roster->auth->levels);
+	}
+
+	return $roster->auth->rosterAccess($values);
+
+}
 /**
  * Process Data for entry to the database
  *
@@ -182,12 +197,12 @@ function processData( )
 	// Update only the changed fields
 	foreach( $_POST as $settingName => $settingValue )
 	{
-		if( substr($settingName,0,5) == 'disp_' )
+		if( substr($settingName,0,12) == 'config_disp_' )
 		{
-			$settingName = str_replace('disp_','',$settingName);
+			$settingName = str_replace('config_disp_','',$settingName);
 
 			list($member_id,$settingName) = explode(':',$settingName);
-
+			$member_id = str_replace('config_','',$member_id);
 			$get_val = "SELECT `$settingName`"
 					 . " FROM `" . $roster->db->table('display', 'info') . "`"
 					 . " WHERE `member_id` = '$member_id';";
@@ -199,7 +214,7 @@ function processData( )
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
 				$update_sql[] = "UPDATE `" . $roster->db->table('display', 'info') . "`"
-							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
+							  . " SET `$settingName` = '" . implode(":",$settingValue ) . "'"
 							  . " WHERE `member_id` = '$member_id';";
 			}
 		}
