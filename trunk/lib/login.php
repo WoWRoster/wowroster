@@ -170,13 +170,16 @@ class RosterLogin
 			if (in_array($ac,$addon))
 			{
 				$this->approved = true;
+				return true;
 			}
 		}
 		if ($this->access == ROSTERLOGIN_ADMIN)
 		{
 			$this->approved = true;
+			return true;
 		}
-		return $this->approved;
+		//return $this->approved;
+		return false;
 	
 	}
 
