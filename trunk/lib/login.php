@@ -162,22 +162,34 @@ class RosterLogin
 		$this->approved = false;
 		$addon = array();
 		$addon = explode(":",$access);
+		//print_r($addon);echo '<br>';
 		$user = array();
 		$user = explode(":",$this->access);
+		//print_r($user);echo '<br><hr><br>';
 
 		foreach ($user as $x => $ac)
 		{
-			if (in_array($ac,$addon))
+			foreach ($addon as $a => $as)
+			{
+				if ( (int)$as ==  (int)$ac)
+				{
+					return true;
+				}
+			}
+			/*
+			if (in_array($ac,$addon,true))
 			{
 				$this->approved = true;
 				return true;
 			}
+			*/
 		}
+		/*
 		if ($this->access == ROSTERLOGIN_ADMIN)
 		{
 			$this->approved = true;
 			return true;
-		}
+		}*/
 		//return $this->approved;
 		return false;
 	

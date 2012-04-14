@@ -65,14 +65,14 @@ class char
 		$querystr = "SELECT * FROM `" . $roster->db->table('display',$addon['basename']) . "`"
 			. " WHERE `member_id` = '" . $this->data['member_id'] . "';";
 
-		$result = $roster->db->query($querystr);
-		$row = $roster->db->fetch($result, SQL_ASSOC);
+		$results = $roster->db->query($querystr);
+		$row = $roster->db->fetch($results, SQL_ASSOC);
 
 		foreach( $disp_defaults as $name => $value )
 		{
-			if( $addon['config'][$name] == -1 )
+			if( $addon['config'][$name] == -1)
 			{
-				$addon['config'][$name] = $value;
+				$addon['config'][$name] = $row[$name];
 			}
 		}
 
@@ -85,6 +85,7 @@ class char
 		 * Assigning everything this file may need to the template
 		 * The only tpl vars not here are ones that need to be generated in their respective methods
 		 */
+
 		$roster->tpl->assign_vars(array(
 			'S_MAX_LEVEL' => ROSTER_MAXCHARLEVEL,
 
