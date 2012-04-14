@@ -176,7 +176,7 @@ function infoAccess($values)
 	if( count($roster->auth->levels) == 0 )
 	{
 		$roster->auth->rosterAccess(array('name'=>'','value'=>''));
-		$roster->auth->levels[-1] = 'None';
+		$roster->auth->levels[99] = 'None';
 		ksort($roster->auth->levels);
 	}
 
