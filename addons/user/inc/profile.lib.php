@@ -356,7 +356,7 @@ class usersProfile extends user
 	{
 		global $roster, $addon, $user;
 
-		
+		//echo $id.' - '.$mid.'<br>';
 		if(!is_null($id) || $id > 0)
 		{
 			$uid = $id;
@@ -442,7 +442,7 @@ class usersProfile extends user
 				break;
 			}
 		}
-		echo 'i worked<br>';
+		//echo 'i worked<br>';
 		return true;
 	}
 

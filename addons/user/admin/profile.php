@@ -180,7 +180,7 @@ include_once( $addon['inc_dir'] . 'users.lib.php' );
 		$chars[$row['member_id']] = $row['name'];
 	}
 
-	$input_field = '<select name="is_main">' . "\n";
+	$input_field = '<select name="select_'.$uid.':is_main">' . "\n";
 	$select_one = 1;
 	if(is_array($chars) && count($chars) > 0)
 	{
@@ -244,7 +244,7 @@ function selectGen($uid)
 		$src = $row['avsig_src'];
 	}
 
-	$input_field = '<select name="avsig_src">' . "\n";
+	$input_field = '<select name="select_'.$uid.':avsig_src">' . "\n";
 
 	$sigGen = active_addon('siggen');
 
@@ -280,7 +280,7 @@ function processData()
 	$update_sql = array();
 	$mid = 0;
 	$src = '';
-	
+	//echo '<prE>';	print_r($_POST);	echo '</pre>';
 	// Update only the changed fields
 	foreach( $_POST as $settingName => $settingValue )
 	{
@@ -302,28 +302,6 @@ function processData()
 */
 				$mid = $roster->db->escape( $settingValue );//$roster->db->escape( $settingValue );
 			}
-			
-			if( $settingName == 'avsig_src' )
-			{
-				$get_val = "SELECT `$settingName`"
-						 . " FROM `" . $roster->db->table('profile', 'user') . "`"
-						 . " WHERE `uid` = '$uid';";
-
-				$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
-
-				$config = $roster->db->fetch($result);
-
-				$src = $roster->db->escape( $settingValue );
-			}
-
-			if($src != '' && $mid > 0)
-			{
-
-				$user->profile->setAvSig($uid, $mid, $src);
-				$src = '';
-				$mid = 0;
-			}
-
 			if( $config[$settingName] != $settingValue && $settingName == 'is_main' )
 			{
 			      $user->profile->setMain($uid, $mid);
@@ -333,6 +311,16 @@ function processData()
 				$update_sql[] = "UPDATE `" . $roster->db->table('profile', 'user') . "`"
 							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
 							  . " WHERE `uid` = '$uid';";
+							if( $settingName == 'avsig_src' )
+
+				$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
+
+				$config = $roster->db->fetch($result);
+
+				$src = $roster->db->escape( $settingValue );
+				//echo 'getavsig<br>';
+				$user->profile->setAvSig($uid, $mid, $src);
+
 			}
 		}
 		elseif( substr($settingName,0,5) == 'disp_' )
@@ -355,6 +343,11 @@ function processData()
 							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
 							  . " WHERE `uid` = '$uid';";
 			}
+		}
+		else
+		{
+			//echo $settingName.'<br>';
+
 		}
 	}
 
