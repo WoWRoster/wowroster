@@ -209,7 +209,7 @@ function getMain($uid)
 	{
 		global $roster, $addon;
 
-		$sql = 'SELECT `member_id` FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
+		$sql = 'SELECT * FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
 		$query = $roster->db->query($sql);
 		while($row = $roster->db->fetch($query))
 		{
@@ -243,7 +243,7 @@ function selectGen($uid)
 		$src = $row['avsig_src'];
 	}
 
-	$input_field = '<select name="select_' . $uid .':avsig_src">' . "\n";
+	$input_field = '<select name="avsig_src">' . "\n";
 
 	$sigGen = active_addon('siggen');
 

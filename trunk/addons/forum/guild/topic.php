@@ -70,8 +70,9 @@ $roster->tpl->assign_vars(array(
 			'WHERE `user`.`usr` = "' . $user . '" ';
 			$result = $roster->db->query($query);
 			$rw = $roster->db->fetch($result);
-			if (!empty($rw['avatar'])){
-			$av = '<img src="'.urldecode($rw['avatar']).'" ></a>';
+			if (!empty($rw['avatar']))
+			{
+				$av = '<img src="'.urldecode($rw['avatar']).'" ></a>';
 			}
 		}
 		
