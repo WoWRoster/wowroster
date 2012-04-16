@@ -57,6 +57,7 @@ if( $num_members > 0 )
 	//'`user`.`group_id`, '.
 	//'`ugroup`.`name`, '.
 	'`profile`.`uid`, '.
+	'`profile`.`avsig_src`, '.
 	'`profile`.`show_fname`, '.
 	'`profile`.`show_lname`, '.
 	'`profile`.`show_email`, '.
