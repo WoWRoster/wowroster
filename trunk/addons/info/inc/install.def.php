@@ -287,7 +287,58 @@ class infoInstall
 		{
 			$installer->add_config("'1035', 'show_model', '0', 'function{infoAccess', 'char_conf'");
 		}
+		if( version_compare('2.1.0', $oldversion,'>') == true )
+		{
+			//ALTER TABLE  `addons_info_display` CHANGE  `show_money`  `show_money` VARCHAR( 30 ) NOT NULL DEFAULT  '0'
+			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
+			  CHANGE  `show_money` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_played` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_model` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_pets` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_reputation` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_skills` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_honor` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_currency` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_talents` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_glyphs` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_spellbook` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_mail` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_bags` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_bank` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_quests` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_recipes` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_item_bonuses` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_pet_talents` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_pet_spells` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_companions` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_mounts` varchar(30) NOT NULL default '0'");
 
+
+			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
+			  CHANGE  `show_money` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_played` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_model` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_pets` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_reputation` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_skills` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_honor` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_currency` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_talents` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_glyphs` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_spellbook` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_mail` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_bags` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_bank` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_quests` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_recipes` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_item_bonuses` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_pet_talents` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_pet_spells` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_companions` varchar(30) NOT NULL default '0',
+			  CHANGE  `show_mounts` varchar(30) NOT NULL default '0'");
+		  
+		}
+		
 		return true;
 	}
 
