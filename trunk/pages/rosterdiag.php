@@ -266,6 +266,10 @@ echo '
 				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff(ini_get('file_uploads')) . '</td>
 			</tr>
 			<tr>
+				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">memory_limit</td>
+				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . ini_get('memory_limit') . '</td>
+			</tr>
+			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">upload_max_filesize</td>
 				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . ini_get('upload_max_filesize') . '</td>
 			</tr>
