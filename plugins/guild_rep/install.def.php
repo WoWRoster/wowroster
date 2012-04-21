@@ -1,5 +1,5 @@
 <?php
-	
+
 class guild_repInstall
 {
 
@@ -7,9 +7,9 @@ class guild_repInstall
 	var $members_list_table;
 	var $members_list_where = array();
 	var $members_list_fields = array();
-	
+
 	/*
-	*	These Vars are used with the new Plugin installer 
+	*	These Vars are used with the new Plugin installer
 	*	@var name - unique name for the plugin
 	*	@var parent - the intended addon to use this plugin
 	*
@@ -30,8 +30,8 @@ class guild_repInstall
 		array(	"name"=>	"Ulminia <Ulminia@gmail.com>",
 				"info"=>	"Guild Rep (Alpha Release)"),
 	);
-	
-	
+
+
 		/**
 	 * Install Function
 	 *
@@ -67,8 +67,8 @@ class guild_repInstall
 		global $installer, $addon;
 		return true;
 	}
-	
-	
+
+
 }
 
 ?>

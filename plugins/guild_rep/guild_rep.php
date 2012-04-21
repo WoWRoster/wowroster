@@ -18,9 +18,9 @@ class guild_rep
 	var $members_list_table;
 	var $members_list_where = array();
 	var $members_list_fields = array();
-	
+
 	/*
-	*	These Vars are used with the new Plugin installer 
+	*	These Vars are used with the new Plugin installer
 	*	@var name - unique name for the plugin
 	*	@var parent - the intended addon to use this plugin
 	*
@@ -40,16 +40,16 @@ class guild_rep
 		array(	"name"=>	"Ulminia <Ulminia@gmail.com>",
 				"info"=>	"Guild Rep (Alpha Release)"),
 	);
-	
+
 	/*
 	*	__construct
-	*	this is there the veriables for the addons are 
-	*	set in the plugin these are unique to each addon 
+	*	this is there the veriables for the addons are
+	*	set in the plugin these are unique to each addon
 	*
-	*	contact the addon author is you have a sugestion 
+	*	contact the addon author is you have a sugestion
 	*	as to where plugin code should occure or use there descression
 	*/
-	
+
 	public function __construct()
 	{
 		global $roster;
@@ -68,9 +68,9 @@ class guild_rep
 				'display'    => 5
 			);
 	}
-	
 
-	
+
+
 }
 abstract class guild_rep_function
 {
@@ -90,7 +90,7 @@ abstract class guild_rep_function
 			$cell_value .= '<td style="background-image: url(\'' . $roster->config['theme_path'] . '/images/bars/' . strtolower($row['Standing']).'.gif\');" width="' . $percentage . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>';
 			$cell_value .= '<td width="' . (100 - $percentage) . '%"></td>';
 			$cell_value .= "</tr>\n</table>\n</div>\n";
-		
+
 			return '<div style="display:none;">' . str_pad($row['Standing'],2,'0',STR_PAD_LEFT) . '</div>' . $cell_value;
 		}
 		else
@@ -101,5 +101,5 @@ abstract class guild_rep_function
 	}
 }
 
-	
+
 ?>
