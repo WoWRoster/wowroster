@@ -260,7 +260,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 $form = 'userApp';
 //$user->form->newForm('post', makelink('util-accounts-application'), $form, 'formClass', 4);
 
-$user->form->newForm('post', makelink('util-user-register'), $form, 'formClass', 4);
+$user->form->newForm('post', makelink('user-user-register'), $form, 'formClass', 4);
 
 if ($addon['config']['fname_auth'] == '1')
 {

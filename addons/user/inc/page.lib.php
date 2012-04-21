@@ -1041,11 +1041,15 @@ class userPage extends user
                   }
 					if(isset($roster->pages[3]))
 					{
-					$mail_page = ' - ' . ucfirst($roster->pages[3]);
+						$mail_page = ' - ' . ucfirst($roster->pages[3]);
+					}
+					else
+					{
+						$mail_page = ' ';
 					}
                   $roster->tpl->assign_block_vars('user_messaging', array(
                         'BORDER_START' => border('syellow','start', $roster->locale->act['user_page']['messaging'] . $mail_page),
-						'PAGETITLE'		=> $mail_page,
+						'PAGETITLE'		=> $roster->locale->act['user_page']['messaging'] . $mail_page,
 						'ICON' => 'achievement_guildperk_gmail',
                         'MENU' => $mail_menu,
                         'FORM' => $user->form->getTableOfElements_1(1,$form),

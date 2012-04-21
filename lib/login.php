@@ -284,7 +284,7 @@ class RosterLogin
 
 		if( count($this->levels) == 0 )
 		{
-			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` ORDER BY `guild_rank` ASC";
+			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `guild_rank` ASC";
 			$result = $roster->db->query($query);
 			if( !$result )
 			{
@@ -320,7 +320,7 @@ class RosterLogin
 
 		if( count($this->levels) == 0 )
 		{
-			$query = "SELECT DISTINCT (`guild_rank` ), `guild_title` FROM `" . $roster->db->table('members') . "` ORDER BY `guild_rank` ASC";
+			$query = "SELECT DISTINCT (`guild_rank` ), `guild_title` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `guild_rank` ASC";
 			$result = $roster->db->query($query);
 
 			if( !$result )
@@ -344,7 +344,7 @@ class RosterLogin
 
 		if( count($this->levels) == 0 )
 		{
-			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` ORDER BY `guild_rank` ASC";
+			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `guild_rank` ASC";
 			$result = $roster->db->query($query);
 			if( !$result )
 			{

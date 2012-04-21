@@ -322,6 +322,10 @@ class Upgrade {
 
 
 		}
+		if (version_compare($roster->config['version'], '2.1.9.2467', '<')) 
+		{
+			$roster->db->query("UPDATE `" .$roster->db->table('user_members') . "` SET `access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");  
+		}
 		
 		// Standard Beta Update
 		$this->beta_upgrade();
