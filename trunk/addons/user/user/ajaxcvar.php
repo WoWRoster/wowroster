@@ -33,6 +33,15 @@
 		$server = $_GET['server'];
 	}
 	
+	if (isset($_POST['guild_id']))
+	{
+		$guild_id = $_POST['guild_id'];
+	}
+	else
+	{
+		$guild_id = $_GET['guild_id'];
+	}
+	
 	$data = $roster->api->Char->getCharInfo($server, $char, '4');
 	$equip = array (
 		'0' => 'head',	'1' => 'neck',	'2' => 'shoulder',	'14' => 'back',	'4' => 'chest',	'3' => 'shirt',
@@ -64,18 +73,12 @@
 	}
 	$rw=null;
 
-	$sqlquery2 = "SELECT * FROM `".$roster->db->table('members')."` WHERE `name` = '".$char."'";
-	//echo $sqlquery2.'<br>';
+	$sqlquery2 = "SELECT * FROM `".$roster->db->table('members')."` WHERE `name` = '".$char."' AND `guild_id` = '".$guild_id."'";
 	$result2 = $roster->db->query($sqlquery2);
-		//$rw = $roster->db->fetch($result2);
-		//print_r($rw);
-	if ($result2)
+	$rw = $roster->db->fetch($result2);
+
+	if (isset($rw['name']) && $rw['name'] = $char)
 	{
-	
-		$rw = $roster->db->fetch($result2);
-		//print_r($rw);
-
-
 		$msg = implode('<br>',$msg);
 		$response = array(
 			'ok' => $error,
