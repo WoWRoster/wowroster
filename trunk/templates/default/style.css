@@ -175,16 +175,16 @@ textbox {
 
 
 /* New Main Navagation tabs */
-.top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 10px; }
+.top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 3px; }
 .top-menu .links { height: 40px; }
 .top-menu .links a {
 	display: block;
 	height: 26px;
 	width: 100px;
 	float: left;
-	padding: 4px 5px 10px 45px;
+	padding: 4px 4px 10px 45px;
 	color: #000;
-	margin-right: 5px;
+	margin-right: 4px;
 	font: bold 12px/normal Arial, Helvetica, sans-serif;
 	overflow: hidden;
 }
