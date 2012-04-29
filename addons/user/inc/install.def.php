@@ -25,7 +25,7 @@ class userInstall
 	var $active = true;
 	var $icon = 'inv_misc_bag_26_spellfire';
 
-	var $version = '0.2.2';
+	var $version = '0.2.4';
 	var $wrnet_id = '0';
 
 	var $fullname = 'Guild User pages';
@@ -128,7 +128,7 @@ class userInstall
 	 */
 	function upgrade($oldversion)
 	{
-		global $installer;
+		global $installer, $roster;
 
 		if( version_compare('0.2', $oldversion,'>') == true )
 		{
@@ -147,7 +147,27 @@ class userInstall
 		{
 			$installer->add_config("8101,'usr_config',NULL,'blockframe','menu'");
 		}
-		
+		if( version_compare('0.2.4', $oldversion,'>') == true )
+		{
+			$installer->add_query("ALTER TABLE `" . $roster->db->table('user_members') . "`
+			CHANGE `email` `email` varchar(255) DEFAULT NULL,
+			CHANGE `regIP` `regIP` varchar(15) DEFAULT NULL,
+			CHANGE `access` `access` varchar(25) DEFAULT NULL,
+			CHANGE `fname` `fname` varchar(30) DEFAULT NULL,
+			CHANGE `lname` `lname` varchar(30) DEFAULT NULL,
+			CHANGE `age` `age` varchar(32) DEFAULT NULL,
+			CHANGE `city` `city` varchar(32) DEFAULT NULL,
+			CHANGE `state` `state` varchar(32) DEFAULT NULL,
+			CHANGE `country` `country` varchar(32) DEFAULT NULL,
+			CHANGE `zone` `zone` varchar(32) DEFAULT NULL,
+			CHANGE `homepage` `homepage` varchar(64) DEFAULT NULL,
+			CHANGE `other_guilds` `other_guilds` varchar(64) DEFAULT NULL,
+			CHANGE `why` `why` varchar(64) DEFAULT NULL,
+			CHANGE `about` `about` varchar(64) DEFAULT NULL,
+			CHANGE `notes` `notes` varchar(64) DEFAULT NULL,
+			CHANGE `last_login` `last_login` varchar(64) DEFAULT NULL,
+			CHANGE `date_joined` `date_joined` varchar(64) DEFAULT NULL");
+		}
 		return true;
 	}
 
