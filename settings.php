@@ -351,7 +351,7 @@ $roster->get_plugin_data();
 /**
 *	run sessions after update happens
 */
-if (version_compare($roster->config['version'], '2.1.9.2415', '=')) 
+if (version_compare($roster->config['version'], '2.1.9.2414', '>')) 
 {
 	$roster->session = new Session();
 }

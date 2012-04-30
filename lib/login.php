@@ -39,6 +39,7 @@ class RosterLogin
 	var $radid = 55;
 	var $approved;
 	var $access = 0;
+	var $user = array();
 	
 	/**
 	 * Constructor for Roster Login class
@@ -51,9 +52,8 @@ class RosterLogin
 	function RosterLogin( $script_filename='' )
 	{
 		global $roster;
-		//setcookie('roster_hash',NULL,(time()-60*60*24*30*100) );
+		
 		$this->setAction($script_filename);
-
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
 			setcookie('roster_user',NULL,time()-(60*60*24*30*100) );
@@ -128,6 +128,7 @@ class RosterLogin
 			$this->valid = 1;
 			$this->uid = $row['id'];
 			$this->allow_login = true;
+			$this->user = $row;
 			if ($row['active'] != 1)
 			{
 				//roster_die('Your account is nto active or has not been approved by the admin only "Public" areas can be accessed');
@@ -149,8 +150,6 @@ class RosterLogin
 		$roster->db->free_result($result);
 
 		setcookie('roster_u','0',(time()+60*60*24*30) );
-		//setcookie('roster_pass','',time()-(60*60*24*30*100) );
-		//setcookie('roster_remember','',time()-(60*60*24*30*100) );
 		$this->allow_login = false;
 		$this->message = $roster->locale->act['login_invalid'];
 		return;
@@ -162,11 +161,8 @@ class RosterLogin
 		$this->approved = false;
 		$addon = array();
 		$addon = explode(":",$access);
-		//print_r($addon);echo '<br>';
 		$user = array();
 		$user = explode(":",$this->access);
-		//print_r($user);echo '<br><hr><br>';
-
 		foreach ($user as $x => $ac)
 		{
 			foreach ($addon as $a => $as)
@@ -176,23 +172,8 @@ class RosterLogin
 					return true;
 				}
 			}
-			/*
-			if (in_array($ac,$addon,true))
-			{
-				$this->approved = true;
-				return true;
-			}
-			*/
 		}
-		/*
-		if ($this->access == ROSTERLOGIN_ADMIN)
-		{
-			$this->approved = true;
-			return true;
-		}*/
-		//return $this->approved;
 		return false;
-	
 	}
 
 	function getMessage()
@@ -208,17 +189,9 @@ class RosterLogin
 	{
 		global $roster;
 
-		/*
-		if( $this->approved != 1 )
+		if( !$this->allow_login && !isset($_POST['logout']) )
 		{
-			roster_die('Invalid access lvl to access admin section logout and login as admin or ask for admin access from admin');
-		}
-		*/
-		if( !$this->allow_login && !isset($_POST['logout']) ) // && $this->approved==1 )
-		{
-			//echo 'check login';
 
-			//$this->ValadateUser ();
 			$login_message = $this->getMessage();
 
 			$roster->tpl->assign_block_vars('login', array(
@@ -226,7 +199,7 @@ class RosterLogin
 				'L_LOGIN_WORD'    	=> '',
 				'S_LOGIN_MESSAGE' 	=> (bool)$login_message,
 				'L_LOGIN_MESSAGE' 	=> $login_message,
-				'L_REGISTER'		=> '',//'<a href="'.makelink("user-user-register", true).'"><br>Register Here!</a>',
+				'L_REGISTER'		=> '',
 				'U_LOGIN' 			=>  0
 			));
 
@@ -375,7 +348,6 @@ class RosterLogin
 			{
 				//$x = '<div class="config-input">'.$x.'</div>';
 			}
-			//$x .= '</tr></table>';
 		return $x;
 	}
 	function getUID($user, $pass)
