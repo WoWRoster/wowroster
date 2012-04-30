@@ -30,7 +30,16 @@ $listing = $next = $prev = '';
 
 $uid = $roster->auth->uid;
 
+$roster->output['html_head'] .= "<script type=\"text/javascript\">
+<!--
+$(function() {
+  var cds_menu = new tabcontent('cds_menu');
+  cds_menu.init();
 
+});
+
+//-->
+</script>\n";
 /**
  * Actual list
  */
@@ -122,6 +131,7 @@ if( $num_members > 0 )
 			$k++;
 			$roster->tpl->assign_block_vars('characters.cfg',array(
 				'NAME'  => $v['disc'],
+				'ID' => $i,
 				'FIELD' =>  infoAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),//$roster->auth->makeAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
 				)
 			);
