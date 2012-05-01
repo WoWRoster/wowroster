@@ -22,6 +22,34 @@ class Guild extends Resource {
 		'guild'
 	);
 
+	var $x = '';
+
+	function build_fields($data)
+	{
+		$fds = explode(":",$data);
+		
+		$this->x='';
+		foreach ($fds as $fd => $s)
+		{
+			switch($s)
+			{
+				case '1':		$this->x.= ',members';
+								#list of guild members
+				break;
+				case '2':		$this->x.= ',achievements';
+								#achievements for the guild
+				break;
+				case '3':		$this->x.= ',news';
+								#news items found on the battle.net website
+				break;
+				default:
+								$this->x.= '';
+				break;
+			}
+		
+		}
+		return $this->x;
+	}
 	/**
 	 * Get status results for specified realm(s).
 	 *
@@ -35,9 +63,12 @@ class Guild extends Resource {
 		} elseif (empty($name)) {
 			throw new ResourceException('No guild name specified.');
 		} else {
-			
+			if ($fields !='')
+			{
+				$fd ='?fields='.$this->build_fields($fields);
+			}else{$fd='';}
 			$data = $this->consume('guild', array(
-			'data' => $fields,
+			'data' => $fd,
 			'dataa' => $name.'@'.$rname,
 			'server' => $rname,
 			'name' => $name,

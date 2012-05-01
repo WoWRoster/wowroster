@@ -38,36 +38,23 @@ var $itemSubClass = array(
 '2' => array('0' => 'Axe','1' => 'Axe','2' => 'Bow','3' => 'Gun','4' => 'One-Handed Mace','5' => 'Two-Handed Mace','6' => 'Polearm','7' => 'One-Handed Sword',
 '8' => 'Two-Handed Sword','9' => 'Obsolete','10' => 'Stave','11' => 'One-Handed Exotic','12' => 'Two-Handed Exotic','13' => 'Fist Weapon','14' => 'Miscellaneous',
 '15' => 'Dagger','16' => 'Thrown','17' => 'Spear','18' => 'Crossbow','19' => 'Wand','20' => 'Fishing Pole'),
-
 '3' => array('0' => 'Red','1' => 'Blue','2' => 'Yellow','3' => 'Purple','4' => 'Green','5' => 'Orange','6' => 'Meta','7' => 'Simple','8' => 'Prismatic',
 '9' => 'Hydraulic','10' => 'Cogwheel'),
-
 '4' => array('0' => 'Miscellaneous','1' => 'Cloth','2' => 'Leather','3' => 'Mail','4' => 'Plate','5' => 'Bucklers','6' => 'Shield','7' => 'Libram',
 '8' => 'Idol','9' => 'Totem','10' => 'Sigil','11' => 'Relic'),
-
 '5' => array('0' => 'Reagent'),
-
 '6' => array('0' => 'Wand(OBSOLETE)','1' => 'Bolt(OBSOLETE)','2' => 'Arrow','3' => 'Bullet','4' => 'Thrown(OBSOLETE)'),
-
 '7' => array('0' => 'Trade Goods','10' => 'Elemental','15' => 'Weapon Enchantment - Obsolete','5' => 'Cloth','6' => 'Leather','7' => 'Metal & Stone','8' => 'Meat',
 '9' => 'Herb','12' => 'Enchanting','4' => 'Jewelcrafting','1' => 'Parts','3' => 'Devices','2' => 'Explosives','13' => 'Materials','11' => 'Other','14' => 'Item Enchantment'),
-
 //'0' => 'Generic(OBSOLETE)',
-
 '9' => array('0' => 'Book','1' => 'Leatherworking','2' => 'Tailoring','3' => 'Engineering','4' => 'Blacksmithing','5' => 'Cooking','6' => 'Alchemy','7' => 'First Aid',
 '8' => 'Enchanting','9' => 'Fishing','10' => 'Jewelcrafting','11' => 'Inscription'),
 //'0' => 'Money(OBSOLETE)',
-
 '11' => array('0' => 'Quiver(OBSOLETE)','1' => 'Quiver(OBSOLETE)','2' => 'Quiver','3' => 'Ammo Pouch'),
-
 '12' => array('0' => 'Quest'),
-
 '13' => array('0' => 'Key','1' => 'Lockpick'),
-
 '14' => array('0' => 'Permanent'),
-
 '15' => array('0' => 'Junk','1' => 'Reagent','2' => 'Pet','3' => 'Holiday','4' => 'Other','5' => 'Mount'),
-
 '16' => array('1' => 'Warrior','2' => 'Paladin','3' => 'Hunter','4' => 'Rogue','5' => 'Priest','6' => 'Death Knight','7' => 'Shaman','8' => 'Mage',
 '9' => 'Warlock','11' => 'Druid'));
 
@@ -151,31 +138,13 @@ var $itemstat = array(
 '45' => 'Equip: Increases spell power by %s.');
 
 var $bind = array(
-'0' => '',
-'8' => "Account Bound",
-'2' => "Binds when equipped",
-'1' => "Binds when picked up",
-'3' => "Binds when used",
-'4' => "Quest Item",
-'5' => "Binds to account",
-'6' => "Binds to Battle.net account",
-'7' => "Battle.net Account Bound");
+'0' => '','8' => "Account Bound",'2' => "Binds when equipped",'1' => "Binds when picked up",'3' => "Binds when used",'4' => "Quest Item",
+'5' => "Binds to account",'6' => "Binds to Battle.net account",'7' => "Battle.net Account Bound");
 var $skills = array(
-"185" => "Cooking",
-"773" => "Inscription",
-"755" => "Jewelcrafting",
-"393" => "Skinning",
-"333" => "Enchanting",
-"202" => "Engineering",
-"197" => "Tailoring",
-"186" => "Mining",
-"182" => "Herbalism",
-"171" => "Alchemy",
-"165" => "Leatherworking",
-"164" => "Blacksmithing"
-);
+"185" => "Cooking","773" => "Inscription","755" => "Jewelcrafting","393" => "Skinning","333" => "Enchanting","202" => "Engineering",
+"197" => "Tailoring","186" => "Mining","182" => "Herbalism","171" => "Alchemy","165" => "Leatherworking","164" => "Blacksmithing");
 
-var $member_id, $item_id, $name, $level, $icon, $color;
+	var $member_id, $item_id, $name, $level, $icon, $color;
 	var $slot, $parent, $tooltip, $quantity, $locale;
 
 	// 0=none, 1=poor, 2=common, 3=uncommon, 4=rare, 5=epic, 6=legendary, 7=heirloom
@@ -225,7 +194,7 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 		$this->dgems = $gems;
 		$this->build_Attributes($data);
 		
-		$a = $this->_makeTooltipHTML();
+		$a = $this->_makeTooltip();
 		return $a;
 	}
 	
@@ -235,7 +204,10 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 		//duhharharhar copy and paste....
 		$tt=array();
 			//$tt['Attributes']['TempEnchantment'][] = $matches[1];
-//			$tt['Attributes']['SocketBonus'] = $data[];
+			if (isset($data['socketInfo']['socketBonus']))
+			{
+				$tt['Attributes']['SocketBonus'] = $data['socketInfo']['socketBonus'];
+			}
 //			$tt['Attributes']['Enchantment'] = $matches[1];
 			$tt['General']['Name'] = $data['name'];
 			$tt['General']['ItemId'] = $data['id'];
@@ -268,7 +240,7 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 				{
 					if ($spell['spell']['description'] != '')
 					{
-						$tt['Effects']['Use'][] = 'Equip: '.$spell['spell']['description'];
+						$tt['Effects']['Use'][] = 'Use: '.$spell['spell']['description'];
 					}
 				}
 			}
@@ -279,15 +251,20 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 			}
 			//$tt['Effects']['ChanceToProc'][] = $line;
 			$tt['Attributes']['BindType'] = $this->bind[$data['itemBind']];
-			
-			if (isset($data['itemSet']))
+
+			if (isset($this->user['tooltipParams']['set']))
 			{
-				$tt['Attributes']['Set']['SetBonus'][] = $line;
-				$tt['Attributes']['Set']['InactiveSet'][] = $line;
-				$tt['Attributes']['Set']['ArmorSet']['Name'] = $matches[1];
+				$this->isSetPiece = true;
+				foreach ($data['itemSet']['setBonuses'] as $r => $e)
+				{
+					$tt['Attributes']['Set']['SetBonus'][] = "(".$e['threshold'].") Set: ".$e['description']."";
+				}
+				$tt['Attributes']['Set']['InactiveSet'][] = '';//$line;
+				$tt['Attributes']['Set']['ArmorSet']['Name'] = $data['itemSet']['name'];
+				$this->setItemEquiped = count($this->user['tooltipParams']['set']);
 				//$this->isSetPiece = true;
 				$setpiece = 1;
-				$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($line);
+				$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = '';//trim($line);
 			}
 			
 			
@@ -381,148 +358,145 @@ var $member_id, $item_id, $name, $level, $icon, $color;
 		$this->attributes = ( isset($tt['Attributes']) ? $tt['Attributes'] : null );
 		$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
 		
+	}
 	
-	}
-
-
-
-function _makeTooltipHTML()
+	function _makeTooltip()
 	{
-			$html_tt = $this->_getCaption();
-			if( isset($this->attributes['Conjured']) )
-			{
-				$html_tt .= $this->_getConjures();
-			}
-			if( isset($this->attributes['Heroic']) )
-			{
-				$html_tt .= $this->_getHeroic();
-			}
-			if( isset($this->attributes['BindType']) )
-			{
-				$html_tt .= $this->_getBindType();
-			}
-			if( isset($this->attributes['Unique']) )
-			{
-				$html_tt .= $this->_getUnique();
-			}
+		$html_tt = $this->_getCaption();
+		if( isset($this->attributes['Conjured']) )
+		{
+			$html_tt .= $this->_getConjures();
+		}
+		if( isset($this->attributes['Heroic']) )
+		{
+			$html_tt .= $this->_getHeroic();
+		}
+		if( isset($this->attributes['BindType']) )
+		{
+			$html_tt .= $this->_getBindType();
+		}
+		if( isset($this->attributes['Unique']) )
+		{
+			$html_tt .= $this->_getUnique();
+		}
 
-			if( $this->isArmor )
-			{
-				$html_tt .= $this->_getArmor();
-			}
-			if( $this->isWeapon )
-			{
-				$html_tt .= $this->_getWeapon();
-			}
-			if( $this->isBag )
-			{
-				$html_tt .= $this->_getBag();
-			}
+		if( $this->isArmor )
+		{
+			$html_tt .= $this->_getArmor();
+		}
+		if( $this->isWeapon )
+		{
+			$html_tt .= $this->_getWeapon();
+		}
+		if( $this->isBag )
+		{
+			$html_tt .= $this->_getBag();
+		}
 
-			if( isset($this->attributes['ArmorClass']) )
-			{
-				$html_tt .= $this->_getArmorClass();
-			}
-			if( isset($this->attributes['GemBonus']) )
-			{
-				$html_tt .= $this->_getGemBonus();
-			}
-			if( isset($this->attributes['SkillRequired']) )
-			{
-				$html_tt .= $this->_getSkillRequired();
-			}
-			if( isset($this->attributes['BaseStats']) )
-			{
-				$html_tt .= $this->_getBaseStats();
-			}
-			if( isset($this->attributes['Enchantment']) )
-			{
-				$html_tt .= $this->_getEnchantment();
-			}
-			if( isset($this->attributes['TempEnchantment']) )
-			{
-				$html_tt .= $this->_getTempEnchantment();
-			}
-			if( $this->isSocketable )
-			{
-				$html_tt .= $this->_getSockets();
-				$html_tt .= $this->_getSocketBonus();
-			}
-			if( isset($this->attributes['Class']) )
-			{
-				$html_tt .= $this->_getRequiredClasses();
-			}
-			if( isset($this->attributes['Race']) )
-			{
-				$html_tt .= $this->_getRequiredRaces();
-			}
-			if( isset($this->attributes['Durability']) )
-			{
-				$html_tt .= $this->_getDurability();
-			}
-			if( isset($this->attributes['Requires']) )
-			{
-				$html_tt .= $this->_getRequired();
-			}
-			if( isset($this->attributes['ItemLevel']) )
-			{
-				$html_tt .= $this->_getItemLevel();
-			}
-			if( isset($this->effects) )
-			{
-				$html_tt .= $this->_getPassiveBonus();
-			}
-			if( isset($this->attributes['Charges']) )
-			{
-				$html_tt .= $this->_getItemCharges();
-			}
-			if( $this->isSetPiece )
-			{
-				$html_tt .= $this->_getSetPiece();
-				$html_tt .= $this->_getSetBonus();
-				$html_tt .= $this->_getInactiveSetBonus();
-			}
-			if( isset($this->attributes['MadeBy']['Line']) )
-			{
-				$html_tt .= $this->_getCrafter();
-			}
-			if( isset($this->attributes['Restrictions']) )
-			{
-				$html_tt .= $this->_getRestrictions();
-			}
-			if( isset($this->attributes['ItemNote']) )
-			{
-				$html_tt .= $this->_getItemNote();
-			}
-			if( isset($this->attributes['Source']) )
-			{
-				$html_tt .= $this->_getSource();
-			}
-			if( isset($this->attributes['Boss']) )
-			{
-				$html_tt .= $this->_getBoss();
-			}
-			if( isset($this->attributes['DropRate']) )
-			{
-				$html_tt .= $this->_getDropRate();
-			}
+		if( isset($this->attributes['ArmorClass']) )
+		{
+			$html_tt .= $this->_getArmorClass();
+		}
+		if( isset($this->attributes['GemBonus']) )
+		{
+			$html_tt .= $this->_getGemBonus();
+		}
+		if( isset($this->attributes['SkillRequired']) )
+		{
+			$html_tt .= $this->_getSkillRequired();
+		}
+		if( isset($this->attributes['BaseStats']) )
+		{
+			$html_tt .= $this->_getBaseStats();
+		}
+		if( isset($this->attributes['Enchantment']) )
+		{
+			$html_tt .= $this->_getEnchantment();
+		}
+		if( isset($this->attributes['TempEnchantment']) )
+		{
+			$html_tt .= $this->_getTempEnchantment();
+		}
+		if( $this->isSocketable )
+		{
+			$html_tt .= $this->_getSockets();
+			$html_tt .= $this->_getSocketBonus();
+		}
+		if( isset($this->attributes['Class']) )
+		{
+			$html_tt .= $this->_getRequiredClasses();
+		}
+		if( isset($this->attributes['Race']) )
+		{
+			$html_tt .= $this->_getRequiredRaces();
+		}
+		if( isset($this->attributes['Durability']) )
+		{
+			$html_tt .= $this->_getDurability();
+		}
+		if( isset($this->attributes['Requires']) )
+		{
+			$html_tt .= $this->_getRequired();
+		}
+		if( isset($this->attributes['ItemLevel']) )
+		{
+			$html_tt .= $this->_getItemLevel();
+		}
+		if( isset($this->effects) )
+		{
+			$html_tt .= $this->_getPassiveBonus();
+		}
+		if( isset($this->attributes['Charges']) )
+		{
+			$html_tt .= $this->_getItemCharges();
+		}
+		if( $this->isSetPiece )
+		{
+			$html_tt .= $this->_getSetPiece();
+			$html_tt .= $this->_getSetBonus();
+			$html_tt .= $this->_getInactiveSetBonus();
+		}
+		if( isset($this->attributes['MadeBy']['Line']) )
+		{
+			$html_tt .= $this->_getCrafter();
+		}
+		if( isset($this->attributes['Restrictions']) )
+		{
+			$html_tt .= $this->_getRestrictions();
+		}
+		if( isset($this->attributes['ItemNote']) )
+		{
+			$html_tt .= $this->_getItemNote();
+		}
+		if( isset($this->attributes['Source']) )
+		{
+			$html_tt .= $this->_getSource();
+		}
+		if( isset($this->attributes['Boss']) )
+		{
+			$html_tt .= $this->_getBoss();
+		}
+		if( isset($this->attributes['DropRate']) )
+		{
+			$html_tt .= $this->_getDropRate();
+		}
 
-			if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
-			{
-				trigger_error('<table class="border_frame" cellpadding="0" cellspacing="1" width="350"><tr><td>'
-				. $html_tt
-				. '<hr width="80%" /> ' . str_replace("\n", '<br />', $this->tooltip)
-				. '</td></tr></table><br />'
-				. aprint($this->parsed_item,'',true));
-			}
-			//echo  $html_tt . ( $this->DEBUG ? '<br />Parsed Full' : '' );
-			$tooltip = ''.$html_tt.'';
-			return $tooltip;
+		if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
+		{
+			trigger_error('<table class="border_frame" cellpadding="0" cellspacing="1" width="350"><tr><td>'
+			. $html_tt
+			. '<hr width="80%" /> ' . str_replace("\n", '<br />', $this->tooltip)
+			. '</td></tr></table><br />'
+			. aprint($this->parsed_item,'',true));
+		}
+		//echo  $html_tt . ( $this->DEBUG ? '<br />Parsed Full' : '' );
+		$tooltip = ''.$html_tt.'';
+		return $tooltip;
 	}
-
+	
 function _getCaption()
 	{
-		$html = '<span style="color:#' . $this->parsed_item['General']['ItemColor'] . ';font-size:15px;font-weight:bold;">' . $this->parsed_item['General']['Name'] . '</span><br />';
+		$html = '' . $this->parsed_item['General']['Name'] . "\n";
 		return $html;
 	}
 
@@ -543,7 +517,7 @@ function _getCaption()
 			$color = 'ffffff';
 		}
 
-		$html = '<span style="color:#' . $color . ';"><i>' . $heroic . '</i></span><br />';
+		$html = '' . $heroic . "\n";
 
 		return $html;
 	}
@@ -552,22 +526,7 @@ function _getCaption()
 	{
 		global $roster;
 
-		$bindtype = $this->attributes['BindType'];
-/*
-		if( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_soulbound'], $bindtype) )
-		{
-			$color = '00bbff';
-		}
-		elseif( preg_match( "/\b" . $roster->locale->wordings[$this->locale]['tooltip_accountbound']."/", $bindtype) )
-		{
-			$color = 'e6cc80';
-		}
-		else
-		{*/
-			$color = 'ffffff';
-	//	}
-
-		$html = '<span style="color:#' . $color . ';">' . $bindtype . '</span><br />';
+		$html = $this->attributes['BindType']. "\n";
 
 		return $html;
 	}
@@ -577,14 +536,14 @@ function _getCaption()
 		$html = '';
 		foreach( $this->attributes['Conjured'] as $conjured )
 		{
-			$html .= $conjured . '<br />';
+			$html .= $conjured . "\n";
 		}
 		return $html;
 	}
 
 	function _getUnique()
 	{
-		$html = $this->attributes['Unique'] . '<br />';
+		$html = $this->attributes['Unique'] . "\n";
 		return $html;
 	}
 
@@ -597,11 +556,11 @@ function _getCaption()
 		}
 		elseif( isset($this->attributes['ArmorSlot'] ) )
 		{
-			$html = $this->attributes['ArmorSlot'] . '<br />';
+			$html = $this->attributes['ArmorSlot'] . "\n";
 		}
 		elseif( isset($this->attributes['ArmorType']) )
 		{
-			$html = $this->attributes['ArmorType'] . '<br />';
+			$html = $this->attributes['ArmorType'] . "\n";
 		}
 		else
 		{
@@ -612,33 +571,31 @@ function _getCaption()
 
 	function _getWeapon()
 	{
+		$html='';
 		if( isset($this->attributes['WeaponType']) && isset($this->attributes['WeaponSlot']) )
 		{
 			/*$html = '<div style="width:100%;"><span style="float:right;">'
 				  . $this->attributes['WeaponType'] . '</span>'
 				  . $this->attributes['WeaponSlot'] . '</div>';
 				  */
-			$html = '' . $this->attributes['WeaponSlot'] . '	' . $this->attributes['WeaponType'] . "<br />";
+			$html .= '' . $this->attributes['WeaponSlot'] . '	' . $this->attributes['WeaponType'] . "\n";
 		}
 		elseif( isset($this->attributes['WeaponType']) )
 		{
-			$html = $this->attributes['WeaponType'] . '<br />';
+			$html .= $this->attributes['WeaponType'] . "\n";
 		}
 		elseif( isset($this->attributes['WeaponSlot']) )
 		{
-			$html = $this->attributes['WeaponSlot'] . '<br />';
+			$html .= $this->attributes['WeaponSlot'] . "\n";
 		}
 
 		if( isset($this->attributes['WeaponDamage']) )
 		{
-			/*$html  .= '<div style="width:100%;"><span style="float:right;">Speed 
-					' . $this->attributes['WeaponSpeed'] . '</span>
-					' . $this->attributes['WeaponDamage'] . ' Damage</div>';*/
-			$html .='' . $this->attributes['WeaponDamage'] . ' Damage	Speed ' . $this->attributes['WeaponSpeed'] . "<br />";
+			$html .='' . $this->attributes['WeaponDamage'] . ' Damage	Speed ' . $this->attributes['WeaponSpeed'] . "\n";
 		}
 		if( isset($this->attributes['WeaponDPS']) )
 		{
-			$html .= '('.$this->attributes['WeaponDPS'] . ' damage per second)<br />';
+			$html .= '('.$this->attributes['WeaponDPS'] . " damage per second)\n";
 		}
 
 		return $html;
@@ -646,23 +603,23 @@ function _getCaption()
 
 	function _getBag()
 	{
-		$html = $this->attributes['BagDesc'] . '<br />';
+		$html = $this->attributes['BagDesc'] . "\n";
 		return $html;
 	}
 	function _getGemBonus()
 	{
-		$html = $this->attributes['GemBonus'] . '<br />';
+		$html = $this->attributes['GemBonus'] . "\n";
 		return $html;
 	}
 
 	function _getSkillRequired()
 	{
-		$html = 'Requires ' . $this->attributes['SkillRequired'] . '<br />';
+		$html = 'Requires ' . $this->attributes['SkillRequired'] . "\n";
 		return $html;
 	}
 	function _getArmorClass()
 	{
-		$html = $this->attributes['ArmorClass']['Line'] . '<br />';
+		$html = $this->attributes['ArmorClass']['Line'] . "\n";
 		return $html;
 	}
 
@@ -674,15 +631,13 @@ function _getCaption()
 
 		foreach( $stats as $stat )
 		{
-			$html .= '' . $stat . '<br />';
+			$html .= '' . $stat . "\n";
 		}
 		return $html;
 	}
 
 	function _getEnchantment()
 	{
-		require_once ROSTER_API . 'apiitem.php';
-		
 		$html = '<span style="color:#00ff00;">' . $this->attributes['Enchantment'] . '</span><br />';
 		return $html;
 	}
@@ -693,7 +648,7 @@ function _getCaption()
 
 		foreach( $this->attributes['TempEnchantment'] as $bonus )
 		{
-			$html .= '<span style="color:#ff4242;">' . $bonus . '</span><br />';
+			$html .= '' . $bonus . "\n";
 		}
 		return $html;
 	}
@@ -704,44 +659,30 @@ function _getCaption()
 
 		$html = '';
 
-		//ok theres the fuin part placing the gems then doing empty slots
-		//$this->user['tooltipParams']
 		$numSockets = count($this->dapi['socketInfo']['sockets']);
-		//echo '--['.$numSockets.' sockets]--<br>';
 		$gem0 =  $gem1 =  $gem2 = null;
+		$i =0;
+		
 		if (isset($this->user['tooltipParams']['gem0']))
 		{
-			$gem0 = $this->user['tooltipParams']['gem0'] ? $this->user['tooltipParams']['gem0'] : null;
+			$html .= $this->dgems['gem0']['gemInfo']['bonus']['name']."\n";
+			$i++;
 		}
 		if (isset($this->user['tooltipParams']['gem1']))
 		{
-			$gem1 = $this->user['tooltipParams']['gem1'] ? $this->user['tooltipParams']['gem1'] : null;
+			$html .= $this->dgems['gem1']['gemInfo']['bonus']['name']."\n";
+			$i++;
 		}
 		if (isset($this->user['tooltipParams']['gem2']))
 		{
-			$gem2 = $this->user['tooltipParams']['gem2'] ? $this->user['tooltipParams']['gem2'] : null;
+			$html .= $this->dgems['gem2']['gemInfo']['bonus']['name']."\n";
+			$i++;
 		}
-		$gems = array($gem0,$gem1,$gem2);
-		$i =0;
-		//print_r($gems);
-		foreach( $gems as $gem )
-		{
-			//echo $gem.'<br>';
-			if ( isset($gem))// != '0'  ) 
-			{	
-				$item_api = $this->dgems[$gem];
-				$html .= $item_api['gemInfo']['bonus']['name']."\n";
-				$i++;
-			}
-		}
-		//$item_api = $roster->api->Data->getItemInfo($item['id']);
-		//first lets do empty sockets
+
 		for( $i; $i < $numSockets; $i++ )
 		{
 
-				$html .= '<img width="14px" height="14px" src="' . $roster->config['interface_url'] . 'Interface/ItemSocketingFrame/ui-emptysocket-'
-					   .strtolower($this->dapi['socketInfo']['sockets'][$i]['type']).'.'.$roster->config['img_suffix'] . '" />'
-					   . $this->dapi['socketInfo']['sockets'][$i]['type'] . ' Socket<br />';
+				$html .= '' . $this->dapi['socketInfo']['sockets'][$i]['type'] . " Socket\n";
 		}
 		//now lets do sockets with gems
 		
@@ -754,11 +695,11 @@ function _getCaption()
 		{
 			if( isset($this->isSocketBonus) == true )
 			{
-				$html = '<span style="color:#00ff00;">' . $this->attributes['SocketBonus'] . '</span><br />';
+				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "\n";
 			}
 			else
 			{
-				$html = '<span style="color:#9d9d9d;">' . $this->attributes['SocketBonus'] . '</span><br />';
+				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "\n";
 			}
 
 			return $html;
@@ -775,19 +716,7 @@ function _getCaption()
 		$percent = (($current / $max) * 100);
 		$html = $this->attributes['Durability']['Line'] . ' ';
 
-		if( $percent == 0 )
-		{
-			$html .= '<span style="color:#ff0000;">' . $current . '</span>';
-		}
-		elseif( $percent <= 25)
-		{
-			$html .= '<span style="color:gold;">' . $current . '</span>';
-		}
-		else
-		{
-			$html .= '<span style="color:#ffffff;">' . $current . '</span>';
-		}
-		$html .= '<span style="color:#ffffff;"> / ' . $max . '</span><br />';
+		$html .= $current . ' / ' . $max . "\n";
 
 		return $html;
 	}
@@ -803,13 +732,13 @@ function _getCaption()
 		foreach( $this->attributes['ClassText'] as $class => $x)
 		{
 			$i++;
-			$html .= '<span style="color:#'. $roster->locale->wordings['enUS']['class_colorArray'][$x] . ';">' . $x . '</span>';
+			$html .= $x;
 			if( $count > $i )
 			{
 				$html .= ', ';
 			}
 		}
-		$html .= '<br />';
+		$html .= "\n";
 		return $html;
 	}
 
@@ -822,13 +751,13 @@ function _getCaption()
 		foreach( $this->attributes['RaceText'] as $class => $x)
 		{
 			$i++;
-			$html .= '' . $x . '</span>';
+			$html .= $x;
 			if( $count > $i )
 			{
 				$html .= ', ';
 			}
 		}
-		$html .= '<br />';
+		$html .= "\n";
 		return $html;
 	}
 
@@ -839,7 +768,7 @@ function _getCaption()
 		$requires = array();
 		$requires = $this->attributes['Requires'];
 		$html = '';
-		$html .= '<span style="color:#ff0000;">Requires Level '.$this->attributes['Requires'].'</span><br />';
+		$html .= 'Requires Level '.$this->attributes['Requires']."\n";
 
 		return $html;
 	}
@@ -851,7 +780,7 @@ function _getCaption()
 
 		$this->attributes['ItemLevel'];
 		$html = '';
-		$html .= '<span style="color:#000000;">Item Level '.$this->attributes['ItemLevel'].'</span><br />';
+		$html .= 'Item Level '.$this->attributes['ItemLevel']."\n";
 
 		return $html;
 	}
@@ -867,7 +796,7 @@ function _getCaption()
 		{
 			foreach( $type as $effect)
 			{
-				$html .= '<span style="color:#00ff00;">' . $effect . '</span><br />';
+				$html .= $effect . "\n";
 			}
 		}
 		return $html;
@@ -875,32 +804,17 @@ function _getCaption()
 
 	function _getItemCharges()
 	{
-		$html = '<span style="color:#ffffff;">' . $this->attributes['Charges'] . '</span><br />';
+		$html = $this->attributes['Charges'] . "\n";
 		return $html;
 	}
 
 	function _getSetPiece()
 	{
-		$html = '<br /><span style="color:#ffd517;font-size:11px;font-weight:bold">' . $this->attributes['Set']['ArmorSet']['Name']
-			  . ' ( ' . $this->setItemEquiped . ' / ' . $this->setItemOwned . ' / ' . $this->setItemTotal . ' )'
-			  . '</span><br />';
-
-		foreach( $this->attributes['Set']['ArmorSet']['Piece'] as $piece )
+		$html = '';
+		if (!empty($this->attributes['Set']['ArmorSet']['Name']))
 		{
-			if( isset($piece['Equip']) )
-			{
-				$html .= '<span style="color:#f8ffa8;">&nbsp;&nbsp;' . $piece['Name'] . '</span><br />';
-			}
-			elseif( isset($piece['Owned']) )
-			{
-				$html .= '<span style="color:#787880;font-style:italic;">&nbsp;&nbsp;' . $piece['Name'] . '</span><br />';
-			}
-			else
-			{
-				$html .= '<span style="color:#787880;">&nbsp;&nbsp;' . $piece['Name'] . '</span><br />';
-			}
+			$html .= "\n" . $this->attributes['Set']['ArmorSet']['Name'] ." (".$this->setItemEquiped."/5)\n";
 		}
-		$html .= '<br />';
 		return $html;
 	}
 
@@ -911,7 +825,7 @@ function _getCaption()
 			$html = '';
 			foreach( $this->attributes['Set']['SetBonus'] as $bonus )
 			{
-				$html .= '<span style="color:#00ff00;">' . $bonus . '</span><br />';
+				$html .= $bonus . "\n";
 			}
 		return $html;
 		}
@@ -928,14 +842,14 @@ function _getCaption()
 
 		foreach( $this->attributes['Set']['InactiveSet'] as $piece )
 		{
-			$html .= '<span style="color:#9d9d9d;">' . $piece . '</span><br />';
+			$html .= $piece . "\n";
 		}
 		return $html;
 	}
 
 	function _getCrafter()
 	{
-		$html = '<span style="color:#00ff00;font-weight:bold;">' . htmlentities($this->attributes['MadeBy']['Line']) . '</span><br />';
+		$html = htmlentities($this->attributes['MadeBy']['Line']) . "\n";
 		return $html;
 	}
 
@@ -945,20 +859,20 @@ function _getCaption()
 
 		foreach( $this->attributes['Restrictions'] as $val )
 		{
-			$html .= '<span style="color:#ffffff;">' . $val . '</span><br />';
+			$html .= $val . "\n";
 		}
 		return $html;
 	}
 
 	function _getItemNote()
 	{
-		$html = '<span style="color:#ffd517;">' . $this->attributes['ItemNote'] . '</span><br />';
+		$html = $this->attributes['ItemNote'] . "\n";
 		return $html;
 	}
 
 	function _getItemLevel()
 	{
-		$html = '<span style="color:#ffd800;">Item Level ' . $this->attributes['ItemLevel']. '</span><br />';
+		$html = 'Item Level ' . $this->attributes['ItemLevel']. "\n";
 		return $html;
 	}
 
