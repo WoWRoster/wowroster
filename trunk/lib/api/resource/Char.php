@@ -82,6 +82,9 @@ class character extends Resource {
 				case '15':		$this->x.= ',quests';
 								#A list of battleground vistories and teams.
 				break;
+				case '16':		$this->x.= ',feed';
+								#A list of battleground vistories and teams.
+				break;
 				default:
 								$this->x.= '';
 				break;
