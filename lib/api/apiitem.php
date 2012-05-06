@@ -216,7 +216,7 @@ var $skills = array(
 			$tt['Attributes']['Icon'] = $data['icon'];
 			$tt['General']['Slot'] = $data['inventoryType'];
 			$tt['General']['Parent'] = 'Equip';
-			$tt['General']['Tooltip'] = '';// i wish...str_replace("\n", '<br>', $data['tooltip']);
+			$tt['General']['Tooltip'] = '';// i wish...str_replace("<br>", '<br>', $data['tooltip']);
 			$tt['General']['Locale']=$roster->config['locale'];
 
 			
@@ -264,7 +264,7 @@ var $skills = array(
 				$this->setItemEquiped = count($this->user['tooltipParams']['set']);
 				//$this->isSetPiece = true;
 				$setpiece = 1;
-				$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = '';//trim($line);
+				$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = $data['name'];//trim($line);
 			}
 			
 			
@@ -328,7 +328,7 @@ var $skills = array(
 				$tt['Attributes']['WeaponType'] = $this->itemSubClass[$data['itemClass']][$data['itemSubClass']];
 				$tt['Attributes']['WeaponSlot'] = ''.$this->slotType[$data['inventoryType']].'';
 				$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
-				$tt['Attributes']['WeaponDamage'] = $data['weaponInfo']['damage'][0]['minDamage'].' - '.$data['weaponInfo']['damage'][0]['maxDamage'];
+				$tt['Attributes']['WeaponDamage'] = $data['weaponInfo']['damage']['min'].' - '.$data['weaponInfo']['damage']['max'];
 				$tt['Attributes']['WeaponDPS'] = number_format($data['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
 				$this->isWeapon = true;
 				
@@ -481,11 +481,13 @@ var $skills = array(
 			$html_tt .= $this->_getDropRate();
 		}
 
+		$html_tt = str_replace("<br>", '<br />', $html_tt);
+		
 		if( ($this->DEBUG && $this->isParseError) || $this->DEBUG == 2 )
 		{
 			trigger_error('<table class="border_frame" cellpadding="0" cellspacing="1" width="350"><tr><td>'
 			. $html_tt
-			. '<hr width="80%" /> ' . str_replace("\n", '<br />', $this->tooltip)
+			. '<hr width="80%" /> ' . str_replace("<br>", '<br />', $this->tooltip)
 			. '</td></tr></table><br />'
 			. aprint($this->parsed_item,'',true));
 		}
@@ -496,7 +498,7 @@ var $skills = array(
 	
 function _getCaption()
 	{
-		$html = '' . $this->parsed_item['General']['Name'] . "\n";
+		$html = '' . $this->parsed_item['General']['Name'] . "<br>";
 		return $html;
 	}
 
@@ -517,7 +519,7 @@ function _getCaption()
 			$color = 'ffffff';
 		}
 
-		$html = '' . $heroic . "\n";
+		$html = '' . $heroic . "<br>";
 
 		return $html;
 	}
@@ -526,7 +528,7 @@ function _getCaption()
 	{
 		global $roster;
 
-		$html = $this->attributes['BindType']. "\n";
+		$html = $this->attributes['BindType']. "<br>";
 
 		return $html;
 	}
@@ -536,14 +538,14 @@ function _getCaption()
 		$html = '';
 		foreach( $this->attributes['Conjured'] as $conjured )
 		{
-			$html .= $conjured . "\n";
+			$html .= $conjured . "<br>";
 		}
 		return $html;
 	}
 
 	function _getUnique()
 	{
-		$html = $this->attributes['Unique'] . "\n";
+		$html = $this->attributes['Unique'] . "<br>";
 		return $html;
 	}
 
@@ -552,15 +554,15 @@ function _getCaption()
 		if( isset($this->attributes['ArmorType']) && isset($this->attributes['ArmorSlot']) )
 		{
 			//$html = '<div style="width:100%;"><span style="float:right;">' . $this->attributes['ArmorType'] . '</span>' . $this->attributes['ArmorSlot'] . '</div>';
-			$html = '' . $this->attributes['ArmorSlot'] . '	' . $this->attributes['ArmorType'] . "\n";
+			$html = '' . $this->attributes['ArmorSlot'] . '	' . $this->attributes['ArmorType'] . "<br>";
 		}
 		elseif( isset($this->attributes['ArmorSlot'] ) )
 		{
-			$html = $this->attributes['ArmorSlot'] . "\n";
+			$html = $this->attributes['ArmorSlot'] . "<br>";
 		}
 		elseif( isset($this->attributes['ArmorType']) )
 		{
-			$html = $this->attributes['ArmorType'] . "\n";
+			$html = $this->attributes['ArmorType'] . "<br>";
 		}
 		else
 		{
@@ -578,24 +580,24 @@ function _getCaption()
 				  . $this->attributes['WeaponType'] . '</span>'
 				  . $this->attributes['WeaponSlot'] . '</div>';
 				  */
-			$html .= '' . $this->attributes['WeaponSlot'] . '	' . $this->attributes['WeaponType'] . "\n";
+			$html .= '' . $this->attributes['WeaponSlot'] . '	' . $this->attributes['WeaponType'] . "<br>";
 		}
 		elseif( isset($this->attributes['WeaponType']) )
 		{
-			$html .= $this->attributes['WeaponType'] . "\n";
+			$html .= $this->attributes['WeaponType'] . "<br>";
 		}
 		elseif( isset($this->attributes['WeaponSlot']) )
 		{
-			$html .= $this->attributes['WeaponSlot'] . "\n";
+			$html .= $this->attributes['WeaponSlot'] . "<br>";
 		}
 
 		if( isset($this->attributes['WeaponDamage']) )
 		{
-			$html .='' . $this->attributes['WeaponDamage'] . ' Damage	Speed ' . $this->attributes['WeaponSpeed'] . "\n";
+			$html .='' . $this->attributes['WeaponDamage'] . ' Damage	Speed ' . $this->attributes['WeaponSpeed'] . "<br>";
 		}
 		if( isset($this->attributes['WeaponDPS']) )
 		{
-			$html .= '('.$this->attributes['WeaponDPS'] . " damage per second)\n";
+			$html .= '('.$this->attributes['WeaponDPS'] . " damage per second)<br>";
 		}
 
 		return $html;
@@ -603,23 +605,23 @@ function _getCaption()
 
 	function _getBag()
 	{
-		$html = $this->attributes['BagDesc'] . "\n";
+		$html = $this->attributes['BagDesc'] . "<br>";
 		return $html;
 	}
 	function _getGemBonus()
 	{
-		$html = $this->attributes['GemBonus'] . "\n";
+		$html = $this->attributes['GemBonus'] . "<br>";
 		return $html;
 	}
 
 	function _getSkillRequired()
 	{
-		$html = 'Requires ' . $this->attributes['SkillRequired'] . "\n";
+		$html = 'Requires ' . $this->attributes['SkillRequired'] . "<br>";
 		return $html;
 	}
 	function _getArmorClass()
 	{
-		$html = $this->attributes['ArmorClass']['Line'] . "\n";
+		$html = $this->attributes['ArmorClass']['Line'] . "<br>";
 		return $html;
 	}
 
@@ -631,7 +633,7 @@ function _getCaption()
 
 		foreach( $stats as $stat )
 		{
-			$html .= '' . $stat . "\n";
+			$html .= '' . $stat . "<br>";
 		}
 		return $html;
 	}
@@ -648,7 +650,7 @@ function _getCaption()
 
 		foreach( $this->attributes['TempEnchantment'] as $bonus )
 		{
-			$html .= '' . $bonus . "\n";
+			$html .= '' . $bonus . "<br>";
 		}
 		return $html;
 	}
@@ -665,24 +667,24 @@ function _getCaption()
 		
 		if (isset($this->user['tooltipParams']['gem0']))
 		{
-			$html .= $this->dgems['gem0']['gemInfo']['bonus']['name']."\n";
+			$html .= $this->dgems['gem0']['gemInfo']['bonus']['name']."<br>";
 			$i++;
 		}
 		if (isset($this->user['tooltipParams']['gem1']))
 		{
-			$html .= $this->dgems['gem1']['gemInfo']['bonus']['name']."\n";
+			$html .= $this->dgems['gem1']['gemInfo']['bonus']['name']."<br>";
 			$i++;
 		}
 		if (isset($this->user['tooltipParams']['gem2']))
 		{
-			$html .= $this->dgems['gem2']['gemInfo']['bonus']['name']."\n";
+			$html .= $this->dgems['gem2']['gemInfo']['bonus']['name']."<br>";
 			$i++;
 		}
 
 		for( $i; $i < $numSockets; $i++ )
 		{
 
-				$html .= '' . $this->dapi['socketInfo']['sockets'][$i]['type'] . " Socket\n";
+				$html .= '' . $this->dapi['socketInfo']['sockets'][$i]['type'] . " Socket<br>";
 		}
 		//now lets do sockets with gems
 		
@@ -695,11 +697,11 @@ function _getCaption()
 		{
 			if( isset($this->isSocketBonus) == true )
 			{
-				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "\n";
+				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "<br>";
 			}
 			else
 			{
-				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "\n";
+				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "<br>";
 			}
 
 			return $html;
@@ -716,7 +718,7 @@ function _getCaption()
 		$percent = (($current / $max) * 100);
 		$html = $this->attributes['Durability']['Line'] . ' ';
 
-		$html .= $current . ' / ' . $max . "\n";
+		$html .= $current . ' / ' . $max . "<br>";
 
 		return $html;
 	}
@@ -738,7 +740,7 @@ function _getCaption()
 				$html .= ', ';
 			}
 		}
-		$html .= "\n";
+		$html .= "<br>";
 		return $html;
 	}
 
@@ -757,7 +759,7 @@ function _getCaption()
 				$html .= ', ';
 			}
 		}
-		$html .= "\n";
+		$html .= "<br>";
 		return $html;
 	}
 
@@ -768,7 +770,7 @@ function _getCaption()
 		$requires = array();
 		$requires = $this->attributes['Requires'];
 		$html = '';
-		$html .= 'Requires Level '.$this->attributes['Requires']."\n";
+		$html .= 'Requires Level '.$this->attributes['Requires']."<br>";
 
 		return $html;
 	}
@@ -780,7 +782,7 @@ function _getCaption()
 
 		$this->attributes['ItemLevel'];
 		$html = '';
-		$html .= 'Item Level '.$this->attributes['ItemLevel']."\n";
+		$html .= 'Item Level '.$this->attributes['ItemLevel']."<br>";
 
 		return $html;
 	}
@@ -796,7 +798,7 @@ function _getCaption()
 		{
 			foreach( $type as $effect)
 			{
-				$html .= $effect . "\n";
+				$html .= $effect . "<br>";
 			}
 		}
 		return $html;
@@ -804,7 +806,7 @@ function _getCaption()
 
 	function _getItemCharges()
 	{
-		$html = $this->attributes['Charges'] . "\n";
+		$html = $this->attributes['Charges'] . "<br>";
 		return $html;
 	}
 
@@ -813,7 +815,12 @@ function _getCaption()
 		$html = '';
 		if (!empty($this->attributes['Set']['ArmorSet']['Name']))
 		{
-			$html .= "\n" . $this->attributes['Set']['ArmorSet']['Name'] ." (".$this->setItemEquiped."/5)\n";
+			$html .= "<br><br>" . $this->attributes['Set']['ArmorSet']['Name'] ." (".$this->setItemEquiped."/5)<br>";
+		}
+		$pices = $this->attributes['Set']['ArmorSet']['Piece'];
+		foreach ($pices as $num => $p)
+		{
+			$html .= "" . $this->attributes['Set']['ArmorSet']['Piece'][$num]['Name'] ."<br>";
 		}
 		return $html;
 	}
@@ -825,7 +832,7 @@ function _getCaption()
 			$html = '';
 			foreach( $this->attributes['Set']['SetBonus'] as $bonus )
 			{
-				$html .= $bonus . "\n";
+				$html .= $bonus . "<br>";
 			}
 		return $html;
 		}
@@ -842,14 +849,14 @@ function _getCaption()
 
 		foreach( $this->attributes['Set']['InactiveSet'] as $piece )
 		{
-			$html .= $piece . "\n";
+			$html .= $piece . "<br>";
 		}
 		return $html;
 	}
 
 	function _getCrafter()
 	{
-		$html = htmlentities($this->attributes['MadeBy']['Line']) . "\n";
+		$html = htmlentities($this->attributes['MadeBy']['Line']) . "<br>";
 		return $html;
 	}
 
@@ -859,20 +866,20 @@ function _getCaption()
 
 		foreach( $this->attributes['Restrictions'] as $val )
 		{
-			$html .= $val . "\n";
+			$html .= $val . "<br>";
 		}
 		return $html;
 	}
 
 	function _getItemNote()
 	{
-		$html = $this->attributes['ItemNote'] . "\n";
+		$html = $this->attributes['ItemNote'] . "<br>";
 		return $html;
 	}
 
 	function _getItemLevel()
 	{
-		$html = 'Item Level ' . $this->attributes['ItemLevel']. "\n";
+		$html = 'Item Level ' . $this->attributes['ItemLevel']. "<br>";
 		return $html;
 	}
 

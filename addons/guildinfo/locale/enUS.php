@@ -39,6 +39,12 @@ $lang['NEWS_FORMAT']['5'] 	= '<span class="greenB">%1$s</span> purchased <span c
 $lang['NEWS_FORMAT']['6'] 	= '%1$s has reached level %2$s!';
 $lang['NEWS_FORMAT']['7'] 	= '%1$s has been founded.';
 
+$lang['playerAchievement'] 	= '<span class="greenB">%1$s</span> earned the achievement <span class="yellowB">%2$s</span>';
+//$lang['NEWS_FORMAT']['2'] 	= '<span class="greenB">%1$s</span> defeated %2$s';
+$lang['itemLoot'] 	= '<span class="greenB">%1$s</span> looted <span class="purpleB">%2$s</span>';
+$lang['itemCraft'] 	= '<span class="greenB">%1$s</span> crafted <span class="purpleB">%2$s</span>';
+$lang['itemPurchase'] 	= '<span class="greenB">%1$s</span> purchased <span class="purpleB">%2$s</span>';
+
 $lang['weekday'] = array(
 	'1' => 'SUN',
 	'2' => 'MON',
