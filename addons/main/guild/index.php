@@ -5,7 +5,7 @@ roster_add_css($addon['dir'] . 'styles.css','module');
 
 include_once($addon['inc_dir'].'functions.lib.php');
 $func = New mainFunctions;
-$roster->cache->cleanCache();
+
 
 	// Add news if any was POSTed
 	if( isset($_POST['process']) && $_POST['process'] == 'process' )
