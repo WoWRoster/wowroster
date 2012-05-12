@@ -106,6 +106,8 @@ ADD `scope` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `parent` ;
 ALTER TABLE `renprefix_members` CHANGE `account_id` `account_id` SMALLINT( 6 ) NULL DEFAULT NULL;
 UPDATE `renprefix_members` set `account_id` = NULL WHERE `account_id` = '0';
 
+ALTER TABLE `renprefix_currency` CHANGE `count` `count` INT( 5 ) NULL DEFAULT NULL;
+
 # --------------------------------------------------------
 ### Config Table Updates
 
