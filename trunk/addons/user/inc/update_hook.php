@@ -72,7 +72,7 @@ class userUpdate
 		global $roster, $addon;
 
 		// --[ We will allways try and keep user info up todate if some one is login BUT not with api sync.. members...]--
-		if ($data['CPprovider'] == 'ApiSyncChar')
+		if ($data['CPprovider'] != 'ApiSyncChar')
 		{
 			$this->messages .= '<li><span style="color:yellow">Getting Character Information...</span></li><br />' . "\n";
 			

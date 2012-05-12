@@ -3520,7 +3520,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->add_ifvalue($guild, 'DBversion');
 		$this->add_ifvalue($guild, 'GPversion');
 
-		$this->add_value('guild_info_text', str_replace('\n',"\n",$guild['Info']));
+		$this->add_value('guild_info_text', str_replace('\n',"<br />",$guild['Info']));
 
 		if( is_array($guildInfo) )
 		{
