@@ -18,7 +18,7 @@ $lang['news']			        = 'Articles';
 $lang['news_desc']			    = 'Système de gestion d\'articles avec commentaires';
 
 // Button names
-$lang['news_button']			= 'Articles|Poster des articles intéressants... ou pas';
+$lang['cms_button']            = 'Guild News|Post articles and other items of interest';
 
 $lang['no_news']				= 'Pas d\'article disponible';
 $lang['bad_news_id']			= 'Mauvais identifiant d\'article';

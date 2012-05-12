@@ -187,11 +187,11 @@ class Upgrade {
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
 
 		//5f4dcc3b5aa765d61d8327deb882cf99 password Duh!
-			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Admin', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
+			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Admin', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');");
 			$roster->set_message('Admin user created password: password <span style="color:red;">Change this asap!</span>');
-			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Officer', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
+			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Officer', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');");
 			$roster->set_message('Officer user created password: password');
-			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11');");
+			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');");
 			$roster->set_message('Guild user created password: password');
 			
 			$roster->db->query("ALTER TABLE `".$roster->db->table('addon')."` CHANGE `access` `access` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0'");
@@ -325,6 +325,10 @@ class Upgrade {
 		if (version_compare($roster->config['version'], '2.1.9.2467', '<')) 
 		{
 			$roster->db->query("UPDATE `" .$roster->db->table('user_members') . "` SET `access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");  
+		}
+		if (version_compare($roster->config['version'], '2.1.9.2469', '<')) 
+		{
+			$roster->db->query("ALTER TABLE `" .$roster->db->table('currency') . "` CHANGE `count` `count` INT( 5 ) NULL DEFAULT NULL;");  
 		}
 		
 		// Standard Beta Update

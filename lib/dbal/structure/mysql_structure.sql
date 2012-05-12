@@ -187,7 +187,7 @@ CREATE TABLE `renprefix_currency` (
   `category` varchar(96) NOT NULL,
   `name` varchar(96) NOT NULL default '',
   `type` tinyint(4) unsigned NOT NULL default '0',
-  `count` tinyint(4) unsigned NOT NULL default '0',
+  `count` int(5) unsigned NOT NULL default '0',
   `icon` varchar(64) NOT NULL,
   `tooltip` mediumtext NOT NULL,
   `watched` varchar(10) NOT NULL,

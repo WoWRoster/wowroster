@@ -18,7 +18,7 @@ $lang['news']			        = 'Neuigkeiten';
 $lang['news_desc']			    = 'Neuigkeitensystem mit Kommentaren';
 
 // Button names
-$lang['news_button']			= 'Neuigkeiten|Artikel und anderes von Interesse veröffentlichen';
+$lang['cms_button']            = 'Guild News|Post articles and other items of interest';
 
 $lang['no_news']				= 'Keine Neuigkeiten verfügbar';
 $lang['bad_news_id']			= 'Falsche Neuigkeiten ID';
