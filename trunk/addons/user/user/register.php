@@ -7,11 +7,7 @@ include_once ($addon['inc_dir'] . 'conf.php');
 
 if(isset($_POST['op']) && $_POST['op']=='register')
 {
-
 	// If the Register form has been submitted
-	echo '<pre>';
-	print_r($_POST);
-	echo '</pre>';
 	$err = array();
 	
 	if(strlen($_POST['username'])<4 || strlen($_POST['username'])>64)
@@ -23,100 +19,122 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 	{
 		$pass = md5($_POST['password1']);
 	}
-		
-	if(!count($err))
+	
+	//"SELECT COUNT(*) AS `check` FROM %s WHERE `email` = '%s' AND `active` = '1'";
+	//
+	$email = mysql_real_escape_string($_POST['email']);
+	if ( $user->user->checkEMail($email) )
 	{
+		// ok the email passed the form check now see if its used anywhere else...
+		$em = "SELECT COUNT(`email`) AS `check` FROM `".$roster->db->table('user_members')."` WHERE `email` = '".$email."'";
+		$ema = $roster->db->query($em);
+		$rowem = $roster->db->fetch($ema);
+		if ($rowem['check'] == '0')
+		{
 		
-		$_POST['email'] = mysql_real_escape_string($_POST['email']);
-		$_POST['username'] = mysql_real_escape_string($_POST['username']);
-		// Escape the input data
-		if (!empty($_POST['rank']))
-		{
-			$rank = $_POST['rank'];
-		}
-		else
-		{
-			$querya = "SELECT `name`,`guild_rank` FROM `".$roster->db->table('members')."` WHERE `name` = '".$_POST['username']."';";
-			$resulta = $roster->db->query($querya);
-			if( $resulta )
+			if(!count($err))
 			{
-				$row = $roster->db->fetch($resulta);
-				$rank = $row['guild_rank'];
-			}
-			else
-			{
-				$rank = '';
-			}
-		}
-
-		$age = mktime(0, 0, 0, $_POST['age_Month'], $_POST['age_Day'], $_POST['age_Year']);
-		$data = array(
-			'usr'		=> $_POST['username'],
-			'pass'		=> $pass,
-			'email'		=> $_POST['email'],
-			'regIP'		=> $_SERVER['REMOTE_ADDR'],
-			'dt'		=> $roster->db->escape(gmdate('Y-m-d H:i:s')),
-			'access'	=> '0:'.$rank,
-			'fname'		=> $_POST['fname'],
-			'lname'		=> $_POST['lname'],
-			'age'		=> $age,
-			'city'		=> $_POST['City'],
-			'state'		=> $_POST['State'],
-			'country'	=> $_POST['Country'],
-			'zone'		=> $_POST['Zone'],
-			'active'	=> $_POST['active']
-		);
-		$query = 'INSERT INTO `' . $roster->db->table('user_members') . '` ' . $roster->db->build_query('INSERT', $data);
-
-		// user link table i was hoping to NOT use this....
-		
-		if( $roster->db->query($query) )
-		{
-			$uuid = $roster->db->insert_id();
-			$roster->set_message('You are registered and can now login','User Register:','notice');
 			
-			$querya = "SELECT `name`,`guild_id`,`server`,`region`,`member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '".$_POST['username']."';";
-			$resulta = $roster->db->query($querya);
-			$a = "INSERT INTO `".$roster->db->table('profile','user')."` (`uid`, `signature`, `avatar`, `avsig_src`, `show_fname`, `show_lname`, `show_email`, `show_city`, `show_country`, `show_homepage`, `show_notes`, `show_joined`, `show_lastlogin`, `show_chars`, `show_guilds`, `show_realms`) VALUES ('$uuid', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');";
-			$aa = $roster->db->query($a);
+				$_POST['username'] = mysql_real_escape_string($_POST['username']);
+				// Escape the input data
+				if (!empty($_POST['rank']))
+				{
+					$rank = $_POST['rank'];
+				}
+				else
+				{
+					$querya = "SELECT `name`,`guild_rank` FROM `".$roster->db->table('members')."` WHERE `name` = '".$_POST['username']."';";
+					$resulta = $roster->db->query($querya);
+					if( $resulta )
+					{
+						$row = $roster->db->fetch($resulta);
+						$rank = $row['guild_rank'];
+					}
+					else
+					{
+						$rank = '';
+					}
+				}
 
-			if( !$resulta )
-			{
-				die_quietly($roster->db->error, 'user Profile', __FILE__,__LINE__,$querya);
-			}
-			else
-			{
-				$row = $roster->db->fetch($resulta);
-				
-				$data2 = array(
-					'uid' => $uuid,
-					'member_id' => $row['member_id'],
-					'guild_id' => $row['guild_id'],
-					'group_id' => '1',
-					'is_main' => '1',
-					'realm' => $row['server'],
-					'region' => $row['region']
+				$age = mktime(0, 0, 0, $_POST['age_Month'], $_POST['age_Day'], $_POST['age_Year']);
+				$data = array(
+					'usr'		=> $_POST['username'],
+					'pass'		=> $pass,
+					'email'		=> $email,
+					'regIP'		=> $_SERVER['REMOTE_ADDR'],
+					'dt'		=> $roster->db->escape(gmdate('Y-m-d H:i:s')),
+					'access'	=> '0:'.$rank,
+					'fname'		=> $_POST['fname'],
+					'lname'		=> $_POST['lname'],
+					'age'		=> $age,
+					'city'		=> $_POST['City'],
+					'state'		=> $_POST['State'],
+					'country'	=> $_POST['Country'],
+					'zone'		=> $_POST['Zone'],
+					'active'	=> $_POST['active']
 				);
-				$query2 = 'INSERT INTO `' . $roster->db->table('user_link', 'user') . '` ' . $roster->db->build_query('INSERT', $data2);
-				$result2 = $roster->db->query($query2);
+				$query = 'INSERT INTO `' . $roster->db->table('user_members') . '` ' . $roster->db->build_query('INSERT', $data);
+
+				// user link table i was hoping to NOT use this....
 				
-				$update_sql = "UPDATE `" . $roster->db->table('members') . "`"
-							  . " SET `account_id` = '" . $uuid . "'"
-							  . " WHERE `name` = '".$_POST['username']."';";
-				$accid = $roster->db->query($update_sql);
+				if( $roster->db->query($query) )
+				{
+					$uuid = $roster->db->insert_id();
+					$roster->set_message('You are registered and can now login','User Register:','notice');
+					
+					$querya = "SELECT `name`,`guild_id`,`server`,`region`,`member_id` FROM `".$roster->db->table('members')."` WHERE `name` = '".$_POST['username']."';";
+					$resulta = $roster->db->query($querya);
+					$a = "INSERT INTO `".$roster->db->table('profile','user')."` (`uid`, `signature`, `avatar`, `avsig_src`, `show_fname`, `show_lname`, `show_email`, `show_city`, `show_country`, `show_homepage`, `show_notes`, `show_joined`, `show_lastlogin`, `show_chars`, `show_guilds`, `show_realms`) VALUES ('$uuid', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');";
+					$aa = $roster->db->query($a);
+
+					if( !$resulta )
+					{
+						die_quietly($roster->db->error, 'user Profile', __FILE__,__LINE__,$querya);
+					}
+					else
+					{
+						$row = $roster->db->fetch($resulta);
+						
+						$data2 = array(
+							'uid' => $uuid,
+							'member_id' => $row['member_id'],
+							'guild_id' => $row['guild_id'],
+							'group_id' => '1',
+							'is_main' => '1',
+							'realm' => $row['server'],
+							'region' => $row['region']
+						);
+						$query2 = 'INSERT INTO `' . $roster->db->table('user_link', 'user') . '` ' . $roster->db->build_query('INSERT', $data2);
+						$result2 = $roster->db->query($query2);
+						
+						$update_sql = "UPDATE `" . $roster->db->table('members') . "`"
+									  . " SET `account_id` = '" . $uuid . "'"
+									  . " WHERE `name` = '".$_POST['username']."';";
+						$accid = $roster->db->query($update_sql);
+					}
+
+					echo $roster->auth->getLoginForm();
+					return;
+
+				}
+				else
+				{
+					$roster->set_message('There was a DB error while creating your user.', '', 'error');
+					$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+				}
 			}
-
-			echo $roster->auth->getLoginForm();
-			return;
-
 		}
 		else
 		{
-			$roster->set_message('There was a DB error while creating your user.', '', 'error');
-			$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+			$roster->set_message($roster->locale->act['user_user']['msg31'],$roster->locale->act['user_page']['register'],'error');
 		}
-	}
 
+	}
+	else
+	{
+		//echo $roster->locale->act['user_user']['msg16']
+		$roster->set_message($roster->locale->act['user_user']['msg16'],$roster->locale->act['user_page']['register'],'warning');
+	}
 	if(count($err))
 	{
 		$e = implode('<br />',$err);

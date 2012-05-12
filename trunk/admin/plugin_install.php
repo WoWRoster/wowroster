@@ -223,9 +223,6 @@ function getPluginlist()
 			$installer->seterrors($roster->locale->act['invalid_char_module'],$roster->locale->act['installer_error']);
 			return;
 		}
-
-		// Check for temp tables
-		//$old_error_die = $roster->db->error_die(false);
 		if( false === $roster->db->query("CREATE TEMPORARY TABLE `test` (id int);") )
 		{
 			$installer->temp_tables = false;
@@ -235,12 +232,9 @@ function getPluginlist()
 		{
 			$installer->temp_tables = true;
 		}
-		//$roster->db->error_die($old_error_die);
 
-		// Include addon install definitions
 		$addonDir = ROSTER_PLUGINS . $addon_name . DIR_SEP;
 		$addon_install_file = $addonDir . 'install.def.php';
-		echo $addon_install_file.'<br>';
 		$install_class = $addon_name.'Install';
 
 		if( !file_exists($addon_install_file) )
@@ -329,13 +323,6 @@ function getPluginlist()
 					$installer->seterrors(sprintf($roster->locale->act['installer_no_upgrade'],$installer->addata['basename']));
 					break;
 				}
-				/* Carry Over from AP branch
-				if( !in_array($previous['basename'],$addon->upgrades) )
-				{
-					$installer->seterrors(sprintf($roster->locale->act['installer_not_upgradable'],$addon->fullname,$previous['fullname'],$previous['basename']));
-					break;
-				}
-				*/
 
 				$query = "UPDATE `" . $roster->db->table('plugin') . "` SET `basename`='" . $installer->addata['basename'] . "', `version`='" . $installer->addata['version'] . "', `active`=" . (int)$installer->addata['active'] . ", `fullname`='" . $installer->addata['fullname'] . "', `description`='" . $installer->addata['description'] . "', `credits`='" . serialize($installer->addata['credits']) . "', `icon`='" . $installer->addata['icon'] . "', `wrnet_id`='" . $installer->addata['wrnet_id'] . "' WHERE `addon_id`=" . $previous['addon_id'] . ';';
 				$result = $roster->db->query($query);
