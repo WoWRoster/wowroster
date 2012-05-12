@@ -117,6 +117,7 @@ class userInstall
 		$installer->add_menu_button('user_menu_realms','user','realms','spell_holy_lightsgrace');
 		$installer->add_menu_button('user_menu_mail','user','mail','inv_letter_11');
 		$installer->add_menu_button('user_menu_settings','user','settings','inv_misc_wrench_02');
+		//$installer->add_menu_button('user_alt','user','alt','spell_holy_holynova');
 		return true;
 	}
 
@@ -167,6 +168,10 @@ class userInstall
 			CHANGE `notes` `notes` varchar(64) DEFAULT NULL,
 			CHANGE `last_login` `last_login` varchar(64) DEFAULT NULL,
 			CHANGE `date_joined` `date_joined` varchar(64) DEFAULT NULL");
+		}
+		if( version_compare('0.2.5', $oldversion,'>') == true )
+		{
+			//$installer->add_menu_button('user_alt','user','alt','spell_holy_holynova');
 		}
 		return true;
 	}

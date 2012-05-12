@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * WoWRoster.net WoWRoster
  *
@@ -93,10 +93,10 @@ $lang['admin']['members']       = 'Mitgliederliste|Konfiguriert die Sichtbarkeit
 $lang['admin']['stats']         = 'Werteliste|Konfiguriert die Sichtbarkeit der Grundwerte-Spalten.';
 $lang['admin']['honor']         = 'Ehrenliste|Konfiguriert die Sichtbarkeit der Ehrenliste-Spalten.';
 $lang['admin']['log']           = 'Mitglieder Log|Konfiguriert die Sichtbarkeit der Mitglieder Log-Spalten.';
-$lang['admin']['build']         = 'Hauptchar/Twink Beziehungen|Konfiguriert wie Hauptchars/Twinks erkannt werden.';
-$lang['admin']['gbuild']        = 'Main/Alt per Gilde|Konfiguriert gildenspezifische Main/Alt Erkennungsregeln.';
+$lang['admin']['build']         = 'Main/Twink Beziehungen|Konfiguriert wie Hauptchars/Twinks erkannt werden.';
+$lang['admin']['gbuild']        = 'Main/Twink per Gilde|Konfiguriert gildenspezifische Hauptchar/Twink Erkennungsregeln.';
 $lang['admin']['ml_wiki']       = 'Dokumentation|Mitgliederliste Dokumentation auf WoWRoster wiki.';
-$lang['admin']['updMainAlt']    = 'Aktualisiere Beziehungen|Aktualisiert die Main/Alt Beziehungen der Daten, die bereits in der DB gespeichert sind.';
+$lang['admin']['updMainAlt']    = 'Akt. Twinks|Aktualisiert die Hauptchar/Twink Beziehungen der Daten, die bereits in der DB gespeichert sind.';
 $lang['admin']['page_size']		= 'Seitengröße|Konfiguriert die Anzahl der Zeilen Pro Seite oder 0 für keinen Seitenumbruch';
 
 // Settings names on display page
@@ -127,7 +127,7 @@ $lang['admin']['member_zone']   = 'Zone|Setze die Sichtbarkeit der Letztes Gebie
 $lang['admin']['member_online'] = 'Zuletzt Online|Setze die Sichtbarkeit der Zuletzt Online-Spalte auf der Mitgliederseite';
 $lang['admin']['member_update'] = 'Zuletzt aktualisiert|Setze die Sichtbarkeit der Zuletzt aktualisiert-Spalte auf der Mitgliederseite';
 $lang['admin']['member_note']   = 'Notiz|Setze die Sichtbarkeit der Notizspalte auf der Mitgliederseite';
-$lang['admin']['member_onote']  = 'Offizernotiz|Setze die Sichtbarkeit der Offiziernotizspalte auf der Mitgliederseite';
+$lang['admin']['member_onote']  = 'Offiziersnotiz|Setze die Sichtbarkeit der Offiziersnotiz Spalte auf der Mitgliederseite';
 
 // Settings on Stats page
 $lang['admin']['stats_motd']	= 'Gilden MOTD|Zeige Gilden "Nachricht des Tages" oben auf der Wertelisteseite';
@@ -174,16 +174,16 @@ $lang['admin']['log_gtitle']	= 'Gildenrang|Setze die Sichtbarkeit der Gildenrang
 $lang['admin']['log_type']		= 'Typ|Setze die Sichtbarkeit der Typspalte auf der Mitglieder Log Seite';
 $lang['admin']['log_date']		= 'Zuletzt Online|Setze die Sichtbarkeit der Zuletzt Online-Spalte auf der Mitglieder Log Seite';
 $lang['admin']['log_note']		= 'Notiz|Setze die Sichtbarkeit der Notizspalte auf der Mitglieder Log Seite';
-$lang['admin']['log_onote']		= 'Offizernotiz|Setze die Sichtbarkeit der Offiziersnotizspalte auf der Mitglieder Log Seite';
+$lang['admin']['log_onote']		= 'Offiziersnotiz|Setze die Sichtbarkeit der Offiziersnotiz Spalte auf der Mitglieder Log Seite';
 
 // Settings names on build page
-$lang['admin']['use_global']    = 'Benutze globale Einstellungen|Benutze Globale anstatt lokale Einstellungen für diese Gilde.';
-$lang['admin']['getmain_regex'] = 'Regex|Dieses Feld spezifiziert die Benutzung des Regex. <br /> Folge dem Wiki-Link für Details.';
-$lang['admin']['getmain_field'] = 'Anwenden auf Feld|Dieses Feld spezifiziert auf welches Mitgliederfeld der Regex angewendet werden soll. <br />Folge dem Wiki-Link für Details.';
-$lang['admin']['getmain_match'] = 'Benutze Treffernr.|Dieses Feld spezifiziert welcher Rückgabewert von dem Regex verwendet wird. <br /> Folge dem Wiki-Link für Details.';
+$lang['admin']['use_global']    = 'Benutze globale Einstellungen|Benutze globale anstatt lokale Einstellungen für diese Gilde.';
+$lang['admin']['getmain_regex'] = 'Regex|Dieses Feld spezifiziert die Benutzung des Regex.<br />Folge dem Wiki-Link für Details.';
+$lang['admin']['getmain_field'] = 'Anwenden auf Feld|Dieses Feld spezifiziert auf welches Mitgliederfeld der Regex angewendet werden soll.<br />Folge dem Wiki-Link für Details.';
+$lang['admin']['getmain_match'] = 'Benutze Treffernr.|Dieses Feld spezifiziert welcher Rückgabewert von dem Regex verwendet wird.<br />Folge dem Wiki-Link für Details.';
 $lang['admin']['getmain_main']  = 'Hauptchar-Identifizierung|Wenn der Regex diesen Wert findet, so wird dieser Chars als Hauptcharakter angenommen.';
 $lang['admin']['defmain']       = 'Kein Ergebnis|Setze wie die Charaktere definiert werden sollen, bei denen der Regex nichts zurückgibt.';
-$lang['admin']['invmain']       = 'Ungültiges Ergebnis|Setze wie die Charaktere definiert werden sollen, <br />wenn der Regex ein Ergebnis ausgibt, dass kein Gildenmitglied oder kein Hauptcharakter ist.';
+$lang['admin']['invmain']       = 'Ungültiges Ergebnis|Setze wie die Charaktere definiert werden sollen,<br />wenn der Regex ein Ergebnis ausgibt, dass kein Gildenmitglied oder kein Hauptcharakter ist.';
 $lang['admin']['altofalt']      = 'Twink des Twinks|Gib an, was zu tun ist, wenn der Charakter ein hauptcharakterloser Twink ist.';
 $lang['admin']['update_type']   = 'Aktualisierungstyp|Gib an, an welchem Auslöser die Hauptchar/Twink Beziehungen aktualisiert werden sollen.';
 

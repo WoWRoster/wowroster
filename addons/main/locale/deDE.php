@@ -1,4 +1,4 @@
-<?php
+Ôªø<?php
 /**
  * WoWRoster.net WoWRoster
  *
@@ -18,19 +18,19 @@ $lang['news']			        = 'Neuigkeiten';
 $lang['news_desc']			    = 'Neuigkeitensystem mit Kommentaren';
 
 // Button names
-$lang['news_button']			= 'Neuigkeiten|Artikel und anderes von Interesse verˆffentlichen';
+$lang['news_button']			= 'Neuigkeiten|Artikel und anderes von Interesse ver√∂ffentlichen';
 
-$lang['no_news']				= 'Keine Neuigkeiten verf¸gbar';
+$lang['no_news']				= 'Keine Neuigkeiten verf√ºgbar';
 $lang['bad_news_id']			= 'Falsche Neuigkeiten ID';
 
-$lang['add_news']               = 'Neuigkeiten hinzuf¸gen';
+$lang['add_news']               = 'Neuigkeiten hinzuf√ºgen';
 $lang['enable_html']            = 'HTML aktivieren';
 $lang['disable_html']           = 'HTML deaktivieren';
-$lang['posted_by']              = 'Verˆffentlicht von';
+$lang['posted_by']              = 'Ver√∂ffentlicht von';
 $lang['edit']                   = 'Bearbeiten';
 $lang['edit_news']              = 'Neuigkeit bearbeiten';
 $lang['comments']               = 'Kommentare';
-$lang['add_comment']            = 'Kommentar hinzuf¸gen';
+$lang['add_comment']            = 'Kommentar hinzuf√ºgen';
 $lang['edit_comment']           = 'Kommentar bearbeiten';
 $lang['n_comment']              = '%s Kommentar';
 $lang['n_comments']             = '%s Kommentare';
@@ -41,23 +41,23 @@ $lang['b_url'] = 'Link';
 $lang['b_image'] = 'Image File';
 $lang['b_add'] = 'Add Banner';
 
-$lang['news_edit_success']      = 'Neuigekit erfolgreich bearbeitet';
-$lang['news_add_success']       = 'Neuigkeit erfolgreich hinzugef¸gt';
-$lang['banner_add_success']       = 'Banner added successfully';
+$lang['news_edit_success']      = 'Neuigkeit erfolgreich bearbeitet';
+$lang['news_add_success']       = 'Neuigkeit erfolgreich hinzugef√ºgt';
+$lang['banner_add_success']       = 'Banner erfolgreich hinzugef√ºgt';
 $lang['news_error_process']     = 'Es ist ein Problem beim Verarbeiten des Artikels aufgetreten';
 
 $lang['comment_edit_success']   = 'Kommentar erfolgreich editiert';
-$lang['comment_add_success']    = 'Kommentar erfolgreich hinzugef¸gt';
+$lang['comment_add_success']    = 'Kommentar erfolgreich hinzugef√ºgt';
 $lang['comment_error_process']  = 'Es ist ein Problem beim Verarbeiten des Kommentars aufgetreten';
 
 // Config strings
 $lang['admin']['cmsmain_conf']		= 'Neuigkeiten Konfiguration|Grundlegende Einstellungen';
-$lang['admin']['cmsmain_banner'] = 'Banners';
-$lang['admin']['cmsmain_banneradd'] = 'Add Banners';
-$lang['admin']['news_add']		= 'Neuigkeiten hinzuf¸gen|Minimum benˆtigtes Login Level um Neuigkeiten hinzuzuf¸gen.';
-$lang['admin']['news_edit']		= 'Neuigkeiten bearbeiten|Minimum benˆtigtes Login Level um Neuigkeiten zu bearbeiten.';
-$lang['admin']['comm_add']		= 'Kommentar hinzuf¸gen|Minimum benˆtigtes Login Level um Kommentare hinzuzuf¸gen.';
-$lang['admin']['comm_edit']		= 'Kommentare bearbeiten|Minimum benˆtigtes Login Level um Kommentare zu bearbeiten.';
-$lang['admin']['news_html']		= 'HTML Neuigkeiten|Standardm‰ﬂige Aktivierung oder Deaktivierung von HTML in Neuigkeiten, oder generelles Verbot von HTML.<br />Hat keine Auswirkung auf bereits existierende Neuigkeiten';
-$lang['admin']['comm_html']		= 'HTML Kommentare|Standardm‰ﬂige Aktivierung oder Deaktivierung von HTML in Kommentaren, oder generelles Verbot von HTML.<br />Hat keine Auswirkung auf bereits existierende Kommentare';
+$lang['admin']['cmsmain_banner'] = 'Banner';
+$lang['admin']['cmsmain_banneradd'] = 'Banner hinzuf√ºgen';
+$lang['admin']['news_add']		= 'Neuigkeiten hinzuf√ºgen|Minimum ben√∂tigtes Login Level um Neuigkeiten hinzuzuf√ºgen.';
+$lang['admin']['news_edit']		= 'Neuigkeiten bearbeiten|Minimum ben√∂tigtes Login Level um Neuigkeiten zu bearbeiten.';
+$lang['admin']['comm_add']		= 'Kommentar hinzuf√ºgen|Minimum ben√∂tigtes Login Level um Kommentare hinzuzuf√ºgen.';
+$lang['admin']['comm_edit']		= 'Kommentare bearbeiten|Minimum ben√∂tigtes Login Level um Kommentare zu bearbeiten.';
+$lang['admin']['news_html']		= 'HTML Neuigkeiten|Standardm√§√üige Aktivierung oder Deaktivierung von HTML in Neuigkeiten, oder generelles Verbot von HTML.<br />Hat keine Auswirkung auf bereits existierende Neuigkeiten';
+$lang['admin']['comm_html']		= 'HTML Kommentare|Standardm√§√üige Aktivierung oder Deaktivierung von HTML in Kommentaren, oder generelles Verbot von HTML.<br />Hat keine Auswirkung auf bereits existierende Kommentare';
 $lang['admin']['news_nicedit']  = 'Nicedit Textbox|Aktivierung oder Deaktivierung der Niceedit Textbox.';
