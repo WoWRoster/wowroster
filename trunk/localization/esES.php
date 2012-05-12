@@ -487,6 +487,7 @@ $lang['class_iconArray'] = array (
 //	'Chamán'=>'shaman_icon',
 	'Bruja'=>'warlock_icon',
 	'Guerrera'=>'warrior_icon',
+	'Monk'=>'monk_icon'
 );
 
 // Class Color-Array
@@ -512,6 +513,7 @@ $lang['class_colorArray'] = array(
 //	'Chamán' => '2459FF',
 	'Bruja' => '9482C9',
 	'Guerrera' => 'C79C6E',
+	'Monk' => '00C77b'
 );
 
 // Class To English Translation

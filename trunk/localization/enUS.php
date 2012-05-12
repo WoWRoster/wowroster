@@ -476,7 +476,8 @@ $lang['class_iconArray'] = array (
 	'Rogue'=>'rogue_icon',
 	'Shaman'=>'shaman_icon',
 	'Warlock'=>'warlock_icon',
-	'Warrior'=>'warrior_icon'
+	'Warrior'=>'warrior_icon',
+	'Monk'=>'monk_icon'
 // Space so locale files are line synced
 
 
@@ -501,7 +502,8 @@ $lang['class_colorArray'] = array(
 	'Rogue' => 'FFF569',
 	'Shaman' => '2459FF',
 	'Warlock' => '9482C9',
-	'Warrior' => 'C79C6E'
+	'Warrior' => 'C79C6E',
+	'Monk' => '00C77b'
 // Space so locale files are line synced
 
 

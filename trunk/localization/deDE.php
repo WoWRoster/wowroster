@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * WoWRoster.net WoWRoster
  *
@@ -488,6 +488,7 @@ $lang['class_iconArray'] = array (
 	'Schamanin'=>'shaman_icon',
 	'Hexenmeisterin'=>'warlock_icon',
 	'Krieger'=>'warrior_icon',
+	'Mönch'=>'monk_icon'
 );
 
 // Class Color-Array
@@ -513,6 +514,7 @@ $lang['class_colorArray'] = array(
 	'Schamanin' => '2459FF',
 	'Hexenmeisterin' => '9482C9',
 	'Kriegerin' => 'C79C6E',
+	'Mönch' => '00C77b'
 );
 
 // Class To English Translation

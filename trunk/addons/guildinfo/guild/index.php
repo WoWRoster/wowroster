@@ -347,6 +347,8 @@ function makeGraph( $type , $level , $style )
 	{
 
 		$resultd = $resultxx;
+		$resultx = $resultxx;
+		$dat = array();
 		/*
 		foreach($roster->locale->act['id_to_class'] as $class_id => $class)
 			{
@@ -358,7 +360,14 @@ function makeGraph( $type , $level , $style )
 		//$dat[$rowd['guild_title']]['name']=
 		while ($rowd = $roster->db->fetch($resultd))
 		{
-			$dat[$rowd['guild_title']]['name']=$rowd['guild_title'];
+			if (!isset($dat[$rowd['guild_title']]))
+			{
+				$dat[$rowd['guild_title']] = array();
+				$dat[$rowd['guild_title']]['name']=$rowd['guild_title'];
+				$dat[$rowd['guild_title']]['alt'] = 0;
+				$dat[$rowd['guild_title']]['nonalt'] = 0;
+			}
+			//$dat[$rowd['guild_title']]['name']=$rowd['guild_title'];
 			if ($rowd['isalt']==1)
 			{
 				$dat[$rowd['guild_title']]['alt']++;

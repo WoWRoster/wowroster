@@ -186,4 +186,3 @@ $lang['admin']['defmain']       = 'Kein Ergebnis|Setze wie die Charaktere defini
 $lang['admin']['invmain']       = 'Ungültiges Ergebnis|Setze wie die Charaktere definiert werden sollen,<br />wenn der Regex ein Ergebnis ausgibt, dass kein Gildenmitglied oder kein Hauptcharakter ist.';
 $lang['admin']['altofalt']      = 'Twink des Twinks|Gib an, was zu tun ist, wenn der Charakter ein hauptcharakterloser Twink ist.';
 $lang['admin']['update_type']   = 'Aktualisierungstyp|Gib an, an welchem Auslöser die Hauptchar/Twink Beziehungen aktualisiert werden sollen.';
-
