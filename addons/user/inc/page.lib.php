@@ -881,13 +881,11 @@ class userPage extends user
                   $mail_tab2 = explode('|',$roster->locale->act['user_mail_menu']['outbox']);
                   $mail_tab3 = explode('|',$roster->locale->act['user_mail_menu']['write']);
             
-                  $mail_menu = messagebox('
-                  <ul class="tab_menu">
+                  $mail_menu = '<ul class="tab_menu">
                         <li><a href="' . makelink('user-user-mail-inbox') . '" style="cursor:help;"' . makeOverlib($mail_tab1[1],$mail_tab1[0],'',1,'',',WRAP') . '>' . $mail_tab1[0] . '</a></li>
                         <li><a href="' . makelink('user-user-mail-outbox') . '" style="cursor:help;"' . makeOverlib($mail_tab2[1],$mail_tab2[0],'',1,'',',WRAP') . '>' . $mail_tab2[0] . '</a></li>
                         <li><a href="' . makelink('user-user-mail-write') . '" style="cursor:help;"' . makeOverlib($mail_tab3[1],$mail_tab3[0],'',1,'',',WRAP') . '>' . $mail_tab3[0] . '</a></li>
-                  </ul>
-                  ',$roster->locale->act['user_int']['messaging']['menu'],'syellow','145px');
+                  </ul>';
                   
                   if( isset($roster->pages[3]) && $roster->pages[3] == 'inbox' )
                   {
@@ -932,7 +930,8 @@ class userPage extends user
 						{
 							$form = 'messsageForm';
                             $user->form->newForm('post', makelink('user-mail'), $form, 'formClass', 4);
-							$user->form->addColumn('x1x1',$span=1,'You have no mail',$class='formElement',$form);
+							//user->form->addColumn('x1x1',$span=1,'You have no mail',$class='formElement',$form);
+							$user->form->addColumn('read',1,'You have no mail','membersHeader',$form);
 						}
                   }
                   elseif( isset($roster->pages[3]) && $roster->pages[3] == 'outbox' )
@@ -973,6 +972,13 @@ class userPage extends user
                                     $user->form->addColumn('date_sent_' . $i,1,$messages[$i]['date'],$rowColor,$form);
                               }
                         }
+						else
+						{
+							$form = 'messsageForm';
+                            $user->form->newForm('post', makelink('user-mail'), $form, 'formClass', 4);
+							//user->form->addColumn('x1x1',$span=1,'You have no mail',$class='formElement',$form);
+							$user->form->addColumn('read',1,'You have sent no mail','membersHeader',$form);
+						}
                   }
                   elseif( isset($roster->pages[3]) && $roster->pages[3] == 'read' )
                   {
@@ -1001,7 +1007,6 @@ class userPage extends user
                   }
                   elseif( isset($roster->pages[3]) && $roster->pages[3] == 'write' )
                   {
-						print_r($_POST);
                         if(isset($_POST['reply']))
                         {
                               $title_val = 'RE: ' . $_POST['title'];
@@ -1024,8 +1029,14 @@ class userPage extends user
                         $user->form->newForm('post', makelink('user-user-mail-write'), $form, 'formClass', 1);
                         $user->form->addUserSelect('reciever',$roster->locale->act['user_int']['messaging']['reciever'] . ' :',1,$form,$rec_val);
                         $user->form->addTextBox('text','title',$title_val,$roster->locale->act['user_int']['messaging']['title'] . ' :','wowinput128',1,$form);
-                        $user->form->addTextArea('body',"\r\n\r\nQuoting \"".$body_val."\"",$roster->locale->act['user_int']['messaging']['body'] . ' :',1,$form);
-						
+						if ($body_val != '')
+						{
+							$user->form->addTextArea('body',"\r\n\r\nQuoting \"".$body_val."\"",$roster->locale->act['user_int']['messaging']['body'] . ' :',1,$form);
+						}
+						else
+						{
+							$user->form->addTextArea('body',"",$roster->locale->act['user_int']['messaging']['body'] . ' :',1,$form);
+						}						
                         $trayID = $user->form->addTray('buttonTray',$form);
                         $user->form->addHiddenField($trayID,'sender',$_COOKIE['roster_u'],$form);
 						$user->form->addHiddenField($trayID,'submit','submit',$form);

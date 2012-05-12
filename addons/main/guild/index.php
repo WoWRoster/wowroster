@@ -131,10 +131,10 @@ $func = New mainFunctions;
 	$guests_online = $guest['num_guests'];
 	// lets get the bots..
 	$bot = '';
-	$x = "SELECT * FROM " . $roster->db->table('sessions') . " WHERE `session_user_id` = '0'
+	$sx = "SELECT * FROM " . $roster->db->table('sessions') . " WHERE `session_user_id` = '0'
 					AND `session_time` >= '" . (time() - (60 * 10)) ."';";
 
-	$d = $roster->db->query($x);
+	$d = $roster->db->query($sx);
 	while ($r = $roster->db->fetch($d))
 	{
 		foreach ($bots as $rx)
