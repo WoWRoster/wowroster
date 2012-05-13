@@ -113,13 +113,17 @@ if( $addon['config']['graph_rank_display'] == 1 )
 {
 	$graph .= makeGraph('rank', $addon['config']['graph_rank_level'], $addon['config']['graph_rank_style']);
 }
-
+$git = '';
+if( $roster->auth->getAuthorized($addon['config']['git_access']) )
+{
+	$git = $guild_info_text;
+}
 $roster->tpl->assign_vars(array(
 	'L_MEMBER_ACHIEVEMENTS' => $roster->locale->act['NEWS_FILTER']['2'],
 	'TITLE' => '',
 	'NEXT' => '',
 	'LEVEL' => $roster->data['guild_level'],
-	'INFO' => $guild_info_text,
+	'INFO' => $git,
 	'GRAPH' => $graph
 	)
 );
