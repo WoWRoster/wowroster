@@ -59,6 +59,7 @@ $lang['admin']['guildinfo_conf'] = 'GuildInfo|General configuration options';
 $lang['admin']['guildinfo_graph'] = "Info Graphs";
 
 $lang['admin']['guildinfo_access'] = "Access Control";
+$lang['admin']['git_access'] = "Access Info Text|The lvl required to view the guildinfo text <br />this info is usualy sensative to most guilds";
 //$lang['admin'][''] = "";
 
 

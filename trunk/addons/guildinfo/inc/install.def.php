@@ -26,7 +26,7 @@ class guildinfoInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $version = '2.1.0';
+	var $version = '2.1.9';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';
@@ -92,6 +92,7 @@ class guildinfoInstall
 		$installer->add_config("'220', 'graph_class', NULL, 'blockframe', 'guildinfo_graph'");
 
 		$installer->add_config("'1000', 'guildinfo_access', '0', 'access', 'guildinfo_conf'");
+		$installer->add_config("'1001', 'git_access', '0', 'access', 'guildinfo_conf'");
 
 		$installer->add_config("'2000', 'graph_level_display', '1', 'radio{off^0|on^1', 'graph_level'");
 		$installer->add_config("'2010', 'graph_level_style', 'bar', 'select{List^list|Bar graph^bar|Logarithmic bargraph^barlog', 'graph_level'");
@@ -237,6 +238,10 @@ class guildinfoInstall
 			$installer->add_config("'3100', 'graph_class_foot_size', '12', 'text{2|10', 'graph_class'");
 			$installer->add_config("'3110', 'graph_class_foot_color', '#FFFFFF', 'color', 'graph_class'");
 			$installer->add_config("'3120', 'graph_class_foot_outline', '#000000', 'color', 'graph_class'");
+		}
+		if( version_compare( $oldversion, '2.1.9', '<' ) )
+		{
+			$installer->add_config("'1001', 'git_access', '0', 'access', 'guildinfo_conf'");
 		}
 
 		return true;
