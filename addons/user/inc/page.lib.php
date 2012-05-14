@@ -621,18 +621,22 @@ class userPage extends user
 		else
 		{
 			$config_page = '';
-			
 			if(in_array('profile', $roster->pages))
 			{
 				$config_page = $roster->pages[3];
 			}
+			if(in_array('edit', $roster->pages))
+			{
+				$config_page = $roster->pages[3];
+			}
+			
 			if($config_page == '')
 			{
 				include_once($addon['admin_dir'] . 'settings.php');
 			}
 			else
 			{
-				include_once($addon['admin_dir'] . 'profile.php');
+				include_once($addon['admin_dir'] . $config_page.'.php');
 			}
 
 		}

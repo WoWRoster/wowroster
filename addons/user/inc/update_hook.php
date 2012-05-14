@@ -75,7 +75,7 @@ class userUpdate
 		if ($data['CPprovider'] != 'ApiSyncChar')
 		{
 			$this->messages .= '<li><span style="color:yellow">Getting Character Information...</span></li><br />' . "\n";
-			
+		
 			// --[ Fetch full member data ]--
 			$query = "SELECT `name`, `guild_id`, `server`, `region` FROM `" . $roster->db->table('players') . "` WHERE `member_id` = '" . $member_id . "';";
 			$result = $roster->db->query( $query );
@@ -105,6 +105,17 @@ class userUpdate
 			{
 				// And the update code
 				$u_id = $roster->auth->uid;
+				
+				// ok ran into a odd error ... so now if the guild changes we have to update users accordingly...
+				$cchk = "SELECT `uid`, `member_id`, `guild_id` FROM `" . $roster->db->table('user_link', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `guild_id` == '".$guild_id."' AND `uid` = '".$u_id."';";
+				$rcchk = $roster->db->query( $cchk );
+				$ccount = $roster->db->num_rows($rcchk);
+				if ($ccount == '0')
+				{
+					$cdelete = "DELETE FROM `" . $roster->db->table('user_link', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `guild_id` == '".$guild_id."' AND `uid` = '".$u_id."';";
+					$rdelete = $roster->db->query( $cdelete );
+				}
+				
 				$sql = "SELECT `uid` FROM `" . $roster->db->table('user_link', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "';";
 				$result = $roster->db->query( $sql );
 				$row = $roster->db->fetch($result);

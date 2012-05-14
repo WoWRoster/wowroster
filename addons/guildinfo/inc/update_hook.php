@@ -171,7 +171,7 @@ class guildinfoUpdate
 						$date = date_create($datee);
 						$display =  date_format($date, 'D F jS');
 
-						$queryx = "SELECT `Member`,`Achievement`,`Date` FROM `".$roster->db->table('news',$this->data['basename'])."` WHERE `Member`='" . $d['Member'] . "' AND `Achievement`='".$d['Achievement']."' AND `Date`='".date_format($date, 'Y-m-d H:i:s')."'";
+						$queryx = "SELECT `Member`,`Achievement`,`Date` FROM `".$roster->db->table('news',$this->data['basename'])."` WHERE `Member`='" . $d['Member'] . "' AND `Achievement`='".$roster->db->escape($d['Achievement'])."' AND `Date`='".date_format($date, 'Y-m-d H:i:s')."'";
 						$resultx = $roster->db->query( $queryx );
 						$update_sql = $roster->db->num_rows( $resultx );
 
@@ -187,7 +187,7 @@ class guildinfoUpdate
 					
 						if( $update_sql >= '1' )
 						{
-							$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$update->assignstr." WHERE `Member` = '".$d['member']."' and `Achievement` = '".$d['Achievement']."'";
+							$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$update->assignstr." WHERE `Member` = '".$d['Member']."' and `Achievement` = '".$roster->db->escape($d['Achievement'])."'";
 						}
 						else
 						{
