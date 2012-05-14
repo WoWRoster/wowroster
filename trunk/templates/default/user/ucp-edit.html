@@ -1,0 +1,31 @@
+
+<!-- BEGIN profile -->
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">{profile.CNAME}</div>
+
+		<form action="" method="post" enctype="multipart/form-data" id="config_config" onsubmit="return confirm('This will save the changes to the database. Are you sure?');">
+			<div class="config-submit"><input type="submit" value="Save Settings" />
+			<input type="hidden" name="process" value="process" /></div>
+
+		<div id="text{profile.ID}">
+
+			<!-- BEGIN cfg -->
+			<div class="tier-3-a">
+				<div class="tier-3-b">
+					<div class="config">
+						<div class="config-name">
+						{profile.cfg.NAME}
+						</div>
+						<div class="config-input">
+							{profile.cfg.FIELD}
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END cfg -->
+		</div>
+		<!-- END profile -->
+		</form>
+	</div>
+</div>

@@ -347,3 +347,16 @@ $lang['user_settings'] = array(
 	'main' => 'Hauptcharakter',
 	'src_gen' => 'Avatar / Signatur',
 );
+$lang['user_profile_edit'] = array(
+	'fname'			=> 'First name',
+	'lname'			=> 'Last name',
+	'age'			=> 'Age',
+	'city'			=> 'City',
+	'state'			=> 'State',
+	'country'		=> 'Country',
+	'homepage'		=> 'Homepage',
+	'other_guilds'	=> 'Other guilds',
+	'why'			=> 'Why you joined',
+	'about'			=> 'About you',
+	'notes'			=> 'Some notes',
+);

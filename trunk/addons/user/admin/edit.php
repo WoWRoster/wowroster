@@ -51,78 +51,32 @@ if( $num_members > 0 )
 {
 	$i=1;
 
-	$query = 'SELECT '.
-	'`user`.`id`, '.
-	'`user`.`usr`, '.
-	//'`user`.`group_id`, '.
-	//'`ugroup`.`name`, '.
-	'`profile`.`uid`, '.
-	'`profile`.`avsig_src`, '.
-	'`profile`.`show_fname`, '.
-	'`profile`.`show_lname`, '.
-	'`profile`.`show_email`, '.
-	'`profile`.`show_city`, '.
-	'`profile`.`show_country`, '.
-	'`profile`.`show_homepage`, '.
-	'`profile`.`show_notes`, '.
-	'`profile`.`show_joined`, '.
-	'`profile`.`show_lastlogin`, '.
-	'`profile`.`show_chars`, '.
-	'`profile`.`show_guilds`, '.
-	'`profile`.`show_realms` '.
-
-	'FROM `'.$roster->db->table('user_members').'` AS user '.
-	'LEFT JOIN `'.$roster->db->table('profile', 'user').'` AS profile ON `user`.`id` = `profile`.`uid` '.
-	'WHERE `user`.`id` = "' . $uid . '" '.
-	'ORDER BY `usr` ASC'.
-	' LIMIT ' . ($start > 0 ? $start : 0) . ', 15;';
+	$query = 'SELECT `id`,`usr`,`fname`,`lname`,`age`,`city`,`state`,`country`,`homepage`,`other_guilds`,`why`,`about`,	`notes` FROM `'.$roster->db->table('user_members').'` WHERE `id` = "' . $uid . '" ;';
 
 	$result = $roster->db->query($query);
 
-	while( $data = $roster->db->fetch($result) )
-	{
-		$roster->tpl->assign_block_vars('profile', array(
+	$data = $roster->db->fetch($result);
+	$roster->tpl->assign_block_vars('profile', array(
 			'CNAME'  => '<a href="' . makelink('user-user-profile-' . $data['usr']) . '" target="_blank">' . $data['usr'] . '</a>',
 			'CUSR' => $data['usr'],
 			'ID' => $i,
 			)
 		);
-		$k=0;
-		foreach( $data as $val_name => $value )
+		
+	foreach( $data as $val_name => $value )
+	{
+		if (! is_int ($val_name) && $val_name != 'usr' && $val_name != 'id' && $val_name != 'age')
 		{
-			if( substr( $val_name, 0, 5 ) != 'show_' )
-			{
-				continue;
-			}
-			$field = '';
-			$field .= '<input type="radio" id="chard_f' . $k . '_' . $data['id'] . '" name="disp_' . $data['id'] . ':' . $val_name . '" value="0" ' . ( $value == '0' ? 'checked="checked"' : '' ) . ' /><label for="chard_f' . $k . '_' . $data['id'] . '">Off</label>';
-			$field .= '<input type="radio" id="chard_n' . $k . '_' . $data['id'] . '" name="disp_' . $data['id'] . ':' . $val_name . '" value="1" ' . ( $value == '1' ? 'checked="checked"' : '' ) . ' /><label for="chard_n' . $k . '_' . $data['id'] . '">On</label>';
+			$field = '<input class="box" type="text" name="disp_' . $data['id'] . ':' . $val_name . '" value="'.$value.'"/>';
 			
 			$roster->tpl->assign_block_vars('profile.cfg',array(
-				'NAME'  => $roster->locale->act['user_settings'][substr( $val_name, 5)],
+				'NAME'  => $roster->locale->act['user_profile_edit'][$val_name],
 				'FIELD' => $field,
 				)
 			);
-			$k++;
 		}
-
-		$i++;
 	}
-	/*
-	$formbody .= '<tr><td class="membersRow2" colspan="13"><center><div>'  . $roster->locale->act['user_settings']['main'] . ': ' . selectMain($uid) . '&nbsp;&nbsp;&nbsp;'  . $roster->locale->act['user_settings']['src_gen'] . ': ' . selectGen($uid) . '</div></center></td></tr>';
-	$formbody .= "</table>\n" . border('syellow','end') . "\n</div>\n";
-	$formbody .= $prev . $listing . $next;
-	*/
-	$roster->tpl->assign_block_vars('profile.cfg',array(
-				'NAME'  => $roster->locale->act['user_settings']['main'],
-				'FIELD' => selectMain($uid),
-				)
-			);
-	$roster->tpl->assign_block_vars('profile.cfg',array(
-				'NAME'  => $roster->locale->act['user_settings']['src_gen'],
-				'FIELD' => selectGen($uid),
-				)
-			);
+
 }
 else
 {
@@ -130,29 +84,26 @@ else
 }
 
 $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 $tab1 = explode('|',$roster->locale->act['user_settings']['set']);
 $tab2 = explode('|',$roster->locale->act['user_settings']['prof']);
 $tab3 = explode('|',$roster->locale->act['user_main_menu']['my_prof']);
-
 $menu = messagebox('
 <ul class="tab_menu">
 	<li><a href="' . makelink('user-user-settings') . '" style="cursor:help;"' . makeOverlib($tab1[1],$tab1[0],'',1,'',',WRAP') . '>' . $tab1[0] . '</a></li>
-	<li class="selected"><a href="' . makelink('user-user-settings-profile') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2
-	[0] . '</a></li>
-	<li><a href="' . makelink('user-user-settings-edit') . '" style="cursor:help;"' . makeOverlib($tab3[1],$tab3[0],'',1,'',',WRAP') . '>' . $tab3[0] . '</a></li>
+	<li><a href="' . makelink('user-user-settings-profile') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
+	<li class="selected"><a href="' . makelink('user-user-settings-edit') . '" style="cursor:help;"' . makeOverlib($tab3[1],$tab3[0],'',1,'',',WRAP') . '>' . $tab3[0] . '</a></li>
 </ul>
 ',$roster->locale->act['user_page']['settings'],'sgray','145px');
 
 $roster->tpl->set_filenames(array(
-	'ucp2' => $addon['basename'] . '/ucp-profile.html'
+	'ucp3' => $addon['basename'] . '/ucp-edit.html'
 	)
 );
 
 $roster->tpl->assign_vars(array(
 	'ROSTERCP_TITLE'  => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
 	'MENU' => $menu,
-	'BODY' => $roster->tpl->fetch('ucp2'),
+	'BODY' => $roster->tpl->fetch('ucp3'),
 	'PAGE_INFO' => 'User Controle Pannel',
 	)
 );
@@ -283,7 +234,6 @@ function processData()
 	$update_sql = array();
 	$mid = 0;
 	$src = '';
-	//echo '<prE>';	print_r($_POST);	echo '</pre>';
 	// Update only the changed fields
 	foreach( $_POST as $settingName => $settingValue )
 	{
@@ -295,14 +245,6 @@ function processData()
 
 			if( $settingName == 'is_main' && $settingValue != 'none' )
 			{
-	/*			$get_val = "SELECT `$settingName`"
-						 . " FROM `" . $roster->db->table('members') . "`"
-						 . " WHERE `account_id` = '$uid' AND `member_id` = '" . $roster->db->escape( $settingValue ) . "';";
-
-				$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
-
-				$config = $roster->db->fetch($result);
-*/
 				$mid = $roster->db->escape( $settingValue );//$roster->db->escape( $settingValue );
 			}
 			if( $config[$settingName] != $settingValue && $settingName == 'is_main' )
@@ -311,7 +253,7 @@ function processData()
 			}
 			elseif( $config[$settingName] != $settingValue && $settingName == 'avsig_src' )
 			{
-				$update_sql[] = "UPDATE `" . $roster->db->table('profile', 'user') . "`"
+				$update_sql[] = "UPDATE `" . $roster->db->table('user_members') . "`"
 							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
 							  . " WHERE `uid` = '$uid';";
 							if( $settingName == 'avsig_src' )
@@ -333,8 +275,8 @@ function processData()
 			list($uid,$settingName) = explode(':',$settingName);
 
 			$get_val = "SELECT `$settingName`"
-					 . " FROM `" . $roster->db->table('profile', 'user') . "`"
-					 . " WHERE `uid` = '$uid';";
+					 . " FROM `" . $roster->db->table('user_members') . "`"
+					 . " WHERE `id` = '$uid';";
 
 			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
 
@@ -342,9 +284,9 @@ function processData()
 
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
-				$update_sql[] = "UPDATE `" . $roster->db->table('profile', 'user') . "`"
+				$update_sql[] = "UPDATE `" . $roster->db->table('user_members') . "`"
 							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
-							  . " WHERE `uid` = '$uid';";
+							  . " WHERE `id` = '$uid';";
 			}
 		}
 		else
