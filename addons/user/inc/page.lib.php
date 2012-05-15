@@ -526,7 +526,6 @@ class userPage extends user
 			$mainQuery =
 				'SELECT '.
 				'`user`.`id`, '.
-				'`user`.`id`, '.
 				'`members`.`server` as realm, '.
 				'`members`.`member_id`, '.
 				'`members`.`server`, '.
@@ -537,7 +536,7 @@ class userPage extends user
 				'`realm`.`serverpop` '.
 
 				'FROM `'.$roster->db->table('user_members').'` AS user '.
-				'LEFT JOIN `'.$roster->db->table('members').'` AS members ON `user`.`id` = `members`.`member_id` '.
+				'LEFT JOIN `'.$roster->db->table('members').'` AS members ON `user`.`id` = `members`.`account_id` '.
 				'LEFT JOIN `'.$roster->db->table('realmstatus').'` AS realm ON `members`.`server` = `realm`.`server_name` '.
 				'WHERE `user`.`id` = "' . $uid . '" '.
 				'ORDER BY IF(`realm`.`server_name` = `realm`,1,0),';
