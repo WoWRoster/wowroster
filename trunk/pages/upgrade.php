@@ -289,9 +289,9 @@ class Upgrade {
 				ADD `country` varchar(32) NOT NULL default '',
 				ADD `zone` varchar(32) NOT NULL default '',
 				ADD `homepage` varchar(64) NOT NULL default '',
-				ADD `other_guilds` varchar(64) NOT NULL,
-				ADD `why` varchar(64) NOT NULL,
-				ADD `about` varchar(64) NOT NULL,
+				ADD `other_guilds` varchar(64) NOT NULL default '',
+				ADD `why` varchar(64) NOT NULL default '',
+				ADD `about` varchar(64) NOT NULL default '',
 				ADD `notes` varchar(64) NOT NULL default '',
 				ADD `last_login` varchar(64) NOT NULL default '',
 				ADD `date_joined` varchar(64) NOT NULL default '',
@@ -336,7 +336,17 @@ class Upgrade {
 		$this->finalize();
 	}
 
+	/**
+	 * Upgrades 2.1.0 to 2.2
+	 *
+	function upgrade_220() {
+		global $roster;
 
+		$this->standard_upgrader();
+		$this->finalize();
+	}
+	*/
+	
 	/**
 	 * Upgrades 2.1.0 to 2.1.1
 	 */

@@ -102,7 +102,7 @@ if( !empty($addons) )
 		else
 		{
 			$addon['icon'] = $roster->config['interface_url'] . 'Interface/Icons/inv_misc_questionmark.' . $roster->config['img_suffix'];
-		}
+			}
 
 		$roster->tpl->assign_block_vars('addon_list', array(
 			'ROW_CLASS'   => $roster->switch_row_class(),
@@ -165,7 +165,7 @@ function getAddonList()
 	{
 		while( false !== ($file = readdir($handle)) )
 		{
-			if( $file != '.' && $file != '..' && $file != '.svn' )
+			if( $file != '.' && $file != '..' && $file != '.svn' && $file != '.txt' )
 			{
 				$addons[] = $file;
 			}
