@@ -16,6 +16,7 @@
 .vault-column { width:48px; float:left; }
 .title-money { color: #000; font: bold 12px/18px Verdana, Geneva, sans-serif; z-index: 500; float: right; margin-top: 0px; margin-bottom: 0; margin-left: 0px; }
 .title-money img { width:11px; height:10px; }
+.tab-navigation { position:relative; float:right; }
 .tab-navigation .Tab1 { position:relative; float:right; }
 .tab-navigation .Tab2{ position:relative; float:right; }
 .tab-navigation .Tab3{ position:relative; float:right; }
