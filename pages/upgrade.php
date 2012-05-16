@@ -344,6 +344,11 @@ class Upgrade {
 
 		$this->standard_upgrader();
 		$this->finalize();
+		// make admin password roster password
+		$query = "SELECT * FROM `" . $roster->db->table('account') . "` WHERE `name` = 'Admin';";
+		$result = $roster->db->query($query);
+		$row = $roster->db->fetch($result);
+		$roster->db->query("UPDATE `" . $roster->db->table('user_members') . "` SET `pass` = '" . $row['hash'] . "' WHERE `id` = '4' LIMIT 1;");
 	}
 	*/
 	

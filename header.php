@@ -116,7 +116,7 @@ $roster->tpl->assign_vars(array(
 	'ROSTER_HEAD_JS'  => roster_get_js(),
 	'ROSTER_HEAD_CSS' => roster_get_css(),
 	'ROSTER_HEAD'     => $roster->output['html_head'],
-	'ROSTER_BODY'     => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
+	'ROSTER_BODY'     => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');Background-attachment:fixed;"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
 	'ROSTER_ONLOAD'   => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
 
 	'L_MENU_LABEL'      => $roster->scope,

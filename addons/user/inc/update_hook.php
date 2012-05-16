@@ -107,12 +107,12 @@ class userUpdate
 				$u_id = $roster->auth->uid;
 				
 				// ok ran into a odd error ... so now if the guild changes we have to update users accordingly...
-				$cchk = "SELECT `uid`, `member_id`, `guild_id` FROM `" . $roster->db->table('user_link', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `guild_id` == '".$guild_id."' AND `uid` = '".$u_id."';";
+				$cchk = "SELECT `uid`, `member_id`, `guild_id` FROM `" . $roster->db->table('user_link', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `guild_id` = '".$guild_id."' AND `uid` = '".$u_id."';";
 				$rcchk = $roster->db->query( $cchk );
 				$ccount = $roster->db->num_rows($rcchk);
 				if ($ccount == '0')
 				{
-					$cdelete = "DELETE FROM `" . $roster->db->table('user_link', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `guild_id` == '".$guild_id."' AND `uid` = '".$u_id."';";
+					$cdelete = "DELETE FROM `" . $roster->db->table('user_link', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "' AND `guild_id` = '".$guild_id."' AND `uid` = '".$u_id."';";
 					$rdelete = $roster->db->query( $cdelete );
 				}
 				
