@@ -64,7 +64,9 @@ class Template_Wrap extends RosterTemplate
 		}
 
 		$this->tpl = 'install';
-
+		include_once (ROSTER_LIB . 'cache.php');
+		$cache = new RosterCache();
+		$cache->cleanCache();
 		$this->assign_vars(array(
 			'MSG_TITLE' => '',
 			'MSG_TEXT'  => '',
