@@ -2,12 +2,12 @@
  * @version    SVN: $Id$
  * https://github.com/fnagel/jquery-ui/wiki/Selectmenu
 ----------------------------------*/
-.ui-selectmenu { display: block; display: inline-block; position: relative; height: 1.9em; vertical-align: middle; text-decoration: none; overflow: hidden; zoom: 1; width: 70px;}
+.ui-selectmenu { display: block; display: inline-block; position: relative; height: 2.2em; vertical-align: middle; text-decoration: none; overflow: hidden; zoom: 1; }
 .ui-selectmenu-icon { position:absolute; right:6px; margin-top:-8px; top: 50%; }
 .ui-selectmenu-menu { padding:0; margin:0; list-style:none; position:absolute; top: 0; display: none; overflow: auto; z-index: 1005;} /* z-index: 1005 to make selectmenu work with dialog */
 .ui-selectmenu-open { display: block; }
-.ui-selectmenu-menu-popup { margin-top: -1px; width:70px;}
-.ui-selectmenu-menu-dropdown { width:70px;}
+.ui-selectmenu-menu-popup { margin-top: -1px; }
+.ui-selectmenu-menu-dropdown { }
 .ui-selectmenu-menu li { padding:0; margin:0; display: block; border-top: 1px dotted transparent; border-bottom: 1px dotted transparent; border-right-width: 0 !important; border-left-width: 0 !important; font-weight: normal !important; }
 .ui-selectmenu-menu li a,.ui-selectmenu-status { line-height: 1.4em; display: block; padding: .405em 1em; outline:none; text-decoration:none; }
 .ui-selectmenu-menu li.ui-state-disabled a, .ui-state-disabled { cursor: default; }

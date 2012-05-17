@@ -60,15 +60,20 @@ textbox {
 	-moz-border-radius-bottomleft: 0;
 }
 
-.pagi-selected {
-	border:1px solid #4e4d4c;
-	background-color:#FF7D0A;
-	padding:1px 4px 1px 4px;
-}
-.pagi-active {
+.pagi-selected,
+.pagi-active,
+.pagi-inactive {
 	border:1px solid #4e4d4c;
 	background-color:#C79C6E;
 	padding:1px 4px 1px 4px;
+	margin:0 2px;
+}
+.pagi-selected {
+	background-color:#FF7D0A;
+}
+.pagi-inactive {
+	background-color:#C79C6E;
+  color:#909090;
 }
 
 
@@ -112,11 +117,11 @@ textbox {
 .info-header .guild { font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
 .info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
 
-.menu-select { position: absolute; top: 30px; right: 80px; width:180px;}
-.menu-select .locale-select { position: relative;top: -1px; left: 20px; margin-bottom: 3px; }
-.menu-select .list-select { position: relative;top: -24px; left: 110px; margin-bottom: 3px; }
+.menu-select { position: absolute; top: 30px; right: 6px; width:300px;}
+.menu-select .locale-select { float: right; margin: 0 0 3px 5px; }
+.menu-select .list-select { float: right; margin: 0 0 3px 5px; }
 
-.char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap {
+.char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap, .user-wrap {
 	margin: 102px 0 0;
 	padding: 0 10px 10px;
 	position: relative;
@@ -173,22 +178,21 @@ textbox {
 .scope-menu .menu-scope-panel .frame .button .mask { background: url(images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
 .scope-menu .menu-scope-panel .frame .button .mask:hover { background-position: right top; }
 
-
 /* New Main Navagation tabs */
-.top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 10px; }
+.top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 3px; }
 .top-menu .links { height: 40px; }
 .top-menu .links a {
 	display: block;
 	height: 26px;
 	width: 100px;
 	float: left;
-	padding: 4px 5px 10px 45px;
+	padding: 4px 4px 10px 45px;
 	color: #000;
-	margin-right: 5px;
+	margin-right: 4px;
 	font: bold 12px/normal Arial, Helvetica, sans-serif;
 	overflow: hidden;
 }
-
+/*
 .button-char { background: url(images/menu/menu_char.png) no-repeat left top; }
 .button-char:hover { background: url(images/menu/menu_char.png) no-repeat left bottom; }
 .button-members { background: url(images/menu/mini_guild.png) no-repeat left top; }
@@ -199,8 +203,73 @@ textbox {
 .button-realm:hover { background: url(images/menu/menu_realm.png) no-repeat left bottom; }
 .button-upload { background: url(images/menu/menu_upload.png) no-repeat left top; }
 .button-upload:hover { background: url(images/menu/menu_upload.png) no-repeat left bottom; }
+.button-user { background: url(images/menu/menu_user.png) no-repeat left top; }
+.button-user:hover { background: url(images/menu/menu_user.png) no-repeat left bottom; }
 .button-util { background: url(images/menu/menu_utilities.png) no-repeat left top; }
 .button-util:hover { background: url(images/menu/menu_utilities.png) no-repeat left bottom; }
+.button-char { background: url(images/menu/menu_char.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-char :hover{ background: url(images/menu/menu_char.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-char-selected { background: url(images/menu/menu_char.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-char-selected :hover{ background: url(images/menu/menu_char.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-members { background: url(images/menu/mini_guild.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-members :hover{ background: url(images/menu/mini_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-members-selected { background: url(images/menu/mini_guild.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-members-selected :hover{ background: url(images/menu/mini_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-guild { background: url(images/menu/menu_guild.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-guild :hover{ background: url(images/menu/menu_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-guild-selected { background: url(images/menu/menu_guild.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-guild-selected :hover{ background: url(images/menu/menu_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-realm { background: url(images/menu/menu_realm.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-realm :hover{ background: url(images/menu/menu_realm.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-realm-selected { background: url(images/menu/menu_realm.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-realm-selected :hover{ background: url(images/menu/menu_realm.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-upload { background: url(images/menu/menu_upload.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-upload :hover{ background: url(images/menu/menu_upload.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-upload-selected { background: url(images/menu/menu_upload.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-upload-selected :hover{ background: url(images/menu/menu_upload.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-user { background: url(images/menu/menu_user.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-user :hover{ background: url(images/menu/menu_user.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-user-selected { background: url(images/menu/menu_user.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-user-selected :hover{ background: url(images/menu/menu_user.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-util { background: url(images/menu/menu_utilities.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-util :hover{ background: url(images/menu/menu_utilities.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-util-selected { background: url(images/menu/menu_utilities.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-util-selected :hover{ background: url(images/menu/menu_utilities.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+*/
+.button-char { background: url(images/menu/menu.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-char :hover{ background: url(images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-char-selected { background: url(images/menu/menu.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-char-selected :hover{ background: url(images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+
+.button-members { background: url(images/menu/menu.png);background-position: -150px 0px; width: 151px; height: 20px; display: block;}
+.button-members :hover{ background: url(images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-members-selected { background: url(images/menu/menu.png);background-position: -150px 40px; width: 151px; height: 20px; display: block;}
+.button-members-selected :hover{ background: url(images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+
+.button-guild { background: url(images/menu/menu.png);background-position: -150px 0px; width: 151px; height: 20px; display: block;}
+.button-guild :hover{ background: url(images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-guild-selected { background: url(images/menu/menu.png);background-position: -150px 40px; width: 151px; height: 20px; display: block;}
+.button-guild-selected :hover{ background: url(images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+
+.button-realm { background: url(images/menu/menu.png);background-position: -300px 0px; width: 151px; height: 20px; display: block;}
+.button-realm :hover{ background: url(images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
+.button-realm-selected { background: url(images/menu/menu.png);background-position: -300px 40px; width: 151px; height: 20px; display: block;}
+.button-realm-selected :hover{ background: url(images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
+
+.button-upload { background: url(images/menu/menu.png);background-position: -450px 0px; width: 151px; height: 20px; display: block;}
+.button-upload :hover{ background: url(images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
+.button-upload-selected { background: url(images/menu/menu.png);background-position: -450px 40px; width: 151px; height: 20px; display: block;}
+.button-upload-selected :hover{ background: url(images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
+
+.button-user { background: url(images/menu/menu.png);background-position: -600px 0px; width: 151px; height: 20px; display: block;}
+.button-user :hover{ background: url(images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
+.button-user-selected { background: url(images/menu/menu.png);background-position: -600px 40px; width: 151px; height: 20px; display: block;}
+.button-user-selected :hover{ background: url(images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
+
+.button-util { background: url(images/menu/menu.png);background-position: -750px 0px; width: 151px; height: 20px; display: block;}
+.button-util :hover{ background: url(images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
+.button-util-selected { background: url(images/menu/menu.png);background-position: -750px 40px; width: 151px; height: 20px; display: block;}
+.button-util-selected :hover{ background: url(images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
 
 
 /* Mini Pop-Up List */
@@ -597,9 +666,10 @@ img, p { padding:0;margin:0;border:0; }
 .config-section a,
 .config-section-addons a {
 	font-size: 12px;
+	margin-bottom: 3px;
 }
 .config-section-addons {
-	margin-top: 2px;
+	margin-top: 4px;
 }
 
 .config-submit {
@@ -673,8 +743,21 @@ img, p { padding:0;margin:0;border:0; }
 }
 
 
-
-
+.RGaccepy {
+	position:relative;display:block; background: url(images/admin/green.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left: -8px;
+	top: 5px;
+	}
+.RGdenyed {
+	position:relative;display:block; background: url(images/admin/red.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left:-8px;
+	top: 5px;
+	}
+.RGquestion {
+	position:relative; display:inline-block; background: url(images/admin/yellow.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left: -8px;
+	top: 5px;
+	}
 /* Ignore the following options except in the cp */
 
 /**
@@ -1189,7 +1272,7 @@ input.ui-button,
 .ui-buttonset .ui-button { margin-right: -.4em; }
 select:focus { outline: none; }
 
-.ui-selectmenu { height: 1.8em; }
+.ui-selectmenu { height: 1.8em; width:100%;}
 .ui-selectmenu:focus { outline: none; }
 .ui-selectmenu-status { line-height: 1.0em; }
 .ui-selectmenu-open li.ui-selectmenu-item-selected { border: 1px solid #655e4e; background: #fff8e1 url(images/ui-bg_gloss-wave_80_fff8e1_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #4c3000; }
@@ -1201,7 +1284,7 @@ select:focus { outline: none; }
 
 
 .guild-stats-container { padding:20px 20px 10px; }
-.filtertitle {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 4px 0 5px 10px; }
+.filtertitle {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 8px 0 5px 10px; }
 .filtercrest { background: url(images/guildbank_crest.gif) bottom center no-repeat; height: 34px!important; width: 100%; margin: 0 auto; }
 .filtercontainer { background-image: url(images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd; }
 .bankcontentsfilter { height:40px; background: url('images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px; }
