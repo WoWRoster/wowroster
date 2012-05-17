@@ -52,7 +52,7 @@ class memberslist
 	 */
 	function memberslist( $options = array(), $addon = array() )
 	{
-		global $roster;
+		global $roster, $addon;
 
 		$basename = basename(dirname(dirname(__FILE__)));
 
@@ -163,7 +163,7 @@ class memberslist
 	 */
 	function prepareData( $query, $where, $group, $order_first, $order_last, $fields, $listname )
 	{
-		global $roster;
+		global $roster, $addon;
 		$this->pageanat = ($this->addon['config']['page_size'] > '0' ? true : false );
 		// Save some info
 		$this->listname = $listname;
@@ -172,7 +172,7 @@ class memberslist
 		$cols = count($this->fields);
 
 		// Pre-store server get params
-		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['s'] : '' );
+		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['st'] : '' );
 		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
 		$get .= "&amp;filter=" . ($this->addon['config']['openfilter'] ? "open" : "close" );
 
@@ -252,14 +252,10 @@ class memberslist
 		if( $this->addon['config']['page_size'] > 0 )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
-			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM'));
+			$rowsqry = 'SELECT COUNT(*) as count ' . substr($query, strpos($query,'FROM'));
 			$result = $roster->db->query($rowsqry);
-			$nn = 0;
-			while( $data = $roster->db->fetch($result, SQL_NUM) )
-			{
-				$nn++;
-			}
-			$num_rows = $nn;
+			$data = $roster->db->fetch($result);
+			$num_rows = $data['count'];
 		}
 
 		// --[ Add sorting SQL ]--
@@ -321,8 +317,7 @@ class memberslist
 		// --[ Query done, add to class vars ]--
 		$this->query = $query;
 		// --[ Page list ]--
-		if( $this->pageanat && (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
-		)
+		if( $this->pageanat && (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size']))))
 		{
 			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
 

@@ -187,3 +187,5 @@ function type_value ( $row, $field )
 
 	return '<div style="display:none;">'.$row['type'].'</div>'.$return;
 }
+//echo '<pre>';
+//print_r($roster->tpl);
