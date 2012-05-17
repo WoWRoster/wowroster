@@ -256,6 +256,15 @@ class memberslist
 			$result = $roster->db->query($rowsqry);
 			$data = $roster->db->fetch($result);
 			$num_rows = $data['count'];
+			if ($num_rows == 1)
+			{
+				$num_rows = $nn = 0;
+				while( $data = $roster->db->fetch($result, SQL_NUM) )
+				{
+					$nn++;
+				}
+				$num_rows = $nn;
+			}
 		}
 
 		// --[ Add sorting SQL ]--
