@@ -1471,7 +1471,10 @@ function dummy(){}
  * @return void
  */
 //paginate
-
+function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true,$cols=false )
+{
+	$this->paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true,$cols=false);
+}
 function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true,$cols=false)
 {
 	global $roster;
@@ -1481,7 +1484,7 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 	{
 		global $roster;
 
-		$roster->tpl->assign_block_vars('pagination', array(
+		$roster->tpl->assign_vars(array(
 			'PAGE' => $page,
 			'URL' => $url,
 			'FIRST' => $first
@@ -1513,10 +1516,10 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 
 		$page_string .= ($start_cnt > 1) ? ' ... ' : $seperator;
 
-		for ($i = $start_cnt + 1; $i < $end_cnt; $i++)
+		for ($i = $start_cnt + 1; $i < $end_cnt+1; $i++)
 		{
 			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="'.makelink($base_url . (($i-1) * $per_page),'members').'"><span class="pagi-active">' . $i . '</span></a>';
-			if ($i < $end_cnt - 1)
+			if ($i < $end_cnt)
 			{
 				$page_string .= $seperator;
 			}
@@ -1547,8 +1550,8 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 		'PER_PAGE'			=> $per_page,
 		'COLS'				=> $cols,
 		'B_PAGINATION' 		=> true,
-		'PAGINATION_PREV' 	=> (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item-$per_page),'members') : false),
-		'PAGINATION_NEXT' 	=> (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item+$per_page),'members') : false),
+		'PAGINATION_PREV' 	=> (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item-$per_page)) : false),
+		'PAGINATION_NEXT' 	=> (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item+$per_page)) : false),
 		'TOTAL_PAGES'		=> $total_pages,
 		'PAGE' 				=> $page_string,
 	));
@@ -1640,7 +1643,7 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 
 	//return $page_string;
 }
-*/
+*
 function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
 {
 	function paginate_page( $page , $url , $first=false )
@@ -1718,7 +1721,7 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 		}
 	}
 }
-
+*/
 
 /**
  * Makes the Realmstatus block
