@@ -57,17 +57,18 @@
 <!-- IF B_PAGINATION -->
 		<tr>
 			<th colspan="{COLS}" class="membersHeader" style="text-align:center;color:#ffffff">
-				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}" class="internal_link"><!-- TRANSLATE prev --></a><!-- ELSE --><!-- TRANSLATE prev --><!-- ENDIF --> - 
-{PAGE}
-				<!-- IF PAGINATION_NEXT --> - <a href="{PAGINATION_NEXT}" class="internal_link"><!-- TRANSLATE next --></a><!-- ELSE --> - <!-- TRANSLATE next --><!-- ENDIF --> - Total Pages {TOTAL_PAGES}
+				<span class="pagi-active">{CURRENT_PAGE} of {TOTAL_PAGES}</span>
+				<!-- IF PAGINATION_PREV --><a href="{PAGINATION_PREV}" class="internal_link"><span class="pagi-active">&lt; <!-- TRANSLATE prev --></span></a><!-- ELSE --><span class="pagi-inactive">&lt; <!-- TRANSLATE prev --></span><!-- ENDIF -->
+				{PAGE}
+				<!-- IF PAGINATION_NEXT --><a href="{PAGINATION_NEXT}" class="internal_link"><span class="pagi-active"><!-- TRANSLATE next --> &gt;</span></a><!-- ELSE --><span class="pagi-inactive"><!-- TRANSLATE next --> &gt;</span><!-- ENDIF -->
 		</tr>
 <!-- ENDIF -->
 		<tr>
 			<th class="membersHeader groupalt"
 				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
-				<a href="<!-- IF S_FILTER -->{U_CLOSE_FILTER}<!-- ELSE -->{U_OPEN_FILTER}<!-- ENDIF -->" 
+				<a href="<!-- IF S_FILTER -->{U_CLOSE_FILTER}<!-- ELSE -->{U_OPEN_FILTER}<!-- ENDIF -->"
 					onclick="toggleFilter('{LISTNAME}','filterrow','foldout-filter','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
-					<img src="{THEME_PATH}/images/<!-- IF S_FILTER eq 1 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					<img src="{THEME_PATH}/images/<!-- IF S_FILTER eq 1 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif"
 					class="foldout"
 					id="foldout-filter"
 					alt="<!-- IF S_FILTER eq 1 -->-<!-- ELSE -->+<!-- ENDIF -->" />
@@ -114,10 +115,10 @@
 			<!-- IF (members_row.CLASS eq 'amain' && S_GROUP_ALTS neq 0) or (members_row.CLASS eq 'alt_mainless' && S_GROUP_ALTS eq 0) --> style="display:none;"<!-- ENDIF -->>
 			<td class="membersRowCell groupalt"
 				<!-- IF S_GROUP_ALTS eq 0 -->style="display:none"<!-- ENDIF -->>
-<!-- IF members_row.CLASS == 'main' --> 
-				<a href="#" 
+<!-- IF members_row.CLASS == 'main' -->
+				<a href="#"
 					onclick="toggleAlts('playerrow-{members_row.MEMBER_ID}','foldout-{members_row.MEMBER_ID}','{THEME_PATH}/images/minus.gif','{THEME_PATH}/images/plus.gif'); return false;">
-					<img src="{THEME_PATH}/images/<!-- IF S_GROUP_ALTS eq 2 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif" 
+					<img src="{THEME_PATH}/images/<!-- IF S_GROUP_ALTS eq 2 -->minus<!-- ELSE -->plus<!-- ENDIF -->.gif"
 					class="foldout"
 					id="foldout-{members_row.MEMBER_ID}"
 					alt="<!-- IF S_GROUP_ALTS eq 2 -->-<!-- ELSE -->+<!-- ENDIF -->" />
