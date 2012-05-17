@@ -60,15 +60,20 @@ textbox {
 	-moz-border-radius-bottomleft: 0;
 }
 
-.pagi-selected {
-	border:1px solid #4e4d4c;
-	background-color:#FF7D0A;
-	padding:1px 4px 1px 4px;
-}
-.pagi-active {
+.pagi-selected,
+.pagi-active,
+.pagi-inactive {
 	border:1px solid #4e4d4c;
 	background-color:#C79C6E;
 	padding:1px 4px 1px 4px;
+	margin:0 2px;
+}
+.pagi-selected {
+	background-color:#FF7D0A;
+}
+.pagi-inactive {
+	background-color:#C79C6E;
+  color:#909090;
 }
 
 
@@ -112,9 +117,9 @@ textbox {
 .info-header .guild { font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
 .info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
 
-.menu-select { position: absolute; top: 30px; right: 80px; width:180px;}
-.menu-select .locale-select { position: relative;top: -8px; left: 180px; margin-bottom: 3px; }
-.menu-select .list-select { position: relative;top: -31px; left: 18px; margin-bottom: 3px; }
+.menu-select { position: absolute; top: 30px; right: 6px; width:300px;}
+.menu-select .locale-select { float: right; margin: 0 0 3px 5px; }
+.menu-select .list-select { float: right; margin: 0 0 3px 5px; }
 
 .char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap, .user-wrap {
 	margin: 102px 0 0;
@@ -738,18 +743,18 @@ img, p { padding:0;margin:0;border:0; }
 
 
 .RGaccepy {
-	position:relative;display:block; background: url(images/admin/green.png) no-repeat left top; height: 16px; width: 16px; z-index: 100; 
-	left: -8px; 
+	position:relative;display:block; background: url(images/admin/green.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left: -8px;
 	top: 5px;
 	}
 .RGdenyed {
-	position:relative;display:block; background: url(images/admin/red.png) no-repeat left top; height: 16px; width: 16px; z-index: 100; 
-	left:-8px; 
+	position:relative;display:block; background: url(images/admin/red.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left:-8px;
 	top: 5px;
 	}
 .RGquestion {
-	position:relative; display:inline-block; background: url(images/admin/yellow.png) no-repeat left top; height: 16px; width: 16px; z-index: 100; 
-	left: -8px; 
+	position:relative; display:inline-block; background: url(images/admin/yellow.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left: -8px;
 	top: 5px;
 	}
 /* Ignore the following options except in the cp */

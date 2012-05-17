@@ -99,13 +99,13 @@ class memberslist
 		$this->_initPlugins();
 	}
 
-	
+
 	/**
 	 * Build the list of plugins to include based on roster scope and if plugins have plugins
 	 *
 	 *
 	 */
-	
+
 	function _initPlugins()
 	{
 		global $roster, $addon;
@@ -132,16 +132,16 @@ class memberslist
 								$this->members_list_where[] = $pluginstuff->members_list_where;
 							}
 							$this->members_list_fields[] = $pluginstuff->members_list_fields;
-							
+
 							unset($pluginstuff);
 						}
 					}
 				}
 			}
 		}
-	
+
 		return true;
-	
+
 	}
 	/**
 	 * Prepare the data to build a memberlist.
@@ -441,13 +441,13 @@ class memberslist
 				if ( isset( $DATA['value'] ) )
 				{
 					//$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
-					if (!is_array($DATA['value']) && preg_match('/::/', $DATA['value'])) 
+					if (!is_array($DATA['value']) && preg_match('/::/', $DATA['value']))
 					{
 						$tmp = explode('::', $DATA['value']);
 						$cell_value = call_user_func(array($tmp[0], $tmp[1]), $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
-					} 
+					}
 					else
-					{					
+					{
 						$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
 					}
 				}
@@ -813,7 +813,7 @@ class memberslist
 		return '<div style="display:none;">' . str_pad($row['level'],2,'0',STR_PAD_LEFT) . '</div>' . $cell_value;
 	}
 
-	
+
 	/**
 	 * Controls Output of the Honor Column
 	 *

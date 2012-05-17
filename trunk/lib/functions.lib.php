@@ -1475,28 +1475,14 @@ function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevn
 {
 	$this->paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true,$cols=false);
 }
+
 function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true,$cols=false)
 {
 	global $roster;
 
-	
-	function paginate_page( $page , $url , $first=false )
-	{
-		global $roster;
-
-		$roster->tpl->assign_vars(array(
-			'PAGE' => $page,
-			'URL' => $url,
-			'FIRST' => $first
-			)
-		);
-	}
-	
-	
 	// Make sure $per_page is a valid value
 	$per_page = ($per_page <= 0) ? 1 : $per_page;
 
-	$seperator = '<span class="page-sep"> - </span>';
 	$total_pages = ceil($num_items / $per_page);
 
 	if ($total_pages == 1 || !$num_items)
@@ -1511,217 +1497,43 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 
 	if ($total_pages > 5)
 	{
-		$start_cnt = min(max(1, $on_page - 4), $total_pages - 5);
-		$end_cnt = max(min($total_pages, $on_page + 4), 6);
+		$start_cnt = min(max(1, $on_page - 3), $total_pages - 4);
+		$end_cnt = max(min($total_pages, $on_page + 3), 5);
 
-		$page_string .= ($start_cnt > 1) ? ' ... ' : $seperator;
-
-		for ($i = $start_cnt + 1; $i < $end_cnt+1; $i++)
-		{
-			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="'.makelink($base_url . (($i-1) * $per_page),'members').'"><span class="pagi-active">' . $i . '</span></a>';
-			if ($i < $end_cnt)
-			{
-				$page_string .= $seperator;
-			}
-		}
-
-		$page_string .= ($end_cnt < $total_pages) ? ' ... ' : $seperator;
-	}
-	else
-	{
-		$page_string .= $seperator;
-
-		for ($i = 2; $i <= $total_pages; $i++)
-		{
-			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="'.makelink($base_url . (($i-1) * $per_page),'members').'"><span class="pagi-active">' . $i . '</span></a>';
-			if ($i < $total_pages)
-			{
-				$page_string .= $seperator;
-			}
-		}
-	}
-
-	//$page_string .= ($on_page == $total_pages) ? '<span class="pagi-selected">' . $total_pages . '</span>' : '<a href="'.makelink($base_url . (($total_pages-1) * $per_page),'members') . '"><span class="pagi-active">'.$total_pages.'</span></a>';
-
-
-	$roster->tpl->assign_vars(array(
-		'URL'				=> $base_url,
-		'BASE_URL'			=> addslashes($base_url),
-		'PER_PAGE'			=> $per_page,
-		'COLS'				=> $cols,
-		'B_PAGINATION' 		=> true,
-		'PAGINATION_PREV' 	=> (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item-$per_page)) : false),
-		'PAGINATION_NEXT' 	=> (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item+$per_page)) : false),
-		'TOTAL_PAGES'		=> $total_pages,
-		'PAGE' 				=> $page_string,
-	));
-
-	//return $page_string;
-}
-
-/*
-function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true)
-{
-	global $roster;
-
-	
-	function paginate_page( $page , $url , $first=false )
-	{
-		global $roster;
-
-		$roster->tpl->assign_block_vars('pagination', array(
-			'PAGE' => $page,
-			'URL' => $url,
-			'FIRST' => $first
-			)
-		);
-	}
-	
-	
-	// Make sure $per_page is a valid value
-	$per_page = ($per_page <= 0) ? 1 : $per_page;
-
-	$seperator = '<span class="page-sep"> - </span>';
-	$total_pages = ceil($num_items / $per_page);
-
-	if ($total_pages == 1 || !$num_items)
-	{
-		return false;
-	}
-
-	$on_page = floor($start_item / $per_page) + 1;
-	$url_delim = (strpos($base_url, '?') === false) ? '?' : ((strpos($base_url, '?') === strlen($base_url) - 1) ? '' : '&amp;');
-
-	$page_string = ($on_page == 1) ? '<strong>1</strong>' : '<a href="' . $base_url . '0">1</a>';
-
-	if ($total_pages > 5)
-	{
-		$start_cnt = min(max(1, $on_page - 4), $total_pages - 5);
-		$end_cnt = max(min($total_pages, $on_page + 4), 6);
-
-		$page_string .= ($start_cnt > 1) ? ' ... ' : $seperator;
+		$page_string .= ($start_cnt > 1) ? ' ... ' : '';
 
 		for ($i = $start_cnt + 1; $i < $end_cnt; $i++)
 		{
-			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="'.makelink($base_url . (($i-1) * $per_page)).'">' . $i . '</a>';
-			if ($i < $end_cnt - 1)
-			{
-				$page_string .= $seperator;
-			}
+			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>';
 		}
 
-		$page_string .= ($end_cnt < $total_pages) ? ' ... ' : $seperator;
+		$page_string .= ($end_cnt < $total_pages) ? ' ... ' : '';
+		$page_string .= ($on_page == $total_pages) ? '<span class="pagi-selected">' . $total_pages . '</span>' : '<a href="' . makelink($base_url . (($total_pages - 1) * $per_page), 'members') . '"><span class="pagi-active">'.$total_pages.'</span></a>';
 	}
 	else
 	{
-		$page_string .= $seperator;
-
 		for ($i = 2; $i <= $total_pages; $i++)
 		{
-			$page_string .= ($i == $on_page) ? '<strong>' . $i . '</strong>' : '<a href="'.makelink($base_url . (($i-1) * $per_page)).'">' . $i . '</a>';
-			if ($i < $total_pages)
-			{
-				$page_string .= $seperator;
-			}
+			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>';
 		}
 	}
 
-	$page_string .= ($on_page == $total_pages) ? ' <strong>Total [' . $total_pages . ']</strong>' : '<a href="'.makelink($base_url . (($total_pages-1) * $per_page)) . '"> Total ['.$total_pages.']</a>';
-
-
 	$roster->tpl->assign_vars(array(
-		'URL'		=> $base_url,
-		'BASE_URL'	=> addslashes($base_url),
-		'PER_PAGE'		=> $per_page,
-
-		'B_PAGINATION' => true,
-		'PAGINATION_PREV' => (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item-$per_page)) : false),
-		'PAGINATION_NEXT' => (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item+$per_page)) : false),
-		'TOTAL_PAGES'		=> '  '.$total_pages,
-		'PAGE' => $page_string,
+		'URL'             => $base_url,
+		'BASE_URL'        => addslashes($base_url),
+		'PER_PAGE'        => $per_page,
+		'COLS'            => $cols,
+		'B_PAGINATION'    => true,
+		'PAGINATION_PREV' => (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item - $per_page)) : false),
+		'PAGINATION_NEXT' => (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item + $per_page)) : false),
+		'TOTAL_PAGES'     => $total_pages,
+		'CURRENT_PAGE'    => $on_page,
+		'PAGE'            => $page_string,
 	));
 
 	//return $page_string;
 }
-*
-function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
-{
-	function paginate_page( $page , $url , $first=false )
-	{
-		global $roster;
 
-		$roster->tpl->assign_block_vars('pagination', array(
-			'PAGE' => $page,
-			'URL' => $url,
-			'FIRST' => $first
-			)
-		);
-	}
-
-	global $roster;
-
-	$total_pages = ceil($num_items/$per_page);
-	$on_page = floor($start_item/$per_page);
-
-
-	if( $total_pages < 2 )
-	{
-		$roster->tpl->assign_var('B_PAGINATION', false);
-		return;
-	}
-
-	$roster->tpl->assign_vars(array(
-		'B_PAGINATION' => true,
-		'PAGINATION_PREV' => (($add_prevnext && $on_page > 1) ? makelink($base_url . ($on_page*$per_page)) : false),
-		'PAGINATION_NEXT' => (($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false),
-		)
-	);
-
-	if( $total_pages > 10 )
-	{
-		$init_page_max = ($total_pages > 3) ? 3 : $total_pages;
-		for( $i = 1; $i <= $init_page_max; $i++ )
-		{
-			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($i == 1));
-		}
-		if( $total_pages > 3 )
-		{
-			if( $on_page > 1 && $on_page < $total_pages )
-			{
-				if( $on_page > 5 )
-				{
-					paginate_page(' ... ', false, true);
-				}
-				$init_page_min = ($on_page > 4) ? $on_page : 5;
-				$init_page_max = ($on_page < $total_pages - 4 ) ? $on_page : $total_pages - 4;
-				for( $i = $init_page_min - 1; $i < $init_page_max + 2; $i++ )
-				{
-					paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($on_page <= 5 && $i == $init_page_min-1));
-				}
-				if( $on_page < $total_pages-4 )
-				{
-					paginate_page(' ... ', false, true);
-				}
-			}
-			else
-			{
-				paginate_page(' ... ', false, true);
-			}
-			for( $i = $total_pages - 2; $i <= $total_pages; $i++ )
-			{
-				paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
-			}
-		}
-	}
-	else
-	{
-		for ($i = 1; $i <= $total_pages; $i++)
-		{
-			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
-		}
-	}
-}
-*/
 
 /**
  * Makes the Realmstatus block
