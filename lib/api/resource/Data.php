@@ -148,7 +148,7 @@ class Data extends Resource {
 		$update->add_value('locale' , $roster->config['api_url_locale']);
 		$update->add_value('timestamp' , time() );
 		$querystr = "INSERT INTO `" .$roster->db->table('api_items') . "` SET " . $update->assignstr;
-		//$result = $roster->db->query($sql);
+		$result = $roster->db->query($querystr);
 	}
 	public function InsertGCache($data)
 	{
@@ -165,8 +165,7 @@ class Data extends Resource {
 		$update->add_value('locale' , $roster->config['api_url_locale']);
 		$update->add_value('timestamp' , time() );
 		$querystr = "INSERT INTO `" .$roster->db->table('api_gems') . "` SET " . $update->assignstr;
-		echo $querystr.'<br>';
-		//$result = $roster->db->query($sql);
+		$result = $roster->db->query($querystr);
 	}
 	public function CacheCheck($id)
 	{
