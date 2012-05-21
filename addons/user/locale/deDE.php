@@ -174,6 +174,17 @@ $lang['user_page'] = array(
 	'login' => 'Benutzer Anmeldung',
 );
 
+// Reg Page config
+$lang['admin']['usr_config']	= 'Reg Konfiguration|Einstellungen für die Registrierungsseite';
+$lang['admin']['char_auth']		= 'Reg Freischaltung|Art der Freischaltung: <br />Default/Character - Benutzer müssen den Charakter verifizieren (per Equipment)<br />Admin Approve - Nur Admins können Benutzer freischalten <br />None - Keine Freischaltung notwendig';
+$lang['admin']['fname_auth']	= 'Benutzer Vorname|';
+$lang['admin']['lname_auth']	= 'Benutzer Nachname|';
+$lang['admin']['age_auth']		= 'Benutzer Alter|';
+$lang['admin']['city_auth']		= 'Benutzer Stadt|';
+$lang['admin']['state_auth']	= 'Benutzer Staat|';
+$lang['admin']['country_auth']	= 'Benutzer Land|';
+$lang['admin']['zone_auth']		= 'Benutzer Zeitzone|';
+
 // Config page names
 $lang['admin']['user_display']	= 'Konfiguration|Konfigurationseinstellungen für Accounts.';
 $lang['admin']['user_perms']	= 'Seiten Berechtigungen|Einstellen welche Gruppe, welche Seite sehen kann.';

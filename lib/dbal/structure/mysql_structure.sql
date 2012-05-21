@@ -122,7 +122,7 @@ CREATE TABLE `renprefix_addon_config` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
-### API Usage
+### API Tables
 
 DROP TABLE IF EXISTS `renprefix_api_usage`;
 CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
@@ -132,6 +132,37 @@ CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
   `total` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_api_gems`;
+CREATE TABLE `renprefix_api_gems` (
+  `gem_id` int(11) NOT NULL default '0',
+  `gem_name` varchar(96) NOT NULL default '',
+  `gem_color` varchar(16) NOT NULL default '',
+  `gem_tooltip` mediumtext NOT NULL,
+  `gem_texture` varchar(64) NOT NULL default '',
+  `gem_bonus` varchar(255) NOT NULL default '',
+  `locale` varchar(16) NOT NULL default '',
+  `timestamp` int(10) NOT NULL,
+  PRIMARY KEY  (`gem_id`,`locale`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_api_items`;
+CREATE TABLE `renprefix_api_items` (
+  `item_id` int(11) unsigned NOT NULL default '0',
+  `item_name` varchar(96) NOT NULL default '',
+  `item_color` varchar(16) NOT NULL default '',
+  `item_texture` varchar(64) NOT NULL default '',
+  `item_quantity` int(11) default NULL,
+  `item_tooltip` mediumtext NOT NULL,
+  `level` int(11) default NULL,
+  `item_level` int(11) default NULL,
+  `item_type` varchar(64) default NULL,
+  `item_subtype` varchar(64) default NULL,
+  `item_rarity` int(4) NOT NULL default -1,
+  `locale` varchar(16) default NULL,
+  `timestamp` int(10) NOT NULL,
+  PRIMARY KEY  (`item_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Buffs

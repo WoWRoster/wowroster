@@ -326,9 +326,71 @@ class Upgrade {
 		{
 			$roster->db->query("UPDATE `" .$roster->db->table('user_members') . "` SET `access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");  
 		}
+		
 		if (version_compare($roster->config['version'], '2.1.9.2469', '<')) 
 		{
 			$roster->db->query("ALTER TABLE `" .$roster->db->table('currency') . "` CHANGE `count` `count` INT( 5 ) NULL DEFAULT NULL;");  
+		}
+		
+		if (version_compare($roster->config['version'], '2.1.9.2470', '<')) 
+		{
+			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_gems') . "`;
+			CREATE TABLE `" .$roster->db->table('api_gems') . "` (
+			  `gem_id` int(11) NOT NULL default '0',
+			  `gem_name` varchar(96) NOT NULL default '',
+			  `gem_color` varchar(16) NOT NULL default '',
+			  `gem_tooltip` mediumtext NOT NULL,
+			  `gem_texture` varchar(64) NOT NULL default '',
+			  `gem_bonus` varchar(255) NOT NULL default '',
+			  `locale` varchar(16) NOT NULL default '',
+			  `timestamp` int(10) NOT NULL,
+			  PRIMARY KEY  (`gem_id`,`locale`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+
+			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;
+			CREATE TABLE `" .$roster->db->table('api_items') . "` (
+			  `item_id` int(11) unsigned NOT NULL default '0',
+			  `item_name` varchar(96) NOT NULL default '',
+			  `item_color` varchar(16) NOT NULL default '',
+			  `item_texture` varchar(64) NOT NULL default '',
+			  `item_tooltip` mediumtext NOT NULL,
+			  `level` int(11) default NULL,
+			  `item_level` int(11) default NULL,
+			  `item_type` varchar(64) default NULL,
+			  `item_subtype` varchar(64) default NULL,
+			  `item_rarity` int(4) NOT NULL default -1,
+			  `locale` varchar(16) default NULL,
+			  `timestamp` int(10) NOT NULL,
+			  PRIMARY KEY  (`item_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			/*     #
+					 #
+					   #			
+			##############    NOT SURE IF THIS IS REALLY NEEDED BUT IT WOULDENT BE A BAD IDEA.....
+					   #
+					 #
+				   #
+			
+			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;
+			CREATE TABLE `" .$roster->db->table('api_items') . "` (
+			  `achv_id` int(11) NOT NULL,
+			  `achv_cat` int(11) NOT NULL,
+			  `achv_cat_title` varchar(255) NOT NULL default '',
+			  `achv_cat_sub` varchar(255) NOT NULL default '',
+			  `achv_cat_sub2` int(10) default NULL,
+			  `achv_points` int(11) NOT NULL,
+			  `achv_icon` varchar(255) NOT NULL default '',
+			  `achv_title` varchar(255) NOT NULL default '',
+			  `achv_reward_title` varchar(255) default NULL,
+			  `achv_disc` text NOT NULL,
+			  `achv_date` date default NULL,
+			  `achv_criteria` text NOT NULL,
+			  `achv_progress` varchar(25) NOT NULL,
+			  `achv_progress_width` varchar(50) NOT NULL,
+			  `achv_complete` varchar(255) NOT NULL default '',
+			  PRIMARY KEY  (`achv_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			*/
 		}
 		
 		// Standard Beta Update
@@ -348,7 +410,7 @@ class Upgrade {
 		$query = "SELECT * FROM `" . $roster->db->table('account') . "` WHERE `name` = 'Admin';";
 		$result = $roster->db->query($query);
 		$row = $roster->db->fetch($result);
-		$roster->db->query("UPDATE `" . $roster->db->table('user_members') . "` SET `pass` = '" . $row['hash'] . "' WHERE `id` = '4' LIMIT 1;");
+		$roster->db->query("UPDATE `" . $roster->db->table('user_members') . "` SET `pass` = '" . $row['hash'] . "' WHERE `usr` = 'Admin' LIMIT 1;");
 	}
 	*/
 	
