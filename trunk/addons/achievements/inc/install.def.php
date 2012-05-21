@@ -52,14 +52,11 @@ class achievementsInstall
 		$installer->add_menu_button('achive','char');
 
 		$installer->create_table($installer->table('data'),"
-			  `id` int(11) NOT NULL auto_increment,
-			  `member_id` int(11) NOT NULL,
-			  `guild_id` int(11) NOT NULL,
+			  `achv_id` int(11) NOT NULL,
 			  `achv_cat` int(11) NOT NULL,
 			  `achv_cat_title` varchar(255) NOT NULL default '',
 			  `achv_cat_sub` varchar(255) NOT NULL default '',
 			  `achv_cat_sub2` int(10) default NULL,
-			  `achv_id` varchar(25) NOT NULL,
 			  `achv_points` int(11) NOT NULL,
 			  `achv_icon` varchar(255) NOT NULL default '',
 			  `achv_title` varchar(255) NOT NULL default '',

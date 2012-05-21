@@ -10,7 +10,8 @@
  * @package    WoWRoster
  */
 require_once 'Resource.php';
-
+require_once (ROSTER_LIB . 'update.lib.php');
+$update = new update();
 /**
  * Realm resource.
  *
@@ -75,6 +76,10 @@ class Data extends Resource {
 		{
 			throw new ResourceException('No Item ID given Given.');
 		} 
+		else if (is_array($this->CacheCheck($itemID)))
+		{
+			$data = $this->CacheCheck($itemID);
+		}
 		else
 		{
 			
@@ -85,6 +90,14 @@ class Data extends Resource {
 			'name' => $itemID,
 			'header'=>"Accept-language: ".$this->region."\r\n"
 			));
+			if ($data['itemClass'] == '3')
+			{
+				$this->InsertGCache($data);
+			}
+			else
+			{
+				$this->InsertICache($data);
+			}
 		}
 		return $data;
 	}
@@ -115,5 +128,96 @@ class Data extends Resource {
 		return $data;
 	}
 	
+	public function InsertICache($data)
+	{
+		global $roster, $update;
+		
+		$tooltip = $roster->api->Item->item($data,null,null);
+
+		$update->reset_values();
+		$update->add_value('item_name' , $data['name']);
+		$update->add_value('item_color' , $this->_setQualityc( $data['quality'] ));
+		$update->add_value('item_id' , ''.$data['id'].'');
+		$update->add_value('item_texture' , $data['icon']);
+		$update->add_value('item_rarity' , $data['quality']);
+		$update->add_value('item_tooltip' , $tooltip);
+		$update->add_value('item_type' , $roster->api->Item->itemclass[$data['itemClass']]);
+		$update->add_value('item_subtype' , $roster->api->Item->itemSubClass[$data['itemClass']][$data['itemSubClass']]);
+		$update->add_value('level' , $data['requiredLevel']);
+		$update->add_value('item_level' , $data['itemLevel']);
+		$update->add_value('locale' , $roster->config['api_url_locale']);
+		$update->add_value('timestamp' , time() );
+		$querystr = "INSERT INTO `" .$roster->db->table('api_items') . "` SET " . $update->assignstr;
+		//$result = $roster->db->query($sql);
+	}
+	public function InsertGCache($data)
+	{
+		global $roster, $update;
+		$tooltip = $roster->api->Item->item($data,null,null);
+
+		$update->reset_values();
+		$update->add_value('gem_id' , $data['id'] );
+		$update->add_value('gem_name' , $data['name'] );
+		$update->add_value('gem_color' , strtolower($data['gemInfo']['type']['type']) );
+		$update->add_value('gem_tooltip' , $tooltip );
+		$update->add_value('gem_texture' , $data['icon'] );
+		$update->add_value('gem_bonus' , $data['gemInfo']['bonus']['name'] );
+		$update->add_value('locale' , $roster->config['api_url_locale']);
+		$update->add_value('timestamp' , time() );
+		$querystr = "INSERT INTO `" .$roster->db->table('api_gems') . "` SET " . $update->assignstr;
+		echo $querystr.'<br>';
+		//$result = $roster->db->query($sql);
+	}
+	public function CacheCheck($id)
+	{
+		global $roster;
+		
+		$sql = "SELECT * FROM `" .$roster->db->table('api_items') . "` WHERE `item_id` = '".$id."' ";
+		$result = $roster->db->query($sql);
+		if ($result)
+		{
+			$row = $roster->db->fetch($result);
+			return $row;
+		}
+		else
+		{
+			$sqlg = "SELECT * FROM `" .$roster->db->table('api_gems') . "` WHERE `gem_id` = '".$id."' ";
+			$resultg = $roster->db->query($sqlg);
+			if ($resultg)
+			{
+				$rowg = $roster->db->fetch($resultg);
+				return $rowg;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	
+	
+	public function _setQualityc( $color )
+	{
+		$ret = '';
+		switch ($color) {
+			case 5: $ret = "ff8000"; //Orange
+				break;
+			case 4: $ret = "a335ee"; //Purple
+				break;
+			case 3: $ret = "0070dd"; //Blue
+				break;
+			case 2: $ret = "1eff00"; //Green
+				break;
+			case 1: $ret = "ffffff"; //White
+				break;
+			default: $ret = "9d9d9d"; //Grey
+				break;
+		}
+		return $ret;
+	}
 	
 }

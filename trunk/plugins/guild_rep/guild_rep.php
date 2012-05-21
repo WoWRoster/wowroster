@@ -40,6 +40,7 @@ class guild_rep
 		array(	"name"=>	"Ulminia <Ulminia@gmail.com>",
 				"info"=>	"Guild Rep (Alpha Release)"),
 	);
+	
 
 	/*
 	*	__construct
@@ -67,6 +68,7 @@ class guild_rep
 				'filter'     => false,
 				'display'    => 5
 			);
+		
 	}
 
 
@@ -74,12 +76,23 @@ class guild_rep
 }
 abstract class guild_rep_function
 {
+	
 	public function guild_rep ( $row, $field )
 	{
 		global $roster, $member_list_where;
 
 		if (isset($row['curr_rep']))
 		{
+			$img = array(
+				'999' => 'exalted',
+				'21000' => 'revered',
+				'12000' => 'honored',
+				'6000' => 'friendly',
+				'3000' => 'neutral',
+				'-3000' => 'unfriendly',
+				'-6000' => 'hostile',
+				'36000' => 'hated'
+			);
 			$percentage = round(($row['curr_rep']/$row['max_rep'])*100);
 			$toolTip = ' ['.$row['curr_rep'].' / '.$row['max_rep'].' ] ';
 			$toolTiph = $row['Standing'];
@@ -87,7 +100,7 @@ abstract class guild_rep_function
 			$cell_value = '<div ' . $tooltip . ' style="cursor:default;"><div class="levelbarParent" style="width:70px;"><div class="levelbarChild">' . $row['Standing'] . '</div></div>';
 			$cell_value .= '<table class="expOutline" border="0" cellpadding="0" cellspacing="0" width="70">';
 			$cell_value .= '<tr>';
-			$cell_value .= '<td style="background-image: url(\'' . $roster->config['theme_path'] . '/images/bars/' . strtolower($row['Standing']).'.gif\');" width="' . $percentage . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>';
+			$cell_value .= '<td style="background-image: url(\'' . $roster->config['theme_path'] . '/images/bars/' . $img[$row['max_rep']].'.gif\');" width="' . $percentage . '%"><img src="' . $roster->config['img_url'] . 'pixel.gif" height="14" width="1" alt="" /></td>';
 			$cell_value .= '<td width="' . (100 - $percentage) . '%"></td>';
 			$cell_value .= "</tr>\n</table>\n</div>\n";
 
