@@ -336,7 +336,7 @@ class Upgrade {
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_gems') . "`;
 			CREATE TABLE `" .$roster->db->table('api_gems') . "` (
-			  `gem_id` int(11) NOT NULL default '0',
+			  `gem_id` int(11) NOT NULL,
 			  `gem_name` varchar(96) NOT NULL default '',
 			  `gem_color` varchar(16) NOT NULL default '',
 			  `gem_tooltip` mediumtext NOT NULL,
@@ -349,7 +349,7 @@ class Upgrade {
 
 			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;
 			CREATE TABLE `" .$roster->db->table('api_items') . "` (
-			  `item_id` int(11) unsigned NOT NULL default '0',
+			  `item_id` int(11) NOT NULL,
 			  `item_name` varchar(96) NOT NULL default '',
 			  `item_color` varchar(16) NOT NULL default '',
 			  `item_texture` varchar(64) NOT NULL default '',
