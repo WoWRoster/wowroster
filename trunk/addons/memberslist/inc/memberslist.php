@@ -252,11 +252,11 @@ class memberslist
 		if( $this->addon['config']['page_size'] > 0 )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
-			$rowsqry = 'SELECT COUNT(*) as count ' . substr($query, strpos($query,'FROM'));
+			$rowsqry = 'SELECT * ' . substr($query, strpos($query,'FROM'));
 			$result = $roster->db->query($rowsqry);
 			$data = $roster->db->fetch($result);
-			$num_rows = $data['count'];
-			if ($num_rows == 1)
+			$num_rows = $roster->db->num_rows($result);
+			if ($num_rows > 1)
 			{
 				$num_rows = $nn = 0;
 				while( $data = $roster->db->fetch($result, SQL_NUM) )
@@ -266,7 +266,7 @@ class memberslist
 				$num_rows = $nn;
 			}
 		}
-
+		
 		// --[ Add sorting SQL ]--
 		$order = $order_first;
 		if( empty($get_s) && !empty($this->addon['config']['def_sort']) )
