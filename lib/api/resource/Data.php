@@ -70,15 +70,16 @@ class Data extends Resource {
 		return $data;
 	}
 	
-	public function getItemInfo($itemID,$gem0=null,$gem1=null,$gem2=null,$enchant=null,$es=false) {
-		
+	public function getItemInfo($itemID,$gem0=null,$gem1=null,$gem2=null,$enchant=null,$es=false) 
+	{
+		$item = $this->CacheCheck($itemID);
 		if (empty($itemID))
 		{
 			throw new ResourceException('No Item ID given Given.');
 		} 
-		else if (is_array($this->CacheCheck($itemID)))
+		else if (is_array($item))
 		{
-			$data = $this->CacheCheck($itemID);
+			$data = $item;
 		}
 		else
 		{
@@ -133,7 +134,7 @@ class Data extends Resource {
 		global $roster, $update;
 		
 		$tooltip = $roster->api->Item->item($data,null,null);
-
+		
 		$update->reset_values();
 		$update->add_value('item_name' , $data['name']);
 		$update->add_value('item_color' , $this->_setQualityc( $data['quality'] ));
@@ -147,6 +148,7 @@ class Data extends Resource {
 		$update->add_value('item_level' , $data['itemLevel']);
 		$update->add_value('locale' , $roster->config['api_url_locale']);
 		$update->add_value('timestamp' , time() );
+		$update->add_value('json' ,json_encode($data, true));
 		$querystr = "INSERT INTO `" .$roster->db->table('api_items') . "` SET " . $update->assignstr;
 		$result = $roster->db->query($querystr);
 	}
@@ -154,6 +156,7 @@ class Data extends Resource {
 	{
 		global $roster, $update;
 		$tooltip = $roster->api->Item->item($data,null,null);
+		$tooltip = str_replace('<br /><br />', "<br />", $tooltip);
 
 		$update->reset_values();
 		$update->add_value('gem_id' , $data['id'] );
@@ -164,6 +167,7 @@ class Data extends Resource {
 		$update->add_value('gem_bonus' , $data['gemInfo']['bonus']['name'] );
 		$update->add_value('locale' , $roster->config['api_url_locale']);
 		$update->add_value('timestamp' , time() );
+		$update->add_value('json' ,json_encode($data, true));
 		$querystr = "INSERT INTO `" .$roster->db->table('api_gems') . "` SET " . $update->assignstr;
 		$result = $roster->db->query($querystr);
 	}
@@ -173,24 +177,25 @@ class Data extends Resource {
 		
 		$sql = "SELECT * FROM `" .$roster->db->table('api_items') . "` WHERE `item_id` = '".$id."' ";
 		$result = $roster->db->query($sql);
-		if ($result)
-		{
-			$row = $roster->db->fetch($result);
-			return $row;
-		}
-		else
+		if ($roster->db->num_rows($result) == 0)
 		{
 			$sqlg = "SELECT * FROM `" .$roster->db->table('api_gems') . "` WHERE `gem_id` = '".$id."' ";
 			$resultg = $roster->db->query($sqlg);
-			if ($resultg)
-			{
-				$rowg = $roster->db->fetch($resultg);
-				return $rowg;
-			}
-			else
+			if ($roster->db->num_rows($resultg) == 0)
 			{
 				return false;
 			}
+			else
+			{
+				$rowg = $roster->db->fetch($resultg);
+				return json_decode($rowg['json'], true);
+			}
+			
+		}
+		else
+		{
+			$row = $roster->db->fetch($result);
+			return json_decode($row['json'], true);
 		}
 		
 		return false;

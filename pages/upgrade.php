@@ -344,6 +344,7 @@ class Upgrade {
 			  `gem_bonus` varchar(255) NOT NULL default '',
 			  `locale` varchar(16) NOT NULL default '',
 			  `timestamp` int(10) NOT NULL,
+			  `json` longtext,
 			  PRIMARY KEY  (`gem_id`,`locale`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
@@ -361,6 +362,7 @@ class Upgrade {
 			  `item_rarity` int(4) NOT NULL default -1,
 			  `locale` varchar(16) default NULL,
 			  `timestamp` int(10) NOT NULL,
+			  `json` longtext,
 			  PRIMARY KEY  (`item_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 			/*     #
