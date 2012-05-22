@@ -332,38 +332,38 @@ class Upgrade {
 			$roster->db->query("ALTER TABLE `" .$roster->db->table('currency') . "` CHANGE `count` `count` INT( 5 ) NULL DEFAULT NULL;");  
 		}
 		
-		if (version_compare($roster->config['version'], '2.1.9.2470', '<')) 
+		if (version_compare($roster->config['version'], '2.1.9.2473', '<')) 
 		{
-			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_gems') . "`;
-			CREATE TABLE `" .$roster->db->table('api_gems') . "` (
+			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_gems') . "`;");
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('api_gems') . "` (
 			  `gem_id` int(11) NOT NULL,
-			  `gem_name` varchar(96) NOT NULL default '',
-			  `gem_color` varchar(16) NOT NULL default '',
+			  `gem_name` varchar(96) NOT NULL DEFAULT '',
+			  `gem_color` varchar(16) NOT NULL DEFAULT '',
 			  `gem_tooltip` mediumtext NOT NULL,
-			  `gem_texture` varchar(64) NOT NULL default '',
-			  `gem_bonus` varchar(255) NOT NULL default '',
-			  `locale` varchar(16) NOT NULL default '',
+			  `gem_texture` varchar(64) NOT NULL DEFAULT '',
+			  `gem_bonus` varchar(255) NOT NULL DEFAULT '',
+			  `locale` varchar(16) NOT NULL DEFAULT '',
 			  `timestamp` int(10) NOT NULL,
 			  `json` longtext,
-			  PRIMARY KEY  (`gem_id`,`locale`)
+			  PRIMARY KEY (`gem_id`,`locale`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
-			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;
-			CREATE TABLE `" .$roster->db->table('api_items') . "` (
+			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;");
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('api_items') . "` (
 			  `item_id` int(11) NOT NULL,
-			  `item_name` varchar(96) NOT NULL default '',
-			  `item_color` varchar(16) NOT NULL default '',
-			  `item_texture` varchar(64) NOT NULL default '',
+			  `item_name` varchar(96) NOT NULL DEFAULT '',
+			  `item_color` varchar(16) NOT NULL DEFAULT '',
+			  `item_texture` varchar(64) NOT NULL DEFAULT '',
 			  `item_tooltip` mediumtext NOT NULL,
-			  `level` int(11) default NULL,
-			  `item_level` int(11) default NULL,
-			  `item_type` varchar(64) default NULL,
-			  `item_subtype` varchar(64) default NULL,
-			  `item_rarity` int(4) NOT NULL default -1,
-			  `locale` varchar(16) default NULL,
+			  `level` int(11) DEFAULT NULL,
+			  `item_level` int(11) DEFAULT NULL,
+			  `item_type` varchar(64) DEFAULT NULL,
+			  `item_subtype` varchar(64) DEFAULT NULL,
+			  `item_rarity` int(4) NOT NULL DEFAULT '-1',
+			  `locale` varchar(16) DEFAULT NULL,
 			  `timestamp` int(10) NOT NULL,
 			  `json` longtext,
-			  PRIMARY KEY  (`item_id`)
+			  PRIMARY KEY (`item_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 			/*     #
 					 #
