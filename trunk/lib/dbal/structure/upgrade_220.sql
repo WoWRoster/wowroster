@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `renprefix_api_gems`;
-CREATE TABLE `renprefix_api_gems` (
+CREATE TABLE IF NOT EXISTS `renprefix_api_gems` (
   `gem_id` int(11) NOT NULL,
   `gem_name` varchar(96) NOT NULL default '',
   `gem_color` varchar(16) NOT NULL default '',
@@ -30,7 +30,7 @@ CREATE TABLE `renprefix_api_gems` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `renprefix_api_items`;
-CREATE TABLE `renprefix_api_items` (
+CREATE TABLE IF NOT EXISTS `renprefix_api_items` (
   `item_id` int(11) NOT NULL,
   `item_name` varchar(96) NOT NULL default '',
   `item_color` varchar(16) NOT NULL default '',

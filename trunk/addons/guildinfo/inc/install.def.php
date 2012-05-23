@@ -26,7 +26,7 @@ class guildinfoInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_06';
 
-	var $version = '2.1.9';
+	var $version = '2.1.9.2473';
 	var $wrnet_id = '0';
 
 	var $fullname = 'guildinfo';
@@ -66,13 +66,7 @@ class guildinfoInstall
 			`Display_date` varchar(96) NOT NULL default '',
 			`Typpe` varchar(32) NOT NULL default '',
 			KEY  (`id`)");
-		/*
 
-		["TotalXP"] = 0,
-		["WeeklyXP"] = 0,
-		["TotalRank"] = 108,
-		["WeeklyRank"] = 82,
-		*/
 		$installer->create_table($installer->table('ranks'),"
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`guild_id` int(11) unsigned NOT NULL default '0',
@@ -244,6 +238,7 @@ class guildinfoInstall
 			$installer->add_config("'1001', 'git_access', '0', 'access', 'guildinfo_conf'");
 		}
 
+		
 		return true;
 	}
 

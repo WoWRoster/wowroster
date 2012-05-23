@@ -234,7 +234,29 @@ foreach ($classes as $class => $num)
 		)
 	);
 }
+	
+	
+	$qgem = "SELECT * FROM `" . $roster->db->table('api_gems') . "`;";
+	$resultgem = $roster->db->query($qgem);
+	$gem = $roster->db->num_rows($resultgem);
+	$roster->tpl->assign_block_vars('cache', array(
+		'NAME'       => 'Gems',
+		'ROWS'       => $gem,
+		'ROW'        => (($i % 2) + 1)
+		)
+	);
+	$qitem = "SELECT * FROM `" . $roster->db->table('api_items') . "`;";
+	$resultitem = $roster->db->query($qitem);
+	$item = $roster->db->num_rows($resultitem);
+	$roster->tpl->assign_block_vars('cache', array(
+		'NAME'       => 'Items',
+		'ROWS'       => $item,
+		'ROW'        => (($i % 2) + 1)
+		)
+	);
 
+	
+	
 	$queryx = "SELECT * FROM `" . $roster->db->table('api_usage') . "` ORDER BY `date` DESC LIMIT 0,150;";
 	$resultx = $roster->db->query($queryx);
 	$usage = array();

@@ -19,9 +19,6 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 	exit('Detected invalid access to this file!');
 }
 
-include( ROSTER_LIB . 'update.lib.php' );
-$update = new update;
-
 $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 $roster->output['title'] .= $roster->locale->act['pagebar_userman'];
