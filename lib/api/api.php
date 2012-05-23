@@ -20,6 +20,7 @@ require_once ROSTER_API . 'resource/Guild.php';
 require_once ROSTER_API . 'resource/Talents.php';
 require_once ROSTER_API . 'resource/Data.php';
 require_once ROSTER_API . 'apiitem.php';
+require_once ROSTER_API . 'colorapiitem.php';
 
 class WowAPI {
 	/**
@@ -32,6 +33,7 @@ class WowAPI {
 	public $Data; // Blizzard Data Objects..
 	public $Talents; // char name nyi
 	public $Aitem;
+	public $cItem;
 	
 	public $locale;// = ''.strtoupper($region).'';
 	public $region;// = ''.strtoupper($region).'';
@@ -69,6 +71,7 @@ class WowAPI {
 		$this->Guild = new guild($region);
 		$this->Data = new Data(strtoupper($region));
 		$this->Item = new ApiItem();
+		$this->cItem = new ApiColorItem();
 		//$this->Team = new team($region);
 		$this->Talents = new talents($region);
 	}

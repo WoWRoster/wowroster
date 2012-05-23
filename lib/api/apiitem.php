@@ -619,8 +619,17 @@ function _getCaption()
 
 	function _getBag()
 	{
+		if (isset( $this->attributes['BagDesc']))
+		{
+		//$html = $this->attributes['BagDesc'] . "<br />";
 		$html = $this->attributes['BagDesc'] . "<br />";
 		return $html;
+		}
+		else
+		{
+		return;
+		}
+		
 	}
 	function _getGemBonus()
 	{

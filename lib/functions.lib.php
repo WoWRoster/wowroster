@@ -1493,7 +1493,7 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 	$on_page = floor($start_item / $per_page) + 1;
 	$url_delim = (strpos($base_url, '?') === false) ? '?' : ((strpos($base_url, '?') === strlen($base_url) - 1) ? '' : '&amp;');
 
-	$page_string = ($on_page == 1) ? '<span class="pagi-selected">1</span>&nbsp;' : '<a href="' . makelink($base_url . '0','members') . '"><span class="pagi-active">1</span></a>&nbsp;';
+	$page_string = ($on_page == 1) ? '<span class="pagi-selected">1</span>' : '<a href="' . makelink($base_url . '0','members') . '"><span class="pagi-active">1</span></a>';
 
 	if ($total_pages > 5)
 	{
@@ -1504,17 +1504,17 @@ function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_
 
 		for ($i = $start_cnt + 1; $i < $end_cnt; $i++)
 		{
-			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>&nbsp;' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>&nbsp;';
+			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>';
 		}
 
 		$page_string .= ($end_cnt < $total_pages) ? '... ' : '';
-		$page_string .= ($on_page == $total_pages) ? '<span class="pagi-selected">' . $total_pages . '</span>&nbsp;' : '<a href="' . makelink($base_url . (($total_pages - 1) * $per_page), 'members') . '"><span class="pagi-active">'.$total_pages.'</span></a>&nbsp;';
+		$page_string .= ($on_page == $total_pages) ? '<span class="pagi-selected">' . $total_pages . '</span>' : '<a href="' . makelink($base_url . (($total_pages - 1) * $per_page), 'members') . '"><span class="pagi-active">'.$total_pages.'</span></a>';
 	}
 	else
 	{
 		for ($i = 2; $i <= $total_pages; $i++)
 		{
-			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>&nbsp;' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>&nbsp;';
+			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>';
 		}
 	}
 

@@ -10,8 +10,7 @@
  * @package    WoWRoster
  */
 require_once 'Resource.php';
-require_once (ROSTER_LIB . 'update.lib.php');
-$update = new update();
+
 /**
  * Realm resource.
  *
@@ -134,7 +133,8 @@ class Data extends Resource {
 		global $roster, $update;
 		
 		$tooltip = $roster->api->Item->item($data,null,null);
-		
+		require_once (ROSTER_LIB . 'update.lib.php');
+		$update = new update();
 		$update->reset_values();
 		$update->add_value('item_name' , $data['name']);
 		$update->add_value('item_color' , $this->_setQualityc( $data['quality'] ));
@@ -158,6 +158,8 @@ class Data extends Resource {
 		$tooltip = $roster->api->Item->item($data,null,null);
 		$tooltip = str_replace('<br /><br />', "<br />", $tooltip);
 
+		require_once (ROSTER_LIB . 'update.lib.php');
+		$update = new update();
 		$update->reset_values();
 		$update->add_value('gem_id' , $data['id'] );
 		$update->add_value('gem_name' , $data['name'] );

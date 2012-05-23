@@ -54,6 +54,9 @@ $lang['weekday'] = array(
 	'6' => 'FRI',
 	'7' => 'SAT'
 );
+// char feeds locals
+$lang['cfeedbutton'] = 'Character Feeds|Lists recent activity for the player from the blizzard api';
+
 
 $lang['admin']['guildinfo_conf'] = 'GuildInfo|General configuration options';
 $lang['admin']['guildinfo_graph'] = "Info Graphs";
