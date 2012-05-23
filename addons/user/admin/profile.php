@@ -134,6 +134,7 @@ $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\
 $tab1 = explode('|',$roster->locale->act['user_settings']['set']);
 $tab2 = explode('|',$roster->locale->act['user_settings']['prof']);
 $tab3 = explode('|',$roster->locale->act['user_main_menu']['my_prof']);
+$tab4 = explode('|',$roster->locale->act['user_password']['settings_password']);
 
 $menu = messagebox('
 <ul class="tab_menu">
@@ -141,6 +142,7 @@ $menu = messagebox('
 	<li class="selected"><a href="' . makelink('user-user-settings-profile') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2
 	[0] . '</a></li>
 	<li><a href="' . makelink('user-user-settings-edit') . '" style="cursor:help;"' . makeOverlib($tab3[1],$tab3[0],'',1,'',',WRAP') . '>' . $tab3[0] . '</a></li>
+	<li><a href="' . makelink('user-user-settings-pass') . '" style="cursor:help;"' . makeOverlib($tab4[1],$tab4[0],'',1,'',',WRAP') . '>' . $tab4[0] . '</a></li>
 </ul>
 ',$roster->locale->act['user_page']['settings'],'sgray','145px');
 
@@ -157,7 +159,7 @@ $roster->tpl->assign_vars(array(
 	)
 );
 $roster->tpl->set_filenames(array(
-	'ucp' => $addon['basename'] . '/ucp.html'
+'ucp' => $addon['basename'] . '/ucp.html'
 	)
 );
 $roster->tpl->display('ucp');
@@ -314,7 +316,7 @@ function processData()
 				$update_sql[] = "UPDATE `" . $roster->db->table('profile', 'user') . "`"
 							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
 							  . " WHERE `uid` = '$uid';";
-							if( $settingName == 'avsig_src' )
+//							if( $settingName == 'avsig_src' )
 
 				$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
 

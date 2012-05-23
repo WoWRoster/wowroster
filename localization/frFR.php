@@ -454,7 +454,10 @@ $lang['ts_ridingIcon'] = array(
 //	'Paladin'=>'ability_mount_dreadsteed',
 //	'Démoniste'=>'ability_mount_nightmarehorse',
 //	'Chevalier de la mort'=>'spell_deathknight_summondeathcharger'
+	'Pandaren'=>'ability_mount_ridinghorse',
+	
 );
+
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Alliance'=>'ability_mount_gryphon_01',
@@ -489,6 +492,7 @@ $lang['class_iconArray'] = array (
 //	'Démoniste'=>'warlock_icon',
 	'Guerrière'=>'warrior_icon',
 	'Monk'=>'monk_icon'
+	
 );
 
 // Class Color-Array
@@ -515,6 +519,7 @@ $lang['class_colorArray'] = array(
 //	'Démoniste' => '9482C9',
 	'Guerrière' => 'C79C6E',
 	'Monk' => '00C77b'
+	
 );
 
 // Class To English Translation
@@ -540,6 +545,8 @@ $lang['class_to_en'] = array(
 	'Chamane' => 'Shaman',
 //	'Démoniste' => 'Warlock',
 	'Guerrière' => 'Warrior',
+	
+	
 );
 
 // Class to game-internal ID
@@ -566,6 +573,7 @@ $lang['class_to_id'] = array(
 //	'Démoniste' => 9,
 	'Monk' => 10,
 	'Druidesse' => 11,
+	
 );
 
 // Game-internal ID to class
@@ -641,6 +649,8 @@ $lang['race_to_id'] = array(
 //	'Gobelin'      => 9,
 	'Pandaren'	=> 25,
 	'Pandaren'	=> 26,
+	
+	
 );
 
 $lang['id_to_race'] = array(
@@ -656,6 +666,8 @@ $lang['id_to_race'] = array(
 	11 => 'Draeneï',
 	22 => 'Worgen',
 	9 => 'Gobelin',
+	
+	
 );
 
 $lang['hslist']=' Statistiques du Système d\'Honneur';
@@ -735,7 +747,8 @@ $lang['faction_to_id'] = array(
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
 	'Reputation' => 'reputation',
-	);
+	
+);
 
 
 // Quests page external links (on character quests page)
@@ -1216,6 +1229,9 @@ $lang['admin']['acc_session'] = 'Session Config|Configure the settings for accou
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Affichage par personnage';
+
+// user admin
+$lang['admin']['user_desc'] = 'User Access has changed in roster please note the changes<br>CP Admin - This setting will allow the selected user to access this area of the roster basicly making them an admin<br>Public - this is default on and will allow the user to see any and all public pages in roster removing this only lets them see the content there other ranks allow<br>**the other ranks are your guild rank name and you can assign access accordingly to users but this should be automated..';
 
 //Overlib for Allow/Disallow rules
 $lang['guildname'] = 'Nom de la guilde';

@@ -23,6 +23,23 @@ $start = (isset($_GET['start']) ? $_GET['start'] : 0);
 
 $roster->output['title'] .= $roster->locale->act['pagebar_userman'];
 
+// ----[ Set the tablename and create the config class ]----
+include(ROSTER_LIB . 'config.lib.php');
+$config = new roster_config( $roster->db->table('config') );
+
+// ----[ Include special functions file ]-------------------
+include(ROSTER_ADMIN . 'roster_config_functions.php');
+$config->submit_button = '<div class="config-submit"><button type="submit" class="input" onclick="return confirm(\'update settings\');">update</button></div>';
+$form = '<form action="" method="post" id="update">
+	<input type="hidden" id="deletehide" name="action" value="" />
+	<input type="hidden" name="process" value="process" />';
+$body .= $form . $config->submit_button;
+
+$body .= '<div class="tier-2-a">
+	<div class="tier-2-b exp-content">
+		<div class="info-text-h">
+'.$roster->locale->act['admin']['user_desc'].'</div></div></div>';
+//user_desc
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
 		if (isset($_POST['delete']))
@@ -105,8 +122,18 @@ $tooltip .= '<tr><td>LAst online</td><td>'.$row['user_lastvisit'].'</td></tr></t
 		)
 	);
 }
-$roster->db->free_result($dm_result);
 
+$roster->db->free_result($dm_result);
+/*
+$roster->tpl->assign_vars(array(
+	'ROSTERCP_TITLE'  => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
+	'HEADER' => $header,
+	'MENU' => $menu,
+	'BODY' => $body,
+	'PAGE_INFO' => $roster->locale->act['roster_cp'],
+	'FOOTER' => $footer,
+	)
+);*/
 
 $roster->tpl->set_filenames(array('body' => 'admin/user_manager.html'));
-$body = $roster->tpl->fetch('body');
+$body .= $roster->tpl->fetch('body');

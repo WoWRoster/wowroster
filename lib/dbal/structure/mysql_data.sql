@@ -147,6 +147,9 @@ INSERT INTO `renprefix_menu_button` VALUES (1, 0, 'menu_search', 'util', 'search
 INSERT INTO `renprefix_menu_button` VALUES (2, 0, 'menu_roster_cp', 'util', 'rostercp', 'inv_misc_gear_02');
 
 # --------------------------------------------------------
+### Users
+
+# --------------------------------------------------------
 ### Talent Tree Arrows
 
 INSERT INTO `renprefix_talenttree_arrows` (`tree`, `arrowid`, `opt1`, `opt2`, `opt3`, `opt4`) VALUES
