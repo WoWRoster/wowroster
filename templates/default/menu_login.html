@@ -1,16 +1,22 @@
 <!-- $Id$ -->
 
-<form class="inline slim" action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
+<form action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
+	<div class="menu-login">
 <!-- IF S_LOGIN_MESSAGE -->
-	<div class="message">
-		{L_LOGIN_MESSAGE}
-	</div>
+		<div class="menu-login-message">
+			{L_LOGIN_MESSAGE}
+		</div>
 <!-- ENDIF -->
-	<div class="login-message">
-	<table>
-	<tr><td>User:</td><td><input class="box" name="username" type="text" size="14" maxlength="30" /></td></tr>
-	<tr><td>Pass:</td><td><input class="box" name="password" type="password" size="14" maxlength="30" /></td>
-	<td colspan=2><button type="submit"><span class="ui-icon ui-icon-key"></span> <!-- TRANSLATE login --></button></td></tr>
-	</table>
+		<div class="menu-login-user">
+			<label for="menu_login_user"><!-- TRANSLATE user -->:</label>
+			<input class="box" id="menu_login_user" name="username" type="text" size="14" maxlength="30" />
+		</div>
+		<div class="menu-login-pass">
+			<label for="menu_login_pass"><!-- TRANSLATE pass -->:</label>
+			<input class="box" id="menu_login_pass" name="password" type="password" size="14" maxlength="30" />
+		</div>
+		<div class="menu-login-button">
+			<button type="submit"><span class="ui-icon ui-icon-key"></span> <!-- TRANSLATE login --></button>
+		</div>
 	</div>
 </form>

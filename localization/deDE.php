@@ -440,21 +440,24 @@ $lang['ts_ridingIcon'] = array(
 	'Paladin'=>'ability_mount_dreadsteed',
 	'Hexenmeister'=>'ability_mount_nightmarehorse',
 	'Todesritter'=>'spell_deathknight_summondeathcharger',
+	'Pandaren'=>'ability_mount_ridinghorse',
 // Female variation
-//	'Nachtelf'=>'ability_mount_whitetiger',
-//	'Mensch'=>'ability_mount_ridinghorse',
-//	'Zwerg'=>'ability_mount_mountainram',
-//	'Gnom'=>'ability_mount_mechastrider',
-//	'Untoter'=>'ability_mount_undeadhorse',
-//	'Troll'=>'ability_mount_raptor',
-//	'Tauren'=>'ability_mount_kodo_03',
-//	'Orc'=>'ability_mount_blackdirewolf',
-//	'Blutelf' => 'ability_mount_cockatricemount',
-//	'Draenei' => 'ability_mount_ridingelekk',
-//	'Paladin'=>'ability_mount_dreadsteed',
+	// 'Nachtelf'=>'ability_mount_whitetiger',
+	// 'Mensch'=>'ability_mount_ridinghorse',
+	// 'Zwerg'=>'ability_mount_mountainram',
+	// 'Gnom'=>'ability_mount_mechastrider',
+	// 'Untoter'=>'ability_mount_undeadhorse',
+	// 'Troll'=>'ability_mount_raptor',
+	// 'Tauren'=>'ability_mount_kodo_03',
+	// 'Orc'=>'ability_mount_blackdirewolf',
+	// 'Blutelf' => 'ability_mount_cockatricemount',
+	// 'Draenei' => 'ability_mount_ridingelekk',
+	// 'Paladin'=>'ability_mount_dreadsteed',
 	'Hexenmeisterin'=>'ability_mount_nightmarehorse',
-//	'Todesritter'=>'spell_deathknight_summondeathcharger',
+	// 'Todesritter'=>'spell_deathknight_summondeathcharger',
+	// 'Pandaren'=>'ability_mount_ridinghorse',
 );
+
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Allianz'=>'ability_mount_gryphon_01',
@@ -477,18 +480,19 @@ $lang['class_iconArray'] = array (
 	'Schamane'=>'shaman_icon',
 	'Hexenmeister'=>'warlock_icon',
 	'Kriegerin'=>'warrior_icon',
+	'Mönch'=>'monk_icon',
 // Female variation
-//	'Todesritter'=>'deathknight_icon',
+	// 'Todesritter'=>'deathknight_icon',
 	'Druidin'=>'druid_icon',
 	'Jägerin'=>'hunter_icon',
 	'Magierin'=>'mage_icon',
-//	'Paladin'=>'paladin_icon',
+	// 'Paladin'=>'paladin_icon',
 	'Priesterin'=>'priest_icon',
 	'Schurkin'=>'rogue_icon',
 	'Schamanin'=>'shaman_icon',
 	'Hexenmeisterin'=>'warlock_icon',
 	'Krieger'=>'warrior_icon',
-	'Mönch'=>'monk_icon'
+	// 'Mönch'=>'monk_icon',
 );
 
 // Class Color-Array
@@ -503,18 +507,19 @@ $lang['class_colorArray'] = array(
 	'Schamane' => '2459FF',
 	'Hexenmeister' => '9482C9',
 	'Krieger' => 'C79C6E',
+	'Mönch' => '00C77b',
 // Female variation
-//	'Todesritter'=>'C41F3B',
+	// 'Todesritter'=>'C41F3B',
 	'Druidin' => 'FF7D0A',
 	'Jägerin' => 'ABD473',
 	'Magierin' => '69CCF0',
-//	'Paladin' => 'F58CBA',
+	// 'Paladin' => 'F58CBA',
 	'Priesterin' => 'FFFFFF',
 	'Schurkin' => 'FFF569',
 	'Schamanin' => '2459FF',
 	'Hexenmeisterin' => '9482C9',
 	'Kriegerin' => 'C79C6E',
-	'Mönch' => '00C77b'
+	// 'Mönch' => '00C77b'
 );
 
 // Class To English Translation
@@ -529,17 +534,19 @@ $lang['class_to_en'] = array(
 	'Schamane' => 'Shaman',
 	'Hexenmeister' => 'Warlock',
 	'Krieger' => 'Warrior',
+	'Monk' => 'Monk',
 // Female variation
-//	'Todesritter'=>'Death Knight',
+	// 'Todesritter'=>'Death Knight',
 	'Druidin' => 'Druid',
 	'Jägerin' => 'Hunter',
 	'Magierin' => 'Mage',
-//	'Paladin' => 'Paladin',
+	// 'Paladin' => 'Paladin',
 	'Priesterin' => 'Priest',
 	'Schurkin' => 'Rogue',
 	'Schamanin' => 'Shaman',
 	'Hexenmeisterin' => 'Warlock',
-	'Kriegerin' => 'Warrior'
+	'Kriegerin' => 'Warrior',
+	// 'Monk' => 'Monk'
 );
 
 // Class to game-internal ID
@@ -553,18 +560,19 @@ $lang['class_to_id'] = array(
 	'Schamane' => 7,
 	'Magier' => 8,
 	'Hexenmeister' => 9,
+	'Mönch' => 10,
 	'Druide' => 11,
 // Female variation
 	'Kriegerin' => 1,
-//	'Paladin' => 2,
+	// 'Paladin' => 2,
 	'Jägerin' => 3,
 	'Schurkin' => 4,
 	'Priesterin' => 5,
-//	'Todesritter'=>6,
+	// 'Todesritter'=>6,
 	'Schamanin' => 7,
 	'Magierin' => 8,
 	'Hexenmeisterin' => 9,
-	'Mönch' => 10,
+	// 'Mönch' => 10,
 	'Druidin' => 11,
 );
 
@@ -599,18 +607,18 @@ $lang['race_to_en'] = array(
 	'Goblin'   => 'Goblin',
 	'Pandaren'	=> 'Pandaren',
 // Female variation
-//	'Blutelf'  => 'Blood Elf',
-//	'Draenei'  => 'Draenei',
-//	'Nachtelf' => 'Night Elf',
-//	'Zwerg'    => 'Dwarf',
-//	'Gnom'     => 'Gnome',
-//	'Mensch'   => 'Human',
-//	'Orc'      => 'Orc',
-//	'Untoter'  => 'Undead',
-//	'Troll'    => 'Troll',
-//	'Tauren'   => 'Tauren',
-//	'Worgen'   => 'Worgen',
-//	'Goblin'   => 'Goblin',
+	// 'Blutelf'  => 'Blood Elf',
+	// 'Draenei'  => 'Draenei',
+	// 'Nachtelf' => 'Night Elf',
+	// 'Zwerg'    => 'Dwarf',
+	// 'Gnom'     => 'Gnome',
+	// 'Mensch'   => 'Human',
+	// 'Orc'      => 'Orc',
+	// 'Untoter'  => 'Undead',
+	// 'Troll'    => 'Troll',
+	// 'Tauren'   => 'Tauren',
+	// 'Worgen'   => 'Worgen',
+	// 'Goblin'   => 'Goblin',
 );
 
 $lang['race_to_id'] = array(
@@ -629,18 +637,20 @@ $lang['race_to_id'] = array(
 	'Pandaren'	=> 25,
 	'Pandaren'	=> 26,
 // Female variation
-//	'Mensch'   => 1,
-//	'Orc'      => 2,
-//	'Zwerg'    => 3,
-//	'Nachtelf' => 4,
-//	'Untoter'  => 5,
-//	'Tauren'   => 6,
-//	'Gnom'     => 7,
-//	'Troll'    => 8,
-//	'Blutelf'  => 10,
-//	'Draenei'  => 11,
-//	'Worgen'   => 22,
-//	'Goblin'   => 9,
+	// 'Mensch'   => 1,
+	// 'Orc'      => 2,
+	// 'Zwerg'    => 3,
+	// 'Nachtelf' => 4,
+	// 'Untoter'  => 5,
+	// 'Tauren'   => 6,
+	// 'Gnom'     => 7,
+	// 'Troll'    => 8,
+	// 'Blutelf'  => 10,
+	// 'Draenei'  => 11,
+	// 'Worgen'   => 22,
+	// 'Goblin'   => 9,
+	// 'Pandaren'	=> 25,
+	// 'Pandaren'	=> 26,
 );
 
 $lang['id_to_race'] = array(
@@ -656,6 +666,8 @@ $lang['id_to_race'] = array(
 	11 => 'Draenei',
 	22 => 'Worgen',
 	9 => 'Goblin',
+	25 => 'Pandaren',
+	26 => 'Pandaren',
 );
 
 $lang['hslist']=' Ehren Statistiken';
@@ -668,6 +680,7 @@ $lang['Death Knight']='Todesritter';
 $lang['Druid']='Druide';
 $lang['Hunter']='Jäger';
 $lang['Mage']='Magier';
+$lang['Monk']='Monk';
 $lang['Paladin']='Paladin';
 $lang['Priest']='Priester';
 $lang['Rogue']='Schurke';
@@ -1026,6 +1039,7 @@ $lang['adata_update_row'] = '%1$s Zeilen zur Datenbank hinzugefügt.';
 
 // Password Stuff
 $lang['password'] = 'Passwort';
+$lang['pass'] = 'Pass';
 $lang['changeadminpass'] = 'Ändere das Admin Passwort';
 $lang['changeofficerpass'] = 'Ändere das Offizer Passwort';
 $lang['changeguildpass'] = 'Ändere das Gilden Passwort';

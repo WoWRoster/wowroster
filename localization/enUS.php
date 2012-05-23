@@ -439,7 +439,8 @@ $lang['ts_ridingIcon'] = array(
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
 	'Warlock'=>'ability_mount_nightmarehorse',
-	'Death Knight'=>'spell_deathknight_summondeathcharger'
+	'Death Knight'=>'spell_deathknight_summondeathcharger',
+	'Pandaren'=>'ability_mount_ridinghorse',
 // Space so locale files are line synced
 
 
@@ -454,7 +455,9 @@ $lang['ts_ridingIcon'] = array(
 
 
 
+
 );
+
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Alliance'=>'ability_mount_gryphon_01',
@@ -479,6 +482,7 @@ $lang['class_iconArray'] = array (
 	'Warrior'=>'warrior_icon',
 	'Monk'=>'monk_icon'
 // Space so locale files are line synced
+
 
 
 
@@ -515,6 +519,7 @@ $lang['class_colorArray'] = array(
 
 
 
+
 );
 
 // Class To English Translation
@@ -528,8 +533,10 @@ $lang['class_to_en'] = array(
 	'Rogue' => 'Rogue',
 	'Shaman' => 'Shaman',
 	'Warlock' => 'Warlock',
-	'Warrior' => 'Warrior'
+	'Warrior' => 'Warrior',
+	'Monk' => 'Monk'
 // Space so locale files are line synced
+
 
 
 
@@ -553,8 +560,10 @@ $lang['class_to_id'] = array(
 	'Shaman' => 7,
 	'Mage' => 8,
 	'Warlock' => 9,
+	'Monk' => 10,
 	'Druid' => 11
 // Space so locale files are line synced
+
 
 
 
@@ -640,6 +649,8 @@ $lang['race_to_id'] = array(
 
 
 
+
+
 );
 
 $lang['id_to_race'] = array(
@@ -655,6 +666,8 @@ $lang['id_to_race'] = array(
 	11 => 'Draenei',
 	22 => 'Worgen',
 	9 => 'Goblin',
+	25 => 'Pandaren',
+	26 => 'Pandaren',
 );
 
 $lang['hslist']=' Honor System Stats';
@@ -667,6 +680,7 @@ $lang['Death Knight']='Death Knight';
 $lang['Druid']='Druid';
 $lang['Hunter']='Hunter';
 $lang['Mage']='Mage';
+$lang['Monk']='Monk';
 $lang['Paladin']='Paladin';
 $lang['Priest']='Priest';
 $lang['Rogue']='Rogue';
@@ -1025,6 +1039,7 @@ $lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
 $lang['password'] = 'Password';
+$lang['pass'] = 'Pass';
 $lang['changeadminpass'] = 'Change Admin Password';
 $lang['changeofficerpass'] = 'Change Officer Password';
 $lang['changeguildpass'] = 'Change Guild Password';
@@ -1214,11 +1229,6 @@ $lang['admin']['acc_session'] = 'Session Config|Configure the settings for accou
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Per-Character Display';
-
-//session
-$lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';
-$lang['admin']['save_login'] = 'Save Login|Use a cookie to remember the client login?';
-$lang['admin']['acc_session'] = 'Session Config|Configure the settings for accounts sessions.';
 
 //Overlib for Allow/Disallow rules
 $lang['guildname'] = 'Guild name';
