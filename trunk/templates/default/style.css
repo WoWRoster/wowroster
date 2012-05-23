@@ -60,6 +60,35 @@ textbox {
 	-moz-border-radius-bottomleft: 0;
 }
 
+
+.menu-search {
+	display: inline-block;
+	position: absolute;
+	bottom: 0;
+}
+.menu-search input.box,
+.menu-search .box {
+	border: none;
+	float: left;
+	background: transparent url(images/shader.png) 0 0 repeat;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 5px 6px 2px 6px;
+	height: 16px;
+	font-size: 10px;
+	outline: none; /* remove webkit glow */
+	border-radius: 6px 0 0 6px;
+	-moz-border-radius: 6px 0 0 6px;
+}
+.menu-search button {
+	float: left;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-moz-border-radius-bottomleft: 0;
+}
+
+
 .pagi-selected,
 .pagi-active,
 .pagi-inactive {
@@ -146,12 +175,17 @@ textbox {
 .roster-footer .wr-info { color: #FFF8E1; text-align: center; }
 .roster-footer .bliz { color: #FFF8E1; text-align: center; margin-top: 25px; font-size: 12px; }
 
+/* Menu Bottom - Menu Login */
+.menu-bottom { font-size: 10px; position: absolute; bottom: 52px; right: 0; width: 450px; }
+.menu-login { position: absolute; right: 0; bottom: 0; }
+.menu-login-message {}
+.menu-login-user {}
+.menu-login-pass { display: inline-block; }
+.menu-login-button { display: inline-block; }
+
 
 /* Login Box */
-.menu-bottom { font-size: 10px; position: absolute; bottom: 52px; right: -18px; width:400px;}
-.menu-bottom .message { color: #FF3300; }
-.menu-bottom .login-message { text-align: center; position: absolute; bottom: 7px; width:195px;}
-.login-box { margin:4px auto auto auto;width:370px; }
+.login-box { margin: 4px auto auto auto; width: 370px; }
 .login-box .message { text-align: center; color: #FF3300; font-size: 14px; line-height: 20px; height: 20px; }
 
 

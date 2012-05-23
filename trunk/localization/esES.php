@@ -216,6 +216,7 @@ $lang['basename']='Nombre base';
 $lang['scope']='Alcance';
 $lang['tag']='Tag';
 $lang['daily']='Daily';
+$lang['user'] = 'User';
 
 // Item Quality
 $lang['quality']='Quality';
@@ -381,7 +382,7 @@ $lang['skill_to_id'] = array(
 	'Languages' => 'languages',
 );
 
-//Tradeskill-Array
+// Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
 	$lang['Archaeology'],
@@ -402,7 +403,7 @@ $lang['tsArray'] = array (
 	$lang['Poisons'],
 );
 
-//Tradeskill Icons-Array
+// Tradeskill Icons-Array
 $lang['ts_iconArray'] = array (
 	$lang['Alchemy']=>'trade_alchemy',
 	$lang['Archaeology']=>'trade_archaeology',
@@ -443,16 +444,16 @@ $lang['ts_ridingIcon'] = array(
 	'Elfa de la noche'=>'ability_mount_whitetiger',
 	'Humana'=>'ability_mount_ridinghorse',
 	'Enana'=>'ability_mount_mountainram',
-//	'Gnomo'=>'ability_mount_mechastrider',
+	// 'Gnomo'=>'ability_mount_mechastrider',
 	'No-muerta'=>'ability_mount_undeadhorse',
-//	'Trol'=>'ability_mount_raptor',
-//	'Tauren'=>'ability_mount_kodo_03',
+	// 'Trol'=>'ability_mount_raptor',
+	// 'Tauren'=>'ability_mount_kodo_03',
 	'Orca'=>'ability_mount_blackdirewolf',
 	'Elfa de sangre' => 'ability_mount_cockatricemount',
-//	'Draenei' => 'ability_mount_ridingelekk',
-//	'Paladín'=>'ability_mount_dreadsteed',
+	// 'Draenei' => 'ability_mount_ridingelekk',
+	// 'Paladín'=>'ability_mount_dreadsteed',
 	'Bruja'=>'ability_mount_nightmarehorse',
-//	'Caballero de la muerte'=>'spell_deathknight_summondeathcharger'
+	// 'Caballero de la muerte'=>'spell_deathknight_summondeathcharger'
 );
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
@@ -460,8 +461,8 @@ $lang['ts_flyingIcon'] = array(
 	'Druida'=>'ability_druid_flightform',
 	'Caballero de la muerte'=>'ability_mount_dreadsteed'
 // Female variation
-//	'Druida'=>'ability_druid_flightform',
-//	'Caballero de la muerte'=>'ability_mount_dreadsteed'
+	// 'Druida'=>'ability_druid_flightform',
+	// 'Caballero de la muerte'=>'ability_mount_dreadsteed'
 );
 
 // Class Icons-Array
@@ -476,18 +477,19 @@ $lang['class_iconArray'] = array (
 	'Chamán'=>'shaman_icon',
 	'Brujo'=>'warlock_icon',
 	'Guerrero'=>'warrior_icon',
+	'Monk'=>'monk_icon',
 // Female variation
-//	'Caballero de la muerte'=>'deathknight_icon',
-//	'Druida'=>'druid_icon',
+	// 'Caballero de la muerte'=>'deathknight_icon',
+	// 'Druida'=>'druid_icon',
 	'Cazadora'=>'hunter_icon',
 	'Maga'=>'mage_icon',
-//	'Paladín'=>'paladin_icon',
+	// 'Paladín'=>'paladin_icon',
 	'Sacerdotisa'=>'priest_icon',
 	'Pícara'=>'rogue_icon',
-//	'Chamán'=>'shaman_icon',
+	// 'Chamán'=>'shaman_icon',
 	'Bruja'=>'warlock_icon',
 	'Guerrera'=>'warrior_icon',
-	'Monk'=>'monk_icon'
+	// 'Monk'=>'monk_icon'
 );
 
 // Class Color-Array
@@ -502,18 +504,19 @@ $lang['class_colorArray'] = array(
 	'Chamán' => '2459FF',
 	'Brujo' => '9482C9',
 	'Guerrero' => 'C79C6E',
+	'Monk' => '00C77b',
 // Female variation
-//	'Caballero de la muerte'=>'C41F3B',
-//	'Druida' => 'FF7D0A',
+	// 'Caballero de la muerte'=>'C41F3B',
+	// 'Druida' => 'FF7D0A',
 	'Cazadora' => 'ABD473',
 	'Maga' => '69CCF0',
-//	'Paladín' => 'F58CBA',
+	// 'Paladín' => 'F58CBA',
 	'Sacerdotisa' => 'FFFFFF',
 	'Pícara' => 'FFF569',
-//	'Chamán' => '2459FF',
+	// 'Chamán' => '2459FF',
 	'Bruja' => '9482C9',
 	'Guerrera' => 'C79C6E',
-	'Monk' => '00C77b'
+	// 'Monk' => '00C77b'
 );
 
 // Class To English Translation
@@ -528,17 +531,19 @@ $lang['class_to_en'] = array(
 	'Chamán' => 'Shaman',
 	'Brujo' => 'Warlock',
 	'Guerrero' => 'Warrior',
+	'Monk' => 'Monk',
 // Female variation
-//	'Caballero de la muerte'=>'Death Knight',
-//	'Druida' => 'Druid',
+	// 'Caballero de la muerte'=>'Death Knight',
+	// 'Druida' => 'Druid',
 	'Cazadora' => 'Hunter',
 	'Maga' => 'Mage',
-//	'Paladín' => 'Paladin',
+	// 'Paladín' => 'Paladin',
 	'Sacerdotisa' => 'Priest',
 	'Pícara' => 'Rogue',
-//	'Chamán' => 'Shaman',
+	// 'Chamán' => 'Shaman',
 	'Bruja' => 'Warlock',
 	'Guerrera' => 'Warrior',
+	// 'Monk' => 'Monk'
 );
 
 // Class to game-internal ID
@@ -556,15 +561,16 @@ $lang['class_to_id'] = array(
 	'Druida' => 11,
 // Female variation
 	'Guerrera' => 1,
-//	'Paladín' => 2,
+	// 'Paladín' => 2,
 	'Cazadora' => 3,
 	'Pícara' => 4,
 	'Sacerdotisa' => 5,
-//	'Caballero de la muerte'=>6,
-//	'Chamán' => 7,
+	// 'Caballero de la muerte'=>6,
+	// 'Chamán' => 7,
 	'Maga' => 8,
 	'Bruja' => 9,
-//	'Druida' => 11,
+	// 'Monk' => 10,
+	// 'Druida' => 11,
 );
 
 // Game-internal ID to class
@@ -598,17 +604,17 @@ $lang['race_to_en'] = array(
 	'Goblin'    => 'Goblin',
 // Female variation
 	'Elfa de sangre' => 'Blood Elf',
-//	'Draenei'   => 'Draenei',
+	// 'Draenei'   => 'Draenei',
 	'Elfa de la noche' => 'Night Elf',
 	'Enana'     => 'Dwarf',
-//	'Gnomo'     => 'Gnome',
+	// 'Gnomo'     => 'Gnome',
 	'Humana'    => 'Human',
 	'Orca'      => 'Orc',
 	'No-muerta' => 'Undead',
-//	'Trol'      => 'Troll',
-//	'Tauren'    => 'Tauren',
-//	'Huargen'   => 'Worgen',
-//	'Goblin'    => 'Goblin',
+	// 'Trol'      => 'Troll',
+	// 'Tauren'    => 'Tauren',
+	// 'Huargen'   => 'Worgen',
+	// 'Goblin'    => 'Goblin',
 	'Pandaren'	=> 'Pandaren',
 );
 
@@ -625,21 +631,23 @@ $lang['race_to_id'] = array(
 	'Draenei'   => 11,
 	'Huargen'   => 22,
 	'Goblin'    => 9,
+	'Pandaren'	=> 25,
+	'Pandaren'	=> 26,
 // Female variation
 	'Humana'    => 1,
 	'Orca'      => 2,
 	'Enana'     => 3,
 	'Elfa de la noche' => 4,
 	'No-muerta' => 5,
-//	'Tauren'    => 6,
-//	'Gnomo'     => 7,
-//	'Trol'      => 8,
+	// 'Tauren'    => 6,
+	// 'Gnomo'     => 7,
+	// 'Trol'      => 8,
 	'Elfa de sangre' => 10,
-//	'Draenei'   => 11,
-//	'Huargen'   => 22,
-//	'Goblin'    => 9,
-	'Pandaren'	=> 25,
-	'Pandaren'	=> 26,
+	// 'Draenei'   => 11,
+	// 'Huargen'   => 22,
+	// 'Goblin'    => 9,
+	// 'Pandaren'	=> 25,
+	// 'Pandaren'	=> 26,
 );
 
 $lang['id_to_race'] = array(
@@ -655,6 +663,8 @@ $lang['id_to_race'] = array(
 	11 => 'Draenei',
 	22 => 'Huargen',
 	9 => 'Goblin',
+	25 => 'Pandaren',
+	26 => 'Pandaren',
 );
 
 $lang['hslist']=' Estadísticas de honor';
@@ -667,6 +677,7 @@ $lang['Death Knight']='Caballero de la muerte';
 $lang['Druid']='Druida';
 $lang['Hunter']='Cazador';
 $lang['Mage']='Mago';
+$lang['Monk']='Monk';
 $lang['Paladin']='Paladín';
 $lang['Priest']='Sacerdote';
 $lang['Rogue']='Pícaro';
@@ -1025,6 +1036,7 @@ $lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
 $lang['password'] = 'Contraseña';
+$lang['pass'] = 'Pass';
 $lang['changeadminpass'] = 'Cambiar contraseña de Admin';
 $lang['changeofficerpass'] = 'Cambiar contraseña de Oficial';
 $lang['changeguildpass'] = 'Cambiar contraseña de la Hermandad';

@@ -40,7 +40,7 @@ class RosterLogin
 	var $approved;
 	var $access = 0;
 	var $user = array();
-	
+
 	/**
 	 * Constructor for Roster Login class
 	 * Accepts an action for the form
@@ -52,43 +52,44 @@ class RosterLogin
 	function RosterLogin( $script_filename='' )
 	{
 		global $roster;
-		
+
 		$this->setAction($script_filename);
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
-			setcookie('roster_user',NULL,time()-(60*60*24*30*100) );
-			setcookie('roster_u','0',(time()+60*60*24*30) );
-			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
-			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
-			setcookie('roster_pass',NULL,time()-(60*60*24*30*100) );
-			setcookie('roster_remember',NULL,time()-(60*60*24*30*100) );
+			setcookie('roster_user',     NULL, time() - (60*60*24*30*100));
+			setcookie('roster_u',        '0',  time() + (60*60*24*30));
+			setcookie('roster_k',        NULL, time() - (60*60*24*30*100));
+			setcookie('roster_sid',      NULL, time() - (60*60*24*30*100));
+			setcookie('roster_pass',     NULL, time() - (60*60*24*30*100));
+			setcookie('roster_remember', NULL, time() - (60*60*24*30*100));
+
 			$this->allow_login = false;
 			$this->valid = 0;
 			$this->uid = 0;
 			//$roster->sessions->endSession()
-			$this->message = $roster->locale->act['logged_out'].$this->getLoginForm();
+			$this->message = $roster->locale->act['logged_out'] . $this->getLoginForm();
 			$this->getLoginForm();
 		}
 		elseif( isset($_POST['password']) && $_POST['password'] != '' && isset($_POST['username']) && $_POST['username'] != '')
 		{
-			$this->checkPass(md5($_POST['password']),$_POST['username'],'1');
+			$this->checkPass(md5($_POST['password']), $_POST['username'],'1');
 			return;
 		}
 		elseif( isset($_COOKIE['roster_pass']) && isset($_COOKIE['roster_user']) )
 		{
-			$this->checkPass($_COOKIE['roster_pass'],$_COOKIE['roster_user'],'0');
+			$this->checkPass($_COOKIE['roster_pass'], $_COOKIE['roster_user'],'0');
 			return;
 		}
 		else
 		{
 			$this->allow_login = false;
 			$this->message = '';
-			setcookie('roster_user',NULL,time()-(60*60*24*30*100) );
-			setcookie('roster_u','0',(time()+60*60*24*30) );
-			setcookie('roster_k',NULL,(time()-60*60*24*30*100) );
-			setcookie('roster_sid',NULL,(time()-60*60*24*30*100) );
-			setcookie('roster_pass',NULL,time()-(60*60*24*30*100) );
-			setcookie('roster_remember',NULL,time()-(60*60*24*30*100) );
+			setcookie('roster_user',     NULL, time() - (60*60*24*30*100));
+			setcookie('roster_u',        '0',  time() + (60*60*24*30));
+			setcookie('roster_k',        NULL, time() - (60*60*24*30*100));
+			setcookie('roster_sid',      NULL, time() - (60*60*24*30*100));
+			setcookie('roster_pass',     NULL, time() - (60*60*24*30*100));
+			setcookie('roster_remember', NULL, time() - (60*60*24*30*100));
 		}
 	}
 
@@ -96,13 +97,13 @@ class RosterLogin
 	{
 		global $roster;
 
-		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."' limit 1;";
+		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='" . $user . "' AND `pass`='" . $pass . "' LIMIT 1;";
 		$result = $roster->db->query($query);
 		//echo (bool)$result;
 		$row = $roster->db->fetch($result);
 		$count = $roster->db->num_rows($result);
 		//echo $count;
-		
+
 		if( $count == 0 )
 		{
 			setcookie('roster_user',NULL,(time()-60*60*24*30*100) );
@@ -139,14 +140,14 @@ class RosterLogin
 			{
 				$this->access = $row['access'];
 			}
-			
+
 			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
-			$this->message = '<span class="login-message">Welcome, '.$user.' '.$this->logout.'</span>';
+			$this->message = '<span class="login-message">Welcome, ' . $user . ' ' . $this->logout . '</span>';
 			$roster->db->free_result($result);
 			return true;
 
 		}
-	
+
 		$roster->db->free_result($result);
 
 		setcookie('roster_u','0',(time()+60*60*24*30) );
@@ -157,7 +158,7 @@ class RosterLogin
 
 	function getAuthorized( $access )
 	{
-	
+
 		$this->approved = false;
 		$addon = array();
 		$addon = explode(":",$access);
@@ -283,10 +284,10 @@ class RosterLogin
 			<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
 		}
 		$x .= '</div>';
-			
+
 		return $x;
 	}
-	
+
 	function GetAccess()
 	{
 		global $roster;
@@ -310,7 +311,7 @@ class RosterLogin
 		}
 		return $this->levels;
 	}
-	
+
 	function rosterAccess( $values )
 	{
 		global $roster;
@@ -367,9 +368,9 @@ class RosterLogin
 	function getUUID( $d )
 	{
 		global $roster;
-		
+
 		return hash('ripemd128',$d);
 	}
-	
-	
+
+
 }

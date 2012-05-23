@@ -1026,6 +1026,7 @@ $lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
 $lang['password'] = 'Mot de passe';
+$lang['pass'] = 'Pass';
 $lang['changeadminpass'] = 'Changer le mot de passe administrateur';
 $lang['changeofficerpass'] = 'Changer le mot de passe de mise à jour';
 $lang['changeguildpass'] = 'Changer le mot de passe de guilde';
