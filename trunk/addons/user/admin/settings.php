@@ -152,11 +152,14 @@ $roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\
 $tab1 = explode('|',$roster->locale->act['user_settings']['set']);
 $tab2 = explode('|',$roster->locale->act['user_settings']['prof']);
 $tab3 = explode('|',$roster->locale->act['user_main_menu']['my_prof']);
+$tab4 = explode('|',$roster->locale->act['user_password']['settings_password']);
+
 $mac = messagebox('
 <ul class="tab_menu">
 	<li class="selected"><a href="' . makelink('user-user-settings') . '" style="cursor:help;"' . makeOverlib($tab1[1],$tab1[0],'',1,'',',WRAP') . '>' . $tab1[0] . '</a></li>
 	<li><a href="' . makelink('user-user-settings-profile') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
 	<li><a href="' . makelink('user-user-settings-edit') . '" style="cursor:help;"' . makeOverlib($tab3[1],$tab3[0],'',1,'',',WRAP') . '>' . $tab3[0] . '</a></li>
+	<li><a href="' . makelink('user-user-settings-pass') . '" style="cursor:help;"' . makeOverlib($tab4[1],$tab4[0],'',1,'',',WRAP') . '>' . $tab4[0] . '</a></li>
 </ul>
 ',$roster->locale->act['user_page']['settings'],'sgray','145px');
 

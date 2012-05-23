@@ -168,9 +168,7 @@ UPDATE `renprefix_config` set `config_value` = '11:0' WHERE `config_name` =  'lu
 # session settings
 INSERT INTO `renprefix_config` VALUES (190,'acc_session','NULL','blockframe','menu'),(1900, 'sess_time', '15', 'text{30|4', 'acc_session'),(1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session');
 
-INSERT INTO `renprefix_user_members` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Admin', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');
-INSERT INTO `renprefix_user_members` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Officer', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');
-INSERT INTO `renprefix_user_members` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');
+INSERT INTO `renprefix_user_members` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (1, 'Admin', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');
 
 # --------------------------------------------------------
 ### Menu Updates

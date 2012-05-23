@@ -628,6 +628,10 @@ class userPage extends user
 			{
 				$config_page = $roster->pages[3];
 			}
+			if(in_array('pass', $roster->pages))
+			{
+				$config_page = $roster->pages[3];
+			}
 			
 			if($config_page == '')
 			{

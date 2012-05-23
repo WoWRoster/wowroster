@@ -860,13 +860,10 @@ function process_step4( )
 	{
 		$pass_word = md5('admin');
 	}
-	$db->query("INSERT INTO `" . $db->table('user_members') . "` (`usr`) VALUES
-	('Guild'),
-	('Officer'),
-	('Admin');");
+	$db->query("INSERT INTO `" . $db->table('user_members') . "` (`usr`) VALUES	('Admin');");
 	$db->query("UPDATE `" . $db->table('user_members') . "` SET `pass` = '" . $pass_word . "',`access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");
 
-	$tpl->message_append('The WoWRoster Officer and Guild accounts have been set to the same password and access as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');
+	$tpl->message_append('The WoWRoster Admin account has created<br />Please do not forget your password');
 
 	/**
 	 * Rewrite the config file to its final form

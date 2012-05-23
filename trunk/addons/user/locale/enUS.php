@@ -368,3 +368,9 @@ $lang['user_profile_edit'] = array(
 	'about'			=> 'About you',
 	'notes'			=> 'Some notes',
 );
+$lang['user_password'] = array(
+	'settings_password' => 'Change Password|This is where you change your current password',
+	'old_pass' => 'Current password',
+	'new_pass_1' => 'New Password',
+	'new_pass_2' => 'Confirm New Password',
+);
