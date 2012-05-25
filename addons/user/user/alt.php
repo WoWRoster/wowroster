@@ -34,14 +34,12 @@ if(isset($_POST['op']) && $_POST['op']=='alt')
 					  . " WHERE `member_id` = '".$_POST['member_id']."';";
 		$accid = $roster->db->query($update_sql);
 
-	}
-
 	if(count($err))
 	{
 		$e = implode('<br />',$err);
 	}
-
 }
+
 	$num1=$num2=$num3=null;
 	function generateUniqueRandoms($min, $max, $count)  
 	{

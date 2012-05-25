@@ -25,7 +25,7 @@ class userInstall
 	var $active = true;
 	var $icon = 'inv_misc_bag_26_spellfire';
 
-	var $version = '0.2.4';
+	var $version = '0.2.5';
 	var $wrnet_id = '0';
 
 	var $fullname = 'Guild User pages';
@@ -171,7 +171,7 @@ class userInstall
 		}
 		if( version_compare('0.2.5', $oldversion,'>') == true )
 		{
-			//$installer->add_menu_button('user_alt','user','alt','spell_holy_holynova');
+			$installer->add_menu_button('user_alt','user','alt','spell_holy_holynova');
 		}
 		return true;
 	}
