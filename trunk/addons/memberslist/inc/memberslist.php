@@ -256,6 +256,7 @@ class memberslist
 			$result = $roster->db->query($rowsqry);
 			$data = $roster->db->fetch($result);
 			$num_rows = $roster->db->num_rows($result);
+			/*
 			if ($num_rows > 1)
 			{
 				$num_rows = $nn = 0;
@@ -265,6 +266,7 @@ class memberslist
 				}
 				$num_rows = $nn;
 			}
+			*/
 		}
 		
 		// --[ Add sorting SQL ]--
@@ -325,13 +327,21 @@ class memberslist
 
 		// --[ Query done, add to class vars ]--
 		$this->query = $query;
+		$num_pages = ceil($num_rows/$this->addon['config']['page_size']);
 		// --[ Page list ]--
-		if( $this->pageanat && (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size']))))
+		if( $this->pageanat && $num_pages > 1)
 		{
 			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
 
 			//paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 			paginate2($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st,true,count($this->fields));
+		}
+		else
+		{
+			$roster->tpl->assign_vars(array(
+				'B_PAGINATION' => false,
+				)
+			);
 		}
 
 		// header row
