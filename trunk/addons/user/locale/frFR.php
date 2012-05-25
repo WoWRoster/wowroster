@@ -1,14 +1,18 @@
 <?php
-/** 
+/**
  * WoWRoster Addon
- * 
- * LICENSE: Licensed under the Creative Commons 
- *          "Attribution-NonCommercial-ShareAlike 2.5" license 
- * 
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" 
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @package    User
- * @subpackage Locale enUS
- */ 
+ * @subpackage Locale frFR
+ *
+ *
+ */
+
+$lang['user_cp'] = 'User Control Panel';
 
 // Menu Buttons
 $lang['user_menu_index'] = 'My Account|Displays your characters, guilds, and realms.';
@@ -33,9 +37,9 @@ $lang['user_main_menu'] = array(
 
 // Mail Menu
 $lang['user_mail_menu'] = array(
-      'inbox' => 'Inbox|View your messages.',
-      'outbox' => 'Outbox|View your sent messages.',
-      'write' => 'Write|Compose a new message.',
+  'inbox' => 'Inbox|View your messages.',
+  'outbox' => 'Outbox|View your sent messages.',
+  'write' => 'Write|Compose a new message.',
 );
 
 // Application wordings
@@ -87,19 +91,20 @@ $lang['user_form']['zone'] = array(
 	'SST' => 'Solomon Standard Time',
 	'VST' => 'Vietnam Standard Time',
 );
+
 $lang['user_form']['month'] = array(
-		'1' => 'January',
-		'2' => 'February',
-		'3' => 'March',
-		'4' => 'April',
-		'5' => 'May',
-		'6' => 'June',
-		'7' => 'July',
-		'8' => 'August',
-		'9' => 'September',
-		'10' => 'October',
-		'11' => 'November',
-		'12' => 'December',
+	'1' => 'January',
+	'2' => 'February',
+	'3' => 'March',
+	'4' => 'April',
+	'5' => 'May',
+	'6' => 'June',
+	'7' => 'July',
+	'8' => 'August',
+	'9' => 'September',
+	'10' => 'October',
+	'11' => 'November',
+	'12' => 'December',
 );
 
 // Interface wordings
@@ -134,6 +139,7 @@ $lang['user_int'] = array(
 	'conf_mail' => 'Confirmation E-Mail',
 	'rec_txt' => 'Recruitment is',
 );
+
 $lang['user_int']['messaging'] = array(
 	'body' => 'Message',
 	'read' => 'Read',
@@ -158,7 +164,7 @@ $lang['user_page'] = array(
 	'profile' => "%s's Profile",
 	'user_admin' => 'User Admin',
 	'no_access' => 'Access Denied!',
-	'register' => 'Accounts Registration',
+	'register' => 'User Registration',
 	'recruitment' => 'User Recruitment',
 	'application' => 'User Application',
 	'registration' => 'User Registration',
@@ -171,6 +177,17 @@ $lang['user_page'] = array(
 	'messaging' => 'My Mail',
 	'login' => 'User Login',
 );
+
+// Reg Page config
+$lang['admin']['usr_config']	= 'Reg Config|Settings for the registration page';
+$lang['admin']['char_auth']		= 'Registration Type|This sets the type of registration to use<br />Default\Char - User has to valadate there char name<br />Admin - Admin has to approve Users<br />None - Any one can register';
+$lang['admin']['fname_auth']	= 'User First name|';
+$lang['admin']['lname_auth']	= 'User Last name|';
+$lang['admin']['age_auth']		= 'User Age|';
+$lang['admin']['city_auth']		= 'User City|';
+$lang['admin']['state_auth']	= 'User State|';
+$lang['admin']['country_auth']	= 'User Country|';
+$lang['admin']['zone_auth']		= 'User Time Zone|';
 
 // Config page names
 $lang['admin']['user_display']	= 'Configuration|Configure options specific to accounts.';
@@ -254,17 +271,17 @@ $lang['user_user'] = array(
 	'msg26' => 'New user request...',
 	'msg27' => 'Please check your e-mail and activate your modification(s).',
 	'msg28' => 'Your request must be processed...',
-	'msg29' => 'Hello %s,\r\n\r\nto activate your request click the following link:\r\n%s&uid=%d&act_key=%s',
+	'msg29' => "Hello %s,\n\nto activate your request click the following link:\n%s&uid=%d&act_key=%s",
 	'msg30' => 'Your account is modified.',
 	'msg31' => 'This e-mail address already exists, please use another one.',
 	'msg32' => 'The field password (min. %d char) is required.',
-	'msg33' => 'Hello %s,\r\n\r\nthe new e-mail address must be validated, click the following link:\r\n%s&uid=%d&validate=%s',
+	'msg33' => "Hello %s,\n\nthe new e-mail address must be validated, click the following link:\n%s&uid=%d&validate=%s",
 	'msg34' => 'There is no e-mail address for validation.',
-	'msg35' => 'Hello %s,\r\n\r\nEnter your new password next, please click the following link to enter the form:\r\n%s&uid=%d&act_key=%s',
-	'msg36' => "Your request has been processed and is pending validation by the admin. \r\nYou will get an e-mail if it's done.",
-	'msg37' => "Hello %s,\r\n\r\nThe account is active and it's possible to login now.\r\n\r\nClick on this link to access the login page:\r\n%s\r\n\r\nkind regards\r\n%s",
+	'msg35' => "Hello %s,\n\nEnter your new password next, please click the following link to enter the form:\n%s&uid=%d&act_key=%s",
+	'msg36' => "Your request has been processed and is pending validation by the admin. \nYou will get an e-mail if it's done.",
+	'msg37' => "Hello %s,\n\nThe account is active and it's possible to login now.\n\nClick on this link to access the login page:\n%s\n\nkind regards\n%s",
 	'msg38' => 'The confirmation password does not match the password. Please try again.',
-	'msg39' => 'New user registration on %s:\r\n\r\nClick here to enter the admin page:\r\n\r\n%s',
+	'msg39' => "New user registration on %s:\n\nClick here to enter the admin page:\n\n%s",
 );
 
 // Profile class messages
@@ -319,7 +336,7 @@ $lang['user_rs'] = array(
 // Character/Profile Settings
 $lang['user_settings'] = array(
 	'set' => 'Settings|Edit the display settings for your characters.',
-	'prof' => 'Profile|Edit the display settings for your profile.',
+	'prof' => 'Profile Display|Edit the display settings for your profile.',
 	'profile' => 'Profile Display',
 	'tab1' => 'Character',
 	'tab2' => 'Pet',
@@ -345,6 +362,7 @@ $lang['user_settings'] = array(
 	'main' => 'Main Character',
 	'src_gen' => 'Avatar / Signature',
 );
+
 $lang['user_profile_edit'] = array(
 	'fname'			=> 'First name',
 	'lname'			=> 'Last name',
@@ -357,4 +375,11 @@ $lang['user_profile_edit'] = array(
 	'why'			=> 'Why you joined',
 	'about'			=> 'About you',
 	'notes'			=> 'Some notes',
+);
+
+$lang['user_password'] = array(
+	'settings_password' => 'Change Password|This is where you change your current password',
+	'old_pass' => 'Current password',
+	'new_pass_1' => 'New Password',
+	'new_pass_2' => 'Confirm New Password',
 );

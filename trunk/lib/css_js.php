@@ -28,7 +28,7 @@ function roster_add_js( $data = NULL , $type = 'module' , $scope = 'header' , $d
 						'cache' => TRUE,
 						'defer' => FALSE,
 						'preprocess' => TRUE,
-					), 
+					),
 					'js/jquery-ui.js' => array(
 						'cache' => TRUE,
 						'defer' => FALSE,
@@ -55,7 +55,7 @@ function roster_add_js( $data = NULL , $type = 'module' , $scope = 'header' , $d
 						'preprocess' => TRUE,
 					),
 				),
-				'module' => array(), 
+				'module' => array(),
 				'theme' => array(
 					'js/overlib.js' => array(
 						'cache' => TRUE,
@@ -65,7 +65,7 @@ function roster_add_js( $data = NULL , $type = 'module' , $scope = 'header' , $d
 				),
 				'setting' => array(
 					array('roster_path' => ROSTER_PATH),
-				), 
+				),
 				'inline' => array(),
 			);
 		}
@@ -207,8 +207,8 @@ function roster_to_js($var) {
 			return $var;
 		case 'resource':
 		case 'string':
-			return '"' . str_replace(array("\r", "\n", "<", ">", "&"), 
-					array('\r', '\n', '\x3c', '\x3e', '\x26'), 
+			return '"' . str_replace(array("\r", "\n", "<", ">", "&"),
+					array('\r', '\n', '\x3c', '\x3e', '\x26'),
 					addslashes($var)) . '"';
 		case 'array':
 			// Arrays in JSON can't be associative. If the array is empty or if it

@@ -59,7 +59,7 @@ class roster_config
 
 		// Color Picker JS
 		roster_add_js('js/colorpicker.js');
-		$jscript = 
+		$jscript =
 			'$(function() {
 				var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');
 				' . $this->prefix . 'tabs.init();
