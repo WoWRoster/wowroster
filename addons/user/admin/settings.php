@@ -1,14 +1,14 @@
 <?php
-/** 
+/**
  * Dev.PKComp.net WoWRoster Addon
- * 
- * LICENSE: Licensed under the Creative Commons 
- *          "Attribution-NonCommercial-ShareAlike 2.5" license 
- * 
- * @copyright  2005-2007 Pretty Kitty Development 
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" 
- * @link       http://dev.pkcomp.net 
- * @package    user 
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2005-2007 Pretty Kitty Development
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @link       http://dev.pkcomp.net
+ * @package    user
  * @subpackage Profile Admin
  */
 
@@ -30,16 +30,14 @@ $listing = $next = $prev = '';
 
 $uid = $roster->auth->uid;
 
-$roster->output['html_head'] .= "<script type=\"text/javascript\">
-<!--
+$jscript = '
 $(function() {
-  var cds_menu = new tabcontent('cds_menu');
+  var cds_menu = new tabcontent("cds_menu");
   cds_menu.init();
+});';
 
-});
+roster_add_js($jscript, 'inline', 'footer');
 
-//-->
-</script>\n";
 /**
  * Actual list
  */
@@ -54,26 +52,26 @@ $guildQuery = "SELECT "
 	. " `guild_id` "
 	. " FROM `" . $roster->db->table('members') . "`"
 	. " WHERE `account_id` = " . $uid . ";";
-	
+
 $guild_id = $roster->db->query_first($query);
 
 if( $num_members > 0 )
 {
 	$i=1;
-	$display = array(	
-		'show_money' => array( 'disc' => "Money", 'config' => ''),
-		'show_played' => array( 'disc' => "Time Played", 'config' => ''),
-		'show_pets' => array( 'disc' => "Pets", 'config' => ''),
-		'show_reputation' => array( 'disc' => "Reputation", 'config' => ''),
-		'show_skills' => array( 'disc' => "Skills", 'config' => ''),
-		'show_honor' => array( 'disc' => "PvP", 'config' => ''),
-		'show_talents' => array( 'disc' => "Talents", 'config' => ''),
-		'show_spellbook' => array( 'disc' => "Spellbook", 'config' => ''),
-		'show_mail' => array( 'disc' => "Mail", 'config' => ''),
-		'show_bags' => array( 'disc' => "Bags", 'config' => ''),
-		'show_bank' => array( 'disc' => "Bank", 'config' => ''),
-		'show_recipes' => array( 'disc' => "Recipes", 'config' => ''),
-		'show_quests' => array( 'disc' => "Quests", 'config' => ''),
+	$display = array(
+		'show_money'        => array( 'disc' => "Money", 'config' => ''),
+		'show_played'       => array( 'disc' => "Time Played", 'config' => ''),
+		'show_pets'         => array( 'disc' => "Pets", 'config' => ''),
+		'show_reputation'   => array( 'disc' => "Reputation", 'config' => ''),
+		'show_skills'       => array( 'disc' => "Skills", 'config' => ''),
+		'show_honor'        => array( 'disc' => "PvP", 'config' => ''),
+		'show_talents'      => array( 'disc' => "Talents", 'config' => ''),
+		'show_spellbook'    => array( 'disc' => "Spellbook", 'config' => ''),
+		'show_mail'         => array( 'disc' => "Mail", 'config' => ''),
+		'show_bags'         => array( 'disc' => "Bags", 'config' => ''),
+		'show_bank'         => array( 'disc' => "Bank", 'config' => ''),
+		'show_recipes'      => array( 'disc' => "Recipes", 'config' => ''),
+		'show_quests'       => array( 'disc' => "Quests", 'config' => ''),
 		'show_item_bonuses' => array( 'disc' => "Item Bonuses", 'config' => '')
 	);
 
@@ -110,7 +108,6 @@ if( $num_members > 0 )
 	$k=0;
 	while( $rw = $roster->db->fetch($result) )
 	{
-	
 		$roster->tpl->assign_block_vars('characters', array(
 			'CNAME'  => $rw['name'],
 			'CCLASS' => $rw['class'],
@@ -118,7 +115,7 @@ if( $num_members > 0 )
 			)
 		);
 		foreach($display as $dbv => $v)
-		{	
+		{
 			$val_name = $dbv;
 			if( substr( $val_name, 0, 5 ) != 'show_' )
 			{
@@ -131,8 +128,9 @@ if( $num_members > 0 )
 			$k++;
 			$roster->tpl->assign_block_vars('characters.cfg',array(
 				'NAME'  => $v['disc'],
-				'ID' => $i,
-				'FIELD' =>  infoAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),//$roster->auth->makeAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
+				'ID'    => $i,
+				'FIELD' => infoAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
+				//$roster->auth->makeAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
 				)
 			);
 		}
@@ -144,6 +142,7 @@ else
 {
 	//$formbody = 'No Data';
 }
+
 $rw = $roster->db->fetch($result);
 $k=0;
 
@@ -154,14 +153,13 @@ $tab2 = explode('|',$roster->locale->act['user_settings']['prof']);
 $tab3 = explode('|',$roster->locale->act['user_main_menu']['my_prof']);
 $tab4 = explode('|',$roster->locale->act['user_password']['settings_password']);
 
-$mac = messagebox('
+$menu = '
 <ul class="tab_menu">
-	<li class="selected"><a href="' . makelink('user-user-settings') . '" style="cursor:help;"' . makeOverlib($tab1[1],$tab1[0],'',1,'',',WRAP') . '>' . $tab1[0] . '</a></li>
-	<li><a href="' . makelink('user-user-settings-profile') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
-	<li><a href="' . makelink('user-user-settings-edit') . '" style="cursor:help;"' . makeOverlib($tab3[1],$tab3[0],'',1,'',',WRAP') . '>' . $tab3[0] . '</a></li>
-	<li><a href="' . makelink('user-user-settings-pass') . '" style="cursor:help;"' . makeOverlib($tab4[1],$tab4[0],'',1,'',',WRAP') . '>' . $tab4[0] . '</a></li>
-</ul>
-',$roster->locale->act['user_page']['settings'],'sgray','145px');
+	<li class="selected"><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab1[1],$tab1[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings') . '">' . $tab1[0] . '</a></li>
+	<li><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab2[1],$tab2[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings-profile') . '">' . $tab2[0] . '</a></li>
+	<li><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab3[1],$tab3[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings-edit') . '">' . $tab3[0] . '</a></li>
+	<li><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab4[1],$tab4[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings-pass') . '">' . $tab4[0] . '</a></li>
+</ul>';
 
 $roster->tpl->set_filenames(array(
 	'ucp2' => $addon['basename'] . '/ucp-settings.html'
@@ -170,10 +168,10 @@ $roster->tpl->set_filenames(array(
 
 
 $roster->tpl->assign_vars(array(
-	'ROSTERCP_TITLE'  => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
-	'MENU' => $mac,
-	'BODY' => $roster->tpl->fetch('ucp2'),
-	'PAGE_INFO' => 'User Controle Pannel',
+	'ROSTERCP_TITLE' => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
+	'MENU'           => $menu,
+	'BODY'           => $roster->tpl->fetch('ucp2'),
+	'PAGE_INFO'      => $roster->locale->act['user_cp'],
 	)
 );
 
@@ -182,6 +180,7 @@ $roster->tpl->set_filenames(array(
 	)
 );
 $roster->tpl->display('ucp');
+
 
 
 function infoAccess($values)
@@ -196,8 +195,9 @@ function infoAccess($values)
 	}
 
 	return $roster->auth->rosterAccess($values);
-
 }
+
+
 /**
  * Process Data for entry to the database
  *

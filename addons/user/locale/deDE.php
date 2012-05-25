@@ -1,16 +1,18 @@
 ﻿<?php
-/** 
+/**
  * WoWRoster Addon
- * 
- * LICENSE: Licensed under the Creative Commons 
- *          "Attribution-NonCommercial-ShareAlike 2.5" license 
- * 
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" 
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
  * @package    User
  * @subpackage Locale deDE
- * 
+ *
  * Translated by Nefuh
- */ 
+ */
+
+$lang['user_cp'] = 'User Control Panel';
 
 // Menu Buttons
 $lang['user_menu_index'] = 'Mein Account|Zeigt deine Charaktere, Gilden und Realms.';
@@ -35,9 +37,9 @@ $lang['user_main_menu'] = array(
 
 // Mail Menu
 $lang['user_mail_menu'] = array(
-      'inbox' => 'Posteingang|Zeigt deine Nachrichten.',
-      'outbox' => 'Postausgang|Zeigt deine gesendeten Nachrichten.',
-      'write' => 'Schreiben|Schreibe eine neue Nachricht.',
+  'inbox' => 'Posteingang|Zeigt deine Nachrichten.',
+  'outbox' => 'Postausgang|Zeigt deine gesendeten Nachrichten.',
+  'write' => 'Schreiben|Schreibe eine neue Nachricht.',
 );
 
 // Application wordings
@@ -89,19 +91,20 @@ $lang['user_form']['zone'] = array(
 	'SST' => 'Solomon Standard Time',
 	'VST' => 'Vietnam Standard Time',
 );
+
 $lang['user_form']['month'] = array(
-		'1' => 'Januar',
-		'2' => 'Februar',
-		'3' => 'März',
-		'4' => 'April',
-		'5' => 'Mai',
-		'6' => 'Juni',
-		'7' => 'Juli',
-		'8' => 'August',
-		'9' => 'September',
-		'10' => 'Oktober',
-		'11' => 'November',
-		'12' => 'Dezember',
+	'1' => 'Januar',
+	'2' => 'Februar',
+	'3' => 'März',
+	'4' => 'April',
+	'5' => 'Mai',
+	'6' => 'Juni',
+	'7' => 'Juli',
+	'8' => 'August',
+	'9' => 'September',
+	'10' => 'Oktober',
+	'11' => 'November',
+	'12' => 'Dezember',
 );
 
 // Interface wordings
@@ -136,6 +139,7 @@ $lang['user_int'] = array(
 	'conf_mail' => 'Bestätigungsemail',
 	'rec_txt' => 'Die Rekrutierung ist',
 );
+
 $lang['user_int']['messaging'] = array(
 	'body' => 'Nachricht',
 	'read' => 'Lesen',
@@ -267,17 +271,17 @@ $lang['user_user'] = array(
 	'msg26' => 'Neue Benutzer Anfrage...',
 	'msg27' => 'Bitte prüfe deine E-Mails und aktiviere deine Änderung(en).',
 	'msg28' => 'Deine Anfrage muss erst bearbeitet werden...',
-	'msg29' => 'Hallo %s,\r\n\r\num deine Anfrage zu aktivieren, klicke den folgenden Link an:\r\n%s&uid=%d&act_key=%s',
+	'msg29' => "Hallo %s,\n\num deine Anfrage zu aktivieren, klicke den folgenden Link an:\n%s&uid=%d&act_key=%s",
 	'msg30' => 'Dein Account wurde geändert.',
 	'msg31' => 'Diese E-Mail Adresse existiert bereits. Bitte gebe eine andere ein.',
 	'msg32' => 'Das Feld Passwort (min. %d Zeichen) ist notwendig.',
-	'msg33' => 'Hallo %s,\r\n\r\ndie neue E-Mail Adresse muss aktiviert werden, klicke dazu auf den folgenden Link:\r\n%s&uid=%d&validate=%s',
+	'msg33' => "Hallo %s,\n\ndie neue E-Mail Adresse muss aktiviert werden, klicke dazu auf den folgenden Link:\n%s&uid=%d&validate=%s",
 	'msg34' => 'Es gibt keine E-Mail zur Überprüfung.',
-	'msg35' => 'Hallo %s,\r\n\r\nAls nächstes musst Du ein neues Passwort eingeben. Klicke hierzu auf folgenden Link:\r\n%s&uid=%d&act_key=%s',
-	'msg36' => "Deine Anfrage wurde bearbeitet und wartet auf überprüfung durch den Administrator. \r\nDu erhälst nach der Prüfung eine E-Mail.",
-	'msg37' => "Hallo %s,\r\n\r\nDer Account wurde aktiviert und Du kannst dich nun anmelden.\r\n\r\nKlicke auf den Link um zur Anmeldeseite zu gehen:\r\n%s\r\n\r\nMfg.\r\n%s",
+	'msg35' => "Hallo %s,\n\nAls nächstes musst Du ein neues Passwort eingeben. Klicke hierzu auf folgenden Link:\n%s&uid=%d&act_key=%s",
+	'msg36' => "Deine Anfrage wurde bearbeitet und wartet auf überprüfung durch den Administrator. \nDu erhälst nach der Prüfung eine E-Mail.",
+	'msg37' => "Hallo %s,\n\nDer Account wurde aktiviert und Du kannst dich nun anmelden.\n\nKlicke auf den Link um zur Anmeldeseite zu gehen:\n%s\n\nMfg.\n%s",
 	'msg38' => 'Die beiden eingegeben Passwörter sind nicht identisch! Bitte versuche es erneut.',
-	'msg39' => 'Neue Benutzerregistrierung auf %s:\r\n\r\nKlicke hier um zur Adminseite zu gehen:\r\n\r\n%s',
+	'msg39' => "Neue Benutzerregistrierung auf %s:\n\nKlicke hier um zur Adminseite zu gehen:\n\n%s",
 );
 
 // Profile class messages
@@ -358,6 +362,7 @@ $lang['user_settings'] = array(
 	'main' => 'Hauptcharakter',
 	'src_gen' => 'Avatar / Signatur',
 );
+
 $lang['user_profile_edit'] = array(
 	'fname'			=> 'First name',
 	'lname'			=> 'Last name',
@@ -370,4 +375,11 @@ $lang['user_profile_edit'] = array(
 	'why'			=> 'Why you joined',
 	'about'			=> 'About you',
 	'notes'			=> 'Some notes',
+);
+
+$lang['user_password'] = array(
+	'settings_password' => 'Change Password|This is where you change your current password',
+	'old_pass' => 'Current password',
+	'new_pass_1' => 'New Password',
+	'new_pass_2' => 'Confirm New Password',
 );

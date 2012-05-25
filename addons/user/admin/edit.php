@@ -1,14 +1,14 @@
 ﻿<?php
-/** 
+/**
  * Dev.PKComp.net WoWRoster Addon
- * 
- * LICENSE: Licensed under the Creative Commons 
- *          "Attribution-NonCommercial-ShareAlike 2.5" license 
- * 
- * @copyright  2005-2007 Pretty Kitty Development 
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5" 
- * @link       http://dev.pkcomp.net 
- * @package    user 
+ *
+ * LICENSE: Licensed under the Creative Commons
+ *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *
+ * @copyright  2005-2007 Pretty Kitty Development
+ * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @link       http://dev.pkcomp.net
+ * @package    user
  * @subpackage Profile Admin
  */
 
@@ -62,13 +62,13 @@ if( $num_members > 0 )
 			'ID' => $i,
 			)
 		);
-		
+
 	foreach( $data as $val_name => $value )
 	{
 		if (! is_int ($val_name) && $val_name != 'usr' && $val_name != 'id' && $val_name != 'age')
 		{
 			$field = '<input class="box" type="text" name="disp_' . $data['id'] . ':' . $val_name . '" value="'.$value.'"/>';
-			
+
 			$roster->tpl->assign_block_vars('profile.cfg',array(
 				'NAME'  => $roster->locale->act['user_profile_edit'][$val_name],
 				'FIELD' => $field,
@@ -83,20 +83,18 @@ else
 	$formbody = 'No Data';
 }
 
-$roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 $tab1 = explode('|',$roster->locale->act['user_settings']['set']);
 $tab2 = explode('|',$roster->locale->act['user_settings']['prof']);
 $tab3 = explode('|',$roster->locale->act['user_main_menu']['my_prof']);
 $tab4 = explode('|',$roster->locale->act['user_password']['settings_password']);
 
-$menu = messagebox('
+$menu = '
 <ul class="tab_menu">
-	<li><a href="' . makelink('user-user-settings') . '" style="cursor:help;"' . makeOverlib($tab1[1],$tab1[0],'',1,'',',WRAP') . '>' . $tab1[0] . '</a></li>
-	<li><a href="' . makelink('user-user-settings-profile') . '" style="cursor:help;"' . makeOverlib($tab2[1],$tab2[0],'',1,'',',WRAP') . '>' . $tab2[0] . '</a></li>
-	<li class="selected"><a href="' . makelink('user-user-settings-edit') . '" style="cursor:help;"' . makeOverlib($tab3[1],$tab3[0],'',1,'',',WRAP') . '>' . $tab3[0] . '</a></li>
-	<li><a href="' . makelink('user-user-settings-pass') . '" style="cursor:help;"' . makeOverlib($tab4[1],$tab4[0],'',1,'',',WRAP') . '>' . $tab4[0] . '</a></li>
-</ul>
-',$roster->locale->act['user_page']['settings'],'sgray','145px');
+	<li><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab1[1],$tab1[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings') . '">' . $tab1[0] . '</a></li>
+	<li><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab2[1],$tab2[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings-profile') . '">' . $tab2[0] . '</a></li>
+	<li class="selected"><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab3[1],$tab3[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings-edit') . '">' . $tab3[0] . '</a></li>
+	<li><span class="ui-icon ui-icon-help" style="float:left;cursor:help;" ' . makeOverlib($tab4[1],$tab4[0],'',2,'',',WRAP') . '></span><a href="' . makelink('user-user-settings-pass') . '">' . $tab4[0] . '</a></li>
+</ul>';
 
 $roster->tpl->set_filenames(array(
 	'ucp3' => $addon['basename'] . '/ucp-edit.html'
@@ -104,10 +102,10 @@ $roster->tpl->set_filenames(array(
 );
 
 $roster->tpl->assign_vars(array(
-	'ROSTERCP_TITLE'  => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
-	'MENU' => $menu,
-	'BODY' => $roster->tpl->fetch('ucp3'),
-	'PAGE_INFO' => 'User Controle Pannel',
+	'ROSTERCP_TITLE' => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
+	'MENU'           => $menu,
+	'BODY'           => $roster->tpl->fetch('ucp3'),
+	'PAGE_INFO'      => $roster->locale->act['user_cp'],
 	)
 );
 $roster->tpl->set_filenames(array(
@@ -115,6 +113,9 @@ $roster->tpl->set_filenames(array(
 	)
 );
 $roster->tpl->display('ucp');
+
+
+
 /**
  * Make select box of characters for main selection
  */
@@ -141,45 +142,49 @@ include_once( $addon['inc_dir'] . 'users.lib.php' );
 	$select_one = 1;
 	if(is_array($chars) && count($chars) > 0)
 	{
-	     foreach( $chars as $member => $name )
-	     {
-	     	     if( $member == getMain($uid) && $select_one )
-		    {
-			   $input_field .= '  <option value="' . $member . '" selected="selected">-[ ' . $name . ' ]-</option>' . "\n";
-			   $select_one = 0;
-		    }
-		    else
-		    {
-			   $input_field .= '  <option value="' . $member . '">' . $name . '</option>' . "\n";
-		    }
-	     }
+   foreach( $chars as $member => $name )
+   {
+   	     if( $member == getMain($uid) && $select_one )
+    {
+	   $input_field .= '  <option value="' . $member . '" selected="selected">' . $name . '</option>' . "\n";
+	   $select_one = 0;
+    }
+    else
+    {
+	   $input_field .= '  <option value="' . $member . '">' . $name . '</option>' . "\n";
+    }
+   }
 	}
       else
       {
-            $input_field .= '  <option value="none" selected="selected">-[ None ]-</option>' . "\n";
+            $input_field .= '  <option value="none" selected="selected">None</option>' . "\n";
             $select_one = 0;
-      }    
+      }
 	$input_field .= '</select>';
 
 	     return $input_field;
 }
+
+
 function getMain($uid)
+{
+	global $roster, $addon;
+
+	$sql = 'SELECT * FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
+	$query = $roster->db->query($sql);
+	while($row = $roster->db->fetch($query))
 	{
-		global $roster, $addon;
-
-		$sql = 'SELECT * FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
-		$query = $roster->db->query($sql);
-		while($row = $roster->db->fetch($query))
+		if(!$query || $roster->db->num_rows($query) == 0)
 		{
-			if(!$query || $roster->db->num_rows($query) == 0)
-			{
-				return false;
-			}
-			$mid = $row['member_id'];
+			return false;
 		}
-
-		return $mid;
+		$mid = $row['member_id'];
 	}
+
+	return $mid;
+}
+
+
 /**
  * Make select box of characters for main selection
  */
@@ -207,17 +212,17 @@ function selectGen($uid)
 
 	if( $sigGen == 1 && $src == 'SigGen')
 	{
-		$input_field .= '  <option value="SigGen" selected="selected">-[ SigGen ]-</option>' . "\n";
+		$input_field .= '  <option value="SigGen" selected="selected">SigGen</option>' . "\n";
 		$input_field .= '  <option value="default">Default</option>' . "\n";
 	}
 	elseif( $sigGen == 1 && $src == 'default' || $src == '')
 	{
-		$input_field .= '  <option value="default" selected="selected">-[ Default ]-</option>' . "\n";
+		$input_field .= '  <option value="default" selected="selected">Default</option>' . "\n";
 		$input_field .= '  <option value="SigGen">SigGen</option>' . "\n";
 	}
 	else
 	{
-		$input_field .= '  <option value="default" selected="selected">-[ Default ]-</option>' . "\n";
+		$input_field .= '  <option value="default" selected="selected">Default</option>' . "\n";
 	}
 
 	$input_field .= '</select>';

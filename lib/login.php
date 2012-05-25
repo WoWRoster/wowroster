@@ -142,7 +142,7 @@ class RosterLogin
 			}
 
 			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
-			$this->message = '<span class="login-message">Welcome, ' . $user . ' ' . $this->logout . '</span>';
+			$this->message = '<div class="login-message">Welcome, ' . $user . ' ' . $this->logout . '</div>';
 			$roster->db->free_result($result);
 			return true;
 
