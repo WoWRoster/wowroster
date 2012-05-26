@@ -148,7 +148,6 @@ $roster->tpl->assign_vars(array(
 	)
 );
 
-
 // --[ Section select. ]--
 $query = "SELECT `section` FROM " . $roster->db->table('menu') . ";";
 $result = $roster->db->query($query);
@@ -325,31 +324,45 @@ foreach( $palet as $id => $button )
 }
 
 $i = 0;
+
+
+$jscript = '
+SET_DHTML(CURSOR_MOVE, TRANSPARENT, SCROLL'. $dhtml_reg .', "palet" + NO_DRAG, "array" + NO_DRAG, "rec_bin" + NO_DRAG);
+
+var roster_url = "'. ROSTER_URL .'";
+
+var dy      = 40;
+var margTop = 5;
+var dx      = 40;
+var margLef = 5;
+
+var arrayWidth = '. $arrayWidth .';
+var arrayHeight = '. $arrayHeight .';
+var paletHeight = '. $paletHeight .';
+
+// Array intended to reflect the order of the draggable items
+var aElts = Array();
+var palet = Array();
+';
+
 foreach( $palet as $id => $button )
 {
-	$roster->tpl->assign_block_vars('script_pallet',array(
-		'ID'  => $id,
-		'IDX' => $i++,
-		)
-	);
+	$jscript .= 'palet['. $i++ .'] = dd.elements.'. $id .';'."\n";
 }
-
 foreach( $arrayButtons as $pos => $button )
 {
-	$roster->tpl->assign_block_vars('script_aelts',array(
-		'ID'  => $button['button_id'],
-		'POS' => $pos,
-		)
-	);
+	$jscript .= 'aElts['. $pos .'] = dd.elements.b'. $button['button_id'] .';'."\n";
 }
+$jscript .= 'updatePositions();'."\n";
+
+roster_add_js($jscript, 'inline', 'footer', FALSE, FALSE);
+
 
 $roster->tpl->set_filenames(array(
 	'menu' => 'admin/menu_conf_menu.html',
 	'body' => 'admin/menu_conf.html',
-	'foot' => 'admin/menu_conf_footer.html',
 	)
 );
 
 $menu = $roster->tpl->fetch('menu');
 $body = $roster->tpl->fetch('body');
-$footer = $roster->tpl->fetch('foot');

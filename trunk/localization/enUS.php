@@ -1086,18 +1086,18 @@ To continue, check the box and click on \'Proceed\'.';
  ******************************/
 
 $lang['pagebar_function'] = 'Function';
-$lang['pagebar_rosterconf'] = 'Main Settings';
+$lang['pagebar_rosterconf'] = 'Main';
 $lang['pagebar_uploadrules'] = 'Upload Rules';
-$lang['pagebar_dataman'] = 'Data Manager';
-$lang['pagebar_userman'] = 'User Manager';
+$lang['pagebar_dataman'] = 'Roster Data';
+$lang['pagebar_userman'] = 'Users';
 $lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Change Password';
-$lang['pagebar_addoninst'] = 'Addon Management';
-$lang['pagebar_plugin'] = 'Plugin Management';
+$lang['pagebar_addoninst'] = 'Addons';
+$lang['pagebar_plugin'] = 'Plugins';
 $lang['pagebar_update'] = 'Upload Profile';
 $lang['pagebar_rosterdiag'] = 'Roster Diag';
-$lang['pagebar_menuconf'] = 'Menu Configuration';
-$lang['pagebar_configreset'] = 'Config Reset';
+$lang['pagebar_menuconf'] = 'Menu';
+$lang['pagebar_configreset'] = 'Reset';
 
 $lang['pagebar_addonconf'] = 'Addon Config';
 

@@ -57,12 +57,10 @@ function getAllTooltips( )
 
 	if( is_array($tooltips) )
 	{
-		$ret_string = "<script type=\"text/javascript\">\n<!--\n";
 		foreach ($tooltips as $var => $content)
 		{
 			$ret_string .= "\tvar overlib_$var = \"" . str_replace('--','-"+"-',$content) . "\";\n";
 		}
-		$ret_string .= "//-->\n</script>";
 
 		return $ret_string;
 	}
