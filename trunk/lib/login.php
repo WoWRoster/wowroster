@@ -251,7 +251,7 @@ class RosterLogin
 	{
 		$this->action = makelink($action);
 	}
-
+/*
 	function makeAccess( $values )
 	{
 		global $roster;
@@ -274,7 +274,7 @@ class RosterLogin
 			}
 		}
 		$name = $values['name'];
-		$x = '';
+		$x = '';$this->radid++;
 		/*
 		$x .= '<div class="radioset">';
 		$lvl = explode(":",$values['value']);
@@ -285,8 +285,8 @@ class RosterLogin
 			<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
 		}
 		$x .= '</div>';
-*/
-			$x .= ' '.$roster->locale->act['access_level'].' : <select id="rad_config_'.$this->radid.'" name="'.$name.'" class="multiselect" multiple="multiple">';
+*
+			$x .= ' '.$roster->locale->act['access_level'].' : <select id="rad_config_'.$this->radid.'" name="'.$name.'[]" class="multiselect" multiple="multiple">';
 			$lvl = explode(":",$values['value']);
 			foreach ($this->levels as $acc => $a)
 			{
@@ -296,7 +296,7 @@ class RosterLogin
 			
 		return $x;
 	}
-
+*/
 	function GetAccess()
 	{
 		global $roster;
@@ -344,77 +344,27 @@ class RosterLogin
 			//$this->levels[11] = 'Public';
 		}
 			$name = $values['name'];
-			$x = '';
-			$x .= '<div class="radioset">';
-			$lvl = explode(":",$values['value']);
-			foreach ($this->levels as $acc => $a)
-			{
-				$this->radid++;
-				$x .= '<input type="checkbox" name="config_'.$name.'['.$acc.']" id="rad_config_'.$this->radid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
-				<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
-			}
-			$x .= '</div>';
-			if ($roster->output['title'] == $roster->locale->act['pagebar_addoninst'])
-			{
-				//$x = '<div class="config-input">'.$x.'</div>';
-			}
-		return $x;
-	}
-	/*
-	function rosterAccess( $values )
-	{
-		global $roster;
-
-		if( count($this->levels) == 0 )
+		$x = '';$this->radid++;
+		/*
+		$x .= '<div class="radioset">';
+		$lvl = explode(":",$values['value']);
+		foreach ($this->levels as $acc => $a)
 		{
-			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `guild_rank` ASC";
-			$result = $roster->db->query($query);
-			if( !$result )
-			{
-				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
-			}
-			$this->levels[11] = 'CP Admin';
-			$this->levels[0] = 'Public';
-			$x ='1';
-			while( $row = $roster->db->fetch($result) )
-			{
-				$this->levels[($row['guild_rank']+1)] = $row['guild_title'];
-				//$x++;
-			}
-			//$this->levels[11] = 'Public';
-		}
-		/*<select id="multiselect-demo" multiple="multiple">
-<option value="1">Option 1</option>
-<option value="2">Option 2</option>
-<option value="3">Option 3</option>
-<option value="4">Option 4</option>
-<option value="5">Option 5</option>
-<option value="6">Option 6</option>
-<option value="7">Option 7</option>
-<option value="8">Option 8</option>
-<option value="9">Option 9</option>
-<option value="10">Option 10</option>
-</select>
 			$this->radid++;
-			$name = $values['name'];
-			$x = '';
-			$x .= '<select id="rad_config_'.$this->radid.'" class="multiselect" multiple="multiple">';
+			$x .= '<input type="checkbox" name="'.$name.'['.$acc.']" id="rad_config_'.$this->radid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
+			<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
+		}
+		$x .= '</div>';
+*/
+			$x .= ' '.$roster->locale->act['access_level'].' : <select id="rad_config_'.$this->radid.'" name="config_'.$name.'[]" class="multiselect" multiple="multiple">';
 			$lvl = explode(":",$values['value']);
 			foreach ($this->levels as $acc => $a)
 			{
-				$x .= '<option value="config_'.$name.'['.$acc.']" '.(in_array($acc, $lvl) ? 'selected' : '') .'>'.$a.'</option>';
+				$x .= '<option value="'.$acc.'" '.(in_array($acc, $lvl) ? 'selected' : '') .'>'.$a."</option>\n";
 			}
 			$x .= '</select>';
-			if ($roster->output['title'] == $roster->locale->act['pagebar_addoninst'])
-			{
-				//$x = '<div class="config-input">'.$x.'</div>';
-			}
-			$js = '$("#multiselect-demo").multiselect({
-   selectedText: "# of # selected"
-});';
 		return $x;
 	}
-	*/
 	
 	function getUID($user, $pass)
 	{
