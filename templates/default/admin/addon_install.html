@@ -2,14 +2,16 @@
 
 <div class="tier-3-a">
 	<div class="tier-3-b">
-		<div class="text">
-			<span class="ui-icon ui-icon-help" style="cursor:help;" {L_DEFAULT_PAGE_HELP}></span>
-			{L_DEFAULT_PAGE}
-			<form action="{U_MAKELINK}" method="post" id="default" style="display:inline;">
-				<input type="hidden" name="op" value="default_page" />
-				{S_DEFAULT_SELECT}
-				<input type="submit" value="Go" />
-			</form>
+		<div class="config">
+			<div class="config-name">
+				<span class="ui-icon ui-icon-help" style="cursor:help;" {L_DEFAULT_PAGE_HELP}></span>
+				{L_DEFAULT_PAGE}
+				<form action="{U_MAKELINK}" method="post" id="default" class="inline slim">
+					<input type="hidden" name="op" value="default_page" />
+					{S_DEFAULT_SELECT}
+					<input type="submit" value="Go" />
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
@@ -121,11 +123,9 @@
 				<div class="tier-3-a">
 					<div class="tier-3-b">
 						<div class="config">
-							<div class="config-name">
-								<!-- TRANSLATE access_level -->: <input type="submit" value="Set" />
-							</div>
 							<div class="config-input">
 								{addon_list.ACCESS}
+								<input type="submit" value="Set" />
 							</div>
 						</div>
 					</div>

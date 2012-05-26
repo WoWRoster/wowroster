@@ -36,7 +36,7 @@ $(function() {
 
   // Apply the multiselect dropdown style
   $('select.multiselect').multiselect({
-    selectedList: 2,
+    selectedList: 4,
     selectedText: '# of # selected'
   });
 
