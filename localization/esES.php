@@ -440,6 +440,7 @@ $lang['ts_ridingIcon'] = array(
 	'Paladín'=>'ability_mount_dreadsteed',
 	'Brujo'=>'ability_mount_nightmarehorse',
 	'Caballero de la muerte'=>'spell_deathknight_summondeathcharger',
+	'Pandaren'=>'ability_mount_ridinghorse',
 // Female variation
 	'Elfa de la noche'=>'ability_mount_whitetiger',
 	'Humana'=>'ability_mount_ridinghorse',
@@ -454,7 +455,9 @@ $lang['ts_ridingIcon'] = array(
 	// 'Paladín'=>'ability_mount_dreadsteed',
 	'Bruja'=>'ability_mount_nightmarehorse',
 	// 'Caballero de la muerte'=>'spell_deathknight_summondeathcharger'
+	// 'Pandaren'=>'ability_mount_ridinghorse',
 );
+
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Alliance'=>'ability_mount_gryphon_01',

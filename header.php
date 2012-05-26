@@ -61,7 +61,7 @@ switch( $roster->scope )
 			'LAST_UPDATED'    => false
 		));
 		break;
-	
+
 	case 'guild':
 		$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['region'] . '-'
 			. $roster->data['server'] . ' ] ' . (isset($roster->output['title']) ? $roster->output['title'] : '');

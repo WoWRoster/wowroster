@@ -24,10 +24,6 @@ $(function() {
   // Apply jQuery UI button styles on EVERYTHING
   $('button, input:submit, input:reset, input:button, .input').button();
 
-  // Apply the new multiselect
-  $(".multiselect").multiselect({
-	   selectedText: "# of # selected"
-	});
   // Create button sets for radio and checkbox groups
   $('.radioset').buttonset();
   $('.checkset').buttonset();
@@ -38,9 +34,15 @@ $(function() {
   // Style select boxes
   $('select:not([multiple],[class="no-style"])').selectmenu();
 
+  // Apply the multiselect dropdown style
+  $('select.multiselect').multiselect({
+    selectedList: 2,
+    selectedText: '# of # selected'
+  });
+
   // Slide down the notification box
   $('#notify .close').hover(
-    function() { $(this).addClass('ui-state-hover'); }, 
+    function() { $(this).addClass('ui-state-hover'); },
     function() { $(this).removeClass('ui-state-hover'); }
   )
   .click(function() { $(this).parent().slideUp('slow'); });

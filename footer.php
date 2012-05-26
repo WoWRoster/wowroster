@@ -19,6 +19,7 @@ if( !defined('IN_ROSTER') )
 }
 
 define('ROSTER_FOOTER_INC', true);
+roster_add_js(getAllTooltips(), 'inline', 'footer', FALSE, FALSE);
 
 $totaltime = round(format_microtime() - ROSTER_STARTTIME, 2);
 
@@ -93,10 +94,10 @@ if( $roster->config['sql_window'] )
 	}
 }
 
-$roster->tpl->assign_var('ROSTER_TOOLTIPS', getAllTooltips());
 
 $roster->tpl->set_handle('roster_footer', 'footer.html');
 $roster->tpl->display('roster_footer');
-//aprint($_POST);
-//aprint($_COOKIE);
-//a/print($_SESSION);
+
+// aprint($_POST);
+// aprint($_COOKIE);
+// aprint($_SESSION);

@@ -44,11 +44,6 @@ $config_pages['dataman'] = array(
 	'title'=>	'pagebar_dataman',
 	'file'=>	'data_manager.php',
 	);
-$config_pages['userman'] = array(
-	'href'=>	$roster->pages[0].'-userman',
-	'title'=>	'pagebar_userman',
-	'file'=>	'user_manager.php',
-	);
 $config_pages['armory_data'] = array(
 	'href'=>	$roster->pages[0].'-armory_data',
 	'title'=>	'pagebar_armory_data',
@@ -64,12 +59,12 @@ $config_pages['plugin'] = array(
 	'title'=>	'pagebar_plugin',
 	'file'=>	'plugin_install.php',
 	);
-	
 $config_pages['menu'] = array(
 	'href'=>	$roster->pages[0].'-menu',
 	'title'=>	'pagebar_menuconf',
 	'file'=>	'menu_conf.php',
 	);
+/*
 if( $roster->config['external_auth'] == 'roster' )
 {
 	$config_pages['change_pass'] = array(
@@ -78,6 +73,12 @@ if( $roster->config['external_auth'] == 'roster' )
 		'file'=>	'change_pass.php',
 		);
 }
+*/
+$config_pages['userman'] = array(
+	'href'=>	$roster->pages[0].'-userman',
+	'title'=>	'pagebar_userman',
+	'file'=>	'user_manager.php',
+	);
 $config_pages['config_reset'] = array(
 	'href'=>	$roster->pages[0].'-config_reset',
 	'title'=>	'pagebar_configreset',
