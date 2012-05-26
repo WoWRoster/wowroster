@@ -1,31 +1,48 @@
 <!-- $Id$ -->
 
+<form action="" method="post" id="update">
+	<input type="hidden" id="deletehide" name="action" value="" />
+	<input type="hidden" name="process" value="process" />
+	<div class="config-submit">
+		<button type="submit" class="input" onclick="return confirm(\'update settings\');"><!-- TRANSLATE update --></button>
+	</div>
+
+	<div class="tier-2-a">
+		<div class="tier-2-b exp-content">
+			<div class="info-text-h">
+				{L_USER_MANAGER}
+			</div>
+		</div>
+	</div>
 
 <!-- BEGIN user -->
-				<div class="tier-3-a">
-					<div class="tier-3-b">
-						<div class="config">
-							<div class="config-name">
-								<div class="config-input">
-									<div class="radioset">
-										<input type="radio" id="rad_config_{user.IDC}" name="{user.ID}[active]" value="0" <!-- IF user.ACTIVE eq 0 -->checked="checked" <!-- ENDIF -->/>
-										<label for="rad_config_{user.IDC}">In-active</label>
-										<input type="radio" id="rad_config_{user.IDX}" name="{user.ID}[active]" value="1" <!-- IF user.ACTIVE eq 1 -->checked="checked" <!-- ENDIF -->/>
-										<label for="rad_config_{user.IDX}">Active</label>
-									</div>
-								</div>
-								Delete:<input type="checkbox" name="delete[]" id="delete" value="{user.ID}"  />
-								<span style="cursor:help;" onmouseover="overlib('{user.TOOLTIP}',CAPTION,'{user.NAME}');" onmouseout="return nd();">
-								{user.NAME}&nbsp;&nbsp;&nbsp;
-								</span>
-							</div>
-							<div class="config-input">
-								{user.ACCESS}
-							</div>
-						</div>
+	<div class="tier-3-a">
+		<div class="tier-3-b">
+			<div class="config">
+				<div class="config-name">
+					<div class="config-input">
+					</div>
+					<span style="cursor:help;" onmouseover="overlib('{user.TOOLTIP}',CAPTION,'{user.NAME}');" onmouseout="return nd();">
+						{user.NAME}
+					</span>
+				</div>
+				<div class="config-input">
+					{user.ACCESS}
+				</div>
+				<div class="config-input">
+					<div class="radioset">
+						<input type="radio" id="rad_config_{user.IDC}" name="{user.ID}[active]" value="0" <!-- IF user.ACTIVE eq 0 -->checked="checked" <!-- ENDIF -->/>
+						<label for="rad_config_{user.IDC}"><!-- TRANSLATE talent_build_1 --></label>
+						<input type="radio" id="rad_config_{user.IDX}" name="{user.ID}[active]" value="1" <!-- IF user.ACTIVE eq 1 -->checked="checked" <!-- ENDIF -->/>
+						<label for="rad_config_{user.IDX}"><!-- TRANSLATE talent_build_0 --></label>
 					</div>
 				</div>
-
+				<div class="config-input">
+					<label for="delete_{user.ID}"> <!-- TRANSLATE delete -->:</label> <input type="checkbox" name="delete[]" id="delete_{user.ID}" value="{user.ID}" />
+				</div>
+			</div>
+		</div>
+	</div>
 <!-- END user -->
 
 </form>
