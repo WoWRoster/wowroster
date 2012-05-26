@@ -469,6 +469,7 @@ $this->buildPage($values['name'],$type[1]) . '
 					break;
 
 				case 'access':
+					$values['title'] = '';
 					$input_field = $roster->auth->rosterAccess($values);
 					break;
 

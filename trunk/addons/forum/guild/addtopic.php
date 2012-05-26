@@ -27,7 +27,7 @@ $roster->tpl->assign_vars(array(
 	'S_HTML_ENABLE' => false,
 	'S_TOPIC_HTML'   => $addon['config']['forum_html_posts'],
 	'S_POSTER'				=> $_COOKIE['roster_user'],
-	'S_TOPIC_ACCESS'	=> $roster->auth->makeAccess(array('name' => 'access', 'value' => '0')),
+	'S_TOPIC_ACCESS'	=> $roster->auth->rosterAccess(array('name' => 'access', 'value' => '0')),
 	'U_FORMACTION'  => makelink('guild-forum-forum&amp;id=' .$_GET['id']),
 	)
 );

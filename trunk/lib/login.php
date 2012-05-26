@@ -251,124 +251,61 @@ class RosterLogin
 	{
 		$this->action = makelink($action);
 	}
-/*
+
 	function makeAccess( $values )
 	{
-		global $roster;
-
-		if( count($this->levels) == 0 )
-		{
-			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `guild_rank` ASC";
-			$result = $roster->db->query($query);
-			if( !$result )
-			{
-				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
-			}
-			$this->levels[11] = 'CP Admin';
-			$this->levels[0] = 'Public';
-			$x ='1';
-			while( $row = $roster->db->fetch($result) )
-			{
-				$this->levels[($row['guild_rank']+1)] = $row['guild_title'];
-				//$x++;
-			}
-		}
-		$name = $values['name'];
-		$x = '';$this->radid++;
-		/*
-		$x .= '<div class="radioset">';
-		$lvl = explode(":",$values['value']);
-		foreach ($this->levels as $acc => $a)
-		{
-			$this->radid++;
-			$x .= '<input type="checkbox" name="'.$name.'['.$acc.']" id="rad_config_'.$this->radid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
-			<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
-		}
-		$x .= '</div>';
-*
-			$x .= ' '.$roster->locale->act['access_level'].' : <select id="rad_config_'.$this->radid.'" name="'.$name.'[]" class="multiselect" multiple="multiple">';
-			$lvl = explode(":",$values['value']);
-			foreach ($this->levels as $acc => $a)
-			{
-				$x .= '<option value="'.$acc.'" '.(in_array($acc, $lvl) ? 'selected' : '') .'>'.$a."</option>\n";
-			}
-			$x .= '</select>';
-			
-		return $x;
-	}
-*/
-	function GetAccess()
-	{
-		global $roster;
-
-		if( count($this->levels) == 0 )
-		{
-			$query = "SELECT DISTINCT (`guild_rank` ), `guild_title` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `guild_rank` ASC";
-			$result = $roster->db->query($query);
-
-			if( !$result )
-			{
-				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
-			}
-
-			$this->levels[11] = 'Roster Admin';
-			$this->levels[0] = 'Public';
-			while( $row = $roster->db->fetch($result) )
-			{
-				$this->levels[($row['guild_rank']+1)] = $row['guild_title'];
-			}
-		}
-		return $this->levels;
+		trigger_error('$roster->auth->makeAccess is depricated. Please update your code to use $roster->auth->rosterAccess.');
+		$this->rosterAccess($values);
 	}
 
 	function rosterAccess( $values )
 	{
 		global $roster;
 
+		// Only add levels if we have none stored
 		if( count($this->levels) == 0 )
 		{
-			$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `" . $roster->db->table('members') . "` WHERE `guild_id` = '".$roster->data['guild_id']."' ORDER BY `guild_rank` ASC";
-			$result = $roster->db->query($query);
-			if( !$result )
-			{
-				die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
-			}
+			// Add built-in levels
 			$this->levels[11] = 'CP Admin';
 			$this->levels[0] = 'Public';
-			$x ='1';
-			while( $row = $roster->db->fetch($result) )
+
+			if (isset($roster->data['guild_id']))
 			{
-				$this->levels[($row['guild_rank']+1)] = $row['guild_title'];
-				//$x++;
+				$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `". $roster->db->table('members') ."` WHERE `guild_id` = '". $roster->data['guild_id'] ."' ORDER BY `guild_rank` ASC;";
+				$result = $roster->db->query($query);
+
+				if( !$result )
+				{
+					die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
+				}
+
+				while( $row = $roster->db->fetch($result) )
+				{
+					$this->levels[($row['guild_rank'] + 1)] = $row['guild_title'];
+				}
 			}
-			//$this->levels[11] = 'Public';
 		}
-			$name = $values['name'];
-		$x = '';$this->radid++;
-		/*
-		$x .= '<div class="radioset">';
-		$lvl = explode(":",$values['value']);
+
+		$name = $values['name'];
+		$title = isset($values['title']) ? $values['title'] : $roster->locale->act['access_level'] .':';
+		$this->radid++;
+
+		$output = $title .' <select id="rad_config_'. $this->radid .'" name="config_'. $name .'[]" class="multiselect" multiple="multiple">';
+		$lvl = explode(':', $values['value']);
+
 		foreach ($this->levels as $acc => $a)
 		{
-			$this->radid++;
-			$x .= '<input type="checkbox" name="'.$name.'['.$acc.']" id="rad_config_'.$this->radid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
-			<label for="rad_config_'.$this->radid.'">'.substr($a,0,9).'</label>';
+			$output .= '<option value="'. $acc .'" '. (in_array($acc, $lvl) ? 'selected' : '') .'>'. $a ."</option>\n";
 		}
-		$x .= '</div>';
-*/
-			$x .= ' '.$roster->locale->act['access_level'].' : <select id="rad_config_'.$this->radid.'" name="config_'.$name.'[]" class="multiselect" multiple="multiple">';
-			$lvl = explode(":",$values['value']);
-			foreach ($this->levels as $acc => $a)
-			{
-				$x .= '<option value="'.$acc.'" '.(in_array($acc, $lvl) ? 'selected' : '') .'>'.$a."</option>\n";
-			}
-			$x .= '</select>';
-		return $x;
+		$output .= '</select>';
+
+		return $output;
 	}
-	
+
 	function getUID($user, $pass)
 	{
 		global $roster;
+
 		$query = "SELECT `id` FROM `" . $roster->db->table('user_members') . "` WHERE `usr`='".$user."' AND `pass`='".$pass."';";
 		$result = $roster->db->query($query);
 		$rows = $roster->db->num_rows($result);

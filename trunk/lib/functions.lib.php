@@ -57,12 +57,13 @@ function getAllTooltips( )
 
 	if( is_array($tooltips) )
 	{
+		$ret_string = array();
 		foreach ($tooltips as $var => $content)
 		{
-			$ret_string .= "\tvar overlib_$var = \"" . str_replace('--','-"+"-',$content) . "\";\n";
+			$ret_string[] = 'var overlib_'. $var .' = "' . str_replace('--', '-"+"-', $content) . '";';
 		}
 
-		return $ret_string;
+		return implode("\n", $ret_string);
 	}
 	else
 	{

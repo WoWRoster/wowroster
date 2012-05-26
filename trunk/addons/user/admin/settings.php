@@ -130,7 +130,7 @@ if( $num_members > 0 )
 				'NAME'  => $v['disc'],
 				'ID'    => $i,
 				'FIELD' => infoAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
-				//$roster->auth->makeAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
+				// $roster->auth->rosterAccess(array('name' => 'disp_' . $rw['member_id'] . ':' . $val_name . '', 'value' => $rw[$dbv])),
 				)
 			);
 		}
