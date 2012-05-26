@@ -36,6 +36,7 @@ if( $roster->output['http_header'] && !headers_sent() )
 switch( $roster->scope )
 {
 	case 'util':
+	case 'user':
 	case 'page':
 		$roster_title = ' [ ' . $roster->config['default_name'] . ' ] '
 			. (isset($roster->output['title']) ? $roster->output['title'] : '');
@@ -60,7 +61,7 @@ switch( $roster->scope )
 			'LAST_UPDATED'    => false
 		));
 		break;
-	case 'user':
+	
 	case 'guild':
 		$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['region'] . '-'
 			. $roster->data['server'] . ' ] ' . (isset($roster->output['title']) ? $roster->output['title'] : '');

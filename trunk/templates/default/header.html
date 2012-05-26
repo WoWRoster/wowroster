@@ -23,7 +23,7 @@
 
 <div class="theme-wrap">
 
-<!-- IF ROSTER_SCOPE eq "page" or ROSTER_SCOPE eq "util" -->
+<!-- IF ROSTER_SCOPE eq "page" or ROSTER_SCOPE eq "util"  or ROSTER_SCOPE eq "user" -->
 	<div class="info-header realm">
 		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
@@ -118,7 +118,7 @@
 	<div class="realm-wrap">
 <!-- ENDIF -->
 
-<!-- IF ROSTER_SCOPE eq "guild" or ROSTER_SCOPE eq "user" -->
+<!-- IF ROSTER_SCOPE eq "guild" -->
 	<div class="info-header {FACTION}">
 	  	<div class="text">
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
