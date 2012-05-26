@@ -1231,7 +1231,7 @@ $lang['admin']['acc_session'] = 'Session Config|Configure the settings for accou
 $lang['admin']['per_character_display'] = 'Per-Character Display';
 
 // user admin
-$lang['admin']['user_desc'] = 'User Access has changed in roster please note the changes<br>CP Admin - This setting will allow the selected user to access this area of the roster basicly making them an admin<br>Public - this is default on and will allow the user to see any and all public pages in roster removing this only lets them see the content there other ranks allow<br>**the other ranks are your guild rank name and you can assign access accordingly to users but this should be automated..';
+$lang['admin']['user_desc'] = 'CP Admin - This option gives the selected user admin access to WoWRoster<br/>Public - The default access given to all users. Allows the user to see any and all public pages in Roster. Removing this option only lets them see the content their other ranks allow<br/>** Other ranks are scaned from the currently selected guilds\' rank names and you can assign user access accordingly to users.';
 
 //Overlib for Allow/Disallow rules
 $lang['guildname'] = 'Guild name';
