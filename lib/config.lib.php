@@ -525,7 +525,6 @@ $this->buildPage($values['name'],$type[1]) . '
 		{
 			return false;
 		}
-
 		// Update only the changed fields
 		foreach( $_POST as $settingName => $settingValue )
 		{

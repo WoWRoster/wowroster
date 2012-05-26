@@ -27,6 +27,7 @@ $roster->output['title'] .= $roster->locale->act['pagebar_userman'];
 //user_desc
 if( isset($_POST['process']) && $_POST['process'] == 'process' )
 {
+	//echo '<pre>';print_r($_POST);echo '</pre>';
 		if (isset($_POST['delete']))
 		{
 			foreach ($_POST['delete'] as $user => $id)
@@ -43,6 +44,8 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 		if ($name != 'action' && $name != 'process')
 		{
 
+			$name = substr($name, 7);
+			$a=$b='';
 			if (isset($value['access']))
 			{
 				$access = implode(":",$value['access']);
@@ -52,8 +55,11 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 			{
 				$b = ", `active` = '".$value['active']."' ";
 			}
-			$up_query = "UPDATE `" . $roster->db->table('user_members') . "` SET $a $b WHERE `id` = '".$name."';";
-			$up_result = $roster->db->query($up_query);
+			if ($name != '')
+			{
+				$up_query = "UPDATE `" . $roster->db->table('user_members') . "` SET $a $b WHERE `id` = '".$name."';";
+				$up_result = $roster->db->query($up_query);
+			}
 		}
 	}
 }
@@ -105,7 +111,7 @@ while( $row = $roster->db->fetch($dm_result) )
 		'NAME'      => $row['usr'],
 		'TOOLTIP'   => $tooltip,
 		'EMAIL'     => $row['email'],
-		'ACCESS'    => $roster->auth->makeAccess(array('name' => ''.$row['id'].'[access][]', 'value' => $row['access']))
+		'ACCESS'    => $roster->auth->rosterAccess(array('name' => ''.$row['id'].'[access]', 'value' => $row['access']))
 		)
 	);
 }
