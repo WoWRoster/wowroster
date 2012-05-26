@@ -105,7 +105,7 @@ while( $row = $roster->db->fetch($dm_result) )
 		'NAME'      => $row['usr'],
 		'TOOLTIP'   => $tooltip,
 		'EMAIL'     => $row['email'],
-		'ACCESS'    => $roster->auth->makeAccess(array('name' => ''.$row['id'].'[access]', 'value' => $row['access']))
+		'ACCESS'    => $roster->auth->makeAccess(array('name' => ''.$row['id'].'[access][]', 'value' => $row['access']))
 		)
 	);
 }

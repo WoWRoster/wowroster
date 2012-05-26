@@ -24,6 +24,10 @@ $(function() {
   // Apply jQuery UI button styles on EVERYTHING
   $('button, input:submit, input:reset, input:button, .input').button();
 
+  // Apply the new multiselect
+  $(".multiselect").multiselect({
+	   selectedText: "# of # selected"
+	});
   // Create button sets for radio and checkbox groups
   $('.radioset').buttonset();
   $('.checkset').buttonset();
