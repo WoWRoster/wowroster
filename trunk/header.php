@@ -33,6 +33,7 @@ if( $roster->output['http_header'] && !headers_sent() )
 	@header('Pragma: no-cache');
 	@header('Content-type: text/html; charset=utf-8');
 }
+
 switch( $roster->scope )
 {
 	case 'util':
@@ -73,6 +74,7 @@ switch( $roster->scope )
 			'LAST_UPDATED'    => (isset($roster->data['update_time']) ? readbleDate($roster->data['update_time']) . ((!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')' : '') : '')
 		));
 		break;
+
 	case 'char':
 		$roster_title = ' [ ' . $roster->data['guild_name'] . ' @ ' . $roster->data['region'] . '-'
 			. $roster->data['server'] . ' ] ' . (isset($roster->output['title']) ? $roster->output['title'] : '');

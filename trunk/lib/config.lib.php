@@ -91,7 +91,7 @@ class roster_config
 				});
 			});';
 		roster_add_js($jscript, 'inline', 'footer');
-		roster_add_css('templates/' . $roster->tpl->tpl . '/colorpicker.css', 'theme');
+		roster_add_css('templates/' . $roster->tpl->tpl . '/style/colorpicker.css', 'theme');
 	}
 
 	/**
