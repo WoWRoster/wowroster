@@ -152,9 +152,9 @@ class Upgrade {
 		if (version_compare($roster->config['version'], '2.1.9.2372', '<')) {
 			$roster->set_message('API URL Setting');
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10004, 'api_url_locale', 'en_US', 'select{us.battle.net (en_US)^en_US|us.battle.net (es_MX)^es_MX|eu.battle.net (en_GB)^en_GB|eu.battle.net (es_ES)^es_ES|eu.battle.net (fr_FR)^fr_FR|eu.battle.net (ru_RU)^ru_RU|eu.battle.net (de_DE)^de_DE|kr.battle.net (ko_kr)^ko_kr|tw.battle.net (zh_TW)^zh_TW|battlenet.com.cn (zh_CN)^zh_CN', 'update_access');");
-			
+
 		}
-		
+
 		if (version_compare($roster->config['version'], '2.1.9.2378', '<')) {
 			$roster->set_message('Plugin install system');
 			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('plugin')."` (
@@ -193,19 +193,19 @@ class Upgrade {
 			$roster->set_message('Officer user created password: password');
 			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');");
 			$roster->set_message('Guild user created password: password');
-			
+
 			$roster->db->query("ALTER TABLE `".$roster->db->table('addon')."` CHANGE `access` `access` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0'");
 			$roster->set_message('Addon access field updated');
 		}
-		
+
 
 		if (version_compare($roster->config['version'], '2.1.9.2386', '<')) {
-			
+
 			$roster->set_message('Talent updates of all things....');
-			
+
 			$roster->db->query("ALTER TABLE `".$roster->db->table('talenttree_data')."` ADD `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,
 			ADD `desc` VARCHAR( 255 ) NULL DEFAULT NULL");
-			
+
 			$roster->db->query("ALTER TABLE `".$roster->db->table('talents_data')."` ADD `isspell` INT( 1 ) NULL DEFAULT '0'");
 
 			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('talent_mastery')."` (
@@ -220,23 +220,23 @@ class Upgrade {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 
 		}
-		if (version_compare($roster->config['version'], '2.1.9.2404', '<')) 
+		if (version_compare($roster->config['version'], '2.1.9.2404', '<'))
 		{
 			$roster->db->query("INSERT INTO `".$roster->db->table('menu_button')."` VALUES (null, 0, 'menu_register', 'util', 'register', 'inv_misc_bag_26_spellfire');");
 			$t_id = $roster->db->insert_id();
 			$roster->db->query("UPDATE `".$roster->db->table('menu')."` SET `config` = CONCAT(config, ':b$t_id') WHERE `section` = 'util';");
 			$roster->set_message('Added Register Button');
 		}
-		if (version_compare($roster->config['version'], '2.1.9.2405', '<')) 
+		if (version_compare($roster->config['version'], '2.1.9.2405', '<'))
 		{
 			$roster->db->query("ALTER TABLE `".$roster->db->table('plugin')."` ADD `parent` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `basename` ,
 			ADD `scope` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `parent`");
 		}
 		///*
 		//	these updates begin with 2405 and up
-		if (version_compare($roster->config['version'], '2.1.9.2410', '<')) 
+		if (version_compare($roster->config['version'], '2.1.9.2410', '<'))
 		{
-			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."` 
+			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."`
 				ADD `user_last_visit` INT( 11 ) NOT NULL DEFAULT '0',
 				ADD `age` varchar(32) NOT NULL default '',
 				ADD `email` varchar(32) NOT NULL default '',
@@ -244,12 +244,12 @@ class Upgrade {
 				ADD `state` varchar(32) NOT NULL default '',
 				ADD `country` varchar(32) NOT NULL default '',
 				ADD `zone` varchar(32) NOT NULL default ''");
-				
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES 
+
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES
 				(190,'acc_session','NULL','blockframe','menu'),
 				(1900, 'sess_time', '15', 'text{30|4', 'acc_session'),
 				(1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session');");
-			
+
 			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions')."` (
 			  `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
 			  `session_user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -276,11 +276,11 @@ class Upgrade {
 			  PRIMARY KEY (`key_id`,`user_id`),
 			  KEY `last_login` (`last_login`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-			
+
 			$roster->db->query("ALTER TABLE `".$roster->db->table('members')."` CHANGE `account_id` `account_id` SMALLINT( 6 ) NULL DEFAULT NULL;");
 			$roster->db->query("UPDATE `".$roster->db->table('members')."` set `account_id` = NULL WHERE `account_id` = '0';");
 			$roster->db->query("INSERT INTO `".$roster->db->table('menu')."` VALUES ('', 'user', '');");
-			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."` 
+			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."`
 			ADD `fname` varchar(30) NOT NULL default '',
 				ADD `lname` varchar(30) NOT NULL default '',
 				ADD `age` varchar(32) NOT NULL default '',
@@ -301,7 +301,7 @@ class Upgrade {
 				ADD `active` INT(11) NOT NULL default '0',
 				ADD `online` INT(11) NOT NULL default '0'");
 		}
-		if (version_compare($roster->config['version'], '2.1.9.2415', '<')) 
+		if (version_compare($roster->config['version'], '2.1.9.2415', '<'))
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `".$roster->db->table('sessions')."`");
 			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions')."` (
@@ -322,17 +322,17 @@ class Upgrade {
 
 
 		}
-		if (version_compare($roster->config['version'], '2.1.9.2467', '<')) 
+		if (version_compare($roster->config['version'], '2.1.9.2467', '<'))
 		{
-			$roster->db->query("UPDATE `" .$roster->db->table('user_members') . "` SET `access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");  
+			$roster->db->query("UPDATE `" .$roster->db->table('user_members') . "` SET `access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");
 		}
-		
-		if (version_compare($roster->config['version'], '2.1.9.2469', '<')) 
+
+		if (version_compare($roster->config['version'], '2.1.9.2469', '<'))
 		{
-			$roster->db->query("ALTER TABLE `" .$roster->db->table('currency') . "` CHANGE `count` `count` INT( 5 ) NULL DEFAULT NULL;");  
+			$roster->db->query("ALTER TABLE `" .$roster->db->table('currency') . "` CHANGE `count` `count` INT( 5 ) NULL DEFAULT NULL;");
 		}
-		
-		if (version_compare($roster->config['version'], '2.1.9.2473', '<')) 
+
+		if (version_compare($roster->config['version'], '2.1.9.2473', '<'))
 		{
 			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_gems') . "`;");
 			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('api_gems') . "` (
@@ -365,14 +365,10 @@ class Upgrade {
 			  `json` longtext,
 			  PRIMARY KEY (`item_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-			/*     #
-					 #
-					   #			
+
+			/*
 			##############    NOT SURE IF THIS IS REALLY NEEDED BUT IT WOULDENT BE A BAD IDEA.....
-					   #
-					 #
-				   #
-			
+
 			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;
 			CREATE TABLE `" .$roster->db->table('api_items') . "` (
 			  `achv_id` int(11) NOT NULL,
@@ -394,7 +390,13 @@ class Upgrade {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 			*/
 		}
-		
+
+		if (version_compare($roster->config['version'], '2.1.9.2496', '<'))
+		{
+			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '11' WHERE `config_name` = 'gp_user_level' LIMIT 1;");
+			$roster->set_message('Set guild data update permissions to CP Admin');
+		}
+
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
@@ -406,16 +408,17 @@ class Upgrade {
 	function upgrade_220() {
 		global $roster;
 
-		$this->standard_upgrader();
-		$this->finalize();
 		// make admin password roster password
 		$query = "SELECT * FROM `" . $roster->db->table('account') . "` WHERE `name` = 'Admin';";
 		$result = $roster->db->query($query);
 		$row = $roster->db->fetch($result);
 		$roster->db->query("UPDATE `" . $roster->db->table('user_members') . "` SET `pass` = '" . $row['hash'] . "' WHERE `usr` = 'Admin' LIMIT 1;");
+
+		$this->standard_upgrader();
+		$this->finalize();
 	}
 	*/
-	
+
 	/**
 	 * Upgrades 2.1.0 to 2.1.1
 	 */
