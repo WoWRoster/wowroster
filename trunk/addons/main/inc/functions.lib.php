@@ -5,11 +5,11 @@ class mainFunctions
 {
 
 	var $block = array();
-	
+
 	function newsUPDATE($post,$html)
 	{
 		global $roster, $addon;
-	
+
 		$query = "UPDATE `" . $roster->db->table('news',$addon['basename']) . "` SET "
 					. "`poster` = '" . $post['author'] . "', "
 					. "`title` = '" . $post['title'] . "', "
@@ -28,11 +28,11 @@ class mainFunctions
 		}
 		return;
 	}
-	
+
 	function newsADD($post,$html)
 	{
 		global $roster, $addon;
-		
+
 		$query = "INSERT INTO `" . $roster->db->table('news',$addon['basename']) . "` SET "
 					. "`poster` = '" . $post['author'] . "', "
 					. "`title` = '" . $post['title'] . "', "
@@ -50,7 +50,7 @@ class mainFunctions
 			$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 		}
 	}
-	
+
 	function makeUSERmenu( $sections )
 	{
 		global $roster;
@@ -59,7 +59,7 @@ class mainFunctions
 		// Since we add all locales for button name localization, we save the current locale array
 		// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
 		$localetemp = $roster->locale->wordings;
-		
+
 		$menue = array();
 
 		// Add all addon locale files
@@ -94,7 +94,7 @@ class mainFunctions
 		}
 
 		$roster->db->free_result($result);
-		
+
 		// --[ Fetch menu configuration from DB ]--
 		$query = "SELECT * FROM `" . $roster->db->table('menu') . "` WHERE `section` IN (" . $section . ") ORDER BY `config_id`;";
 
@@ -193,7 +193,7 @@ class mainFunctions
 					$button['tooltip'] = ' ' . makeOverlib($button['title']);
 				}
 
-				$menue[''.$button['scope'].''][] = array(
+				$menue[$button['scope']][] = array(
 					'TOOLTIP'  => $button['tooltip'],
 					'ICON'     => $button['icon'],
 					'NAME'     => $button['title'],
@@ -213,7 +213,7 @@ class mainFunctions
 	 *
 	 *
 	 */
-	
+
 	function _initPlugins()
 	{
 		global $roster, $addon;
@@ -233,17 +233,21 @@ class mainFunctions
 							$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
 							require($classfile);
 							$pluginstuff = new $plugin_name;
-							
-							$this->block[] = array('name'=>$pluginstuff->fullname,'output'=>$pluginstuff->output,'icon'=>$pluginstuff->icon);
-							
+
+							$this->block[] = array(
+								'name'   => $pluginstuff->fullname,
+								'output' => $pluginstuff->output,
+								'icon'   => $pluginstuff->icon
+							);
+
 							unset($pluginstuff);
 						}
 					}
 				}
 			}
 		}
-	
+
 		return true;
-	
+
 	}
 }
