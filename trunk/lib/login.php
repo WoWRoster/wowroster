@@ -141,7 +141,7 @@ class RosterLogin
 				$this->access = $row['access'];
 			}
 
-			$this->message = 'Welcome, ' . $user;
+			$this->message = sprintf($roster->locale->act['welcome_user'], $user);
 			$roster->db->free_result($result);
 
 			return true;
@@ -233,7 +233,7 @@ class RosterLogin
 
 	function makeAccess( $values )
 	{
-		trigger_error('$roster->auth->makeAccess is depricated. Please update your code to use $roster->auth->rosterAccess.');
+		trigger_error('$roster->auth->makeAccess is deprecated. Please update to use $roster->auth->rosterAccess.');
 		$this->rosterAccess($values);
 	}
 

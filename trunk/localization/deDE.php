@@ -339,6 +339,7 @@ $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s der %2$s';
 
 // Login
+$lang['welcome_user'] = 'Welcome, %1$s';
 $lang['login'] = 'Anmelden';
 $lang['logout'] = 'Abmelden';
 $lang['logged_in'] = 'Angemeldet';
@@ -346,6 +347,8 @@ $lang['logged_out'] = 'Abgemeldet';
 $lang['login_invalid'] = 'Ungültiges Passwort';
 $lang['login_fail'] = 'Fehler bei dem Abrufen der Passwort Informationen';
 $lang['login_inactive'] = 'Your account is not active or is not approved by the admin. Only "Public" areas can be accessed.';
+$lang['active'] = 'Aktiv';
+$lang['inactive'] = 'Inaktiv';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Berufe';
