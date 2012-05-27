@@ -17,8 +17,8 @@
 
 .stats-container { padding:20px 20px 10px; }
 .stats-container .title {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 4px 0 5px 10px; }
-.stats-container .container { background-image: url(images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd; }
-.stats-container .contents { background: url('images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px; }
+.stats-container .container { background-image: url(../images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd; }
+.stats-container .contents { background: url('../images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px; }
 
 
 .positive { font-weight: bold; color: #8DDC42; text-shadow: 1px 1px 0 #666; }
@@ -53,7 +53,7 @@
   white-space:nowrap;
   color:#000000;
   font:bold 11px arial,helvetica,sans-serif;
-  background: url(images/th_bg.png) repeat-x center top;
+  background: url(../images/th_bg.png) repeat-x center top;
   padding:0 6px 0 6px;
   height: 20px;
   vertical-align:middle;
@@ -64,7 +64,7 @@
   position:relative;
   text-align:left;
   color:#000000;
-  background: #deb760 url(images/set_row.png) repeat-x left top;
+  background: #deb760 url(../images/set_row.png) repeat-x left top;
   font:bold 11px arial,helvetica,sans-serif;
   padding:3px 6px 3px 6px;
 }
@@ -86,11 +86,16 @@
   float: left;
   padding: 0.8em;
   margin-left: 10px;
-  width: 320px;
+  width: 340px;
 }
 
+.roster-version .text,
+.php-info .text { border-bottom: 1px solid #B6803D; }
+.roster-version .text:last-child,
+.php-info .text:last-child { border-bottom: 0; }
+
 .php-info .first { display: inline-block; height: 16px; width: 100px; margin-left: 5px; position: relative; }
-.php-info .middle { display: inline-block; height: 16px; width: 100px; margin-left: 5px; position: relative; }
+.php-info .middle { display: inline-block; height: 16px; width: 85px; margin-left: 5px; position: relative; }
 
 .roster-version .title,
 .php-info .title { color:#491F14; text-decoration:none; display:block; position:relative; font: bold 14px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }

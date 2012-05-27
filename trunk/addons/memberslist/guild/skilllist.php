@@ -15,6 +15,10 @@ if ( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+if (!isset($roster->data['guild_id'])) {
+	return;
+}
+
 $skill_name = isset($_POST['skill']) ? $_POST['skill'] : 'Unarmed';
 
 include_once ($addon['inc_dir'] . 'memberslist.php');

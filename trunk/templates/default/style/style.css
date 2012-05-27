@@ -226,50 +226,7 @@ textbox {
 	font: bold 12px/normal Arial, Helvetica, sans-serif;
 	overflow: hidden;
 }
-/*
-.button-char { background: url(../images/menu/menu_char.png) no-repeat left top; }
-.button-char:hover { background: url(../images/menu/menu_char.png) no-repeat left bottom; }
-.button-members { background: url(../images/menu/mini_guild.png) no-repeat left top; }
-.button-members:hover { background: url(../images/menu/mini_guild.png) no-repeat left bottom; }
-.button-guild { background: url(../images/menu/menu_guild.png) no-repeat left top; }
-.button-guild:hover { background: url(../images/menu/menu_guild.png) no-repeat left bottom; }
-.button-realm { background: url(../images/menu/menu_realm.png) no-repeat left top; }
-.button-realm:hover { background: url(../images/menu/menu_realm.png) no-repeat left bottom; }
-.button-upload { background: url(../images/menu/menu_upload.png) no-repeat left top; }
-.button-upload:hover { background: url(../images/menu/menu_upload.png) no-repeat left bottom; }
-.button-user { background: url(../images/menu/menu_user.png) no-repeat left top; }
-.button-user:hover { background: url(../images/menu/menu_user.png) no-repeat left bottom; }
-.button-util { background: url(../images/menu/menu_utilities.png) no-repeat left top; }
-.button-util:hover { background: url(../images/menu/menu_utilities.png) no-repeat left bottom; }
-.button-char { background: url(../images/menu/menu_char.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-char :hover{ background: url(../images/menu/menu_char.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-char-selected { background: url(../images/menu/menu_char.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-char-selected :hover{ background: url(../images/menu/menu_char.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-members { background: url(../images/menu/mini_guild.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-members :hover{ background: url(../images/menu/mini_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-members-selected { background: url(../images/menu/mini_guild.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-members-selected :hover{ background: url(../images/menu/mini_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-guild { background: url(../images/menu/menu_guild.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-guild :hover{ background: url(../images/menu/menu_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-guild-selected { background: url(../images/menu/menu_guild.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-guild-selected :hover{ background: url(../images/menu/menu_guild.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-realm { background: url(../images/menu/menu_realm.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-realm :hover{ background: url(../images/menu/menu_realm.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-realm-selected { background: url(../images/menu/menu_realm.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-realm-selected :hover{ background: url(../images/menu/menu_realm.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-upload { background: url(../images/menu/menu_upload.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-upload :hover{ background: url(../images/menu/menu_upload.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-upload-selected { background: url(../images/menu/menu_upload.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-upload-selected :hover{ background: url(../images/menu/menu_upload.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-user { background: url(../images/menu/menu_user.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-user :hover{ background: url(../images/menu/menu_user.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-user-selected { background: url(../images/menu/menu_user.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-user-selected :hover{ background: url(../images/menu/menu_user.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-util { background: url(../images/menu/menu_utilities.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-util :hover{ background: url(../images/menu/menu_utilities.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-util-selected { background: url(../images/menu/menu_utilities.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-util-selected :hover{ background: url(../images/menu/menu_utilities.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-*/
+
 .button-char { background: url(../images/menu/menu.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
 .button-char :hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
 .button-char-selected { background: url(../images/menu/menu.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
