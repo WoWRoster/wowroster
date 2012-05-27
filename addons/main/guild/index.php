@@ -45,7 +45,7 @@ $roster->tpl->assign_vars(array(
 ));
 
 $r = $func->makeUSERmenu($roster->output['show_menu']);
-$usrmenu = '<br /><ul style="line-height: 24px;">';
+$usrmenu = '<ul style="line-height: 24px;">';
 foreach($r['user'] as $i => $usr)
 {
 	$usrmenu .= '<li><div class="icon">
@@ -59,7 +59,7 @@ $usrmenu .= '</ul>';
 $roster->tpl->assign_block_vars('right', array(
 	'BLOCKNAME'  => 'User menu',
 	'ICON'       => 'inv_misc_bag_26_spellfire',
-	'BLOCK_DATA' => '<div style="display: block; position: relative; left: -10px; top: 30px; height: 30px;">'.$roster->auth->getMenuLoginForm().'</div>'.$usrmenu
+	'BLOCK_DATA' => $roster->auth->getMenuLoginForm() . $usrmenu
 ));
 
 // begin the session user detection
