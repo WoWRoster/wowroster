@@ -31,8 +31,8 @@ $roster->multilanguages[] = 'zhTW'; // Taiwaneese
 // Credits page
 // Only defined here because we don't need to or want to translate this for EVERY locale
 
-$creditspage['top']='<p>Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, <a href="http://www.movieobsession.com" target="_blank">Paleblackness</a>, Pytte, <a href="http://www.witchhunters.net" target="_blank">Rubricsinger</a>, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site</p>
-<p>Special thanks to calvin from <a href="http://www.rpgoutfitter.com" target="_blank">rpgoutfitter.com</a> for his wonderfull addons CharacterProfiler and GuildProfiler</p>
+$creditspage['top']='<p>Props to <a href="http://www.poseidonguild.com" target="_blank">Celandro</a>, Paleblackness, Pytte, Rubricsinger, and <a href="http://sourceforge.net/users/konkers/" target="_blank">Konkers</a> for the original code used for this site</p>
+<p>Special thanks to calvin from the old rpgoutfitter.com for his wonderfull addons CharacterProfiler and GuildProfiler</p>
 <p>To the Devs of Roster, for helping to build and maintain the package. You Rock!</p>
 <p>Thanks to all the coders who have contributed code, bug fixes, time, and testing of WoWRoster</p>
 <p>And thanks to the WoWRoster.net community, you are the reason we exist!</p>';
@@ -108,6 +108,8 @@ $creditspage['devs'] = array(
 		'library'=>array(
 			array(	'name'=>	'jQuery',
 					'info'=>	'<a href="http://jquery.com" target="_blank">Javascript library</a>'),
+			array(	'name'=>	'jQuery-UI',
+					'info'=>	'<a href="http://jqueryui.com" target="_blank">Javascript Widget library</a>'),
 			array(	'name'=>	'DynamicDrive',
 					'info'=>	'<a href="http://www.dynamicdrive.com/dynamicindex17/tabcontent.htm" target="_blank">Tab content script</a>'),
 			array(	'name'=>	'Erik Bosrup',
