@@ -59,7 +59,7 @@ $func = New mainFunctions;
 	$roster->tpl->assign_block_vars('right', array(
 			'BLOCKNAME' 	=> 'User menu',
 			'ICON'			=> 'inv_misc_bag_26_spellfire',
-			'BLOCK_DATA'	=> $roster->auth->getLoginForm().$usrmenu
+			'BLOCK_DATA'	=> '<div style="display: block;position: relative; left: -10px; top: 30px;height:30px;">'.$roster->auth->getMenuLoginForm().'</div>'.$usrmenu
 		)
 	);
 

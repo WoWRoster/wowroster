@@ -5,7 +5,7 @@ if ( !defined('IN_ROSTER') )
     exit('Detected invalid access to this file!');
 }
 
-if (isset($_POST) && $_POST['op'] == 'upload')
+if (isset($_POST['op']) && $_POST['op'] == 'upload')
 {
 	$target_path = ROSTER_BASE.$addon['image_path'].basename( $_FILES['b_image']['name']);
 	if(move_uploaded_file($_FILES['b_image']['tmp_name'], $target_path))

@@ -174,7 +174,7 @@ class RosterLogin
 				}
 			}
 		}
-		$roster->set_message( sprintf($roster->locale->act['addon_no_access'], $roster->pages[0]), 'Roster Auth', 'warning');
+		//$roster->set_message( sprintf($roster->locale->act['addon_no_access'], $roster->pages[0]), 'Roster Auth', 'warning');
 		return false;
 	}
 
