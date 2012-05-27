@@ -24,6 +24,13 @@ $(function() {
   // Apply jQuery UI button styles on EVERYTHING
   $('button, input:submit, input:reset, input:button, .input').button();
 
+  // Style checkboxes not in a checkset
+  $('input:checkbox').each(function() {
+    if (! $(this).parent().hasClass('checkset')) {
+      $(this).checkbox();
+    };
+  });
+
   // Create button sets for radio and checkbox groups
   $('.radioset').buttonset();
   $('.checkset').buttonset();

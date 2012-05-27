@@ -325,9 +325,6 @@ function cdAccess( $values )
 			foreach ($levels as $acc => $a)
 			{
 				$rid++;
-				/*$x .= '<input type="checkbox" name="config_'.$name.'['.$acc.']" id="rad_config_'.$rid.'" value="'.$acc.'"  '.(in_array($acc, $lvl) ? 'checked="checked"' : '') .' />
-				<label for="rad_config_'.$rid.'">'.substr($a,0,9).'</label>';
-				*/
 				$x .= '<label for="rad_config_'.$rid.'">'.substr($a,0,9).'</label><input type="radio" id="rad_config_'.$rid.'" name="config_'.$name.'['.$acc.']" value="'.$acc.'"  />';
 			}
 

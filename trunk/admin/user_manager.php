@@ -79,28 +79,29 @@ if( !$dm_result )
 $c = 1;
 while( $row = $roster->db->fetch($dm_result) )
 {
-	$tooltip = '<table><tr><td>User ID</td><td>'.$row['id'].'</td></tr>';
-	$tooltip .= '<tr><td>Username</td><td>'.$row['usr'].'</td></tr>';
-	$tooltip .= '<tr><td>Email</td><td>'.$row['email'].'</td></tr>';
-	$tooltip .= '<tr><td>Reg IP</td><td>'.$row['regIP'].'</td></tr>';
-	$tooltip .= '<tr><td>Access</td><td>'.$row['access'].'</td></tr>';
-	$tooltip .= '<tr><td>Name</td><td>'.$row['fname'].'</td><td>'.$row['lname'].'</td></tr>';
-	$tooltip .= '<tr><td>Age</td><td>'.$row['age'].'</td></tr>';
-	$tooltip .= '<tr><td>City</td><td>'.$row['city'].'</td></tr>';
-	$tooltip .= '<tr><td>State</td><td>'.$row['state'].'</td></tr>';
-	$tooltip .= '<tr><td>Country</td><td>'.$row['country'].'</td></tr>';
-	$tooltip .= '<tr><td>Zone</td><td>'.$row['zone'].'</td></tr>';
-	$tooltip .= '<tr><td>Homepage</td><td>'.$row['homepage'].'</td></tr>';
-	$tooltip .= '<tr><td>Other Guilds</td><td>'.$row['other_guilds'].'</td></tr>';
-	$tooltip .= '<tr><td>Why</td><td>'.$row['why'].'</td></tr>';
-	$tooltip .= '<tr><td>About</td><td>'.$row['about'].'</td></tr>';
-	$tooltip .= '<tr><td>Notes</td><td>'.$row['notes'].'</td></tr>';
-	$tooltip .= '<tr><td>Last Login</td><td>'.$row['last_login'].'</td></tr>';
-	$tooltip .= '<tr><td>Joined</td><td>'.$row['date_joined'].'</td></tr>';
-	$tooltip .= '<tr><td>Is Member</td><td>'.$row['is_member'].'</td></tr>';
-	$tooltip .= '<tr><td>Active</td><td>'.$row['active'].'</td></tr>';
-	$tooltip .= '<tr><td>Online</td><td>'.$row['online'].'</td></tr>';
-	$tooltip .= '<tr><td>Last online</td><td>'.$row['user_lastvisit'].'</td></tr></table>';
+	$tooltip = array();
+	$tooltip[] = "User ID\t". $row['id'];
+	$tooltip[] = "Username\t". $row['usr'];
+	$tooltip[] = "Email\t". $row['email'];
+	$tooltip[] = "Reg IP\t". $row['regIP'];
+	$tooltip[] = "Access\t". $row['access'];
+	$tooltip[] = "Name\t". $row['fname'] .' '. $row['lname'];
+	$tooltip[] = "Age\t". $row['age'];
+	$tooltip[] = "City\t". $row['city'];
+	$tooltip[] = "State\t". $row['state'];
+	$tooltip[] = "Country\t". $row['country'];
+	$tooltip[] = "Zone\t". $row['zone'];
+	$tooltip[] = "Homepage\t". $row['homepage'];
+	$tooltip[] = "Other Guilds\t". $row['other_guilds'];
+	$tooltip[] = "Why\t". $row['why'];
+	$tooltip[] = "About\t". $row['about'];
+	$tooltip[] = "Notes\t". $row['notes'];
+	$tooltip[] = "Last Login\t". $row['last_login'];
+	$tooltip[] = "Joined\t". $row['date_joined'];
+	$tooltip[] = "Is Member\t". $row['is_member'];
+	$tooltip[] = "Active\t". $row['active'];
+	$tooltip[] = "Online\t". $row['online'];
+	$tooltip[] = "Last online\t". $row['user_lastvisit'];
 
 	$roster->tpl->assign_block_vars('user', array(
 		'ROW_CLASS' => $roster->switch_row_class(),
@@ -109,7 +110,7 @@ while( $row = $roster->db->fetch($dm_result) )
 		'IDX'       => $c++,
 		'ACTIVE'    => (bool)$row['active'],
 		'NAME'      => $row['usr'],
-		'TOOLTIP'   => $tooltip,
+		'TOOLTIP'   => makeOverlib(implode("\n", $tooltip), $row['usr'], '', 1, '', ''),
 		'EMAIL'     => $row['email'],
 		'ACCESS'    => $roster->auth->rosterAccess(array('name' => ''.$row['id'].'[access]', 'value' => $row['access']))
 		)
@@ -119,14 +120,6 @@ while( $row = $roster->db->fetch($dm_result) )
 $roster->db->free_result($dm_result);
 $roster->tpl->assign_vars(array(
   'L_USER_MANAGER' => $roster->locale->act['admin']['user_desc'],
-/*
-	'ROSTERCP_TITLE' => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
-	'HEADER'         => $header,
-	'MENU'           => $menu,
-	'BODY'           => $body,
-	'PAGE_INFO'      => $roster->locale->act['roster_cp'],
-	'FOOTER' => $footer,
-*/
 	)
 );
 

@@ -1039,7 +1039,9 @@ $lang['adata_update_class'] = 'Class %1$s updated';
 $lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
+$lang['username'] = 'Username';
 $lang['password'] = 'Contraseña';
+$lang['remember_me'] = 'Remember me';
 $lang['pass'] = 'Pass';
 $lang['changeadminpass'] = 'Cambiar contraseña de Admin';
 $lang['changeofficerpass'] = 'Cambiar contraseña de Oficial';

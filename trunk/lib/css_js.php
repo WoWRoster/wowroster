@@ -44,6 +44,11 @@ function roster_add_js( $data = NULL , $type = 'module' , $scope = 'header' , $d
 						'defer' => FALSE,
 						'preprocess' => TRUE,
 					),
+					'js/ui.checkbox.js' => array(
+						'cache' => TRUE,
+						'defer' => FALSE,
+						'preprocess' => TRUE,
+					),
 					'js/script.js' => array(
 						'cache' => TRUE,
 						'defer' => FALSE,
