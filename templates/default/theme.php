@@ -21,10 +21,10 @@ if( !defined('IN_ROSTER') )
 define('R_TPL_VERSION', '2.2.0.0');
 
 roster_add_js('templates/' . $roster->tpl->tpl . '/theme.js');
-roster_add_css('templates/' . $roster->tpl->tpl . '/jquery-ui.css', 'theme');
-roster_add_css('templates/' . $roster->tpl->tpl . '/ui.selectmenu.css', 'theme');
-roster_add_css('templates/' . $roster->tpl->tpl . '/jquery.multiselect.css', 'theme');
-roster_add_css('templates/' . $roster->tpl->tpl . '/style.css', 'theme');
+roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery-ui.css', 'theme');
+roster_add_css('templates/' . $roster->tpl->tpl . '/style/ui.selectmenu.css', 'theme');
+roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery.multiselect.css', 'theme');
+roster_add_css('templates/' . $roster->tpl->tpl . '/style/style.css', 'theme');
 
 /**
  * Starts or ends fancy bodering containers
