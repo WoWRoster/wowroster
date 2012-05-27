@@ -24,7 +24,7 @@ roster_add_js('templates/' . $roster->tpl->tpl . '/theme.js');
 roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery-ui.css', 'theme');
 roster_add_css('templates/' . $roster->tpl->tpl . '/style/ui.selectmenu.css', 'theme');
 roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery.multiselect.css', 'theme');
-roster_add_css('templates/' . $roster->tpl->tpl . '/style/style.css', 'theme');
+roster_add_css('templates/' . $roster->tpl->tpl . '/style/base.css', 'theme');
 
 /**
  * Starts or ends fancy bodering containers
