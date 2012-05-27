@@ -158,6 +158,7 @@ class RosterLogin
 
 	function getAuthorized( $access )
 	{
+		global $roster;
 
 		$this->approved = false;
 		$addon = array();
@@ -174,6 +175,7 @@ class RosterLogin
 				}
 			}
 		}
+		$roster->set_message( sprintf($roster->locale->act['addon_no_access'],$roster->pages[0]), 'Roster Auth','warning' );
 		return false;
 	}
 
