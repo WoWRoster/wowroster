@@ -1,12 +1,19 @@
 <!-- $Id$ -->
 
-<form action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
-	<div class="menu-login">
+<div class="menu-login">
 <!-- IF S_LOGIN_MESSAGE -->
-		<div class="menu-login-message">
-			{L_LOGIN_MESSAGE}
-		</div>
+	<div class="menu-login-message">
+		{L_LOGIN_MESSAGE}
+<!-- IF U_LOGIN neq 0 -->
+		<form class="inline slim" name="roster_logout" action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="logout" value="1" />
+			<button type="submit"><!-- TRANSLATE logout --></button>
+	  </form>
 <!-- ENDIF -->
+	</div>
+<!-- ENDIF -->
+<!-- IF U_LOGIN eq 0 -->
+	<form action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
 		<div class="menu-login-user">
 			<label for="menu_login_user"><!-- TRANSLATE user -->:</label>
 			<input class="box" id="menu_login_user" name="username" type="text" size="14" maxlength="30" />
@@ -18,5 +25,6 @@
 		<div class="menu-login-button">
 			<button type="submit"><span class="ui-icon ui-icon-key"></span> <!-- TRANSLATE login --></button>
 		</div>
-	</div>
-</form>
+	</form>
+<!-- ENDIF -->
+</div>

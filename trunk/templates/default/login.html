@@ -1,22 +1,51 @@
-<!-- $Id$ -->
 
-<form action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
-	<div class="tier-2-a login-box">
+<!-- IF U_LOGIN eq '1' -->
+	<div class="tier-2-a login-box2">
 		<div class="tier-2-b">
 			<div class="tier-2-title">
-				<div style="float:right;"><button type="submit"><span class="ui-icon ui-icon-key"></span> <!-- TRANSLATE login --></button></div>
-				<!-- TRANSLATE auth_req -->
+				Welcome, {L_LOGIN_WORD}
 			</div>
 
-			<div class="tier-3-a">
-				<div class="tier-3-b">
-					<div class="right">
-						<input name="password" type="password" size="30" maxlength="30" />
-					</div>
-					<div class="text">
-						{L_LOGIN_WORD} <!--  TRANSLATE password -->
+	<!-- IF S_LOGIN_MESSAGE -->
+			<div class="message">
+				{L_LOGIN_MESSAGE}
+			</div>
+	<!-- ENDIF -->
+		</div>
+	</div>
+<!-- ELSE -->
+<form action="{U_LOGIN_ACTION}" method="post" enctype="multipart/form-data">
+		<div class="tier-2-a login-box2">
+			<div class="tier-2-b">
+				<div class="tier-2-title">
+					<div style="float:right;"><button type="submit"><span class="ui-icon ui-icon-key"></span> <!-- TRANSLATE login --></button></div>
+					<!-- TRANSLATE auth_req -->
+				</div>
+
+				<div class="tier-3-a">
+					<div class="tier-3-b">
+						<div class="right">
+							<input name="username" type="text" size="20" maxlength="30" />
+						</div>
+						<div class="text">
+							Username:
+						</div>
 					</div>
 				</div>
+
+				<div class="tier-3-a">
+					<div class="tier-3-b">
+						<div class="right">
+							<input name="password" type="password" size="20" maxlength="30" />
+						</div>
+						<div class="text">
+							Password:
+						</div>
+					</div>
+				</div>
+				<input name="rememberMe" id="rememberme" type="checkbox" checked="checked" value="1" /> &nbsp;<label for="rememberme">Remember me</label>
+				{L_REGISTER}
+
 			</div>
 <!-- IF S_LOGIN_MESSAGE -->
 			<div class="message">
@@ -24,5 +53,5 @@
 			</div>
 <!-- ENDIF -->
 		</div>
-	</div>
 </form>
+<!-- ENDIF -->
