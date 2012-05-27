@@ -448,9 +448,16 @@ if( GrabRemoteVersions() !== false )
 				<input type="hidden" name="filestoget" value="' . $zippackage_files . '" />
 				<input type="hidden" name="guildname" value="' . $roster->config ['default_name'] . '" />
 				<input type="hidden" name="website" value="' . $roster->config ['website_address'] . '" />
-				<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" /><label for="zip">' . $roster->locale->act['zip_archive'] . '</label><br />
-				<input type="radio" name="ziptype" id="targz" value="targz" /><label for="targz">' . $roster->locale->act['targz_archive'] . '</label><br /><br />
-				<input type="submit" value="' . $roster->locale->act['download_update'] . '" />
+				<div style="text-align: center;">
+					<div class="radioset">
+						<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" />
+						<label for="zip">' . $roster->locale->act['zip_archive'] . '</label>
+						<input type="radio" name="ziptype" id="targz" value="targz" />
+						<label for="targz">' . $roster->locale->act['targz_archive'] . '</label>
+					</div>
+					<br />
+					<input type="submit" value="' . $roster->locale->act['download_update'] . '" />
+				</div>
 			</form>
 		</div>
 	</div>
