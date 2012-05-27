@@ -15,7 +15,6 @@ $fachv = new achv;
 
 $data = $fachv->getConfigDatamod($roster->data['member_id']);
 $data2 = $fachv->getConfigDatamod2($roster->data['member_id']);
-$roster->output['body_onload'] .= 'initARC(\'rp_menu\',\'rp_menu1\',\'rp_menu2\',\'rp_menu3\',\'rp_menu4\',\'rp_menu5\',\'rp_menu6\',\'rp_menu7\',\'rp_menu8\',\'rp_menu9\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
 
 $first_tab = ' class="selected"';
 //$menu .= '<li class="selected">';

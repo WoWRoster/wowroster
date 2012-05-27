@@ -7,20 +7,26 @@
 <!-- BEGIN classes -->
 		<div class="tier-3-a">
 			<div class="tier-3-b">
-				<div style="float:right;text-align:right;">
-					<form action="{classes.UPDATELINK}" method="post" id="update">
-						<input type="hidden" name="class_id" value="{classes.ID}" />
-						<input type="hidden" name="process" value="process" />
-						<button type="submit" class="input"><!-- TRANSLATE update --></button>
-					</form>
+				<div class="config">
+					<div class="config-input">
+						<form action="{classes.UPDATELINK}" method="post" id="update">
+							<input type="hidden" name="class_id" value="{classes.ID}" />
+							<input type="hidden" name="process" value="process" />
+							<button type="submit" class="input"><!-- TRANSLATE update --></button>
+						</form>
+					</div>
+					<div class="config-name">
+						{classes.NAME} ({classes.ROWS})
+					</div>
 				</div>
-				<div class="text">{classes.NAME} ({classes.ROWS})</div>
 			</div>
 		</div>
 <!-- END classes -->
 	</div>
 </div>
+
 <br />
+
 <div class="tier-2-a">
 	<div class="tier-2-b">
 		<div class="tier-2-title"><!-- TRANSLATE items --></div>
@@ -28,16 +34,23 @@
 <!-- BEGIN cache -->
 		<div class="tier-3-a">
 			<div class="tier-3-b">
-				<div class="text">{cache.NAME} ({cache.ROWS})</div>
+				<div class="config">
+					<div class="config-name">
+						{cache.NAME} ({cache.ROWS})
+					</div>
+				</div>
 			</div>
 		</div>
 <!-- END cache -->
+
 	</div>
 </div>
+
 <br />
+
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title">Api Usage</div>
+		<div class="tier-2-title">API Usage</div>
 
 			<div class="sqlwindow">
 				<table cellpadding="0" cellspacing="0" width="100%">
@@ -46,6 +59,7 @@
 						<th class="membersHeader">Request</th>
 						<th class="membersHeaderRight">Percent</th>
 					</tr>
+
 <!-- BEGIN apiusage -->
 					<tr>
 						<th colspan="3" class="membersHeaderRight">{apiusage.DATE}</th>
@@ -58,8 +72,9 @@
 					</tr>
 <!-- END type -->
 <!-- END apiusage -->
+
 				</table>
 			</div>
-			
+
 	</div>
 </div>

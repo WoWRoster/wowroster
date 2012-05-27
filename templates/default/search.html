@@ -24,18 +24,20 @@
 								</div>
 								<!-- TRANSLATE search_for -->
 							</div>
-	
+
 							<div class="tier-3-a">
 								<div class="tier-3-b">
-									<div style="float: right;">
+									<div class="config-input">
 										<input type="submit" value="<!-- TRANSLATE search -->" />
 									</div>
-									<input size="30" type="text" name="search" value="{SEARCH}" />
+									<div class="config-name">
+										<input size="30" type="text" name="search" value="{SEARCH}" />
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-	
+
 					<div class="tier-2-a" style="margin: 20px auto; width: 450px;">
 						<div class="tier-2-b">
 							<div class="tier-2-title">
@@ -44,7 +46,7 @@
 								</div>
 								<!-- TRANSLATE search_onlyin -->
 							</div>
-	
+
 							<div class="info-text-h checkset">
 <!-- BEGIN only_search -->
 								<input type="checkbox" id="c_{only_search.BASENAME}" name="s_addon[]" value="{only_search.BASENAME}" <!-- IF only_search.SELECTED --> checked="checked"<!-- ENDIF --> />
@@ -68,7 +70,7 @@
 									</div>
 								</div>
 							</div>
-	
+
 							<div id="{advanced_search.BASENAME}_options" class="info-text-h" style="display: none;">
 {advanced_search.SEARCH_OPTIONS}
 							</div>
@@ -205,7 +207,7 @@
 								</ul>
 							</div>
 						</td>
-	
+
 						<td valign="top" width="50%"><strong><!-- TRANSLATE google_search --></strong>
 							<div align="left">
 								<ul>

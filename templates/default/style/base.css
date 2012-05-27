@@ -185,7 +185,7 @@ textbox {
 
 
 /* Login Box */
-.login-box { margin: 4px auto auto auto; width: 370px; }
+.login-box { margin: 4px auto auto auto; width: 450px; }
 .login-box .message { text-align: center; color: #FF3300; font-size: 14px; line-height: 20px; height: 20px; }
 
 
@@ -306,7 +306,6 @@ textbox {
 .mini-list .list .info img { float: left; margin: 0 0 0 2px; padding: 0; height: 20px; width: 20px; }
 
 /* Config Tier Styles */
-
 .ctier-3-a { background:url('../images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; min-height: 30px; max-height: 100px; min-width: 210px; padding:1px 1px 1px 1px}
 .ctier-3-b { background:url('../images/tier/tier_1_b.gif') left top repeat-x; border:1px solid #ffffd6; padding:2px 2px 2px 2px; max-height: 100px;}
 .ctier-3-b .config { position: relative; cursor: default; text-align:left; color:#000000;  font: bold 11px Geneva, Arial, Helvetica, sans-serif;  }
@@ -1259,9 +1258,13 @@ input.colorinput {
 .ui-widget { font-size:10px; }
 .ui-icon { display: inline-block; width: 14px; height: 14px; }
 input.ui-button,
-.ui-button-text-only .ui-button-text { padding: 0.2em 0.8em; }
+.ui-button-text-only .ui-button-text { padding: .2em 1em; }
+.ui-button-text-icon-primary .ui-button-text,
+.ui-button-text-icons .ui-button-text { padding: .2em 1em .2em 2.1em; }
 .ui-buttonset .ui-button { margin-right: -.4em; }
 select:focus { outline: none; }
+
+.ui-helper-hidden-accessible { top: 0; }
 
 .ui-multiselect { padding: 2px 0 1px 4px; }
 

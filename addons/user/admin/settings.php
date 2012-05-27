@@ -146,8 +146,6 @@ else
 $rw = $roster->db->fetch($result);
 $k=0;
 
-$roster->output['body_onload'] .= 'initARC(\'config\',\'radioOn\',\'radioOff\',\'checkboxOn\',\'checkboxOff\');';
-
 $tab1 = explode('|',$roster->locale->act['user_settings']['set']);
 $tab2 = explode('|',$roster->locale->act['user_settings']['prof']);
 $tab3 = explode('|',$roster->locale->act['user_main_menu']['my_prof']);
