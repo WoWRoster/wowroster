@@ -56,13 +56,13 @@ class mainInstall
 		$installer->add_config("'8040','news_html','1','radio{enabled^1|disabled^0|forbidden^-1','cmsmain_conf'");
 		$installer->add_config("'8050','comm_html','-1','radio{enabled^1|disabled^0|forbidden^-1','cmsmain_conf'");
 		$installer->add_config("'8060','news_nicedit','1','radio{enabled^1|disabled^0', 'cmsmain_conf'");
-		
+
 		$installer->create_table($installer->table('config'),"
                         `guild_id` int(11) unsigned NOT NULL DEFAULT '0',
                         `config_name` varchar(64) NOT NULL DEFAULT '',
                         `config_value` varchar(225) NOT NULL DEFAULT '',
                         PRIMARY KEY (`guild_id`,`config_name`)");
-                           
+
 		$installer->create_table($installer->table('blocks'),"
 						`guild_id` int(11) unsigned NOT NULL DEFAULT '0',
 						`block_name` varchar(64) NOT NULL DEFAULT '',
@@ -152,7 +152,7 @@ class mainInstall
 		$installer->drop_table($installer->table('blocks'));
 		$installer->drop_table($installer->table('banners'));
 		$installer->drop_table($installer->table('news'));
-				$installer->remove_all_config();
+		$installer->remove_all_config();
 
 		$installer->remove_all_menu_button();
 		return true;
