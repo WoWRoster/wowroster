@@ -121,7 +121,7 @@ class RosterLogin
 
 		if( $count == 1 )
 		{
-			$remember = (isset($_POST['rememberMe']) ? (int)$_POST['rememberMe'] : (int)$_COOKIE['roster_remember'] );
+			$remember = (isset($_POST['rememberme']) ? (int)$_POST['rememberme'] : (int)$_COOKIE['roster_remember'] );
 			setcookie('roster_user',$user,(time()+60*60*24*30) );
 			setcookie('roster_u',$row['id'],(time()+60*60*24*30) );
 			setcookie('roster_pass',$pass,(time()+60*60*24*30) );
@@ -133,7 +133,7 @@ class RosterLogin
 			if ($row['active'] != 1)
 			{
 				//roster_die('Your account is nto active or has not been approved by the admin only "Public" areas can be accessed');
-				$roster->set_message('Your account is not active or has not been approved by the admin only "Public" areas can be accessed', '', 'error');
+				$roster->set_message($roster->locale->act['login_inactive'], 'Roster Auth', 'error');
 				$this->access = '0:';
 			}
 			else
@@ -141,11 +141,10 @@ class RosterLogin
 				$this->access = $row['access'];
 			}
 
-			$this->logout = '<form class="inline slim" name="roster_logout" action="' . $this->action . '" method="post" enctype="multipart/form-data"><input type="hidden" name="logout" value="1" /> <button type="submit">' . $roster->locale->act['logout'] . '</button></form>';
-			$this->message = '<div class="login-message">Welcome, ' . $user . ' ' . $this->logout . '</div>';
+			$this->message = 'Welcome, ' . $user;
 			$roster->db->free_result($result);
-			return true;
 
+			return true;
 		}
 
 		$roster->db->free_result($result);
@@ -175,7 +174,7 @@ class RosterLogin
 				}
 			}
 		}
-		$roster->set_message( sprintf($roster->locale->act['addon_no_access'],$roster->pages[0]), 'Roster Auth','warning' );
+		$roster->set_message( sprintf($roster->locale->act['addon_no_access'], $roster->pages[0]), 'Roster Auth', 'warning');
 		return false;
 	}
 
@@ -194,19 +193,16 @@ class RosterLogin
 
 		if( !$this->allow_login && !isset($_POST['logout']) )
 		{
-
-			$login_message = $this->getMessage();
-
-			$roster->tpl->assign_block_vars('login', array(
-				'U_LOGIN_ACTION'  	=> (isset($this->action) ? $this->action : $action),
-				'L_LOGIN_WORD'    	=> '',
-				'S_LOGIN_MESSAGE' 	=> (bool)$login_message,
-				'L_LOGIN_MESSAGE' 	=> $login_message,
-				'L_REGISTER'		=> '',
-				'U_LOGIN' 			=>  0
+			$roster->tpl->assign_vars(array(
+				'U_LOGIN_ACTION'  => $this->action,
+				'L_LOGIN_WORD'    => '',
+				'S_LOGIN_MESSAGE' => (bool)$this->message,
+				'L_LOGIN_MESSAGE' => $this->message,
+				'L_REGISTER'      => '',
+				'U_LOGIN'         => 0
 			));
 
-			$roster->tpl->set_handle('roster_login', 'login_new.html');
+			$roster->tpl->set_handle('roster_login', 'login.html');
 			return $roster->tpl->fetch('roster_login');
 		}
 		else
@@ -219,34 +215,15 @@ class RosterLogin
 	{
 		global $roster;
 
-		if( !$this->allow_login )
-		{
-			$login_message = $this->getMessage();
+		$roster->tpl->assign_vars(array(
+			'U_LOGIN_ACTION'  => $this->action,
+			'S_LOGIN_MESSAGE' => (bool)$this->message,
+			'L_LOGIN_MESSAGE' => $this->message,
+			'U_LOGIN'         => $this->valid
+		));
 
-			$roster->tpl->assign_vars(array(
-				'U_LOGIN_ACTION'  => $this->action,
-				'S_LOGIN_MESSAGE' => (bool)$login_message,
-				'L_LOGIN_MESSAGE' => $login_message,
-				'U_LOGIN' 			=>  $this->valid
-			));
-
-			$roster->tpl->set_handle('roster_menu_login', 'menu_login.html');
-			return $roster->tpl->fetch('roster_menu_login');
-		}
-		else
-		{
-			$logout_message = $this->getMessage();
-
-			$roster->tpl->assign_vars(array(
-				'U_LOGOUT_ACTION'  => $this->action,
-				'S_LOGOUT_MESSAGE' => (bool)$logout_message,
-				'L_LOGOUT_MESSAGE' => $logout_message,
-				'U_LOGIN' 			=>  $this->valid
-			));
-
-			$roster->tpl->set_handle('roster_menu_logout', 'menu_logout.html');
-			return $roster->tpl->fetch('roster_menu_logout');
-		}
+		$roster->tpl->set_handle('roster_menu_login', 'menu_login.html');
+		return $roster->tpl->fetch('roster_menu_login');
 	}
 
 	function setAction( $action )
@@ -312,19 +289,22 @@ class RosterLogin
 		$result = $roster->db->query($query);
 		$rows = $roster->db->num_rows($result);
 		$row = $roster->db->fetch($result);
+
 		if ($rows == 1)
 		{
 			return $row['id'];
-		}else{
+		}
+		else
+		{
 			return '0';
 		}
 	}
+
 	function getUUID( $d )
 	{
 		global $roster;
 
-		return hash('ripemd128',$d);
+		return hash('ripemd128', $d);
 	}
-
 
 }

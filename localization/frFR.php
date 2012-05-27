@@ -345,6 +345,7 @@ $lang['logged_in'] = 'Logged in';
 $lang['logged_out'] = 'Logged out';
 $lang['login_invalid'] = 'Invalid Password';
 $lang['login_fail'] = 'Failed to fetch password info';
+$lang['login_inactive'] = 'Your account is not active or is not approved by the admin. Only "Public" areas can be accessed.';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Métiers';

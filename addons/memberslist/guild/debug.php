@@ -15,6 +15,10 @@ if ( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
+if (!isset($roster->data['guild_id'])) {
+	return;
+}
+
 $query = "SELECT `config_name`, `config_value` "
 	. "FROM `" . $roster->db->table('config_guild',$addon['basename']) . "` "
 	. "WHERE `guild_id` = " . $roster->data['guild_id'] . ";";

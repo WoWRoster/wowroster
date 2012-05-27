@@ -520,9 +520,10 @@ function process_step1( )
 	// Required?
 	$their_gd = 'Optional';
 
-	//curl check
+	// CURL check
 	$our_curl = in_array('curl', get_loaded_extensions()) ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
-	$their_curl = 'Curl is required for api usage for updating.';
+	$their_curl = 'Required for Blizzard API';
+
 	if( (phpversion() < $REQUIRE['php_version']) || (!extension_loaded('mysql')) )
 	{
 		$tpl->error_append('<span style="font-weight:bold;font-size:14px;">Sorry, your server does not meet the minimum requirements for WoWRoster</span>');
