@@ -1,8 +1,11 @@
 <?php
 
-roster_add_js('addons/'. $addon['basename'] . '/js/slideshow.js');
-roster_add_css($addon['dir'] . 'styles.css');
+//roster_add_js('addons/'. $addon['basename'] . '/js/slideshow.js');
+roster_add_js('addons/'. $addon['basename'] . '/js/jquery.easing.1.3.js');
+roster_add_js('addons/'. $addon['basename'] . '/js/camera.min.js');
 
+roster_add_css($addon['dir'] . 'styles.css');
+roster_add_css($addon['dir'] . 'camera.css');
 include_once($addon['inc_dir'].'functions.lib.php');
 $func = New mainFunctions;
 
@@ -255,7 +258,17 @@ while( $rowb = $roster->db->fetch($resultsb) )
 			url: "'. $rowb['b_url'] .'",
 			id: "'. $rowb['b_id'] .'"
 		}';
-
+		$roster->tpl->assign_block_vars('banners', array(
+		'B_DESC' 	=> $rowb['b_desc'],
+		'B_URL'		=> $rowb['b_url'],
+		'B_IMAGE'	=> $addon['url_path'].'images/'.$rowb['b_image'],
+		'B_ID'		=> $rowb['b_id'],
+		'B_TITLE'	=> $rowb['b_title'],
+		'B_NUM'		=> $num,
+		'B_NUMX'	=> $num-1,
+		'B_END'		=> $e,
+		'B_TOTAL'	=> $total
+	));
 	$num++;
 }
 
@@ -268,6 +281,17 @@ if (count($banner_js) > 0) {
 	roster_add_js($banner_js, 'inline', 'footer', false, false);
 }
 
+	$camera = "jQuery(function(){
+			
+			jQuery('#camera_wrap_1').camera({
+				thumbnails: true,
+				pagination: true
+			});
+
+		});";
+		
+	roster_add_js($camera, 'inline', 'header', false, false);		
+		
 unset($queryb);
 $roster->db->free_result($resultsb);
 

@@ -7,23 +7,18 @@
 						<div class="tier-2-b">
 							<div id="slideshow" class="ui-slideshow">
 								<div class="slideshow">
-<!-- BEGIN banners -->
-									<div style="background-image: url({banners.B_IMAGE});<!-- IF banners.B_NUM neq "1" --> display: none;<!-- ENDIF -->" id="slide-{banners.B_NUM}" class="slide"></div>
-<!-- END banners -->
-								</div>
 
-								<div class="paging">
-<!-- BEGIN banners -->
-									<a id="paging-{banners.B_NUMX}" <!-- IF banners.B_NUM eq banners.B_TOTAL -->class="last-slide" <!-- ENDIF --><!-- IF banners.B_NUM eq "1" -->class="current" <!-- ENDIF -->onmouseover="Slideshow.preview({banners.B_NUMX});" onclick="Slideshow.jump({banners.B_NUMX}, this);" href="javascript:;" name="paging-{banners.B_NUMX}"></a>
-<!-- END banners -->
+										<div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
+										<!-- BEGIN banners -->
+											<div data-thumb="{banners.B_IMAGE}" data-src="{banners.B_IMAGE}">
+												<div class="camera_caption">
+													{banners.B_TITLE}<br><em>{banners.B_DESC}</em>
+												</div>
+											</div>
+										<!-- END banners -->	
+										</div>
+	
 								</div>
-
-								<div class="caption">
-									<h3><a href="#" class="link">{FIRST1}</a></h3>
-									{FIRST2}
-								</div>
-
-								<div class="preview"></div>
 								<div class="mask"></div>
 							</div>
 
