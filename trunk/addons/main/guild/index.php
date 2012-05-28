@@ -1,6 +1,6 @@
 <?php
 
-roster_add_js($addon['dir'] . '/js/slideshow.js');
+roster_add_js('addons/'. $addon['basename'] . '/js/slideshow.js');
 roster_add_css($addon['dir'] . 'styles.css');
 
 include_once($addon['inc_dir'].'functions.lib.php');
@@ -181,16 +181,27 @@ while ($row = $roster->db->fetch($result))
 unset($sql);
 $roster->db->free_result($result);
 
-$online = '<span style="float:left;">Total:</span><span style="float:right;padding-right:10px;">'.($logged_visible_online+$guests_online).'</span>
+$online = '<div class="whos-online">
+	<span class="left">Total:</span>
+	<span class="right">'.($logged_visible_online+$guests_online).'</span>
+</div>
 <hr width="90%" />
-<span style="float:left;">Registered:</span><span style="float:right;padding-right:10px;">'.$logged_visible_online.'</span><br />
-<span style="float:left;">Guest:</span><span style="float:right;padding-right:10px;">'.$guests_online.'</span>
+<div class="whos-online">
+	<span class="left">Registered:</span>
+	<span class="right">'. $logged_visible_online .'</span>
+</div>
 ';
 if (count($user_online_link) > 0) {
-	$online .= '<br /><small><em>'. implode(', ', $user_online_link) .'</em></small>';
+	$online .= '<div class="online-users">'. implode(', ', $user_online_link) .'</div>';
 }
+$online .= '
+<div class="whos-online">
+	<span class="left">Guest:</span>
+	<span class="right">'. $guests_online .'</span>
+</div>
+';
 if (count($bot) > 0) {
-	$online .= '<br /><small><em>Bots: '. implode(', ', $bot) .'</em></small>';
+	$online .= '<div class="online-bots">Bots: '. implode(', ', $bot) .'</div>';
 }
 
 $roster->tpl->assign_block_vars('right', array(
@@ -217,6 +228,8 @@ $resultsb = $roster->db->query($queryb);
 $num = 1;
 $total = $roster->db->num_rows($resultsb);
 
+$banner_js = array();
+
 $x = $y = '';
 while( $rowb = $roster->db->fetch($resultsb) )
 {
@@ -234,20 +247,27 @@ while( $rowb = $roster->db->fetch($resultsb) )
 		$y = $rowb['b_desc'];
 	}
 
-	//echo $row['title'].'-'.$row['poster'].'-'.$row['text'].'<br />';
-	$roster->tpl->assign_block_vars('banners', array(
-		'B_DESC' 	=> $rowb['b_desc'],
-		'B_URL'		=> $rowb['b_url'],
-		'B_IMAGE'	=> $addon['url_path'].'images/'.$rowb['b_image'],
-		'B_ID'		=> $rowb['b_id'],
-		'B_TITLE'	=> $rowb['b_title'],
-		'B_NUM'		=> $num,
-		'B_NUMX'	=> $num-1,
-		'B_END'		=> $e,
-		'B_TOTAL'	=> $total
-	));
+	$banner_js[] = '
+		{
+			image: "'. $addon['url_path'] .'images/'. $rowb['b_image'] .'",
+			desc: "'. $rowb['b_desc'] .'",
+			title: "'. $rowb['b_title'] .'",
+			url: "'. $rowb['b_url'] .'",
+			id: "'. $rowb['b_id'] .'"
+		}';
+
 	$num++;
 }
+
+if (count($banner_js) > 0) {
+	$banner_js = '$(function() {
+	Slideshow.initialize("#slideshow", [
+'. implode(",\n", $banner_js) .'
+	]);
+});';
+	roster_add_js($banner_js, 'inline', 'footer', false, false);
+}
+
 unset($queryb);
 $roster->db->free_result($resultsb);
 
