@@ -48,11 +48,11 @@ function rosterLangValue( $values )
 /**
  * Value function to select starting page
  */
-function pageNames( )
+function pageNames( $values )
 {
 	global $roster;
 
-	$input_field = '<select name="config_default_page">' . "\n";
+	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
 	$select_one = 1;
 
 	// --[ Fetch button list from DB ]--
