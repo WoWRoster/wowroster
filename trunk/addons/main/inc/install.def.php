@@ -59,6 +59,7 @@ class mainInstall
 		$installer->add_config("'1050','comm_html','-1','radio{enabled^1|disabled^0|forbidden^-1','cmsmain_conf'");
 		$installer->add_config("'1060','news_nicedit','1','radio{enabled^1|disabled^0', 'cmsmain_conf'");
 
+		$installer->add_config("'2000','sliderSkin','camera_azure_skin','function{sliderSkin','cmsmain_slider'");
 		$installer->add_config("'2010','autoAdvance','1','radio{yes^1|no^0','cmsmain_slider'");
 		$installer->add_config("'2020','mobileAutoAdvance','1','radio{yes^1|no^0','cmsmain_slider'");
 		$installer->add_config("'2030','barDirection','leftToRight','select{leftToRight^leftToRight|rightToLeft^rightToLeft|topToBottom^topToBottom|bottomToTop^bottomToTop','cmsmain_slider'");
@@ -153,7 +154,7 @@ class mainInstall
 	 */
 	function upgrade($oldversion)
 	{
-		global $installer;
+		global $installer, $roster;
 
     /**
      * Update uninstalls old version and sets new install
@@ -168,6 +169,17 @@ class mainInstall
 
       $installer->remove_all_menu_button();
       $this->install();
+      $roster->set_message('All settings were cleared, you must reconfigure CMS News Page options', 'CMS News Page');
+
+      return true;
+    }
+
+    /**
+     * Add config for slider skin
+     */
+		if( version_compare('0.2.4', $oldversion, '>') == true )
+		{
+			$installer->add_config("'2000','sliderSkin','camera_azure_skin','function{sliderSkin','cmsmain_slider'");
     }
 
 		return true;

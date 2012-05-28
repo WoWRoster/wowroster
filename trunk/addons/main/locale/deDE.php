@@ -65,6 +65,7 @@ $lang['admin']['comm_html']         = 'HTML Kommentare|Standardmäßige Aktivier
 $lang['admin']['news_nicedit']      = 'Nicedit Textbox|Aktivierung oder Deaktivierung der Niceedit Textbox.';
 
 // Slider options
+$lang['admin']['sliderSkin']        = 'Slider Skin|Select the style of the buttons and icons for the slider';
 $lang['admin']['alignment']         = 'Alignment|topLeft, topCenter, topRight, centerLeft, center, centerRight, bottomLeft, bottomCenter, bottomRight';
 $lang['admin']['autoAdvance']       = 'Auto Advance|Sets the slider to auto-advance';
 $lang['admin']['mobileAutoAdvance'] = 'Mobile Auto Advance|Auto-advancing for mobile devices';
