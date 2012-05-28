@@ -1,12 +1,13 @@
 <?php
 
-//roster_add_js('addons/'. $addon['basename'] . '/js/slideshow.js');
+// roster_add_js('addons/'. $addon['basename'] . '/js/slideshow.js');
 roster_add_js('addons/'. $addon['basename'] . '/js/jquery.easing.1.3.js');
 roster_add_js('addons/'. $addon['basename'] . '/js/camera.min.js');
 
 roster_add_css($addon['dir'] . 'styles.css');
-//roster_add_css($addon['dir'] . 'camera.css');
-include_once($addon['inc_dir'].'functions.lib.php');
+// roster_add_css($addon['dir'] . 'camera.css');
+
+include_once($addon['inc_dir'] . 'functions.lib.php');
 $func = New mainFunctions;
 
 
@@ -132,6 +133,7 @@ $sqlg = "SELECT COUNT(DISTINCT session_ip) as num_guests , session_browser
 $resultg = $roster->db->query($sqlg);
 $guest = $roster->db->fetch($resultg);
 $guests_online = $guest['num_guests'];
+
 // lets get the bots..
 $sx = "SELECT * FROM " . $roster->db->table('sessions') . " WHERE `session_user_id` = '0'
 			AND `session_time` >= '" . (time() - (60 * 10)) ."';";
@@ -188,7 +190,7 @@ $online = '<div class="whos-online">
 	<span class="left">Total:</span>
 	<span class="right">'.($logged_visible_online+$guests_online).'</span>
 </div>
-<hr width="90%" />
+<hr />
 <div class="whos-online">
 	<span class="left">Registered:</span>
 	<span class="right">'. $logged_visible_online .'</span>
@@ -250,47 +252,29 @@ while( $rowb = $roster->db->fetch($resultsb) )
 		$y = $rowb['b_desc'];
 	}
 
-	$banner_js[] = '
-		{
-			image: "'. $addon['url_path'] .'images/'. $rowb['b_image'] .'",
-			desc: "'. $rowb['b_desc'] .'",
-			title: "'. $rowb['b_title'] .'",
-			url: "'. $rowb['b_url'] .'",
-			id: "'. $rowb['b_id'] .'"
-		}';
 		$roster->tpl->assign_block_vars('banners', array(
-		'B_DESC' 	=> $rowb['b_desc'],
-		'B_URL'		=> $rowb['b_url'],
-		'B_IMAGE'	=> $addon['url_path'].'images/'.$rowb['b_image'],
-		'B_ID'		=> $rowb['b_id'],
-		'B_TITLE'	=> $rowb['b_title'],
-		'B_NUM'		=> $num,
-		'B_NUMX'	=> $num-1,
-		'B_END'		=> $e,
-		'B_TOTAL'	=> $total
-	));
+			'B_DESC' 	=> $rowb['b_desc'],
+			'B_URL'		=> $rowb['b_url'],
+			'B_IMAGE'	=> $addon['url_path'].'images/'.$rowb['b_image'],
+			'B_ID'		=> $rowb['b_id'],
+			'B_TITLE'	=> $rowb['b_title'],
+			'B_NUM'		=> $num,
+			'B_NUMX'	=> $num-1,
+			'B_END'		=> $e,
+			'B_TOTAL'	=> $total
+		));
 	$num++;
 }
 
-if (count($banner_js) > 0) {
-	$banner_js = '$(function() {
-	Slideshow.initialize("#slideshow", [
-'. implode(",\n", $banner_js) .'
-	]);
-});';
-	roster_add_js($banner_js, 'inline', 'footer', false, false);
-}
+$camera_js = "$(function() {
+	$('#camera_wrap_1').camera({
+		thumbnails: true,
+		pagination: true,
+	});
+});";
 
-	$camera = "jQuery(function(){
-			
-			jQuery('#camera_wrap_1').camera({
-				pagination: true,
-			});
+roster_add_js($camera_js, 'inline', 'header', false, false);
 
-		});";
-		
-	roster_add_js($camera, 'inline', 'header', false, false);		
-		
 unset($queryb);
 $roster->db->free_result($resultsb);
 
