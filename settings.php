@@ -287,8 +287,11 @@ else
 	require_once (ROSTER_LIB . 'sessions.lib.php');
 }
 
-
 $roster->auth = new RosterLogin();
+/**
+*	run sessions after update happens
+*/
+$roster->session = new Session();
 
 /**
  * Assign initial template vars
@@ -348,13 +351,7 @@ if( (empty($roster->config['version']) || version_compare($roster->config['versi
 	putting this here untill release.....
  */
 $roster->get_plugin_data();
-/**
-*	run sessions after update happens
-*/
-if (version_compare($roster->config['version'], '2.1.9.2414', '>')) 
-{
-	$roster->session = new Session();
-}
+
 
 /**
  * If the install directory or files exist, die()
