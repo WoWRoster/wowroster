@@ -67,7 +67,7 @@ $roster->tpl->assign_vars(array(
 	'L_DEFAULT_PAGE' => $l_default_page[0],
 	'L_DEFAULT_PAGE_HELP' => makeOverlib($l_default_page[1],$l_default_page[0],'',0,'',',WRAP'),
 
-	'S_DEFAULT_SELECT' => pageNames(),
+	'S_DEFAULT_SELECT' => pageNames(array('name'=>'default_page')),
 	)
 );
 
