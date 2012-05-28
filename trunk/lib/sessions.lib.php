@@ -86,7 +86,7 @@ class Session
 		//$roster->db->free_result($resultd);
 		$this->trackerID= (isset($this->uuid) ? $this->uuid : $roster->auth->getUUID() );
 		$_COOKIE['wrsid'] = session_id();
-		$aquery="SELECT `session_id` FROM `".$roster->db->table('sessions')."` WHERE `session_id`='".session_id()."'";
+		$aquery="SELECT `session_user_id` FROM `".$roster->db->table('sessions')."` WHERE `session_user_id`='".$roster->auth->uid."'";
 
 		$aresult = $roster->db->query($aquery);
 		$rows = $roster->db->num_rows($aresult);
@@ -96,7 +96,7 @@ class Session
 		print_r($rec);
 		echo '</pre>';
 		*/
-		if(isset($rec['session_id']) && $rec['session_id'] == session_id())
+		if(isset($rec['session_user_id']))
 		{
 
 			$page = implode('-',$roster->pages);
@@ -353,10 +353,20 @@ class Session
 	}
 	function endSession($uid="")
 	{
+		global $roster;
 		if($uid=="")
-			$uid=$this->trackerID;
-		$query="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_zsause`='".$uid."'";
+			$uid=$this->getuserid();
+		$query="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_user_id`='".$uid."'";
 		$roster->db->query($query);
+		$params = session_get_cookie_params();
+		setcookie(session_name(), '', time() - 42000,
+			$params["path"], $params["domain"],
+			$params["secure"], $params["httponly"]
+		);
+
+		// Finally, destroy the session.
+		session_destroy();
+
 	}
 	function get_preg_expression($mode)
 	{

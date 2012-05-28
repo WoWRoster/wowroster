@@ -56,6 +56,7 @@ class RosterLogin
 		$this->setAction($script_filename);
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
+			$this->endSession($this->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']));
 			setcookie('roster_user',     NULL, time() - (60*60*24*30*100));
 			setcookie('roster_u',        '0',  time() + (60*60*24*30));
 			setcookie('roster_k',        NULL, time() - (60*60*24*30*100));
@@ -66,7 +67,7 @@ class RosterLogin
 			$this->allow_login = false;
 			$this->valid = 0;
 			$this->uid = 0;
-			//$roster->sessions->endSession()
+			//
 			$this->message = $roster->locale->act['logged_out'] . $this->getLoginForm();
 			$this->getLoginForm();
 		}
@@ -92,7 +93,26 @@ class RosterLogin
 			setcookie('roster_remember', NULL, time() - (60*60*24*30*100));
 		}
 	}
+	function endSession($uid=null)
+	{
+		global $roster;
+		if($uid=="")
+		{
+			$uid=$this->getuserid();
+		}
+		$query="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_user_id`='".$uid."'";
+		$roster->db->query($query);
+		$params = session_get_cookie_params();
+		setcookie(session_name(), '', time() - 42000,
+			$params["path"], $params["domain"],
+			$params["secure"], $params["httponly"]
+		);
 
+		// Finally, destroy the session.
+		session_destroy();
+
+	}
+	
 	function checkPass( $pass, $user,$createsession )
 	{
 		global $roster;
