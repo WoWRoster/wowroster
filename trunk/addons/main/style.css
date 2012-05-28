@@ -44,6 +44,7 @@
 }
 #main.tier-1-a {
   margin: 0;
+  width:100%;
 }
 
 #main div.menu-login {
@@ -58,7 +59,7 @@
 }
 
 #right {
-  width: 250px;
+  width: 255px;
   margin-left: 660px;
   position: relative;
 }
@@ -122,7 +123,7 @@ td.mybackground{
   z-index: 20; position: relative; width: 640px; height: 300px;
 }
 #slideshow .mask {
-  z-index: 34; position: relative; width: 640px; height: 300px; top: 0px; cursor: pointer; left: 0px;
+  z-index: 250; position: relative; width: 640px; height: 300px; top: 0px; cursor: pointer; left: 0px;
   background: url(images/slideshow-mask.png) no-repeat 0px 0px;
   width: 640px;
 }
