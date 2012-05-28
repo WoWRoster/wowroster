@@ -7,7 +7,7 @@ if ( !defined('IN_ROSTER') )
 
 if (isset($_POST['op']) && $_POST['op'] == 'upload')
 {
-	$target_path = ROSTER_BASE.$addon['image_path'].basename( $_FILES['b_image']['name']);
+	$target_path = $addon['image_path'].basename( $_FILES['b_image']['name']);
 	if(move_uploaded_file($_FILES['b_image']['tmp_name'], $target_path))
 	{
 		$roster->set_message("The file ".basename( $_FILES['b_image']['name'])." has been uploaded <br> To the banners Directory");

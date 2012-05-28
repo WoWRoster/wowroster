@@ -5,7 +5,7 @@ roster_add_js('addons/'. $addon['basename'] . '/js/jquery.easing.1.3.js');
 roster_add_js('addons/'. $addon['basename'] . '/js/camera.min.js');
 
 roster_add_css($addon['dir'] . 'styles.css');
-roster_add_css($addon['dir'] . 'camera.css');
+//roster_add_css($addon['dir'] . 'camera.css');
 include_once($addon['inc_dir'].'functions.lib.php');
 $func = New mainFunctions;
 
@@ -284,8 +284,7 @@ if (count($banner_js) > 0) {
 	$camera = "jQuery(function(){
 			
 			jQuery('#camera_wrap_1').camera({
-				thumbnails: true,
-				pagination: true
+				pagination: true,
 			});
 
 		});";
