@@ -253,7 +253,7 @@ while( $rowb = $roster->db->fetch($resultsb) )
 	$roster->tpl->assign_block_vars('slider', array(
 		'DESC' 	=> $rowb['b_desc'],
 		'URL'		=> $rowb['b_url'],
-		'IMAGE'	=> $addon['url_path'] .'images/'. $rowb['b_image'],
+		'IMAGE'	=> $addon['url_path'] .'images/slider-'. $rowb['b_image'],
 		'TIMAGE'	=> $addon['url_path'] .'images/thumb-'. $rowb['b_image'],
 		'ID'		=> $rowb['b_id'],
 		'TITLE'	=> $rowb['b_title'],
