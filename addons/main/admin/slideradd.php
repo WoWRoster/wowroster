@@ -69,7 +69,7 @@ if (isset($_POST['op']) && $_POST['op'] == 'upload')
 		//$extension = substr(basename( $_FILES['b_image']['name']), strrpos(basename( $_FILES['b_image']['name']), '.')+1);
 		$filename = basename( $_FILES['b_image']['name']);
 		image_resize($target_path, $path."thumb-".$filename, 100, 47, 1);
-		
+		image_resize($target_path, $path."slider-".$filename, 600, 300, 1);		
 
 		$query = "INSERT INTO `" . $roster->db->table('slider', $addon['basename']) . "` SET "
 			. "`b_title` = '" . $_POST['b_title'] . "', "
