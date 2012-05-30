@@ -85,6 +85,7 @@ abstract class guild_rep_function
 		{
 			$img = array(
 				'999' => 'exalted',
+				'1000' => 'exalted',
 				'21000' => 'revered',
 				'12000' => 'honored',
 				'6000' => 'friendly',
