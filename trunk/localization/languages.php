@@ -43,7 +43,7 @@ $creditspage['devs'] = array(
 			array(	'name'=>	'Zanix',
 					'info'=>	'Coordinator, Site Admin, Author of SigGen, UniAdmin'),
 			array(	'name'=>	'Ulminia',
-					'info'=>	'Lead Developer, Roster&lt;%gt;Blizzard API, WoWRoster-Profiler'),
+					'info'=>	'Lead Developer, Roster&lt;&gt;Blizzard API, WoWRoster-Profiler'),
 			array(	'name'=>	'Nefuh',
 					'info'=>	'Admin of <a href="http://www.wowroster.de" target="_blank">WoWRoster.de</a>, German Translator, German Documentation'),
 			array(	'name'=>	'bsmorgan',

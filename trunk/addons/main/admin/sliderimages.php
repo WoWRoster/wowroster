@@ -80,7 +80,7 @@ while( $row = $roster->db->fetch($result) )
 		'B_ACTIVEI'  => ( $row['b_active'] == 1 ? 'green' : 'yellow'),
 		'B_ACTIVET'  => ( $row['b_active'] == 1 ? $roster->locale->act['active'] : $roster->locale->act['inactive']),
 		'B_ACTIVEOP' => ( $row['b_active'] == 1 ? 'deactivate' : 'activate'),
-		'B_IMAGE'    => $addon['url_path'] .'images/'. $row['b_image'],
+		'B_IMAGE'    => $addon['url_path'] .'images/thumb-'. $row['b_image'],
 		)
 	);
 }
