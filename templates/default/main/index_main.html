@@ -4,26 +4,30 @@
 
 				<div id="left">
 					<div class="tier-2-a">
-						<div class="tier-2-b">
+						<div class="tier-2-b camera_block">
 
 							<div class="camera">
-								<div class="camera_wrap camera_azure_skin" id="camera_wrap_1">
-<!-- BEGIN banners -->
-									<div data-thumb="{banners.B_IMAGE}" data-src="{banners.B_IMAGE}">
+								<div class="camera_wrap {SLIDER_SKIN}" id="camera_wrap_1">
+<!-- BEGIN slider -->
+									<div data-thumb="{slider.IMAGE}" data-src="{slider.IMAGE}">
 										<div class="camera_caption">
-											{banners.B_TITLE}<br /><em>{banners.B_DESC}</em>
+											{slider.TITLE}<br />
+											<em>{slider.DESC}</em>
 										</div>
 									</div>
-<!-- END banners -->
+<!-- END slider -->
 								</div>
 							</div>
+						</div>
+					</div>
+
 
 							<div class="homepage-news-wrapper">
 								<div id="news-updates">
 <!-- IF S_ADD_NEWS -->
-										<div class="right">
-											<a class="input" href="{U_ADD_NEWS}"><!-- TRANSLATE add_news --></a>
-										</div>
+									<div class="right">
+										<a class="input" href="{U_ADD_NEWS}"><span class="ui-icon ui-icon-plus"></span><!-- TRANSLATE add_news --></a>
+									</div>
 <!-- ENDIF -->
 
 <!-- BEGIN news -->
@@ -37,7 +41,7 @@
 												{news.TITLE}
 <!-- IF S_EDIT_NEWS -->
 													<div class="right">
-														<a class="input" href="{news.U_EDIT}"><!-- TRANSLATE edit --></a>
+														<a class="input" href="{news.U_EDIT}"><span class="ui-icon ui-icon-pencil"></span><!-- TRANSLATE edit --></a>
 													</div>
 <!-- ENDIF -->
 											</div>
@@ -63,8 +67,7 @@
 
 								</div>
 							</div>
-						</div>
-					</div>
+
 				</div>
 
 				<div id="right">

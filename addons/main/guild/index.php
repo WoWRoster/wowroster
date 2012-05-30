@@ -1,11 +1,9 @@
 <?php
 
-// roster_add_js('addons/'. $addon['basename'] . '/js/slideshow.js');
-roster_add_js('addons/'. $addon['basename'] . '/js/jquery.easing.1.3.js');
-roster_add_js('addons/'. $addon['basename'] . '/js/camera.min.js');
+roster_add_js($addon['url'] . 'js/jquery.easing.1.3.js');
+roster_add_js($addon['url'] . 'js/camera.min.js');
 
-roster_add_css($addon['dir'] . 'styles.css');
-// roster_add_css($addon['dir'] . 'camera.css');
+roster_add_css($addon['tpl_url'] . 'camera.css');
 
 include_once($addon['inc_dir'] . 'functions.lib.php');
 $func = New mainFunctions;
@@ -188,7 +186,7 @@ $roster->db->free_result($result);
 
 $online = '<div class="whos-online">
 	<span class="left">Total:</span>
-	<span class="right">'.($logged_visible_online+$guests_online).'</span>
+	<span class="right">'. ($logged_visible_online + $guests_online) .'</span>
 </div>
 <hr />
 <div class="whos-online">
@@ -228,12 +226,12 @@ foreach($func->block as $id => $info)
 }
 // end plugins
 
-$queryb = "SELECT * FROM `" . $roster->db->table('banners', $addon['basename']) . "` WHERE `b_active` = '1' ORDER BY `id` DESC;";
+$queryb = "SELECT * FROM `" . $roster->db->table('slider', $addon['basename']) . "` WHERE `b_active` = '1' ORDER BY `id` DESC;";
 $resultsb = $roster->db->query($queryb);
 $num = 1;
 $total = $roster->db->num_rows($resultsb);
 
-$banner_js = array();
+$slider_js = array();
 
 $x = $y = '';
 while( $rowb = $roster->db->fetch($resultsb) )
@@ -252,33 +250,48 @@ while( $rowb = $roster->db->fetch($resultsb) )
 		$y = $rowb['b_desc'];
 	}
 
-		$roster->tpl->assign_block_vars('banners', array(
-			'B_DESC' 	=> $rowb['b_desc'],
-			'B_URL'		=> $rowb['b_url'],
-			'B_IMAGE'	=> $addon['url_path'].'images/'.$rowb['b_image'],
-			'B_ID'		=> $rowb['b_id'],
-			'B_TITLE'	=> $rowb['b_title'],
-			'B_NUM'		=> $num,
-			'B_NUMX'	=> $num-1,
-			'B_END'		=> $e,
-			'B_TOTAL'	=> $total
-		));
+	$roster->tpl->assign_block_vars('slider', array(
+		'DESC' 	=> $rowb['b_desc'],
+		'URL'		=> $rowb['b_url'],
+		'IMAGE'	=> $addon['url_path'] .'images/'. $rowb['b_image'],
+		'ID'		=> $rowb['b_id'],
+		'TITLE'	=> $rowb['b_title'],
+		'NUM'		=> $num,
+		'NUMX'	=> $num - 1,
+		'END'		=> $e,
+		'TOTAL'	=> $total
+	));
 	$num++;
 }
 
-$camera_js = "$(function() {
-	$('#camera_wrap_1').camera({
-		thumbnails: true,
-		pagination: true,
-	});
-});";
+$camera_js_config = array();
+$camera_js_config2 = array();
+foreach ($addon['config'] as $key => $value) {
+	if (strpos($key, 'slider_') !== 0 || $key == 'slider_skin') {
+		continue;
+	}
 
-roster_add_js($camera_js, 'inline', 'header', false, false);
+	$key = str_replace('slider_',	'', $key);
+
+
+	if (!is_numeric($value) && $value != 'true' && $value != 'false') {
+		$value = "'$value'";
+	}
+
+	$camera_js_config[] = "$key:$value";
+}
+
+$camera_js = '$(function() {
+$(\'#camera_wrap_1\').camera({'. implode(',', $camera_js_config) .'});
+});';
+
+roster_add_js($camera_js, 'inline', 'footer', false, false);
 
 unset($queryb);
 $roster->db->free_result($resultsb);
 
 $roster->tpl->assign_vars(array(
+  'SLIDER_SKIN' => $addon['config']['slider_skin'],
 	'FIRST1'      => $x,
 	'FIRST2'      => $y,
 	'S_ADD_NEWS'  => $roster->auth->getAuthorized($addon['config']['news_add']),

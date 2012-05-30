@@ -1272,7 +1272,7 @@ input.colorinput {
 .ui-widget { font-size:10px; }
 .ui-icon { display: inline-block; width: 14px; height: 14px; }
 input.ui-button,
-.ui-button-text-only .ui-button-text { padding: .2em 1em; }
+.ui-button-text-only .ui-button-text { padding: .2em .7em; }
 .ui-button-text-icon-primary .ui-button-text,
 .ui-button-text-icons .ui-button-text { padding: .2em 1em .2em 2.1em; }
 .ui-buttonset .ui-button { margin-right: -.4em; }

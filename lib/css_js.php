@@ -314,11 +314,13 @@ function roster_get_css($css = NULL) {
 			foreach ($types[$type] as $file => $preprocess) {
 				// If the theme supplies its own style using the name of the module style, skip its inclusion.
 				// This includes any RTL styles associated with its main LTR counterpart.
+/* Brokey broke
 				if ($type == 'module') {
 					// Unset the file to prevent its inclusion when CSS aggregation is enabled.
 					unset($types[$type][$file]);
 					continue;
 				}
+*/
 				// Only include the stylesheet if it exists.
 				if (file_exists(ROSTER_BASE . $file)) {
 					if (!$preprocess || !($is_writable && $preprocess_css)) {

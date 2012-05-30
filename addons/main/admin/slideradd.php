@@ -1,5 +1,5 @@
 <?php
-	
+
 if ( !defined('IN_ROSTER') )
 {
     exit('Detected invalid access to this file!');
@@ -7,12 +7,11 @@ if ( !defined('IN_ROSTER') )
 
 if (isset($_POST['op']) && $_POST['op'] == 'upload')
 {
-	$target_path = $addon['image_path'].basename( $_FILES['b_image']['name']);
+	$target_path = $addon['dir'] .'images'. DIR_SEP . basename( $_FILES['b_image']['name']);
 	if(move_uploaded_file($_FILES['b_image']['tmp_name'], $target_path))
 	{
-		$roster->set_message("The file ".basename( $_FILES['b_image']['name'])." has been uploaded <br> To the banners Directory");
-		
-		$query = "INSERT INTO `" . $roster->db->table('banners',$addon['basename']) . "` SET "
+
+		$query = "INSERT INTO `" . $roster->db->table('slider', $addon['basename']) . "` SET "
 			. "`b_title` = '" . $_POST['b_title'] . "', "
 			. "`b_desc` = '" . $_POST['b_desc'] . "', "
 			. "`b_url` = '" . $_POST['b_url'] . "', "
@@ -20,26 +19,27 @@ if (isset($_POST['op']) && $_POST['op'] == 'upload')
 
 		if( $roster->db->query($query) )
 		{
-			$roster->set_message($roster->locale->act['banner_add_success']);
+			$roster->set_message(sprintf($roster->locale->act['slider_add_success'], basename( $_FILES['b_image']['name'])));
 		}
 		else
 		{
-			$roster->set_message('There was a DB error while adding the article.', '', 'error');
+			unlink($target_path);
+			$roster->set_message($roster->locale->act['slider_error_db'], '', 'error');
 			$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 		}
 	}
 	else
 	{
-		$roster->set_message( ' your upload was Not completed dir "'.$target_path.'" not found', 'Add Banner', 'error' );
+		$roster->set_message(sprintf($roster->locale->act['slider_add_success'], $target_path), $roster->locale->act['b_add'], 'error');
 	}
 	//*/
 }
 
 
 
-$roster->tpl->set_handle('banners',$addon['basename'] . '/banneradd.html');
+$roster->tpl->set_handle('slider',$addon['basename'] . '/admin/slideradd.html');
 
-$body .= $roster->tpl->fetch('banners');
+$body .= $roster->tpl->fetch('slider');
 
 /**
  * Make our menu from the config api

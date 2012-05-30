@@ -324,13 +324,14 @@ $roster->tpl->assign_vars(array(
 	'T_BORDER_BLUE'   => border('sblue', 'start'),
 	'T_BORDER_END'    => border('sgray', 'end'),
 
-	'ROSTER_TOP'         => '',
-	'PAGE_TITLE'         => '',
-	'ROSTER_HEAD'        => '',
-	'ROSTER_HEAD_JS'     => roster_get_js(),
-	'ROSTER_HEAD_CSS'    => roster_get_css(),
-	'ROSTER_BODY'        => '',
-	'ROSTER_ONLOAD'      => ''
+	'ROSTER_SCOPE'    => 'util',
+	'PAGE_TITLE'      => 'WoWRoster',
+	'ROSTER_HEAD'     => '',
+	'ROSTER_HEAD_JS'  => '',
+	'ROSTER_HEAD_CSS' => '',
+	'ROSTER_BODY'     => '',
+	'ROSTER_ONLOAD'   => '',
+	'ROSTER_TOP'      => '',
 ));
 
 /**
@@ -348,7 +349,7 @@ if( (empty($roster->config['version']) || version_compare($roster->config['versi
 }
 /**
  * Cache plugin data
-	putting this here untill release.....
+* putting this here untill release.....
  */
 $roster->get_plugin_data();
 
