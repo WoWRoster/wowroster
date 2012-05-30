@@ -103,40 +103,44 @@ switch( $roster->scope )
  * Assign template vars
  */
 $roster->tpl->assign_vars(array(
-	// These are duplicated since there might be an error before settings.php finishes and sets these
-	'XML_LANG'        => substr($roster->config['locale'], 0, 2),
-	'ROSTER_URL'      => ROSTER_URL,
-	'ROSTER_PATH'     => ROSTER_PATH,
-	'S_HEADER_LOGO'   => (!empty($roster->config['logo']) ? true : false),
-	'WEBSITE_ADDRESS' => $roster->config['website_address'],
-	'U_MAKELINK'      => makelink(),
-	'HEADER_LOGO'     => $roster->config['logo'],
-	'IMG_URL'         => $roster->config['img_url'],
-	// End duplication
-	'ROSTER_SCOPE'    => $roster->scope,
-	//'PAGE_INFO' 	=> '',
-	'PAGE_TITLE'      => $roster_title,
-	'ROSTER_HEAD_JS'  => roster_get_js(),
-	'ROSTER_HEAD_CSS' => roster_get_css(),
-	'ROSTER_HEAD'     => $roster->output['html_head'],
-	'ROSTER_BODY'     => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');Background-attachment:fixed;"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
-	'ROSTER_ONLOAD'   => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
+	'S_SEO_URL'            => $roster->config['seo_url'],
+	'S_HEADER_LOGO'        => (!empty($roster->config['logo']) ? true : false),
+	'U_MAKELINK'           => makelink(),
+	'ROSTER_URL'           => ROSTER_URL,
+	'ROSTER_PATH'          => ROSTER_PATH,
+	'WEBSITE_ADDRESS'      => $roster->config['website_address'],
+	'HEADER_LOGO'          => $roster->config['logo'],
+	'IMG_URL'              => $roster->config['img_url'],
+	'INTERFACE_URL'        => $roster->config['interface_url'],
+	'IMG_SUFFIX'           => $roster->config['img_suffix'],
+	'ROSTER_VERSION'       => $roster->config['version'],
+	'ROSTER_CREDITS'       => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
+	'XML_LANG'             => substr($roster->config['locale'], 0, 2),
 
-	'L_MENU_LABEL'      => $roster->scope,
-	'L_MENU_LABEL_NAME' => $roster->locale->act[$roster->scope],
+	'ROSTER_SCOPE'         => $roster->scope,
+	'PAGE_TITLE'           => $roster_title,
+	'ROSTER_HEAD'          => $roster->output['html_head'],
+	'ROSTER_HEAD_JS'       => roster_get_js(),
+	'ROSTER_HEAD_CSS'      => roster_get_css(),
+	'ROSTER_BODY'          => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');Background-attachment:fixed;"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
+	'ROSTER_ONLOAD'        => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
+	'ROSTER_TOP'           => $roster->output['top'],
 
-	'S_LOCALE_SELECT'   => (bool)$roster->config['header_locale'],
-	'S_HEADER_SEARCH'   => (bool)$roster->config['header_search'],
-	'S_HEADER_LOGIN'    => (bool)$roster->config['header_login'],
-	'S_REALMSTATUS'     => (bool)$roster->config['rs_display'],
+	'L_MENU_LABEL'         => $roster->scope,
+	'L_MENU_LABEL_NAME'    => $roster->locale->act[$roster->scope],
 
-	'LOGIN_FORM'        => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
-	'REALMSTATUS'       => isset($roster->data['server']) ? makeRealmStatus() : '',
+	'S_LOCALE_SELECT'      => (bool)$roster->config['header_locale'],
+	'S_HEADER_SEARCH'      => (bool)$roster->config['header_search'],
+	'S_HEADER_LOGIN'       => (bool)$roster->config['header_login'],
+	'S_REALMSTATUS'        => (bool)$roster->config['rs_display'],
 
-	'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
+	'LOGIN_FORM'           => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
+	'REALMSTATUS'          => isset($roster->data['server']) ? makeRealmStatus() : '',
+
+	'FACTION'              => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 
 	'U_SEARCH_FORM_ACTION' => makelink('search'),
-	'U_MENU_UPDATE_LUA' => makelink('update')
+	'U_MENU_UPDATE_LUA'    => makelink('update')
 ));
 
 // Make a listing of our current locales
@@ -372,8 +376,8 @@ foreach( $roster->get_messages() as $type => $messages )
 	}
 }
 
-
-//*/ BETA ONLY, COMMENT THIS IN RC OR LATER!
+/*
+// BETA ONLY, COMMENT THIS IN RC OR LATER!
 if( file_exists(ROSTER_BASE . 'valid.inc') )
 {
 	$v_content = '';
@@ -384,7 +388,7 @@ if( file_exists(ROSTER_BASE . 'valid.inc') )
 	$roster->tpl->assign_var('ROSTER_TOP', $v_content);
 }
 // END BETA ONLY
-//*/
+*/
 $roster->tpl->set_handle('roster_header', 'header.html');
 $roster->tpl->display('roster_header');
 

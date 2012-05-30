@@ -28,7 +28,7 @@ class userInstall
 	var $version = '0.2.5';
 	var $wrnet_id = '0';
 
-	var $fullname = 'Guild User pages';
+	var $fullname = 'User Pages';
 	var $description = 'user registration, profile pages and more';
 	var $credits = array(
 		array(	"name"=>	"Ulminia",
@@ -46,11 +46,11 @@ class userInstall
 		global $installer;
 
 		//begin the magic of user settings
-		
+
 		/**
 		*	Tables
 		**/
-		
+
 		$installer->create_table($installer->table('profile'),"
 			`uid` INT(11) NOT NULL,
 			`signature` varchar(255) NOT NULL,
@@ -109,11 +109,11 @@ class userInstall
 		$installer->add_config("8109,'zone_auth','0','radio{On^1|Off^0','usr_config'");
 
 		/**
-		* Master and menu entries 
+		* Master and menu entries
 		**/
 		$installer->add_menu_button('menu_register','user','register','inv_misc_bag_26_spellfire');
 		$installer->add_menu_button('user_menu_chars','user','chars','spell_holy_divinespirit');
-		$installer->add_menu_button('user_menu_guilds','user','guilds','inv_misc_tabardpvp_02'); 
+		$installer->add_menu_button('user_menu_guilds','user','guilds','inv_misc_tabardpvp_02');
 		$installer->add_menu_button('user_menu_realms','user','realms','spell_holy_lightsgrace');
 		$installer->add_menu_button('user_menu_mail','user','mail','inv_letter_11');
 		$installer->add_menu_button('user_menu_settings','user','settings','inv_misc_wrench_02');

@@ -265,7 +265,7 @@ class APrint {
 		// find caller
 		$_ = debug_backtrace();
 		while ($d = array_pop($_)) {
-			if ((strtolower(@$d['function']) == 'aprint') || (strtolower(@$d['class']) == 'aprint')) {
+			if ((strtolower(@$d['function']) == 'aprint') || (isset($d['class']) && (strtolower(@$d['class']) == 'aprint'))) {
 				break;
 			}
 		}
@@ -482,7 +482,7 @@ JSCRIPT;
 			$_recursion_marker = APrint::_marker();
 			(is_object($bee))
 				? @($bee->$_recursion_marker++)
-				: @($bee[$_recursion_marker]++);
+				: (isset($bee[$_recursion_marker]) ? @($bee[$_recursion_marker]++) : ($bee[$_recursion_marker] = 0));
 
 			$_[0][] =& $bee;
 		}
@@ -505,7 +505,9 @@ JSCRIPT;
 		// test for references in order to
 		// prevent endless recursion loops
 		$_recursion_marker = APrint::_marker();
-		$_r = (($_is_object) ? @$data->$_recursion_marker : @$data[$_recursion_marker]);
+		$_r = (($_is_object)
+		  ? @$data->$_recursion_marker
+		  : isset($data[$_recursion_marker]) ? @$data[$_recursion_marker] : 0);
 		$_r = (integer)$_r;
 
 		// recursion detected

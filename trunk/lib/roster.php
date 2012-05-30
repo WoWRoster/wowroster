@@ -106,7 +106,8 @@ class roster
 		'html_head'   => '',
 		'body_attr'   => '',
 		'body_onload' => '',
-		'before_menu' => ''
+		'before_menu' => '',
+		'top' => '',
 	);
 
 	/**
@@ -588,7 +589,7 @@ class roster
 			$this->addon_data[$row['basename']] = $row;
 		}
 	}
-	
+
 	function get_plugin_data( )
 	{
 		$query = "SELECT * FROM `" . $this->db->table('plugin') . "` ORDER BY `basename`;";
@@ -599,7 +600,7 @@ class roster
 			$this->plugin_data[$row['basename']] = $row;
 		}
 	}
-	
+
 
 	/**
 	 * Set a message which reflects the status of the performed operation.

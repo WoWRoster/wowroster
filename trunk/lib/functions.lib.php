@@ -185,7 +185,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		if( $roster->config['debug_mode'] == 2 )
 		{
 			echo "<tr>\n<td class=\"membersRow1\" style=\"white-space:normal;\">";
-			echo  backtrace();
+			echo  APrint::backtrace();
 			echo "</td>\n</tr>\n";
 		}
 
@@ -282,84 +282,11 @@ function ajax_die($text, $title, $file, $line, $sql)
 
 
 /**
- * Print a debug backtrace. This works in PHP4.3.x+, there is an integrated
- * function for this starting PHP5 but I prefer always having the same layout.
+ * Print a debug backtraceusing aprint::backtrace().
  */
 function backtrace()
 {
-	$bt = debug_backtrace();
-
-	$output = "<strong>Backtrace</strong> (most recent call last):<ul>\n";
-	for( $i = 0; $i <= count($bt) - 1; $i++ )
-	{
-		if( !isset($bt[$i]['file']) )
-		{
-			$output .= "<li>[PHP core called function]<ul>\n";
-		}
-		else
-		{
-			$output .= '<li>' . str_replace(ROSTER_BASE,'',$bt[$i]['file']) . "<ul>\n";
-		}
-
-		if( isset($bt[$i]['line']) )
-		{
-			$output .= '<li>Line: ' . $bt[$i]['line'] . "</li>\n";
-		}
-		$output .= '<li>Function Called: ' . $bt[$i]['function'] . "</li>\n";
-
-		if( $bt[$i]['args'] )
-		{
-			$output .= '<li>Arguments:<ul>';
-			for( $j = 0; $j <= count($bt[$i]['args']) - 1; $j++ )
-			{
-				if( is_array($bt[$i]['args'][$j]) )
-				{
-					$output .= '<li>Array(<ul>';
-					foreach( $bt[$i]['args'][$j] as $key => $value )
-					{
-						if( is_array( $value ) )
-						{
-							$output .= '<li>' . $key . ' => array</li>';
-						}
-						elseif( is_object( $value ) )
-						{
-							$output .= '<li>' . $key . ' => ' . get_class( $value ) . ' object</li>';
-						}
-						elseif( is_null( $value ) )
-						{
-							$output .= '<li>' . $key . ' => <i>NULL</i></li>';
-						}
-						else
-						{
-							$output .= '<li>' . $key . ' => ' . $value . '</li>';
-						}
-					}
-					$output .= "</ul></li>\n";
-				}
-				elseif( is_object($bt[$i]['args'][$j]) )
-				{
-					$output .= "<li>" . get_class($bt[$i]['args'][$j]) . " object</li>\n";
-				}
-				elseif( is_null($bt[$i]['args'][$j]) )
-				{
-					$output .= "<li><i>NULL</i></li>\n";
-				}
-				elseif( empty($bt[$i]['args'][$j]) )
-				{
-					$output .= "<li>&nbsp;</li>\n";
-				}
-				else
-				{
-					$output .= '<li>' . $bt[$i]['args'][$j] . "</li>\n";
-				}
-			}
-			$output .= "</ul></li>\n";
-		}
-		$output .= "</ul></li>\n";
-	}
-	$output .= "</ul>\n";
-
-	return $output;
+	return APrint::backtrace();
 }
 
 /**
