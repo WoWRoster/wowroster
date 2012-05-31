@@ -25,7 +25,7 @@ class mainInstall
 	var $active = true;
 	var $icon = 'ability_warrior_rallyingcry';
 
-	var $version = '0.2.5';
+	var $version = '0.2.6';
 	var $wrnet_id = '0';
 
 	var $fullname = 'WoWRoster Portal';
@@ -101,10 +101,10 @@ class mainInstall
 
 
 		$installer->create_table($installer->table('config'),"
-      `guild_id` int(11) unsigned NOT NULL DEFAULT '0',
-      `config_name` varchar(64) NOT NULL DEFAULT '',
-      `config_value` varchar(225) NOT NULL DEFAULT '',
-      PRIMARY KEY (`guild_id`,`config_name`)");
+			`guild_id` int(11) unsigned NOT NULL DEFAULT '0',
+			`config_name` varchar(64) NOT NULL DEFAULT '',
+			`config_value` varchar(225) NOT NULL DEFAULT '',
+			PRIMARY KEY (`guild_id`,`config_name`)");
 
 		$installer->create_table($installer->table('blocks'),"
 			`guild_id` int(11) unsigned NOT NULL DEFAULT '0',
@@ -120,6 +120,7 @@ class mainInstall
 			`b_url` varchar(255) NOT NULL DEFAULT '#',
 			`b_title` varchar(255) DEFAULT NULL,
 			`b_active` int(10) DEFAULT NULL,
+			`b_video` int(10) DEFAULT NULL,
 			PRIMARY KEY (`id`)");
 
 		$installer->create_table($installer->table('news'),"
@@ -165,20 +166,27 @@ class mainInstall
 		{
 			// Old sliders table
 			$installer->drop_table($installer->table('banners'));
-
 			$installer->drop_table($installer->table('config'));
 			$installer->drop_table($installer->table('blocks'));
 			$installer->drop_table($installer->table('slider'));
 			$installer->drop_table($installer->table('news'));
-      $installer->remove_all_config();
+			$installer->remove_all_config();
 
-      $installer->remove_all_menu_button();
-      $this->install();
-      $roster->set_message('All settings were cleared, you must reconfigure WoWRoster Portal options, sorry.', 'CMS News Page');
+			$installer->remove_all_menu_button();
+			$this->install();
+			$roster->set_message('All settings were cleared, you must reconfigure WoWRoster Portal options, sorry.', 'CMS News Page');
 
-      return true;
-    }
+			return true;
+		}
+		
+		if( version_compare('0.2.6', $oldversion,'>') == true )
+		{
 
+			$installer->add_query("ALTER TABLE `" . $installer->table('slider') . "` ADD `b_video` INT( 10 ) DEFAULT '0' AFTER  `b_active`");
+				
+			return true;
+		}
+		
 		return true;
 	}
 
