@@ -41,6 +41,7 @@ $lang['b_url']    = 'Link';
 $lang['b_image']  = 'Image File';
 $lang['b_add']    = 'Add Slider Image';
 $lang['b_upload'] = 'Upload a Slider Image';
+$lang['b_video'] = 'Video';
 
 $lang['news_edit_success']     = 'Article édité avec succès';
 $lang['news_add_success']      = 'Article ajouté avec succès';
