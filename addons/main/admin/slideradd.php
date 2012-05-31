@@ -12,14 +12,15 @@ if (isset($_POST['op']) && $_POST['op'] == 'upload')
 	$filename = basename( $_FILES['b_image']['name']);
 	$target_path = $addon['dir'] .'images'. DIR_SEP . basename( $_FILES['b_image']['name']);
 	$path = $addon['dir'] .'images'. DIR_SEP;
-	$slider = $path."slider-".$filename;
-	$thumb = $path."thumb-".$filename;
+	$slider = $path .'slider-'. $filename;
+	$thumb = $path .'thumb-'. $filename;
+
 	if(move_uploaded_file($_FILES['b_image']['tmp_name'], $target_path))
 	{
 		//$extension = substr(basename( $_FILES['b_image']['name']), strrpos(basename( $_FILES['b_image']['name']), '.')+1);
-		
+
 		$func->image_resize($target_path, $thumb, 100, 47, 1);
-		$func->image_resize($target_path, $slider, 600, 300, 1);		
+		$func->image_resize($target_path, $slider, 600, 300, 1);
 
 		$query = "INSERT INTO `" . $roster->db->table('slider', $addon['basename']) . "` SET "
 			. "`b_title` = '" . $_POST['b_title'] . "', "
