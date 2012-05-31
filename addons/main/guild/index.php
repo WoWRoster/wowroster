@@ -249,14 +249,14 @@ while( $rowb = $roster->db->fetch($resultsb) )
 		$x = $rowb['b_title'];
 		$y = $rowb['b_desc'];
 	}
-	$target_path = $addon['url_path'] .'images/'. $rowb['b_image'];
-	if (!file_exists($addon['url_path'] .'images/slider-'. $rowb['b_image']) )
+	$target_path = $addon['dir'] .'images/'. $rowb['b_image'];
+	if (!file_exists($addon['dir'] .'images/slider-'. $rowb['b_image']) )
 	{
-		$func->image_resize($target_path, $addon['url_path'] .'images/slider-'. $rowb['b_image'], 600, 300, 1);
+		$func->image_resize($target_path, $addon['dir'] .'images/slider-'. $rowb['b_image'], 600, 300, 1);
 	}
-	if (!file_exists($addon['url_path'] .'images/thumb-'. $rowb['b_image']) )
+	if (!file_exists($addon['dir'] .'images/thumb-'. $rowb['b_image']) )
 	{
-		$func->image_resize($target_path, $addon['url_path'] .'images/thumb-'. $rowb['b_image'], 100, 47, 1);	
+		$func->image_resize($target_path, $addon['dir'] .'images/thumb-'. $rowb['b_image'], 100, 47, 1);	
 	}
 
 	$roster->tpl->assign_block_vars('slider', array(
