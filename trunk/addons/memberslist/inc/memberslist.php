@@ -249,6 +249,7 @@ class memberslist
 		}
 
 		// --[ Get number of rows ]--
+		$num_rows = null;
 		if( $this->addon['config']['page_size'] > 0 )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
