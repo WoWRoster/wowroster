@@ -57,11 +57,20 @@ function sliderEasing($values) {
 
   $input_field = '<select name="config_' . $values['name'] . '">' . "\n";
 
-  $select_one = 1;
+  // create a 'none' value
+  if ($values['value'] == '') {
+    $input_field .= '  <option value="" selected="selected">none</option>' . "\n";
+    $not_selected = FALSE;
+  }
+  else {
+    $input_field .= '  <option value="">none</option>' . "\n";
+    $not_selected = TRUE;
+  }
+
   foreach ($easing as $value) {
-    if ($value == $values['value'] && $select_one) {
+    if ($value == $values['value'] && $not_selected) {
       $input_field .= '  <option value="' . $value . '" selected="selected">' . $value . '</option>' . "\n";
-      $select_one = 0;
+      $not_selected = FALSE;
     }
     else {
       $input_field .= '  <option value="' . $value . '">' . $value . '</option>' . "\n";
@@ -162,11 +171,11 @@ function sliderSkin($values) {
 
   $input_field = '<select name="config_' . $values['name'] . '">' . "\n";
 
-  $select_one = 1;
+  $not_selected = TRUE;
   foreach ($skin as $value) {
-    if ($value == $values['value'] && $select_one) {
+    if ($value == $values['value'] && $not_selected) {
       $input_field .= '  <option value="' . $value . '" selected="selected">' . $value . '</option>' . "\n";
-      $select_one = 0;
+      $not_selected = FALSE;
     }
     else {
       $input_field .= '  <option value="' . $value . '">' . $value . '</option>' . "\n";
