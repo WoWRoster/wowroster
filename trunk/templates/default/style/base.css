@@ -1281,6 +1281,7 @@ select:focus { outline: none; }
 .ui-helper-hidden-accessible { top: 0; }
 
 .ui-multiselect { padding: 2px 0 1px 4px; }
+.ui-multiselect-checkboxes { overflow-y:auto }
 
 .ui-selectmenu { height: 1.8em; width:100%; }
 .ui-selectmenu:focus { outline: none; }
