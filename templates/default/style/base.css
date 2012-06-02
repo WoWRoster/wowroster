@@ -1283,7 +1283,8 @@ select:focus { outline: none; }
 .ui-multiselect { padding: 2px 0 1px 4px; }
 .ui-multiselect-checkboxes { overflow-y:auto }
 
-.ui-selectmenu { height: 1.8em; width:100%; }
+.ui-selectmenu { height: 1.8em; }
+.ui-selectmenu-menu { z-index: 1005 !important; }
 .ui-selectmenu:focus { outline: none; }
 .ui-selectmenu-status { line-height: 1.0em; }
 .ui-selectmenu-open li.ui-selectmenu-item-selected { border: 1px solid #655e4e; background: #fff8e1 url(../images/ui-bg_gloss-wave_80_fff8e1_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #4c3000; }
