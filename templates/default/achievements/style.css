@@ -1,5 +1,17 @@
 @charset "utf-8";
 
+.rp-0 { background:url('images/achievement_locked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
+.rp-1 { background:url('images/achievement_unlocked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
+.rp-2 { border:1px solid #fff; padding:7px 7px 6px; } 
+.rp-info { font: 14px Georgia, "Times New Roman", Times, serif; color: #000; text-align: center; }
+.rp-info .name { font-size: 18px; font-weight: bold; color: #361701; margin-bottom: 5px; }
+.rp-info .desc { font-size: 12px; color: #000; }
+.rp-icon { color:#135E82; float: left; margin-right: 10px; }
+.rp-icon .icon { height: 64px; width: 124px; float: left; position: relative; }
+.rp-icon .icon img { height: 64px; width: 124px; }
+
+
+.skill-icon { float:left; margin-right: 2px; width: 18px; height: 18px; }
 
 .achievement-0 { background:url('images/achievement_locked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .achievement-1 { background:url('images/achievement_unlocked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
@@ -21,22 +33,54 @@
 .achievement-info .desc { font-size: 12px; color: #000; }
 .achievement-info .date { font-size: 12px; font-weight: bold; color: #030; }
 
-
+.unlocked {
+	BACKGROUND: url(images/arrow-unlocked.gif) no-repeat 0px 3px; COLOR: #1eff00;
+}
 
 
 .achievements { background:url(images/achv_bg.jpg) 18px 0 repeat-y; padding-left:19px; font-family:Calibri, Trebuchet MS, Arial; clear:both;}
 .achievements .selected {  }
 .achievements .criteria { display:none; text-align:left; padding:0; }
-.achievements .category-root .selected ul, .achievements .selected .criteria { display:block }
-.achievements .category-root ul { display:none }
 
-.achievements a, .achievements a:link, , .achievements a:active, .achievements a:visited { color:inherit }
-
+/*
+//.achievements a, .achievements a:link, , .achievements a:active, .achievements a:visited { color:inherit }
+*/
 .achv_bdr { line-height:8px;}
+.achv_bdr_top{ line-height:8px;}
 .achv_lnav { background:url(images/achv_lnav_bg.jpg) repeat-y; width:174px; float:left; margin-top:10px; }
 .achievements .achv_lnav a { display:block; padding-left:24px; text-decoration:none !important;  color:#5b3906; line-height:22px; }
 .achv_lnav a:hover { background:url(images/h_sel_bg.jpg) right repeat-y; color:#5b3906; }
+
+.achievements .achv_lnav.toggle.toggler.link a { display:block; padding-left:24px; text-decoration:none !important;  color:#EAC117; line-height:22px; }
+.achv_lnav.toggle.toggler.link a:hover { background:url(images/h_sel_bg.jpg) right repeat-y; color:#EAC117; }
+#xxlinkxx {color:#ffe46c;}
+#xxlinkxx a:hover { background:url(images/h_sel_bg.jpg) right repeat-y; color:#5b3906; }
 .achv_lnav .selected a { background:url(images/achv_lnav_sel.gif) right no-repeat; color:#ffe46c; }
+
+
+
+#rp_menu ul{
+margin:0;
+padding:0 0 0 10px;
+background:url(images/achv_lnav_bg.jpg) repeat-y;
+list-style-type:none;
+list-style-position:outside;
+width:165px; float:left;
+position:relative;
+line-height:22px;
+}
+#rp_menu ul li { color:#e7d6b8; margin:1px 5px 1px 5px;text-indent:5px;width:158px;}
+#rp_menu ul li.selected { background:url(images/achv_lnav_sel.gif);text-indent:5px;width:158px;color:#EAC117;}
+#rp_menu ul li a { background:none;zoom:1; }
+#rp_menu ul li a:hover { display:block;color:white; background:url(images/achv_cat_hover.png) right repeat-y;text-indent:5px;width:158px; height: 22px;}
+#rp_menu ul li ul{display:none; background:url(images/achv_sel_sub_bg.png) bottom left no-repeat;width:152px;padding:4px 0px 12px 6px; margin:0 0 5px 0;}
+#rp_menu ul li ul li { display:block;color:#e7d6b8; margin:1px 5px 1px 5px; width:144px;text-indent:3px;}
+
+#rp_menu  ul li ul li.selected2 { background:url(images/achv_lnav_sel.gif);text-indent:5px;width:148px;color:#EAC117;}
+#rp_menu  ul li ul li a:hover {position:relative;display:block; background:url(images/achv_sub_hover.png)repeat-y; color:#AA5303;height: 22px;}
+#rp_menu {}
+#rp_menu {}
+
 
 
 .achv_lnav .selected { background:url(images/achv_sel_sub.jpg) right repeat-y;  }
@@ -44,6 +88,10 @@
 .achv_lnav .selected .cat_list div { padding:1px 0; }
 .achv_lnav .selected div a { background:none; color:#e7d6b8; zoom:1; }
 .achv_lnav .selected div a:hover { color:white; }
+.achv_lnav  ul { display:block; float:left; list-style-type:none; position:relative;left:-10px;}
+.achv_lnav .selected ul li a { background:none; color:#e7d6b8; zoom:1; }
+.achv_lnav .selected ul li a:hover { color:white; background:url(images/h_sel_bg.jpg) right repeat-y;}
+.achv_lnav .selected ul li .selected  a { color:white; background:url(images/achv_sub_selected.gif) right repeat-y;}
 .achv_lnav .selected .selected { background:url(images/achv_sub_selected_bdr.gif) right repeat-y;  }
 .achv_lnav .selected .selected a { background:url(images/achv_sub_selected.gif) right repeat-y;  }
 .achv_lnav .cat_list { padding:0; margin:0; padding-left:8px; }
@@ -61,17 +109,18 @@
 .achievements { font-family:Calibri, Trebuchet MS, Arial; clear:both;}
 .achievements .selected { }
 .achievements .criteria { display:none; text-align:left; padding:0; }
-.achievements .category-root .selected ul, .achievements .selected .criteria { display:block }
-.achievements .category-root ul { display:none }
+
 
 .achievements a, .achievements a:link, , .achievements a:active, .achievements a:visited { color:inherit }
 
 .achv_bdr { line-height:8px;}
 
 .achieve_rcol{ width:678px;  }
-.achievements-container { background:url(images/achv_rcol_bg.jpg) repeat-y; width:678px; }
+.achieve_rcola{ position:relative; width:678px;  background:url(images/achv_rcol_top.jpg) repeat-n;}
+.achievements-container { background:url(images/achv_rcol_bg.jpg) repeat-y; width:678px; min-height: 500px;}
 #achievements-content { padding:0px 0px 15px; }
 .achv_r_btm { line-height:8px; }
+.achv_r_top { line-height:8px; top: 5px;}
 
 .achievement {background:url(images/achievement_bg.jpg) 0 bottom repeat-y; position:relative; font:12px Georgia; color:#4e3c34; color:black;  padding-bottom:22px; border-top:1px solid #cc9e4e; width:673px; cursor:pointer;}
 .achievement.selected {background-image:url(images/achievement_bg_sel.jpg);}
@@ -96,7 +145,7 @@
 .c_list li { list-style-type:none; background:url(images/li_dash.gif) 0 6px no-repeat; padding-left:10px; }
 .c_list_col { width:44%; float:right; margin-right:20px;  }
 .critbar { padding-top:10px; clear:both; }
-ul.criteria { margin:0; margin-top:20px; }
+
 .c_list li.criteriamet { font-weight:bold; color:#669200; }
 .locked .c_list li.criteriamet { color:#8aff00 }
 .criteria.c_list { padding:10px 0 20px 11%; margin:20px 0 0 0; }
@@ -208,7 +257,3 @@ td.desc_td { padding-left:10px;   }
 .comp_box_t_r { position:absolute; right:-5px; background:url(images/compare_top_r.png) no-repeat; width:17px; height:31px; display:block}
 .comp_box_t_btm { position:absolute; bottom:-3px; left:-1px;}
 .comp_box_t_btm_r {position:absolute; bottom:-3px; right:-1px;}
-
-.add_error { margin:20px 0 8px 20px; font-weight:bold; display:inline-block;  }
-.add_error a, .add_error a:active { text-decoration:none !important; padding:5px 15px 5px 5px; color:white; background:url(images/close_x.gif) 99% no-repeat #A84100;  }
-.add_error a:hover { background-color:red; color:white;} 
