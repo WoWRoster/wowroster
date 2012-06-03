@@ -27,7 +27,7 @@ class achievementsInstall
 	var $active = true;
 	var $icon = 'achievement_general';
 
-	var $version = '2.1.0';
+	var $version = '2.1.2519';
 
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';
@@ -51,6 +51,9 @@ class achievementsInstall
 		# Master data for the config file
 		$installer->add_menu_button('achive','char');
 
+		/*
+		old achievement table ... i have a better one now ....
+		
 		$installer->create_table($installer->table('data'),"
 			  `achv_id` int(11) NOT NULL,
 			  `achv_cat` int(11) NOT NULL,
@@ -68,6 +71,42 @@ class achievementsInstall
 			  `achv_progress_width` varchar(50) NOT NULL,
 			  `achv_complete` varchar(255) NOT NULL default '',
 			  PRIMARY KEY  (`id`)");
+		*/	  
+		$installer->create_table($installer->table('achie'),"
+			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `achie_name` text,
+			  `achie_desc` text,
+			  `achie_points` int(10) DEFAULT NULL,
+			  `achie_id` int(10) NOT NULL,
+			  `achie_icon` varchar(255) DEFAULT NULL,
+			  `achie_tooltip` mediumtext ,
+			  `c_id` int(10) NOT NULL,
+			  `p_id` int(10) DEFAULT NULL,
+			  `achi_cate` varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (`id`)");
+			  
+		$installer->create_table($installer->table('crit'),"
+			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `crit_achie_id` int(10) NOT NULL,
+			  `crit_id` int(10) NOT NULL,
+			  `crit_desc` text,
+			  PRIMARY KEY (`id`)");
+		/*
+		*	these tables hold the players data
+		*	this data is then ran agenst the prim data tabels
+		*/
+		$installer->create_table($installer->table('achievements'),"
+			  `member_id` int(11) NOT NULL DEFAULT '0',
+			  `achie_id` int(7) NOT NULL DEFAULT '0',
+			  `achie_date` varchar(20) DEFAULT NULL");
+
+
+		$installer->create_table($installer->table('criteria'),"
+			  `member_id` int(11) NOT NULL DEFAULT '0',
+			  `crit_id` int(7) NOT NULL DEFAULT '0',
+			  `crit_date` varchar(20) DEFAULT NULL,
+			  `crit_value` varchar(64) DEFAULT NULL");
+
 
 		return true;
 	}
@@ -82,16 +121,7 @@ class achievementsInstall
 	{
 		global $installer, $addon;
 
-	// Change the icon for quests
-		if( version_compare('1.0.2141', $oldversion,'>') == true )
-		{
-
-			//ALTER TABLE `roster_addons_achievements_summary` CHANGE `date_1` `date_1` DATE NOT NULL
-
-			$installer->add_query("ALTER TABLE `" . $installer->table('data') . "` CHANGE `achv_date` `achv_date` DATE NOT NULL,");
-
-			$installer->update_menu_button('cb_quests','char','quests','achievement_quests_completed_06');
-		}
+		return true;
 	}
 
 	/**
@@ -105,7 +135,11 @@ class achievementsInstall
 
 		$installer->remove_all_config();
 		$installer->remove_all_menu_button();
-		$installer->drop_table( $installer->table('data') );
+		//$installer->drop_table( $installer->table('data') );
+		$installer->drop_table( $installer->table('achie') );
+		$installer->drop_table( $installer->table('crit') );
+		$installer->drop_table( $installer->table('achievements') );
+		$installer->drop_table( $installer->table('criteria') );
 
 		return true;
 	}
