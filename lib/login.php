@@ -56,13 +56,11 @@ class RosterLogin
 		$this->setAction($script_filename);
 		if( isset( $_POST['logout'] ) && $_POST['logout'] == '1' )
 		{
-			$this->endSession($this->getUID($_COOKIE['roster_user'],$_COOKIE['roster_pass']));
-			setcookie('roster_user',     NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_u',        '0',  time() + (60*60*24*30)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_k',        NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_sid',      NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_pass',     NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_remember', NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
+			$this->endSession($this->getUID($_COOKIE['roster_user'], $_COOKIE['roster_pass']));
+			setcookie('roster_user',     NULL, time() - (60*60*24*30*100), ROSTER_PATH);
+			setcookie('roster_u',        '0',  time() + (60*60*24*30),     ROSTER_PATH);
+			setcookie('roster_pass',     NULL, time() - (60*60*24*30*100), ROSTER_PATH);
+			setcookie('roster_remember', NULL, time() - (60*60*24*30*100), ROSTER_PATH);
 
 			$this->allow_login = false;
 			$this->valid = 0;
@@ -85,35 +83,33 @@ class RosterLogin
 		{
 			$this->allow_login = false;
 			$this->message = '';
-			setcookie('roster_user',     NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_u',        '0',  time() + (60*60*24*30)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_k',        NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_sid',      NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_pass',     NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_remember', NULL, time() - (60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
+			setcookie('roster_user',     NULL, time() - (60*60*24*30*100), ROSTER_PATH);
+			setcookie('roster_u',        '0',  time() + (60*60*24*30),     ROSTER_PATH);
+			setcookie('roster_pass',     NULL, time() - (60*60*24*30*100), ROSTER_PATH);
+			setcookie('roster_remember', NULL, time() - (60*60*24*30*100), ROSTER_PATH);
 		}
 	}
 	function endSession($uid=null)
 	{
 		global $roster;
-		if($uid=="")
+		if ($uid == '')
 		{
-			$uid=$this->getuserid();
+			$uid = $this->getuserid();
 		}
-		$query="DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_user_id`='".$uid."'";
+		$query = "DELETE FROM `".$roster->db->table('sessions')."` WHERE `session_user_id`='". $uid ."'";
 		$roster->db->query($query);
 		$params = session_get_cookie_params();
 		setcookie(session_name(), '', time() - 42000,
-			$params["path"], $params["domain"],
-			$params["secure"], $params["httponly"]
+			$params['path'], $params['domain'],
+			$params['secure'], $params['httponly']
 		);
 
 		// Finally, destroy the session.
 		session_destroy();
 
 	}
-	
-	function checkPass( $pass, $user,$createsession )
+
+	function checkPass( $pass, $user, $createsession )
 	{
 		global $roster;
 
@@ -126,13 +122,11 @@ class RosterLogin
 
 		if( $count == 0 )
 		{
-			setcookie('roster_user'		,NULL	,(time()-60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_u'		,'0'	,(time()+60*60*24*30)		,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_k'		,NULL	,(time()-60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_hash'		,NULL	,(time()-60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_sid'		,NULL	,(time()-60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_pass'		,NULL	,(time()-60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_remember'	,NULL	,(time()-60*60*24*30*100)	,ROSTER_PATH ,ROSTER_URL );
+			setcookie('roster_user',     NULL, time() - (60*60*24*30*100), ROSTER_PATH);
+			setcookie('roster_u',        '0',  time() + (60*60*24*30),     ROSTER_PATH);
+			setcookie('roster_pass',     NULL, time() - (60*60*24*30*100), ROSTER_PATH);
+			setcookie('roster_remember', NULL, time() - (60*60*24*30*100), ROSTER_PATH);
+
 			$this->allow_login = false;
 			$this->valid = 0;
 			$this->message = $roster->locale->act['login_fail'];
@@ -142,10 +136,11 @@ class RosterLogin
 		if( $count == 1 )
 		{
 			$remember = (isset($_POST['rememberme']) ? (int)$_POST['rememberme'] : (int)$_COOKIE['roster_remember'] );
-			setcookie('roster_user',$user,(time()+60*60*24*30)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_u',$row['id'],(time()+60*60*24*30)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_pass',$pass,(time()+60*60*24*30)	,ROSTER_PATH ,ROSTER_URL );
-			setcookie('roster_remember',$remember,(time()+60*60*24*30)	,ROSTER_PATH ,ROSTER_URL );
+			setcookie('roster_user',     $user,      time() + (60*60*24*30), ROSTER_PATH);
+			setcookie('roster_u',        $row['id'], time() + (60*60*24*30), ROSTER_PATH);
+			setcookie('roster_pass',     $pass,      time() + (60*60*24*30), ROSTER_PATH);
+			setcookie('roster_remember', $remember,  time() + (60*60*24*30), ROSTER_PATH);
+
 			$this->valid = 1;
 			$this->uid = $row['id'];
 			$this->allow_login = true;
@@ -169,7 +164,7 @@ class RosterLogin
 
 		$roster->db->free_result($result);
 
-		setcookie('roster_u','0',(time()+60*60*24*30)	,ROSTER_PATH ,ROSTER_URL );
+		setcookie('roster_u', '0', time() + 60*60*24*30, ROSTER_PATH);
 		$this->allow_login = false;
 		$this->message = $roster->locale->act['login_invalid'];
 		return;
