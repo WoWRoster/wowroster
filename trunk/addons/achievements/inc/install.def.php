@@ -27,7 +27,7 @@ class achievementsInstall
 	var $active = true;
 	var $icon = 'achievement_general';
 
-	var $version = '2.1.2519';
+	var $version = '2.1.2520';
 
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';
@@ -51,27 +51,6 @@ class achievementsInstall
 		# Master data for the config file
 		$installer->add_menu_button('achive','char');
 
-		/*
-		old achievement table ... i have a better one now ....
-		
-		$installer->create_table($installer->table('data'),"
-			  `achv_id` int(11) NOT NULL,
-			  `achv_cat` int(11) NOT NULL,
-			  `achv_cat_title` varchar(255) NOT NULL default '',
-			  `achv_cat_sub` varchar(255) NOT NULL default '',
-			  `achv_cat_sub2` int(10) default NULL,
-			  `achv_points` int(11) NOT NULL,
-			  `achv_icon` varchar(255) NOT NULL default '',
-			  `achv_title` varchar(255) NOT NULL default '',
-			  `achv_reward_title` varchar(255) default NULL,
-			  `achv_disc` text NOT NULL,
-			  `achv_date` date default NULL,
-			  `achv_criteria` text NOT NULL,
-			  `achv_progress` varchar(25) NOT NULL,
-			  `achv_progress_width` varchar(50) NOT NULL,
-			  `achv_complete` varchar(255) NOT NULL default '',
-			  PRIMARY KEY  (`id`)");
-		*/	  
 		$installer->create_table($installer->table('achie'),"
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `achie_name` text,
@@ -120,7 +99,7 @@ class achievementsInstall
 	function upgrade($oldversion, $version)
 	{
 		global $installer, $addon;
-
+		
 		return true;
 	}
 
