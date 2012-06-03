@@ -55,7 +55,7 @@
 .achv_lnav.toggle.toggler.link a:hover { background:url(images/h_sel_bg.jpg) right repeat-y; color:#EAC117; }
 #xxlinkxx {color:#ffe46c;}
 #xxlinkxx a:hover { background:url(images/h_sel_bg.jpg) right repeat-y; color:#5b3906; }
-.achv_lnav .selected a { background:url(images/achv_lnav_sel.gif) right no-repeat; color:#ffe46c; }
+.achv_lnav .selected a { background:url(images/achv_lnav_sel.png) right no-repeat; color:#ffe46c; }
 
 
 
@@ -70,13 +70,13 @@ position:relative;
 line-height:22px;
 }
 #rp_menu ul li { color:#e7d6b8; margin:1px 5px 1px 5px;text-indent:5px;width:158px;}
-#rp_menu ul li.selected { background:url(images/achv_lnav_sel.gif);text-indent:5px;width:158px;color:#EAC117;}
+#rp_menu ul li.selected { background:url(images/achv_lnav_sel.png);text-indent:5px;width:158px;color:#EAC117;}
 #rp_menu ul li a { background:none;zoom:1; }
 #rp_menu ul li a:hover { display:block;color:white; background:url(images/achv_cat_hover.png) right repeat-y;text-indent:5px;width:158px; height: 22px;}
 #rp_menu ul li ul{display:none; background:url(images/achv_sel_sub_bg.png) bottom left no-repeat;width:152px;padding:4px 0px 12px 6px; margin:0 0 5px 0;}
 #rp_menu ul li ul li { display:block;color:#e7d6b8; margin:1px 5px 1px 5px; width:144px;text-indent:3px;}
 
-#rp_menu  ul li ul li.selected2 { background:url(images/achv_lnav_sel.gif);text-indent:5px;width:148px;color:#EAC117;}
+#rp_menu  ul li ul li.selected2 { background:url(images/achv_lnav_sel.png);text-indent:5px;width:148px;color:#EAC117;}
 #rp_menu  ul li ul li a:hover {position:relative;display:block; background:url(images/achv_sub_hover.png)repeat-y; color:#AA5303;height: 22px;}
 #rp_menu {}
 #rp_menu {}
