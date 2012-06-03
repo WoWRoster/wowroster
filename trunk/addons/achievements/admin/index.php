@@ -10,7 +10,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 	$rc = 0;
 	foreach($a['achievements'] as $order => $cat)
 	{
-		echo $cat['name'].' - '.$cat['id'].'<br>';
+		//echo $cat['name'].' - '.$cat['id'].'<br>';
 		if (isset($cat['achievements']))
 		{
 			foreach($cat['achievements'] as $d => $achi)
@@ -26,7 +26,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 					$update->add_value('crit_id',		$d['id']);
 					$update->add_value('crit_desc',		$d['description']);
 					$querystr = "INSERT INTO `" . $roster->db->table('crit', $addon['basename']) . "` SET " . $update->assignstr;
-					//$result = $roster->db->query($querystr);
+					$result = $roster->db->query($querystr);
 					//echo $querystr.'<br>';
 					$rc++;
 				}
@@ -46,7 +46,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 				$update->add_value('achi_cate',		$cat['name']);
 				
 				$querystr = "INSERT INTO `" . $roster->db->table('achie', $addon['basename']) . "` SET " . $update->assignstr;
-				//$result = $roster->db->query($querystr);
+				$result = $roster->db->query($querystr);
 				//echo$querystr.'<br>';
 				$rx++;
 				//*/
@@ -56,7 +56,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		{
 			foreach($cat['categories'] as $corder => $sub)
 			{
-				echo '--'.$sub['name'].' - '.$sub['id'].'<br>';
+				//echo '--'.$sub['name'].' - '.$sub['id'].'<br>';
 				foreach($sub['achievements'] as $d => $achi)
 				{	
 					$tooltip = '<div style="width:100%;style="color:#FFB100""><span style="float:right;">' . $achi['points'] . ' Points</span>' . $achi['title'] . '</div><br>' . $achi['description'] . '';
@@ -71,7 +71,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 						$update->add_value('crit_id',		$d['id']);
 						$update->add_value('crit_desc',		$d['description']);
 						$querystr = "INSERT INTO `" . $roster->db->table('crit', $addon['basename']) . "` SET " . $update->assignstr;
-						//$result = $roster->db->query($querystr);
+						$result = $roster->db->query($querystr);
 						//echo $querystr.'<br>';
 						$rc++;
 					}
@@ -91,7 +91,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 					$update->add_value('achi_cate',		$sub['name']);
 					
 					$querystr = "INSERT INTO `" . $roster->db->table('achie', $addon['basename']) . "` SET " . $update->assignstr;
-					//$result = $roster->db->query($querystr);
+					$result = $roster->db->query($querystr);
 					//echo $querystr.'<br>';
 					$rx++;
 					//*/
