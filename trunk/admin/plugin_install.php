@@ -47,71 +47,6 @@ switch( $op )
 		break;
 }
 $roster->get_plugin_data();
-/*
-	function getPluginlist()
-	{
-		global $roster, $addon;
-		$addons = $roster->plugin_data;
-		$plugins = array();
-		if( !empty($addons) )
-		{
-			foreach( $addons as $addon_name => $addonx )
-			{
-				$dirx = ROSTER_ADDONS . $addonx['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
-				if (is_dir($dirx))
-				{
-					$dir = opendir ($dirx);
-					while (($file = readdir($dir)) !== false)
-					{
-						if (strpos($file, '.php',1))
-						{
-							$info = pathinfo($file);
-							$file_name =  basename($file,'.'.$info['extension']);
-							list($reqaddon, $scope, $name) = explode('-',$file_name);
-							// duh this code used in addons onlu duh...
-							//if ($scope == $roster->scope && $reqaddon == $addon['basename'])
-							//
-							require($dirx . $file);
-							$addonstuff = new $name.'Install';
-							if (isset($addonstuff->name))
-							{
-								$plugin = $addonstuff->name;
-								if( array_key_exists($plugin,$roster->plugin_data) )
-								{
-									$plugins[$plugin]['id'] = $roster->plugin_data[$plugin]['addon_id'];
-									$plugins[$plugin]['active'] = $roster->plugin_data[$plugin]['active'];
-									$plugins[$plugin]['access'] = $roster->plugin_data[$plugin]['access'];
-									$plugins[$plugin]['oldversion'] = $roster->plugin_data[$plugin]['version'];
-
-									// -1 = overwrote newer version
-									//  0 = same version
-									//  1 = upgrade available
-									$plugins[$plugin]['install'] = version_compare($addonstuff->version,$roster->plugin_data[$plugin]['version']);
-
-								}
-								else
-								{
-									$plugins[$plugin]['install'] = 3;
-								}
-								$plugins[$plugin]['filename'] = $addonstuff->filename;
-								$plugins[$plugin]['basename'] = $plugin;
-								$plugins[$plugin]['fullname'] = ( isset($roster->locale->act[$addonstuff->fullname]) ? $roster->locale->act[$addonstuff->fullname] : $addonstuff->fullname );
-								$plugins[$plugin]['author'] = $addonstuff->credits[0]['name'];
-								$plugins[$plugin]['version'] = $addonstuff->version;
-								$plugins[$plugin]['parent'] = $addonstuff->parent;
-								$plugins[$plugin]['icon'] = $addonstuff->icon;
-								$plugins[$plugin]['description'] = ( isset($roster->locale->act[$addonstuff->description]) ? $roster->locale->act[$addonstuff->description] : $addonstuff->description );
-
-							}
-							unset($addonstuff);
-						}
-					}
-				}
-			}
-		}
-		return $plugins;
-	}
-*/	
 function getPluginlist()
 {
 	global $roster, $installer;
@@ -178,11 +113,11 @@ function getPluginlist()
 				$output[$addon]['basename'] = $addon;
 				$output[$addon]['parent'] = $addonstuff->parent;
 				$output[$addon]['scope'] = $addonstuff->scope;
-				$output[$addon]['fullname'] = ( isset($roster->locale->act[$addonstuff->fullname]) ? $roster->locale->act[$addonstuff->fullname] : $addonstuff->fullname );
+				$output[$addon]['fullname'] = $addonstuff->fullname;
 				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
 				$output[$addon]['version'] = $addonstuff->version;
 				$output[$addon]['icon'] = $addonstuff->icon;
-				$output[$addon]['description'] = ( isset($roster->locale->act[$addonstuff->description]) ? $roster->locale->act[$addonstuff->description] : $addonstuff->description );
+				$output[$addon]['description'] = $addonstuff->description;
 
 				unset($addonstuff);
 			}
@@ -387,8 +322,6 @@ function getPluginlist()
 		}
 		unset($addon);
 		// Restore our locale array
-		$roster->locale->wordings = $localetemp;
-		unset($localetemp);
 
 		return true;
 	}
