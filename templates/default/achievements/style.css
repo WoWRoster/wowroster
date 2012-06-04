@@ -27,6 +27,10 @@
 .achievement-shield-0 .points { font:22px/40px Georgia; color:#CCC; text-align: center; }
 .achievement-shield-1 { background: url(images/shield.png) no-repeat right top; float: right; height: 44px; width: 40px; margin-left: 10px; }
 .achievement-shield-1 .points { font:22px/40px Georgia; color:white; text-align: center; }
+.achievement-shield-2 { background: url(images/point_shield1.png) no-repeat left top; float: right; height: 44px; width: 50px; margin-left: 10px; }
+.achievement-shield-2 .points { display: none; }
+.achievement-shield-3 { background: url(images/point_shield1.png) no-repeat right top; float: right; height: 44px; width: 50px; margin-left: 10px; }
+.achievement-shield-3 .points { display: none; }
 
 .achievement-info { font: 14px Georgia, "Times New Roman", Times, serif; color: #000; text-align: center; }
 .achievement-info .name { font-size: 18px; font-weight: bold; color: #361701; margin-bottom: 5px; }
