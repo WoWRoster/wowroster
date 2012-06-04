@@ -62,7 +62,7 @@ class achiv
 						if ($this->iscomp($ach,$da['Name'],$achData))
 						{
 							$bg = $imgpath . 'achievement_bg.jpg';
-							$complete = 1;
+							$shild = $complete = 1;
 							$date = $this->convert_date($achDate[$ach]);
 							$datex = $achDate[$ach];
 							$crttt = '1';
@@ -70,9 +70,17 @@ class achiv
 						else
 						{
 							$bg = $imgpath.'achievement_bg_locked.jpg';
-							$complete = 0;
+							$shild = $complete = 0;
 							$datex = $date = '';
 							$crttt = '1';
+						}
+						if ($id == '81' && $complete != 0)
+						{
+							$shild = 2;
+						}
+						if ($id == '81' && $complete == 0)
+						{
+							$shild = 3;
 						}
 							$k[] = array(
 								'BACKGROUND' => $bg,
@@ -83,16 +91,18 @@ class achiv
 								'DATEX'       => $datex,
 								'POINTS'     => $da['Points'],
 								'CRITERIA'   => $crttt,
-								'SHIELD'     => '',
+								'SHIELD'     => $shild,
 								'ICON'       => $interface . $da['icon'] . '.png',
 							);
 					}
 				}
-				$this->sksort($k,'DATEX');
-						foreach ($k as $pices)
-						{
-						$roster->tpl->assign_block_vars('info.achv',$pices);
-						}
+				//$this->sksort($h,'DATEX');
+				$srt = $this->sortByOneKey($k, 'DATEX', false);
+				//foreach ($h as $pices)
+				foreach ($srt as $pices)
+				{
+					$roster->tpl->assign_block_vars('info.achv',$pices);
+				}
 				
 			}
 				
@@ -154,8 +164,10 @@ class achiv
 							);
 						}
 					}
-					$this->sksort($h,'DATEX');
-					foreach ($h as $pices)
+					//$this->sksort($h,'DATEX');
+					$srt = $this->sortByOneKey($h, 'DATEX', false);
+					//foreach ($h as $pices)
+					foreach ($srt as $pices)
 					{
 						$roster->tpl->assign_block_vars('info.achv',$pices);
 					}
@@ -208,10 +220,36 @@ class achiv
 	{
 		global $roster;
 		$date = ($date / 1000);
-		$date = date($roster->locale->act['phptimeformat'],$date);
+		$date = date('D M jS Y, g:ia',$date);
 		return $date;
 	}
 	
+	function sortByOneKey(array $array, $key, $asc = true)
+	{
+		$result = array();
+			
+		$values = array();
+		foreach ($array as $id => $value)
+		{
+			$values[$id] = isset($value[$key]) ? $value[$key] : '';
+		}
+			
+		if ($asc) {
+			asort($values);
+		}
+		else {
+			arsort($values);
+		}
+			
+		foreach ($values as $key => $value)
+		{
+			$result[$key] = $array[$key];
+		}
+			
+		return $result;
+	}
+
+
 	function sksort(&$array, $subkey="id", $sort_ascending=false) 
 	{
 
