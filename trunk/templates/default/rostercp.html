@@ -19,6 +19,15 @@
 		</div>
 <!-- ENDIF -->
 
+<!-- IF PLUGIN_PAGEBAR -->
+		<div class="ui-buttonset config-section config-section-plugins">
+<!-- BEGIN plugin_pagebar -->
+			<a class="ui-button ui-widget <!-- IF plugin_pagebar.SELECTED -->ui-state-active<!-- ELSE -->ui-state-default<!-- ENDIF --> ui-button-text-only" href="{plugin_pagebar.LINK}" role="button"><span class="ui-button-text">{plugin_pagebar.NAME}</span></a>
+<!-- END plugin_pagebar -->
+		</div>
+<!-- ENDIF -->
+
+
 		<div class="tier-1-a" style="margin-top: 5px;">
 			<div class="tier-1-b">
 				<div class="tier-1-c exp-content">

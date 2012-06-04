@@ -18,6 +18,7 @@ class achiv
 	var $locale;
 	var $cat = array();
 	var $memberID;
+	var $icons=array();
 	
 	
 	function builddata($data)
@@ -82,6 +83,12 @@ class achiv
 						{
 							$shild = 3;
 						}
+						
+						if ($id == '81' && $complete == 0)
+						{
+						}
+						else
+						{
 							$k[] = array(
 								'BACKGROUND' => $bg,
 								'NAME'       => $da['Name'],
@@ -94,6 +101,8 @@ class achiv
 								'SHIELD'     => $shild,
 								'ICON'       => $interface . $da['icon'] . '.png',
 							);
+							$this->icons[] = "'".$interface . $da['icon'] . ".png'";
+						}
 					}
 				}
 				//$this->sksort($h,'DATEX');
@@ -162,6 +171,7 @@ class achiv
 									'SHIELD'     => '',
 									'ICON'       => $interface . $da['icon'] . '.png',
 							);
+							$this->icons[] = "'".$interface . $da['icon'] . ".png'";
 						}
 					}
 					//$this->sksort($h,'DATEX');
@@ -460,6 +470,7 @@ $(document).ready(function () {
 });';
 roster_add_js($js, 'inline', 'footer', false, false);
 
+
 $sqlquery2 = "SELECT * FROM `".$roster->db->table('players')."` WHERE `member_id` = '".$roster->data['member_id']."'";
 $result2 = $roster->db->query($sqlquery2);
 $row = $roster->db->fetch($result2);
@@ -472,6 +483,30 @@ $char[$var] = $value;
 
 //print_r($char);
 $achiv = new achiv;
-echo $achiv->out($char);
-	
-
+$body =  $achiv->out($char);
+$images = implode(",",$achiv->icons);
+/*
+$jjs = "
+$.fn.preload = function() {
+this.each(function(){
+$('<img/>')[0].src = this;
+});
+}
+// Usage:
+$([".$images."]).preload();";
+*
+$jjs = "
+function preload(arrayOfImages) {
+	$(arrayOfImages).each(function(){
+		$('<img/>')[0].src = this;
+		// Alternatively you could use:
+		// (new Image()).src = this;     
+	}); 
+}
+preload([
+".$images."
+]);
+";
+roster_add_js($jjs, 'inline');
+*/
+echo $body;

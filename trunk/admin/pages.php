@@ -54,8 +54,8 @@ $config_pages['install'] = array(
 	'title'=>	'pagebar_addoninst',
 	'file'=>	'addon_install.php',
 	);
-$config_pages['plugin'] = array(
-	'href'=>	$roster->pages[0].'-plugin',
+$config_pages['pinstall'] = array(
+	'href'=>	$roster->pages[0].'-pinstall',
 	'title'=>	'pagebar_plugin',
 	'file'=>	'plugin_install.php',
 	);
@@ -95,6 +95,10 @@ $config_pages['rosterdiag'] = array(
 $config_pages['addon'] = array(
 	'special'=>	'hidden',
 	'file'=>	'addon_conf.php',
+	);
+$config_pages['plugin'] = array(
+	'special'=>	'hidden',
+	'file'=>	'plugin_conf.php',
 	);
 $config_pages['guide'] = array(
 	'special'=>	'hidden',

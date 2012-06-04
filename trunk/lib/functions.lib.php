@@ -979,6 +979,154 @@ function getaddon( $addonname )
 	return $addon;
 }
 
+
+/**
+ * Sets up plugin data for use in the plugin framework
+ *
+ * @param string $pluginname | The name of the plugin
+ * @return array $plugin  | The plugin's database record
+ */
+function getplugin( $pluginname )
+{
+	global $roster;
+
+	if ( !isset($roster->plugin_data[$pluginname]) )
+	{
+		roster_die(sprintf($roster->locale->act['plugin_not_installed'],$pluginname),$roster->locale->act['plugin_error']);
+	}
+
+	$plugin = $roster->plugin_data[$pluginname];
+
+	// Get the plugin's location
+	$plugin['dir'] = ROSTER_PLUGINS . $plugin['basename'] . DIR_SEP;
+
+	// Get the plugins url
+	$plugin['url'] = 'plugins/' . $plugin['basename'] . '/';
+	$plugin['url_full'] = ROSTER_URL . $plugin['url'];
+	$plugin['url_path'] = ROSTER_PATH . $plugin['url'];
+
+	// Get plugins url to images directory
+	$plugin['image_url'] = $plugin['url_full'] . 'images/';
+	$plugin['image_path'] = $plugin['url_path'] . 'images/';
+
+	// Get the plugin's global css style
+	$plugin['css_file'] = $plugin['dir'] . 'style.css';
+
+	if( file_exists($plugin['css_file']) )
+	{
+		$plugin['css_url'] = $plugin['url'] . 'style.css';
+	}
+	else
+	{
+		$plugin['css_file'] = '';
+		$plugin['css_url'] = '';
+	}
+
+	/**
+	 * Template paths and urls
+	 */
+
+	// Get the plugin's template path
+	$plugin['tpl_dir'] = ROSTER_TPLDIR . $roster->config['theme'] . DIR_SEP . $plugin['basename'] . DIR_SEP;
+
+	if( !file_exists($plugin['tpl_dir']) )
+	{
+		$plugin['tpl_dir'] = ROSTER_TPLDIR . 'default' . DIR_SEP . $plugin['basename'] . DIR_SEP;
+		$plugin['tpl_url'] = 'templates/default/';
+		$plugin['tpl_url_full'] = ROSTER_URL . $plugin['tpl_url'];
+		$plugin['tpl_url_path'] = ROSTER_PATH . $plugin['tpl_url'];
+
+		if( !file_exists($plugin['tpl_dir']) )
+		{
+			$plugin['tpl_dir'] = $plugin['dir'] . 'templates' . DIR_SEP;
+			$plugin['tpl_url'] = $plugin['url'] . 'templates/';
+			$plugin['tpl_url_full'] = $plugin['url_full'] . 'templates/';
+			$plugin['tpl_url_path'] = $plugin['url_path'] . 'templates/';
+
+			if( !file_exists($plugin['tpl_dir']) )
+			{
+				$plugin['tpl_dir'] = '';
+				$plugin['tpl_url'] = '';
+				$plugin['tpl_url_full'] = '';
+				$plugin['tpl_url_path'] = '';
+			}
+		}
+	}
+	else
+	{
+		$plugin['tpl_url'] = 'templates/' . $roster->config['theme'] . '/' . $plugin['basename'] . '/';
+		$plugin['tpl_url_full'] = ROSTER_URL . $plugin['tpl_url'];
+		$plugin['tpl_url_path'] = ROSTER_PATH . $plugin['tpl_url'];
+	}
+
+	// Get plugins url to template images directory
+	$plugin['tpl_image_url'] = $plugin['tpl_url_full'] . 'images/';
+	$plugin['tpl_image_path'] = $plugin['tpl_url_path'] . 'images/';
+
+	// Get the plugin's template based css style
+	$plugin['tpl_css_file'] = $plugin['tpl_dir'] . 'style.css';
+
+	if( file_exists($plugin['tpl_css_file']) )
+	{
+		$plugin['tpl_css_url'] = $plugin['tpl_url'] . 'style.css';
+	}
+	else
+	{
+		$plugin['tpl_css_file'] = '';
+		$plugin['tpl_css_url'] = '';
+	}
+
+	/**
+	 * End Template paths and urls
+	 */
+
+	// Get the plugin's inc dir
+	$plugin['inc_dir'] = $plugin['dir'] . 'inc' . DIR_SEP;
+
+	// Get the plugin's conf file
+	$plugin['conf_file'] = $plugin['inc_dir'] . 'conf.php';
+
+	// Get the plugin's search file
+	$plugin['search_file'] = $plugin['inc_dir'] . 'search.inc.php';
+	$plugin['search_class'] = $plugin['basename'] . 'Search';
+
+	// Get the plugin's locale dir
+	$plugin['locale_dir'] = $plugin['dir'] . 'locale' . DIR_SEP;
+
+	// Get the plugin's admin dir
+	$plugin['admin_dir'] = $plugin['dir'] . 'admin' . DIR_SEP;
+
+	// Get the plugin's trigger file
+	$plugin['trigger_file'] = $plugin['inc_dir'] . 'update_hook.php';
+
+	// Get the plugin's ajax functions file
+	$plugin['ajax_file'] = $plugin['inc_dir'] . 'ajax.php';
+
+	// Get config values for the default profile and insert them into the array
+	$plugin['config'] = '';
+
+	$query = "SELECT `config_name`, `config_value` FROM `" . $roster->db->table('plugin_config') . "` WHERE `addon_id` = '" . $plugin['addon_id'] . "' ORDER BY `id` ASC;";
+
+	$result = $roster->db->query($query);
+
+	if ( !$result )
+	{
+		die_quietly($roster->db->error(),$roster->locale->act['plugin_error'],__FILE__,__LINE__, $query );
+	}
+
+	if( $roster->db->num_rows($result) > 0 )
+	{
+		while( $row = $roster->db->fetch($result,SQL_ASSOC) )
+		{
+			$plugin['config'][$row['config_name']] = $row['config_value'];
+		}
+		$roster->db->free_result($result);
+	}
+
+	return $plugin;
+}
+
+
 /**
  * Check to see if an addon is active or not
  *
