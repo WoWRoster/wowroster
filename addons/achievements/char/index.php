@@ -248,8 +248,9 @@ class achiv
 	}
 	function convert_date($date)
 	{
+		global $roster;
 		$date = ($date / 1000);
-		$date = date('Y-m-d H:i:s',$date);
+		$date = date($roster->locale->act['phptimeformat'],$date);
 		return $date;
 	}
 	
