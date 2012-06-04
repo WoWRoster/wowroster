@@ -33,6 +33,8 @@ class Install
 	var $tables=array();	// $table=>boolean, true to restore, false to drop on rollback.
 	var $addata;
 
+	var $conf_table = 'addon_config';
+	
 	var $addon_id;
 
 	var $temp_tables=true;	// addon_install.php does a create temp table check
@@ -107,7 +109,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "INSERT INTO `" . $roster->db->table('addon_config') . "` VALUES ('" . $this->addata['addon_id'] . "',$sql);";
+		$this->sql[] = "INSERT INTO `" . $roster->db->table($this->conf_table) . "` VALUES ('" . $this->addata['addon_id'] . "',$sql);";
 	}
 
 	/**
@@ -122,7 +124,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "UPDATE `" . $roster->db->table('addon_config') . "` SET " . $sql . " WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
+		$this->sql[] = "UPDATE `" . $roster->db->table($this->conf_table) . "` SET " . $sql . " WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
 	}
 
 	/**
@@ -135,7 +137,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "DELETE FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
+		$this->sql[] = "DELETE FROM `" . $roster->db->table($this->conf_table) . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
 	}
 
 	/**
@@ -145,7 +147,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "DELETE FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "';";
+		$this->sql[] = "DELETE FROM `" . $roster->db->table($this->conf_table) . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "';";
 	}
 
 	/**

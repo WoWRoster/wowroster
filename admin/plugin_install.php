@@ -23,7 +23,7 @@ include(ROSTER_ADMIN . 'roster_config_functions.php');
 
 include(ROSTER_LIB . 'install.lib.php');
 $installer = new Install;
-
+$installer->conf_table = 'plugin_config';
 
 $op = ( isset($_POST['op']) ? $_POST['op'] : '' );
 
@@ -129,6 +129,8 @@ function getPluginlist()
 	function processActive( $id , $mode )
 	{
 		global $roster, $installer;
+		
+		$installer->conf_table = 'plugin_config';
 
 		$query = "SELECT `basename` FROM `" . $roster->db->table('plugin') . "` WHERE `addon_id` = " . $id . ";";
 		$basename = $roster->db->query_first($query);
@@ -215,6 +217,7 @@ function getPluginlist()
 					$installer->seterrors(sprintf($roster->locale->act['installer_addon_exist'],$installer->addata['basename'],$previous['fullname']));
 					break;
 				}
+
 				$query = 'INSERT INTO `' . $roster->db->table('plugin') . '` VALUES 
 				(NULL,"' . $installer->addata['basename'] . '",
 				"' . $installer->addata['parent'] . '",
@@ -236,7 +239,7 @@ function getPluginlist()
 				$installer->addata['addon_id'] = $roster->db->insert_id();
 
 				// We backup the addon config table to prevent damage
-				$installer->add_backup($roster->db->table('addon_config'));
+				$installer->add_backup($roster->db->table('plugin_config'));
 
 				$success = $addon->install();
 
@@ -253,6 +256,7 @@ function getPluginlist()
 				break;
 
 			case 'upgrade':
+			
 				if( !$previous )
 				{
 					$installer->seterrors(sprintf($roster->locale->act['installer_no_upgrade'],$installer->addata['basename']));
@@ -269,7 +273,7 @@ function getPluginlist()
 				$installer->addata['addon_id'] = $previous['addon_id'];
 
 				// We backup the addon config table to prevent damage
-				$installer->add_backup($roster->db->table('addon_config'));
+				$installer->add_backup($roster->db->table('plugin_config'));
 
 				$success = $addon->upgrade($previous['version']);
 				break;
@@ -295,7 +299,7 @@ function getPluginlist()
 				$installer->addata['addon_id'] = $previous['addon_id'];
 
 				// We backup the addon config table to prevent damage
-				$installer->add_backup($roster->db->table('addon_config'));
+				$installer->add_backup($roster->db->table('plugin_config'));
 
 				$success = $addon->uninstall();
 				break;

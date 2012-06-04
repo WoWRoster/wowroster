@@ -284,14 +284,21 @@ class mainFunctions
 
 					if ($roster->plugin_data[$plugin_name]['active'] == '1')
 					{
+						$xplugin = getplugin($plugin_name);
+						
+						foreach( $roster->multilanguages as $lang )
+						{
+							$roster->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
+						}
+	
 						if ($plugin['scope'] == $roster->scope)
 						{
 							$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
 							require($classfile);
-							$pluginstuff = new $plugin_name;
+							$pluginstuff = new $plugin_name($xplugin);
 
 							$this->block[] = array(
-								'name'   => $pluginstuff->fullname,
+								'name'   => $roster->locale->act['events']['title'],//$pluginstuff->fullname,
 								'output' => $pluginstuff->output,
 								'icon'   => $pluginstuff->icon
 							);

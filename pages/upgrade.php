@@ -369,24 +369,14 @@ class Upgrade {
 			/*
 			##############    NOT SURE IF THIS IS REALLY NEEDED BUT IT WOULDENT BE A BAD IDEA.....
 
-			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;
-			CREATE TABLE `" .$roster->db->table('api_items') . "` (
-			  `achv_id` int(11) NOT NULL,
-			  `achv_cat` int(11) NOT NULL,
-			  `achv_cat_title` varchar(255) NOT NULL default '',
-			  `achv_cat_sub` varchar(255) NOT NULL default '',
-			  `achv_cat_sub2` int(10) default NULL,
-			  `achv_points` int(11) NOT NULL,
-			  `achv_icon` varchar(255) NOT NULL default '',
-			  `achv_title` varchar(255) NOT NULL default '',
-			  `achv_reward_title` varchar(255) default NULL,
-			  `achv_disc` text NOT NULL,
-			  `achv_date` date default NULL,
-			  `achv_criteria` text NOT NULL,
-			  `achv_progress` varchar(25) NOT NULL,
-			  `achv_progress_width` varchar(50) NOT NULL,
-			  `achv_complete` varchar(255) NOT NULL default '',
-			  PRIMARY KEY  (`achv_id`)
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('plugin_config') . "` (
+			  `addon_id` int(11) NOT NULL default '0',
+			  `id` int(11) unsigned NOT NULL,
+			  `config_name` varchar(255) default NULL,
+			  `config_value` tinytext,
+			  `form_type` mediumtext,
+			  `config_type` varchar(255) default NULL,
+			  PRIMARY KEY  (`id`,`addon_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 			*/
 		}
@@ -395,6 +385,19 @@ class Upgrade {
 		{
 			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '11' WHERE `config_name` = 'gp_user_level' LIMIT 1;");
 			$roster->set_message('Set guild data update permissions to CP Admin');
+		}
+		if (version_compare($roster->config['version'], '2.1.9.2530', '<'))
+		{
+			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('plugin_config') . "` (
+			  `addon_id` int(11) NOT NULL default '0',
+			  `id` int(11) unsigned NOT NULL,
+			  `config_name` varchar(255) default NULL,
+			  `config_value` tinytext,
+			  `form_type` mediumtext,
+			  `config_type` varchar(255) default NULL,
+			  PRIMARY KEY  (`id`,`addon_id`)
+			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+			$roster->set_message('created plugin install table');
 		}
 
 		// Standard Beta Update
