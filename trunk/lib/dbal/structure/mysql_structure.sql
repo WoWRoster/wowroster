@@ -121,6 +121,16 @@ CREATE TABLE `renprefix_addon_config` (
   PRIMARY KEY  (`id`,`addon_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `renprefix_plugin_config`;
+CREATE TABLE `renprefix_plugin_config` (
+  `addon_id` int(11) NOT NULL default '0',
+  `id` int(11) unsigned NOT NULL,
+  `config_name` varchar(255) default NULL,
+  `config_value` tinytext,
+  `form_type` mediumtext,
+  `config_type` varchar(255) default NULL,
+  PRIMARY KEY  (`id`,`addon_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 # --------------------------------------------------------
 ### API Tables
 
