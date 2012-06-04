@@ -27,15 +27,6 @@ class achiv
 		$this->buildarch();
 		//$this->buildcrit();
 		$cat = $this->list_all();
-		/*
-		echo '<pre>';
-		print_r($this->crit);
-		echo '<br><hr><br>';
-		print_r($this->achi);
-		echo '<br><hr><br>';
-		print_r($this->catss);
-		echo '</pre>';
-		*/
 		$e = 0;
 		$achi = $this->achi;
 		$interface='http://www.wowroster.net/Interface/Icons/';//Interface/Icons/';
@@ -48,7 +39,7 @@ class achiv
 		$e = 0;
 		while($row = $roster->db->fetch($result2))
 		{
-			$achData[] = $row['achie_id'];//array ($e => $row['achie_id']);//$row['achie_id'];//,'data' =>array(
+			$achData[] = $row['achie_id'];
 			$achDate[$row['achie_id']] = $row['achie_date'];
 			$e++;
 		}
@@ -66,55 +57,38 @@ class achiv
 				$k = array();
 				foreach ($achi[$id] as $ach => $da)
 				{
-					//	echo '<br><br><pre>';
-					//	print_r($da);
 					if (isset($da['Name']) && is_numeric($da['Points']))
 					{
 						if ($this->iscomp($ach,$da['Name'],$achData))
 						{
 							$bg = $imgpath . 'achievement_bg.jpg';
 							$complete = 1;
-							//$catc++;
 							$date = $this->convert_date($achDate[$ach]);
+							$datex = $achDate[$ach];
 							$crttt = '1';
 						}
 						else
 						{
 							$bg = $imgpath.'achievement_bg_locked.jpg';
 							$complete = 0;
-							$date = '';
+							$datex = $date = '';
 							$crttt = '1';
-							/*
-							$crittt = $this->buildcrittooltip($ach);
-							
-								if ($crittt != '1')
-								{
-								$crttt = makeOverlib($crittt, $da['Name'], '', 2);
-								}else{
-								$crttt = '1';
-								}
-							*/
 						}
-						//play build crit tooltip lol
-						//$crittt = $this->buildcrittooltip($ach);
-						
 							$k[] = array(
-								//'ID'       => 's' . $dat['menue'],
-								//'IDS'        => $xxx,
 								'BACKGROUND' => $bg,
 								'NAME'       => $da['Name'],
 								'DESC'       => $da['Desc'],
 								'STATUS'     => $complete,
-								'DATE'       => $date,//$da['Desc'],
+								'DATE'       => $date,
+								'DATEX'       => $datex,
 								'POINTS'     => $da['Points'],
-								'CRITERIA'   => $crttt,//'total '.count($this->crit[$ach]),//$achvg,
-								'SHIELD'     => '',//$addon['tpl_image_path'],
-								//'BAR'        => $bar,
+								'CRITERIA'   => $crttt,
+								'SHIELD'     => '',
 								'ICON'       => $interface . $da['icon'] . '.png',
 							);
 					}
 				}
-				$this->sksort($k,'STATUS');
+				$this->sksort($k,'DATEX');
 						foreach ($k as $pices)
 						{
 						$roster->tpl->assign_block_vars('info.achv',$pices);
@@ -124,17 +98,13 @@ class achiv
 				
 			if (isset($title['sub']) && is_array($title['sub']))
 			{
-				//echo $title['name'].'<br>';
-				
 				foreach ($title['sub'] as $ids => $r)
 				{
 					$roster->tpl->assign_block_vars('sub'.$id.'',array(
 						'ID'       => 's'.$r['id'],
 						'NAME'     => $r['name']
-					//'SELECTED' => (isset($sxx) && $sxx == 1 ? true : false)class="selected"
 						)
 					);
-					//echo '--'.$r['name'].' - '.$ids.'<br>';
 					
 					if ($id == $ids)
 					{
@@ -159,44 +129,32 @@ class achiv
 								$bg = $imgpath . 'achievement_bg.jpg';
 								$complete = 1;
 								$date = $this->convert_date($achDate[$ach]);
-								//$catc++;
+								$datex = $achDate[$ach];
 								$crttt = '1';
 							}
 							else
 							{
 								$bg = $imgpath.'achievement_bg_locked.jpg';
 								$complete = 0;
-								$date = '';
+								$datex = $date = '';
 								$crttt = '1';
-								/*
-								$crittt = $this->buildcrittooltip($ach);
-								if ($crittt != '1')
-								{
-								$crttt = makeOverlib($crittt, $da['Name'], '', 2);
-								}else{
-								$crttt = '1';
-								}
-								*/
 							}
-							//*	
 							
 						$h[] = array(
-									//'ID'       => 's' . $dat['menue'],
-									//'IDS'        => $xxx,
 									'BACKGROUND' => $bg,
 									'NAME'       => $da['Name'],
 									'DESC'       => $da['Desc'],
 									'STATUS'     => $complete,
-									'DATE'       => $date,//$da['Desc'],
+									'DATE'       => $date,
+									'DATEX'       => $datex,
 									'POINTS'     => $da['Points'],
-									'CRITERIA'   => $crttt,//'total '.count($this->crit[$ach]),//$achvg,
-									'SHIELD'     => '',//$addon['tpl_image_path'],
-									//'BAR'        => $bar,
+									'CRITERIA'   => $crttt,
+									'SHIELD'     => '',
 									'ICON'       => $interface . $da['icon'] . '.png',
 							);
 						}
 					}
-					$this->sksort($h,'STATUS');
+					$this->sksort($h,'DATEX');
 					foreach ($h as $pices)
 					{
 						$roster->tpl->assign_block_vars('info.achv',$pices);
@@ -296,10 +254,9 @@ class achiv
 		{
 			if ($row['p_id'] == '-1')
 			{
-			//$catss[$row['c_id']] = array('name' => $bc.$row['achi_cate'],'id' => $row['c_id']);
-			$catss[$row['c_id']]['name'] = $row['achi_cate'];
-			$catss[$row['c_id']]['id'] = $row['c_id'];
-			$main = $row['c_id'];
+				$catss[$row['c_id']]['name'] = $row['achi_cate'];
+				$catss[$row['c_id']]['id'] = $row['c_id'];
+				$main = $row['c_id'];
 			}
 
 		}
@@ -313,41 +270,30 @@ class achiv
 
 		$catss = array();
 		$dlid = "SELECT * FROM `" . $roster->db->table('achie', $addon['basename']) . "` WHERE `p_id` != '-1'  order by `c_id` ASC";
-			$resultd = $roster->db->query($dlid);
-			while($row = $roster->db->fetch($resultd))
-
-			{
-				$catss[$row['p_id']]['sub'][$row['c_id']] = array('name' => $row['achi_cate'],'id' => $row['c_id']);
-			}
+		$resultd = $roster->db->query($dlid);
+		while($row = $roster->db->fetch($resultd))
+		{
+			$catss[$row['p_id']]['sub'][$row['c_id']] = array('name' => $row['achi_cate'],'id' => $row['c_id']);
+		}
 		return $catss;
 	}
 	
 	function buildarch()
 	{
-	global $roster,$addon,$catss;
+		global $roster,$addon,$catss;
+		
 		$query =	"SELECT * FROM `" . $roster->db->table('achie', $addon['basename']) . "` ORDER BY `c_id` DESC ";
 		$ret = $roster->db->query($query);
 		$this->achi = array();
 		while( $row = $roster->db->fetch($ret) )
 		{
 			$this->achi[$row['c_id']]['Name'] = $row['achi_cate'];
-/*
-				$update->add_value('achie_name',	$achi['title']);
-				$update->add_value('achie_desc',	$achi['description']);
-				$update->add_value('achie_points',	$achi['points']);
-				$update->add_value('achie_id',		$achi['id']);
-				$update->add_value('achie_icon',	$achi['icon']);
-				$update->add_value('achie_tooltip',	$tooltip);
-				$update->add_value('c_id',			$sub['id']);
-				$update->add_value('p_id',			$cat['id']);
-				$update->add_value('achi_cate',		$sub['name']);
-				*/
 			$this->achi[$row['c_id']][$row['achie_id']]=array(
-							'Name'=>$row['achie_name'],
-							'Desc'=>$row['achie_desc'],
-							'Points'=>$row['achie_points'],
-							'icon'=>$row['achie_icon'],
-							'achi_ID'=>$row['achie_id']
+					'Name'=>$row['achie_name'],
+					'Desc'=>$row['achie_desc'],
+					'Points'=>$row['achie_points'],
+					'icon'=>$row['achie_icon'],
+					'achi_ID'=>$row['achie_id']
 				);
 		}
 	}
@@ -362,20 +308,15 @@ class achiv
 		$critData = array();
 		while($row2 = $roster->db->fetch($result2))
 		{
-			//$critData[] = $row2['crit_id'];//array ($e => $row['achie_id']);//$row['achie_id'];//,'data' =>array(
 			$critData[$row2['crit_id']] = array('status'=>'unlocked','Value'=>$row2['crit_value']);
 			$e++;
-		}
-		//echo '<pre>';
-		//print_r($critDate);
-		
+		}	
 		
 		$query =	"SELECT * FROM `" . $roster->db->table('crit', $addon['basename']) . "` ORDER BY `crit_achie_id` DESC ";
 		$ret = $roster->db->query($query);
 		$this->crit = array();
 		while( $row = $roster->db->fetch($ret) )
 		{
-			//$this->crit[$row['c_id']]['Name'] = $row['achi_cate'];
 			if ($row['crit_desc'] != '')
 			{
 				if (isset($critData[$row['crit_id']]) && $critData[$row['crit_id']]['status'] == 'unlocked')
@@ -437,7 +378,6 @@ class achiv
 		
 		$roster->tpl->assign_var('S_TALENT_TAB',false);
 		$roster->tpl->assign_var('S_ACHIV',true);
-		//$roster->tpl->assign_var('INTERFACE_URL','http://localhost/wowroster/img/');
 		
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/achiv.html'));
 		return $roster->tpl->fetch('char');
