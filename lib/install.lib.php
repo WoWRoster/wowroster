@@ -252,7 +252,7 @@ class Install
 	{
 		global $roster;
 
-		if( !in_array($name,array('util','realm','guild','char')) )
+		if( !in_array($name,array('util','realm','guild','char','user')) )
 		{
 			$this->sql[] = "DELETE FROM `" . $roster->db->table('menu') . "` WHERE `section` = '" . $roster->db->escape($name) . "' LIMIT 1;";
 		}

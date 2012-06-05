@@ -329,6 +329,58 @@ function getPluginlist()
 
 		return true;
 	}
+		
+	/**
+	 * Addon purge
+	 * Removes an addon with a bad install/upgrade/un-install
+	 *
+	 * @param string $dbname
+	 * @return bool
+	 */
+	function purge( $dbname )
+	{
+		global $roster, $installer;
+
+		// Delete addon tables under dbname.
+		$query = 'SHOW TABLES LIKE "' . $roster->db->prefix . 'addons_' . $dbname . '%"';
+		$tables = $roster->db->query($query);
+		if( !$tables )
+		{
+			$installer->seterrors('Error while getting table names for ' . $dbname . '. MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+			return false;
+		}
+		if( $roster->db->num_rows($tables) )
+		{
+			while ($row = $roster->db->fetch($tables))
+			{
+				$query = 'DROP TABLE `' . $row[0] . '`;';
+				$dropped = $roster->db->query($query);
+				if( !$dropped )
+				{
+					$installer->seterrors('Error while dropping ' . $row[0] . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+					return false;
+				}
+			}
+		}
+
+		// Get the addon id for this basename
+		$query = "SELECT `addon_id` FROM `" . $roster->db->table('plugin') . "` WHERE `basename` = '" . $dbname . "';";
+		$addon_id = $roster->db->query_first($query);
+
+		if( $addon_id !== false )
+		{
+			// Delete addon config entries
+			$query = 'DELETE FROM `' . $roster->db->table('plugin_config') . '` WHERE `addon_id` = "' . $addon_id . '";';
+			$roster->db->query($query) or $installer->seterrors('Error while deleting menu entries for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+		}
+
+		// Delete addon table entry
+		$query = 'DELETE FROM `' . $roster->db->table('plugin') . '` WHERE `basename` = "' . $dbname . '"';
+		$roster->db->query($query) or $installer->seterrors('Error while deleting plugin table entry for ' . $dbname . '.<br />MySQL said: ' . $roster->db->error(),$roster->locale->act['installer_error'],__FILE__,__LINE__,$query);
+
+		return true;
+	}
+
 
 $plugins = getPluginList();
 if( !empty($plugins) )
@@ -350,7 +402,7 @@ if( !empty($plugins) )
 		{
 			if( strpos($addon['icon'],'.') !== false )
 			{
-				$addon['icon'] = ROSTER_PATH . 'addons/' . $addon['basename'] . '/images/' . $addon['icon'];
+				$addon['icon'] = ROSTER_PATH . 'plugins/' . $addon['basename'] . '/images/' . $addon['icon'];
 			}
 			else
 			{
