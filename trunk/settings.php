@@ -254,6 +254,7 @@ $roster->locale = new roster_locale();
  */
 require_once (ROSTER_LIB . 'menu.php');
 
+$roster->get_global_plugins();
 /**
  * Figure out the page
  */
@@ -352,7 +353,6 @@ if( (empty($roster->config['version']) || version_compare($roster->config['versi
 * putting this here untill release.....
  */
 $roster->get_plugin_data();
-
 
 /**
  * If the install directory or files exist, die()

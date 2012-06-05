@@ -5,11 +5,11 @@
  * Roster global class
  *
  * @copyright  2002-2011 WoWRoster.net
- * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id$
- * @link       http://www.wowroster.net
- * @since      File available since Release 1.8.0
- * @package    WoWRoster
+ * @license	http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version	SVN: $Id$
+ * @link	   http://www.wowroster.net
+ * @since	  File available since Release 1.8.0
+ * @package	WoWRoster
  * @subpackage RosterClass
  */
 
@@ -21,7 +21,7 @@ if( !defined('IN_ROSTER') )
 /**
  * Roster global class
  *
- * @package    WoWRoster
+ * @package	WoWRoster
  * @subpackage RosterClass
  */
 class roster
@@ -93,8 +93,8 @@ class roster
 
 		// used on rostercp pages
 		'header'  => '',
-		'menu'    => '',
-		'body'    => '',
+		'menu'	=> '',
+		'body'	=> '',
 		'pagebar' => '',
 		'footer'  => '',
 
@@ -102,7 +102,7 @@ class roster
 		'content' => '',
 
 		// header stuff
-		'title'       => '',
+		'title'	   => '',
 		'html_head'   => '',
 		'body_attr'   => '',
 		'body_onload' => '',
@@ -600,6 +600,34 @@ class roster
 			$this->plugin_data[$row['basename']] = $row;
 		}
 	}
+	function get_global_plugins()
+	{
+		global $global_plugins;
+		
+		$global_plugins = array();
+		if (!isset($this->plugin_data) || empty($this->plugin_data)) $this->get_plugin_data(); // Try to load plugins
+		if( !empty($this->plugin_data) )
+		{
+		   foreach( $this->plugin_data as $plugin_name => $plugin )
+		   {
+				if ($this->plugin_data[$plugin_name]['active'] == '1')
+				{
+					$xplugin = getplugin($plugin_name);	  
+					foreach( $this->multilanguages as $lang )
+					{
+						$this->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
+					}
+					if ($plugin['scope'] == 'global')
+					{
+						$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
+						require($classfile);
+						$global_plugins[$plugin_name] = new $plugin_name($xplugin);
+					}
+				}
+			}
+		}
+		
+	}	
 
 
 	/**

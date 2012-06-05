@@ -120,7 +120,15 @@ class memberslist
 
 					if ($roster->plugin_data[$plugin_name]['active'] == '1')
 					{
-						if ($plugin['scope'] == $roster->scope)
+						$xplugin = getplugin($plugin_name);
+						
+						foreach( $roster->multilanguages as $lang )
+						{
+							$roster->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
+						}
+						$plugin['scope'] = explode('|',$plugin['scope']);
+						//if ($plugin['scope'] == $roster->scope)
+						if (in_array( $roster->scope, $plugin['scope'] ) )
 						{
 							$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
 							require($classfile);

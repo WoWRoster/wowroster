@@ -281,7 +281,6 @@ class mainFunctions
 				//$dirx = ROSTER_ADDONS . $plugin['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
 				if ($plugin['parent'] == $addon['basename'])
 				{
-
 					if ($roster->plugin_data[$plugin_name]['active'] == '1')
 					{
 						$xplugin = getplugin($plugin_name);
@@ -290,15 +289,16 @@ class mainFunctions
 						{
 							$roster->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
 						}
-	
-						if ($plugin['scope'] == $roster->scope)
+						$plugin['scope'] = explode('|',$plugin['scope']);
+						//if ($plugin['scope'] == $roster->scope)
+						if (in_array( $roster->scope, $plugin['scope'] ) )
 						{
 							$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
 							require($classfile);
 							$pluginstuff = new $plugin_name($xplugin);
 
 							$this->block[] = array(
-								'name'   => $roster->locale->act['events']['title'],//$pluginstuff->fullname,
+								'name'   => $roster->locale->act[$plugin_name]['title'],//$pluginstuff->fullname,
 								'output' => $pluginstuff->output,
 								'icon'   => $pluginstuff->icon
 							);

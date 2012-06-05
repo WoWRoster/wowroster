@@ -146,7 +146,7 @@ class achiv
 							if ($this->iscomp($ach,$da['Name'],$achData))
 							{
 								$bg = $imgpath . 'achievement_bg.jpg';
-								$complete = 1;
+								$shild = $complete = 1;
 								$date = $this->convert_date($achDate[$ach]);
 								$datex = $achDate[$ach];
 								$crttt = '1';
@@ -154,7 +154,7 @@ class achiv
 							else
 							{
 								$bg = $imgpath.'achievement_bg_locked.jpg';
-								$complete = 0;
+								$shild = $complete = 0;
 								$datex = $date = '';
 								$crttt = '1';
 							}
@@ -168,7 +168,7 @@ class achiv
 									'DATEX'       => $datex,
 									'POINTS'     => $da['Points'],
 									'CRITERIA'   => $crttt,
-									'SHIELD'     => '',
+									'SHIELD'     => $shild,
 									'ICON'       => $interface . $da['icon'] . '.png',
 							);
 							$this->icons[] = "'".$interface . $da['icon'] . ".png'";
