@@ -211,9 +211,11 @@ class mainFunctions
 	
 	function image_resize($src, $dst, $width, $height, $crop=0)
 	{
+		global $roster;
 
 		if(!list($w, $h) = getimagesize($src)) return "Unsupported picture type!";
 
+		if (!file_exists($src)) return $roster->set_message('image "'.$src.'" not found!');
 		$type = strtolower(substr(strrchr($src,"."),1));
 		if($type == 'jpeg') $type = 'jpg';
 		switch($type)

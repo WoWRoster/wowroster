@@ -251,11 +251,11 @@ while( $rowb = $roster->db->fetch($resultsb) )
 	$target_path = $addon['dir'] .'images/'. $rowb['b_image'];
 	if (!file_exists($addon['dir'] .'images/slider-'. $rowb['b_image']) )
 	{
-		$func->image_resize($target_path, $addon['dir'] .'images/slider-'. $rowb['b_image'], 600, 300, 1);
+		$func->image_resize($target_path, $addon['dir'] .'images/slider-'. $rowb['b_image'], 600, 300);
 	}
 	if (!file_exists($addon['dir'] .'images/thumb-'. $rowb['b_image']) )
 	{
-		$func->image_resize($target_path, $addon['dir'] .'images/thumb-'. $rowb['b_image'], 100, 47, 1);
+		$func->image_resize($target_path, $addon['dir'] .'images/thumb-'. $rowb['b_image'], 100, 47);
 	}
 
 	$roster->tpl->assign_block_vars('slider', array(
