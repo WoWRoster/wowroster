@@ -254,7 +254,7 @@ $roster->locale = new roster_locale();
  */
 require_once (ROSTER_LIB . 'menu.php');
 
-if( version_compare($roster->config['version'], '2.1.9.2530', '=>'))
+if( version_compare($roster->config['version'], '2.1.9.2530', '>='))
 {
 	$roster->get_global_plugins();
 }

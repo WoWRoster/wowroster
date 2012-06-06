@@ -34,6 +34,7 @@ class Install
 	var $addata;
 
 	var $conf_table = 'addon_config';
+	var $install_type = 'addons';
 	
 	var $addon_id;
 
@@ -270,9 +271,24 @@ class Install
 	 *		1 on failure but successful rollback
 	 *		2 on failed rollback
 	 */
-	function install()
+	function install($type = 'addons')
 	{
 		global $roster;
+
+		switch( $type )
+		{
+			case 'addons':
+				$this->install_type = 'addons';
+				break;
+
+			case 'plugins':
+				$this->install_type = 'plugins';
+				break;
+
+			default:
+				$this->install_type = 'addons';
+				break;
+		}
 
 		$retval = 0;
 		//$old_error_die = $roster->db->error_die(false);
@@ -352,8 +368,7 @@ class Install
 	function table($table, $backup=false)
 	{
 		global $roster;
-
-		return (($backup) ? 'backup_' : '') . $roster->db->table($table, $this->addata['basename']);
+		return (($backup) ? 'backup_' : '') . $roster->db->table($table, $this->addata['basename'],$this->install_type);
 	}
 
 	/**

@@ -22,7 +22,7 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 include(ROSTER_ADMIN . 'roster_config_functions.php');
 
 include(ROSTER_LIB . 'install.lib.php');
-$installer = new Install;
+$installer = new Install('plugins');
 $installer->conf_table = 'plugin_config';
 
 $op = ( isset($_POST['op']) ? $_POST['op'] : '' );

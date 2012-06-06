@@ -531,11 +531,11 @@ class roster_db
 	 * @param string $addon the name of the addon, empty for a base roster table
 	 * @return string tablename as fit for MySQL queries
 	 */
-	function table($table, $addon='')
+	function table($table, $addon='', $type='addons')
 	{
 		if( $addon )
 		{
-			return $this->prefix . 'addons_' . $addon . ($table != '' ? '_' . $table : '');
+			return $this->prefix . $type . '_' . $addon . ($table != '' ? '_' . $table : '');
 		}
 		else
 		{

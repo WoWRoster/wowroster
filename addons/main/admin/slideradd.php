@@ -19,8 +19,8 @@ if (isset($_POST['op']) && $_POST['op'] == 'upload')
 	{
 		//$extension = substr(basename( $_FILES['b_image']['name']), strrpos(basename( $_FILES['b_image']['name']), '.')+1);
 
-		$func->image_resize($target_path, $thumb, 100, 47, 1);
-		$func->image_resize($target_path, $slider, 600, 300, 1);
+		$func->image_resize($target_path, $thumb, 100, 47);
+		$func->image_resize($target_path, $slider, 600, 300);
 
 		$query = "INSERT INTO `" . $roster->db->table('slider', $addon['basename']) . "` SET "
 			. "`b_title` = '" . $_POST['b_title'] . "', "
