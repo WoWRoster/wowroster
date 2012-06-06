@@ -35,14 +35,17 @@ if( isset( $_POST['op'] ) && $_POST['op'] == 'process' )
 
 		case 'delete':
 
-			$dir = $addon['image_path'];
+			$dir = $addon['dir'];
 			$filename = $_POST['image'];
 			$delete = $_POST['id'];
 			if( file_exists($dir.$filename) )
 			{
 				if( unlink($dir.$filename))
 				{
-					$roster->set_message( $filename.': Deleted' );
+					unlink($dir.'thumb-'.$filename);
+					unlink($dir.'slider-'.$filename);
+					
+					$roster->set_message( '"'.$filename.' & thumb-'.$filename.' & slider-'.$filename.'": Deleted' );
 					$roster->db->query("DELETE FROM `".$roster->db->table('slider',$addon['basename'])."` WHERE id='".$delete."' ");
 				}
 				else
