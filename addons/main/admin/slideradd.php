@@ -17,8 +17,7 @@ if (isset($_POST['op']) && $_POST['op'] == 'upload')
 
 	if(move_uploaded_file($_FILES['b_image']['tmp_name'], $target_path))
 	{
-		//$extension = substr(basename( $_FILES['b_image']['name']), strrpos(basename( $_FILES['b_image']['name']), '.')+1);
-
+		
 		$func->image_resize($target_path, $thumb, 100, 47);
 		$func->image_resize($target_path, $slider, 600, 300);
 
@@ -31,7 +30,7 @@ if (isset($_POST['op']) && $_POST['op'] == 'upload')
 
 		if( $roster->db->query($query) )
 		{
-			$roster->set_message(sprintf($roster->locale->act['slider_add_success'], basename( $_FILES['b_image']['name'])));
+			$roster->set_message(sprintf($roster->locale->act['slider_add_success'], $_FILES['b_image']['name']));
 		}
 		else
 		{
@@ -44,12 +43,10 @@ if (isset($_POST['op']) && $_POST['op'] == 'upload')
 	}
 	else
 	{
-		$roster->set_message(sprintf($roster->locale->act['slider_add_success'], $target_path), $roster->locale->act['b_add'], 'error');
+		$roster->set_message(sprintf($roster->locale->act['slider_file_error'], $target_path), $roster->locale->act['b_add'], 'error');
 	}
 	//*/
 }
-
-
 
 $roster->tpl->set_handle('slider',$addon['basename'] . '/admin/slideradd.html');
 

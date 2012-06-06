@@ -213,9 +213,10 @@ class mainFunctions
 	{
 		global $roster;
 
+		if (!file_exists($src)) return $roster->set_message('image "'.$src.'" not found!');
+		
 		if(!list($w, $h) = getimagesize($src)) return "Unsupported picture type!";
 
-		if (!file_exists($src)) return $roster->set_message('image "'.$src.'" not found!');
 		$type = strtolower(substr(strrchr($src,"."),1));
 		if($type == 'jpeg') $type = 'jpg';
 		switch($type)
@@ -240,8 +241,8 @@ class mainFunctions
 		{
 			if($w < $width and $h < $height) return "Picture is too small!";
 			$ratio = min($width/$w, $height/$h);
-			$width = $w * $ratio;
-			$height = $h * $ratio;
+			//$width = $w * $ratio;
+			//$height = $h * $ratio;
 			$x = 0;
 		}
 
