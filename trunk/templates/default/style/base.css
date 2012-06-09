@@ -228,39 +228,39 @@ textbox {
 }
 
 .button-char { background: url(../images/menu/menu.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-char :hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-char:hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
 .button-char-selected { background: url(../images/menu/menu.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-char-selected :hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-char-selected:hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
 
 .button-members { background: url(../images/menu/menu.png);background-position: -150px 0px; width: 151px; height: 20px; display: block;}
-.button-members :hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-members:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
 .button-members-selected { background: url(../images/menu/menu.png);background-position: -150px 40px; width: 151px; height: 20px; display: block;}
-.button-members-selected :hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-members-selected:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
 
 .button-guild { background: url(../images/menu/menu.png);background-position: -150px 0px; width: 151px; height: 20px; display: block;}
-.button-guild :hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-guild:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
 .button-guild-selected { background: url(../images/menu/menu.png);background-position: -150px 40px; width: 151px; height: 20px; display: block;}
-.button-guild-selected :hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-guild-selected:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
 
 .button-realm { background: url(../images/menu/menu.png);background-position: -300px 0px; width: 151px; height: 20px; display: block;}
-.button-realm :hover{ background: url(../images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
+.button-realm:hover{ background: url(../images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
 .button-realm-selected { background: url(../images/menu/menu.png);background-position: -300px 40px; width: 151px; height: 20px; display: block;}
-.button-realm-selected :hover{ background: url(../images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
+.button-realm-selected:hover{ background: url(../images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
 
 .button-upload { background: url(../images/menu/menu.png);background-position: -450px 0px; width: 151px; height: 20px; display: block;}
-.button-upload :hover{ background: url(../images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
+.button-upload:hover{ background: url(../images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
 .button-upload-selected { background: url(../images/menu/menu.png);background-position: -450px 40px; width: 151px; height: 20px; display: block;}
-.button-upload-selected :hover{ background: url(../images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
+.button-upload-selected:hover{ background: url(../images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
 
 .button-user { background: url(../images/menu/menu.png);background-position: -600px 0px; width: 151px; height: 20px; display: block;}
-.button-user :hover{ background: url(../images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
+.button-user:hover{ background: url(../images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
 .button-user-selected { background: url(../images/menu/menu.png);background-position: -600px 40px; width: 151px; height: 20px; display: block;}
-.button-user-selected :hover{ background: url(../images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
+.button-user-selected:hover{ background: url(../images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
 
 .button-util { background: url(../images/menu/menu.png);background-position: -750px 0px; width: 151px; height: 20px; display: block;}
-.button-util :hover{ background: url(../images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
+.button-util:hover{ background: url(../images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
 .button-util-selected { background: url(../images/menu/menu.png);background-position: -750px 40px; width: 151px; height: 20px; display: block;}
-.button-util-selected :hover{ background: url(../images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
+.button-util-selected:hover{ background: url(../images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
 
 
 /* Mini Pop-Up List */
