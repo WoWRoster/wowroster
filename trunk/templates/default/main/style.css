@@ -114,66 +114,7 @@ td.mybackground{
   z-index: 9999999;
   background: url(../images/shadow.png) repeat-y;
 }
-/*
-#slideshow {
-  position: relative; width: 640px; height: 300px; overflow: hidden;
-  background: url(images/featured_bg.jpg);
-}
-#slideshow .container {
-  z-index: 20; position: relative; width: 640px; height: 300px;
-}
-#slideshow .mask {
-  z-index: 250; position: relative; width: 640px; height: 300px; top: 0px; cursor: pointer; left: 0px;
-  background: url(images/slideshow-mask.png) no-repeat 0px 0px;
-  width: 640px;
-}
-/*
-#slideshow .caption {
-  color: #0066ff;
-  z-index: 35; position: absolute; width: 580px; bottom: 30px; left: 30px
-}
-#slideshow .caption h3 {
-  color: #fff; font-size: 28px; font-weight: normal
-}
-#slideshow .caption h3 a {
-  color: #fff8d6
-}
-#slideshow .caption h3 a:hover {
-  color: #fff
-}
-#slideshow .paging {
-  z-index: 35; position: absolute; width: 15px; top: 15px; right: 15px
-}
-#slideshow .paging a {
-  background-color: #fff; display: block; margin-bottom: 5px; height: 10px; opacity: .5; -moz-border-radius: 3px; border-radius: 3px
-}
-#slideshow .paging a:hover {
-  background: #0068ff;
-  border: #a16c29 1px solid;
-  opacity: 1
-}
-#slideshow .paging a.current {
-  background: #8000ff;
-  border: #a16c29 1px solid;
-  color: blue;
-  opacity: 1
-}
-#slideshow .preview {
-  z-index: 35; position: absolute; text-align: center; padding-bottom: 5px; padding-left: 5px; width: 100px; padding-right: 5px; display: none; background: #fff; color: #000; top: 15px; right: 35px; padding-top: 5px; -moz-border-radius: 5px; border-radius: 5px
-}
-#slideshow .preview span {
-  display: block
-}
-#slideshow .slide {
-  z-index: 15; position: absolute; width: 640px; background-repeat: no-repeat; background-position: 0px 0px; height: 300px; top: 0px; left: 0px
-}
-#slideshow .slide .click-area {
-  z-index: 20; position: absolute; width: 640px; bottom: 0px; height: 300px; left: 0px
-}
-#slideshow .slide .click-area embed {
-  z-index: 25
-}
-*/
+
 #homepage {
   padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;
 }
@@ -217,8 +158,4 @@ padding-top: 8px;
   line-height: 1.8em; width: 540px;
   color: #333333;
   font: bold normal 12px Verdana, Arial, Helvetica, sans-serif;
-}
-
-.camera_block {
-  overflow: auto;
 }
