@@ -59,7 +59,7 @@ function getPluginlist()
 	{
 		while( false !== ($file = readdir($handle)) )
 		{
-			if( $file != '.' && $file != '..' && $file != '.svn' )
+			if( $file != '.' && $file != '..' && $file != '.svn' && !is_file($file))
 			{
 				$addons[] = $file;
 			}
@@ -75,55 +75,51 @@ function getPluginlist()
 			$installfile = ROSTER_PLUGINS . $addon . DIR_SEP . 'install.def.php';
 			$install_class = $addon . 'Install';
 
-			if (is_dir(ROSTER_PLUGINS . $addon . DIR_SEP))
+			if( file_exists($installfile) )
 			{
-			
-				if( file_exists($installfile) )
+				include_once($installfile);
+
+				if( !class_exists($install_class) )
 				{
-					include_once($installfile);
-
-					if( !class_exists($install_class) )
-					{
-						$installer->seterrors(sprintf($roster->locale->act['installer_no_class'],$addon));
-						continue;
-					}
-
-					$addonstuff = new $install_class;
-
-					if( array_key_exists($addon,$roster->plugin_data) )
-					{
-						$output[$addon]['id'] = $roster->plugin_data[$addon]['addon_id'];
-						$output[$addon]['active'] = $roster->plugin_data[$addon]['active'];
-						$output[$addon]['access'] = $roster->plugin_data[$addon]['access'];
-						$output[$addon]['oldversion'] = $roster->plugin_data[$addon]['version'];
-
-						// -1 = overwrote newer version
-						//  0 = same version
-						//  1 = upgrade available
-						$output[$addon]['install'] = version_compare($addonstuff->version,$roster->plugin_data[$addon]['version']);
-
-					}
-					else
-					{
-						$output[$addon]['install'] = 3;
-					}
-
-					// Save current locale array
-					// Since we add all locales for localization, we save the current locale array
-					// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
-					
-					$output[$addon]['filename'] = $addonstuff->filename;
-					$output[$addon]['basename'] = $addon;
-					$output[$addon]['parent'] = $addonstuff->parent;
-					$output[$addon]['scope'] = $addonstuff->scope;
-					$output[$addon]['fullname'] = $addonstuff->fullname;
-					$output[$addon]['author'] = $addonstuff->credits[0]['name'];
-					$output[$addon]['version'] = $addonstuff->version;
-					$output[$addon]['icon'] = $addonstuff->icon;
-					$output[$addon]['description'] = $addonstuff->description;
-
-					unset($addonstuff);
+					$installer->seterrors(sprintf($roster->locale->act['installer_no_class'],$addon));
+					continue;
 				}
+
+				$addonstuff = new $install_class;
+
+				if( array_key_exists($addon,$roster->plugin_data) )
+				{
+					$output[$addon]['id'] = $roster->plugin_data[$addon]['addon_id'];
+					$output[$addon]['active'] = $roster->plugin_data[$addon]['active'];
+					$output[$addon]['access'] = $roster->plugin_data[$addon]['access'];
+					$output[$addon]['oldversion'] = $roster->plugin_data[$addon]['version'];
+
+					// -1 = overwrote newer version
+					//  0 = same version
+					//  1 = upgrade available
+					$output[$addon]['install'] = version_compare($addonstuff->version,$roster->plugin_data[$addon]['version']);
+
+				}
+				else
+				{
+					$output[$addon]['install'] = 3;
+				}
+
+				// Save current locale array
+				// Since we add all locales for localization, we save the current locale array
+				// This is in case one addon has the same locale strings as another, and keeps them from overwritting one another
+				
+				$output[$addon]['filename'] = $addonstuff->filename;
+				$output[$addon]['basename'] = $addon;
+				$output[$addon]['parent'] = $addonstuff->parent;
+				$output[$addon]['scope'] = $addonstuff->scope;
+				$output[$addon]['fullname'] = $addonstuff->fullname;
+				$output[$addon]['author'] = $addonstuff->credits[0]['name'];
+				$output[$addon]['version'] = $addonstuff->version;
+				$output[$addon]['icon'] = $addonstuff->icon;
+				$output[$addon]['description'] = $addonstuff->description;
+
+				unset($addonstuff);
 			}
 		}
 	}
