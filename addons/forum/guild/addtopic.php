@@ -19,10 +19,13 @@ if( !$roster->auth->getAuthorized( $addon['config']['forum_start_topic'] ) )
 	echo $roster->auth->getLoginForm($addon['config']['forum_start_topic']);
 	return; //To the addon framework
 }
-
+include( $addon['dir'] . 'inc/function.lib.php' );
+$functions = new forum;
+$x = $functions->getCrumbsa($_GET['id']);
 // Assign template vars
 $roster->tpl->assign_vars(array(
 	'S_ADD_TOPIC'     => false,
+	'CRUMB'			=> $x,
 	'U_BACK'   => makelink('guild-forum'),
 	'S_HTML_ENABLE' => false,
 	'S_TOPIC_HTML'   => $addon['config']['forum_html_posts'],

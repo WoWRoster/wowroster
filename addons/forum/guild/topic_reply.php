@@ -19,10 +19,14 @@ if( !$roster->auth->getAuthorized( $addon['config']['forum_reply_post'] ) )
 	echo $roster->auth->getLoginForm($addon['config']['forum_reply_post']);
 	return; //To the addon framework
 }
+include( $addon['dir'] . 'inc/function.lib.php' );
+$functions = new forum;
+$x = $functions->getCrumbsb($_GET['tid']);
 
 // Assign template vars
 $roster->tpl->assign_vars(array(
 	'S_ADD_TOPIC'     => false,
+	'CRUMB'			=> $x,
 	'U_BACK'   => makelink('guild-'.$addon['basename'].'-topic_reply&amp;tid=' . $_GET['tid']),
 	'S_HTML_ENABLE' => false,
 	'S_TOPIC_HTML'   => $addon['config']['forum_html_posts'],
