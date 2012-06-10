@@ -33,7 +33,12 @@ $lang['add_comment']  = 'Add Comment';
 $lang['edit_comment'] = 'Edit Comment';
 $lang['n_comment']    = '%s comment';
 $lang['n_comments']   = '%s comments';
-$lang['whos_online']  = 'Who\'s Online';
+
+$lang['whos_online']	= 'Who\'s Online';
+$lang['total']			= 'Total';
+$lang['reg']			= 'Registered';
+$lang['guests']			= 'Guests';
+$lang['bots']			= 'Bots';
 
 $lang['b_title']  = 'Title';
 $lang['b_desc']   = 'Desc';

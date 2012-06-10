@@ -184,12 +184,12 @@ unset($sql);
 $roster->db->free_result($result);
 
 $online = '<div class="whos-online">
-	<span class="left">Total:</span>
+	<span class="left">'. $roster->locale->act['total'].':</span>
 	<span class="right">'. ($logged_visible_online + $guests_online) .'</span>
 </div>
 <hr />
 <div class="whos-online">
-	<span class="left">Registered:</span>
+	<span class="left">'. $roster->locale->act['reg'].':</span>
 	<span class="right">'. $logged_visible_online .'</span>
 </div>
 ';
@@ -198,12 +198,12 @@ if (count($user_online_link) > 0) {
 }
 $online .= '
 <div class="whos-online">
-	<span class="left">Guest:</span>
+	<span class="left">'. $roster->locale->act['guests'].':</span>
 	<span class="right">'. $guests_online .'</span>
 </div>
 ';
 if (count($bot) > 0) {
-	$online .= '<div class="online-bots">Bots: '. implode(', ', $bot) .'</div>';
+	$online .= '<div class="online-bots">'. $roster->locale->act['bots'].': '. implode(', ', $bot) .'</div>';
 }
 
 $roster->tpl->assign_block_vars('right', array(

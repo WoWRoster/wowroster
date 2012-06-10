@@ -23,10 +23,10 @@ $lang['user_menu_realms'] = 'Meine Realms|Zeigt deine Realms.';
 $lang['user_menu_mail'] = 'Meine Nachrichten|Zeigt deine Nachrichten von anderen Benutzern.';
 $lang['user_menu_settings'] = 'Einstellungen|Zeigt die Benutzereinstellungen.';
 $lang['reg_button'] = 'Account Registrieren|Registriere deine Benutzer für deinen Gildenroster';
-$lang['user_alt'] = 'Alt Claim|Claim your Alts';
-$lang['alt_clame'] = 'Claim your Alts';
-$lang['alt_header'] = 'Claim your Alts here';
-$lang['alt_desc'] = 'During this process you have to unequip the items liated below, logout of the game, Enter your Alts name in the character name field and click Chack me, when passed you may click the claim button and it will be linked to your account';
+$lang['user_alt'] = 'Twinks zuordnen|Twinks zuordnen';
+$lang['alt_clame'] = 'Weise deine Twinks zu';
+$lang['alt_header'] = 'Hier kannst Du deine Twinks zuordnen';
+$lang['alt_desc'] = 'Während des Prozesses musst Du die unten stehenden Items ablegen, dich aus dem Spiel ausloggen, den Charakternamen des Twinks eingeben und "Prüf mich" klicken. Nach erfolgreicher Prüfung musst Du auf Zuordnen klicken, dann wird der Charakter deinem Account zugeordnet.';
 
 // Main Menu
 $lang['user_main_menu'] = array(
@@ -239,12 +239,12 @@ $lang['admin']['user_use_plugins']	= 'Benutze Plugins|Sollen Plugins benutzt wer
 //Settings on recruitment config
 $lang['admin']['user_use_recruit']	= 'Benutze Rekrutierung|Soll die Rekrutierung benutzt werden?';
 $lang['admin']['user_rec_status']	= 'Rekrutierungsstatus|Aktueller Status der Rekrutierung.';
-$lang['admin']['user_rec_druid']		= 'Druiden|Aktuelles Rekrutierungslevel.';
+$lang['admin']['user_rec_druid']	= 'Druiden|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_rec_hunter']	= 'Jäger|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_rec_mage']		= 'Magier|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_rec_paladin']	= 'Paladin|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_rec_priest']	= 'Priester|Aktuelles Rekrutierungslevel.';
-$lang['admin']['user_rec_rouge']		= 'Schurken|Aktuelles Rekrutierungslevel.';
+$lang['admin']['user_rec_rouge']	= 'Schurken|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_rec_shaman']	= 'Schamanen|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_rec_warlock']	= 'Hexenmeister|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_rec_warrior']	= 'Krieger|Aktuelles Rekrutierungslevel.';
@@ -253,7 +253,7 @@ $lang['admin']['user_rec_warrior']	= 'Krieger|Aktuelles Rekrutierungslevel.';
 $lang['admin']['user_reg_text']		= 'Registrierungstext|Bearbeite den Willkommenstext bei der Registrierung.';
 
 // Settings on session config
-$lang['admin']['user_sess_time']		= 'Session Dauer|Zeit bevor die Session ungültig wird.';
+$lang['admin']['user_sess_time']	= 'Session Dauer|Zeit bevor die Session ungültig wird.';
 
 // User class messages
 $lang['user_user'] = array(
@@ -368,22 +368,22 @@ $lang['user_settings'] = array(
 );
 
 $lang['user_profile_edit'] = array(
-	'fname'			=> 'First name',
-	'lname'			=> 'Last name',
-	'age'			=> 'Age',
-	'city'			=> 'City',
-	'state'			=> 'State',
-	'country'		=> 'Country',
-	'homepage'		=> 'Homepage',
-	'other_guilds'	=> 'Other guilds',
-	'why'			=> 'Why you joined',
-	'about'			=> 'About you',
-	'notes'			=> 'Some notes',
+	'fname'			=> 'Vorname',
+	'lname'			=> 'Nachname',
+	'age'			=> 'Alter',
+	'city'			=> 'Stadt',
+	'state'			=> 'Staat',
+	'country'		=> 'Land',
+	'homepage'		=> 'Webseite',
+	'other_guilds'	=> 'Andere Gilden',
+	'why'			=> 'Warum Du der Gilde beitretten möchtest',
+	'about'			=> 'Über dich',
+	'notes'			=> 'Zusätzliche Hinweise',
 );
 
 $lang['user_password'] = array(
-	'settings_password' => 'Change Password|This is where you change your current password',
-	'old_pass' => 'Current password',
-	'new_pass_1' => 'New Password',
-	'new_pass_2' => 'Confirm New Password',
+	'settings_password' => 'Passwort ändern|Hier kannst Du dein aktuelles Passwort ändern',
+	'old_pass' => 'Aktuelles Passwort',
+	'new_pass_1' => 'Neues Passwort',
+	'new_pass_2' => 'Bestätige (wiederholen) das neue Passwort',
 );
