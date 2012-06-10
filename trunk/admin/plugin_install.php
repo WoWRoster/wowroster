@@ -59,7 +59,7 @@ function getPluginlist()
 	{
 		while( false !== ($file = readdir($handle)) )
 		{
-			if( $file != '.' && $file != '..' && $file != '.svn' && !is_file($file))
+			if( $file != '.' && $file != '..' && $file != '.svn' && substr($file, strrpos($file, '.')+1) != 'txt')
 			{
 				$addons[] = $file;
 			}
