@@ -14,22 +14,63 @@ $id = ( isset($_POST['id']) ? $_POST['id'] : $_GET['id'] );
 			createTopic();
 			
 		break;
+		
+		case 'unlock':
+			processLock($id,0);
+			break;
+
+		case 'lock':
+			processLock($id,1);
+			break;
 
 		default:
 			break;
 	}
 }
 
+function processLock( $id , $mode )
+	{
+		global $roster, $addon, $installer;
+
+		$query = "UPDATE `" . $roster->db->table('forums',$addon['basename']) . "` SET `locked` = '$mode' WHERE `forum_id` = '".$id."';";
+		$result = $roster->db->query($query);
+		if( !$result )
+		{
+			$roster->set_message('Database Error: ' . $roster->db->error() . '<br />SQL: ' . $query);
+		}
+		else
+		{
+			if ($mode == 1)
+			{
+				$roster->set_message($roster->locale->act['f_lock']);
+			}
+			else
+			{
+				$roster->set_message($roster->locale->act['f_unlock']);
+			}
+		}
+	}
+	
+$info = $functions->getInfo('forum',$_GET['id']);
 $forums = $functions->getTopics($_GET['id']);
 $x = $functions->getCrumbsa($_GET['id']);
 $roster->tpl->assign_vars(array(
 			'CRUMB'			=> $x,
 			'M_STARTTOPIC'	=> makelink('guild-'.$addon['basename'].'-addtopic&amp;id=' . $_GET['id']),
+			'LOCKED'		=> ($info['locked'] == 1 ? true : false),
+			'IMAGE'    		=> '<div class="icon"><img src="'.$addon['url_path'] .'images/topic_unread_locked.gif"></a></div>',
+			'CANLOCK'		=> $roster->auth->getAuthorized( $addon['config']['forum_lock'] ),
+			'L_ACTIVEU' 	=> ( $info['locked'] == 1 ? 'locked' : 'unlocked'),
+			'L_ACTIVET'		=> ( $info['locked'] == 1 ? $roster->locale->act['lock'] : $roster->locale->act['unlock']),
+			'L_ACTIVEOP'	=> ( $info['locked'] == 1 ? 'unlock' : 'lock'),
+			'TOPIC_ID'		=> $info['forum_id'],
 		));
 
 	foreach($forums as $id =>$forum)
 	{
-		$roster->tpl->assign_block_vars('forums', array(
+		if( $roster->auth->getAuthorized( $forum['access'] ) )
+		{
+			$roster->tpl->assign_block_vars('forums', array(
 					'FORUM_ID' 	=> $forum['topicid'],
 					'FORUM_URL'	=> makelink('guild-'.$addon['basename'].'-topic&amp;tid=' . $forum['topicid']),
 					'TITLE'		=> $forum['title'],
@@ -37,9 +78,12 @@ $roster->tpl->assign_vars(array(
 					'POSTER'	=> $forum['poster'],
 					'T_POSTER'	=> $forum['t_poster'],
 					'T_TITLE'	=> $forum['t_title'],
+					'LOCKED'	=> ($forum['locked'] == 1 ? true : false),
+					'IMAGE'    	=> '<div class="icon"><img src="'.$addon['url_path'] .'images/topic_unread_locked.gif"></a></div>',
 					'T_ACCESS'	=> $roster->auth->getAuthorized( $forum['access'] ),
 					'DESC'		=> $forum['desc']
 				));
+		}
 	}		
 	
 	$roster->tpl->set_filenames(array(
@@ -51,7 +95,7 @@ $roster->tpl->assign_vars(array(
 	function createTopic()
 	{
 		global $roster, $addon;
-		$value = $_POST['access'];
+		$value = $_POST['config_access'];
 		if (is_array($value))
 		{
 			$access = implode(":",$value);
@@ -59,6 +103,10 @@ $roster->tpl->assign_vars(array(
 		else
 		{
 			$access = $value;
+		}
+		if (empty($access))
+		{
+			$access = '0';
 		}
 		if( isset($_POST['html']) && $_POST['html'] == 1 && $addon['config']['forum_html_posts'] >= 0 )
 		{

@@ -2,16 +2,22 @@
 
 				<div class="tier-2-a">
 					<div class="tier-2-b exp-content">
-						<div class="addon-status" style="width: 75px;">
+						<div class="addon-status" style="width: 170px;">
 
 							
 							<div style="margin-top:3px;">
-								<form name="activate" style="display:inline;" method="post" enctype="multipart/form-data" action="">
+								<form name="activate" style="display:block;float:left;" method="post" enctype="multipart/form-data" action="">
 									<input type="hidden" name="op" value="process" />
 									<input type="hidden" name="type" value="{forum.B_ACTIVEOP}" />
 									<input type="hidden" name="id" value="{forum.FORUM_ID}" />
 									<button type="submit" class="input" >
 									<img src="/wowroster/templates/default/images/admin/{forum.B_ACTIVEI}.png" style="height:16px;width:16px;border:0;" alt="" />{forum.B_ACTIVET}</button>
+								</form>
+								<form name="lock" style="display:block;float:right;" method="post" enctype="multipart/form-data" action="">
+									<input type="hidden" name="op" value="process" />
+									<input type="hidden" name="type" value="{forum.L_ACTIVEOP}" />
+									<input type="hidden" name="id" value="{forum.FORUM_ID}" />
+									<button type="submit" class="input" ><span class="ui-icon ui-icon-{forum.L_ACTIVEU}"></span>{forum.L_ACTIVET}</button>
 								</form>
 							</div>
 							

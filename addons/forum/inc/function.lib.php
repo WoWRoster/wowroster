@@ -22,10 +22,6 @@ class forum
 		$resultsb = $roster->db->query($queryb);
 		$num=1;
 		$total = $roster->db->num_rows($resultsb);
-		//$row = $roster->db->fetch($resultsb);
-		//echo '<pre>';
-		//print_r($row);
-		//echo '</pre>';
 		
 		while( $rowb = $roster->db->fetch($resultsb) )
 		{
@@ -38,17 +34,29 @@ class forum
 				'title'		=> $rowb['title'],
 				'posts'		=> $rowb['topic_count'],
 				'forumid'	=> $rowb['forum_id'],
+				'locked'	=> $rowb['locked'],
 				't_poster'	=> $rowa['author'],
 				't_title'	=> $rowa['title'],
 				't_id'		=> $rowa['topic_id'],
 				'access'	=> $rowb['access'],
 				'order'		=> $rowb['order_id'],
 				'active'	=> $rowb['active'],
+				'access'	=> $rowb['access'],
 				'desc'		=> $rowb['desc']);
 		}
 		
 		return $forums;
+	}
+	
+	function getInfo($table,$id)
+	{
+		global $roster, $addon;
 		
+		$querya = "SELECT * FROM `" . $roster->db->table($table.'s',$addon['basename']) . "` WHERE `".$table."_id` = '".$id."'";
+		$resulta = $roster->db->query($querya);
+		$rowa = $roster->db->fetch($resulta);
+		
+		return $rowa;
 	}
 	
 	function getTopics($forum)
@@ -68,10 +76,6 @@ class forum
 		$resultsb = $roster->db->query($queryb);
 		$num=1;
 		$total = $roster->db->num_rows($resultsb);
-		//$row = $roster->db->fetch($resultsb);
-		//echo '<pre>';
-		//print_r($row);
-		//echo '</pre>';
 		
 		while( $rowb = $roster->db->fetch($resultsb) )
 		{
@@ -84,6 +88,7 @@ class forum
 				'title'		=> $rowb['title'],
 				'posts'		=> $rowb['topic_count'],
 				'topicid'	=> $rowb['topic_id'],
+				'locked'	=> $rowb['locked'],
 				'poster'	=> $rowb['author'],
 				'access'	=> $rowb['access'],
 				't_poster'	=> $rowa['post_username'],
@@ -92,7 +97,6 @@ class forum
 		}
 		
 		return $forums;
-		
 	}
 	
 	function getPosts($forum)
@@ -106,11 +110,7 @@ class forum
 		$resultsb = $roster->db->query($queryb);
 		$num=1;
 		$total = $roster->db->num_rows($resultsb);
-		//$row = $roster->db->fetch($resultsb);
-		//echo '<pre>';
-		//print_r($row);
-		//echo '</pre>';
-		//  post_id  topic_id  forum_id  poster_id  post_time  post_username  enable_html  post_edit_time  post_edit_count  post_subject  post_text  
+		
 		while( $rowb = $roster->db->fetch($resultsb) )
 		{
 			$forums[] = array(
@@ -119,13 +119,13 @@ class forum
 				'post_username'		=> $rowb['post_username'],
 				'post_text'			=> $rowb['post_text'],
 				'post_id'			=> $rowb['post_id'],
+				'locked'			=> $rowb['locked'],
 				'topic_id'			=> $rowb['topic_id'],
 				'forum_id'			=> $rowb['forum_id']
 			);
 		}
 		
 		return $forums;
-		
 	}
 	
 	function getCrumbsb($topic)
@@ -163,6 +163,22 @@ class forum
 
 		$loc = '<a href="'.makelink('guild-'.$addon['basename'].'').'">Forums</a> > <a href="'.makelink('guild-'.$addon['basename'].'-forum&amp;id=' . $row['forum_id']).'">'.$row['forum'].'</a>';
 		return $loc;
+	}
+	
+	function processLock( $id , $mode )
+	{
+		global $roster, $addon, $installer;
+
+		$query = "UPDATE `" . $roster->db->table('topics',$addon['basename']) . "` SET `locked` = '$mode' WHERE `topic_id` = '".$id."';";
+		$result = $roster->db->query($query);
+		if( !$result )
+		{
+			$installer->seterrors('Database Error: ' . $roster->db->error() . '<br />SQL: ' . $query);
+		}
+		else
+		{
+			$installer->setmessages(sprintf($roster->locale->act['installer_activate_' . $mode] ,$addon['basename']));
+		}
 	}
 	
 }

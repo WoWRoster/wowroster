@@ -25,6 +25,14 @@ $id = ( isset($_POST['id']) ? $_POST['id'] : '' );
 			processActive($id,1);
 			break;
 
+		case 'unlock':
+			processLock($id,0);
+			break;
+
+		case 'lock':
+			processLock($id,1);
+			break;
+			
 		case 'delete':
 			deleteForum();
 			break;
@@ -61,6 +69,9 @@ $forums = $functions->getForums();
 					'POSTER'	=> $forum['t_poster'],
 					'U_EDIT'	=> makelink('rostercp-addon-forum-forumedit&amp;id=' .$forum['forumid']),
 					'P_TITLE'	=> $forum['t_title'],
+					'L_ACTIVEU' => ( $forum['locked'] == 1 ? 'locked' : 'unlocked'),
+					'L_ACTIVET'	=> ( $forum['locked'] == 1 ? $roster->locale->act['lock'] : $roster->locale->act['unlock']),
+					'L_ACTIVEOP'=> ( $forum['locked'] == 1 ? 'unlock' : 'lock'),
 					'B_ACTIVEI' => ( $forum['active'] == 1 ? 'green' : 'red'),
 					'B_ACTIVET'	=> ( $forum['active'] == 1 ? 'Active' : 'Inactive'),
 					'B_ACTIVEOP'=> ( $forum['active'] == 1 ? 'deactivate' : 'activate'),
@@ -127,6 +138,21 @@ function updateForum()
 		$installer->setmessages('Forum "'.$_POST['title'].'" Updated');
 	}
 }
+function processLock( $id , $mode )
+	{
+		global $roster, $addon, $installer;
+
+		$query = "UPDATE `" . $roster->db->table('forums',$addon['basename']) . "` SET `locked` = '$mode' WHERE `forum_id` = '".$id."';";
+		$result = $roster->db->query($query);
+		if( !$result )
+		{
+			$installer->seterrors('Database Error: ' . $roster->db->error() . '<br />SQL: ' . $query);
+		}
+		else
+		{
+			$installer->setmessages(sprintf($roster->locale->act['installer_activate_' . $mode] ,$addon['basename']));
+		}
+	}
 function deleteForum()
 {
 	global $roster, $addon, $installer;
@@ -160,7 +186,7 @@ function processAccess()
 {
 	global $addon, $roster;
 
-	$access = $_POST['config_access'];
+	$access = implode(":",$_POST['config_access']);
 	$id = (int)$_POST['id'];
 	$query = "UPDATE `" . $roster->db->table('forums',$addon['basename']) . "` SET `access` = '$access' WHERE `forum_id` = '$id';";
 

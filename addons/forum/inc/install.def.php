@@ -25,7 +25,7 @@ class forumInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_02';
 
-	var $version = '0.1.2';
+	var $version = '0.1.3';
 	var $wrnet_id = '0';
 
 	var $fullname = 'WoWRoster Forum';
@@ -50,8 +50,9 @@ class forumInstall
 		$installer->add_config("'1010','forum_conf',NULL,'blockframe','menu'");
 		$installer->add_config("'1020','forum_edit','rostercp-addon-forum-forum','makelink','menu'");
 		$installer->add_config("'1030','topic_edit','rostercp-addon-forum-topic','makelink','menu'");
-		$installer->add_config("'10000','forum_start_topic','2','access','forum_conf'");
-		$installer->add_config("'10010','forum_reply_post','2','access','forum_conf'");
+		$installer->add_config("'10000','forum_start_topic','11','access','forum_conf'");
+		$installer->add_config("'10010','forum_reply_post','11','access','forum_conf'");
+		$installer->add_config("'10020','forum_lock','11','access','forum_conf'");
 		//$installer->add_config("'10020','forum_','0','access','forum_conf'");
 		//$installer->add_config("'10030','forum_','2','access','forum_conf'");
 		//$installer->add_config("'10040','forum_','1','radio{enabled^1|disabled^0|forbidden^-1','forum_conf'");
@@ -66,6 +67,7 @@ class forumInstall
 				  `desc` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
 				  `misc` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
 				  `active` int(2) DEFAULT NULL,
+				  `locked` int(1) NOT NULL DEFAULT '0',
 				  PRIMARY KEY (`forum_id`)
 				");
 
@@ -96,6 +98,7 @@ class forumInstall
 				  `post_edit_count` smallint(6) NOT NULL DEFAULT '0',
 				  `post_subject` varchar(255) DEFAULT '',
 				  `post_text` text,
+				  `locked` int(1) NOT NULL DEFAULT '0',
 				  PRIMARY KEY (`post_id`),
 				  KEY `forum_id` (`forum_id`),
 				  KEY `topic_id` (`topic_id`),
@@ -134,6 +137,12 @@ class forumInstall
 		if( version_compare('0.1.2', $oldversion, '>') == true )
 		{	
 			$installer->add_query("ALTER TABLE `" . $installer->table('topics') . "` ADD `locked` INT( 1 ) NOT NULL DEFAULT '0'");
+		}
+		if( version_compare('0.1.3', $oldversion, '>') == true )
+		{	
+			$installer->add_query("ALTER TABLE `" . $installer->table('posts') . "` ADD `locked` INT( 1 ) NOT NULL DEFAULT '0'");
+			$installer->add_query("ALTER TABLE `" . $installer->table('forums') . "` ADD `locked` INT( 1 ) NOT NULL DEFAULT '0'");
+			$installer->add_config("'10020','forum_lock','11','access','forum_conf'");
 		}
 		return true;
 	}
