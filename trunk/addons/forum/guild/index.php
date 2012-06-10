@@ -9,8 +9,11 @@ $functions = new forum;
 
 	foreach($forums as $id =>$forum)
 	{
-		$roster->tpl->assign_block_vars('forums', array(
+		if( $roster->auth->getAuthorized( $forum['access'] ) )
+		{
+			$roster->tpl->assign_block_vars('forums', array(
 					'FORUM_ID' 	=> $forum['forumid'],
+					'LOCKED' 	=> $forum['locked'],
 					'FORUM_URL'	=> makelink('guild-'.$addon['basename'].'-forum&amp;id=' . $forum['forumid']),
 					'TITLE'		=> $forum['title'],
 					'POSTS'		=> $forum['posts'],
@@ -19,6 +22,7 @@ $functions = new forum;
 					'P_URL'		=> makelink('guild-'.$addon['basename'].'-topic&amp;tid=' . $forum['t_id']),
 					'DESC'		=> $forum['desc']
 				));
+		}
 	}		
 	
 	$roster->tpl->set_filenames(array(

@@ -3,7 +3,15 @@
 		<div class="tier-1-b">
 			<div class="tier-1-c">
 				<div class="tier-1-title">{CRUMB}</a>
-				<div class="right"><a class="input" href="{M_REPLYPOST}"><!-- TRANSLATE post_reply --></a></div>
+				<div class="right"><!-- IF LOCKED -->{IMAGE}<!-- TRANSLATE t_lock --><!-- ELSE --><a class="input" href="{M_REPLYPOST}"><!-- TRANSLATE post_reply --></a><!-- ENDIF --></div>
+				<!-- IF CANLOCK -->
+				<form name="lock" method="post" enctype="multipart/form-data" action="">
+					<input type="hidden" name="op" value="process" />
+					<input type="hidden" name="type" value="{L_ACTIVEOP}" />
+					<input type="hidden" name="id" value="{TOPIC_ID}" />
+					<button type="submit" class="input" ><span class="ui-icon ui-icon-{L_ACTIVEU}"></span>{L_ACTIVET}</button>
+				</form>
+				<!-- ENDIF -->
 				</div>
 				<!-- BEGIN forums -->
 				<div class="tier-2-a">

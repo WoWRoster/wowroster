@@ -35,12 +35,11 @@ $roster->tpl->assign_vars(array(
 if($addon['config']['forum_html_posts'] >= 0)
 {
 	$roster->tpl->assign_var('S_HTML_ENABLE', true);
-
-	if($addon['config']['forum_nicedit'] > 0)
-	{
-		roster_add_js('js/nicEdit.js');
-		roster_add_js('bkLib.onDomLoaded(function() { nicEditors.allTextAreas({xhtml : true, fullPanel : true, iconsPath : \'' . $roster->config['img_url'] . 'nicEditorIcons.gif\'}) });', 'inline');
-	}
+}
+if($addon['config']['forum_nicedit'] > 0)
+{
+	roster_add_js('js/nicEdit.js');
+	roster_add_js('bkLib.onDomLoaded(function() { nicEditors.allTextAreas({xhtml : true, fullPanel : true, iconsPath : \'' . $roster->config['img_url'] . 'nicEditorIcons.gif\'}) });', 'inline', 'header', false, false);
 }
 
 $roster->tpl->set_filenames(array(
