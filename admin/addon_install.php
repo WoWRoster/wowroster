@@ -165,9 +165,10 @@ function getAddonList()
 	{
 		while( false !== ($file = readdir($handle)) )
 		{
-			if( $file != '.' && $file != '..' && $file != '.svn' && $file != '.txt' && !is_file($file) )
+			if( $file != '.' && $file != '..' && $file != '.svn' && substr($file, strrpos($file, '.')+1) != 'txt')
 			{
 				$addons[] = $file;
+				echo $file.'<br>';
 			}
 		}
 	}
