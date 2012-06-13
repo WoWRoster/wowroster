@@ -146,10 +146,12 @@
 
 .main-panel { clear: left; position: relative; }
 
-.main-panel .profile .equip-bg { background: url(images/charframe.jpg) no-repeat 0px 0px; margin: 10px auto; padding: 0px; height: 570px; width: 540px; position: relative; }
+.main-panel .profile .equip-bg { background: url(images/charframe.png) no-repeat 0px 0px; margin: 10px auto; padding: 0px; height: 570px; width: 540px; position: relative; }
 
 .info-box { height: 460px; width: 350px; position: absolute; left: 95px; top: 19px; }
 .model-box { height: 443px; width: 321px; position: absolute; left: 110px; top: 27px; }
+.model-img { height: 441px; width: 319px; position: absolute; left: 87px; top: 11px; }
+.model-img img{ height: 477px; width: 366px;}
 
 /* Equipment Items */
 .equip .item { position:absolute; width:64px; height:64px; left: -3px; top: -3px; z-index: 100; }

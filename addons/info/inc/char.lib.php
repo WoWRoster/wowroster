@@ -80,6 +80,11 @@ class char
 		{
 			$model_url = $roster->data['armoryurl'] . '/character-model-embed.xml?r=' . $this->data['server'] . '&amp;cn=' . $this->data['name'] . '&amp;rhtml=true';
 		}
+		$ximg_url=null;
+		if (file_exists($addon['dir'] .'chars/thumb-'. $this->data['member_id'].'.jpg') )
+		{
+			$ximg_url = $addon['url_path'] .'chars/thumb-'. $this->data['member_id'].'.jpg';
+		}
 
 		/**
 		 * Assigning everything this file may need to the template
@@ -91,6 +96,9 @@ class char
 
 			'S_MODEL_TAB'   => false,//$roster->auth->getAuthorized($addon['config']['show_model']),
 			'MODEL_URL'     => $model_url != '' ? $model_url : false,
+			
+			'S_CHAR_IMG'	=> $ximg_url != '' ? $ximg_url : false,
+			'XIMG_URL'		=> $ximg_url,
 
 			'S_PLAYED'      => $roster->auth->getAuthorized($addon['config']['show_played']),
 			'S_MONEY'       => $roster->auth->getAuthorized($addon['config']['show_money']),
