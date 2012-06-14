@@ -19,7 +19,8 @@ require_once ROSTER_API . 'resource/Resource.php';
  */
 class Guild extends Resource {
 	protected $methods_allowed = array(
-		'guild'
+		'guild',
+		'grewards'
 	);
 
 	var $x = '';

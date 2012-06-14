@@ -25,6 +25,7 @@ class Data extends Resource {
 		'classes',
 		'item',
 		'achievement',
+		'gachievements',
 		'quests',
 		'itemtooltip',
 	);
