@@ -3325,6 +3325,10 @@ CREATE TABLE `renprefix_quest_task_data` (
 		{
 			$this->setError('Player Buff Data could not be deleted',$roster->db->error());
 		}
+		if( $roster->config['use_update_triggers'] )
+		{
+			$messages .= $this->addon_hook('char_delete', $inClause);
+		}
 
 		$this->deleteEmptyGuilds();
 
