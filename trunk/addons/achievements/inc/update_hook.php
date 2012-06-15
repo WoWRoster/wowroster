@@ -89,6 +89,21 @@ class achievementsUpdate
 
 		return true;
 	}
+	function  char_delete($inClause)
+	{
+		
+		$querystr = "DELETE FROM `" . $roster->db->table('criteria', $this->data['basename']) . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Player criteria Data could not be deleted',$roster->db->error());
+		}
+		$querystr = "DELETE FROM `" . $roster->db->table('achievements', $this->data['basename']) . "` WHERE `member_id` IN ($inClause)";
+		if( !$roster->db->query($querystr) )
+		{
+			$this->setError('Player achievements Data could not be deleted',$roster->db->error());
+		}
+		
+	}
 
 	function reset_messages()
 	{

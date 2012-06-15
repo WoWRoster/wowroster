@@ -1227,6 +1227,7 @@ $lang['admin']['update_inst'] = 'Instrucciones de actualización|Controls the di
 $lang['admin']['gp_user_level'] = "Nivel de hermandad|Elige el nivel requerido para poder subir datos con WoWRoster-GuildProfiler";
 $lang['admin']['cp_user_level'] = "Nivel de personaje|Elige el nivel requerido para poder subir datos con WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Nivel de otros LUA|Elige el nivel requerido para poder subir datos con otros addons<br />Esto es para TODOS los tipos de archivos LUA que quieras subir al Roster.";
+$lang['admin']['use_api_onupdate'] = "Api on Lua Update|process an api call on each lua char update pulling all api info for the character some addons may use this data";
 
 //session
 $lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';
