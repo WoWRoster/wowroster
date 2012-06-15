@@ -1227,6 +1227,7 @@ $lang['admin']['update_inst'] = 'Update Instructions|Controls the display of the
 $lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process WoWRoster-GuildProfiler Data";
 $lang['admin']['cp_user_level'] = "Character Data Level|Level required to process WoWRoster-Profiler Data";
 $lang['admin']['lua_user_level'] = "Other LUA Data Level|Level required to process other LUA files' Data<br />This is for EVERY other lua file that can be uploaded to Roster";
+$lang['admin']['use_api_onupdate'] = "Api on Lua Update|process an api call on each lua char update pulling all api info for the character some addons may use this data";
 
 //session
 $lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';

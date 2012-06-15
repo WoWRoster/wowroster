@@ -86,10 +86,74 @@ class infoUpdate
 				$this->messages .= 'CharacterInfo: <span style="color:red;">Old records not deleted. MySQL said: ' . $roster->db->error() . "</span><br />\n";
 				return false;
 			}
+			
+			if ($this->data['config']['api_image'])
+			{
+				$feed = $roster->api->Char->getCharInfo($char['Server'],$char['Name'],'1');
+		
+				$name = $char['name'];
+				$server = $char['server'];
+
+				if (isset($feed['thumbnail']))
+				{
+					$e = $feed['thumbnail'];
+					$c = explode("-", $e);
+
+					$img_url = "http://us.battle.net/static-render/us/".$c[0]."-profilemain.jpg";
+					//$save_path = $addon['dir'].'x/'.$name.'-'.$server.'.jpg';
+					$save_path = $this->data['dir'].'x/'.$member_id.'.jpg';
+
+					if (!save_image($img_url,$save_path))
+					{
+						echo ' - <font color=red>Not saves</font><br>';
+					}
+					else
+					{
+						echo ' - <font color=green>Saved '.$char['Name'].'-'.$member_id.'</font><br>';
+						
+						$file = $member_id.'.jpg';
+						$dir = $this->data['dir'].'chars/';
+						list($width, $height) = getimagesize($dir.$file);
+						$im = imagecreatetruecolortrans( 369,479 );
+						$saved_image = $dir.'thumb-'.strtolower($file);
+						$im_temp = imagecreatefromjpeg($dir.$file);
+						//imagecopyresampled($im, $im_temp, 0, 0, 213, 45, 369, 479, $width, $height);
+						@imagecopy( $im,$im_temp,0,0,213, 45, 369, 479 );
+						//header('Content-type: image/png');
+						imagePng( $im,$saved_image );//imagepng($im);
+						imagedestroy($im);
+						imagedestroy($im_temp);
+						
+					}
+				}
+			}
+			
+			
 		}
 
 
 		return true;
+	}
+	
+	function save_image($inPath,$outPath)
+	{
+		//Download images from remote server
+		$in=    fopen($inPath, "rb");
+		$out=   fopen($outPath, "wb");
+		while ($chunk = fread($in,8192))
+		{
+			fwrite($out, $chunk, 8192);
+		}
+		fclose($in);
+		fclose($out);
+		if (file_exists($outPath))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**

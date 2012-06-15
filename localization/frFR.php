@@ -1227,6 +1227,7 @@ $lang['admin']['update_inst'] = 'Instructions de mise à jour|Controls the displ
 $lang['admin']['gp_user_level'] = "Niveau d'accès aux données de guilde|Niveau requis pour mettre à jour les données fournies par WoWRoster-GuildProfiler";
 $lang['admin']['cp_user_level'] = "Niveau d'accès aux données des personnages|Niveau requis pour mettre à jour les données fournies par WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Niveau d'accès aux données des autres LUA|Niveau requis pour mettre à jour les données fournies par d'autres sources de données (LUA).<br />Ceci est valable pour TOUTES SOURCES AUTRES pouvant être envoyées au roster.";
+$lang['admin']['use_api_onupdate'] = "Api on Lua Update|process an api call on each lua char update pulling all api info for the character some addons may use this data";
 
 //session
 $lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';

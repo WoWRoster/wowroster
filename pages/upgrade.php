@@ -399,6 +399,13 @@ class Upgrade {
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 			$roster->set_message('created plugin install table');
 		}
+		
+			//use_api_onupdate
+		if (version_compare($roster->config['version'], '2.1.9.2550', '<'))
+		{
+			$roster->set_message('API URL Setting');
+			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10006, 'use_api_onupdate', '0', 'select{Yes^1|No^0', 'update_access');");
+		}
 
 		// Standard Beta Update
 		$this->beta_upgrade();

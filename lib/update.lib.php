@@ -426,6 +426,11 @@ class update
 				foreach( $characters as $char_name => $char )
 				{
 					$this->current_member = $char_name;
+					if( $roster->config['use_api_onupdate'] )
+					{
+						$char['API'] = $roster->api->Char->getCharInfo($realm_name,$char_name,'ALL');
+					}
+					
 
 					// CP Version Detection, don't allow lower than minVer
 					if( version_compare($char['CPversion'], $roster->config['minCPver'], '>=') )
