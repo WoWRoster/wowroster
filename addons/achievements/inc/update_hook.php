@@ -70,9 +70,11 @@ class achievementsUpdate
 
 		$achi = $char['achievements'];
 		$a = true;
+		/*
 		$sqlquery2 = "DELETE FROM `" . $roster->db->table('criteria', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "'";
 		$result2 = $roster->db->query($sqlquery2);
 
+		//we are not gona use criteria yet so much data to process it really slows roster
 		foreach ($achi['criteria'] as $var => $info)
 		{
 			$update->reset_values();
@@ -83,6 +85,7 @@ class achievementsUpdate
 			$querystr = "INSERT INTO `" . $roster->db->table('criteria', $this->data['basename']) . "` SET " . $update->assignstr;
 			$result = $roster->db->query($querystr);
 		}
+		*/
 		
 		$this->messages .= '<li>Updating Achievements: ';
 		$this->messages .= $rx.'</li>';
@@ -102,6 +105,23 @@ class achievementsUpdate
 		{
 			$this->setError('Player achievements Data could not be deleted',$roster->db->error());
 		}
+
+		
+		$query = "DELETE `" . $roster->db->table('achievements',$this->data['basename']) . "`"
+			   . " FROM `" . $roster->db->table('achievements',$this->data['basename']) . "`"
+			   . " LEFT JOIN `" . $roster->db->table('players') . "` USING (`member_id`)"
+			   . " WHERE `" . $roster->db->table('players') . "`.`member_id` IS NULL;";
+
+		if( $roster->db->query($query) )
+		{
+			$this->messages .= 'Achievements: ' . $roster->db->affected_rows() . ' records without matching member records deleted';
+		}
+		else
+		{
+			$this->messages .= 'Achievements: <span style="color:red;">Old records not deleted. MySQL said: ' . $roster->db->error() . "</span><br />\n";
+			return false;
+		}
+		return true;
 		
 	}
 

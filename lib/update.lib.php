@@ -426,7 +426,7 @@ class update
 				foreach( $characters as $char_name => $char )
 				{
 					$this->current_member = $char_name;
-					if( $roster->config['use_api_onupdate'] )
+					if( $roster->config['use_api_onupdate'] == 1 )
 					{
 						$char['API'] = $roster->api->Char->getCharInfo($realm_name,$char_name,'ALL');
 					}
@@ -697,6 +697,7 @@ class update
 									{
 										$guild_output .= $this->addon_hook('guild', $char, $memberid);
 									}
+									$this->setMessage('</ul></li>');
 								}
 
 								// Remove the members who were not in this list
@@ -3659,7 +3660,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		if( isset($memberId) )
 		{
 			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId';";
-			$this->setMessage('<li>[ ' . $name . ' ]</li>');
+			$this->setMessage('<li>[ ' . $name . ' ]<ul>');
 			$this->membersupdated++;
 
 			$result = $roster->db->query($querystr);

@@ -63,13 +63,14 @@ class achievementsInstall
 			  `p_id` int(10) DEFAULT NULL,
 			  `achi_cate` varchar(255) DEFAULT NULL,
 			  PRIMARY KEY (`id`)");
-			  
+	  
 		$installer->create_table($installer->table('crit'),"
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `crit_achie_id` int(10) NOT NULL,
 			  `crit_id` int(10) NOT NULL,
 			  `crit_desc` text,
 			  PRIMARY KEY (`id`)");
+
 		/*
 		*	these tables hold the players data
 		*	this data is then ran agenst the prim data tabels
@@ -79,13 +80,13 @@ class achievementsInstall
 			  `achie_id` int(7) NOT NULL DEFAULT '0',
 			  `achie_date` varchar(20) DEFAULT NULL");
 
-
+		/*
 		$installer->create_table($installer->table('criteria'),"
 			  `member_id` int(11) NOT NULL DEFAULT '0',
 			  `crit_id` int(7) NOT NULL DEFAULT '0',
 			  `crit_date` varchar(20) DEFAULT NULL,
 			  `crit_value` varchar(64) DEFAULT NULL");
-
+		*/
 
 		return true;
 	}
@@ -118,7 +119,7 @@ class achievementsInstall
 		$installer->drop_table( $installer->table('achie') );
 		$installer->drop_table( $installer->table('crit') );
 		$installer->drop_table( $installer->table('achievements') );
-		$installer->drop_table( $installer->table('criteria') );
+		//$installer->drop_table( $installer->table('criteria') );
 
 		return true;
 	}

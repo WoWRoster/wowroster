@@ -26,7 +26,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'spell_holy_divinespirit';
 
-	var $version = '2.1.0';
+	var $version = '2.1.1.2550';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -53,6 +53,7 @@ class infoInstall
 
 		$installer->add_config("'1000', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
 		$installer->add_config("'1010', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
+		$installer->add_config("'1011', 'api_image', '0', 'radio{No^0|Yes^1', 'char_conf'");
 		$installer->add_config("'1020', 'show_money', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1030', 'show_played', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1035', 'show_model', '0', 'function{infoAccess', 'char_conf'");
@@ -337,6 +338,10 @@ class infoInstall
 			  CHANGE  `show_companions` varchar(30) NOT NULL default '0',
 			  CHANGE  `show_mounts` varchar(30) NOT NULL default '0'");
 		  
+		}
+		if( version_compare('2.1.1.2550', $oldversion,'>') == true )
+		{
+			$installer->add_config("'1011', 'api_image', '0', 'radio{No^0|Yes^1', 'char_conf'");
 		}
 		
 		return true;

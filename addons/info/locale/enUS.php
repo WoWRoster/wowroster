@@ -309,6 +309,6 @@ $lang['admin']['show_companions'] = "Companions|Controls the display of Companio
 $lang['admin']['show_mounts'] = "Mounts|Controls the display of Mounts<br /><br />Setting is global and overrides per-user setting";
 
 $lang['admin']['char_pref'] = 'Display Preferences|Control what is displayed in the character pages per character';
-
+$lang['admin']['api_image'] = 'Character Image|save the Characters image on update for display on the profile';
 $lang['admin']['no_data'] = 'No Data';
 $lang['admin']['nothing_to_config'] = 'Nothing to configure<br />All Global settings are set to override per-character settings';
