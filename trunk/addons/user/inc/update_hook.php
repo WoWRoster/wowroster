@@ -56,9 +56,52 @@ class userUpdate
 		 * produce any output (update method off) we empty this before returning.
 		 */
 
-		$this->messages = '<strong>User:</strong><ul>';
+		$this->messages = '<strong>User: </strong>';
 	}
 	
+	/**
+	 * Guild trigger, the regex-based alt detection
+	 *
+	 * @param array $char
+	 *		CP.lua guild member data
+	 * @param int $member_id
+	 * 		Member ID
+	 */
+	function guild($char, $member_id)
+	{
+		global $roster;
+		
+		// --[ See if the Member has a user ]--
+		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr` = '" . $char['Name'] . "';";
+		$result = $roster->db->query( $query );
+		$row = $roster->db->fetch($result);
+
+		if ( !isset($row['access']) )
+		{
+			$this->messages .= ' - <span style="color:red;">No User data update canceled</span><br/>' . "\n";
+			return true;
+		}
+		else
+		{
+			
+			$access = explode(":",$row['access']);
+			if (in_array(($char['Rank']+1),$access))
+			{
+				$this->messages .= ' - <span style="color:yellow;">Access update not needed</span><br/>' . "\n";
+				return true;
+			}
+			else
+			{
+				$access[] = ($char['Rank']+1);				
+				$query = "UPDATE `" . $roster->db->table('user_members') . "` SET `access` = '".implode(":",$access)."' WHERE `usr` = '" . $char['Name'] . "';";
+				$result = $roster->db->query( $query );
+				$this->messages .= ' - <span style="color:green;">Access updated</span><br/>' . "\n";
+			}
+			
+		}
+		
+		return true;
+	}
 	/**
 	 * Char trigger: add the member record to the local data array
 	 *
@@ -71,6 +114,7 @@ class userUpdate
 	{
 		global $roster, $addon;
 
+		$this->messages .= '<ul>';
 		// --[ We will allways try and keep user info up todate if some one is login BUT not with api sync.. members...]--
 		if ($data['CPprovider'] != 'ApiSyncChar')
 		{

@@ -85,55 +85,89 @@ class infoUpdate
 			{
 				$this->messages .= 'CharacterInfo: <span style="color:red;">Old records not deleted. MySQL said: ' . $roster->db->error() . "</span><br />\n";
 				return false;
-			}
-			
-			if ($this->data['config']['api_image'])
+			}			
+		}
+		if ($this->data['config']['api_image'] == 1)
+		{
+			if( $roster->config['use_api_onupdate'] == 0 )
 			{
-				$feed = $roster->api->Char->getCharInfo($char['Server'],$char['Name'],'1');
-		
-				$name = $char['name'];
-				$server = $char['server'];
+				$char['API'] = $roster->api->Char->getCharInfo($char['Server'],$char['Name'],'1');
+			}
+	
+			$name = $char['name'];
+			$server = $char['server'];
 
-				if (isset($feed['thumbnail']))
+			if (isset($char['API']['thumbnail']))
+			{
+				$e = $char['API']['thumbnail'];
+				$c = explode("-", $e);
+
+				$img_url = "http://us.battle.net/static-render/us/".$c[0]."-profilemain.jpg";
+				//$save_path = $addon['dir'].'x/'.$name.'-'.$server.'.jpg';
+				$save_path = $this->data['dir'].'chars/'.$member_id.'.jpg';
+					
+				if (is_file($save_path))
 				{
-					$e = $feed['thumbnail'];
-					$c = explode("-", $e);
+					unlink($save_path);
+				}
 
-					$img_url = "http://us.battle.net/static-render/us/".$c[0]."-profilemain.jpg";
-					//$save_path = $addon['dir'].'x/'.$name.'-'.$server.'.jpg';
-					$save_path = $this->data['dir'].'x/'.$member_id.'.jpg';
-
-					if (!save_image($img_url,$save_path))
-					{
-						echo ' - <font color=red>Not saves</font><br>';
-					}
-					else
-					{
-						echo ' - <font color=green>Saved '.$char['Name'].'-'.$member_id.'</font><br>';
-						
-						$file = $member_id.'.jpg';
-						$dir = $this->data['dir'].'chars/';
-						list($width, $height) = getimagesize($dir.$file);
-						$im = imagecreatetruecolortrans( 369,479 );
-						$saved_image = $dir.'thumb-'.strtolower($file);
-						$im_temp = imagecreatefromjpeg($dir.$file);
-						//imagecopyresampled($im, $im_temp, 0, 0, 213, 45, 369, 479, $width, $height);
-						@imagecopy( $im,$im_temp,0,0,213, 45, 369, 479 );
-						//header('Content-type: image/png');
-						imagePng( $im,$saved_image );//imagepng($im);
-						imagedestroy($im);
-						imagedestroy($im_temp);
-						
-					}
+				if (!$this->save_image($img_url,$save_path))
+				{
+					//echo ' - <font color=red>Not saves</font><br>';
+					$this->messages .= 'Image not saved!<br />' . "\n";
+				}
+				else
+				{
+					//echo ' - <font color=green>Saved '.$char['Name'].'-'.$member_id.'</font><br>';
+					$this->messages .= 'Image saved: <span style="color:green;">'.$member_id.'.jpg</span><br />' . "\n";
+					
+					$file = $member_id.'.jpg';
+					$dir = $this->data['dir'].'chars/';
+					list($width, $height) = getimagesize($dir.$file);
+					$im = $this->imagecreatetruecolortrans( 369,479 );
+					$saved_image = $dir.'thumb-'.strtolower($file);
+					$im_temp = imagecreatefromjpeg($dir.$file);
+					//imagecopyresampled($im, $im_temp, 0, 0, 213, 45, 369, 479, $width, $height);
+					@imagecopy( $im,$im_temp,0,0,213, 45, 369, 479 );
+					//header('Content-type: image/png');
+					imagePng( $im,$saved_image );//imagepng($im);
+					imagedestroy($im);
+					imagedestroy($im_temp);
+					
 				}
 			}
-			
-			
 		}
 
 
 		return true;
 	}
+	
+	function imagecreatetruecolortrans($x,$y)
+    {
+        $i = @imagecreatetruecolor($x,$y)
+			or debugMode( (__LINE__),'Cannot Initialize new GD image stream','',0,'Make sure you have the latest version of GD2 installed' );
+
+        $b = imagecreatefromstring(base64_decode($this->blankpng()));
+
+        imagealphablending($i,false);
+        imagesavealpha($i,true);
+        imagecopyresized($i,$b,0,0,0,0,$x,$y,imagesx($b),imagesy($b));
+        imagealphablending($i,true);
+
+        return $i;
+    }
+    function blankpng()
+	{
+		$c  = "iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29m".
+			"dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADqSURBVHjaYvz//z/DYAYAAcTEMMgBQAANegcCBNCg".
+			"dyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAAN".
+			"egcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQ".
+			"oHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAADXoHAgTQoHcgQAANegcCBNCgdyBAAA16BwIE0KB3IEAA".
+			"DXoHAgTQoHcgQAANegcCBNCgdyBAgAEAMpcDTTQWJVEAAAAASUVORK5CYII=";
+		return $c;
+	}
+	
+	
 	
 	function save_image($inPath,$outPath)
 	{
