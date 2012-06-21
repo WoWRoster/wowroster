@@ -3673,7 +3673,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 		else
 		{
 			$querystr = "INSERT INTO `" . $roster->db->table('members') . "` SET " . $this->assignstr . ';';
-			$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span></li>');
+			//$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span></li>');
+			$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span><ul>');
 
 			$result = $roster->db->query($querystr);
 			if( !$result )
