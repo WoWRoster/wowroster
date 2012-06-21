@@ -286,17 +286,20 @@ if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'in
 }
 else
 {
-	$roster->config['external_auth'] = 'roster';
-	require_once (ROSTER_LIB . 'login.php');
-	require_once (ROSTER_LIB . 'sessions.lib.php');
+	if( version_compare($roster->config['version'], '2.1.9.0000', '>='))
+	{
+		$roster->config['external_auth'] = 'roster';
+		require_once (ROSTER_LIB . 'login.php');
+		require_once (ROSTER_LIB . 'sessions.lib.php');
+
+		$roster->auth = new RosterLogin();
+
+		/**
+		*	run sessions after update happens
+		*/
+		$roster->session = new Session();
+	}
 }
-
-$roster->auth = new RosterLogin();
-/**
-*	run sessions after update happens
-*/
-$roster->session = new Session();
-
 /**
  * Assign initial template vars
  */
