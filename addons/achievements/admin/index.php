@@ -20,7 +20,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 				$crit .= '<br><div class="meta-achievements"><ul>';
 				foreach ($achi['criteria'] as $r => $d)
 				{
-					$crit .= '<li>'.$d['description'].'</li>';
+					$crit .= '<li><div id="crt'.$d['id'].'">'.$d['description'].'</div></li>';
 					$update->reset_values();
 					$update->add_value('crit_achie_id',	$achi['id']);
 					$update->add_value('crit_id',		$d['id']);
