@@ -19,6 +19,7 @@ class achiv
 	var $cat = array();
 	var $memberID;
 	var $icons=array();
+	var $pcrit = array();
 	
 	
 	function builddata($data)
@@ -26,7 +27,7 @@ class achiv
 		global $api, $roster, $addon;
 		// build our structure
 		$this->buildarch();
-		//$this->buildcrit();
+		$this->buildcrit();
 		$cat = $this->list_all();
 		$e = 0;
 		$achi = $this->achi;
@@ -66,14 +67,38 @@ class achiv
 							$shild = $complete = 1;
 							$date = $this->convert_date($achDate[$ach]);
 							$datex = $achDate[$ach];
-							$crttt = '1';
+							$crittt = $this->buildcrittooltip($ach);
+							
+								if ($crittt != '1')
+								{
+									$crttt = '';//makeOverlib($crittt, $da['Name'], '', 2);
+									//$crttt = makeTipped($da['Name'].'<br>'.$crittt, 'mouse', 'none', 'righttop');
+								}
+								else
+								{
+									$crttt = '1';
+								}
 						}
 						else
 						{
 							$bg = $imgpath.'achievement_bg_locked.jpg';
 							$shild = $complete = 0;
 							$datex = $date = '';
-							$crttt = '1';
+							$crittt = $this->buildcrittooltip($ach);
+							
+								if ($crittt != '1')
+								{
+									$crttt = '';//makeOverlib($crittt, $da['Name'], '', 2);
+									//$crttt = makeTipped($da['Name'].'<br>'.$crittt, 'mouse', 'none', 'righttop');
+								}
+								else
+								{
+									$crttt = '1';
+								}
+						}
+						if ($date != '')
+						{
+							$crttt = 1;
 						}
 						if ($id == '81' && $complete != 0)
 						{
@@ -86,6 +111,8 @@ class achiv
 						
 						if ($id == '81' && $complete == 0)
 						{
+						$crttt = 1;
+						$crittt = '';
 						}
 						else
 						{
@@ -98,7 +125,9 @@ class achiv
 								'DATEX'       => $datex,
 								'POINTS'     => $da['Points'],
 								'CRITERIA'   => $crttt,
+								'CRITERIA2'   => $crittt,
 								'SHIELD'     => $shild,
+								'IDDI'			=> $ach,
 								'ICON'       => $interface . $da['icon'] . '.png',
 							);
 							$this->icons[] = "'".$interface . $da['icon'] . ".png'";
@@ -149,16 +178,39 @@ class achiv
 								$shild = $complete = 1;
 								$date = $this->convert_date($achDate[$ach]);
 								$datex = $achDate[$ach];
-								$crttt = '1';
+								$crittt = $this->buildcrittooltip($ach);
+							
+								if ($crittt != '1')
+								{
+									$crttt = '';//makeOverlib($crittt, $da['Name'], '', 2);
+									//$crttt = makeTipped($da['Name'].'<br>'.$crittt, 'mouse', 'none', 'righttop');
+								}
+								else
+								{
+									$crttt = '1';
+								}
 							}
 							else
 							{
 								$bg = $imgpath.'achievement_bg_locked.jpg';
 								$shild = $complete = 0;
 								$datex = $date = '';
-								$crttt = '1';
-							}
+								$crittt = $this->buildcrittooltip($ach);
 							
+								if ($crittt != '1')
+								{
+									$crttt = '';//makeOverlib($crittt, $da['Name'], '', 2);
+									//$crttt = makeTipped($da['Name'].'<br>'.$crittt, 'mouse', 'none', 'righttop');
+								}
+								else
+								{
+									$crttt = '1';
+								}
+							}
+						if ($date != '')
+						{
+							$crttt = 1;
+						}
 						$h[] = array(
 									'BACKGROUND' => $bg,
 									'NAME'       => $da['Name'],
@@ -168,7 +220,9 @@ class achiv
 									'DATEX'       => $datex,
 									'POINTS'     => $da['Points'],
 									'CRITERIA'   => $crttt,
+									'CRITERIA2'   => $crittt,
 									'SHIELD'     => $shild,
+									'IDDI'			=> $ach,
 									'ICON'       => $interface . $da['icon'] . '.png',
 							);
 							$this->icons[] = "'".$interface . $da['icon'] . ".png'";
@@ -191,35 +245,36 @@ class achiv
 	function buildcrittooltip($ach)
 	{
 		$error = false;
-		$tt = '<table width="520"><tr>';
+		
 		$i = 0;
 		$t = 2;
-		foreach ($this->crit[$ach] as $id => $info)
+		if (isset($this->crit[$ach]) && count($this->crit[$ach]) != 1)
 		{
-			if (empty($info['Desc']))
+			$crit='';
+			$crit .= '<br><div class="meta-achievements"><ul>';
+			/*
+			$c = ($critData[$row['crit_id']]['status'] ? 'unlocked' : 'locked');
+				$this->crit[$row['crit_achie_id']][]=array(
+								'id'=>$row['crit_id'],
+								'Desc'=>$row['crit_desc'],
+								'Value'=>$critData[$row['crit_id']]['Value'],
+								'complete' => $c
+					);
+					*/
+			foreach ($this->crit[$ach] as $id => $info)
 			{
-				$error = true;
+				$crit .= '<li><div id=\'crt'.$info['id'].'\'>'.$info['Desc'].'</div></li>';
 			}
-			$s1 = '';
-			$s2 = '';
-			if ($info['complete'] == 'unlocked')
-			{
-				$s1 = '<font color="#1eff00">';
-				$s2 = '</font>';
-			}
-			
-			$tt .= '<td>'.$s1.'- '.$info['Desc'].''.$s2.'</td>';
-			$i++;
-			if ($i == $t)
-			{
-				$tt .='</tr><tr>';
-				$i=0;
-			}
+			$crit .= '</ul></div>';
 		}
-		$tt .= '</tr></table>';
+		else
+		{
+			$error = true;
+		}
+		
 		if (!$error)
 		{
-		return $tt;
+		return $crit;
 		}
 		else
 		{
@@ -348,7 +403,7 @@ class achiv
 	
 	function buildcrit()
 	{
-	global $roster,$addon,$catss;
+		global $roster,$addon,$catss;
 		
 		$sqlquery2 = "SELECT * FROM `" . $roster->db->table('criteria', $addon['basename']) . "` WHERE `member_id` = '$this->memberID' ORDER BY `crit_id` DESC";
 		$result2 = $roster->db->query($sqlquery2);
@@ -356,6 +411,8 @@ class achiv
 		$critData = array();
 		while($row2 = $roster->db->fetch($result2))
 		{
+			$this->pcrit[] = $row2['crit_id'];
+			
 			$critData[$row2['crit_id']] = array('status'=>'unlocked','Value'=>$row2['crit_value']);
 			$e++;
 		}	
@@ -375,11 +432,11 @@ class achiv
 				{
 					$complete = 'locked';
 				}
-				$c = ($critData[$row['crit_id']]['status'] ? 'unlocked' : 'locked');
+				$c = (isset($critData[$row['crit_id']]['status']) ? 'unlocked' : 'locked');
 				$this->crit[$row['crit_achie_id']][]=array(
-								'id'=>$row['crit_id'],
-								'Desc'=>$row['crit_desc'],
-								'Value'=>$critData[$row['crit_id']]['Value'],
+								'id'=> $row['crit_id'],
+								'Desc'=> $row['crit_desc'],
+								'Value'=> (isset($critData[$row['crit_id']]['Value']) ? $critData[$row['crit_id']]['Value'] : ''),
 								'complete' => $c
 					);
 			}
@@ -434,6 +491,21 @@ class achiv
 }
 
 
+$achiv = new achiv;
+
+$sqlquery2 = "SELECT * FROM `".$roster->db->table('players')."` WHERE `member_id` = '".$roster->data['member_id']."'";
+$result2 = $roster->db->query($sqlquery2);
+$row = $roster->db->fetch($result2);
+
+$char = array();
+foreach($row as $var => $value)
+{
+$char[$var] = $value;
+}
+
+//print_r($char);
+$body =  $achiv->out($char);
+$images = implode(",",$achiv->icons);
 
 $js = '
 $(document).ready(function () {
@@ -466,25 +538,24 @@ $(document).ready(function () {
 			parent=false;
 		}
 	});
+	
+	var achi = "'.implode(",",$achiv->pcrit).'";
+    var arr = achi.split(\',\');
+	jQuery.each(arr, function(index, value) {
 
-});';
+		$("#crt" + value).addClass("ctunlocked");
+		
+	});
+	
+
+});
+
+';
 roster_add_js($js, 'inline', 'footer', false, false);
 
 
-$sqlquery2 = "SELECT * FROM `".$roster->db->table('players')."` WHERE `member_id` = '".$roster->data['member_id']."'";
-$result2 = $roster->db->query($sqlquery2);
-$row = $roster->db->fetch($result2);
 
-$char = array();
-foreach($row as $var => $value)
-{
-$char[$var] = $value;
-}
 
-//print_r($char);
-$achiv = new achiv;
-$body =  $achiv->out($char);
-$images = implode(",",$achiv->icons);
 /*
 $jjs = "
 $.fn.preload = function() {
@@ -500,7 +571,8 @@ function preload(arrayOfImages) {
 	$(arrayOfImages).each(function(){
 		$('<img/>')[0].src = this;
 		// Alternatively you could use:
-		// (new Image()).src = this;     
+		// (new Image()).src = this;
+
 	}); 
 }
 preload([

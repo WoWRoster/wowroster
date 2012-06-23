@@ -70,7 +70,7 @@ class achievementsUpdate
 
 		$achi = $char['achievements'];
 		$a = true;
-		/*
+		///*
 		$sqlquery2 = "DELETE FROM `" . $roster->db->table('criteria', $this->data['basename']) . "` WHERE `member_id` = '" . $member_id . "'";
 		$result2 = $roster->db->query($sqlquery2);
 
@@ -85,7 +85,7 @@ class achievementsUpdate
 			$querystr = "INSERT INTO `" . $roster->db->table('criteria', $this->data['basename']) . "` SET " . $update->assignstr;
 			$result = $roster->db->query($querystr);
 		}
-		*/
+		//*/
 		
 		$this->messages .= '<li>Updating Achievements: ';
 		$this->messages .= $rx.'</li>';

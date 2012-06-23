@@ -102,7 +102,13 @@
 												<div class="achievement-info">
 													<div class="name">{info.achv.NAME}</div>
 													<div class="desc">{info.achv.DESC}</div>
-<!-- IF info.achv.CRITERIA neq 1 -->							<div class="desc" {info.achv.CRITERIA}>[Criteria]</div><!-- ENDIF -->
+<!-- IF info.achv.CRITERIA neq 1 -->
+													<div style="cursor:pointer;width:100%;" onclick="showHide('{info.achv.IDDI}','img_{info.achv.IDDI}','/wowroster/templates/default/images/minus.gif','/wowroster/templates/default/images/plus.gif');">
+													<img style="float:right;" id="img_{info.achv.IDDI}" src="/wowroster/templates/default/images/plus.gif" alt="" />[Criteria]</div>
+													<div id="{info.achv.IDDI}" style="width:100%;display:none;">
+													{info.achv.CRITERIA2}
+													</div>
+<!-- ENDIF -->
 <!-- IF info.achv.DATE -->
 													<div class="date">{info.achv.DATE}</div>
 <!-- ENDIF -->

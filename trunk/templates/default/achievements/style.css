@@ -263,3 +263,20 @@ td.desc_td { padding-left:10px;   }
 .comp_box_t_r { position:absolute; right:-5px; background:url(images/compare_top_r.png) no-repeat; width:17px; height:31px; display:block}
 .comp_box_t_btm { position:absolute; bottom:-3px; left:-1px;}
 .comp_box_t_btm_r {position:absolute; bottom:-3px; right:-1px;}
+
+
+/* Meta achievements */
+.meta-achievements { margin: 5px 0 0; }
+.meta-achievements ul { list-style-type:none; margin-left:5px; padding-bottom:5px; width:540px; }
+.meta-achievements ul:after { content: "."; display: block; height: 0; clear: both; visibility: hidden;  }
+.meta-achievements .linked { padding-left: 5px; margin:0 0 3px; }
+.meta-achievements .linked a { color: #ada4a2; font-weight: normal;}
+.meta-achievements .linked a:hover { color: #e9e6e6 }
+.meta-achievements .unlocked { color: #F5EBD1;}
+.meta-achievements .unlocked.linked a { color: #FFB100 }
+.meta-achievements .unlocked.linked a:hover { color: #fff }
+.meta-achievements .linked a:hover { color: #e9e6e6 }
+.achievements-list .showing .meta-achievements { display: block; }
+.meta-achievements li { float: left; width: 47%; color: #d68e6f; padding-left: 10px; position:relative; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 18px;}
+
+.ctunlocked{ font-weight:bold; color:#006600; }
