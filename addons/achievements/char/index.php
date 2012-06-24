@@ -67,7 +67,7 @@ class achiv
 							$shild = $complete = 1;
 							$date = $this->convert_date($achDate[$ach]);
 							$datex = $achDate[$ach];
-							$crittt = $this->buildcrittooltip($ach);
+							$crittt = $this->buildcrittooltip($ach,$da);
 							
 								if ($crittt != '1')
 								{
@@ -84,7 +84,7 @@ class achiv
 							$bg = $imgpath.'achievement_bg_locked.jpg';
 							$shild = $complete = 0;
 							$datex = $date = '';
-							$crittt = $this->buildcrittooltip($ach);
+							$crittt = $this->buildcrittooltip($ach,$da);
 							
 								if ($crittt != '1')
 								{
@@ -178,7 +178,7 @@ class achiv
 								$shild = $complete = 1;
 								$date = $this->convert_date($achDate[$ach]);
 								$datex = $achDate[$ach];
-								$crittt = $this->buildcrittooltip($ach);
+								$crittt = $this->buildcrittooltip($ach,$da);
 							
 								if ($crittt != '1')
 								{
@@ -195,7 +195,7 @@ class achiv
 								$bg = $imgpath.'achievement_bg_locked.jpg';
 								$shild = $complete = 0;
 								$datex = $date = '';
-								$crittt = $this->buildcrittooltip($ach);
+								$crittt = $this->buildcrittooltip($ach,$da);
 							
 								if ($crittt != '1')
 								{
@@ -211,6 +211,37 @@ class achiv
 						{
 							$crttt = 1;
 						}
+						/*
+						$g = array('/^Loot ([\d]+)/','/Collect ([\d]+)/','/Obtain ([\d]+)/','/Equip ([\d]+)/','/Complete ([\d]+)/','/Receive ([\d]+)/');
+						$t = array('Loot','Collect','Obtain','Equip','Complete','Receive');
+						$gg = implode("|",$g);
+						if (preg_match('/(?P<type>\w+) (?P<total>\d+)/',		$da['Desc'], $match1))
+						{
+							if (in_array($match1['type'], $t))
+							{
+								echo $da['Name'].'-'.$da['Desc'].'<br><pre>';
+								print_r($match1);
+								echo '</pre>';
+								echo '<br>';
+							}
+						}
+						/*
+						preg_match('/Loot ([\d]+)/',		$da['Desc'], $match1);
+						preg_match('/Collect ([\d]+)/',		$da['Desc'], $match2);
+						preg_match('/Obtain ([\d]+)/',		$da['Desc'], $match3);
+						preg_match('/Equip ([\d]+)/',		$da['Desc'], $match4);
+						preg_match('/Complete ([\d]+)/',	$da['Desc'], $match5);
+						preg_match('/Receive ([\d]+)/',		$da['Desc'], $match6);
+							echo '<pre>';
+							print_r($match1);
+							print_r($match2);
+							print_r($match3);
+							print_r($match4);
+							print_r($match5);
+							print_r($match6);
+							echo '</pre>';
+							echo '<br>';
+						*/
 						$h[] = array(
 									'BACKGROUND' => $bg,
 									'NAME'       => $da['Name'],
@@ -223,6 +254,7 @@ class achiv
 									'CRITERIA2'   => $crittt,
 									'SHIELD'     => $shild,
 									'IDDI'			=> $ach,
+									'BAR'			=> 0,
 									'ICON'       => $interface . $da['icon'] . '.png',
 							);
 							$this->icons[] = "'".$interface . $da['icon'] . ".png'";
@@ -242,16 +274,63 @@ class achiv
 		return true;
 	}
 	
-	function buildcrittooltip($ach)
+	function buildcrittooltip($ach,$da)
 	{
 		$error = false;
 		
 		$i = 0;
 		$t = 2;
-		if (isset($this->crit[$ach]) && count($this->crit[$ach]) != 1)
+		$x = str_replace(",", "", $da['Desc']);
+		if (isset($this->crit[$ach]) && preg_match('/(?P<type>\w+) (?P<total>\d+)/', $x, $match))
 		{
 			$crit='';
-			$crit .= '<br><div class="meta-achievements"><ul>';
+			$t = array('Loot','Collect','Obtain','Equip','Complete','Receive');
+			if (in_array($match['type'], $t))
+			{
+				//print_r($this->crit[$ach]);
+				//echo '<br>';
+				if ($this->crit[$ach][0]['Value'] >= 100000 )
+				{
+					$reward_money_c = $reward_money_s = $reward_money_g = 0;
+					if( $this->crit[$ach][0]['Value'] > 0 )
+					{
+						$money = $this->crit[$ach][0]['Value'];
+
+						$reward_money_c = $money % 100;
+						$money = floor( $money / 100 );
+
+						if( !empty($money) )
+						{
+							$reward_money_s = $money % 100;
+							$money = floor( $money / 100 );
+						}
+						if( !empty($money) )
+						{
+							$reward_money_g = $money;
+						}
+					}
+					$v = $reward_money_g;
+				}
+				else
+				{
+					$v = $this->crit[$ach][0]['Value'];
+				}
+				$t = $match['total'];
+				$w = ceil($v/$t*100);
+				$crit = '<div class="profile-progress">
+						<div class="bar" style="width: '.$w.'%"></div>
+						<div class="bar-contents">'.$v.' / '.$t.' ('.$w.'%)</div>
+					</div>';
+			}
+			else
+			{
+				$error = true;
+			}
+		}
+		else if (isset($this->crit[$ach]) && count($this->crit[$ach]) != 1)
+		{
+			$crit='';
+			$crit .= '<div class="meta-achievements"><ul>';
 			/*
 			$c = ($critData[$row['crit_id']]['status'] ? 'unlocked' : 'locked');
 				$this->crit[$row['crit_achie_id']][]=array(
@@ -261,11 +340,25 @@ class achiv
 								'complete' => $c
 					);
 					*/
+			$ct_name = null;
 			foreach ($this->crit[$ach] as $id => $info)
 			{
-				$crit .= '<li><div id=\'crt'.$info['id'].'\'>'.$info['Desc'].'</div></li>';
+				if ($ct_name != $info['Desc'])
+				{
+					$crit .= '<li id=\'lcrt'.$info['id'].'\'><div id=\'crt'.$info['id'].'\'>'.$info['Desc'].'</div></li>';
+					$ct_name = $info['Desc'];
+				}
+				
 			}
 			$crit .= '</ul></div>';
+			
+			/*
+			
+			$tt = '<div class="profile-progress border-4">
+				<div class="bar border-4 hover" style="width: 54%"></div>
+				<div class="bar-contents">1,361 / 2,500 (54%)</div>
+			</div>';
+			*/
 		}
 		else
 		{
@@ -544,6 +637,7 @@ $(document).ready(function () {
 	jQuery.each(arr, function(index, value) {
 
 		$("#crt" + value).addClass("ctunlocked");
+		$("#lcrt" + value).addClass("unlocked");
 		
 	});
 	
