@@ -211,37 +211,7 @@ class achiv
 						{
 							$crttt = 1;
 						}
-						/*
-						$g = array('/^Loot ([\d]+)/','/Collect ([\d]+)/','/Obtain ([\d]+)/','/Equip ([\d]+)/','/Complete ([\d]+)/','/Receive ([\d]+)/');
-						$t = array('Loot','Collect','Obtain','Equip','Complete','Receive');
-						$gg = implode("|",$g);
-						if (preg_match('/(?P<type>\w+) (?P<total>\d+)/',		$da['Desc'], $match1))
-						{
-							if (in_array($match1['type'], $t))
-							{
-								echo $da['Name'].'-'.$da['Desc'].'<br><pre>';
-								print_r($match1);
-								echo '</pre>';
-								echo '<br>';
-							}
-						}
-						/*
-						preg_match('/Loot ([\d]+)/',		$da['Desc'], $match1);
-						preg_match('/Collect ([\d]+)/',		$da['Desc'], $match2);
-						preg_match('/Obtain ([\d]+)/',		$da['Desc'], $match3);
-						preg_match('/Equip ([\d]+)/',		$da['Desc'], $match4);
-						preg_match('/Complete ([\d]+)/',	$da['Desc'], $match5);
-						preg_match('/Receive ([\d]+)/',		$da['Desc'], $match6);
-							echo '<pre>';
-							print_r($match1);
-							print_r($match2);
-							print_r($match3);
-							print_r($match4);
-							print_r($match5);
-							print_r($match6);
-							echo '</pre>';
-							echo '<br>';
-						*/
+
 						$h[] = array(
 									'BACKGROUND' => $bg,
 									'NAME'       => $da['Name'],
@@ -284,11 +254,10 @@ class achiv
 		if (isset($this->crit[$ach]) && preg_match('/(?P<type>\w+) (?P<total>\d+)/', $x, $match))
 		{
 			$crit='';
-			$t = array('Loot','Collect','Obtain','Equip','Complete','Receive');
+			$t = array('Loot','Collect','Obtain','Equip','Complete','Receive','Catch','Find','Create','Raise');
 			if (in_array($match['type'], $t))
 			{
-				//print_r($this->crit[$ach]);
-				//echo '<br>';
+
 				if ($this->crit[$ach][0]['Value'] >= 100000 )
 				{
 					$reward_money_c = $reward_money_s = $reward_money_g = 0;
