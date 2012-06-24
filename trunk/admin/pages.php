@@ -105,3 +105,8 @@ $config_pages['guide'] = array(
 	'title'=>   'setup_guide',
 	'file'=>	'install_guide.php',
 	);
+$config_pages['cache'] = array(
+	'href'=>	$roster->pages[0].'-cache',
+	'title'=>	'cache',
+	'file'=>	'roster_cache.php',
+	);
