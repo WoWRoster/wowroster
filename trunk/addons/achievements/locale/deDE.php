@@ -22,3 +22,8 @@ $lang['WorldEvents'] = 'Weltereignisse';
 $lang['FeatsofStrength'] = 'Heldentaten';
 $lang['Recent'] = 'Neueste Erfolge';
 $lang['Summary'] = 'Zusammenfassung';
+
+$lang['bars'] = array('Loot','Collect','Obtain','Equip','Complete','Receive','Catch','Find','Create','Raise');
+
+$lang['admin']['achi_conf'] = 'Achievement Config|Config for achievements';
+$lang['admin']['show_icons'] = 'Icons|Show or hide icons from displaying.';

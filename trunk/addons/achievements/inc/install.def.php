@@ -27,7 +27,7 @@ class achievementsInstall
 	var $active = true;
 	var $icon = 'achievement_general';
 
-	var $version = '2.1.2520';
+	var $version = '2.1.2555';
 
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';
@@ -87,7 +87,10 @@ class achievementsInstall
 			  `crit_date` varchar(20) DEFAULT NULL,
 			  `crit_value` varchar(64) DEFAULT NULL");
 		//*/
-
+		$installer->add_config("'11000','startpage','achi_conf','display','master'");
+		$installer->add_config("'11001','achi_conf',NULL,'blockframe','menu'");
+		$installer->add_config("'11002','achi_data','rostercp-addon-achievements-data','makelink','menu'");
+		$installer->add_config("'11003','show_icons','1','radio{enabled^1|disabled^0','achi_conf'");
 		return true;
 	}
 
@@ -100,6 +103,28 @@ class achievementsInstall
 	function upgrade($oldversion, $version)
 	{
 		global $installer, $addon;
+		
+		if( version_compare('2.1.2555', $oldversion, '>') == true )
+		{
+			$installer->add_config("'11000','startpage','achi_conf','display','master'");
+		$installer->add_config("'11001','achi_conf',NULL,'blockframe','menu'");
+		$installer->add_config("'11002','achi_data','rostercp-addon-achievements-data','makelink','menu'");
+		$installer->add_config("'11003','show_icons','1','radio{enabled^1|disabled^0','achi_conf'");
+			
+			$installer->create_table($installer->table('crit'),"
+			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `crit_achie_id` int(10) NOT NULL,
+			  `crit_id` int(10) NOT NULL,
+			  `crit_desc` text,
+			  PRIMARY KEY (`id`)");
+			
+			$installer->create_table($installer->table('criteria'),"
+			  `member_id` int(11) NOT NULL DEFAULT '0',
+			  `crit_id` int(7) NOT NULL DEFAULT '0',
+			  `crit_date` varchar(20) DEFAULT NULL,
+			  `crit_value` varchar(64) DEFAULT NULL");
+			  
+		}
 		
 		return true;
 	}
