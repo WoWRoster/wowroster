@@ -22,3 +22,8 @@ $lang['WorldEvents'] = 'World Events';
 $lang['FeatsofStrength'] = 'Feats of Strength';
 $lang['Recent'] = 'Recent Achievements';
 $lang['Summary'] = 'Summary';
+
+$lang['bars'] = array('Loot','Collect','Obtain','Equip','Complete','Receive','Catch','Find','Create','Raise');
+
+$lang['admin']['achi_conf'] = 'Achievement Config|Config for achievements';
+$lang['admin']['show_icons'] = 'Icons|Show or hide icons from displaying.';

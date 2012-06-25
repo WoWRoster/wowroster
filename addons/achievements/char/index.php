@@ -1,5 +1,7 @@
 <?php
-	
+	include_once (ROSTER_LIB . 'cache.php');
+		$cache = new RosterCache();
+		$cache->cleanCache();
 
 // begin achievement functions
 class achiv
@@ -246,6 +248,7 @@ class achiv
 	
 	function buildcrittooltip($ach,$da)
 	{
+		global $roster;
 		$error = false;
 		
 		$i = 0;
@@ -254,7 +257,7 @@ class achiv
 		if (isset($this->crit[$ach]) && preg_match('/(?P<type>\w+) (?P<total>\d+)/', $x, $match))
 		{
 			$crit='';
-			$t = array('Loot','Collect','Obtain','Equip','Complete','Receive','Catch','Find','Create','Raise');
+			$t = $roster->locale->act['bars'];//array('Loot','Collect','Obtain','Equip','Complete','Receive','Catch','Find','Create','Raise');
 			if (in_array($match['type'], $t))
 			{
 
@@ -545,6 +548,8 @@ class achiv
 		
 		$roster->tpl->assign_var('S_TALENT_TAB',false);
 		$roster->tpl->assign_var('S_ACHIV',true);
+		$roster->tpl->assign_var('S_ACHIV_ICON',$addon['config']['show_icons']);
+		
 		
 		$roster->tpl->set_filenames(array('char' => $addon['basename'] . '/achiv.html'));
 		return $roster->tpl->fetch('char');
@@ -614,6 +619,7 @@ $(document).ready(function () {
 });
 
 ';
+$jsx = '$("#firstpane p.menu_head").click(function(){    $(this).css({backgroundImage:"url(down.png)"}).next("div.menu_body").slideToggle(300).siblings("div.menu_body").slideUp("slow");    $(this).siblings().css({backgroundImage:"url(left.png)"});});';
 roster_add_js($js, 'inline', 'footer', false, false);
 
 
