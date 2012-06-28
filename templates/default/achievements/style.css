@@ -31,22 +31,16 @@
 .achievements .selected {  }
 .achievements .criteria { display:none; text-align:left; padding:0; }
 
-#rp_menu ul{margin:0;display:block;padding:0 0 0 10px;background:url(images/achv_lnav_bg.jpg) repeat-y;list-style-type:none;list-style-position:outside;width:165px; float:left;
-position:relative;line-height:22px;}
+#ach_menu ul{margin:0;display:block;padding:0 0 0 10px;background:url(images/achv_lnav_bg.jpg) repeat-y;list-style-type:none;list-style-position:outside;width:165px;position:relative;line-height:22px;}
+#ach_menu ul li.selected { background:url(images/achv_lnav_sel.png);text-indent:5px;width:158px;color:#C79C6E;}
+#ach_menu ul li.selected a { color:#C79C6E;}
+#ach_menu ul li.menu_head:hover { color:white; background:url(images/achv_cat_hover.png) no-repeat right top;text-indent:5px;width:158px;}
 
-#rp_menu ul li { display:block;color:#e7d6b8; margin:1px 5px 1px 5px;text-indent:5px;width:158px;}
-#rp_menu ul li.selected { background:url(images/achv_lnav_sel.png);text-indent:5px;width:158px;color:#C79C6E;}
-#rp_menu ul li.selected a { color:#C79C6E;}
-#rp_menu ul li:hover { color:white; background:url(images/achv_cat_hover.png) right repeat-y;text-indent:5px;width:158px; height: 22px;}
-#rp_menu ul li a { background:none;zoom:1; }
-#rp_menu ul li ul{display:block; background:url(images/achv_sel_sub_bg.png) bottom left no-repeat;width:152px;padding:4px 0px 6px 6px; margin:0 0 10px 0;}
-#rp_menu ul li ul li { display:block;color:#ABD473; margin:1px 5px 1px 5px; width:144px;text-indent:3px;}
-#rp_menu ul li ul li a{ color:#ABD473;}
-#rp_menu ul li ul li.selected2 { background:url(images/achv_lnav_sel.png);text-indent:5px;width:148px;color:#ABD473;}
-#rp_menu ul li ul li.selected2 a{ color:#ABD473;}
-#rp_menu ul li ul li:hover {background:url(images/achv_sub_hover.png)repeat-y; color:#AA5303;height: 22px;width:148px;}
-
-
+#ach_menu ul li ul li a{ color:#ABD473;}
+#ach_menu ul li ul li.selected2 { background:url(images/achv_lnav_sel.png);text-indent:5px;width:148px;color:#ABD473;}
+#ach_menu ul li ul li.selected2 a{ color:#ABD473;}
+#ach_menu ul li ul.sub_menu li:hover {background:url(images/achv_sub_hover.png)repeat-y; color:#AA5303;width:148px;}
+#ach_menu ul li ul {background:url(images/achv_sel_sub_bg.png) bottom left no-repeat;width:152px;}
 /*
 .achv_lnav .selected { background:url(images/achv_sel_sub.jpg) right repeat-y;  }
 .achv_lnav .selected .cat_list { background:url(images/achv_sel_sub_btm.jpg) bottom right no-repeat; padding:5px 0 7px 0; }
