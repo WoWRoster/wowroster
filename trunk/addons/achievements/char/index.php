@@ -598,9 +598,10 @@ $(document).ready(function () {
 				$(\'div#amain > div\').hide();
 				$("li.menu_head").removeClass(" selected"); //Remove any "active" class
 				$(this).addClass(" selected");
-				$(\'#menu li\').children(\'ul\').slideUp(\'fast\');
+				//$(\'#menu li\').children(\'ul\').slideUp(\'fast\');
+				$(\'li.menu_head#\'+this.id+\' > ul#\'+this.id+\'_sub\').siblings("ul.sub_menu").slideUp("slow");
 				$("#amain > div#"+this.id).show();
-				$(\'li.menu_head#\'+this.id+\' > ul#sub\').slideDown(\'400\').show();
+				$(\'li.menu_head#\'+this.id+\' > ul#\'+this.id+\'_sub\').slideToggle(\'400\').siblings("ul.sub_menu").slideUp("slow");//.show();
 			}
 			parent=false;
 		}
