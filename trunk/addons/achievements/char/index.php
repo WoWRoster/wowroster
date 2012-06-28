@@ -1,8 +1,8 @@
 <?php
-	include_once (ROSTER_LIB . 'cache.php');
+/*	include_once (ROSTER_LIB . 'cache.php');
 		$cache = new RosterCache();
 		$cache->cleanCache();
-
+*/
 // begin achievement functions
 class achiv
 {
