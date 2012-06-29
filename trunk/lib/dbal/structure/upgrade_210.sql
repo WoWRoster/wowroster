@@ -198,6 +198,7 @@ INSERT INTO `renprefix_config` VALUES (10006, 'use_api_onupdate', '0', 'select{Y
 INSERT INTO `renprefix_config` VALUES (190,'acc_session','NULL','blockframe','menu'),
 (1900, 'sess_time', '15', 'text{30|4', 'acc_session'),
 (1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session');
+INSERT INTO `renprefix_user_members` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (1, 'Admin', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');
 
 # --------------------------------------------------------
 ### Menu Updates

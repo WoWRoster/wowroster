@@ -51,7 +51,8 @@
 	<tr>
 		<td class="border_color {S_ML_BORDER}border">
 <!-- ENDIF -->
-<form name="{LISTNAME}_filterform" action="{U_FILTER_FORM}" method="get">
+<form name="{LISTNAME}_filterform" enctype="application/x-www-form-urlencoded" action="{U_FILTER_FORM}" method="get">
+	<input type="hidden" name="p" id="p" value="{UR_FILTER_FORM}" />
 <table cellpadding="0" cellspacing="0" id="{LISTNAME}" style="width:100%;">
 	<thead>
 <!-- IF B_PAGINATION -->

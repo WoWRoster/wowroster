@@ -100,4 +100,4 @@ $roster->tpl->display('roster_footer');
 
 // aprint($_POST);
 // aprint($_COOKIE);
-// aprint($_SESSION);
+ //aprint($_REQUEST);
