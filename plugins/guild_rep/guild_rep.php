@@ -61,7 +61,7 @@ class guild_rep
 		$this->members_list_where['guild_rep'] = "`rep`.`name` = '".$roster->data['guild_name']."' OR `rep`.`name` IS NULL";
 
 		$this->members_list_fields['guild_rep'] = array (
-				'lang_field' => 'reputation',
+				'lang_field' => 'Reputation',
 				'value'      => 'guild_rep_function::guild_rep',
 				'order'      => array( '`rep`.`max_rep` ASC','`rep`.`curr_rep` ASC' ),
 				'order_d'    => array( '`rep`.`max_rep` DESC','`rep`.`curr_rep` DESC' ),

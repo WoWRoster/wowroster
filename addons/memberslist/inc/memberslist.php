@@ -181,30 +181,35 @@ class memberslist
 
 		// Pre-store server get params
 		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['st'] : '' );
-		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
+		
 		$get .= "&amp;filter=" . ($this->addon['config']['openfilter'] ? "open" : "close" );
 
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
-
+		$ert = $get;
 		// Extract filters form $_GET
 		$get_filter = array();
+		$search_filter = array();
 		foreach( $this->fields as $name => $data )
 		{
 			if( isset( $_GET['filter_' . $name] ) && !empty( $_GET['filter_' . $name] ) )
 			{
 				$get_filter[$name] = $_GET['filter_' . $name];
+				$search_filter[] = '( LOWER('.$data['filt_field'].') LIKE LOWER( \'%'.$_GET['filter_' . $name].'%\') )';
 				$get .= '&amp;filter_' . $name . '=' . htmlentities($get_filter[$name]);
 			}
 		}
-
+		
+		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
+		
 		$roster->tpl->assign_vars(array(
 			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
 			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
 			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
-			'U_FILTER_FORM' => makelink($filter_post),
-			'U_CLOSE_FILTER' => makelink('&amp;filter=close' . $filter_post),
-			'U_OPEN_FILTER' => makelink('&amp;filter=open' . $filter_post),
+			'U_FILTER_FORM' => makelink().$filter_post,
+			'UR_FILTER_FORM' => 'guild-memberslist',//.html_entity_decode($ert,null,'UTF-8'),
+			'U_CLOSE_FILTER' => makelink('guild-memberslist&amp;filter=close' . $filter_post),
+			'U_OPEN_FILTER' => makelink('guild-memberslist&amp;filter=open' . $filter_post),
 
 			'S_FILTER' => $this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
@@ -219,6 +224,7 @@ class memberslist
 		);
 
 		// --[ Add filter SQL ]--
+		/*
 		foreach( $get_filter as $field => $filter )
 		{
 			$data = $this->fields[$field];
@@ -245,9 +251,17 @@ class memberslist
 				$where[] = $where_clause;
 			}
 		}
+		*/
 		if( !empty( $where ) )
 		{
-			$query .= ' WHERE (' . implode( ') AND (', $where ) . ')';
+			$r = '';
+			if (!empty( $search_filter ))
+			{
+				$r = ' AND '. implode( ' AND ', $search_filter );
+			}
+		
+			$query .= ' WHERE (' . implode( ') AND (', $where ) . ')' . $r;
+			//$query .= ' WHERE ;
 		}
 
 		// --[ Add grouping SQL ]--
@@ -340,7 +354,7 @@ class memberslist
 		// --[ Page list ]--
 		if( $this->pageanat && $num_pages > 1)
 		{
-			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
+			$params = $get.'&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
 
 			//paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 			paginate2($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st,true,count($this->fields));
