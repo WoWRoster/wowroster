@@ -27,3 +27,4 @@ $lang['bars'] = array('Loot','Collect','Obtain','Equip','Complete','Receive','Ca
 
 $lang['admin']['achi_conf'] = 'Achievement Config|Config for achievements';
 $lang['admin']['show_icons'] = 'Icons|Show or hide icons from displaying.';
+$lang['admin']['achi_data'] = 'Data Update';

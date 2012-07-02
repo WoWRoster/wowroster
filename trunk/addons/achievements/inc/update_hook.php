@@ -94,6 +94,7 @@ class achievementsUpdate
 	}
 	function  char_delete($inClause)
 	{
+		global $roster, $addon;
 		
 		$querystr = "DELETE FROM `" . $roster->db->table('criteria', $this->data['basename']) . "` WHERE `member_id` IN ($inClause)";
 		if( !$roster->db->query($querystr) )

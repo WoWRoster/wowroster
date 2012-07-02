@@ -231,14 +231,14 @@ var $skills = array(
 			{
 				if ($stat['stat'] <= '7')
 				{
-					$tt['Attributes']['BaseStats'][$this->statlocal[$stat['stat']]] = sprintf( $this->itemstat[$stat['stat']], $stat['amount']);
+					$tt['Attributes']['BaseStats'][$roster->locale->act['apiitem']['statlocal'][$stat['stat']]] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
 				}
 			}
 			foreach( $data['bonusStats'] as $id => $stat )
 			{
 				if ($stat['stat'] >= '8')
 				{
-					$tt['Effects']['Equip'][] = sprintf( $this->itemstat[$stat['stat']], $stat['amount']);
+					$tt['Effects']['Equip'][] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
 				}
 			}
 			if (isset($data['itemSpells']))
@@ -264,7 +264,7 @@ var $skills = array(
 				$tt['Attributes']['Requires'] = $data['requiredLevel'];
 			}
 			//$tt['Effects']['ChanceToProc'][] = $line;
-			$tt['Attributes']['BindType'] = $this->bind[$data['itemBind']];
+			$tt['Attributes']['BindType'] = $roster->locale->act['apiitem']['bind'][$data['itemBind']];
 
 			if (isset($this->user['tooltipParams']['set']))
 			{
@@ -293,7 +293,7 @@ var $skills = array(
 				$tt['Attributes']['Class'] = 'Classes:';
 				foreach($data['allowableClasses'] as $id => $classes)
 				{
-					$tt['Attributes']['ClassText'][] = $roster->locale->wordings['enUS']['id_to_class'][$classes];
+					$tt['Attributes']['ClassText'][] = $roster->locale->act['id_to_class'][$classes];
 				}
 			}
 			if (isset($data['allowableRaces']))
@@ -301,7 +301,7 @@ var $skills = array(
 				$tt['Attributes']['Race'] = 'Races:';
 				foreach($data['allowableRaces'] as $id => $classes)
 				{
-					$tt['Attributes']['RaceText'][] = 		$roster->locale->wordings['enUS']['id_to_race'][$classes];
+					$tt['Attributes']['RaceText'][] = $roster->locale->act['id_to_race'][$classes];
 				}
 			}
 			//socketInfo][sockets
@@ -319,7 +319,7 @@ var $skills = array(
 				$tt['Attributes']['GemBonus'] = $data['gemInfo']['bonus']['name'];
 				if (isset($data['gemInfo']['bonus']['requiredSkillId']) && $data['gemInfo']['bonus']['requiredSkillId'] > 0)
 				{
-					$tt['Attributes']['SkillRequired'] = $this->skills[$data['gemInfo']['bonus']['requiredSkillId']].' ('.$data['gemInfo']['bonus']['requiredSkillRank'].')';
+					$tt['Attributes']['SkillRequired'] = $roster->locale->act['apiitem']['skills'][$data['gemInfo']['bonus']['requiredSkillId']].' ('.$data['gemInfo']['bonus']['requiredSkillRank'].')';
 				}
 			}
 			$this->isSocketable = $data['hasSockets'];
@@ -333,14 +333,14 @@ var $skills = array(
 					$tt['Attributes']['ArmorClass']['Line'] = $data['baseArmor'] .' Armor';
 					$tt['Attributes']['ArmorClass']['Rating'] = $data['baseArmor'];
 				}
-				$tt['Attributes']['ArmorType'] = $this->itemSubClass[$data['itemClass']][$data['itemSubClass']];
-				$tt['Attributes']['ArmorSlot'] = ''.$this->slotType[$data['inventoryType']].'';
+				$tt['Attributes']['ArmorType'] = $roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']];
+				$tt['Attributes']['ArmorSlot'] = ''.$roster->locale->act['apiitem']['slotType'][$data['inventoryType']].'';
 				$this->isArmor = true;
 			}
 			if ($data['itemClass'] == '2' )
 			{
-				$tt['Attributes']['WeaponType'] = $this->itemSubClass[$data['itemClass']][$data['itemSubClass']];
-				$tt['Attributes']['WeaponSlot'] = ''.$this->slotType[$data['inventoryType']].'';
+				$tt['Attributes']['WeaponType'] = $roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']];
+				$tt['Attributes']['WeaponSlot'] = ''.$roster->locale->act['apiitem']['slotType'][$data['inventoryType']].'';
 				$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
 				$tt['Attributes']['WeaponDamage'] = $data['weaponInfo']['damage']['min'].' - '.$data['weaponInfo']['damage']['max'];
 				$tt['Attributes']['WeaponDPS'] = number_format($data['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
@@ -349,10 +349,10 @@ var $skills = array(
 			}
 			if ($data['itemClass'] == '1' )
 			{
-				$tt['Attributes']['BagSomething'] = $this->itemSubClass[$data['itemClass']][$data['itemSubClass']];
-				$tt['Attributes']['BagType'] = ''.$this->slotType[$data['inventoryType']].'';
+				$tt['Attributes']['BagSomething'] = $roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']];
+				$tt['Attributes']['BagType'] = ''.$roster->locale->act['apiitem']['slotType'][$data['inventoryType']].'';
 				$tt['Attributes']['BagSize'] = $data['containerSlots'];
-				$tt['Attributes']['BagDesc'] = $data['containerSlots'].' Slot '.$this->itemSubClass[$data['itemClass']][$data['itemSubClass']].'';
+				$tt['Attributes']['BagDesc'] = $data['containerSlots'].' Slot '.$roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']].'';
 				$this->isBag = true;
 			}
 			//$this->isWeapon = true;
@@ -523,7 +523,7 @@ function _getCaption()
 
 		$heroic = $this->attributes['Heroic'];
 
-		if( preg_match( $roster->locale->wordings[$this->locale]['tooltip_preg_heroic'], $heroic) )
+		if( preg_match( $roster->locale->act['tooltip_preg_heroic'], $heroic) )
 		{
 			$color = '66DD33';
 		}
@@ -587,6 +587,7 @@ function _getCaption()
 
 	function _getWeapon()
 	{
+		global $roster;
 		$html='';
 		if( isset($this->attributes['WeaponType']) && isset($this->attributes['WeaponSlot']) )
 		{
@@ -607,11 +608,11 @@ function _getCaption()
 
 		if( isset($this->attributes['WeaponDamage']) )
 		{
-			$html .='' . $this->attributes['WeaponDamage'] . ' Damage	Speed ' . $this->attributes['WeaponSpeed'] . "<br />";
+			$html .= sprintf($roster->locale->act['apiitem']['dpsspeed'],$this->attributes['WeaponDamage'],$this->attributes['WeaponSpeed']) . "<br />";
 		}
 		if( isset($this->attributes['WeaponDPS']) )
 		{
-			$html .= '('.$this->attributes['WeaponDPS'] . " damage per second)<br />";
+			$html .= '('.$this->attributes['WeaponDPS'] . " dps)<br />";
 		}
 
 		return $html;
@@ -707,7 +708,7 @@ function _getCaption()
 		for( $i; $i < $numSockets; $i++ )
 		{
 			$sk =  mb_strtolower($this->dapi['socketInfo']['sockets'][$i]['type'], 'UTF-8');
-			$html .= '' .  ucfirst ($sk) . " Socket<br />";
+			$html .= '' .  ucfirst ($sk) . " ".$roster->locale->act['apiitem']['socket']."<br />";
 		}
 		//now lets do sockets with gems
 		
@@ -716,15 +717,16 @@ function _getCaption()
 
 	function _getSocketBonus()
 	{
+		global $roster;
 		if( isset($this->attributes['SocketBonus']) )
 		{
 			if( isset($this->isSocketBonus) == true )
 			{
-				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "<br />";
+				$html = sprintf( $roster->locale->act['apiitem']['socketbonus'], $this->attributes['SocketBonus']). "<br />";
 			}
 			else
 			{
-				$html = 'Socket Bonus: ' . $this->attributes['SocketBonus'] . "<br />";
+				$html = sprintf( $roster->locale->act['apiitem']['socketbonus'], $this->attributes['SocketBonus']). "<br />";
 			}
 
 			return $html;
@@ -741,7 +743,7 @@ function _getCaption()
 		$percent = (($current / $max) * 100);
 		$html = $this->attributes['Durability']['Line'] . ' ';
 
-		$html .= $current . ' / ' . $max . "<br />";
+		$html .= $current . ' / ' . $max . " <br />";
 
 		return $html;
 	}
@@ -763,7 +765,7 @@ function _getCaption()
 				$html .= ', ';
 			}
 		}
-		$html .= "<br />";
+		$html .= " <br />";
 		return $html;
 	}
 
@@ -793,7 +795,8 @@ function _getCaption()
 		$requires = array();
 		$requires = $this->attributes['Requires'];
 		$html = '';
-		$html .= 'Requires Level '.$this->attributes['Requires']."<br />";
+		//$html .= 'Requires Level '.$this->attributes['Requires']."<br />";
+		$html .= sprintf( $roster->locale->act['apiitem']['reqlevel'], $this->attributes['Requires'])."<br />";
 
 		return $html;
 	}
@@ -805,7 +808,8 @@ function _getCaption()
 
 		$this->attributes['ItemLevel'];
 		$html = '';
-		$html .= 'Item Level '.$this->attributes['ItemLevel']."<br />";
+		//$html .= 'Item Level '.$this->attributes['ItemLevel']."<br />";
+		$html .= sprintf( $roster->locale->act['apiitem']['ilevel'], $this->attributes['ItemLevel'])."<br />";
 
 		return $html;
 	}
