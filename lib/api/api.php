@@ -61,6 +61,7 @@ class WowAPI {
 			'region' => $roster->config['api_url_region'],// this is for the url you want to make requests from	
 			'locale' => $roster->config['api_url_locale'],// thsi is the language you want the data translated in to
 		);
+
 		$this->region = $conf['locale'];
 		$this->_locale = $roster->config['api_url_locale'];
 		$this->locale = $conf['region'];

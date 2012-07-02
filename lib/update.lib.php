@@ -59,7 +59,7 @@ class update
 		global $roster;
 
 		// Add roster-used tables
-//		$this->files[] = 'characterprofiler';
+		$this->files[] = 'wowrcp';
 		$this->files[] = 'wowroster';
 
 		if( !$roster->config['use_update_triggers'] )
@@ -265,8 +265,9 @@ class update
 		$output = $roster->locale->act['processing_files'] . "<br />\n";
 
 		$gotfiles = array_keys($this->uploadData);
+		//print_r($gotfiles);
 //		if( in_array('characterprofiler',$gotfiles) || in_array('wowroster',$gotfiles) )
-		if( in_array('wowroster',$gotfiles) )
+		if( in_array('wowrcp',$gotfiles) || in_array('wowroster',$gotfiles) )
 		{
 
 			if( $roster->auth->getAuthorized($roster->config['gp_user_level']) )
@@ -400,6 +401,10 @@ class update
 		if ( isset($this->uploadData['wowroster']['cpProfile']) )
 		{
 			$myProfile = $this->uploadData['wowroster']['cpProfile'];
+		}
+		else if ( isset($this->uploadData['wowrcp']['cpProfile']) )
+		{
+			$myProfile = $this->uploadData['wowrcp']['cpProfile'];
 		}
 		else
 		{

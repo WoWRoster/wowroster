@@ -58,6 +58,10 @@ class roster_locale
 
 		foreach( $roster->multilanguages as $index => $language )
 		{
+			if( file_exists(ROSTER_API .'locale/' . $language . '.php') )
+			{
+				$this->add_locale_file(ROSTER_API .'locale/' . $language . '.php', $language);
+			}
 			if( file_exists(ROSTER_LOCALE_DIR . $language . '.php') )
 			{
 				$this->add_locale_file(ROSTER_LOCALE_DIR . $language . '.php', $language);
