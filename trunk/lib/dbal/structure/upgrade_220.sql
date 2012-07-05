@@ -6,20 +6,6 @@
 # --------------------------------------------------------
 ### New Tables
 
-DROP TABLE IF EXISTS `renprefix_addons_accounts_messaging`;
-CREATE TABLE IF NOT EXISTS `renprefix_addons_accounts_messaging` (
-  `msgid` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` smallint(6) NOT NULL,
-  `title` varchar(255) NOT NULL DEFAULT '',
-  `body` text NOT NULL,
-  `sender` int(11) NOT NULL,
-  `senderLevel` int(11) NOT NULL,
-  `read` int(11) NOT NULL DEFAULT '0',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`msgid`),
-  KEY `uid` (`uid`)
-) ENGINE=MyISAM;
-
 DROP TABLE IF EXISTS `renprefix_api_gems`;
 CREATE TABLE IF NOT EXISTS `renprefix_api_gems` (
   `gem_id` int(11) NOT NULL,

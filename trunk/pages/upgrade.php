@@ -30,7 +30,7 @@ class Upgrade {
 		'2.0.1',
 		'2.0.2',
 		'2.1.0',
-		'2.1.9'
+		'2.2.0'
 	);
 	var $index = null;
 
@@ -116,7 +116,6 @@ class Upgrade {
 				FULLTEXT KEY `zone` (`zone`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
-		*/
 		if (version_compare($roster->config['version'], '2.1.9.2344', '<')) {
 			$roster->set_message('Added Javascript and CSS aggregation options');
 
@@ -371,7 +370,7 @@ class Upgrade {
 			  `config_type` varchar(255) default NULL,
 			  PRIMARY KEY  (`id`,`addon_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-			*/
+			
 		}
 
 		if (version_compare($roster->config['version'], '2.1.9.2496', '<'))
@@ -399,7 +398,7 @@ class Upgrade {
 			$roster->set_message('API URL Setting');
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10006, 'use_api_onupdate', '0', 'select{Yes^1|No^0', 'update_access');");
 		}
-
+		*/
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
@@ -407,7 +406,7 @@ class Upgrade {
 
 	/**
 	 * Upgrades 2.1.0 to 2.2
-	 *
+	 */
 	function upgrade_220() {
 		global $roster;
 
@@ -420,7 +419,7 @@ class Upgrade {
 		$this->finalize();
 		
 	}
-	*/
+	//*/
 
 	/**
 	 * Upgrades 2.1.0 to 2.1.1
