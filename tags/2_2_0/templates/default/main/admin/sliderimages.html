@@ -1,0 +1,47 @@
+<!-- $Id$ -->
+
+<!-- BEGIN slider_row -->
+
+<div class="tier-2-a">
+	<div class="tier-2-b exp-content">
+		<div class="addon-status" style="width: 75px;">
+
+			<div style="margin-top:3px;">
+				<form name="activate" style="display:inline;" method="post" enctype="multipart/form-data" action="">
+					<input type="hidden" name="op" value="process" />
+					<input type="hidden" name="type" value="{slider_row.B_ACTIVEOP}" />
+					<input type="hidden" name="id" value="{slider_row.B_ID}" />
+					<button type="submit" class="input" >
+					<img src="{THEME_PATH}/images/admin/{slider_row.B_ACTIVEI}.png" style="height:16px;width:16px;border:0;" alt="" />{slider_row.B_ACTIVET}</button>
+				</form>
+			</div>
+
+			<div style="margin-top:3px;">
+				<form name="delete" style="display:inline;" method="post" enctype="multipart/form-data" action="">
+					<input type="hidden" name="op" value="process" />
+					<input type="hidden" name="type" value="delete" />
+					<input type="hidden" name="id" value="{slider_row.B_ID}" />
+					<input type="hidden" name="image" value="{slider_row.B_IMG}" />
+					<button type="submit" class="input" >
+					<img src="{THEME_PATH}/images/admin/red.png" style="height:16px;width:16px;border:0;" alt="" /><!-- TRANSLATE delete --></button>
+				</form>
+			</div>
+
+		</div>
+
+		<div style="float: right;padding-right: 10px;">
+			<div><img src="{slider_row.B_IMAGE}" width="150" height="70"></a></div>
+		</div>
+
+		<div class="tier-2-title">
+			{slider_row.B_TITLE}
+		</div>
+
+		<div class="info-text-h">
+			<div>{slider_row.B_DESC}</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- END slider_row -->

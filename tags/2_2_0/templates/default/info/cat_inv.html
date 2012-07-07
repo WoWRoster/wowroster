@@ -1,0 +1,50 @@
+<!-- $Id$ -->
+
+<div class="container">
+<!-- BEGIN type -->
+	<div class="tier-1-a">
+        <div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{type.NAME}</div>
+<!-- IF type.DIRECTS -->
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+<!-- BEGIN item -->
+						<div class="item" {type.item.TOOLTIP}{type.item.ITEMLINK}>
+						<!-- IF type.item.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{type.item.ICON}" /><!-- ENDIF -->
+							<div class="mask {type.item.QUALITY}"></div>
+<!-- IF type.item.QTY gt 1 -->
+							<b>{type.item.QTY}</b>
+							<span>{type.item.QTY}</span>
+<!-- ENDIF -->
+						</div>
+<!-- END item -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- ENDIF -->
+
+<!-- BEGIN subtype -->
+          		<div class="tier-2-a">
+                	<div class="tier-2-b">
+						<div class="tier-2-title">{type.subtype.NAME}</div>
+<!-- BEGIN item -->
+						<div class="item" {type.subtype.item.TOOLTIP}{type.subtype.item.ITEMLINK}>
+            				<!-- IF type.subtype.item.ICON eq 'img/pixel.gif' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{type.subtype.item.ICON}" /><!-- ENDIF -->
+            				<div class="mask {type.subtype.item.QUALITY}"></div>
+<!-- IF type.subtype.item.QTY gt 1 -->
+							<b>{type.subtype.item.QTY}</b>
+							<span>{type.subtype.item.QTY}</span>
+<!-- ENDIF -->
+						</div>
+<!-- END item -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- END subtype -->
+			</div>
+		</div>
+	</div>
+<!-- END type -->
+</div>
+<br style="clear:both;" />

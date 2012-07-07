@@ -1,0 +1,43 @@
+<!-- $Id$ -->
+
+<div class="container">
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{L_BAG_TITLE}
+					<div class="links">
+<!-- BEGIN bag -->
+						<a href="{bag.LINK}" class="icon" {bag.TOOLTIP}><img src="{bag.ICON}" alt="" /><span class="mask"></span></a>
+<!-- END bag -->
+					</div> 
+				</div>
+<!-- BEGIN bag -->
+				<a name="{bag.SLOTL}"></a>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">
+							<div class="icon" {bag.TOOLTIP}{bag.LINKTIP}>
+								<img src="{bag.ICON}" alt="" />
+								<div class="mask"></div>
+							</div>
+							{bag.NAME}
+						</div>
+<!-- BEGIN item -->
+						<div class="item" {bag.item.TOOLTIP}{bag.item.ITEMLINK}>
+							<!-- IF bag.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" /><!-- ELSE --><img src="{bag.item.ICON}" /><!-- ENDIF -->
+							<div class="mask {bag.item.QUALITY}"></div>
+<!-- IF bag.item.QTY gt 1 -->
+							<b>{bag.item.QTY}</b><span>{bag.item.QTY}</span>
+<!-- ENDIF -->
+						</div>
+<!-- END item -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- END bag -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<br style="clear:both;" />
