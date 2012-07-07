@@ -85,7 +85,7 @@ class Upgrade {
 
 	/**
 	 * Upgrades the 2.1.9.x beta versions into the 2.2.0 release
-	 */
+	 *
 	function upgrade_219() {
 		global $roster, $installer;
 
@@ -398,13 +398,13 @@ class Upgrade {
 			$roster->set_message('API URL Setting');
 			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10006, 'use_api_onupdate', '0', 'select{Yes^1|No^0', 'update_access');");
 		}
-		*/
+		
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();
 	}
 
-	/**
+	**
 	 * Upgrades 2.1.0 to 2.2
 	 */
 	function upgrade_220() {
@@ -420,15 +420,21 @@ class Upgrade {
 		
 	}
 	//*/
+	/**
+	 * Upgrades 2.1.0 to 2.1.1
+	 */
+	function upgrade_211() {
+		global $roster;
 
+		$this->upgrade_220();
+	}
 	/**
 	 * Upgrades 2.1.0 to 2.1.1
 	 */
 	function upgrade_210() {
 		global $roster;
 
-		$this->standard_upgrader();
-		$this->finalize();
+		$this->upgrade_220();
 	}
 
 	/**
