@@ -1,0 +1,53 @@
+
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">{profile.CNAME}</div>
+
+		<form action="" method="post" enctype="multipart/form-data" id="config_config" onsubmit="return confirm('This will change your password are you sure?');">
+			<div class="config-submit">
+				<input type="submit" value="Save Settings" />
+				<input type="hidden" name="process" value="process" />
+			</div>
+
+<!-- BEGIN profile -->
+			<div class="tier-3-a">
+				<div class="tier-3-b">
+					<div class="config">
+						<div class="config-name">
+						{profile.OLD_PASS}
+						</div>
+						<div class="config-input">
+							{profile.OLD_PASS_FIELD}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tier-3-a">
+				<div class="tier-3-b">
+					<div class="config">
+						<div class="config-name">
+						{profile.NEW_PASS_1}
+						</div>
+						<div class="config-input">
+							{profile.NEW_PASS_1_FIELD}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tier-3-a">
+				<div class="tier-3-b">
+					<div class="config">
+						<div class="config-name">
+						{profile.NEW_PASS_2}
+						</div>
+						<div class="config-input">
+							{profile.NEW_PASS_2_FIELD}
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- END profile -->
+		</form>
+	</div>
+</div>
+

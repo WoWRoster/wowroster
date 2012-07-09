@@ -1,0 +1,46 @@
+<!-- BEGIN topic -->
+
+				<div class="tier-2-a">
+					<div class="tier-2-b exp-content">
+						<div class="addon-status" style="width: 170px;">
+
+							
+							<div style="margin-top:3px;">
+								<form name="activate" style="display:block;float:left;" method="post" enctype="multipart/form-data" action="">
+									<input type="hidden" name="op" value="process" />
+									<input type="hidden" name="type" value="{topic.B_ACTIVEOP}" />
+									<input type="hidden" name="id" value="{topic.FORUM_ID}" />
+									<button type="submit" class="input" >
+									<img src="/wowroster/templates/default/images/admin/{topic.B_ACTIVEI}.png" style="height:16px;width:16px;border:0;" alt="" />{topic.B_ACTIVET}</button>
+								</form>
+								<form name="lock" style="display:block;float:right;" method="post" enctype="multipart/form-data" action="">
+									<input type="hidden" name="op" value="process" />
+									<input type="hidden" name="type" value="{topic.L_ACTIVEOP}" />
+									<input type="hidden" name="id" value="{topic.FORUM_ID}" />
+									<button type="submit" class="input" ><span class="ui-icon ui-icon-{topic.L_ACTIVEU}"></span>{topic.L_ACTIVET}</button>
+								</form>
+							</div>
+							
+							<div style="margin-top:3px;">
+								<form name="delete" style="display:inline;" method="post" enctype="multipart/form-data" action="">
+									<input type="hidden" name="op" value="process" />
+									<input type="hidden" name="type" value="delete" />
+									<input type="hidden" name="id" value="{topic.FORUM_ID}" />
+									<button type="submit" class="input" >
+									<img src="/wowroster/templates/default/images/admin/yellow.png" style="height:16px;width:16px;border:0;" alt="" />Delete</button>
+								</form>
+							</div>
+						</div>
+
+						<div class="tier-2-title">
+							{topic.T_NAME}
+						</div>
+						
+						<div class="info-text-h">
+							<div>{topic.T_POSTER}<br>Posts: {topic.T_POSTS}</div>
+
+						</div>
+					</div>
+				</div>
+				
+			<!-- END topic -->

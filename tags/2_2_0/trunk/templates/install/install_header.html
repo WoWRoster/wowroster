@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<!-- $Id$ -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>WoWRoster Installation - Step {INSTALL_STEP}</title>
+
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/ui.selectmenu.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/base.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/install.css" />
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/ui.selectmenu.js"></script>
+<script type="text/javascript" src="{THEME_PATH}/theme.js"></script>
+<script type="text/javascript" src="js/overlib.js"></script>
+</head>
+
+<body>
+
+<div class="roster-wrap">
+
+	<div class="logo">
+		<img src="img/wowroster_logo.jpg" alt="" />
+	</div>
+
+{NOTICE}
+
+	<div class="theme-wrap">
+
+		<div class="info-header realm">
+			<div class="text">
+				<div class="name">WoWRoster Installation</div>
+				<div class="info">Step {INSTALL_STEP}</div>
+			</div>
+		</div>
+
+		<div class="util-wrap">
+			<div class="scope-menu"></div>
+			<div class="container">
+
+				<div class="tier-1-a">
+					<div class="tier-1-b">
+						<div class="tier-1-c">
+							<div class="tier-1-title">
+								<div class="icon">
+									<img src="{THEME_PATH}/images/gear.png" alt="" />
+									<div class="mask"></div>
+								</div>
+								WoWRoster Installation: Step {INSTALL_STEP}
+							</div>
+<!-- IF MSG_TEXT != '' -->
+							<div id="notify">
+								<div class="ui-state-default ui-corner-all close" title="close">
+									<span class="ui-icon ui-icon-close"></span>
+								</div>
+<!-- INCLUDE install_message.html -->
+							</div>
+<!-- ENDIF -->

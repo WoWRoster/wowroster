@@ -1,0 +1,101 @@
+
+<div id="main" class="tier-1-a">
+	<div class="tier-1-b exp-content">
+
+				<div id="left">
+					<div class="tier-2-a">
+						<div class="tier-2-b camera_block">
+
+							<div class="camera">
+								<div class="camera_wrap {SLIDER_SKIN}" id="camera_wrap_1">
+<!-- BEGIN slider -->
+									<div data-thumb="{slider.TIMAGE}" data-src="{slider.IMAGE}">
+									<!-- IF slider.IS_VIDEO eq "0" -->
+										<div class="camera_caption">
+											{slider.TITLE}<br />
+											<em>{slider.DESC}</em>
+										</div>
+									<!-- ELSE -->
+										<iframe src="{slider.URL}" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+									<!-- ENDIF -->
+									</div>									
+<!-- END slider -->
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+							<div class="homepage-news-wrapper">
+								<div id="news-updates">
+<!-- IF S_ADD_NEWS -->
+									<div class="right">
+										<a class="input" href="{U_ADD_NEWS}"><span class="ui-icon ui-icon-plus"></span><!-- TRANSLATE add_news --></a>
+									</div>
+<!-- ENDIF -->
+
+<!-- BEGIN news -->
+									<div class="tier-2-a" >
+										<div class="tier-2-b" >
+											<div class="tier-2-title">
+												<div class="icon">
+													<img src="{INTERFACE_URL}Interface/Icons/inv_misc_note_02.{IMG_SUFFIX}" alt="" />
+													<div class="mask"></div>
+												</div>
+												{news.TITLE}
+<!-- IF S_EDIT_NEWS -->
+													<div class="right">
+														<a class="input" href="{news.U_EDIT}"><span class="ui-icon ui-icon-pencil"></span><!-- TRANSLATE edit --></a>
+													</div>
+<!-- ENDIF -->
+											</div>
+											<div class="article-right">
+												<div class="article-summary">
+													<p>
+														{news.TEXT}
+													</p>
+												</div>
+											</div>
+											<span class="clear"></span>
+											<div class="tier-3-a">
+												<div class="tier-3-b">
+													<div class="config">
+														<div class="config-name"><!-- TRANSLATE posted_by -->: {news.POSTER} <span class="spacer"> - </span> {news.DATE}</div>
+														<div class="config-input"><a href="{news.U_COMMENT}">{news.L_COMMENT}</a></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+<!-- END news -->
+
+								</div>
+							</div>
+
+				</div>
+
+				<div id="right">
+
+<!-- BEGIN right -->
+					<div class="tier-2-a" >
+						<div class="tier-2-b" >
+							<div class="tier-2-title">
+								<div class="icon">
+									<img src="{INTERFACE_URL}Interface/Icons/{right.ICON}.{IMG_SUFFIX}" alt="" />
+									<div class="mask"></div>
+								</div>
+								{right.BLOCKNAME}
+							</div>
+							<div class="article-right">
+								<div class="info-text-h">
+									{right.BLOCK_DATA}
+								</div>
+							</div>
+						</div>
+					</div>
+<!-- END right -->
+
+				</div>
+
+	</div>
+</div>

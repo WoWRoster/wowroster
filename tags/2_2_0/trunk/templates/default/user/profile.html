@@ -1,0 +1,46 @@
+<!-- BEGIN user_profile -->
+{user_profile.MESSAGE}
+<br />
+{user_profile.BORDER_START}
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	  <td width="200">
+       	<div class="profileRow1" align="left">{user_profile.USER}</div>
+    	<!-- IF user_profile.S_FNAME == 1 --><div class="profileRow2" align="left">{user_profile.FNAME}</div><!-- ENDIF -->
+        <!-- IF user_profile.S_LNAME == 1 --><div class="profileRow1" align="left">{user_profile.LNAME}</div><!-- ENDIF -->
+       	<div class="profileRow2" align="left">&nbsp;</div>
+        </td>
+		<td width="200">
+        	<div class="profileRow1">&nbsp;</div>
+            <!-- IF user_profile.S_CITY == 1 --><div class="profileRow2" align="right">{user_profile.CITY}</div><!-- ENDIF -->
+        	<!-- IF user_profile.S_COUNTRY == 1 --><div class="profileRow1" align="right">{user_profile.COUNTRY}</div><!-- ENDIF -->
+            <div class="profileRow2">&nbsp;</div>
+		</td>
+		<td width="185">
+			<div class="profileRowimg"><center><img src="{user_profile.AVATAR}" alt="{user_profile.AVATAR}"/></center></div>
+        	<div class="profileRow2"><center><!-- IF user_profile.ONLINE --><b>{user_profile.IS_ONLINE}</b>
+<!-- ELSE --><b>{user_profile.IS_OFFLINE}</b><!-- ENDIF --></center></div>
+		</td>
+	</tr>
+  	<tr>
+  		<td width="200">
+			<!-- IF user_profile.S_EMAIL == 1 --><div class="profileRow1">{user_profile.EMAIL}</div><!-- ENDIF -->
+        	<!-- IF user_profile.S_HOMEPAGE == 1 --><div class="profileRow2">{user_profile.HOMEPAGE}</div><!-- ENDIF -->
+            <div class="profileRow1">&nbsp;</div>
+            <div class="profileRow2">&nbsp;</div>
+    	</td>
+    	<td width="200">
+        	<div class="profileRow1">&nbsp;</div>
+            <div class="profileRow2">&nbsp;</div>
+            <div class="profileRow1">&nbsp;</div>
+            <div class="profileRow2">&nbsp;</div>
+      </td>
+        <td width="180">
+        	<div class="profileRow1">&nbsp;</div>
+        	<!-- IF user_profile.S_JOINED == 1 --><div class="profileRow2">{user_profile.JOINED}</div><!-- ENDIF -->
+        	<!-- IF user_profile.S_LOGIN == 1 --><div class="profileRow1">{user_profile.LOGIN}</div><!-- ENDIF -->
+    	</td>
+  	</tr>
+</table>
+{user_profile.BORDER_END}
+<!-- END user_profile -->

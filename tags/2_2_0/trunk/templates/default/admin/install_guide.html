@@ -1,0 +1,42 @@
+<!-- $Id$ -->
+
+<!-- IF S_STEP_1 -->
+<form action="{U_MAKELINK}" method="post" enctype="multipart/form-data" id="guide">
+	<input type="hidden" name="guide_step" value="2" />
+
+	<div class="tier-2-a" style="margin:4px auto; width: 420px;">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+				<div style="float:right;">
+					<input type="submit" name="submit" value="<!-- TRANSLATE next -->" />
+					<a class="input" href="{U_ROSTERCP}"><!-- TRANSLATE skip_setup --></a>
+				</div>
+				<!-- TRANSLATE default_data -->
+			</div>
+
+			<div class="info-text-h">
+<!-- TRANSLATE default_data_help -->
+			</div>
+
+			<table class="border_frame" cellspacing="0" width="100%">
+				<tr>
+					<th class="membersHeader" {L_NAME_TIP}><!-- TRANSLATE name --></th>
+					<th class="membersHeader" {L_SERVER_TIP}><!-- TRANSLATE server --></th>
+					<th class="membersHeaderRight" {L_REGION_TIP}><!-- TRANSLATE region --></th>
+				</tr>
+				<tr>
+					<td class="membersRow1"><input type="text" name="name" value="{NAME}" /></td>
+					<td class="membersRow1"><input type="text" name="server" value="{SERVER}" /></td>
+					<td class="membersRowRight1"><input type="text" name="region" value="{REGION}" maxlength="2" /></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+</form>
+
+<!-- ENDIF -->
+
+<!-- IF S_STEP_2 -->
+{MESSAGE}
+<!-- ENDIF -->

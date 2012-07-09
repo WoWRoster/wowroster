@@ -1,0 +1,147 @@
+
+<div class="container">
+
+	<div style="float: left;">
+
+		<div class="achievements">
+
+			<div class="achv_bdr_top"><img src="{THEME_PATH}/achievements/images/achv_lnav_top.jpg" /></a></div>
+				
+				<div id="ach_menu">
+				
+					<ul id="menu" style="display:block">
+						<li id="s81" class="menu_head selected"><a href="javascript:void(0)" ><!-- TRANSLATE FeatsofStrength --></a></li>
+						<li id="s92" class="menu_head"><a href="javascript:void(0)" ><!-- TRANSLATE General --></a></li>
+						<li id="s95" class="menu_head"><a href="javascript:void(0)" ><!-- TRANSLATE PlayervsPlayer --></a>
+							<ul id="s95_sub" class="sub_menu">
+							<!-- BEGIN sub95 -->
+								<li id="{sub95.ID}" class="menu_sub"><a href="javascript:void(0)">{sub95.NAME}</a></li>
+							<!-- END sub95 -->
+							</ul>
+						</li>
+							
+						<li id="s96" class="menu_head"><a href="javascript:void(0)"><!-- TRANSLATE Quests --></a>
+							<ul id="s96_sub" class="sub_menu">
+								<!-- BEGIN sub96 -->
+								<li id="{sub96.ID}" ><a href="javascript:void(0)">{sub96.NAME}</a></li>
+								<!-- END sub96 -->
+							</ul>
+						</li>
+							
+						<li id="s97" class="menu_head"><a href="javascript:void(0)"><!-- TRANSLATE Exploration --></a>
+							<ul id="s97_sub" class="sub_menu">
+								<!-- BEGIN sub97 -->
+								<li id="{sub97.ID}" ><a href="javascript:void(0)">{sub97.NAME}</a></li>
+								<!-- END sub97 -->
+							</ul>
+						</li>
+							
+						<li id="s155" class="menu_head"><a href="javascript:void(0)"><!-- TRANSLATE WorldEvents --></a>
+							<ul id="s155_sub" class="sub_menu">
+								<!-- BEGIN sub155 -->
+								<li id="{sub155.ID}" ><a href="javascript:void(0)">{sub155.NAME}</a></li>
+								<!-- END sub155 -->
+							</ul>
+						</li>
+							
+						<li id="s168" class="menu_head"><a href="javascript:void(0)"><!-- TRANSLATE DungeonsRaids --></a>
+							<ul id="s168_sub" class="sub_menu">
+								<!-- BEGIN sub168 -->
+								<li id="{sub168.ID}" ><a href="javascript:void(0)">{sub168.NAME}</a></li>
+								<!-- END sub168 -->
+							</ul>
+						</li>
+							
+						<li id="s169" class="menu_head"><a href="javascript:void(0)"><!-- TRANSLATE Professions --></a>
+							<ul id="s169_sub" class="sub_menu">
+								<!-- BEGIN sub169 -->
+								<li id="{sub169.ID}" ><a href="javascript:void(0)">{sub169.NAME}</a></li>
+								<!-- END sub169 -->
+							</ul>
+						</li>
+							
+						<li id="s201" class="menu_head"><a href="javascript:void(0)"><!-- TRANSLATE Reputation --></a>
+							<ul id="s201_sub" class="sub_menu">
+								<!-- BEGIN sub201 -->
+								<li id="{sub201.ID}" ><a href="javascript:void(0)">{sub201.NAME}</a></li>
+								<!-- END sub201 -->
+							</ul>
+						</li>	
+					</ul>
+				</div>
+		</div>
+		
+	</div>
+
+
+	<div id="amain" style="float: right; width: 720px;">
+
+<!-- BEGIN info -->
+	<div style="display:none;" id="{info.ID}">
+		<div class="achievements">
+			<div class="achieve_rcol">
+				
+				<div class="achievements-container">
+					<div id="achievements-content">
+				<div class="achv_r_top"><img src="{THEME_PATH}/achievements/images/achv_rcol_top.jpg" /></a></div>								
+
+
+						<div class="tier-1-a">
+							<div class="tier-1-b">
+								<div class="tier-1-c">
+									<div class="tier-1-title">{info.NAME}</div>
+
+<!-- BEGIN achv -->
+										<div class="achievement-{info.achv.STATUS}" <!-- IF info.achv.CRITERIA neq 1 -->style="cursor:pointer;" onclick="showHide('{info.achv.IDDI}','img_{info.achv.IDDI}','templates/default/images/minus.gif','templates/default/images/plus.gif');"<!-- ENDIF -->>
+											<div class="achievement-2">
+											<!-- IF S_ACHIV_ICON eq 1 -->
+												<div class="achievement-icon">
+													<div class="icon"><img src="{info.achv.ICON}" /><div class="mask-{info.achv.STATUS}"></div></div>
+												</div>
+											<!-- ENDIF -->
+												<div class="achievement-shield-{info.achv.SHIELD}">
+													<div class="points">{info.achv.POINTS}</div>
+												</div>
+												<div class="achievement-info">
+													<div class="name">{info.achv.NAME}</div>
+													<div class="desc">{info.achv.DESC}</div>
+
+<!-- IF info.achv.DATE -->
+													<div class="date">{info.achv.DATE}</div>
+<!-- ENDIF -->
+												</div>
+<div style="height: 0px; clear: both;"></div>
+<!-- IF info.achv.CRITERIA neq 1 -->
+												<div class="achievement-info">
+													<img style="float:right;" id="img_{info.achv.IDDI}" src="templates/default/images/plus.gif" alt="" />
+													<div id="{info.achv.IDDI}" style="width:100%;display:none;">
+													{info.achv.CRITERIA2}
+													</div>
+												</div>
+<!-- ENDIF -->
+											<div style="height: 0px; clear: both;"></div>
+											</div>
+											
+											
+										</div>
+<!-- END achv -->
+									
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="achv_r_btm"><img src="{THEME_PATH}/achievements/images/achv_rcol_btm.jpg" /></a></div>
+
+			</div>
+
+		</div>
+		</div>
+		<!-- END info -->
+	</div>
+
+	<br clear="all" />
+
+
+</div>
