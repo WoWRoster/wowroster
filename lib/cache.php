@@ -11,7 +11,7 @@
  * @since      File available since Release 1.8.0
  * @package    WoWRoster
  * @subpackage RosterCache
- */
+*/
 
 if( !defined('IN_ROSTER') )
 {

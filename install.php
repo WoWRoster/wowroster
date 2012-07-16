@@ -64,9 +64,7 @@ class Template_Wrap extends RosterTemplate
 		}
 
 		$this->tpl = 'install';
-		include_once (ROSTER_LIB . 'cache.php');
-		$cache = new RosterCache();
-		$cache->cleanCache();
+
 		$this->assign_vars(array(
 			'MSG_TITLE' => '',
 			'MSG_TEXT'  => '',
@@ -186,8 +184,6 @@ class Template_Wrap extends RosterTemplate
 			'U_RENDERTIME' => substr(format_microtime() - ROSTER_STARTTIME, 0, 5),
 			'ROSTER_VERSION' => $DEFAULTS['version']
 		));
-
-		$this->assign_var('NOTICE', '');
 
 /*/ BETA ONLY, COMMENT THIS IN RC OR LATER!
 		if( file_exists(ROSTER_BASE . 'valid.inc') )
@@ -520,10 +516,6 @@ function process_step1( )
 	// Required?
 	$their_gd = 'Optional';
 
-	// CURL check
-	$our_curl = in_array('curl', get_loaded_extensions()) ? '<span class="positive">Yes</span>' : '<span class="negative">No</span>';
-	$their_curl = 'Required for Blizzard API';
-
 	if( (phpversion() < $REQUIRE['php_version']) || (!extension_loaded('mysql')) )
 	{
 		$tpl->error_append('<span style="font-weight:bold;font-size:14px;">Sorry, your server does not meet the minimum requirements for WoWRoster</span>');
@@ -545,9 +537,7 @@ function process_step1( )
 		'OUR_MYSQL'            => $our_mysql,
 		'THEIR_MYSQL'          => $their_mysql,
 		'OUR_GD'               => $our_gd,
-		'THEIR_GD'             => $their_gd,
-		'OUR_CURL'               => $our_curl,
-		'THEIR_CURL'             => $their_curl
+		'THEIR_GD'             => $their_gd
 	));
 
 	$tpl->page_header();
@@ -861,10 +851,14 @@ function process_step4( )
 	{
 		$pass_word = md5('admin');
 	}
-	$db->query("INSERT INTO `" . $db->table('user_members') . "` (`usr`) VALUES	('Admin');");
-	$db->query("UPDATE `" . $db->table('user_members') . "` SET `pass` = '" . $pass_word . "',`access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");
+	$db->query("INSERT INTO `" . $db->table('account') . "` (`account_id`, `name`) VALUES
+		(1, 'Guild'),
+		(2, 'Officer'),
+		(3, 'Admin');");
 
-	$tpl->message_append('The WoWRoster Admin account has created<br />Please do not forget your password');
+	$db->query("UPDATE `" . $db->table('account') . "` SET `hash` = '" . $pass_word . "';");
+
+	$tpl->message_append('The WoWRoster Officer and Guild accounts have been set to the same password as the admin account<br />Please change these passwords via RosterCP-&gt;Change Password');
 
 	/**
 	 * Rewrite the config file to its final form

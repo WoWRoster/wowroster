@@ -57,7 +57,7 @@ echo '
 					<div class="tier-6-b">
 						<div class="text" style="text-align: center;">
 							Serveral external libraries are included with WoWRoster
-							that may not be included under the main WoWRoster license
+							that are may not be included under the main WoWRoster license
 						</div>
 					</div>
 				</div>
@@ -71,20 +71,6 @@ echo '
 								<li><a href="http://jquery.com" target="_blank">http://jquery.com</a></li>
 								<li>jQuery is provided under the following <a href="http://docs.jquery.com/Licensing" target="_blank">MIT and GPL licenses</a>.</li>
 								<li>File located at [js/jquery.js]</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="tier-2-a">
-					<div class="tier-2-b">
-						<div class="tier-2-title">jQuery UI Javascript Widget Library</div>
-
-						<div class="info-text-h">
-							<ul>
-								<li><a href="http://jqueryui.com" target="_blank">http://jqueryui.com</a></li>
-								<li>jQuery is provided under the following <a href="http://docs.jquery.com/Licensing" target="_blank">MIT and GPL licenses</a>.</li>
-								<li>File located at [js/jqueryui.js]</li>
 							</ul>
 						</div>
 					</div>

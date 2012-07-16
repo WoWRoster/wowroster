@@ -1,7 +1,8 @@
 /**
  * WoWRoster.net WoWRoster
  *
- * Legacy javascript file
+ * Main javascript file
+ *
  *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
@@ -12,7 +13,7 @@
 
 // Now handled by jQuery
 function submitonce(f) {
-	return true;
+    return true;
 }
 
 /**

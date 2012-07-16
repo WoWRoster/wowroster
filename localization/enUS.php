@@ -216,7 +216,6 @@ $lang['basename']='Basename';
 $lang['scope']='Scope';
 $lang['tag']='Tag';
 $lang['daily']='Daily';
-$lang['user'] = 'User';
 
 // Item Quality
 $lang['quality']='Quality';
@@ -339,16 +338,12 @@ $lang['char_level_race_class'] = 'Level %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s of %2$s';
 
 // Login
-$lang['welcome_user'] = 'Welcome, %1$s';
 $lang['login'] = 'Login';
 $lang['logout'] = 'Logout';
 $lang['logged_in'] = 'Logged in';
 $lang['logged_out'] = 'Logged out';
 $lang['login_invalid'] = 'Invalid Password';
 $lang['login_fail'] = 'Failed to fetch password info';
-$lang['login_inactive'] = 'Your account is not active or is not approved by the admin. Only "Public" areas can be accessed.';
-$lang['active'] = 'Active';
-$lang['inactive'] = 'Inactive';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Professions';
@@ -443,8 +438,7 @@ $lang['ts_ridingIcon'] = array(
 	'Draenei' => 'ability_mount_ridingelekk',
 	'Paladin'=>'ability_mount_dreadsteed',
 	'Warlock'=>'ability_mount_nightmarehorse',
-	'Death Knight'=>'spell_deathknight_summondeathcharger',
-	'Pandaren'=>'ability_mount_ridinghorse',
+	'Death Knight'=>'spell_deathknight_summondeathcharger'
 // Space so locale files are line synced
 
 
@@ -459,9 +453,7 @@ $lang['ts_ridingIcon'] = array(
 
 
 
-
 );
-
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Alliance'=>'ability_mount_gryphon_01',
@@ -483,10 +475,8 @@ $lang['class_iconArray'] = array (
 	'Rogue'=>'rogue_icon',
 	'Shaman'=>'shaman_icon',
 	'Warlock'=>'warlock_icon',
-	'Warrior'=>'warrior_icon',
-	'Monk'=>'monk_icon'
+	'Warrior'=>'warrior_icon'
 // Space so locale files are line synced
-
 
 
 
@@ -510,10 +500,8 @@ $lang['class_colorArray'] = array(
 	'Rogue' => 'FFF569',
 	'Shaman' => '2459FF',
 	'Warlock' => '9482C9',
-	'Warrior' => 'C79C6E',
-	'Monk' => '00C77b'
+	'Warrior' => 'C79C6E'
 // Space so locale files are line synced
-
 
 
 
@@ -537,10 +525,8 @@ $lang['class_to_en'] = array(
 	'Rogue' => 'Rogue',
 	'Shaman' => 'Shaman',
 	'Warlock' => 'Warlock',
-	'Warrior' => 'Warrior',
-	'Monk' => 'Monk'
+	'Warrior' => 'Warrior'
 // Space so locale files are line synced
-
 
 
 
@@ -564,10 +550,8 @@ $lang['class_to_id'] = array(
 	'Shaman' => 7,
 	'Mage' => 8,
 	'Warlock' => 9,
-	'Monk' => 10,
 	'Druid' => 11
 // Space so locale files are line synced
-
 
 
 
@@ -591,7 +575,6 @@ $lang['id_to_class'] = array(
 	7 => 'Shaman',
 	8 => 'Mage',
 	9 => 'Warlock',
-	10 => 'Monk',
 	11 => 'Druid'
 );
 
@@ -609,7 +592,6 @@ $lang['race_to_en'] = array(
 	'Tauren'    => 'Tauren',
 	'Worgen'    => 'Worgen',
 	'Goblin'    => 'Goblin',
-	'Pandaren'	=> 'Pandaren',
 // Space so locale files are line synced
 
 
@@ -638,11 +620,7 @@ $lang['race_to_id'] = array(
 	'Draenei'   => 11,
 	'Worgen'    => 22,
 	'Goblin'    => 9,
-	'Pandaren'	=> 25,
-	'Pandaren'	=> 26,
 // Space so locale files are line synced
-
-
 
 
 
@@ -670,8 +648,6 @@ $lang['id_to_race'] = array(
 	11 => 'Draenei',
 	22 => 'Worgen',
 	9 => 'Goblin',
-	25 => 'Pandaren',
-	26 => 'Pandaren',
 );
 
 $lang['hslist']=' Honor System Stats';
@@ -684,7 +660,6 @@ $lang['Death Knight']='Death Knight';
 $lang['Druid']='Druid';
 $lang['Hunter']='Hunter';
 $lang['Mage']='Mage';
-$lang['Monk']='Monk';
 $lang['Paladin']='Paladin';
 $lang['Priest']='Priest';
 $lang['Rogue']='Rogue';
@@ -751,7 +726,6 @@ $lang['faction_to_id'] = array(
 	'Horde Forces' => 'horde',
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
-	'Reputation' => 'reputation',
 );
 
 
@@ -846,14 +820,12 @@ $lang['tooltip_preg_use']='/Use: (.+)/';
 $lang['tooltip_preg_chance']='/Chance (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
 $lang['tooltip_preg_heroic']='/Heroic/';
-$lang['tooltip_preg_lfr']='/Raid Finder/';
 $lang['tooltip_garbage1']='/\<Shift Right Click to Socket\>/';
 $lang['tooltip_garbage2']='/\<Right Click to Read\>/';
 $lang['tooltip_garbage3']='/Duration (.+)/';
 $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
-$lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
@@ -879,9 +851,6 @@ $lang['tooltip_source']='Source';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Drop Rate';
 $lang['tooltip_reforged']='Reforged';
-$lang['tooltip_transmogc'] = '/Transmogrified to: (.+)/';
-$lang['tooltip_transmogb'] = 'Transmogrified to: ';
-$lang['tooltip_transmoga'] = "Transmogrified to:\n";
 
 $lang['tooltip_chance_hit']='Chance to|on hit:';
 $lang['tooltip_reg_requires']='Requires';
@@ -959,7 +928,6 @@ $lang['menupanel_util']  = 'Utilities';
 $lang['menupanel_realm'] = 'Realm';
 $lang['menupanel_guild'] = 'Guild';
 $lang['menupanel_char']  = 'Character';
-$lang['menupanel_user'] = 'User CP';
 
 $lang['menuconf_sectionselect']='Select Panel';
 $lang['menuconf_section']='Section';
@@ -1042,10 +1010,7 @@ $lang['adata_update_class'] = 'Class %1$s updated';
 $lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
-$lang['username'] = 'Username';
 $lang['password'] = 'Password';
-$lang['remember_me'] = 'Remember me';
-$lang['pass'] = 'Pass';
 $lang['changeadminpass'] = 'Change Admin Password';
 $lang['changeofficerpass'] = 'Change Officer Password';
 $lang['changeguildpass'] = 'Change Guild Password';
@@ -1092,18 +1057,16 @@ To continue, check the box and click on \'Proceed\'.';
  ******************************/
 
 $lang['pagebar_function'] = 'Function';
-$lang['pagebar_rosterconf'] = 'Main';
+$lang['pagebar_rosterconf'] = 'Configure Main Roster';
 $lang['pagebar_uploadrules'] = 'Upload Rules';
-$lang['pagebar_dataman'] = 'Roster Data';
-$lang['pagebar_userman'] = 'Users';
+$lang['pagebar_dataman'] = 'Data Manager';
 $lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Change Password';
-$lang['pagebar_addoninst'] = 'Addons';
-$lang['pagebar_plugin'] = 'Plugins';
+$lang['pagebar_addoninst'] = 'Addon Management';
 $lang['pagebar_update'] = 'Upload Profile';
 $lang['pagebar_rosterdiag'] = 'Roster Diag';
-$lang['pagebar_menuconf'] = 'Menu';
-$lang['pagebar_configreset'] = 'Reset';
+$lang['pagebar_menuconf'] = 'Menu Configuration';
+$lang['pagebar_configreset'] = 'Config Reset';
 
 $lang['pagebar_addonconf'] = 'Addon Config';
 
@@ -1164,8 +1127,6 @@ $lang['admin']['check_updates'] = "Check for Updates|This allows your copy of Wo
 $lang['admin']['seo_url'] = "Friendly URLs|Enable SEO like URL links in Roster<ul class='ul-no-m'><li>on: /some/page/here/param=value.html</li><li>off: index.php?p=some-page-here&amp;param=value</li></ul>";
 $lang['admin']['local_cache']= "File System Cache|Use server local file system to cache some files to increase performance.";
 $lang['admin']['use_temp_tables'] = "Use Temporary Tables|Turn this setting off if your host does not allow you to create temporary database tables (CREATE TEMPORARY TABLE privilege).<br />Leaving this on is recommended for performance.";
-$lang['admin']['preprocess_js'] = "Aggregate JavaScript files|Certain JavaScript files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
-$lang['admin']['preprocess_css'] = "Aggregate and compress CSS files|Certain CSS files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
 $lang['admin']['enforce_rules'] = "Enforce Upload Rules|This setting will enforce the upload rules on every lua update<ul class='ul-no-m'><li>Never: Never enforce rules</li><li>All LUA Updates: Enforce rules on all lua updates</li><li>CP Updates: Enforce rules on any CP.lua update</li><li>Guild Updates: Enforce rules only on guild updates</li></ul>You can also toggle this setting on the &quot;Upload Rules&quot; page.";
 
 // defaults_conf
@@ -1219,43 +1180,16 @@ $lang['admin']['rs_color_recommended'] = "Recommended|Color for recommended real
 
 // update_access
 $lang['admin']['authenticated_user'] = "Access to Update.php|Controls access to update.php<br /><br />Turning this off disables access for EVERYONE";
-$lang['admin']['api_key_private'] = "Blizzard API Private key|This is the Private key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
-$lang['admin']['api_key_public'] = "Blizzard API Public key|This is the Public key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
-$lang['admin']['api_url_region'] = "Blizzard API Region|this is the armory region that you are accessing";
-$lang['admin']['api_url_locale'] = "Blizzard API Locale|These locales are REGION dependent and will display<br>info in the desired language";
 $lang['admin']['update_inst'] = 'Update Instructions|Controls the display of the Update Instructions on the update page';
 $lang['admin']['gp_user_level'] = "Guild Data Level|Level required to process WoWRoster-GuildProfiler Data";
 $lang['admin']['cp_user_level'] = "Character Data Level|Level required to process WoWRoster-Profiler Data";
 $lang['admin']['lua_user_level'] = "Other LUA Data Level|Level required to process other LUA files' Data<br />This is for EVERY other lua file that can be uploaded to Roster";
-$lang['admin']['use_api_onupdate'] = "Api on Lua Update|process an api call on each lua char update pulling all api info for the character some addons may use this data";
-
-//session
-$lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';
-$lang['admin']['save_login'] = 'Save Login|Use a cookie to remember the client login?';
-$lang['admin']['acc_session'] = 'Session Config|Configure the settings for accounts sessions.';
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Per-Character Display';
-
-// user admin
-$lang['admin']['user_desc'] = 'CP Admin - This option gives the selected user admin access to WoWRoster<br/>Public - The default access given to all users. Allows the user to see any and all public pages in Roster. Removing this option only lets them see the content their other ranks allow<br/>** Other ranks are scaned from the currently selected guilds\' rank names and you can assign user access accordingly to users.';
 
 //Overlib for Allow/Disallow rules
 $lang['guildname'] = 'Guild name';
 $lang['realmname']  = 'Realm name';
 $lang['regionname'] = 'Region (i.e. US)';
 $lang['charname'] = 'Character name';
-
-//register locals
-$lang['register'] 	= 'Register';
-$lang['menu_register'] 	= 'Register|Register with roster to have access to your guilds pages';
-$lang['cname_tt'] 	='Your Username should be your Main charactor in the guild Alts can be added later';
-$lang['cname'] 		='Character name';
-$lang['cclass_tt'] 	='Your characters class';
-$lang['cclass'] 	='Character Class';
-$lang['clevel_tt'] 	='Your characters level';
-$lang['clevel']		='Character level';
-$lang['cgrank_tt'] 	='This is your guild rank in the guild';
-$lang['cgrank'] 	='Guild Rank';
-$lang['cemail_tt'] 	='Your Email address DO NOT USE your battle.net address';
-$lang['cemail'] 	='Email address';

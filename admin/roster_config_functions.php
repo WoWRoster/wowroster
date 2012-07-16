@@ -27,13 +27,13 @@ function rosterLangValue( $values )
 	global $roster;
 
 	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
-	$not_selected = TRUE;
+	$select_one = 1;
 	foreach( $roster->multilanguages as $value )
 	{
-		if( $value == $values['value'] && $not_selected )
+		if( $value == $values['value'] && $select_one )
 		{
 			$input_field .= '  <option value="' . $value . '" selected="selected">' . $value . '</option>' . "\n";
-			$not_selected = FALSE;
+			$select_one = 0;
 		}
 		else
 		{
@@ -48,12 +48,12 @@ function rosterLangValue( $values )
 /**
  * Value function to select starting page
  */
-function pageNames( $values )
+function pageNames( )
 {
 	global $roster;
 
-	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
-	$not_selected = TRUE;
+	$input_field = '<select name="config_default_page">' . "\n";
+	$select_one = 1;
 
 	// --[ Fetch button list from DB ]--
 	$query = "SELECT `mb`.*, `a`.`basename`
@@ -88,10 +88,10 @@ function pageNames( $values )
 			$row['url'] = $row['scope'] . '-' . $row['basename'] . (empty($row['url']) ? '' : '-' . $row['url']);
 		}
 
-		if( $row['url'] == $roster->config['default_page'] && $not_selected )
+		if( $row['url'] == $roster->config['default_page'] && $select_one )
 		{
 			$input_field .= '  <option value="' . $row['url'] . '" selected="selected">' . $title . '</option>' . "\n";
-			$not_selected = FALSE;
+			$select_one = 0;
 		}
 		else
 		{
@@ -142,13 +142,13 @@ function fontFiles( $values )
 	}
 
 	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
-	$not_selected = TRUE;
+	$select_one = 1;
 	foreach( $arrFiles as $file=>$name )
 	{
-		if( $file == $values['value'] && $not_selected )
+		if( $file == $values['value'] && $select_one )
 		{
 			$input_field .= '  <option value="' . $file . '" selected="selected">' . $name . '</option>' . "\n";
-			$not_selected = FALSE;
+			$select_one = 0;
 		}
 		else
 		{
@@ -193,13 +193,13 @@ function templateList( $values )
 	}
 
 	$input_field = '<select name="config_' . $values['name'] . '">' . "\n";
-	$not_selected = TRUE;
+	$select_one = 1;
 	foreach( $arrFiles as $file )
 	{
-		if( $file == $values['value'] && $not_selected )
+		if( $file == $values['value'] && $select_one )
 		{
 			$input_field .= '  <option value="' . $file . '" selected="selected">' . ucfirst($file) . '</option>' . "\n";
-			$not_selected = FALSE;
+			$select_one = 0;
 		}
 		else
 		{
@@ -225,14 +225,14 @@ function externalAuth( $values )
 	if( 'roster' == $roster->config['external_auth'] )
 	{
 		$input_field .= '  <option value="roster" selected="selected">WoWRoster</option>' . "\n";
-		$not_selected = FALSE;
+		$select_one = 0;
 	}
 	else
 	{
-		$input_field .= '  <option value="roster">WoWRoster</option>' . "\n";
+		$input_field .= '  <option value="roster">Roster</option>' . "\n";
 	}
 
-	$not_selected = TRUE;
+	$select_one = 1;
 	foreach( $roster->addon_data as $addon_data )
 	{
 		if( file_exists(ROSTER_ADDONS . $addon_data['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'login.php') )
@@ -245,10 +245,10 @@ function externalAuth( $values )
 
 			list($title) = explode('|',isset($roster->locale->act[$addon_data['fullname']]) ? $roster->locale->act[$addon_data['fullname']] : $addon_data['fullname']);
 
-			if( $addon_data['basename'] == $roster->config['external_auth'] && $not_selected )
+			if( $addon_data['basename'] == $roster->config['external_auth'] && $select_one )
 			{
 				$input_field .= '  <option value="' . $addon_data['basename'] . '" selected="selected">' . $title . '</option>' . "\n";
-				$not_selected = FALSE;
+				$select_one = 0;
 			}
 			else
 			{

@@ -19,7 +19,6 @@ if( !defined('IN_ROSTER') )
 }
 
 define('ROSTER_FOOTER_INC', true);
-roster_add_js(getAllTooltips(), 'inline', 'footer', FALSE, FALSE);
 
 $totaltime = round(format_microtime() - ROSTER_STARTTIME, 2);
 
@@ -47,7 +46,6 @@ $roster->tpl->assign_vars(array(
 	'IMG_URL'         => $roster->config['img_url'],
 	'INTERFACE_URL'   => $roster->config['interface_url'],
 	'ROSTER_VERSION'  => $roster->config['version'],
-	'ROSTER_FOOT_JS'  => roster_get_js('footer'),
 ));
 
 if( $roster->config['debug_mode'] )
@@ -94,6 +92,7 @@ if( $roster->config['sql_window'] )
 	}
 }
 
+$roster->tpl->assign_var('ROSTER_TOOLTIPS', getAllTooltips());
 
 $roster->tpl->set_handle('roster_footer', 'footer.html');
 $roster->tpl->display('roster_footer');

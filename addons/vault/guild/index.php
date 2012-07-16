@@ -37,7 +37,7 @@ $roster->tpl->assign_vars(array(
 );
 
 
-$tab_count = 8;
+$tab_count = 6;
 
 for( $t=1;$t<=$tab_count;$t++ )
 {

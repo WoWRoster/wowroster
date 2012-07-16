@@ -18,7 +18,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-define('ROSTER_VERSION', '2.2.0');
+define('ROSTER_VERSION', '2.1.0');
 
 /**
  * Roster Conf File
@@ -36,11 +36,6 @@ define('ROSTER_ADMIN', ROSTER_BASE . 'admin' . DIR_SEP);
 define('ROSTER_AJAX', ROSTER_BASE . 'ajax' . DIR_SEP);
 
 /**
- * Base, absolute roster api directory
- */
-define('ROSTER_API', ROSTER_LIB . 'api' . DIR_SEP);
-
-/**
  * Cache directory
  */
 define('ROSTER_CACHEDIR', ROSTER_BASE . 'cache' . DIR_SEP);
@@ -54,7 +49,6 @@ define('ROSTER_TPLDIR', ROSTER_BASE . 'templates' . DIR_SEP);
  * Base, absolute roster addons directory
  */
 define('ROSTER_ADDONS', ROSTER_BASE . 'addons' . DIR_SEP);
-define('ROSTER_PLUGINS', ROSTER_BASE . 'plugins' . DIR_SEP);
 
 /**
  * Base, absolute roster pages directory
@@ -93,7 +87,7 @@ define('ROSTER_CLASS_DEATHKNIGHT', 6);
 define('ROSTER_CLASS_SHAMAN', 7);
 define('ROSTER_CLASS_MAGE', 8);
 define('ROSTER_CLASS_WARLOCK', 9);
-define('ROSTER_CLASS_MONK', 10);
+//define('ROSTER_CLASS_', 10);
 define('ROSTER_CLASS_DRUID', 11);
 
 define('ROSTER_RACE_HUMAN', 1);
@@ -108,9 +102,6 @@ define('ROSTER_RACE_GOBLIN', 9);
 define('ROSTER_RACE_BLOODELF', 10);
 define('ROSTER_RACE_DRAENEI', 11);
 define('ROSTER_RACE_WORGEN', 22);
-//Pandaren ALLIANCE/HORD RESPECTIVLY
-define('ROSTER_RACE_PANDAREN_A', 25);
-define('ROSTER_RACE_PANDAREN_H', 26);
 
 define('ROSTER_SEX_MALE', 0);
 define('ROSTER_SEX_FEMALE', 1);

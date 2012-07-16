@@ -105,7 +105,7 @@ class guildinfoUpdate
 	
 		$this->messages = '';
 		
-		if (isset($char['XP']))
+		if (is_array($char['XP']))
 		{
 			$queryx = "SELECT `member_id` FROM `".$roster->db->table('ranks',$this->data['basename'])."` WHERE `member_id`='" . $member_id . "'";
 			$resultx = $roster->db->query( $queryx );
@@ -155,7 +155,7 @@ class guildinfoUpdate
 		global $roster, $update;
 
 
-		if (isset($guild['News']))
+		if (is_array($guild['News']))
 		{
 		
 			$news = $guild['News'];
@@ -171,7 +171,7 @@ class guildinfoUpdate
 						$date = date_create($datee);
 						$display =  date_format($date, 'D F jS');
 
-						$queryx = "SELECT `Member`,`Achievement`,`Date` FROM `".$roster->db->table('news',$this->data['basename'])."` WHERE `Member`='" . $d['Member'] . "' AND `Achievement`='".$roster->db->escape($d['Achievement'])."' AND `Date`='".date_format($date, 'Y-m-d H:i:s')."'";
+						$queryx = "SELECT `Member`,`Achievement`,`Date` FROM `".$roster->db->table('news',$this->data['basename'])."` WHERE `Member`='" . $d['Member'] . "' AND `Achievement`='".$d['Achievement']."' AND `Date`='".date_format($date, 'Y-m-d H:i:s')."'";
 						$resultx = $roster->db->query( $queryx );
 						$update_sql = $roster->db->num_rows( $resultx );
 
@@ -187,7 +187,7 @@ class guildinfoUpdate
 					
 						if( $update_sql >= '1' )
 						{
-							$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$update->assignstr." WHERE `Member` = '".$d['Member']."' and `Achievement` = '".$roster->db->escape($d['Achievement'])."'";
+							$querystr = "UPDATE `".$roster->db->table('news',$this->data['basename'])."` SET ".$update->assignstr." WHERE `Member` = '".$d['member']."' and `Achievement` = '".$d['Achievement']."'";
 						}
 						else
 						{

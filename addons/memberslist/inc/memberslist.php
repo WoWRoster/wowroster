@@ -29,12 +29,6 @@ class memberslist
 	var $query;						// main query
 	var $wheres;					// where clauses
 	var $orders;					// order clauses
-	// plugin fields to pass
-	var $members_list_select;
-	var $members_list_table;
-	var $members_list_where = array();
-	var $members_list_fields = array();
-	var $plugin_name = array();
 	var $pageanat;
 
 	var $addon;						// MembersList addon data
@@ -52,7 +46,7 @@ class memberslist
 	 */
 	function memberslist( $options = array(), $addon = array() )
 	{
-		global $roster, $addon;
+		global $roster;
 
 		$basename = basename(dirname(dirname(__FILE__)));
 
@@ -68,7 +62,7 @@ class memberslist
 		}
 
 		// Set the js in the roster header
-		roster_add_js('addons/' . $basename . '/js/alts.js');
+		$roster->output['html_head'] .= '<script type="text/javascript" src="' . ROSTER_PATH . 'addons/' . $basename . '/js/alts.js"></script>';
 
 		// Merge in the override options from the calling file
 		if( !empty($options) )
@@ -96,61 +90,8 @@ class memberslist
 		{
 			$this->addon['config']['openfilter'] = ($_GET['filter'] == 'open') ? 1 : 0;
 		}
-		$this->_initPlugins();
 	}
 
-
-	/**
-	 * Build the list of plugins to include based on roster scope and if plugins have plugins
-	 *
-	 *
-	 */
-
-	function _initPlugins()
-	{
-		global $roster, $addon;
-		$plugins = $roster->plugin_data;
-		if( !empty($plugins) )
-		{
-			foreach( $plugins as $plugin_name => $plugin )
-			{
-				//$dirx = ROSTER_ADDONS . $plugin['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
-				if ($plugin['parent'] == $addon['basename'])
-				{
-
-					if ($roster->plugin_data[$plugin_name]['active'] == '1')
-					{
-						$xplugin = getplugin($plugin_name);
-						
-						foreach( $roster->multilanguages as $lang )
-						{
-							$roster->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
-						}
-						$plugin['scope'] = explode('|',$plugin['scope']);
-						//if ($plugin['scope'] == $roster->scope)
-						if (in_array( $roster->scope, $plugin['scope'] ) )
-						{
-							$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
-							require($classfile);
-							$pluginstuff = new $plugin_name;
-							$this->members_list_select .= $pluginstuff->members_list_select;
-							$this->members_list_table .= $pluginstuff->members_list_table;
-							if (isset($pluginstuff->members_list_where))
-							{
-								$this->members_list_where[] = $pluginstuff->members_list_where;
-							}
-							$this->members_list_fields[] = $pluginstuff->members_list_fields;
-
-							unset($pluginstuff);
-						}
-					}
-				}
-			}
-		}
-
-		return true;
-
-	}
 	/**
 	 * Prepare the data to build a memberlist.
 	 *
@@ -171,7 +112,7 @@ class memberslist
 	 */
 	function prepareData( $query, $where, $group, $order_first, $order_last, $fields, $listname )
 	{
-		global $roster, $addon;
+		global $roster;
 		$this->pageanat = ($this->addon['config']['page_size'] > '0' ? true : false );
 		// Save some info
 		$this->listname = $listname;
@@ -180,41 +121,36 @@ class memberslist
 		$cols = count($this->fields);
 
 		// Pre-store server get params
-		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['st'] : '' );
-		
+		$get = ( isset($_GET['s']) ? '&amp;s=' . $_GET['s'] : '' ) . ( isset($_GET['st']) ? '&amp;st=' . $_GET['s'] : '' );
+		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
 		$get .= "&amp;filter=" . ($this->addon['config']['openfilter'] ? "open" : "close" );
 
 		$get_s = ( isset($_GET['s']) ? $_GET['s'] : '' );
 		$get_st = ( isset($_GET['st']) ? $_GET['st'] : 0 );
-		$ert = $get;
+
 		// Extract filters form $_GET
 		$get_filter = array();
-		$search_filter = array();
 		foreach( $this->fields as $name => $data )
 		{
 			if( isset( $_GET['filter_' . $name] ) && !empty( $_GET['filter_' . $name] ) )
 			{
 				$get_filter[$name] = $_GET['filter_' . $name];
-				$search_filter[] = '( LOWER('.$data['filt_field'].') LIKE LOWER( \'%'.$_GET['filter_' . $name].'%\') )';
 				$get .= '&amp;filter_' . $name . '=' . htmlentities($get_filter[$name]);
 			}
 		}
-		
-		$filter_post = $get . ( isset($_GET['alts']) ? '&amp;alts=' . $_GET['alts'] : '' );
-		
+
 		$roster->tpl->assign_vars(array(
 			'U_UNGROUP_ALTS' => makelink('&amp;alts=ungroup' . $get),
 			'U_OPEN_ALTS' => makelink('&amp;alts=open' . $get),
 			'U_CLOSE_ALTS' => makelink('&amp;alts=close' . $get),
-			'U_FILTER_FORM' => makelink().$filter_post,
-			'UR_FILTER_FORM' => 'guild-memberslist',//.html_entity_decode($ert,null,'UTF-8'),
-			'U_CLOSE_FILTER' => makelink('guild-memberslist&amp;filter=close' . $filter_post),
-			'U_OPEN_FILTER' => makelink('guild-memberslist&amp;filter=open' . $filter_post),
+			'U_FILTER_FORM' => makelink($filter_post),
+			'U_CLOSE_FILTER' => makelink('&amp;filter=close' . $filter_post),
+			'U_OPEN_FILTER' => makelink('&amp;filter=open' . $filter_post),
 
 			'S_FILTER' => $this->addon['config']['openfilter'],
 			'S_GROUP_ALTS' => $this->addon['config']['group_alts'],
 
-			'B_PAGINATION' => $this->pageanat,
+			//'B_PAGINATION' => $this->pageanat,
 
 			'COLS' => $cols+1,
 			'LISTNAME' => $this->listname,
@@ -224,7 +160,6 @@ class memberslist
 		);
 
 		// --[ Add filter SQL ]--
-		/*
 		foreach( $get_filter as $field => $filter )
 		{
 			$data = $this->fields[$field];
@@ -251,17 +186,9 @@ class memberslist
 				$where[] = $where_clause;
 			}
 		}
-		*/
 		if( !empty( $where ) )
 		{
-			$r = '';
-			if (!empty( $search_filter ))
-			{
-				$r = ' AND '. implode( ' AND ', $search_filter );
-			}
-		
-			$query .= ' WHERE (' . implode( ') AND (', $where ) . ')' . $r;
-			//$query .= ' WHERE ;
+			$query .= ' WHERE (' . implode( ') AND (', $where ) . ')';
 		}
 
 		// --[ Add grouping SQL ]--
@@ -271,27 +198,19 @@ class memberslist
 		}
 
 		// --[ Get number of rows ]--
-		$num_rows = null;
 		if( $this->addon['config']['page_size'] > 0 )
 		{
 			// --[ Fetch number of rows. Trim down the query a bit for speed. ]--
-			$rowsqry = 'SELECT * ' . substr($query, strpos($query,'FROM'));
+			$rowsqry = 'SELECT COUNT(*) ' . substr($query, strpos($query,'FROM'));
 			$result = $roster->db->query($rowsqry);
-			$data = $roster->db->fetch($result);
-			$num_rows = $roster->db->num_rows($result);
-			/*
-			if ($num_rows > 1)
+			$nn = 0;
+			while( $data = $roster->db->fetch($result, SQL_NUM) )
 			{
-				$num_rows = $nn = 0;
-				while( $data = $roster->db->fetch($result, SQL_NUM) )
-				{
-					$nn++;
-				}
-				$num_rows = $nn;
+				$nn++;
 			}
-			*/
+			$num_rows = $nn;
 		}
-		
+
 		// --[ Add sorting SQL ]--
 		$order = $order_first;
 		if( empty($get_s) && !empty($this->addon['config']['def_sort']) )
@@ -350,21 +269,13 @@ class memberslist
 
 		// --[ Query done, add to class vars ]--
 		$this->query = $query;
-		$num_pages = ceil($num_rows/$this->addon['config']['page_size']);
 		// --[ Page list ]--
-		if( $this->pageanat && $num_pages > 1)
+		if( $this->pageanat && (1 < ($num_pages = ceil($num_rows/$this->addon['config']['page_size'])))
+		)
 		{
-			$params = $get.'&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
+			$params = '&amp;alts=' . ($this->addon['config']['group_alts']==2 ? 'open' : ($this->addon['config']['group_alts']==1 ? 'close' : 'ungroup'));
 
-			//paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
-			paginate2($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st,true,count($this->fields));
-		}
-		else
-		{
-			$roster->tpl->assign_vars(array(
-				'B_PAGINATION' => false,
-				)
-			);
+			paginate($params . '&amp;st=', $num_rows, $this->addon['config']['page_size'], $get_st);
 		}
 
 		// header row
@@ -473,16 +384,7 @@ class memberslist
 			{
 				if ( isset( $DATA['value'] ) )
 				{
-					//$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
-					if (!is_array($DATA['value']) && preg_match('/::/', $DATA['value']))
-					{
-						$tmp = explode('::', $DATA['value']);
-						$cell_value = call_user_func(array($tmp[0], $tmp[1]), $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
-					}
-					else
-					{
-						$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
-					}
+					$cell_value = call_user_func($DATA['value'], $row, $field, (isset($DATA['passthrough']) ? $DATA['passthrough'] : array()) );
 				}
 				else
 				{
@@ -845,7 +747,6 @@ class memberslist
 
 		return '<div style="display:none;">' . str_pad($row['level'],2,'0',STR_PAD_LEFT) . '</div>' . $cell_value;
 	}
-
 
 	/**
 	 * Controls Output of the Honor Column

@@ -2,33 +2,28 @@
 
 {HEADER}
 
+<div class="sections">
+	<ul>
+<!-- BEGIN pagebar -->
+		<!-- IF pagebar.SPECIAL eq 'divider' --><!-- ELSE --><li<!-- IF pagebar.SELECTED --> class="selected"<!-- ENDIF -->><a href="{pagebar.LINK}" class="text">{pagebar.NAME}</a></li><!-- ENDIF -->
+<!-- END pagebar -->
+	</ul>
+</div>
+
+<!-- IF ADDON_PAGEBAR -->
+<div class="sections">
+	<ul>
+<!-- BEGIN addon_pagebar -->
+		<li<!-- IF addon_pagebar.SELECTED --> class="selected"<!-- ENDIF -->><a href="{addon_pagebar.LINK}" class="text">{addon_pagebar.NAME}</a></li>
+<!-- END addon_pagebar -->
+	</ul>
+</div>
+<!-- ENDIF -->
+
 <div class="roster-panel">
 	<div class="container">
 
-		<div class="ui-buttonset config-section">
-<!-- BEGIN pagebar -->
-			<!-- IF pagebar.SPECIAL eq 'divider' --><!-- ELSE --><a class="ui-button ui-widget <!-- IF pagebar.SELECTED -->ui-state-active<!-- ELSE -->ui-state-default<!-- ENDIF --> ui-button-text-only" href="{pagebar.LINK}" role="button"><span class="ui-button-text">{pagebar.NAME}</span></a><!-- ENDIF -->
-<!-- END pagebar -->
-		</div>
-
-<!-- IF ADDON_PAGEBAR -->
-		<div class="ui-buttonset config-section config-section-addons">
-<!-- BEGIN addon_pagebar -->
-			<a class="ui-button ui-widget <!-- IF addon_pagebar.SELECTED -->ui-state-active<!-- ELSE -->ui-state-default<!-- ENDIF --> ui-button-text-only" href="{addon_pagebar.LINK}" role="button"><span class="ui-button-text">{addon_pagebar.NAME}</span></a>
-<!-- END addon_pagebar -->
-		</div>
-<!-- ENDIF -->
-
-<!-- IF PLUGIN_PAGEBAR -->
-		<div class="ui-buttonset config-section config-section-plugins">
-<!-- BEGIN plugin_pagebar -->
-			<a class="ui-button ui-widget <!-- IF plugin_pagebar.SELECTED -->ui-state-active<!-- ELSE -->ui-state-default<!-- ENDIF --> ui-button-text-only" href="{plugin_pagebar.LINK}" role="button"><span class="ui-button-text">{plugin_pagebar.NAME}</span></a>
-<!-- END plugin_pagebar -->
-		</div>
-<!-- ENDIF -->
-
-
-		<div class="tier-1-a" style="margin-top: 5px;">
+		<div class="tier-1-a">
 			<div class="tier-1-b">
 				<div class="tier-1-c exp-content">
 					<div class="tier-1-title">

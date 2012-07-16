@@ -1,4 +1,4 @@
-WoWRoster Documentation
+Documents
 $Id$
 
 Check out our WiKi - http://www.wowroster.net/MediaWiki

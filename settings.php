@@ -63,7 +63,6 @@ if( function_exists('set_magic_quotes_runtime') )
  */
 $sec = explode(' ', microtime());
 define('ROSTER_STARTTIME', $sec[0] + $sec[1]);
-define('REQUEST_TIME', (int)$_SERVER['REQUEST_TIME']);
 unset($sec);
 
 /**
@@ -177,7 +176,7 @@ $roster = new roster();
  * Roster Error Handler
  */
 include (ROSTER_LIB . 'roster_error.php');
-$roster->error = new roster_error();
+$roster->error = & new roster_error();
 
 /**
  * Load the dbal
@@ -209,24 +208,9 @@ if( $locale != '' )
 unset($locale);
 
 /**
- * Include API class
- * MUST to be after the local define for url parsing
- * since we use it for the API url
- */
-if  (function_exists('curl_init'))
-{
-	require_once (ROSTER_API . 'api.php');
-	$roster->api = new WowAPI($roster->config['api_url_region']);
-}
-/**
  * Include cms linking file
  */
 require_once (ROSTER_LIB . 'cmslink.lib.php');
-
-/**
- * Include the CSS/JS Aggregator
- */
-include (ROSTER_LIB . 'css_js.php');
 
 /**
  * Load the Template Parser
@@ -254,10 +238,6 @@ $roster->locale = new roster_locale();
  */
 require_once (ROSTER_LIB . 'menu.php');
 
-if( version_compare($roster->config['version'], '2.1.9.2530', '>='))
-{
-	$roster->get_global_plugins();
-}
 /**
  * Figure out the page
  */
@@ -270,7 +250,6 @@ include(ROSTER_LIB . 'scope' . DIR_SEP . 'util.php');
 include(ROSTER_LIB . 'scope' . DIR_SEP . 'realm.php');
 include(ROSTER_LIB . 'scope' . DIR_SEP . 'guild.php');
 include(ROSTER_LIB . 'scope' . DIR_SEP . 'char.php');
-include(ROSTER_LIB . 'scope' . DIR_SEP . 'user.php');
 
 /**
  * Run the scope algorithm to load the data and figure out the data to load
@@ -286,20 +265,12 @@ if( file_exists(ROSTER_ADDONS . $roster->config['external_auth'] . DIR_SEP . 'in
 }
 else
 {
-	if( version_compare($roster->config['version'], '2.1.9.0000', '>='))
-	{
-		$roster->config['external_auth'] = 'roster';
-		require_once (ROSTER_LIB . 'login.php');
-		require_once (ROSTER_LIB . 'sessions.lib.php');
-
-		$roster->auth = new RosterLogin();
-
-		/**
-		*	run sessions after update happens
-		*/
-		$roster->session = new Session();
-	}
+	$roster->config['external_auth'] = 'roster';
+	require_once (ROSTER_LIB . 'login.php');
 }
+
+$roster->auth = new RosterLogin();
+
 /**
  * Assign initial template vars
  */
@@ -331,14 +302,11 @@ $roster->tpl->assign_vars(array(
 	'T_BORDER_BLUE'   => border('sblue', 'start'),
 	'T_BORDER_END'    => border('sgray', 'end'),
 
-	'ROSTER_SCOPE'    => 'util',
-	'PAGE_TITLE'      => 'WoWRoster',
-	'ROSTER_HEAD'     => '',
-	'ROSTER_HEAD_JS'  => '',
-	'ROSTER_HEAD_CSS' => '',
-	'ROSTER_BODY'     => '',
-	'ROSTER_ONLOAD'   => '',
-	'ROSTER_TOP'      => '',
+	'ROSTER_TOP'         => '',
+	'PAGE_TITLE'         => '',
+	'ROSTER_HEAD'        => '',
+	'ROSTER_BODY'        => '',
+	'ROSTER_ONLOAD'      => ''
 ));
 
 /**
@@ -349,16 +317,11 @@ $roster->db->error_die(false);
 /**
  * If the db version doesn't match our constant, redirect to upgrader
  */
-if( (empty($roster->config['version']) || version_compare($roster->config['version'], ROSTER_VERSION, '<')) && ROSTER_PAGE_NAME != 'realmstatus' )
+if( empty($roster->config['version']) || version_compare($roster->config['version'], ROSTER_VERSION, '<') )
 {
 	require (ROSTER_PAGES . 'upgrade.php');
 	die();
 }
-/**
- * Cache plugin data
-* putting this here untill release.....
- */
-$roster->get_plugin_data();
 
 /**
  * If the install directory or files exist, die()

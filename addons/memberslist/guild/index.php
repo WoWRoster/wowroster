@@ -15,18 +15,9 @@ if ( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-if (!isset($roster->data['guild_id'])) {
-	return;
-}
-
 include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
-
-$members_list_select = $memberlist->members_list_select;
-$members_list_table = $memberlist->members_list_table;
-$members_list_where = $memberlist->members_list_where;
-$members_list_fields = $memberlist->members_list_fields;
 
 $mainQuery =
 	'SELECT '.
@@ -51,7 +42,6 @@ $mainQuery =
 	"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
 	'`members`.`officer_note`, '.
 	"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
-	"$members_list_select".
 	'`members`.`guild_rank`, '.
 
 	'`players`.`server`, '.
@@ -77,20 +67,9 @@ $mainQuery =
 	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.$members_list_table;
+	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
 
 $where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'" ';
-
-	if (!empty($members_list_where))
-	{
-		foreach ($members_list_where as $piwhere => $str)
-		{
-			foreach ($str as $e)
-			{
-				$where[] = $e;
-			}
-		}
-	}
 $group[] = '`members`.`member_id`';
 $order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
 $order_last[] = '`members`.`level` DESC';
@@ -144,16 +123,7 @@ $FIELD['professions'] = array (
 	'filter'     => false,
 	'display'    => $addon['config']['member_prof'],
 );
-/*
-$FIELD['guildrep'] = array (
-	'lang_field' => 'level',
-	'filt_field' => '`rep`.`name`',
-	'order'      => array( '`rep`.`curr_rep` DESC' ),
-	'order_d'    => array( '`rep`.`curr_rep` ASC' ),
-	'value'      => array($memberlist,'guild_rep'),
-	'display'    => $addon['config']['member_level'],
-);
-*/
+
 $FIELD['zone'] = array (
 	'lang_field' => 'lastzone',
 	'order'      => array( '`members`.`zone` ASC' ),
@@ -176,13 +146,6 @@ $FIELD['officer_note'] = array (
 	'value'      => 'note_value',
 	'display'    => $addon['config']['member_onote'],
 );
-foreach ($members_list_fields as $pifield => $data)
-{
-	foreach ($data as $name => $d)
-	{
-		$FIELD[$name] = $d;
-	}
-}
 
 $memberlist->prepareData($mainQuery, $where, $group, $order_first, $order_last, $FIELD, 'memberslist');
 
@@ -340,8 +303,4 @@ function note_value ( $row, $field )
 
 	return '<div style="display:none;">'.$note.'</div>'.$value;
 }
-/*
-echo'<pre>';
-print_r($roster);
-echo '</pre>';
-*/
+

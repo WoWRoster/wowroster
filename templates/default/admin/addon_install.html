@@ -2,16 +2,14 @@
 
 <div class="tier-3-a">
 	<div class="tier-3-b">
-		<div class="config">
-			<div class="config-name">
-				<span class="ui-icon ui-icon-help" style="cursor:help;" {L_DEFAULT_PAGE_HELP}></span>
-				{L_DEFAULT_PAGE}
-				<form action="{U_MAKELINK}" method="post" id="default" class="inline slim">
-					<input type="hidden" name="op" value="default_page" />
-					{S_DEFAULT_SELECT}
-					<input type="submit" value="Go" />
-				</form>
-			</div>
+		<div class="text">
+			<span class="ui-icon ui-icon-help" style="cursor:help;" {L_DEFAULT_PAGE_HELP}></span>
+			{L_DEFAULT_PAGE}
+			<form action="{U_MAKELINK}" method="post" id="default" style="display:inline;">
+				<input type="hidden" name="op" value="default_page" />
+				{S_DEFAULT_SELECT}
+				<input type="submit" value="Go" />
+			</form>
 		</div>
 	</div>
 </div>
@@ -95,7 +93,7 @@
 					<input type="hidden" name="op" value="activate" />
 					<input type="hidden" name="id" value="{addon_list.ID}" />
 					<button type="submit" class="input" {L_TIP_STATUS_INACTIVE}>
-						<img src="{THEME_PATH}/images/admin/yellow.png" style="height:16px;width:16px;border:0;" alt="" />
+						<img src="{THEME_PATH}/images/admin/red.png" style="height:16px;width:16px;border:0;" alt="" />
 						<!-- TRANSLATE installer_activate -->
 					</button>
 				</form>
@@ -111,27 +109,17 @@
 		</div>
 		<div class="info-text-h">
 			<div>{addon_list.DESCRIPTION}</div>
-
-		</div>
-		<div><span class="red">{addon_list.DEPENDENCY}</span></div>
-	</div>
-	
-	<!-- IF addon_list.ACCESS -->
-			<form action="{U_MAKELINK}" method="post" style="display:block;padding: 3px;">
+<!-- IF addon_list.ACCESS -->
+			<!-- TRANSLATE access_level -->: <form action="{U_MAKELINK}" method="post" style="display:inline;">
 				<input type="hidden" name="op" value="access" />
 				<input type="hidden" name="id" value="{addon_list.ID}" />
-				<div class="tier-3-a">
-					<div class="tier-3-b">
-						<div class="config">
-							<div class="config-input">
-								{addon_list.ACCESS}
-								<input type="submit" value="Set" />
-							</div>
-						</div>
-					</div>
-				</div>
+				{addon_list.ACCESS}
+				<input type="submit" value="Set" />
 			</form>
 <!-- ENDIF -->
+		</div>
+
+	</div>
 
 </div>
 

@@ -15,10 +15,6 @@ if ( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-if (!isset($roster->data['guild_id'])) {
-	return;
-}
-
 include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist(array('group_alts'=>-1, 'page_size'=>25));
@@ -191,5 +187,3 @@ function type_value ( $row, $field )
 
 	return '<div style="display:none;">'.$row['type'].'</div>'.$return;
 }
-//echo '<pre>';
-//print_r($roster->tpl);

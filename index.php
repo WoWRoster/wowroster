@@ -4,6 +4,7 @@
  *
  * The only file anyone should directly access in Roster
  *
+ *
  * @copyright  2002-2011 WoWRoster.net
  * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
  * @version    SVN: $Id$
@@ -29,7 +30,6 @@ if( isset($_POST['send_file']) && !empty($_POST['send_file']) && !empty($_POST['
 
 define('IN_ROSTER', true);
 
-
 require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . 'settings.php');
 
 // ----[ Get path info based on scope ]----
@@ -46,15 +46,6 @@ switch( $roster->pages[0] )
 		if( !file_exists($path) )
 		{
 			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'char' . DIR_SEP . 'index.php';
-		}
-		break;
-
-	case 'user':
-		$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'user' . DIR_SEP
-			. (isset($roster->pages[2]) ? $roster->pages[2] : 'index') . '.php';
-		if( !file_exists($path) )
-		{
-			$path = ROSTER_ADDONS . $roster->pages[1] . DIR_SEP . 'user' . DIR_SEP . 'index.php';
 		}
 		break;
 
@@ -192,14 +183,14 @@ if( $addon['active'] == '1' )
 		require ($path);
 	$content .= ob_get_clean();
 
-	// Pass all the css to roster_add_css() which is a placeholder in roster_header for more css style defines
+	// Pass all the css to $roster->output['html_head'] which is a placeholder in roster_header for more css style defines
 	if( $addon['css_url'] != '' )
 	{
-		roster_add_css($addon['css_url'], 'theme');
+		$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $addon['css_url'] . '" />' . "\n";
 	}
 	if( $addon['tpl_css_url'] != '' )
 	{
-		roster_add_css($addon['tpl_css_url'], 'theme');
+		$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $addon['tpl_css_url'] . '" />' . "\n";
 	}
 
 	if( $roster->output['show_header'] )

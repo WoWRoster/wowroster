@@ -8,17 +8,16 @@
 		<div id="top_nav">
 <!-- BEGIN menu_button_section -->
 <!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
-			<a class="button-char<!-- IF ROSTER_SCOPE eq "char" -->-selected<!-- ENDIF -->" href="#menu_char">{menu_button_section.LABEL}</a>
+			<a class="button-char" href="#menu_char">{menu_button_section.LABEL}</a>
 <!-- ENDIF -->
 <!-- END menu_button_section -->
 <!-- IF ROSTER_SCOPE eq "char" -->
-			<a class="button-members<!-- IF ROSTER_SCOPE eq "guild" -->-selected<!-- ENDIF -->" href="#mini_guild"><!-- TRANSLATE member_profiles --></a>
+			<a class="button-members" href="#mini_guild"><!-- TRANSLATE member_profiles --></a>
 <!-- ENDIF -->
-			<a class="button-guild<!-- IF ROSTER_SCOPE eq "guild" -->-selected<!-- ENDIF -->" href="#menu_guild"><!-- TRANSLATE guild --></a>
-			<a class="button-realm<!-- IF ROSTER_SCOPE eq "realm" -->-selected<!-- ENDIF -->" href="#menu_realm"><!-- TRANSLATE realm --></a>
-			<a class="button-upload<!-- IF ROSTER_SCOPE eq "upload" -->-selected<!-- ENDIF -->" href="#mini_update"><!-- TRANSLATE update_page --></a>
-			<a class="button-user<!-- IF ROSTER_SCOPE eq "user" -->-selected<!-- ENDIF -->" href="#menu_user"><!-- TRANSLATE user --></a>
-			<a class="button-util<!-- IF ROSTER_SCOPE eq "util" -->-selected<!-- ENDIF -->" href="#menu_util"><!-- TRANSLATE util --></a>
+			<a class="button-guild" href="#menu_guild"><!-- TRANSLATE guild --></a>
+			<a class="button-realm" href="#menu_realm"><!-- TRANSLATE realm --></a>
+			<a class="button-upload" href="#mini_update"><!-- TRANSLATE update_page --></a>
+			<a class="button-util" href="#menu_util"><!-- TRANSLATE util --></a>
 		</div>
 	</div>
 </div>

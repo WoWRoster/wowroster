@@ -18,13 +18,6 @@ if( !defined('IN_ROSTER') || !defined('IN_ROSTER_ADMIN') )
 {
 	exit('Detected invalid access to this file!');
 }
-// ----[ Check log-in ]-------------------------------------
-if( ! $roster->auth->getAuthorized( ROSTERLOGIN_ADMIN ) )
-{
-	echo $roster->auth->getLoginForm();
-	return;
-}
-// ----[ End Check log-in ]---------------------------------
 
 $data_present = $roster->db->query_first("SELECT `name` FROM `" . $roster->db->table('upload') . "` WHERE `default` = 1;");
 

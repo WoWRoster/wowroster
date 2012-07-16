@@ -4,12 +4,13 @@
  *
  * Roster global class
  *
+ *
  * @copyright  2002-2011 WoWRoster.net
- * @license	http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version	SVN: $Id$
- * @link	   http://www.wowroster.net
- * @since	  File available since Release 1.8.0
- * @package	WoWRoster
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.8.0
+ * @package    WoWRoster
  * @subpackage RosterClass
  */
 
@@ -21,7 +22,7 @@ if( !defined('IN_ROSTER') )
 /**
  * Roster global class
  *
- * @package	WoWRoster
+ * @package    WoWRoster
  * @subpackage RosterClass
  */
 class roster
@@ -36,14 +37,6 @@ class roster
 	 */
 	var $locale;
 
-
-	/**
-	 * Roster API Object
-	 *
-	 * @var WowAPI
-	 */
-	var $api;
-
 	/**
 	 * Roster database Object
 	 *
@@ -56,7 +49,6 @@ class roster
 	var $scope;
 	var $data = false;		// scope data
 	var $addon_data;
-	var $plugin_data;
 
 	/**
 	 * Roster Error Handler Object
@@ -85,7 +77,6 @@ class roster
 		'show_header' => true,
 		'show_menu'   => array(
 			'util'  => 0,
-			'user'  => 0,
 			'realm' => 0,
 			'guild' => 0
 		),
@@ -93,8 +84,8 @@ class roster
 
 		// used on rostercp pages
 		'header'  => '',
-		'menu'	=> '',
-		'body'	=> '',
+		'menu'    => '',
+		'body'    => '',
 		'pagebar' => '',
 		'footer'  => '',
 
@@ -102,12 +93,11 @@ class roster
 		'content' => '',
 
 		// header stuff
-		'title'	   => '',
+		'title'       => '',
 		'html_head'   => '',
 		'body_attr'   => '',
 		'body_onload' => '',
-		'before_menu' => '',
-		'top' => '',
+		'before_menu' => ''
 	);
 
 	/**
@@ -243,7 +233,7 @@ class roster
 
 		$this->pages = explode('-', $page);
 
-		if( in_array($this->pages[0], array('util', 'user', 'realm', 'guild', 'char')) )
+		if( in_array($this->pages[0], array('util', 'realm', 'guild', 'char')) )
 		{
 			$this->scope = $this->pages[0];
 		}
@@ -278,10 +268,6 @@ class roster
 				case 'g':
 				case 'guild':
 					$this->atype = 'guild';
-					break;
-				case 'u':
-				case 'user':
-					$this->atype = 'user';
 					break;
 
 				case 'c':
@@ -406,7 +392,6 @@ class roster
 
 			// We have a separate atype for default, but it loads a guild anchor from the uploads table.
 			case 'guild':
-			case 'user':
 			case 'default':
 				if( in_array($this->scope, array('char')) )
 				{
@@ -589,46 +574,6 @@ class roster
 			$this->addon_data[$row['basename']] = $row;
 		}
 	}
-
-	function get_plugin_data( )
-	{
-		$query = "SELECT * FROM `" . $this->db->table('plugin') . "` ORDER BY `basename`;";
-		$result = $this->db->query($query);
-		$this->plugin_data = array();
-		while( $row = $this->db->fetch($result, SQL_ASSOC) )
-		{
-			$this->plugin_data[$row['basename']] = $row;
-		}
-	}
-	function get_global_plugins()
-	{
-		global $global_plugins;
-		
-		$global_plugins = array();
-		if (!isset($this->plugin_data) || empty($this->plugin_data)) $this->get_plugin_data(); // Try to load plugins
-		if( !empty($this->plugin_data) )
-		{
-		   foreach( $this->plugin_data as $plugin_name => $plugin )
-		   {
-				if ($this->plugin_data[$plugin_name]['active'] == '1')
-				{
-					$xplugin = getplugin($plugin_name);	  
-					foreach( $this->multilanguages as $lang )
-					{
-						$this->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
-					}
-					if ($plugin['scope'] == 'global')
-					{
-						$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
-						require($classfile);
-						$global_plugins[$plugin_name] = new $plugin_name($xplugin);
-					}
-				}
-			}
-		}
-		
-	}	
-
 
 	/**
 	 * Set a message which reflects the status of the performed operation.

@@ -39,12 +39,6 @@ $lang['NEWS_FORMAT']['5'] 	= '<span class="greenB">%1$s</span> purchased <span c
 $lang['NEWS_FORMAT']['6'] 	= '%1$s has reached level %2$s!';
 $lang['NEWS_FORMAT']['7'] 	= '%1$s has been founded.';
 
-$lang['playerAchievement'] 	= '<span class="greenB">%1$s</span> earned the achievement <span class="yellowB">%2$s</span>';
-//$lang['NEWS_FORMAT']['2'] 	= '<span class="greenB">%1$s</span> defeated %2$s';
-$lang['itemLoot'] 	= '<span class="greenB">%1$s</span> looted <span class="purpleB">%2$s</span>';
-$lang['itemCraft'] 	= '<span class="greenB">%1$s</span> crafted <span class="purpleB">%2$s</span>';
-$lang['itemPurchase'] 	= '<span class="greenB">%1$s</span> purchased <span class="purpleB">%2$s</span>';
-
 $lang['weekday'] = array(
 	'1' => 'SUN',
 	'2' => 'MON',
@@ -54,15 +48,11 @@ $lang['weekday'] = array(
 	'6' => 'FRI',
 	'7' => 'SAT'
 );
-// char feeds locals
-$lang['cfeedbutton'] = 'Character Feeds|Lists recent activity for the player from the blizzard api';
-
 
 $lang['admin']['guildinfo_conf'] = 'GuildInfo|General configuration options';
 $lang['admin']['guildinfo_graph'] = "Info Graphs";
 
 $lang['admin']['guildinfo_access'] = "Access Control";
-$lang['admin']['git_access'] = "Access Info Text|The lvl required to view the guildinfo text <br />this info is usualy sensative to most guilds";
 //$lang['admin'][''] = "";
 
 

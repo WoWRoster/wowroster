@@ -5,12 +5,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>WoWRoster{PAGE_TITLE}</title>
 <base href="{ROSTER_URL}" />
-<link rel="icon" href="{ROSTER_PATH}favicon.ico" type="image/x-icon" />
-{ROSTER_HEAD_CSS}
-{ROSTER_HEAD_JS}
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{THEME_PATH}/style.css" />
+<script type="text/javascript" src="{ROSTER_PATH}js/jquery.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/jquery-ui.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/ui.selectmenu.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/script.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/tabcontent.js">
+<!--
+/**
+ * Tab Content script v2.0- Dynamic Drive DHTML code library (www.dynamicdrive.com)
+ * This notice MUST stay intact for legal use
+ * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+ */
+//-->
+</script>
+<script type="text/javascript" src="{ROSTER_PATH}js/mainjs.js"></script>
+<script type="text/javascript" src="{THEME_PATH}/theme.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/overlib.js"></script>
+<script type="text/javascript" src="{ROSTER_PATH}js/overlib_hideform.js"></script>
 {ROSTER_HEAD}
 </head>
+ 
 <body{ROSTER_BODY}<!-- IF ROSTER_ONLOAD --> onload="{ROSTER_ONLOAD}"<!-- ENDIF -->>
+
 <div class="roster-wrap">
 
 <!-- IF S_HEADER_LOGO -->
@@ -23,7 +41,7 @@
 
 <div class="theme-wrap">
 
-<!-- IF ROSTER_SCOPE eq "page" or ROSTER_SCOPE eq "util"  or ROSTER_SCOPE eq "user" -->
+<!-- IF ROSTER_SCOPE eq "page" or ROSTER_SCOPE eq "util" -->
 	<div class="info-header realm">
 		<div class="text<!-- IF S_REALMSTATUS --> up<!-- ENDIF -->">
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
@@ -47,9 +65,9 @@
 <!-- ENDIF -->
 		<div class="menu-bottom">
 <!-- IF S_HEADER_SEARCH -->
-			<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-				<div class="menu-search">
-					<input class="box search" type="text" name="search" size="30" />
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
 					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
 				</div>
 			</form>
@@ -103,9 +121,9 @@
 <!-- ENDIF -->
 		<div class="menu-bottom">
 <!-- IF S_HEADER_SEARCH -->
-			<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-				<div class="menu-search">
-					<input class="box search" type="text" name="search" size="30" />
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
 					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
 				</div>
 			</form>
@@ -142,11 +160,11 @@
 				<form class="slim" action="{U_MAKELINK}" name="list_select" method="post">
 					<select name="{L_MENU_LABEL}" onchange="window.location.href=this.options[this.selectedIndex].value;">
 <!-- BEGIN menu_select_group -->
-						<optgroup label="{menu_select_group.U_VALUE}">
+							<optgroup label="{menu_select_group.U_VALUE}">
 <!-- BEGIN menu_select_row -->
-							<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
+								<option value="{menu_select_group.menu_select_row.U_VALUE}"<!-- IF menu_select_group.menu_select_row.S_SELECTED --> selected="selected"<!-- ENDIF -->>{menu_select_group.menu_select_row.TEXT}</option>
 <!-- END menu_select_row -->
-						</optgroup>
+								</optgroup>
 <!-- END menu_select_group -->
 					</select>
 				</form>
@@ -158,9 +176,9 @@
 <!-- ENDIF -->
 	<div class="menu-bottom">
 <!-- IF S_HEADER_SEARCH -->
-		<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-			<div class="menu-search">
-				<input class="box search" type="text" name="search" size="30" />
+		<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+			<div class="clear-text">
+				<input class="box search" type="text" name="search" />
 				<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
 			</div>
 		</form>
@@ -206,9 +224,9 @@
 <!-- ENDIF -->
 		<div class="menu-bottom">
 <!-- IF S_HEADER_SEARCH -->
-			<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-				<div class="menu-search">
-					<input class="box search" type="text" name="search" size="30" />
+			<form class="inline slim" name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+				<div class="clear-text">
+					<input class="box search" type="text" name="search" />
 					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
 				</div>
 			</form>

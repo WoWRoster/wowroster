@@ -33,11 +33,9 @@ if( $roster->output['http_header'] && !headers_sent() )
 	@header('Pragma: no-cache');
 	@header('Content-type: text/html; charset=utf-8');
 }
-
 switch( $roster->scope )
 {
 	case 'util':
-	case 'user':
 	case 'page':
 		$roster_title = ' [ ' . $roster->config['default_name'] . ' ] '
 			. (isset($roster->output['title']) ? $roster->output['title'] : '');
@@ -103,44 +101,38 @@ switch( $roster->scope )
  * Assign template vars
  */
 $roster->tpl->assign_vars(array(
-	'S_SEO_URL'            => $roster->config['seo_url'],
-	'S_HEADER_LOGO'        => (!empty($roster->config['logo']) ? true : false),
-	'U_MAKELINK'           => makelink(),
-	'ROSTER_URL'           => ROSTER_URL,
-	'ROSTER_PATH'          => ROSTER_PATH,
-	'WEBSITE_ADDRESS'      => $roster->config['website_address'],
-	'HEADER_LOGO'          => $roster->config['logo'],
-	'IMG_URL'              => $roster->config['img_url'],
-	'INTERFACE_URL'        => $roster->config['interface_url'],
-	'IMG_SUFFIX'           => $roster->config['img_suffix'],
-	'ROSTER_VERSION'       => $roster->config['version'],
-	'ROSTER_CREDITS'       => sprintf($roster->locale->act['roster_credits'], makelink('credits')),
-	'XML_LANG'             => substr($roster->config['locale'], 0, 2),
+	// These are duplicated since there might be an error before settings.php finishes and sets these
+	'XML_LANG'        => substr($roster->config['locale'], 0, 2),
+	'ROSTER_URL'      => ROSTER_URL,
+	'ROSTER_PATH'     => ROSTER_PATH,
+	'S_HEADER_LOGO'   => (!empty($roster->config['logo']) ? true : false),
+	'WEBSITE_ADDRESS' => $roster->config['website_address'],
+	'U_MAKELINK'      => makelink(),
+	'HEADER_LOGO'     => $roster->config['logo'],
+	'IMG_URL'         => $roster->config['img_url'],
+	// End duplication
+	'ROSTER_SCOPE'    => $roster->scope,
+	//'PAGE_INFO' 	=> '',
+	'PAGE_TITLE'    => $roster_title,
+	'ROSTER_HEAD'   => $roster->output['html_head'],
+	'ROSTER_BODY'   => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
+	'ROSTER_ONLOAD' => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
 
-	'ROSTER_SCOPE'         => $roster->scope,
-	'PAGE_TITLE'           => $roster_title,
-	'ROSTER_HEAD'          => $roster->output['html_head'],
-	'ROSTER_HEAD_JS'       => roster_get_js(),
-	'ROSTER_HEAD_CSS'      => roster_get_css(),
-	'ROSTER_BODY'          => (!empty($roster->config['roster_bg']) ? ' style="background-image:url(' . $roster->config['roster_bg'] . ');Background-attachment:fixed;"' : '') . (!empty($roster->output['body_attr']) ? ' ' . $roster->output['body_attr'] : ''),
-	'ROSTER_ONLOAD'        => (!empty($roster->output['body_onload']) ? $roster->output['body_onload'] : ''),
-	'ROSTER_TOP'           => $roster->output['top'],
+	'L_MENU_LABEL'      => $roster->scope,
+	'L_MENU_LABEL_NAME' => $roster->locale->act[$roster->scope],
 
-	'L_MENU_LABEL'         => $roster->scope,
-	'L_MENU_LABEL_NAME'    => $roster->locale->act[$roster->scope],
-
-	'S_LOCALE_SELECT'      => (bool)$roster->config['header_locale'],
-	'S_HEADER_SEARCH'      => (bool)$roster->config['header_search'],
-	'S_HEADER_LOGIN'       => (bool)$roster->config['header_login'],
-	'S_REALMSTATUS'        => (bool)$roster->config['rs_display'],
+	'S_LOCALE_SELECT'   => (bool)$roster->config['header_locale'],
+	'S_HEADER_SEARCH'   => (bool)$roster->config['header_search'],
+	'S_HEADER_LOGIN'    => (bool)$roster->config['header_login'],
+	'S_REALMSTATUS'     => (bool)$roster->config['rs_display'],
 
 	'LOGIN_FORM'           => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
-	'REALMSTATUS'          => isset($roster->data['server']) ? makeRealmStatus() : '',
+	'REALMSTATUS'   => isset($roster->data['server']) ? makeRealmStatus() : '',
 
-	'FACTION'              => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
+	'FACTION' => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 
 	'U_SEARCH_FORM_ACTION' => makelink('search'),
-	'U_MENU_UPDATE_LUA'    => makelink('update')
+	'U_MENU_UPDATE_LUA' => makelink('update')
 ));
 
 // Make a listing of our current locales
@@ -264,54 +256,6 @@ elseif( $roster->scope == 'guild' )
 		}
 	}
 }
-elseif( $roster->scope == 'user' )
-{
-	// Get the scope select data
-	$query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id`"
-		. " FROM `" . $roster->db->table('guild') . "`"
-		. " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
-
-	$result = $roster->db->query($query);
-
-	if( !$result )
-	{
-		die_quietly($roster->db->error(), 'Database error', __FILE__, __LINE__, $query);
-	}
-
-	$guilds = 0;
-	while( $data = $roster->db->fetch($result, SQL_NUM) )
-	{
-		$menu_select[$data[1]][$data[2]] = $data[0];
-		$guilds++;
-	}
-
-	$roster->db->free_result($result);
-
-	$roster->tpl->assign_vars(array(
-		'S_DATA_SELECT' => ($guilds > 1 ? true : false),
-		'TOTAL_GUILDS' =>  $guilds
-		)
-	);
-
-	if( count($menu_select) > 0 )
-	{
-		foreach( $menu_select as $realm => $guild )
-		{
-			$roster->tpl->assign_block_vars('menu_select_group', array(
-				'U_VALUE' => $realm
-			));
-
-			foreach( $guild as $id => $name )
-			{
-				$roster->tpl->assign_block_vars('menu_select_group.menu_select_row', array(
-					'TEXT'       => $name,
-					'U_VALUE'    => makelink('&amp;a=g:' . $id, true),
-					'S_SELECTED' => ($id == $roster->data['guild_id'] ? true : false)
-				));
-			}
-		}
-	}
-}
 elseif( $roster->scope == 'char' )
 {
 	// Get the scope select data
@@ -377,8 +321,7 @@ foreach( $roster->get_messages() as $type => $messages )
 }
 
 
-// BETA ONLY, COMMENT THIS IN RC OR LATER!
-/*
+/*/ BETA ONLY, COMMENT THIS IN RC OR LATER!
 if( file_exists(ROSTER_BASE . 'valid.inc') )
 {
 	$v_content = '';
@@ -388,9 +331,8 @@ if( file_exists(ROSTER_BASE . 'valid.inc') )
 
 	$roster->tpl->assign_var('ROSTER_TOP', $v_content);
 }
-*/
 // END BETA ONLY
-
+*/
 $roster->tpl->set_handle('roster_header', 'header.html');
 $roster->tpl->display('roster_header');
 

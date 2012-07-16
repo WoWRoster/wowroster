@@ -5,18 +5,16 @@
 <!-- $Id$ -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>WoWRoster Installation - Step {INSTALL_STEP}</title>
-
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/jquery-ui.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/ui.selectmenu.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/base.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style/install.css" />
-
+<link rel="stylesheet" type="text/css" media="screen" href="{TEMPLATE_PATH}/style.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/ui.selectmenu.js"></script>
-<script type="text/javascript" src="{THEME_PATH}/theme.js"></script>
 <script type="text/javascript" src="js/overlib.js"></script>
+<script type="text/javascript" src="js/overlib_hideform.js"></script>
+<script type="text/javascript" src="{THEME_PATH}/script.js"></script>
+<script type="text/javascript" src="js/overlib.js"></script>
+<script type="text/javascript" src="js/overlib_hideform.js"></script>
 </head>
 
 <body>
@@ -24,7 +22,9 @@
 <div class="roster-wrap">
 
 	<div class="logo">
-		<img src="img/wowroster_logo.jpg" alt="" />
+		<div class="frame">
+			<img src="img/wowroster_logo.jpg" alt="" />
+		</div>
 	</div>
 
 {NOTICE}
@@ -33,8 +33,8 @@
 
 		<div class="info-header realm">
 			<div class="text">
-				<div class="name">WoWRoster Installation</div>
-				<div class="info">Step {INSTALL_STEP}</div>
+				<div class="name">WoWRoster Installation<span>WoWRoster Installation</span></div>
+				<div class="info">Step {INSTALL_STEP}<span>Step {INSTALL_STEP}</span></div>
 			</div>
 		</div>
 

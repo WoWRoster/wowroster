@@ -18,13 +18,7 @@ if( !defined('IN_ROSTER') )
 	exit('Detected invalid access to this file!');
 }
 
-define('R_TPL_VERSION', '2.2.0.0');
-
-roster_add_js('templates/' . $roster->tpl->tpl . '/theme.js');
-roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery-ui.css', 'theme');
-roster_add_css('templates/' . $roster->tpl->tpl . '/style/ui.selectmenu.css', 'theme');
-roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery.multiselect.css', 'theme');
-roster_add_css('templates/' . $roster->tpl->tpl . '/style/base.css', 'theme');
+define('R_TPL_VERSION', '2.0.0.0');
 
 /**
  * Starts or ends fancy bodering containers
@@ -46,6 +40,7 @@ function border( $style , $mode , $header_text='' , $width='' )
 
 	if( $header_text != '' && $style != 'end' )
 	{
+//		$header_text = "\n" . '<div class="header_text ' . $backg_css . '">' . $header_text . "</div>\n";
 		$header_text = "\n" . '<div class="tier-2-title">' . $header_text . "</div>\n";
 	}
 	else
@@ -54,10 +49,12 @@ function border( $style , $mode , $header_text='' , $width='' )
 	}
 
 	// Dynamic Bordering
-	$start = '<div class="tier-2-a' . ($backg_css != '' ? ' ' . $backg_css : '') . '" style="width:' . ( $width != '' ? $width : 'auto' ) . ';">
+//	$start = '<table class="border_frame" cellpadding="0" cellspacing="1"' . ( $width!=''?' style="width:' . $width . ';"':'' ) . '><tr><td class="border_color ' . $backg_css . '">' . $header_text;
+	$start = '<div class="tier-2-a' . ($backg_css!=''?' '.$backg_css:'') . '" style="width:' . ( $width!=''?$width:'auto' ) . ';">
 	<div class="tier-2-b">
 ' . $header_text;
 
+//	$end = "\n</td></tr></table>\n";
 	$end = "\n</div>\n</div>\n";
 
 	switch( $mode )
@@ -102,11 +99,11 @@ function messagebox( $message , $title='Message' , $style='sgray' , $width='' )
 function scrollbox( $message , $title='Message' , $style='sgray' , $width='550px' , $height='300px' )
 {
 	return
-		border($style, 'start', $title, $width)
+		border($style,'start',$title, $width)
 			. '<div style="height:' . $height . ';width:100%;overflow:auto;">'
 			. '<div class="info-text-h">' . $message . '</div>'
 			. '</div>'
-			. border($style, 'end');
+			. border($style,'end');
 }
 
 /**
@@ -126,11 +123,11 @@ function messageboxtoggle( $message , $title='Message' , $style='sgray' , $open=
 	$toggleboxes++;
 
 	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['theme_path'] . "/images/button_open.png','" . $roster->config['theme_path'] . "/images/button_close.png');\">"
-		. "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . ($open ? 'open' : 'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+		. "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style, 'start', $title, $width)
-			. '<div style="display:' . ($open ? 'inline' : 'none') . ';" id="msgbox_' . $toggleboxes . '">'
+			. '<div style="display:' . (($open)?'inline':'none') . ';" id="msgbox_' . $toggleboxes . '">'
 			. '<div class="info-text-h">' . $message . '</div>'
 			. '</div>'
 			. border($style, 'end');
@@ -153,12 +150,12 @@ function scrollboxtoggle( $message , $title='Message' , $style='sgray' , $open=f
 	$toggleboxes++;
 
 	$title = "<div style=\"cursor:pointer;width:100%;\" onclick=\"showHide('msgbox_" . $toggleboxes . "','msgboximg_" . $toggleboxes . "','" . $roster->config['theme_path'] . "/images/button_open.png','" . $roster->config['theme_path'] . "/images/button_close.png');\">"
-		. "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . ($open ? 'open' : 'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
+		. "<img src=\"" . $roster->config['theme_path'] . '/images/button_' . (($open)?'open':'close') . ".png\" style=\"float:right;\" alt=\"\" id=\"msgboximg_" . $toggleboxes . "\" />" . $title . "</div>";
 
 	return
 		border($style,'start',$title, $width)
-			. '<div style="height:' . $height . ';width:100%;overflow:auto;display:' . ($open ? 'inline' : 'none') . ';" id="msgbox_' . $toggleboxes . '">'
+			. '<div style="height:' . $height . ';width:100%;overflow:auto;display:'.(($open)?'inline':'none').';" id="msgbox_'.$toggleboxes.'">'
 			. '<div class="info-text-h">' . $message . '</div>'
 			. '</div>'
-			. border($style, 'end');
+			. border($style,'end');
 }

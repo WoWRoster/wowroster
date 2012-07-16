@@ -18,10 +18,6 @@ if ( !defined('IN_ROSTER') )
 include_once ($addon['inc_dir'] . 'memberslist.php');
 
 $memberlist = new memberslist;
-$members_list_select = $memberlist->members_list_select;
-$members_list_table = $memberlist->members_list_table;
-$members_list_where = $memberlist->members_list_where;
-$members_list_fields = $memberlist->members_list_fields;
 
 $mainQuery =
 	'SELECT '.
@@ -39,7 +35,7 @@ $mainQuery =
 	'`members`.`guild_title`, '.
 
 	'`alts`.`main_id`, '.
-	"$members_list_select".
+
 	'`guild`.`guild_name`, '.
 	'`guild`.`guild_id`, '.
 	'`guild`.`update_time`, '.
@@ -73,20 +69,8 @@ $mainQuery =
 	'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
 	'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
-	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.$members_list_table;
-	
+	'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` ';
 $where[] = '`members`.`server` = "'.$roster->db->escape($roster->data['server']).'" ';
-	if (!empty($members_list_where))
-	{
-		foreach ($members_list_where as $piwhere => $str)
-		{
-			foreach ($str as $e)
-			{
-				$where[] = $e;
-			}
-		}
-	}
-	
 $group[] = '`members`.`member_id`';
 $order_first[] = 'IF(`members`.`member_id` = `alts`.`member_id`,1,0)';
 $order_last[] = '`members`.`level` DESC';
@@ -194,13 +178,6 @@ $FIELD['officer_note'] = array (
 	'value'      => 'note_value',
 	'display'    => $addon['config']['member_onote'],
 );
-foreach ($members_list_fields as $pifield => $data)
-{
-	foreach ($data as $name => $d)
-	{
-		$FIELD[$name] = $d;
-	}
-}
 
 $memberlist->prepareData($mainQuery, $where, $group, $order_first, $order_last, $FIELD, 'memberslist');
 

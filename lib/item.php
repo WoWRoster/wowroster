@@ -191,26 +191,6 @@ class item
 
 		return $html;
 	}
-	function _getTrans()
-	{
-		global $roster;
-
-		$heroic = $this->attributes['Trans'];
-
-		if( preg_match( $roster->locale->wordings[$this->locale]['tooltip_transmogc'], $heroic) )
-		{
-			$color = 'F58CBA';
-		}
-		
-		else
-		{
-			$color = 'ffffff';
-		}
-
-		$html = '<span style="color:#' . $color . ';"><i>' . $heroic . '</i></span><br />';
-
-		return $html;
-	}
 	
 	function _getBindType()
 	{
@@ -678,10 +658,6 @@ class item
 			{
 				$html_tt .= $this->_getHeroic();
 			}
-			if( isset($this->attributes['Trans']) )
-			{
-				$html_tt .= $this->_getTrans();
-			}
 			if( isset($this->attributes['BindType']) )
 			{
 				$html_tt .= $this->_getBindType();
@@ -1123,8 +1099,6 @@ class item
 			}
 		}
 
-		$tooltip = str_replace($roster->locale->wordings[$locale]['tooltip_transmoga'], $roster->locale->wordings[$locale]['tooltip_transmogb'], $tooltip);
-
 		$tooltip = explode("\n", $tooltip);
 
 		$tt['General']['Name'] = array_shift($tooltip);
@@ -1198,19 +1172,6 @@ class item
 			{
 				//heroic
 				$tt['Attributes']['Heroic'] = $line;
-			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_lfr'], $line) )
-			{
-				//heroic
-				$tt['Attributes']['Heroic'] = $line;
-			}
-			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_transmogc'], $line, $matches) )
-			{
-				//heroic
-				//echo $line.'<br>';
-				//print_r($matches);
-				//echo $line.$matches[1].'<br>';
-				$tt['Attributes']['Trans'] = $matches[0];
 			}
 			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_bind_types'] . "\b/i", $line) )
 			{
@@ -1287,7 +1248,7 @@ class item
 				}
 			}
 
-			elseif( $this->isWeapon && preg_match("/" . $roster->locale->wordings[$locale]['tooltip_reg_weaponorbulletdps'] . "/", $line) )
+			elseif( !$this->isArmor && preg_match("/\b" . $roster->locale->wordings[$locale]['tooltip_reg_weaponorbulletdps'] . "\b/i", $line) )
 			{
 				$tt['Attributes']['WeaponDPS'] = $line;
 				$this->isWeapon = true;
@@ -1343,7 +1304,6 @@ class item
 					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage4'], $line)
 					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage5'], $line)
 					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage6'], $line)
-					&& !preg_match($roster->locale->wordings[$locale]['tooltip_garbage7'], $line)
 					&& !preg_match($roster->locale->wordings[$locale]['tooltip_preg_dps'], $line)
 				)
 				{

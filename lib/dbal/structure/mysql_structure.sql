@@ -14,59 +14,6 @@ CREATE TABLE `renprefix_account` (
   PRIMARY KEY  (`account_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `renprefix_user_members`;
-CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usr` varchar(32) DEFAULT NULL,
-  `pass` varchar(32) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `regIP` varchar(15) DEFAULT NULL,
-  `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `access` varchar(25) DEFAULT NULL,
-  `fname` varchar(30) DEFAULT NULL,
-  `lname` varchar(30) DEFAULT NULL,
-  `age` varchar(32) DEFAULT NULL,
-  `city` varchar(32) DEFAULT NULL,
-  `state` varchar(32) DEFAULT NULL,
-  `country` varchar(32) DEFAULT NULL,
-  `zone` varchar(32) DEFAULT NULL,
-  `homepage` varchar(64) DEFAULT NULL,
-  `other_guilds` varchar(64) DEFAULT NULL,
-  `why` varchar(64) NOT NULL,
-  `about` varchar(64) NOT NULL,
-  `notes` varchar(64) DEFAULT NULL,
-  `last_login` varchar(64) DEFAULT NULL,
-  `date_joined` varchar(64) DEFAULT NULL,
-  `tmp_mail` varchar(32) DEFAULT NULL,
-  `group_id` smallint(6) NOT NULL DEFAULT '1',
-  `is_member` int(11) NOT NULL DEFAULT '0',
-  `active` int(11) NOT NULL DEFAULT '0',
-  `online` int(11) NOT NULL DEFAULT '0',
-  `user_lastvisit` int(15) DEFAULT NULL,
-  `last_sid` varchar(80) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `usr` (`usr`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `renprefix_sessions`;
-CREATE TABLE IF NOT EXISTS `renprefix_sessions` (
-  `sess_id` varchar(35) DEFAULT NULL,
-  `session_id` char(32) NOT NULL DEFAULT '',
-  `session_user_id` varchar(5) DEFAULT NULL,
-  `session_last_visit` int(11) NOT NULL DEFAULT '0',
-  `session_start` int(11) NOT NULL DEFAULT '0',
-  `session_time` int(11) NOT NULL DEFAULT '0',
-  `session_ip` varchar(40) NOT NULL DEFAULT '',
-  `session_browser` varchar(150) NOT NULL DEFAULT '',
-  `session_forwarded_for` varchar(255) NOT NULL DEFAULT '',
-  `session_page` varchar(255) NOT NULL DEFAULT '',
-  `session_viewonline` tinyint(1) NOT NULL DEFAULT '1',
-  `session_autologin` tinyint(1) NOT NULL DEFAULT '0',
-  `session_admin` tinyint(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `sess_id` (`sess_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-
 # --------------------------------------------------------
 ### Addon
 
@@ -74,27 +21,6 @@ DROP TABLE IF EXISTS `renprefix_addon`;
 CREATE TABLE `renprefix_addon` (
   `addon_id` int(11) NOT NULL auto_increment,
   `basename` varchar(16) NOT NULL default '',
-  `version` varchar(16) NOT NULL default '0',
-  `active` int(1) NOT NULL default '1',
-  `access` varchar(30) NOT NULL default '0',
-  `fullname` tinytext NOT NULL,
-  `description` mediumtext NOT NULL,
-  `credits` mediumtext NOT NULL,
-  `icon` varchar(64) NOT NULL default '',
-  `wrnet_id` int(4) NOT NULL default '0',
-  `versioncache` tinytext,
-  PRIMARY KEY  (`addon_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-# --------------------------------------------------------
-### plugin
-
-DROP TABLE IF EXISTS `renprefix_plugin`;
-CREATE TABLE `renprefix_plugin` (
-  `addon_id` int(11) NOT NULL auto_increment,
-  `basename` varchar(16) NOT NULL default '',
-  `parent` VARCHAR( 100 ) NULL DEFAULT NULL,
-  `scope` VARCHAR( 20 ) NULL DEFAULT NULL,
   `version` varchar(16) NOT NULL default '0',
   `active` int(1) NOT NULL default '1',
   `access` int(1) NOT NULL default '0',
@@ -119,61 +45,6 @@ CREATE TABLE `renprefix_addon_config` (
   `form_type` mediumtext,
   `config_type` varchar(255) default NULL,
   PRIMARY KEY  (`id`,`addon_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `renprefix_plugin_config`;
-CREATE TABLE `renprefix_plugin_config` (
-  `addon_id` int(11) NOT NULL default '0',
-  `id` int(11) unsigned NOT NULL,
-  `config_name` varchar(255) default NULL,
-  `config_value` tinytext,
-  `form_type` mediumtext,
-  `config_type` varchar(255) default NULL,
-  PRIMARY KEY  (`id`,`addon_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-# --------------------------------------------------------
-### API Tables
-
-DROP TABLE IF EXISTS `renprefix_api_usage`;
-CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(50) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `total` int(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `renprefix_api_gems`;
-CREATE TABLE `renprefix_api_gems` (
-  `gem_id` int(11) NOT NULL,
-  `gem_name` varchar(96) NOT NULL default '',
-  `gem_color` varchar(16) NOT NULL default '',
-  `gem_tooltip` mediumtext NOT NULL,
-  `gem_texture` varchar(64) NOT NULL default '',
-  `gem_bonus` varchar(255) NOT NULL default '',
-  `locale` varchar(16) NOT NULL default '',
-  `timestamp` int(10) NOT NULL,
-  `json` longtext,
-  PRIMARY KEY  (`gem_id`,`locale`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-DROP TABLE IF EXISTS `renprefix_api_items`;
-CREATE TABLE `renprefix_api_items` (
-  `item_id` int(11) NOT NULL,
-  `item_name` varchar(96) NOT NULL default '',
-  `item_color` varchar(16) NOT NULL default '',
-  `item_texture` varchar(64) NOT NULL default '',
-  `item_quantity` int(11) default NULL,
-  `item_tooltip` mediumtext NOT NULL,
-  `level` int(11) default NULL,
-  `item_level` int(11) default NULL,
-  `item_type` varchar(64) default NULL,
-  `item_subtype` varchar(64) default NULL,
-  `item_rarity` int(4) NOT NULL default -1,
-  `locale` varchar(16) default NULL,
-  `timestamp` int(10) NOT NULL,
-  `json` longtext,
-  PRIMARY KEY  (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
@@ -230,7 +101,7 @@ CREATE TABLE `renprefix_currency` (
   `category` varchar(96) NOT NULL,
   `name` varchar(96) NOT NULL default '',
   `type` tinyint(4) unsigned NOT NULL default '0',
-  `count` int(5) unsigned NOT NULL default '0',
+  `count` tinyint(4) unsigned NOT NULL default '0',
   `icon` varchar(64) NOT NULL,
   `tooltip` mediumtext NOT NULL,
   `watched` varchar(10) NOT NULL,
@@ -379,7 +250,7 @@ CREATE TABLE `renprefix_members` (
   `status` varchar(16) NOT NULL default '',
   `online` int(1) default '0',
   `last_online` datetime default NULL,
-  `account_id` smallint(6) NULL default NULL,
+  `account_id` smallint(6) NOT NULL default '0',
   `active` tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (`member_id`),
   KEY `member` (`guild_id`,`name`),
@@ -1018,7 +889,6 @@ CREATE TABLE IF NOT EXISTS `renprefix_talents_data` (
   `rank` tinyint(4) NOT NULL default '0',
   `tooltip` mediumtext NOT NULL,
   `texture` varchar(64) NOT NULL default '',
-  `isspell` INT( 1 ) NULL DEFAULT '0',
   PRIMARY KEY  (`rank`,`tree`,`row`,`column`,`class_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -1048,22 +918,9 @@ CREATE TABLE IF NOT EXISTS `renprefix_talenttree_data` (
   `background` varchar(64) NOT NULL default '',
   `order` tinyint(4) NOT NULL default '0',
   `icon` varchar(64) NOT NULL default '',
-    `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,
-  `desc` VARCHAR( 255 ) NULL DEFAULT NULL ,
   PRIMARY KEY  (`class_id`,`build`,`tree`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `renprefix_talent_mastery`;
-CREATE TABLE `renprefix_talent_mastery` (
-  `class_id` int(11) NOT NULL DEFAULT '0',
-  `tree` varchar(64) NOT NULL DEFAULT '',
-  `tree_num` varchar(64) NOT NULL DEFAULT '',
-  `icon` varchar(64) NOT NULL DEFAULT '',
-  `name` varchar(64) DEFAULT NULL,
-  `desc` varchar(255) DEFAULT NULL,
-  `spell_id` varchar(64) NOT NULL DEFAULT '',
-  PRIMARY KEY (`class_id`,`spell_id`,`tree`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 # --------------------------------------------------------
 ### Talent Tree Arrows
 

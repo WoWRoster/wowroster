@@ -216,7 +216,6 @@ $lang['basename']='Nombre base';
 $lang['scope']='Alcance';
 $lang['tag']='Tag';
 $lang['daily']='Daily';
-$lang['user'] = 'User';
 
 // Item Quality
 $lang['quality']='Quality';
@@ -339,16 +338,12 @@ $lang['char_level_race_class'] = 'Nivel %1$s %2$s %3$s';
 $lang['char_guildline'] = '%1$s de %2$s';
 
 // Login
-$lang['welcome_user'] = 'Welcome, %1$s';
 $lang['login'] = 'Login';
 $lang['logout'] = 'Logout';
 $lang['logged_in'] = 'Logged in';
 $lang['logged_out'] = 'Logged out';
 $lang['login_invalid'] = 'Invalid Password';
 $lang['login_fail'] = 'Failed to fetch password info';
-$lang['login_inactive'] = 'Your account is not active or is not approved by the admin. Only "Public" areas can be accessed.';
-$lang['active'] = 'Active';
-$lang['inactive'] = 'Inactivo';
 
 //this needs to be exact as it is the wording in the db
 $lang['professions']='Profesiones';
@@ -386,7 +381,7 @@ $lang['skill_to_id'] = array(
 	'Languages' => 'languages',
 );
 
-// Tradeskill-Array
+//Tradeskill-Array
 $lang['tsArray'] = array (
 	$lang['Alchemy'],
 	$lang['Archaeology'],
@@ -407,7 +402,7 @@ $lang['tsArray'] = array (
 	$lang['Poisons'],
 );
 
-// Tradeskill Icons-Array
+//Tradeskill Icons-Array
 $lang['ts_iconArray'] = array (
 	$lang['Alchemy']=>'trade_alchemy',
 	$lang['Archaeology']=>'trade_archaeology',
@@ -444,32 +439,29 @@ $lang['ts_ridingIcon'] = array(
 	'Paladín'=>'ability_mount_dreadsteed',
 	'Brujo'=>'ability_mount_nightmarehorse',
 	'Caballero de la muerte'=>'spell_deathknight_summondeathcharger',
-	'Pandaren'=>'ability_mount_ridinghorse',
 // Female variation
 	'Elfa de la noche'=>'ability_mount_whitetiger',
 	'Humana'=>'ability_mount_ridinghorse',
 	'Enana'=>'ability_mount_mountainram',
-	// 'Gnomo'=>'ability_mount_mechastrider',
+//	'Gnomo'=>'ability_mount_mechastrider',
 	'No-muerta'=>'ability_mount_undeadhorse',
-	// 'Trol'=>'ability_mount_raptor',
-	// 'Tauren'=>'ability_mount_kodo_03',
+//	'Trol'=>'ability_mount_raptor',
+//	'Tauren'=>'ability_mount_kodo_03',
 	'Orca'=>'ability_mount_blackdirewolf',
 	'Elfa de sangre' => 'ability_mount_cockatricemount',
-	// 'Draenei' => 'ability_mount_ridingelekk',
-	// 'Paladín'=>'ability_mount_dreadsteed',
+//	'Draenei' => 'ability_mount_ridingelekk',
+//	'Paladín'=>'ability_mount_dreadsteed',
 	'Bruja'=>'ability_mount_nightmarehorse',
-	// 'Caballero de la muerte'=>'spell_deathknight_summondeathcharger'
-	// 'Pandaren'=>'ability_mount_ridinghorse',
+//	'Caballero de la muerte'=>'spell_deathknight_summondeathcharger'
 );
-
 $lang['ts_flyingIcon'] = array(
 	'Horde'=>'ability_mount_wyvern_01',
 	'Alliance'=>'ability_mount_gryphon_01',
 	'Druida'=>'ability_druid_flightform',
 	'Caballero de la muerte'=>'ability_mount_dreadsteed'
 // Female variation
-	// 'Druida'=>'ability_druid_flightform',
-	// 'Caballero de la muerte'=>'ability_mount_dreadsteed'
+//	'Druida'=>'ability_druid_flightform',
+//	'Caballero de la muerte'=>'ability_mount_dreadsteed'
 );
 
 // Class Icons-Array
@@ -484,19 +476,17 @@ $lang['class_iconArray'] = array (
 	'Chamán'=>'shaman_icon',
 	'Brujo'=>'warlock_icon',
 	'Guerrero'=>'warrior_icon',
-	'Monk'=>'monk_icon',
 // Female variation
-	// 'Caballero de la muerte'=>'deathknight_icon',
-	// 'Druida'=>'druid_icon',
+//	'Caballero de la muerte'=>'deathknight_icon',
+//	'Druida'=>'druid_icon',
 	'Cazadora'=>'hunter_icon',
 	'Maga'=>'mage_icon',
-	// 'Paladín'=>'paladin_icon',
+//	'Paladín'=>'paladin_icon',
 	'Sacerdotisa'=>'priest_icon',
 	'Pícara'=>'rogue_icon',
-	// 'Chamán'=>'shaman_icon',
+//	'Chamán'=>'shaman_icon',
 	'Bruja'=>'warlock_icon',
 	'Guerrera'=>'warrior_icon',
-	// 'Monk'=>'monk_icon'
 );
 
 // Class Color-Array
@@ -511,19 +501,17 @@ $lang['class_colorArray'] = array(
 	'Chamán' => '2459FF',
 	'Brujo' => '9482C9',
 	'Guerrero' => 'C79C6E',
-	'Monk' => '00C77b',
 // Female variation
-	// 'Caballero de la muerte'=>'C41F3B',
-	// 'Druida' => 'FF7D0A',
+//	'Caballero de la muerte'=>'C41F3B',
+//	'Druida' => 'FF7D0A',
 	'Cazadora' => 'ABD473',
 	'Maga' => '69CCF0',
-	// 'Paladín' => 'F58CBA',
+//	'Paladín' => 'F58CBA',
 	'Sacerdotisa' => 'FFFFFF',
 	'Pícara' => 'FFF569',
-	// 'Chamán' => '2459FF',
+//	'Chamán' => '2459FF',
 	'Bruja' => '9482C9',
 	'Guerrera' => 'C79C6E',
-	// 'Monk' => '00C77b'
 );
 
 // Class To English Translation
@@ -538,19 +526,17 @@ $lang['class_to_en'] = array(
 	'Chamán' => 'Shaman',
 	'Brujo' => 'Warlock',
 	'Guerrero' => 'Warrior',
-	'Monk' => 'Monk',
 // Female variation
-	// 'Caballero de la muerte'=>'Death Knight',
-	// 'Druida' => 'Druid',
+//	'Caballero de la muerte'=>'Death Knight',
+//	'Druida' => 'Druid',
 	'Cazadora' => 'Hunter',
 	'Maga' => 'Mage',
-	// 'Paladín' => 'Paladin',
+//	'Paladín' => 'Paladin',
 	'Sacerdotisa' => 'Priest',
 	'Pícara' => 'Rogue',
-	// 'Chamán' => 'Shaman',
+//	'Chamán' => 'Shaman',
 	'Bruja' => 'Warlock',
 	'Guerrera' => 'Warrior',
-	// 'Monk' => 'Monk'
 );
 
 // Class to game-internal ID
@@ -564,20 +550,18 @@ $lang['class_to_id'] = array(
 	'Chamán' => 7,
 	'Mago' => 8,
 	'Brujo' => 9,
-	'Monk' => 10,
 	'Druida' => 11,
 // Female variation
 	'Guerrera' => 1,
-	// 'Paladín' => 2,
+//	'Paladín' => 2,
 	'Cazadora' => 3,
 	'Pícara' => 4,
 	'Sacerdotisa' => 5,
-	// 'Caballero de la muerte'=>6,
-	// 'Chamán' => 7,
+//	'Caballero de la muerte'=>6,
+//	'Chamán' => 7,
 	'Maga' => 8,
 	'Bruja' => 9,
-	// 'Monk' => 10,
-	// 'Druida' => 11,
+//	'Druida' => 11,
 );
 
 // Game-internal ID to class
@@ -591,7 +575,6 @@ $lang['id_to_class'] = array(
 	7 => 'Chamán',
 	8 => 'Mago',
 	9 => 'Brujo',
-	10 => 'Monk',
 	11 => 'Druida'
 );
 
@@ -611,18 +594,17 @@ $lang['race_to_en'] = array(
 	'Goblin'    => 'Goblin',
 // Female variation
 	'Elfa de sangre' => 'Blood Elf',
-	// 'Draenei'   => 'Draenei',
+//	'Draenei'   => 'Draenei',
 	'Elfa de la noche' => 'Night Elf',
 	'Enana'     => 'Dwarf',
-	// 'Gnomo'     => 'Gnome',
+//	'Gnomo'     => 'Gnome',
 	'Humana'    => 'Human',
 	'Orca'      => 'Orc',
 	'No-muerta' => 'Undead',
-	// 'Trol'      => 'Troll',
-	// 'Tauren'    => 'Tauren',
-	// 'Huargen'   => 'Worgen',
-	// 'Goblin'    => 'Goblin',
-	'Pandaren'	=> 'Pandaren',
+//	'Trol'      => 'Troll',
+//	'Tauren'    => 'Tauren',
+//	'Huargen'   => 'Worgen',
+//	'Goblin'    => 'Goblin',
 );
 
 $lang['race_to_id'] = array(
@@ -638,23 +620,19 @@ $lang['race_to_id'] = array(
 	'Draenei'   => 11,
 	'Huargen'   => 22,
 	'Goblin'    => 9,
-	'Pandaren'	=> 25,
-	'Pandaren'	=> 26,
 // Female variation
 	'Humana'    => 1,
 	'Orca'      => 2,
 	'Enana'     => 3,
 	'Elfa de la noche' => 4,
 	'No-muerta' => 5,
-	// 'Tauren'    => 6,
-	// 'Gnomo'     => 7,
-	// 'Trol'      => 8,
+//	'Tauren'    => 6,
+//	'Gnomo'     => 7,
+//	'Trol'      => 8,
 	'Elfa de sangre' => 10,
-	// 'Draenei'   => 11,
-	// 'Huargen'   => 22,
-	// 'Goblin'    => 9,
-	// 'Pandaren'	=> 25,
-	// 'Pandaren'	=> 26,
+//	'Draenei'   => 11,
+//	'Huargen'   => 22,
+//	'Goblin'    => 9,
 );
 
 $lang['id_to_race'] = array(
@@ -670,8 +648,6 @@ $lang['id_to_race'] = array(
 	11 => 'Draenei',
 	22 => 'Huargen',
 	9 => 'Goblin',
-	25 => 'Pandaren',
-	26 => 'Pandaren',
 );
 
 $lang['hslist']=' Estadísticas de honor';
@@ -684,7 +660,6 @@ $lang['Death Knight']='Caballero de la muerte';
 $lang['Druid']='Druida';
 $lang['Hunter']='Cazador';
 $lang['Mage']='Mago';
-$lang['Monk']='Monk';
 $lang['Paladin']='Paladín';
 $lang['Priest']='Sacerdote';
 $lang['Rogue']='Pícaro';
@@ -751,7 +726,6 @@ $lang['faction_to_id'] = array(
 	'Horde Forces' => 'horde',
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
-	'Reputation' => 'reputation',
 );
 
 
@@ -846,14 +820,12 @@ $lang['tooltip_preg_use']='/Use: (.+)/';
 $lang['tooltip_preg_chance']='/Chance (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
 $lang['tooltip_preg_heroic']='/Heroic/';
-$lang['tooltip_preg_lfr']='/Raid Finder/';
 $lang['tooltip_garbage1']='/\<Shift Right Click to Socket\>/';
 $lang['tooltip_garbage2']='/\<Right Click to Read\>/';
 $lang['tooltip_garbage3']='/Duration (.+)/';
 $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
-$lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
@@ -879,9 +851,6 @@ $lang['tooltip_source']='Fuente';
 $lang['tooltip_boss']='Jefe';
 $lang['tooltip_droprate']='Pos\. de aparici';
 $lang['tooltip_reforged']='Reforged';
-$lang['tooltip_transmogc'] = '/Transmogrified to: (.+)/';
-$lang['tooltip_transmogb'] = 'Transmogrified to: ';
-$lang['tooltip_transmoga'] = "Transmogrified to:\n";
 
 $lang['tooltip_chance_hit']='Probabilidad al acertar:'; // needs to find 'chance on|to hit:'
 $lang['tooltip_reg_requires']='(Requiere|Necesitas)'; //really a preg call but w/o delims etc
@@ -959,7 +928,6 @@ $lang['menupanel_util']  = 'Utilidades';
 $lang['menupanel_realm'] = 'Reino';
 $lang['menupanel_guild'] = 'Hermandad';
 $lang['menupanel_char']  = 'Personaje';
-$lang['menupanel_user'] = 'User CP';
 
 $lang['menuconf_sectionselect']='Selecciona panel';
 $lang['menuconf_section']='Section';
@@ -1042,10 +1010,7 @@ $lang['adata_update_class'] = 'Class %1$s updated';
 $lang['adata_update_row'] = '%1$s rows added to database.';
 
 // Password Stuff
-$lang['username'] = 'Username';
 $lang['password'] = 'Contraseña';
-$lang['remember_me'] = 'Remember me';
-$lang['pass'] = 'Pass';
 $lang['changeadminpass'] = 'Cambiar contraseña de Admin';
 $lang['changeofficerpass'] = 'Cambiar contraseña de Oficial';
 $lang['changeguildpass'] = 'Cambiar contraseña de la Hermandad';
@@ -1095,11 +1060,9 @@ $lang['pagebar_function'] = 'Funciones';
 $lang['pagebar_rosterconf'] = 'Configuración de Roster';
 $lang['pagebar_uploadrules'] = 'Exclusiones';
 $lang['pagebar_dataman'] = 'Control de datos';
-$lang['pagebar_userman'] = 'User Manager';
 $lang['pagebar_armory_data'] = 'Armory Data';
 $lang['pagebar_changepass'] = 'Cambiar contraseña';
 $lang['pagebar_addoninst'] = 'Instalar addons';
-$lang['pagebar_plugin'] = 'Plugin Management';
 $lang['pagebar_update'] = 'Subir perfil';
 $lang['pagebar_rosterdiag'] = 'Roster Diag.';
 $lang['pagebar_menuconf'] = 'Configuración de paneles';
@@ -1164,8 +1127,6 @@ $lang['admin']['check_updates'] = "Buscar actualizaciones|Permite a WoWRoster (y
 $lang['admin']['seo_url'] = "URLs amistosos|Activa enlaces en Roster<br /><br />on - /alguna/página/aquí/param=value.html<br />off - index.php?p=alguna-página-aquí&amp;param=value";
 $lang['admin']['local_cache']= "Sistema de archivos en caché|Permite al servidor local guardar algunos archivos para mejorar el rendimiento.";
 $lang['admin']['use_temp_tables'] = "Usar tablas temporales|Desactiva esta opción si tu servidor no permite crear tablas temporales en la base de datos (CREATE TEMPORARY TABLE privilege).<br/>Se recomienda activarlo para mejorar el rendimiento.";
-$lang['admin']['preprocess_js'] = "Aggregate JavaScript files|Certain JavaScript files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
-$lang['admin']['preprocess_css'] = "Aggregate and compress CSS files|Certain CSS files will be optimized automatically, which can reduce both the size and number of requests made to your website.<br />Leaving this on is recommended for performance.";
 $lang['admin']['enforce_rules'] = "Forzar exclusiones|Esta opción forzará las mismas normas de subida para todos los ficheros lua que se suban<ul class='ul-no-m'><li>Never: Nunca forzará las normas</li><li>All LUA Updates: Forzará las normas a todas las actualizaciones de ficheros lua</li><li>CP Updates: Forzará las normas solo a los ficheros CP.lua</li><li>Guild Updates: Forzará las normas solo con actualizaciones de la hermandad</li></ul>También puedes activar esta opción en el panel &quot;Exclusiones&quot;.";
 
 // defaults_conf
@@ -1219,43 +1180,16 @@ $lang['admin']['rs_color_recommended'] = "Recomendado Color|Color para reinos re
 
 // update_access
 $lang['admin']['authenticated_user'] = "Acceso a Update.php|Controla el acceso a update.php<br /><br />Poniendo esta opción en off desactivas el acceso para todo el mundo.";
-$lang['admin']['api_key_private'] = "Blizzard API Private key|This is the Private key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
-$lang['admin']['api_key_public'] = "Blizzard API Public key|This is the Public key given to you by Blizzard<br />This enables WoWRoster to make more then 3000 requests per day to the Armory";
-$lang['admin']['api_url_region'] = "Blizzard API Region|this is the armory region that you are accessing";
-$lang['admin']['api_url_locale'] = "Blizzard API Locale|These locales are REGION dependent and will display<br>info in the desired language";
 $lang['admin']['update_inst'] = 'Instrucciones de actualización|Controls the display of the Update Instructions on the update page';
 $lang['admin']['gp_user_level'] = "Nivel de hermandad|Elige el nivel requerido para poder subir datos con WoWRoster-GuildProfiler";
 $lang['admin']['cp_user_level'] = "Nivel de personaje|Elige el nivel requerido para poder subir datos con WoWRoster-Profiler";
 $lang['admin']['lua_user_level'] = "Nivel de otros LUA|Elige el nivel requerido para poder subir datos con otros addons<br />Esto es para TODOS los tipos de archivos LUA que quieras subir al Roster.";
-$lang['admin']['use_api_onupdate'] = "Api on Lua Update|process an api call on each lua char update pulling all api info for the character some addons may use this data";
-
-//session
-$lang['admin']['sess_time'] = 'Session Time|Edit the length of time before a session is ended.';
-$lang['admin']['save_login'] = 'Save Login|Use a cookie to remember the client login?';
-$lang['admin']['acc_session'] = 'Session Config|Configure the settings for accounts sessions.';
 
 // Character Display Settings
 $lang['admin']['per_character_display'] = 'Pantalla Per-Character';
-
-// user admin
-$lang['admin']['user_desc'] = 'CP Admin - This option gives the selected user admin access to WoWRoster<br/>Public - The default access given to all users. Allows the user to see any and all public pages in Roster. Removing this option only lets them see the content their other ranks allow<br/>** Other ranks are scaned from the currently selected guilds\' rank names and you can assign user access accordingly to users.';
 
 //Overlib for Allow/Disallow rules
 $lang['guildname'] = 'Nombre de Hermandad';
 $lang['realmname']  = 'Nombre de Reino';
 $lang['regionname'] = 'Región (i.e. ES)';
 $lang['charname'] = 'Nombre de Personaje';
-
-//register locals
-$lang['register'] 	= 'Register';
-$lang['menu_register'] 	= 'Register|Register with roster to have access to your guilds pages';
-$lang['cname_tt'] 	='Your Username should be your Main charactor in the guild Alts can be added later';
-$lang['cname'] 		='Character name';
-$lang['cclass_tt'] 	='Your characters class';
-$lang['cclass'] 	='Character Class';
-$lang['clevel_tt'] 	='Your characters level';
-$lang['clevel']		='Character level';
-$lang['cgrank_tt'] 	='This is your guild rank in the guild';
-$lang['cgrank'] 	='Guild Rank';
-$lang['cemail_tt'] 	='Your Email address DO NOT USE your battle.net address';
-$lang['cemail'] 	='Email address';

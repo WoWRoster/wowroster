@@ -1,10 +1,711 @@
 WoWRoster Change Log
+Copyright (C) 2002-2011 The WoWRoster Dev Team
+Package updated June 15, 2011
 $Id$
 
-The complete Change Log can be found on our WiKi
+You can view the open source project at - http://www.wowroster.net
+
+For corrections and/or suggestions - http://www.wowroster.net
+
+An HTML version of the Change Log can be found on our WiKi
 http://www.wowroster.net/MediaWiki/Roster:ChangeLog
 
-You can view the open source project at - http://www.wowroster.net
+
+
+
+------------------------------------
+What's New v2.1.0 (June 15, 2011)
+------------------------------------
+SVN Tagged build: 2333
+
+--[ Important Changes ]---------
+  * New license
+     o WoWRoster is now licensed under GPL v3
+     o All license pages are updated
+  * New default theme, old one is gone forever
+     o New look for the installer, matches the default theme!
+  * New Interface Image Pack, png is now the default image type
+  * Default location of Interface Images points to wowroster.net, no more downloading it!
+  * Support for dual specs
+  * Armory code updated
+  * Talent ranks and data now come from the armory, update this information via RosterCP -> Armory Data
+  * WoWRoster now requires a modified version of CharacterProfiler and GuildProfiler which is now updated by us
+     o Called WoWRoster-Profiler
+     o SavedVariables file is named: wowroster.lua
+     o Calvin hasn't had the time to provide updates to CP and GP so we have taken over development
+     o Ours supports Dual talents, multi-level reputation, and more data gathered for recipe reagent items
+  * PHP 5.3 compatibility
+  * WoWRoster is now restricted to PHP version 5.1 and higher
+  * Updated download links for addons that use the WoWRoster.net download system
+  * Split out some icon data for tpl use in item.php
+  * More data is imported for recipe reagents
+  * item::out() and recipe::out() are now depreciated, please use the following for output and build your own containers for item and recipe icons
+     o item::out() and recipe::out() have a new parameter, $small (bool) - Default false
+        + Just in case you need small icons, and still use these functions
+     o item::slot,
+     o item::tpl_get_icon(), recipe::tpl_get_icon()
+     o item::tpl_get_tooltip(), recipe::tpl_get_tooltip()
+     o item::tpl_get_itemlink(), recipe::tpl_get_itemlink()
+     o item::quantity, recipe::quantity
+     o item::slot
+     o Roster and the core addons have been updated to this new format
+     o Any icon tooltips using the old class method will display for now, but might not in later versions
+  * New centralized messaging system
+     o $roster->set_message($text, $title, $type)
+     o $text - the body of the message
+     o $title (optional) The title of the message
+     o $type (optional) the type of the message, currently two types 'status', 'error'
+  * Added item.html template, an example of how to build an item container (not used in Roster)
+  * New Item data
+     o Store item_type, item_subtype (same as AH categories for item)
+     o Store item_rarity (numeric indication of color)
+     o item_level, the status of the existing item_level column.
+  * Item data parsing has been updated
+  * Menu is now initalized earlier, hopefully reducing menu errors when Roster errors
+  * JQuery and JQuery-UI added
+     o Old javascript functions still exist, some have been converted to use JQuery
+  * Talent data is now fetched via the Armory
+     o CP now only gathers talent point allocation
+     o This makes the CP files MUCH smaller
+  * Changed get_scope_data() to not die when data is not found
+     o Instead, the scope and anchor are set to the util scope
+     o Some addons will need to add some additional checks for data
+  * Added RosterGD Library
+     o Common GD image manipulation functions
+     o Guild Info graph images, Realm Status, and MOTD image use this library
+  * Added new parameters for makelink()
+     o $anchor: (bool) allows you to disable the anchor tag in the link
+     o $ext: (string) allows you to change the url extension for the link, default is 'html'
+  * New realmstatus design!
+
+
+--[ General Fixes and Enhancements ]---------
+  * Removed trim on realm/character/guild name for upload rules
+     o Apparently you can have spaces at the beginning and end of the realm/character/guild name
+  * Updated class icons to 64px, up from 50px
+  * New Quest Data (see other sections for additional info)
+     o All quest links use quest_id now
+     o Changes for lib/quest.php functions
+        + quest_get_many() updated for new tables
+        + quest_get_one($quest_name)
+        + quest_get_one_id($quest_id, $locale)
+  * Fixed errors in lib/dbal/mysql.php
+  * Changed behavior of db::error_die, will now just die() and not use die_quietly()
+     o Roster starts with this enabled, then settings.php sets to false when framework initialization is done
+     o We set db::error_die to false now, so db errors can be caught, instead of the db layer just dying
+  * Some fixes to the item parser
+  * Item and Profession search, changed Lv to localized Level name
+  * Added "Account Bound" item binding type
+  * Fixed 'maildateutc' error on CP.lua upload
+  * Added a message to install.php for those trying to directly access it
+     o Now says "Direct access to install.php is not allowed. Please go to index.php to install."
+  * Added race and class icons
+  * Moved much of the functionality from menu.php into header.php
+  * Moved update instructions to the update page, removed from memberslist pages
+  * Updates to the armory class
+  * Item/recipe icons now have a "quality" glow, you will see what I mean
+  * New scope based classes
+     o Loads common data and template variable for each type of scope
+  * Added new roster->data value
+     o ['armoryurl'] Detects US or EU and sets this to their respective armory URL
+  * Character Data update is now a pop-up, click on 'Update Instructions' button to see the full page
+  * Removed WoWDigger from item and quest link lists as it seems it no longer exists
+  * Removed Allakhazam from quest links as it seems it has outdated data
+  * Changed the footer credits, they are now a link with a question mark icon
+  * New aPrint class library
+     o Shows MUCH more info than the old aprint.php() function
+     o Much prettier than the old aprint, all arrays/objects/long strings are collapsed
+     o Call with APrint::dump($var);
+     o Old aprint.php() function is now a wrapper, second argument does nothing :(
+     o New functions available
+     o ::classes() Prints a list of all currently declared classes
+     o ::interfaces() Prints a list of all currently declared interfaces
+     o ::includes() Prints a list of all currently included (or required) files
+     o ::functions() Prints a list of all currently declared functions
+     o ::defines() Prints a list of all currently declared constants
+     o ::extensions() Prints a list of all currently loaded PHP extensions
+     o ::headers() Prints a list of all HTTP request headers
+     o ::path() Prints a list of the specified directories under your include_path option
+     o ::ini() Prints a list of all the values from an INI file
+  * Fixed bug for adding upload rules, validator was only checking one field for emptyness
+  * Menu Config
+     o Adjusted sort and unused boxes
+     o Fixed 'add menu button'
+        + Now has icon when added
+     o Added help for adding menu buttons
+  * Changed function die_quietly() to only print a border is there is information to print
+  * Changed when the database is closed in die_quietly() and roster_die()
+  * Changed detection of invalid addon url characters a bit sooner
+  * Changed the tooltips a bit
+     o Removed opacity javascript, now using a transparent png background image
+     o Changed the bordering, it's round in ie9, chrome, and firefox
+  * Changed realmstatus timestamp to a real unix timestamp
+  * Merged Realm Status display and type into one config item
+  * Item parser picks up Heroic now
+
+
+--[ LUA Update (update.lib.php) ]---------
+  * Added additional checks for missing data
+     o Mail['Coin'], Mail['CoinIcon'], Spellbook['Rank']
+     o Including more not listed
+  * Pet talents data importing
+  * Glyph data importing
+  * Added processTime var for use with enforceRules()
+  * Added <nowiki><br /></nowiki> when guild not found, just to clean up output
+  * Added a bit more explanation for guild/character rejection message when rejected by upload rules
+  * Fixed update to detect uniuploader user agent
+     o Fix preg_match to be case insensitive
+
+
+--[ SQL/DB ]---------
+  * New tables: quest_data, pet_talents, pet_talenttree
+  * Renamed tables: spellbook_pet -> pet_spellbook
+  * Changed tables: quests
+  * Dropped: pets.usedtp (not available in WoW 3.0), pets.loyalty (not available in WoW 3.0)
+  * New Quest data
+     o daily, group, reward_money, quest_id, description, objective, difficulty
+     o Description and Objective are only available via an option in CP /cp questsfull on -- scan full info for quests (Description & Objective)
+
+
+--[ Locales ]---------
+  * Quest links updated to use quest id
+     o frFR: WoWDBU FR seems to be in maintenance mode and Judgehype FR does not seem to support quest id links
+     o Added WoWHead to all locales since it seems their site has data for them
+  * Moved some strings from core addons to main locale files
+  * Added locale strings for item quality
+
+
+--[ Template System ]---------
+  * Fixed a bug where iterating only the first element of an array resulted in the entire array being printed
+  * Added new <nowiki><!-- TRANSLATE string --></nowiki> instruction
+     o Looks up the 'string' key in the current active localization table
+     o Check templates/default/memberslist/memberslist.html for usage examples
+  * Added <nowiki><!-- TRANSLATE_F --></nowiki> based on <nowiki><!-- TRANSLATE --></nowiki> with printf() abilities.
+     o First parameter is a locale key string
+     o Further parameters are template variables. Can be inside loops.
+  * Moved locale assignments to template to <nowiki><!-- TRANSLATE --></nowiki> calls in the template
+     o Replaced many tpl variables with <nowiki><!-- TRANSLATE --></nowiki> instruction in templates
+     o Leftover {L_*} keys are not strictly locale keys, mainly tooltips or other php set values
+     o Some core addons may not have been updated
+  * Added is_writeable() before template is written. Fixes issue in step 0 of install when the cache folder may not be writable
+     o This has been tested very lightly. If there are any issues with caching, look here first
+  * New, theme.js is used for theme specific javascript, such as tooltip styling
+  * Refreshed look for RosterCP and Roster Diag
+
+
+--[ Addon Framework ]---------
+  * Install::add_menu_button() added 5th parameter - $active
+     o Default true
+     o Set to false to prevent button from being automatically added to the menu
+     o Useful for "optional" buttons
+
+
+----[ Core AddOns ]---------
+  * Quest data changes
+     o Quest List, Quest List Search, and Char-Info->Quests updated to not break and use some of the new data, not all though
+
+
+----[ Achievements ]---------
+  * New AddOn
+  * Displays character achievements
+
+
+----[ Character Info ]---------
+  * Fix to spellbook sql
+  * Char-Info->Quests new template data:
+     o ID - int, INDEX - int, DIFFICULTY - int, DESCRIPTION - text, REWARD_MONEY_C - int, REWARD_MONEY_S - int, REWARD_MONEY_G - int, OBJECTIVE - text, DAILY - int, GROUP - int
+  * Changed quest icon to look more like the game icon
+  * Updated menu tooltips
+  * Added companions and mounts
+  * Added 3D Model Viewer from Armory
+     o Might not work since Blizzard seems to have removed the functionality
+  * Added reputation descriptions
+  * New categorized inventory module
+  * New inventory module
+  * Added talent frame arrows
+  * You can access any tab via the URL now
+     o Append &t=tab_name
+     o Valid tabs names are: profile, pets, companions, reputation, skills, talents, spellbook, currency
+     o Members List uses this to direct to the talents tab
+  * Fixed, char-info-recipes show collapse setting was reversed
+  * Added, tooltips on quick links for char-info-bags/bank, char-info-recipes
+  * Changed reputation info text to only show when hovering a ? icon
+  * Changed alt indication in char-info
+     o An icon appears next to the character name if they belong to/or have alts
+     o Hovering over the icon shows a tooltip
+     o Clicking the icon allows you to click the links in the tooltip
+  * Talent Export now uses WoWHead
+
+
+
+----[ Guild Info ]---------
+  * Revamped addon
+  * Now gathers more guild data present in Cataclysm
+  * Needs to be enabled to gather most of the new data
+
+
+
+----[ Keys ]---------
+  * Patched for the memberslist changes
+  * Patched for new quest data format
+
+
+----[ Professions ]---------
+  * Fixed sorting
+
+
+----[ PvPLog ]---------
+  * Updated frFR
+  * Fixed SQL error
+  * Changed win/loss text to image in PvPLog
+
+
+----[ Members List ]---------
+  * Simplified name_value()
+  * Stripped out client sort
+  * Fixed pagination
+  * Alt grouping/ungrouping now client side
+  * Lots of code cleanup
+  * Removed template keys:
+     o members_row.OPEN (use S_GROUP_ALTS eq 2)
+     o members_row.alts.DISPLAY (actually the opposite. Use S_GROUP_ALTS neq 2)
+     o S_TOOLBAR (used to include direction, but removed that usage. Use S_GROUP_ALTS ge 0)
+  * Added HREF patching
+     o When using the openAlts(), closeAlts(), or unGroupAlts() javascript functions, all <a> elements with the 'internal' class will have their link target patched, giving the 'alts=' parameter (if set) the appropriate value.
+  * Mainless alts are not shown at the bottom in ungrouped mode
+  * Reformatted all memberlist pages to align the FIELD definitions
+  * Updated with multisort
+  * Removed the separate makeToolBar call
+  * Main/Alt matching
+     o If the regex results in a member name with quotes, these are now properly escaped. thanks Athan.
+  * Added inactive buttons for memberslist to all yet unlinked pages
+  * Reformed $memberslist->prepareData() paramters
+  * Added filter support by adding the GET string, with a GUI
+  * Added ability to disable filtering for a column, hiding the box (set 'filter'=false)
+  * Added ability to set an explicit mysql column definition for the default filter
+  * Cleaned up javascript sort/filter specifications, since these are no longer used
+  * Enabled filtering on stat-totals
+  * Fixed HTML syntax
+  * Added filter settings (disabled on key columns)
+  * Made the professions subquery return less rows
+  * Fixed a warning when the GROUP_CONCAT professions truncates due to field size
+  * Switched some code around so addons can influence the template file used
+     o Set the 'template' option to the name of the file to use
+  * Added fix from http://www.wowroster.net/topic6231.html
+     o "When clicking the next button in the Member log I get a bunch of errors."
+  * Removed icon_size setting
+  * Changed talent spec icons, both specs show in tooltip, main spec shows in list
+  * Changed player tooltip, using localized word for 'level'
+     o Removed : when player has no guild rank, removed 'in zone' when 'zone' is missing
+     o Removed 'last online' if it is missing
+  * If pagination was broke, it should work now
+
+
+----[ Vault ]---------
+  * Added Guild Vault search
+  * Fixed missing 'requires_level' data in VaultItem class
+  * Money no longer shows 0 amounts (eg. 100g 0s 0c now shows as 100g)
+  * Made vault specific css style for each log action
+  * Prettied up the money log
+
+
+
+
+
+------------------------------------
+What's New v2.0.2 (December 21, 2008)
+------------------------------------
+
+--[ General Fixes and Enhancements ]---------
+  * Death Knight talent spec icons
+  * Support for flying icons when skill > 150
+  * Riding icon code changed, now includes flying icons
+  * Memberslist now uses members.classid for class coloring
+  * Pet info will only be saved for Hunters and Warlocks until CP is fixed
+
+
+
+
+
+------------------------------------
+What's New v2.0.1 (November 15, 2008)
+------------------------------------
+
+--[ General Fixes and Enhancements ]---------
+Maintenance release for WotLK for compatibility issues
+  * Fixed notice error in installer
+  * Updated EU realmstatus URL
+  * Realmstatus fix for XML change for US feed
+  * Talent import fixes
+  * Fix style for file input fields in FF3
+     o Now the style will have a white background with grey text and a grey border
+  * Added Death Knight class icon
+  * Added Death Knight class color
+     o Updated other colors to standard Blizz colors (http://www.wowwiki.com/Class_colors)
+  * Added class id for Death Knight = 6
+  * Changed ROSTER_MAXCHARLEVEL to 80
+  * Changed ROSTER_MAXSKILLLEVEL to 450
+  * install.sh had the wrong path
+
+
+--[ Locales ]---------
+  * frFR fix for Warrior
+  * New strings 'tag', 'daily'
+  * Added locales for 'Runeforging' and 'Inscription'
+  * Added Inscription icon
+  * Added 'Death Knight' locale strings
+  * Updated class colors
+
+
+--[ Addon Framework ]---------
+  * Fixed incorrect $addon variables
+     o 'tpl_image_url' and 'tpl_image_path'
+
+
+----[ CharacterInfo ]---------
+  * New talent tiers for WotLK (WoW 3.0) will now show on talents page
+  * Fixed talent export link for character talents
+
+
+
+
+
+------------------------------------
+What's New v2.0.0 (June 20, 2008)
+------------------------------------
+
+--[ Important Notes ]---------
+  * Roster has changed drastically, there is so much new and different from the last version (1.7.3)
+       We did our best to keep a log of every change, but there is so much that has been changed, that we could not list everything
+  * The license has been modified, you must agree to the license before using WoWRoster!
+     o The changes are nothing big, mostly a reformat of the layout
+     o Also added a web viewable license  ?p=license (SEO: license.html)
+  * ROSTER 2.0 BRINGS MASSIVE CHANGES
+     o There is no upgrade path to 2.0, you must make a clean install
+  * THE INTERFACE IMAGE PACK MUST BE DELETED AND RE-DOWNLOADED
+       Roster now converts all the image names to lowercase and removes spaces
+       'Interface/Icons/' is no longer being stored with the icon name in the database
+  * Many Roster pages have been converted to addons (zeryl,zanix,pleegwat)
+     o It is now possible to overwrite these addons with different/improved versions written by addon devs
+  * Big changes to addon framework, please read the updated AddOn SDK
+     o Addon folder names can only contain a-z 0-9 _
+     o Access to addons are now like this > index.php?p=SCOPE-ADDONNAME-FILE (SEO: SCOPE/ADDONNAME/FILE.html)
+        + SCOPE is the addons scope (realm,guild,guildless,char,util)
+        + ADDONNAME is the addons name
+        + FILE is a file in the addons scope folder, FILE is optional
+     o Make use of the functions makelink() and linkform()
+     o AddOn triggers have been completely redesigned (pleegwat,zanix)
+        + Please read the AddOn SDK for details
+  * Changed detection of ROSTER_INSTALLED to IN_ROSTER, so the installer can include some of the roster files
+     o Please use IN_ROSTER from now on, ROSTER_INSTALLED is for installation purposes only
+     o define('IN_ROSTER',true); needs to be added to files that are accessed directly before including settings.php
+  * Roster now supports 3 auth levels (guild, officer, admin)
+     o The auth fields were moved to the `roster_account` table
+  * Many Database changes, see the rest of the change log
+     o UTF-8 conversion
+        + Roster's database tables are now set to the utf-8 collation
+     o Many tables changed quite a bit from 1.7.3, here are a few of those changes
+     o guild table
+        + Removed `guild_dateupdatedutc` `update_time` is exactly the same
+          `faction` changed from char(8) to char(32)
+          Added `factionEn`
+     o players table
+          Added `raceEn`, `classEn`, `sexid`, `raceid`, `classid`
+          Added 109 fields to the players table with all the new character data
+             Deleted or changed the meaning of 6 old fields. These mappings apply:
+             melee_rating -> melee_mhand_skill, melee_ohand_skill
+             melee_range -> melee_mhand_mindam, melee_mhand_maxdam, melee_ohand_mindam, melee_ohand_maxdam
+             melee_power -> melee_power_c
+             ranged_rating -> ranged_skill
+             ranged_range -> ranged_mindam, ranged_maxdam
+             ranged_power-> ranged_power_c
+     o members table
+          Removed `update_time`
+     o items table
+          Added `locale`
+     o pet table
+          Completely changed
+     o pet spellbook, addon table, addon trigger, addon config, menu, menu_button, upload, gems
+          All new for 2.0
+
+
+
+--[ Fixes ]---------
+  * Many locale changes/fixes
+  * Edited the lua parser to read the lines directly from the file rather than caching it into memory (pleegwat)
+     o This is about 5% faster, and saves about 2400k of memory with a 675k CP.lua
+  * Duplicate keys error with quests on CharacterProfiler uploads (zeryl)
+  * function escape_array($array) now uses addslashes(), not $wowdb->escape() (zanix)
+  * set_magic_quotes_runtime is now set off in settings.php (zanix)
+  * tradeskills fix > http://www.wowroster.net/Forums/viewtopic/p=15858.html#15858 (zanix)
+  * Missing $wowdb->escape() when testing the number of alts (pleegwat)
+  * Last Updated fix -> http://www.wowroster.net/ProjectsPro/report/report_id=47.html (zanix)
+  * Character removal, set inactive process improved (pleegwat,zanix)
+  * message_die() has been changed to roster_die() (zanix)
+     o This is because phpbb uses message_die()
+  * Memberlog is now updated with the guild updated time (zanix)
+  * So very many notice errors removed (zeryl)
+  * Fixed a possible problem with array based tooltips (zanix)
+  * Fixed weird multi lined text in UU update log, text version (zanix)
+  * Unspent talent icons are now transparent in Opera (zanix)
+  * Added level check in rogue portion of keys.php (zeryl)
+  * Item (and bag) class now gets the clientLocale itself instead of having to pass it (zanix)
+  * c.php now uses Roster's link constant (zanix)
+  * Config does not query the db when data is processed for saving (zanix)
+     o Instead, it looks in the config array and dynamically updates it
+     o This means the menu reflects the changes after the first load, you do not need to reload to see the change
+  * Mail alternate row coloring fixed (zanix)
+  * Settings aren't stored in DB with an extra set of slashes (pleegwat)
+  * overlib.js reverted to default, we pass the settings to it in roster_header.tpl now (zanix)
+  * DB link was getting terminated twice on most pages. Removing the one in footer (pleegwat)
+  * Lua parser should now detect invalid SV files (pleewat)
+  * Install should now fail when the db information is wrong (zanix)
+  * setTooltip() now checks if the passed key is already set, if it is, it does not set a new tooltip (zanix)
+  * Fixed extra wide die_quietly() messages (zanix)
+  * Removed configurable hide/show for hslist and pvplist, they are now hidden by default (zainx)
+  * Fixed transparent 'banding' in messageboxes (zanix)
+  * Realms with an apostrophe in them will no longer cause upload errors (zanix,pleegwat)
+  * luaparser fixed for magic_quotes_runtime (pleegwat)
+  * Method do_buffs(). Remove stale buff data even if no new buff data is available (ds)
+  * Method make_mail(). Would produce Undefined Index Errors if the mail did not have an Item attached (ds)
+  * Tooltip parser converted tab characters wrong (zanix)
+  * Fixed a caption coloring error in tooltips creation when there is a tab character in the first line (zanix)
+  * Locale inclusion for button in menu is local to only the menu, this is to prevent addons overwriting other addons' locales (zanix)
+  * Added stripslashes to $update.lib->tooltip (zanix)
+     o Seems tooltips we being entered double escaped
+  * added some data checking in do_pets() inupdate.lib.php. Would produce Undefined Indexes for pets that have not been scanned fully. (ds)
+  * Character equipped item bonuses code has been re-vamped, it should be much easier to handle changes in blizz's data (ds)
+  * Equipment bonuses are finally fixed, hopefully (ds)
+  * minCPver and minGPver now use the actual CP and GP version numbers and not the dbversion number (zanix)
+  * Guild motd will not show if it is empty (zanix)
+  * Adjusted arc buttons to move standard buttons an additional 1000px off screen (zanix)
+
+
+
+--[ Changes ]---------
+  * Major re-vamp of the character pages
+     o Way too much to list here
+  * Roster Config is now the Roster Control Panel (RosterCP)
+     o Addon config can now use a library to generate a config page accessible from RosterCP
+  * The Roster member list is now an addon called memberslist (pleegwat)
+     o AltMonitor functionality is now part of this addon
+     o SortMembers is now part of this addon
+     o Member log is part of memberslist
+  * Converted all of Roster to run everything through index.php (zanix)
+     o Supports extra lower levels on the p= parameter. They're in $roster_pages (array), or in ROSTER_PAGE_NAME (string) (pleegwat)
+     o There is now a default page selection in Roster Config -> Main Settings
+     o Addons can be set as the default page (pleegwat)
+     o cmslink.lib.php contains defines and functions that can easily be changed for integration to other CMS's
+  * All core WoWRoster pages have been moved out of the root directory (zanix)
+  * $HTTP_GET_VARS, $HTTP_POST_VARS, $HTTP_COOKIE_VARS are now destroyed (zanix)
+  * Moved the check for guild info into settings.php and out of every page (zanix)
+  * Removed char.php compatibility mode setting (zanix)
+  * Messages in update.php to use messagebox() functions (zanix)
+  * WoWRoster is now XHTML 1.0 Transitional compliant (zeryl,zanix,pleegwat,anaxent)
+  * char.php is now called like so ?p=char-info&a=c:## or ?p=char-info&a=c:Name or ?p=char-info&a=c:Name@RC-Server (zanix)
+     o SEO links /char/info/a=c:##.html or /char/info/a=c:Name.html or /char/info/a=c:Name@RC-Server.html
+     o RC is the region code US, EU, etc...
+     o All of Roster has been converted to link to members with the ID number
+  * Merged both guildbanks into one addon (zanix)
+     o The guildbank setting changes the default view
+  * Roster menu is now included on char pages and error pages (zanix)
+  * Changed Itemlinks, when you click on an item, a pop-up comes up with a list of available item link locations (zanix)
+     o Updated all of roster to use new item linking
+  * Moved the addon scanner makeAddonList() and DateDataUpdated() to commomfunctions.lib.php (zanix)
+  * Moved around the keys in locale files (zanix)
+  * "This page was generated.." message to just "time | queries" (zanix)
+  * Quests sorting change -> http://www.wowroster.net/Forums/viewtopic/t=3016.html (zanix)
+  * Locales have been changed (zanix,pleegwat)
+     o All locale files are now included via a function add_locale_file()
+          This prevents one locale form overwriting the other
+     o All strings in the locale files are now just $lang['key'] = 'String';
+          The new locale include function handles parsing the correct locale to the correct array
+     o Locale works like so: $roster->locale->wordings['enUS']['some_key']
+  * New locale access $roster->locale->act
+     o $roster->locale->act['some_key']
+     o This holds the locale array for the current locale
+     o All of Roster has been converted to use this variable (where applicable)
+  * Removed printing of every sql string in html comments, we have a sql message box for that (zanix)
+  * Changed tab detection and conversion in colorTooltip() and cleanTooltip() to use div and span, not tables (zanix)
+  * Removed SigGen sig and avatar display on character page (zanix,pleegwat)
+       SigGen is an addon and should not be on this page
+  * Moved character bonuses out to addons/info/inc/charbonus.lib.php (zanix)
+  * Renamed lib/commonfunctions.lib.php to lib/functions.lib.php (zanix)
+  * Changed img.php to work like c.php (zeryl)
+     o Use img.php?CHARNAME now
+  * Removed config settings for all js and css (zanix)
+     o If users need to change these, they should edit the header file
+  * Roster Config variable changes
+     o Removed the config 'roster_dir' (zanix)
+        + It has been replaced with ROSTER_PATH
+     o Removed 'server_name' and 'server_type'
+     o Roster config variable 'roster_lang' is now 'locale' (zanix)
+     o Roster config variables 'guild_name' and 'guild_desc' are now 'default_name' and 'default_desc'
+  * Moved SVN remote url to constants.php, for easy updating (zanix)
+  * Item quantity text css has been changed (zanix)
+     o Old <div class="item"><img class="icon" /><span class="quant_shadow">6</span><span class="quant">6</span></div>
+     o New <div class="item"><img class="icon" /><b>6</b><span>6</span></div>
+  * hslist and pvplist have the hide/show default variable in their files, so they could be included elsewhere easily if needed (zanix)
+  * Localization files now use sprintf() rather than variable inclusion (zeryl)
+  * Comment code at the top of every file to phpdoc standards (zanix)
+  * Renamed css/styles.css to css/style.css, to stay in line with addon css styles now being named style.css (zanix)
+  * Removed $script_filename for addons, use the constant ROSTER_PAGE (zanix)
+  * Realmstatus Changes
+     o Added quite a few new config options (zanix)
+     o Now saves all realms that are accessed
+     o Can now be accessed "realmstatus.php?r=RC-REALMNAME"
+        + If "r=" isn't set, it tries to get the default guildname from config
+     o You can now use the url parameter 'd' to set the output mode
+        + d=1 for image, d=0 for text
+  * Many Roster global variables are now part of the $roster class
+     o $act_words becomes $roster->locale->act
+     o $wordings becomes $roster->locale->wordings
+     o $roster_conf becomes $roster->config
+     o $wowdb->fetch_* becomes $roster->db->fetch()
+     o any other $wowdb becomes $roster->db->
+     o $header_title becomes $roster->output['title']
+     o $html_head becomes $roster->output['html_head']
+     o $more_css becomes $roster->output['html_head']
+     o $roster_show_(header, footer, menu) becomes $roster->output['show_(header, footer, menu)']
+     o $body becomes $roster->output['body_onload'] and $roster->output['body_attr']
+  * Changed function DateDataUpdated() to function readbleDate() (zanix)
+     o Takes datetime field data from the db and makes a friendly time
+  * Mass removal of DB table defines and renamed them to $roster->db->table('name') (zanix)
+  * wowdb.php is no longer used
+     o sql functions have been moved to lib/dbal/mysql.php
+        + Use $roster->db-> for SQL functions
+        + Lua updating is now handled by update.lib.php
+  * die_quietly() file name passed should now be __FILE__, not basename(__FILE__) (zanix)
+     o die_quietly() replaces the full path with a relative one
+  * lib/hslist.php is now a function generateHsList() (zanix)
+  * addons/pvplog/inc/pvplist.php is now a function generatePvpList() (zanix)
+  * Changed the look of the back trace a bit (zanix)
+     o Arguments are now a bullet list
+  * Changed wiki links for when 2.0 is released (zanix)
+     o From www.wowroster.net/wiki or www.wowroster.net/wiki/index.php/SOMEPAGE
+     o To www.wowroster.net/wiki.html or www.wowroster.net/wiki/SOMEPAGE
+  * Using version_compare() now on CPversion and GPversion version checking and now checks the actual CP/GPversion and not the DBversion (zanix)
+  * Added DBversion to `roster_players` and `roster_guild` tables (zanix)
+     o DBversion is the CP and GP data DBversion
+     o CPversion and GPversion are now CP/GPversion
+  * Border images are now css styles (adric)
+     o This improves the loading time of most of the roster pages
+  * MOTD text mode changed to look more like image version (adric)
+  * Added add_ifvalue() to allow for checking of the value before insert in update.lib.php (zeryl)
+  * function border() now accepts an optional 4th parameter, width (zanix)
+  * Removed old tab selection in favor of the one used in RosterCP (zanix)
+     o It allows the use of multiple tab groups on one page, and persistence on page re-loads
+  * Installer changes (zanix)
+     o You no longer need to go to install.php, just go to index.php
+  * Upgraded tabcontent.js to v2.0 (zanix)
+     o Tabs are initialized differently
+          OLD: initializetabcontent('id');
+          NEW: var id=new tabcontent('id');
+          id.init();
+     o Tab Content Documentation: http://www.dynamicdrive.com/dynamicindex17/tabcontent_suppliment.htm
+
+
+
+--[ Enhancements ]---------
+  * A hearty welcome to our new developers, DS and Adric!
+  * Roster is now Multi Guild and/or public compatible (pleegwat,zanix)
+     o Set guild and character upload rules in RosterCP
+  * New page linking and SEO compatible links
+     o SEO is disabled by default since IIS servers cannot use this feature
+     o ?p=SCOPE-ADDON | /SCOPE/ADDON.html
+     o You can also link to certain files in the addon folder
+        + ?p=SCOPE-ADDON-FILE | /SCOPE/ADDON/FILE.html
+  * Added a template engine that addons can use (zanix)
+     o Templates are coded very similar to phpbb, eqdkp, and dragonfly templates
+     o (In fact, they all use basically the same template engine)
+  * Made a new linking functions to help in CMS porting (zanix)
+     o lib/cmslink.lib.php
+     o function makelink( string $url="" , bool $full=false )
+        + ALL roster links run through this function to generate links
+        + This can easily be edited for integration into other CMS's
+        + Login functions expect a NON-makelink()'ed link
+           # login.php will convert the link for you
+     o function linkform(array $array)
+        + This inserts the correct GET variables for html forms
+        + Pass an array of additional GET vars if you need them array('name'=>'value')
+  * Item parsing (ds)
+     o The items class has been enhanced to parse the tooltip to its separate elements
+     o There is alot more data now that is available for an item
+     o Check the wiki for more info
+  * Gems support (ds)
+  * Massively improved search system (anaxent)
+     o Features include
+        + Able to search any installed, active addon that have a search.inc file within there inc directory
+        + Ability to search only with in a particular addon
+        + Advanced Search options per addon
+        + Addons can create their own search results display using the $item['html'] = variable in the search class
+  * Roster now uses an error handler (zanix)
+     o All php errors are saved and stored and displayed in the Roster footer if $roster->config['debug_mode'] is enabled
+     o The footer MUST be enabled to display the php errors
+     o You can get the current list of php errors at anytime with array() = $roster->error->report
+     o E_USER_ERROR level will halt Roster with an error message
+  * Added addon_active($addon_basename) (zanix)
+     o Returns bool, true if the addon is active, false if it is not active or not even available
+     o Use this if your addon requires another addon to function
+  * Remote version checking for Roster and addons in Roster CP (zanix)
+  * Brand new Roster Menu (adric,pleegwat)
+     o Buttons can be added, removed, hidden, moved, etc...
+     o Locale selector (zanix)
+        + You can also set the locale using url "locale=coDE"
+        + The local set is session based, and traverses to every page without the need for the url setting
+     o Scope based id selector (zanix)
+        + Change the current id for the scope
+        + realm/guildless - List shows all realms
+        + guild - List shows all guilds
+        + char - List of uploaded characters in the guild (or realm if guildless)
+        + util - The list is not available
+     o Menu title shows the 'default_name' and 'default_dec' when not in the guild scope
+     o Possible to set an icon for buttons
+  * Character page has been completely overhauled (pleegwat,zanix)
+     o Way too many changes to list here
+  * Added Pet Spellbooks (zanix)
+  * Made tooltips transparent (85% opacity) (zanix)
+  * Added SQL output for installer and upgrader (zanix)
+  * Added ability to collapse or show recipe tables by default for characters (zanix)
+  * Added last_online_value function for memberlist (zanix)
+     o It shows last online in terms of hours/days/weeks/years ago
+  * Added $wowdb->add_timestamp() function to wowdb to handle timestamp conversion to mysql datetime (zanix)
+  * Guild and character update will reject uploads if the timestamp is lower that what is in the DB (zanix)
+  * Converted luaparser to a class (zanix,pleegwat)
+     o Added lua writer method
+  * Added minixml library (zanix)
+  * Added constant ROSTER_LOCALE_DIR, which is the location of the localization folder (zanix)
+  * Added constant 'ROSTER_MAXQUESTS' (zanix)
+  * Basic ajax framework that is available to addons as well (pleegwat)
+     o Read the Roster AddOn SDK for more info
+  * c.php can now accept a member id (zanix)
+  * New define CAN_INI_SET, true if we can configure php ini settings via ini_set() (zanix)
+  * Added urlgrabber() function for global usage that gets a url file contents as a string (zeryl)
+     o This uses curl then file_get_contents() if curl fails
+  * New scope system for Roster (pleegwat)
+     o These load specific data for each scope
+     o realm/guildless - url: ?p=realm-ADDON (SEO: realm/ADDON.html) | ?p=guildless-ADDON (SEO: guildless/ADDON.html)
+        + Set the realm with the a=r: parameter ?p=realm-ADDON&a=r:RC-RNAME (SEO: realm/ADDON/a=r:RC-RNAME.html)
+     o guild - url: ?p=guild-ADDON (SEO: guild/ADDON.html)
+        + Set the guild with the a=g: parameter ?p=guild-ADDON&a=g:GID (SEO: guild/ADDON/a=g:GID.html) | ?p=guild-ADDON&a=g:GNAME@RC-RNAME (SEO: guild/ADDON/a=g:GNAME@RC-RNAME.html)
+        + RC is the region code
+     o char - url: ?p=char-ADDON (SEO: char/ADDON.html)
+        + Set the member with the a=c: parameter ?p=char-ADDON&a=c:MID (SEO: char/ADDON/a=c:MID.html) | ?p=char-ADDON&a=c:NAME@RC-RNAME (SEO: char/ADDON/a=c:NAME@RC-RNAME.html)
+        + RC is the region code
+  * Tradeskill icons are now clickable in memberslist (zanix)
+  * New header logo (adric)
+  * Eye of the Storm summary added to pvplog (zanix)
+  * Added lua upload access control (zanix)
+     o GP, CP, and other LUA data all have separate level restrictions
+  * Added a news addon (pleegwat)
+  * Added guild vault addon (zanix)
+  * Added a shell-based install script. Tested on linux. Will probably work on anything that has bash. (pleegwat)
+
+
+
+
+Version 1.x changes are not shown here, please visit WoWRoster 1.x Change Log
+http://www.wowroster.net/MediaWiki/Roster:ChangeLog:1x
 
 
 

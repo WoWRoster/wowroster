@@ -113,17 +113,13 @@ if( $addon['config']['graph_rank_display'] == 1 )
 {
 	$graph .= makeGraph('rank', $addon['config']['graph_rank_level'], $addon['config']['graph_rank_style']);
 }
-$git = '';
-if( $roster->auth->getAuthorized($addon['config']['git_access']) )
-{
-	$git = $guild_info_text;
-}
+
 $roster->tpl->assign_vars(array(
 	'L_MEMBER_ACHIEVEMENTS' => $roster->locale->act['NEWS_FILTER']['2'],
 	'TITLE' => '',
 	'NEXT' => '',
 	'LEVEL' => $roster->data['guild_level'],
-	'INFO' => $git,
+	'INFO' => $guild_info_text,
 	'GRAPH' => $graph
 	)
 );
@@ -351,8 +347,6 @@ function makeGraph( $type , $level , $style )
 	{
 
 		$resultd = $resultxx;
-		$resultx = $resultxx;
-		$dat = array();
 		/*
 		foreach($roster->locale->act['id_to_class'] as $class_id => $class)
 			{
@@ -364,14 +358,7 @@ function makeGraph( $type , $level , $style )
 		//$dat[$rowd['guild_title']]['name']=
 		while ($rowd = $roster->db->fetch($resultd))
 		{
-			if (!isset($dat[$rowd['guild_title']]))
-			{
-				$dat[$rowd['guild_title']] = array();
-				$dat[$rowd['guild_title']]['name']=$rowd['guild_title'];
-				$dat[$rowd['guild_title']]['alt'] = 0;
-				$dat[$rowd['guild_title']]['nonalt'] = 0;
-			}
-			//$dat[$rowd['guild_title']]['name']=$rowd['guild_title'];
+			$dat[$rowd['guild_title']]['name']=$rowd['guild_title'];
 			if ($rowd['isalt']==1)
 			{
 				$dat[$rowd['guild_title']]['alt']++;
@@ -436,8 +423,7 @@ function makeGraph( $type , $level , $style )
 			$req['bar2']['sizes'][$i] = $bar['alt'];
 			$i++;
 		}
-
-		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req));
+		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
 
 		$output .= '<img class="info-graph" src="' . $addon['url_path'] . $req . '" alt="" />';
 	}
@@ -478,7 +464,7 @@ function makeGraph( $type , $level , $style )
 			$i++;
 		}
 
-		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req));
+		$req = 'bargraphnew.php?data=' . urlencode(json_encode($req,JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_QUOT|JSON_HEX_AMP));
 		$output .= '<img class="info-graph" src="' . $addon['url_path'] . $req . '" alt="" />';
 	}
 	else

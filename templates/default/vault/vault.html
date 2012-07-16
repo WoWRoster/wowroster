@@ -21,9 +21,11 @@
 						<div class="tier-2-title">
 <!-- IF vault.SLOT neq 'MoneyLog' -->
 							<div class="tab-navigation">
-								<ul id="tab_navigation{vault.SLOT}">
+								<ul id="tab_navigation">
 									<li class="selected"><a rel="{vault.SLOT}Items" class="text"><!-- TRANSLATE items --></a></li>
+<!-- BEGIN log -->
 									<li><a rel="{vault.SLOT}Log" class="text"><!-- TRANSLATE vault_log --></a></li>
+<!-- END log -->
 								</ul>
 							</div>
 <!-- ENDIF -->
@@ -63,19 +65,16 @@
 <!-- END column -->
 						</div>
 <!-- ENDIF -->
-
-						<div id="{vault.SLOT}Log" class="vault-log"<!-- IF vault.SLOT neq 'MoneyLog' --> style="display:none;"<!-- ENDIF -->>
 <!-- BEGIN log -->
-							<div  class="tier-3-a">
-								<div class="tier-3-b">
-									<div class="text">
-										<span style="float:right;">{vault.log.TIME}</span>
-										{vault.log.TYPE}
-									</div>
+						<div id="{vault.SLOT}Log" class="tier-3-a"<!-- IF vault.SLOT neq 'MoneyLog' --> style="display:none;"<!-- ENDIF -->>
+							<div class="tier-3-b">
+								<div class="text">
+									<span style="float:right;">{vault.log.TIME}</span>
+									{vault.log.TYPE}
 								</div>
 							</div>
-<!-- END log -->
 						</div>
+<!-- END log -->
 						<div style="clear:both;"></div>
 					</div>
 				</div>
@@ -88,10 +87,8 @@
 <script type="text/javascript">
 <!--
 $(function() {
-	<!-- BEGIN vault -->
-	var tab_navigation{vault.SLOT}=new tabcontent('tab_navigation{vault.SLOT}');
-	tab_navigation{vault.SLOT}.init();
-	<!-- END vault -->
+	var tab_navigation=new tabcontent('tab_navigation');
+	tab_navigation.init();
 });
 //-->
 </script>

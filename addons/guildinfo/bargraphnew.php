@@ -90,8 +90,8 @@ $bar2sizes = $bar2['sizes'];//array_reverse($bar2['sizes']);
 
 
 // Initialize image
-$bkg_img = ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . $type.'-bg.png';
-$fg_img = ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . 'bargraphcover.png';
+$bkg_img = ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . $type . '-bg.jpg';
+$fg_img = ROSTER_BASE . 'img' . DIR_SEP . 'graphs' . DIR_SEP . $type . '-bg.png';
 
 $bkg_img_info = getimagesize($bkg_img);
 $roster_gd->make_image($bkg_img_info[0], $bkg_img_info[1]);
@@ -102,17 +102,17 @@ $h = $bkg_img_info[1];
 
 // calculate extra attributes
 $count = count($barnames);
-$offset = 15;
+$offset = 58;
 $factor = ($h-$offset)/max($barsizes);
 
 
 $max_barsizes = max($barsizes);
 $bar_max_width = 41;
 $bar_max_height = 50;
-$bar_x_offset = 15;
+$bar_x_offset = 53;
 $bar_y_offset = 74;
 $bar_gap = 77;
-$text_offset = 35;
+$text_offset = 73;
 
 
 

@@ -266,10 +266,6 @@ echo '
 				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . onOff(ini_get('file_uploads')) . '</td>
 			</tr>
 			<tr>
-				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">memory_limit</td>
-				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . ini_get('memory_limit') . '</td>
-			</tr>
-			<tr>
 				<td class="membersRow' . (((++$rowstripe) % 2) + 1) . '">upload_max_filesize</td>
 				<td class="membersRow' . ((($rowstripe) % 2) + 1) . '">' . ini_get('upload_max_filesize') . '</td>
 			</tr>
@@ -448,16 +444,9 @@ if( GrabRemoteVersions() !== false )
 				<input type="hidden" name="filestoget" value="' . $zippackage_files . '" />
 				<input type="hidden" name="guildname" value="' . $roster->config ['default_name'] . '" />
 				<input type="hidden" name="website" value="' . $roster->config ['website_address'] . '" />
-				<div style="text-align: center;">
-					<div class="radioset">
-						<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" />
-						<label for="zip">' . $roster->locale->act['zip_archive'] . '</label>
-						<input type="radio" name="ziptype" id="targz" value="targz" />
-						<label for="targz">' . $roster->locale->act['targz_archive'] . '</label>
-					</div>
-					<br />
-					<input type="submit" value="' . $roster->locale->act['download_update'] . '" />
-				</div>
+				<input type="radio" name="ziptype" id="zip" value="zip" checked="checked" /><label for="zip">' . $roster->locale->act['zip_archive'] . '</label><br />
+				<input type="radio" name="ziptype" id="targz" value="targz" /><label for="targz">' . $roster->locale->act['targz_archive'] . '</label><br /><br />
+				<input type="submit" value="' . $roster->locale->act['download_update'] . '" />
 			</form>
 		</div>
 	</div>
@@ -495,7 +484,7 @@ if( GrabRemoteVersions() !== false )
 
 			$directory_id = str_replace(array('.', '/', '\\'), '', $directory);
 
-			$headertext = '<div style="text-transform:none;cursor:pointer;width:100%;text-align:left;" onclick="showHide(\'table_' . $directory_id . '\',\'img_' . $directory_id . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');" ' . $dirtooltip . '>'
+			$headertext = '<div style="cursor:pointer;width:100%;text-align:left;" onclick="showHide(\'table_' . $directory_id . '\',\'img_' . $directory_id . '\',\'' . $roster->config['theme_path'] . '/images/button_open.png\',\'' . $roster->config['theme_path'] . '/images/button_close.png\');" ' . $dirtooltip . '>'
 				. '<div style="float:right;"><span style="color:' . $severity[$files[$directory]['rollup']]['color'] . ';">' . $severity[$files[$directory]['rollup']]['severityname'] . '</span> <img id="img_' . $directory_id . '" src="' . $roster->config['theme_path'] . '/images/button_close.png" alt="" /></div>' . $dirshow . '/</div>';
 
 			echo border($severity[$files[$directory]['rollup']]['style'], 'start', $headertext, '100%');
@@ -535,7 +524,7 @@ if( GrabRemoteVersions() !== false )
 					}
 
 					echo '<tr style="cursor:help;" ' . $filetooltip . '>';
-					echo '<td class="membersRow' . $row . '"><span style="padding-left: 3px; border-left: 10px solid ' . $severity[$filedata['rollup']]['color'] . '">' . $file . '</span></td>';
+					echo '<td class="membersRow' . $row . '"><span style="color:' . $severity[$filedata['rollup']]['color'] . '">' . $file . '</span></td>';
 					echo '<td class="membersRow' . $row . '">' . "\n";
 					if (isset($filedata['rev']))
 					{

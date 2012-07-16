@@ -44,3 +44,4 @@ $body .= $config->form_start
 	   . $config->formpages
 	   . $config->form_end
 	   . $config->nonformpages;
+$footer .= $config->jscript;

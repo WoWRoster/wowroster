@@ -133,7 +133,6 @@ class roster_db
 		}
 
 		@mysql_query("SET NAMES 'utf8'");
-		@mysql_query("SET GLOBAL general_log = 'ON'");
 
 		if( (is_resource($this->link_id)) && (!is_null($this->link_id)) && ($dbname != '') )
 		{
@@ -531,11 +530,11 @@ class roster_db
 	 * @param string $addon the name of the addon, empty for a base roster table
 	 * @return string tablename as fit for MySQL queries
 	 */
-	function table($table, $addon='', $type='addons')
+	function table($table, $addon='')
 	{
 		if( $addon )
 		{
-			return $this->prefix . $type . '_' . $addon . ($table != '' ? '_' . $table : '');
+			return $this->prefix . 'addons_' . $addon . ($table != '' ? '_' . $table : '');
 		}
 		else
 		{

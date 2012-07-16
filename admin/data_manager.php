@@ -31,53 +31,6 @@ $roster->scope = 'guild';
 $roster->get_scope_data();
 
 
-
-// Get the scope select data
-$dm_query = "SELECT `guild_name`, CONCAT(`region`,'-',`server`), `guild_id`"
-	. " FROM `" . $roster->db->table('guild') . "`"
-	. " ORDER BY `region` ASC, `server` ASC, `guild_name` ASC;";
-
-$dm_result = $roster->db->query($dm_query);
-
-if( !$dm_result )
-{
-	die_quietly($roster->db->error(), 'Database error', __FILE__, __LINE__, $dm_query);
-}
-
-$guilds = 0;
-while( $data = $roster->db->fetch($dm_result, SQL_NUM) )
-{
-	$dm_select[$data[1]][$data[2]] = $data[0];
-	$guilds++;
-}
-
-$roster->db->free_result($dm_result);
-
-$roster->tpl->assign_vars(array(
-	'S_DM_SELECT' => ($guilds > 1 ? true : false),
-	)
-);
-
-if( count($dm_select) > 0 )
-{
-	foreach( $dm_select as $realm => $guild )
-	{
-		$roster->tpl->assign_block_vars('dm_select_group', array(
-			'U_VALUE' => $realm
-		));
-
-		foreach( $guild as $id => $name )
-		{
-			$roster->tpl->assign_block_vars('dm_select_group.dm_select_row', array(
-				'TEXT'       => $name,
-				'U_VALUE'    => makelink('&amp;a=g:' . $id, true),
-				'S_SELECTED' => ($id == $roster->data['guild_id'] ? true : false)
-			));
-		}
-	}
-}
-
-
 $roster->tpl->assign_vars(array(
 	'U_ACTION'   => makelink('&amp;start=' . $start),
 	'U_GUILD_ID' => isset($roster->data['guild_id']) ? $roster->data['guild_id'] : '',

@@ -29,8 +29,7 @@ foreach( $roster->multilanguages as $lang )
 	$roster->locale->add_locale_file($memberslist_addon['locale_dir'] . $lang . '.php',$lang);
 }
 
-// Apply memberslist style
-roster_add_css($memberslist_addon['tpl_css_url'], 'theme');
+$roster->output['html_head'] .= '<link rel="stylesheet" type="text/css" href="' . $memberslist_addon['tpl_css_url'] . '" />' . "\n";
 
 include_once ($memberslist_addon['inc_dir'] . 'memberslist.php');
 include_once (ROSTER_LIB . 'item.php');

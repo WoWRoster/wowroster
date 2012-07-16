@@ -59,7 +59,7 @@ class update
 		global $roster;
 
 		// Add roster-used tables
-		$this->files[] = 'wowrcp';
+//		$this->files[] = 'characterprofiler';
 		$this->files[] = 'wowroster';
 
 		if( !$roster->config['use_update_triggers'] )
@@ -265,9 +265,8 @@ class update
 		$output = $roster->locale->act['processing_files'] . "<br />\n";
 
 		$gotfiles = array_keys($this->uploadData);
-		//print_r($gotfiles);
 //		if( in_array('characterprofiler',$gotfiles) || in_array('wowroster',$gotfiles) )
-		if( in_array('wowrcp',$gotfiles) || in_array('wowroster',$gotfiles) )
+		if( in_array('wowroster',$gotfiles) )
 		{
 
 			if( $roster->auth->getAuthorized($roster->config['gp_user_level']) )
@@ -402,10 +401,6 @@ class update
 		{
 			$myProfile = $this->uploadData['wowroster']['cpProfile'];
 		}
-		else if ( isset($this->uploadData['wowrcp']['cpProfile']) )
-		{
-			$myProfile = $this->uploadData['wowrcp']['cpProfile'];
-		}
 		else
 		{
 			return;
@@ -431,11 +426,6 @@ class update
 				foreach( $characters as $char_name => $char )
 				{
 					$this->current_member = $char_name;
-					if( $roster->config['use_api_onupdate'] == 1 )
-					{
-						$char['API'] = $roster->api->Char->getCharInfo($realm_name,$char_name,'ALL');
-					}
-					
 
 					// CP Version Detection, don't allow lower than minVer
 					if( version_compare($char['CPversion'], $roster->config['minCPver'], '>=') )
@@ -702,7 +692,6 @@ class update
 									{
 										$guild_output .= $this->addon_hook('guild', $char, $memberid);
 									}
-									$this->setMessage('</ul></li>');
 								}
 
 								// Remove the members who were not in this list
@@ -3336,10 +3325,6 @@ CREATE TABLE `renprefix_quest_task_data` (
 		{
 			$this->setError('Player Buff Data could not be deleted',$roster->db->error());
 		}
-		if( $roster->config['use_update_triggers'] )
-		{
-			$messages .= $this->addon_hook('char_delete', $inClause);
-		}
 
 		$this->deleteEmptyGuilds();
 
@@ -3509,6 +3494,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 	function update_guild( $realmName , $guildName , $currentTime , $guild , $region )
 	{
 		global $roster;
+
 		$guildInfo = $this->get_guild_info($realmName,$guildName,$region);
 
 		$this->locale = $guild['Locale'];
@@ -3535,19 +3521,19 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->add_ifvalue($guild, 'DBversion');
 		$this->add_ifvalue($guild, 'GPversion');
 
-		$this->add_value('guild_info_text', str_replace('\n',"<br />",$guild['Info']));
+		$this->add_value('guild_info_text', str_replace('\n',"\n",$guild['Info']));
 
 		if( is_array($guildInfo) )
 		{
-			$querystra = "UPDATE `" . $roster->db->table('guild') . "` SET " . $this->assignstr . " WHERE `guild_id` = '" . $guildInfo['guild_id'] . "';";
+			$querystr = "UPDATE `" . $roster->db->table('guild') . "` SET " . $this->assignstr . " WHERE `guild_id` = '" . $guildInfo['guild_id'] . "';";
 			$output = $guildInfo['guild_id'];
 		}
 		else
 		{
-			$querystra = "INSERT INTO `" . $roster->db->table('guild') . "` SET " . $this->assignstr;
+			$querystr = "INSERT INTO `" . $roster->db->table('guild') . "` SET " . $this->assignstr;
 		}
 
-		$roster->db->query($querystra) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystra);
+		$roster->db->query($querystr) or die_quietly($roster->db->error(),'WowDB Error',__FILE__ . '<br />Function: ' . (__FUNCTION__),__LINE__,$querystr);
 
 		if( is_array($guildInfo) )
 		{
@@ -3665,7 +3651,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		if( isset($memberId) )
 		{
 			$querystr = "UPDATE `" . $roster->db->table('members') . "` SET " . $this->assignstr . " WHERE `member_id` = '$memberId';";
-			$this->setMessage('<li>[ ' . $name . ' ]<ul>');
+			$this->setMessage('<li>[ ' . $name . ' ]</li>');
 			$this->membersupdated++;
 
 			$result = $roster->db->query($querystr);
@@ -3678,8 +3664,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		else
 		{
 			$querystr = "INSERT INTO `" . $roster->db->table('members') . "` SET " . $this->assignstr . ';';
-			//$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span></li>');
-			$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span><ul>');
+			$this->setMessage('<li><span class="green">[</span> ' . $name . ' <span class="green">] - Added</span></li>');
 
 			$result = $roster->db->query($querystr);
 			if( !$result )

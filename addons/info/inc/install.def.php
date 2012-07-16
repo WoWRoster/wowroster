@@ -26,7 +26,7 @@ class infoInstall
 	var $active = true;
 	var $icon = 'spell_holy_divinespirit';
 
-	var $version = '2.1.1.2550';
+	var $version = '2.1.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'char_info';
@@ -53,7 +53,6 @@ class infoInstall
 
 		$installer->add_config("'1000', 'recipe_disp', '0', 'radio{show^1|collapse^0', 'char_conf'");
 		$installer->add_config("'1010', 'mail_disp', '1', 'radio{Table^0|Bag^1|Both^2', 'char_conf'");
-		$installer->add_config("'1011', 'api_image', '0', 'radio{No^0|Yes^1', 'char_conf'");
 		$installer->add_config("'1020', 'show_money', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1030', 'show_played', '0', 'function{infoAccess', 'char_conf'");
 		$installer->add_config("'1035', 'show_model', '0', 'function{infoAccess', 'char_conf'");
@@ -78,52 +77,52 @@ class infoInstall
 
 		$installer->create_table($installer->table('display'),"
 		  `member_id` int(11) NOT NULL default '0',
-		  `show_money` varchar(30) NOT NULL default '0',
-		  `show_played` varchar(30) NOT NULL default '0',
-		  `show_model` varchar(30) NOT NULL default '0',
-		  `show_pets` varchar(30) NOT NULL default '0',
-		  `show_reputation` varchar(30) NOT NULL default '0',
-		  `show_skills` varchar(30) NOT NULL default '0',
-		  `show_honor` varchar(30) NOT NULL default '0',
-		  `show_currency` varchar(30) NOT NULL default '0',
-		  `show_talents` varchar(30) NOT NULL default '0',
-		  `show_glyphs` varchar(30) NOT NULL default '0',
-		  `show_spellbook` varchar(30) NOT NULL default '0',
-		  `show_mail` varchar(30) NOT NULL default '0',
-		  `show_bags` varchar(30) NOT NULL default '0',
-		  `show_bank` varchar(30) NOT NULL default '0',
-		  `show_quests` varchar(30) NOT NULL default '0',
-		  `show_recipes` varchar(30) NOT NULL default '0',
-		  `show_item_bonuses` varchar(30) NOT NULL default '0',
-		  `show_pet_talents` varchar(30) NOT NULL default '0',
-		  `show_pet_spells` varchar(30) NOT NULL default '0',
-		  `show_companions` varchar(30) NOT NULL default '0',
-		  `show_mounts` varchar(30) NOT NULL default '0',
+		  `show_money` tinyint(1) NOT NULL default '0',
+		  `show_played` tinyint(1) NOT NULL default '0',
+		  `show_model` tinyint(1) NOT NULL default '0',
+		  `show_pets` tinyint(1) NOT NULL default '0',
+		  `show_reputation` tinyint(1) NOT NULL default '0',
+		  `show_skills` tinyint(1) NOT NULL default '0',
+		  `show_honor` tinyint(1) NOT NULL default '0',
+		  `show_currency` tinyint(1) NOT NULL default '0',
+		  `show_talents` tinyint(1) NOT NULL default '0',
+		  `show_glyphs` tinyint(1) NOT NULL default '0',
+		  `show_spellbook` tinyint(1) NOT NULL default '0',
+		  `show_mail` tinyint(1) NOT NULL default '0',
+		  `show_bags` tinyint(1) NOT NULL default '0',
+		  `show_bank` tinyint(1) NOT NULL default '0',
+		  `show_quests` tinyint(1) NOT NULL default '0',
+		  `show_recipes` tinyint(1) NOT NULL default '0',
+		  `show_item_bonuses` tinyint(1) NOT NULL default '0',
+		  `show_pet_talents` tinyint(1) NOT NULL default '0',
+		  `show_pet_spells` tinyint(1) NOT NULL default '0',
+		  `show_companions` tinyint(1) NOT NULL default '0',
+		  `show_mounts` tinyint(1) NOT NULL default '0',
 		  PRIMARY KEY  (`member_id`)");
 
 
 		$installer->create_table($installer->table('default'),"
-		  `show_money` varchar(30) NOT NULL default '0',
-		  `show_played` varchar(30) NOT NULL default '0',
-		  `show_model` varchar(30) NOT NULL default '0',
-		  `show_pets` varchar(30) NOT NULL default '0',
-		  `show_reputation` varchar(30) NOT NULL default '0',
-		  `show_skills` varchar(30) NOT NULL default '0',
-		  `show_honor` varchar(30) NOT NULL default '0',
-		  `show_currency` varchar(30) NOT NULL default '0',
-		  `show_talents` varchar(30) NOT NULL default '0',
-		  `show_glyphs` varchar(30) NOT NULL default '0',
-		  `show_spellbook` varchar(30) NOT NULL default '0',
-		  `show_mail` varchar(30) NOT NULL default '0',
-		  `show_bags` varchar(30) NOT NULL default '0',
-		  `show_bank` varchar(30) NOT NULL default '0',
-		  `show_quests` varchar(30) NOT NULL default '0',
-		  `show_recipes` varchar(30) NOT NULL default '0',
-		  `show_item_bonuses` varchar(30) NOT NULL default '0',
-		  `show_pet_talents` varchar(30) NOT NULL default '0',
-		  `show_pet_spells` varchar(30) NOT NULL default '0',
-		  `show_companions` varchar(30) NOT NULL default '0',
-		  `show_mounts` varchar(30) NOT NULL default '0'");
+		  `show_money` tinyint(1) NOT NULL default '0',
+		  `show_played` tinyint(1) NOT NULL default '0',
+		  `show_model` tinyint(1) NOT NULL default '0',
+		  `show_pets` tinyint(1) NOT NULL default '0',
+		  `show_reputation` tinyint(1) NOT NULL default '0',
+		  `show_skills` tinyint(1) NOT NULL default '0',
+		  `show_honor` tinyint(1) NOT NULL default '0',
+		  `show_currency` tinyint(1) NOT NULL default '0',
+		  `show_talents` tinyint(1) NOT NULL default '0',
+		  `show_glyphs` tinyint(1) NOT NULL default '0',
+		  `show_spellbook` tinyint(1) NOT NULL default '0',
+		  `show_mail` tinyint(1) NOT NULL default '0',
+		  `show_bags` tinyint(1) NOT NULL default '0',
+		  `show_bank` tinyint(1) NOT NULL default '0',
+		  `show_quests` tinyint(1) NOT NULL default '0',
+		  `show_recipes` tinyint(1) NOT NULL default '0',
+		  `show_item_bonuses` tinyint(1) NOT NULL default '0',
+		  `show_pet_talents` tinyint(1) NOT NULL default '0',
+		  `show_pet_spells` tinyint(1) NOT NULL default '0',
+		  `show_companions` tinyint(1) NOT NULL default '0',
+		  `show_mounts` tinyint(1) NOT NULL default '0'");
 
 		$build_query = array(
 			'show_money' => '0',
@@ -230,18 +229,18 @@ class infoInstall
 			$installer->add_config("'1190', 'show_mounts', '0', 'function{infoAccess', 'char_conf'");
 
 			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
-				ADD `show_glyphs` varchar(30) NOT NULL default '0' AFTER `show_talents`,
-				ADD `show_pet_talents` varchar(30) NOT NULL default '0',
-				ADD `show_pet_spells` varchar(30) NOT NULL default '0',
-				ADD `show_companions` varchar(30) NOT NULL default '0',
-				ADD `show_mounts` varchar(30) NOT NULL default '0'");
+				ADD `show_glyphs` tinyint(1) NOT NULL default '0' AFTER `show_talents`,
+				ADD `show_pet_talents` tinyint(1) NOT NULL default '0',
+				ADD `show_pet_spells` tinyint(1) NOT NULL default '0',
+				ADD `show_companions` tinyint(1) NOT NULL default '0',
+				ADD `show_mounts` tinyint(1) NOT NULL default '0'");
 
 			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
-				ADD `show_glyphs` varchar(30) NOT NULL default '0' AFTER `show_talents`,
-				ADD `show_pet_talents` varchar(30) NOT NULL default '0',
-				ADD `show_pet_spells` varchar(30) NOT NULL default '0',
-				ADD `show_companions` varchar(30) NOT NULL default '0',
-				ADD `show_mounts` varchar(30) NOT NULL default '0'");
+				ADD `show_glyphs` tinyint(1) NOT NULL default '0' AFTER `show_talents`,
+				ADD `show_pet_talents` tinyint(1) NOT NULL default '0',
+				ADD `show_pet_spells` tinyint(1) NOT NULL default '0',
+				ADD `show_companions` tinyint(1) NOT NULL default '0',
+				ADD `show_mounts` tinyint(1) NOT NULL default '0'");
 		}
 
 		// Change the profile icon
@@ -255,9 +254,9 @@ class infoInstall
 		{
 			$installer->add_config("'1075', 'show_currency', '0', 'function{infoAccess', 'char_conf'");
 			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
-				ADD `show_currency` varchar(30) NOT NULL default '0' AFTER `show_tab5`");
+				ADD `show_currency` tinyint(1) NOT NULL default '0' AFTER `show_tab5`");
 			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
-				ADD `show_currency` varchar(30) NOT NULL default '0' AFTER `show_tab5`");
+				ADD `show_currency` tinyint(1) NOT NULL default '0' AFTER `show_tab5`");
 		}
 
 		// Renaming config
@@ -269,16 +268,16 @@ class infoInstall
 			$installer->update_config('1070', "`config_name` = 'show_honor'");
 
 			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
-				CHANGE `show_tab2` `show_pets` varchar(30) NOT NULL default '0',
-				CHANGE `show_tab3` `show_reputation` varchar(30) NOT NULL default '0',
-				CHANGE `show_tab4` `show_skills` varchar(30) NOT NULL default '0',
-				CHANGE `show_tab5` `show_honor` varchar(30) NOT NULL default '0'");
+				CHANGE `show_tab2` `show_pets` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab3` `show_reputation` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab4` `show_skills` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab5` `show_honor` tinyint(1) NOT NULL default '0'");
 
 			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
-				CHANGE `show_tab2` `show_pets` varchar(30) NOT NULL default '0',
-				CHANGE `show_tab3` `show_reputation` varchar(30) NOT NULL default '0',
-				CHANGE `show_tab4` `show_skills` varchar(30) NOT NULL default '0',
-				CHANGE `show_tab5` `show_honor` varchar(30) NOT NULL default '0'");
+				CHANGE `show_tab2` `show_pets` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab3` `show_reputation` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab4` `show_skills` tinyint(1) NOT NULL default '0',
+				CHANGE `show_tab5` `show_honor` tinyint(1) NOT NULL default '0'");
 
 			$installer->add_menu_button('cb_inventory', 'char', 'inventory', 'inv_misc_bag_14');
 		}
@@ -288,62 +287,7 @@ class infoInstall
 		{
 			$installer->add_config("'1035', 'show_model', '0', 'function{infoAccess', 'char_conf'");
 		}
-		if( version_compare('2.1.0', $oldversion,'>') == true )
-		{
-			//ALTER TABLE  `addons_info_display` CHANGE  `show_money`  `show_money` VARCHAR( 30 ) NOT NULL DEFAULT  '0'
-			$installer->add_query("ALTER TABLE `" . $installer->table('display') . "`
-			  CHANGE  `show_money` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_played` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_model` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_pets` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_reputation` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_skills` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_honor` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_currency` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_talents` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_glyphs` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_spellbook` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_mail` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_bags` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_bank` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_quests` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_recipes` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_item_bonuses` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_pet_talents` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_pet_spells` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_companions` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_mounts` varchar(30) NOT NULL default '0'");
 
-
-			$installer->add_query("ALTER TABLE `" . $installer->table('default') . "`
-			  CHANGE  `show_money` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_played` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_model` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_pets` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_reputation` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_skills` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_honor` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_currency` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_talents` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_glyphs` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_spellbook` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_mail` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_bags` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_bank` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_quests` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_recipes` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_item_bonuses` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_pet_talents` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_pet_spells` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_companions` varchar(30) NOT NULL default '0',
-			  CHANGE  `show_mounts` varchar(30) NOT NULL default '0'");
-		  
-		}
-		if( version_compare('2.1.1.2550', $oldversion,'>') == true )
-		{
-			$installer->add_config("'1011', 'api_image', '0', 'radio{No^0|Yes^1', 'char_conf'");
-		}
-		
 		return true;
 	}
 

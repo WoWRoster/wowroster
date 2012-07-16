@@ -57,13 +57,14 @@ function getAllTooltips( )
 
 	if( is_array($tooltips) )
 	{
-		$ret_string = array();
+		$ret_string = "<script type=\"text/javascript\">\n<!--\n";
 		foreach ($tooltips as $var => $content)
 		{
-			$ret_string[] = 'var overlib_'. $var .' = "' . str_replace('--', '-"+"-', $content) . '";';
+			$ret_string .= "\tvar overlib_$var = \"" . str_replace('--','-"+"-',$content) . "\";\n";
 		}
+		$ret_string .= "//-->\n</script>";
 
-		return implode("\n", $ret_string);
+		return $ret_string;
 	}
 	else
 	{
@@ -185,7 +186,7 @@ function die_quietly( $text='' , $title='Message' , $file='' , $line='' , $sql='
 		if( $roster->config['debug_mode'] == 2 )
 		{
 			echo "<tr>\n<td class=\"membersRow1\" style=\"white-space:normal;\">";
-			echo  APrint::backtrace();
+			echo  backtrace();
 			echo "</td>\n</tr>\n";
 		}
 
@@ -282,11 +283,84 @@ function ajax_die($text, $title, $file, $line, $sql)
 
 
 /**
- * Print a debug backtraceusing aprint::backtrace().
+ * Print a debug backtrace. This works in PHP4.3.x+, there is an integrated
+ * function for this starting PHP5 but I prefer always having the same layout.
  */
 function backtrace()
 {
-	return APrint::backtrace();
+	$bt = debug_backtrace();
+
+	$output = "<strong>Backtrace</strong> (most recent call last):<ul>\n";
+	for( $i = 0; $i <= count($bt) - 1; $i++ )
+	{
+		if( !isset($bt[$i]['file']) )
+		{
+			$output .= "<li>[PHP core called function]<ul>\n";
+		}
+		else
+		{
+			$output .= '<li>' . str_replace(ROSTER_BASE,'',$bt[$i]['file']) . "<ul>\n";
+		}
+
+		if( isset($bt[$i]['line']) )
+		{
+			$output .= '<li>Line: ' . $bt[$i]['line'] . "</li>\n";
+		}
+		$output .= '<li>Function Called: ' . $bt[$i]['function'] . "</li>\n";
+
+		if( $bt[$i]['args'] )
+		{
+			$output .= '<li>Arguments:<ul>';
+			for( $j = 0; $j <= count($bt[$i]['args']) - 1; $j++ )
+			{
+				if( is_array($bt[$i]['args'][$j]) )
+				{
+					$output .= '<li>Array(<ul>';
+					foreach( $bt[$i]['args'][$j] as $key => $value )
+					{
+						if( is_array( $value ) )
+						{
+							$output .= '<li>' . $key . ' => array</li>';
+						}
+						elseif( is_object( $value ) )
+						{
+							$output .= '<li>' . $key . ' => ' . get_class( $value ) . ' object</li>';
+						}
+						elseif( is_null( $value ) )
+						{
+							$output .= '<li>' . $key . ' => <i>NULL</i></li>';
+						}
+						else
+						{
+							$output .= '<li>' . $key . ' => ' . $value . '</li>';
+						}
+					}
+					$output .= "</ul></li>\n";
+				}
+				elseif( is_object($bt[$i]['args'][$j]) )
+				{
+					$output .= "<li>" . get_class($bt[$i]['args'][$j]) . " object</li>\n";
+				}
+				elseif( is_null($bt[$i]['args'][$j]) )
+				{
+					$output .= "<li><i>NULL</i></li>\n";
+				}
+				elseif( empty($bt[$i]['args'][$j]) )
+				{
+					$output .= "<li>&nbsp;</li>\n";
+				}
+				else
+				{
+					$output .= '<li>' . $bt[$i]['args'][$j] . "</li>\n";
+				}
+			}
+			$output .= "</ul></li>\n";
+		}
+		$output .= "</ul></li>\n";
+	}
+	$output .= "</ul>\n";
+
+	return $output;
 }
 
 /**
@@ -867,7 +941,7 @@ function getaddon( $addonname )
 
 	if( file_exists($addon['css_file']) )
 	{
-		$addon['css_url'] = $addon['url'] . 'style.css';
+		$addon['css_url'] = $addon['url_path'] . 'style.css';
 	}
 	else
 	{
@@ -885,35 +959,31 @@ function getaddon( $addonname )
 	if( !file_exists($addon['tpl_dir']) )
 	{
 		$addon['tpl_dir'] = ROSTER_TPLDIR . 'default' . DIR_SEP . $addon['basename'] . DIR_SEP;
-		$addon['tpl_url'] = 'templates/default/';
-		$addon['tpl_url_full'] = ROSTER_URL . $addon['tpl_url'];
-		$addon['tpl_url_path'] = ROSTER_PATH . $addon['tpl_url'];
+		$addon['tpl_url'] = ROSTER_URL . 'templates/default/';
+		$addon['tpl_url_path'] = ROSTER_PATH . 'templates/default/';
 
 		if( !file_exists($addon['tpl_dir']) )
 		{
 			$addon['tpl_dir'] = $addon['dir'] . 'templates' . DIR_SEP;
-			$addon['tpl_url'] = $addon['url'] . 'templates/';
-			$addon['tpl_url_full'] = $addon['url_full'] . 'templates/';
+			$addon['tpl_url'] = $addon['url_full'] . 'templates/';
 			$addon['tpl_url_path'] = $addon['url_path'] . 'templates/';
 
 			if( !file_exists($addon['tpl_dir']) )
 			{
 				$addon['tpl_dir'] = '';
 				$addon['tpl_url'] = '';
-				$addon['tpl_url_full'] = '';
 				$addon['tpl_url_path'] = '';
 			}
 		}
 	}
 	else
 	{
-		$addon['tpl_url'] = 'templates/' . $roster->config['theme'] . '/' . $addon['basename'] . '/';
-		$addon['tpl_url_full'] = ROSTER_URL . $addon['tpl_url'];
-		$addon['tpl_url_path'] = ROSTER_PATH . $addon['tpl_url'];
+		$addon['tpl_url'] = ROSTER_URL . 'templates/' . $roster->config['theme'] . '/' . $addon['basename'] . '/';
+		$addon['tpl_url_path'] = ROSTER_PATH . 'templates/' . $roster->config['theme'] . '/' . $addon['basename'] . '/';
 	}
 
 	// Get addons url to template images directory
-	$addon['tpl_image_url'] = $addon['tpl_url_full'] . 'images/';
+	$addon['tpl_image_url'] = $addon['tpl_url'] . 'images/';
 	$addon['tpl_image_path'] = $addon['tpl_url_path'] . 'images/';
 
 	// Get the addon's template based css style
@@ -921,7 +991,7 @@ function getaddon( $addonname )
 
 	if( file_exists($addon['tpl_css_file']) )
 	{
-		$addon['tpl_css_url'] = $addon['tpl_url'] . 'style.css';
+		$addon['tpl_css_url'] = $addon['tpl_url_path'] . 'style.css';
 	}
 	else
 	{
@@ -978,154 +1048,6 @@ function getaddon( $addonname )
 
 	return $addon;
 }
-
-
-/**
- * Sets up plugin data for use in the plugin framework
- *
- * @param string $pluginname | The name of the plugin
- * @return array $plugin  | The plugin's database record
- */
-function getplugin( $pluginname )
-{
-	global $roster;
-
-	if ( !isset($roster->plugin_data[$pluginname]) )
-	{
-		roster_die(sprintf($roster->locale->act['plugin_not_installed'],$pluginname),$roster->locale->act['plugin_error']);
-	}
-
-	$plugin = $roster->plugin_data[$pluginname];
-
-	// Get the plugin's location
-	$plugin['dir'] = ROSTER_PLUGINS . $plugin['basename'] . DIR_SEP;
-
-	// Get the plugins url
-	$plugin['url'] = 'plugins/' . $plugin['basename'] . '/';
-	$plugin['url_full'] = ROSTER_URL . $plugin['url'];
-	$plugin['url_path'] = ROSTER_PATH . $plugin['url'];
-
-	// Get plugins url to images directory
-	$plugin['image_url'] = $plugin['url_full'] . 'images/';
-	$plugin['image_path'] = $plugin['url_path'] . 'images/';
-
-	// Get the plugin's global css style
-	$plugin['css_file'] = $plugin['dir'] . 'style.css';
-
-	if( file_exists($plugin['css_file']) )
-	{
-		$plugin['css_url'] = $plugin['url'] . 'style.css';
-	}
-	else
-	{
-		$plugin['css_file'] = '';
-		$plugin['css_url'] = '';
-	}
-
-	/**
-	 * Template paths and urls
-	 */
-
-	// Get the plugin's template path
-	$plugin['tpl_dir'] = ROSTER_TPLDIR . $roster->config['theme'] . DIR_SEP . $plugin['basename'] . DIR_SEP;
-
-	if( !file_exists($plugin['tpl_dir']) )
-	{
-		$plugin['tpl_dir'] = ROSTER_TPLDIR . 'default' . DIR_SEP . $plugin['basename'] . DIR_SEP;
-		$plugin['tpl_url'] = 'templates/default/';
-		$plugin['tpl_url_full'] = ROSTER_URL . $plugin['tpl_url'];
-		$plugin['tpl_url_path'] = ROSTER_PATH . $plugin['tpl_url'];
-
-		if( !file_exists($plugin['tpl_dir']) )
-		{
-			$plugin['tpl_dir'] = $plugin['dir'] . 'templates' . DIR_SEP;
-			$plugin['tpl_url'] = $plugin['url'] . 'templates/';
-			$plugin['tpl_url_full'] = $plugin['url_full'] . 'templates/';
-			$plugin['tpl_url_path'] = $plugin['url_path'] . 'templates/';
-
-			if( !file_exists($plugin['tpl_dir']) )
-			{
-				$plugin['tpl_dir'] = '';
-				$plugin['tpl_url'] = '';
-				$plugin['tpl_url_full'] = '';
-				$plugin['tpl_url_path'] = '';
-			}
-		}
-	}
-	else
-	{
-		$plugin['tpl_url'] = 'templates/' . $roster->config['theme'] . '/' . $plugin['basename'] . '/';
-		$plugin['tpl_url_full'] = ROSTER_URL . $plugin['tpl_url'];
-		$plugin['tpl_url_path'] = ROSTER_PATH . $plugin['tpl_url'];
-	}
-
-	// Get plugins url to template images directory
-	$plugin['tpl_image_url'] = $plugin['tpl_url_full'] . 'images/';
-	$plugin['tpl_image_path'] = $plugin['tpl_url_path'] . 'images/';
-
-	// Get the plugin's template based css style
-	$plugin['tpl_css_file'] = $plugin['tpl_dir'] . 'style.css';
-
-	if( file_exists($plugin['tpl_css_file']) )
-	{
-		$plugin['tpl_css_url'] = $plugin['tpl_url'] . 'style.css';
-	}
-	else
-	{
-		$plugin['tpl_css_file'] = '';
-		$plugin['tpl_css_url'] = '';
-	}
-
-	/**
-	 * End Template paths and urls
-	 */
-
-	// Get the plugin's inc dir
-	$plugin['inc_dir'] = $plugin['dir'] . 'inc' . DIR_SEP;
-
-	// Get the plugin's conf file
-	$plugin['conf_file'] = $plugin['inc_dir'] . 'conf.php';
-
-	// Get the plugin's search file
-	$plugin['search_file'] = $plugin['inc_dir'] . 'search.inc.php';
-	$plugin['search_class'] = $plugin['basename'] . 'Search';
-
-	// Get the plugin's locale dir
-	$plugin['locale_dir'] = $plugin['dir'] . 'locale' . DIR_SEP;
-
-	// Get the plugin's admin dir
-	$plugin['admin_dir'] = $plugin['dir'] . 'admin' . DIR_SEP;
-
-	// Get the plugin's trigger file
-	$plugin['trigger_file'] = $plugin['inc_dir'] . 'update_hook.php';
-
-	// Get the plugin's ajax functions file
-	$plugin['ajax_file'] = $plugin['inc_dir'] . 'ajax.php';
-
-	// Get config values for the default profile and insert them into the array
-	$plugin['config'] = '';
-
-	$query = "SELECT `config_name`, `config_value` FROM `" . $roster->db->table('plugin_config') . "` WHERE `addon_id` = '" . $plugin['addon_id'] . "' ORDER BY `id` ASC;";
-
-	$result = $roster->db->query($query);
-
-	if ( !$result )
-	{
-		die_quietly($roster->db->error(),$roster->locale->act['plugin_error'],__FILE__,__LINE__, $query );
-	}
-
-	if( $roster->db->num_rows($result) > 0 )
-	{
-		while( $row = $roster->db->fetch($result,SQL_ASSOC) )
-		{
-			$plugin['config'][$row['config_name']] = $row['config_value'];
-		}
-		$roster->db->free_result($result);
-	}
-
-	return $plugin;
-}
-
 
 /**
  * Check to see if an addon is active or not
@@ -1544,68 +1466,82 @@ function dummy(){}
  * @param bool $add_prevnext
  * @return void
  */
-//paginate
-function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true,$cols=false )
+function paginate( $base_url , $num_items , $per_page , $start_item , $add_prevnext=true )
 {
-	$this->paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true,$cols=false);
-}
+	function paginate_page( $page , $url , $first=false )
+	{
+		global $roster;
 
-function paginate2($base_url, $num_items, $per_page, $start_item, $add_prevnext_text = true,$cols=false)
-{
+		$roster->tpl->assign_block_vars('pagination', array(
+			'PAGE' => $page,
+			'URL' => $url,
+			'FIRST' => $first
+			)
+		);
+	}
+
 	global $roster;
 
-	// Make sure $per_page is a valid value
-	$per_page = ($per_page <= 0) ? 1 : $per_page;
+	$total_pages = ceil($num_items/$per_page);
+	$on_page = floor($start_item/$per_page);
 
-	$total_pages = ceil($num_items / $per_page);
 
-	if ($total_pages == 1 || !$num_items)
+	if( $total_pages < 2 )
 	{
-		return false;
-	}
-
-	$on_page = floor($start_item / $per_page) + 1;
-	$url_delim = (strpos($base_url, '?') === false) ? '?' : ((strpos($base_url, '?') === strlen($base_url) - 1) ? '' : '&amp;');
-
-	$page_string = ($on_page == 1) ? '<span class="pagi-selected">1</span>' : '<a href="' . makelink($base_url . '0','members') . '"><span class="pagi-active">1</span></a>';
-
-	if ($total_pages > 5)
-	{
-		$start_cnt = min(max(1, $on_page - 3), $total_pages - 4);
-		$end_cnt = max(min($total_pages, $on_page + 3), 5);
-
-		$page_string .= ($start_cnt > 1) ? '... ' : '';
-
-		for ($i = $start_cnt + 1; $i < $end_cnt; $i++)
-		{
-			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>';
-		}
-
-		$page_string .= ($end_cnt < $total_pages) ? '... ' : '';
-		$page_string .= ($on_page == $total_pages) ? '<span class="pagi-selected">' . $total_pages . '</span>' : '<a href="' . makelink($base_url . (($total_pages - 1) * $per_page), 'members') . '"><span class="pagi-active">'.$total_pages.'</span></a>';
-	}
-	else
-	{
-		for ($i = 2; $i <= $total_pages; $i++)
-		{
-			$page_string .= ($i == $on_page) ? '<span class="pagi-selected">' . $i . '</span>' : '<a href="' . makelink($base_url . (($i-1) * $per_page), 'members') . '"><span class="pagi-active">' . $i . '</span></a>';
-		}
+		$roster->tpl->assign_var('B_PAGINATION', false);
+		return;
 	}
 
 	$roster->tpl->assign_vars(array(
-		'URL'             => $base_url,
-		'BASE_URL'        => addslashes($base_url),
-		'PER_PAGE'        => $per_page,
-		'COLS'            => $cols,
-		'B_PAGINATION'    => true,
-		'PAGINATION_PREV' => (($add_prevnext_text && $on_page > 1) ? makelink($base_url . ($start_item - $per_page)) : false),
-		'PAGINATION_NEXT' => (($add_prevnext_text && $on_page < $total_pages) ? makelink($base_url . ($start_item + $per_page)) : false),
-		'TOTAL_PAGES'     => $total_pages,
-		'CURRENT_PAGE'    => $on_page,
-		'PAGE'            => $page_string,
-	));
+		'B_PAGINATION' => true,
+		'PAGINATION_PREV' => (($add_prevnext && $on_page > 1) ? makelink($base_url . (($on_page-1)*$per_page)) : false),
+		'PAGINATION_NEXT' => (($add_prevnext && $on_page < $total_pages) ? makelink($base_url . ($on_page+$per_page)) : false),
+		)
+	);
 
-	//return $page_string;
+	if( $total_pages > 10 )
+	{
+		$init_page_max = ($total_pages > 3) ? 3 : $total_pages;
+		for( $i = 1; $i <= $init_page_max; $i++ )
+		{
+			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($i == 1));
+		}
+		if( $total_pages > 3 )
+		{
+			if( $on_page > 1 && $on_page < $total_pages )
+			{
+				if( $on_page > 5 )
+				{
+					paginate_page(' ... ', false, true);
+				}
+				$init_page_min = ($on_page > 4) ? $on_page : 5;
+				$init_page_max = ($on_page < $total_pages - 4 ) ? $on_page : $total_pages - 4;
+				for( $i = $init_page_min - 1; $i < $init_page_max + 2; $i++ )
+				{
+					paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)), ($on_page <= 5 && $i == $init_page_min-1));
+				}
+				if( $on_page < $total_pages-4 )
+				{
+					paginate_page(' ... ', false, true);
+				}
+			}
+			else
+			{
+				paginate_page(' ... ', false, true);
+			}
+			for( $i = $total_pages - 2; $i <= $total_pages; $i++ )
+			{
+				paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
+			}
+		}
+	}
+	else
+	{
+		for ($i = 1; $i <= $total_pages; $i++)
+		{
+			paginate_page($i, ($i == $on_page) ? false : makelink($base_url . ($i*$per_page)));
+		}
+	}
 }
 
 
@@ -1653,7 +1589,7 @@ function makeRealmStatus( )
 		}
 		elseif( $roster->config['rs_display'] == 'text' && file_exists(ROSTER_BASE . 'realmstatus.php') )
 		{
-			//$_GET['r'] = urlencode($realmname);
+			$_GET['r'] = urlencode($realmname);
 			ob_start();
 				include_once (ROSTER_BASE . 'realmstatus.php');
 			$realmStatus .= ob_get_clean() . "\n";
@@ -1672,19 +1608,4 @@ function makeRealmStatus( )
 	$realmStatus .= "\n";
 
 	return $realmStatus;
-}
-
-/**
-* Return unique id
-* @param string $extra additional entropy
-*/
-function unique_id($extra = 'c')
-{
-	static $dss_seeded = false;
-	global $config;
-
-	$val = $config['rand_seed'] . microtime();
-	$val = md5($val);
-
-	return substr($val, 4, 16);
 }

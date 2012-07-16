@@ -50,6 +50,9 @@ class roster_config
 	{
 		global $roster;
 
+		// Color Picker JS
+		$roster->output['html_head'] .= "<script type=\"text/javascript\" src=\"" .  ROSTER_PATH  . "js/color_functions.php?path=" . $roster->config['theme_path'] . "\"></script>\n";
+
 		$this->tablename = $tablename;
 		$this->where = $where;
 		$this->prefix = $prefix;
@@ -57,41 +60,7 @@ class roster_config
 		$this->submit_button = "<div class=\"config-submit\"><input type=\"submit\" value=\"" . $roster->locale->act['config_submit_button'] . "\" />\n<input type=\"reset\" name=\"Reset\" value=\"" . $roster->locale->act['config_reset_button'] . "\" onclick=\"return confirm('" . $roster->locale->act['confirm_config_reset'] . "')\"/>\n<input type=\"hidden\" name=\"process\" value=\"process\" /></div>\n";
 		$this->form_end = "</form>\n";
 
-		// Color Picker JS
-		roster_add_js('js/colorpicker.js');
-		$jscript =
-			'$(function() {
-				var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');
-				' . $this->prefix . 'tabs.init();
-
-				$(".color-picker").ColorPicker({
-					onSubmit: function(hsb, hex, rgb, el) {
-						$(el).val("#" + hex.toUpperCase());
-						$(el).next().css("background-color", "#" + hex.toUpperCase());
-						$(el).ColorPickerHide();
-					},
-					onShow: function (colpkr) {
-						$(colpkr).fadeIn(500);
-						return false;
-					},
-					onBeforeShow: function () {
-						$(this).ColorPickerSetColor(this.value);
-					},
-					onHide: function (colpkr) {
-						$(colpkr).fadeOut(500);
-						return false;
-					}
-				})
-				.bind("keyup", function(){
-					$(this).ColorPickerSetColor(this.value);
-					$(this).next().css("background-color", this.value);
-				})
-				.next().click(function(){
-					$(this).prev().click();
-				});
-			});';
-		roster_add_js($jscript, 'inline', 'footer');
-		roster_add_css('templates/' . $roster->tpl->tpl . '/style/colorpicker.css', 'theme');
+		$this->jscript  = '<script type="text/javascript">$(function() { var ' . $this->prefix . 'tabs=new tabcontent(\'' . $this->prefix . 'tabs\');' . $this->prefix . 'tabs.init();});</script>';
 	}
 
 	/**
@@ -200,6 +169,13 @@ class roster_config
 					break;
 
 				case 'pageframe':
+/*
+					$page .= border('sblue','start',$header_text,'100%') . "\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
+					$page .= $this->buildPage($values['name'],$type[1]);
+					$page .= "</table>\n";
+					$page .= border('sblue','end') . "\n";
+*/
 					$page .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
@@ -212,6 +188,19 @@ $this->buildPage($values['name'],$type[1]) . '
 					break;
 
 				case 'pagehide':
+/*
+					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
+					$page .= border('sblue','end');
+					$page .= '</div>' . "\n";
+					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
+					$page .= $this->buildPage($values['name'],$type[1]);
+					$page .= "</table>\n";
+					$page .= border('sblue','end');
+					$page .= '</div>' . "\n";
+*/
 					$addpage = true;
 					$page .= '
 <div class="tier-2-a">
@@ -229,6 +218,13 @@ $this->buildPage($values['name'],$type[1]) . '
 					break;
 
 				case 'blockframe':
+/*
+					$page .= border('sblue','start',$header_text,'100%') . "\n";
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
+					$page .= $this->buildBlock($values['name']);
+					$page .= "</table>\n";
+					$page .= border('sblue','end') . "\n";
+*/
 					$addpage = true;
 					$page .= '
 <div class="tier-2-a">
@@ -241,6 +237,19 @@ $this->buildBlock($values['name']) . '
 					break;
 
 				case 'blockhide':
+/*
+					$page .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
+					$page .= border('sblue','end');
+					$page .= '</div>' . "\n";
+					$page .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$page .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
+					$page .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
+					$page .= $this->buildBlock($values['name']);
+					$page .= "</table>\n";
+					$page .= border('sblue','end');
+					$page .= '</div>' . "\n";
+*/
 					$addpage = true;
 					$page .= '
 <div class="tier-2-a">
@@ -315,6 +324,13 @@ $this->buildBlock($values['name']) . '
 					break;
 
 				case 'pageframe':
+/*
+					$html .= border('sblue','start',$header_text,'100%') . "\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
+					$html .= $this->buildPage($values['name'],$type[1]);
+					$html .= "</table>\n";
+					$html .= border('sblue','end');
+*/
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
@@ -326,6 +342,19 @@ $this->buildPage($values['name'],$type[1]) . '
 					break;
 
 				case 'pagehide':
+/*
+					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
+					$html .= border('sblue','end');
+					$html .= '</div>' . "\n";
+					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
+					$html .= $this->buildPage($values['name'],$type[1]);
+					$html .= "</table>\n";
+					$html .= border('sblue','end');
+					$html .= '</div>' . "\n";
+*/
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
@@ -342,6 +371,13 @@ $this->buildPage($values['name'],$type[1]) . '
 					break;
 
 				case 'blockframe':
+/*
+					$html .= border('sblue','start',$header_text,'100%') . "\n";
+					$html .= "<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%;\">\n";
+					$html .= $this->buildBlock($values['name']);
+					$html .= "</table>\n";
+					$html .= border('sblue','end') . "\n";
+*/
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
@@ -353,6 +389,19 @@ $this->buildPage($values['name'],$type[1]) . '
 					break;
 
 				case 'blockhide':
+/*
+					$html .= '<div id="' . $values['name'] . 'Hide" style="display:none;">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Hide','" . $values['name'] . "Show')\"><img src=\"" . $roster->config['theme_path'] . "/images/plus.gif\" style=\"float:right;\" alt=\"+\" />" . $header_text . "</div>",'100%');
+					$html .= border('sblue','end');
+					$html .= '</div>' . "\n";
+					$html .= '<div id="' . $values['name'] . 'Show" style="display:inline">' . "\n";
+					$html .= border('sblue','start',"<div style=\"cursor:pointer;\" onclick=\"swapShow('" . $values['name'] . "Show','" . $values['name'] . "Hide')\"><img src=\"" . $roster->config['theme_path'] . "/images/minus.gif\" style=\"float:right;\" alt=\"-\" />" . $header_text . "</div>",'100%');
+					$html .= '<table cellspacing="0" cellpadding="0" width="100%">' . "\n";
+					$html .= $this->buildBlock($values['name']);
+					$html .= '</table>' . "\n";
+					$html .= border('sblue','end');
+					$html .= '</div>' . "\n";
+*/
 					$html .= '
 <div class="tier-2-a">
 	<div class="tier-2-b">
@@ -462,14 +511,13 @@ $this->buildPage($values['name'],$type[1]) . '
 					break;
 
 				case 'color':
-					$input_field .= '<input type="text" maxlength="7" size="8" class="color-picker"'
-						. ' value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '"'
-						. ' id="' . $this->prefix . 'color_' . $values['name'] . '" />'
-						. '<div class="color-display" style="background-color:' . $values['value'] . ';"></div>' . "\n";
+					$input_field .= '<input type="text" maxlength="7" size="10" class="colorinput" style="background-color:' . $values['value'] . ';"'
+						. ' value="' . $values['value'] . '" name="' . $this->prefix . 'color_' . $values['name'] . '" id="' . $this->prefix . 'color_' . $values['name'] . '" />'
+						. '<img src="' . $roster->config['theme_path'] . '/images/color/select_arrow.gif" style="cursor:pointer;vertical-align:middle;margin-bottom:2px;"'
+						. ' onclick="showColorPicker(this,document.getElementById(\'' . $this->prefix . 'color_' . $values['name'] . '\'))" alt="" />' . "\n";
 					break;
 
 				case 'access':
-					$values['title'] = '';
 					$input_field = $roster->auth->rosterAccess($values);
 					break;
 
@@ -526,14 +574,10 @@ $this->buildPage($values['name'],$type[1]) . '
 		{
 			return false;
 		}
+
 		// Update only the changed fields
 		foreach( $_POST as $settingName => $settingValue )
 		{
-			// we use an array now to we must implode it!
-			if (is_array($settingValue))
-			{
-				$settingValue = implode(":",$settingValue);
-			}
 			// Remove the extra slashes added by settings.php
 			$settingValue = stripslashes($settingValue);
 
@@ -579,9 +623,6 @@ $this->buildPage($values['name'],$type[1]) . '
 					}
 				}
 
-				// Update the css_js_query_string
-				$update_sql[] = "UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '" . $roster->db->escape(base_convert(REQUEST_TIME, 10, 36)) . "' WHERE `id` = '99';";
-
 				if( !empty($this->db_values) && isset($this->db_values['all']) && isset($this->db_values['all'][$settingName]))
 				{
 					if( $this->db_values['all'][$settingName]['value'] != $settingValue )
@@ -598,7 +639,7 @@ $this->buildPage($values['name'],$type[1]) . '
 		}
 
 		// Update DataBase
-		if( isset($update_sql) && is_array($update_sql) && count($update_sql) > 0 )
+		if( isset($update_sql) && is_array($update_sql) && count($update_sql)>0 )
 		{
 			foreach( $update_sql as $sql )
 			{

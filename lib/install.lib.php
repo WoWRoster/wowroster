@@ -33,9 +33,6 @@ class Install
 	var $tables=array();	// $table=>boolean, true to restore, false to drop on rollback.
 	var $addata;
 
-	var $conf_table = 'addon_config';
-	var $install_type = 'addons';
-	
 	var $addon_id;
 
 	var $temp_tables=true;	// addon_install.php does a create temp table check
@@ -110,7 +107,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "INSERT INTO `" . $roster->db->table($this->conf_table) . "` VALUES ('" . $this->addata['addon_id'] . "',$sql);";
+		$this->sql[] = "INSERT INTO `" . $roster->db->table('addon_config') . "` VALUES ('" . $this->addata['addon_id'] . "',$sql);";
 	}
 
 	/**
@@ -125,7 +122,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "UPDATE `" . $roster->db->table($this->conf_table) . "` SET " . $sql . " WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
+		$this->sql[] = "UPDATE `" . $roster->db->table('addon_config') . "` SET " . $sql . " WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
 	}
 
 	/**
@@ -138,7 +135,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "DELETE FROM `" . $roster->db->table($this->conf_table) . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
+		$this->sql[] = "DELETE FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "' AND `id` = '" . $id . "';";
 	}
 
 	/**
@@ -148,7 +145,7 @@ class Install
 	{
 		global $roster;
 
-		$this->sql[] = "DELETE FROM `" . $roster->db->table($this->conf_table) . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "';";
+		$this->sql[] = "DELETE FROM `" . $roster->db->table('addon_config') . "` WHERE `addon_id` = '" . $this->addata['addon_id'] . "';";
 	}
 
 	/**
@@ -253,7 +250,7 @@ class Install
 	{
 		global $roster;
 
-		if( !in_array($name,array('util','realm','guild','char','user')) )
+		if( !in_array($name,array('util','realm','guild','char')) )
 		{
 			$this->sql[] = "DELETE FROM `" . $roster->db->table('menu') . "` WHERE `section` = '" . $roster->db->escape($name) . "' LIMIT 1;";
 		}
@@ -271,24 +268,9 @@ class Install
 	 *		1 on failure but successful rollback
 	 *		2 on failed rollback
 	 */
-	function install($type = 'addons')
+	function install()
 	{
 		global $roster;
-
-		switch( $type )
-		{
-			case 'addons':
-				$this->install_type = 'addons';
-				break;
-
-			case 'plugins':
-				$this->install_type = 'plugins';
-				break;
-
-			default:
-				$this->install_type = 'addons';
-				break;
-		}
 
 		$retval = 0;
 		//$old_error_die = $roster->db->error_die(false);
@@ -368,7 +350,8 @@ class Install
 	function table($table, $backup=false)
 	{
 		global $roster;
-		return (($backup) ? 'backup_' : '') . $roster->db->table($table, $this->addata['basename'],$this->install_type);
+
+		return (($backup) ? 'backup_' : '') . $roster->db->table($table, $this->addata['basename']);
 	}
 
 	/**

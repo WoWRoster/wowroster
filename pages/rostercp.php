@@ -170,43 +170,6 @@ foreach( $roster->addon_data as $row )
 	}
 }
 
-$roster->get_plugin_data();
-
-$roster->tpl->assign_var('PLUGIN_PAGEBAR',(bool)count($roster->plugin_data));
-foreach( $roster->plugin_data as $row )
-{
-	$plugin = getplugin($row['basename']);
-
-	updateCheck($plugin);
-
-	if( file_exists($plugin['admin_dir'] . 'index.php') || $plugin['config'] != '' )
-	{
-		// Save current locale array
-		// Since we add all locales for localization, we save the current locale array
-		// This is in case one plugin has the same locale strings as another, and keeps them from overwritting one another
-		if (!empty($plugin['config']))
-		{
-			$localetemp = $roster->locale->wordings;
-			
-			foreach( $roster->multilanguages as $lang )
-			{
-				$roster->locale->add_locale_file(ROSTER_PLUGINS . $row['basename'] . DIR_SEP . 'locale' . DIR_SEP . $lang . '.php',$lang);
-			}
-
-			$roster->tpl->assign_block_vars('plugin_pagebar',array(
-				'SELECTED' => (isset($roster->pages[2]) && $roster->pages[2] == $row['basename'] ? true : false),
-				'LINK' => makelink('rostercp-plugin-' . $row['basename']),
-				'NAME' => ( isset($roster->locale->act[$row['fullname']]) ? $roster->locale->act[$row['fullname']] : $row['fullname'] ),
-				)
-			);
-
-			// Restore our locale array
-			$roster->locale->wordings = $localetemp;
-			unset($localetemp);
-		}
-	}
-}
-
 // ----[ Render the page ]----------------------------------
 
 // Generate a title, so the user knows where they are at in RosterCP
@@ -216,11 +179,6 @@ if( isset($roster->pages[1]) )
 	if( $roster->pages[1] == 'addon' )
 	{
 		$fullname = $roster->addon_data[$roster->pages[2]]['fullname'];
-		$rostercp_title = ( isset($roster->locale->act[$fullname]) ? $roster->locale->act[$fullname] : $fullname );
-	}
-	elseif( $roster->pages[1] == 'plugin' )
-	{
-		$fullname = $roster->plugin_data[$roster->pages[2]]['fullname'];
 		$rostercp_title = ( isset($roster->locale->act[$fullname]) ? $roster->locale->act[$fullname] : $fullname );
 	}
 	elseif( $roster->pages[1] != '' )
