@@ -1,0 +1,1305 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Main CSS file
+ *
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @since      File available since Release 1.03
+ */
+
+body { background:#000000; font-size:62.5%; }
+a:link,
+a:visited,
+a:active { color:#4C3000; text-decoration:none; font-weight:bold; }
+a:hover { color:#069; text-decoration:none; font-weight:bold; }
+
+.roster-wrap { font:12px arial,helvetica,sans-serif; color:#FFFFFF; width: 960px; margin: auto; position: relative; padding-top: 1px; }
+
+.roster-wrap h1 { color:#000000; text-decoration:none; display:block; position:relative; font: normal 22px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
+.roster-wrap h2 { color:#000000; display:block; text-align:left; padding:0; margin-bottom: 5px; font: normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
+
+
+/* Text input style */
+input[type="text"],
+input[type="password"],
+textbox {
+	border: none;
+	background: transparent url(../images/shader.png) 0 0 repeat;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 4px 6px 3px 6px;
+	font-size: 10px;
+	outline: none; /* remove webkit glow */
+	text-shadow: 1px 1px 0 #000000;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+.clear-text { display: inline-block; }
+.clear-text input.box,
+.clear-text .box {
+	border: none;
+	float: left;
+	background: transparent url(../images/shader.png) 0 0 repeat;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 5px 6px 2px 6px;
+	height: 16px;
+	font-size: 10px;
+	outline: none; /* remove webkit glow */
+	border-radius: 6px 0 0 6px;
+	-moz-border-radius: 6px 0 0 6px;
+}
+.clear-text button {
+	float: left;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-moz-border-radius-bottomleft: 0;
+}
+
+
+.menu-search {
+	display: inline-block;
+	position: absolute;
+	bottom: 0;
+}
+.menu-search input.box,
+.menu-search .box {
+	border: none;
+	float: left;
+	background: transparent url(../images/shader.png) 0 0 repeat;
+	color: #FFFFFF;
+	margin: 0;
+	padding: 5px 6px 2px 6px;
+	height: 16px;
+	font-size: 10px;
+	outline: none; /* remove webkit glow */
+	border-radius: 6px 0 0 6px;
+	-moz-border-radius: 6px 0 0 6px;
+}
+.menu-search button {
+	float: left;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+	-moz-border-radius-bottomleft: 0;
+}
+
+
+.pagi-selected,
+.pagi-active,
+.pagi-inactive {
+	border:1px solid #4e4d4c;
+	background-color:#C79C6E;
+	padding:1px 4px 1px 4px;
+	margin:0 2px;
+}
+.pagi-selected {
+	background-color:#FF7D0A;
+}
+.pagi-inactive {
+	background-color:#C79C6E;
+  color:#909090;
+}
+
+
+/* Main Roster Wrapper Header */
+.theme-wrap {
+	min-height: 380px;
+	width: 940px;
+	margin: 20px auto auto;
+	position: relative;
+	border: 1px solid #9D7D1C;
+	background: #e7cb79 url(../images/wrap_bg.jpg) repeat center top;
+	padding: 0;
+}
+
+.realm-status {
+	left: 170px;
+    position: absolute;
+    top: 85px;
+}
+
+.info-header {
+	width: 100%;
+	height: 125px;
+	position: absolute;
+	left: -10px;
+	top: -20px;
+	padding-right: 10px;
+	padding-bottom: 45px;
+}
+
+.realm { background: url(../images/bg_neutral.png) no-repeat left top; }
+.alliance { background: url(../images/bg_alliance_new.png) no-repeat left top; }
+.horde { background: url(../images/bg_horde_new.png) no-repeat left top; }
+
+.info-header .text { position: absolute; left: 160px; top: 35px; color: #FFFFFF; text-align: left; padding: 0; width: 580px; text-shadow:1px 2px 0 #000000; }
+.info-header .text:hover { background: none; }
+.info-header .text.up { top:20px; }
+
+.info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
+.info-header .name small { font-size: 18px; }
+.info-header .guild { font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
+.info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
+
+.menu-select { position: absolute; top: 30px; right: 6px; width:300px;}
+.menu-select .locale-select { float: right; margin: 0 0 3px 5px; }
+.menu-select .list-select { float: right; margin: 0 0 3px 5px; }
+
+.char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap, .user-wrap {
+	margin: 102px 0 0;
+	padding: 0 10px 10px;
+	position: relative;
+}
+
+.roster-footer {
+	background: url(../images/footer.png) no-repeat left bottom;
+	height: 100px;
+	padding: 18px 10px 0;
+	font-size: 10px;
+	position: relative;
+}
+.roster-footer .process { position: absolute; bottom: 5px; right: 5px; color: #AC8739; }
+.roster-footer .valid { position: absolute; bottom: 5px; left: 5px; color: #AC8739; }
+
+.roster-footer .credits-link { display: block; position: absolute; top: 20px; right: 1px; height: 22px; width: 22px; }
+.roster-footer .credits-link img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
+.roster-footer .credits-link .mask { background: url(../images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
+.roster-footer .credits-link .mask:hover { background-position: right top; }
+
+.roster-footer .version { color: #FFF8E1; text-align: center; }
+.roster-footer .wr-info { color: #FFF8E1; text-align: center; }
+.roster-footer .bliz { color: #FFF8E1; text-align: center; margin-top: 25px; font-size: 12px; }
+
+/* Menu Bottom - Menu Login */
+.menu-bottom { font-size: 10px; position: absolute; bottom: 52px; right: 0; width: 450px; }
+.menu-login { position: absolute; right: 0; bottom: 0; }
+.menu-login-message {}
+.menu-login-user {}
+.menu-login-pass { display: inline-block; }
+.menu-login-button { display: inline-block; }
+
+
+/* Login Box */
+.login-box { margin: 4px auto auto auto; width: 450px; }
+.login-box .message { text-align: center; color: #FF3300; font-size: 14px; line-height: 20px; height: 20px; }
+
+
+/* Roster Diag */
+.diag-download-box { margin:4px auto auto auto;width:300px; }
+
+
+/* General Scope Block */
+.scope-menu { padding: 50px 0 10px; position: relative; }
+.scope-menu .menu-scope { margin:2px 0 0; padding:0; width:100%; }
+
+.scope-menu .menu-scope .frame { margin:0; padding:0; width:100%; display: block; height:60px; position: relative; }
+.scope-menu .menu-scope .frame .button { display:block; float:left; margin:3px; position: relative; height: 50px; width: 50px; }
+.scope-menu .menu-scope .frame .button img { position: absolute; clip: rect(2px 48px 48px 2px); height: 50px; width: 50px; }
+.scope-menu .menu-scope .frame .button .mask { display: block; background: url(../images/mask/menu_50x50_mask.png) no-repeat left top; height:50px; width:50px; position: absolute; z-index: 100; left: 0; top: 0; }
+.scope-menu .menu-scope .frame .button .mask:hover { background: url(../images/mask/menu_50x50_mask.png) no-repeat right top; }
+
+.scope-menu .menu-scope-panel { background: url(../images/wrap_bg.jpg) repeat-y center top; border: 2px solid #5E4A11; max-width: 100%; position: absolute; z-index: 200; left: 0; top: 40px; padding: 0 0 5px; }
+.menu-frame .section-title { padding: 3px; font: bold 12px Georgia, "Times New Roman", Times, serif; color: #000; background: url(../images/th_bg.png) repeat-x left top; }
+
+.scope-menu .menu-scope-panel .frame { margin:5px; width:100%; position: relative; }
+.scope-menu .menu-scope-panel .frame .button { display: block; float:left; margin:3px; position: relative; height: 40px; width: 40px; }
+.scope-menu .menu-scope-panel .frame .button img { position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
+.scope-menu .menu-scope-panel .frame .button .mask { background: url(../images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
+.scope-menu .menu-scope-panel .frame .button .mask:hover { background-position: right top; }
+
+/* New Main Navagation tabs */
+.top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 3px; }
+.top-menu .links { height: 40px; }
+.top-menu .links a {
+	display: block;
+	height: 26px;
+	width: 100px;
+	float: left;
+	padding: 4px 4px 10px 45px;
+	color: #000;
+	margin-right: 4px;
+	font: bold 12px/normal Arial, Helvetica, sans-serif;
+	overflow: hidden;
+}
+
+.button-char { background: url(../images/menu/menu.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
+.button-char:hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+.button-char-selected { background: url(../images/menu/menu.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
+.button-char-selected:hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+
+.button-members { background: url(../images/menu/menu.png);background-position: -150px 0px; width: 151px; height: 20px; display: block;}
+.button-members:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-members-selected { background: url(../images/menu/menu.png);background-position: -150px 40px; width: 151px; height: 20px; display: block;}
+.button-members-selected:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+
+.button-guild { background: url(../images/menu/menu.png);background-position: -150px 0px; width: 151px; height: 20px; display: block;}
+.button-guild:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+.button-guild-selected { background: url(../images/menu/menu.png);background-position: -150px 40px; width: 151px; height: 20px; display: block;}
+.button-guild-selected:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
+
+.button-realm { background: url(../images/menu/menu.png);background-position: -300px 0px; width: 151px; height: 20px; display: block;}
+.button-realm:hover{ background: url(../images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
+.button-realm-selected { background: url(../images/menu/menu.png);background-position: -300px 40px; width: 151px; height: 20px; display: block;}
+.button-realm-selected:hover{ background: url(../images/menu/menu.png);background-position: -300px 80px; width: 151px; height: 20px; display: block;}
+
+.button-upload { background: url(../images/menu/menu.png);background-position: -450px 0px; width: 151px; height: 20px; display: block;}
+.button-upload:hover{ background: url(../images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
+.button-upload-selected { background: url(../images/menu/menu.png);background-position: -450px 40px; width: 151px; height: 20px; display: block;}
+.button-upload-selected:hover{ background: url(../images/menu/menu.png);background-position: -450px 80px; width: 151px; height: 20px; display: block;}
+
+.button-user { background: url(../images/menu/menu.png);background-position: -600px 0px; width: 151px; height: 20px; display: block;}
+.button-user:hover{ background: url(../images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
+.button-user-selected { background: url(../images/menu/menu.png);background-position: -600px 40px; width: 151px; height: 20px; display: block;}
+.button-user-selected:hover{ background: url(../images/menu/menu.png);background-position: -600px 80px; width: 151px; height: 20px; display: block;}
+
+.button-util { background: url(../images/menu/menu.png);background-position: -750px 0px; width: 151px; height: 20px; display: block;}
+.button-util:hover{ background: url(../images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
+.button-util-selected { background: url(../images/menu/menu.png);background-position: -750px 40px; width: 151px; height: 20px; display: block;}
+.button-util-selected:hover{ background: url(../images/menu/menu.png);background-position: -750px 80px; width: 151px; height: 20px; display: block;}
+
+
+/* Mini Pop-Up List */
+.mini-list { cursor:default; width: 270px; position: absolute; z-index: 300; right: 0; top: 0; }
+.mini-list-click { cursor: pointer; }
+.mini-list .tier-1-a { margin: 0; }
+.mini-list .list { max-height: 600px; overflow: auto; border: 1px solid #9D7D1C; }
+.mini-list .list .member { display: block; line-height: 20px; height: 20px; padding: 2px; font-weight: bold; clear: both; }
+.mini-list .list .plain { background: url(../images/char_row.png) repeat-x left top; color: #333333; }
+.mini-list .list .plain:hover { background: url(../images/char_row.png) repeat-x left bottom; }
+.mini-list .list .u-link { cursor:pointer; background: url(../images/char_row_link.png) repeat-x left top; color: #000000; }
+.mini-list .list .u-link a { color: #000000; }
+.mini-list .list .u-link:hover { background: url(../images/char_row_link.png) repeat-x left bottom; }
+.mini-list .list .select { cursor:pointer; background: url(../images/char_row_select.png) repeat-x left top; color: #FFFFFF;}
+.mini-list .list .select a { color: #FFFFFF; }
+.mini-list .list .select:hover { background: url(../images/char_row_select.png) repeat-x left bottom; }
+
+.mini-list .list .c1 { background: url(../images/miniguild/warrior.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c2 { background: url(../images/miniguild/paladin.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c3 { background: url(../images/miniguild/hunter.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c4 { background: url(../images/miniguild/rogue.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c5 { background: url(../images/miniguild/priest.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c6 { background: url(../images/miniguild/deathknight.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c7 { background: url(../images/miniguild/shaman.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c8 { background: url(../images/miniguild/mage.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c9 { background: url(../images/miniguild/warlock.jpg) repeat-x left top; color: #FFFFFF; }
+.mini-list .list .c11 { background: url(../images/miniguild/druid.jpg) repeat-x left top; color: #FFFFFF; }
+
+.mini-list .list .c1:hover { background: url(../images/miniguild/warrior.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c2:hover { background: url(../images/miniguild/paladin.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c3:hover { background: url(../images/miniguild/hunter.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c4:hover { background: url(../images/miniguild/rogue.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c5:hover { background: url(../images/miniguild/priest.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c6:hover { background: url(../images/miniguild/deathknight.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c7:hover { background: url(../images/miniguild/shaman.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c8:hover { background: url(../images/miniguild/mage.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c9:hover { background: url(../images/miniguild/warlock.jpg) repeat-x left bottom; color: #FFFFFF; }
+.mini-list .list .c11:hover { background: url(../images/miniguild/druid.jpg) repeat-x left bottom; color: #FFFFFF; }
+
+.mini-list .list .lvl { float: left; width:20px; }
+.mini-list .list .name { float: left; }
+.mini-list .list .info { float: right; }
+.mini-list .list .info img { float: left; margin: 0 0 0 2px; padding: 0; height: 20px; width: 20px; }
+
+/* Config Tier Styles */
+.ctier-3-a { background:url('../images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; min-height: 30px; max-height: 100px; min-width: 210px; padding:1px 1px 1px 1px}
+.ctier-3-b { background:url('../images/tier/tier_1_b.gif') left top repeat-x; border:1px solid #ffffd6; padding:2px 2px 2px 2px; max-height: 100px;}
+.ctier-3-b .config { position: relative; cursor: default; text-align:left; color:#000000;  font: bold 11px Geneva, Arial, Helvetica, sans-serif;  }
+.ctier-3-b .config-name { position: relative; float: left;}
+.ctier-3-b .config-input { position: relative; float: right;}
+.config-input { position: relative; float: right;}
+/* Common Styles */
+
+.tier-1-a { background:url('../images/tier/tier_1_a.gif') left top repeat; border:1px solid #b6803d; margin: 20px 20px 0px; }
+.tier-1-b { background:url('../images/tier/tier_1_b.gif') left top repeat-x; border:1px solid #ffffd6 }
+.tier-1-c { background:url('../images/tier/tier_1_c.jpg') left top no-repeat; padding:7px 7px 6px }
+
+.tier-1-title { color:#491F14; text-decoration:none; display:block; position:relative; font: normal 22px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
+.tier-1-title .links { float: right; margin-top: 1px; }
+.tier-1-title .icon { height: 22px; width: 22px; float: left; margin: 0 5px; position: relative; }
+.tier-1-title .icon img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
+.tier-1-title .icon .mask { background: url(../images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
+
+.tier-1-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
+.tier-1-title .left { height: 22px; float: left; margin-left: 5px; position: relative; }
+.tier-1-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
+.tier-1-title .toggle img { height: 22px; width: 22px; }
+
+
+.tier-2-a { background:url('../images/tier/tier_2_a.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
+.tier-2-b { background:url('../images/tier/tier_2_b.jpg') left top repeat-x; border:1px solid #fff; padding:7px 7px 6px; }
+
+.tier-2-title { color:#135E82; display:block; text-align:left; padding:0; margin-bottom: 5px; font: bolder normal 18px Georgia, "Times New Roman", Times, serif; text-transform: capitalize; }
+.tier-2-title .icon { height: 22px; width: 22px; float: left; margin-right: 5px; left: -2px; top: -2px; position: relative; }
+.tier-2-title .icon img { position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px; }
+.tier-2-title .icon .mask { background: url(../images/mask/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
+
+.tier-2-title .right { height: 22px; float: right; margin-left: 5px; position: relative; }
+.tier-2-title .left { height: 22px; float: left; margin-left: 5px; position: relative; }
+.tier-2-title .toggle { height: 22px; width: 22px; float: right; margin-left: 5px; position: relative; }
+.tier-2-title .toggle img { height: 22px; width: 22px; }
+
+.tier-2-b .info-text { font: 12px Georgia, "Times New Roman", Times, serif; text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
+.tier-2-b .info-text-h { font: 12px Georgia, "Times New Roman", Times, serif; text-align: left; color: #000; font-size: 14px; line-height: 20px; }
+
+
+.tier-3-a { background:url(../images/tier/tier_3_a.jpg) no-repeat right top; height: 24px; min-width: 210px; }
+.tier-3-b { background:url(../images/tier/tier_3_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
+
+.tier-3-b .text { text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
+.tier-3-b .text div { float: left; height: 20px; }
+
+.tier-3-b .right { height: 16px; float: right; margin-left: 5px; position: relative; }
+.tier-3-b .toggle { height: 17px; width: 17px; float: right; margin-left: 3px; position: relative; }
+.tier-3-b .toggle img { height: 17px; width: 17px; }
+.tier-3-b .buttons { height: 16px; float: right; padding: 1px; }
+.tier-3-b .buttons a { font: 10px/16px Georgia, "Times New Roman", Times, serif; background: #C60; height: 16px; border: 1px solid #000; margin: 1px; }
+
+.tier-3-b .skill { cursor: default; text-align:left; color:#000000; height: 20px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; }
+.tier-3-b .skill-name { float: left; position: relative; line-height: 20px; }
+.tier-3-b .skill-bar { height: 16px; width: 400px; border: 1px solid #000000; margin: 1px; float: right; position: relative; background: #333333; }
+.tier-3-b .skill-bar:hover { border: 1px solid #FFFFFF; }
+.tier-3-b .skill-bar .fill{ background: #006666 url(../images/skill_lvl_bg.png) repeat-x left; position: absolute; height: 16px; left: 0px; top: 0px; }
+.tier-3-b .skill-bar .text { width:400px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0; top: 0; text-align: center; }
+
+.tier-3-b .config { cursor: default; text-align:left; color:#000000; height: 20px; font: bold 11px Geneva, Arial, Helvetica, sans-serif; line-height: 20px; }
+.tier-3-b .config-name { height: 20px; float: left; overflow: hidden; }
+.tier-3-b .config-input { height: 20px; float: right; }
+
+.tier-3-a .white { background:url(../images/tier/color/tier_3_b_white.jpg) no-repeat left top; }
+.tier-3-a .red { background:url(../images/tier/color/tier_3_b_red.jpg) no-repeat left top; }
+.tier-3-a .orange { background:url(../images/tier/color/tier_3_b_orange.jpg) no-repeat left top; }
+.tier-3-a .yellow { background:url(../images/tier/color/tier_3_b_yellow.jpg) no-repeat left top; }
+.tier-3-a .green { background:url(../images/tier/color/tier_3_b_green.jpg) no-repeat left top; }
+.tier-3-a .blue { background:url(../images/tier/color/tier_3_b_blue.jpg) no-repeat left top; }
+.tier-3-a .purple { background:url(../images/tier/color/tier_3_b_purple.jpg) no-repeat left top; }
+.tier-3-a .grey { background:url(../images/tier/color/tier_3_b_grey.jpg) no-repeat left top; }
+.tier-3-a .brown { background:url(../images/tier/color/tier_3_b_brown.jpg) no-repeat left top; }
+
+
+.tier-4-a { background:url(../images/tier/tier_4_a.jpg) no-repeat right top; height: 24px; }
+.tier-4-b { background:url(../images/tier/tier_4_b.jpg) no-repeat left top; height: 24px; padding:2px 2px 2px 7px }
+
+.tier-4-b .text { text-align: left; color: #000; font-size: 14px; line-height: 20px; height: 20px; }
+.tier-4-b .text div { float: left; height: 20px; }
+
+.tier-4-b  .ts_string { text-align: left; line-height: 20px; }
+
+
+.tier-5-a { background:url(../images/tier/tier_5_a.jpg) no-repeat right top; height: 30px; }
+.tier-5-b { background:url(../images/tier/tier_5_b.jpg) no-repeat left top; height: 30px; padding: 3px }
+
+.tier-5-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
+.tier-5-b .text div { float: left; height: 24px; }
+
+
+.tier-6-a { background:url(../images/tier/tier_6_a.jpg) no-repeat right top; height: 30px; }
+.tier-6-b { background:url(../images/tier/tier_6_b.jpg) no-repeat left top; height: 30px; padding: 3px }
+
+.tier-6-b .text { text-align: left; color: #FFF; font-size: 14px; line-height: 24px; height: 24px; }
+.tier-6-b .text div { float: left; height: 24px; }
+
+.tier-6-a .white { background:url(../images/tier/color/tier_6_b_white.jpg) no-repeat left top; }
+.tier-6-a .red { background:url(../images/tier/color/tier_6_b_red.jpg) no-repeat left top; }
+.tier-6-a .orange { background:url(../images/tier/color/tier_6_b_orange.jpg) no-repeat left top; }
+.tier-6-a .yellow { background:url(../images/tier/color/tier_6_b_yellow.jpg) no-repeat left top; }
+.tier-6-a .green { background:url(../images/tier/color/tier_6_b_green.jpg) no-repeat left top; }
+.tier-6-a .blue { background:url(../images/tier/color/tier_6_b_blue.jpg) no-repeat left top; }
+.tier-6-a .purple { background:url(../images/tier/color/tier_6_b_purple.jpg) no-repeat left top; }
+.tier-6-a .grey { background:url(../images/tier/color/tier_6_b_grey.jpg) no-repeat left top; }
+.tier-6-a .brown { background:url(../images/tier/color/tier_6_b_brown.jpg) no-repeat left top; }
+
+
+/* Container Styles */
+.container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.container .box-label .icon { height: 22px; width: 22px; position: absolute; left: 4px; top: 4px; }
+.container .box-label .icon img{ position: absolute; left:-1px; top:-1px; clip: rect(2px 22px 22px 2px); height: 23px; width: 23px;}
+.container .box-label .icon .mask { background: url(../images/icon_mask.png) no-repeat left top; height: 22px; width: 22px; position: absolute; left: 0; top: 0; }
+.container .box-label .profile { background: url(info/../images/icons/profile.gif) no-repeat left top; }
+
+.container .inner { margin-right: 20px; margin-left: 20px; }
+
+
+
+.roles {
+	position:relative; display:inline-block;
+    /*display: block;*/
+    height: 16px;
+    left: 3px;
+    position: absolute;
+    top: 19px;
+    width: 32px;
+	z-index: 100;
+}
+.icon-dps, .icon-healer, .icon-tank {
+    background: url(../images/roles.png) no-repeat scroll 0 0 transparent;
+    float: right;
+    height: 16px;
+    width: 16px;
+}
+.icon-dps {
+    background-position: 0 0;
+}
+.icon-healer {
+    background-position: -16px 0;
+}
+.icon-tank {
+    background-position: -32px 0;
+}
+
+/* Medium Item Qualities */
+.item { position:relative; display:inline-block; float: left; margin: 3px; height: 40px; width: 40px; }
+.item img{ position: absolute; display:block; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
+.item .mask { position: absolute; display:block; background: url(../images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; z-index: 100; left: 0; top: 0; }
+
+.item .none,
+.item .poor { background: url(../images/mask/medium/item_poor.png) no-repeat left top; }
+.item .common { background: url(../images/mask/medium/item_common.png) no-repeat left top; }
+.item .uncommon { background: url(../images/mask/medium/item_uncommon.png) no-repeat left top; }
+.item .rare { background: url(../images/mask/medium/item_rare.png) no-repeat left top; }
+.item .epic { background: url(../images/mask/medium/item_epic.png) no-repeat left top; }
+.item .legendary { background: url(../images/mask/medium/item_legendary.png) no-repeat left top; }
+.item .artifact,
+.item .heirloom { background: url(../images/mask/medium/item_artifact.png) no-repeat left top; }
+
+.item:hover .mask,
+.item:hover .none,
+.item:hover .poor,
+.item:hover .common,
+.item:hover .uncommon,
+.item:hover .rare,
+.item:hover .epic,
+.item:hover .legendary,
+.item:hover .artifact,
+.item:hover .heirloom { background-position: left bottom; }
+
+/* Container Small Item Qualities */
+.item-sm { position:relative; display:inline-block; width: 24px; height: 24px; margin: 0; padding: 0; }
+.item-sm img { display:block; width: 24px; height: 24px; margin: 0; padding: 0; }
+.item-sm .mask { position: absolute; display:block; background: url(../images/mask/small/item_poor.png) no-repeat left top; height: 24px; width: 24px; position: absolute; z-index: 100; left: 0; top: 0;}
+
+.item-sm .none,
+.item-sm .poor { background: url(../images/mask/small/item_poor.png) no-repeat left top; }
+.item-sm .common { background: url(../images/mask/small/item_common.png) no-repeat left top; }
+.item-sm .uncommon { background: url(../images/mask/small/item_uncommon.png) no-repeat left top; }
+.item-sm .rare { background: url(../images/mask/small/item_rare.png) no-repeat left top; }
+.item-sm .epic { background: url(../images/mask/small/item_epic.png) no-repeat left top; }
+.item-sm .legendary { background: url(../images/mask/small/item_legendary.png) no-repeat left top; }
+.item-sm .artifact,
+.item-sm .heirloom { background: url(../images/mask/small/item_artifact.png) no-repeat left top; }
+
+.item-sm:hover .mask,
+.item-sm:hover .none,
+.item-sm:hover .poor,
+.item-sm:hover .common,
+.item-sm:hover .uncommon,
+.item-sm:hover .rare,
+.item-sm:hover .epic,
+.item-sm:hover .legendary,
+.item-sm:hover .artifact,
+.item-sm:hover .heirloom { background-position: left bottom; }
+
+/* Item Quantities */
+.item span, .item-sm span { position:absolute; cursor: default; color:#fff; font-weight:bold; z-index: 125; }
+.item b, .item-sm b { position:absolute; cursor: default; color:#000; font-weight:bold; z-index: 120; }
+.item span { bottom:1px; right:3px; font-size:12px; }
+.item b { bottom:0; right:2px; font-size:12px; }
+.item-sm b { bottom:-5px; right:1px; font-size:10px; }
+.item-sm span {  bottom:-4px; right:2px; font-size:10px; }
+
+
+#keyslist img.icon {height:20px; width:20px;}
+
+/* Navagation tabs */
+.sections { font:11px arial,helvetica,sans-serif; width:100%; }
+.sections ul { margin:0; padding:0; list-style:none; }
+.sections li { float:left; background:url(../images/tabs/inactive_left.png) no-repeat left top; margin:0 3px -7px 0; padding-left:7px; cursor:pointer; }
+.sections .text { display:block; background:url(../images/tabs/inactive_right.png) no-repeat right top; padding:10px 11px 8px 3px; text-decoration:none; font-weight:bold; color:#333; }
+.sections .text:hover { color:#000000; }
+.sections .selected { background-image:url(../images/tabs/active_left.png); cursor:default; }
+.sections .selected .text { background-image:url(../images/tabs/active_right.png); color:#000000; padding:8px 11px 10px 3px; }
+
+/* Block style navigation tabs */
+.tab-navigation { font:11px arial,helvetica,sans-serif; line-height:normal; }
+.tab-navigation ul { margin:0; padding:0; list-style:none; }
+.tab-navigation li { background: transparent url(../images/shader.png) repeat; float:left; margin:0 0 3px 3px; cursor:pointer; border: 1px solid #06F; padding: 5px; }
+.tab-navigation .text { display:block; text-decoration:none; font-weight:normal; color:#FFDD00; }
+.tab-navigation .text:hover { color:#ffffff; font-weight:normal; }
+.tab-navigation .selected { cursor:default; border-color:#FC0; }
+.tab-navigation .selected .text { color:#ffffff; }
+
+.roster-panel { clear: left; }
+
+.roster-panel .container { padding: 0 0 20px; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
+.roster-panel .container .box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+.roster-panel .container .box-label .icon { background: transparent no-repeat left center; height: 33px; width: 32px; position: absolute; left: 4px; top: 4px; }
+
+
+img, p { padding:0;margin:0;border:0; }
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #cccccc; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2NjY2NjYyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzMzMzMzMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjY2NjY2MiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(left,  #cccccc 0%, #333333 50%, #cccccc 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#cccccc), color-stop(50%,#333333), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left,  #cccccc 0%,#333333 50%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left,  #cccccc 0%,#333333 50%,#cccccc 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left,  #cccccc 0%,#333333 50%,#cccccc 100%); /* IE10+ */
+  background: linear-gradient(left,  #cccccc 0%,#333333 50%,#cccccc 100%); /* W3C */
+}
+
+/**
+ * Search Rows
+ */
+.SearchRowAltColor1, .SearchRowAltColor2 { background: #deb760 url(../images/set_row.png) repeat-x left top; }
+
+.SearchRowCell {
+	position:relative;
+	text-align:left;
+	color:#ffffff;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 0 0 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 6px 3px 6px;
+}
+
+.SearchRowCellRight {
+	position:relative;
+	text-align:left;
+	color:#ffffff;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	border-style:solid;
+	border-width:1px 1px 0 1px;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 6px 3px 6px;
+}
+
+.SearchNextPrev {
+	border-width:1px;
+	border-style:solid;
+	border-color:#000000 #5D5D5D #5D5D5D #5D5D5D;
+	padding:3px 5px;
+	font-size:11px;
+}
+
+.search-other td {
+	text-align:left;
+	border-left:1px solid #4e4d4c;
+	padding:3px 5px;
+	font-size:13px;
+}
+
+.search-other ul {
+	padding:0;
+	margin:0;
+	list-style:inside;
+	font-size:11px;
+}
+
+.title_text { font:bold 16px arial,helvetica,sans-serif; }
+.headline_1 { font:bold 14px arial,helvetica,sans-serif;color:#ffffff;padding:5px 0 5px 0;margin:0; }
+.headline_2 { font:bold 12px arial,helvetica,sans-serif;color:#dfb901; }
+.headline_3 { font:bold 12px arial,helvetica,sans-serif; }
+
+.expOutline { border:1px solid #5A5D5A;background-color:#000000; }
+
+.levelbarParent { position:relative;height:1px; }
+.levelbarChild {
+	position:absolute;
+	width:100%;
+	text-align:center;
+	top:2px;
+	color:#ffffff;
+	font:bold 10px arial,helvetica,sans-serif;
+}
+
+/* this can be used to ensure checkboxes and radio buttons do not have a border */
+.checkBox { border:0;color:#ffffff;font:10px verdana,arial;background-color:transparent; }
+
+.button_hide { border:0;background-color:transparent;padding:0;margin:0;cursor:pointer; }
+
+.sqlwindow {
+	text-align:left;
+	font-size:11px;
+}
+
+
+/**
+ * Message box
+ */
+#notify { width:100%; position:relative; color:#999999; }
+#notify div.message { position:relative; margin:5px 0 0 0; padding:0.2em; }
+#notify .close { position:absolute; top:4px; right:4px; }
+#notify div.message h4 { padding:0.2em; margin-bottom: 0; }
+#notify div.message .ui-icon { float:left; margin-right:0.3em; }
+#notify div.message .content { padding:1em; margin-left:20px; margin-top:3px; padding-top:0; }
+
+
+/**
+ * RosterCP
+ */
+.config-menu {
+	width: 145px;
+	float: left;
+}
+.config-body {
+	width: 100;
+	position: relative;
+}
+.config-body-menu {
+	width: 710px;
+	margin-left: 145px;
+	position: relative;
+}
+
+.config-section a,
+.config-section-addons a {
+	font-size: 12px;
+	margin-bottom: 3px;
+}
+.config-section-addons {
+	margin-top: 4px;
+}
+
+.config-submit {
+	position: absolute;
+	right: 0;
+	top: -26px;
+	text-align: right;
+}
+.config-submit .ui-selectmenu {
+	text-align: left;
+}
+.addon-status {
+	float: right;
+	text-align: right;
+}
+
+
+/**
+ * List Menus
+ */
+.tab_menu {
+	float: left;
+	width: 130px;
+	color: #FFF;
+	font: 1.3em Arial, Helverica, sans-serif;
+ 	font-weight: bold;
+	list-style-type: none;
+	padding: 0;
+	margin: 0 5px 0 0;
+}
+
+.tab_menu li a {
+	width: 120px;
+	text-align: left;
+	padding: 2px 6px 4px;
+	background: #FECE2F;
+	color: #4C3000;
+	margin: 1px;
+	*margin: 0px;
+	display: block;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 0.7em;
+	font-style: normal;
+}
+
+.tab_menu li hr {
+	border: 0;
+	width: 142px;
+	height: 5px;
+	background: #4C3000;
+	color: #4C3000;
+	margin: 1px;
+	*margin: 0px;
+	display: block;
+}
+
+.tab_menu li .ui-icon:hover + a,
+.tab_menu li .ui-icon:hover + .ui-icon + a,
+.tab_menu li a:hover {
+	background: #FFDD57;
+	color: #0074C7;
+	width: 126px;
+}
+
+.tab_menu li.selected a {
+	background: #FFF8E1;
+	color: #4C3000;
+	width: 130px;
+	cursor: default;
+}
+
+
+.RGaccepy {
+	position:relative;display:block; background: url(../images/admin/green.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left: -8px;
+	top: 5px;
+	}
+.RGdenyed {
+	position:relative;display:block; background: url(../images/admin/red.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left:-8px;
+	top: 5px;
+	}
+.RGquestion {
+	position:relative; display:inline-block; background: url(../images/admin/yellow.png) no-repeat left top; height: 16px; width: 16px; z-index: 100;
+	left: -8px;
+	top: 5px;
+	}
+/* Ignore the following options except in the cp */
+
+/**
+ * Row Coloring
+ */
+.membersRowColor1, .membersRowColor2 { background: #deb760 url(../images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
+.membersRowColor1:hover, .membersRowColor2:hover { background: #b9dc64 url(../images/set_row_hover.png) repeat-x left top;}
+
+.membersRowAltColor1, .membersRowAltColor2 { background: url(../images/set_row.png) repeat-x left top; border-top: 1px solid #9D7D1C;}
+.membersRowAltColor1:hover, .membersRowAltColor2:hover { background: url(../images/set_row_hover.png) repeat-x left top;}
+
+.membersHeader, .membersHeaderRight {
+	text-align:left;
+	white-space:nowrap;
+	color:#000000;
+	font:bold 11px arial,helvetica,sans-serif;
+	background: url(../images/th_bg.png) repeat-x center top;
+	padding:0 6px 0 6px;
+	height: 20px;
+	vertical-align:middle;
+}
+
+.membersRowCell, .membersRowRightCell {
+	position:relative;
+	text-align:left;
+	color:#000000;
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	font-weight:bold;
+	white-space:nowrap;
+	padding:3px 6px 3px 6px;
+}
+
+.membersRow1, .membersRow2, .membersRowRight1, .membersRowRight2 { border-top: 1px solid #9D7D1C; position:relative; text-align:left; color:#000000; background: #deb760 url(../images/set_row.png) repeat-x left top; font:bold 11px arial,helvetica,sans-serif; white-space:nowrap; padding:3px 6px 3px 6px; }
+
+img.middle,
+.membersRowimg { vertical-align:middle; }
+
+/**
+ * power bars
+ */
+.bar { font: bold 11px Geneva, Arial, Helvetica, sans-serif; position: relative; height: 20px; text-transform: uppercase; }
+.bar .power-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
+.bar .power-bar { background: transparent repeat-x left center; margin: 1px; line-height: 16px; height: 16px; width: 334px; position: relative; text-align: center; border: 1px solid #000000; }
+.bar .health { background: url(../images/bars/bar-life.gif); }
+.bar .health:hover { border-color: #7EFF00; }
+.bar .mana { background: url(../images/bars/bar-mana.gif); }
+.bar .mana:hover { border-color: #00A8FF; }
+.bar .rage { background: url(../images/bars/bar-rage.gif); }
+.bar .rage:hover { border-color: #FF0000; }
+.bar .energy { background: url(../images/bars/bar-energy.gif); }
+.bar .energy:hover { border-color: #FFE100; }
+.bar .focus { background: url(../images/bars/bar-energy.gif); }
+.bar .focus:hover { border-color: #FFE100; }
+.bar .runes { background: url(../images/bars/bar-runes.gif); }
+.bar .runes:hover { border-color: #00A8FF; }
+.bar .runicpower { background: url(../images/bars/bar-runicpower.gif); }
+.bar .runicpower:hover { border-color: #00A8FF; }
+.bar .xp-name { float: right; position: relative; line-height: 20px; margin-right: 6px; }
+.bar .xp-bar { margin: 1px; line-height: 16px; height: 16px; width: 334px; position: relative; text-align: center; border: 1px solid #000000; background: #333333; }
+.bar .xp-bar .fill { background: transparent url(../images/bars/xp-normal.gif) repeat-x left center; position: absolute; height: 16px; left: 0px; top: 0px; }
+.bar .xp-bar .text { width:334px; height:16px; line-height: 16px; color:#FFFFFF; position: absolute; left: 0px; top: 0px; text-align: center; }
+.bar .xp-bar .normal { background: url(../images/bars/xp-normal.gif); }
+.bar .normal:hover { border-color: #00A8FF; }
+.bar .xp-bar .rested { background: url(../images/bars/xp-rested.gif); }
+.bar .rested:hover { border-color: #8F00FF; }
+.bar .xp-bar .max { background: url(../images/bars/xp-rested.gif); }
+.bar .max:hover { border-color: #8F00FF; }
+
+/**
+ * Border Styles
+ */
+.border_frame { border: 1px solid #EEDBA2; margin: auto; padding:0; background: #deb760; color: #000; }
+
+.border_color {
+	border-width:1px;
+	border-style:solid;
+}
+
+/* Header Text */
+.header_text {
+	text-align:center;
+	white-space:nowrap;
+	overflow:hidden;
+	color:#000000;
+	font:bold 16px arial,helvetica,sans-serif;
+	background: url(../images/skill_title_bg.png) repeat-x left bottom;
+	padding:10;
+	vertical-align:middle;
+}
+
+/* Border Colors */
+.swhiteborder { border-color:#FFFFFF; }
+.sgreyborder, .sgrayborder { border-color:#999999; }
+.sgoldborder { border-color:#D3A229; }
+.sredborder { border-color:#FF0000; }
+.sorangeborder { border-color:#FFA500; }
+.syellowborder { border-color:#FFCC00; }
+.sgreenborder { border-color:#008000; }
+.sblueborder { border-color:#0000FF; }
+.spurpleborder { border-color:#4B0082; }
+
+
+/**
+ * Class colorization
+ */
+.classDeathKnighttxt { color:#C41F3B; }
+.classDruidtxt { color:#FF7D0A; }
+.classHuntertxt { color:#ABD473; }
+.classMagetxt { color:#69CCF0; }
+.classPaladintxt { color:#F58CBA; }
+.classPriesttxt { color:#FFFFFF; }
+.classRoguetxt { color:#FFF569; }
+.classShamantxt { color:#2459FF; }
+.classWarlocktxt { color:#9482C9; }
+.classWarriortxt { color:#C79C6E; }
+
+
+/**
+ * Random color defines
+ */
+.white { color:#ffffff; }
+.yellow { color:#ffd200; }
+.green { color:#7eff00; }
+.grey { color:#808080; }
+.red { color:#ff0000; }
+.orange { color:#ff9900; }
+.purple { color:#8000ff; }
+.blue { color:#0068ff; }
+.gold { color:#ffcc00; }
+.brown { color:#593300; }
+
+.whiteB { font-weight:bold;color:#ffffff; }
+.yellowB { font-weight:bold;color:#ffd200; }
+.greenB { font-weight:bold;color:#7eff00; }
+.greyB { font-weight:bold;color:#808080; }
+.redB { font-weight:bold;color:#ff0000; }
+.orangeB { font-weight:bold;color:#ff9900; }
+.purpleB { font-weight:bold;color:#8000ff; }
+.blueB { font-weight:bold;color:#0068ff; }
+.goldB { font-weight:bold;color:#ffcc00; }
+.brownB { font-weight:bold;color:#593300; }
+
+.iconwhite, .icongrey, .icongreen, .iconblue, .iconpurple
+	{ float:left;width:40px;height:40px;padding:1px 0 0 0;z-index:1;border:2px solid #ffffff; }
+.iconwhite { }
+.icongrey { border-color:#9d9d9d; }
+.icongreen { border-color:#1eff00; }
+.iconblue { border-color:#0070dd; }
+.iconpurple { border-color:#aa00dd; }
+
+/**
+ * END Random color defines
+ */
+
+/**
+ * Form Styles
+ */
+form.inline { display:inline-block; }
+form.close { margin:0; }
+form.slim { margin:0;padding:0; }
+
+.nicEdit-main { background-color: white; color: black; }
+
+.ul-no-m {
+	margin:5px 0 2px 0;
+}
+
+/**
+ * Overlib Tooltip Styles
+ */
+#overDiv { position: absolute; visibility: hidden; z-index: 9999; padding: 0; margin: 0; }
+#overDiv a:link,
+#overDiv a:visited,
+#overDiv a:active { color:#069; text-decoration:none; font-weight:bold; }
+#overDiv a:hover { color:#4C3000; text-decoration:none; font-weight:bold; }
+
+/* Sets the border style - ol_bgclass */
+.overlib_border {
+	background: transparent url(../images/shader.png) repeat;
+	border: 2px outset #CCCCCC;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	color: #ffffff;
+	font: 10px verdana, arial, helvetica, sans-serif;
+}
+
+/* Sets Caption Text - ol_captionfontclass */
+.overlib_captiontext {
+	background: transparent url(../images/shader.png) repeat;
+	/*background-color: #2E2D2B;*/
+	font-weight: bold;
+	font-size: 11px;
+}
+
+/* Sets Close Text - ol_closefontclass */
+.overlib_closetext {
+	background: transparent url(../images/shader.png) repeat;
+	/*background-color: #2E2D2B;*/
+	font-weight: bold;
+	font-size: 11px;
+}
+
+/* Sets main text background - ol_fgclass */
+.overlib_fg { padding: 0 2px 1px 2px; }
+
+/* Sets main text style - ol_textfontclass */
+.overlib_maintext {
+	white-space: normal;
+}
+
+
+
+/**
+ * aPrint Styles
+ */
+ul.aprint-node {
+	margin: 0;
+	padding: 0;
+	background-color: white;
+}
+ul.aprint-node ul {
+	margin-left: 20px;
+}
+* html ul.aprint-node ul {
+	margin-left: 24px;
+}
+div.aprint-root {
+	color: black;
+	border: solid 1px black;
+	margin: 1em 0;
+}
+ul.aprint-first {
+	font: normal 11px tahoma, verdana;
+	border: solid 1px white;
+}
+li.aprint-child {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+div.aprint-element {
+	cursor: default;
+	display: block;
+	clear: both;
+	white-space: nowrap;
+	background-color: white;
+	padding: 2px 0 3px 19px;
+}
+* html div.aprint-element {
+	padding-bottom: 3px;
+	line-height: 13px;
+}
+div.aprint-expand {
+	padding-left: 0;
+	cursor: pointer;
+}
+div.aprint-expand .ui-icon {
+	float: left;
+}
+div.aprint-hover {
+	background-color: #BFDFFF;
+}
+a.aprint-name {
+	color: navy;
+	font: bold 13px courier new;
+	line-height: 12px;
+}
+a.aprint-name big {
+	font: bold 16pt Georgia;
+	line-height: 10px;
+	position: relative;
+	top: 2px;
+	left: -2px;
+}
+* html a.aprint-name big {
+	font: bold 15pt Georgia;
+	float: left;
+	top: -5px;
+	left: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+em.aprint-type {
+	font-style: normal;
+	margin: 0px 2px;
+}
+div.aprint-preview {
+	font: normal 12px courier new;
+	padding: 5px;
+	background: lightyellow;
+	border: solid 1px #808000;
+	overflow: auto;
+	margin: 5px 1em 1em 0px;
+	white-space: pre-wrap;
+}
+* html div.aprint-preview {
+	padding-top: 2px;
+}
+li.aprint-footnote {
+	background: white url(data:image/gif;base64,R0lGODlhCgACALMAAP///8DAwP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAAALAAAAAAKAAIAAAQIEMhJA7D4gggAOw%3D%3D) repeat-x;
+	padding: 4px 5px 3px 5px;
+	list-style: none;
+	cursor: default;
+}
+* html li.aprint-footnote {
+	line-height: 13px;
+}
+li.aprint-footnote span.aprint-call {
+	white-space: nowrap;
+	font:normal 11px tahoma, verdana;
+	position: relative;
+	top: 1px;
+}
+li.aprint-footnote span.aprint-call code {
+	font-weight:bold;
+}
+div.aprint-title {
+	font: normal 11px tahoma, verdana;
+	position:relative;
+	top:9px;
+	cursor:default;
+	line-height:2px;
+}
+strong.aprint-array-length,
+strong.aprint-string-length {
+	font-weight: normal;
+	color: #000099;
+}
+
+
+/**
+ * Color Picker
+ */
+input.color-picker {
+	margin-right: 0;
+	padding: 2px 2px 3px 6px;
+	vertical-align: middle;
+	border-radius: 6px 0 0 6px;
+}
+div.color-display {
+	width: 20px;
+	height: 18px;
+	background: black;
+	display: inline-block;
+	vertical-align: middle;
+	border-radius: 0 6px 6px 0;
+	-moz-border-radius: 0 6px 6px 0;
+	margin-left: 0;
+	cursor: pointer;
+}
+/* Old color picker */
+input.colorinput {
+	font-family: Segoe UI, Arial, sans-serif;
+	font-size: 10px;
+	background: transparent url('../images/color/input_img.png') no-repeat;
+	color: #000000;
+	text-shadow: none;
+	border: 0;
+	height: 16px;
+	margin-right: 1px;
+	padding: 2px 5px;
+	vertical-align: middle;
+	width: 60px;
+	border-radius: 0;
+	-moz-border-radius: 0;
+}
+* html input.colorinput { background-attachment:fixed; }
+
+#colorPicker {
+	position:absolute;
+	width:250px;
+	padding-bottom:1px;
+	background-color:#1F1E1D;
+	border:1px solid #5D5D5D;
+	width:252px;    /* IE 5.x */
+	width/* */:/**/250px;   /* Other browsers */
+	width:/**/250px;
+}
+#colorPicker .colorPicker_topRow {
+	padding-bottom:1px;
+	border-bottom:3px double #5D5D5D;
+	background-color:#2E2D2B;
+	padding-left:2px;
+	width:250px;    /* IE 5.x */
+	width/* */:/**/248px;   /* Other browsers */
+	width:/**/248px;
+	height:20px;    /* IE 5.x */
+	height/* */:/**/16px;   /* Other browsers */
+	height:/**/16px;
+}
+#colorPicker .colorPicker_statusBar {
+	height:13px;
+	padding-bottom:2px;
+	width:248px;
+	border-top:3px double #5D5D5D;
+	background-color:#2E2D2B;
+	padding-left:2px;
+	clear:both;
+	width:250px;    /* IE 5.x */
+	width/* */:/**/248px;   /* Other browsers */
+	width:/**/248px;
+	height:18px;    /* IE 5.x */
+	height/* */:/**/13px;   /* Other browsers */
+	height:/**/13px;
+}
+#colorPicker .colorSquare {
+	margin-left:1px;
+	margin-bottom:1px;
+	float:left;
+	border:1px solid #000;
+	cursor:pointer;
+	width:12px;     /* IE 5.x */
+	width/* */:/**/10px;    /* Other browsers */
+	width:/**/10px;
+	height:12px;    /* IE 5.x */
+	height/* */:/**/10px;   /* Other browsers */
+	height:/**/10px;
+}
+.colorPickerTab_inactive,
+.colorPickerTab_active { height:17px;padding-left:4px;cursor:pointer; }
+
+.colorPickerTab_inactive span { background-image:url(../images/color/tab_left_inactive.gif); }
+.colorPickerTab_active span{ background-image:url(../images/color/tab_left_active.gif); }
+
+.colorPickerTab_inactive span,
+.colorPickerTab_active span {
+	line-height:16px;
+	font-weight:bold;
+	font-family:arial,helvetica,sans-serif;
+	font-size:11px;
+	color:#CBA300;
+	padding-top:1px;
+	vertical-align:middle;
+	background-position:top left;
+	background-repeat:no-repeat;
+	float:left;
+	padding-left:6px;
+}
+.colorPickerTab_inactive img,
+.colorPickerTab_active img { float:left; }
+
+.colorPickerCloseButton {
+	width:16px;
+	height:15px;
+	position:absolute;
+	right:1px;
+	top:1px;
+	cursor:pointer;
+}
+#colorPicker_statusBarTxt {
+	font-size:11px;
+	font-family:arial,helvetica,sans-serif;
+	color:#CBA300;
+	vertical-align:top;
+	line-height:13px;
+}
+
+.form_widget_amount_slider {
+	border-top:1px solid #9d9c99;
+	border-left:1px solid #9d9c99;
+	border-bottom:1px solid #eee;
+	border-right:1px solid #eee;
+	background-color:#2E2D2B;
+	position:absolute;
+	bottom:0px;
+	width:5px;      /* IE 5.x */
+	width/* */:/**/3px;     /* Other browsers */
+	width:/**/3px;
+	height:5px;     /* IE 5.x */
+	height/* */:/**/3px;    /* Other browsers */
+	height:/**/3px;
+}
+.colorSliderLabel {
+	width:15px;
+	height:20px;
+	float:left;
+	font-size:11px;
+	font-weight:bold;
+	color:#CBA300;
+}
+.colorSlider { width:175px;height:20px;float:left; }
+.colorInput { width:45px;height:20px;float:left; }
+
+.colorPreviewDiv {
+	width:180px;
+	margin-right:2px;
+	margin-top:1px;
+	border:1px solid #CCC;
+	height:20px;
+	float:left;
+	cursor:pointer;
+	width:182px;    /* IE 5.x */
+	width/* */:/**/180px;   /* Other browsers */
+	width:/**/180px;
+	height:22px;    /* IE 5.x */
+	height/* */:/**/20px;   /* Other browsers */
+	height:/**/20px;
+}
+.colorCodeDiv { width:50px;height:20px;float:left; }
+
+
+/**
+ * jQuery-UI overrides
+ */
+.ui-widget { font-size:10px; }
+.ui-icon { display: inline-block; width: 14px; height: 14px; }
+input.ui-button,
+.ui-button-text-only .ui-button-text { padding: .2em .7em; }
+.ui-button-text-icon-primary .ui-button-text,
+.ui-button-text-icons .ui-button-text { padding: .2em 1em .2em 2.1em; }
+.ui-buttonset .ui-button { margin-right: -.4em; }
+select:focus { outline: none; }
+
+.ui-helper-hidden-accessible { top: 0; }
+
+.ui-multiselect { padding: 2px 0 1px 4px; }
+.ui-multiselect-checkboxes { overflow-y:auto }
+
+.ui-selectmenu { height: 1.8em; }
+.ui-selectmenu-menu { z-index: 1005 !important; }
+.ui-selectmenu:focus { outline: none; }
+.ui-selectmenu-status { line-height: 1.0em; }
+.ui-selectmenu-open li.ui-selectmenu-item-selected { border: 1px solid #655e4e; background: #fff8e1 url(../images/ui-bg_gloss-wave_80_fff8e1_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #4c3000; }
+
+/**
+ * CSS Weirdness
+ */
+.exp-content { overflow: auto; }
+
+
+.guild-stats-container { padding:20px 20px 10px; }
+.filtertitle {color: #a37516; letter-spacing: -1px; font-family: Georgia,"Times New Roman",Times,serif;  font-size: 20px;  line-height: 20px !important; padding: 8px 0 5px 10px; }
+.filtercrest { background: url(../images/guildbank_crest.gif) bottom center no-repeat; height: 34px!important; width: 100%; margin: 0 auto; }
+.filtercontainer { background-image: url(../images/sbg.gif); background-repeat: repeat; margin: 0px auto; float:center; border: 1px #caa644 solid; padding: 8px 6px;  font-family: Arial,Helvetica,sans-serif; font-size: 13px; color:#0070dd; }
+.bankcontentsfilter { height:40px; background: url('../images/filter-tabs.gif') 0 0 repeat-x; border-width:1px;  border-style:solid; border-color:#c39749 #c39749 #fbeb9e #c39749; margin:0 55px; padding: 6px; }
+.bottomshadow { background: url(../images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }
+
+.tooltip.box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }

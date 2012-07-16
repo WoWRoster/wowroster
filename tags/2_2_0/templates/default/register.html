@@ -1,0 +1,173 @@
+
+
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-1-title">
+			<div class="icon">
+				<img src="http://www.wowroster.net/Interface/Icons/inv_misc_gear_02.png" alt="" />
+				<div class="mask"></div>
+			</div>
+			<!-- TRANSLATE register -->
+		</div>
+		
+		<div class="tier-1-a" style="margin-top: 5px;">
+			<div class="tier-1-b">
+				<div class="tier-1-c exp-content">
+					<div class="info-text-h">
+						Welcome to Guild Member Registration<br>
+						Unequip the following items then Type in your main characters name in the Charactor Name box and click "check me"
+						<!-- IF CHAR_AUTH eq 1 -->
+						<br><div id="photo"></div>
+						<table>
+							<tr>
+								<td width="100">{N_EQUIP_1}</td>
+								<td width="100">{N_EQUIP_2}</td>
+								<td width="100">{N_EQUIP_3}</td>
+							</tr>
+							<tr>
+								<td>
+										<img src="{R_IMAGE_PTH}{R_EQUIP_1}.gif" alt="" />
+										<div id="EQ1" class="RGquestion"></div>
+								</td>
+								<td>
+
+										<img src="{R_IMAGE_PTH}{R_EQUIP_2}.gif" alt="" />
+										<div id="EQ2" class="RGquestion"></div>
+
+								</td>
+								<td>
+										<img src="{R_IMAGE_PTH}{R_EQUIP_3}.gif" alt="" />
+										<div id="EQ3" class="RGquestion"></div>
+								</td>
+							</tr>
+						</table>
+
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {CNAMETT} onmouseout="return nd();"></span>
+									<label for="username">{CNAME}</label> <input type="submit" name="submit" class="button" id="submit_btn" value="Check Me" />
+									</div>
+									<form name="register" style="display:inline;" method="post" enctype="multipart/form-data" action="">
+									<div class="config-input">
+										<input type="text" name="username" value="" id="pUsername" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {CLASSTT} onmouseout="return nd();"></span>
+									<label for="username">{CLASS}</label>
+									</div>
+									<div class="config-input">
+										<input type="text" name="class" value="" id="class" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {LEVELTT} onmouseout="return nd();"></span>
+									<label for="username">{LEVEL}</label>
+									</div>
+									<div class="config-input">
+										<input type="text" name="level" value="" id="level" disabled="disabled" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {RANKTT} onmouseout="return nd();"></span>
+									<label for="username">{RANK}</label>
+									</div>
+									<div class="config-input">
+										<input type="hidden" name="rank" value="" id="rank" /><div id="title"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ELSE -->
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {CNAMETT} onmouseout="return nd();"></span>
+									<label for="username">{CNAME}</label>
+									</div>
+									<form name="register" style="display:inline;" method="post" enctype="multipart/form-data" action="">
+									<div class="config-input">
+										<input type="text" name="username" value="" id="pUsername" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ENDIF -->
+						
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" {EMAILTT} onmouseout="return nd();"></span>
+									<label for="username">{EMAIL}</label>
+									</div>
+									<div class="config-input">
+										<input type="text" name="email" value="" id="email" size="60"/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						{XXX}
+
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('chose your password DONOT use your wow password',CAPTION,'Password',WRAP);" onmouseout="return nd();"></span>
+									<label for="username"><!-- TRANSLATE password --></label>
+									</div>
+									<div class="config-input">
+										<input type="password" name="password1" value="" id="password1" size="30"/>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<span class="ui-icon ui-icon-help" style="cursor:help;" onmouseover="return overlib('confirm your password above',CAPTION,'Confirm',WRAP);" onmouseout="return nd();"></span>
+									<label for="username"><!-- TRANSLATE new_pass_confirm --></label>
+									</div>
+									<div class="config-input">
+										<input type="password" name="password2" value="" id="password2" size="30"/>
+									</div>
+								</div>
+							</div>
+						</div>
+								
+						<span id="validateUsername">{R_MSG_ERROR}</span>
+						<br>
+						<input type="hidden" name="op" value="register" id="op" />
+						<input type="hidden" name="active" value="{CHAR_AUTH}" id="active" />
+						<input type="submit" name="submit" class="button" id="xsubmit" value="Register" />
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>

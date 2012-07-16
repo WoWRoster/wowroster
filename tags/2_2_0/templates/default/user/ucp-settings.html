@@ -1,0 +1,41 @@
+<!-- $Id$ -->
+
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">Per Character Display settings</div>
+
+		<div class="tab-navigation" style="height: 30px;">
+		<ul id="cds_menu">
+		<!-- BEGIN characters -->
+			<li><a rel="text{characters.ID}" class="text">{characters.CNAME}</a></li>
+		<!-- END characters -->
+		</ul>
+		</div>
+		<form action="" method="post" enctype="multipart/form-data" id="config_config" onsubmit="return confirm('This will save the changes to the database. Are you sure?');">
+			<div class="config-submit">
+				<input type="submit" value="Save Settings" />
+				<input type="hidden" name="process" value="process" />
+			</div>
+
+<!-- BEGIN characters -->
+		<div id="text{characters.ID}" >
+
+<!-- BEGIN cfg -->
+			<div class="tier-3-a">
+				<div class="tier-3-b">
+					<div class="config">
+						<div class="config-name">
+						{characters.cfg.NAME}
+						</div>
+						<div class="config-input">
+							{characters.cfg.FIELD}
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- END cfg -->
+		</div>
+<!-- END characters -->
+		</form>
+	</div>
+</div>
