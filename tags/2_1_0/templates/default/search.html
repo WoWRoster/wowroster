@@ -1,0 +1,227 @@
+<!-- $Id$ -->
+
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"<!-- IF S_RESULT --> style="cursor:pointer;" onclick="showHide('search','img_hide_search','{THEME_PATH}/images/button_open.png','{THEME_PATH}/images/button_close.png');"<!-- ENDIF -->>
+<!-- IF S_RESULT -->
+					<div class="right">
+						<img id="img_hide_search" src="{THEME_PATH}/images/button_close.png" alt="" />
+					</div>
+<!-- ENDIF -->
+					<!-- TRANSLATE search -->
+				</div>
+
+				<form id="search" name="search" action="{U_SEARCH_LINK}" method="post" enctype="multipart/form-data"<!-- IF S_RESULT --> style="display:none;"<!-- ENDIF -->>
+
+					<div class="tier-2-a" style="margin: 20px auto; width: 450px;">
+						<div class="tier-2-b">
+							<div class="tier-2-title">
+								<div class="right">
+									<span class="ui-icon ui-icon-search"></span>
+								</div>
+								<!-- TRANSLATE search_for -->
+							</div>
+	
+							<div class="tier-3-a">
+								<div class="tier-3-b">
+									<div style="float: right;">
+										<input type="submit" value="<!-- TRANSLATE search -->" />
+									</div>
+									<input size="30" type="text" name="search" value="{SEARCH}" />
+								</div>
+							</div>
+						</div>
+					</div>
+	
+					<div class="tier-2-a" style="margin: 20px auto; width: 450px;">
+						<div class="tier-2-b">
+							<div class="tier-2-title">
+								<div class="right">
+									<span class="ui-icon ui-icon-zoomin"></span>
+								</div>
+								<!-- TRANSLATE search_onlyin -->
+							</div>
+	
+							<div class="info-text-h checkset">
+<!-- BEGIN only_search -->
+								<input type="checkbox" id="c_{only_search.BASENAME}" name="s_addon[]" value="{only_search.BASENAME}" <!-- IF only_search.SELECTED --> checked="checked"<!-- ENDIF --> />
+								<label for="c_{only_search.BASENAME}">{only_search.FULLNAME}</label>
+<!-- END only_search -->
+							</div>
+							<br />
+
+							<div class="info-text-h">
+								<!-- TRANSLATE search_advancedoptionsfor -->:
+							</div>
+
+<!-- BEGIN advanced_search -->
+							<div class="tier-3-a">
+								<div class="tier-3-b" style="cursor:pointer;" onclick="showHide('{advanced_search.BASENAME}_options','{advanced_search.BASENAME}_img_options','{THEME_PATH}/images/button_open.png','{THEME_PATH}/images/button_close.png');">
+									<div class="toggle">
+										<img src="{THEME_PATH}/images/button_close.png" style="float:right;" alt="" id="{advanced_search.BASENAME}_img_options" />
+									</div>
+									<div class="text">
+										{advanced_search.FULLNAME}
+									</div>
+								</div>
+							</div>
+	
+							<div id="{advanced_search.BASENAME}_options" class="info-text-h" style="display: none;">
+{advanced_search.SEARCH_OPTIONS}
+							</div>
+<!-- END advanced_search -->
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+<!-- IF S_RESULT -->
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">
+					<!-- TRANSLATE search_results -->: [{SEARCH}]
+				</div>
+
+<!-- BEGIN addon_results -->
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('{addon_results.BASENAME}','{addon_results.BASENAME}_search_img','{THEME_PATH}/images/button_open.png','{THEME_PATH}/images/button_close.png');">
+							<div class="icon">
+								<img id="{addon_results.BASENAME}_item_img" src="{addon_results.ICON}" alt="" />
+								<div class="mask"></div>
+							</div>
+							<div class="toggle">
+								<img id="{addon_results.BASENAME}_search_img" src="{THEME_PATH}/images/button_open.png" alt="" />
+							</div>
+							{addon_results.FULLNAME} <small>{FIRST}-{addon_results.COUNT} / {addon_results.TOTAL} <!-- TRANSLATE search_results_count --> &lt;{addon_results.TIME}&gt;</small>
+						</div>
+
+						<div id="{addon_results.BASENAME}" class="info-text-h">
+							<table width="100%" cellspacing="0" cellpadding="0">
+{addon_results.OPEN_TABLE}
+
+<!-- BEGIN row -->
+{addon_results.row.RESULTS_HEADER}
+								<tr class="SearchRowAltColor{addon_results.row.ROW_CLASS}">
+<!-- IF addon_results.row.HTML -->
+{addon_results.row.HTML}
+<!-- ELSE -->
+									<td class="SearchRowCellRight">
+<!-- IF addon_results.row.HEADER -->
+									{addon_results.row.HEADER}
+<!-- ENDIF -->
+<!-- IF addon_results.row.AUTHOR -->
+									<!-- TRANSLATE submited_author --> {addon_results.row.AUTHOR}
+<!-- ENDIF -->
+<!-- IF addon_results.row.DATE -->
+									<!-- TRANSLATE submited_date --> {addon_results.row.DATE}
+<!-- ENDIF -->
+									<br />
+<!-- IF addon_results.row.LINK -->
+									<a href="{addon_results.row.LINK}"><strong>{addon_results.row.TITLE}</strong></a><br />
+<!-- ENDIF -->
+<!-- IF addon_results.row.SHORT_TEXT -->
+									<span style="white-space:normal">{addon_results.row.SHORT_TEXT}
+<!-- IF addon_results.row.MORE_TEXT -->
+										{addon_results.row.MORE_TEXT} <a href="{addon_results.row.LINK}"><strong>(more)</strong></a>
+<!-- ENDIF -->
+									</span><br />
+<!-- ENDIF -->
+<!-- IF addon_results.row.FOOTER -->
+									<div style="padding-left:8px;">{addon_results.row.FOOTER}</div><br />
+<!-- ENDIF -->
+									</td>
+<!-- ENDIF -->
+								</tr>
+{addon_results.row.RESULTS_FOOTER}
+<!-- END row -->
+
+{addon_results.CLOSE_TABLE}
+							</table>
+<!-- IF addon_results.PREV or addon_results.NEXT -->
+							<div class="SearchNextPrev" align="center">
+<!-- IF addon_results.PREV -->
+								[<a href="{addon_results.PREV}"><strong><!-- TRANSLATE search_previous_matches -->: {addon_results.FULLNAME}</strong></a>]
+<!-- ENDIF -->
+<!-- IF addon_results.NEXT -->
+								[<a href="{addon_results.NEXT}"><strong><!-- TRANSLATE search_next_matches -->: {addon_results.FULLNAME}</strong></a>]
+<!-- ENDIF -->
+							</div>
+<!-- ENDIF -->
+						</div>
+					</div>
+				</div>
+<!-- END addon_results -->
+
+<!-- IF S_NO_RESULTS -->
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title"><!-- TRANSLATE search_nomatches --></div>
+					</div>
+				</div>
+<!-- ENDIF -->
+			</div>
+		</div>
+	</div>
+
+
+	<div class="tier-2-a" style="margin: 20px auto; width: 550px;">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+				<div class="right">
+					<span class="ui-icon ui-icon-help"></span>
+				</div>
+				<!-- TRANSLATE search_didnotfind -->
+			</div>
+
+<!-- IF S_MORE_RESULTS -->
+			<div class="info-text-h">
+				<ul>
+<!-- BEGIN more_results -->
+					<li><a href="{more_results.LINK}">{more_results.FULLNAME}</a> ({more_results.COUNT} <!-- TRANSLATE search_results_count -->)</li>
+<!-- END more_results -->
+				</ul>
+			</div>
+<!-- ENDIF -->
+			<div style="float: right;"><span class="ui-icon ui-icon-tag"></span></div>
+
+			<div class="info-text-h">
+				<table cellspacing="0" cellpadding="0" width="100%">
+					<tr>
+						<td valign="top" width="50%"><strong><!-- TRANSLATE data_search --></strong>
+							<div align="left">
+								<ul>
+<!-- BEGIN data_sites -->
+									<li><a href="{data_sites.LINK}" target="_blank">{data_sites.NAME}</a></li>
+<!-- END data_sites -->
+								</ul>
+							</div>
+						</td>
+	
+						<td valign="top" width="50%"><strong><!-- TRANSLATE google_search --></strong>
+							<div align="left">
+								<ul>
+<!-- BEGIN google_links -->
+									<li><a href="{google_links.LINK}" target="_blank">{google_links.NAME}</a></li>
+<!-- END google_links -->
+								</ul>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+<!-- ENDIF -->
+
+</div>

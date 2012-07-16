@@ -1,0 +1,94 @@
+<!-- $Id$ -->
+
+
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE vault -->
+					<div class="links">
+<!-- BEGIN vault -->
+						<a href="{vault.LINK}" class="icon" {vault.TOOLTIP}><img src="{vault.ICON}" /><span class="mask"></span></a>
+<!-- END vault -->
+					</div>
+				</div>
+
+<!-- BEGIN vault -->
+				<a name="{vault.SLOT}"></a>
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">
+<!-- IF vault.SLOT neq 'MoneyLog' -->
+							<div class="tab-navigation">
+								<ul id="tab_navigation">
+									<li class="selected"><a rel="{vault.SLOT}Items" class="text"><!-- TRANSLATE items --></a></li>
+<!-- BEGIN log -->
+									<li><a rel="{vault.SLOT}Log" class="text"><!-- TRANSLATE vault_log --></a></li>
+<!-- END log -->
+								</ul>
+							</div>
+<!-- ENDIF -->
+							<div class="icon">
+								<img src="{vault.ICON}" alt="" />
+								<div class="mask"></div>
+							</div>{vault.NAME}
+<!-- IF S_MONEY and vault.SLOT eq 'MoneyLog' -->
+							<div class="title-money">
+<!-- IF MONEY_G gt 0 -->
+								{MONEY_G}<img src="{IMG_URL}coin_gold.png" alt="g" />
+<!-- ENDIF -->
+<!-- IF MONEY_S gt 0 -->
+								{MONEY_S}<img src="{IMG_URL}coin_silver.png" alt="s" />
+<!-- ENDIF -->
+<!-- IF MONEY_C gt 0 -->
+								{MONEY_C}<img src="{IMG_URL}coin_copper.png" alt="c" />
+<!-- ENDIF -->
+							</div>
+<!-- ENDIF -->
+						</div>
+<!-- IF vault.SLOT neq 'MoneyLog' -->
+						<div id="{vault.SLOT}Items" class="vault-grid">
+<!-- BEGIN column -->
+							<div class="vault-column">
+<!-- BEGIN item -->
+								<div class="item" {vault.column.item.TOOLTIP}{vault.column.item.ITEMLINK}>
+									<!-- IF vault.column.item.ICON eq '' --><img src="{THEME_PATH}/images/shader.png" alt="" /><!-- ELSE --><img src="{vault.column.item.ICON}" alt="" /><!-- ENDIF -->
+									<div class="mask {vault.column.item.QUALITY}"></div>
+<!-- IF vault.column.item.QTY gt 1 -->
+									<b>{vault.column.item.QTY}</b><span>{vault.column.item.QTY}</span>
+<!-- ENDIF -->
+								</div>
+
+<!-- END item -->
+							</div>
+<!-- END column -->
+						</div>
+<!-- ENDIF -->
+<!-- BEGIN log -->
+						<div id="{vault.SLOT}Log" class="tier-3-a"<!-- IF vault.SLOT neq 'MoneyLog' --> style="display:none;"<!-- ENDIF -->>
+							<div class="tier-3-b">
+								<div class="text">
+									<span style="float:right;">{vault.log.TIME}</span>
+									{vault.log.TYPE}
+								</div>
+							</div>
+						</div>
+<!-- END log -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+<!-- END vault -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+<!--
+$(function() {
+	var tab_navigation=new tabcontent('tab_navigation');
+	tab_navigation.init();
+});
+//-->
+</script>
