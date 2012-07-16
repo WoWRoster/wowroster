@@ -1,3 +1,0 @@
-<version>2.1.0</version>
-<updated>1308464031</updated>
-<info>2.1.0 Release</info>
