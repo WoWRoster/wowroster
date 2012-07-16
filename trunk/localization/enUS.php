@@ -837,6 +837,8 @@ $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Speed';
 $lang['tooltip_poisoneffect']='^Each strike has';
 
+// MOP 5.0
+$lang['tooltip_preg_item_season']='/Season ([0-9, ]+)/';
 // php 5.3 changes
 $lang['tooltip_preg_soulbound']='/Soulbound/';
 $lang['tooltip_preg_dps']='/(\d+) damage per second/';
@@ -858,7 +860,7 @@ $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
 
-$lang['tooltip_preg_armor']='/^(\d+) Armor/';
+$lang['tooltip_preg_armor']='/^([0-9, ]+) Armor/';// updated for mop
 $lang['tooltip_preg_durability']='/Durability(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Made by (.+)\>/';
 $lang['tooltip_preg_bags']='/^(\d+) Slot/';
@@ -866,7 +868,7 @@ $lang['tooltip_preg_socketbonus']='/Socket Bonus: (.+)/';
 $lang['tooltip_preg_classes']='/^(Classes:) (.+)/';
 $lang['tooltip_preg_races']='/^(Races:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Charges?/';
-$lang['tooltip_preg_block']='/(\d+) (Block)/';
+$lang['tooltip_preg_block']='/([0-9, ]+) (Block)/';// updated for mop
 $lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta|Prismatic) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';

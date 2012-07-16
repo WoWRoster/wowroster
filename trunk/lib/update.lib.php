@@ -1023,14 +1023,18 @@ class update
 	function tooltip( $tipdata )
 	{
 		$tooltip = '';
+		//$tipdata = preg_replace('/\|c[a-f0-9]{8}(.+?)\|r/i','$1',$tipdata);
+		$tipdata = preg_replace('/\|c([0-9a-f]{2})([0-9a-f]{6})([^\|]+)/','<span style="color:#$2;">$3</span>',$tipdata);
+		$tipdata = str_replace('|r', '', $tipdata);
 
+		
 		if( is_array($tipdata) )
 		{
-			$tooltip = implode("\n",$tipdata);
+			$tooltip = implode("<br>",$tipdata);
 		}
 		else
 		{
-			$tooltip = str_replace('<br>',"\n",$tipdata);
+			$tooltip = $tipdata;//str_replace('<br>',"\n",$tipdata);
 		}
 		return $tooltip;
 	}
@@ -2616,40 +2620,27 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		$glyphBuildData = array();
 
-		if( isset($data['Glyphs']) && !empty($data['Glyphs']) && is_array($data['Glyphs']) )
-		{
-			$glyphBuildData[0] = $data['Glyphs'];
-		}
-		else
-		{
-			$this->setMessage('<li>No Glyph Data</li>');
-			return false;
-		}
-
-		// Check for dual talent build
-		if( ( isset($data['DualSpec']) && !empty($data['DualSpec']) && is_array($data['DualSpec']) )
-			&& ( isset($data['DualSpec']['Glyphs']) && !empty($data['DualSpec']['Glyphs']) && is_array($data['DualSpec']['Glyphs']) ) )
-		{
-			$glyphBuildData[1] = $data['DualSpec']['Glyphs'];
-		}
-
 		$messages = '<li>Updating Glyphs ';
-
-		foreach( $glyphBuildData as $build => $glyphData )
+		foreach( $data['Talents'] as $build => $talentData )
 		{
-			// Delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('glyphs') . "` WHERE `member_id` = '$memberId' AND `glyph_build` = " . $build . ";";
-
-			if( !$roster->db->query($querystr) )
+			if( isset($talentData['Glyphs']) && !empty($talentData['Glyphs']) && is_array($talentData['Glyphs']) )
 			{
-				$this->setError($roster->locale->act['talent_build_' . $build] . ' Glyphs could not be deleted',$roster->db->error());
-				return;
+				$querystr = "DELETE FROM `" . $roster->db->table('glyphs') . "` WHERE `member_id` = '$memberId' AND `glyph_build` = " . $build . ";";
+
+				if( !$roster->db->query($querystr) )
+				{
+					$this->setError($roster->locale->act['talent_build_' . $build] . ' Glyphs could not be deleted',$roster->db->error());
+					return;
+				}
 			}
-
-			foreach( array_keys($glyphData) as $glyphOrder )
+			else
 			{
-				$glyph = $glyphData[$glyphOrder];
-
+				$this->setMessage('<li>No Glyph Data</li>');
+				return false;
+			}
+			
+			foreach ($talentData['Glyphs'] as $idx => $glyph )
+			{
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
 				$this->add_ifvalue($glyph, 'Name', 'glyph_name');
@@ -2665,7 +2656,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->add_value('glyph_tooltip', $this->tooltip($glyph['Tooltip']));
 				}
 
-				$this->add_value('glyph_order', $glyphOrder);
+				//$this->add_value('glyph_order', $glyphOrder);
 
 				$messages .= '.';
 
@@ -2697,7 +2688,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		if( isset($data['Talents']) && !empty($data['Talents']) && is_array($data['Talents']) )
 		{
-			$talentBuildData[0] = $data['Talents'];
+			$talentBuildData = $data['Talents'];
 		}
 		else
 		{
@@ -2706,11 +2697,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 
 		// Check for dual talent build
-		if( ( isset($data['DualSpec']) && !empty($data['DualSpec']) && is_array($data['DualSpec']) )
-			&& ( isset($data['DualSpec']['Talents']) && !empty($data['DualSpec']['Talents']) && is_array($data['DualSpec']['Talents']) ) )
-		{
-			$talentBuildData[1] = $data['DualSpec']['Talents'];
-		}
+		// removed for MOp auti scanning now used...
 
 		$messages = '<li>Updating Talents';
 
@@ -2740,103 +2727,174 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent build could not be deleted',$roster->db->error());
 				return;
 			}
+			//"Role" "Name" "Active" "Talents" "Background" "Icon" "Desc" 
+			$messages .= " : ".$build."-".$talentData["Name"]." ";
+			$tree_pointsspent = 0;
+			$burl = array();
+			$burl2 = '';
 
-			foreach( array_keys($talentData) as $talent_tree )
-			{
-				$messages .= " : $build-$talent_tree";
-				$data_talent_tree = $talentData[$talent_tree];
-
-				foreach( array_keys($data_talent_tree) as $talent_skill )
+				/*
+				
+				Remove on live!!!!!
+				
+				
+##############################################################################################				
+				*/
+				
+			$querystr = "DELETE FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $data['ClassId'] . "';";
+				if (!$roster->db->query($querystr))
 				{
-					$data_talent_skill = $data_talent_tree[$talent_skill];
-					if( $talent_skill == 'Order' )
-					{
-						$tree_order = $data_talent_skill;
-						$to = $data_talent_skill;
-					}
-					elseif( $talent_skill == 'PointsSpent' )
-					{
-						$tree_pointsspent = $data_talent_skill;
-					}
-					elseif( $talent_skill == 'Background' )
-					{
-						$tree_background = $data_talent_skill;
-					}
-					else
-					{
-						if ($talent_skill != "Unlocked" && $talent_skill !=  "Desc" && $talent_skill !=  "icon" && $talent_skill !=  "order" && $talent_skill != "background")
-						{
-							$this->reset_values();
-							$this->add_value('member_id', $memberId);
-							$this->add_value('name', $talent_skill);
-							$this->add_value('tree', $talent_tree);
-							$this->add_value('build', $build);
-
-							if( !empty($data_talent_skill['Tooltip']) )
-							{
-								$this->add_value('tooltip', $this->tooltip($data_talent_skill['Tooltip']));
-							}
-							else
-							{
-								$this->add_value('tooltip', $talent_skill);
-							}
-
-							if( !empty($data_talent_skill['Icon']) )
-							{
-								$this->add_value('texture', $this->fix_icon($data_talent_skill['Icon']));
-							}
-
-							$location = explode(':', $data_talent_skill['Location']);
-							$rank = explode(':', $data_talent_skill['Rank']);
-							$this->add_value('row', ($location[0]+1));
-							$this->add_value('column', ($location[1]+1));
-							$this->add_value('rank', $rank[0]);
-							$this->add_value('maxrank', $rank[1]);
-
-							unset($location,$rank);
-
-							$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
-							$result = $roster->db->query($querystr);
-							if( !$result )
-							{
-								$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
-							}
-						}
-					}
+					$roster->set_message('Talent Data Table could not be emptied.', '', 'error');
+					$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+					return;
 				}
+				$tid = $data['ClassId'].'0';
+				/*
+##############################################################################################				
+				*/
+				$tx = 0;
+			foreach ($talentData['Talents'] as $t_name => $info )
+			{
+				//$rank = (int)$info['Selected'];//'0';
+				//echo $rank;
+				$location = explode(':', $info['Location']);
+				
+				if (!$info['Selected'])
+				{
+					$rank = '0';
+				}
+				else
+				{
+					$rank = '1';
+				}
+				/*
+				
+				
+				Remove on live!!!!!
+				
+				
+##############################################################################################				
+				*/				
+				$values = array(
+					'talent_id'  => $tid++,
+					'talent_num' => $tx++,
+					'tree_order' => '1',
+					'class_id'   => $data['ClassId'],
+					'name'       => $info["Name"],
+					'tree'       => $talentData["Name"],
+					'tooltip'    => $info['Tooltip'],
+					'texture'    => $this->fix_icon($info['Texture']),
+					'isspell'	 => false,
+					'row'        => $location[0],
+					'column'     => $location[1],
+					'rank'       => '1'
+				);
+				/*
+##############################################################################################				
+				*/
+				$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
+					. $roster->db->build_query('INSERT', $values) . ";";
+				$result = $roster->db->query($querystr);
 
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
-				$this->add_value('tree', $talent_tree);
-				$this->add_value('background', $this->fix_icon($tree_background));
-				$this->add_value('pointsspent', $tree_pointsspent);
-				$this->add_value('order', $tree_order);
+				$this->add_value('name', $info["Name"]);
+				$this->add_value('tree', $talentData["Name"]);
 				$this->add_value('build', $build);
 
-				$querystr = "INSERT INTO `" . $roster->db->table('talenttree') . "` SET " . $this->assignstr;
+				if( !empty($info['Tooltip']) )
+				{
+					$this->add_value('tooltip', $this->tooltip($info['Tooltip']));
+				}
+				else
+				{
+					$this->add_value('tooltip', $info["Name"]);
+				}
+
+				if( !empty($info['Texture']) )
+				{
+					$this->add_value('texture', $this->fix_icon($info['Texture']));
+				}
+
+				if ($info["Selected"])
+				{
+					$tree_pointsspent++;
+					$burl[] = $location[0].'-'.$location[1];
+					$burl2 .= $rank;
+					
+				}
+				$this->add_value('row', $location[0]);
+				$this->add_value('column', $location[1]);
+				$this->add_value('rank', $rank);
+				$this->add_value('maxrank', '1');
+
+				unset($location);
+
+				$querystr = "INSERT INTO `" . $roster->db->table('talents') . "` SET " . $this->assignstr;
 				$result = $roster->db->query($querystr);
 				if( !$result )
 				{
-					$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
+					$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent [' . $talent_skill . '] could not be inserted',$roster->db->error());
 				}
 			}
 
+			$values = array(
+				'tree'       => $talentData["Name"],
+				'order'      => '1',
+				'class_id'   => $data['ClassId'],
+				'background' => strtolower($this->fix_icon($talentData["Background"])),
+				'icon'       => $talentData["Icon"],
+				'roles'		 => $talentData["Role"],
+				'desc'		 => $talentData['Desc'],
+				'tree_num'   => '1'
+			);
+			
+			$querystr = "DELETE FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $data['ClassId'] . "' and `tree` = '".$talentData["Name"]."';";
+			if (!$roster->db->query($querystr))
+			{
+				$roster->set_message('Talent Tree Data Table could not be emptied.', '', 'error');
+				$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
+				return;
+			}
+	
+			$querystr = "INSERT INTO `" . $roster->db->table('talenttree_data') . "` "
+				. $roster->db->build_query('INSERT', $values) . "
+				;";
+			$result = $roster->db->query($querystr);
+			
+			$this->reset_values();
+			$this->add_value('member_id', $memberId);
+			$this->add_value('tree', $talentData["Name"]);
+			$this->add_value('background', $this->fix_icon($talentData["Background"]));
+			$this->add_value('pointsspent', $tree_pointsspent);
+			$this->add_value('order', ($talentData["Active"] ? 1 : 2));
+			$this->add_value('build', $build);
+
+			$querystr = "INSERT INTO `" . $roster->db->table('talenttree') . "` SET " . $this->assignstr;
+			$result = $roster->db->query($querystr);
+			if( !$result )
+			{
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talentData["Name"] . '] could not be inserted',$roster->db->error());
+			}
+		
+
 			$build_url = $this->_talent_layer_url( $memberId, $build);
 			$this->reset_values();
+			$messages .= " - ".$build_url." ";
+			$this->reset_values();
+			$this->add_value('build', $build);
+			$this->add_value('member_id', $memberId);
+			$this->add_value('tree', $build_url);
+			$this->add_value('spec', $talentData["Name"]);
+			$querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
 
-					$this->reset_values();
-					$this->add_value('build', $build);
-					$this->add_value('member_id', $memberId);
-					$this->add_value('tree', $build_url);
-					$querystr = "INSERT INTO `" . $roster->db->table('talent_builds') . "` SET " . $this->assignstr;
+			$result = $roster->db->query($querystr);
 
-					$result = $roster->db->query($querystr);
-
-					if( !$result )
-					{
-						$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
-					}
-
+			if( !$result )
+			{
+				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Tree [' . $talent_tree . '] could not be inserted',$roster->db->error());
+			}
+/*
 			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
 
 			if( !$roster->db->query($querystr) )
@@ -2844,7 +2902,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talents could not be deleted',$roster->db->error());
 				return;
 			}
-
+*/ 
 		}
 		$this->setMessage($messages . '</li>');
 	}
@@ -2853,42 +2911,15 @@ CREATE TABLE `renprefix_quest_task_data` (
 	{
 		global $roster;
 
-		$sqlquery2 = "SELECT * FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '" . $memberId . "' AND `build` = '" . $build . "' ORDER BY `order` ASC";
-		$result2 = $roster->db->query($sqlquery2);
-		$returndataa = '';
-		while($t = $roster->db->fetch($result2,SQL_ASSOC))
-		{
-			$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $memberId . "' AND `build` = '" . $build . "' AND `tree` = '" . $t['tree'] . "' ORDER BY `row` ASC , `column` ASC";
+			$sqlquery = "SELECT * FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '" . $memberId . "' AND `build` = '" . $build . "' ORDER BY `row` ASC , `column` ASC";
 			$result = $roster->db->query($sqlquery);
 
-			$returndata = '';
-			if( $roster->db->num_rows($result) > 0 )
+			$returndataa = '';
+
+			while( $talentdata = $roster->db->fetch($result) )
 			{
-				// initialize the rows and cells
-				for( $r=1; $r < ROSTER_TALENT_ROWS + 1; $r++ )
-				{
-					for( $c=1; $c < ROSTER_TALENT_COLS + 1; $c++ )
-					{
-						$returndata[$r][$c]['name'] = '';
-					}
-				}
-
-				while( $talentdata = $roster->db->fetch($result, SQL_ASSOC) )
-				{
-					$r = $talentdata['row'];
-					$c = $talentdata['column'];
-
-					if( !empty($returndata) )
-					{
-						$returndataa .= $talentdata['rank'];
-					}
-					else
-					{
-						$returndataa = $talentdata['rank'];
-					}
-				}
+				$returndataa .= $talentdata['rank'];
 			}
-		}
 		return $returndataa;
 		//return true;
 	}
@@ -4017,6 +4048,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->add_ifvalue($main_stats, 'ParryChance', 'parry');
 			$this->add_ifvalue($main_stats, 'BlockChance', 'block');
 			$this->add_ifvalue($main_stats, 'ArmorReduction', 'mitigation');
+			$this->add_ifvalue($main_stats, 'PvPPower', 'pvppower');
+			$this->add_ifvalue($main_stats, 'PvPPowerBonus', 'pvppower_bonus');
 
 			$this->add_rating('stat_armor', $main_stats['Armor']);
 			$this->add_rating('stat_def', $main_stats['Defense']);
@@ -4157,6 +4190,23 @@ CREATE TABLE `renprefix_quest_task_data` (
 		}
 		// END RANGED
 
+		if( isset($data['Attributes']['ITEMLEVEL']))
+		{
+			$this->add_rating('ilevel', $data['Attributes']['ITEMLEVEL']);
+		}
+		// BEGIN mastery
+		if( isset($data['Attributes']['Mastery']) && is_array($data['Attributes']['Mastery']) )
+		{
+			$attack = $data['Attributes']['Mastery'];
+
+			$this->add_ifvalue($attack, 'Percent', 'mastery');
+			//$this->add_ifvalue($attack, 'Tooltip', 'mastery_tooltip');
+			$this->add_value('mastery_tooltip', $this->tooltip($data['Attributes']['Mastery']['Tooltip']));
+
+			unset($attack);
+		}
+		// END Mastery
+		
 		// BEGIN SPELL
 		if( isset($data['Attributes']['Spell']) && is_array($data['Attributes']['Spell']) )
 		{
