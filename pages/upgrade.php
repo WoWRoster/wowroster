@@ -30,7 +30,8 @@ class Upgrade {
 		'2.0.1',
 		'2.0.2',
 		'2.1.0',
-		'2.2.0'
+		'2.2.0',
+		'2.2.9'
 	);
 	var $index = null;
 
@@ -84,319 +85,21 @@ class Upgrade {
 
 
 	/**
-	 * Upgrades the 2.1.9.x beta versions into the 2.2.0 release
-	 *
-	function upgrade_219() {
+	 * Upgrades the 2.2.9.x beta versions into the 2.3.0 release
+	 */
+	function upgrade_229() {
 		global $roster, $installer;
 
-		/* Update Examples
-		if (version_compare($roster->config['version'], '2.1.9.2344', '<')) { // This MUST be equal or lower than the version set on lib/constants.php
-			$roster->set_message('Message');
-
-			$roster->db->query('DELETE FROM `' . $roster->db->table('menu_button') . '` WHERE `addon_id`= "0" AND `title` = "menu_credits";');
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10005, 'update_inst', '1', 'radio{on^1|off^0', 'update_access');");
-			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = 'http://www.wowroster.net/MediaWiki' WHERE `id` = 180 LIMIT 1;");
-			$roster->db->query("ALTER TABLE `" . $roster->db->table('pets') . "` DROP `usedtp`, DROP `loyalty`;");
-
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('quest_data') . "`;");
-			$roster->db->query("CREATE TABLE `" . $roster->db->table('quest_data') . "` (
-				`quest_id` int(11) NOT NULL default '0',
-				`quest_name` varchar(64) NOT NULL default '',
-				`quest_level` int(11) unsigned NOT NULL default '0',
-				`quest_tag` varchar(32) NOT NULL default '',
-				`group` int(1) NOT NULL default '0',
-				`daily` int(1) NOT NULL default '0',
-				`reward_money` int(11) NOT NULL default '0',
-				`zone` varchar(32) NOT NULL default '',
-				`description` text NOT NULL,
-				`objective` text NOT NULL,
-				`locale` varchar(4) NOT NULL default '',
-				PRIMARY KEY  (`quest_id`,`locale`),
-				FULLTEXT KEY `quest_name` (`quest_name`),
-				FULLTEXT KEY `zone` (`zone`)
-				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-		}
-		if (version_compare($roster->config['version'], '2.1.9.2344', '<')) {
-			$roster->set_message('Added Javascript and CSS aggregation options');
-
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (99, 'css_js_query_string', 'lod68q', 'hidden', 'master');");
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1181, 'preprocess_js', '1', 'radio{on^1|off^0', 'main_conf');");
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (1182, 'preprocess_css', '1', 'radio{on^1|off^0', 'main_conf');");
-		}
-
-		if (version_compare($roster->config['version'], '2.1.9.2350', '<')) {
-			$roster->set_message('Blizzard API key settings');
-
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10001, 'api_key_private', '', 'text{64|30', 'update_access');");
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10002, 'api_key_public', '', 'text{64|30', 'update_access');");
-		}
-
-		if (version_compare($roster->config['version'], '2.1.9.2352', '<')) {
-			$roster->set_message('Adding RosterAPI usage table');
-
-			$roster->db->query("DROP TABLE IF EXISTS `" . $roster->db->table('api_usage') . "`;");
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('api_usage')."` (
-				`id` int(11) NOT NULL AUTO_INCREMENT,
-				`type` varchar(50) DEFAULT NULL,
-				`date` date DEFAULT NULL,
-				`total` int(10) NOT NULL DEFAULT '0',
-				PRIMARY KEY (`id`)
-				) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
-		}
-
-		if (version_compare($roster->config['version'], '2.1.9.2362', '<')) {
-			$roster->set_message('API URL Setting');
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10003, 'api_url_region', '', 'select{us.battle.net^us|eu.battle.net^eu|kr.battle.net^kr|tw.battle.net^tw', 'update_access');");
-		}
-		if (version_compare($roster->config['version'], '2.1.9.2372', '<')) {
-			$roster->set_message('API URL Setting');
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10004, 'api_url_locale', 'en_US', 'select{us.battle.net (en_US)^en_US|us.battle.net (es_MX)^es_MX|eu.battle.net (en_GB)^en_GB|eu.battle.net (es_ES)^es_ES|eu.battle.net (fr_FR)^fr_FR|eu.battle.net (ru_RU)^ru_RU|eu.battle.net (de_DE)^de_DE|kr.battle.net (ko_kr)^ko_kr|tw.battle.net (zh_TW)^zh_TW|battlenet.com.cn (zh_CN)^zh_CN', 'update_access');");
-
-		}
-
-		if (version_compare($roster->config['version'], '2.1.9.2378', '<')) {
-			$roster->set_message('Plugin install system');
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('plugin')."` (
-				  `addon_id` int(11) NOT NULL auto_increment,
-				  `basename` varchar(16) NOT NULL default '',
-				  `version` varchar(16) NOT NULL default '0',
-				  `active` int(1) NOT NULL default '1',
-				  `access` int(1) NOT NULL default '0',
-				  `fullname` tinytext NOT NULL,
-				  `description` mediumtext NOT NULL,
-				  `credits` mediumtext NOT NULL,
-				  `icon` varchar(64) NOT NULL default '',
-				  `wrnet_id` int(4) NOT NULL default '0',
-				  `versioncache` tinytext,
-				  PRIMARY KEY  (`addon_id`)
-				) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
-		}
-		if (version_compare($roster->config['version'], '2.1.9.2379', '<')) {
-			$roster->set_message('user and access system install');
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('user_members')."` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `usr` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `pass` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `regIP` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-			  `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-			  `access` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `usr` (`usr`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
-
-		//5f4dcc3b5aa765d61d8327deb882cf99 password Duh!
-			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Admin', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');");
-			$roster->set_message('Admin user created password: password <span style="color:red;">Change this asap!</span>');
-			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Officer', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');");
-			$roster->set_message('Officer user created password: password');
-			$roster->db->query("INSERT INTO `".$roster->db->table('user_members')."` (`id`, `usr`, `pass`, `email`, `regIP`, `dt`, `access`,`active`) VALUES (NULL, 'Guild', '5f4dcc3b5aa765d61d8327deb882cf99', '', '', '0000-00-00 00:00:00', '11:0','1');");
-			$roster->set_message('Guild user created password: password');
-
-			$roster->db->query("ALTER TABLE `".$roster->db->table('addon')."` CHANGE `access` `access` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0'");
-			$roster->set_message('Addon access field updated');
-		}
-
-
-		if (version_compare($roster->config['version'], '2.1.9.2386', '<')) {
-
-			$roster->set_message('Talent updates of all things....');
-
-			$roster->db->query("ALTER TABLE `".$roster->db->table('talenttree_data')."` ADD `roles` VARCHAR( 10 ) NULL DEFAULT NULL ,
-			ADD `desc` VARCHAR( 255 ) NULL DEFAULT NULL");
-
-			$roster->db->query("ALTER TABLE `".$roster->db->table('talents_data')."` ADD `isspell` INT( 1 ) NULL DEFAULT '0'");
-
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('talent_mastery')."` (
-			  `class_id` int(11) NOT NULL DEFAULT '0',
-			  `tree` varchar(64) NOT NULL DEFAULT '',
-			  `tree_num` varchar(64) NOT NULL DEFAULT '',
-			  `icon` varchar(64) NOT NULL DEFAULT '',
-			  `name` varchar(64) DEFAULT NULL,
-			  `desc` varchar(255) DEFAULT NULL,
-			  `spell_id` varchar(64) NOT NULL DEFAULT '',
-			  PRIMARY KEY (`class_id`,`spell_id`,`tree`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-		}
-		if (version_compare($roster->config['version'], '2.1.9.2405', '<'))
+		if (version_compare($roster->config['version'], '2.2.9.2568', '<'))
 		{
-			$roster->db->query("ALTER TABLE `".$roster->db->table('plugin')."` ADD `parent` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `basename` ,
-			ADD `scope` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `parent`");
-		}
-		///*
-		//	these updates begin with 2405 and up
-		if (version_compare($roster->config['version'], '2.1.9.2410', '<'))
-		{
-			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."`
-				ADD `user_last_visit` INT( 11 ) NOT NULL DEFAULT '0',
-				ADD `age` varchar(32) NOT NULL default '',
-				ADD `email` varchar(32) NOT NULL default '',
-				ADD `city` varchar(32) NOT NULL default '',
-				ADD `state` varchar(32) NOT NULL default '',
-				ADD `country` varchar(32) NOT NULL default '',
-				ADD `zone` varchar(32) NOT NULL default ''");
+			$roster->set_message('Players table updates for mastery');
 
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES
-				(190,'acc_session','NULL','blockframe','menu'),
-				(1900, 'sess_time', '15', 'text{30|4', 'acc_session'),
-				(1910, 'save_login', '1', 'radio{on^1|off^0', 'acc_session');");
-
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions')."` (
-			  `session_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-			  `session_user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-			  `session_last_visit` int(11) unsigned NOT NULL DEFAULT '0',
-			  `session_start` int(11) unsigned NOT NULL DEFAULT '0',
-			  `session_time` int(11) unsigned NOT NULL DEFAULT '0',
-			  `session_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
-			  `session_browser` varchar(150) COLLATE utf8_bin NOT NULL DEFAULT '',
-			  `session_forwarded_for` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-			  `session_page` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
-			  `session_viewonline` tinyint(1) unsigned NOT NULL DEFAULT '1',
-			  `session_autologin` tinyint(1) unsigned NOT NULL DEFAULT '0',
-			  `session_admin` tinyint(1) unsigned NOT NULL DEFAULT '0',
-			  PRIMARY KEY (`session_id`),
-			  KEY `session_time` (`session_time`),
-			  KEY `session_user_id` (`session_user_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions_keys')."` (
-			  `key_id` char(32) COLLATE utf8_bin NOT NULL DEFAULT '',
-			  `user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-			  `last_ip` varchar(40) COLLATE utf8_bin NOT NULL DEFAULT '',
-			  `last_login` int(11) unsigned NOT NULL DEFAULT '0',
-			  PRIMARY KEY (`key_id`,`user_id`),
-			  KEY `last_login` (`last_login`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-			$roster->db->query("ALTER TABLE `".$roster->db->table('members')."` CHANGE `account_id` `account_id` SMALLINT( 6 ) NULL DEFAULT NULL;");
-			$roster->db->query("UPDATE `".$roster->db->table('members')."` set `account_id` = NULL WHERE `account_id` = '0';");
-			$roster->db->query("INSERT INTO `".$roster->db->table('menu')."` VALUES ('', 'user', '');");
-			$roster->db->query("ALTER TABLE `".$roster->db->table('user_members')."`
-			ADD `fname` varchar(30) NOT NULL default '',
-				ADD `lname` varchar(30) NOT NULL default '',
-				ADD `age` varchar(32) NOT NULL default '',
-				ADD `city` varchar(32) NOT NULL default '',
-				ADD `state` varchar(32) NOT NULL default '',
-				ADD `country` varchar(32) NOT NULL default '',
-				ADD `zone` varchar(32) NOT NULL default '',
-				ADD `homepage` varchar(64) NOT NULL default '',
-				ADD `other_guilds` varchar(64) NOT NULL default '',
-				ADD `why` varchar(64) NOT NULL default '',
-				ADD `about` varchar(64) NOT NULL default '',
-				ADD `notes` varchar(64) NOT NULL default '',
-				ADD `last_login` varchar(64) NOT NULL default '',
-				ADD `date_joined` varchar(64) NOT NULL default '',
-				ADD `tmp_mail` varchar(32) NOT NULL default '',
-				ADD `group_id` smallint(6) NOT NULL default '1',
-				ADD `is_member` INT(11) NOT NULL default '0',
-				ADD `active` INT(11) NOT NULL default '0',
-				ADD `online` INT(11) NOT NULL default '0'");
-		}
-		if (version_compare($roster->config['version'], '2.1.9.2415', '<'))
-		{
-			$roster->db->query("DROP TABLE IF EXISTS `".$roster->db->table('sessions')."`");
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `".$roster->db->table('sessions')."` (
-				  `sess_id` varchar(35) DEFAULT NULL,
-				  `session_id` char(32) NOT NULL DEFAULT '',
-				  `session_user_id` varchar(5) DEFAULT NULL,
-				  `session_last_visit` int(11) NOT NULL DEFAULT '0',
-				  `session_start` int(11) NOT NULL DEFAULT '0',
-				  `session_time` int(11) NOT NULL DEFAULT '0',
-				  `session_ip` varchar(40) NOT NULL DEFAULT '',
-				  `session_browser` varchar(150) NOT NULL DEFAULT '',
-				  `session_forwarded_for` varchar(255) NOT NULL DEFAULT '',
-				  `session_page` varchar(255) NOT NULL DEFAULT '',
-				  `session_viewonline` tinyint(1) NOT NULL DEFAULT '1',
-				  `session_autologin` tinyint(1) NOT NULL DEFAULT '0',
-				  `session_admin` tinyint(1) NOT NULL DEFAULT '0'
-				) ENGINE=MyISAM;");
-
-
-		}
-		if (version_compare($roster->config['version'], '2.1.9.2467', '<'))
-		{
-			$roster->db->query("UPDATE `" .$roster->db->table('user_members') . "` SET `access` = '11:0',`active`='1' WHERE `usr` = 'Admin';");
-		}
-
-		if (version_compare($roster->config['version'], '2.1.9.2469', '<'))
-		{
-			$roster->db->query("ALTER TABLE `" .$roster->db->table('currency') . "` CHANGE `count` `count` INT( 5 ) NULL DEFAULT NULL;");
-		}
-
-		if (version_compare($roster->config['version'], '2.1.9.2473', '<'))
-		{
-			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_gems') . "`;");
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('api_gems') . "` (
-			  `gem_id` int(11) NOT NULL,
-			  `gem_name` varchar(96) NOT NULL DEFAULT '',
-			  `gem_color` varchar(16) NOT NULL DEFAULT '',
-			  `gem_tooltip` mediumtext NOT NULL,
-			  `gem_texture` varchar(64) NOT NULL DEFAULT '',
-			  `gem_bonus` varchar(255) NOT NULL DEFAULT '',
-			  `locale` varchar(16) NOT NULL DEFAULT '',
-			  `timestamp` int(10) NOT NULL,
-			  `json` longtext,
-			  PRIMARY KEY (`gem_id`,`locale`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-			$roster->db->query("DROP TABLE IF EXISTS `" .$roster->db->table('api_items') . "`;");
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('api_items') . "` (
-			  `item_id` int(11) NOT NULL,
-			  `item_name` varchar(96) NOT NULL DEFAULT '',
-			  `item_color` varchar(16) NOT NULL DEFAULT '',
-			  `item_texture` varchar(64) NOT NULL DEFAULT '',
-			  `item_tooltip` mediumtext NOT NULL,
-			  `level` int(11) DEFAULT NULL,
-			  `item_level` int(11) DEFAULT NULL,
-			  `item_type` varchar(64) DEFAULT NULL,
-			  `item_subtype` varchar(64) DEFAULT NULL,
-			  `item_rarity` int(4) NOT NULL DEFAULT '-1',
-			  `locale` varchar(16) DEFAULT NULL,
-			  `timestamp` int(10) NOT NULL,
-			  `json` longtext,
-			  PRIMARY KEY (`item_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-
-			/*
-			##############    NOT SURE IF THIS IS REALLY NEEDED BUT IT WOULDENT BE A BAD IDEA.....
-
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('plugin_config') . "` (
-			  `addon_id` int(11) NOT NULL default '0',
-			  `id` int(11) unsigned NOT NULL,
-			  `config_name` varchar(255) default NULL,
-			  `config_value` tinytext,
-			  `form_type` mediumtext,
-			  `config_type` varchar(255) default NULL,
-			  PRIMARY KEY  (`id`,`addon_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-			
-		}
-
-		if (version_compare($roster->config['version'], '2.1.9.2496', '<'))
-		{
-			$roster->db->query("UPDATE `" . $roster->db->table('config') . "` SET `config_value` = '11' WHERE `config_name` = 'gp_user_level' LIMIT 1;");
-			$roster->set_message('Set guild data update permissions to CP Admin');
-		}
-		if (version_compare($roster->config['version'], '2.1.9.2530', '<'))
-		{
-			$roster->db->query("CREATE TABLE IF NOT EXISTS `" .$roster->db->table('plugin_config') . "` (
-			  `addon_id` int(11) NOT NULL default '0',
-			  `id` int(11) unsigned NOT NULL,
-			  `config_name` varchar(255) default NULL,
-			  `config_value` tinytext,
-			  `form_type` mediumtext,
-			  `config_type` varchar(255) default NULL,
-			  PRIMARY KEY  (`id`,`addon_id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
-			$roster->set_message('created plugin install table');
-		}
-		
-			//use_api_onupdate
-		if (version_compare($roster->config['version'], '2.1.9.2550', '<'))
-		{
-			$roster->set_message('API URL Setting');
-			$roster->db->query("INSERT INTO `" . $roster->db->table('config') . "` VALUES (10006, 'use_api_onupdate', '0', 'select{Yes^1|No^0', 'update_access');");
+			$roster->db->query("ALTER TABLE  `" . $roster->db->table('players') . "`
+			ADD  `mastery` VARCHAR( 10 ) NULL DEFAULT NULL AFTER  `crit` ,
+			ADD  `mastery_tooltip` MEDIUMTEXT NULL DEFAULT NULL AFTER  `mastery`
+			ADD  `ilevel` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `mastery_tooltip` ,
+			ADD  `pvppower` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `ilevel` ,
+			ADD  `pvppower_bonus` VARCHAR( 20 ) NULL DEFAULT NULL AFTER `pvppower`");
 		}
 		
 		// Standard Beta Update
@@ -404,7 +107,7 @@ class Upgrade {
 		$this->finalize();
 	}
 
-	**
+	/**
 	 * Upgrades 2.1.0 to 2.2
 	 */
 	function upgrade_220() {

@@ -544,48 +544,29 @@
 								<div class="spec<!-- IF talent.tree.HSELECT --> tselected<!-- ELSE --> tnselected<!-- ENDIF -->">
 									<img class="tbackground" src="{INTERFACE_URL}Interface/TalentFrame/{talent.tree.ICON}.{IMG_SUFFIX}" alt="" />
 									<div class="content">
+
+<!-- BEGIN tier -->
+									<ul class="tier tier-0">
+										<li class="unlocks">{talent.tree.tier.UNLOCK}</li>
 <!-- BEGIN cell -->
-
-<!-- IF talent.tree.cell.NAME -->
-										<div class="talent-cell">
-<!-- IF talent.tree.cell.S_ABILITY -->
-											<div class="talent-ability"></div>
-<!-- ENDIF -->
-											<div class="talent-icon" {talent.tree.cell.TOOLTIP}>
-												<img<!-- IF talent.tree.cell.RANK eq 0 --> class="icon_grey"<!-- ENDIF --> src="{INTERFACE_URL}Interface/Icons/{talent.tree.cell.ICON}" alt="" />
-												<span class="talent-mask"></span>
-<!-- IF talent.tree.cell.RANK gt 0 -->
-												<div class="points<!-- IF talent.tree.cell.S_MAX -->-full<!-- ENDIF -->">
-													<span class="frame"></span>
-													<span class="value">{talent.tree.cell.RANK}</span>
-												</div>
-<!-- ENDIF -->
-											</div>
+										<li class="talent">
+										<div class="cell cell-<!-- IF talent.tree.tier.cell.RANK eq 1 -->selected<!-- ELSE -->disabled<!-- ENDIF -->" {talent.tree.tier.cell.TOOLTIP}>
+											<span class="icon-frame frame">
+												<img src="{INTERFACE_URL}Interface/Icons/{talent.tree.tier.cell.ICON}" alt="" />
+											</span>
+											<span class="name">{talent.tree.tier.cell.NAME}</span>
+											<span class="clear"></span>
 										</div>
-<!-- ELSE -->
-										<div class="talent-cell">&nbsp;</div>
-<!-- ENDIF -->
-
+										</li>
 <!-- END cell -->
+									</ul>
+<!-- END tier -->
 									</div>
 									<div class="spec-name">
 										<span class="text">{talent.tree.NAME}</span> : {talent.tree.POINTS}
 										<span class="icon-{talent.tree.ROLE}"></span>
 						
 									</div>
-									
-									
-									
-<!-- BEGIN arrows -->									
-									<div class="{talent.tree.ICON} arrow-{talent.tree.arrows.ID} requiredArrow {talent.tree.arrows.OPT1} {talent.tree.arrows.OPT2} {talent.tree.arrows.OPT3} {talent.tree.arrows.OPT4}"></div>
-
-<!-- END arrows -->
-									<div class="mastery">
-										<div class="mastery-name">
-											<span class="text">{talent.tree.MAST_NAME}</span> : {talent.tree.MAST_DESC}
-										</div>
-									</div>
-									
 								</div>
 <!-- END tree -->
 <!-- # bm tree -->

@@ -894,7 +894,7 @@ class char
 	 * Build Talents
 	 *
 	 * @return string
-	 */
+	 *
 	function build_talenttree_data( $class )
 	{
 		global $roster, $addon;
@@ -928,9 +928,9 @@ class char
 
         /**
 	 * Build Talentarrows
-	 *
+	 * edited out for mop
 	 * @return string
-	 */
+	 *
 	function build_talenttree_arrows( $tree )
 	{
 		global $roster, $addon;
@@ -960,6 +960,7 @@ class char
 		return $t;
 
 	}
+	*
 
 	function build_talent_data( $class )
 	{
@@ -980,11 +981,11 @@ class char
 			{
 				$is++;
 				$ii++;
-				$t[$row['tree']][$row['row']][$row['column']]['name'] = $row['name'];
-				$t[$row['tree']][$row['row']][$row['column']]['id'] = $row['talent_id'];
-				$t[$row['tree']][$row['row']][$row['column']]['tooltip'][$row['rank']] = $row['tooltip'];
-				$t[$row['tree']][$row['row']][$row['column']]['icon'] = $row['texture'];
-				$t[$row['tree']][$row['row']][$row['column']]['isspell'] = $row['isspell'];
+				$t[$row['row']][$row['column']]['name'] = $row['name'];
+				$t[$row['row']][$row['column']]['id'] = $row['talent_id'];
+				$t[$row['row']][$row['column']]['tooltip'] = '';//$row['tooltip'];
+				$t[$row['row']][$row['column']]['icon'] = $row['texture'];
+				$t[$row['row']][$row['column']]['isspell'] = $row['isspell'];
 			}
 		}
 		return $t;
@@ -1069,7 +1070,7 @@ class char
 						$maxc = '#FFD200';
 					}
 
-					$tooltipp = $rdata['tooltip'][$rannk];
+					$tooltipp = '';//$rdata['tooltip'][$rannk];
 					$tp = '<div style="color:' . $maxc . ';font-weight:bold">' . $roster->locale->act['tooltip_rank'] . ': ' . $talentArray[$i] . ' / ' . $max . '</div><div>' . $tooltipp . '</div>';
 					$returndata[$ti][$c][$r]['ttip'] = $tooltipp;
 					$returndata[$ti][$c][$r]['tooltip'] = makeOverlib($tp, $rdata['name'], '', 2);
@@ -1132,7 +1133,7 @@ class char
 		$talentdata = $specdata = array();
 
 		// Temp var for talent spec detection
-		$spec_points_temp = array();
+		$  = array();
 
 		foreach( $talents as $build => $builddata )
 		{
@@ -1170,7 +1171,9 @@ class char
 				$talentdata[$build][$order]['role'] = $data['role'];
 				$talentdata[$build][$order]['talents'] = $data;
 			}
-//			aprint($talentdata);
+			echo '<pre>';
+			print_r($talentdata);
+			echo '</pre>';
 
 			$roster->tpl->assign_block_vars('talent', array(
 				'TALENT_EXPORT' => sprintf($roster->locale->act['export_url2'], strtolower($roster->locale->act['id_to_class'][$this->data['classid']]), $builddata),
@@ -1208,21 +1211,6 @@ class char
 							)
 						);
 
-						$arrows = $this->build_talenttree_arrows($tree['image']);
-						foreach ($arrows as $arr => $arrid)
-						{
-							//echo ''.$arrid['id'].'<br>';
-							$roster->tpl->assign_block_vars('talent.tree.arrows', array(
-								'TREE' => $tree['image'],
-								'ID'   => $arrid['id'],
-								'OPT1' => $arrid['opt1'],
-								'OPT2' => $arrid['opt2'],
-								'OPT3' => $arrid['opt3'],
-								'OPT4' => $arrid['opt4']
-								)
-							);
-						}
-
 						// Loop rows in tree
 						foreach( $tree['talents'] as $row )
 						{
@@ -1242,7 +1230,6 @@ class char
 										'TOOLTIP'   => (isset($cell['tooltip']) ? $cell['tooltip'] : ''),
 										'ICON'      => (isset($cell['image']) ? $cell['image'] : ''),
 										'S_ABILITY'	=> (!$abil ? false : true),
-
 										'S_MAX'     => (isset($cell['rank']) && $cell['rank'] == $cell['maxrank'] ? true : false),
 										)
 									);
@@ -1255,7 +1242,181 @@ class char
 		}
 		return true;
 	}
+	
+	*/
 
+	/**
+		got pissed off with tryen to fix old talent system .. so now im just gona build a better faster one...
+		NumTalents == 18 ALLWAYS
+		3 colums 
+		6 rows
+		1..1 talent tree per class
+		here we go
+	*/
+	
+	function show_talents( )
+	{
+		global $roster, $addon;
+
+		$sqlquery = "SELECT "
+			. " `builds`.`tree`,"
+			. " `builds`.`build`,"
+			. " `builds`.`spec`,"
+			. " `specs`.`order`,"
+			. " `specs`.`pointsspent` "
+			. "FROM `" . $roster->db->table('talent_builds') . "` as builds "
+			. "LEFT JOIN `".$roster->db->table('talenttree')."` AS specs ON `builds`.`member_id` = `specs`.`member_id`  "
+			. " WHERE `builds`.`member_id` = '" . $this->data['member_id'] . "' and `specs`.`build` = `builds`.`build`"
+			. " ORDER BY `specs`.`build` ASC,`builds`.`build` ASC;";
+
+		$result = $roster->db->query($sqlquery);
+
+		$spec = array();
+		
+		while( $t = $roster->db->fetch($result, SQL_ASSOC) )
+		{
+			$spec[$t['build']]=array();
+			$spec[$t['build']]['build'] = $t['tree'];
+			$spec[$t['build']]['spec'] = $t['spec'];
+			$spec[$t['build']]['order'] = $t['order'];
+			$spec[$t['build']]['spent'] = $t['pointsspent'];
+		}
+		//echo '<pre>';print_r($spec);echo '</pre>';
+		$tree_rows = $roster->db->num_rows($result);
+		$talents = $this->build_talent_data($this->data['classid']);// build the list of talents
+		$specs = $this->build_spec_data($this->data['classid']);// build the possable spec trees
+		
+		// time to build some damn talents
+		// Talent data and build spec data
+		$talentdata = $specdata = array();
+
+		// Temp var for talent spec detection
+		$spec_points_temp = array();
+		
+		foreach($spec as $build => $build_data)
+		{
+			$spc = $build;
+
+			$order = $build_data['order'];
+			$treeindex = $build.'t';
+			$specdata[$build]['order'] = $build;
+			$specdata[$build]['name'] = $build_data['spec'];
+			$specdata[$build]['role'] = $specs[$build_data['spec']]['roles'];
+			$specdata[$build]['icon'] = $specs[$build_data['spec']]['icon'];
+			// Store our talent points for later use
+
+			// Set talent tree data
+			$talentdata[$build]['name'] = $build_data['spec'];
+			$talentdata[$build]['image'] = $specs[$build_data['spec']]['background'];
+			$talentdata[$build]['points'] = $build_data['spent'];
+			$talentdata[$build]['role'] = $specs[$build_data['spec']]['roles'];
+			$talentdata[$build]['talents'] = $talents;
+			
+			$roster->tpl->assign_block_vars('talent', array(
+				'TALENT_EXPORT' => sprintf($roster->locale->act['export_url2'], strtolower($roster->locale->act['id_to_class'][$this->data['classid']]), $build_data['build']),
+				// old code keeping for now  sprintf($roster->locale->act['export_url'], $this->data['classid'], $builddata),
+				'ID'    => $build,
+				'NAME'  => $specdata[$build]['name'],
+				'ROLE'  => $specdata[$build]['role'],
+				'TYPE'  => $roster->locale->act['talent_build_' . ($build_data['order'] == 1 ? 0 : 1)],
+				'BUILD' => $build_data['spent'],
+				'ICON'  => $specs[$build_data['spec']]['icon'],
+				'SELECTED' => ($build_data['order'] == 1 ? true : false)
+				)
+			);
+			$talentArray = preg_split('//', $build_data['build'], -1, PREG_SPLIT_NO_EMPTY);
+			
+			$roster->tpl->assign_block_vars('talent.tree', array(
+					'L_POINTS_SPENT' => sprintf($roster->locale->act['pointsspent'], $build_data['spec']),
+					'NAME' => $specdata[$build]['name'],
+					'ROLE'  => $specdata[$build]['role'],
+					//'MAST_NAME'	=> $mastery[$treeindex]['mastery']['name'],
+					//'MAST_DESC'	=> $mastery[$treeindex]['mastery']['desc'],
+					'ID' => $treeindex,
+					'POINTS' => $build_data['spent'],
+					'ICON' => $specs[$build_data['spec']]['background'],
+					'HSELECT' => true,
+					'SELECTED' => ($build_data['order'] == 1 ? true : false)
+					)
+				);
+				$i=0;
+				$unl = 15;
+				foreach( $talents as $row )
+				{
+					$roster->tpl->assign_block_vars('talent.tree.tier', array(
+							'UNLOCK'      => $unl,
+							)
+						);
+					foreach( $row as $cell )
+					{
+						$abil = (isset($cell['isspell']) ? $cell['isspell'] : false);
+						$roster->tpl->assign_block_vars('talent.tree.tier.cell', array(
+							'NAME'      => $cell['name'],
+							'RANK'      => $talentArray[$i],
+							'MAXRANK'   => '1',
+							'TOOLTIP'   => (isset($cell['tooltip']) ? $cell['tooltip'] : ''),
+							'ICON'      => (isset($cell['icon']) ? $cell['icon'] : ''). '.' . $roster->config['img_suffix'],
+							'S_ABILITY'	=> (!$abil ? false : true),
+							'S_MAX'     => (isset($cell['rank']) && $cell['rank'] == '1' ? true : false),
+							)
+						);
+						$i++;
+					}
+					$unl = ($unl + 15);
+				}
+				
+			
+			
+		}
+
+		return true;
+	}
+	
+	function build_spec_data($class)
+	{
+		global $roster, $addon;
+		
+		$sql = "SELECT * FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $class . "' ;";
+		$results = $roster->db->query($sql);
+		$talents = array();
+
+		while( $row = $roster->db->fetch($results) )
+		{
+			$talents[$row['tree']]['name'] = $row['tree'];
+			$talents[$row['tree']]['background'] = $row['background'];
+			$talents[$row['tree']]['icon'] = $row['icon'];
+			$talents[$row['tree']]['roles'] = $row['roles'];
+			$talents[$row['tree']]['desc'] = $row['desc'];
+		}
+
+		return $talents;
+	
+	}
+	function build_talent_data( $class )
+	{
+		global $roster, $addon;
+		
+		$sql = "SELECT * FROM `" . $roster->db->table('talents_data') . "`"
+			. " WHERE `class_id` = '" . $class . "'"
+			. " ORDER BY `row` ASC , `column` ASC;";
+
+		$results = $roster->db->query($sql);
+
+		$talents = array();
+
+		while( $row = $roster->db->fetch($results) )
+		{
+			$talents[$row['row']][$row['column']]['name'] = $row['name'];
+			$talents[$row['row']][$row['column']]['id'] = $row['talent_id'];
+			$talents[$row['row']][$row['column']]['tooltip'] = makeOverlib($row['tooltip'], $row['name'], '', 2);//$row['tooltip'];
+			$talents[$row['row']][$row['column']]['icon'] = $row['texture'];
+			$talents[$row['row']][$row['column']]['isspell'] = $row['isspell'];
+			$talents[$row['row']][$row['column']]['rank'] = '';
+		}
+
+		return $talents;
+	}
+	
 	/**
 	 * Build a talent tree
 	 *
@@ -1324,7 +1485,7 @@ class char
 
 		$query = "SELECT * FROM `" . $roster->db->table('glyphs') . "`"
 			. " WHERE `member_id` = '" . $this->data['member_id'] . "'"
-			. " ORDER BY `glyph_build`, `glyph_order`;";
+			. " ORDER BY `glyph_build`, `glyph_type` ASC;";
 
 		$result = $roster->db->query($query);
 
@@ -1346,13 +1507,15 @@ class char
 			$row = $roster->db->fetch($result, SQL_ASSOC);
 
 			$glyph_build = $row['glyph_build'];
-			$glyph_order = $row['glyph_order'];
-			$glyph_data[$glyph_build][$glyph_order]['type'] = $row['glyph_type'];
-			$glyph_data[$glyph_build][$glyph_order]['name'] = $row['glyph_name'];
-			$glyph_data[$glyph_build][$glyph_order]['icon'] = $row['glyph_icon'];
-			$glyph_data[$glyph_build][$glyph_order]['tooltip'] = makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']);
+			$glyph_order = $row['glyph_type'];
+			//$glyph_data[$glyph_build][$glyph_order] = array();
+			$glyph_data[$glyph_build][$glyph_order][] = array(
+													'type' => $row['glyph_type'],
+													'name' => $row['glyph_name'],
+													'icon' => $row['glyph_icon'],
+													'tooltip' => makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']),
+												);
 		}
-
 
 		// Figure out build names
 		$sqlquery = "SELECT `build`, `tree`, `background`, `pointsspent`"
@@ -1411,19 +1574,22 @@ class char
 				'ICON' => $specdata[$build]['icon'],
 				)
 			);
-			foreach( $glyph_order as $order => $glyph )
+			foreach( $glyph_order as $order => $gl )
 			{
-				if( $glyph['name'] != '' )
+				foreach( $gl as $or => $glyph )
 				{
-					$roster->tpl->assign_block_vars('glyphs.glyph',array(
-						'TYPE'    => $glyph['type'],
-						'NAME'    => $glyph['name'],
-						'ORDER'   => $order,
-						'ID'      => strtolower(str_replace(' ','',$glyph['name'])),
-						'ICON'    => $glyph['icon'],
-						'TOOLTIP' => $glyph['tooltip'],
-						)
-					);
+					if( $glyph['name'] != '' )
+					{
+						$roster->tpl->assign_block_vars('glyphs.glyph',array(
+							'TYPE'    => $glyph['type'],
+							'NAME'    => $glyph['name'],
+							'ORDER'   => $order,
+							'ID'      => strtolower(str_replace(' ','',$glyph['name'])),
+							'ICON'    => $glyph['icon'],
+							'TOOLTIP' => $glyph['tooltip'],
+							)
+						);
+					}
 				}
 			}
 		}
@@ -1977,6 +2143,8 @@ class char
 				$name = $roster->locale->act['armor'];
 				$tooltip = sprintf($roster->locale->act['armor_tooltip'],$this->data['mitigation']);
 				break;
+			
+			
 
 			case 'melee_power':
 				$lname = $roster->locale->act['melee_att_power'];
@@ -2293,6 +2461,7 @@ class char
 				$this->box_stat_line('stat_int');
 				$this->box_stat_line('stat_spr');
 				$this->box_stat_line('stat_armor');
+				$this->status_value('mastery');
 				break;
 
 			case 'melee':
@@ -2305,7 +2474,7 @@ class char
 				break;
 
 			case 'ranged':
-				$this->wskill('ranged');
+				//$this->wskill('ranged');
 				$this->wdamage('ranged');
 				$this->wspeed('ranged');
 				$this->box_stat_line('ranged_power');
@@ -2314,8 +2483,8 @@ class char
 				break;
 
 			case 'spell':
-				$this->spell_damage();
-				$this->status_value('spell_healing');
+				//$this->spell_damage();
+				$this->status_value('spell_damage');
 				$this->box_stat_line('spell_hit');
 				$this->spell_crit();
 				$this->status_value('spell_penetration');
@@ -2375,7 +2544,7 @@ class char
 				$name = $roster->locale->act['armor'];
 				$tooltip = sprintf($roster->locale->act['armor_tooltip'],$this->data['mitigation']);
 				break;
-
+			
 			case 'melee_power':
 				$lname = $roster->locale->act['melee_att_power'];
 				$name = $roster->locale->act['power'];
@@ -2460,6 +2629,14 @@ class char
 			case 'spell_healing':
 				$name = $roster->locale->act['spell_healing'];
 				$tooltip = sprintf($roster->locale->act['spell_healing_tooltip'],$this->data['spell_healing']);
+				break;
+			case 'spell_damage':
+				$name = $roster->locale->act['spell_damage'];
+				$tooltip = sprintf($roster->locale->act['spell_damage_tooltip'],$this->data['spell_damage']);
+				break;
+			case 'mastery':
+				$name = $roster->locale->act['mastery'];
+				$tooltip = $this->data['mastery_tooltip'];
 				break;
 		}
 
@@ -2851,9 +3028,16 @@ class char
 		$this->equip_slot('Wrist');
 
 		$this->equip_slot('MainHand');
-		$this->equip_slot('SecondaryHand');
-		$this->equip_slot('Ranged');
-		$this->equip_slot('Ammo');
+		if( isset($this->equip['SecondaryHand']) )
+		{
+			$this->equip_slot('SecondaryHand');
+		}
+		if( isset($this->equip['Ranged']) )
+		{
+			$this->equip_slot('Ranged');
+		}
+		//no longer used
+		//$this->equip_slot('Ammo');
 
 		$this->equip_slot('Hands');
 		$this->equip_slot('Waist');

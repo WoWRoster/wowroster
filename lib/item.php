@@ -543,7 +543,7 @@ class item
 	function _getSetPiece()
 	{
 		$html = '<br /><span style="color:#ffd517;font-size:11px;font-weight:bold">' . $this->attributes['Set']['ArmorSet']['Name']
-			  . ' ( ' . $this->setItemEquiped . ' / ' . $this->setItemOwned . ' / ' . $this->setItemTotal . ' )'
+			  . ' ( ' . $this->setItemEquiped . ' / ' . $this->setItemTotal . ' )'
 			  . '</span><br />';
 
 		foreach( $this->attributes['Set']['ArmorSet']['Piece'] as $piece )
@@ -1143,7 +1143,8 @@ class item
 		{
 			//
 			// at this point any line prefixed with a + must be a White Stat (or base stat).
-			if( preg_match('/^([+-]\d+)\s(.+)/u', $line, $matches) )
+			//([0-9, ]+)
+			if( preg_match('/^([+-, 0-9]+)\s(.+)/u', $line, $matches) )
 			{
 				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
 			}
@@ -1200,6 +1201,11 @@ class item
 				$tt['Attributes']['Heroic'] = $line;
 			}
 			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_lfr'], $line) )
+			{
+				//heroic
+				$tt['Attributes']['Heroic'] = $line;
+			}
+			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_item_season'], $line) )
 			{
 				//heroic
 				$tt['Attributes']['Heroic'] = $line;
@@ -1297,8 +1303,9 @@ class item
 				$tt['Attributes']['MadeBy']['Name'] = $matches[1];
 				$tt['Attributes']['MadeBy']['Line'] = $matches[0];
 			}
-			elseif( preg_match('/^(.+) \(\d+\/\d+\)$/', $line, $matches ) )
+			elseif( preg_match('/^(.*) \(\d+\/\d+\)$/', $line, $matches ) )
 			{
+				//print_r($matches);echo '<br>';
 				$tt['Attributes']['Set']['ArmorSet']['Name'] = $matches[1];
 				$this->isSetPiece = true;
 				$setpiece = 1;
@@ -1316,7 +1323,9 @@ class item
 				$tt['Attributes']['DropRate'] = $line;
 			}
 			elseif( $setpiece )
+			//elseif( preg_match('/  (.*)/', $line, $matches ) )
 			{
+				//echo '--'.$line.'<br>';
 				if( strlen($line) > 4)
 				{
 					$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($line);

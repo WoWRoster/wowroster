@@ -110,6 +110,9 @@ $lang['ranged']='Ranged';
 $lang['melee']='Melee';
 $lang['spell']='Spell';
 
+//mop updates
+$lang['mastery'] = 'Mastery';
+
 $lang['weapon_skill']='Skill';
 $lang['weapon_skill_tooltip']='<span style="float:right;color:#fff;">%1$d</span>Weapon Skill<br /><span style="float:right;color:#fff;">%2$d</span>Weapon Skill Rating';
 $lang['damage']='Damage';
@@ -139,8 +142,13 @@ $lang['melee_rating']='Melee Attack Rating';
 $lang['melee_rating_tooltip']='Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently holding.';
 $lang['range_rating']='Ranged Attack Rating';
 $lang['range_rating_tooltip']='Your attack rating affects your chance to hit a target<br />And is based on the weapon skill of the weapon you are currently weilding.';
+//changed for mop
+$lang['pvppower'] = 'Increases damage done to players and their pets or minions, and increases healing done in PvP zones by %.1f%%.';
+$lang['pvpres_tooltip'] = "Increases your PvP resilience by %s.";
+$lang['pvpres'] = "PvP Resilience";
+$lang['spell_damage']='Spell Power';
+$lang['spell_damage_tooltip']='Increases the damage and healing of spells.';
 
-$lang['spell_damage']='+Damage';
 $lang['holy']='Holy';
 $lang['fire']='Fire';
 $lang['nature']='Nature';
