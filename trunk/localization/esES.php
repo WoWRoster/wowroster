@@ -837,6 +837,8 @@ $lang['tooltip_unique']='Único';
 $lang['tooltip_speed']='Veloc.';
 $lang['tooltip_poisoneffect']='^Cada golpe tiene';  // this is found in poison tooltips  I need the common text that decribes the poison.
 
+// MOP 5.0
+$lang['tooltip_preg_item_season']='/Season ([0-9, ]+)/';
 // php 5.3 changes
 $lang['tooltip_preg_soulbound']='/Soulbound/';
 $lang['tooltip_preg_dps']='/(\d+) damage per second/';
@@ -858,7 +860,7 @@ $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
 
-$lang['tooltip_preg_armor']='/^(\d+) armadura/';
+$lang['tooltip_preg_armor']='/^([0-9, ]+) armadura/';
 $lang['tooltip_preg_durability']='/Durabilidad(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Hecho por (.+)\>/';  // this is the text that shows who crafted the item.  don't worry about the pattern just post me the text I will make the pattern.
 $lang['tooltip_preg_bags']='/de (\d+) casillas/';  // text for bags, ie '16 slot bag'
@@ -866,7 +868,7 @@ $lang['tooltip_preg_socketbonus']='/Bonus ranura: (.+)/';
 $lang['tooltip_preg_classes']='/^(Clases:) (.+)/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Razas:) (.+)/'; // test for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
-$lang['tooltip_preg_block']='/(\d+) (bloqueo)/';  // text for shield blocking values
+$lang['tooltip_preg_block']='/([0-9, ]+) (bloqueo)/';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/Ranura (roja|amarilla|azul|meta|prismatic)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Reforzado\s\(\+\d+\sarmadura\))/i';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';

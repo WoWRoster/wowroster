@@ -837,6 +837,8 @@ $lang['tooltip_unique']='Einzigartig';
 $lang['tooltip_speed']='Tempo';
 $lang['tooltip_poisoneffect']='^Bei jedem Schlag';
 
+// MOP 5.0
+$lang['tooltip_preg_item_season']='/Season ([0-9, ]+)/';
 // php 5.3 changes
 $lang['tooltip_preg_soulbound']='/Seelengebunden/';
 $lang['tooltip_preg_dps']='/(\d+) Schaden pro Sekunde/';
@@ -858,7 +860,7 @@ $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for
 $lang['tooltip_preg_weapon_types']='/^(Pfeil|Axt|Bogen|Kugel|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Götze|Streitkolben|Waffenhand|Nebenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|Fernkampf|Einhand|Zweihand|Relikt)/';
 $lang['tooltip_preg_speed']='/Geschwindigkeit/';
 
-$lang['tooltip_preg_armor']='/^(\d+) Rüstung/';
+$lang['tooltip_preg_armor']='/^([0-9, ]+) Rüstung/';
 $lang['tooltip_preg_durability']='/Haltbarkeit(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Hergestellt von (.+)\>/';
 $lang['tooltip_preg_bags']='/(\d+) Platz/';
@@ -866,7 +868,7 @@ $lang['tooltip_preg_socketbonus']='/Sockelbonus: (.+)/';
 $lang['tooltip_preg_classes']='/^(Klassen:) (.+)/';
 $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
-$lang['tooltip_preg_block']='/(\d+) (Blocken)/';
+$lang['tooltip_preg_block']='/([0-9, ]+) (Blocken)/';
 $lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer|Prismatischer)(?:.?sockel)/i';
 $lang['tooltip_preg_reinforcedarmor']='/(Verstärkt \(\+\d+ Rüstung\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
