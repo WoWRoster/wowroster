@@ -837,6 +837,8 @@ $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Vitesse';
 $lang['tooltip_poisoneffect']='^Chaque coup a';
 
+// MOP 5.0
+$lang['tooltip_preg_item_season']='/Season ([0-9, ]+)/';
 // php 5.3 changes
 $lang['tooltip_preg_soulbound']='/Soulbound/';
 $lang['tooltip_preg_dps']='/(\d+) damage per second/';
@@ -858,7 +860,7 @@ $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
 
-$lang['tooltip_preg_armor']='/Armure.+ (\d+)/';
+$lang['tooltip_preg_armor']='/Armure.+ ([0-9, ]+)/';
 $lang['tooltip_preg_durability']='/Durabilité(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Artisan.+ (.+)\>/';  // this is the text that shows who crafted the item.
 $lang['tooltip_preg_bags']='/Conteneur (\d+) emplacements/';  // text for bags, ie '16 slot bag'
@@ -866,7 +868,7 @@ $lang['tooltip_preg_socketbonus']='/Bonus de sertissage : (.+)/';
 $lang['tooltip_preg_classes']='/^(Classes.:.)(.+)$/'; // text for class restricted items
 $lang['tooltip_preg_races']='/^(Races.:.)(.+)$/'; // text for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) Charges/i'; // text for items with charges
-$lang['tooltip_preg_block']='/(Bloquer).+?(\d+)/i';  // text for shield blocking values
+$lang['tooltip_preg_block']='/(Bloquer).+?([0-9, ]+)/i';  // text for shield blocking values
 $lang['tooltip_preg_emptysocket']='/(?:Châsse )?(rouge(?!\()|jaune(?!\()|Prismatic(?!\()|bleue(?!\()|Méta(?=-))(?:-châsse)?/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Renforcé \(\+\d Armure\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/';
