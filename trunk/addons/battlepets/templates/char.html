@@ -1,0 +1,56 @@
+
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">Battle Pets</div>
+
+				<div class="tier-2-a" id="status" >
+					<div class="tier-2-b">
+						
+
+<!-- BEGIN pet -->
+							<div class="pet">
+								<div class="pet-{pet.TYPE}">
+
+									<div class="item {pet.QUALITY}" {pet.TOOLTIP}>
+										<div class="icon">
+											<img src="{pet.ICON}" />
+											<div class="mask"></div>
+										</div>
+									</div>
+
+									<div class="pet-info">
+										<div class="name"><span style="color:#{pet.NAMECOLOR};">{pet.NAME}</span></div>
+										<div class="level">Level {pet.LEVEL}</div>
+										<div class="desc">
+											Health: {pet.HEALTH}<br>
+											Attack Speed: {pet.SPEED}<br>
+											Attack Power: {pet.POWER}<br>
+											Class: {pet.SPECIES}
+										</div>
+										<div class="pet-abilities">
+										<!-- BEGIN skills -->
+											<div class="skill{pet.skills.LEVEL}" {pet.skills.TOOLTIP}>
+											<div class="item">
+												<div class="icon">
+													<img src="{pet.skills.ICON}" />
+													<div class="mask"></div>
+												</div>
+											</div>
+											</div>
+										<!-- END skills -->
+										</div>
+									</div>
+									
+									<div style="height: 0px; clear: both;"></div>
+								</div>
+							</div>			
+<!-- END pet -->
+						<div style="height: 0px; clear: both;"></div>
+				
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
