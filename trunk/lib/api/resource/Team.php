@@ -16,7 +16,7 @@ require_once 'Resource.php';
  *
  * @throws ResourceException If no methods are defined.
  */
-class PVP extends Resource {
+class Team extends Resource {
 
 	protected $region;
 	
@@ -42,7 +42,7 @@ class PVP extends Resource {
 			'size' => $size,
 			'header'=>"Accept-language: ".$this->region."\r\n"
 			));
-		}
+		
 		return $data;
 	}
 	
@@ -61,7 +61,7 @@ class PVP extends Resource {
 			'size' => $size,
 			'header'=>"Accept-language: ".$this->region."\r\n"
 			));
-		}
+		
 		return $data;
 	}
 	

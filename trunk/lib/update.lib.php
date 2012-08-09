@@ -4192,7 +4192,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		if( isset($data['Attributes']['ITEMLEVEL']))
 		{
-			$this->add_rating('ilevel', $data['Attributes']['ITEMLEVEL']);
+			$this->add_value('ilevel', $data['Attributes']['ITEMLEVEL']);
 		}
 		// BEGIN mastery
 		if( isset($data['Attributes']['Mastery']) && is_array($data['Attributes']['Mastery']) )
@@ -4206,7 +4206,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			unset($attack);
 		}
 		// END Mastery
-		
+
 		// BEGIN SPELL
 		if( isset($data['Attributes']['Spell']) && is_array($data['Attributes']['Spell']) )
 		{

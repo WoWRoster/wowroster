@@ -41,7 +41,7 @@ class url {
 				$q = 'api/wow/guild/'.$server.'/'.$name . $fields['data'].'&'.$local;
 			break;
 			case 'team':
-				$q = 'api/wow/arena/'.$field['server'].'/'.$field['size'].'/'.$field['name'].'?'.$local;
+				$q = 'api/wow/arena/'.$fields['server'].'/'.$fields['size'].'/'.$fields['name'].'?'.$local;
 			break;
 			
 			case 'item':
@@ -71,7 +71,7 @@ class url {
 			break;
 			
 			case 'ladder':
-				$q = '/api/wow/pvp/arena/'.$field['server'].'/'.$field['size'].'?'.$local;
+				$q = '/api/wow/pvp/arena/'.$server.'/'.$fields['size'].'?'.$local;
 			break;
 			case 'talents':
 				// http://us.battle.net/wow/talents/class/3?jsonp=Talents
@@ -88,6 +88,7 @@ class url {
 			default:
 			break;
 		}
+
 		return $ui.$q;
 	}
 
