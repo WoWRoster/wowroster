@@ -155,7 +155,7 @@ class battlepetsUpdate
 		$tipdata = str_replace('|n', '<br>', $tipdata);
 		$tipdata = str_replace('.BLP', '', $tipdata);
 		//$tipdata = preg_replace('/\|TINTERFACE\\\\(.+?)\\\\(.+?):0\|t/ise', '<img src="Interface/'.ucfirst('$1').'/'.strtolower('$2').'.'.$roster->config['img_suffix'].'"></a> ',$tipdata);
-		$tipdata = preg_replace('/\|TINTERFACE\\\\(.+?)\\\\(.+?):0\|t/e', "'<img src=\"img/Interface/'.ucfirst(strtolower('$1')).'/'.strtolower('$2').'.png\" width=16 height=16></a> '",$tipdata);
+		$tipdata = preg_replace('/\|TINTERFACE\\\\(.+?)\\\\(.+?):0\|t/e', "'<img src=\"'.$roster->config['interface_url'].'Interface/'.ucfirst(strtolower('$1')).'/'.strtolower('$2').'.png\" width=16 height=16></a> '",$tipdata);
 
 		
 		if( is_array($tipdata) )
