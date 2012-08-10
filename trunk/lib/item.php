@@ -865,8 +865,9 @@ class item
 		{
 			return $this->_parseTooltipFull($itemid, $enchant, $gem1, $gem2, $gem3);
 		}
-		elseif( preg_match('/\(\d+\/\d+\)/', $this->tooltip) && !strstr($this->name, ':') )
+		elseif( preg_match('/\(\d+\/\d+\)/', $this->tooltip) )//&& !strstr($this->name, ':') )
 		{
+			echo 'match<br>';
 			// could be a set piece parse full
 			return $this->_parseTooltipFull($itemid);
 		}
@@ -878,6 +879,7 @@ class item
 		$this->isParseMode = 'simple';
 	}
 
+	// this function is not used and till be depreciated
 	function _parseTooltipArmory( $itemid )
 	{
 		global $roster;
@@ -891,112 +893,6 @@ class item
 //		$data = $this->armory_db->fetchItemTooltip($itemid, 'deDE');
 		//trim the fat
 		$data = $data['page'][0]['child']['itemTooltips'][0]['child']['itemTooltip'][0]['child'];
-//aprint($data);
-//exit;
-/*
-		if( !empty($data) )
-		{
-			//assign data structure
-			$tt['Attributes']['TempEnchantment'][] = $matches[1];
-//			$tt['Attributes']['SocketBonus'] = $data[];
-//			$tt['Attributes']['Enchantment'] = $matches[1];
-			$tt['General']['Name'] = $data['name'][0]['data'];
-			$tt['General']['ItemId'] = $this->item_id;
-			$tt['General']['ItemColor'] = $this->color;
-			$tt['General']['Icon'] = $this->icon;
-			$tt['General']['Slot'] = $this->slot;
-			$tt['General']['Parent'] = $this->parent;
-			$tt['General']['Tooltip'] = str_replace("\n", '<br>', $this->tooltip);
-			$tt['General']['Locale']=$this->locale;
-
-			//foreach( $data[] )
-			$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
-
-
-			$tt['Effects']['Use'][] = $line;
-			$tt['Attributes']['Requires'][] = $line;
-			$tt['Effects']['ChanceToProc'][] = $line;
-			$tt['Effects']['Equip'][] = $line;
-			$tt['Effects']['ChanceToProc'][] = $line;
-			$tt['Attributes']['BindType'] = $line;
-			$tt['Attributes']['Set']['SetBonus'][] = $line;
-
-			$tt['Attributes']['Durability']['Line']= 'Durability ';
-			$tt['Attributes']['Durability']['Current'] = $matches[1];
-			$tt['Attributes']['Durability']['Max'] = $matches[2];
-			$tt['Attributes']['Class'] = explode(', ', $matches[2]);
-			$tt['Attributes']['ClassText'] = $matches[1];
-			$tt['Attributes']['Race'] = explode(', ', $matches[2]);
-			$tt['Attributes']['RaceText'] = $matches[1];
-			$tt['Attributes']['Sockets'][$matches[1]] = $matches[0];
-			$this->isSocketable = true;
-			$tt['Attributes']['Set']['InactiveSet'][] = $line;
-			$tt['Attributes']['ItemNote'] = $line;
-			$tt['Attributes']['Unique'] = $line;
-			$tt['Attributes']['ArmorClass']['Line'] = $matches[0];
-			$tt['Attributes']['ArmorClass']['Rating'] = $matches[1];
-			$tt['Attributes']['ArmorType'] = $line[1];
-			$tt['Attributes']['ArmorSlot'] = $line[0];
-			$this->isArmor = true;
-			$tt['Attributes']['WeaponType'] = $line[1];
-			$tt['Attributes']['WeaponSlot'] = $line[0];
-			$this->isWeapon = true;
-			$tt['Attributes']['WeaponSpeed'] = $line[1];
-			$tt['Attributes']['WeaponDamage'] = $line[0];
-			$this->isWeapon = true;
-			$tt['Attributes']['WeaponDPS'] = $line;
-			$this->isWeapon = true;
-			$tt['Attributes']['MadeBy']['Name'] = $matches[1];
-			$tt['Attributes']['MadeBy']['Line'] = $matches[0];
-			$tt['Attributes']['Set']['ArmorSet']['Name'] = $matches[1];
-			$this->isSetPiece = true;
-			$setpiece = 1;
-			$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($line);
-			$tt['Attributes']['WeaponSlot'] = $line;
-			$this->isWeapon = true;
-			$tt['Attributes']['ArmorSlot'] = $line;
-			$this->isArmor = true;
-			$tt['Attributes']['BagSize'] = $matches[1];
-			$tt['Attributes']['BagDesc'] = $line;
-			$this->isBag = true;
-			$tt['Attributes']['Charges'] = $line;
-			$tt['Poison']['Effect'][] = $line;
-			$this->isPoison = true;
-			$tt['Attributes']['Conjured'][] = $line;
-			$this->parsed_item = $tt;
-			$this->attributes = ( isset($tt['Attributes']) ? $tt['Attributes'] : null );
-			$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
-*/
-
-
-/**
-		if( $gem1 || $gem2 || $gem3 )
-		{
-			$gems = array($gem1,$gem2,$gem3);
-			$i = 1;
-			foreach( $gems as $gem )
-			{
-				if( $gem )
-				{
-					$tt['Attributes']['Gems'][$i] = $this->fetchGem($gem);
-					if( isset($tt['Attributes']['Gems'][$i]['Bonus']) )
-					{
-						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
-					}
-					else
-					{
-						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
-						$this->isParseError = true;
-					}
-				}
-				$i++;
-			}
-			$this->isSocketable = true;
-		}
-*/
-//			aprint($tt);
-
-//		}
 	}
 
 	function _parseTooltipFull( $itemid, $enchant=false, $gem1=false, $gem2=false, $gem3=false)
@@ -1124,9 +1020,30 @@ class item
 		}
 
 		$tooltip = str_replace($roster->locale->wordings[$locale]['tooltip_transmoga'], $roster->locale->wordings[$locale]['tooltip_transmogb'], $tooltip);
+		
+		// pissed off item sets are nto working... work arround
+		$tvt = explode("<br>", $this->tooltip);
+		foreach( $tvt as $linet )
+		{
+			if( preg_match('/^  (.*)$/', $linet) )
+			{
+				if( strlen($linet) > 4)
+				{
+					$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($linet);
+					$setpiece++;
+					$tooltip = str_replace($linet, '', $tooltip);
+				}
+				else
+				{
+					$setpiece=false;
+				}
+			}
+		}
+		// end work arround
+		
 
 		$tooltip = explode("\n", $tooltip);
-
+		$setpiece=0;
 		$tt['General']['Name'] = array_shift($tooltip);
 		$tt['General']['ItemId'] = $this->item_id;
 		$tt['General']['ItemColor'] = $this->color;
@@ -1305,10 +1222,9 @@ class item
 			}
 			elseif( preg_match('/^(.*) \(\d+\/\d+\)$/', $line, $matches ) )
 			{
-				//print_r($matches);echo '<br>';
 				$tt['Attributes']['Set']['ArmorSet']['Name'] = $matches[1];
 				$this->isSetPiece = true;
-				$setpiece = 1;
+				$setpiece++;
 			}
 			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_source'] . "\b/i", $line ) )
 			{
@@ -1321,20 +1237,6 @@ class item
 			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_droprate'] . "\b/i", $line ) )
 			{
 				$tt['Attributes']['DropRate'] = $line;
-			}
-			elseif( $setpiece )
-			//elseif( preg_match('/  (.*)/', $line, $matches ) )
-			{
-				//echo '--'.$line.'<br>';
-				if( strlen($line) > 4)
-				{
-					$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($line);
-					$setpiece++;
-				}
-				else
-				{
-					$setpiece=false;
-				}
 			}
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_meta_requires'], $line ) )
 			{
