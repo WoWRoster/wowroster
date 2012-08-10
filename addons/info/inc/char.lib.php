@@ -1383,7 +1383,7 @@ class char
 
 		$repData = $this->_rep_tab_values();
 
-//		aprint($repData);
+		//echo '<pre>';print_r($repData);echo '</pre>';
 
 		if( is_array($repData) )
 		{
@@ -1504,7 +1504,7 @@ class char
 					$repInfo[$factions][$data['name']] = $this->_rep_bar_values($data);
 
 				}
-				if (isset($data['parent']) && $data['parent']!= $data['name'])
+				if (isset($data['parent']) )//&& $data['parent']!= $data['name'])
 				{
 					$p=$data['name'];
 					$repInfo[$factions][$data['parent']]['sub'] = 'Y';
@@ -1518,31 +1518,7 @@ class char
 
 				$j++;
 			}
-/*			WHAT IS/WAS THIS FOR?
-			for( $r=0; $r < $rep_rows; $r++ )
-			{
-				if( $repInfo[$i]['name'] != $data['faction'] )
-				{
-					$i++;
-					$j=0;
-					$repInfo[$i]['name'] = $data['faction'];
-				}
-				$repInfo[$i]['bars'][$j] = $this->_rep_bar_values($data);
-				if ($data['parent'] == $data['name'])
-				{
-					$repInfo[$i]['bars'][$j]['sub'][$k]['name'] = $data['name'];
-					$p=$data['name'];
-				}
-				if ($data['parent']==$p)
-				{
-					$repInfo[$i]['bars'][$j]['sub'][$k] = $this->_rep_bar_values($data);
-					$k++;
-				}
 
-				$j++;
-				$data = $roster->db->fetch($result,SQL_ASSOC);
-			}
-*/
 			return $repInfo;
 		}
 		else
