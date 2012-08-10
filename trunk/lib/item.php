@@ -1331,6 +1331,10 @@ class item
 				} // end pass2 if
 			} // end pass1
 		} // end foreach
+		if (isset($_GET['debug']))
+		{
+			echo '<pre>';print_r($tt);echo '</pre>';
+		}
 
 		if( isset( $unparsed ) )
 		{
