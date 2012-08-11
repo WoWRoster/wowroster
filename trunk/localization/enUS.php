@@ -752,6 +752,7 @@ $lang['faction_to_id'] = array(
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
 	'Reputation' => 'reputation',
+	'Mists of Pandaria' => 'mists of pandaria',
 );
 
 

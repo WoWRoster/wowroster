@@ -1020,11 +1020,13 @@ class item
 		}
 
 		$tooltip = str_replace($roster->locale->wordings[$locale]['tooltip_transmoga'], $roster->locale->wordings[$locale]['tooltip_transmogb'], $tooltip);
-		
+		$setpiece=0;
 		// pissed off item sets are nto working... work arround
-		$tvt = explode("<br>", $this->tooltip);
+		$d = str_replace("\n", '<br>', $this->tooltip);
+		$tvt = explode("<br>", $d);
 		foreach( $tvt as $linet )
 		{
+			//echo $linet.'---<br>';
 			if( preg_match('/^  (.*)$/', $linet) )
 			{
 				if( strlen($linet) > 4)
@@ -1043,7 +1045,7 @@ class item
 		
 
 		$tooltip = explode("\n", $tooltip);
-		$setpiece=0;
+		
 		$tt['General']['Name'] = array_shift($tooltip);
 		$tt['General']['ItemId'] = $this->item_id;
 		$tt['General']['ItemColor'] = $this->color;
@@ -1224,7 +1226,7 @@ class item
 			{
 				$tt['Attributes']['Set']['ArmorSet']['Name'] = $matches[1];
 				$this->isSetPiece = true;
-				$setpiece++;
+				$setpiece=1;
 			}
 			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_source'] . "\b/i", $line ) )
 			{
@@ -1238,6 +1240,21 @@ class item
 			{
 				$tt['Attributes']['DropRate'] = $line;
 			}
+			/*
+			elseif( $setpiece )
+			//elseif( preg_match('/  (.*)/', $line, $matches ) )
+			{
+				//echo '--'.$line.'<br>';
+				if( strlen($line) > 4)
+				{
+					$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = trim($line);
+					$setpiece++;
+				}
+				else
+				{
+					$setpiece=false;
+				}
+			}*/
 			elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_meta_requires'], $line ) )
 			{
 				$tt['Attributes']['MetaRequires'][] = $line;

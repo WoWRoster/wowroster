@@ -48,6 +48,18 @@ class url {
 				$q = 'api/wow/item/'.$name.'?'.$local;
 			break;
 			
+			case 'itemSet':
+				$q = 'api/wow/item/set/'.$name.'?'.$local;
+			break;
+			
+			case 'recipe':
+				$q = 'api/wow/recipe/'.$name.'?'.$local;
+			break;
+			
+			case 'achievement':
+				$q = 'api/wow/achievement/'.$name.'?'.$local;
+			break;
+			
 			case 'gperks':
 				$q = 'api/wow/data/guild/perks?'.$local;
 			break;
