@@ -1029,7 +1029,7 @@ class char
 		{
 			$talents[$row['tree']]['name'] = $row['tree'];
 			$talents[$row['tree']]['background'] = $row['background'];
-			$talents[$row['tree']]['icon'] = $row['icon'];
+			$talents[$row['tree']]['icon'] = strtolower($row['icon']);
 			$talents[$row['tree']]['roles'] = $row['roles'];
 			$talents[$row['tree']]['desc'] = $row['desc'];
 		}

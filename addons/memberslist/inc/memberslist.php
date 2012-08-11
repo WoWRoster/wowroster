@@ -917,33 +917,42 @@ class memberslist
 		}
 
 		$talents = explode(',',$row['talents']);
+		$talent2 = explode(',',$row['talents2']);
 
+		$_d = array();
+		foreach( $talent2 as $tal )
+		{
+			list($name, $role, $icon) = explode('|', $tal);
+				$_d[$name]['role'] = $role;
+				$_d[$name]['name'] = $name;
+				$_d[$name]['icon'] = $icon;
+		}
+		
 		$_t = array();
 		$specicon = '';
 		$notalent = true;
 		foreach( $talents as $talent )
 		{
-			list($_b, $name, $points, $icon) = explode('|', $talent);
-			$_t[$_b]['tip'][] = $points;
+			list($_s, $name, $points, $icon, $_b) = explode('|', $talent);
+			$_t[$_b]['tip'][] = $name.' - '.$points;
 			if( !isset($_t[$_b]['point']) || $points > $_t[$_b]['point'] )
 			{
 				$_t[$_b]['point'] = $points;
 				$_t[$_b]['name'] = $name;
-				$_t[$_b]['icon'] = $icon;
+				$_t[$_b]['icon'] = strtolower($_d[$name]['icon']);
 				$notalent = false;
 			}
 		}
-
 		if( !$notalent )
 		{
 			$tooltip = $icon = '';
 			foreach( $_t as $idx => $build )
 			{
-				$icon = '<span class="item-sm"><img src="' . $roster->config['img_url'] . 'spec/' . $build['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /><span class="mask"></span></span> ';
+				$icon = '<span class="item-sm"><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $build['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /><span class="mask"></span></span> ';
 				$tooltip .= $icon . implode(' / ', $build['tip']) . '<br />';
 			}
 			$tooltip = '<div style="font-size:12px;font-weight:bold;">' . $tooltip . '</div>';
-			$specicon = '<div class="item-sm" ' . makeOverlib($tooltip, $_t[0]['name'], '', 2, '', ',WRAP') . '><img src="' . $roster->config['img_url'] . 'spec/' . $_t[0]['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /><div class="mask"></div></div>';
+			$specicon = '<div class="item-sm" ' . makeOverlib($tooltip, $_t[1]['name'], '', 2, '', ',WRAP') . '><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $_t[1]['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /><div class="mask"></div></div>';
 		}
 
 		if( active_addon('info') )

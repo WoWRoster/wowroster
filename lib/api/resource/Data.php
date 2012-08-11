@@ -28,6 +28,9 @@ class Data extends Resource {
 		'gachievements',
 		'quests',
 		'itemtooltip',
+		'itemSet',
+		'recipe',
+		'achievement',
 	);
 
 	
@@ -116,6 +119,37 @@ class Data extends Resource {
 	}
 	
 	
+	public function getRecipe($id) {
+		
+			$data = $this->consume('recipe', array(
+			'data' => '',
+			'server' => '',
+			'name' => $id,
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		return $data;
+	}
+	public function getAchievement($id) {
+		
+			$data = $this->consume('achievement', array(
+			'data' => '',
+			'server' => '',
+			'name' => $id,
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		return $data;
+	}
+		
+	public function getItemSet($set) {
+		
+			$data = $this->consume('itemSet', array(
+			'data' => '',
+			'server' => '',
+			'name' => $set,
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		return $data;
+	}
 
 	public function getAchievInfo() {
 		

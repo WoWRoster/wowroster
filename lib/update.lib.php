@@ -2843,7 +2843,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				'order'      => '1',
 				'class_id'   => $data['ClassId'],
 				'background' => strtolower($this->fix_icon($talentData["Background"])),
-				'icon'       => $talentData["Icon"],
+				'icon'       => $this->fix_icon($talentData["Icon"]),
 				'roles'		 => $talentData["Role"],
 				'desc'		 => $talentData['Desc'],
 				'tree_num'   => '1'

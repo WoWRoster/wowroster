@@ -684,6 +684,7 @@ $lang['Death Knight']='Chevalier de la mort';
 $lang['Druid']='Druide';
 $lang['Hunter']='Chasseur';
 $lang['Mage']='Mage';
+$lang['Monk']='Monk';
 $lang['Paladin']='Paladin';
 $lang['Priest']='Prêtre';
 $lang['Rogue']='Voleur';
@@ -751,6 +752,7 @@ $lang['faction_to_id'] = array(
 	'Cataclysm' => 'cataclysm',
 	'Guild' => 'guild',
 	'Reputation' => 'reputation',
+	'Mists of Pandaria' => 'mists of pandaria',
 
 );
 
