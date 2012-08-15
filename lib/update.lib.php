@@ -1241,6 +1241,7 @@ class update
 		$this->add_ifvalue($recipe, 'item_id');
 		$this->add_ifvalue($recipe, 'recipe_name');
 		$this->add_ifvalue($recipe, 'recipe_type');
+		$this->add_ifvalue($recipe, 'recipe_sub_type');
 		$this->add_ifvalue($recipe, 'skill_name');
 		$this->add_ifvalue($recipe, 'difficulty');
 		$this->add_ifvalue($recipe, 'item_color');
@@ -1550,12 +1551,13 @@ CREATE TABLE `renprefix_quest_task_data` (
 	 * @param string $recipe_name
 	 * @return array
 	 */
-	function make_recipe( $recipe_data , $memberId , $parent , $recipe_type , $recipe_name )
+	function make_recipe( $recipe_data , $memberId , $parent , $recipe_type , $recipe_sub_type , $recipe_name )
 	{
 		$recipe = array();
 		$recipe['member_id'] = $memberId;
 		$recipe['recipe_name'] = $recipe_name;
 		$recipe['recipe_type'] = $recipe_type;
+		$recipe['recipe_sub_type'] = $recipe_sub_type;
 		$recipe['skill_name'] = $parent;
 
 		// Fix Difficulty since it's now a string field
@@ -1779,20 +1781,47 @@ CREATE TABLE `renprefix_quest_task_data` (
 				$this->setError('Professions could not be deleted',$roster->error());
 				return;
 			}
-			/* this shouldent be here unneeded processing if they are there leave them...
-			$querystr = "DELETE FROM `" . $roster->db->table('recipes_reagents') . "` WHERE `member_id` = '$memberId';";
-			if( !$roster->db->query($querystr) )
-			{
-				$this->setError('Profession reagents could not be deleted',$roster->error());
-				return;
-			}
-			*/
+
 			// Then process Professions
 			foreach( array_keys($prof) as $skill_name )
 			{
 				$messages .= " : $skill_name";
 
 				$skill = $prof[$skill_name];
+				foreach( array_keys($skill) as $recipe_type )
+				{
+					$item = $skill[$recipe_type];
+					foreach(array_keys($item) as $recipe_name)
+					{
+						$recipeDetails = $item[$recipe_name];
+						if (!isset($item[$recipe_name]["RecipeID"]))
+						{
+							$subitem = $item[$recipe_name];
+							foreach(array_keys($subitem) as $recipe_name2)
+							{
+								$recipeDetail = $subitem[$recipe_name2];
+								if( is_null($recipeDetails) || !is_array($recipeDetails) || empty($recipeDetails) )
+								{
+									continue;
+								}
+								$recipe = $this->make_recipe($recipeDetail, $memberId, $skill_name, $recipe_type,$recipe_name, $recipe_name2);
+								$this->insert_recipe($recipe,$data['Locale']);
+								$this->insert_reagent($memberId,$recipe['reagent_data'],$data['Locale']);
+							}
+						}
+						else
+						{
+							if( is_null($recipeDetails) || !is_array($recipeDetails) || empty($recipeDetails) )
+							{
+								continue;
+							}
+							$recipe = $this->make_recipe($recipeDetails, $memberId, $skill_name, $recipe_type, '', $recipe_name);
+							$this->insert_recipe($recipe,$data['Locale']);
+							$this->insert_reagent($memberId,$recipe['reagent_data'],$data['Locale']);
+						}
+					}
+				}
+				/*
 				foreach( array_keys($skill) as $recipe_type )
 				{
 					$item = $skill[$recipe_type];
@@ -1808,6 +1837,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 						$this->insert_reagent($memberId,$recipe['reagent_data'],$data['Locale']);
 					}
 				}
+				*/
 			}
 			$this->setMessage($messages . '</li>');
 		}

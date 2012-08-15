@@ -216,7 +216,7 @@ function recipe_get_many( $member_id , $search , $sort )
 			break;
 
 		default:
-			$query .= " ORDER BY `skill_name` ASC , `difficulty` DESC , `recipe_type` ASC , `recipe_name` ASC";
+			$query .= " ORDER BY `skill_name` ASC , `difficulty` DESC , `level` DESC , `recipe_name` ASC";
 			break;
 	}
 
@@ -224,8 +224,8 @@ function recipe_get_many( $member_id , $search , $sort )
 	$recipes = array();
 	while( $data = $roster->db->fetch($result) )
 	{
-		$recipe = new recipe($data);
-		$recipes[] = $recipe;
+		//$recipe = new recipe($data);
+		$recipes[] = $data;//$recipe;
 	}
 	return $recipes;
 }
