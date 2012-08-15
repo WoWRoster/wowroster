@@ -195,6 +195,13 @@ class Upgrade {
 				  PRIMARY KEY (`class_id`,`spell_id`,`tree`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
 		}
+
+		if (version_compare($roster->config['version'], '2.2.9.2585', '<'))
+		{
+			$roster->set_message('Players table updates for mastery');
+			$roster->db->query("ALTER TABLE  `" . $roster->db->table('recipes') . "` ADD  `recipe_sub_type` VARCHAR( 100 ) NULL DEFAULT NULL AFTER  `recipe_type`");
+		}
+		
 		// Standard Beta Update
 		$this->beta_upgrade();
 		$this->finalize();

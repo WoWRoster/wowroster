@@ -348,7 +348,6 @@ class char
 		$reagent_arr = array();
 		foreach ($reagents as $objects)
 		{
-//			aprint($data);
 			$skil = $objects->data['reagent_id'];
 			$reagent_arr[$skil]['item_color'] = $objects->data['reagent_color'];
 			$reagent_arr[$skil]['item_texture'] = $objects->data['reagent_texture'];
@@ -356,8 +355,203 @@ class char
 			$reagent_arr[$skil]['item_name'] = $objects->data['reagent_name'];
 			$reagent_arr[$skil]['tooltip'] = $objects->data['reagent_tooltip'];
 		}
+		$recipexx = array();
+		//$recipeee = new recipe();
+		foreach ($recipes as $idx => $data)
+		{
+			if (isset($data['recipe_sub_type']) && !empty($data['recipe_sub_type']) )
+			{
+				$skill = $data['skill_name'];
+				$type = $data['recipe_type'];
+				$subtype = $data['recipe_sub_type'];
+				$recipe = $data['recipe_name'];
+				$recipeee = new recipe($data);
+				$recipexx[$skill][$type][$subtype]["sub"] = true;
+				$recipexx[$skill][$type][$subtype][$recipe]['recipe_type'] = $data['recipe_type'];
+				$recipexx[$skill][$type][$subtype][$recipe]['difficulty'] = $data['difficulty'];
+				$recipexx[$skill][$type][$subtype][$recipe]['item_color'] = $data['item_color'];
+				$recipexx[$skill][$type][$subtype][$recipe]['reagents'] = $data['reagents'];
+				$recipexx[$skill][$type][$subtype][$recipe]['recipe_texture'] = $data['recipe_texture'];
+				$recipexx[$skill][$type][$subtype][$recipe]['level'] = $data['level'];
+				$recipexx[$skill][$type][$subtype][$recipe]['item_id'] = $data['item_id'];
+				$recipexx[$skill][$type][$subtype][$recipe]['recipe_id'] = $data['recipe_id'];
+				$recipexx[$skill][$type][$subtype][$recipe]['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $data['recipe_texture'] . '.' . $roster->config['img_suffix'];//$data->tpl_get_icon();
+				$recipexx[$skill][$type][$subtype][$recipe]['tooltip'] = makeOverlib($data['recipe_tooltip'],'',$data['item_color'],0,$roster->config['locale']);
+				$recipexx[$skill][$type][$subtype][$recipe]['itemlink'] = $recipeee->tpl_get_itemlink();
+				$recipexx[$skill][$type][$subtype][$recipe]['quality'] = $recipeee->_setQuality($data['item_color']);
+			}
+			else
+			{
+				$skill = $data['skill_name'];
+				$type = $data['recipe_type'];
+				$recipe = $data['recipe_name'];
+				$recipeee = new recipe($data);
+				$recipexx[$skill][$type][$recipe]['recipe_type'] = $data['recipe_type'];
+				$recipexx[$skill][$type][$recipe]['difficulty'] = $data['difficulty'];
+				$recipexx[$skill][$type][$recipe]['item_color'] = $data['item_color'];
+				$recipexx[$skill][$type][$recipe]['reagents'] = $data['reagents'];
+				$recipexx[$skill][$type][$recipe]['recipe_texture'] = $data['recipe_texture'];
+				$recipexx[$skill][$type][$recipe]['level'] = $data['level'];
+				$recipexx[$skill][$type][$recipe]['item_id'] = $data['item_id'];
+				$recipexx[$skill][$type][$recipe]['recipe_id'] = $data['recipe_id'];
+				$recipexx[$skill][$type][$recipe]['icon'] = $roster->config['interface_url'] . 'Interface/Icons/' . $data['recipe_texture'] . '.' . $roster->config['img_suffix'];//$data->tpl_get_icon();
+				$recipexx[$skill][$type][$recipe]['tooltip'] = makeOverlib($data['recipe_tooltip'],'',$data['item_color'],0,$roster->config['locale']);
+				$recipexx[$skill][$type][$recipe]['itemlink'] = $recipeee->tpl_get_itemlink();
+				$recipexx[$skill][$type][$recipe]['quality'] = $recipeee->_setQuality($data['item_color']);
+			}
+		}
+		
+		foreach ($recipexx as $skill_name => $header)
+		{
+			$roster->tpl->assign_block_vars('recipe',array(
+				'ID'      => strtolower(str_replace(' ','',$skill_name)),
+				'NAME'    => $skill_name,
+				'ICON'    => $this->locale['ts_iconArray'][$skill_name],
+				'TOOLTIP' => makeOverlib($skill_name,'','',1,'',',WRAP'),
+				'LINK'    => makelink('#' . strtolower(str_replace(' ','',$skill_name))),
+				)
+			);
+			foreach ($header as $hname => $recipe)
+			{
+				$roster->tpl->assign_block_vars('recipe.header',array(
+						'NAME'         => $hname,
+						)
+					);
+				foreach ($recipe as $name => $data)
+				{
+					if (isset($data['sub']))
+					{
+						$roster->tpl->assign_block_vars('recipe.header.subheader',array(
+							'NAME'         => $name,
+							)
+						);
+						foreach($data as $s => $dat)
+						{
+							if ($s != 'sub')
+							{
+								$roster->tpl->assign_block_vars('recipe.header.subheader.rows',array(
+									'ROW_CLASS'    => $roster->switch_row_class(),
+									'DIFFICULTY'   => $dat['difficulty'],
+									'L_DIFFICULTY' => $roster->locale->act['recipe_' . $dat['difficulty']],
+									'ITEM_COLOR'   => $dat['item_color'],
+									'NAME'         => $s,
+									'DIFFICULTY_COLOR' => $this->diff($dat['difficulty']),
+									'TYPE'         => $dat['recipe_type'],
+									'LEVEL'        => $dat['level'],
+									'ICON'         => $dat['icon'],
+									'TOOLTIP'      => $dat['tooltip'],
+									'ITEMLINK'     => $dat['itemlink'],
+									'QUALITY'      => $dat['quality'],
+									)
+								);
+								
+								$reagents = explode('|',$dat['reagents']);
 
-//		aprint($reagent_arr);
+								if ( is_array($reagents) )
+								{
+
+									foreach ($reagents as $reagent)
+									{
+										$dtr = explode(':', $reagent);
+										if (empty($dtr[0]))
+										{
+											$roster->tpl->assign_block_vars('recipe.header.subheader.rows.reagents',array(
+												'DATA' 		 => $reagent,
+												'ID' 		 => '000',
+												'NAME' 		 => 'Missing',
+												'ITEM_COLOR' => '000000',
+												'QUALITY'    => recipe::getQualityName('ffffff'),
+												'COUNT' 	 => '0',
+												'ICON' 		 => 'inv_misc_questionmark',
+												'TOOLTIP' 	 => makeOverlib('Missing data','','',0,$this->data['clientLocale'],',RIGHT'),
+												)
+											);
+										}
+										else
+										{
+											$roster->tpl->assign_block_vars('recipe.header.subheader.rows.reagents',array(
+												'DATA' 		 => $reagent,
+												'ID' 		 => $reagent_arr[$dtr[0]]['item_id'],
+												'NAME' 		 => $reagent_arr[$dtr[0]]['item_name'],
+												'ITEM_COLOR' => $reagent_arr[$dtr[0]]['item_color'],
+												'QUALITY'    => recipe::getQualityName($reagent_arr[$dtr[0]]['item_color']),
+												'COUNT' 	 => $dtr[1],
+												'ICON' 		 => $reagent_arr[$dtr[0]]['item_texture'],
+												'TOOLTIP' 	 => makeOverlib($reagent_arr[$dtr[0]]['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
+												)
+											);
+										}
+									}
+								}
+					
+							}
+						}
+					}
+					else
+					{
+					
+					$roster->tpl->assign_block_vars('recipe.header.row',array(
+						'ROW_CLASS'    => $roster->switch_row_class(),
+						'DIFFICULTY'   => $this->diff($data['difficulty']),
+						'L_DIFFICULTY' => $roster->locale->act['recipe_' . $data['difficulty']],
+						'ITEM_COLOR'   => $data['item_color'],
+						'NAME'         => $name,
+						'DIFFICULTY_COLOR' => $this->diff($data['difficulty']),
+						'TYPE'         => $data['recipe_type'],
+						'LEVEL'        => $data['level'],
+						'ICON'         => $data['icon'],
+						'TOOLTIP'      => $data['tooltip'],
+						'ITEMLINK'     => $data['itemlink'],
+						'QUALITY'      => $data['quality'],
+						)
+					);
+
+					$reagents = explode('|',$data['reagents']);
+
+					//echo $name.'<br>';
+					if ( is_array($reagents) )
+					{
+					//print_r($reagents);
+					//echo '<pre><br>';
+					foreach ($reagents as $reagent)
+					{
+						$dtr = explode(':', $reagent);
+						if (empty($dtr[0]))
+						{
+							$roster->tpl->assign_block_vars('recipe.header.row.reagents',array(
+								'DATA' 		 => $reagent,
+								'ID' 		 => '000',
+								'NAME' 		 => 'Missing',
+								'ITEM_COLOR' => '000000',
+								'QUALITY'    => recipe::getQualityName('ffffff'),
+								'COUNT' 	 => '0',
+								'ICON' 		 => 'inv_misc_questionmark',
+								'TOOLTIP' 	 => makeOverlib('Missing data','','',0,$this->data['clientLocale'],',RIGHT'),
+								)
+							);
+						}
+						else
+						{
+							$roster->tpl->assign_block_vars('recipe.header.row.reagents',array(
+								'DATA' 		 => $reagent,
+								'ID' 		 => $reagent_arr[$dtr[0]]['item_id'],
+								'NAME' 		 => $reagent_arr[$dtr[0]]['item_name'],
+								'ITEM_COLOR' => $reagent_arr[$dtr[0]]['item_color'],
+								'QUALITY'    => recipe::getQualityName($reagent_arr[$dtr[0]]['item_color']),
+								'COUNT' 	 => $dtr[1],
+								'ICON' 		 => $reagent_arr[$dtr[0]]['item_texture'],
+								'TOOLTIP' 	 => makeOverlib($reagent_arr[$dtr[0]]['tooltip'],'','',0,$this->data['clientLocale'],',RIGHT'),
+								)
+							);
+						}
+						}
+					}
+					}
+				}
+			}
+		}	
+		
+		/*
 		if (isset($recipes[0]))
 		{
 			$recipe_arr = array();
@@ -482,10 +676,39 @@ class char
 				}
 			}
 		}
+		*/
+		//echo '<pre>';print_r($recipexx);echo '</pre>';
 		$roster->tpl->set_filenames(array('recipes' => $addon['basename'] . '/recipes.html'));
 		return $roster->tpl->fetch('recipes');
 	}
 
+	function diff($value)
+	{
+		switch ($value)
+		{
+			case 5 :
+				$difficultycolor = 'red'; //difficult
+				break;
+
+			case 4 :
+				$difficultycolor = 'orange'; //optimal
+				break;
+
+			case 3 :
+				$difficultycolor = 'yellow'; //medium
+				break;
+
+			case 2 :
+				$difficultycolor = 'green'; //easy
+				break;
+
+			case 1 :
+			default :
+				$difficultycolor = 'grey'; //trivial
+				break;
+		}
+		return $difficultycolor;
+	}
 
 	/**
 	 * Build Mail

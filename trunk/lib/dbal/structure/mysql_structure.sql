@@ -878,6 +878,7 @@ CREATE TABLE `renprefix_recipes` (
   `item_id` varchar(64) default NULL,
   `recipe_name` varchar(64) NOT NULL default '',
   `recipe_type` varchar(100) NOT NULL default '',
+  `recipe_sub_type` VARCHAR( 100 ) NULL DEFAULT NULL,
   `skill_name` varchar(64) NOT NULL default '',
   `difficulty` int(11) NOT NULL default '0',
   `item_color` varchar(16) NOT NULL,
