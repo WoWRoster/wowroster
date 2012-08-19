@@ -209,7 +209,7 @@
 
 /*********** Pet Page ***********/
 .main-panel .pets .container { padding: 0; background: #eaca81 url(../images/section_bg.jpg) repeat center top; margin-bottom: 3px; border: 1px solid #EEDBA2; }
-.main-panel .pets .pet { height:80px; margin: 10px; position:relative; }
+.main-panel .pets .pet { height:95px; margin: 10px; position:relative; }
 
 .main-panel .pets .pet .icon { height: 64px; width: 64px; position:absolute; left: 3px; top: 3px; }
 .main-panel .pets .pet .icon img { position: absolute; clip: rect(2px 62px 62px 2px); width:64px; height:64px; cursor: pointer; left: 0; top: 0; z-index: 90; margin: 0; padding: 0; }
@@ -222,7 +222,7 @@
 .main-panel .pets .pet .padding { top: 1px; right: 1px; position: absolute; }
 .main-panel .pets .pet .padding .stats {
 	float:left;
-	width:109px;
+	width:125px;
 	height:74px;
 	padding:3px 2px 1px 4px;
 	color:#DFB801;
