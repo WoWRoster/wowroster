@@ -753,7 +753,8 @@ $lang['faction_to_id'] = array(
 	'Guild' => 'guild',
 	'Reputation' => 'reputation',
 	'Mists of Pandaria' => 'mists of pandaria',
-
+	'The Anglers' => 'the anglers',
+	'The Tillers' => 'the tillers',
 );
 
 
