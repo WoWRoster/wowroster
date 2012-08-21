@@ -207,9 +207,9 @@ textbox {
 .menu-frame .section-title { padding: 3px; font: bold 12px Georgia, "Times New Roman", Times, serif; color: #000; background: url(../images/th_bg.png) repeat-x left top; }
 
 .scope-menu .menu-scope-panel .frame { margin:5px; width:100%; position: relative; }
-.scope-menu .menu-scope-panel .frame .button { display: block; float:left; margin:3px; position: relative; height: 40px; width: 40px; }
-.scope-menu .menu-scope-panel .frame .button img { position: absolute; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
-.scope-menu .menu-scope-panel .frame .button .mask { background: url(../images/mask/menu_40x40_mask.png) no-repeat left top; height:40px; width:40px; position: absolute; left: 0; top: 0; }
+.scope-menu .menu-scope-panel .frame .button { display: block; float:left; margin:3px; position: relative; height: 50px; width: 50px; }
+.scope-menu .menu-scope-panel .frame .button img { position: absolute; clip: rect(2px 48px 48px 2px); height: 50px; width: 50px; }
+.scope-menu .menu-scope-panel .frame .button .mask { background: url(../images/mask/menu_50x50_mask.png) no-repeat left top; height:50px; width:50px; position: absolute; left: 0; top: 0; }
 .scope-menu .menu-scope-panel .frame .button .mask:hover { background-position: right top; }
 
 /* New Main Navagation tabs */
