@@ -102,9 +102,7 @@ class memberslistUpdate
 			$this->data['rules'] = $this->data['config'];
 		}
 
-		if( isset($guild['ScanInfo']) && is_array($guild['ScanInfo'])
-			&& isset($guild['ScanInfo']['HasOfficerNote'])
-			|| $this->data['rules']['getmain_field'] != 'OfficerNote' )
+		if( isset($guild['ScanInfo']) && is_array($guild['ScanInfo']) && isset($guild['ScanInfo']['HasOfficerNote']) || $this->data['rules']['getmain_field'] != 'OfficerNote' )
 		{
 			$this->passedCheck = true;
 			$this->messages = '';
