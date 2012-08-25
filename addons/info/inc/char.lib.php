@@ -2968,6 +2968,7 @@ class char
 			case ROSTER_CLASS_WARRIOR:
 			case ROSTER_CLASS_PALADIN:
 			case ROSTER_CLASS_ROGUE:
+			case ROSTER_CLASS_MONK:
 				$rightbox = 'melee';
 				break;
 
