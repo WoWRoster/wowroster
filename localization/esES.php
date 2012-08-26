@@ -550,7 +550,7 @@ $lang['class_to_en'] = array(
 	// 'Chamán' => 'Shaman',
 	'Bruja' => 'Warlock',
 	'Guerrera' => 'Warrior',
-	// 'Monk' => 'Monk'
+	'Monk' => 'Monk'
 );
 
 // Class to game-internal ID
