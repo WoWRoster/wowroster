@@ -71,7 +71,7 @@ $lang['access_level'] = 'Access Level';
 
 $lang['parsing_files'] = 'Parsing files';
 $lang['parsed_time'] = 'Parsed %1$s in %2$s seconds';
-$lang['error_parsed_time'] = 'Error while parsing %1$s after %2$s seconds';
+$lang['error_parsed_time'] = 'Error while parsing "%1$s" after %2$s seconds';
 $lang['upload_not_accept'] = '%1$s is not allowed for upload';
 
 $lang['processing_files'] = 'Processing Files';
