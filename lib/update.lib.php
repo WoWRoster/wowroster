@@ -60,7 +60,6 @@ class update
 
 		// Add roster-used tables
 		$this->files[] = 'wowrcp';
-		$this->files[] = 'wowroster';
 
 		if( !$roster->config['use_update_triggers'] )
 		{
@@ -229,7 +228,7 @@ class update
 					}
 					else
 					{
-						$output .= '<li>' . sprintf($roster->locale->act['error_parsed_time'],$filename[0],$parse_totaltime) . "</li>\n";
+						$output .= '<li>' . sprintf($roster->locale->act['error_parsed_time'],filebase,$parse_totaltime) . "</li>\n";
 						$output .= ($luahandler->error() != '' ? '<li>' . $luahandler->error() . "</li>\n" : '');
 					}
 					unset($luahandler);
@@ -267,11 +266,12 @@ class update
 		$gotfiles = array_keys($this->uploadData);
 		//print_r($gotfiles);
 //		if( in_array('characterprofiler',$gotfiles) || in_array('wowroster',$gotfiles) )
-		if( in_array('wowrcp',$gotfiles) || in_array('wowroster',$gotfiles) )
+		if( in_array('wowrcp',$gotfiles) )
 		{
 
 			if( $roster->auth->getAuthorized($roster->config['gp_user_level']) )
 			{
+				$output .= 'Guild Update access Granted';
 				$output .= $this->processGuildRoster();
 				$output .= "<br />\n";
 
@@ -279,6 +279,10 @@ class update
 				{
 					$this->enforceRules($this->processTime);
 				}
+			}
+			else
+			{
+				$output .= 'Guild Update access not Granted';
 			}
 
 			if( $roster->auth->getAuthorized($roster->config['cp_user_level']) )
@@ -392,17 +396,8 @@ class update
 		 * Rule #3 This works for both new and old CPs lol
 		 * Rule #4 If Zanix yells at you, you deserve it
 		 */
-/*		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
-		{
-			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
-		}
-		else
-*/
-		if ( isset($this->uploadData['wowroster']['cpProfile']) )
-		{
-			$myProfile = $this->uploadData['wowroster']['cpProfile'];
-		}
-		else if ( isset($this->uploadData['wowrcp']['cpProfile']) )
+
+		if ( isset($this->uploadData['wowrcp']['cpProfile']) )
 		{
 			$myProfile = $this->uploadData['wowrcp']['cpProfile'];
 		}
@@ -583,9 +578,9 @@ class update
 		}
 		else
 */
-		if ( isset($this->uploadData['wowroster']['cpProfile']) )
+		if ( isset($this->uploadData['wowrcp']['cpProfile']) )
 		{
-			$myProfile = $this->uploadData['wowroster']['cpProfile'];
+			$myProfile = $this->uploadData['wowrcp']['cpProfile'];
 		}
 		else
 		{
@@ -606,7 +601,7 @@ class update
 					foreach( $realm['Guild'] as $guild_name => $guild )
 					{
 						$this->current_guild = $guild_name;
-
+						
 						// GP Version Detection, don't allow lower than minVer
 						if( version_compare($guild['GPversion'], $roster->config['minGPver'], '>=') )
 						{
