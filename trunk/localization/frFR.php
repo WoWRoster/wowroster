@@ -549,7 +549,7 @@ $lang['class_to_en'] = array(
 	'Chamane' => 'Shaman',
 //	'Démoniste' => 'Warlock',
 	'Guerrière' => 'Warrior',
-
+	'Monk' => 'Monk'
 
 );
 
