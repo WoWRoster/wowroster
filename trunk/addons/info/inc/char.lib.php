@@ -1433,7 +1433,7 @@ class char
 
 		$roster->db->free_result($result);
 
-
+		//echo'<pre>';print_r($specdata);echo'</pre>';
 		foreach( $glyph_data as $build => $glyph_order )
 		{
 			$roster->tpl->assign_block_vars('glyphs',array(
