@@ -78,6 +78,7 @@ class CharBonus
 			$this->color = $item->color;
 			$this->item_locale = $item->locale;
 			$this->item = $item;
+			//echo'<br><hr><br><pre>';print_r($this->item);echo'</pre>';
 			$this->getBonus();
 		}
 		$this->_formatTooltip(); // call this to format bonus tooltip html
@@ -177,6 +178,14 @@ class CharBonus
 				$this->addBonus($bonus, 'Effects', false, $roster->locale->wordings[$this->item_locale]['tooltip_equip']);
 			}
 		}
+		
+		if( isset($this->item->attributes['SocketBonus']) )
+		{
+			preg_match($roster->locale->wordings[$this->item_locale]['tooltip_preg_socketbonus'], $this->item->attributes['SocketBonus'], $matches);
+			$this->addBonus($matches[1], 'Gems', true);
+		}
+		
+		
 		if( isset($this->item->attributes['Set']['SetBonus']) )
 		{
 			foreach( $this->item->attributes['Set']['SetBonus'] as $bonus )

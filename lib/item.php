@@ -855,6 +855,8 @@ class item
 		// otherwise do simple parsing
 		list($itemid, $enchant, $gem1, $gem2, $gem3) = explode(':', $this->item_id);
 
+		// Mop broke enchants unless i find a better way to do this we are gona diable them...
+		//$enchant = null;
 //		if( $this->isParseMode == 'web' || $gem2 )
 //		{
 //			return $this->_parseTooltipArmory($itemid);
@@ -867,7 +869,7 @@ class item
 		}
 		elseif( preg_match('/\(\d+\/\d+\)/', $this->tooltip) )//&& !strstr($this->name, ':') )
 		{
-			echo 'match<br>';
+			//echo 'match<br>';
 			// could be a set piece parse full
 			return $this->_parseTooltipFull($itemid);
 		}
@@ -946,12 +948,13 @@ class item
 			$i = 1;
 			foreach( $gems as $gem )
 			{
-				if( $gem )
+				if( $gem != 0 )
 				{
 					$tt['Attributes']['Gems'][$i] = $this->fetchGem($gem);
 					if( isset($tt['Attributes']['Gems'][$i]['Bonus']) )
 					{
 						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
+						//echo 'Removed'.$tt['Attributes']['Gems'][$i]['Bonus'].'<br>';
 						$tooltipWithoutColoredLines = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltipWithoutColoredLines);
 					}
 					else
@@ -976,6 +979,8 @@ class item
 		//                "Increased Stealth" and "Subtlety" are known. need enchant IDs to make it efficent localize txts? or static?
 		// find the last line that starts with a + (plus) sign and assume that is the enchantment
 		// in all cases Remove the line from the stack
+		//echo '<br><hr><br>'.$tooltip.'<br>';
+		//echo $tooltipWithoutColoredLines.'<br><hr><br>';
 		if( $enchant )
 		{
 			$this->isEnchant = true;
@@ -1005,6 +1010,11 @@ class item
 				//grab the last + stat in the tooltip and call that the enchantment.
 				$tooltip = str_replace($matches[0][count($matches[0])-1], '', $tooltip);
 				$tt['Attributes']['Enchantment'] = $matches[0][count($matches[0])-1];
+			}
+			elseif( preg_match('/([+,0-9]+)\s(.+)/', $tooltipWithoutColoredLines, $matches) )
+			{
+				//echo '<pre>';print_r($matches);echo '</pre>';
+				$tt['Attributes']['Enchantment'] = $matches[0];
 			}
 			else
 			{
@@ -1063,7 +1073,7 @@ class item
 			//
 			// at this point any line prefixed with a + must be a White Stat (or base stat).
 			//([0-9, ]+)
-			if( preg_match('/^([+-, 0-9]+)\s(.+)/u', $line, $matches) )
+			if( preg_match('/^([+,0-9]+)\s(.\S+)$/', $line, $matches) )
 			{
 				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
 			}
@@ -1176,7 +1186,7 @@ class item
 			}
 			elseif( preg_match('/"/',$line) )
 			{
-				$tt['Attributes']['ItemNote'] = $line;
+				$tt['Attributes']['ItemNote'] = '';//$line;
 			}
 			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_unique'] . "\b/i", $line ) )
 			{
@@ -1348,11 +1358,21 @@ class item
 				} // end pass2 if
 			} // end pass1
 		} // end foreach
+		//echo '<pre>';print_r($tt);echo '</pre>';
 		if (isset($_GET['debug']))
 		{
 			echo '<pre>';print_r($tt);echo '</pre>';
 		}
-
+		if (isset( $unparsed ) && count($unparsed) == 1)
+		{
+			if( preg_match('/([+,0-9]+)\s(.+)/', $unparsed[0], $matches) )
+			{
+				//echo '<pre>';print_r($matches);echo '</pre>';
+				$tt['Attributes']['Enchantment'] = $matches[0];
+				$tooltip = str_replace( $matches[0] . "\n", '', $tooltip);
+				$unparsed = null;
+			}
+		}
 		if( isset( $unparsed ) )
 		{
 			$source = implode( '\n', $unparsed);
