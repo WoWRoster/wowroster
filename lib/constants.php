@@ -78,11 +78,11 @@ define('ROSTER_ADDONUPDATEURL', 'http://www.wowroster.net/downloads.php?id=%1$s'
 /**
  * Some static and semi-static game data.
  */
-define('ROSTER_MAXCHARLEVEL', '85');
-define('ROSTER_MAXSKILLLEVEL', '525');
+define('ROSTER_MAXCHARLEVEL', '90');
+define('ROSTER_MAXSKILLLEVEL', '600');
 define('ROSTER_MAXQUESTS', '25');
-define('ROSTER_TALENT_ROWS', '7');
-define('ROSTER_TALENT_COLS', '4');
+define('ROSTER_TALENT_ROWS', '7');//not changed new talent processor determins this
+define('ROSTER_TALENT_COLS', '4');// above note
 
 define('ROSTER_CLASS_WARRIOR', 1);
 define('ROSTER_CLASS_PALADIN', 2);
@@ -109,6 +109,7 @@ define('ROSTER_RACE_BLOODELF', 10);
 define('ROSTER_RACE_DRAENEI', 11);
 define('ROSTER_RACE_WORGEN', 22);
 //Pandaren ALLIANCE/HORD RESPECTIVLY
+define('ROSTER_RACE_PANDAREN_N', 24);
 define('ROSTER_RACE_PANDAREN_A', 25);
 define('ROSTER_RACE_PANDAREN_H', 26);
 

@@ -1370,19 +1370,16 @@ class char
 		}
 
 		$glyph_data = array();
-		for( $t=0; $t < $num_glyphs; $t++)
+		while($row = $roster->db->fetch($result))
 		{
-			$row = $roster->db->fetch($result, SQL_ASSOC);
-
 			$glyph_build = $row['glyph_build'];
 			$glyph_order = $row['glyph_type'];
-			//$glyph_data[$glyph_build][$glyph_order] = array();
 			$glyph_data[$glyph_build][$glyph_order][] = array(
-													'type' => $row['glyph_type'],
-													'name' => $row['glyph_name'],
-													'icon' => $row['glyph_icon'],
-													'tooltip' => makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']),
-												);
+				'type' => $row['glyph_type'],
+				'name' => $row['glyph_name'],
+				'icon' => $row['glyph_icon'],
+				'tooltip' => makeOverlib($row['glyph_tooltip'], '', '', 0, $this->data['clientLocale']),
+			);
 		}
 
 		// Figure out build names
@@ -1433,7 +1430,6 @@ class char
 
 		$roster->db->free_result($result);
 
-		//echo'<pre>';print_r($specdata);echo'</pre>';
 		foreach( $glyph_data as $build => $glyph_order )
 		{
 			$roster->tpl->assign_block_vars('glyphs',array(
@@ -1461,7 +1457,6 @@ class char
 				}
 			}
 		}
-
 		return true;
 	}
 
