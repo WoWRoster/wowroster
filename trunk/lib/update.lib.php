@@ -228,7 +228,7 @@ class update
 					}
 					else
 					{
-						$output .= '<li>' . sprintf($roster->locale->act['error_parsed_time'],filebase,$parse_totaltime) . "</li>\n";
+						$output .= '<li>' . sprintf($roster->locale->act['error_parsed_time'],$filebase,$parse_totaltime) . "</li>\n";
 						$output .= ($luahandler->error() != '' ? '<li>' . $luahandler->error() . "</li>\n" : '');
 					}
 					unset($luahandler);
