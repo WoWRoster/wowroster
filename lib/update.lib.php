@@ -2758,25 +2758,8 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$burl = array();
 			$burl2 = '';
 
-				/*
-				
-				Remove on live!!!!!
-				
-				
-##############################################################################################				
-				*/
-				
-			$querystr = "DELETE FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $data['ClassId'] . "';";
-				if (!$roster->db->query($querystr))
-				{
-					$roster->set_message('Talent Data Table could not be emptied.', '', 'error');
-					$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
-					return;
-				}
 				$tid = $data['ClassId'].'0';
-				/*
-##############################################################################################				
-				*/
+
 				$tx = 0;
 			foreach ($talentData['Talents'] as $t_name => $info )
 			{
@@ -2792,34 +2775,6 @@ CREATE TABLE `renprefix_quest_task_data` (
 				{
 					$rank = '1';
 				}
-				/*
-				
-				
-				Remove on live!!!!!
-				
-				
-##############################################################################################				
-				*/				
-				$values = array(
-					'talent_id'  => $tid++,
-					'talent_num' => $tx++,
-					'tree_order' => '1',
-					'class_id'   => $data['ClassId'],
-					'name'       => $info["Name"],
-					'tree'       => $talentData["Name"],
-					'tooltip'    => $info['Tooltip'],
-					'texture'    => $this->fix_icon($info['Texture']),
-					'isspell'	 => false,
-					'row'        => $location[0],
-					'column'     => $location[1],
-					'rank'       => '1'
-				);
-				/*
-##############################################################################################				
-				*/
-				$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
-					. $roster->db->build_query('INSERT', $values) . ";";
-				$result = $roster->db->query($querystr);
 
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
