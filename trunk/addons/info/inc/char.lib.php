@@ -1135,7 +1135,7 @@ class char
 			. "FROM `" . $roster->db->table('talent_builds') . "` as builds "
 			. "LEFT JOIN `".$roster->db->table('talenttree')."` AS specs ON `builds`.`member_id` = `specs`.`member_id`  "
 			. " WHERE `builds`.`member_id` = '" . $this->data['member_id'] . "' and `specs`.`build` = `builds`.`build`"
-			. " ORDER BY `specs`.`build` ASC,`builds`.`build` ASC;";
+			. " ORDER BY `specs`.`order` ASC,`builds`.`build` ASC;";
 
 		$result = $roster->db->query($sqlquery);
 

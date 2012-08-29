@@ -55,7 +55,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		{
 
 			$tooltip = '';
-			$tooltip .= (isset($talent['spell']['cost']) ? '<br>'.$talent['spell']['cost'] : '');
+			$tooltip .= (isset($talent['spell']['cost']) ? $talent['spell']['cost'] : '');
 			$tooltip .=	(isset($talent['spell']['range']) ? '<span style="float:right;">'.$talent['spell']['range'].'</span>' : '');
 			$tooltip .=	(isset($talent['spell']['castTime']) ? '<br>'.$talent['spell']['castTime'] : '');
 			$tooltip .=	(isset($talent['spell']['cooldown']) ? '<span style="float:right;">'.$talent['spell']['cooldown'].'</span>' : '');
@@ -68,7 +68,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 				'class_id'   => $talent['classKey'],
 				'name'       => $talent['spell']['name'],
 				'tree'       => '',//$treedata['name'],
-				'tooltip'    => tooltip($tooltip),
+				'tooltip'    => $tooltip,
 				'texture'    => $talent['spell']['icon'],
 				'isspell'	 => ( !$talent['spell']['keyAbility'] ? false : true ),
 				'row'        => ($talent['tier'] + 1),
