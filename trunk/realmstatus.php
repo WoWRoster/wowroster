@@ -87,7 +87,7 @@ else
 //piss the xml noise we are going json
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
-$xmlsource = 'http://' . $region . '.battle.net/api/wow/realm/status?realm=' . $realmname . '';
+$xmlsource = $roster->api->Realm->getRealmStatus($realmname);//'http://' . $region . '.battle.net/api/wow/realm/status?realm=' . $realmname . '';
 
 //==========[ OTHER SETTINGS ]=========================================================
 
@@ -123,21 +123,21 @@ else
 // Check timestamp, update when ready
 $current_time = time();
 
-if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 3600)) )
+if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 600)) )
 {
-	$r = json_decode(file_get_contents($xmlsource));
+	$r = $xmlsource;
 
-	$d = $r->realms['0'];
+	$d = $r['realms']['0'];
 
 	if( $d !== false )
 	{
-		$realmType = str_replace('(', '',$d->type);
+		$realmType = str_replace('(', '',$d['type']);
 		$realmType = str_replace(')', '',$realmType);
 
 		$realmData['server_region'] = $region;
 		$realmData['servertype']    = strtoupper($realmType);
-		$realmData['serverstatus']  = strtoupper(statussw($d->status));
-		$realmData['serverpop']     = strtoupper($d->population);
+		$realmData['serverstatus']  = strtoupper(statussw($d['status']));
+		$realmData['serverpop']     = strtoupper($d['population']);
 
 		$err = 0;
 	}
