@@ -35,14 +35,8 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		return;
 	}
 
-	$querystr = "DELETE FROM `" . $roster->db->table('talenttree_data') . "` WHERE `class_id` = '" . $classid . "';";
-	if (!$roster->db->query($querystr))
-	{
-		$roster->set_message('Talent Tree Data Table could not be emptied.', '', 'error');
-		$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
-		return;
-	}
 	//talent_mastery
+	/*
 	$querystr = "DELETE FROM `" . $roster->db->table('talent_mastery') . "` WHERE `class_id` = '" . $classid . "';";
 	if (!$roster->db->query($querystr))
 	{
@@ -50,38 +44,47 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		$roster->set_message('<pre>' . $roster->db->error() . '</pre>', 'MySQL Said', 'error');
 		return;
 	}
+	*/
 	$treenum = 1;
-
+	$t=1;
 	foreach ($talents['talentData']['talentTrees'] as $a => $treedata)
 	{
 
-		foreach ($treedata['talents'] as $t => $talent)
+		$lvl = 15;
+		foreach ($treedata as $t => $talent)
 		{
-			$lvl = 1;
-			foreach ($talent['ranks'] as $r => $ranks)
-			{
-				$values = array(
-					'talent_id'  => $talent['id'],
-					'talent_num' => $t,
-					'tree_order' => $treenum,
-					'class_id'   => $classid,
-					'name'       => $talent['name'],
-					'tree'       => $treedata['name'],
-					'tooltip'    => tooltip($ranks['description']),
-					'texture'    => $talent['icon'],
-					'isspell'	 => ( !$talent['keyAbility'] ? false : true ),
-					'row'        => ($talent['y'] + 1),
-					'column'     => ($talent['x'] + 1),
-					'rank'       => $lvl
-				);
-				$lvl++;
-				
-				$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
-					. $roster->db->build_query('INSERT', $values) . ";";
-				$result = $roster->db->query($querystr);
-				$count++;
-			}
+
+			$tooltip = '';
+			$tooltip .= (isset($talent['spell']['cost']) ? '<br>'.$talent['spell']['cost'] : '');
+			$tooltip .=	(isset($talent['spell']['range']) ? '<span style="float:right;">'.$talent['spell']['range'].'</span>' : '');
+			$tooltip .=	(isset($talent['spell']['castTime']) ? '<br>'.$talent['spell']['castTime'] : '');
+			$tooltip .=	(isset($talent['spell']['cooldown']) ? '<span style="float:right;">'.$talent['spell']['cooldown'].'</span>' : '');
+			$tooltip .= '<br>'.$talent['spell']['htmlDescription'];
+			
+			$values = array(
+				'talent_id'  => $talent['spell']['spellId'],
+				'talent_num' => $t,
+				'tree_order' => '0',
+				'class_id'   => $talent['classKey'],
+				'name'       => $talent['spell']['name'],
+				'tree'       => '',//$treedata['name'],
+				'tooltip'    => tooltip($tooltip),
+				'texture'    => $talent['spell']['icon'],
+				'isspell'	 => ( !$talent['spell']['keyAbility'] ? false : true ),
+				'row'        => ($talent['tier'] + 1),
+				'column'     => ($talent['column'] + 1),
+				'rank'       => $lvl
+			);
+
+			
+			$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
+				. $roster->db->build_query('INSERT', $values) . ";";
+			$result = $roster->db->query($querystr);
+			$count++;
+		$t++;	
 		}
+		$lvl = ($lvl+15);
+		/*
 		$role = '';
 		foreach ($treedata['roles'] as $name => $h)
 		{
@@ -119,7 +122,7 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 			. $roster->db->build_query('INSERT', $values) . "
 			;";
 			$result = $roster->db->query($querystr);
-
+		*/
 		$count++;
 		$treenum++;
 	}
@@ -159,48 +162,39 @@ if (isset($_GET['parse']) && $_GET['parse'] == 'all'){
 //$i=$tid;
 	foreach ($talents['talentData']['talentTrees'] as $a => $treedata)
 	{
-		
 
-		foreach ($treedata['talents'] as $t => $talent)
+		$lvl = 15;
+		foreach ($treedata as $t => $talent)
 		{
-			$lvl = 1;
-			foreach ($talent['ranks'] as $r => $ranks)
-			{
-				$values = array(
-					'talent_id'  => $talent['id'],
-					'talent_num' => $t,
-					'tree_order' => $treenum,
-					'class_id'   => $i,
-					'name'       => $talent['name'],
-					'tree'       => $treedata['name'],
-					'tooltip'    => tooltip($ranks['description']),
-					'texture'    => $talent['icon'],
-					'row'        => ($talent['y'] + 1),
-					'column'     => ($talent['x'] + 1),
-					'rank'       => $lvl
-				);
-				$lvl++;
-				
-				$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
-					. $roster->db->build_query('INSERT', $values) . ";";
-				$result = $roster->db->query($querystr);
-				$count++;
-			}
-		}
+			$tooltip = '';
+			$tooltip .= (isset($talent['spell']['cost']) ? '<br>'.$talent['spell']['cost'] : '');
+			$tooltip .=	(isset($talent['spell']['range']) ? '<span style="float:right;">'.$talent['spell']['range'].'</span>' : '');
+			$tooltip .=	(isset($talent['spell']['castTime']) ? '<br>'.$talent['spell']['castTime'] : '');
+			$tooltip .=	(isset($talent['spell']['cooldown']) ? '<span style="float:right;">'.$talent['spell']['cooldown'].'</span>' : '');
+			$tooltip .= '<br>'.$talent['spell']['htmlDescription'];
+			$values = array(
+				'talent_id'  => $talent['spell']['spellId'],
+				'talent_num' => $t,
+				'tree_order' => '0',
+				'class_id'   => $talent['classKey'],
+				'name'       => $talent['spell']['name'],
+				'tree'       => '',//$treedata['name'],
+				'tooltip'    => tooltip($tooltip),
+				'texture'    => $talent['spell']['icon'],
+				'isspell'	 => ( !$talent['spell']['keyAbility'] ? false : true ),
+				'row'        => ($talent['tier'] + 1),
+				'column'     => ($talent['column'] + 1),
+				'rank'       => $lvl
+			);
 
-		$values = array(
-			'tree'       => $treedata['name'],
-			'order'      => $treenum,
-			'class_id'   => $i,
-			'background' => strtolower($treedata['backgroundFile']),
-			'icon'       => $treedata['icon'],
-			'tree_num'   => $treenum
-		);
-
-		$querystr = "INSERT INTO `" . $roster->db->table('talenttree_data') . "` "
-			. $roster->db->build_query('INSERT', $values) . "
-			;";
+			
+			$querystr = "INSERT INTO `" . $roster->db->table('talents_data') . "` "
+				. $roster->db->build_query('INSERT', $values) . ";";
 			$result = $roster->db->query($querystr);
+			$count++;
+		$t++;	
+		}
+		$lvl = ($lvl+15);
 
 		$count++;
 		$treenum++;
