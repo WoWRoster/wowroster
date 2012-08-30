@@ -2720,38 +2720,38 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->setMessage('<li>No Talent Data</li>');
 			return;
 		}
-
+		echo'<pre>';print_r($talentBuildData);echo'</pre>';
 		// Check for dual talent build
 		// removed for MOp auti scanning now used...
 
 		$messages = '<li>Updating Talents';
 
-
-		// Update Talents
-		foreach( $talentBuildData as $build => $talentData )
-		{
-
-
-			// first delete the stale data
-			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
+		// first delete the stale data
+			$querystr = "DELETE FROM `" . $roster->db->table('talents') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talents could not be deleted',$roster->db->error());
 				return;
 			}
 
-			$querystr = "DELETE FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
+			$querystr = "DELETE FROM `" . $roster->db->table('talenttree') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent Trees could not be deleted',$roster->db->error());
 				return;
 			}
-			$querystr = "DELETE FROM `" . $roster->db->table('talent_builds') . "` WHERE `member_id` = '$memberId' AND `build` = " . $build . ";";
+			$querystr = "DELETE FROM `" . $roster->db->table('talent_builds') . "` WHERE `member_id` = '$memberId';";
 			if( !$roster->db->query($querystr) )
 			{
 				$this->setError($roster->locale->act['talent_build_' . $build] . ' Talent build could not be deleted',$roster->db->error());
 				return;
 			}
+		// Update Talents
+		foreach( $talentBuildData as $build => $talentData )
+		{
+
+
+			
 			//"Role" "Name" "Active" "Talents" "Background" "Icon" "Desc" 
 			$messages .= " : ".$build."-".$talentData["Name"]." ";
 			$tree_pointsspent = 0;
