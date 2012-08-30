@@ -923,6 +923,40 @@ class item
 		$tooltipWithoutColoredLines = preg_replace( '/\|c[a-f0-9]{6,8}.+?\|r\n/', '', $tooltipWithoutColoredLines );
 
 
+		
+		//echo'<br><hr><br><pre>';echo $tooltip;echo'</pre>';
+		//echo'<br><pre>';echo $tooltipWithoutColoredLines;echo'</pre>';
+		// if any gems get the data for them, remove lines from stack.
+		if( $gem1 || $gem2 || $gem3 )
+		{
+			$gems = array($gem1,$gem2,$gem3);
+			$i = 1;
+			foreach( $gems as $gem )
+			{
+				if( $gem != 0 )
+				{
+					$tt['Attributes']['Gems'][$i] = $this->fetchGem($gem);
+					if( isset($tt['Attributes']['Gems'][$i]['Bonus']) )
+					{
+						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
+						$tooltip = str_replace('<span style="color:#ffffff;">' . $tt['Attributes']['Gems'][$i]['Bonus'] . "</span>\n", '', $tooltip);
+						//echo 'Removed'.$tt['Attributes']['Gems'][$i]['Bonus'].'<br>';
+						//<span style="color:#ffffff;">" . $tt['Attributes']['Gems'][$i]['Bonus'] . "</span>
+						$tooltipWithoutColoredLines = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltipWithoutColoredLines);
+						$tooltipWithoutColoredLines = str_replace('<span style="color:#ffffff;">' . $tt['Attributes']['Gems'][$i]['Bonus'] . "</span>\n", '',$tooltipWithoutColoredLines);
+					}
+					else
+					{
+						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
+						$this->isParseError = true;
+					}
+				}
+				$i++;
+			}
+			$this->isSocketable = true;
+		}
+		//echo'<br><pre>';echo $tooltip;echo'</pre><br><hr><br>';
+		
 		// tries to capture temp enchants based on pattern
 		if( preg_match($roster->locale->wordings[$locale]['tooltip_preg_tempenchants'], $tooltip, $matches) )
 		{
@@ -941,32 +975,7 @@ class item
 		}
 
 
-		// if any gems get the data for them, remove lines from stack.
-		if( $gem1 || $gem2 || $gem3 )
-		{
-			$gems = array($gem1,$gem2,$gem3);
-			$i = 1;
-			foreach( $gems as $gem )
-			{
-				if( $gem != 0 )
-				{
-					$tt['Attributes']['Gems'][$i] = $this->fetchGem($gem);
-					if( isset($tt['Attributes']['Gems'][$i]['Bonus']) )
-					{
-						$tooltip = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltip);
-						//echo 'Removed'.$tt['Attributes']['Gems'][$i]['Bonus'].'<br>';
-						$tooltipWithoutColoredLines = str_replace( $tt['Attributes']['Gems'][$i]['Bonus'] . "\n", '', $tooltipWithoutColoredLines);
-					}
-					else
-					{
-						trigger_error('Unable to find gem_socketid: ' . $gem . ' locale: ' . $this->locale . ' in Gems table! [' . $this->item_id . ']' );
-						$this->isParseError = true;
-					}
-				}
-				$i++;
-			}
-			$this->isSocketable = true;
-		}
+		
 
 		//
 		// if itemid shows an enchant on the item parse for it.
@@ -1075,7 +1084,10 @@ class item
 			//([0-9, ]+)
 			if( preg_match('/^([+,0-9]+)\s(.\S+)$/', $line, $matches) )
 			{
-				$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
+				if ( !isset($tt['Attributes']['BaseStats'][$matches[2]]) )
+				{
+					$tt['Attributes']['BaseStats'][$matches[2]] = $matches[0];
+				}
 			}
 			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_preg_use'], $line) )
 			{
@@ -1141,10 +1153,6 @@ class item
 			}
 			elseif( preg_match( $roster->locale->wordings[$locale]['tooltip_transmogc'], $line, $matches) )
 			{
-				//heroic
-				//echo $line.'<br>';
-				//print_r($matches);
-				//echo $line.$matches[1].'<br>';
 				$tt['Attributes']['Trans'] = $matches[0];
 			}
 			elseif( preg_match( "/\b" . $roster->locale->wordings[$locale]['tooltip_bind_types'] . "\b/i", $line) )
