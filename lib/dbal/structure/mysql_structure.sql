@@ -810,6 +810,11 @@ CREATE TABLE `renprefix_players` (
   `block` float NOT NULL default '0',
   `mitigation` float NOT NULL default '0',
   `crit` float NOT NULL default '0',
+  `mastery` VARCHAR( 10 ) NOT NULL default '0',
+  `mastery_tooltip` MEDIUMTEXT NULL DEFAULT NULL,
+  `ilevel` VARCHAR( 20 ) NOT NULL default '0',
+  `pvppower` VARCHAR( 20 ) NOT NULL default '0',
+  `pvppower_bonus` VARCHAR( 20 ) NOT NULL default '0',
   `lifetimeHighestRank` int(11) NOT NULL default '0',
   `clientLocale` varchar(4) NOT NULL default '',
   `timeplayed` int(11) NOT NULL default '0',
@@ -1033,7 +1038,7 @@ CREATE TABLE `renprefix_talenttree_arrows` (
 
 DROP TABLE IF EXISTS `renprefix_talenttree_data`;
 CREATE TABLE `renprefix_talenttree_data` (
-  `class_id` int(11) NOT NULL DEFAULT '0',
+`class_id` int(11) NOT NULL DEFAULT '0',
   `build` tinyint(2) NOT NULL DEFAULT '0',
   `tree` varchar(64) NOT NULL DEFAULT '',
   `tree_num` varchar(64) NOT NULL DEFAULT '',
@@ -1047,7 +1052,7 @@ CREATE TABLE `renprefix_talenttree_data` (
 
 DROP TABLE IF EXISTS `renprefix_talent_builds`;
 CREATE TABLE `renprefix_talent_builds` (
-  `member_id` int(11) NOT NULL DEFAULT '0',
+`member_id` int(11) NOT NULL DEFAULT '0',
   `build` tinyint(2) NOT NULL DEFAULT '0',
   `tree` varchar(200) NOT NULL DEFAULT '',
   `spec` varchar(64) DEFAULT NULL,
