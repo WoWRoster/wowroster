@@ -2402,13 +2402,6 @@ CREATE TABLE `renprefix_quest_task_data` (
 			return;
 		}
 
-		// Check for dual talent build
-		if( ( isset($data['DualSpec']) && !empty($data['DualSpec']) && is_array($data['DualSpec']) )
-			&& ( isset($data['DualSpec']['SpellBook']) && !empty($data['DualSpec']['SpellBook']) && is_array($data['DualSpec']['SpellBook']) ) )
-		{
-			$spellBuildData[1] = $data['DualSpec']['SpellBook'];
-		}
-
 		$messages = '<li>Updating Spellbook';
 
 		// then process spellbook
@@ -2480,7 +2473,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 				}
 				$this->reset_values();
 				$this->add_value('member_id', $memberId);
-				$this->add_value('spell_build', $build);
+				$this->add_value('spell_build', $data_spell_type['OffSpec']);
 				$this->add_value('spell_type', $spell_type);
 				$this->add_value('spell_texture', $this->fix_icon($data_spell_type['Icon']));
 

@@ -865,6 +865,7 @@ class char
 			$spell_type = $row['spell_type'];
 			$spellbook[$this->data['name']][$spell_type]['order'] = $t;
 			$spellbook[$this->data['name']][$spell_type]['icon'] = $row['spell_texture'];
+			$spellbook[$this->data['name']][$spell_type]['isOffspec'] = $row['spell_build'];
 			$spellbook[$this->data['name']][$spell_type]['tooltip'] = makeOverlib($spell_type,'','',2,'',',WRAP,RIGHT');
 
 			// Get the spell data
@@ -958,6 +959,7 @@ class char
 					'ORDER' => $spell_tree['order'],
 					'ID'    => strtolower(str_replace(' ','',$spell_type)),
 					'ICON'  => $spell_tree['icon'],
+					'ISOFFSPEC' => $spell_tree['isOffspec'],
 					'TOOLTIP' => $spell_tree['tooltip'],
 					)
 				);

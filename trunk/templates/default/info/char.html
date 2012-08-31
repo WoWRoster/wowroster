@@ -619,15 +619,15 @@
 					<div class="tier-2-b">
 						<div class="tier-2-title">
 							<div class="icon">
-								<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" alt="" />
+								<img<!-- IF spell_book.tree.ISOFFSPEC eq 1 --> class="icon_grey"<!-- ENDIF --> src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.ICON}.{IMG_SUFFIX}" alt="" />
 								<div class="mask"></div>
 							</div>
-							{spell_book.tree.ID}
+							{spell_book.tree.ID}<!-- IF spell_book.tree.ISOFFSPEC eq 1 --> <i><!-- TRANSLATE inactive --></i><!-- ENDIF -->
 						</div>
 <!-- BEGIN page -->
 <!-- BEGIN spell -->
 						<div class="item" {spell_book.tree.page.spell.TOOLTIP}>
-							<img src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" alt="" />
+							<img<!-- IF spell_book.tree.ISOFFSPEC eq 1 --> class="icon_grey"<!-- ENDIF --> src="{INTERFACE_URL}Interface/Icons/{spell_book.tree.page.spell.ICON}.{IMG_SUFFIX}" alt="" />
 							<div class="mask"></div>
 						</div>
 <!-- END spell -->
