@@ -415,7 +415,7 @@
 .main-panel .spellbook .container .spell-tree .spell-page .spell-container .text { height: 40px; color: #FFCC00; white-space: normal; }
 .main-panel .spellbook .container .spell-tree .spell-page .spell-container .text img { height: 40px; width: 40px; float: left; margin-right: 5px;}
 .main-panel .spellbook .container .spell-tree .spell-page .spell-container .text .rank { color: #CCCCCC; font-size: 10px; }
-
+.icon_grey { filter:gray;opacity:0.6; }
 
 /***********  Currency Page ***********/
 .main-panel .currency .icon { height: 24px; width: 24px; float: left; margin-right: 5px; }
