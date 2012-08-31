@@ -2720,7 +2720,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 			$this->setMessage('<li>No Talent Data</li>');
 			return;
 		}
-		echo'<pre>';print_r($talentBuildData);echo'</pre>';
+		//echo'<pre>';print_r($talentBuildData);echo'</pre>';
 		// Check for dual talent build
 		// removed for MOp auti scanning now used...
 

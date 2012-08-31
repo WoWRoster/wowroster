@@ -87,13 +87,14 @@ class url {
 			break;
 			case 'talents':
 				// http://us.battle.net/wow/talents/class/3?jsonp=Talents
+				list ($loc1,$loc2) = explode('_',$roster->config['api_url_locale']); 
 				if ($name =='0')
 				{
 				$q = 'wow/talents/pet?jsonp=?'.$local;
 				}
 				else
 				{
-				$q = 'wow/talents/class/'.$name.'?jsonp=?'.$local;
+				$q = 'wow/'.$loc1.'/talents/class/'.$name.'?jsonp=?'.$local;
 				}
 			break;
 			
