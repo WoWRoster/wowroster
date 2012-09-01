@@ -1025,17 +1025,6 @@ CREATE TABLE `renprefix_talenttree` (
   PRIMARY KEY (`member_id`,`build`,`tree`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `renprefix_talenttree_arrows`;
-CREATE TABLE `renprefix_talenttree_arrows` (
-  `tree` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '',
-  `arrowid` int(2) NOT NULL DEFAULT '0',
-  `opt1` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `opt2` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '',
-  `opt3` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `opt4` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`tree`,`arrowid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `renprefix_talenttree_data`;
 CREATE TABLE `renprefix_talenttree_data` (
 `class_id` int(11) NOT NULL DEFAULT '0',
