@@ -34,6 +34,8 @@ if( isset($_POST['process']) && $_POST['process'] == 'process' )
 			{
 				$dl_query = "DELETE FROM `" . $roster->db->table('user_members') . "` WHERE `id` = '".$id."';";
 				$dl_result = $roster->db->query($dl_query);
+				$dla_query = "DELETE FROM `" . $roster->db->table('user_link', 'user') . "` WHERE `uid` = '".$id."';";
+				$dla_result = $roster->db->query($dla_query);
 			}
 		}
 	foreach ($_POST as $name => $value)
@@ -112,7 +114,7 @@ while( $row = $roster->db->fetch($dm_result) )
 		'NAME'      => $row['usr'],
 		'TOOLTIP'   => makeOverlib(implode("\n", $tooltip), $row['usr'], '', 1, '', ''),
 		'EMAIL'     => $row['email'],
-		'ACCESS'    => $roster->auth->rosterAccess(array('name' => ''.$row['id'].'[access]', 'value' => $row['access']))
+		'ACCESS'    => $roster->auth->rosterAccess(array('guild_id' => ''.$row['group_id'].'','name' => ''.$row['id'].'[access]', 'value' => $row['access']))
 		)
 	);
 }
