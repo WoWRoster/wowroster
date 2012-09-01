@@ -263,7 +263,7 @@ class RosterLogin
 			$this->levels[11] = 'CP Admin';
 			$this->levels[0] = 'Public';
 
-			if (isset($roster->data['guild_id']))
+			if ( isset($roster->data['guild_id']) && !isset($vales['guild_id']) )
 			{
 				$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `". $roster->db->table('members') ."` WHERE `guild_id` = '". $roster->data['guild_id'] ."' ORDER BY `guild_rank` ASC;";
 				$result = $roster->db->query($query);
