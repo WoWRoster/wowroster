@@ -278,6 +278,21 @@ class RosterLogin
 					$this->levels[($row['guild_rank'] + 1)] = $row['guild_title'];
 				}
 			}
+			else
+			{
+				$query = "SELECT DISTINCT (`guild_rank`), `guild_title` FROM `". $roster->db->table('members') ."` WHERE `guild_id` = '". $values['guild_id'] ."' ORDER BY `guild_rank` ASC;";
+				$result = $roster->db->query($query);
+
+				if( !$result )
+				{
+					die_quietly($roster->db->error, 'Roster Auth', __FILE__,__LINE__,$query);
+				}
+
+				while( $row = $roster->db->fetch($result) )
+				{
+					$this->levels[($row['guild_rank'] + 1)] = $row['guild_title'];
+				}
+			}
 		}
 
 		$name = $values['name'];

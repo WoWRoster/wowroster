@@ -33,6 +33,7 @@ class userUpdate
 
 	// Character data cache
 	var $chars = array();
+	var $guildID;
 
 	/**
 	 * Constructor
@@ -59,6 +60,12 @@ class userUpdate
 		$this->messages = '<strong>User: </strong>';
 	}
 	
+	function guild_pre($guild)
+	{
+		global $roster;
+	
+		$this->guildID = $guild['guild_id'];
+	}
 	/**
 	 * Guild trigger, the regex-based alt detection
 	 *
@@ -70,12 +77,11 @@ class userUpdate
 	function guild($char, $member_id)
 	{
 		global $roster;
-		
 		// --[ See if the Member has a user ]--
 		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `usr` = '" . $char['Name'] . "';";
 		$result = $roster->db->query( $query );
 		$row = $roster->db->fetch($result);
-
+		$AQ='';
 		if ( !isset($row['access']) )
 		{
 			$this->messages .= ' - <span style="color:red;">No User data update canceled</span><br/>' . "\n";
@@ -93,12 +99,16 @@ class userUpdate
 			else
 			{
 				$access[] = ($char['Rank']+1);				
-				$query = "UPDATE `" . $roster->db->table('user_members') . "` SET `access` = '".implode(":",$access)."' WHERE `usr` = '" . $char['Name'] . "';";
-				$result = $roster->db->query( $query );
+				$AQ = " `access` = '".implode(":",$access)."'";
 				$this->messages .= ' - <span style="color:green;">Access updated</span><br/>' . "\n";
 			}
 			
+			// allways gona make sure the use is in the proper guild group. and runs our access query if there is one..
+			$query = "UPDATE `" . $roster->db->table('user_members') . "` SET".$AQ." `access` = '".implode(":",$access)."' AND `group_id` = '".$this->guildID."'  WHERE `usr` = '" . $char['Name'] . "';";
+			$result = $roster->db->query( $query );
+			
 		}
+		
 		
 		return true;
 	}
