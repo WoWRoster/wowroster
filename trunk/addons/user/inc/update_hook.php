@@ -192,7 +192,7 @@ class userUpdate
 				}
 				else
 				{
-					$query = "UPDATE `" . $roster->db->table('user_link',$this->data['basename']) . "` SET `guild_id` = '" . $guild_id . "', `group_id` = '1', `realm` = '" . $realm . "', `region` = '" . $region ."' WHERE `member_id` = '" . $member_id . "';";
+					$query = "UPDATE `" . $roster->db->table('user_link',$this->data['basename']) . "` SET `guild_id` = '" . $guild_id . "', `group_id` = '1', `realm` = '" . $realm . "', `region` = '" . $region ."', `is_main` = '".($member_name == $roster->auth->user['usr'] ? '1' : '0' )."' WHERE `member_id` = '" . $member_id . "';";
 
 					if( $roster->db->query($query) )
 					{
