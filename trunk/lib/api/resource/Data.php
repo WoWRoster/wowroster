@@ -30,7 +30,7 @@ class Data extends Resource {
 		'itemtooltip',
 		'itemSet',
 		'recipe',
-		'achievement',
+		'achievements',
 	);
 
 	
@@ -153,7 +153,7 @@ class Data extends Resource {
 
 	public function getAchievInfo() {
 		
-			$data = $this->consume('achievement', array(
+			$data = $this->consume('achievements', array(
 			'data' => '',
 			'dataa' => $achiID.'-achiv',
 			'server' => '',

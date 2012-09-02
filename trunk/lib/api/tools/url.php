@@ -74,7 +74,7 @@ class url {
 				$q = 'api/wow/data/character/races?'.$local;
 			break;
 
-			case 'achievement':
+			case 'achievements':
 				$q = 'api/wow/data/character/achievements?'.$local;
 			break;
 			
