@@ -3,18 +3,18 @@
  * Dev.PKComp.net WoWRoster Addon
  *
  * LICENSE: Licensed under the Creative Commons
- *          "Attribution-NonCommercial-ShareAlike 2.5" license
+ *		"Attribution-NonCommercial-ShareAlike 2.5" license
  *
  * @copyright  2005-2007 Pretty Kitty Development
- * @license    http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
- * @link       http://dev.pkcomp.net
- * @package    user
+ * @license	http://creativecommons.org/licenses/by-nc-sa/2.5   Creative Commons "Attribution-NonCommercial-ShareAlike 2.5"
+ * @link	http://dev.pkcomp.net
+ * @package	user
  * @subpackage Profile Admin
  */
 
 if( !defined('IN_ROSTER') )
 {
-    exit('Detected invalid access to this file!');
+	exit('Detected invalid access to this file!');
 }
 
 if( isset($_POST['process']) && $_POST['process'] != '' )
@@ -84,7 +84,7 @@ if( $num_members > 0 )
 		$roster->tpl->assign_block_vars('profile', array(
 			'CNAME' => '<a href="' . makelink('user-user-profile-' . $data['usr']) . '" target="_blank">' . $data['usr'] . '</a>',
 			'CUSR'  => $data['usr'],
-			'ID'    => $i,
+			'ID'	=> $i,
 			)
 		);
 		$k=0;
@@ -148,9 +148,9 @@ $roster->tpl->set_filenames(array(
 
 $roster->tpl->assign_vars(array(
 	'ROSTERCP_TITLE' => (!empty($rostercp_title) ? $rostercp_title : $roster->locale->act['roster_cp_ab']),
-	'MENU'           => $menu,
-	'BODY'           => $roster->tpl->fetch('ucp2'),
-	'PAGE_INFO'      => $roster->locale->act['user_cp'],
+	'MENU'		=> $menu,
+	'BODY'		=> $roster->tpl->fetch('ucp2'),
+	'PAGE_INFO'	=> $roster->locale->act['user_cp'],
 	)
 );
 $roster->tpl->set_filenames(array(
@@ -162,68 +162,64 @@ $roster->tpl->display('ucp');
 /**
  * Make select box of characters for main selection
  */
-function selectMain($uid)
-{
-	global $roster, $addon, $user;
-
-	include_once( $addon['inc_dir'] . 'users.lib.php' );
-	$user = new user();
-	$query = "SELECT `users`.`id`, `member`.`name`,`member`.`member_id` FROM `".$roster->db->table('user_members')."` AS users LEFT JOIN `".$roster->db->table('members')."` AS member ON `users`.`id` = `member`.`account_id` WHERE `users`.`id` = ".$uid.";";
-	$result = $roster->db->query($query);
-
-	if( !$result )
+	function selectMain($uid)
 	{
-		die_quietly($roster->db->error, 'users Profile', __FILE__,__LINE__,$query);
-	}
+		global $roster, $addon, $user;
 
-	$chars = '';
-	while( $row = $roster->db->fetch($result) )
-	{
-		$chars[$row['member_id']] = $row['name'];
-	}
+		include_once( $addon['inc_dir'] . 'users.lib.php' );
+		$user = new user();
+		$query = "SELECT `users`.`id`, `member`.`name`,`member`.`member_id` FROM `".$roster->db->table('user_members')."` AS users LEFT JOIN `".$roster->db->table('members')."` AS member ON `users`.`id` = `member`.`account_id` WHERE `users`.`id` = ".$uid.";";
+		$result = $roster->db->query($query);
 
-	$input_field = '<select name="select_'.$uid.':is_main">' . "\n";
-	$select_one = 1;
-	if(is_array($chars) && count($chars) > 0)
-	{
-	     foreach( $chars as $member => $name )
-	     {
-	     	if( $member == getMain($uid) && $select_one )
-		    {
-			   $input_field .= '  <option value="' . $member . '" selected="selected">' . $name . '</option>' . "\n";
-			   $select_one = 0;
-		    }
-		    else
-		    {
-			   $input_field .= '  <option value="' . $member . '">' . $name . '</option>' . "\n";
-		    }
-	     }
-	}
-      else
-      {
-            $input_field .= '  <option value="none" selected="selected">None</option>' . "\n";
-            $select_one = 0;
-      }
-	$input_field .= '</select>';
+		if( !$result )
+		{
+			die_quietly($roster->db->error, 'users Profile', __FILE__,__LINE__,$query);
+		}
 
-	     return $input_field;
-}
-function getMain($uid)
+		$chars = '';
+		while( $row = $roster->db->fetch($result) )
+		{
+			$chars[$row['member_id']] = $row['name'];
+		}
+
+		$input_field = '<select name="select_'.$uid.':is_main">' . "\n";
+		$select_one = 1;
+		if(is_array($chars) && count($chars) > 0)
+		{
+			foreach( $chars as $member => $name )
+			{
+				if( $member == getMain($uid) && $select_one )
+				{
+				$input_field .= '  <option value="' . $member . '" selected="selected">' . $name . '</option>' . "\n";
+				$select_one = 0;
+				}
+				else
+				{
+				$input_field .= '  <option value="' . $member . '">' . $name . '</option>' . "\n";
+				}
+			}
+		}
+		else
+		{
+			$input_field .= '  <option value="none" selected="selected">None</option>' . "\n";
+			$select_one = 0;
+		}
+		
+		$input_field .= '</select>';
+
+		return $input_field;
+		
+	}
+	
+	function getMain($uid)
 	{
 		global $roster, $addon;
 
 		$sql = 'SELECT * FROM `' . $roster->db->table('user_link', 'user') . '` WHERE `uid` = ' . $uid . ' AND `is_main` = 1';
 		$query = $roster->db->query($sql);
-		while($row = $roster->db->fetch($query))
-		{
-			if(!$query || $roster->db->num_rows($query) == 0)
-			{
-				return false;
-			}
-			$mid = $row['member_id'];
-		}
+		$row = $roster->db->fetch($query);
 
-		return $mid;
+		return $row['member_id'];
 	}
 /**
  * Make select box of characters for main selection
@@ -240,7 +236,7 @@ function selectGen($uid)
 		die_quietly($roster->db->error, 'user Profile', __FILE__,__LINE__,$query);
 	}
 
-      $src = '';
+	$src = '';
 	while( $row = $roster->db->fetch($result) )
 	{
 		$src = $row['avsig_src'];
@@ -295,8 +291,8 @@ function processData()
 			if( $settingName == 'is_main' && $settingValue != 'none' )
 			{
 	/*			$get_val = "SELECT `$settingName`"
-						 . " FROM `" . $roster->db->table('members') . "`"
-						 . " WHERE `account_id` = '$uid' AND `member_id` = '" . $roster->db->escape( $settingValue ) . "';";
+						. " FROM `" . $roster->db->table('members') . "`"
+						. " WHERE `account_id` = '$uid' AND `member_id` = '" . $roster->db->escape( $settingValue ) . "';";
 
 				$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
 
@@ -306,13 +302,13 @@ function processData()
 			}
 			if( $config[$settingName] != $settingValue && $settingName == 'is_main' )
 			{
-			      $user->profile->setMain($uid, $mid);
+				$user->profile->setMain($uid, $mid);
 			}
 			elseif( $config[$settingName] != $settingValue && $settingName == 'avsig_src' )
 			{
 				$update_sql[] = "UPDATE `" . $roster->db->table('profile', 'user') . "`"
-							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
-							  . " WHERE `uid` = '$uid';";
+							. " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
+							. " WHERE `uid` = '$uid';";
 //							if( $settingName == 'avsig_src' )
 
 				$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
@@ -332,8 +328,8 @@ function processData()
 			list($uid,$settingName) = explode(':',$settingName);
 
 			$get_val = "SELECT `$settingName`"
-					 . " FROM `" . $roster->db->table('profile', 'user') . "`"
-					 . " WHERE `uid` = '$uid';";
+					. " FROM `" . $roster->db->table('profile', 'user') . "`"
+					. " WHERE `uid` = '$uid';";
 
 			$result = $roster->db->query($get_val) or die_quietly($roster->db->error(),'Database Error',__FILE__,__LINE__,$get_val);
 
@@ -342,8 +338,8 @@ function processData()
 			if( $config[$settingName] != $settingValue && $settingName != 'process' )
 			{
 				$update_sql[] = "UPDATE `" . $roster->db->table('profile', 'user') . "`"
-							  . " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
-							  . " WHERE `uid` = '$uid';";
+							. " SET `$settingName` = '" . $roster->db->escape( $settingValue ) . "'"
+							. " WHERE `uid` = '$uid';";
 			}
 		}
 		else
