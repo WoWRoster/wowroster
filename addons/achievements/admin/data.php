@@ -8,6 +8,12 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 	$a = $roster->api->Data->getAchievInfo();
 	$rx = 0;
 	$rc = 0;
+	$q = "TRUNCATE TABLE `" . $roster->db->table('achie', $addon['basename']) . "`;";
+	$r = $roster->db->query($q);
+	
+	$q = "TRUNCATE TABLE `" . $roster->db->table('crit', $addon['basename']) . "`;";
+	$r = $roster->db->query($q);
+	
 	foreach($a['achievements'] as $order => $cat)
 	{
 		//echo $cat['name'].' - '.$cat['id'].'<br>';
@@ -35,15 +41,16 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 				$tooltip .= $crit;
 					
 				$update->reset_values();
-				$update->add_value('achie_name',	$achi['title']);
-				$update->add_value('achie_desc',	$achi['description']);
-				$update->add_value('achie_points',	$achi['points']);
-				$update->add_value('achie_id',		$achi['id']);
-				$update->add_value('achie_icon',	$achi['icon']);
-				$update->add_value('achie_tooltip',	$tooltip);
-				$update->add_value('c_id',			$cat['id']);
-				$update->add_value('p_id',			'-1');
-				$update->add_value('achi_cate',		$cat['name']);
+				$update->add_value('achie_name',		$achi['title']);
+				$update->add_value('achie_desc',		$achi['description']);
+				$update->add_value('achie_points',		$achi['points']);
+				$update->add_value('achie_id',			$achi['id']);
+				$update->add_value('achie_icon',		$achi['icon']);
+				$update->add_value('achie_tooltip',		$tooltip);
+				$update->add_value('achie_isAccount',	$achi['accountWide']);
+				$update->add_value('c_id',				$cat['id']);
+				$update->add_value('p_id',				'-1');
+				$update->add_value('achi_cate',			$cat['name']);
 				
 				$querystr = "INSERT INTO `" . $roster->db->table('achie', $addon['basename']) . "` SET " . $update->assignstr;
 				$result = $roster->db->query($querystr);
@@ -80,15 +87,16 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 					$tooltip .= $crit;
 					
 					$update->reset_values();
-					$update->add_value('achie_name',	$achi['title']);
-					$update->add_value('achie_desc',	$achi['description']);
-					$update->add_value('achie_points',	$achi['points']);
-					$update->add_value('achie_id',		$achi['id']);
-					$update->add_value('achie_icon',	$achi['icon']);
-					$update->add_value('achie_tooltip',	$tooltip);
-					$update->add_value('c_id',			$sub['id']);
-					$update->add_value('p_id',			$cat['id']);
-					$update->add_value('achi_cate',		$sub['name']);
+					$update->add_value('achie_name',		$achi['title']);
+					$update->add_value('achie_desc',		$achi['description']);
+					$update->add_value('achie_points',		$achi['points']);
+					$update->add_value('achie_id',			$achi['id']);
+					$update->add_value('achie_icon',		$achi['icon']);
+					$update->add_value('achie_tooltip',		$tooltip);
+					$update->add_value('achie_isAccount',	$achi['accountWide']);
+					$update->add_value('c_id',				$sub['id']);
+					$update->add_value('p_id',				$cat['id']);
+					$update->add_value('achi_cate',			$sub['name']);
 					
 					$querystr = "INSERT INTO `" . $roster->db->table('achie', $addon['basename']) . "` SET " . $update->assignstr;
 					$result = $roster->db->query($querystr);

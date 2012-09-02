@@ -4,6 +4,8 @@
 
 .achievement-0 { background:url('images/achievement_locked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .achievement-1 { background:url('images/achievement_unlocked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
+.achievement-0a { background:url('images/achievement_account_locked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
+.achievement-1a { background:url('images/achievement_account_unlocked.jpg') left top repeat; border:1px solid #b6803d; margin-top: 4px; }
 .achievement-2 { border:1px solid #fff; padding:7px 7px 6px; } 
 
 .achievement-icon { color:#135E82; float: left; margin-right: 10px; }
