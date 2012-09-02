@@ -27,7 +27,7 @@ class achievementsInstall
 	var $active = true;
 	var $icon = 'achievement_general';
 
-	var $version = '2.1.2555';
+	var $version = '2.2.0';
 
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';
@@ -59,6 +59,7 @@ class achievementsInstall
 			  `achie_id` int(10) NOT NULL,
 			  `achie_icon` varchar(255) DEFAULT NULL,
 			  `achie_tooltip` mediumtext ,
+			  `achie_isAccount` varchar(10) ,
 			  `c_id` int(10) NOT NULL,
 			  `p_id` int(10) DEFAULT NULL,
 			  `achi_cate` varchar(255) DEFAULT NULL,
@@ -103,6 +104,11 @@ class achievementsInstall
 	function upgrade($oldversion, $version)
 	{
 		global $installer, $addon;
+		if( version_compare('2.2.0', $oldversion, '>') == true )
+		{
+			$installer->add_query("ALTER TABLE `" . $installer->table('achie') . "`
+				ADD `achie_isAccount` varchar(10) NOT NULL default '0' AFTER `achie_tooltip`");
+		}
 		
 		if( version_compare('2.1.2555', $oldversion, '>') == true )
 		{

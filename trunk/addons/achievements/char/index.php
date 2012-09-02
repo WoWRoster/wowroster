@@ -122,7 +122,7 @@ class achiv
 								'BACKGROUND' => $bg,
 								'NAME'       => $da['Name'],
 								'DESC'       => $da['Desc'],
-								'STATUS'     => $complete,
+								'STATUS'     => $complete.($da['account'] ? 'a': ''),
 								'DATE'       => $date,
 								'DATEX'       => $datex,
 								'POINTS'     => $da['Points'],
@@ -218,7 +218,7 @@ class achiv
 									'BACKGROUND' => $bg,
 									'NAME'       => $da['Name'],
 									'DESC'       => $da['Desc'],
-									'STATUS'     => $complete,
+									'STATUS'     => $complete.($da['account'] ? 'a': ''),
 									'DATE'       => $date,
 									'DATEX'       => $datex,
 									'POINTS'     => $da['Points'],
@@ -461,6 +461,7 @@ class achiv
 					'Desc'=>$row['achie_desc'],
 					'Points'=>$row['achie_points'],
 					'icon'=>$row['achie_icon'],
+					'account'=>$row['achie_isAccount'],
 					'achi_ID'=>$row['achie_id']
 				);
 		}
