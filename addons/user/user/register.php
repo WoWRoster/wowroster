@@ -99,7 +99,7 @@ if(isset($_POST['op']) && $_POST['op']=='register')
 							'uid' => $uuid,
 							'member_id' => $row['member_id'],
 							'guild_id' => $row['guild_id'],
-							'group_id' => '1',
+							'group_id' => (isset($roster->data['guild_id']) ? $roster->data['guild_id'] : '0'),
 							'is_main' => '1',
 							'realm' => $row['server'],
 							'region' => $row['region']
