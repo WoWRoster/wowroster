@@ -262,59 +262,67 @@ class userPage extends user
 				'SELECT '.
 				'`user`.`id`, '.
 				'`members`.`member_id`, '.
-				'`members`.`name`, '.
-				'`members`.`class`, '.
-				'`members`.`level`, '.
-				'`members`.`zone`, '.
-				'`members`.`online`, '.
-				'`members`.`account_id`, '.
-				'`members`.`last_online`, '.
-				"UNIX_TIMESTAMP(`members`.`last_online`) AS 'last_online_stamp', ".
-				"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online_format', ".
-				'`members`.`note`, '.
-				'`members`.`guild_title`, '.
+			'`members`.`name`, '.
+			'`members`.`class`, '.
+			'`members`.`classid`, '.
+			'`members`.`level`, '.
+			'`members`.`zone`, '.
+			'`members`.`online`, '.
+			'`members`.`last_online`, '.
+			"UNIX_TIMESTAMP(`members`.`last_online`) AS 'last_online_stamp', ".
+			"DATE_FORMAT(  DATE_ADD(`members`.`last_online`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_online_format', ".
+			'`members`.`note`, '.
+			'`members`.`guild_title`, '.
 
-				'`guild`.`update_time`, '.
+			//'`alts`.`main_id`, '.
 
-				"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
-				'`members`.`officer_note`, '.
-				"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
-				'`members`.`guild_rank`, '.
-				'`players`.`member_id`, '.
-				'`players`.`server`, '.
-				'`players`.`race`, '.
-				'`players`.`sex`, '.
-				'`players`.`exp`, '.
-				'`players`.`clientLocale`, '.
+			'`guild`.`update_time`, '.
+			'`guild`.`factionEn`, '.
 
-				'`players`.`lifetimeRankName`, '.
-				'`players`.`lifetimeHighestRank`, '.
-				"IF( `players`.`lifetimeHighestRank` IS NULL OR `players`.`lifetimeHighestRank` = '0', 1, 0 ) AS 'risnull', ".
-				'`players`.`hearth`, '.
-				"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
-				"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
-				"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
-				"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
+			"IF( `members`.`note` IS NULL OR `members`.`note` = '', 1, 0 ) AS 'nisnull', ".
+			'`members`.`officer_note`, '.
+			"IF( `members`.`officer_note` IS NULL OR `members`.`officer_note` = '', 1, 0 ) AS 'onisnull', ".
+			'`members`.`guild_rank`, '.
 
-				'`proftable`.`professions`, '.
-				'`talenttable`.`talents` '.
+			'`players`.`server`, '.
+			'`players`.`race`, '.
+			'`players`.`sex`, '.
+			'`players`.`exp`, '.
+			'`players`.`clientLocale`, '.
 
-				'FROM `'.$roster->db->table('user_members').'` AS user '.
-				'LEFT JOIN `'.$roster->db->table('members').'` AS members ON `user`.`id` = `members`.`account_id` '.
-				'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
-				"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `skill_name` , '|', `skill_level` ) ORDER BY `skill_order`) AS 'professions' ".
-				'FROM `'.$roster->db->table('skills').'` '.
-				'GROUP BY `member_id`) AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
+			'`players`.`lifetimeRankName`, '.
+			'`players`.`lifetimeHighestRank`, '.
+			"IF( `players`.`lifetimeHighestRank` IS NULL OR `players`.`lifetimeHighestRank` = '0', 1, 0 ) AS 'risnull', ".
+			'`players`.`hearth`, '.
+			"IF( `players`.`hearth` IS NULL OR `players`.`hearth` = '', 1, 0 ) AS 'hisnull', ".
+			"UNIX_TIMESTAMP( `players`.`dateupdatedutc`) AS 'last_update_stamp', ".
+			"DATE_FORMAT(  DATE_ADD(`players`.`dateupdatedutc`, INTERVAL ".$roster->config['localtimeoffset']." HOUR ), '".$roster->locale->act['timeformat']."' ) AS 'last_update_format', ".
+			"IF( `players`.`dateupdatedutc` IS NULL OR `players`.`dateupdatedutc` = '', 1, 0 ) AS 'luisnull', ".
 
-				"LEFT JOIN (SELECT `member_id` , GROUP_CONCAT( CONCAT( `tree` , '|', `pointsspent` , '|', `background` ) ORDER BY `order`) AS 'talents' ".
-				'FROM `'.$roster->db->table('talenttree').'` '.
-				'GROUP BY `member_id`) AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
+			"GROUP_CONCAT( DISTINCT CONCAT( `proftable`.`skill_name` , '|', `proftable`.`skill_level` ) ORDER BY `proftable`.`skill_order`) as professions, ".
+			"GROUP_CONCAT( DISTINCT CONCAT( `talenttable`.`build`, '|', `talenttable`.`tree` , '|', `talenttable`.`pointsspent` , '|', `talenttable`.`background`,'|', `talenttable`.`order` ) ORDER BY `talenttable`.`order`, `talenttable`.`build`) AS 'talents', ".
+			"GROUP_CONCAT( DISTINCT CONCAT( `talenttre`.`tree` , '|', `talenttre`.`roles` , '|', `talenttre`.`icon` ) ORDER BY `talenttre`.`tree`) AS 'talents2' ".
 
-				'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id` '.
-				'WHERE `user`.`id` = "'.$uid.'" '.
-				'ORDER BY IF(`members`.`account_id` = `user`.`id`,1,0), ';
+			'FROM `'.$roster->db->table('user_members').'` AS user '.
+			'LEFT JOIN `'.$roster->db->table('members').'` AS members ON `user`.`id` = `members`.`account_id`'.
+			'LEFT JOIN `'.$roster->db->table('players').'` AS players ON `members`.`member_id` = `players`.`member_id` '.
+			'LEFT JOIN `'.$roster->db->table('skills').'` AS proftable ON `members`.`member_id` = `proftable`.`member_id` '.
+			'LEFT JOIN `'.$roster->db->table('talenttree').'` AS talenttable ON `members`.`member_id` = `talenttable`.`member_id` '.
+			'LEFT JOIN `'.$roster->db->table('talenttree_data').'` AS talenttre ON `members`.`classid` = `talenttre`.`class_id` '.
+			//fs'LEFT JOIN `'.$roster->db->table('alts',$addon['basename']).'` AS alts ON `members`.`member_id` = `alts`.`member_id` '.
+			'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id`'.
+			
+			
+			'';
+			$where[] = '`user`.`id` = "'.$uid.'" ';
+			$where[] = '`members`.`guild_id` = "'.$roster->data['guild_id'].'" ';
 
-			$always_sort = ' `members`.`level` DESC, `members`.`name` ASC';
+			$group[] = '`members`.`member_id`';
+			$order_first[] = 'IF(`members`.`member_id` = `players`.`member_id`,1,0)';
+			$order_last[] = '`members`.`level` DESC';
+			$order_last[] = '`members`.`name` ASC';//, `talenttable`.`order` ASC ';
+
+			$always_sort = '';//' `members`.`level` DESC, `members`.`name` ASC';
 
 			$addon = getaddon('memberslist');
 
@@ -388,7 +396,8 @@ class userPage extends user
 			);
 
 
-			$charlist->prepareData($mainQuery, $always_sort, $FIELD, 'charlist');
+			$charlist->prepareData($mainQuery, $always_sort,$where, $group, $order_first, $order_last, $FIELD, 'charlist');
+			//prepareData($mainQuery, $always_sort, $FIELD, 'charlist');
 
 			$addon = getaddon('user');
 			
@@ -444,10 +453,13 @@ class userPage extends user
 
 				'FROM `'.$roster->db->table('user_members').'` AS user '.
 				'LEFT JOIN `'.$roster->db->table('members').'` AS members ON `user`.`id` = `members`.`account_id`'.
-				'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id`'.
-				'WHERE `user`.`id` = "' . $uid . '" ';
+				'LEFT JOIN `'.$roster->db->table('guild').'` AS guild ON `members`.`guild_id` = `guild`.`guild_id`';
+				
+				$where[] = '`user`.`id` = "' . $uid . '"';
 				//.
-				//'ORDER BY IF(`guild`.`guild_id` = `user`.`guild_id`,1,0),';
+				$order_first[] = 'IF(`guild`.`guild_id` = `user`.`guild_id`,1,0),';
+				$order_last[] = '';
+				$group[] = '`guild`.`guild_id`';
 
 			$always_sort = 'ORDER BY `guild`.`guild_name` ASC';
 
@@ -486,7 +498,7 @@ class userPage extends user
 				'display' => 2,
 			);
 
-			$guildlist->prepareData($mainQuery, $always_sort, $FIELD, 'guildlist');
+			$guildlist->prepareData($mainQuery, $always_sort,$where, $group, $order_first, $order_last, $FIELD, 'guildlist');
 
 			$roster->output['show_menu']['acc_menu'] = 1;  // Display the button listing
 
@@ -537,10 +549,13 @@ class userPage extends user
 
 				'FROM `'.$roster->db->table('user_members').'` AS user '.
 				'LEFT JOIN `'.$roster->db->table('members').'` AS members ON `user`.`id` = `members`.`account_id` '.
-				'LEFT JOIN `'.$roster->db->table('realmstatus').'` AS realm ON `members`.`server` = `realm`.`server_name` '.
-				'WHERE `user`.`id` = "' . $uid . '" '.
-				'ORDER BY IF(`realm`.`server_name` = `realm`,1,0),';
+				'LEFT JOIN `'.$roster->db->table('realmstatus').'` AS realm ON `members`.`server` = `realm`.`server_name` ';
 
+			$where[] = '`user`.`id` = "' . $uid . '"';
+			//.
+			$order_first[] = 'IF(`realm`.`server_name` = `realm`,1,0),';
+			$order_last[] = '';
+			$group[] = '';
 			$always_sort = ' `realm`.`server_name` ASC';
 
 			$FIELD['realm_name'] = array (
@@ -588,7 +603,7 @@ class userPage extends user
 				'display' => 2,
 			);
 
-			$realmlist->prepareData($mainQuery, $always_sort, $FIELD, 'realmlist');
+			$realmlist->prepareData($mainQuery, $always_sort,$where, $group, $order_first, $order_last, $FIELD, 'realmlist');
 
 			$roster->output['show_menu']['acc_menu'] = 1;  // Display the button listing
 

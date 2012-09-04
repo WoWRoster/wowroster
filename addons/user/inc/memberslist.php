@@ -83,7 +83,7 @@ class memberslist
 	 * @param string $listname
 	 *	The ID used by javascript to identify this memberstable.
 	 */
-	function prepareData($query, $always_sort, $fields, $listname)
+	function prepareData( $query, $always_sort,$where, $group, $order_first, $order_last, $fields, $listname )
 	{
 		global $roster;
 
@@ -195,7 +195,23 @@ class memberslist
 				}
 			}
 		}
+		if( !empty( $where ) )
+		{
+			$r = '';
+			if (!empty( $search_filter ))
+			{
+				$r = ' AND '. implode( ' AND ', $search_filter );
+			}
+		
+			$query .= ' WHERE (' . implode( ') AND (', $where ) . ')' . $r;
+			//$query .= ' WHERE ;
+		}
 
+		// --[ Add grouping SQL ]--
+		if( !empty( $group ) )
+		{
+			$query .= ' GROUP BY ' . implode( ',', $group );
+		}
 		$query .=  $always_sort;
 
 		// --[ Add pagination SQL, if we're in server sort mode ]--
@@ -642,7 +658,7 @@ class memberslist
 	 *
 	 * @param array $row - of character data
 	 * @return string - Formatted output
-	 */
+	 *
 	function class_value ( $row, $field )
 	{
 		global $roster, $addon;
@@ -689,7 +705,10 @@ class memberslist
 				$specline = implode(' / ', $tooltip);
 				if( !$notalent )
 				{
-					$specicon = '<img class="membersRowimg" width="20" height="20" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP').' />';
+					// Don't proceed for characters without data
+					$specicon = $this->spec_icon($row);
+					//$icon_value .= $this->spec_icon($row);
+					//$specicon = '<img class="membersRowimg" width="20" height="20" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($specline,$spec,'',1,'',',RIGHT,WRAP').' />';
 				}
 
 				if( active_addon('info') )
@@ -740,6 +759,78 @@ class memberslist
 			else
 			{
 				return ($icon_value != '' ? '<div style="display:none; ">' . $row['class'] . '</div>' . $icon_value : '&nbsp;');
+			}
+		}
+		else
+		{
+			return '&nbsp;';
+		}
+	}*/
+	function class_value ( $row, $field )
+	{
+		global $roster, $addon;
+
+		if( $row['class'] != '' )
+		{
+			$icon_value = '';
+			// Class Icon
+			if( $this->addon['config']['class_icon'] >= 1 )
+			{
+				foreach ($roster->multilanguages as $language)
+				{
+					$icon_name = isset($roster->locale->wordings[$language]['class_iconArray'][$row['class']]) ? $roster->locale->wordings[$language]['class_iconArray'][$row['class']] : '';
+					if( strlen($icon_name) > 0 ) break;
+				}
+
+				$icon_value .= '<div class="item-sm"><img src="' . $roster->config['img_url'] . 'class/' . $icon_name . '.png" alt="" /><div class="mask"></div></div>';
+			}
+
+			// Don't proceed for characters without data
+			if( $this->addon['config']['class_icon'] == 2 && isset($row['talents']) && !empty( $row['talents']) )
+			{
+				$icon_value .= $this->spec_icon($row);
+			}
+
+			// Talent or class text
+			if( $this->addon['config']['talent_text'] && isset($row['talents']) && $row['talents'] != '' )
+			{
+				$talents = explode(',', $row['talents']);
+
+				$_t = array();
+				$notalent = true;
+				foreach( $talents as $talent )
+				{
+					list($_b, $name, $points, $icon) = explode('|', $talent);
+					$_t[$_b]['tip'][] = $points;
+					if( !isset($_t[$_b]['point']) || $points > $_t[$_b]['point'] )
+					{
+						$_t[$_b]['point'] = $points;
+						$_t[$_b]['name'] = $name;
+						$notalent = false;
+					}
+				}
+
+				$fieldtext = $_t[0]['name'] . ': ' . implode(' / ', $_t[0]['tip']);
+			}
+			else
+			{
+				$fieldtext = $row['class'];
+			}
+
+			// Class name coloring
+			if( $this->addon['config']['class_text'] == 2 )
+			{
+				$class_color = ( isset($roster->locale->wordings['enUS']['id_to_class'][$row['classid']]) ? $roster->locale->wordings['enUS']['id_to_class'][$row['classid']] : $row['class'] );
+
+				return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . '<span class="class' . str_replace(' ','',$class_color) . 'txt">' . $fieldtext . '</span>';
+			}
+			elseif( $this->addon['config']['class_text'] == 1 )
+			{
+				return '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value . $fieldtext;
+			}
+			else
+			{
+				return ($icon_value != '' ? '<div style="display:none;">' . $row['class'] . '</div>' . $icon_value : '&nbsp;');
 			}
 		}
 		else
@@ -858,46 +949,63 @@ class memberslist
 	 */
 	function spec_icon( $row )
 	{
-		global $roster, $addon;
-
-		$cell_value ='';
+		global $roster;
+		$cell_value = '';
 
 		// Don't proceed for characters without data
 		if( !isset($row['talents']) || $row['talents'] == '' )
 		{
-			return '<img class="membersRowimg" width="20" height="20" src="'.$roster->config['img_url'].'pixel.gif" alt="" />';
+			return '<img class="middle" width="24" height="24" src="' . $roster->config['img_url'] . 'pixel.gif" alt="" />';
 		}
-
-		$lang = $row['clientLocale'];
 
 		$talents = explode(',',$row['talents']);
+		$talent2 = explode(',',$row['talents2']);
 
-		$spec = $specicon = '';
-		$tooltip = array();
-		$specpoint = 0;
+		$_d = array();
+		foreach( $talent2 as $tal )
+		{
+			list($name, $role, $icon) = explode('|', $tal);
+				$_d[$name]['role'] = $role;
+				$_d[$name]['name'] = $name;
+				$_d[$name]['icon'] = $icon;
+		}
+		
+		$_t = array();
+		$specicon = '';
+		$notalent = true;
 		foreach( $talents as $talent )
 		{
-			list($name, $points, $icon) = explode('|',$talent);
-			$tooltip[] = $points;
-			if( $points > $specpoint )
+			list($_s, $name, $points, $icon, $_b) = explode('|', $talent);
+			$_t[$_b]['tip'][] = $name.' - '.$points;
+			if( !isset($_t[$_b]['point']) || $points > $_t[$_b]['point'] )
 			{
-				$specpoint = $points;
-				$spec = $name;
-				$specicon = $icon;
+				$_t[$_b]['point'] = $points;
+				$_t[$_b]['name'] = $name;
+				$_t[$_b]['icon'] = strtolower($_d[$name]['icon']);
+				$notalent = false;
 			}
 		}
-		$tooltip = implode(' / ', $tooltip);
-
-		$specicon = '<img class="membersRowimg" width="20" height="20" src="'.$roster->config['img_url'].'spec/'.$specicon.'.'.$roster->config['img_suffix'].'" alt="" '.makeOverlib($tooltip,$spec,'',1,'',',RIGHT,WRAP').' />';
+		if( !$notalent )
+		{
+			$tooltip = $icon = '';
+			foreach( $_t as $idx => $build )
+			{
+				$icon = '<span class="item-sm"><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $build['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /><span class="mask"></span></span> ';
+				$tooltip .= $icon . implode(' / ', $build['tip']) . '<br />';
+			}
+			$tooltip = '<div style="font-size:12px;font-weight:bold;">' . $tooltip . '</div>';
+			$specicon = '<div class="item-sm" ' . makeOverlib($tooltip, $_t[1]['name'], '', 2, '', ',WRAP') . '><img src="' . $roster->config['interface_url'] . 'Interface/Icons/' . $_t[1]['icon'] . '.' . $roster->config['img_suffix'] . '" alt="" /><div class="mask"></div></div>';
+		}
 
 		if( active_addon('info') )
 		{
-			$cell_value .= '<a href="' . makelink('char-info-talents&amp;a=c:' . $row['member_id']) . '">' . $specicon . '</a>';
+			$cell_value .= '<a href="' . makelink('char-info&amp;a=c:' . $row['member_id'] . '&amp;t=talents') . '">' . $specicon . '</a>';
 		}
 		else
 		{
 			$cell_value .= $specicon;
 		}
+
 		return $cell_value;
 	}
 

@@ -115,7 +115,7 @@ class userInstall
 		$installer->add_menu_button('user_menu_chars','user','chars','spell_holy_divinespirit');
 		$installer->add_menu_button('user_menu_guilds','user','guilds','inv_misc_tabardpvp_02');
 		$installer->add_menu_button('user_menu_realms','user','realms','spell_holy_lightsgrace');
-		$installer->add_menu_button('user_menu_mail','user','mail','inv_letter_11');
+		$installer->add_menu_button('user_menu_mail','user','mail','sor-mail');
 		$installer->add_menu_button('user_menu_settings','user','settings','inv_misc_wrench_02');
 		$installer->add_menu_button('user_alt','user','alt','spell_holy_holynova');
 		return true;
