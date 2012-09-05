@@ -31,8 +31,21 @@ class Data extends Resource {
 		'itemSet',
 		'recipe',
 		'achievements',
+		'itemClass',
 	);
 
+	public function getitemClass() 
+	{
+		
+			$data = $this->consume('itemClass', array(
+			'data' => '',
+			'dataa' => 'itemClass',
+			'server' => '',
+			'name' => '',
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		return $data;
+	}
 	
 	public function getRacesInfo() 
 	{

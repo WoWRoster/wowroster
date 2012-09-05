@@ -2638,7 +2638,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 
 		$glyphBuildData = array();
 
-		$messages = '<li>Updating Glyphs ';
+		$messages = '<li>Updating Glyphs: ';
 		foreach( $data['Talents'] as $build => $talentData )
 		{
 			if( isset($talentData['Glyphs']) && !empty($talentData['Glyphs']) && is_array($talentData['Glyphs']) )
@@ -2650,11 +2650,11 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->setError($roster->locale->act['talent_build_' . $build] . ' Glyphs could not be deleted',$roster->db->error());
 					return;
 				}
+				$messages .= ':'.$talentData['Name'].' - ';
 			}
 			else
 			{
-				$this->setMessage('<li>No Glyph Data</li>');
-				return false;
+				$messages .= ':'.$talentData['Name'].' - No Glyph Data ';
 			}
 			
 			foreach ($talentData['Glyphs'] as $idx => $glyph )
@@ -2686,6 +2686,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 					$this->setError($roster->locale->act['talent_build_' . $build] . ' Glyph [' . $glyph['glyph_name'] . '] could not be inserted', $roster->db->error());
 				}
 			}
+			$messages .= '';
 		}
 		$this->setMessage($messages . '</li>');
 	}

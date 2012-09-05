@@ -48,6 +48,10 @@ class url {
 				$q = 'api/wow/item/'.$name.'?'.$local;
 			break;
 			
+			case 'itemClass':
+				$q = 'api/wow/data/item/classes?'.$local;
+			break;
+			
 			case 'itemSet':
 				$q = 'api/wow/item/set/'.$name.'?'.$local;
 			break;
