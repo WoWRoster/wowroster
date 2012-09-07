@@ -44,6 +44,8 @@ abstract class Resource {
 	 * @var \Curl
 	 */
 	protected $Curl;
+	var $querytime;
+	var $query_count = 0;
 
 	/**
 	 * @throws ResourceException If no methods are allowed
@@ -82,6 +84,9 @@ abstract class Resource {
 		$ui = API_URI;//sprintf(self::API_URI, $this->region);
 
 		// new cache system see hwo old teh file is only live update files more then X days/hours old
+			
+			$this->querytime = format_microtime();
+			$this->query_count++;
 
 			$url = $this->url->BuildUrl($ui,$method,$params['server'],$params['name'],$params);
 			if (isset($_GET['debug']))
@@ -94,6 +99,11 @@ abstract class Resource {
 				//throw new ResourceException($this->Curl->error, $this->Curl->errno);
 				$roster->set_message( "The selected api action is not allowed <br/>\n\r [".$this->Curl->errno.'] : '.$this->Curl->error.'', 'Curl has Failed!', 'error' );
 			}
+			
+			$roster->db->queries['api/'.$method][$this->query_count]['query'] = $url;
+			$roster->db->queries['api/'.$method][$this->query_count]['time'] = round((format_microtime()-$this->querytime), 4);
+			$roster->db->queries['api/'.$method][$this->query_count]['line'] = '94';
+			$roster->db->queries['api/'.$method][$this->query_count]['error'] = empty($data['response_headers']['http_code']) ? $data['response_headers']['http_code'] : '';
 			
 			// update the tracker...
 			$q = "SELECT * FROM `" . $roster->db->table('api_usage') . "` WHERE `date`='".date("Y-m-d")."' AND `type` = '".$method."'";
