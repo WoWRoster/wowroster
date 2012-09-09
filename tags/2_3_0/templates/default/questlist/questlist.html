@@ -1,0 +1,81 @@
+<!-- $Id$ -->
+
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title">{L_QUEST_LIST}</div>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="info-text" style="height: auto;">
+							{L_QUEST_LIST_HELP}<br /><br />
+							<form action="{U_MAKELINK}" method="get">
+								<div class="tier-3-a">
+									<div class="tier-3-b">
+										<div class="text">
+											<strong>{L_SEARCH_ZONE}</strong>
+											<select name="zoneid" onchange="window.location.href=this.options[this.selectedIndex].value" style="float:right; height: 20px;">
+												<option value="">----------</option>
+<!-- BEGIN zone_list -->
+												<option value="{zone_list.VALUE}"<!-- IF zone_list.SELECTED --> selected="selected"<!-- ENDIF -->>{zone_list.NAME}</option>
+<!-- END zone_list -->
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<br />
+
+								<div class="tier-3-a">
+									<div class="tier-3-b">
+										<div class="text">
+											<strong>{L_SEARCH_QUEST}</strong>
+											<select name="questid" onchange="window.location.href=this.options[this.selectedIndex].value" style="float:right; height: 20px;">
+												<option value="">----------</option>
+<!-- BEGIN quest_name_list -->
+												<option value="{quest_name_list.VALUE}"<!-- IF quest_name_list.SELECTED --> selected="selected"<!-- ENDIF -->>{quest_name_list.NAME}</option>
+<!-- END quest_name_list -->
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+<!-- IF S_SHOW -->
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title">{ZONE_NAME}</div>
+<!-- BEGIN quests -->
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="text">
+									<!-- IF quests.TAG --><span style="float:right;">{quests.TAG}<!-- IF quests.GROUP -->, {quests.GROUP}<!-- ENDIF --></span><!-- ENDIF -->
+									<a href="#"{quests.TOOLTIP}>[{quests.LEVEL}] {quests.NAME}</a><!-- IF quests.DAILY --> ({L_DAILY})<!-- ENDIF -->
+								</div>
+							</div>
+						</div>
+<!-- BEGIN members -->
+						<div class="tier-4-a">
+							<div class="tier-4-b">
+								<div class="text">
+									<!-- IF quests.members.COMPLETE neq 0 --><span style="float:right;"><!-- IF quests.members.COMPLETE eq 1 --><span class="green">{L_COMPLETE}</span><!-- ELSEIF quests.members.COMPLETE eq -1 --><span class="red">{L_FAILED}</span><!-- ENDIF --></span><!-- ENDIF -->
+									&lt;{quests.members.LEVEL}&gt; <!-- IF S_INFO_ADDON --><a href="{quests.members.LINK}">{quests.members.NAME}</a><!-- ELSE -->{quests.members.NAME}<!-- ENDIF -->
+								</div>
+							</div>
+						</div>
+<!-- END members -->
+<!-- END quests -->
+						<div style="clear:both;"></div>
+					</div>
+				</div>
+				<!-- ENDIF -->
+			</div>
+		</div>
+	</div>
+</div>
+

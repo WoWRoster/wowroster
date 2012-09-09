@@ -1,0 +1,119 @@
+<!-- $Id$ -->
+
+
+
+
+<div class="container">
+
+	<div class="tier-1-a">
+		<div class="tier-1-b">
+			<div class="tier-1-c">
+				<div class="tier-1-title"><!-- TRANSLATE recipes -->
+					<div class="links">
+<!-- BEGIN recipe -->
+						<a href="{recipe.LINK}" class="icon" {recipe.TOOLTIP}><img src="{INTERFACE_URL}Interface/Icons/{recipe.ICON}.{IMG_SUFFIX}" /><span class="mask"></span></a>
+<!-- END recipe -->
+					</div>
+				</div>
+
+<!-- BEGIN recipe -->
+				<a name="{recipe.ID}"></a>
+
+				<div class="tier-2-a">
+					<div class="tier-2-b">
+						<div class="tier-2-title" style="cursor:pointer;" onclick="showHide('recipe_{recipe.ID}','img_{recipe.ID}','{THEME_PATH}/images/button_open.png','{THEME_PATH}/images/button_close.png');">
+							<div class="icon">
+								<img src="{INTERFACE_URL}Interface/Icons/{recipe.ICON}.{IMG_SUFFIX}" />
+								<div class="mask"></div>
+							</div>
+							{recipe.NAME}
+							<img style="float:right;" id="img_{recipe.ID}" src="{THEME_PATH}/images/button_<!-- IF S_RECIPE_HIDE -->close<!-- ELSE -->open<!-- ENDIF -->.png" alt="" />
+						</div>
+						<div id="recipe_{recipe.ID}" style="width:100%;<!-- IF S_RECIPE_HIDE -->display:none;<!-- ENDIF -->">
+
+							<div class="tier-3-a">
+								<div class="tier-3-b">
+									<div class="text">
+										<div style="width: 280px;"><a href="{U_NAME}"><!-- TRANSLATE name --></a></div>
+										<div style="width: 50px; text-align: center;"><a href="{U_LEVEL}"><!-- TRANSLATE level --></a></div>
+										<div style="width: 300px;"><a href="{U_REAGENTS}"><!-- TRANSLATE reagents --></a></div>
+									</div>
+								</div>
+							</div>
+<!-- BEGIN header -->
+							<div class="tier-2-a">
+								<div class="tier-2-b">
+									<div class="tier-2-title">{recipe.header.NAME}</div>
+						
+<!-- BEGIN subheader -->
+									<div class="tier-2-a">
+										<div class="tier-2-b">
+											<div class="tier-2-title">{recipe.header.subheader.NAME}</div>
+<!-- BEGIN rows -->
+											<div class="tier-6-a" >
+												<div class="tier-6-b {recipe.header.subheader.rows.DIFFICULTY_COLOR}">
+													<div class="text" >
+														<div style="width: 280px; overflow: hidden;">
+															<div class="item-sm" {recipe.header.subheader.rows.TOOLTIP}{recipe.header.subheader.rows.ITEMLINK}>
+																<img src="{recipe.header.subheader.rows.ICON}" alt="" />
+																<div class="mask {recipe.header.subheader.rows.QUALITY}"></div>
+															</div>
+															{recipe.header.subheader.rows.NAME}
+														</div>
+														<div style="width: 50px; text-align: center;">{recipe.header.subheader.rows.LEVEL}</div>
+														<div style="width: 300px;">
+<!-- BEGIN reagents -->
+															<div class="item-sm" style="margin: 0 1px;" {recipe.header.subheader.rows.reagents.TOOLTIP}>
+																<img src="{INTERFACE_URL}Interface/Icons/{recipe.header.subheader.rows.reagents.ICON}.{IMG_SUFFIX}" alt="" />
+																<div class="mask {recipe.header.subheader.rows.reagents.QUALITY}"></div>
+<!-- IF recipe.header.subheader.rows.reagents.COUNT gt 1 -->
+																<b>{recipe.header.subheader.rows.reagents.COUNT}</b><span>{recipe.header.subheader.rows.reagents.COUNT}</span>
+<!-- ENDIF -->
+															</div>
+<!-- END reagents -->
+														</div>
+													</div>
+												</div>
+											</div>
+<!-- END rows -->
+										</div>
+									</div>
+<!-- END subheader -->
+<!-- BEGIN row -->
+									<div class="tier-6-a" >
+										<div class="tier-6-b {recipe.header.row.DIFFICULTY_COLOR}">
+											<div class="text" >
+												<div style="width: 280px; overflow: hidden;">
+													<div class="item-sm" {recipe.header.row.TOOLTIP}{recipe.header.row.ITEMLINK}>
+														<img src="{recipe.header.row.ICON}" alt="" />
+														<div class="mask {recipe.header.row.QUALITY}"></div>
+													</div>
+													{recipe.header.row.NAME}
+												</div>
+												<div style="width: 50px; text-align: center;">{recipe.header.row.LEVEL}</div>
+												<div style="width: 300px;">
+<!-- BEGIN reagents -->
+													<div class="item-sm" style="margin: 0 1px;" {recipe.header.row.reagents.TOOLTIP}>
+														<img src="{INTERFACE_URL}Interface/Icons/{recipe.header.row.reagents.ICON}.{IMG_SUFFIX}" alt="" />
+														<div class="mask {recipe.header.row.reagents.QUALITY}"></div>
+		<!-- IF recipe.header.row.reagents.COUNT gt 1 -->
+														<b>{recipe.header.row.reagents.COUNT}</b><span>{recipe.header.row.reagents.COUNT}</span>
+		<!-- ENDIF -->
+													</div>
+<!-- END reagents -->
+												</div>
+											</div>
+										</div>
+									</div>
+<!-- END row -->
+								</div>
+							</div>
+<!-- END header -->
+						</div>
+					</div>
+				</div>
+<!-- END recipe -->
+			</div>
+		</div>
+	</div>
+</div>

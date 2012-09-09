@@ -1,0 +1,77 @@
+<!-- $Id$ -->
+<div class="scope-menu"></div>
+
+<!-- IF S_MESSAGES -->
+<div id="notify">
+
+<!-- BEGIN messages -->
+<!-- BEGIN item -->
+	<div class="ui-widget message">
+	<div class="ui-state-default ui-corner-all close" title="close">
+		<span class="ui-icon ui-icon-close"></span>
+	</div>
+		<div class="ui-state-<!-- IF messages.TYPE eq 'error' -->error<!-- ELSE -->highlight<!-- ENDIF --> ui-corner-all">
+
+<!-- IF messages.item.TITLE neq '' -->
+			<h4><span class="ui-icon ui-icon-<!-- IF messages.TYPE eq 'error' -->alert<!-- ELSE -->info<!-- ENDIF -->"></span>
+				{messages.item.TITLE}</h4>
+			<div class="content">
+<!-- ELSE -->
+			<div class="content">
+				<span class="ui-icon ui-icon-<!-- IF messages.TYPE eq 'error' -->alert<!-- ELSE -->info<!-- ENDIF -->"></span>
+<!-- ENDIF -->
+				{messages.item.TEXT}
+			</div>
+		</div>
+	</div>
+<!-- END item -->
+<!-- END messages -->
+
+</div>
+<!-- ENDIF -->
+
+<div class="container">
+
+	<form method="post" action="{U_UPGRADE}">
+		<input type="hidden" name="upgrade" value="1" />
+
+		<div class="tier-1-a" style="margin:20px auto;width:350px;">
+			<div class="tier-1-b">
+				<div class="tier-1-c">
+					<div class="tier-1-title">
+<!-- IF not MESSAGE -->
+						<div class="right"><input type="submit" value="<!-- TRANSLATE upgrade -->" /></div>
+<!-- ENDIF -->
+						<!-- TRANSLATE upgrade_wowroster -->
+					</div>
+<!-- IF MESSAGE -->
+					<div class="tier-2-a">
+						<div class="tier-2-b">
+							<div class="info-text-h">
+							{MESSAGE}
+							</div>
+						</div>
+					</div>
+<!-- ELSE -->
+					<div class="tier-3-a">
+						<div class="tier-3-b">
+							<div class="skill">
+								<div class="skill-name"><label for="version"><!-- TRANSLATE select_version --></label></div>
+								<div class="right">
+									<select id="version" name="version" class="select">
+<!-- BEGIN version_row -->
+										<option value="{version_row.VALUE}"{version_row.SELECTED}>{version_row.OPTION}</option>
+<!-- END version_row -->
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+<!-- ENDIF -->
+
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>

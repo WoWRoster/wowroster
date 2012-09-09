@@ -1,0 +1,36 @@
+<!-- $Id$ -->
+
+<form method="post" action="{U_FORMACTION}" id="addnews" style="text-align:left;">
+	<input type="hidden" name="process" value="process" />
+	<input type="hidden" name="type" value="newTopic" />
+
+	<div class="tier-2-a">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+			{CRUMB}</a> - <!-- TRANSLATE start_topic -->
+				<div class="right"><input type="submit" value="<!-- TRANSLATE start_topic -->" /></div>
+			</div>
+			
+			<div class="info-text">
+				<label for="author"><!-- TRANSLATE name -->:</label>{S_POSTER}<input name="author" id="author" type="hidden" maxlength="16" size="16" value="{S_POSTER}" />
+			</div>
+			<div class="info-text">
+				<label for="title"><!-- TRANSLATE title -->:</label> <input name="title" id="title" type="text" size="64" value="" />
+			</div>
+			<div class="info-text">
+			{S_TOPIC_ACCESS}
+			</div>
+			
+			<br />
+<!-- IF S_HTML_ENABLE -->
+			<div class="radioset">
+				<input type="radio" id="html_on" name="html" value="1" <!-- IF S_TOPIC_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_on"><!-- TRANSLATE enable_html --></label>
+				<input type="radio" id="html_off" name="html" value="0" <!-- IF ! S_TOPIC_HTML -->checked="checked" <!-- ENDIF -->/><label for="html_off"><!-- TRANSLATE disable_html --></label>
+			</div>
+			<br />
+<!-- ENDIF -->
+			<textarea name="text" id="text" cols="100" rows="20"></textarea>
+		</div>
+	</div>
+
+</form>

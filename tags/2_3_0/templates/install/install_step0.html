@@ -1,0 +1,31 @@
+<!-- $Id$ -->
+
+
+<h2>This installation will guide you in the setup of WoWRoster.</h2>
+
+<div class="tier-2-a">
+	<div class="tier-2-b">
+		<div class="tier-2-title">
+			Click [I Agree] if you accept the following license.
+		</div>
+<!-- IF LICENSE -->
+		<div class="ui-widget ui-widget-content ui-corner-left license">
+{LICENSE}
+		</div>
+<!-- ELSE -->
+		<div class="info-text-h">
+			Your server does not support zlib Compression. Thus you cannot read our license from this page.
+			Please view <a href="license.txt">license.txt</a> found in your WoWRoster distribution and click [I Agree] below
+		</div>
+<!-- ENDIF -->
+
+<!-- IF S_SHOW_BUTTON -->
+		<br />
+		<form method="post" action="{FORMACTION}" name="post">
+			<input type="hidden" name="install_step" value="1" />
+			<div align="center"><input type="submit" name="submit" value="I Agree" /></div>
+		</form>
+<!-- ENDIF -->
+
+	</div>
+</div>
