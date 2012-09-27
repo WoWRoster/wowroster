@@ -67,7 +67,7 @@ class character extends Resource {
 				case '10':	$this->x.= ',mounts';
 							#A list of all of the mounts obtained by the character.
 				break;
-				case '11':	$this->x.= ',pets';
+				case '11':	$this->x.= ',hunterPets';
 							#A list of all of the combat pets obtained by the character.
 				break;
 				case '12':	$this->x.= ',achievements';
@@ -85,7 +85,13 @@ class character extends Resource {
 				case '16':	$this->x.= ',feed';
 							#A list of battleground vistories and teams.
 				break;
-				case 'ALL':	$this->x.=',guild,stats,talents,items,reputation,titles,professions,appearance,companions,mounts,pets,achievements,progression,pvp,quests,feed';
+				case '17':	$this->x.= ',pets';
+							#A list of battleground vistories and teams.
+				break;
+				case '18':	$this->x.= ',petSlots';
+							#A list of battleground vistories and teams.
+				break;
+				case 'ALL':	$this->x.=',guild,stats,talents,items,reputation,titles,professions,appearance,companions,mounts,pets,achievements,progression,pvp,quests,feed,hunterPets,petSlots';
 							#A list of battleground vistories and teams.
 				break;
 				default:

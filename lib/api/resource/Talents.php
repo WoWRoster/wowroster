@@ -17,7 +17,7 @@ require_once ROSTER_API . 'resource/Resource.php';
  *
  * @throws ResourceException If no methods are defined.
  */
-class talents extends Resource {
+class battlepet extends Resource {
 	protected $methods_allowed = array(
 		'talents',
 	);
