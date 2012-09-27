@@ -133,6 +133,16 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		$roster->set_message(sprintf($roster->locale->act['adata_update_class'], $roster->locale->act['id_to_class'][$classid]));
 		$roster->set_message(sprintf($roster->locale->act['adata_update_row'], $count));
 	}
+	
+	if (isset($_POST['clear']))
+	{
+		//TRUNCATE TABLE  `roster_api_gems`
+		$usage = "TRUNCATE TABLE `" . $roster->db->table('api_usage') . "`;";
+		$resultusage = $roster->db->query($usage);
+		
+		$roster->set_message(sprintf($roster->locale->act['installer_purge_0'],'Api Usage'));
+	}
+	
 	if (isset($_POST['truncate']))
 	{
 		//TRUNCATE TABLE  `roster_api_gems`
@@ -144,18 +154,18 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 		
 		$roster->set_message(sprintf($roster->locale->act['installer_purge_0'],'Item/gem cache'));
 	}
-}
 
-	if (isset($_GET['parse']) && $_GET['parse'] == 'all')
+
+	if (isset($_POST['parse']) && $_POST['parse'] == 'ALL')
 	{
 
 		$classes = array('1','2','3','4','5','6','7','8','9','11','0');
-		
-		foreach ($classes as $tid)
+		$talent = $roster->api->Data->getTalents();
+		$messages = '';
+		foreach ($talent as $class_id => $info)
 		{
-			//$tid = $_GET['classid'];
+			$tid = $class_id;
 			$i = $tid;
-			$talents = $roster->api->Talents->getTalentInfo(''.$tid.'');
 			
 			$querystr = "DELETE FROM `" . $roster->db->table('talents_data') . "` WHERE `class_id` = '" . $tid . "';";
 			if (!$roster->db->query($querystr))
@@ -176,28 +186,29 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 			$count = 1;
 			$treenum = 1;
 		//$i=$tid;
-			foreach ($talents['talentData']['talentTrees'] as $a => $treedata)
+			foreach ($info['talents'] as $a => $treedata)
 			{
 
 				$lvl = 15;
 				foreach ($treedata as $t => $talent)
 				{
+
 					$tooltip = '';
-					$tooltip .= (isset($talent['spell']['cost']) ? '<br>'.$talent['spell']['cost'] : '');
-					$tooltip .=	(isset($talent['spell']['range']) ? '<span style="float:right;">'.$talent['spell']['range'].'</span>' : '');
-					$tooltip .=	(isset($talent['spell']['castTime']) ? '<br>'.$talent['spell']['castTime'] : '');
-					$tooltip .=	(isset($talent['spell']['cooldown']) ? '<span style="float:right;">'.$talent['spell']['cooldown'].'</span>' : '');
-					$tooltip .= '<br>'.$talent['spell']['htmlDescription'];
+					$tooltip .= (isset($talent['spell']['powerCost']) 	? $talent['spell']['powerCost'].'<br />' 	: '');
+					$tooltip .=	(isset($talent['spell']['range']) 		? $talent['spell']['range'].'<br />' 	: '');
+					$tooltip .=	(isset($talent['spell']['castTime']) 	? $talent['spell']['castTime'].'<br />' 	: '');
+					$tooltip .=	(isset($talent['spell']['cooldown']) 	? $talent['spell']['cooldown'].'<br />' 	: '');
+					$tooltip .= '<br><span style="color:#00bbff;">'.$talent['spell']['description'].'</span>';
 					$values = array(
-						'talent_id'  => $talent['spell']['spellId'],
+						'talent_id'  => $talent['spell']['id'],
 						'talent_num' => $t,
 						'tree_order' => '0',
-						'class_id'   => $talent['classKey'],
+						'class_id'   => $class_id,
 						'name'       => $talent['spell']['name'],
 						'tree'       => '',//$treedata['name'],
 						'tooltip'    => tooltip($tooltip),
 						'texture'    => $talent['spell']['icon'],
-						'isspell'	 => ( !$talent['spell']['keyAbility'] ? false : true ),
+						//'isspell'	 => ( !$talent['spell']['keyAbility'] ? false : true ),
 						'row'        => ($talent['tier'] + 1),
 						'column'     => ($talent['column'] + 1),
 						'rank'       => $lvl
@@ -215,16 +226,37 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 				$count++;
 				$treenum++;
 			}
+			foreach ($info['specs'] as $a => $treedata)
+			{
+			
+				$values = array(
+					'tree'       => $treedata['name'],
+					'order'      => $treedata['order'],
+					'class_id'   => $class_id,
+					'background' => strtolower($treedata['backgroundImage']),
+					'icon'       => $treedata['icon'],
+					'roles'		 => $treedata['role'],
+					'desc'		 => $treedata['description'],
+					'tree_num'   => $treedata['order']
+				);
+
+					
+				$querystr = "INSERT INTO `" . $roster->db->table('talenttree_data') . "` "
+					. $roster->db->build_query('INSERT', $values) . "
+					;";
+				$result = $roster->db->query($querystr);
+			}
 
 
-			$roster->set_message(sprintf($roster->locale->act['adata_update_class'], $roster->locale->act['id_to_class'][$_POST['class_id']]));
-			$roster->set_message(sprintf($roster->locale->act['adata_update_row'], $count));
+			$messages .= sprintf($roster->locale->act['adata_update_class'], $roster->locale->act['id_to_class'][$class_id]).' - ';
+			$messages .= sprintf($roster->locale->act['adata_update_row'], $count).'<br>';
 		}
+		$roster->set_message($messages);
 	}
+}
 //echo 'will have update information for talents';
-$array1 = $roster->locale->act['class_to_id'];
-$array2 = array('Pets' => 0);
-$classes = array_merge($array1, $array2);
+
+$classes = $roster->locale->act['class_to_id'];
 
 
 foreach ($classes as $class => $num)
@@ -238,7 +270,7 @@ foreach ($classes as $class => $num)
 	$roster->tpl->assign_block_vars('classes', array(
 		'NAME'       => $class,
 		'ID'         => $num,
-		'UPDATELINK' => makelink('&amp;class=' . $num),
+		'UPDATELINK' => '',//makelink('&amp;class=' . $num),
 		'ROWS'       => $classr,
 		'ROW'        => (($i % 2) + 1)
 		)

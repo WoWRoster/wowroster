@@ -17,7 +17,7 @@ if( !defined('IN_ROSTER') ) {
 require_once ROSTER_API . 'resource/Realm.php';
 require_once ROSTER_API . 'resource/Char.php';
 require_once ROSTER_API . 'resource/Guild.php';
-require_once ROSTER_API . 'resource/Talents.php';
+require_once ROSTER_API . 'resource/BattlePet.php';
 require_once ROSTER_API . 'resource/Team.php';
 require_once ROSTER_API . 'resource/Data.php';
 require_once ROSTER_API . 'apiitem.php';
@@ -32,7 +32,7 @@ class WowAPI {
 	public $Guild; // guild Object
 	public $Team; // team Object
 	public $Data; // Blizzard Data Objects..
-	public $Talents; // char name nyi
+	public $BattlePet; // char name nyi
 	public $Aitem;
 	public $cItem;
 	
@@ -73,9 +73,8 @@ class WowAPI {
 		$this->Guild = new guild($region);
 		$this->Data = new Data(strtoupper($region));
 		$this->Item = new ApiItem();
-	//	$this->cItem = new ApiColorItem();
 		$this->Team = new team($region);
-		$this->Talents = new talents($region);
+		$this->BattlePet = new battlepet($region);
 	}
 	
 	public function Settings($array)

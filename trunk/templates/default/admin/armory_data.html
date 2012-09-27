@@ -4,17 +4,17 @@
 	<div class="tier-2-b">
 		<div class="tier-2-title"><!-- TRANSLATE adata_update_talents --></div>
 
+						<form action="{classes.UPDATELINK}" method="post" id="update">
+							<input type="hidden" name="parse" value="ALL" />
+							<input type="hidden" name="process" value="process" />
+							<button type="submit" class="input"><!-- TRANSLATE update --></button>
+						</form>
+
 <!-- BEGIN classes -->
 		<div class="tier-3-a">
 			<div class="tier-3-b">
 				<div class="config">
-					<div class="config-input">
-						<form action="{classes.UPDATELINK}" method="post" id="update">
-							<input type="hidden" name="class_id" value="{classes.ID}" />
-							<input type="hidden" name="process" value="process" />
-							<button type="submit" class="input"><!-- TRANSLATE update --></button>
-						</form>
-					</div>
+					
 					<div class="config-name">
 						{classes.NAME} ({classes.ROWS})
 					</div>
@@ -55,7 +55,13 @@
 
 <div class="tier-2-a">
 	<div class="tier-2-b">
-		<div class="tier-2-title">API Usage</div>
+		<div class="tier-2-title">API Usage
+			<form action="" method="post" id="update">
+				<input type="hidden" name="clear" value="true" />
+				<input type="hidden" name="process" value="process" />
+				<button type="submit" class="input"><!-- TRANSLATE clear --></button>
+			</form>
+		</div>
 
 			<div class="sqlwindow">
 				<table cellpadding="0" cellspacing="0" width="100%">

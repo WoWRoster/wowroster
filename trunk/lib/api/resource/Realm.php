@@ -19,9 +19,23 @@ require_once ROSTER_API . 'resource/Resource.php';
  */
 class Realm extends Resource {
 	protected $methods_allowed = array(
-		'status'
+		'status',
+		'challenge'
 	);
 
+	
+	public function getChallenge($realm) {
+		$data = $this->consume('challenge', array(
+			'data' => '',
+			'dataa' => '',
+			'server' => $realm,
+			'name' => $realm,
+			'header'=>"Accept-language: enUS\r\n"
+		));
+
+		return $data;
+	}
+	
 	/**
 	 * Get status results for all realms.
 	 *

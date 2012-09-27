@@ -30,10 +30,22 @@ class Data extends Resource {
 		'itemtooltip',
 		'itemSet',
 		'recipe',
+		'talent',
 		'achievements',
 		'itemClass',
 	);
 
+	public function getTalents()
+	{
+		$data = $this->consume('talent', array(
+			'data' => '',
+			'dataa' => 'talent',
+			'server' => '',
+			'name' => '',
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		return $data;
+	}
 	public function getitemClass() 
 	{
 		
