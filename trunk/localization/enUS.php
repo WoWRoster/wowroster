@@ -840,6 +840,11 @@ $lang['tooltip_unique']='Unique';
 $lang['tooltip_speed']='Speed';
 $lang['tooltip_poisoneffect']='^Each strike has';
 
+// MOP 5.1
+$lang['tooltip_upgrade']='Upgrade Level: %1$s/%2$s';
+$lang['tooltip_preg_upgrade']='/Upgrade Level: (\d+)\/(\d+)/';
+$lang['tooltip_preg_enchant']='/Enchanted: (.+)/';
+$lang['tooltip_ienchant']='Enchanted: %1$s';
 // MOP 5.0
 $lang['tooltip_preg_item_season']='/Season ([0-9, ]+)/';
 // php 5.3 changes
@@ -859,11 +864,12 @@ $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
 $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
+$lang['tooltip_garbage8'] = '/You may sell this item to a vendor within (\d+) hour (\d+) min for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
 
-$lang['tooltip_preg_armor']='/^([0-9, ]+) Armor/';// updated for mop
+$lang['tooltip_preg_armor']='/([0-9,]+) Armor/';// updated for mop
 $lang['tooltip_preg_durability']='/Durability(|:) (\d+) \/ (\d+)/';
 $lang['tooltip_preg_madeby']='/\<Made by (.+)\>/';
 $lang['tooltip_preg_bags']='/^(\d+) Slot/';

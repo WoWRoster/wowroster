@@ -1160,39 +1160,6 @@ class update
 	}
 
 	/**
-	 * Inserts a gem into the database
-	 *
-	 * @param array $gem
-	 * @return bool | true on success, false if error
-	 */
-	function insert_gem( $gem )
-	{
-		global $roster;
-
-		$this->assigngem='';
-		$this->add_gem('gem_id', $gem['gem_id']);
-		$this->add_gem('gem_name', $gem['gem_name']);
-		$this->add_gem('gem_color', $gem['gem_color']);
-		$this->add_gem('gem_tooltip', $gem['gem_tooltip']);
-		$this->add_gem('gem_bonus', $gem['gem_bonus']);
-		$this->add_gem('gem_socketid', $gem['gem_socketid']);
-		$this->add_gem('gem_texture', $gem['gem_texture']);
-		$this->add_gem('locale', $this->locale);
-
-		$querystr = "REPLACE INTO `" . $roster->db->table('gems') . "` SET ".$this->assigngem . ";";
-		$result = $roster->db->query($querystr);
-		if ( !$result )
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
-
-
-	/**
 	 * Inserts mail into the Database
 	 *
 	 * @param array $mail
@@ -1535,6 +1502,58 @@ CREATE TABLE `renprefix_quest_task_data` (
 			return false;
 		}
 	}
+	
+	/**
+	 * Formats each gem found in each slot of item and inserts into database.
+	 *
+	 * @param array $gems
+	 * @param string $itemid_data
+	 */
+	function do_gems( $gems , $itemid_data )
+	{
+		$itemid = explode(':', $itemid_data);
+		foreach($gems as $key => $val)
+		{
+			$socketid = $itemid[(int)$key+1];
+			$gem = $this->make_gem($val, $socketid);
+			if( $gem )
+			{
+				$this->insert_gem($gem);
+			}
+		}
+	}
+	/**
+	 * Inserts a gem into the database
+	 *
+	 * @param array $gem
+	 * @return bool | true on success, false if error
+	 */
+	function insert_gem( $gem )
+	{
+		global $roster;
+
+		$this->assigngem='';
+		$this->add_gem('gem_id', $gem['gem_socketid']);//$gem['gem_id']);
+		$this->add_gem('gem_name', $gem['gem_name']);
+		$this->add_gem('gem_color', $gem['gem_color']);
+		$this->add_gem('gem_tooltip', $gem['gem_tooltip']);
+		$this->add_gem('gem_bonus', $gem['gem_bonus']);
+		$this->add_gem('gem_socketid', $gem['gem_id']);//$gem['gem_socketid']);
+		$this->add_gem('gem_texture', $gem['gem_texture']);
+		$this->add_gem('locale', $this->locale);
+
+		$querystr = "REPLACE INTO `" . $roster->db->table('gems') . "` SET ".$this->assigngem . "  ";//WHERE `gem_socketid` = '".$gem['gem_socketid']."'";
+		$result = $roster->db->query($querystr);
+		if ( !$result )
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+	
 
 	/**
 	 * Formats recipe data to be inserted into the db
@@ -3017,25 +3036,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$this->setMessage($messages . '</li>');
 	}
 
-	/**
-	 * Formats each gem found in each slot of item and inserts into database.
-	 *
-	 * @param array $gems
-	 * @param string $itemid_data
-	 */
-	function do_gems( $gems , $itemid_data )
-	{
-		$itemid = explode(':', $itemid_data);
-		foreach($gems as $key => $val)
-		{
-			$socketid = $itemid[(int)$key+1];
-			$gem = $this->make_gem($val, $socketid);
-			if( $gem )
-			{
-				$this->insert_gem($gem);
-			}
-		}
-	}
+
 
 	/**
 	 * Delete Members in database not matching the upload rules
