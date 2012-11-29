@@ -840,6 +840,11 @@ $lang['tooltip_unique']='Einzigartig';
 $lang['tooltip_speed']='Tempo';
 $lang['tooltip_poisoneffect']='^Bei jedem Schlag';
 
+// MOP 5.1
+$lang['tooltip_upgrade']='Upgrade Level: %1$s/%2$s';
+$lang['tooltip_preg_upgrade']='/Upgrade Level: (\d+)\/(\d+)/';
+$lang['tooltip_preg_enchant']='/Enchanted: (.+)/';
+$lang['tooltip_ienchant']='Enchanted: %1$s';
 // MOP 5.0
 $lang['tooltip_preg_item_season']='/Season ([0-9, ]+)/';
 // php 5.3 changes
