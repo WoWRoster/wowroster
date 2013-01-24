@@ -60,12 +60,34 @@ class achievementsInstall
 			  `achie_icon` varchar(255) DEFAULT NULL,
 			  `achie_tooltip` mediumtext ,
 			  `achie_isAccount` varchar(10) ,
+			  `factionId` varchar(10) ,
 			  `c_id` int(10) NOT NULL,
 			  `p_id` int(10) DEFAULT NULL,
 			  `achi_cate` varchar(255) DEFAULT NULL,
 			  PRIMARY KEY (`id`)");
 	  
 		$installer->create_table($installer->table('crit'),"
+			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `crit_achie_id` int(10) NOT NULL,
+			  `crit_id` int(10) NOT NULL,
+			  `crit_desc` text,
+			  PRIMARY KEY (`id`)");
+		$installer->create_table($installer->table('g_achie'),"
+			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `achie_name` text,
+			  `achie_desc` text,
+			  `achie_points` int(10) DEFAULT NULL,
+			  `achie_id` int(10) NOT NULL,
+			  `achie_icon` varchar(255) DEFAULT NULL,
+			  `achie_tooltip` mediumtext ,
+			  `achie_isAccount` varchar(10),
+			  `factionId` varchar(10) ,
+			  `c_id` int(10) NOT NULL,
+			  `p_id` int(10) DEFAULT NULL,
+			  `achi_cate` varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (`id`)");
+	  
+		$installer->create_table($installer->table('g_crit'),"
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
 			  `crit_achie_id` int(10) NOT NULL,
 			  `crit_id` int(10) NOT NULL,
@@ -87,10 +109,23 @@ class achievementsInstall
 			  `crit_id` int(7) NOT NULL DEFAULT '0',
 			  `crit_date` varchar(20) DEFAULT NULL,
 			  `crit_value` varchar(64) DEFAULT NULL");
+			  
+		$installer->create_table($installer->table('g_achievements'),"
+			  `member_id` int(11) NOT NULL DEFAULT '0',
+			  `achie_id` int(7) NOT NULL DEFAULT '0',
+			  `achie_date` varchar(20) DEFAULT NULL");
+
+		//*
+		$installer->create_table($installer->table('g_criteria'),"
+			  `member_id` int(11) NOT NULL DEFAULT '0',
+			  `crit_id` int(7) NOT NULL DEFAULT '0',
+			  `crit_date` varchar(20) DEFAULT NULL,
+			  `crit_value` varchar(64) DEFAULT NULL");
 		//*/
 		$installer->add_config("'11000','startpage','achi_conf','display','master'");
 		$installer->add_config("'11001','achi_conf',NULL,'blockframe','menu'");
 		$installer->add_config("'11002','achi_data','rostercp-addon-achievements-data','makelink','menu'");
+		$installer->add_config("'11004','achi_data_g','rostercp-addon-achievements-data2','makelink','menu'");
 		$installer->add_config("'11003','show_icons','1','radio{enabled^1|disabled^0','achi_conf'");
 		return true;
 	}
@@ -151,6 +186,10 @@ class achievementsInstall
 		$installer->drop_table( $installer->table('crit') );
 		$installer->drop_table( $installer->table('achievements') );
 		$installer->drop_table( $installer->table('criteria') );
+		$installer->drop_table( $installer->table('g_achie') );
+		$installer->drop_table( $installer->table('g_crit') );
+		$installer->drop_table( $installer->table('g_achievements') );
+		$installer->drop_table( $installer->table('g_criteria') );
 
 		return true;
 	}

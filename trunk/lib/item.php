@@ -1045,7 +1045,9 @@ class item
 				//still failed to find the enchantment.  Report an error.
 				trigger_error("Unable to parse the Enchantment! ( $this->name ) [ $this->item_id ]");
 				$this->isEnchant = false;
-				$this->isParseError = true;
+				/*  we wont pull an errror any more because enchant errors this is no longer an issue .. which is sweet
+				*$this->isParseError = true;
+				*/
 			}
 			if( $this->isEnchant )
 			{
@@ -1116,7 +1118,7 @@ class item
 			}
 			elseif( preg_match('/^([,0-9]+)\s'.$roster->locale->act['armor'].'$/', $line, $matches) )
 			{
-				echo '<pre>';print_r($matches);echo '</pre>';
+				//echo '<pre>';print_r($matches);echo '</pre>';
 				$tt['Attributes']['ArmorClass']['Line'] = $matches[0];
 				$tt['Attributes']['ArmorClass']['Rating'] = $matches[1];
 				// dont flag as armor here because weapons can have Armor too
