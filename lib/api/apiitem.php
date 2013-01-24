@@ -98,44 +98,45 @@ var $itemstat = array(
 '6' => '+%s Spirit',
 '7' => '+%s Stamina',
 '46' => 'Equip: Restores %s health per 5 sec.',
-'44' => 'Equip: Increases your armor penetration rating by %s.',
-'38' => 'Equip: Increases attack power by %s.',
-'15' => 'Equip: Increases your shield block rating by %s.',
-'48' => 'Equip: Increases the block value of your shield by %s.',
-'19' => 'Equip: Improves melee critical strike rating by %s.',
-'20' => 'Equip: Improves ranged critical strike rating by %s.',
-'32' => 'Equip: Increases your critical strike rating by %s.',
-'21' => 'Equip: Improves spell critical strike rating by %s.',
-'25' => 'Equip: Improves melee critical avoidance rating by %s.',
-'26' => 'Equip: Improves ranged critical avoidance rating by %s.',
-'34' => 'Equip: Improves critical avoidance rating by %s.',
-'27' => 'Equip: Improves spell critical avoidance rating by %s.',
+'44' => 'Armor Penetration',
+'38' => 'Attack Power by %s.',
+'15' => 'Shield Block',
+'48' => 'the block value of your shield by %s.',
+'19' => 'Melee Critical strike',
+'20' => 'Ranged Critical strike',
+'32' => 'Critical Strike',
+'21' => '+%s Spell Critical strike',
+'25' => 'Melee Critical avoidance',
+'26' => 'Ranged Critical avoidance',
+'34' => 'Critical Avoidance',
+'27' => '+%s Spell critical avoidance',
 //ITEM_MOD_DAMAGE_PER_SECOND_SHORT => 'Damage Per Second',
-'12' => 'Equip: Increases defense rating by %s.',
-'13' => 'Equip: Increases your dodge rating by %s.',
-'37' => 'Equip: Increases your expertise rating by %s.',
-'40' => 'Equip: Increases attack power by %s in Cat, Bear, Dire Bear, and Moonkin forms only.',
-'28' => 'Equip: Improves melee haste rating by %s.',
-'29' => 'Equip: Improves ranged haste rating by %s.',
-'36' => 'Equip: Increases your haste rating by %s.',
-'30' => 'Equip: Improves spell haste rating by %s.',
-'16' => 'Equip: Improves melee hit rating by %s.',
-'17' => 'Equip: Improves ranged hit rating by %s.',
-'31' => 'Equip: Increases your hit rating by %s.',
-'18' => 'Equip: Improves spell hit rating by %s.',
-'22' => 'Equip: Improves melee hit avoidance rating by %s.',
-'23' => 'Equip: Improves ranged hit avoidance rating by %s.',
-'33' => 'Equip: Improves hit avoidance rating by %s.',
-'24' => 'Equip: Improves spell hit avoidance rating by %s.',
+'12' => '+%s Defense',
+'13' => '+%s Dodge',
+'37' => '+%s Expertise',
+'40' => 'attack power by %s in Cat, Bear, Dire Bear, and Moonkin forms only.',
+'28' => '+%s Melee Haste',
+'29' => '+%s Ranged Haste',
+'36' => '+%s Haste',
+'30' => '+%s Spell Haste',
+'16' => '+%s Melee Hit',
+'17' => '+%s Ranged Hit',
+'31' => '+%s Hit',
+'18' => '+%s Spell Hit',
+'22' => '+%s Melee Hit Avoidance',
+'23' => '+%s Ranged Hit Avoidance',
+'33' => '+%s Hit Avoidance',
+'24' => '+%s Spell Hit Avoidance',
 '43' => 'Equip: Restores %s mana per 5 sec.',
-'49' => 'Equip: Increases your mastery rating by %s.',
-'14' => 'Equip: Increases your parry rating by %s.',
-'39' => 'Equip: Increases ranged attack power by %s.',
-'35' => 'Equip: Increases your resilience rating by %s.',
-'41' => 'Equip: Increases damage done by magical spells and effects by up to %s.',
-'42' => 'Equip: Increases healing done by magical spells and effects by up to %s.',
-'47' => 'Equip: Increases spell penetration by %s.',
-'45' => 'Equip: Increases spell power by %s.');
+'49' => '+%s Mastery',
+'14' => '+%s Parry',
+'39' => '+%s Ranged Attack Power',
+'35' => '+%s PvP Resilience',
+'57' => '+%s PvP Power',
+'41' => 'damage done by magical spells and effects by up to %s.',
+'42' => 'healing done by magical spells and effects by up to %s.',
+'47' => '+%s Spell Penetration',
+'45' => '+%s Spell Power');
 
 var $bind = array(
 '0' => '','8' => "Account Bound",'2' => "Binds when equipped",'1' => "Binds when picked up",'3' => "Binds when used",'4' => "Quest Item",
@@ -229,18 +230,9 @@ var $skills = array(
 			
 			foreach( $data['bonusStats'] as $id => $stat )
 			{
-				if ($stat['stat'] <= '7')
-				{
-					$tt['Attributes']['BaseStats'][$roster->locale->act['apiitem']['statlocal'][$stat['stat']]] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
-				}
+				$tt['Attributes']['BaseStats'][$roster->locale->act['apiitem']['statlocal'][$stat['stat']]] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
 			}
-			foreach( $data['bonusStats'] as $id => $stat )
-			{
-				if ($stat['stat'] >= '8')
-				{
-					$tt['Effects']['Equip'][] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
-				}
-			}
+
 			if (isset($data['itemSpells']))
 			{
 				foreach($data['itemSpells'] as $id => $spell)

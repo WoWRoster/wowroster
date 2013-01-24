@@ -198,7 +198,7 @@ class roster_db
 	 */
 	function connect_error()
 	{
-		return @mysql_errno() . ': ' . mysql_error();
+		return @sqlsrv_errors() . ': ' . sqlsrv_errors();
 	}
 
 	/**

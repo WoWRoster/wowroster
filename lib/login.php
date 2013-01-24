@@ -304,7 +304,7 @@ class RosterLogin
 
 		foreach ($this->levels as $acc => $a)
 		{
-			$output .= '<option value="'. $acc .'" '. (in_array($acc, $lvl) ? 'selected' : '') .'>'. $a ."</option>\n";
+			$output .= '<option value="'. $acc .'" '. (in_array($acc, $lvl) ? 'selected' : '') .'>'. ucfirst ($a) ."</option>\n";
 		}
 		$output .= '</select>';
 

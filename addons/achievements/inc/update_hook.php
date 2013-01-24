@@ -25,6 +25,7 @@ class achievementsUpdate
 	var $achnum = '';
 	var $armory;
 	var $base_url;
+	var $guild_id = '';
 
 	var $order = '0';
 
@@ -92,6 +93,59 @@ class achievementsUpdate
 
 		return true;
 	}
+	
+	
+	function guild_pre($guild)
+	{
+		global $roster, $update, $addon;
+
+		$this->guild_id = $guild['guild_id'];
+		
+		$char = $roster->api->Guild->getGuildInfo($guild['Server'],$guild['GuildName'],'2');
+		$rx = 0;
+		$achi = $char['achievements'];
+		$a = true;
+		$sqlquery2 = "DELETE FROM `" . $roster->db->table('g_achievements', $this->data['basename']) . "` WHERE `member_id` = '" . $this->guild_id . "'";
+		$result2 = $roster->db->query($sqlquery2);
+
+		foreach ($achi['achievementsCompleted'] as $var => $info)
+		{
+			$update->reset_values();
+			$update->add_value('achie_id', $info );
+			$update->add_value('achie_date', $char['achievements']['achievementsCompletedTimestamp'][''.$var.''] );
+			$update->add_value('member_id', $this->guild_id);
+			$querystr = "INSERT INTO `" . $roster->db->table('g_achievements', $this->data['basename']) . "` SET " . $update->assignstr;
+			$rx++;
+		
+			$result = $roster->db->query($querystr);
+		}
+
+		$achi = $char['achievements'];
+		$a = true;
+		///*
+		$sqlquery2 = "DELETE FROM `" . $roster->db->table('g_criteria', $this->data['basename']) . "` WHERE `member_id` = '" . $this->guild_id . "'";
+		$result2 = $roster->db->query($sqlquery2);
+
+		//we are not gona use criteria yet so much data to process it really slows roster
+		foreach ($achi['criteria'] as $var => $info)
+		{
+			$update->reset_values();
+			$update->add_value('member_id', $this->guild_id );
+			$update->add_value('crit_id', $info );
+			$update->add_value('crit_date', $char['achievements']['criteriaTimestamp'][''.$var.'']);
+			$update->add_value('crit_value', $char['achievements']['criteriaQuantity'][''.$var.'']);
+			$querystr = "INSERT INTO `" . $roster->db->table('g_criteria', $this->data['basename']) . "` SET " . $update->assignstr;
+			$result = $roster->db->query($querystr);
+		}
+		//*/
+		
+		$this->messages .= '<li>Updating Achievements: ';
+		$this->messages .= $rx.'</li>';
+
+		return true;
+	}
+	
+	
 	function  char_delete($inClause)
 	{
 		global $roster, $addon;

@@ -26,6 +26,7 @@ class RosterGD
 	var $colorindex = array();	// Index of all colors used
 	var $width = 100;		// width of the image
 	var $height = 100;	// height of the image
+	var $rgb = array();
 
 	/**
 	 * Image based error handler
@@ -38,7 +39,7 @@ class RosterGD
 	{
 		// Initialize the image based error handler
 		require(ROSTER_LIB . 'roster_gderror.php');
-		$this->error =& new GDError();
+		$this->error = new GDError();
 	}
 
 	function make_image( $width=100 , $height=100 )
@@ -50,6 +51,37 @@ class RosterGD
 		$this->imagecreatetruecolortrans();
 	}
 
+	/**
+	* function to make hex colors to R G B array
+	*
+	*/
+	function hex_rgb($Hex)
+	{
+		if (substr($Hex,0,1) == "#")
+		$Hex = substr($Hex,1);
+
+		$R = substr($Hex,0,2);
+		$G = substr($Hex,2,2);
+		$B = substr($Hex,4,2);
+
+		$R = hexdec($R);
+		$G = hexdec($G);
+		$B = hexdec($B);
+
+		$RGB['R'] = $R;
+		$RGB['G'] = $G;
+		$RGB['B'] = $B;
+
+		$this->rgb = $RGB;
+	
+	}
+	
+	function colorize($color,$opc = '35')
+	{
+		$this->hex_rgb($color);	
+		imagefilter($this->im, IMG_FILTER_COLORIZE, $this->rgb['R'], $this->rgb['G'], $this->rgb['B'],$opc);
+	}
+	//*/
 	/**
 	 * Function to set color of text
 	 * We store the color as a class variable
