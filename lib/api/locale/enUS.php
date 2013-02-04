@@ -4,7 +4,7 @@ $lang['apiitem']['socketbonus']='Socket Bonus: %s';
 $lang['apiitem']['reqlevel']='Requires Level %s';
 $lang['apiitem']['ilevel']='Item Level %s';
 $lang['apiitem']['requires']='Requires %s';
-$lang['apiitem']['dpsspeed'] = '%1$s Damage	Speed %2$s';
+$lang['apiitem']['dpsspeed']= '%1$s Damage	Speed %2$s';
 //common wording
 $lang['apiitem']['socket']='Socket';
 
@@ -207,7 +207,7 @@ $lang['apiitem']['slotType'] = array(
 	'23' => 'Held In Off-hand',
 	'24' => 'Ammo',
 	'25' => 'Thrown',
-	'26' => 'Ranged Right',
+	'26' => 'Ranged',
 	'28' => 'Relic'
 );
 
@@ -279,17 +279,17 @@ $lang['apiitem']['itemstat'] = array(
 	'6' => '+%s Spirit',
 	'7' => '+%s Stamina',
 	'46' => 'Equip: Restores %s health per 5 sec.',
-	'44' => 'Armor Penetration',
-	'38' => 'Attack Power by %s.',
-	'15' => 'Shield Block',
+	'44' => '+%s Armor Penetration',
+	'38' => '+%s Attack Power',
+	'15' => '+%s Shield Block',
 	'48' => 'the block value of your shield by %s.',
-	'19' => 'Melee Critical strike',
-	'20' => 'Ranged Critical strike',
-	'32' => 'Critical Strike',
+	'19' => '+%s Melee Critical strike',
+	'20' => '+%s Ranged Critical strike',
+	'32' => '+%s Critical Strike',
 	'21' => '+%s Spell Critical strike',
-	'25' => 'Melee Critical avoidance',
-	'26' => 'Ranged Critical avoidance',
-	'34' => 'Critical Avoidance',
+	'25' => '+%s Melee Critical avoidance',
+	'26' => '+%s Ranged Critical avoidance',
+	'34' => '+%s Critical Avoidance',
 	'27' => '+%s Spell critical avoidance',
 	//ITEM_MOD_DAMAGE_PER_SECOND_SHORT => 'Damage Per Second',
 	'12' => '+%s Defense',

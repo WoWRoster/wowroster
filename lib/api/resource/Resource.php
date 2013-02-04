@@ -12,8 +12,8 @@
 
 require_once ROSTER_API . 'tools/Curl.php';
 require_once ROSTER_API . 'tools/url.php';
-require_once ROSTER_API . 'tools/ResourceException.php';
-require_once ROSTER_API . 'tools/HttpException.php';
+//require_once ROSTER_API . 'tools/ResourceException.php';
+//include_once ROSTER_API . 'tools/HttpException.php';
 
 /**
  * Resource skeleton
