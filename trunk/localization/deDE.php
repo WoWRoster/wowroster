@@ -852,6 +852,7 @@ $lang['tooltip_preg_soulbound']='/Seelengebunden/';
 $lang['tooltip_preg_dps']='/(\d+) Schaden pro Sekunde/';
 $lang['tooltip_preg_item_equip']='/Anlegen: (.+)/';
 $lang['tooltip_preg_item_set']='/Set: (.+)/';
+$lang['tooltip_preg_item_set_n']='/\(([0-9])\) Set: (.+)/';
 $lang['tooltip_preg_use']='/Benutzen: (.+)/';
 $lang['tooltip_preg_chance']='/Gewährt (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
@@ -864,6 +865,7 @@ $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Zum Öffnen rechtsklicken\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
 $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
+$lang['tooltip_garbage8'] = '/You may sell this item to a vendor within (\d+) hour (\d+) min for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Pfeil|Axt|Bogen|Kugel|Armbrust|Dolch|Angel|Faustwaffe|Schußwaffe|Götze|Streitkolben|Waffenhand|Nebenhand|Stangenwaffe|Stab|Schwert|Wurfwaffe|Zauberstab|Fernkampf|Einhand|Zweihand|Relikt)/';
 $lang['tooltip_preg_speed']='/Geschwindigkeit/';
@@ -877,7 +879,7 @@ $lang['tooltip_preg_classes']='/^(Klassen:) (.+)/';
 $lang['tooltip_preg_races']='/^(Völker:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Aufladungen/';
 $lang['tooltip_preg_block']='/([0-9, ]+) (Blocken)/';
-$lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer|Prismatischer)(?:.?sockel)/i';
+$lang['tooltip_preg_emptysocket']='/(Meta|Roter|Gelber|Blauer|Prismatischer|Hydraulic|Sha-Touched)(?:.?sockel)/i';
 $lang['tooltip_preg_reinforcedarmor']='/(Verstärkt \(\+\d+ Rüstung\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sek)\.?\))\n/i';
 $lang['tooltip_preg_meta_requires']='/Benötigt.*?Edelstein?/';
@@ -886,6 +888,7 @@ $lang['tooltip_preg_meta_requires_more']='/Benötigt mehr Edelsteine der Kategor
 $lang['tooltip_preg_item_level']='/Gegenstandsstufe (\d+)/';
 $lang['tooltip_feral_ap']='Erhöht die Angriffskraft um';
 $lang['tooltip_source']='Quelle';
+$lang['tooltip_sha'] = 'Sha-Touched';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Droprate';
 $lang['tooltip_reforged']='Umgeschmiedet';
@@ -921,6 +924,7 @@ $lang['gem_colors'] = array(
 	'orange' => 'orange',
 	'purple' => 'violett',
 	'prismatic' => 'prismatisch',
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'Meta' //verify translation
 	);
 
@@ -932,6 +936,7 @@ $lang['gem_colors_to_en'] = array(
 	'orange' => 'orange',
 	'violett' => 'purple',
 	'prismatisch' => 'prismatic',
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'meta' //verify translation, meta is correct, if errors occur try Meta with capital M
 	);
 
@@ -941,6 +946,8 @@ $lang['socket_colors_to_en'] = array(
 	'gelber' => 'yellow',
 	'meta' => 'meta',
 	'prismatischen' => 'prismatic',
+	'hydraulic' => 'hydraulic',
+	'sha-touched' => 'hydraulic',
 	);
 // -- end tooltip parsing
 

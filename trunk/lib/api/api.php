@@ -49,11 +49,13 @@ class WowAPI {
 		global $roster;
 		// Check for required extensions
 		if (!function_exists('curl_init')) {
-			throw new Exception('Curl is required for api usage.');
+			//throw new Exception('Curl is required for api usage.');
+			$roster->set_message( 'Curl is required for api usage', 'Curl Not found.', 'error' );
 		}
 
 		if (!function_exists('json_decode')) {
-			throw new Exception('JSON PHP extension required for api usage.');
+			//throw new Exception('JSON PHP extension required for api usage.');
+			$roster->set_message( 'JSON PHP extension required for api usage', 'Json_decode not found.', 'error' );
 		}
 		$conf = array(
 			'pub_key' => $roster->config['api_key_public'],

@@ -852,6 +852,7 @@ $lang['tooltip_preg_soulbound']='/Soulbound/';
 $lang['tooltip_preg_dps']='/(\d+) damage per second/';
 $lang['tooltip_preg_item_equip']='/Equip: (.+)/';
 $lang['tooltip_preg_item_set']='/Set: (.+)/';
+$lang['tooltip_preg_item_set_n']='/\(([0-9])\) Set: (.+)/';
 $lang['tooltip_preg_use']='/Use: (.+)/';
 $lang['tooltip_preg_chance']='/Chance (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
@@ -864,6 +865,7 @@ $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
 $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
+$lang['tooltip_garbage8'] = '/You may sell this item to a vendor within (\d+) hour (\d+) min for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
@@ -886,6 +888,7 @@ $lang['tooltip_preg_meta_requires_more']='/Nécessite plus de gemmes (jaune|roug
 $lang['tooltip_preg_item_level']='/Item Level (\d+)/';
 $lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Source';
+$lang['tooltip_sha'] = 'Sha-Touched';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Fréquence de butin';
 $lang['tooltip_reforged']='Reforged';
@@ -921,6 +924,7 @@ $lang['gem_colors'] = array(
 	'orange' => 'orange',
 	'purple' => 'pourpre',
 	'prismatic' => 'prismatique',
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'méta'
 	);
 
@@ -932,6 +936,7 @@ $lang['gem_colors_to_en'] = array(
 	'orange' => 'orange',
 	'purple' => 'violette',
 	'prismatic' => 'prismatic',
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'meta'
 	);
 
@@ -941,6 +946,8 @@ $lang['socket_colors_to_en'] = array(
 	'jaune' => 'yellow',
 	'méta' => 'meta',
 	'prismatic' => 'prismatic',
+	'hydraulic' => 'hydraulic',
+	'sha-touched' => 'hydraulic',
 	);
 // -- end tooltip parsing
 

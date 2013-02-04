@@ -173,7 +173,7 @@ var $skills = array(
 	var $attributes = array(); // holds all parsed item attributes
 	var $effects = array(); // holds passive bonus effects of the item
 	var $enchantment;
-	var $sockets = array('red' => 0, 'yellow' => 0, 'blue' => 0, 'meta' => 0); //socket colors
+	var $sockets = array('red' => 0, 'yellow' => 0, 'blue' => 0, 'meta' => 0, 'Hydraulic' => 0); //socket colors
 	var $hasMetaGem = false;
 	var $gemColors = array( 'red' => 0, 'yellow' => 0, 'blue' => 0 );
 	var $html_tooltip;
@@ -185,9 +185,30 @@ var $skills = array(
 	var $dapi = array();
 	var $dgems = array();
 	
+	function sortByOneKey(array $array, $key, $asc = true)
+	{
+		$result = array();
+			
+		$values = array();
+		foreach ($array as $id => $value) {
+			$values[$id] = isset($value[$key]) ? $value[$key] : '';
+		}
+			
+		if ($asc) {
+			asort($values);
+		}
+		else {
+			arsort($values);
+		}
+			
+		foreach ($values as $key => $value) {
+			$result[$key] = $array[$key];
+		}
+			
+		return $result;
+	}
 	
-	
-	function item ($data,$userData,$gems=false)
+	function item ($data,$userData=null,$gems=false)
 	{
 		global $api, $roster;
 		$this->user = $userData;
@@ -227,8 +248,8 @@ var $skills = array(
 			$tt['General']['Tooltip'] = (isset($data['tooltip_html']) ? $data['tooltip_html'] : '');// i wish...str_replace("<br />", '<br />', $data['tooltip']);
 			$tt['General']['Locale']=$roster->config['locale'];
 
-			
-			foreach( $data['bonusStats'] as $id => $stat )
+			$bonus = $this->sortByOneKey($data['bonusStats'], 'stat');
+			foreach( $bonus as $id => $stat )
 			{
 				$tt['Attributes']['BaseStats'][$roster->locale->act['apiitem']['statlocal'][$stat['stat']]] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
 			}
@@ -250,7 +271,7 @@ var $skills = array(
 					}
 				}
 			}
-			$tt['Attributes']['ItemLevel'] = $data['itemLevel'];
+			$tt['Attributes']['ItemLevel'] = $this->user['itemLevel'];
 			if ($data['requiredLevel'] > 0)
 			{
 				$tt['Attributes']['Requires'] = $data['requiredLevel'];
@@ -261,16 +282,30 @@ var $skills = array(
 			if (isset($this->user['tooltipParams']['set']))
 			{
 				$this->isSetPiece = true;
+				$this->setItemEquiped = count($this->user['tooltipParams']['set']);
 				foreach ($data['itemSet']['setBonuses'] as $r => $e)
 				{
-					$tt['Attributes']['Set']['SetBonus'][] = "(".$e['threshold'].") Set: ".$e['description']."";
+					if ($this->setItemEquiped <= $e['threshold'])
+					{
+						$tt['Attributes']['Set']['SetBonus'][] = "(".$e['threshold'].") Set: ".$e['description']."";
+					}
+					else
+					{
+						$tt['Attributes']['Set']['InactiveSet'][] = "(".$e['threshold'].") Set: ".$e['description']."";
+					}
 				}
-				$tt['Attributes']['Set']['InactiveSet'][] = '';//$line;
+				//$tt['Attributes']['Set']['InactiveSet'][] = '';//$line;
 				$tt['Attributes']['Set']['ArmorSet']['Name'] = $data['itemSet']['name'];
-				$this->setItemEquiped = count($this->user['tooltipParams']['set']);
+				
 				//$this->isSetPiece = true;
-				$setpiece = 1;
-				$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = $data['name'];//trim($line);
+				$setpiece = 0;
+				$set_data = $this->_getSetData($data['itemSet']['id']);
+				//echo '<pre>'; print_r($set_data); echo '</pre>';
+				foreach ($set_data as $e => $s_data)
+				{
+					$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = "  ".$s_data['Name'];//trim($line);
+					$setpiece++;
+				}
 			}
 			
 			
@@ -302,8 +337,17 @@ var $skills = array(
 				foreach($data['socketInfo']['sockets'] as $id => $sc)
 				{
 					$sk =  mb_strtolower($sc['type'], 'UTF-8');
+					$sk_name = ucfirst($sk);
+					if ($sk_name == 'Hydraulic')
+					{
+						$sk_name = 'Sha-Touched Socket';
+					}
+					else
+					{
+						$sk_name = $sk_name.' Socket';
+					}
 					$tt['Attributes']['Sockets'][$id]['color'] = ucfirst($sk);
-					$tt['Attributes']['Sockets'][$id]['line'] = ''.ucfirst($sk).' Socket';
+					$tt['Attributes']['Sockets'][$id]['line'] = $sk_name;
 				}
 			}
 			if(isset($data['gemInfo']))
@@ -334,8 +378,8 @@ var $skills = array(
 				$tt['Attributes']['WeaponType'] = $roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']];
 				$tt['Attributes']['WeaponSlot'] = ''.$roster->locale->act['apiitem']['slotType'][$data['inventoryType']].'';
 				$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
-				$tt['Attributes']['WeaponDamage'] = $data['weaponInfo']['damage']['min'].' - '.$data['weaponInfo']['damage']['max'];
-				$tt['Attributes']['WeaponDPS'] = number_format($data['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
+				$tt['Attributes']['WeaponDamage'] = $this->user['weaponInfo']['damage']['min'].' - '.$this->user['weaponInfo']['damage']['max'];
+				$tt['Attributes']['WeaponDPS'] = number_format($this->user['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
 				$this->isWeapon = true;
 				
 			}
@@ -346,6 +390,20 @@ var $skills = array(
 				$tt['Attributes']['BagSize'] = $data['containerSlots'];
 				$tt['Attributes']['BagDesc'] = $data['containerSlots'].' Slot '.$roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']].'';
 				$this->isBag = true;
+			}
+			if ($data['upgradable'])
+			{
+				if (isset($this->user['tooltipParams']['upgrade']['current']))
+				{
+					$tt['Attributes']['Upgrade']['Base'] = $this->user['tooltipParams']['upgrade']['current'];
+					$tt['Attributes']['Upgrade']['Max'] = $this->user['tooltipParams']['upgrade']['total'];
+				}
+				else
+				{
+					$tt['Attributes']['Upgrade']['Base'] = 0;
+					$tt['Attributes']['Upgrade']['Max'] = 2;
+				}
+				
 			}
 			//$this->isWeapon = true;
 			//$tt['Attributes']['MadeBy']['Name'] = $matches[1];
@@ -358,14 +416,25 @@ var $skills = array(
 			//$this->parsed_item = $tt;
 			//$this->attributes = ( isset($tt['Attributes']) ? $tt['Attributes'] : null );
 			//$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
-			//echo '<pre>';
-			//print_r($tt);
+			//echo '<pre>'; print_r($tt); echo '</pre>';
 		$this->parsed_item = $tt;
 		$this->attributes = ( isset($tt['Attributes']) ? $tt['Attributes'] : null );
 		$this->effects = ( isset($tt['Effects']) ? $tt['Effects'] : null );
 		
 	}
 	
+	function _getSetData($set_id)
+	{
+		global $roster;
+		//$item_api = $roster->api->Data->getItemSet($set_id);
+		$set = array();
+		foreach($this->dapi['itemSet']['items'] as $item)
+		{
+			$item_a = $roster->api->Data->getItemInfo($item);
+			$set[]['Name'] = $item_a['name'];
+		}
+		return $set;
+	}
 	function _makeTooltip()
 	{
 		$html_tt = $this->_getCaption();
@@ -385,7 +454,10 @@ var $skills = array(
 		{
 			$html_tt .= $this->_getUnique();
 		}
-
+		if( isset($this->attributes['Upgrade']) )
+		{
+			$html_tt .= $this->_getUpgrade();
+		}
 		if( $this->isArmor )
 		{
 			$html_tt .= $this->_getArmor();
@@ -554,6 +626,11 @@ function _getCaption()
 		$html = $this->attributes['Unique'] . "<br />";
 		return $html;
 	}
+	function _getUpgrade()
+	{
+		$html = "Upgrade Level: " . $this->attributes['Upgrade']['Base'] . "/" . $this->attributes['Upgrade']['Max'] . "<br />";
+		return $html;
+	}
 
 	function _getArmor()
 	{
@@ -600,7 +677,7 @@ function _getCaption()
 
 		if( isset($this->attributes['WeaponDamage']) )
 		{
-			$html .= sprintf($roster->locale->act['apiitem']['dpsspeed'],$this->attributes['WeaponDamage'],$this->attributes['WeaponSpeed']) . "<br />";
+		$html .= $this->attributes['WeaponDamage'].' Damage	Speed '.$this->attributes['WeaponSpeed'] . "<br />";
 		}
 		if( isset($this->attributes['WeaponDPS']) )
 		{
@@ -700,7 +777,15 @@ function _getCaption()
 		for( $i; $i < $numSockets; $i++ )
 		{
 			$sk =  mb_strtolower($this->dapi['socketInfo']['sockets'][$i]['type'], 'UTF-8');
-			$html .= '' .  ucfirst ($sk) . " ".$roster->locale->act['apiitem']['socket']."<br />";
+			if ($sk == 'hydraulic')
+			{
+				$sk_name = 'Sha-Touched '.$roster->locale->act['apiitem']['socket'];
+			}
+			else
+			{
+				$sk_name = ucfirst ($sk).' '.$roster->locale->act['apiitem']['socket'];
+			}
+			$html .= $sk_name."<br />";
 		}
 		//now lets do sockets with gems
 		

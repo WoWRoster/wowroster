@@ -826,7 +826,7 @@ $lang['tooltip_equip_when']='Equip: When';
 $lang['tooltip_chance']='Chance';
 $lang['tooltip_enchant']='Enchant';
 $lang['tooltip_random_enchant']='Random enchantment';
-$lang['tooltip_set']='Set.';
+$lang['tooltip_set']='Set:';
 $lang['tooltip_rank']='Rank';
 $lang['tooltip_next_rank']='Next rank';
 $lang['tooltip_spell_damage']='Spell Damage';
@@ -852,6 +852,7 @@ $lang['tooltip_preg_soulbound']='/Soulbound/';
 $lang['tooltip_preg_dps']='/(\d+) damage per second/';
 $lang['tooltip_preg_item_equip']='/Equip: (.+)/';
 $lang['tooltip_preg_item_set']='/Set: (.+)/';
+$lang['tooltip_preg_item_set_n']='/\(([0-9])\) Set: (.+)/';
 $lang['tooltip_preg_use']='/Use: (.+)/';
 $lang['tooltip_preg_chance']='/Chance (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
@@ -878,7 +879,7 @@ $lang['tooltip_preg_classes']='/^(Classes:) (.+)/';
 $lang['tooltip_preg_races']='/^(Races:) (.+)/';
 $lang['tooltip_preg_charges']='/(\d+) Charges?/';
 $lang['tooltip_preg_block']='/([0-9, ]+) (Block)/';// updated for mop
-$lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta|Prismatic) Socket$/';
+$lang['tooltip_preg_emptysocket']='/^(Red|Yellow|Blue|Meta|Prismatic|Hydraulic|Sha-Touched) Socket$/';
 $lang['tooltip_preg_reinforcedarmor']='/(Reinforced\s\(\+\d+\sArmor\))/';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|sec)\))\n/i';
 $lang['tooltip_preg_meta_requires']='/Requires.*?gem?/';
@@ -887,6 +888,7 @@ $lang['tooltip_preg_meta_requires_more']='/Requires more (\S+) gems than (\S+) g
 $lang['tooltip_preg_item_level']='/Item Level (\d+)/';
 $lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Source';
+$lang['tooltip_sha'] = 'Sha-Touched';
 $lang['tooltip_boss']='Boss';
 $lang['tooltip_droprate']='Drop Rate';
 $lang['tooltip_reforged']='Reforged';
@@ -922,6 +924,7 @@ $lang['gem_colors'] = array(
 	'orange' => 'Orange',
 	'purple' => 'Purple',
 	'prismatic' => 'Prismatic',
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'Meta'
 	);
 
@@ -933,6 +936,7 @@ $lang['gem_colors_to_en'] = array(
 	'orange' => 'orange',
 	'purple' => 'purple',
 	'prismatic' => 'prismatic',//Prismatic Socket
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'meta' //verify translation
 	);
 
@@ -942,6 +946,8 @@ $lang['socket_colors_to_en'] = array(
 	'yellow' => 'yellow',
 	'meta' => 'meta',
 	'prismatic' => 'prismatic',
+	'hydraulic' => 'hydraulic',
+	'sha-touched' => 'hydraulic',
 	);
 // -- end tooltip parsing
 

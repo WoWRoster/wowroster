@@ -852,6 +852,7 @@ $lang['tooltip_preg_soulbound']='/Soulbound/';
 $lang['tooltip_preg_dps']='/(\d+) damage per second/';
 $lang['tooltip_preg_item_equip']='/Equip: (.+)/';
 $lang['tooltip_preg_item_set']='/Set: (.+)/';
+$lang['tooltip_preg_item_set_n']='/\(([0-9])\) Set: (.+)/';
 $lang['tooltip_preg_use']='/Use: (.+)/';
 $lang['tooltip_preg_chance']='/Chance (.+)/';
 $lang['tooltip_preg_chance_hit']='/Chance ^(to|on) hit: (.+)/';
@@ -864,6 +865,7 @@ $lang['tooltip_garbage4']='/Cooldown remaining (.+)/';
 $lang['tooltip_garbage5']='/\<Right Click to Open\>/';
 $lang['tooltip_garbage6']='/Equipment Sets: (.+)/';
 $lang['tooltip_garbage7'] = '/You may sell this item to a vendor within (.+) for a full refund./';
+$lang['tooltip_garbage8'] = '/You may sell this item to a vendor within (\d+) hour (\d+) min for a full refund./';
 //^(Red|Yellow|Blue|Meta)
 $lang['tooltip_preg_weapon_types']='/^(Arrow|Axe|Bow|Bullet|Crossbow|Dagger|Fishing Pole|Fist Weapon|Gun|Idol|Mace|Main Hand|Off-hand|Polearm|Staff|Sword|Thrown|Wand|Ranged|One-Hand|Two-Hand|Relic)/';
 $lang['tooltip_preg_speed']='/Speed/';
@@ -877,7 +879,7 @@ $lang['tooltip_preg_classes']='/^(Clases:) (.+)/'; // text for class restricted 
 $lang['tooltip_preg_races']='/^(Razas:) (.+)/'; // test for race restricted items
 $lang['tooltip_preg_charges']='/(\d+) cargas/'; // text for items with charges
 $lang['tooltip_preg_block']='/([0-9, ]+) (bloqueo)/';  // text for shield blocking values
-$lang['tooltip_preg_emptysocket']='/Ranura (roja|amarilla|azul|meta|prismatic)/'; // text shown if the item has empty sockets.
+$lang['tooltip_preg_emptysocket']='/Ranura (roja|amarilla|azul|meta|prismatic|Hydraulic|Sha-Touched)/'; // text shown if the item has empty sockets.
 $lang['tooltip_preg_reinforcedarmor']='/(Reforzado\s\(\+\d+\sarmadura\))/i';
 $lang['tooltip_preg_tempenchants']='/(.+\s\(\d+\s(min|seg)\))\n/';
 $lang['tooltip_preg_meta_requires']='/Requiere.*?gemas/';
@@ -886,6 +888,7 @@ $lang['tooltip_preg_meta_requires_more']='/Requiere mas gemas (\S+) que gemas (\
 $lang['tooltip_preg_item_level']='/Item Level (\d+)/';
 $lang['tooltip_feral_ap']='Increases attack power by';
 $lang['tooltip_source']='Fuente';
+$lang['tooltip_sha'] = 'Sha-Touched';
 $lang['tooltip_boss']='Jefe';
 $lang['tooltip_droprate']='Pos\. de aparici';
 $lang['tooltip_reforged']='Reforged';
@@ -921,6 +924,7 @@ $lang['gem_colors'] = array(
 	'orange' => 'naranja',
 	'purple' => 'morada',
 	'prismatic' => 'centelleante',
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'meta',
 	);
 
@@ -934,6 +938,7 @@ $lang['gem_colors_to_en'] = array(
 	'naranja' => 'orange',
 	'morada' => 'purple',
 	'centelleante' => 'prismatic',
+	'hydraulic' => 'Sha-Touched',
 	'meta' => 'meta',
 	);
 
@@ -943,6 +948,8 @@ $lang['socket_colors_to_en'] = array(
 	'amarilla' => 'yellow',
 	'meta' => 'meta',
 	'prismatic' => 'prismatic',
+	'hydraulic' => 'hydraulic',
+	'sha-touched' => 'hydraulic',
 	);
 // -- end tooltip parsing
 
