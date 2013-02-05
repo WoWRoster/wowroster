@@ -248,10 +248,21 @@ var $skills = array(
 			$tt['General']['Tooltip'] = (isset($data['tooltip_html']) ? $data['tooltip_html'] : '');// i wish...str_replace("<br />", '<br />', $data['tooltip']);
 			$tt['General']['Locale']=$roster->config['locale'];
 
-			$bonus = $this->sortByOneKey($data['bonusStats'], 'stat');
-			foreach( $bonus as $id => $stat )
+			if (isset($this->user['stats']))
 			{
-				$tt['Attributes']['BaseStats'][$roster->locale->act['apiitem']['statlocal'][$stat['stat']]] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
+				$bonus = $this->sortByOneKey($this->user['stats'], 'stat');
+				foreach( $bonus as $id => $stat )
+				{
+					$tt['Attributes']['BaseStats'][$roster->locale->act['apiitem']['statlocal'][$stat['stat']]] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
+				}
+			}
+			else
+			{
+				$bonus = $this->sortByOneKey($data['bonusStats'], 'stat');
+				foreach( $bonus as $id => $stat )
+				{
+					$tt['Attributes']['BaseStats'][$roster->locale->act['apiitem']['statlocal'][$stat['stat']]] = sprintf( $roster->locale->act['apiitem']['itemstat'][$stat['stat']], $stat['amount']);
+				}
 			}
 
 			if (isset($data['itemSpells']))
@@ -375,11 +386,22 @@ var $skills = array(
 			}
 			if ($data['itemClass'] == '2' )
 			{
-				$tt['Attributes']['WeaponType'] = $roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']];
-				$tt['Attributes']['WeaponSlot'] = ''.$roster->locale->act['apiitem']['slotType'][$data['inventoryType']].'';
-				$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
-				$tt['Attributes']['WeaponDamage'] = $this->user['weaponInfo']['damage']['min'].' - '.$this->user['weaponInfo']['damage']['max'];
-				$tt['Attributes']['WeaponDPS'] = number_format($this->user['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
+				if(isset($this->user['weaponInfo']))
+				{
+					$tt['Attributes']['WeaponType'] = $roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']];
+					$tt['Attributes']['WeaponSlot'] = ''.$roster->locale->act['apiitem']['slotType'][$data['inventoryType']].'';
+					$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
+					$tt['Attributes']['WeaponDamage'] = $this->user['weaponInfo']['damage']['min'].' - '.$this->user['weaponInfo']['damage']['max'];
+					$tt['Attributes']['WeaponDPS'] = number_format($this->user['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
+				}
+				else
+				{
+					$tt['Attributes']['WeaponType'] = $roster->locale->act['apiitem']['itemSubClass'][$data['itemClass']][$data['itemSubClass']];
+					$tt['Attributes']['WeaponSlot'] = ''.$roster->locale->act['apiitem']['slotType'][$data['inventoryType']].'';
+					$tt['Attributes']['WeaponSpeed'] = $data['weaponInfo']['weaponSpeed'];
+					$tt['Attributes']['WeaponDamage'] = $data['weaponInfo']['damage']['min'].' - '.$data['weaponInfo']['damage']['max'];
+					$tt['Attributes']['WeaponDPS'] = number_format($data['weaponInfo']['dps'], 1, '.', '');//$data['weaponInfo']['dps'];
+				}
 				$this->isWeapon = true;
 				
 			}

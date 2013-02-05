@@ -492,7 +492,8 @@ class item
 		foreach( $this->attributes['Class'] as $class )
 		{
 			$i++;
-			$html .= '<span style="color:#'. $roster->locale->act['class_colorArray'][$class] . ';">' . $class . '</span>';
+			$class_c = preg_replace('/\s+/', '', $class);
+			$html .= '<span style="color:#'. $roster->locale->act['class_colorArray'][$class_c] . ';">' . $class_c . '</span>';
 			if( $count > $i )
 			{
 				$html .= ', ';
