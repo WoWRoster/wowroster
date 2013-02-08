@@ -100,24 +100,13 @@ $menu .= $config->buildConfigMenu('rostercp-addon-' . $addon['basename']);
 function addForum()
 {
 	global $roster, $addon,$installer;
-	
-	/*
-	forum_id
-title
-access
-order_id
-desc
-misc
-active
-locked
-*/
+
 	$query = "INSERT INTO `" . $roster->db->table('forums',$addon['basename']) . "` VALUES (
 	NULL,
 	'" . $_POST['title'] . "',
 	'',
 	'" . $_POST['order'] . "',
 	'" . $_POST['desc'] . "',
-	'',
 	'',
 	'',
 	'0'
