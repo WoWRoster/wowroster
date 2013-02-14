@@ -106,6 +106,7 @@ abstract class Resource {
 			$roster->db->queries['api/'.$method][$this->query_count]['error'] = empty($data['response_headers']['http_code']) ? $data['response_headers']['http_code'] : '';
 			
 			// update the tracker...
+			
 			$q = "SELECT * FROM `" . $roster->db->table('api_usage') . "` WHERE `date`='".date("Y-m-d")."' AND `type` = '".$method."'";
 			$y = $roster->db->query($q);
 			$row = $roster->db->fetch($y);
@@ -119,13 +120,30 @@ abstract class Resource {
 				$query = "Update `" . $roster->db->table('api_usage') . "` SET `total`='".($row['total']+1)."' WHERE `type` = '".$method."' AND `date` = '".date("Y-m-d")."'";
 			}
 			$ret = $roster->db->query($query);
-			
+						
 			//Battle.net returned a HTTP error code
 			$x = json_decode($data['response'], true);
 			if (isset($data['response_headers']) && $data['response_headers']['http_code'] != '200') 
 			{
 				$msg = $this->transhttpciode($data['response_headers']['http_code']);
 				$roster->set_message( ' '.$method.': '.$msg.' : '.$x['reason'].'<br>'.$url.' ', 'Api call fail!', 'error' );
+				// update the tracker...
+				/* this is not in the main roster install as of yet
+				$errornum = empty($data['response_headers']['http_code']) ? $data['response_headers']['http_code'] : '';
+				$q = "SELECT * FROM `" . $roster->db->table('api_error') . "` WHERE `error_info` = '".$params['name']."' AND `type` = '".$method."'";
+				$y = $roster->db->query($q);
+				$row = $roster->db->fetch($y);
+				if (!isset($row['total']))
+				{
+					$query = 'INSERT INTO `' . $roster->db->table('api_error') . '` VALUES ';
+					$query .= "('','".$method."','".$msg."','".$params['name']."','+1'); ";
+				}
+				else
+				{
+					$query = "Update `" . $roster->db->table('api_error') . "` SET `total`='".($row['total']+1)."' WHERE `type` = '".$method."' AND `error_info` = '".$params['name']."'";
+				}
+				$ret = $roster->db->query($query);
+				*/
 				//throw new HttpException(json_decode($data['response'], true), $data['response_headers']['http_code']);
 				//$this->seterrors(array('type'=>$method,'msg'=>''.$msg.'<br>'.$url.''));
 				//$this->query['result'] = false; // over ride cache and set to false no data or no url no file lol
