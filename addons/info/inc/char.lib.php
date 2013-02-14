@@ -1724,7 +1724,8 @@ class char
 					$repInfo[$factions][$data['name']] = $this->_rep_bar_values($data);
 
 				}
-				if (isset($data['parent']) )//&& $data['parent']!= $data['name'])
+				//curr_rep'] != '' && $data['max_rep'] != ''
+				if (isset($data['parent']) && $data['curr_rep'] != '' && $data['max_rep'] != '')//&& $data['parent']!= $data['name'])
 				{
 					$p=$data['name'];
 					$repInfo[$factions][$data['parent']]['sub'] = 'Y';
@@ -1738,7 +1739,7 @@ class char
 
 				$j++;
 			}
-
+			//echo '<pre>';print_r($repInfo);echo '</pre>';
 			return $repInfo;
 		}
 		else
