@@ -282,7 +282,14 @@ var $skills = array(
 					}
 				}
 			}
-			$tt['Attributes']['ItemLevel'] = $this->user['itemLevel'];
+			if (isset($this->user['stats']))
+			{
+				$tt['Attributes']['ItemLevel'] = $this->user['itemLevel'];
+			}
+			else
+			{
+				$tt['Attributes']['ItemLevel'] = $data['itemLevel'];
+			}
 			if ($data['requiredLevel'] > 0)
 			{
 				$tt['Attributes']['Requires'] = $data['requiredLevel'];
