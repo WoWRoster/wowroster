@@ -104,17 +104,19 @@ class roster_error
 		global $roster;
 
 		$errortype = array (
-			E_WARNING         => 'Warning',
-			E_NOTICE          => 'Notice',
-			E_CORE_ERROR      => 'Core Error',
-			E_CORE_WARNING    => 'Core Warning',
-			E_COMPILE_ERROR   => 'Compile Error',
-			E_COMPILE_WARNING => 'Compile Warning',
-			E_USER_ERROR      => 'Roster Error',
-			E_USER_WARNING    => 'Roster Warning',
-			E_USER_NOTICE     => 'Roster Notice',
-			E_STRICT          => 'Runtime Notice',
-			E_DEPRECATED      => 'Core Warning, Depreciated'
+			E_WARNING         	=> 'Warning',
+			E_NOTICE          	=> 'Notice',
+			E_CORE_ERROR      	=> 'Core Error',
+			E_CORE_WARNING    	=> 'Core Warning',
+			E_COMPILE_ERROR   	=> 'Compile Error',
+			E_COMPILE_WARNING 	=> 'Compile Warning',
+			E_USER_ERROR      	=> 'Roster Error',
+			E_USER_WARNING    	=> 'Roster Warning',
+			E_USER_NOTICE     	=> 'Roster Notice',
+			E_STRICT          	=> 'Runtime Notice',
+			E_DEPRECATED      	=> 'Core Warning, Depreciated',
+			E_RECOVERABLE_ERROR => 'Catchable fatal error',
+			E_USER_DEPRECATED	=> 'User-generated warning message'
 		);
 		// NOTE: E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR and E_COMPILE_WARNING
 		// error levels will be handled as per the error_reporting settings.
