@@ -100,6 +100,8 @@ class achievementsUpdate
 		global $roster, $update, $addon;
 
 		$this->guild_id = $guild['guild_id'];
+		include_once(ROSTER_LIB . 'update.lib.php');
+		$update = new update;
 		
 		$char = $roster->api->Guild->getGuildInfo($guild['Server'],$guild['GuildName'],'2');
 		$rx = 0;

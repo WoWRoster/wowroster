@@ -4,46 +4,141 @@
 
 <!-- Navagation Tabs -->
 <div class="top-menu">
-	<div class="links">
+
 		<div id="top_nav">
-<!-- BEGIN menu_button_section -->
-<!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
-			<a class="button-char<!-- IF ROSTER_SCOPE eq "char" -->-selected<!-- ENDIF -->" href="#menu_char">{menu_button_section.LABEL}</a>
-<!-- ENDIF -->
-<!-- END menu_button_section -->
-<!-- IF ROSTER_SCOPE eq "char" -->
-			<a class="button-members<!-- IF ROSTER_SCOPE eq "guild" -->-selected<!-- ENDIF -->" href="#mini_guild"><!-- TRANSLATE member_profiles --></a>
-<!-- ENDIF -->
-			<a class="button-guild<!-- IF ROSTER_SCOPE eq "guild" -->-selected<!-- ENDIF -->" href="#menu_guild"><!-- TRANSLATE guild --></a>
-			<a class="button-realm<!-- IF ROSTER_SCOPE eq "realm" -->-selected<!-- ENDIF -->" href="#menu_realm"><!-- TRANSLATE realm --></a>
-			<a class="button-upload<!-- IF ROSTER_SCOPE eq "upload" -->-selected<!-- ENDIF -->" href="#mini_update"><!-- TRANSLATE update_page --></a>
-			<a class="button-user<!-- IF ROSTER_SCOPE eq "user" -->-selected<!-- ENDIF -->" href="#menu_user"><!-- TRANSLATE user --></a>
-			<a class="button-util<!-- IF ROSTER_SCOPE eq "util" -->-selected<!-- ENDIF -->" href="#menu_util"><!-- TRANSLATE util --></a>
+			<ul id="manuecss" class="nmainmenu">
+				<!-- ##<li class="headlink">
+				<a class="xbutton-guild" href="{ROSTER_URL}">
+				<img src="{THEME_PATH}/images/menu_home.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  />HOME</a>
+				</li> -->
+			<!-- BEGIN menu_button_section -->
+			<!-- IF menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char' -->
+						<li class="headlink" style="WIDTH: 240px;">
+						<a href="#" style="WIDTH: 240px;">
+						<img src="{THEME_PATH}/images/menu_char.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  />{menu_button_section.LABEL}</a>
+						</li>
+			<!-- ENDIF -->
+			<!-- END menu_button_section -->
+			<!-- IF ROSTER_SCOPE eq "char" -->
+						<li class="headlink">
+						<a class="xbutton-members" href="#mini_guild">
+						<img src="{THEME_PATH}/images/menu_char.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  /><!-- TRANSLATE member_profiles --></a>
+						<ul class="submenu">
+							<!-- BEGIN menu_button_section -->
+							<!-- BEGIN menu_buttons -->
+							<!-- IF menu_button_section.menu_buttons.SCOPE eq 'char' -->
+								<li class="menuitem">
+									<div>
+										<a href="{menu_button_section.menu_buttons.U_LINK}" >
+										<div id="container">
+										<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+										{menu_button_section.menu_buttons.NAME}</a></div>
+									</div>
+								</li>
+							<!-- ENDIF -->
+							<!-- END menu_buttons -->
+							<!-- END menu_button_section -->
+							</ul>
+						</li>
+			<!-- ENDIF -->
+						<li class="headlink">
+							<a class="xbutton-guild" href="#menu_guild">
+							<img src="{THEME_PATH}/images/menu_guild.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  /><!-- TRANSLATE guild --></a>
+						<ul class="submenu">
+						<!-- BEGIN menu_button_section -->
+						<!-- BEGIN menu_buttons -->
+						<!-- IF menu_button_section.menu_buttons.SCOPE eq 'guild' -->
+							<li class="menuitem">
+							<a href="{menu_button_section.menu_buttons.U_LINK}" >
+								<div>
+									<div id="container">
+									<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+									{menu_button_section.menu_buttons.NAME}</div>
+								</div>
+							</a>
+						</li>
+						<!-- ENDIF -->
+						<!-- END menu_buttons -->
+						<!-- END menu_button_section -->
+						</ul>
+					</li>
+					<li class="headlink">
+						<a class="xbutton-realm" href="#menu_realm">
+						<img src="{THEME_PATH}/images/menu_realm.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  /><!-- TRANSLATE realm --></a>
+					<ul class="submenu">
+						<!-- BEGIN menu_button_section -->
+						<!-- BEGIN menu_buttons -->
+						<!-- IF menu_button_section.menu_buttons.SCOPE eq 'realm' -->
+						<li class="menuitem">
+							<a href="{menu_button_section.menu_buttons.U_LINK}" >
+								<div>
+									<div id="container">
+									<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+									{menu_button_section.menu_buttons.NAME}</div>
+								</div>
+							</a>
+						</li>
+						<!-- ENDIF -->
+						<!-- END menu_buttons -->
+						<!-- END menu_button_section -->
+					</ul>
+				</li>
+				<li class="headlink">
+					<div id="top_nav">
+						<a class="xbutton-upload" href="#" rel="#mini_update" onclick="showHide('mini_update');return false;">
+						<img src="{THEME_PATH}/images/menu_upload.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  /><!-- TRANSLATE update_page --></a>
+					</div>
+				</li>
+				
+				<li class="headlink">
+						<a class="xbutton-user" href="#menu_user">
+						<img src="{THEME_PATH}/images/menu_user.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  /><!-- TRANSLATE user --></a>
+					<ul class="submenu">
+						<!-- BEGIN menu_button_section -->
+						<!-- BEGIN menu_buttons -->
+						<!-- IF menu_button_section.menu_buttons.SCOPE eq 'user' -->
+						<li class="menuitem">
+							<a href="{menu_button_section.menu_buttons.U_LINK}" >
+								<div>
+									<div id="container">
+									<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+									{menu_button_section.menu_buttons.NAME}</div>
+								</div>
+							</a>
+						</li>
+						<!-- ENDIF -->
+						<!-- END menu_buttons -->
+						<!-- END menu_button_section -->
+					</ul>
+				</li>
+				
+				
+				<li class="headlink">
+					<a class="xbutton-util" href="#menu_util">
+					<img src="{THEME_PATH}/images/menu_util.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;"  /><!-- TRANSLATE util -->
+					</a>
+					<ul class="submenu">
+					<!-- BEGIN menu_button_section -->
+					<!-- BEGIN menu_buttons -->
+					<!-- IF menu_button_section.menu_buttons.SCOPE eq 'util' -->
+						<li class="menuitem">
+							<a href="{menu_button_section.menu_buttons.U_LINK}" >
+								<div>
+									<div id="container">
+									<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+									{menu_button_section.menu_buttons.NAME}</div>
+								</div>
+							</a>
+						</li>
+					<!-- ENDIF -->
+					<!-- END menu_buttons -->
+					<!-- END menu_button_section -->
+					</ul>
+				</li>
+			</ul>
 		</div>
-	</div>
 </div>
 
-<div id="menu-buttons" class="scope-menu">
-<!-- BEGIN menu_button_section -->
-	<div class="menu-scope<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->-panel" id="menu_{menu_button_section.ID}" style="display:none<!-- ENDIF -->">
-<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
-		<div class="menu-frame">
-			<div class="section-title">{menu_button_section.LABEL}</div>
-<!-- ENDIF -->
-		<div class="frame">
-<!-- BEGIN menu_buttons -->
-			<a class="button" href="{menu_button_section.menu_buttons.U_LINK}" {menu_button_section.menu_buttons.TOOLTIP}>
-				<img src="{menu_button_section.menu_buttons.ICON}" alt="" />
-				<span class="mask"></span>
-			</a>
-<!-- END menu_buttons -->
-		</div>
-<!-- IF menu_button_section.OPEN or (menu_button_section.ID eq 'char' and ROSTER_SCOPE neq 'char') -->
-		</div>
-<!-- ENDIF -->
-	</div>
-<!-- END menu_button_section -->
-</div>
 
 <!-- IF S_MESSAGES -->
 <div id="notify">

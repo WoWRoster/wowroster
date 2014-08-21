@@ -1,0 +1,21 @@
+
+<ul id="sortable">
+<!-- BEGIN addon_list -->
+	<li class="ui-state-default" id="block[{addon_list.ID}]-{addon_list.LOCATION}"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+		<div style="margin-left:15px;display: inline-block;">
+			<div id="container">
+			<img src="{addon_list.ICON}"  border=0 style="vertical-align:middle;" alt="" width="25" height="25"/>
+			{addon_list.FULLNAME}</div>
+		</div>
+	</li>
+<!-- END addon_list -->
+</ul><span id="yyy"></span>
+
+<form action="" method="post" enctype="multipart/form-data" id="config_config" onsubmit="return confirm('This will save the changes to the database. Are you sure?');">
+
+<input name="order" id="order" type="hidden" value="" >
+
+<div class="config-submit"><input type="submit" value="Save Settings" class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+<input type="reset" name="Reset" value="Reset" onclick="return confirm('This will reset the form to how it was when you loaded it. Are you sure?')" class="ui-button ui-widget ui-state-default ui-corner-all" role="button" aria-disabled="false">
+<input type="hidden" name="op" value="process"></div>
+</form>

@@ -186,7 +186,7 @@
 	}
 		
 	if(opts.pagination==true){
-		wrap.append(
+		fakeHover.append(
 			'<div class="camera_pag"></div>'
 			);
 	}
@@ -209,7 +209,7 @@
 		prevNav = $('.camera_prev',wrap),
 		nextNav = $('.camera_next',wrap),
 		commands = $('.camera_commands',wrap),
-		pagination = $('.camera_pag',wrap),
+		pagination = $('.camera_pag',fakeHover),
 		thumbs = $('.camera_thumbs_cont',wrap);	
 
 	

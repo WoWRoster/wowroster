@@ -11,6 +11,161 @@
 {ROSTER_HEAD}
 </head>
 <body{ROSTER_BODY}<!-- IF ROSTER_ONLOAD --> onload="{ROSTER_ONLOAD}"<!-- ENDIF -->>
+<div id="netbar" class="t-netbar u-icon u-icon-z">
+	<div class="t-netbar-curseInfo">
+		<ul>
+			<li class="bar-menu">
+				<div class="top-menu">
+
+					<div id="top_nav">
+						<ul id="manuecss" class="nmainmenu">
+						
+						<li class="headlink_h">
+							<a class="xbutton-guild" href="{ROSTER_URL}">
+							<img src="{THEME_PATH}/images/menu_home.png" width="25" height="25" border="0" alt="" style="vertical-align:middle;PADDING-RIGHT: 5px;" /></a>
+						</li>
+				
+
+						<!-- BEGIN menu_button_section -->
+
+						<!-- END menu_button_section -->
+						<!-- IF ROSTER_SCOPE eq "char" -->
+									<li class="headlink">
+									<a class="xbutton-members" href="#mini_guild">
+									<img src="{THEME_PATH}/images/menu_char.png" width="25" height="25" border="0" alt="" class="micon" /><!-- TRANSLATE member_profiles --></a>
+									<ul class="submenu">
+										<!-- BEGIN menu_button_section -->
+										<!-- BEGIN menu_buttons -->
+										<!-- IF menu_button_section.menu_buttons.SCOPE eq 'char' -->
+											<li class="menuitem">
+												<div>
+													<a href="{menu_button_section.menu_buttons.U_LINK}" >
+													<div id="container">
+													<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+													{menu_button_section.menu_buttons.NAME}</a></div>
+												</div>
+											</li>
+										<!-- ENDIF -->
+										<!-- END menu_buttons -->
+										<!-- END menu_button_section -->
+										</ul>
+									</li>
+						<!-- ENDIF -->
+									<li class="headlink">
+										<a class="xbutton-guild" href="#menu_guild">
+										<img src="{THEME_PATH}/images/menu_guild.png" width="25" height="25" border="0" alt="" class="micon" /><!-- TRANSLATE guild --></a>
+									<ul class="submenu">
+									<!-- BEGIN menu_button_section -->
+									<!-- BEGIN menu_buttons -->
+									<!-- IF menu_button_section.menu_buttons.SCOPE eq 'guild' -->
+										<li class="menuitem">
+										<a href="{menu_button_section.menu_buttons.U_LINK}" >
+											<div>
+												<div id="container">
+												<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+												{menu_button_section.menu_buttons.NAME}</div>
+											</div>
+										</a>
+									</li>
+									<!-- ENDIF -->
+									<!-- END menu_buttons -->
+									<!-- END menu_button_section -->
+									</ul>
+								</li>
+								
+							<li class="headlink">
+								<div id="top_nav">
+									<a class="xbutton-upload" href="#" rel="#mini_update" onclick="showHide('mini_update');return false;">
+									<img src="{THEME_PATH}/images/menu_upload.png" width="25" height="25" border="0" alt="" class="micon" /><!-- TRANSLATE update_page --></a>
+								</div>
+							</li>
+							
+							<li class="headlink">
+								<a class="xbutton-util" href="#menu_util">
+								<img src="{THEME_PATH}/images/menu_util.png" width="25" height="25" border="0" alt="" class="micon" /><!-- TRANSLATE util -->
+								</a>
+								<ul class="submenu">
+								<!-- BEGIN menu_button_section -->
+								<!-- BEGIN menu_buttons -->
+								<!-- IF menu_button_section.menu_buttons.SCOPE eq 'util' -->
+									<li class="menuitem">
+										<a href="{menu_button_section.menu_buttons.U_LINK}" >
+											<div>
+												<div id="container">
+												<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+												{menu_button_section.menu_buttons.NAME}</div>
+											</div>
+										</a>
+									</li>
+								<!-- ENDIF -->
+								<!-- END menu_buttons -->
+								<!-- END menu_button_section -->
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</li>
+			
+			<li class="user-drop">
+				<div class="user-drop1">
+					<!-- ## Login / Register -->
+					<!-- IF T_BAR_USER_ILI -->
+					<div class="headlink">
+						<a class="xbutton-user" href="#menu_user">
+						<img src="{THEME_PATH}/images/menu_user.png" width="25" height="25" border="0" alt="" class="micon" />User</a>
+						<ul class="submenua">
+							<li>{T_BAR_USER_MSG}</li>
+							<!-- BEGIN menu_button_section -->
+							<!-- BEGIN menu_buttons -->
+							<!-- IF menu_button_section.menu_buttons.SCOPE eq 'user' -->
+							<li class="menuitem">
+								<a href="{menu_button_section.menu_buttons.U_LINK}" >
+									<div>
+										<div id="container">
+										<img src="{menu_button_section.menu_buttons.ICON}"  border=0 style="vertical-align:middle;" alt="" />
+										{menu_button_section.menu_buttons.NAME}</div>
+									</div>
+								</a>
+							</li>
+							<!-- ENDIF -->
+							<!-- END menu_buttons -->
+							<!-- END menu_button_section -->
+						</ul>
+					</div>
+					<!-- ELSE -->
+					<div class="headlink">
+						<a class="xbutton-user" href="#menu_user" rel="#mini_login" onclick="showHide('mini_login');return false;">
+						<img src="{THEME_PATH}/images/menu_user.png" width="25" height="25" border="0" alt="" class="micon" />Login / Register</a>
+					</div>
+					<!-- ENDIF -->
+				</div>
+			</li>
+			<li class="bar-search">
+				<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
+					<div class="bar-search-box">
+						<input class="box search" type="text" name="search" size="30" />
+						<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
+					</div>
+				</form>
+			</li>
+			<li class="bar-local">
+				<!-- IF S_LOCALE_SELECT -->
+				<div class="locale-select">
+					<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
+						<select name="locale" onchange="document.locale_select.submit();">
+				<!-- BEGIN locale_select -->
+							<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
+				<!-- END locale_select -->
+						</select>
+					</form>
+				</div>
+				<!-- ENDIF -->
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- INCLUDE mini_update.html -->
 <div class="roster-wrap">
 
 <!-- IF S_HEADER_LOGO -->
@@ -29,35 +184,10 @@
 			<div class="name">{ROSTER_TITLE} <small>{ROSTER_SUBTITLE}</small></div>
 			<!-- IF PAGE_INFO --><div class="info">{PAGE_INFO}</div><!-- ENDIF -->
 		</div>
-		<div class="menu-select">
-<!-- IF S_LOCALE_SELECT -->
-			<div class="locale-select">
-				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
-					<select name="locale" onchange="document.locale_select.submit();">
-<!-- BEGIN locale_select -->
-						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-<!-- END locale_select -->
-					</select>
-				</form>
-			</div>
-<!-- ENDIF -->
-		</div>
+
 <!-- IF S_REALMSTATUS -->
 		<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-		<div class="menu-bottom">
-<!-- IF S_HEADER_SEARCH -->
-			<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-				<div class="menu-search">
-					<input class="box search" type="text" name="search" size="30" />
-					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
-				</div>
-			</form>
-<!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-{LOGIN_FORM}
-<!-- ENDIF -->
-		</div>
 	</div>
 	<div class="util<!-- IF ROSTER_SCOPE eq "page" -->-page<!-- ENDIF -->-wrap">
 <!-- ENDIF -->
@@ -70,17 +200,6 @@
 			<div class="info"><!-- TRANSLATE guilds -->: {TOTAL_GUILDS}</div>
 		</div>
 		<div class="menu-select">
-<!-- IF S_LOCALE_SELECT -->
-			<div class="locale-select">
-				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
-					<select name="locale" onchange="document.locale_select.submit();">
-<!-- BEGIN locale_select -->
-						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-<!-- END locale_select -->
-					</select>
-				</form>
-			</div>
-<!-- ENDIF -->
 
 <!-- IF S_MENU_SELECT -->
 			<div class="list-select">
@@ -101,19 +220,7 @@
 <!-- IF S_REALMSTATUS -->
 		<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-		<div class="menu-bottom">
-<!-- IF S_HEADER_SEARCH -->
-			<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-				<div class="menu-search">
-					<input class="box search" type="text" name="search" size="30" />
-					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
-				</div>
-			</form>
-<!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-{LOGIN_FORM}
-<!-- ENDIF -->
-		</div>
+
 	</div>
 	<div class="realm-wrap">
 <!-- ENDIF -->
@@ -125,17 +232,7 @@
 			<div class="info"><!-- TRANSLATE members -->: {ROSTER_3RDTITLE}</div>
 		</div>
 		<div class="menu-select">
-<!-- IF S_LOCALE_SELECT -->
-			<div class="locale-select">
-				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
-					<select name="locale" onchange="document.locale_select.submit();">
-<!-- BEGIN locale_select -->
-						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-<!-- END locale_select -->
-					</select>
-				</form>
-			</div>
-<!-- ENDIF -->
+
 
 <!-- IF S_DATA_SELECT -->
 			<div class="list-select">
@@ -156,19 +253,7 @@
 <!-- IF S_REALMSTATUS -->
 	<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-	<div class="menu-bottom">
-<!-- IF S_HEADER_SEARCH -->
-		<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-			<div class="menu-search">
-				<input class="box search" type="text" name="search" size="30" />
-				<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
-			</div>
-		</form>
-<!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-{LOGIN_FORM}
-<!-- ENDIF -->
-	</div>
+
 </div>
 <div class="guild-wrap">
 <!-- ENDIF -->
@@ -188,35 +273,11 @@
 			<!-- IF GUILD_NAME and GUILD_TITLE --><div class="guild"><!-- TRANSLATE_F char_guildline GUILD_TITLE GUILD_NAME --></div><!-- ENDIF -->
 			<div class="info"><!-- TRANSLATE_F char_level_race_class LEVEL RACE CLASS --></div>
 		</div>
-		<div class="menu-select">
-<!-- IF S_LOCALE_SELECT -->
-			<div class="locale-select">
-				<form class="slim" action="{U_MAKELINK}" name="locale_select" method="post">
-					<select name="locale" onchange="document.locale_select.submit();">
-<!-- BEGIN locale_select -->
-						<option value="{locale_select.LOCALE}"<!-- IF locale_select.S_SELECTED --> selected="selected"<!-- ENDIF -->>{locale_select.LOCALE_NAME}</option>
-<!-- END locale_select -->
-					</select>
-				</form>
-			</div>
-<!-- ENDIF -->
-		</div>
+
 <!-- IF S_REALMSTATUS -->
 		<div class="realm-status">{REALMSTATUS}</div>
 <!-- ENDIF -->
-		<div class="menu-bottom">
-<!-- IF S_HEADER_SEARCH -->
-			<form name="menu_search" action="{U_SEARCH_FORM_ACTION}" method="post">
-				<div class="menu-search">
-					<input class="box search" type="text" name="search" size="30" />
-					<button type="submit"><span class="ui-icon ui-icon-search"></span> <!-- TRANSLATE search --></button>
-				</div>
-			</form>
-<!-- ENDIF -->
-<!-- IF S_HEADER_LOGIN -->
-{LOGIN_FORM}
-<!-- ENDIF -->
-		</div>
+
 	</div>
 	<div class="char-wrap">
 

@@ -1,26 +1,34 @@
 
 	<!-- BEGIN forums -->
-	<div class="tier-1-a">
-		<div class="tier-1-b">
-			<div class="tier-1-c">
-				<div class="tier-1-title"><a href="{forums.FORUM_URL}" >{forums.TITLE} - <i>{forums.DESC}</i></a>
+	<div class="header">
+				<div class="head">
+					<div class="icon"></div>
+					<div class="title">{forums.TITLE}</div>
+					<div class="topic">Topics</div>
+					<div class="posts">Posts</div>
+					<div  class="lastpost">Last Poster</div>
 				</div>
 
-				<div class="tier-2-a">
-					<div class="tier-2-b">
-					
-					<div class="tier-2-title">
-					latest tipic: <a href="{forums.P_URL}" >{forums.P_TITLE}</a><span class="info-text" style="font-size:12px;">  {forums.POSTER}</span>
+				<!-- BEGIN subforum -->
+				
+				
+				<div class="forum">
+										
+					<div class="icon">
+						<img src="images/forum_<!-- IF forums.subforum.READ -->read<!-- ELSE -->unread<!-- ENDIF -->{forums.subforum.IMAGEL}.gif"></a>
 					</div>
-					<div class="info-text-h">
-						<div>Posts: {forums.POSTS}</div>
-
+					<div class="title">
+						<a href="{forums.subforum.FORUM_URL}" class="topictitle">{forums.subforum.TITLE}</a>
+						<br>
+						{forums.subforum.DESC}
 					</div>
-		
-						
-					</div>
+					<div class="topicx">{forums.subforum.TOPICS}</div>
+					<div class="posts">{forums.subforum.POSTS}</div>
+					<div  class="lastpost"><span><dfn>Last post </dfn>by {forums.subforum.L_POSTER}<br>{forums.subforum.L_POST_TIME}</span></div>
+			
 				</div>
+				
+				<!-- END subforum -->
 			</div>
-		</div>
-	</div>
+
 	<!-- END -->

@@ -25,7 +25,7 @@ class mainInstall
 	var $active = true;
 	var $icon = 'ability_warrior_rallyingcry';
 
-	var $version = '0.2.6';
+	var $version = '0.2.8';
 	var $wrnet_id = '0';
 
 	var $fullname = 'WoWRoster Portal';
@@ -50,6 +50,7 @@ class mainInstall
 		$installer->add_config("'200','cmsmain_slider',NULL,'blockframe','menu'");
 		$installer->add_config("'300','cmsmain_slider_images','rostercp-addon-main-sliderimages','makelink','menu'");
 		$installer->add_config("'400','cmsmain_slider_add','rostercp-addon-main-slideradd','makelink','menu'");
+		$installer->add_config("'500','cmsmain_plugins','rostercp-addon-main-plugins','makelink','menu'");
 
 		$installer->add_config("'1000','news_add','11','access','cmsmain_conf'");
 		$installer->add_config("'1010','news_edit','11','access','cmsmain_conf'");
@@ -109,6 +110,7 @@ class mainInstall
 		$installer->create_table($installer->table('blocks'),"
 			`guild_id` int(11) unsigned NOT NULL DEFAULT '0',
 			`block_name` varchar(64) NOT NULL DEFAULT '',
+			`block_id` INT( 10 ) NULL DEFAULT NULL,
 			`block_location` varchar(10) NOT NULL DEFAULT '',
 			PRIMARY KEY (`guild_id`,`block_name`)");
 
@@ -186,7 +188,12 @@ class mainInstall
 				
 			return true;
 		}
-		
+		if( version_compare('0.2.8', $oldversion,'>') == true )
+		{
+			$installer->add_config("'500','cmsmain_plugins','rostercp-addon-main-plugins','makelink','menu'");
+			$installer->add_query("ALTER TABLE  `" . $installer->table('blocks') . "` ADD  `block_id` INT( 10 ) NULL DEFAULT NULL ");
+			return true;
+		}
 		return true;
 	}
 
@@ -199,6 +206,7 @@ class mainInstall
 	{
 		global $installer;
 		$installer->drop_table($installer->table('config'));
+		$installer->drop_table($installer->table('comments'));
 		$installer->drop_table($installer->table('blocks'));
 		$installer->drop_table($installer->table('slider'));
 		$installer->drop_table($installer->table('news'));

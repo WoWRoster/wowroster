@@ -310,7 +310,36 @@ class RosterLogin
 
 		return $output;
 	}
-
+function GetUserInfo($uid)
+	{
+		global $roster;
+		
+		$query = "SELECT * FROM `" . $roster->db->table('user_members') . "` WHERE `id`='" . $uid . "';";
+		$result = $roster->db->query($query);
+		//echo (bool)$result;
+		$row = $roster->db->fetch($result);
+		return $row;
+	}
+	function _ingroup( $groups, $user_group )
+	{
+		
+		$this->approved = false;
+		$addon = array();
+		$addon = explode(":",$groups);
+		$user = array();
+		$user = explode(":",$user_group);
+		foreach ($user as $x => $ac)
+		{
+			foreach ($addon as $a => $as)
+			{
+				if ( (int)$as ==  (int)$ac)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	function getUID($user, $pass)
 	{
 		global $roster;

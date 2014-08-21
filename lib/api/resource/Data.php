@@ -33,8 +33,32 @@ class Data extends Resource {
 		'talent',
 		'achievements',
 		'itemClass',
+		'auction',
+		'spell',
 	);
 
+	public function GetAuction($realm,$compress=false)
+	{
+	
+		if (empty($realm)) 
+		{
+			throw new ResourceException('No realms specified.');
+		}
+		else 
+		{
+			$data = $this->consume('auction', array(
+			'data' => '',
+			'timeout' => 25,
+			'server' => $realm,
+			'type' => 'GET',
+			//'compress' => $compress,
+			'header'=>"Accept-language: ".$this->region."\r\n"
+			));
+		}
+		return $data;
+		
+	}
+	
 	public function getTalents()
 	{
 		$data = $this->consume('talent', array(
@@ -97,6 +121,47 @@ class Data extends Resource {
 
 		return $data;
 	}
+	public function getSpellInfo($spell)
+	{
+		$data = $this->consume('spell', array(
+			'data' => '',
+			'dataa' => '',
+			'server' => '',
+			'name' => $spell,
+			'header'=>"Accept-language: ".$this->region."\r\n"
+		));
+		//$this->InsertSpellCache($data);
+		return $data;
+	}
+	public function InsertSpellCache($data)
+	{
+		global $roster, $update;
+		require_once (ROSTER_LIB . 'update.lib.php');
+		$update = new update();
+		//Enchant Chest - Glorious Stats
+		$a = explode(" - ", $data['name']);
+		$b = explode(" ",$a[0]);
+		print_r($b);echo '<br>';
+		if ($b[1] == '2H')
+		{
+			$slot = $b[2];
+		}
+		else
+		{
+			$slot = $b[1];
+		}
+		
+		$update->reset_values();
+		$update->add_value('name' , $data['name']);
+		$update->add_value('id' , ''.$data['id'].'');
+		$update->add_value('icon' , $data['icon']);
+		$update->add_value('slot' , $slot);
+		$update->add_value('description' , $data['description']);
+		$update->add_value('castTime' , $data['castTime']);
+		$querystr = "REPLACE INTO `" .$roster->db->table('api_enchant') . "` SET " . $update->assignstr;
+		$result = $roster->db->query($querystr);
+	}
+	
 	
 	public function getItemInfo($itemID,$gem0=null,$gem1=null,$gem2=null,$enchant=null,$es=false) 
 	{
@@ -191,7 +256,6 @@ class Data extends Resource {
 	public function InsertICache($data)
 	{
 		global $roster, $update;
-		
 		$tooltip = $roster->api->Item->item($data,null,null);
 		require_once (ROSTER_LIB . 'update.lib.php');
 		$update = new update();
@@ -212,6 +276,7 @@ class Data extends Resource {
 		$querystr = "INSERT INTO `" .$roster->db->table('api_items') . "` SET " . $update->assignstr;
 		$result = $roster->db->query($querystr);
 	}
+
 	public function InsertGCache($data)
 	{
 		global $roster, $update;
@@ -233,6 +298,7 @@ class Data extends Resource {
 		$querystr = "INSERT INTO `" .$roster->db->table('api_gems') . "` SET " . $update->assignstr;
 		$result = $roster->db->query($querystr);
 	}
+	
 	public function CacheCheck($id)
 	{
 		global $roster;

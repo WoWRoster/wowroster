@@ -91,7 +91,10 @@ class character extends Resource {
 				case '18':	$this->x.= ',petSlots';
 							#A list of battleground vistories and teams.
 				break;
-				case 'ALL':	$this->x.=',guild,stats,talents,items,reputation,titles,professions,appearance,companions,mounts,pets,achievements,progression,pvp,quests,feed,hunterPets,petSlots';
+				case '19':  $this->x.=',statistics';
+							#A list of all the statics for a player
+				break;
+				case 'ALL':	$this->x.=',guild,stats,talents,items,reputation,titles,professions,appearance,companions,mounts,pets,achievements,progression,pvp,quests,feed,hunterPets,petSlots,statistics';
 							#A list of battleground vistories and teams.
 				break;
 				default:
@@ -112,6 +115,7 @@ class character extends Resource {
 		$this->charn = $char;
 		$this->realmn = $realm;
 		if (empty($realm)) {
+		echo $realm.' - '.$char.' - '.$fields.'<br>';
 			throw new ResourceException('No realms specified.');
 		} elseif (empty($char)) {
 			throw new ResourceException('No char name specified.');

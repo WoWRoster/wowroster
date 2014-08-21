@@ -83,6 +83,7 @@ switch( $roster->scope )
 			'ROSTER_TITLE'    => $roster->data['name'],
 			'ROSTER_SUBTITLE' => '@ ' . $roster->data['region'] . '-' . $roster->data['server'],
 			'ROSTER_3RDTITLE' => false,
+			'FACTION'              => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 			'LAST_UPDATED'    => (isset($roster->data['update_time']) ? readbleDate($roster->data['update_time']) . ((!empty($roster->config['timezone'])) ? ' (' . $roster->config['timezone'] . ')' : '') : '')
 		));
 		break;
@@ -98,7 +99,12 @@ switch( $roster->scope )
 		));
 		break;
 }
-
+if( $roster->output['show_menu'] )
+			{
+				$roster_menu = new RosterMenu();
+				$roster_menu->makeMenu($roster->output['show_menu']);
+				$roster_menu->displayMenu();
+			}
 /**
  * Assign template vars
  */
@@ -133,11 +139,16 @@ $roster->tpl->assign_vars(array(
 	'S_HEADER_SEARCH'      => (bool)$roster->config['header_search'],
 	'S_HEADER_LOGIN'       => (bool)$roster->config['header_login'],
 	'S_REALMSTATUS'        => (bool)$roster->config['rs_display'],
+	
+	'T_BAR_USER_ILI'	   => (is_object($roster->auth) ? $roster->auth->allow_login : ''),
+	'T_BAR_USER_MSG'	   => (is_object($roster->auth) ? $roster->auth->message : ''),
+	'T_BAR_USER_OTR'	   => '',
 
 	'LOGIN_FORM'           => (is_object($roster->auth) ? $roster->auth->getMenuLoginForm() : ''),
 	'REALMSTATUS'          => isset($roster->data['server']) ? makeRealmStatus() : '',
 
 	'FACTION'              => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
+	'MENU_FACTION'         => isset($roster->data['factionEn']) ? strtolower($roster->data['factionEn']) : false,
 
 	'U_SEARCH_FORM_ACTION' => makelink('search'),
 	'U_MENU_UPDATE_LUA'    => makelink('update')

@@ -12,7 +12,7 @@
 
 require_once ROSTER_API . 'tools/Curl.php';
 require_once ROSTER_API . 'tools/url.php';
-//require_once ROSTER_API . 'tools/ResourceException.php';
+//require_once API_DIR . '/tools/ResourceException.php';
 //include_once ROSTER_API . 'tools/HttpException.php';
 
 /**
@@ -82,13 +82,23 @@ abstract class Resource {
 		}
 		// new prity url builder ... much better then befor...
 		$ui = API_URI;//sprintf(self::API_URI, $this->region);
-
 		// new cache system see hwo old teh file is only live update files more then X days/hours old
 			
 			$this->querytime = format_microtime();
-			$this->query_count++;
+			$roster->db->query_count++;
 
 			$url = $this->url->BuildUrl($ui,$method,$params['server'],$params['name'],$params);
+			if ($method == 'auction')
+			{
+				$data = $this->Curl->makeRequest($url,$params['type'], $params,$url,$method);
+				if ($this->Curl->errno !== CURLE_OK) 
+				{
+					throw new ResourceException($this->Curl->error, $this->Curl->errno);
+				}
+					$auction = json_decode($data['response'], true);
+				$url = $auction['files'][0]['url'];
+				//echo $url.'<br>';
+			}
 			if (isset($_GET['debug']))
 			{
 				echo '--[ '.$url.' ]--<br>';
@@ -99,11 +109,11 @@ abstract class Resource {
 				//throw new ResourceException($this->Curl->error, $this->Curl->errno);
 				$roster->set_message( "The selected api action is not allowed <br/>\n\r [".$this->Curl->errno.'] : '.$this->Curl->error.'', 'Curl has Failed!', 'error' );
 			}
-			
-			$roster->db->queries['api/'.$method][$this->query_count]['query'] = $url;
-			$roster->db->queries['api/'.$method][$this->query_count]['time'] = round((format_microtime()-$this->querytime), 4);
-			$roster->db->queries['api/'.$method][$this->query_count]['line'] = '94';
-			$roster->db->queries['api/'.$method][$this->query_count]['error'] = empty($data['response_headers']['http_code']) ? $data['response_headers']['http_code'] : '';
+			$errornum = empty($data['response_headers']['http_code']) ? $data['response_headers']['http_code'] : '_911_';
+			$roster->db->queries['api-'.$method][$roster->db->query_count]['query'] = $url;
+			$roster->db->queries['api-'.$method][$roster->db->query_count]['time'] = round((format_microtime()), 4);
+			$roster->db->queries['api-'.$method][$roster->db->query_count]['line'] = '94';
+			$roster->db->queries['api-'.$method][$roster->db->query_count]['error'] = $errornum;
 			
 			// update the tracker...
 			
@@ -128,7 +138,7 @@ abstract class Resource {
 				$msg = $this->transhttpciode($data['response_headers']['http_code']);
 				$roster->set_message( ' '.$method.': '.$msg.' : '.$x['reason'].'<br>'.$url.' ', 'Api call fail!', 'error' );
 				// update the tracker...
-				/* this is not in the main roster install as of yet
+				///* this is not in the main roster install as of yet
 				$errornum = empty($data['response_headers']['http_code']) ? $data['response_headers']['http_code'] : '';
 				$q = "SELECT * FROM `" . $roster->db->table('api_error') . "` WHERE `error_info` = '".$params['name']."' AND `type` = '".$method."'";
 				$y = $roster->db->query($q);
@@ -143,7 +153,7 @@ abstract class Resource {
 					$query = "Update `" . $roster->db->table('api_error') . "` SET `total`='".($row['total']+1)."' WHERE `type` = '".$method."' AND `error_info` = '".$params['name']."'";
 				}
 				$ret = $roster->db->query($query);
-				*/
+				//*/
 				//throw new HttpException(json_decode($data['response'], true), $data['response_headers']['http_code']);
 				//$this->seterrors(array('type'=>$method,'msg'=>''.$msg.'<br>'.$url.''));
 				//$this->query['result'] = false; // over ride cache and set to false no data or no url no file lol

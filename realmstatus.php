@@ -87,7 +87,7 @@ else
 //piss the xml noise we are going json
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&output=XML';
 //$xmlsource = 'http://wowfeeds.wipeitau.com/RealmStatus.php?location=' . $region . '&rn=' . $realmname . '&callback=?';//'http://www.wowroster.net/realmstatus/'.$realmname.'.xml';
-$xmlsource = $roster->api->Realm->getRealmStatus($realmname);//'http://' . $region . '.battle.net/api/wow/realm/status?realm=' . $realmname . '';
+//'http://' . $region . '.battle.net/api/wow/realm/status?realm=' . $realmname . '';
 
 //==========[ OTHER SETTINGS ]=========================================================
 
@@ -125,6 +125,7 @@ $current_time = time();
 
 if( $current_time >= ($realmData['timestamp'] + ($roster->config['rs_timer'] * 600)) )
 {
+	$xmlsource = $roster->api->Realm->getRealmStatus($realmname);
 	$r = $xmlsource;
 
 	$d = $r['realms']['0'];

@@ -123,5 +123,18 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 			'C_ROW'	=> $classb,
 		)
 	);
+	/**
+ * Make our menu from the config api
+ */
+// ----[ Set the tablename and create the config class ]----
+include(ROSTER_LIB . 'config.lib.php');
+$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
+
+// ----[ Get configuration data ]---------------------------
+$config->getConfigData();
+
+// ----[ Build the page items using lib functions ]---------
+$menu .= $config->buildConfigMenu('rostercp-addon-' . $addon['basename']);
+
 	$roster->tpl->set_filenames(array('body' => $addon['basename'].'/admin.html'));
 $body = $roster->tpl->fetch('body');

@@ -600,6 +600,7 @@ class roster
 			$this->plugin_data[$row['basename']] = $row;
 		}
 	}
+	
 	function get_global_plugins()
 	{
 		global $global_plugins;

@@ -28,6 +28,8 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 				{
 					$crit .= '<li><div id="crt'.$d['id'].'">'.$d['description'].'</div></li>';
 					$update->reset_values();
+					$update->add_value('c_id',				$cat['id']);
+					$update->add_value('p_id',				'-1');
 					$update->add_value('crit_achie_id',	$achi['id']);
 					$update->add_value('crit_id',		$d['id']);
 					$update->add_value('crit_desc',		$d['description']);
@@ -75,6 +77,8 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 						$crit .= '<li>'.$d['description'].'</li>';
 						
 						$update->reset_values();
+						$update->add_value('c_id',				$sub['id']);
+						$update->add_value('p_id',				$cat['id']);
 						$update->add_value('crit_achie_id',	$achi['id']);
 						$update->add_value('crit_id',		$d['id']);
 						$update->add_value('crit_desc',		$d['description']);
@@ -125,5 +129,18 @@ if (isset($_POST['process']) && $_POST['process'] == 'process')
 			'C_ROW'	=> $classb,
 		)
 	);
-	$roster->tpl->set_filenames(array('body' => $addon['basename'].'/admin.html'));
+	/**
+ * Make our menu from the config api
+ */
+// ----[ Set the tablename and create the config class ]----
+include(ROSTER_LIB . 'config.lib.php');
+$config = new roster_config( $roster->db->table('addon_config'), '`addon_id` = "' . $addon['addon_id'] . '"' );
+
+// ----[ Get configuration data ]---------------------------
+$config->getConfigData();
+
+// ----[ Build the page items using lib functions ]---------
+$menu .= $config->buildConfigMenu('rostercp-addon-' . $addon['basename']);
+
+$roster->tpl->set_filenames(array('body' => $addon['basename'].'/admin.html'));
 $body = $roster->tpl->fetch('body');

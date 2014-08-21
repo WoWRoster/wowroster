@@ -1,38 +1,43 @@
+<div>{CRUMB}
+		<!-- IF LOCKED -->{IMAGE}<!-- TRANSLATE t_lock --><!-- ELSE --><a class="input" href="{M_STARTTOPIC}"><!-- TRANSLATE start_topic --></a><!-- ENDIF -->
+	</div>
+	<!-- IF CANLOCK -->
+		<form name="lock" method="post" enctype="multipart/form-data" action="">
+			<input type="hidden" name="op" value="process" />
+			<input type="hidden" name="type" value="{L_ACTIVEOP}" />
+			<input type="hidden" name="id" value="{TOPIC_ID}" />
+			<button type="submit" class="input" ><span class="ui-icon ui-icon-{L_ACTIVEU}"></span>{L_ACTIVET}</button>
+		</form>
+	<!-- ENDIF -->
+<div class="header">
+	
+	<div class="head">
+		<div class="icon"></div>
+		<div class="title">{FORUM_TITLE}</div>
+		<div class="posts">Posts</div>
+		<div  class="lastpost">Last Poster</div>
+	</div>
 
-	<div class="tier-1-a">
-		<div class="tier-1-b">
-			<div class="tier-1-c">
-				<div class="tier-1-title">{CRUMB}</a>
-				<div class="right"><!-- IF LOCKED -->{IMAGE}<!-- TRANSLATE t_lock --><!-- ELSE --><a class="input" href="{M_STARTTOPIC}"><!-- TRANSLATE start_topic --></a><!-- ENDIF --></div>
-				<!-- IF CANLOCK -->
-				<form name="lock" method="post" enctype="multipart/form-data" action="">
-					<input type="hidden" name="op" value="process" />
-					<input type="hidden" name="type" value="{L_ACTIVEOP}" />
-					<input type="hidden" name="id" value="{TOPIC_ID}" />
-					<button type="submit" class="input" ><span class="ui-icon ui-icon-{L_ACTIVEU}"></span>{L_ACTIVET}</button>
-				</form>
-				<!-- ENDIF -->
-				</div>
-				<!-- BEGIN forums -->
-				<div class="tier-2-a">
-					<div class="tier-2-b">
-					<div class="addon-status">
-							<div class="info-text" style="text-align:right;">
-								Posts: {forums.POSTS}
-							</div>
-						</div>
-						
-						<div class="tier-2-title">
-						<!-- IF forums.LOCKED -->{forums.IMAGE}<!-- ENDIF -->
-							<a href="{forums.FORUM_URL}" >{forums.TITLE}</a> <span class="info-text" style="font-size:12px;">  {forums.POSTER}</span>
-						</div>
-						<div class="info-text-h">
-							<div>Posts: {forums.POSTS}</div>
-						</div>
+	<!-- BEGIN forums -->
+	
+	
+	<div class="forum">
+							
+		<div class="icon">
+						<img src="images/<!-- IF forums.STICKY -->sticky<!-- ELSE -->topic<!-- ENDIF -->_<!-- IF forums.READ -->read<!-- ELSE -->unread<!-- ENDIF -->{forums.IMAGEL}{forums.IMAGEM}.gif"></a>
+					</div>
+		<div class="title">
+						<a href="{forums.FORUM_URL}" class="topictitle">{forums.TITLE}</a>
+						<br>
+						by {forums.POSTER} - {forums.C_DATE}
 						
 					</div>
-				</div>
-				<!-- END forums -->
-			</div>
+		<div class="posts">
+			{forums.POSTS} <dfn>Replies</dfn>
 		</div>
+		<div  class="lastpost"><span><dfn>Last post </dfn>by {forums.L_POSTER}<br>{forums.R_DATE}</span></div>
+
 	</div>
+	
+	<!-- END forums -->
+</div>

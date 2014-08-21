@@ -25,7 +25,7 @@ class forumInstall
 	var $active = true;
 	var $icon = 'inv_misc_note_02';
 
-	var $version = '0.1.3';
+	var $version = '0.3.0';
 	var $wrnet_id = '0';
 
 	var $fullname = 'WoWRoster Forum';
@@ -60,51 +60,67 @@ class forumInstall
 		$installer->add_config("'10060','forum_nicedit','1','radio{enabled^1|disabled^0', 'forum_conf'");
 
 		$installer->create_table($installer->table('forums'),"
-				  `forum_id` int(10) NOT NULL AUTO_INCREMENT,
-				  `title` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
-				  `access` varchar(20) DEFAULT NULL,
-				  `order_id` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-				  `desc` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
-				  `misc` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
-				  `active` int(2) DEFAULT NULL,
-				  `locked` int(1) NOT NULL DEFAULT '0',
-				  PRIMARY KEY (`forum_id`)
+					`forum_id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(5) DEFAULT NULL,
+  `title` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `access` varchar(20) DEFAULT NULL,
+  `access_post` varchar(20) DEFAULT NULL,
+  `order_id` int(5) DEFAULT NULL,
+  `desc` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+  `misc` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+  `active` int(2) DEFAULT NULL,
+  `locked` int(1) NOT NULL DEFAULT '0',
+  `icon` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`forum_id`)
 				");
 
 		$installer->create_table($installer->table('topics'),"
-				  `topic_id` int(10) NOT NULL AUTO_INCREMENT,
-				  `forum_id` int(10) NOT NULL,
-				  `title` varchar(120) NOT NULL,
-				  `access` varchar(30) NOT NULL,
-				  `date_update` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-				  `date_create` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-				  `author` varchar(45) NOT NULL,
-				  `last_poster` varchar(45) DEFAULT NULL,
-				  `mics` varchar(100) NOT NULL,
-				  `active` int(2) DEFAULT NULL,
-				  `locked` int(1) NOT NULL DEFAULT '0',
-				  UNIQUE KEY `topic_id` (`topic_id`)
+					  `topic_id` int(10) NOT NULL AUTO_INCREMENT,
+  `forum_id` int(10) NOT NULL,
+  `title` varchar(120) NOT NULL,
+  `access` varchar(30) NOT NULL,
+  `date_create` int(11) DEFAULT NULL,
+  `date_update` int(11) DEFAULT NULL,
+  `user` varchar(45) NOT NULL,
+  `user_id` int(10) DEFAULT NULL,
+  `last_user` varchar(45) DEFAULT NULL,
+  `mics` varchar(100) NOT NULL,
+  `anounc` varchar(10) NOT NULL DEFAULT '0',
+  `sticky` varchar(10) NOT NULL DEFAULT '0',
+  `active` int(2) DEFAULT NULL,
+  `locked` int(1) NOT NULL DEFAULT '0',
+  UNIQUE KEY `topic_id` (`topic_id`)
 				");
 
 		$installer->create_table($installer->table('posts'),"
-				  `post_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-				  `topic_id` mediumint(9) NOT NULL DEFAULT '0',
-				  `forum_id` smallint(6) NOT NULL DEFAULT '0',
-				  `poster_id` mediumint(9) NOT NULL DEFAULT '0',
-				  `post_time` int(11) NOT NULL DEFAULT '0',
-				  `post_username` varchar(25) DEFAULT '',
-				  `enable_html` tinyint(1) NOT NULL DEFAULT '0',
-				  `post_edit_time` int(11) DEFAULT '0',
-				  `post_edit_count` smallint(6) NOT NULL DEFAULT '0',
-				  `post_subject` varchar(255) DEFAULT '',
-				  `post_text` text,
-				  `locked` int(1) NOT NULL DEFAULT '0',
-				  PRIMARY KEY (`post_id`),
-				  KEY `forum_id` (`forum_id`),
-				  KEY `topic_id` (`topic_id`),
-				  KEY `poster_id` (`poster_id`),
-				  KEY `post_time` (`post_time`),
-				  KEY `topic_n_id` (`post_id`,`topic_id`)
+					  `post_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `topic_id` mediumint(9) NOT NULL DEFAULT '0',
+  `forum_id` smallint(6) NOT NULL DEFAULT '0',
+  `user` varchar(45) NOT NULL,
+  `user_id` mediumint(9) NOT NULL DEFAULT '0',
+  `post_time` int(11) NOT NULL DEFAULT '0',
+  `enable_html` tinyint(1) NOT NULL DEFAULT '0',
+  `post_edit_time` int(11) DEFAULT '0',
+  `post_edit_count` smallint(6) NOT NULL DEFAULT '0',
+  `post_subject` varchar(255) DEFAULT '',
+  `post_text` text,
+  `locked` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`post_id`),
+  KEY `forum_id` (`forum_id`),
+  KEY `topic_id` (`topic_id`),
+  KEY `user_id` (`user_id`),
+  KEY `post_time` (`post_time`),
+  KEY `topic_n_id` (`post_id`,`topic_id`)
+				");
+
+		$installer->create_table($installer->table('topics_track'),"
+					  `user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `topic_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `forum_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `mark_time` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`,`topic_id`),
+  KEY `forum_id` (`forum_id`),
+  KEY `topic_id` (`topic_id`)
 				");
 
 		//$installer->add_menu_button('news_button','util');
@@ -123,26 +139,73 @@ class forumInstall
 	{
 		global $installer;
 
-		if( version_compare('0.1.1', $oldversion, '>') == true )
+		if( version_compare('0.2.1', $oldversion, '>') == true )
 		{
-			$installer->add_config("'100','startpage','forun_conf','display','master'");
-			$installer->add_config("'1010','forum_conf',NULL,'blockframe','menu'");
-			$installer->add_config("'1020','forum_edit','rostercp-addon-info-forum','makelink','menu'");
-			$installer->add_config("'1030','topic_edit','rostercp-addon-info-topic','makelink','menu'");
-			$installer->add_config("'10000','forum_start_topic','2','access','forum_conf'");
-			$installer->add_config("'10010','forum_reply_post','2','access','forum_conf'");
-			$installer->add_config("'10050','forum_html_posts','-1','radio{enabled^1|disabled^0|forbidden^-1','forum_conf'");
-			$installer->add_config("'10060','forum_nicedit','1','radio{enabled^1|disabled^0', 'forum_conf'");
-		}
-		if( version_compare('0.1.2', $oldversion, '>') == true )
-		{	
-			$installer->add_query("ALTER TABLE `" . $installer->table('topics') . "` ADD `locked` INT( 1 ) NOT NULL DEFAULT '0'");
-		}
-		if( version_compare('0.1.3', $oldversion, '>') == true )
-		{	
-			$installer->add_query("ALTER TABLE `" . $installer->table('posts') . "` ADD `locked` INT( 1 ) NOT NULL DEFAULT '0'");
-			$installer->add_query("ALTER TABLE `" . $installer->table('forums') . "` ADD `locked` INT( 1 ) NOT NULL DEFAULT '0'");
-			$installer->add_config("'10020','forum_lock','11','access','forum_conf'");
+			$installer->drop_table($installer->table('forums'));
+			$installer->drop_table($installer->table('topics'));
+			$installer->drop_table($installer->table('posts'));
+					$installer->create_table($installer->table('forums'),"
+					`forum_id` int(10) NOT NULL AUTO_INCREMENT,
+					`parent_id`  int(5) DEFAULT NULL,
+					`title` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+					`access` varchar(20) DEFAULT NULL,
+					`order_id` int(5) DEFAULT NULL,
+					`desc` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
+					`misc` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
+					`active` int(2) DEFAULT NULL,
+					`locked` int(1) NOT NULL DEFAULT '0',
+					`icon` varchar(255) DEFAULT NULL,
+					PRIMARY KEY (`forum_id`)
+				");
+
+		$installer->create_table($installer->table('topics'),"
+					`topic_id` int(10) NOT NULL AUTO_INCREMENT,
+					`forum_id` int(10) NOT NULL,
+					`title` varchar(120) NOT NULL,
+					`access` varchar(30) NOT NULL,
+					`date_update` int(11) DEFAULT NULL,
+					`date_create` int(11) DEFAULT NULL,
+					`user` varchar(45) NOT NULL,
+					`user_id` int(10) DEFAULT NULL,
+					`last_user` varchar(45) DEFAULT NULL,
+					`mics` varchar(100) NOT NULL,
+					`anounc` varchar(10) NOT NULL DEFAULT '0',
+					`sticky` varchar(10) NOT NULL DEFAULT '0',
+					`active` int(2) DEFAULT NULL,
+					`locked` int(1) NOT NULL DEFAULT '0',
+					UNIQUE KEY `topic_id` (`topic_id`)
+				");
+
+		$installer->create_table($installer->table('posts'),"
+					`post_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+					`topic_id` mediumint(9) NOT NULL DEFAULT '0',
+					`forum_id` smallint(6) NOT NULL DEFAULT '0',
+					`user` varchar(45) NOT NULL,
+					`user_id` mediumint(9) NOT NULL DEFAULT '0',
+					`post_time` int(11) NOT NULL DEFAULT '0',
+					`enable_html` tinyint(1) NOT NULL DEFAULT '0',
+					`post_edit_time` int(11) DEFAULT '0',
+					`post_edit_count` smallint(6) NOT NULL DEFAULT '0',
+					`post_subject` varchar(255) DEFAULT '',
+					`post_text` text,
+					`locked` int(1) NOT NULL DEFAULT '0',
+					PRIMARY KEY (`post_id`),
+					KEY `forum_id` (`forum_id`),
+					KEY `topic_id` (`topic_id`),
+					KEY `user_id` (`user_id`),
+					KEY `post_time` (`post_time`),
+					KEY `topic_n_id` (`post_id`,`topic_id`)
+				");
+
+		$installer->create_table($installer->table('topics_track'),"
+					`user_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+					`topic_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+					`forum_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+					`mark_time` int(11) unsigned NOT NULL DEFAULT '0',
+					PRIMARY KEY (`user_id`,`topic_id`),
+					KEY `forum_id` (`forum_id`),
+					KEY `topic_id` (`topic_id`)
+				");
 		}
 		return true;
 	}

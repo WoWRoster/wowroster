@@ -27,7 +27,7 @@ class achievementsInstall
 	var $active = true;
 	var $icon = 'achievement_general';
 
-	var $version = '2.2.0';
+	var $version = '2.2.1';
 
 	var $fullname = 'Player Achievements';
 	var $description = 'Displays Player Achievements';
@@ -68,6 +68,8 @@ class achievementsInstall
 	  
 		$installer->create_table($installer->table('crit'),"
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `c_id` int(10) NOT NULL,
+			  `p_id` int(10) DEFAULT NULL,
 			  `crit_achie_id` int(10) NOT NULL,
 			  `crit_id` int(10) NOT NULL,
 			  `crit_desc` text,
@@ -89,6 +91,8 @@ class achievementsInstall
 	  
 		$installer->create_table($installer->table('g_crit'),"
 			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `c_id` int(10) NOT NULL,
+			  `p_id` int(10) DEFAULT NULL,
 			  `crit_achie_id` int(10) NOT NULL,
 			  `crit_id` int(10) NOT NULL,
 			  `crit_desc` text,
@@ -139,6 +143,44 @@ class achievementsInstall
 	function upgrade($oldversion, $version)
 	{
 		global $installer, $addon;
+		if( version_compare('2.2.1', $oldversion, '>') == true )
+		{
+		$installer->create_table($installer->table('g_achievements'),"
+			  `member_id` int(11) NOT NULL DEFAULT '0',
+			  `achie_id` int(7) NOT NULL DEFAULT '0',
+			  `achie_date` varchar(20) DEFAULT NULL");
+
+		//*
+		$installer->create_table($installer->table('g_criteria'),"
+			  `member_id` int(11) NOT NULL DEFAULT '0',
+			  `crit_id` int(7) NOT NULL DEFAULT '0',
+			  `crit_date` varchar(20) DEFAULT NULL,
+			  `crit_value` varchar(64) DEFAULT NULL");
+			  
+		$installer->create_table($installer->table('g_achie'),"
+			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `achie_name` text,
+			  `achie_desc` text,
+			  `achie_points` int(10) DEFAULT NULL,
+			  `achie_id` int(10) NOT NULL,
+			  `achie_icon` varchar(255) DEFAULT NULL,
+			  `achie_tooltip` mediumtext ,
+			  `achie_isAccount` varchar(10),
+			  `factionId` varchar(10) ,
+			  `c_id` int(10) NOT NULL,
+			  `p_id` int(10) DEFAULT NULL,
+			  `achi_cate` varchar(255) DEFAULT NULL,
+			  PRIMARY KEY (`id`)");
+	  
+		$installer->create_table($installer->table('g_crit'),"
+			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			  `c_id` int(10) NOT NULL,
+			  `p_id` int(10) DEFAULT NULL,
+			  `crit_achie_id` int(10) NOT NULL,
+			  `crit_id` int(10) NOT NULL,
+			  `crit_desc` text,
+			  PRIMARY KEY (`id`)");
+		}
 		if( version_compare('2.2.0', $oldversion, '>') == true )
 		{
 			$installer->add_query("ALTER TABLE `" . $installer->table('achie') . "`

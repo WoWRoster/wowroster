@@ -3,11 +3,11 @@
  * WoWRoster.net WoWRoster
  *
  * @copyright  2002-2011 WoWRoster.net
- * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
- * @version    SVN: $Id$
- * @link       http://www.wowroster.net
- * @since      File available since Release 2.2.0
- * @package    WoWRoster
+ * @license	http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version	SVN: $Id$
+ * @link	   http://www.wowroster.net
+ * @since	  File available since Release 2.2.0
+ * @package	WoWRoster
  */
 
 class url {
@@ -87,7 +87,7 @@ class url {
 			break;
 			
 			case 'ladder':
-				$q = '/api/wow/pvp/arena/'.$server.'/'.$fields['size'].'?'.$local;
+				$q = '/api/wow/leaderboard/'.$fields['size'].'?'.$local;
 			break;
 			
 			case 'talent':
@@ -106,9 +106,18 @@ class url {
 				$q = '/api/wow/battlePet/stats/'.$name.'?'.$local;
 			break;
 			
+			case 'spell':
+				$q = '/api/wow/spell/'.$name.'?'.$local;
+			break;
+			
 			case 'challenge':
 				$q = '/api/wow/challenge/'.$name.'?'.$local;
 			break;
+			
+			case 'auction':
+				$q = 'api/wow/auction/data/'.$fields['server'];
+			break;
+			
 			
 			default:
 			break;

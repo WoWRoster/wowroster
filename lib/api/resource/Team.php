@@ -46,18 +46,14 @@ class Team extends Resource {
 		return $data;
 	}
 	
-	public function getLadderInfo($battlegroup, $size) {
+	public function getLadderInfo($size) {
 
-		if (empty($battlegroup)) {
-			throw new ResourceException('No battlegroup specified.');
-		} elseif (empty($size)) {
+		if (empty($size)) {
 			throw new ResourceException('No team size specified.');
 		}
 
 			$data = $this->consume('ladder', array(
 			'data' => $fd,
-			'dataa' => $battlegroup.'/'.$size,
-			'server' => $battlegroup,
 			'size' => $size,
 			'header'=>"Accept-language: ".$this->region."\r\n"
 			));

@@ -17,6 +17,7 @@ if (!defined('IN_ROSTER')) {
 }
 
 function roster_add_js( $data = NULL , $type = 'module' , $scope = 'header' , $defer = FALSE , $cache = TRUE , $preprocess = TRUE ) {
+	global $roster;
 	static $javascript = array();
 
 	if (isset($data)) {
@@ -74,7 +75,7 @@ function roster_add_js( $data = NULL , $type = 'module' , $scope = 'header' , $d
 					),
 				),
 				'setting' => array(
-					array('roster_path' => ROSTER_PATH),
+					array('roster_path' => ROSTER_PATH,'roster_url'=>$roster->config['website_address']),
 				),
 				'inline' => array(),
 			);

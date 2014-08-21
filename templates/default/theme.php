@@ -25,7 +25,11 @@ roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery-ui.css', 'theme
 roster_add_css('templates/' . $roster->tpl->tpl . '/style/ui.selectmenu.css', 'theme');
 roster_add_css('templates/' . $roster->tpl->tpl . '/style/jquery.multiselect.css', 'theme');
 roster_add_css('templates/' . $roster->tpl->tpl . '/style/base.css', 'theme');
-
+/*
+	new tooltip functions js files
+*/
+roster_add_js('js/apitips.js',null,'footer');
+roster_add_js('js/tooltip.js',null,'footer');
 /**
  * Starts or ends fancy bodering containers
  *

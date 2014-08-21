@@ -277,42 +277,50 @@ class mainFunctions
 	{
 		global $roster, $addon;
 		$plugins = $roster->plugin_data;
-		if( !empty($plugins) )
+		
+		$blocks = array();
+		$query = "SELECT * FROM `" . $roster->db->table('blocks',$addon['basename']) . "` ORDER BY `block_location` ASC;";
+		$result = $roster->db->query($query);
+		while( $row = $roster->db->fetch($result) )
 		{
-			foreach( $plugins as $plugin_name => $plugin )
-			{
-				//$dirx = ROSTER_ADDONS . $plugin['basename'] . DIR_SEP . 'inc' . DIR_SEP . 'plugins' . DIR_SEP;
-				if ($plugin['parent'] == $addon['basename'])
-				{
-					if ($roster->plugin_data[$plugin_name]['active'] == '1')
-					{
-						$xplugin = getplugin($plugin_name);
-						
-						foreach( $roster->multilanguages as $lang )
-						{
-							$roster->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
-						}
-						$plugin['scope'] = explode('|',$plugin['scope']);
-						//if ($plugin['scope'] == $roster->scope)
-						if (in_array( $roster->scope, $plugin['scope'] ) )
-						{
-							$classfile = ROSTER_PLUGINS . $plugin_name . DIR_SEP . $plugin_name . '.php';
-							require($classfile);
-							$pluginstuff = new $plugin_name($xplugin);
-
-							$this->block[] = array(
-								'name'   => $roster->locale->act[$plugin_name]['title'],//$pluginstuff->fullname,
-								'output' => $pluginstuff->output,
-								'icon'   => $pluginstuff->icon
-							);
-
-							unset($pluginstuff);
-						}
-					}
-				}
-			}
+				$blocks[$row['block_name']] = $row;
 		}
 
+		foreach ($blocks as $name => $data)
+		{
+			if (isset($plugins[$name]['active']) && $data['block_name'] == $plugins[$name]['basename'])
+			{
+				$xplugin = getplugin($name);
+						
+				foreach( $roster->multilanguages as $lang )
+				{
+					$roster->locale->add_locale_file($xplugin['locale_dir'] . $lang . '.php', $lang);
+				}
+				$plugin['scope'] = explode('|',$plugins[$name]['scope']);
+
+				if (in_array( $roster->scope, $plugin['scope'] ) )
+				{
+					$classfile = ROSTER_PLUGINS . $name . DIR_SEP . $name . '.php';
+					require($classfile);
+					$pluginstuff = new $name($xplugin);
+
+					$blocks[$name] = array(
+						'name'   => $roster->locale->act[$name]['title'],//$pluginstuff->fullname,
+						'output' => $pluginstuff->output,
+						'icon'   => $pluginstuff->icon
+					);
+					unset($pluginstuff);
+				}
+			}
+			else
+			{
+				$query = "DELETE FROM `" . $roster->db->table('blocks',$addon['basename']) . "` WHERE `block_name` = '".$name."';";
+				$result = $roster->db->query($query);
+				unset($blocks[$name]);
+			}
+		}
+		
+		$this->block = $blocks;
 		return true;
 
 	}

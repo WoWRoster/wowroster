@@ -94,7 +94,7 @@ textbox {
 .pagi-inactive {
 	border:1px solid #4e4d4c;
 	background-color:#C79C6E;
-	padding:1px 4px 1px 4px;
+	padding:3px;
 	margin:0 2px;
 }
 .pagi-selected {
@@ -110,7 +110,7 @@ textbox {
 .theme-wrap {
 	min-height: 380px;
 	width: 940px;
-	margin: 20px auto auto;
+	margin: 30px auto auto;
 	position: relative;
 	border: 1px solid #9D7D1C;
 	background: #e7cb79 url(../images/wrap_bg.jpg) repeat center top;
@@ -118,40 +118,39 @@ textbox {
 }
 
 .realm-status {
-	left: 170px;
+	right: 5px;
     position: absolute;
-    top: 85px;
+    top: 5px;
 }
 
 .info-header {
-	width: 100%;
-	height: 125px;
-	position: absolute;
-	left: -10px;
-	top: -20px;
-	padding-right: 10px;
-	padding-bottom: 45px;
+width: 100%;
+height: 85px;
+position: absolute;
+left: -10px;
+/* top: -0px; */
+padding-right: 10px;
 }
 
 .realm { background: url(../images/bg_neutral.png) no-repeat left top; }
-.alliance { background: url(../images/bg_alliance_new.png) no-repeat left top; }
-.horde { background: url(../images/bg_horde_new.png) no-repeat left top; }
+.alliance { background: url(../images/bg_alliance_new2.png) no-repeat left top; }
+.horde { background: url(../images/bg_horde_new2.png) no-repeat left top; }
 
-.info-header .text { position: absolute; left: 160px; top: 35px; color: #FFFFFF; text-align: left; padding: 0; width: 580px; text-shadow:1px 2px 0 #000000; }
+.info-header .text { position: absolute; left: 75px; top: 20px; color: #FFFFFF; text-align: left; padding: 0; width: 580px; text-shadow:1px 2px 0 #000000; }
 .info-header .text:hover { background: none; }
-.info-header .text.up { top:20px; }
+.info-header .text.up { top:5px; }
 
 .info-header .name { font: bold normal 24px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
 .info-header .name small { font-size: 18px; }
 .info-header .guild { font: bold normal 18px Georgia, "Times New Roman", Times, serif; text-transform: none; position: relative; }
 .info-header .info { font: bold normal 10px Verdana, Arial, Helvetica, sans-serif; text-transform: uppercase; position: relative; }
 
-.menu-select { position: absolute; top: 30px; right: 6px; width:300px;}
+.menu-select { position: absolute; top: 45px; right: 5px; width:300px;}
 .menu-select .locale-select { float: right; margin: 0 0 3px 5px; }
 .menu-select .list-select { float: right; margin: 0 0 3px 5px; }
 
 .char-wrap, .util-page-wrap, .util-wrap, .realm-wrap, .guild-wrap, .user-wrap {
-	margin: 102px 0 0;
+	margin: 90px 0 25px;
 	padding: 0 10px 10px;
 	position: relative;
 }
@@ -213,7 +212,7 @@ textbox {
 .scope-menu .menu-scope-panel .frame .button .mask:hover { background-position: right top; }
 
 /* New Main Navagation tabs */
-.top-menu { width: auto; position: absolute; z-index: 200; top: 0; right: 3px; }
+/*.top-menu { width: auto; position: absolute; z-index: 200; top: -30px; right: 0px; }
 .top-menu .links { height: 40px; }
 .top-menu .links a {
 	display: block;
@@ -226,11 +225,27 @@ textbox {
 	font: bold 12px/normal Arial, Helvetica, sans-serif;
 	overflow: hidden;
 }
+*/
+.button-char { 
+background: url(../images/menu/menu.png);
+background-position: 0px 0px; 
 
-.button-char { background: url(../images/menu/menu.png);background-position: 0px 0px; width: 151px; height: 20px; display: block;}
-.button-char:hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
-.button-char-selected { background: url(../images/menu/menu.png);background-position: 0px 40px; width: 151px; height: 20px; display: block;}
-.button-char-selected:hover{ background: url(../images/menu/menu.png);background-position: 0px 80px; width: 151px; height: 20px; display: block;}
+width: 151px; height: 20px; display: block;}
+.button-char:hover{ 
+background: url(../images/menu/menu.png);
+background-position: 0px 80px; 
+
+width: 151px; height: 20px; display: block;}
+.button-char-selected { 
+background: url(../images/menu/menu.png);
+background-position: 0px 40px; 
+
+width: 151px; height: 20px; display: block;}
+.button-char-selected:hover{ 
+background: url(../images/menu/menu.png);
+background-position: 0px 80px; 
+
+width: 151px; height: 20px; display: block;}
 
 .button-members { background: url(../images/menu/menu.png);background-position: -150px 0px; width: 151px; height: 20px; display: block;}
 .button-members:hover{ background: url(../images/menu/menu.png);background-position: -150px 80px; width: 151px; height: 20px; display: block;}
@@ -457,6 +472,18 @@ textbox {
 .item img{ position: absolute; display:block; clip: rect(2px 38px 38px 2px); height: 40px; width: 40px; }
 .item .mask { position: absolute; display:block; background: url(../images/mask/item_mask.png) no-repeat left top; height: 40px; width: 40px; z-index: 100; left: 0; top: 0; }
 
+
+.item .none,
+.item .poor {		border: 1px solid #9d9d9d; box-shadow: 0 0 10px 1px #9d9d9d, inset 0 0 8px 1px #9d9d9d;} /* poor (gray) */
+.item .common {		border: 1px solid #ffffff; box-shadow: 0 0 10px 1px #ffffff, inset 0 0 8px 1px #ffffff;} /* common (white) */
+.item .uncommon {		border: 1px solid #1eff00; box-shadow: 0 0 10px 1px #1eff00, inset 0 0 8px 1px #1eff00;} /* uncommon (green) */
+.item .rare {		border: 1px solid #0081ff; box-shadow: 0 0 10px 1px #0081ff, inset 0 0 8px 1px #0081ff;} /* rare (blue) */
+.item .epic {		border: 1px solid #c600ff; box-shadow: 0 0 10px 1px #c600ff, inset 0 0 8px 1px #c600ff;} /* epic (purple) */
+.item .legendary {		border: 1px solid #ff8000; box-shadow: 0 0 10px 1px #ff8000, inset 0 0 8px 1px #ff8000;} /* legendary (orange) */
+.item .artifact,
+.item .heirloom { 	border: 1px solid #e5cc80; box-shadow: 0 0 10px 1px #e5cc80, inset 0 0 8px 1px #e5cc80; } /* heirloom (gold) */
+
+/*
 .item .none,
 .item .poor { background: url(../images/mask/medium/item_poor.png) no-repeat left top; }
 .item .common { background: url(../images/mask/medium/item_common.png) no-repeat left top; }
@@ -477,7 +504,7 @@ textbox {
 .item:hover .legendary,
 .item:hover .artifact,
 .item:hover .heirloom { background-position: left bottom; }
-
+*/
 /* Container Small Item Qualities */
 .item-sm { position:relative; display:inline-block; width: 24px; height: 24px; margin: 0; padding: 0; }
 .item-sm img { display:block; width: 24px; height: 24px; margin: 0; padding: 0; }
@@ -658,7 +685,7 @@ hr {
 	float: left;
 }
 .config-body {
-	width: 100;
+	min-width: 100;
 	position: relative;
 }
 .config-body-menu {
@@ -666,7 +693,9 @@ hr {
 	margin-left: 145px;
 	position: relative;
 }
-
+#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; cursor: move;}
+  #sortable li span { position: absolute; margin-left: -1.3em; }
 .config-section a,
 .config-section-addons a {
 	font-size: 12px;
@@ -1284,7 +1313,7 @@ select:focus { outline: none; }
 .ui-multiselect-checkboxes { overflow-y:auto }
 
 .ui-selectmenu { height: 1.8em; }
-.ui-selectmenu-menu { z-index: 1005 !important; }
+.ui-selectmenu-menu { z-index: 91005 !important; }
 .ui-selectmenu:focus { outline: none; }
 .ui-selectmenu-status { line-height: 1.0em; }
 .ui-selectmenu-open li.ui-selectmenu-item-selected { border: 1px solid #655e4e; background: #fff8e1 url(../images/ui-bg_gloss-wave_80_fff8e1_500x100.png) 50% 50% repeat-x; font-weight: bold; color: #4c3000; }
@@ -1303,3 +1332,238 @@ select:focus { outline: none; }
 .bottomshadow { background: url(../images/guildbank_shadow.gif) top center no-repeat; width: 100%; height: 20px; margin: 0 auto; }
 
 .tooltip.box-label { height: 20px; font: bold normal 20px/24px "Times New Roman", Times, serif; color: #000000; padding: 10px 10px 10px 40px; margin-bottom: 5px; background: url(../images/skill_title_bg.png) repeat-x left top; position: relative; }
+
+
+.top-menu {
+z-index: 200;
+display: inline-block;
+position: absolute;
+}
+
+.t-netbar .user-drop{
+Z-INDEX: 525;
+list-style-type: none;
+float: right;
+padding: 0px;
+background: #deb760 url(../images/set_row.png) repeat-x left top;
+}
+.nmainmenu{
+Z-INDEX: 505;
+padding:0;
+margin:0;
+list-style-type:none;
+list-style-position:outside;
+line-height:1.5em;
+height: 35px;
+position: relative;
+z-index: 200;
+top: 0;
+}
+.headlink { 
+background: url(../images/menu/menu_blank2.png);
+background-position: 0px 0px;
+margin: 0 1px 0 0;
+float: left;
+position: relative;
+/* padding: 3px; */
+width: 127px;
+height: 33px;
+display: block;
+}
+
+.headlink:hover{ 
+background: url(../images/menu/menu_blank2.png);
+background-position: 0px 66px; 
+width: 127px;
+height: 33px;
+display: block;
+}
+
+.headlink-selected { 
+background: url(../images/menu/menu_blank2.png);
+background-position: 0px 99px; 
+margin: 0 1px 0 0;
+float:left;
+position:relative;
+width: 127px;
+height: 33px;
+display: block;
+}
+
+.headlink-selected:hover{ 
+background: url(../images/menu/menu_blank2.png);
+background-position: 0px 80px; 
+width: 127px;
+height: 33px;
+display: block;
+}
+/*
+	Home button
+*/
+.headlink_h { 
+background: url(../images/menu/menu_h_blank.png);
+background-position: 0px 0px;
+margin: 0 1px 0 0;
+float:left;
+position:relative;
+padding:3px;
+width: 28px;
+height: 27px;
+display: block;
+}
+
+.headlink_h:hover{ 
+background: url(../images/menu/menu_h_blank.png);
+background-position: 0px 66px; 
+width: 28px;
+height: 27px;
+display: block;
+}
+
+
+
+.headlink:hover .submenua,
+.headlink:hover .submenu {
+display:block;
+/*border: #000 solid 1px;*/
+border:1px solid #ffffd6;
+outline:1px solid #b6803d;
+overflow: hidden;
+margin: 0px;
+padding: 0px;
+}
+.submenua {
+Z-INDEX: 525;
+list-style-type: none;
+Top: 33px;
+position: absolute;
+float: left;
+min-width: 155px;
+right: 3px;
+padding: 0px;
+display: none;
+background: #deb760 url(../images/set_row.png) repeat-x left top;
+
+}
+.submenu {
+Z-INDEX: 525;
+list-style-type: none;
+Top: 33px;
+position: absolute;
+float: left;
+min-width: 355px;
+Left: 3px;
+padding: 0px;
+display: none;
+background: #deb760 url(../images/set_row.png) repeat-x left top;
+
+}
+.submenu li{width:49%; min-width: 140px;padding:1px;float:left;
+  display:inline;}
+
+.menuitem{
+	padding: 3px;min-width: 130px;height:28px;
+	background: url('../images/bg-dark-menu.png') repeat-x left top;
+}
+.menuitem:hover {
+	background: url('../images/bg-dark-menu.png') repeat-x left bottom;
+}
+.micon {
+vertical-align: middle;
+/* PADDING-RIGHT: 5px; */
+display: inline-block;
+padding: 4px 1px 4px 2px;
+}
+.menuitem img {
+border: #000 1px solid;	
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+width: 23px;
+height: 23px;
+margin:2px;
+}
+
+.t-netbar {
+position: fixed;
+top: 0;
+right: 0;
+left: 0;
+width: 100%;
+background: url('../images/menu-head.png') repeat-x left bottom;
+font: 12px/18px Tahoma, Geneva, Verdana;
+height: 48px;
+z-index: 9998;
+}
+.t-netbar .t-netbar-section, .t-netbar .t-netbar-userInfo .t-netbar-authorize > li {
+float: left;
+}
+.t-netbar ul {
+margin: 0;
+padding: 0;
+}
+
+.t-netbar .bar-menu {
+Z-INDEX: 525;
+float: left;
+}
+
+.t-netbar .bar-local {
+Z-INDEX: 525;
+float: right;
+padding: 5px;
+padding-right: 10px;
+margin: 1px;
+}
+
+.t-netbar .bar-search { 	Z-INDEX: 525;
+list-style-type: none;
+float: right;
+padding: 5px;
+padding-right: 80px;
+margin: 1px;
+}
+.t-netbar .bar-search .bar-search-box {
+	display: inline-block;
+}
+.t-netbar .bar-search .bar-search-box input.box,
+.t-netbar .bar-search .bar-search-box .box {
+border: none;
+background: transparent url(../images/shader.png) 0 0 repeat;
+color: #FFFFFF;
+margin: 0;
+float: left;
+padding: 5px 6px 2px 6px;
+height: 23px;
+font-size: 10px;
+outline: none; /* remove webkit glow */
+border-radius: 6px 0 0 6px;
+-moz-border-radius: 6px 0 0 6px;
+}
+.t-netbar .bar-search .bar-search-box button {
+border-top-left-radius: 0;
+border-bottom-left-radius: 0;
+-moz-border-radius-topleft: 0;
+-moz-border-radius-bottomleft: 0;position: absolute;
+}
+/* tooltip */
+.ui-tooltip { position: absolute; z-index: 9005; width: auto; height: auto; display:none; min-width: 225px; max-width: 360px !important;
+background: transparent url(../images/shader.png) repeat;
+	border: 2px outset #CCCCCC;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	color: #ffffff;padding: 5px;
+	font: 12px verdana, arial, helvetica, sans-serif;}
+.ui-tooltip .tooltip-content { width: auto; height: auto; padding: 5px;}
+.ui-tooltip table { border-collapse: collapse; border-spacing: 0; }
+.ui-tooltip td { margin: 0; padding: 0 }
+.ui-tooltip tbody {
+border: 0px !important;
+}
+.ui-tooltip th {
+border: 0px !important;
+}
+.iu-tooltip .whtt-sellprice {
+display: none;
+}
+

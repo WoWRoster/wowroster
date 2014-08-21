@@ -64,6 +64,7 @@ $lang['admin']['cmsmain_conf']          = 'News|Basic news configuration';
 $lang['admin']['cmsmain_slider']        = 'Slider|Image Slider configuration';
 $lang['admin']['cmsmain_slider_images'] = 'Slider Images';
 $lang['admin']['cmsmain_slider_add']    = 'Add Images';
+$lang['admin']['cmsmain_plugins']		= 'Plugins';
 $lang['admin']['news_add']              = 'Add news|Minimum login level needed to add news.';
 $lang['admin']['news_edit']             = 'Edit news|Minimum login level needed to edit news.';
 $lang['admin']['comm_add']              = 'Add comments|Minimum login level needed to add comments.';

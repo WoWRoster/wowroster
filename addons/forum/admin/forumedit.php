@@ -42,7 +42,9 @@ $id = ( isset($_POST['id']) ? $_POST['id'] : '' );
 			break;
 	}
 }
+$parent = getDbData( ($roster->db->table('forums',$addon['basename'])),'`forum_id`, `title` ', '`parent_id` = "0" ', '`forum_id`' );
 
+$roster->tpl->assign_var('PARENT', createList($parent,'','parent',1,'' ));
 	$queryb = "SELECT * FROM `" . $roster->db->table('forums',$addon['basename']) . "` WHERE `forum_id` = '".$_GET['id']."';";	
 	$resultsb = $roster->db->query($queryb);
 	$forum = $roster->db->fetch($resultsb);
@@ -50,6 +52,7 @@ $id = ( isset($_POST['id']) ? $_POST['id'] : '' );
 					'FORUM_ID' 	=> $forum['forum_id'],
 					'TITLE'		=> $forum['title'],
 					'U_UPDATE'	=> makelink('rostercp-addon-forum-forum&amp;id=' .$forum['forum_id']),
+					'PARENT'	=> createList($parent,$forum['parent_id'],'parent',1,'' ),
 					'ORDER'		=> $forum['order_id'],
 					'DESC'		=> $forum['desc']
 				));
@@ -168,3 +171,70 @@ if( !empty($messagestringout) )
 {
 	$roster->set_message($messagestringout, $roster->locale->act['installer_log']);
 }
+
+function createList( $values , $selected , $id , $type=0 , $param='' )
+	{
+		if( $selected != '' )
+		{
+			$select_one = true;
+		}
+
+		$option_list = "\n\t<select id=\"{$id}\" name=\"{$id}\" $param>\n\t\t<option value=\"\" style=\"color:grey;\">--None--</option>\n";
+
+		foreach( $values as $data )
+		{
+			if( $selected == $data['forum_id'] && $select_one )
+			{
+				$option_list .= "\t\t\t<option value=\"".$data['forum_id']."\" selected=\"selected\">".$data['title']."</option>\n";
+				$select_one = false;
+			}
+			else
+			{
+				$option_list .= "\t\t\t<option value=\"".$data['forum_id']."\">".$data['title']."</option>\n";
+			}
+		}
+		$option_list .= "\t</select>";
+
+		return $option_list;
+	}
+	
+	function getDbData( $table , $field , $where='', $order='' )
+	{
+		global $roster;
+
+		if( !empty($table) )
+		{
+			if( !empty($where) )
+			{
+				$where = ' WHERE ' . $where;
+			}
+
+			if( !empty($order) )
+			{
+				$order = ' ORDER BY ' . $order;
+			}
+
+			if( empty($field) )
+			{
+				$field = '*';
+			}
+
+			// SQL String
+			$sql_str = "SELECT $field FROM `$table`$where$order;";
+
+			$result = $roster->db->query($sql_str);
+
+			if ( $result )
+			{
+				
+					$data = array();
+					for( $i=0; $i<$roster->db->num_rows(); $i++)
+					{
+						$row = $roster->db->fetch($result, SQL_ASSOC);
+						$data[] = $row;
+					}
+					return $data;
+				
+			}
+		}
+	}

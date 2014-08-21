@@ -99,12 +99,7 @@ switch( $roster->pages[0] )
 				include_once (ROSTER_BASE . 'header.php');
 			}
 
-			if( $roster->output['show_menu'] )
-			{
-				$roster_menu = new RosterMenu();
-				$roster_menu->makeMenu($roster->output['show_menu']);
-				$roster_menu->displayMenu();
-			}
+			
 
 			echo $content;
 
@@ -207,13 +202,7 @@ if( $addon['active'] == '1' )
 		include_once (ROSTER_BASE . 'header.php');
 	}
 
-	if( $roster->output['show_menu'] )
-	{
-		$roster_menu = new RosterMenu();
-		$roster_menu->makeMenu($roster->output['show_menu']);
-		$roster_menu->displayMenu();
-	}
-
+	
 	echo $content;
 
 	if( $roster->output['show_footer'] )

@@ -296,11 +296,42 @@ var $skills = array(
 			}
 			//$tt['Effects']['ChanceToProc'][] = $line;
 			$tt['Attributes']['BindType'] = $roster->locale->act['apiitem']['bind'][$data['itemBind']];
-
+/*
 			if (isset($this->user['tooltipParams']['set']))
 			{
 				$this->isSetPiece = true;
 				$this->setItemEquiped = count($this->user['tooltipParams']['set']);
+				foreach ($data['itemSet']['setBonuses'] as $r => $e)
+				{
+					if ($this->setItemEquiped >= $e['threshold'])
+					{
+						$tt['Attributes']['Set']['SetBonus'][] = "(".$e['threshold'].") Set: ".$e['description']."";
+					}
+					else
+					{
+						$tt['Attributes']['Set']['InactiveSet'][] = "(".$e['threshold'].") Set: ".$e['description']."";
+					}
+				}
+				//$tt['Attributes']['Set']['InactiveSet'][] = '';//$line;
+				$tt['Attributes']['Set']['ArmorSet']['Name'] = $data['itemSet']['name'];
+				
+				$this->isSetPiece = true;
+				$setpiece = 0;
+				$set_data = $this->_getSetData($data['itemSet']['id']);
+				//echo '<pre>'; print_r($set_data); echo '</pre>';
+				foreach ($set_data as $e => $s_data)
+				{
+					$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = "  ".$s_data['Name'];//trim($line);
+					$setpiece++;
+				}
+			}
+			
+			
+			
+			if (isset($data['itemSet']) && !isset($this->user['tooltipParams']['set']))
+			{
+				$this->isSetPiece = true;
+				$this->setItemEquiped = 0;//count($this->user['tooltipParams']['set']);
 				foreach ($data['itemSet']['setBonuses'] as $r => $e)
 				{
 					if ($this->setItemEquiped <= $e['threshold'])
@@ -317,14 +348,17 @@ var $skills = array(
 				
 				//$this->isSetPiece = true;
 				$setpiece = 0;
-				$set_data = $this->_getSetData($data['itemSet']['id']);
-				//echo '<pre>'; print_r($set_data); echo '</pre>';
+				//$set_data = $this->_getSetDataa($data['itemSet']['items'],$data['itemSet']['id']);
+				/*echo '<pre>'; print_r($set_data); echo '</pre>';
 				foreach ($set_data as $e => $s_data)
 				{
 					$tt['Attributes']['Set']['ArmorSet']['Piece'][$setpiece]['Name'] = "  ".$s_data['Name'];//trim($line);
 					$setpiece++;
 				}
+				*
 			}
+			*/
+			
 			
 			
 			if ($data['maxDurability'] > 0)
@@ -437,7 +471,15 @@ var $skills = array(
 			//$this->isWeapon = true;
 			//$tt['Attributes']['MadeBy']['Name'] = $matches[1];
 			//$tt['Attributes']['MadeBy']['Line'] = $matches[0];
-
+			if ( $data['heroicTooltip'] )
+			{
+				$tt['Attributes']['Heroic'] = 'Heroic';
+			}
+			if ( isset($data['nameDescription']) )
+			{
+				$tt['Attributes']['NameDesc']['Text'] = $data['nameDescription'];
+				$tt['Attributes']['NameDesc']['color'] = $data['nameDescriptionColor'];
+			}
 			//$tt['Attributes']['Charges'] = $line;
 			//$tt['Poison']['Effect'][] = $line;
 			//$this->isPoison = true;
@@ -464,6 +506,21 @@ var $skills = array(
 		}
 		return $set;
 	}
+	
+	function _getSetDataa($set_ids,$set_id)
+	{
+		global $roster;
+		$item_api = $roster->api->Data->getItemSet($set_id);
+		echo '<pre>';print_r($item_api);echo '</pre>';
+		$set = array();
+		foreach($set_ids as $a => $item)
+		{
+			echo $item.'<br>';
+			$item_a = $roster->api->Data->getItemInfo($item);
+			$set[]['Name'] = $item_a['name'];
+		}
+		return $set;
+	}
 	function _makeTooltip()
 	{
 		$html_tt = $this->_getCaption();
@@ -474,6 +531,10 @@ var $skills = array(
 		if( isset($this->attributes['Heroic']) )
 		{
 			$html_tt .= $this->_getHeroic();
+		}
+		if( isset($this->attributes['NameDesc']['Text']) )
+		{
+			$html_tt .= $this->_getNameDesc();
 		}
 		if( isset($this->attributes['BindType']) )
 		{
@@ -486,6 +547,10 @@ var $skills = array(
 		if( isset($this->attributes['Upgrade']) )
 		{
 			$html_tt .= $this->_getUpgrade();
+		}
+		if( isset($this->attributes['ItemLevel']) )
+		{
+			$html_tt .= $this->_getItemLevel();
 		}
 		if( $this->isArmor )
 		{
@@ -544,10 +609,6 @@ var $skills = array(
 		if( isset($this->attributes['Requires']) )
 		{
 			$html_tt .= $this->_getRequired();
-		}
-		if( isset($this->attributes['ItemLevel']) )
-		{
-			$html_tt .= $this->_getItemLevel();
 		}
 		if( isset($this->effects) )
 		{
@@ -631,6 +692,15 @@ function _getCaption()
 		return $html;
 	}
 	
+	function _getNameDesc()
+	{
+		$heroic = $this->attributes['NameDesc']['Text'];
+
+		$html = '' . $heroic . "<br />";
+
+		return $html;
+	}
+	
 	function _getBindType()
 	{
 		global $roster;
@@ -655,6 +725,7 @@ function _getCaption()
 		$html = $this->attributes['Unique'] . "<br />";
 		return $html;
 	}
+	
 	function _getUpgrade()
 	{
 		$html = "Upgrade Level: " . $this->attributes['Upgrade']['Base'] . "/" . $this->attributes['Upgrade']['Max'] . "<br />";
@@ -730,6 +801,7 @@ function _getCaption()
 		}
 		
 	}
+	
 	function _getGemBonus()
 	{
 		$html = $this->attributes['GemBonus'] . "<br />";
@@ -741,6 +813,7 @@ function _getCaption()
 		$html = 'Requires ' . $this->attributes['SkillRequired'] . "<br />";
 		return $html;
 	}
+	
 	function _getArmorClass()
 	{
 		$html = $this->attributes['ArmorClass']['Line'] . "<br />";
@@ -784,23 +857,39 @@ function _getCaption()
 		$html = '';
 
 		$numSockets = count($this->dapi['socketInfo']['sockets']);
-		$gem0 =  $gem1 =  $gem2 = null;
+		$gem0 =  $gem1 =  $gem2 = $gem3 = null;
 		$i =0;
 		
-		if (isset($this->user['tooltipParams']['gem0']))
+		if (isset($this->dgems['gem0']['gemInfo']))
 		{
-			$html .= $this->dgems['gem0']['gemInfo']['bonus']['name']."<br />";
-			$i++;
+			if (isset($this->user['tooltipParams']['gem0']))
+			{
+				$html .= $this->dgems['gem0']['gemInfo']['bonus']['name']."<br />";
+				$i++;
+			}
+			if (isset($this->user['tooltipParams']['gem1']))
+			{
+				$html .= $this->dgems['gem1']['gemInfo']['bonus']['name']."<br />";
+				$i++;
+			}
+			if (isset($this->user['tooltipParams']['gem2']))
+			{
+				$html .= $this->dgems['gem2']['gemInfo']['bonus']['name']."<br />";
+				$i++;
+			}
+			if (isset($this->user['tooltipParams']['gem3']))
+			{
+				$html .= $this->dgems['gem3']['gemInfo']['bonus']['name']."<br />";
+				$i++;
+			}
 		}
-		if (isset($this->user['tooltipParams']['gem1']))
+		if (!isset($this->dgems['gem0']['gemInfo']) && isset($this->dgems['gem0']['gem_bonus']))
 		{
-			$html .= $this->dgems['gem1']['gemInfo']['bonus']['name']."<br />";
-			$i++;
-		}
-		if (isset($this->user['tooltipParams']['gem2']))
-		{
-			$html .= $this->dgems['gem2']['gemInfo']['bonus']['name']."<br />";
-			$i++;
+			foreach ($this->dgems as $id => $gem)
+			{
+				$html .= $gem['gem_bonus']."<br />";
+				$i++;		
+			}
 		}
 
 		for( $i; $i < $numSockets; $i++ )

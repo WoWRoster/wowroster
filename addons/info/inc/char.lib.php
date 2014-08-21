@@ -76,10 +76,7 @@ class char
 			}
 		}
 
-		if( isset($roster->data['armoryurl']) && $roster->data['armoryurl'] != '' )
-		{
-			$model_url = $roster->data['armoryurl'] . '/character-model-embed.xml?r=' . $this->data['server'] . '&amp;cn=' . $this->data['name'] . '&amp;rhtml=true';
-		}
+		
 		$ximg_url=null;
 		if (file_exists($addon['dir'] .'chars/thumb-'. $this->data['member_id'].'.jpg') )
 		{
@@ -116,8 +113,8 @@ class char
 			'S_CURRENCY_TAB'   => $roster->auth->getAuthorized($addon['config']['show_currency']),
 
 			'S_PETS'        => false,
-			'S_MOUNTS'      => false,
-			'S_COMPANIONS'  => false,
+			//'S_MOUNTS'      => false,
+			//'S_COMPANIONS'  => false,
 
 			'L_CHAR_POWER'    => $this->data['power'],
 			'L_CHAR_POWER_ID' => strtolower($this->data['power']),
@@ -2184,6 +2181,7 @@ class char
 		$roster->tpl->assign_block_vars('box_stats.statline',array(
 			'NAME'  => $label,
 			'VALUE' => $value,
+			//'TOOLTIP' => 'data-tooltip="text-' .htmlspecialchars(htmlentities($tooltip)).'" data-caption="'.$caption.'"',//
 			'TOOLTIP' => makeOverlib($tooltip,$caption,'',2,'','')
 			)
 		);
@@ -2799,14 +2797,17 @@ class char
 		}
 
 		$tooltip = '<span style="color:' . $color . ';font-size:11px;font-weight:bold;">' . $name . '</span> ' . $this->rating_long('res_'.$resname) . '<br />'
-				 . '<span style="color:#DFB801;text-align:left;">' . $tooltip . '</span>';
+		 . '<span style="color:#DFB801;text-align:left;">' . $tooltip . '</span>';
 
+		$data = $this->data;
+		$current = $data['res_'.$resname . '_c'];
+		
 		$roster->tpl->assign_block_vars('resist',array(
 			'NAME'  => $name,
 			'CLASS' => $resname,
 			'COLOR' => $color,
 			'VALUE' => $this->data['res_' . $resname . '_c'],
-			'TOOLTIP' => makeOverlib($tooltip,'','',2,'',''),
+			'TOOLTIP' => 'data-tooltip="text-' .htmlspecialchars(htmlentities($tooltip)).'"',//makeOverlib($tooltip,'','',2,'',''),
 			)
 		);
 	}
@@ -2824,10 +2825,14 @@ class char
 
 		if( isset($this->equip[$slot]) )
 		{
+			//echo '<pre>';
+			//print_r($this->equip[$slot]);
+			//echo '</pre>';
 			$roster->tpl->assign_block_vars('equipment',array(
 				'SLOT'     => $slot,
 				'ICON'     => $this->equip[$slot]->tpl_get_icon(),
-				'TOOLTIP'  => $this->equip[$slot]->tpl_get_tooltip(),
+				//'TOOLTIP'  => $this->equip[$slot]->tpl_get_tooltip(),
+				'TOOLTIP'	=> 'data-tooltip="item-'.$this->equip[$slot]->item_id.'|'.$roster->data['member_id'].'"',
 				'ITEMLINK' => $this->equip[$slot]->tpl_get_itemlink(),
 				'QUALITY'  => $this->equip[$slot]->quality,
 				'QTY'      => $this->equip[$slot]->quantity,

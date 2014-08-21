@@ -497,7 +497,7 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 				}
 				elseif( preg_match($roster->locale->wordings[$locale]['tooltip_preg_classes'], $line, $matches) )
 				{
-					$classes = explode(', ', $matches[2]);
+					$classes = explode(' , ', $matches[2]);
 					$count = count($classes);
 					$class_text = $matches[1];
 
@@ -506,7 +506,7 @@ function colorTooltip( $tooltip, $caption_color='', $locale='', $inline_caption=
 					foreach( $classes as $class )
 					{
 						$i++;
-						$line .= '<span style="color:#' . $roster->locale->wordings[$locale]['class_colorArray'][$class] . ';">' . $class . '</span>';
+						$line .= '<span style="color:#' . $roster->locale->act['class_colorArray'][trim($class)] . ';">' . $class . '</span>';
 						if( $count > $i )
 						{
 							$line .= ', ';
@@ -657,63 +657,71 @@ function cleanTooltip( $tooltip , $caption_color='' , $inline_caption=1 )
  * @param string $item_id
  * @return unknown
  */
-function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='' )
+function makeOverlib( $tooltip , $caption='' , $caption_color='' , $mode=0 , $locale='' , $extra_parameters='', $type='text',$member_id=null )
 {
 	global $roster, $tooltips;
 
 	$tooltip = stripslashes($tooltip);
 
-	// Use main locale if one is not specified
-	if( $locale == '' )
+	if ($type == 'text')
 	{
-		$locale = $roster->config['locale'];
-	}
-
-	// Detect caption text and display accordingly
-	$caption_mode = 1;
-	if( $caption_color != '' )
-	{
-		if( strlen($caption_color) > 6 )
+		// Use main locale if one is not specified
+		if( $locale == '' )
 		{
-			$caption_color = substr( $caption_color, 2 );
+			$locale = $roster->config['locale'];
 		}
-	}
-
-	if( $caption != '' )
-	{
+		// Detect caption text and display accordingly
+		$caption_mode = 1;
 		if( $caption_color != '' )
 		{
-			$caption = '<span style="color:#' . $caption_color . ';">' . $caption . '</span>';
+			if( strlen($caption_color) > 6 )
+			{
+				$caption_color = substr( $caption_color, 2 );
+			}
 		}
 
-		$caption = ",CAPTION,'" . addslashes($caption) . "'";
+		if( $caption != '' )
+		{
+			if( $caption_color != '' )
+			{
+				$caption = '<span style="color:#' . $caption_color . ';">' . $caption . '</span>';
+			}
 
-		$caption_mode = 0;
+			$caption = addslashes($caption).'<br>';
+
+			$caption_mode = 0;
+		}
+
+		switch ($mode)
+		{
+			case 0:
+				$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
+				break;
+
+			case 1:
+				$tooltip = cleanTooltip($tooltip,$caption_color,$caption_mode);
+				break;
+
+			case 2:
+				break;
+
+			default:
+				$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
+				break;
+		}
+	
+		return 'data-tooltip="text-' .htmlspecialchars(htmlentities($tooltip)).'" data-caption="'.htmlspecialchars(htmlentities($caption)).'"';
 	}
-
-	switch ($mode)
+	else if ($type == 'item')
 	{
-		case 0:
-			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
-			break;
-
-		case 1:
-			$tooltip = cleanTooltip($tooltip,$caption_color,$caption_mode);
-			break;
-
-		case 2:
-			break;
-
-		default:
-			$tooltip = colorTooltip($tooltip,$caption_color,$locale,$caption_mode);
-			break;
+		return 'data-tooltip="item-'.$tooltip.(isset($member_id) ? '|'.$member_id : '').'"';
 	}
-
-	$num_of_tips = (count($tooltips)+1);
-
-	setTooltip($num_of_tips,$tooltip);
-
-	return 'onmouseover="return overlib(overlib_' . $num_of_tips . $caption . $extra_parameters . ');" onmouseout="return nd();"';
+	else
+	{
+		return null;
+	}
+	
+	//return 'onmouseover="return overlib(overlib_' . $num_of_tips . $caption . $extra_parameters . ');" onmouseout="return nd();"';
 }
 
 /**

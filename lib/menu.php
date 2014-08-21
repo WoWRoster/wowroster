@@ -60,8 +60,8 @@ class RosterMenu
 
 			unset($mini_update);
 
-			$roster->tpl->set_handle('roster_menu', 'menu.html');
-			$roster->tpl->display('roster_menu');
+			//$roster->tpl->set_handle('roster_menu', 'menu.html');
+			//$roster->tpl->display('roster_menu');
 		}
 	}
 
@@ -205,11 +205,11 @@ class RosterMenu
 				if( strpos($button['title'],'|') )
 				{
 					list($button['title'],$button['tooltip']) = explode('|',$button['title'],2);
-					$button['tooltip'] = ' ' . makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
+					$button['tooltip'] = ' ';// . makeOverlib($button['tooltip'],$button['title'],'',1,'',',WRAP');
 				}
 				else
 				{
-					$button['tooltip'] = ' ' . makeOverlib($button['title']);
+					$button['tooltip'] = ' ';// . makeOverlib($button['title']);
 				}
 
 				$roster->tpl->assign_block_vars('menu_button_section.menu_buttons', array(

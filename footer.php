@@ -94,6 +94,5 @@ if( $roster->config['sql_window'] )
 	}
 }
 
-
 $roster->tpl->set_handle('roster_footer', 'footer.html');
 $roster->tpl->display('roster_footer');

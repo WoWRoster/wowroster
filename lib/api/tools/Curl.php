@@ -140,7 +140,7 @@ class Curl {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         if (!isset($open_basedir_value) || empty($open_basedir_value)) 
     		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-		curl_setopt($ch, CURLOPT_TIMEOUT,		 isset($options['timeout']) ? $options['timeout'] : 10);
+		curl_setopt($ch, CURLOPT_TIMEOUT,		 isset($options['timeout']) ? $options['timeout'] : 25);
 		curl_setopt($ch, CURLOPT_VERBOSE,		 isset($options['verbose']) ? $options['verbose'] : false);
 
 		// Prepare data (if applicable)
@@ -208,6 +208,8 @@ class Curl {
 
 		curl_close($ch);
 		if ($this->errno) {
+			print_r($this->errno);
+			print_r($this->error);
 			return false;
 		}else{
 

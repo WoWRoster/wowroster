@@ -38,6 +38,18 @@ class CharScope
 		 * Assigning everything this file may need to the template
 		 * The only tpl vars not here are ones that need to be generated in their respective methods
 		 */
+		$query = 'SELECT guild.* '
+					. "FROM `" . $roster->db->table('guild') . "` guild "
+					. "WHERE `guild_id` = '" . $roster->data['guild_id'] . "';";
+
+				$result = $roster->db->query($query);
+
+				if( !$result )
+				{
+					die_quietly($roster->db->error(), 'Database Error', __FILE__ . '<br />Function: ' . __FUNCTION__, __LINE__, $query);
+				}
+		$rdata = $roster->db->fetch($result);
+				
 		$roster->tpl->assign_vars(array(
 			'CHAR_ICON'     => $data['char_icon'],
 			'NAME'          => $data['name'],
@@ -49,8 +61,8 @@ class CharScope
 			'CLASS'         => $data['class'],
 			'GUILD_TITLE'   => $data['guild_title'],
 			'GUILD_NAME'    => $data['guild_name'],
-			'FACTION_EN'    => strtolower($roster->data['factionEn']),
-			'FACTION'       => $roster->data['faction']
+			'FACTION_EN'    => strtolower($rdata['factionEn']),
+			'FACTION'       => $rdata['faction']
 			)
 		);
 	}

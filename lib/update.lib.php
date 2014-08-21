@@ -571,13 +571,7 @@ class update
 	function processGuildRoster()
 	{
 		global $roster;
-/*
-		if ( isset($this->uploadData['characterprofiler']['myProfile']) )
-		{
-			$myProfile = $this->uploadData['characterprofiler']['myProfile'];
-		}
-		else
-*/
+
 		if ( isset($this->uploadData['wowrcp']['cpProfile']) )
 		{
 			$myProfile = $this->uploadData['wowrcp']['cpProfile'];
@@ -688,7 +682,12 @@ class update
 									$this->current_member = $char_name;
 
 									$char = $guildMembers[$char_name];
-									$memberid = $this->update_guild_member($guildId, $char_name, $realm_name, $region, $char, $currentTimestamp, $guild);
+									/*
+										5.4.2? update names now use realm
+									*/
+									list($cname, $cserver) = explode('-',$char_name);
+									$memberid = $this->update_guild_member($guildId, $cname, $cserver, $region, $char, $currentTimestamp, $guild);
+									/* end update */
 									$guild_output .= $this->getMessages();
 									$this->resetMessages();
 
@@ -1138,6 +1137,7 @@ class update
 		$this->add_ifvalue($item, 'item_type');
 		$this->add_ifvalue($item, 'item_subtype');
 		$this->add_ifvalue($item, 'item_rarity');
+		$this->add_ifvalue($item, 'json');
 		$this->add_value('locale', $locale);
 
 /*
@@ -1408,6 +1408,7 @@ CREATE TABLE `renprefix_quest_task_data` (
 		$item['item_type'] = ( isset($item_data['Type']) ? $item_data['Type'] : '' );
 		$item['item_subtype'] = ( isset($item_data['SubType']) ? $item_data['SubType'] : '' );
 		$item['item_rarity'] = ( isset($item_data['Rarity']) ? $item_data['Rarity'] : '' );
+		$item['json'] = ( isset($item_data['json']) ? $item_data['json'] : '' );
 
 		if( !empty($item_data['Tooltip']) )
 		{

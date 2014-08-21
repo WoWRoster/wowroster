@@ -23,19 +23,11 @@ if( !defined('E_STRICT') )
 {
 	define('E_STRICT', 2048);
 }
-if( !defined('E_RECOVERABLE_ERROR') )
-{
-	define('E_RECOVERABLE_ERROR', 4096);
-}
+
 if( !defined('E_DEPRECATED') )
 {
 	define('E_DEPRECATED', 8192);
 }
-if( !defined('E_USER_DEPRECATED') )
-{
-	define('E_USER_DEPRECATED', 16384);
-}
-
 
 /**
  * Roster Error Handler
@@ -112,21 +104,19 @@ class roster_error
 		global $roster;
 
 		$errortype = array (
-			E_ERROR             => 'Run-time error',
-			E_WARNING           => 'Run-time warning',
-			E_PARSE             => 'Compile-time parse error',
-			E_NOTICE            => 'Run-time notice',
-			E_CORE_ERROR        => 'Core error',
-			E_CORE_WARNING      => 'Core warning',
-			E_COMPILE_ERROR     => 'Compile-time error',
-			E_COMPILE_WARNING   => 'Compile-time warning',
-			E_USER_ERROR        => 'Roster error',
-			E_USER_WARNING      => 'Roster warning',
-			E_USER_NOTICE       => 'Roster notice',
-			E_STRICT            => 'Strict notice',
+			E_WARNING         	=> 'Warning',
+			E_NOTICE          	=> 'Notice',
+			E_CORE_ERROR      	=> 'Core Error',
+			E_CORE_WARNING    	=> 'Core Warning',
+			E_COMPILE_ERROR   	=> 'Compile Error',
+			E_COMPILE_WARNING 	=> 'Compile Warning',
+			E_USER_ERROR      	=> 'Roster Error',
+			E_USER_WARNING    	=> 'Roster Warning',
+			E_USER_NOTICE     	=> 'Roster Notice',
+			E_STRICT          	=> 'Runtime Notice',
+			E_DEPRECATED      	=> 'Core Warning, Depreciated',
 			E_RECOVERABLE_ERROR => 'Catchable fatal error',
-			E_DEPRECATED        => 'Depreciated notice',
-			E_USER_DEPRECATED   => 'Roster depreciated notice',
+			E_USER_DEPRECATED	=> 'User-generated warning message'
 		);
 		// NOTE: E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR and E_COMPILE_WARNING
 		// error levels will be handled as per the error_reporting settings.

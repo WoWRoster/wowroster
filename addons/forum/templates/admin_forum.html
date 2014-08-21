@@ -44,7 +44,6 @@
 						
 						<div class="info-text-h">
 							<div>{forum.DESC}<br>Posts: {forum.POSTS}</div>
-
 						</div>
 						
 						<div class="info-text">
@@ -52,6 +51,23 @@
 						</div>
 
 					</div>
+					<form action="{U_MAKELINK}" method="post" style="display:block;padding: 3px;">
+						<input type="hidden" name="op" value="process" />
+						<input type="hidden" name="type" value="parent" />
+						<input type="hidden" name="id" value="{forum.FORUM_ID}" />
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<!-- TRANSLATE parent -->: <input type="submit" value="Change Parent" />
+									</div>
+									<div class="config-input">
+										{forum.PARENT}
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
 					<form action="{U_MAKELINK}" method="post" style="display:block;padding: 3px;">
 						<input type="hidden" name="op" value="process" />
 						<input type="hidden" name="type" value="access" />
@@ -92,6 +108,9 @@
 			</div>
 			<div class="info-text">
 				<label for="order"><!-- TRANSLATE order -->:</label> <input name="order" id="order" type="text" size="10" value="" />
+			</div>
+			<div class="info-text">
+				<label for="parent"><!-- TRANSLATE parent -->:</label> {PARENT}
 			</div>
 		</div>
 	</div>

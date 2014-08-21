@@ -72,7 +72,7 @@ $roster->tpl->assign_vars(array(
 );
 
 $addons = getAddonList();
-
+$install = $uninstall = $active = $deactive = $upgrade = $purge = 0;
 if( !empty($addons) )
 {
 	$roster->tpl->assign_vars(array(
@@ -121,13 +121,47 @@ if( !empty($addons) )
 			'ACCESS'      => ( isset($addon['access']) ? $roster->auth->rosterAccess(array('name' => 'access', 'value' => $addon['access'])) : false )
 			)
 		);
+
+		
+		if ($addon['install'] == '3')
+		{
+			$install++;
+		}
+		if ($addon['install'] == '0')
+		{
+			$active++;
+		}
+		if ($addon['install'] == '2')
+		{
+			$deactive++;
+		}
+		if ($addon['install'] == '1')
+		{
+			$upgrade++;
+		}
+		if ($addon['install'] == '-1')
+		{
+			$purge++;
+		}
+		
 	}
+	$roster->tpl->assign_vars(array(
+		'AL_C_PURGE' => $purge,			// -1
+		'AL_C_UPGRADE' => $upgrade,		// 1
+		'AL_C_DEACTIVE' => $deactive,	// 2
+		'AL_C_ACTIVE' => $active,		// 0
+		'AL_C_INSTALL' => $install,		// 3
+	));
 }
 else
 {
 	$installer->setmessages('No addons available!');
 }
-
+/*
+echo '<!-- <pre>';
+print_r($addons);
+echo '</pre> -->';
+*/
 $errorstringout = $installer->geterrors();
 $messagestringout = $installer->getmessages();
 $sqlstringout = $installer->getsql();
@@ -147,8 +181,32 @@ if( !empty($messagestringout) )
 $roster->tpl->set_filenames(array('body' => 'admin/addon_install.html'));
 $body = $roster->tpl->fetch('body');
 
+/**
+som new js
+**/
+$js = '
+jQuery(document).ready( function($){
 
+	// this is the id of the ul to use
+jQuery(".tab-navigation ul li").click(function(e)
+{
+	e.preventDefault();
+	var menu = jQuery(this).parent().attr("id");
+	//alert(menu);
+	//jQuery("."+menu+"").css("display","none");
+	jQuery(".tab-navigation ul#"+menu+" li").removeClass("selected");
 
+	var tab_class = jQuery(this).attr("id");
+	jQuery(".tab-navigation ul#"+menu+" li").each(function() {
+		var v = jQuery(this).attr("id");
+		console.log( "hiding - "+v );
+		jQuery("div#"+v+"").hide();
+	});
+	//jQuery("."+menu+"#" + tab_class).siblings().hide();
+	jQuery("."+menu+"#" + tab_class).show();
+	jQuery(".tab-navigation ul#"+menu+" li#" + tab_class).addClass("selected");
+});});';
+roster_add_js($js, 'inline', 'header', false, false);
 /**
  * Gets the list of currently installed roster addons
  *
@@ -205,8 +263,17 @@ function getAddonList()
 					//  0 = same version
 					//  1 = upgrade available
 					$output[$addon]['install'] = version_compare($addonstuff->version,$roster->addon_data[$addon]['version']);
-
+					if ($output[$addon]['install'] == 0 && $output[$addon]['active'] == 0)
+					{
+						$output[$addon]['install'] = 2;
+					}
+					
 				}
+				/*
+				else if ($output[$addon]['install'] == 0 && $output[$addon]['active'] == 0)
+				{
+					$output[$addon]['install'] = 2;
+				}*/
 				else
 				{
 					$output[$addon]['install'] = 3;

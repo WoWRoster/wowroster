@@ -332,15 +332,16 @@ class roster_db
 	 */
 	function fetch( $query_id = 0, $result_type = SQL_BOTH)
 	{
-		if( !$query_id )
+
+		if( empty($query_id) )
 		{
 			$query_id = $this->query_id;
 		}
 
 		if( $query_id )
 		{
-			$this->record[$query_id] = @mysql_fetch_array($query_id, $result_type);
-			return $this->record[$query_id];
+			$this->record[(integer)$query_id] = mysql_fetch_array($query_id, $result_type);
+			return $this->record[(integer)$query_id];
 		}
 		else
 		{
@@ -357,18 +358,18 @@ class roster_db
 	 */
 	function fetch_all( $query_id = 0, $result_type = SQL_BOTH )
 	{
-		if( !$query_id )
+		if( !empty($this->query_id) )
 		{
 			$query_id = $this->query_id;
 		}
 		if( $query_id )
 		{
 			$result = array();
-			unset($this->record_set[$query_id]);
-			unset($this->record[$query_id]);
-			while( $this->record_set[$query_id] = @mysql_fetch_array($query_id, $result_type) )
+			unset($this->record_set[(integer)$query_id]);
+			unset($this->record[(integer)$query_id]);
+			while( $this->record_set[(integer)$query_id] = @mysql_fetch_array($query_id, $result_type) )
 			{
-				$result[] = $this->record_set[$query_id];
+				$result[] = $this->record_set[(integer)$query_id];
 			}
 			return $result;
 		}
@@ -388,15 +389,15 @@ class roster_db
 	 */
 	function result( $query_id = 0, $row = 0, $field = '' )
 	{
-		if( !$query_id )
+		if( !empty($this->query_id) )
 		{
 			$query_id = $this->query_id;
 		}
 
 		if( $query_id )
 		{
-			$this->record[$query_id] = @mysql_result($query_id, $row, $field);
-			return $this->record[$query_id];
+			$this->record[(integer)$query_id] = @mysql_result($query_id, $row, $field);
+			return $this->record[(integer)$query_id];
 		}
 		else
 		{
@@ -412,7 +413,7 @@ class roster_db
 	 */
 	function num_rows( $query_id = 0 )
 	{
-		if( !$query_id )
+		if( !empty($this->query_id) )
 		{
 			$query_id = $this->query_id;
 		}
@@ -464,15 +465,16 @@ class roster_db
 	 */
 	function free_result( $query_id = 0 )
 	{
-		if( !$query_id )
+		//if( !$query_id )
+		if( !empty($this->query_id) )
 		{
 			$query_id = $this->query_id;
 		}
 
 		if( $query_id )
 		{
-			unset($this->record[$query_id]);
-			unset($this->record_set[$query_id]);
+			unset($this->record[(integer)$query_id]);
+			unset($this->record_set[(integer)$query_id]);
 
 			@mysql_free_result($query_id);
 

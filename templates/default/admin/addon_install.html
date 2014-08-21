@@ -17,10 +17,18 @@
 </div>
 
 <!-- IF S_ADDON_LIST -->
-
+<div class="tab-navigation" style="height: 30px;display:block;">
+	<ul id="addon_install">
+		<li class="selected" id="ai_0"><!-- TRANSLATE installer_installed --> ({AL_C_ACTIVE})</li>
+		<li class="" id="ai_1"><!-- TRANSLATE installer_upgrade_avail --> ({AL_C_UPGRADE})</li>
+		<li class="" id="ai_2"><!-- TRANSLATE installer_deactivated --> ({AL_C_DEACTIVE})</li>
+		<li class="" id="ai_3"><!-- TRANSLATE installer_not_installed --> ({AL_C_INSTALL})</li>
+		<li class="" id="ai_-1"><!-- TRANSLATE installer_purge --> ({AL_C_PURGE})</li>
+	</ul>
+</div>
 <!-- BEGIN addon_list -->
 
-<div class="tier-2-a">
+<div class="tier-2-a addon_install" id="ai_{addon_list.INSTALL}">
 	<div class="tier-2-b exp-content">
 		<div class="icon">
 			<div class="item">
@@ -48,6 +56,16 @@
 					</button>
 				</form><!-- ENDIF -->
 				<!-- IF addon_list.INSTALL eq 0 -->
+				<form name="uninstall_{addon_list.BASENAME}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
+					<input type="hidden" name="op" value="process" />
+					<input type="hidden" name="addon" value="{addon_list.BASENAME}" />
+					<input type="hidden" name="type" value="uninstall" />
+					<button type="submit" class="input" {L_TIP_INSTALL}>
+						<img src="{THEME_PATH}/images/admin/green.png" style="height:16px;width:16px;border:0;" alt="" />
+						<!-- TRANSLATE installer_uninstall -->
+					</button>
+				</form><!-- ENDIF -->
+				<!-- IF addon_list.INSTALL eq 2 -->
 				<form name="uninstall_{addon_list.BASENAME}" style="display:inline;" method="post" enctype="multipart/form-data" action="{U_MAKELINK}">
 					<input type="hidden" name="op" value="process" />
 					<input type="hidden" name="addon" value="{addon_list.BASENAME}" />

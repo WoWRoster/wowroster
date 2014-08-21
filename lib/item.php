@@ -91,6 +91,7 @@ class item
 		$this->isParseMode = $parse_mode;
 		$this->data = $data;
 		$this->member_id = $data['member_id'];
+		//itemID:enchant:gem1:gem2:gem3:gem4:suffixID:uniqueID:level:reforgeId:upgradeId:
 		$this->item_id = $data['item_id'];
 		$this->name = $data['item_name'];
 		$this->level = $data['item_level'];
@@ -198,6 +199,47 @@ class item
 
 		return $html;
 	}
+	function _getWarforged()
+	{
+		global $roster;
+
+		$heroic = $this->attributes['Warforged'];
+
+		if( preg_match( $roster->locale->act['tooltip_preg_warforged'], $heroic) )
+		{
+			$color = '66DD33';
+		}
+		
+		else
+		{
+			$color = 'ffffff';
+		}
+
+		$html = '<span style="color:#' . $color . ';"><i>' . $heroic . '</i></span><br />';
+
+		return $html;
+	}
+	function _getTimeless()
+	{
+		global $roster;
+
+		$heroic = $this->attributes['Timeless'];
+
+		if( preg_match( $roster->locale->act['tooltip_preg_timeless'], $heroic) )
+		{
+			$color = '66DD33';
+		}
+		
+		else
+		{
+			$color = 'ffffff';
+		}
+
+		$html = '<span style="color:#' . $color . ';"><i>' . $heroic . '</i></span><br />';
+
+		return $html;
+	}
+	
 	
 	// upgrade item strings
 	function _getUpgrade()
@@ -712,9 +754,18 @@ class item
 				$html_tt .= $this->_getUpgrade();
 			}
 			
+			if( isset($this->attributes['Warforged']) )
+			{
+				$html_tt .= $this->_getWarforged();
+			}
+			
 			if( isset($this->attributes['Heroic']) )
 			{
 				$html_tt .= $this->_getHeroic();
+			}
+			if( isset($this->attributes['Timeless']) )
+			{
+				$html_tt .= $this->_getTimeless();
 			}
 			if( isset($this->attributes['Trans']) )
 			{
@@ -1168,7 +1219,18 @@ class item
 			{
 				$tt['Effects']['Equip'][] = $line;
 			}
+			elseif( preg_match( $roster->locale->act['tooltip_preg_warforged'], $line) )
+			{
+				//warforged
+				$tt['Attributes']['Warforged'] = $line;
+			}
+			
 			elseif( preg_match( $roster->locale->act['tooltip_preg_heroic'], $line) )
+			{
+				//heroic
+				$tt['Attributes']['Heroic'] = $line;
+			}
+			elseif( preg_match( $roster->locale->act['tooltip_preg_timeless'], $line) )
 			{
 				//heroic
 				$tt['Attributes']['Heroic'] = $line;

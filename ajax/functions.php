@@ -25,3 +25,15 @@ $ajaxfuncs['menu_button_add'] = array(
 $ajaxfuncs['menu_button_del'] = array(
 	'file'=>ROSTER_AJAX . 'menu.php',
 );
+$ajaxfuncs['item'] = array(
+	'file'=>ROSTER_AJAX . 'tooltip.php',
+);
+$ajaxfuncs['text'] = array(
+	'file'=>ROSTER_AJAX . 'tooltip.php',
+);
+$ajaxfuncs['spell'] = array(
+	'file'=>ROSTER_AJAX . 'tooltip.php',
+);
+$ajaxfuncs['talent'] = array(
+	'file'=>ROSTER_AJAX . 'tooltip.php',
+);

@@ -55,8 +55,10 @@ $id = ( isset($_POST['id']) ? $_POST['id'] : '' );
 			break;
 	}
 }
+$parent = getDbData( ($roster->db->table('forums',$addon['basename'])),'`forum_id`, `title` ', '`parent_id` = "0" ', '`forum_id`' );
 
-$forums = $functions->getForums();
+$roster->tpl->assign_var('PARENT', createList($parent,'','parent',1,'' ));
+$forums = $functions->getForumsa();
 
 	foreach($forums as $id =>$forum)
 	{
@@ -69,6 +71,7 @@ $forums = $functions->getForums();
 					'POSTER'	=> $forum['t_poster'],
 					'U_EDIT'	=> makelink('rostercp-addon-forum-forumedit&amp;id=' .$forum['forumid']),
 					'P_TITLE'	=> $forum['t_title'],
+					'PARENT'	=> createList($parent,$forum['parent_id'],'parent',1,'' ),
 					'L_ACTIVEU' => ( $forum['locked'] == 1 ? 'locked' : 'unlocked'),
 					'L_ACTIVET'	=> ( $forum['locked'] == 1 ? $roster->locale->act['lock'] : $roster->locale->act['unlock']),
 					'L_ACTIVEOP'=> ( $forum['locked'] == 1 ? 'unlock' : 'lock'),
@@ -100,16 +103,24 @@ $menu .= $config->buildConfigMenu('rostercp-addon-' . $addon['basename']);
 function addForum()
 {
 	global $roster, $addon,$installer;
-
+	$parent = 0;
+	if (isset($_POST['parent']))
+	{
+		$parent = $_POST['parent'];
+	}
+//`forum_id`  `parent_id`  `title`  `access`  `order_id`  `desc`  `misc`  `active`  `locked`  `icon`
 	$query = "INSERT INTO `" . $roster->db->table('forums',$addon['basename']) . "` VALUES (
 	NULL,
+	'" . $parent . "',
 	'" . $_POST['title'] . "',
+	'',
 	'',
 	'" . $_POST['order'] . "',
 	'" . $_POST['desc'] . "',
 	'',
 	'',
-	'0'
+	'0',
+	''
 	);";
 	$result = $roster->db->query($query);
 	if( !$result )
@@ -124,9 +135,14 @@ function addForum()
 function updateForum()
 {
 	global $roster, $addon,$installer;
-	
+	$parent = 0;
+	if (isset($_POST['parent']))
+	{
+		$parent = $_POST['parent'];
+	}
 	$query = "UPDATE `" . $roster->db->table('forums',$addon['basename']) . "` SET
 	`title` = '" . $_POST['title'] . "',
+	`parent_id` = '" . $parent . "',
 	`desc` = '" . $_POST['desc'] . "',
 	`order_id` = '" . $_POST['order_id'] . "' WHERE `forum_id` = '".$_GET['id']."';";
 	$result = $roster->db->query($query);
@@ -227,3 +243,73 @@ if( !empty($messagestringout) )
 {
 	$roster->set_message($messagestringout, $roster->locale->act['installer_log']);
 }
+
+
+function createList( $values , $selected , $id , $type=0 , $param='' )
+	{
+		if( $selected != '' )
+		{
+			$select_one = true;
+		}
+
+		$option_list = "\n\t<select id=\"{$id}\" name=\"{$id}\" $param>\n\t\t<option value=\"\" style=\"color:grey;\">--None--</option>\n";
+
+		foreach( $values as $data )
+		{
+			if( $selected == $data['forum_id'] && $select_one )
+			{
+				$option_list .= "\t\t\t<option value=\"".$data['forum_id']."\" selected=\"selected\">".$data['title']."</option>\n";
+				$select_one = false;
+			}
+			else
+			{
+				$option_list .= "\t\t\t<option value=\"".$data['forum_id']."\">".$data['title']."</option>\n";
+			}
+		}
+		$option_list .= "\t</select>";
+
+		return $option_list;
+	}
+	
+	function getDbData( $table , $field , $where='', $order='' )
+	{
+		global $roster;
+
+		if( !empty($table) )
+		{
+			if( !empty($where) )
+			{
+				$where = ' WHERE ' . $where;
+			}
+
+			if( !empty($order) )
+			{
+				$order = ' ORDER BY ' . $order;
+			}
+
+			if( empty($field) )
+			{
+				$field = '*';
+			}
+
+			// SQL String
+			$sql_str = "SELECT $field FROM `$table`$where$order;";
+
+			$result = $roster->db->query($sql_str);
+
+			if ( $result )
+			{
+				
+					$data = array();
+					for( $i=0; $i<$roster->db->num_rows(); $i++)
+					{
+						$row = $roster->db->fetch($result, SQL_ASSOC);
+						$data[] = $row;
+					}
+					return $data;
+				
+			}
+		}
+	}
+	
+	

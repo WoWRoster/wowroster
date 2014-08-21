@@ -76,7 +76,7 @@ else
 $roster->output['show_header'] = false;
 $roster->output['show_menu'] = false;
 $roster->output['show_footer'] = false;
-
+/*
 header('Content-Type: text/xml');
 
 // Output XML
@@ -88,3 +88,4 @@ echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' . "\n"
 	. '  <status>' . (int)$status . "</status>\n"
 	. '  <errmsg>' . $errmsg . "</errmsg>\n"
 	. "</response>\n";
+*/

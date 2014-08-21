@@ -23,6 +23,7 @@
 	/*float: left;*/
 	/*position: relative;*/
 	z-index: 0;
+	margin-bottom: 1px !important;
 }
 .camera_wrap img {
 	max-width: none!important;
@@ -208,11 +209,21 @@
 	right:0;
 	z-index: 4;
 }
+.camera_pag {
+margin: 1px;
+padding: 1px;
+position: absolute;
+bottom: 1px;
+right: 1px;
+}
 .camera_wrap .camera_pag .camera_pag_ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	text-align: right;
+list-style: none;
+margin: 0;
+padding: 0;
+text-align: right;
+/* bottom: 1px; */
+position: relative;
+display: block;
 }
 .camera_wrap .camera_pag .camera_pag_ul li {
 	-webkit-border-radius: 8px;
