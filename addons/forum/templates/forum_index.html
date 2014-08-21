@@ -1,0 +1,33 @@
+
+	<!-- BEGIN forums -->
+	<div class="forum_header">
+				<div class="head">
+					<div class="icon"></div>
+					<div class="title">{forums.TITLE}</div>
+					<div class="topic">Topics</div>
+					<div class="posts">Posts</div>
+					<div  class="lastpost">Last Poster</div>
+				</div>
+
+				<!-- BEGIN subforum -->
+				
+				
+				<div class="forum">
+					<div class="icon">
+						<img src="images/forum_<!-- IF forums.subforum.READ -->read<!-- ELSE -->unread<!-- ENDIF -->{forums.subforum.IMAGEL}.gif"></a>
+					</div>					
+					<div class="title">
+						<a href="{forums.subforum.FORUM_URL}" class="topictitle">{forums.subforum.TITLE}</a>
+						<br>
+						{forums.subforum.DESC}
+					</div>
+					<div class="topicx">{forums.subforum.TOPICS}</div>
+					<div class="posts">{forums.subforum.POSTS}</div>
+					<div  class="lastpost"><span>{forums.subforum.L_POSTER}<br>{forums.subforum.L_POST_TIME}</span></div>
+			
+				</div>
+				
+				<!-- END subforum -->
+			</div>
+
+	<!-- END -->

@@ -1,0 +1,722 @@
+
+/*
+	Main forum Index page
+*/
+.forum_header {
+	background-color: #051A53;
+	background-image: url(../images/forum/bg_list.gif);
+	background-repeat: repeat-x;
+	padding: 2px;
+}
+.forum_header .head{
+	word-wrap: normal|break-word;
+	display: block;
+	position:relative;
+	overflow:hidden;
+	margin-bottom: 0px;
+	padding: 1px;
+	position:relative;
+}
+.forum_header .head .icon {
+	float: left;
+	margin: 1px;
+	overflow: hidden;
+	display: inline-block;
+   vertical-align: bottom;
+}
+.forum_header .head .title {
+	width: 42%;
+	position:relative;
+	font-size: 20px;
+	padding:3px 5px 1px 5px;
+	color: #fff;
+	float: left;
+	margin: 1px;
+	height: 23px;
+	overflow: hidden;
+	display: inline-block;
+   vertical-align: bottom;
+	bottom: 1px;
+}
+
+.forum_header .head .topic {
+	width: 9%;
+	text-align: center;
+	font-size: 1em;
+	color: #fff;
+	padding:5px 5px 0px 5px;
+	float: left;
+	margin: 1px;
+	height: 20px;
+	overflow: hidden;
+	position:relative;
+	display: inline-block;
+   vertical-align: bottom;
+}
+.forum_header .head .posts {
+	width: 9%;
+	text-align: center;
+	font-size: 1em;
+	color: #fff;
+	padding:5px 5px 0px 5px;
+	float: left;
+	margin: 1px;
+	height: 20px;
+	overflow: hidden;
+	position:relative;
+	display:  inline-block;
+   vertical-align: bottom;
+}
+
+.forum_header .head .lastpost {
+	width: 20%;
+	font-size: 1em;
+	color: #fff;
+	padding:5px 5px 0px 5px;
+	float: right;
+	margin: 1px;
+	overflow: hidden;
+	position:relative;
+	display:  inline-block;
+   vertical-align: bottom;
+}
+.forum_header .head .button {
+
+	font-size: 1em;
+	padding:4px 1px 4px 1px;
+	float: right;
+	height: 20px;
+	margin: 1px;
+	overflow: hidden;
+	position:relative;
+	display:  inline-block;
+   vertical-align: bottom;
+}
+
+.forum{
+	word-wrap: normal|break-word;
+	height: 40px;
+	position:relative;
+	overflow:hidden;
+	margin: 1px 5px 1px 5px;
+	padding: 1px 5px 1px 5px;
+	background-color: #F6F5F1;
+	background-image: url("../images/forum/gradient.gif");
+	border:1px solid #585858;
+}
+.forum:hover {
+	background-color: #F4F2D2;
+}
+.forum .icon {
+	width: 30px;
+	padding:6px 8px 8px 8px;
+	float: left;
+	margin: 1px;
+	height: 45px;
+	vertical-align:middle;
+	overflow: hidden;
+}
+.forum .title {
+	width: 37%;
+	padding:2px;
+	float: left;
+	margin: 1px;
+	color: #000;
+	height: 45px;
+	overflow: hidden;
+	display: block;
+	position:relative;
+}
+.forum .title  .name{
+	line-height: 20px;
+	top:-1px;
+}
+.forum .title  .desc{
+	line-height: 18px;
+	font-size: 12px;
+	
+}
+.forum .title .name .ticon { height: 16px; width: 16px; float: left; margin: 1px; position: relative; 
+	border:1px solid #585858;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;;
+	-moz-box-shadow: 0 0 1px #000000;
+	-webkit-box-shadow: 0 0 1px #000000;
+	box-shadow: 0 0 1px #000000;
+	}
+.forum .title .name .ticon img { height: 16px; width: 16px; }
+
+.forum .title a{
+	color: #ffb001;
+}
+.forum .title a:hover{
+	color: #FFF;
+}
+.forum .topicx {
+	width: 9%;
+	text-align: center;
+	line-height: 2.2em;
+	font-size: 1.2em;
+	padding:5px;
+	float: left;
+	margin: 1px;
+	height: 45px;
+	overflow: hidden;
+	display: block;
+	position:relative;
+	color: #000;
+	border-left: 1px solid #000;
+}
+.forum .posts {
+	width: 9%;
+	text-align: center;
+	line-height: 2.2em;
+	font-size: 1.2em;
+	padding:5px;
+	float: left;
+	margin: 1px;
+	height: 45px;
+	overflow: hidden;
+	display: block;
+	position:relative;
+	color: #000;
+	border-right: 1px solid #000;
+	border-left: 1px solid #000;
+}
+
+.forum .lastpost {
+	width: 27%;
+	font-size: 12px;
+	padding:5px;
+	float: right;
+	margin: 1px;
+	overflow: hidden;
+	display: block;
+	vertical-align: bottom; 
+	color: #000;
+	position:relative;
+}
+/*
+	Topics page
+*/
+
+.topics {
+	background:url('../images/xcontent.png') repeat center top; 
+	border:1px solid #A4A4A4; 
+	word-wrap: normal|break-word;
+	height: 40px;
+	position:relative;
+	overflow:hidden;
+	margin-bottom: 4px;
+}
+.sticky {
+	border:1px solid #ffb001;
+}
+.topics .icon {
+	width: 30px;
+	padding:8px;
+	float: left;
+	margin: 1px;
+	height: 45px;
+	vertical-align:middle;
+	overflow: hidden;
+}
+.topics .title {
+	width: 50%;
+	font-size: 1.1em;
+	padding:5px;
+	float: left;
+	margin: 1px;
+	height: 45px;
+	overflow: hidden;
+	display: block;
+	position:relative;
+}
+.topics .title .right{
+	height: 45px;
+	float: right;
+	margin: 1px;
+	bottom:1px;
+	right:1px;
+	display: block;
+	position:relative;
+}
+.topics .posts {
+	width: 13%;
+	text-align: center;
+	line-height: 2.2em;
+	font-size: 1.2em;
+	padding:5px;
+	float: left;
+	margin: 1px;
+	height: 45px;
+	overflow: hidden;
+	display: block;
+	position:relative;
+}
+
+.topics .lastpost {
+	width: 25%;
+	font-size: 1.1em;
+	padding:5px;
+	float: right;
+	margin: 1px;
+	overflow: hidden;
+	display: block;
+	position:relative;
+}
+
+
+/*
+	Post page
+*/
+
+.postBox {
+	background:url('../images/news/news-bg.jpg') repeat center top; 
+	border:1px solid #585858; 
+	margin: 0px 8px 5px 8px;
+	/*width: 673px;*/
+	padding:5px;
+	word-wrap: normal|break-word;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0 0 20px #000000;
+	-webkit-box-shadow: 0 0 20px #000000;
+	box-shadow: 0 0 20px #000000;
+	overflow:hidden;	
+}
+.xadmin {
+	background: #000 url(/images/admin-post.jpg) repeat-x right top;
+}
+.xmod {
+	background: #000 url(/images/mod-post.png) repeat right top;
+}
+.postBox .title {
+	border: 1px solid #372511;
+	padding: 1px;
+	margin: 1px;
+	height: 24px;
+	display: block;
+	font: bolder normal 18px Georgia, "Times New Roman", Times, serif;
+	text-align:left;
+    margin-left: auto;
+    margin-right: auto;
+	overflow: hidden;
+}
+.postBox .postby {
+	border: 1px solid #372511;
+	padding: 1px;
+	margin: 1px;
+	height: 18px;
+	display: block;
+	font: normal 10px Georgia, "Times New Roman", Times, serif;
+	text-align:left;
+    margin-left: auto;
+    margin-right: auto;
+	overflow: hidden;
+}
+.postBox .postBody {
+	
+	padding: 1px;
+	margin: 1px;
+	display: block;
+	overflow: hidden;
+}
+.postBox .sig {
+	vertical-align: bottom;
+	padding: 1px;
+	margin: 1px;
+	margin-top: 5px;
+	overflow: hidden;
+	border-top: 1px solid #9D7D1C;
+}
+.postBox .profile{
+	float: right;
+	width: 120px;
+	vertical-align: top;
+	padding:4px;
+	margin: 1px;
+	overflow: hidden;
+	border:1px solid #585858;
+	display: block;
+	position: relative;
+}
+.postBox .profile .name {
+	/*border: 1px solid #372511;*/
+	padding: 1px;
+	margin: 1px;
+	height: 24px;
+	display: block;
+	text-align:center;
+    margin-left: auto;
+    margin-right: auto;
+	overflow: hidden;
+}
+
+.postBox .profile .avatar {
+-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-box-shadow: 0 0 20px #000000;
+	-webkit-box-shadow: 0 0 20px #000000;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	box-shadow: 0 0 20px #000000;
+	border: 1px solid #372511;
+	margin-top: 5px;
+	display: block;
+	width: 100px;
+    margin-left: auto;
+    margin-right: auto 
+}
+
+.postBox .profile .text {
+
+}
+
+
+.panel {
+	margin-bottom: 4px;
+	padding: 0 10px;
+	background-color: #f3f3f3;
+	color: #3f3f3f;
+}
+
+.post {
+	padding: 0 10px;
+	margin-bottom: 4px;
+	background-repeat: no-repeat;
+	background-position: 100% 0;
+}
+
+.post:target .content {
+	color: #000000;
+}
+
+.post:target h3 a {
+	color: #000000;
+}
+
+.bg1	{ background-color: #f7f7f7;}
+.bg2	{ background-color: #f2f2f2; }
+.bg3	{ background-color: #ebebeb; }
+
+.rowbg {
+	margin: 5px 5px 2px 5px;
+}
+
+.ucprowbg {
+	background-color: #e2e2e2;
+}
+
+.fieldsbg {
+	/*border: 1px #E0E0DD solid;*/
+	background-color: #eaeaea;
+}
+
+span.corners-top, span.corners-bottom, span.corners-top span, span.corners-bottom span {
+	font-size: 1px;
+	line-height: 1px;
+	display: block;
+	height: 5px;
+	background-repeat: no-repeat;
+}
+
+span.corners-top {
+	background-image: none;
+	background-position: 0 0;
+	margin: 0 -5px;
+}
+
+span.corners-top span {
+	background-image: none;
+	background-position: 100% 0;
+}
+
+span.corners-bottom {
+	background-image: none;
+	background-position: 0 100%;
+	margin: 0 -5px;
+	clear: both;
+}
+
+span.corners-bottom span {
+	background-image: none;
+	background-position: 100% 100%;
+}
+
+.headbg span.corners-bottom {
+	margin-bottom: -1px;
+}
+
+.post span.corners-top, .post span.corners-bottom, .panel span.corners-top, .panel span.corners-bottom, .navbar span.corners-top, .navbar span.corners-bottom {
+	margin: 0 -10px;
+}
+
+.rules span.corners-top {
+	margin: 0 -10px 5px -10px;
+}
+
+.rules span.corners-bottom {
+	margin: 5px -10px 0 -10px;
+}
+
+.postbody {
+	padding: 0;
+	line-height: 1.48em;
+	color: #333333;
+	width: 76%;
+	float: left;
+	clear: both;
+}
+
+.postbody .ignore {
+	font-size: 1.1em;
+}
+
+.postbody h3.first {
+	/* The first post on the page uses this */
+	font-size: 1.7em;
+}
+
+.postbody h3 {
+	/* Postbody requires a different h3 format - so change it here */
+	font-size: 1.5em;
+	padding: 2px 0 0 0;
+	margin: 0 0 0.3em 0 !important;
+	text-transform: none;
+	border: none;
+	font-family: "Trebuchet MS", Verdana, Helvetica, Arial, sans-serif;
+	line-height: 125%;
+}
+
+.postbody h3 img {
+	/* Also see tweaks.css */
+	vertical-align: bottom;
+}
+
+.postbody .content {
+	font-size: 1.3em;
+}
+
+.search .postbody {
+	width: 68%
+}
+/* Poster profile icons
+----------------------------------------*/
+ul.profile-icons {
+	padding-top: 2px;
+	list-style: none;
+}
+
+/* Rollover state */
+ul.profile-icons li {
+	float: left;
+	margin: 0 6px 3px 0;
+	background-position: 0 100%;
+}
+
+/* Rolloff state */
+ul.profile-icons li a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background-position: 0 0;
+}
+
+/* Hide <a> text and hide off-state image when rolling over (prevents flicker in IE) */
+ul.profile-icons li span { display:none; }
+ul.profile-icons li a:hover { background: none; }
+
+/* Positioning of moderator icons */
+.postbody ul.profile-icons {
+	float: right;
+	width: auto;
+	padding: 0;
+}
+
+.postbody ul.profile-icons li {
+	margin: 0 3px;
+}
+
+/* Profile & navigation icons */
+.email-icon, .email-icon a		{ background: none top left no-repeat; }
+.aim-icon, .aim-icon a			{ background: none top left no-repeat; }
+.yahoo-icon, .yahoo-icon a		{ background: none top left no-repeat; }
+.web-icon, .web-icon a			{ background: none top left no-repeat; }
+.msnm-icon, .msnm-icon a			{ background: none top left no-repeat; }
+.icq-icon, .icq-icon a			{ background: none top left no-repeat; }
+.jabber-icon, .jabber-icon a		{ background: none top left no-repeat; }
+.pm-icon, .pm-icon a				{ background: none top left no-repeat; }
+.quote-icon, .quote-icon a		{ background: none top left no-repeat; }
+
+/* Moderator icons */
+.report-icon, .report-icon a		{ background: none top left no-repeat; }
+.warn-icon, .warn-icon a			{ background: none top left no-repeat; }
+.edit-icon, .edit-icon a			{ background: none top left no-repeat; }
+.delete-icon, .delete-icon a		{ background: none top left no-repeat; }
+.info-icon, .info-icon a			{ background: none top left no-repeat; }
+
+/* Set profile icon dimensions */
+ul.profile-icons li.email-icon		{ width: 20px; height: 20px; }
+ul.profile-icons li.aim-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.yahoo-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.web-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.msnm-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.icq-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.jabber-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.pm-icon		{ width: 28px; height: 20px; }
+ul.profile-icons li.quote-icon	{ width: 54px; height: 20px; }
+ul.profile-icons li.report-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.edit-icon	{ width: 42px; height: 20px; }
+ul.profile-icons li.delete-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.info-icon	{ width: 20px; height: 20px; }
+ul.profile-icons li.warn-icon	{ width: 20px; height: 20px; }
+
+/* Fix profile icon default margins */
+ul.profile-icons li.edit-icon	{ margin: 0 0 0 3px; }
+ul.profile-icons li.quote-icon	{ margin: 0 0 0 10px; }
+ul.profile-icons li.info-icon, ul.profile-icons li.report-icon	{ margin: 0 3px 0 0; }
+/* proSilver Control Panel Styles */
+ul.profile-icons
+{
+margin: 0px;
+padding: 0px;
+font-family: Verdana,Helvetica,Arial,sans-serif;
+font-size: 12px;
+line-height: 14px;
+float: right;
+display: inline;
+}
+/* Post author */
+p.author {
+	margin: 0 15em 0.6em 0;
+	padding: 0 0 5px 0;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	line-height: 14px;
+}
+/* Poster profile block
+----------------------------------------*/
+.postprofile {
+	/* Also see tweaks.css */
+	margin: 5px 0 10px 0;
+	min-height: 80px;
+	color: #666666;
+	border-left: 1px solid #FFFFFF;
+	width: 22%;
+	float: right;
+	display: inline;
+}
+.pm .postprofile {
+	border-left: 1px solid #DDDDDD;
+}
+
+.postprofile dd, .postprofile dt {
+	line-height: 1.2em;
+	margin-left: 8px;
+}
+
+.postprofile strong {
+	font-weight: normal;
+	color: #000000;
+}
+
+.avatar {
+	border: none;
+	margin-bottom: 3px;
+}
+
+.online {
+	background-image: none;
+	background-position: 100% 0;
+	background-repeat: no-repeat;
+}
+
+/* Poster profile used by search*/
+.search .postprofile {
+	width: 30%;
+}
+
+/* pm list in compose message if mass pm is enabled */
+dl.pmlist dt {
+	width: 60% !important;
+}
+
+dl.pmlist dt textarea {
+	width: 95%;
+}
+
+dl.pmlist dd {
+	margin-left: 61% !important;
+	margin-bottom: 2px;
+}
+
+
+
+
+.pagi-selected,
+.pagi-active,
+.pagi-inactive {
+	border:1px solid #4e4d4c;
+	background-color:#C79C6E;
+	padding:3px;
+	margin:0 2px;
+}
+.pagi-selected {
+	background-color:#FF7D0A;
+}
+.pagi-inactive {
+	background-color:#C79C6E;
+  color:#909090;
+}
+
+
+
+
+
+
+
+/* Icon images
+---------------------------------------- */
+.sitehome						{ background-image: url("images/icon_home.gif"); }
+.icon-pastebin					{ background-image: url("images/icon_pastebin.gif"); }
+.icon-chat						{ background-image: url("images/icon_chat.gif"); }
+.icon-wiki						{ background-image: url("images/icon_wiki.gif"); }
+.icon-donate					{ background-image: url("images/icon_donate.gif"); }
+.icon-faq						{ background-image: url("images/icon_faq.gif"); }
+.icon-members					{ background-image: url("images/icon_members.gif"); }
+.icon-home						{ background-image: url("images/icon_home.gif"); }
+.icon-ucp						{ background-image: url("images/icon_ucp.gif"); }
+.icon-register					{ background-image: url("images/icon_register.gif"); }
+.icon-logout					{ background-image: url("images/icon_logout.gif"); }
+.icon-bookmark					{ background-image: url("images/icon_bookmark.gif"); }
+.icon-bump						{ background-image: url("images/icon_bump.gif"); }
+.icon-subscribe					{ background-image: url("images/icon_subscribe.gif"); }
+.icon-unsubscribe				{ background-image: url("images/icon_unsubscribe.gif"); }
+.icon-pages						{ background-image: url("images/icon_pages.gif"); }
+.icon-search					{ background-image: url("images/icon_search.gif"); }
+.icon-download					{ background-image: url("images/icon_dl.gif"); }
+.icon-hacklist					{ background-image: url("images/icon_hl.gif"); }
+.icon-tracker					{ background-image: url("images/icon_bt.gif"); }
+
+/* Profile & navigation icons */
+.email-icon, .email-icon a		{ background-image: url("images/icon_contact_email.gif"); }
+.aim-icon, .aim-icon a			{ background-image: url("images/icon_contact_aim.gif"); }
+.yahoo-icon, .yahoo-icon a		{ background-image: url("images/icon_contact_yahoo.gif"); }
+.web-icon, .web-icon a			{ background-image: url("images/icon_contact_www.gif"); }
+.msnm-icon, .msnm-icon a			{ background-image: url("images/icon_contact_msnm.gif"); }
+.icq-icon, .icq-icon a			{ background-image: url("images/icon_contact_icq.gif"); }
+.jabber-icon, .jabber-icon a		{ background-image: url("images/icon_contact_jabber.gif"); }
+.pm-icon, .pm-icon a				{ background-image: url("images/en/icon_contact_pm.gif"); }
+.quote-icon, .quote-icon a		{ background-image: url("images/en/icon_post_quote.gif"); }
+
+/* Moderator icons */
+.report-icon, .report-icon a		{ background-image: url("images/icon_post_report.gif"); }
+.edit-icon, .edit-icon a			{ background-image: url("images/en/icon_post_edit.gif"); }
+.delete-icon, .delete-icon a		{ background-image: url("images/icon_post_delete.gif"); }
+.info-icon, .info-icon a			{ background-image: url("images/icon_post_info.gif"); }
+.warn-icon, .warn-icon a			{ background-image: url("images/icon_user_warn.gif"); }
