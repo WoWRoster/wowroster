@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `renprefix_user_members` (
   `online` int(11) NOT NULL DEFAULT '0',
   `user_lastvisit` int(15) DEFAULT NULL,
   `last_sid` varchar(80) DEFAULT NULL,
+  `hash` varchar(32) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `usr` (`usr`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
@@ -66,6 +67,15 @@ CREATE TABLE IF NOT EXISTS `renprefix_sessions` (
   UNIQUE KEY `sess_id` (`sess_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `renprefix_sessions_keys`;
+CREATE TABLE `renprefix_sessions_keys` (
+ `key_id` char(32) NOT NULL,
+ `user_id` mediumint(8) UNSIGNED NOT NULL DEFAULT '0',
+ `last_ip` varchar(40) NOT NULL,
+ `last_login` int(11) UNSIGNED NOT NULL DEFAULT '0',
+ KEY `last_login` ( `last_login` ),
+ PRIMARY KEY  ( `key_id`, `user_id` )
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 # --------------------------------------------------------
 ### Addon
@@ -143,6 +153,46 @@ CREATE TABLE IF NOT EXISTS `renprefix_api_usage` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `renprefix_api_enchant`;
+CREATE TABLE `renprefix_api_enchant` (
+ `id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+ `name` varchar(200) NOT NULL,
+ `bonus` mediumtext DEFAULT NULL,
+ `slot` varchar(30) NOT NULL,
+ `icon` varchar(64) NOT NULL,
+ `description` mediumtext NOT NULL,
+ `castTime` varchar(100) DEFAULT NULL,
+ KEY `name` ( `name` ),
+ PRIMARY KEY  ( `id` )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `renprefix_api_error`;
+CREATE TABLE `renprefix_all_error` (
+ `gem_id` int(11) NOT NULL,
+ `gem_name` varchar(96) NOT NULL,
+ `gem_color` varchar(16) NOT NULL,
+ `gem_tooltip` mediumtext NOT NULL,
+ `gem_texture` varchar(64) NOT NULL,
+ `gem_bonus` varchar(255) NOT NULL,
+ `gem_bonus_stat1` varchar(255) NOT NULL,
+ `gem_bonus_stat2` varchar(255) NOT NULL,
+ `locale` varchar(16) NOT NULL,
+ `timestamp` int(10) NOT NULL,
+ `json` longtext DEFAULT NULL,
+ PRIMARY KEY  ( `gem_id`, `locale` )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `renprefix_api_error`;
+CREATE TABLE `renprefix_api_error` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `type` varchar(50) DEFAULT NULL,
+ `error` varchar(250) DEFAULT NULL,
+ `error_info` varchar(50) DEFAULT NULL,
+ `total` int(10) NOT NULL DEFAULT '0',
+ PRIMARY KEY  ( `id` )
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS `renprefix_api_gems`;
 CREATE TABLE `renprefix_api_gems` (
   `gem_id` int(11) NOT NULL,
@@ -159,20 +209,19 @@ CREATE TABLE `renprefix_api_gems` (
 
 DROP TABLE IF EXISTS `renprefix_api_items`;
 CREATE TABLE `renprefix_api_items` (
-  `item_id` int(11) NOT NULL,
-  `item_name` varchar(96) NOT NULL default '',
-  `item_color` varchar(16) NOT NULL default '',
-  `item_texture` varchar(64) NOT NULL default '',
-  `item_quantity` int(11) default NULL,
-  `item_tooltip` mediumtext NOT NULL,
-  `level` int(11) default NULL,
-  `item_level` int(11) default NULL,
-  `item_type` varchar(64) default NULL,
-  `item_subtype` varchar(64) default NULL,
-  `item_rarity` int(4) NOT NULL default -1,
-  `locale` varchar(16) default NULL,
-  `timestamp` int(10) NOT NULL,
-  `json` longtext,
+   `item_id`        int(11) NOT NULL,
+   `item_name`      varchar(96) NOT NULL,
+   `item_color`     varchar(16) NOT NULL,
+   `item_texture`   varchar(64) NOT NULL,
+   `item_tooltip`   mediumtext NOT NULL,
+   `level`          int(11) DEFAULT NULL,
+   `item_level`     int(11) DEFAULT NULL,
+   `item_type`      varchar(64) DEFAULT NULL,
+   `item_subtype`   varchar(64) DEFAULT NULL,
+   `item_rarity`    int(4) NOT NULL DEFAULT '-1',
+   `locale`         varchar(16) DEFAULT NULL,
+   `timestamp`      int(10) NOT NULL,
+   `json`           longtext DEFAULT NULL
   PRIMARY KEY  (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -313,6 +362,7 @@ CREATE TABLE `renprefix_items` (
   `item_subtype` varchar(64) default NULL,
   `item_rarity` int(4) NOT NULL default -1,
   `locale` varchar(4) default NULL,
+  `json` longtext DEFAULT NULL
   PRIMARY KEY  (`member_id`,`item_parent`,`item_slot`),
   KEY `parent` (`item_parent`),
   KEY `slot` (`item_slot`),
