@@ -1,0 +1,34 @@
+/**
+ * WoWRoster.net WoWRoster
+ *
+ * Character info CSS file
+ *
+ *
+ * @copyright  2002-2011 WoWRoster.net
+ * @license    http://www.gnu.org/licenses/gpl.html   Licensed under the GNU General Public License v3.
+ * @version    SVN: $Id$
+ * @link       http://www.wowroster.net
+ * @package    Vault
+ */
+
+.vault-grid { margin: auto; width: 672px; }
+.vault-log { margin: auto; width: 672px; }
+.vault-column { width:48px; float:left; }
+.title-money { color: #000; font: bold 12px/18px Verdana, Geneva, sans-serif; z-index: 500; float: right; margin-top: 0px; margin-bottom: 0; margin-left: 0px; }
+.title-money img { width:11px; height:10px; }
+.tab-navigation { position:relative; float:right; }
+.tab-navigation .Tab1 { position:relative; float:right; }
+.tab-navigation .Tab2{ position:relative; float:right; }
+.tab-navigation .Tab3{ position:relative; float:right; }
+.tab-navigation .Tab4{ position:relative; float:right; }
+.tab-navigation .Tab5{ position:relative; float:right; }
+.tab-navigation .Tab6{ position:relative; float:right; }
+.tab-navigation .Tab7{ position:relative; float:right; }
+.tab-navigation .Tab8{ position:relative; float:right; }
+.tab-navigation .MoneyLog{ position:relative; float:right; }
+.deposit { font-weight:bold;color:#7eff00; }
+.withdraw { font-weight:bold;color:#ff0000; }
+.move { font-weight:bold;color:#8000ff; }
+.repair { font-weight:bold;color:#593300; }
+.withdrawtab { font-weight:bold;color:#ff0000; }
+.purchasetab { font-weight:bold;color:#7eff00; }

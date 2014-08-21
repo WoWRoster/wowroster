@@ -1,0 +1,122 @@
+
+.pet { 
+	background:url('images/pet_bg.png') left top repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 170px;
+	width:48%; position:relative; display:inline-block; float: left;
+} 
+.pet-info { height: 168px; }
+.pet-info .name { font: 18px Georgia, "Times New Roman", Times, serif; font-weight: bold; color: #361701; margin-bottom: 5px; text-align: center;}
+.pet-info .level { font: 14px Georgia, "Times New Roman", Times, serif; font-weight: bold; color: #361701; margin-bottom: 5px; text-align: center;}
+.pet-info .desc { 
+	font: 14px Georgia, "Times New Roman", Times, serif;
+	color: #b6803d;
+	float:left;
+	left: 5px;
+	top: 5px;
+	position:relative;
+}
+.pet-abilities {
+	background:url('images/abilities.png') left top no-repeat;
+	width: 168px;position:relative;
+	height: 107px;
+	float: right; top: 11px;
+}
+.pet-abilities .skill1 {
+	position:absolute;
+	height: 32px; width: 32px;
+	left: 5px; top: 6px;
+}
+.pet-abilities .skill2 {
+	position:absolute;
+	height: 32px; width: 32px;
+	left: 61px; top: 6px;
+}
+.pet-abilities .skill4 {
+	position:absolute;
+	height: 32px; width: 32px;
+	left: 118px; top: 6px;
+}
+.pet-abilities .skill10 {
+	position:absolute;
+	height: 32px; width: 32px;
+	left: 5px; top: 52px;
+}
+.pet-abilities .skill15 {
+	position:absolute;
+	height: 32px; width: 32px;
+	left: 61px; top: 52px;
+}
+.pet-abilities .skill20 {
+	position:absolute;
+	height: 32px; width: 32px;
+	left: 118px; top: 52px;
+}
+.pet-1{ 
+	background:url('images/PetIcon-Humanoid.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-2{ 
+	background:url('images/PetIcon-Dragon.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-3{ 
+	background:url('images/PetIcon-Flying.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-4{ 
+	background:url('images/PetIcon-Undead.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-5{ 
+	background:url('images/PetIcon-Critter.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-6{ 
+	background:url('images/PetIcon-Magical.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-7{ 
+	background:url('images/PetIcon-Elemental.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-8{ 
+	background:url('images/PetIcon-Beast.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-9{ 
+	background:url('images/PetIcon-Water.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+.pet-10{ 
+	background:url('images/PetIcon-Mechanical.png') left top no-repeat;
+	border:1px solid #b6803d;
+	margin: 1px; height: 166px;
+	width:99%;position:relative; display:inline-block; float: left;
+}
+
+
+
+/*
+.pet-icon { color:#135E82; float: left; left:10px; top: 10px; }
+.pet .icon { height: 32px; width: 32px; float: left; position: relative; }
+.pet .icon img { height: 32px; width: 32px; }
+*/

@@ -1,0 +1,118 @@
+<!-- BEGIN forum -->
+
+				<div class="tier-2-a">
+					<div class="tier-2-b exp-content">
+						<div class="addon-status" style="width: 170px;">
+
+							
+							<div style="margin-top:3px;">
+								<form name="activate" style="display:block;float:left;" method="post" enctype="multipart/form-data" action="">
+									<input type="hidden" name="op" value="process" />
+									<input type="hidden" name="type" value="{forum.B_ACTIVEOP}" />
+									<input type="hidden" name="id" value="{forum.FORUM_ID}" />
+									<button type="submit" class="input" >
+									<img src="/wowroster/templates/default/images/admin/{forum.B_ACTIVEI}.png" style="height:16px;width:16px;border:0;" alt="" />{forum.B_ACTIVET}</button>
+								</form>
+								<form name="lock" style="display:block;float:right;" method="post" enctype="multipart/form-data" action="">
+									<input type="hidden" name="op" value="process" />
+									<input type="hidden" name="type" value="{forum.L_ACTIVEOP}" />
+									<input type="hidden" name="id" value="{forum.FORUM_ID}" />
+									<button type="submit" class="input" ><span class="ui-icon ui-icon-{forum.L_ACTIVEU}"></span>{forum.L_ACTIVET}</button>
+								</form>
+							</div>
+							
+							<div style="margin-top:3px;">
+								<form name="delete" style="display:inline;" method="post" enctype="multipart/form-data" action="">
+									<input type="hidden" name="op" value="process" />
+									<input type="hidden" name="type" value="delete" />
+									<input type="hidden" name="id" value="{forum.FORUM_ID}" />
+									<button type="submit" class="input" >
+									<img src="/wowroster/templates/default/images/admin/yellow.png" style="height:16px;width:16px;border:0;" alt="" />Delete</button>
+								</form>
+							</div>
+							
+							<div style="margin-top:3px;">
+								<a href="{forum.U_EDIT}"><button type="submit" class="input" >
+									<img src="/wowroster/templates/default/images/admin/purple.png" style="height:16px;width:16px;border:0;" alt="" />Edit</button></a>
+							</div>
+							
+						</div>
+
+						<div class="tier-2-title">
+							{forum.TITLE}
+						</div>
+						
+						<div class="info-text-h">
+							<div>{forum.DESC}<br>Posts: {forum.POSTS}</div>
+						</div>
+						
+						<div class="info-text">
+						<!-- TRANSLATE order -->: {forum.ORDER}
+						</div>
+
+					</div>
+					<form action="{U_MAKELINK}" method="post" style="display:block;padding: 3px;">
+						<input type="hidden" name="op" value="process" />
+						<input type="hidden" name="type" value="parent" />
+						<input type="hidden" name="id" value="{forum.FORUM_ID}" />
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<!-- TRANSLATE parent -->: <input type="submit" value="Change Parent" />
+									</div>
+									<div class="config-input">
+										{forum.PARENT}
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<form action="{U_MAKELINK}" method="post" style="display:block;padding: 3px;">
+						<input type="hidden" name="op" value="process" />
+						<input type="hidden" name="type" value="access" />
+						<input type="hidden" name="id" value="{forum.FORUM_ID}" />
+						<div class="tier-3-a">
+							<div class="tier-3-b">
+								<div class="config">
+									<div class="config-name">
+										<!-- TRANSLATE access_level -->: <input type="submit" value="Set" />
+									</div>
+									<div class="config-input">
+										{forum.ACCESS}
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<!-- END forum -->
+				
+<form method="post" action="" id="addnews" style="text-align:left;">
+	<input type="hidden" name="op" value="process" />
+	<input type="hidden" name="type" value="add" />
+
+	<div class="tier-2-a">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+				<div class="right"><input type="submit" value="<!-- TRANSLATE add_forum -->" /></div>
+				<!-- TRANSLATE add_forum -->
+			</div>
+
+			<div class="info-text">
+				<label for="title"><!-- TRANSLATE title -->:</label> <input name="title" id="title" type="text" maxlength="150" size="75" value="" />
+			</div>
+			<div class="info-text">
+				<label for="desc"><!-- TRANSLATE description -->:</label> <input name="desc" id="desc" type="text" size="75" value="" />
+			</div>
+			<div class="info-text">
+				<label for="order"><!-- TRANSLATE order -->:</label> <input name="order" id="order" type="text" size="10" value="" />
+			</div>
+			<div class="info-text">
+				<label for="parent"><!-- TRANSLATE parent -->:</label> {PARENT}
+			</div>
+		</div>
+	</div>
+
+</form>

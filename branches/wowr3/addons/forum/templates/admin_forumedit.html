@@ -1,0 +1,28 @@
+	<!-- BEGIN forum -->			
+<form method="post" action="{forum.U_UPDATE}" id="addnews" style="text-align:left;">
+	<input type="hidden" name="op" value="process" />
+	<input type="hidden" name="type" value="update" />
+
+	<div class="tier-2-a">
+		<div class="tier-2-b">
+			<div class="tier-2-title">
+				<div class="right"><input type="submit" value="<!-- TRANSLATE update -->" /></div>
+				<!-- TRANSLATE update -->
+			</div>
+
+			<div class="info-text">
+				<label for="title"><!-- TRANSLATE title -->:</label> <input name="title" id="title" type="text" maxlength="150" size="75" value="{forum.TITLE}" />
+			</div>
+			<div class="info-text">
+				<label for="desc"><!-- TRANSLATE description -->:</label> <input name="desc" id="desc" type="text" size="75" value="{forum.DESC}" />
+			</div>
+			<div class="info-text">
+				<label for="order"><!-- TRANSLATE order -->:</label> <input name="order" id="order" type="text" size="10" value="{forum.ORDER}" />
+			</div>
+			<div class="info-text">
+				<label for="parent"><!-- TRANSLATE parent -->:</label> {forum.PARENT}
+			</div>
+		</div>
+	</div>
+<!-- END forum -->
+</form>
